@@ -19,7 +19,7 @@ abstract class DarkTheme {
         colorScheme: const ColorScheme(
           background: DarkThemeColors.surface,
           brightness: Brightness.dark,
-          primary: DarkThemeColors.navBarIndicator,
+          primary: DarkThemeColors.primaryColor,
           secondary: DarkThemeColors.surface,
           error: DarkThemeColors.surface,
           surface: DarkThemeColors.surface,

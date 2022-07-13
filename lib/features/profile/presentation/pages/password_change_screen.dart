@@ -1,4 +1,6 @@
 import 'package:auto/features/common/widgets/w_app_bar.dart';
+import 'package:auto/features/navigation/presentation/navigator.dart';
+import 'package:auto/features/profile/presentation/pages/new_password.dart';
 import 'package:auto/features/profile/presentation/widgets/container_with_border.dart';
 import 'package:auto/features/profile/presentation/widgets/language_bottom_sheet.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +22,13 @@ class PasswordChangeScreen extends StatelessWidget {
                 margin: const EdgeInsets.only(bottom: 12),
                 count: 1,
                 title: 'Смена пароля',
-                onTap: () {},
+                onTap: () {
+                  Navigator.of(context, rootNavigator: true).push(
+                    fade(
+                      page: NewPasswordsPage(),
+                    ),
+                  );
+                },
               ),
               ContainerWithBorder(
                 language: 'Русский',

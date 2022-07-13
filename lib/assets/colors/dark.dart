@@ -17,6 +17,7 @@ class DarkThemeColors {
   static const navBarUnselected = _dolphin;
   static const buttonColor =_cinnabar;
   static const buttonDisabledColor = _eclipse;
+  static const primaryColor = _cinnabar;
 
 
   static const headline1 = _white;

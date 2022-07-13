@@ -47,4 +47,14 @@ class AppIcons {
   static const settings = 'assets/icons/profile/settings.svg';
   static const info = 'assets/icons/profile/info.svg';
   static const close = 'assets/icons/profile/close.svg';
+  static const refreshSmall = 'assets/icons/profile/refresh_small.svg';
+  static const file = 'assets/icons/profile/file.svg';
+  static const lock = 'assets/icons/profile/lock.svg';
+  static const camera = 'assets/icons/profile/camera.svg';
+  static const photo = 'assets/icons/profile/photo.svg';
+  static const message = 'assets/icons/profile/message.svg';
+  static const phoneCall = 'assets/icons/profile/phone_call.svg';
+  static const piperClip = 'assets/icons/profile/paperclip.svg';
+  static const send = 'assets/icons/profile/send.svg';
+  static const checks = 'assets/icons/profile/checks.svg';
 }

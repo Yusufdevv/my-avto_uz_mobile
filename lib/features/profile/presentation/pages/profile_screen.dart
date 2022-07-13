@@ -1,11 +1,14 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
+import 'package:auto/features/navigation/presentation/navigator.dart';
+import 'package:auto/features/profile/presentation/pages/about_app_screen.dart';
+import 'package:auto/features/profile/presentation/pages/chat.dart';
 import 'package:auto/features/profile/presentation/pages/my_ad_screen.dart';
+import 'package:auto/features/profile/presentation/pages/see_profile_screen.dart';
 import 'package:auto/features/profile/presentation/pages/settings_screen.dart';
 import 'package:auto/features/profile/presentation/widgets/container_with_border.dart';
 import 'package:auto/features/profile/presentation/widgets/profile_data.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -25,7 +28,13 @@ class ProfileScreen extends StatelessWidget {
         child: Column(
           children: [
             ProfileData(
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context).push(
+                  fade(
+                    page: const SeeProfileScreen(),
+                  ),
+                );
+              },
               title: 'Шохрух Бахтияров',
               subTitle: '0 объявлений',
               imageUrl:
@@ -63,8 +72,24 @@ class ProfileScreen extends StatelessWidget {
               title: 'Мои объявления',
               onTap: () {
                 Navigator.of(context).push(
-                  CupertinoPageRoute(
-                    builder: (context) => const MyAdScreen(),
+                  fade(
+                    page: const MyAdScreen(),
+                  ),
+                );
+              },
+            ),
+            ContainerWithBorder(
+              margin: const EdgeInsets.only(bottom: 12),
+              icons: AppIcons.message,
+              countItem: 56,
+              count: 1,
+              title: 'Чат',
+              onTap: () {
+                Navigator.of(context, rootNavigator: true).push(
+                  fade(
+                    page: const Chat(
+                      hasChat: false,
+                    ),
                   ),
                 );
               },
@@ -77,8 +102,8 @@ class ProfileScreen extends StatelessWidget {
               title: 'Настройки',
               onTap: () {
                 Navigator.of(context).push(
-                  CupertinoPageRoute(
-                    builder: (context) => const SettingsScreen(),
+                  fade(
+                    page: const SettingsScreen(),
                   ),
                 );
               },
@@ -88,7 +113,13 @@ class ProfileScreen extends StatelessWidget {
               icons: AppIcons.info,
               count: 1,
               title: 'О приложении',
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context).push(
+                  fade(
+                    page: const AboutAppScreen(),
+                  ),
+                );
+              },
             ),
           ],
         ),

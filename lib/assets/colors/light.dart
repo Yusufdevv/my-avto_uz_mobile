@@ -38,6 +38,7 @@ class LightThemeColors {
   static const solitudeToGhost = _solitude;
   //for keyboard
   static const whiteToDimGray = _white;
+  static const primaryColor = _cinnabar;
 
   static const dodgerBlueToWhite80 = _dodgerBlue;
   static const blackToWhite80 = _black;

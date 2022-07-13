@@ -26,7 +26,7 @@ abstract class LightTheme {
         colorScheme: const ColorScheme(
           background: LightThemeColors.surface,
           brightness: Brightness.dark,
-          primary: LightThemeColors.navBarIndicator,
+          primary: LightThemeColors.primaryColor,
           secondary: LightThemeColors.surface,
           error: LightThemeColors.surface,
           surface: LightThemeColors.surface,

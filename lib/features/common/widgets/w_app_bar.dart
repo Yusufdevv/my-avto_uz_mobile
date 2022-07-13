@@ -22,6 +22,7 @@ class WAppBar extends StatelessWidget implements PreferredSizeWidget {
   final bool hasRoundedEnd;
   final Color? roundedEndColor;
   final String textWithButton;
+  final Widget? childWithButton;
 
   final List<BoxShadow>? boxShadow;
 
@@ -49,6 +50,7 @@ class WAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.roundedEndColor,
     this.hasRoundedEnd = false,
     this.textWithButton = '',
+    this.childWithButton,
   }) : super(key: key);
 
   @override
@@ -120,13 +122,18 @@ class WAppBar extends StatelessWidget implements PreferredSizeWidget {
                                 .copyWith(color: dark, fontSize: 16),
                       ),
                     ),
+                    if (childWithButton != null)
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [childWithButton!],
+                      ),
                     const Spacer(),
                     ...List.of(extraActions)
                   ],
                 ),
                 if (child != null)
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.end,
                     children: [child!],
                   )
                 else

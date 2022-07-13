@@ -1,8 +1,8 @@
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
+import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/profile/presentation/pages/password_change_screen.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -40,8 +40,8 @@ class SettingsScreen extends StatelessWidget {
           margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
           onTap: () {
             Navigator.of(context).push(
-              CupertinoPageRoute(
-                builder: (context) => const PasswordChangeScreen(),
+              fade(
+                page: const PasswordChangeScreen(),
               ),
             );
           },
@@ -51,4 +51,4 @@ class SettingsScreen extends StatelessWidget {
       );
 }
 
-
+//PasswordTextField(controller: _passwordController),
