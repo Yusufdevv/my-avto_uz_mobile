@@ -1,23 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:limon_pay/assets/colors/dark.dart';
-import 'package:limon_pay/assets/themes/theme_extensions/cancel_button_style.dart';
-import 'package:limon_pay/assets/themes/theme_extensions/circular_progress_indicator_style.dart';
-import 'package:limon_pay/assets/themes/theme_extensions/divider_style.dart';
-import 'package:limon_pay/assets/themes/theme_extensions/key_pad_style.dart';
-import 'package:limon_pay/assets/themes/theme_extensions/local_auth_item_style.dart';
-import 'package:limon_pay/assets/themes/theme_extensions/logo_style.dart';
-import 'package:limon_pay/assets/themes/theme_extensions/my_fonts.dart';
-import 'package:limon_pay/assets/themes/theme_extensions/pin_dot_style.dart';
-import 'package:limon_pay/assets/themes/theme_extensions/pin_field_style.dart';
-import 'package:limon_pay/assets/themes/theme_extensions/sticky_header_style.dart';
-import 'package:limon_pay/assets/themes/theme_extensions/themed_colors.dart';
-import 'package:limon_pay/assets/themes/theme_extensions/w_bottomsheet_style.dart';
-import 'package:limon_pay/assets/themes/theme_extensions/w_button_style.dart';
-import 'package:limon_pay/assets/themes/theme_extensions/w_container_style.dart';
-import 'package:limon_pay/assets/themes/theme_extensions/w_go_button_style.dart';
-import 'package:limon_pay/assets/themes/theme_extensions/w_tab_bar_style.dart';
-import 'package:limon_pay/assets/themes/theme_extensions/w_textfield_style.dart';
 
 abstract class DarkTheme {
   /// More info for color schema: https://api.flutter.dev/flutter/material/ColorScheme-class.html
@@ -88,7 +70,7 @@ abstract class DarkTheme {
         ),
         extensions: {
           const WButtonStyle(
-            backgroundColor: DarkThemeColors.buttonColor,
+            unselectedBackgroundColor: DarkThemeColors.buttonColor,
             disabledColor: DarkThemeColors.buttonDisabledColor,
             onButtonColor: DarkThemeColors.onButtonColor,
             onDisabledButtonColor: DarkThemeColors.onDisabledButtonColor,
@@ -168,7 +150,7 @@ abstract class DarkTheme {
           ),
           const LogoStyle(logoColor: DarkThemeColors.logoColor),
           CircularProgressIndicatorStyle(
-            backgroundColor: DarkThemeColors.progressIndicatorBackgroundColor,
+            unselectedBackgroundColor: DarkThemeColors.progressIndicatorBackgroundColor,
             foregroundColor: DarkThemeColors.progressIndicatorForegroundColor,
           ),
           const KeyPadStyle(
@@ -180,7 +162,7 @@ abstract class DarkTheme {
             offColor: DarkThemeColors.pinOffColor,
           ),
           const WGoButtonStyle(
-            backgroundColor: DarkThemeColors.wGoButtonColor,
+            unselectedBackgroundColor: DarkThemeColors.wGoButtonColor,
             onButtonColor: DarkThemeColors.wGoOnButtonColor,
           ),
           const DividerStyle(dividerColor: DarkThemeColors.dividerColor),
@@ -201,14 +183,14 @@ abstract class DarkTheme {
             boxShadow: DarkThemeColors.containerShadow,
           ),
           WTabBarStyle(
-            backgroundColor: DarkThemeColors.tabBarBackgroundColor,
+            unselectedBackgroundColor: DarkThemeColors.tabBarBackgroundColor,
             activeTabColor: DarkThemeColors.tabBarActiveTabColor,
             onActiveTab: DarkThemeColors.tabBarOnActiveTab,
             onPassiveTab: DarkThemeColors.tabBarOnPassiveTab,
             tabDivider: DarkThemeColors.tabBarTabDivider,
           ),
           CancelButtonStyle(
-            backgroundColor: DarkThemeColors.cancelButtonBackground,
+            unselectedBackgroundColor: DarkThemeColors.cancelButtonBackground,
             onButtonColor: DarkThemeColors.cancelOnButtonBackground,
           ),
           ThemedColors(
@@ -246,11 +228,11 @@ abstract class DarkTheme {
             eff1f5To1c1c20: DarkThemeColors.eff1f5To1c1c20,
           ),
           const StickyHeaderStyle(
-            backgroundColor: DarkThemeColors.stickyHeaderBackgroundColor,
+            unselectedBackgroundColor: DarkThemeColors.stickyHeaderBackgroundColor,
             titleColor: DarkThemeColors.stickyHeaderTitleColor,
           ),
           WBottomSheetStyle(
-            backgroundColor: DarkThemeColors.bottomSheetBackgroundColor,
+            unselectedBackgroundColor: DarkThemeColors.bottomSheetBackgroundColor,
             titleColor: DarkThemeColors.bottomSheetTitleColor,
             iconBackgroundColor: DarkThemeColors.bottomSheetIconBackgroundColor,
             barrierColor: DarkThemeColors.bottomSheetBarrierColor,

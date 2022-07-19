@@ -1,7 +1,6 @@
+import 'package:auto/core/error/failures.dart';
+import 'package:auto/utils/either.dart';
 import 'package:equatable/equatable.dart';
-import 'package:limon_pay/core/error/failures.dart';
-import 'package:limon_pay/utils/either.dart';
-
 abstract class UseCase<Type, Params> {
   Future<Either<Failure, Type>> call(Params params);
 }
