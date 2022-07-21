@@ -1,45 +1,53 @@
-// ignore_for_file: avoid_classes_with_only_static_members
 
 import 'package:auto/assets/colors/light.dart';
 import 'package:auto/assets/themes/theme_extensions/checkbox_style.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/assets/themes/theme_extensions/w_textfield_style.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+// ignore: avoid_classes_with_only_static_members
 abstract class LightTheme {
   /// More info for color schema: https://api.flutter.dev/flutter/material/ColorScheme-class.html
   /// More info for theme: https://docs.flutter.dev/cookbook/design/themes
 
-  static Future<ThemeData> theme() async => ThemeData(
-        fontFamily: 'NotoSans',
-        scaffoldBackgroundColor: LightThemeColors.scaffoldBackground,
-        backgroundColor: LightThemeColors.backgroundColor,
-        indicatorColor: LightThemeColors.navBarIndicator,
-        dividerColor: LightThemeColors.divider,
-        hintColor: LightThemeColors.hintColor,
-        appBarTheme:  const AppBarTheme(
-          color: LightThemeColors.appBarColor,
-          actionsIconTheme: CupertinoIconThemeData(
-            color: LightThemeColors.appBarActionIcon,
-          ),
-        ),
-        textTheme: const TextTheme(
-          headline1: headline1,
-          headline2: headline2,
-          headline3: headline3,
-          headline4: headline4,
-          headline5: headline5,
-          headline6: headline6,
-          bodyText1: bodyText1,
-          bodyText2: bodyText2,
-          subtitle1: subTitle1,
-          subtitle2: subTitle2,
-          caption: caption,
-          button: button,
-        ),
-        extensions: const {
-          CheckBoxStyle(unselectedBackgroundColor: LightThemeColors.lightGreyToEclipse)
-        },
-      );
+  static ThemeData theme() => ThemeData(
+    fontFamily: 'NotoSans',
+    scaffoldBackgroundColor: LightThemeColors.scaffoldBackground,
+    backgroundColor: LightThemeColors.backgroundColor,
+    indicatorColor: LightThemeColors.navBarIndicator,
+    dividerColor: LightThemeColors.divider,
+    hintColor: LightThemeColors.hintColor,
+    appBarTheme:  const AppBarTheme(
+      color: LightThemeColors.appBarColor,
+      actionsIconTheme: CupertinoIconThemeData(
+        color: LightThemeColors.appBarActionIcon,
+      ),
+    ),
+    textTheme: const TextTheme(
+      headline1: headline1,
+      headline2: headline2,
+      headline3: headline3,
+      headline4: headline4,
+      headline5: headline5,
+      headline6: headline6,
+      bodyText1: bodyText1,
+      bodyText2: bodyText2,
+      subtitle1: subTitle1,
+      subtitle2: subTitle2,
+      caption: caption,
+      button: button,
+    ),
+    extensions: const {
+      CheckBoxStyle(
+          unselectedBackgroundColor: LightThemeColors.lightGreyToEclipse, unselectedBorderColor: LightThemeColors.warmerGreyToDarkGray),
+
+      ThemedColors(dividerColorToGrey: LightThemeColors.dividerColorToGrey,
+          whiteToWhiteOpacity20: LightThemeColors.whiteToWhiteOpacity20),
+      WTextFieldStyle(fillColor: LightThemeColors.solitudeToNero, borderColor: LightThemeColors.solitudeToDarkRider)
+    },
+  );
+
 
   // Fonts
   static const headline1 = TextStyle(

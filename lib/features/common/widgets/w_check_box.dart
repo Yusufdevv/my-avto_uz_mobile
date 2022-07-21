@@ -25,7 +25,7 @@ class WCheckBox extends StatelessWidget {
       color: isChecked ? checkBoxColor : Theme.of(context).extension<CheckBoxStyle>()!.unselectedBackgroundColor,
       borderRadius: BorderRadius.circular(4),
       border: Border.all(
-          color: isChecked ? checkBoxColor : , width: 2),
+          color: isChecked ? checkBoxColor : Theme.of(context).extension<CheckBoxStyle>()!.unselectedBorderColor , width: 2),
     ),
     child: Icon(
       CupertinoIcons.checkmark_alt,
