@@ -6,13 +6,12 @@ import 'package:flutter/material.dart';
 /// Replenished as needed.
 /// Use only the main palette.
 class LightThemeColors {
-  static const primaryYellow = _amber;
   static const headline1 = _midnightExpress;
-  static const headline2  = _grey;
-  static const headline3  = _mediumSlateBlue;
-  static const headline4  = _white;
-  static const headline5  = _fuzzyWuzzyBrown;
-  static const headline6  = _cinnabar;
+  static const headline2 = _grey;
+  static const headline3 = _mediumSlateBlue;
+  static const headline4 = _white;
+  static const headline5 = _fuzzyWuzzyBrown;
+  static const headline6 = _grey;
   static const bodyText1 = _solitude;
   static const bodyText2 = _dodgerBlue;
   static const subTitle1 = _black;
@@ -34,10 +33,19 @@ class LightThemeColors {
   static const appBarColor = _white;
   static const appBarActionIcon = _grey;
   static const warmerGreyToDarkGrey = _ghost;
+  static const whiteToWhiteOpacity20 = _white;
+
+  //for keyboard
+  static const whiteToDimGray = _white;
+
+
+  static const dividerColorToGrey = _solitude;
+  static const warmerGreyToDarkGray = _ghost;
+  static const solitudeToNero = _solitude;
+  static const solitudeToDarkRider = _solitude;
 }
 
 // Main palette (http://www.color-blindness.com/color-name-hue/).
-const _amber = Color(0xFFFFC007);
 const _midnightExpress = Color(0xff171725);
 const _nero = Color(0xff2B2B2B);
 const _dolphin = Color(0xff696974);
