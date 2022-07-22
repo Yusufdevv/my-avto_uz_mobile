@@ -31,6 +31,8 @@ class DarkThemeColors {
   static const subTitle2 = _blackOpacity;
   static const caption = _whiteOpacity;
   static const button = _cinnabar;
+  static const surface = _white;
+
   static const darkToWhite = _white;
   static const dividerColorToWhiteOpacity = _white35Opacity;
   static const dividerColorToDarkGreyOpacity = _darkGrayOpacity;
@@ -46,6 +48,9 @@ class DarkThemeColors {
   static const warmerGreyToDarkGray = _dolphin;
   static const solitudeToNero = _nero;
   static const solitudeToDarkRider = _darkRider;
+  static const solitudeToGhost = _ghost;
+  static const veryLightGreyToEclipse = _eclipse;
+  static const whiteToDolphin = _dolphin;
 }
 
 // Main palette (http://www.color-blindness.com/color-name-hue/).

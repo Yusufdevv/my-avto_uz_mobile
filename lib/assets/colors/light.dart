@@ -18,6 +18,7 @@ class LightThemeColors {
   static const subTitle2 = _blackOpacity;
   static const caption = _grey;
   static const button = _cinnabar;
+  static const surface = _midnightExpress;
   static const darkToWhite = _nero;
   static const darkGreyToWhite = _dolphin;
   static const dividerColorToDarkGreyOpacity = _solitude;
@@ -34,7 +35,7 @@ class LightThemeColors {
   static const appBarActionIcon = _grey;
   static const warmerGreyToDarkGrey = _ghost;
   static const whiteToWhiteOpacity20 = _white;
-
+  static const solitudeToGhost = _solitude;
   //for keyboard
   static const whiteToDimGray = _white;
 
@@ -43,6 +44,8 @@ class LightThemeColors {
   static const warmerGreyToDarkGray = _ghost;
   static const solitudeToNero = _solitude;
   static const solitudeToDarkRider = _solitude;
+  static const veryLightGreyToEclipse = _veryLightGrey;
+  static const whiteToDolphin = _white;
 }
 
 // Main palette (http://www.color-blindness.com/color-name-hue/).

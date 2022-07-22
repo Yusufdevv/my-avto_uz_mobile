@@ -1,3 +1,3 @@
 class AppImages {
-  static const none = 'assets/images/main/none.png';
+  static const flagUzb = 'assets/images/global/flag_uzb.png';
 }

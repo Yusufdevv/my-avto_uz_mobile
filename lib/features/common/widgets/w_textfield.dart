@@ -19,6 +19,7 @@ class WTextField extends StatefulWidget {
   final TextStyle? textStyle;
   final String? hintText;
   final TextStyle? prefixStyle;
+  final bool? filled;
   final TextStyle? hintTextStyle;
   final String prefixText;
   final bool? hideCounterText;
@@ -73,7 +74,7 @@ class WTextField extends StatefulWidget {
     this.autoValidateMode,
     this.hideCounterText,
     this.autoFocus = false,
-    this.borderRadius = 12,
+    this.borderRadius = 0,
     this.prefixStyle,
     this.disabledBorderColor,
     this.hasClearButton,
@@ -85,6 +86,7 @@ class WTextField extends StatefulWidget {
     this.textStyle,
     this.hintText,
     this.hintTextStyle,
+    this.filled = true,
     this.contentPadding = const EdgeInsets.all(12),
     this.prefixText = '',
     this.prefix,
@@ -261,7 +263,7 @@ class _WTextFieldState extends State<WTextField>
                       hintText: widget.hintText,
                       hintStyle: widget.hintTextStyle ??
                           Theme.of(context).textTheme.headline6!.copyWith(fontSize: 14),
-                      filled: true,
+                      filled: widget.filled,
                       // prefixIconConstraints:
                       // const BoxConstraints(maxWidth: 20, maxHeight: 20),
                       prefixIcon: widget.hasSearch != null && widget.hasSearch!
