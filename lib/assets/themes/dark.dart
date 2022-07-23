@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:auto/assets/colors/dark.dart';
 import 'package:flutter/material.dart';
 
 abstract class DarkTheme {
@@ -55,7 +55,7 @@ abstract class DarkTheme {
           caption: caption,
           button: button,
         ),
-        colorScheme: const ColorScheme(
+        colorScheme: ColorScheme(
           background: DarkThemeColors.background,
           brightness: Brightness.dark,
           primary: DarkThemeColors.primary,
@@ -150,7 +150,8 @@ abstract class DarkTheme {
           ),
           const LogoStyle(logoColor: DarkThemeColors.logoColor),
           CircularProgressIndicatorStyle(
-            unselectedBackgroundColor: DarkThemeColors.progressIndicatorBackgroundColor,
+            unselectedBackgroundColor:
+                DarkThemeColors.progressIndicatorBackgroundColor,
             foregroundColor: DarkThemeColors.progressIndicatorForegroundColor,
           ),
           const KeyPadStyle(
@@ -228,11 +229,13 @@ abstract class DarkTheme {
             eff1f5To1c1c20: DarkThemeColors.eff1f5To1c1c20,
           ),
           const StickyHeaderStyle(
-            unselectedBackgroundColor: DarkThemeColors.stickyHeaderBackgroundColor,
+            unselectedBackgroundColor:
+                DarkThemeColors.stickyHeaderBackgroundColor,
             titleColor: DarkThemeColors.stickyHeaderTitleColor,
           ),
           WBottomSheetStyle(
-            unselectedBackgroundColor: DarkThemeColors.bottomSheetBackgroundColor,
+            unselectedBackgroundColor:
+                DarkThemeColors.bottomSheetBackgroundColor,
             titleColor: DarkThemeColors.bottomSheetTitleColor,
             iconBackgroundColor: DarkThemeColors.bottomSheetIconBackgroundColor,
             barrierColor: DarkThemeColors.bottomSheetBarrierColor,
