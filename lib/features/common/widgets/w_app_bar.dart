@@ -27,6 +27,8 @@ class WAppBar extends StatelessWidget implements PreferredSizeWidget {
   ///Default is set true
   final bool centerTitle;
 
+  final Widget? bottom;
+
   const WAppBar({
     Key? key,
     this.bottomRadius,
@@ -47,6 +49,7 @@ class WAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.height,
     this.roundedEndColor,
     this.hasRoundedEnd = false,
+    this.bottom,
   }) : super(key: key);
 
   @override
@@ -55,105 +58,119 @@ class WAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) => Column(
-      children: [
-        Container(
-          height: (height ?? 52) + MediaQuery.of(context).padding.top,
-          padding: EdgeInsets.only(
-              left: 0,
-              top: (topMargin ?? 0) + MediaQuery.of(context).padding.top),
-          decoration: BoxDecoration(
-            boxShadow: boxShadow ?? [
-              BoxShadow(
-                offset: const Offset(0, 8),
-                blurRadius: 24,
-                color: dark.withOpacity(0.08),
-              ),
-
-              BoxShadow(
-                offset: const Offset(0, -1),
-                color: dark.withOpacity(0.08),
-              ),
-            ],
-            color: backgroundColor ??
-                Theme.of(context).appBarTheme.backgroundColor,
-            borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(bottomRadius ?? 0),
-              bottomRight: Radius.circular(bottomRadius ?? 0),
-            ),
-            image: backgroundAsset != null && backgroundAsset!.isNotEmpty
-                ? DecorationImage(
-              fit: BoxFit.cover,
-              image: AssetImage(backgroundAsset!),
-            )
-                : null,
-          ),
-          child: Stack(
-            children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  if (hasBackButton) Align(
-                    alignment: Alignment.center,
-                    child: WScaleAnimation(
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 16),
-                        child: SvgPicture.asset(AppIcons.chevronLeft),
-                      ),
-                    ),
-                  ) else const SizedBox(),
-                  const Spacer(),
-                  ...List.of(extraActions)
-                ],
-              ),
-              if (child != null) Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [child!],
-              ) else Row(
-                mainAxisAlignment: centerTitle
-                    ? MainAxisAlignment.center
-                    : MainAxisAlignment.start,
-                children: [
-                  Align(
-                    alignment: Alignment.center,
-                    child: Text(
-                      title ?? '',
-                      style: titleStyle ??
-                          Theme.of(context).textTheme.subtitle1!.copyWith(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                          ),
-                    ),
-                  )
-                ],
-              )
-            ],
-          ),
-        ),
-        if (hasRoundedEnd)
+        children: [
           Container(
-            height: 20,
+            height: (height ?? 52) + MediaQuery.of(context).padding.top,
+            padding: EdgeInsets.only(
+                left: 0,
+                top: (topMargin ?? 0) + MediaQuery.of(context).padding.top),
             decoration: BoxDecoration(
-              color: Theme.of(context).appBarTheme.backgroundColor,
+              boxShadow: boxShadow ??
+                  [
+                    BoxShadow(
+                      offset: const Offset(0, 8),
+                      blurRadius: 24,
+                      color: dark.withOpacity(0.08),
+                    ),
+                    BoxShadow(
+                      offset: const Offset(0, -1),
+                      color: dark.withOpacity(0.08),
+                    ),
+                  ],
+              color: backgroundColor ??
+                  Theme.of(context).appBarTheme.backgroundColor,
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(bottomRadius ?? 0),
+                bottomRight: Radius.circular(bottomRadius ?? 0),
+              ),
+              image: backgroundAsset != null && backgroundAsset!.isNotEmpty
+                  ? DecorationImage(
+                      fit: BoxFit.cover,
+                      image: AssetImage(backgroundAsset!),
+                    )
+                  : null,
             ),
-            child: Container(
+            child: Stack(
+              children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    if (hasBackButton)
+                      Align(
+                        alignment: Alignment.center,
+                        child: WScaleAnimation(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 16),
+                            child: SvgPicture.asset(AppIcons.chevronLeft),
+                          ),
+                        ),
+                      )
+                    else
+                      const SizedBox(),
+                    const Spacer(),
+                    ...List.of(extraActions)
+                  ],
+                ),
+                if (child != null)
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [child!],
+                  )
+                else
+                  Row(
+                    mainAxisAlignment: centerTitle
+                        ? MainAxisAlignment.center
+                        : MainAxisAlignment.start,
+                    children: [
+                      Align(
+                        alignment: Alignment.center,
+                        child: Text(
+                          title ?? '',
+                          style: titleStyle ??
+                              Theme.of(context).textTheme.subtitle1!.copyWith(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                        ),
+                      )
+                    ],
+                  )
+              ],
+            ),
+          ),
+          if (hasRoundedEnd)
+            Container(
               height: 20,
               decoration: BoxDecoration(
-                color: roundedEndColor ??
-                    Theme.of(context).scaffoldBackgroundColor,
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(50),
-                  topRight: Radius.circular(50),
+                color: Theme.of(context).appBarTheme.backgroundColor,
+              ),
+              child: Container(
+                height: 20,
+                decoration: BoxDecoration(
+                  color: roundedEndColor ??
+                      Theme.of(context).scaffoldBackgroundColor,
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(50),
+                    topRight: Radius.circular(50),
+                  ),
                 ),
               ),
             ),
+          Container(
+            color: backgroundColor ??
+                Theme.of(context).appBarTheme.backgroundColor,
+            child: bottom,
           ),
-        if (hasUnderline) Container(
-          height: 1,
-          color: underlineColor ?? dividerColor,
-        ) else const SizedBox()
-      ],
-    );
+          if (hasUnderline)
+            Container(
+              height: 1,
+              color: underlineColor ?? dividerColor,
+            )
+          else
+            const SizedBox()
+        ],
+      );
 }

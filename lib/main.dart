@@ -1,12 +1,13 @@
 import 'package:auto/assets/themes/dark.dart';
 import 'package:auto/assets/themes/light.dart';
-import 'package:auto/assets/themes/theme_extensions/w_textfield_style.dart';
-import 'package:auto/features/common/widgets/w_textfield.dart';
+import 'package:auto/features/dealers/presentation/pages/dealers_list.dart';
 import 'package:flutter/material.dart';
 
 void main() {
   runApp(const MyApp());
 }
+
+// class MyColors extends ThemeExtension<MyColors>
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -14,26 +15,10 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) => MaterialApp(
-        title: 'Flutter Demo',
-        theme: LightTheme.theme(),
-        darkTheme: DarkTheme.theme(),
-        themeMode: ThemeMode.dark,
-        home: Builder(
-          builder: (context) => Scaffold(
-                body:  Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    WTextField(
-                      onChanged: (value) {},
-                      height: 44,
-                      width: 100,
-                      controller: TextEditingController(),
-                      hintText: "ello",
-                    ),
-                  ],
-                )
-            )
-        )
-      );
+      debugShowCheckedModeBanner: false,
+      title: 'Flutter Demo',
+      theme: LightTheme.theme(),
+      darkTheme: DarkTheme.theme(),
+      themeMode: ThemeMode.dark,
+      home: const Dealerslist());
 }

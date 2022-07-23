@@ -15,9 +15,8 @@ class DarkThemeColors {
   static const navBarBackground = _nero;
   static const navBarSelected = _mediumSlateBlue;
   static const navBarUnselected = _dolphin;
-  static const buttonColor =_cinnabar;
+  static const buttonColor = _cinnabar;
   static const buttonDisabledColor = _eclipse;
-
 
   static const headline1 = _white;
   static const headline2 = _greySuit;
@@ -26,7 +25,7 @@ class DarkThemeColors {
   static const headline5 = _fuzzyWuzzyBrown;
   static const headline6 = _grey;
   static const bodyText1 = _solitude;
-  static const bodyText2 =  _dodgerBlue;
+  static const bodyText2 = _dodgerBlue;
   static const subTitle1 = _white;
   static const subTitle2 = _blackOpacity;
   static const caption = _whiteOpacity;
