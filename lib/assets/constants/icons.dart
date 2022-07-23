@@ -17,4 +17,5 @@ class AppIcons {
   static const cancelRound = 'assets/icons/global/cancel_round.svg';
   static const flagUzb = 'assets/icons/global/flag_uzb.svg';
   static const eye = 'assets/icons/global/eye.svg';
+  static const edit = 'assets/icons/global/edit.svg';
 }

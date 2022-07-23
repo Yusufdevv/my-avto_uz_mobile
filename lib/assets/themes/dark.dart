@@ -64,6 +64,10 @@ abstract class DarkTheme {
             unselectedBorderColor: DarkThemeColors.warmerGreyToDarkGray,
           ),
           ThemedColors(
+            solitudeToBastille: DarkThemeColors.solitudeToBastille,
+              transparentToSolitude12: DarkThemeColors.transparentToSolitude12,
+              solitudeToWhite35: DarkThemeColors.solitudeToWhite35,
+              solitudeToSolitude14: DarkThemeColors.solitudeToSolitude14,
               dividerColorToGrey: DarkThemeColors.dividerColorToGrey,
               whiteToDolphin: DarkThemeColors.whiteToDolphin,
               whiteToWhiteOpacity20: DarkThemeColors.whiteToWhiteOpacity20, veryLightGreyToEclipse: DarkThemeColors.veryLightGreyToEclipse),

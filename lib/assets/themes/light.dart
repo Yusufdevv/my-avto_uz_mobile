@@ -58,7 +58,11 @@ abstract class LightTheme {
               dividerColorToGrey: LightThemeColors.dividerColorToGrey,
               whiteToWhiteOpacity20: LightThemeColors.whiteToWhiteOpacity20,
               veryLightGreyToEclipse: LightThemeColors.veryLightGreyToEclipse,
-              whiteToDolphin: LightThemeColors.whiteToDolphin
+              transparentToSolitude12: LightThemeColors.transparentToSolitude12,
+              whiteToDolphin: LightThemeColors.whiteToDolphin,
+            solitudeToBastille: LightThemeColors.solitudeToBastille,
+              solitudeToSolitude14: LightThemeColors.solitudeToSolitude14,
+              solitudeToWhite35: LightThemeColors.solitudeToWhite35
           ),
           WTextFieldStyle(
               fillColor: LightThemeColors.solitudeToNero,

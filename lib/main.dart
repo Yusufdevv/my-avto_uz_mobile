@@ -1,6 +1,8 @@
 import 'package:auto/assets/themes/dark.dart';
 import 'package:auto/assets/themes/light.dart';
 import 'package:auto/features/login/presentation/pages/login_screen.dart';
+import 'package:auto/features/login/presentation/pages/register_screen.dart';
+import 'package:auto/features/login/presentation/pages/sefety_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -16,7 +18,7 @@ class MyApp extends StatelessWidget {
         title: 'Flutter Demo',
         theme: LightTheme.theme(),
         darkTheme: DarkTheme.theme(),
-        themeMode: ThemeMode.dark,
-        home: const LoginScreen()
+        themeMode: ThemeMode.light,
+        home: const SafetyScreen()
       );
 }
