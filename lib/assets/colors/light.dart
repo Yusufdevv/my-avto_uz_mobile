@@ -12,11 +12,11 @@ class LightThemeColors {
   static const headline4 = _white;
   static const headline5 = _cinnabar;
   static const headline6 = _grey;
-  static const bodyText1 = _solitude;
+  static const bodyText1 = _dolphin;
   static const bodyText2 = _dodgerBlue;
   static const subTitle1 = _black;
   static const subTitle2 = _blackOpacity;
-  static const caption = _grey;
+  static const caption = _nero;
   static const button = _cinnabar;
   static const surface = _midnightExpress;
   static const darkToWhite = _nero;
@@ -39,6 +39,9 @@ class LightThemeColors {
   //for keyboard
   static const whiteToDimGray = _white;
 
+  static const dodgerBlueToWhite80 = _dodgerBlue;
+  static const blackToWhite80 = _black;
+  static const prussianBlueToWhite80 = _prussianBlue;
 
   static const dividerColorToGrey = _solitude;
   static const warmerGreyToDarkGray = _ghost;
@@ -49,6 +52,8 @@ class LightThemeColors {
   static const solitudeToWhite35 = _solitude;
   static const solitudeToSolitude14 = _solitude;
   static const transparentToSolitude12 = _transparent;
+  static const solitudeToDarkGray95 = _solitude;
+  static const solitudeToCharcoal = _solitude;
 }
 
 // Main palette (http://www.color-blindness.com/color-name-hue/).
@@ -68,3 +73,4 @@ const _blackOpacity = Color(0x80000000);
 const _dodgerBlue = Color(0xff007AFF);
 const _veryLightGrey = Color(0xffCCCCCC);
 const _transparent = Colors.transparent;
+const _prussianBlue = Color(0xff022F5E);

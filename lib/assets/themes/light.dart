@@ -56,6 +56,12 @@ abstract class LightTheme {
               unselectedBorderColor: LightThemeColors.warmerGreyToDarkGray),
           ThemedColors(
               dividerColorToGrey: LightThemeColors.dividerColorToGrey,
+              darkToWhite: LightThemeColors.darkToWhite,
+              prussianBlueToWhite80: LightThemeColors.prussianBlueToWhite80,
+              dodgerBlueToWhite80: LightThemeColors.dodgerBlueToWhite80,
+              blackToWhite80: LightThemeColors.blackToWhite80,
+              solitudeToCharcoal: LightThemeColors.solitudeToCharcoal,
+              solitudeToDarkGray95: LightThemeColors.solitudeToDarkGray95,
               whiteToWhiteOpacity20: LightThemeColors.whiteToWhiteOpacity20,
               veryLightGreyToEclipse: LightThemeColors.veryLightGreyToEclipse,
               transparentToSolitude12: LightThemeColors.transparentToSolitude12,
