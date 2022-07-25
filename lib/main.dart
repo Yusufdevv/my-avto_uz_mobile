@@ -1,7 +1,8 @@
 import 'package:auto/assets/themes/dark.dart';
 import 'package:auto/assets/themes/light.dart';
-import 'package:auto/assets/themes/theme_extensions/w_textfield_style.dart';
-import 'package:auto/features/common/widgets/w_textfield.dart';
+import 'package:auto/features/login/presentation/pages/login_screen.dart';
+import 'package:auto/features/login/presentation/pages/register_screen.dart';
+import 'package:auto/features/login/presentation/pages/sefety_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -17,23 +18,7 @@ class MyApp extends StatelessWidget {
         title: 'Flutter Demo',
         theme: LightTheme.theme(),
         darkTheme: DarkTheme.theme(),
-        themeMode: ThemeMode.dark,
-        home: Builder(
-          builder: (context) => Scaffold(
-                body:  Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    WTextField(
-                      onChanged: (value) {},
-                      height: 44,
-                      width: 100,
-                      controller: TextEditingController(),
-                      hintText: "ello",
-                    ),
-                  ],
-                )
-            )
-        )
+        themeMode: ThemeMode.light,
+        home: const SafetyScreen()
       );
 }

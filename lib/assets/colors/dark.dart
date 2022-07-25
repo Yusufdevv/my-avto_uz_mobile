@@ -23,14 +23,16 @@ class DarkThemeColors {
   static const headline2 = _greySuit;
   static const headline3 = _mediumSlateBlue;
   static const headline4 = _white;
-  static const headline5 = _fuzzyWuzzyBrown;
-  static const headline6 = _grey;
+  static const headline5 = _cinnabar;
+  static const headline6 = _solitude;
   static const bodyText1 = _solitude;
   static const bodyText2 =  _dodgerBlue;
   static const subTitle1 = _white;
   static const subTitle2 = _blackOpacity;
   static const caption = _whiteOpacity;
   static const button = _cinnabar;
+  static const surface = _white;
+
   static const darkToWhite = _white;
   static const dividerColorToWhiteOpacity = _white35Opacity;
   static const dividerColorToDarkGreyOpacity = _darkGrayOpacity;
@@ -46,6 +48,13 @@ class DarkThemeColors {
   static const warmerGreyToDarkGray = _dolphin;
   static const solitudeToNero = _nero;
   static const solitudeToDarkRider = _darkRider;
+  static const solitudeToGhost = _ghost;
+  static const veryLightGreyToEclipse = _eclipse;
+  static const whiteToDolphin = _dolphin;
+  static const solitudeToWhite35 = _white35;
+  static const solitudeToSolitude14  = _solitude14;
+  static const transparentToSolitude12 = _solitude12;
+
 }
 
 // Main palette (http://www.color-blindness.com/color-name-hue/).
@@ -71,3 +80,6 @@ const _darkGray = Color(0xf2A0A0A0);
 const _bastille = Color(0xff2C2B31);
 const _dimGray = Color(0xff6B6B6B);
 const _whiteOpacity20 = Color(0x33ffffff);
+const _solitude14 = Color(0x24e2e2ea);
+const _white35 = Color(0x59ffffff);
+const _solitude12 = Color(0xf1e2e2ea);

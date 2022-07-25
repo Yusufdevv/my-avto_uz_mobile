@@ -1,4 +1,3 @@
-
 import 'package:auto/assets/colors/light.dart';
 import 'package:auto/assets/themes/theme_extensions/checkbox_style.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
@@ -12,42 +11,64 @@ abstract class LightTheme {
   /// More info for theme: https://docs.flutter.dev/cookbook/design/themes
 
   static ThemeData theme() => ThemeData(
-    fontFamily: 'NotoSans',
-    scaffoldBackgroundColor: LightThemeColors.scaffoldBackground,
-    backgroundColor: LightThemeColors.backgroundColor,
-    indicatorColor: LightThemeColors.navBarIndicator,
-    dividerColor: LightThemeColors.divider,
-    hintColor: LightThemeColors.hintColor,
-    appBarTheme:  const AppBarTheme(
-      color: LightThemeColors.appBarColor,
-      actionsIconTheme: CupertinoIconThemeData(
-        color: LightThemeColors.appBarActionIcon,
-      ),
-    ),
-    textTheme: const TextTheme(
-      headline1: headline1,
-      headline2: headline2,
-      headline3: headline3,
-      headline4: headline4,
-      headline5: headline5,
-      headline6: headline6,
-      bodyText1: bodyText1,
-      bodyText2: bodyText2,
-      subtitle1: subTitle1,
-      subtitle2: subTitle2,
-      caption: caption,
-      button: button,
-    ),
-    extensions: const {
-      CheckBoxStyle(
-          unselectedBackgroundColor: LightThemeColors.lightGreyToEclipse, unselectedBorderColor: LightThemeColors.warmerGreyToDarkGray),
-
-      ThemedColors(dividerColorToGrey: LightThemeColors.dividerColorToGrey,
-          whiteToWhiteOpacity20: LightThemeColors.whiteToWhiteOpacity20),
-      WTextFieldStyle(fillColor: LightThemeColors.solitudeToNero, borderColor: LightThemeColors.solitudeToDarkRider)
-    },
-  );
-
+        fontFamily: 'NotoSans',
+        scaffoldBackgroundColor: LightThemeColors.scaffoldBackground,
+        backgroundColor: LightThemeColors.backgroundColor,
+        indicatorColor: LightThemeColors.navBarIndicator,
+        dividerColor: LightThemeColors.divider,
+        hintColor: LightThemeColors.hintColor,
+        appBarTheme: const AppBarTheme(
+          color: LightThemeColors.appBarColor,
+          actionsIconTheme: CupertinoIconThemeData(
+            color: LightThemeColors.appBarActionIcon,
+          ),
+        ),
+        colorScheme: const ColorScheme(
+          background: LightThemeColors.surface,
+          brightness: Brightness.dark,
+          primary: LightThemeColors.navBarIndicator,
+          secondary: LightThemeColors.surface,
+          error: LightThemeColors.surface,
+          surface: LightThemeColors.surface,
+          onPrimary: LightThemeColors.surface,
+          onSecondary: LightThemeColors.surface,
+          onBackground: LightThemeColors.surface,
+          onError: LightThemeColors.surface,
+          onSurface: LightThemeColors.solitudeToGhost,
+        ),
+        textTheme: const TextTheme(
+          headline1: headline1,
+          headline2: headline2,
+          headline3: headline3,
+          headline4: headline4,
+          headline5: headline5,
+          headline6: headline6,
+          bodyText1: bodyText1,
+          bodyText2: bodyText2,
+          subtitle1: subTitle1,
+          subtitle2: subTitle2,
+          caption: caption,
+          button: button,
+        ),
+        extensions: const {
+          CheckBoxStyle(
+              unselectedBackgroundColor: LightThemeColors.lightGreyToEclipse,
+              unselectedBorderColor: LightThemeColors.warmerGreyToDarkGray),
+          ThemedColors(
+              dividerColorToGrey: LightThemeColors.dividerColorToGrey,
+              whiteToWhiteOpacity20: LightThemeColors.whiteToWhiteOpacity20,
+              veryLightGreyToEclipse: LightThemeColors.veryLightGreyToEclipse,
+              transparentToSolitude12: LightThemeColors.transparentToSolitude12,
+              whiteToDolphin: LightThemeColors.whiteToDolphin,
+            solitudeToBastille: LightThemeColors.solitudeToBastille,
+              solitudeToSolitude14: LightThemeColors.solitudeToSolitude14,
+              solitudeToWhite35: LightThemeColors.solitudeToWhite35
+          ),
+          WTextFieldStyle(
+              fillColor: LightThemeColors.solitudeToNero,
+              borderColor: LightThemeColors.solitudeToDarkRider)
+        },
+      );
 
   // Fonts
   static const headline1 = TextStyle(

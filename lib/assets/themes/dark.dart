@@ -16,6 +16,19 @@ abstract class DarkTheme {
         indicatorColor: DarkThemeColors.navBarIndicator,
         dividerColor: DarkThemeColors.divider,
         hintColor: DarkThemeColors.hintColor,
+        colorScheme: const ColorScheme(
+          background: DarkThemeColors.surface,
+          brightness: Brightness.dark,
+          primary: DarkThemeColors.navBarIndicator,
+          secondary: DarkThemeColors.surface,
+          error: DarkThemeColors.surface,
+          surface: DarkThemeColors.surface,
+          onPrimary: DarkThemeColors.surface,
+          onSecondary: DarkThemeColors.surface,
+          onBackground: DarkThemeColors.surface,
+          onError: DarkThemeColors.surface,
+          onSurface: DarkThemeColors.solitudeToGhost,
+        ),
         appBarTheme: const AppBarTheme(
           color: DarkThemeColors.appBarColor,
           actionsIconTheme: CupertinoIconThemeData(
@@ -51,8 +64,13 @@ abstract class DarkTheme {
             unselectedBorderColor: DarkThemeColors.warmerGreyToDarkGray,
           ),
           ThemedColors(
+            solitudeToBastille: DarkThemeColors.solitudeToBastille,
+              transparentToSolitude12: DarkThemeColors.transparentToSolitude12,
+              solitudeToWhite35: DarkThemeColors.solitudeToWhite35,
+              solitudeToSolitude14: DarkThemeColors.solitudeToSolitude14,
               dividerColorToGrey: DarkThemeColors.dividerColorToGrey,
-              whiteToWhiteOpacity20: DarkThemeColors.whiteToWhiteOpacity20),
+              whiteToDolphin: DarkThemeColors.whiteToDolphin,
+              whiteToWhiteOpacity20: DarkThemeColors.whiteToWhiteOpacity20, veryLightGreyToEclipse: DarkThemeColors.veryLightGreyToEclipse),
           WTextFieldStyle(
             fillColor: DarkThemeColors.solitudeToNero,
             borderColor: DarkThemeColors.solitudeToDarkRider,
