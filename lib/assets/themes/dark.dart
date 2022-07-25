@@ -65,11 +65,17 @@ abstract class DarkTheme {
           ),
           ThemedColors(
             solitudeToBastille: DarkThemeColors.solitudeToBastille,
+              blackToWhite80: DarkThemeColors.blackToWhite80,
+              prussianBlueToWhite80: DarkThemeColors.prussianBlueToWhite80,
               transparentToSolitude12: DarkThemeColors.transparentToSolitude12,
+              solitudeToDarkGray95: DarkThemeColors.solitudeToDarkGray95,
+              dodgerBlueToWhite80: DarkThemeColors.dodgerBlueToWhite80,
               solitudeToWhite35: DarkThemeColors.solitudeToWhite35,
               solitudeToSolitude14: DarkThemeColors.solitudeToSolitude14,
+              darkToWhite: DarkThemeColors.darkToWhite,
               dividerColorToGrey: DarkThemeColors.dividerColorToGrey,
               whiteToDolphin: DarkThemeColors.whiteToDolphin,
+              solitudeToCharcoal: DarkThemeColors.solitudeToCharcoal,
               whiteToWhiteOpacity20: DarkThemeColors.whiteToWhiteOpacity20, veryLightGreyToEclipse: DarkThemeColors.veryLightGreyToEclipse),
           WTextFieldStyle(
             fillColor: DarkThemeColors.solitudeToNero,

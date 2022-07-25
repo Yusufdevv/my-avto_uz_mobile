@@ -1,9 +1,10 @@
+import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class SocialMediaItem extends StatelessWidget {
-  final String icon;
+  final Widget icon;
   final Color? backgroundColor;
   final Color? borderColor;
   const SocialMediaItem({required this.icon, this.borderColor, this.backgroundColor, Key? key}) : super(key: key);
@@ -21,6 +22,6 @@ class SocialMediaItem extends StatelessWidget {
         color: borderColor ?? Theme.of(context).extension<ThemedColors>()!.dividerColorToGrey,
       )
     ),
-    child: SvgPicture.asset(icon),
+    child: icon,
   );
 }
