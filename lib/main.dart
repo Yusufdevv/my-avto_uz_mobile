@@ -1,27 +1,31 @@
-import 'package:auto/assets/colors/color.dart';
+import 'package:auto/features/navigation/presentation/home.dart';
 import 'package:flutter/material.dart';
 
 void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
+  @override
+  State<MyApp> createState() => _AppState();
+}
+
+class _AppState extends State<MyApp> {
+  final _navigatorKey = GlobalKey<NavigatorState>();
+
+  // NavigatorState get _navigator => _navigatorKey.currentState!;
+
   @override
   Widget build(BuildContext context) => MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home:  Scaffold(
-        backgroundColor: black,
-        body: Container(
-          height: 40,
-          width: 40,
-          color: Color(0x1aea5930),
-        ),
-      ),
+      debugShowCheckedModeBanner: false,
+      title: 'Auto.Uz',
+      // theme: LightTheme.theme(),
+      // darkTheme: DarkTheme.theme(),
+      themeMode: ThemeMode.dark,
+      navigatorKey: _navigatorKey,
+      home: const HomeScreen(),
+      // onGenerateRoute: (settings) => SplashScreen.route(),
     );
 }

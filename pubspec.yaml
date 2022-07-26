@@ -41,3 +41,21 @@ flutter:
 
   uses-material-design: true
 
+  assets:
+    - assets/images/
+    - assets/icons/search/
+    - assets/icons/create/
+    - assets/icons/global/
+    - assets/icons/main/
+    - assets/images/
+    - assets/icons/profile/
+    - assets/icons/navbar/
+    - assets/icons/event/
+    - assets/icons/auth/
+    - assets/icons/section/
+    - assets/icons/create_post/
+    - assets/icons/events/
+    - assets/fonts/
+    - assets/images/
+    - lib/assets/strings/
+
