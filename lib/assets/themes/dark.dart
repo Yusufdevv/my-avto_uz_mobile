@@ -64,7 +64,7 @@ abstract class DarkTheme {
             unselectedBorderColor: DarkThemeColors.warmerGreyToDarkGray,
           ),
           ThemedColors(
-            solitudeToBastille: DarkThemeColors.solitudeToBastille,
+              solitudeToBastille: DarkThemeColors.solitudeToBastille,
               blackToWhite80: DarkThemeColors.blackToWhite80,
               prussianBlueToWhite80: DarkThemeColors.prussianBlueToWhite80,
               transparentToSolitude12: DarkThemeColors.transparentToSolitude12,
@@ -76,7 +76,8 @@ abstract class DarkTheme {
               dividerColorToGrey: DarkThemeColors.dividerColorToGrey,
               whiteToDolphin: DarkThemeColors.whiteToDolphin,
               solitudeToCharcoal: DarkThemeColors.solitudeToCharcoal,
-              whiteToWhiteOpacity20: DarkThemeColors.whiteToWhiteOpacity20, veryLightGreyToEclipse: DarkThemeColors.veryLightGreyToEclipse),
+              whiteToWhiteOpacity20: DarkThemeColors.whiteToWhiteOpacity20,
+              veryLightGreyToEclipse: DarkThemeColors.veryLightGreyToEclipse),
           WTextFieldStyle(
             fillColor: DarkThemeColors.solitudeToNero,
             borderColor: DarkThemeColors.solitudeToDarkRider,

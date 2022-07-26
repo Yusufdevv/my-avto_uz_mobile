@@ -17,20 +17,29 @@ class WCheckBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => AnimatedContainer(
-    duration: const Duration(milliseconds: 150),
-    height: size,
-    width: size,
-    alignment: Alignment.center,
-    decoration: BoxDecoration(
-      color: isChecked ? checkBoxColor : Theme.of(context).extension<CheckBoxStyle>()!.unselectedBackgroundColor,
-      borderRadius: BorderRadius.circular(4),
-      border: Border.all(
-          color: isChecked ? checkBoxColor : Theme.of(context).extension<CheckBoxStyle>()!.unselectedBorderColor , width: 2),
-    ),
-    child: Icon(
-      CupertinoIcons.checkmark_alt,
-      size: size - 4,
-      color: isChecked ? white : Colors.transparent,
-    ),
-  );
+        duration: const Duration(milliseconds: 150),
+        height: size,
+        width: size,
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          color: isChecked
+              ? checkBoxColor
+              : Theme.of(context)
+                  .extension<CheckBoxStyle>()!
+                  .unselectedBackgroundColor,
+          borderRadius: BorderRadius.circular(4),
+          border: Border.all(
+              color: isChecked
+                  ? checkBoxColor
+                  : Theme.of(context)
+                      .extension<CheckBoxStyle>()!
+                      .unselectedBorderColor,
+              width: 2),
+        ),
+        child: Icon(
+          CupertinoIcons.checkmark_alt,
+          size: size - 4,
+          color: isChecked ? white : Colors.transparent,
+        ),
+      );
 }
