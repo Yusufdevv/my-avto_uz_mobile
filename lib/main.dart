@@ -1,6 +1,6 @@
 import 'package:auto/assets/themes/dark.dart';
 import 'package:auto/assets/themes/light.dart';
-import 'package:auto/features/dealers/presentation/pages/dealers_list.dart';
+import 'package:auto/features/dealers/presentation/pages/dealers_main.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -19,6 +19,6 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: LightTheme.theme(),
       darkTheme: DarkTheme.theme(),
-      themeMode: ThemeMode.dark,
-      home: const Dealerslist());
+      themeMode: ThemeMode.light,
+      home: DealersMain());
 }

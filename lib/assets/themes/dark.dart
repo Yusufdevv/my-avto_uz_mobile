@@ -1,3 +1,4 @@
+import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/colors/dark.dart';
 import 'package:auto/assets/themes/theme_extensions/checkbox_style.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
@@ -16,6 +17,7 @@ abstract class DarkTheme {
         indicatorColor: DarkThemeColors.navBarIndicator,
         dividerColor: DarkThemeColors.divider,
         hintColor: DarkThemeColors.hintColor,
+        unselectedWidgetColor: grey,
         appBarTheme: const AppBarTheme(
           color: DarkThemeColors.appBarColor,
           actionsIconTheme: CupertinoIconThemeData(
@@ -51,8 +53,21 @@ abstract class DarkTheme {
             unselectedBorderColor: DarkThemeColors.warmerGreyToDarkGray,
           ),
           ThemedColors(
-              dividerColorToGrey: DarkThemeColors.dividerColorToGrey,
-              whiteToWhiteOpacity20: DarkThemeColors.whiteToWhiteOpacity20),
+            dividerColorToGrey: DarkThemeColors.dividerColorToGrey,
+            whiteToWhiteOpacity20: DarkThemeColors.whiteToWhiteOpacity20,
+            whiteToSmoky: DarkThemeColors.whiteToSmoky,
+            whiteSmokeToNightRider: DarkThemeColors.whiteSmokeToNightRider,
+            whiteToNero: DarkThemeColors.whiteToNero,
+            mediumSlateBlueToDolphin: DarkThemeColors.mediumSlateBlueToDolphin,
+            whiteSmokeToEclipse: DarkThemeColors.whiteSmokeToEclipse,
+            solitudeToEclipse: DarkThemeColors.solitudeToEclipse,
+            gainsboroToBlack: DarkThemeColors.gainsboroToBlack,
+            greySuitToWhite: DarkThemeColors.greySuitToWhite,
+            midnightExpressToWhite: DarkThemeColors.midnightExpressToWhite,
+            solitude1ToNero: DarkThemeColors.solitude1ToNero,
+            solitude2ToNightRider: DarkThemeColors.solitude2ToNightRider,
+            snowToBlack: DarkThemeColors.snowToBlack,
+          ),
           WTextFieldStyle(
             fillColor: DarkThemeColors.solitudeToNero,
             borderColor: DarkThemeColors.solitudeToDarkRider,

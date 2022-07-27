@@ -24,6 +24,7 @@ class DarkThemeColors {
   static const headline4 = _white;
   static const headline5 = _fuzzyWuzzyBrown;
   static const headline6 = _grey;
+  static const headline7 = _white;
   static const bodyText1 = _solitude;
   static const bodyText2 = _dodgerBlue;
   static const subTitle1 = _white;
@@ -40,6 +41,19 @@ class DarkThemeColors {
   static const warmerGreyToDarkGrey = _darkGray;
   static const whiteToDimGray = _dimGray;
   static const whiteToWhiteOpacity20 = _whiteOpacity20;
+
+  static const whiteToSmoky = _smoky;
+  static const whiteSmokeToNightRider = _nightRider;
+  static const whiteToNero = _nero;
+  static const mediumSlateBlueToDolphin = _dolphin;
+  static const whiteSmokeToEclipse = _eclipse;
+  static const solitudeToEclipse = _eclipse;
+  static const gainsboroToBlack = _black;
+  static const greySuitToWhite = _white;
+  static const midnightExpressToWhite = _white;
+  static const solitude1ToNero = _nero;
+  static const solitude2ToNightRider = _nightRider;
+  static const snowToBlack = _black;
 
   static const dividerColorToGrey = _grey;
   static const warmerGreyToDarkGray = _dolphin;
@@ -70,3 +84,5 @@ const _darkGray = Color(0xf2A0A0A0);
 const _bastille = Color(0xff2C2B31);
 const _dimGray = Color(0xff6B6B6B);
 const _whiteOpacity20 = Color(0x33ffffff);
+const _smoky = Color(0xff636366);
+const _nightRider = Color(0xff2F2F2F);

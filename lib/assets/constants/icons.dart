@@ -10,9 +10,12 @@ class AppIcons {
 
   //GLOBAL
   static const chevronLeft = 'assets/icons/global/chevron_left.svg';
+  static const chevronRight = 'assets/icons/global/chevron_right.svg';
   static const search = 'assets/icons/global/search.svg';
   static const cancelRound = 'assets/icons/global/cancel_round.svg';
   static const filter = 'assets/icons/global/filter.svg';
   static const vehicleCar = 'assets/icons/global/vehicle_car.svg';
   static const clock = 'assets/icons/global/clock.svg';
+  static const close = 'assets/icons/global/close.svg';
+  static const ticked = 'assets/icons/global/tick.svg';
 }
