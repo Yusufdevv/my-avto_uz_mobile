@@ -55,6 +55,7 @@ abstract class LightTheme {
               unselectedBackgroundColor: LightThemeColors.lightGreyToEclipse,
               unselectedBorderColor: LightThemeColors.warmerGreyToDarkGray),
           ThemedColors(
+            darkGreyToWhite: LightThemeColors.darkGreyToWhite,
               dividerColorToGrey: LightThemeColors.dividerColorToGrey,
               darkToWhite: LightThemeColors.darkToWhite,
               prussianBlueToWhite80: LightThemeColors.prussianBlueToWhite80,

@@ -15,6 +15,7 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
   final Color dodgerBlueToWhite80;
   final Color prussianBlueToWhite80;
   final Color solitudeToCharcoal;
+  final Color darkGreyToWhite;
 
   const ThemedColors(
       {required this.dividerColorToGrey,
@@ -29,6 +30,7 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
       required this.solitudeToWhite35,
       required this.solitudeToBastille,
       required this.whiteToDolphin,
+      required this.darkGreyToWhite,
       required this.veryLightGreyToEclipse,
       required this.whiteToWhiteOpacity20});
 
@@ -41,6 +43,7 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
           Color? prussianBlueToWhite80,
           Color? solitudeToSolitude14,
           Color? solitudeToCharcoal,
+          Color? darkGreyToWhite,
           Color? veryLightGreyToEclipse,
           Color? whiteToDolphin,
           Color? solitudeToBastille,
@@ -51,6 +54,7 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
       ThemedColors(
           dividerColorToGrey: dividerColorToGrey ?? this.dividerColorToGrey,
           solitudeToCharcoal: solitudeToCharcoal ?? this.solitudeToCharcoal,
+          darkGreyToWhite: darkGreyToWhite ?? this.darkGreyToWhite,
           prussianBlueToWhite80:
               prussianBlueToWhite80 ?? this.prussianBlueToWhite80,
           blackToWhite80: blackToWhite80 ?? this.blackToWhite80,
@@ -105,6 +109,7 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
         whiteToDolphin: Color.lerp(whiteToDolphin, other.whiteToDolphin, t) ?? whiteToDolphin,
         dividerColorToGrey: Color.lerp(dividerColorToGrey, other.dividerColorToGrey, t) ?? dividerColorToGrey,
         veryLightGreyToEclipse: Color.lerp(veryLightGreyToEclipse, other.veryLightGreyToEclipse, t) ?? veryLightGreyToEclipse,
-        whiteToWhiteOpacity20: Color.lerp(whiteToWhiteOpacity20, other.whiteToWhiteOpacity20, t) ?? whiteToWhiteOpacity20);
+        whiteToWhiteOpacity20: Color.lerp(whiteToWhiteOpacity20, other.whiteToWhiteOpacity20, t) ?? whiteToWhiteOpacity20,
+        darkGreyToWhite: Color.lerp(darkGreyToWhite, other.darkGreyToWhite, t) ?? darkGreyToWhite);
   }
 }

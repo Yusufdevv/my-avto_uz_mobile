@@ -65,6 +65,7 @@ abstract class DarkTheme {
           ),
           ThemedColors(
               solitudeToBastille: DarkThemeColors.solitudeToBastille,
+              darkGreyToWhite: DarkThemeColors.darkGreyToWhite,
               blackToWhite80: DarkThemeColors.blackToWhite80,
               prussianBlueToWhite80: DarkThemeColors.prussianBlueToWhite80,
               transparentToSolitude12: DarkThemeColors.transparentToSolitude12,

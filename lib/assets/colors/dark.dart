@@ -59,6 +59,8 @@ class DarkThemeColors {
   static const blackToWhite80 = _white80;
   static const prussianBlueToWhite80 = _white80;
   static const solitudeToCharcoal = _charcoal;
+
+  static const darkGreyToWhite = _dolphin;
 }
 
 // Main palette (http://www.color-blindness.com/color-name-hue/).

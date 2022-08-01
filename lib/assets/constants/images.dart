@@ -13,4 +13,7 @@ class AppImages {
   static const clap = 'assets/images/global/clap.png';
   static const magic = 'assets/images/global/magic.png';
   static const orangePolygon = 'assets/images/global/orange_polygon.png';
+  static const editPassword = 'assets/images/global/edit_password.png';
+  static const russian = 'assets/images/global/russian.png';
+  static const uzbek = 'assets/images/global/uzbek.png';
 }
