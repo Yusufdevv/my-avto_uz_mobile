@@ -1,6 +1,6 @@
 import 'package:auto/assets/themes/dark.dart';
 import 'package:auto/assets/themes/light.dart';
-import 'package:auto/features/onboarding/presentation/first_onboarding.dart';
+import 'package:auto/features/posting_ad/posting_ad_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
         theme: LightTheme.theme(),
         darkTheme: DarkTheme.theme(),
         debugShowCheckedModeBanner: false,
-        themeMode: ThemeMode.light,
-        home:  const FirstOnBoarding()
+        themeMode: ThemeMode.dark,
+        home:  const PostingAdScreen()
       );
 }

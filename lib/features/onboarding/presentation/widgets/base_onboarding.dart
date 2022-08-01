@@ -7,8 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class BaseOnBoarding extends StatelessWidget {
-  final bool isLast;
-  const BaseOnBoarding({required this.isLast, Key? key})
+  final Color color;
+  const BaseOnBoarding({required this.color, Key? key})
       : super(key: key);
 
   @override
@@ -19,9 +19,7 @@ class BaseOnBoarding extends StatelessWidget {
             WButton(
               onTap: () {},
               text: 'Войти в систему',
-              color: isLast ? orange : Theme.of(context)
-                  .extension<ThemedColors>()!
-                  .veryLightGreyToEclipse,
+              color: color,
               borderRadius: 8,
             ),
             const SizedBox(

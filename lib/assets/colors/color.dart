@@ -36,6 +36,7 @@ const darkOrange = _orange;
 const darkGold = _darkGoldenrod;
 const indigo = _persianIndigo;
 const purpleHeart  = _purpleHeart;
+const silver = _gainsboro;
 // Main palette (http://www.color-blindness.com/color-name-hue/).
 const _darkGray = Color(0xffA4A4A4);
 const _cinnabar = Color(0xffEA5930);
@@ -73,3 +74,4 @@ const _orange =Color(0xffFFA801);
 const _darkGoldenrod = Color(0xffBF7E01);
 const _purpleHeart = Color(0xff7A39C6);
 const _persianIndigo = Color(0xff461B93);
+const _gainsboro = Color(0xffDCDCDC);

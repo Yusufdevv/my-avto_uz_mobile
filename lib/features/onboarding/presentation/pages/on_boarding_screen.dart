@@ -1,4 +1,7 @@
+import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/images.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/features/onboarding/presentation/widgets/base_onboarding.dart';
 import 'package:auto/features/onboarding/presentation/widgets/indicator.dart';
 import 'package:auto/features/onboarding/presentation/widgets/on_boarding_page_items.dart';
 import 'package:flutter/material.dart';
@@ -60,40 +63,52 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   @override
   Widget build(BuildContext context) => SafeArea(
         child: Scaffold(
-            body: Stack(
-          children: [
-            PageView(
-              onPageChanged: (int page) {
-                setState(() {
-                  currentIndex = page;
-                });
-              },
-              children: [
-                OnBoardingItems(
-                    icon: AppImages.flash,
-                    isLast: false,
-                    indicator: buildIndicator(),
-                    title: 'Легкая \nпродажа авто',
-                    image: AppImages.firstImage),
-                OnBoardingItems(
-                    icon: AppImages.done,
-                    isLast: false,
-                    indicator: buildIndicator(),
-                    title: 'Доверенные    автосалоны',
-                    image: AppImages.secondImage),
-                OnBoardingItems(
-                  icon: AppImages.omg,
-                  hasSecondText: true,
-                  isLast: true,
-                  indicator: buildIndicator(),
-                  title: 'Более ',
-                  secondText: '10 000',
-                  image: AppImages.thirdImage,
-                  thirdText: ' объявлений',
+          body: Column(
+            children: [
+              Expanded(
+                child: PageView(
+                  onPageChanged: (int page) {
+                    setState(() {
+                      currentIndex = page;
+                    });
+                  },
+                  children: const [
+                    OnBoardingItems(
+                        icon: AppImages.flash,
+                        title: 'Легкая \nпродажа авто',
+                        image: AppImages.firstImage),
+                    OnBoardingItems(
+                        icon: AppImages.done,
+                        title: 'Доверенные    автосалоны',
+                        image: AppImages.secondImage),
+                    OnBoardingItems(
+                      icon: AppImages.omg,
+                      hasSecondText: true,
+                      title: 'Более ',
+                      secondText: '10 000',
+                      image: AppImages.thirdImage,
+                      thirdText: ' объявлений',
+                    ),
+                  ],
                 ),
-              ],
-            ),
-          ],
-        )),
+              ),
+              const SizedBox(height: 24,),
+              Padding(
+                padding: const EdgeInsets.only(left: 32),
+                child: Row(
+                  children: buildIndicator(),
+                ),
+              ),
+              const SizedBox(
+                height: 32,
+              ),
+               BaseOnBoarding(
+                color: currentIndex == 1 && currentIndex == 2 ?  Theme.of(context)
+                    .extension<ThemedColors>()!
+                    .veryLightGreyToEclipse : orange  ,
+              ),
+            ],
+          ),
+        ),
       );
 }

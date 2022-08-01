@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 class DarkThemeColors {
   static const scaffoldBackground = _black;
   static const navBarIndicator = _mediumSlateBlue;
-  static const divider = _darkRider;
+  static const divider = _nightRider;
   static const hintColor = _ghost;
   static const appBarColor = _nero;
   static const appBarActionIcon = _greySuit;
@@ -20,7 +20,7 @@ class DarkThemeColors {
 
 
   static const headline1 = _white;
-  static const headline2 = _greySuit;
+  static const headline2 = _white;
   static const headline3 = _mediumSlateBlue;
   static const headline4 = _white;
   static const headline5 = _cinnabar;
@@ -47,7 +47,7 @@ class DarkThemeColors {
   static const dividerColorToGrey = _grey;
   static const warmerGreyToDarkGray = _dolphin;
   static const solitudeToNero = _nero;
-  static const solitudeToDarkRider = _darkRider;
+  static const solitudeToDarkRider = _nightRider;
   static const solitudeToGhost = _ghost;
   static const veryLightGreyToEclipse = _eclipse;
   static const whiteToDolphin = _dolphin;
@@ -59,12 +59,36 @@ class DarkThemeColors {
   static const blackToWhite80 = _white80;
   static const prussianBlueToWhite80 = _white80;
   static const solitudeToCharcoal = _charcoal;
+  static const midnightExpressToWhite  = _white;
+  static const whiteToDark = _nero;
+  static const snowToNightRider = _nightRider;
+  static const mediumSlateBlue50ToNightRider = _nightRider;
+  static const stormGrey16ToStormGrey32 = _stormGrey32;
+  static const lavenderToMediumSlateBlue30 = _mediumSlateBlue30;
+  static const ghostWhiteToUltramarine10 = _ultramarine10;
+  static const lavenderToUltramarine30 = _ultramarine30;
+  static const whiteSmokeToEclipse = _eclipse;
+  static const solitudeContainerToDark = _nero;
+  static const aluminumToDolphin = _dolphin;
+  static const whiteSmokeToDark = _nero;
+  static const transparentToNightRider = _nightRider;
+  static const ghostToEclipse = _eclipse;
+  static const snowToNero = _nero;
+  static const blackToWhite = _white;
+
+  static const solitudeToEclipse = _eclipse;
+
+  static const stormGrey12ToStormGrey24 = _stormGrey24;
+  static const whiteToSmoky = _smoky;
+  static const whiteToGondola = _gondola;
+  static const midnightExpressToDolphin = _dolphin;
+
 }
 
 // Main palette (http://www.color-blindness.com/color-name-hue/).
 const _black = Color(0xff121212);
 const _mediumSlateBlue = Color(0xff695CEA);
-const _darkRider = Color(0xff2F2F2F);
+const _nightRider = Color(0xff2F2F2F);
 const _ghost = Color(0xffB5B5BE);
 const _nero = Color(0xff1e1e1e);
 const _greySuit = Color(0xff92929D);
@@ -90,3 +114,10 @@ const _solitude12 = Color(0xf1e2e2ea);
 const _darkGray95 = Color(0xf2A0A0A0);
 const _white80 = Color(0xccffffff);
 const _charcoal = Color(0xff444444);
+const _stormGrey32 = Color(0x52787880);
+const _mediumSlateBlue30 = Color(0x4d695cea);
+const _ultramarine10 = Color(0x1a170C85);
+const _ultramarine30 = Color(0x4d170C85);
+const _stormGrey24 = Color(0x3d767680);
+const _smoky = Color(0xff636366);
+const _gondola = Color(0xff363636);

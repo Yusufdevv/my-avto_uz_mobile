@@ -6,12 +6,10 @@ class OnBoardingItems extends StatelessWidget {
   final String image;
   final String title;
   final String icon;
-  final bool isLast;
   final bool hasSecondText;
   final String secondText;
   final String thirdText;
-  final List<Widget> indicator;
-  const OnBoardingItems({required this.icon, this.secondText = '',this.thirdText = '', this.hasSecondText = false, required this.isLast, required this.indicator, required this.title, required this.image, Key? key}) : super(key: key);
+  const OnBoardingItems({required this.icon, this.secondText = '',this.thirdText = '', this.hasSecondText = false, required this.title, required this.image, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) => Column(
@@ -40,14 +38,6 @@ class OnBoardingItems extends StatelessWidget {
         ),),
       ),
       const SizedBox(height: 24,),
-      Padding(
-        padding: const EdgeInsets.only(left: 32),
-        child: Row(
-          children: indicator,
-        ),
-      ),
-      const SizedBox(height: 32,),
-      BaseOnBoarding(isLast: isLast,),
     ],
   );
 }

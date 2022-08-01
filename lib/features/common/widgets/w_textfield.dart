@@ -177,9 +177,8 @@ class _WTextFieldState extends State<WTextField>
                     Text(
                       widget.title,
                       style: widget.titleTextStyle ??
-                          Theme.of(context).textTheme.headline3!.copyWith(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
+                          Theme.of(context).textTheme.headline2!.copyWith(
+                            fontWeight: FontWeight.w600,
                           ),
                     ),
                     Text(
@@ -262,7 +261,7 @@ class _WTextFieldState extends State<WTextField>
                           : null,
                       hintText: widget.hintText,
                       hintStyle: widget.hintTextStyle ??
-                          Theme.of(context).textTheme.headline6!.copyWith(fontSize: 14),
+                          Theme.of(context).textTheme.subtitle2!.copyWith(color: Theme.of(context).hintColor),
                       filled: widget.filled,
                       // prefixIconConstraints:
                       // const BoxConstraints(maxWidth: 20, maxHeight: 20),
@@ -285,6 +284,7 @@ class _WTextFieldState extends State<WTextField>
                           : widget.disabledColor
                           : widget.fillColor,
                       contentPadding: widget.contentPadding,
+
                       disabledBorder: OutlineInputBorder(
                         borderRadius: widget.detailedBorderRadius ??
                             BorderRadius.circular(widget.borderRadius),
