@@ -79,7 +79,7 @@ class _AddingPhotoScreenState extends State<AddingPhotoScreen> {
               ],
             ),
             Positioned(
-              bottom: 10,
+              bottom: MediaQuery.of(context).padding.bottom +16,
               left: 16,
               right: 16,
               child: Row(

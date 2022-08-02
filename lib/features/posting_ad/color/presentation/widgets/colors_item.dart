@@ -42,7 +42,7 @@ class _ColorsItemState extends State<ColorsItem> {
                 color: widget.color,
                 border: Border.all(
                   width: 1,
-                  color: dividerColor
+                  color: widget.colorName == 'Черный' ? Theme.of(context).extension<ThemedColors>()!.solitudeToBastille :dividerColor
                 )
               ),
               width: double.infinity,

@@ -19,10 +19,8 @@ class PhotoIndicator extends StatelessWidget {
             else
               const BoxShadow(color: Colors.transparent),
           ],
-
         ),
         child: Column(
-
           children: [
             Text(
               numbers,

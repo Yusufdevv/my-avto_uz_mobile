@@ -32,7 +32,7 @@ class _AddPhotoScreenState extends State<AddPhotoScreen> {
         value: imageBloc,
         child: Scaffold(
           body: BaseWidget(
-            onTap: widget.onTap,
+            onTap: widget.onTap ,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -53,9 +53,7 @@ class _AddPhotoScreenState extends State<AddPhotoScreen> {
                   ),
                 ),
                 WScaleAnimation(
-                  onTap: () {
-                    context.read<ImageBloc>().add(const PickImage());
-                  },
+                  onTap: () {},
                   child: Container(
                     height: 110,
                     width: double.infinity,

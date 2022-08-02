@@ -20,119 +20,143 @@ class ContactScreen extends StatefulWidget {
 
 class _ContactScreenState extends State<ContactScreen> {
   late TextEditingController numberController;
+  late TextEditingController nameController;
+  late TextEditingController emailController;
 
   @override
   void initState() {
     numberController = TextEditingController();
+    nameController = TextEditingController();
+    emailController = TextEditingController();
     super.initState();
   }
 
   @override
   void dispose() {
     numberController.dispose();
+    emailController.dispose();
+    nameController.dispose();
     super.dispose();
   }
 
   final phoneFormatter = MaskTextInputFormatter(
     mask: '(##) ###-##-##',
-    filter: {"#": RegExp(r'[0-9]')},
+    filter: {'#': RegExp('[0-9]')},
   );
-
+  final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) => KeyboardDismisser(
     child: Scaffold(
-          body: BaseWidget(
-            onTap: widget.onTap,
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                children: [
-                  WTextField(
-                    onChanged: (value) {},
-                    title: 'Имя',
-                    hintText: 'Введите имя',
-                    borderRadius: 12,
-                    borderColor: Theme.of(context)
-                        .extension<WTextFieldStyle>()!
-                        .borderColor,
-                    fillColor:
-                        Theme.of(context).extension<WTextFieldStyle>()!.fillColor,
-                    focusColor:
-                        Theme.of(context).extension<WTextFieldStyle>()!.fillColor,
-                  ),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  WTextField(
-                    onChanged: (value) {},
-                    title: 'E-mail',
-                    hintText: 'Введите электронную почту',
-                    borderRadius: 12,
-                    borderColor: Theme.of(context)
-                        .extension<WTextFieldStyle>()!
-                        .borderColor,
-                    fillColor:
-                        Theme.of(context).extension<WTextFieldStyle>()!.fillColor,
-                    focusColor:
-                        Theme.of(context).extension<WTextFieldStyle>()!.fillColor,
-                  ),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  WTextField(
-                    onChanged: (value) {setState((){});},
-                    title: 'Номер телефона',
-                    controller: numberController,
-                    prefix: Padding(
-                      padding: const EdgeInsets.only(left: 16, right: 8, top: 13),
-                      child: Text(
-                        '+998',
-                        style: Theme.of(context)
+          body: Form(
+            key: _formKey,
+            child: BaseWidget(
+              onTap: nameController.text.isNotEmpty && emailController.text.isNotEmpty && numberController.text.length > 9?
+                widget.onTap: (){},
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  children: [
+                    WTextField(
+                      controller: nameController,
+                      onChanged: (value) {},
+
+                      maxLength: 40,
+                      hideCounterText: true,
+                      title: 'Имя',
+                      hintText: 'Введите имя',
+                      borderRadius: 12,
+                      borderColor: Theme.of(context)
+                          .extension<WTextFieldStyle>()!
+                          .borderColor,
+                      fillColor:
+                          Theme.of(context).extension<WTextFieldStyle>()!.fillColor,
+                      focusColor:
+                          Theme.of(context).extension<WTextFieldStyle>()!.fillColor,
+                    ),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    WTextField(
+                      controller: emailController,
+                      onChanged: (value) {},
+                      title: 'E-mail',
+                      maxLength: 40,
+                      hideCounterText: true,
+                      hintText: 'Введите электронную почту',
+                      borderRadius: 12,
+                      validate: (value){
+                        if(value == null || value.isEmpty || !value.contains('@') || !value.contains('.')){
+                          return 'Invalid Email';
+                        }
+                        return null;
+                      },
+                      borderColor: Theme.of(context)
+                          .extension<WTextFieldStyle>()!
+                          .borderColor,
+                      fillColor:
+                          Theme.of(context).extension<WTextFieldStyle>()!.fillColor,
+                      focusColor:
+                          Theme.of(context).extension<WTextFieldStyle>()!.fillColor,
+                    ),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    WTextField(
+                      onChanged: (value) {setState((){});},
+                      title: 'Номер телефона',
+                      controller: numberController,
+                      prefix: Padding(
+                        padding: const EdgeInsets.only(left: 16, right: 8, top: 13),
+                        child: Text(
+                          '+998',
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline2!
+                              .copyWith(fontWeight: FontWeight.w400),
+                        ),
+                      ),
+                      hintText: '_ _  _ _ _  _ _  _ _',
+                      borderRadius: 12,
+                      borderColor: Theme.of(context)
+                          .extension<WTextFieldStyle>()!
+                          .borderColor,
+                      keyBoardType: TextInputType.number,
+                      fillColor:
+                          Theme.of(context).extension<WTextFieldStyle>()!.fillColor,
+                      focusColor:
+                          Theme.of(context).extension<WTextFieldStyle>()!.fillColor,
+                      textInputFormatters: [phoneFormatter],
+                      suffix: WButton(
+                        color: (numberController.text.length == 14)?orange : Theme.of(context)
+                            .extension<ThemedColors>()!
+                            .veryLightGreyToEclipse ,
+                        padding:
+                            const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                        onTap: () {},
+                        text: 'Подтвердить',
+                        textStyle: Theme.of(context)
                             .textTheme
-                            .headline2!
-                            .copyWith(fontWeight: FontWeight.w400),
+                            .subtitle1!
+                            .copyWith(color: white),
                       ),
                     ),
-                    hintText: '_ _  _ _ _  _ _  _ _',
-                    borderRadius: 12,
-                    borderColor: Theme.of(context)
-                        .extension<WTextFieldStyle>()!
-                        .borderColor,
-                    fillColor:
-                        Theme.of(context).extension<WTextFieldStyle>()!.fillColor,
-                    focusColor:
-                        Theme.of(context).extension<WTextFieldStyle>()!.fillColor,
-                    textInputFormatters: [phoneFormatter],
-                    suffix: WButton(
-                      color: (numberController.text.length > 9)?orange : Theme.of(context)
-                          .extension<ThemedColors>()!
-                          .veryLightGreyToEclipse ,
-                      padding:
-                          const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-                      onTap: () {},
-                      text: 'Подтвердить',
-                      textStyle: Theme.of(context)
-                          .textTheme
-                          .subtitle1!
-                          .copyWith(color: white),
-                    ),
-                  ),
-                    const SizedBox(height: 16,),
-                  const SwitcherRow(title: 'Доступные часы'),
-                  const SizedBox(height: 24,),
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).extension<ThemedColors>()!.snowToNero,
-                      border: Border.all(
-                        width: 1,
-                        color:Theme.of(context).extension<ThemedColors>()!.transparentToNightRider
+                      const SizedBox(height: 16,),
+                    const SwitcherRow(title: 'Доступные часы'),
+                    const SizedBox(height: 24,),
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).extension<ThemedColors>()!.snowToNero,
+                        border: Border.all(
+                          width: 1,
+                          color:Theme.of(context).extension<ThemedColors>()!.transparentToNightRider
+                        ),
+                        borderRadius: BorderRadius.circular(12)
                       ),
-                      borderRadius: BorderRadius.circular(12)
+                      child: Text('Если вы включаете этот режим ваш контакный номер не будеть отображаться в объявление', style: Theme.of(context).textTheme.headline2!.copyWith(color: grey),),
                     ),
-                    child: Text('Если вы включаете этот режим ваш контакный номер не будеть отображаться в объявление', style: Theme.of(context).textTheme.headline2!.copyWith(color: grey),),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),

@@ -49,7 +49,7 @@ class _PtsScreenState extends State<PtsScreen> {
           value: bloc,
           child: Scaffold(
             body: BaseWidget(
-              onTap: widget.onTap,
+              onTap:  ownerId.isNotEmpty && currentId.isNotEmpty ? widget.onTap:  (){} ,
               child: Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 16, vertical: 25),

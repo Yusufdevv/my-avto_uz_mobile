@@ -31,24 +31,27 @@ class _YearIssueScreenState extends State<YearIssueScreen> {
   }
 
   @override
-  Widget build(BuildContext context) => BlocProvider.value(
+  Widget build(BuildContext context) =>
+      BlocProvider.value(
         value: yearIssueBloc,
         child: Scaffold(
-            body: BaseWidget(
-          onTap: widget.onTap,
-          child: BlocBuilder<YearIssueBloc, YearIssueState>(
-            builder: (context, state) => Padding(
-              padding: const EdgeInsets.symmetric(vertical: 16),
-              child: ListView.builder(
-                shrinkWrap: true,
-                itemBuilder: (context, index) => YearItem(
-                    entity: years[index],
-                    selectedId: state.selectedId,
-                    id: index),
-                itemCount: years.length,
-              ),
-            ),
-          ),
-        )),
+            body: BlocBuilder<YearIssueBloc, YearIssueState>(
+              builder: (context, state) => BaseWidget(
+                  onTap: state.selectedId == -1 ? (){} : widget.onTap,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) =>
+                          YearItem(
+                              entity: years[index],
+                              selectedId: state.selectedId,
+                              id: index),
+                      itemCount: years.length,
+                    ),
+
+                  ),
+                ),
+            )),
       );
 }

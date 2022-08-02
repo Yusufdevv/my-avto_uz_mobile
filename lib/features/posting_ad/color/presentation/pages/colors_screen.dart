@@ -34,7 +34,7 @@ class _ColorsScreenState extends State<ColorsScreen> {
   @override
   Widget build(BuildContext context) => Scaffold(
         body: BaseWidget(
-          onTap: widget.onTap,
+          onTap: currentId.isEmpty ? (){} : widget.onTap,
           padding: const EdgeInsets.only(top: 16),
           child: GridView.builder(
             itemBuilder: (context, index) => ColorsItem(

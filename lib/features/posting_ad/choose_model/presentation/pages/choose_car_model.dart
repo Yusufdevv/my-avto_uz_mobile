@@ -80,124 +80,143 @@ class _ChooseCarModelScreenState extends State<ChooseCarModelScreen> {
             ),
           ],
           child: Scaffold(
-              body: Stack(
-            children: [
-              NestedScrollView(
-                  headerSliverBuilder: (context, innerBoxIsScrolled) => [
-                        SliverToBoxAdapter(
-                          child: WTextField(
-                            margin: const EdgeInsets.symmetric(
-                                horizontal: 16, vertical: 14),
-                            onChanged: (value) {},
-                            borderRadius: 12,
-                            hasSearch: true,
-                            hintText: 'Поиск',
-                            height: 40,
-                            controller: searchController,
-                          ),
-                        ),
-                        SliverToBoxAdapter(
-                          child: Transform.translate(
-                            offset: const Offset(0, 1),
-                            child: Container(
-                              height: 20,
-                              width: double.infinity,
-                              decoration: BoxDecoration(
-                                  color: Theme.of(context)
-                                      .extension<ThemedColors>()!
-                                      .whiteToDark,
-                                  borderRadius: const BorderRadius.vertical(
-                                    top: Radius.circular(20),
-                                  )),
+            body: Stack(
+              children: [
+                NestedScrollView(
+                    headerSliverBuilder: (context, innerBoxIsScrolled) => [
+                          SliverToBoxAdapter(
+                            child: WTextField(
+                              margin: const EdgeInsets.symmetric(
+                                  horizontal: 16, vertical: 14),
+                              onChanged: (value) {},
+                              borderRadius: 12,
+                              hasSearch: true,
+                              hintText: 'Поиск',
+                              height: 40,
+                              controller: searchController,
                             ),
                           ),
-                        ),
-                        SliverToBoxAdapter(
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 15),
-                            decoration: BoxDecoration(
+                          SliverToBoxAdapter(
+                            child: Transform.translate(
+                              offset: const Offset(0, 1),
+                              child: Container(
+                                height: 20,
+                                width: double.infinity,
+                                decoration: BoxDecoration(
+                                    color: Theme.of(context)
+                                        .extension<ThemedColors>()!
+                                        .whiteToDark,
+                                    borderRadius: const BorderRadius.vertical(
+                                      top: Radius.circular(20),
+                                    )),
+                              ),
+                            ),
+                          ),
+                          SliverToBoxAdapter(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Theme.of(context)
+                                    .extension<ThemedColors>()!
+                                    .whiteToDark,
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding:
+                                    const EdgeInsets.symmetric(horizontal: 16),
+                                    child: Text(
+                                      'Популярные',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headline1!
+                                          .copyWith(
+                                              fontWeight: FontWeight.w600,
+                                              color: purple),
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  Divider(
+                                    thickness: 1,
+                                    color: Theme.of(context).dividerColor,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          SliverList(
+                              delegate: SliverChildBuilderDelegate(
+                                  (context, index) => Container(
+                                        color: Theme.of(context)
+                                            .extension<ThemedColors>()!
+                                            .whiteToDark,
+                                        child: BlocBuilder<ModelSelectorBloc,
+                                            ModelSelectorState>(
+                                          builder: (context, state) =>
+                                              ModelItems(
+                                            entity: modelItems[index],
+                                            selectedId: state.selectedId,
+                                            id: index,
+                                          ),
+                                        ),
+                                      ),
+                                  childCount: modelItems.length)),
+                          SliverToBoxAdapter(
+                            child: Container(
+                              height: 10,
+                              width: double.infinity,
                               color: Theme.of(context)
                                   .extension<ThemedColors>()!
                                   .whiteToDark,
                             ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Популярные',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headline1!
-                                      .copyWith(
-                                          fontWeight: FontWeight.w600,
-                                          color: purple),
-                                ),
-                                const SizedBox(height: 10,),
-                                Divider(
-                                  thickness: 1,
-                                  color: Theme.of(context).dividerColor,
-                                ),
-                              ],
+                          ),
+                          SliverSafeArea(
+                            top: false,
+                            bottom: false,
+                            sliver: SliverPersistentHeader(
+                              delegate: ModelHeader(),
+                              pinned: true,
                             ),
                           ),
+                        ],
+                    body: Container(
+                      color: Theme.of(context)
+                          .extension<ThemedColors>()!
+                          .whiteToDark,
+                      child: BlocBuilder<CarTypeSelectorBloc,
+                          CarTypeSelectorState>(
+                        builder: (context, state) => ListView.builder(
+                          padding: const EdgeInsets.only(bottom: 50),
+                          itemBuilder: (context, index) => CarTypeItem(
+                              entity: carTypes[index],
+                              selectedId: state.selectedId,
+                              id: index),
+                          itemCount: carTypes.length,
                         ),
-                        SliverList(
-                            delegate: SliverChildBuilderDelegate(
-                                (context, index) => Container(
-                                      color: Theme.of(context)
-                                          .extension<ThemedColors>()!
-                                          .whiteToDark,
-                                      child: BlocBuilder<ModelSelectorBloc,
-                                          ModelSelectorState>(
-                                        builder: (context, state) => ModelItems(
-                                          entity: modelItems[index],
-                                          selectedId: state.selectedId,
-                                          id: index,
-                                        ),
-                                      ),
-                                    ),
-                                childCount: modelItems.length)),
-                        SliverSafeArea(
-                          top: false,
-                          bottom: false,
-                          sliver: SliverPersistentHeader(
-                            delegate: ModelHeader(),
-                            pinned: true,
-                          ),
-                        ),
-                      ],
-                  body: Container(
-                    color: Theme.of(context)
-                        .extension<ThemedColors>()!
-                        .whiteToDark,
-                    child:
-                        BlocBuilder<CarTypeSelectorBloc, CarTypeSelectorState>(
-                      builder: (context, state) => ListView.builder(
-                        padding: const EdgeInsets.only(bottom: 50),
-                        itemBuilder: (context, index) => CarTypeItem(
-                            entity: carTypes[index],
-                            selectedId: state.selectedId,
-                            id: index),
-                        itemCount: carTypes.length,
                       ),
-                    ),
-                  )),
-              Positioned(
+                    )),
+                Positioned(
                   bottom: 16,
                   right: 16,
                   left: 16,
-                  child: WButton(
-                    onTap: widget.onTap,
-                    text: 'Далее',
-                    shadow: [
-                      BoxShadow(
-                          offset: const Offset(0, 4),
-                          blurRadius: 20,
-                          color: orange.withOpacity(0.2)),
-                    ],
-                  )),
-            ],
-          )),
+                  child: BlocBuilder<CarTypeSelectorBloc, CarTypeSelectorState>(
+                    builder: (context, state) => WButton(
+                      onTap: state.selectedId == -1 ? () {} : widget.onTap,
+                      text: 'Далее',
+                      shadow: [
+                        BoxShadow(
+                            offset: const Offset(0, 4),
+                            blurRadius: 20,
+                            color: orange.withOpacity(0.2)),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
         ),
       );
 }

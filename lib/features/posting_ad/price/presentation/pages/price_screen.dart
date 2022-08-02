@@ -19,18 +19,28 @@ class PriceScreen extends StatefulWidget {
 }
 
 class _PriceScreenState extends State<PriceScreen> {
+  late TextEditingController priceController;
+  @override
+  void initState() {
+    priceController = TextEditingController();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) => KeyboardDismisser(
         child: Scaffold(
           body: BaseWidget(
-            onTap: widget.onTap,
+            onTap: priceController.text.isNotEmpty ? widget.onTap : (){},
             child: Padding(
               padding: const EdgeInsets.all(16),
               child: Column(
                 children: [
                   WTextField(
+                    maxLength: 7,
+                    hideCounterText: true,
+                    controller: priceController,
                     onChanged: (value) {},
                     title: 'Введите сумму',
+                    keyBoardType: TextInputType.number,
                     borderRadius: 12,
                     fillColor: Theme.of(context)
                         .extension<WTextFieldStyle>()!

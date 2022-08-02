@@ -184,17 +184,18 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
                     bottom: 16,
                     right: 16,
                     left: 16,
-                    child: WButton(
-                      onTap: widget.onTap,
+                    child:  BlocBuilder<CarSelectorBloc, SelectedCarItems>(
+                      builder: (context, state) => WButton(
+                      onTap: state.selectedId == -1 ? (){} : widget.onTap,
                       text: 'Далее',
                       shadow: [
                         BoxShadow(
-                          offset: const Offset(0, 4),
-                          blurRadius: 20,
-                          color: orange.withOpacity(0.2)
-                        ),
+                            offset: const Offset(0, 4),
+                            blurRadius: 20,
+                            color: orange.withOpacity(0.2)),
                       ],
-                    )),
+                    ),
+)),
               ],
             ),
           ),

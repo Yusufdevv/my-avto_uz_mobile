@@ -18,21 +18,24 @@ class DescriptionScreen extends StatefulWidget {
 class _DescriptionScreenState extends State<DescriptionScreen> {
   late TextEditingController textController;
   bool isChecked = false;
+
   @override
   void initState() {
     textController = TextEditingController();
     super.initState();
   }
+
   @override
   void dispose() {
     textController.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) => KeyboardDismisser(
         child: Scaffold(
           body: BaseWidget(
-            onTap: widget.onTap,
+            onTap: textController.text.isNotEmpty  ? widget.onTap : (){},
             child: Padding(
               padding: const EdgeInsets.all(16),
               child: Column(
@@ -48,37 +51,54 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
                   const SizedBox(
                     height: 12,
                   ),
-
-                     WTextField(
-                      onChanged: (value) {},
-                      hintText:
-                          'Честно опишите достоинства и недостатки своего автомобиля',
-
-                      disabledBorderColor: Theme.of(context).extension<ThemedColors>()!.transparentToNightRider,
-                      enabledBorderColor: Theme.of(context).extension<ThemedColors>()!.transparentToNightRider,
-                      borderColor: Theme.of(context).extension<ThemedColors>()!.transparentToNightRider,
-                      fillColor:Theme.of(context)
-                          .extension<ThemedColors>()!
-                          .whiteSmokeToDark,
-                      focusColor: Theme.of(context)
-                          .extension<ThemedColors>()!
-                          .whiteSmokeToDark,
-                      disabledColor: Theme.of(context)
-                          .extension<ThemedColors>()!
-                          .whiteSmokeToDark,
-                      controller: textController,
-                      borderRadius: 8,
-                      maxLines: null,
-                      height: 125,
-                    ),
-                  const SizedBox(height: 28,),
-                  Row(
-                    children: [
-                      GestureDetector(onTap:() => setState(() => isChecked = !isChecked), child: WCheckBox(isChecked: isChecked, checkBoxColor: purple)),
-                      const SizedBox( width:  10,),
-                      Text('Не растаможен', style: Theme.of(context).textTheme.headline6!.copyWith(color: greyText),)
-                    ],
-                  )
+                  WTextField(
+                    onChanged: (value) {},
+                    hintText:
+                        'Честно опишите достоинства и недостатки своего автомобиля',
+                    disabledBorderColor: Theme.of(context)
+                        .extension<ThemedColors>()!
+                        .transparentToNightRider,
+                    enabledBorderColor: Theme.of(context)
+                        .extension<ThemedColors>()!
+                        .transparentToNightRider,
+                    borderColor: Theme.of(context)
+                        .extension<ThemedColors>()!
+                        .transparentToNightRider,
+                    fillColor: Theme.of(context)
+                        .extension<ThemedColors>()!
+                        .whiteSmokeToDark,
+                    focusColor: Theme.of(context)
+                        .extension<ThemedColors>()!
+                        .whiteSmokeToDark,
+                    disabledColor: Theme.of(context)
+                        .extension<ThemedColors>()!
+                        .whiteSmokeToDark,
+                    controller: textController,
+                    borderRadius: 8,
+                    maxLines: null,
+                    height: 125,
+                  ),
+                  const SizedBox(
+                    height: 28,
+                  ),
+                  GestureDetector(
+                      onTap: () => setState(() => isChecked = !isChecked),
+                      child: Row(
+                        children: [
+                          WCheckBox(
+                              isChecked: isChecked, checkBoxColor: purple),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          Text(
+                            'Не растаможен',
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline6!
+                                .copyWith(color: greyText),
+                          )
+                        ],
+                      ))
                 ],
               ),
             ),

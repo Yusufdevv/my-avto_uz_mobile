@@ -39,17 +39,11 @@ class PostingAdScreen extends StatefulWidget {
 class _PostingAdScreenState extends State<PostingAdScreen>
     with SingleTickerProviderStateMixin {
   late TabController tabController;
-  double percent = 0.0;
   int currentTabIndex = 0;
 
   @override
   void initState() {
-    tabController = TabController(length: 21, vsync: this)
-      ..addListener(() {
-        setState(() {
-          percent = tabController.previousIndex / tabController.index;
-        });
-      });
+    tabController = TabController(length: 21, vsync: this);
     super.initState();
   }
 
@@ -84,12 +78,27 @@ class _PostingAdScreenState extends State<PostingAdScreen>
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-               WAppBar(
+              WAppBar(
+                onTapBack: (){
+                 if(currentTabIndex == 0){
+                   Navigator.pop(context);
+                 } else {
+                   --currentTabIndex;
+                   tabController.animateTo(currentTabIndex);
+                 }
+                },
                 extraActions: [
-                  if (currentTabIndex > 1) Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: WScaleAnimation(child: SvgPicture.asset(AppIcons.close,), onTap: (){}),
-                  ) else const SizedBox()
+                  if (currentTabIndex > 1)
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: WScaleAnimation(
+                          child: SvgPicture.asset(
+                            AppIcons.close,
+                          ),
+                          onTap: () => Navigator.pop(context)),
+                    )
+                  else
+                    const SizedBox()
                 ],
               ),
               Container(
@@ -97,8 +106,8 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                 padding: const EdgeInsets.symmetric(vertical: 15),
                 child: TabBar(
                   onTap: (index) {
-                    currentTabIndex = index;
-                    //tabController.index = tabController.previousIndex;
+                    // currentTabIndex = index;
+                    tabController.index = tabController.previousIndex;
                   },
                   isScrollable: true,
                   indicatorColor: Theme.of(context).appBarTheme.backgroundColor,
@@ -116,16 +125,34 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                     (index) => index == 10
                         ? Row(
                             children: [
-                              Text(tabs[index]),
+                              Text(tabs[index],
+                                  style: currentTabIndex > index
+                                      ? Theme.of(context)
+                                          .textTheme
+                                          .headline1!
+                                          .copyWith(fontSize: 12, color: green)
+                                      : const TextStyle()),
                               const SizedBox(
                                 width: 4,
                               ),
                               WScaleAnimation(
-                                  onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const AddingPhotoScreen())),
+                                  onTap: () => Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const AddingPhotoScreen())),
                                   child: SvgPicture.asset(AppIcons.infoCircle)),
                             ],
                           )
-                        : Text(tabs[index], style: currentTabIndex > index ? Theme.of(context).textTheme.headline1!.copyWith(fontSize: 12, color: green) : TextStyle(),),
+                        : Text(
+                            tabs[index],
+                            style: currentTabIndex > index
+                                ? Theme.of(context)
+                                    .textTheme
+                                    .headline1!
+                                    .copyWith(fontSize: 12, color: green)
+                                : const TextStyle(),
+                          ),
                   ),
                 ),
               ),
@@ -229,7 +256,8 @@ class _PostingAdScreenState extends State<PostingAdScreen>
               onTap: () => setState(() {
                 currentTabIndex = 15;
                 tabController.animateTo(15);
-              }),),
+              }),
+            ),
             ContactScreen(
               onTap: () => setState(() {
                 currentTabIndex = 16;
@@ -260,7 +288,7 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                 tabController.animateTo(20);
               }),
             ),
-             PreviewScreen()
+            PreviewScreen()
           ],
         ),
       );

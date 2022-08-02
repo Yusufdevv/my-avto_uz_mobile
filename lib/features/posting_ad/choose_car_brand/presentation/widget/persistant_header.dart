@@ -41,15 +41,25 @@ class Header extends SliverPersistentHeaderDelegate {
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) => Container(
-    padding: const EdgeInsets.symmetric( vertical: 10),
+    padding: const EdgeInsets.only( top: 3),
     color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
-      child:  ListView.builder(
-        itemBuilder: (context, index) =>
-            AzList(letter: letters[index],),
-        itemCount: letters.length,
-        shrinkWrap: true,
-        scrollDirection: Axis.horizontal,
-      ),
+      child:     Column(
+        children: [
+          Expanded(
+            child: ListView.builder(
+              itemBuilder: (context, index) =>
+                  AzList(letter: letters[index],),
+              itemCount: letters.length,
+              shrinkWrap: true,
+              scrollDirection: Axis.horizontal,
+            ),
+          ),
+          const SizedBox(height: 4,),
+          Divider(
+            color: Theme.of(context).dividerColor,
+          )
+        ],
+      )
     );
 }
 

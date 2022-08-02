@@ -1,12 +1,10 @@
-import 'package:auto/assets/colors/color.dart';
-import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
-import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_radio_tile.dart';
 import 'package:auto/features/posting_ad/presentation/widgets/base_widget.dart';
 import 'package:flutter/material.dart';
 
 class GenerationScreen extends StatefulWidget {
   final VoidCallback onTap;
+
   const GenerationScreen({required this.onTap, Key? key}) : super(key: key);
 
   @override
@@ -23,10 +21,20 @@ class _GenerationScreenState extends State<GenerationScreen> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-    body: BaseWidget(onTap: widget.onTap, padding: const EdgeInsets.only(top: 16),child:         ListView.builder(itemBuilder: (context, index) => RadioItem(onTap: (value){
-      setState((){
-        selectedIndex = index;
-      });
-    }, title: titleList[index], groupValue: index, value:selectedIndex ), itemCount: 2,),)
-  );
+          body: BaseWidget(
+        onTap: selectedIndex < 0 ? () {} : widget.onTap,
+        padding: const EdgeInsets.only(top: 16),
+        child: ListView.builder(
+          itemBuilder: (context, index) => RadioItem(
+              onTap: (value) {
+                setState(() {
+                  selectedIndex = index;
+                });
+              },
+              title: titleList[index],
+              groupValue: index,
+              value: selectedIndex),
+          itemCount: 2,
+        ),
+      ));
 }
