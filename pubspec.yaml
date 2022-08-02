@@ -31,7 +31,8 @@ dependencies:
   shimmer: ^2.0.0
   easy_localization: ^3.0.0
   sensors_plus: ^1.3.2
-
+  azlistview: ^2.0.0
+  flutter_cupertino_datetime_picker: ^3.0.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

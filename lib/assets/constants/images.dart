@@ -13,4 +13,11 @@ class AppImages {
   static const clap = 'assets/images/global/clap.png';
   static const magic = 'assets/images/global/magic.png';
   static const orangePolygon = 'assets/images/global/orange_polygon.png';
+  static const chevrolet = 'assets/images/global/chevrolet.png';
+  static const carcase = 'assets/images/global/carcase.png';
+  static const carFromLeft = 'assets/images/global/car_from_left.png';
+  static const carFromRight = 'assets/images/global/car_from_right.png';
+  static const carFromOpposite = 'assets/images/global/car_from_opposite.png';
+  static const carFromBack = 'assets/images/global/car_from_back.png';
+  static const bmwInfo = 'assets/images/global/bmw_info.png';
 }

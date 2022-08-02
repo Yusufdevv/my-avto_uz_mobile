@@ -95,7 +95,7 @@ class WAppBar extends StatelessWidget implements PreferredSizeWidget {
                   if (hasBackButton) Align(
                     alignment: Alignment.center,
                     child: WScaleAnimation(
-                      onTap: () {
+                      onTap: onTapBack ?? () {
                         Navigator.pop(context);
                       },
                       child: Padding(
