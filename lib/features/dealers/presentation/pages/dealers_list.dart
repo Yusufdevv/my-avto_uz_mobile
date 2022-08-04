@@ -59,16 +59,19 @@ class DealersList extends StatelessWidget {
         body: SingleChildScrollView(
           padding: const EdgeInsets.all(16),
           child: Column(
-              children: List.generate(
-                  cards.length,
-                  (index) => DealerCard(
-                      dealerType: cards[index].dealerType,
-                      dealerName: cards[index].dealerName,
-                      dealerImageUrl: cards[index].dealerImageUrl,
-                      quantityOfCars: cards[index].quantityOfCars,
-                      workingHours: cards[index].workingHours,
-                      contractCode: cards[index].contractCode,
-                      contractNumber: cards[index].contractNumber))),
+            children: List.generate(
+              cards.length,
+              (index) => DealerCard(
+                dealerType: cards[index].dealerType,
+                dealerName: cards[index].dealerName,
+                dealerImageUrl: cards[index].dealerImageUrl,
+                quantityOfCars: cards[index].quantityOfCars,
+                workingHours: cards[index].workingHours,
+                contractCode: cards[index].contractCode,
+                contractNumber: cards[index].contractNumber,
+              ),
+            ),
+          ),
         ),
       );
 }

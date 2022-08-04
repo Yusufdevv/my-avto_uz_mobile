@@ -6,7 +6,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.17.1 <3.0.0"
+  sdk: ">=2.17.1<3.0.0"
 
 
 dependencies:
@@ -16,6 +16,8 @@ dependencies:
   equatable: ^2.0.3
   json_annotation: ^4.5.0
   dio: ^4.0.6
+  video_player: ^2.4.5
+  yandex_mapkit: ^3.0.3
   get_it: ^7.2.0
   formz: ^0.4.1
   flutter_bloc: ^8.0.0
@@ -30,9 +32,9 @@ dependencies:
   cached_network_image: ^3.2.0
   shimmer: ^2.0.0
   easy_localization: ^3.0.0
-  yandex_mapkit: ^3.0.3
-
-
+  sensors_plus: ^1.3.2
+  azlistview: ^2.0.0
+  flutter_cupertino_datetime_picker: ^3.0.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -43,12 +45,11 @@ flutter:
 
   uses-material-design: true
 
-
-
   assets:
     - assets/
     - assets/icons/
     - assets/icons/splash/
     - assets/icons/global/
-
+    - assets/icons/global/
+    - lib/assets/strings/
 
