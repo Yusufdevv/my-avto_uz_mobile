@@ -15,39 +15,53 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
   final Color solitude1ToNero;
   final Color solitude2ToNightRider;
   final Color snowToBlack;
+  final Color whiteWithOpacity90ToNero;
+  final Color whiteSmoke2ToNightRider;
+  final Color solitudeTo1Black;
+  final Color whiteLilacToNightRider;
 
-  const ThemedColors(
-      {required this.dividerColorToGrey,
-      required this.whiteToWhiteOpacity20,
-      required this.whiteToSmoky,
-      required this.whiteSmokeToNightRider,
-      required this.whiteToNero,
-      required this.mediumSlateBlueToDolphin,
-      required this.whiteSmokeToEclipse,
-      required this.solitudeToEclipse,
-      required this.greySuitToWhite,
-      required this.gainsboroToBlack,
-      required this.midnightExpressToWhite,
-      required this.solitude1ToNero,
-      required this.solitude2ToNightRider,
-      required this.snowToBlack});
+  const ThemedColors({
+    required this.dividerColorToGrey,
+    required this.whiteToWhiteOpacity20,
+    required this.whiteToSmoky,
+    required this.whiteSmokeToNightRider,
+    required this.whiteToNero,
+    required this.mediumSlateBlueToDolphin,
+    required this.whiteSmokeToEclipse,
+    required this.solitudeToEclipse,
+    required this.greySuitToWhite,
+    required this.gainsboroToBlack,
+    required this.midnightExpressToWhite,
+    required this.solitude1ToNero,
+    required this.solitude2ToNightRider,
+    required this.snowToBlack,
+    required this.whiteWithOpacity90ToNero,
+    required this.whiteSmoke2ToNightRider,
+    required this.solitudeTo1Black,
+    required this.whiteLilacToNightRider,
+  });
 
   @override
-  ThemeExtension<ThemedColors> copyWith(
-          {Color? whiteToWhiteOpacity20,
-          Color? dividerColorToGrey,
-          Color? whiteToSmoky,
-          Color? whiteSmokeToNightRider,
-          Color? whiteToNero,
-          Color? mediumSlateBlueToDolphin,
-          Color? whiteSmokeToEclipse,
-          Color? solitudeToEclipse,
-          Color? gainsboroToBlack,
-          Color? greySuitToWhite,
-          Color? midnightExpressToWhite,
-          Color? solitude1ToNero,
-          Color? solitude2ToNightRider,
-          Color? snowToBlack}) =>
+  ThemeExtension<ThemedColors> copyWith({
+    Color? whiteToWhiteOpacity20,
+    Color? dividerColorToGrey,
+    Color? whiteToSmoky,
+    Color? whiteSmokeToNightRider,
+    Color? whiteToNero,
+    Color? mediumSlateBlueToDolphin,
+    Color? whiteSmokeToEclipse,
+    Color? solitudeToEclipse,
+    Color? gainsboroToBlack,
+    Color? greySuitToWhite,
+    Color? midnightExpressToWhite,
+    Color? solitude1ToNero,
+    Color? solitude2ToNightRider,
+    Color? snowToBlack,
+    Color? whiteWithOpacity90ToNero,
+    Color? whiteSmoke2ToNightRider,
+    Color? solitude1ToBlack,
+    Color? whiteLilacToNightRider,
+  }) =>
       ThemedColors(
           dividerColorToGrey: dividerColorToGrey ?? this.dividerColorToGrey,
           whiteToWhiteOpacity20:
@@ -67,7 +81,14 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
           solitude1ToNero: solitude1ToNero ?? this.solitude1ToNero,
           solitude2ToNightRider:
               solitude2ToNightRider ?? this.solitude2ToNightRider,
-          snowToBlack: snowToBlack ?? this.snowToBlack);
+          snowToBlack: snowToBlack ?? this.snowToBlack,
+          whiteWithOpacity90ToNero:
+              whiteWithOpacity90ToNero ?? this.whiteWithOpacity90ToNero,
+          whiteSmoke2ToNightRider:
+              whiteSmoke2ToNightRider ?? this.whiteSmoke2ToNightRider,
+          solitudeTo1Black: solitude1ToBlack ?? this.solitudeTo1Black,
+          whiteLilacToNightRider:
+              whiteLilacToNightRider ?? this.whiteLilacToNightRider);
 
   @override
   ThemeExtension<ThemedColors> lerp(
@@ -111,6 +132,18 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
           Color.lerp(solitude2ToNightRider, other.solitude2ToNightRider, t) ??
               solitude2ToNightRider,
       snowToBlack: Color.lerp(snowToBlack, other.snowToBlack, t) ?? snowToBlack,
+      whiteWithOpacity90ToNero: Color.lerp(
+              whiteWithOpacity90ToNero, other.whiteWithOpacity90ToNero, t) ??
+          whiteWithOpacity90ToNero,
+      whiteSmoke2ToNightRider: Color.lerp(
+              whiteSmoke2ToNightRider, other.whiteSmoke2ToNightRider, t) ??
+          whiteSmoke2ToNightRider,
+      solitudeTo1Black:
+          Color.lerp(solitudeTo1Black, other.solitudeTo1Black, t) ??
+              solitudeTo1Black,
+      whiteLilacToNightRider:
+          Color.lerp(whiteLilacToNightRider, other.whiteLilacToNightRider, t) ??
+              whiteLilacToNightRider,
     );
   }
 }

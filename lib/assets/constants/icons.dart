@@ -18,4 +18,6 @@ class AppIcons {
   static const clock = 'assets/icons/global/clock.svg';
   static const close = 'assets/icons/global/close.svg';
   static const ticked = 'assets/icons/global/tick.svg';
+  static const tablerInfo = 'assets/icons/global/tabler_info_circle.svg';
+  static const tablerPhone = 'assets/icons/global/tabler_phone.svg';
 }

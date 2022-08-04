@@ -47,6 +47,10 @@ class LightThemeColors {
   static const gainsboroToBlack = _solitude1;
   static const solitude1ToNero = _solitude1;
   static const solitude2ToNightRider = _solitude2;
+  static const whiteWithOpacity90ToNero = _whiteWithOpacity90ToNero;
+  static const whiteSmoke2ToNightRider = _whiteSmoke2;
+  static const solitudeTo1Black = _solitude1;
+  static const whiteLilacToNightRider = _whiteLilac;
 
   //for keyboard
   static const whiteToDimGray = _white;
@@ -66,9 +70,12 @@ const _solitude = Color(0xffE2E2EA);
 const _solitude1 = Color(0xffFAFAFB);
 const _solitude2 = Color(0xffF1F1F5);
 const _white = Color(0xffffffff);
+const _whiteWithOpacity90ToNero = Color.fromRGBO(255, 255, 255, 9);
+const _whiteLilac = Color(0xffeeeeef);
 const _ghost = Color(0xffB5B5BE);
 const _whiteSmoke = Color(0xfff8f8f8);
 const _whiteSmoke1 = Color(0xffF4F4F4);
+const _whiteSmoke2 = Color(0xffE9E9E9);
 const _grey = Color(0xff92929D);
 const _mediumSlateBlue = Color(0xff695CEA);
 const _fuzzyWuzzyBrown = Color(0xffC8534D);

@@ -7,8 +7,9 @@ import '../../../../assets/constants/icons.dart';
 import '../../domain/entities/models/bottom_sheet_variants.dart';
 
 class BottomSheetContent extends StatefulWidget {
-  String markOrRegion;
-  BottomSheetContent({required this.markOrRegion, Key? key}) : super(key: key);
+  final String markOrRegion;
+  const BottomSheetContent({required this.markOrRegion, Key? key})
+      : super(key: key);
 
   @override
   State<BottomSheetContent> createState() => _BottomSheetContentState();
@@ -17,10 +18,9 @@ class BottomSheetContent extends StatefulWidget {
 class _BottomSheetContentState extends State<BottomSheetContent> {
   int currentValue = 0;
   List<BottomSheetVariantsModel> marks = [
+    BottomSheetVariantsModel(title: 'BMW', imageUrl: AppIcons.facebook, id: 1),
     BottomSheetVariantsModel(
-        title: 'BMW', picture: SvgPicture.asset(AppIcons.facebook), id: 1),
-    BottomSheetVariantsModel(
-        picture: SvgPicture.asset(AppIcons.facebook), title: 'Acura', id: 2),
+        imageUrl: AppIcons.facebook, title: 'Acura', id: 2),
   ];
   @override
   Widget build(BuildContext context) => Column(
@@ -93,7 +93,8 @@ class _BottomSheetContentState extends State<BottomSheetContent> {
                                   SizedBox(
                                     height: 32,
                                     width: 32,
-                                    child: marks[index].picture,
+                                    child:
+                                        SvgPicture.asset(marks[index].imageUrl),
                                   ),
                                   const SizedBox(width: 10),
                                   Expanded(

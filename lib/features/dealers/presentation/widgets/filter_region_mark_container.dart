@@ -5,18 +5,12 @@ import 'package:auto/features/dealers/presentation/widgets/bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-class ContainerRegionMark extends StatefulWidget {
-  String markOrRegion;
-  ContainerRegionMark({
+class ContainerRegionMark extends StatelessWidget {
+  final String markOrRegion;
+  const ContainerRegionMark({
     required this.markOrRegion,
     Key? key,
   }) : super(key: key);
-
-  @override
-  State<ContainerRegionMark> createState() => _ContainerRegionMarkState();
-}
-
-class _ContainerRegionMarkState extends State<ContainerRegionMark> {
   @override
   Widget build(BuildContext context) => GestureDetector(
         onTap: () {
@@ -34,7 +28,7 @@ class _ContainerRegionMarkState extends State<ContainerRegionMark> {
                       topLeft: Radius.circular(20),
                       topRight: Radius.circular(20))),
               builder: (context) =>
-                  BottomSheetContent(markOrRegion: widget.markOrRegion));
+                  BottomSheetContent(markOrRegion: markOrRegion));
         },
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
@@ -50,9 +44,7 @@ class _ContainerRegionMarkState extends State<ContainerRegionMark> {
             children: [
               Expanded(
                   child: Text(
-                widget.markOrRegion == 'Марка'
-                    ? 'Выберите марку'
-                    : 'Выберите регион',
+                markOrRegion == 'Марка' ? 'Выберите марку' : 'Выберите регион',
                 style: const TextStyle(
                   fontWeight: FontWeight.w600,
                   fontSize: 14,

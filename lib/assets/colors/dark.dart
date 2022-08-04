@@ -54,6 +54,10 @@ class DarkThemeColors {
   static const solitude1ToNero = _nero;
   static const solitude2ToNightRider = _nightRider;
   static const snowToBlack = _black;
+  static const whiteWithOpacity90ToNero = _nero;
+  static const whiteSmoke2ToNightRider = _nightRider;
+  static const solitude1ToBlack = _black;
+  static const whiteLilacToNightRider = _nightRider;
 
   static const dividerColorToGrey = _grey;
   static const warmerGreyToDarkGray = _dolphin;

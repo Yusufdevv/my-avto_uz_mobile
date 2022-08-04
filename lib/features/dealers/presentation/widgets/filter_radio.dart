@@ -1,9 +1,7 @@
+import 'package:auto/assets/colors/color.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/dealers/presentation/pages/dealers_filter.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import '../../../../assets/colors/color.dart';
-import '../../../../assets/themes/theme_extensions/themed_colors.dart';
 
 class FilterRadio extends StatelessWidget {
   final Category value;
@@ -51,7 +49,7 @@ class FilterRadio extends StatelessWidget {
                         .extension<ThemedColors>()!
                         .solitudeToEclipse),
           ),
-          duration: const Duration(milliseconds: 400),
+          duration: const Duration(milliseconds: 200),
           child: Row(
             children: [
               Radio(

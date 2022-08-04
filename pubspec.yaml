@@ -31,7 +31,7 @@ dependencies:
   shimmer: ^2.0.0
   easy_localization: ^3.0.0
   yandex_mapkit: ^3.0.3
-  carousel_slider: ^4.1.1
+
 
 dev_dependencies:
   flutter_test:

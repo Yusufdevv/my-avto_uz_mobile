@@ -21,15 +21,42 @@ class _DealersFilterState extends State<DealersFilter> {
         appBar: WAppBar(
           backgroundColor:
               Theme.of(context).extension<ThemedColors>()!.whiteToNero,
-          title: 'Фильтр',
           titleStyle:
               Theme.of(context).textTheme.headline1!.copyWith(fontSize: 16),
-          extraActions: const [
-            Text('Очистить'),
-            SizedBox(
+          extraActions: [
+            GestureDetector(
+              child: const Text(
+                'Очистить',
+                style: TextStyle(
+                    color: blue, fontWeight: FontWeight.w600, fontSize: 14),
+              ),
+            ),
+            const SizedBox(
               width: 16,
             )
           ],
+          child: Align(
+            alignment: Alignment.center,
+            child: Align(
+              alignment: Alignment.center,
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(
+                    'Фильтр',
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline1
+                        ?.copyWith(fontSize: 16, fontWeight: FontWeight.w600),
+                  ),
+                  const SizedBox(
+                    width: 250,
+                  )
+                ],
+              ),
+            ),
+          ),
         ),
         body: Container(
           color: Theme.of(context).extension<ThemedColors>()!.gainsboroToBlack,
@@ -84,7 +111,7 @@ class _DealersFilterState extends State<DealersFilter> {
                             fontSize: 14,
                             fontWeight: FontWeight.w400)),
                     const SizedBox(height: 8),
-                    ContainerRegionMark(
+                    const ContainerRegionMark(
                       markOrRegion: 'Марка',
                     ),
                     const SizedBox(height: 16),
