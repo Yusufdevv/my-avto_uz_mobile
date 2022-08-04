@@ -1,6 +1,8 @@
 import 'package:auto/assets/colors/light.dart';
+import 'package:auto/assets/constants/light.dart';
 import 'package:auto/assets/themes/theme_extensions/checkbox_style.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_icons.dart';
 import 'package:auto/assets/themes/theme_extensions/w_textfield_style.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -63,6 +65,8 @@ abstract class LightTheme {
               dodgerBlueToWhite80: LightThemeColors.dodgerBlueToWhite80,
               blackToWhite80: LightThemeColors.blackToWhite80,
               solitudeToCharcoal: LightThemeColors.solitudeToCharcoal,
+              solitudeToDolphin8: LightThemeColors.solitudeToDolphin8,
+              dolphinToWhite60: LightThemeColors.dolphinToWhite60,
               whiteSmokeToEclipse: LightThemeColors.whiteSmokeToEclipse,
               lavenderToUltramarine30: LightThemeColors.lavenderToUltramarine30,
               solitudeToDarkGray95: LightThemeColors.solitudeToDarkGray95,
@@ -70,13 +74,24 @@ abstract class LightTheme {
               veryLightGreyToEclipse: LightThemeColors.veryLightGreyToEclipse,
               transparentToSolitude12: LightThemeColors.transparentToSolitude12,
               whiteToDolphin: LightThemeColors.whiteToDolphin,
+              greySuitToWhite60: LightThemeColors.greySuitToWhite60,
+              dividerColorToWhiteOpacity: LightThemeColors.dividerColorToWhiteOpacity,
+              dolphinToGreySuit: LightThemeColors.dolphinToGreySuit,
+              whiteLilacToWhite4: LightThemeColors.whiteLilacToWhite4,
               solitudeContainerToDark: LightThemeColors.solitudeContainerToDark,
               aluminumToDolphin: LightThemeColors.aluminumToDolphin,
               whiteSmokeToDark: LightThemeColors.whiteSmokeToDark,
               whiteToGondola: LightThemeColors.whiteToGondola,
+              whiteLilacToWhiteLilac10: LightThemeColors.whiteLilacToWhiteLilac10,
+              solitudeBorderToSolitudeBorder10: LightThemeColors.solitudeBorderToSolitudeBorder10,
+              lightSlateBlue12ToLightSlateBlue: LightThemeColors.lightSlateBlue12ToLightSlateBlue,
+              mediumSlateBlueToWhite: LightThemeColors.mediumSlateBlueToWhite,
               midnightExpressToDolphin: LightThemeColors.midnightExpressToDolphin,
+              cinnabar12ToCinnabar: LightThemeColors.cinnabar12ToCinnabar,
               transparentToNightRider: LightThemeColors.transparentToNightRider,
             solitudeToBastille: LightThemeColors.solitudeToBastille,
+              solitudeToGondola: LightThemeColors.solitudeToGondola,
+              solitudeToPayneGrey: LightThemeColors.solitudeToPayneGrey,
               solitudeToNero: LightThemeColors.solitudeToNero,
               solitudeToEclipse: LightThemeColors.solitudeToEclipse,
               mediumSlateBlue50ToNightRider: LightThemeColors.mediumSlateBlue50ToNightRider,
@@ -90,12 +105,15 @@ abstract class LightTheme {
               ghostToEclipse: LightThemeColors.ghostToEclipse,
               snowToNightRider: LightThemeColors.snowToNightRider,
               whiteToSmoky: LightThemeColors.whiteToSmoky,
+              whiteToSecondNero: LightThemeColors.whiteToSecondNero,
+              whiteToWhite8: LightThemeColors.whiteToWhite8,
               lavenderToMediumSlateBlue30: LightThemeColors.lavenderToMediumSlateBlue30,
               midnightExpressToWhite: LightThemeColors.midnightExpressToWhite
           ),
           WTextFieldStyle(
               fillColor: LightThemeColors.solitudeToNero,
-              borderColor: LightThemeColors.solitudeToDarkRider)
+              borderColor: LightThemeColors.solitudeToDarkRider,),
+          ThemedIcons(imageUrl: LightIcons.logo ),
         },
       );
 
@@ -125,7 +143,7 @@ abstract class LightTheme {
   );
   static const headline5 = TextStyle(
     fontSize: 18,
-    fontWeight: FontWeight.w700,
+    fontWeight: FontWeight.w600,
     color: LightThemeColors.headline5,
     height: 1.33,
   );

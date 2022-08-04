@@ -1,6 +1,7 @@
 import 'package:auto/features/favorites/presentation/pages/add_screen.dart';
 import 'package:auto/features/main/presentation/pages/main_screen.dart';
 import 'package:auto/features/navigation/presentation/home.dart';
+import 'package:auto/features/posting_ad/posting_ad_screen.dart';
 import 'package:auto/features/profile/presentation/pages/profile_screen.dart';
 import 'package:auto/features/reviews/presentation/pages/reviews_screen.dart';
 import 'package:auto/features/search/presentation/pages/search_screen.dart';
@@ -36,7 +37,7 @@ class _TabNavigatorState extends State<TabNavigator>
         };
       case NavItemEnum.newPost:
         return {
-          TabNavigatorRoutes.root: (context) => const AddScreen(),
+          TabNavigatorRoutes.root: (context) => const PostingAdScreen(),
         };
       case NavItemEnum.categories:
         return {

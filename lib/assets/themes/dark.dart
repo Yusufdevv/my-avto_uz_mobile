@@ -1,6 +1,8 @@
 import 'package:auto/assets/colors/dark.dart';
+import 'package:auto/assets/constants/dark.dart';
 import 'package:auto/assets/themes/theme_extensions/checkbox_style.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_icons.dart';
 import 'package:auto/assets/themes/theme_extensions/w_textfield_style.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -64,48 +66,70 @@ abstract class DarkTheme {
             unselectedBorderColor: DarkThemeColors.warmerGreyToDarkGray,
           ),
           ThemedColors(
-              solitudeToBastille: DarkThemeColors.solitudeToBastille,
-              blackToWhite80: DarkThemeColors.blackToWhite80,
-              lavenderToUltramarine30: DarkThemeColors.lavenderToUltramarine30,
-              prussianBlueToWhite80: DarkThemeColors.prussianBlueToWhite80,
-              transparentToSolitude12: DarkThemeColors.transparentToSolitude12,
-              whiteSmokeToEclipse: DarkThemeColors.whiteSmokeToEclipse,
-              lavenderToMediumSlateBlue30: DarkThemeColors.lavenderToMediumSlateBlue30,
-              ghostWhiteToUltramarine10: DarkThemeColors.ghostWhiteToUltramarine10,
-              solitudeToDarkGray95: DarkThemeColors.solitudeToDarkGray95,
-              aluminumToDolphin: DarkThemeColors.aluminumToDolphin,
-              whiteSmokeToDark: DarkThemeColors.whiteSmokeToDark,
-              transparentToNightRider: DarkThemeColors.transparentToNightRider,
-              dodgerBlueToWhite80: DarkThemeColors.dodgerBlueToWhite80,
-              solitudeToWhite35: DarkThemeColors.solitudeToWhite35,
-              solitudeToSolitude14: DarkThemeColors.solitudeToSolitude14,
-              whiteToDark: DarkThemeColors.whiteToDark,
-              solitudeToDarkRider: DarkThemeColors.solitudeToDarkRider,
-              snowToNightRider: DarkThemeColors.snowToNightRider,
-              mediumSlateBlue50ToNightRider: DarkThemeColors.mediumSlateBlue50ToNightRider,
-              stormGrey16ToStormGrey32: DarkThemeColors.stormGrey16ToStormGrey32,
-              darkToWhite: DarkThemeColors.darkToWhite,
-              midnightExpressToDolphin: DarkThemeColors.midnightExpressToDolphin,
-              ghostToEclipse: DarkThemeColors.ghostToEclipse,
-              blackToWhite: DarkThemeColors.blackToWhite,
-              stormGrey12ToStormGrey24: DarkThemeColors.stormGrey12ToStormGrey24,
-              snowToNero: DarkThemeColors.snowToNero,
-              solitudeToNero: DarkThemeColors.solitudeToNero,
-              whiteToSmoky: DarkThemeColors.whiteToSmoky,
-              solitudeToEclipse: DarkThemeColors.solitudeToEclipse,
-              dividerColorToGrey: DarkThemeColors.dividerColorToGrey,
-              whiteToDolphin: DarkThemeColors.whiteToDolphin,
-              solitudeToCharcoal: DarkThemeColors.solitudeToCharcoal,
-              whiteToWhiteOpacity20: DarkThemeColors.whiteToWhiteOpacity20,
-              veryLightGreyToEclipse: DarkThemeColors.veryLightGreyToEclipse),
-              solitudeContainerToDark: DarkThemeColors.solitudeContainerToDark,
-              whiteToGondola: DarkThemeColors.whiteToGondola,
-              midnightExpressToWhite: DarkThemeColors.midnightExpressToWhite,
-              whiteToWhiteOpacity20: DarkThemeColors.whiteToWhiteOpacity20, veryLightGreyToEclipse: DarkThemeColors.veryLightGreyToEclipse),
+            solitudeToBastille: DarkThemeColors.solitudeToBastille,
+            blackToWhite80: DarkThemeColors.blackToWhite80,
+            lavenderToUltramarine30: DarkThemeColors.lavenderToUltramarine30,
+            prussianBlueToWhite80: DarkThemeColors.prussianBlueToWhite80,
+            transparentToSolitude12: DarkThemeColors.transparentToSolitude12,
+            whiteSmokeToEclipse: DarkThemeColors.whiteSmokeToEclipse,
+            lavenderToMediumSlateBlue30:
+                DarkThemeColors.lavenderToMediumSlateBlue30,
+            ghostWhiteToUltramarine10:
+                DarkThemeColors.ghostWhiteToUltramarine10,
+            solitudeToDarkGray95: DarkThemeColors.solitudeToDarkGray95,
+            aluminumToDolphin: DarkThemeColors.aluminumToDolphin,
+            whiteSmokeToDark: DarkThemeColors.whiteSmokeToDark,
+            transparentToNightRider: DarkThemeColors.transparentToNightRider,
+            dodgerBlueToWhite80: DarkThemeColors.dodgerBlueToWhite80,
+            solitudeToWhite35: DarkThemeColors.solitudeToWhite35,
+            solitudeToSolitude14: DarkThemeColors.solitudeToSolitude14,
+            whiteToDark: DarkThemeColors.whiteToDark,
+            solitudeBorderToSolitudeBorder10:
+                DarkThemeColors.solitudeBorderToSolitudeBorder10,
+            whiteToSecondNero: DarkThemeColors.whiteToSecondNero,
+            solitudeToDarkRider: DarkThemeColors.solitudeToDarkRider,
+            whiteLilacToWhiteLilac10: DarkThemeColors.whiteLilacToWhiteLilac3,
+            snowToNightRider: DarkThemeColors.snowToNightRider,
+            greySuitToWhite60: DarkThemeColors.greySuitToWhite60,
+            mediumSlateBlue50ToNightRider:
+                DarkThemeColors.mediumSlateBlue50ToNightRider,
+            stormGrey16ToStormGrey32: DarkThemeColors.stormGrey16ToStormGrey32,
+            darkToWhite: DarkThemeColors.darkToWhite,
+            midnightExpressToDolphin: DarkThemeColors.midnightExpressToDolphin,
+            ghostToEclipse: DarkThemeColors.ghostToEclipse,
+            mediumSlateBlueToWhite: DarkThemeColors.mediumSlateBlueToWhite,
+            solitudeToDolphin8: DarkThemeColors.solitudeToDolphin8,
+            dolphinToWhite60: DarkThemeColors.dolphinToWhite60,
+            lightSlateBlue12ToLightSlateBlue:
+                DarkThemeColors.lightSlateBlue12ToLightSlateBlue,
+            solitudeToPayneGrey: DarkThemeColors.solitudeToPayneGrey,
+            blackToWhite: DarkThemeColors.blackToWhite,
+            stormGrey12ToStormGrey24: DarkThemeColors.stormGrey12ToStormGrey24,
+            snowToNero: DarkThemeColors.snowToNero,
+            dolphinToGreySuit: DarkThemeColors.dolphinToGreySuit,
+            dividerColorToWhiteOpacity:
+                DarkThemeColors.dividerColorToWhiteOpacity,
+            solitudeToNero: DarkThemeColors.solitudeToNero,
+            whiteToSmoky: DarkThemeColors.whiteToSmoky,
+            cinnabar12ToCinnabar: DarkThemeColors.cinnabar12ToCinnabar,
+            whiteLilacToWhite4: DarkThemeColors.whiteLilacToWhite4,
+            solitudeToEclipse: DarkThemeColors.solitudeToEclipse,
+            dividerColorToGrey: DarkThemeColors.dividerColorToGrey,
+            whiteToDolphin: DarkThemeColors.whiteToDolphin,
+            solitudeToCharcoal: DarkThemeColors.solitudeToCharcoal,
+            whiteToWhiteOpacity20: DarkThemeColors.whiteToWhiteOpacity20,
+            veryLightGreyToEclipse: DarkThemeColors.veryLightGreyToEclipse,
+            solitudeContainerToDark: DarkThemeColors.solitudeContainerToDark,
+            whiteToGondola: DarkThemeColors.whiteToGondola,
+            whiteToWhite8: DarkThemeColors.whiteToWhite8,
+            solitudeToGondola: DarkThemeColors.solitudeToGondola,
+            midnightExpressToWhite: DarkThemeColors.midnightExpressToWhite,
+          ),
           WTextFieldStyle(
             fillColor: DarkThemeColors.solitudeToNero,
             borderColor: DarkThemeColors.solitudeToDarkRider,
-          )
+          ),
+          ThemedIcons(imageUrl: DarkIcons.logo),
         },
       );
 
@@ -128,14 +152,14 @@ abstract class DarkTheme {
     color: DarkThemeColors.headline3,
   );
   static const headline4 = TextStyle(
-    fontSize: 20,
-    fontWeight: FontWeight.w700,
+    fontSize: 16,
+    fontWeight: FontWeight.w600,
     color: DarkThemeColors.headline4,
     height: 1.2,
   );
   static const headline5 = TextStyle(
     fontSize: 18,
-    fontWeight: FontWeight.w700,
+    fontWeight: FontWeight.w600,
     color: DarkThemeColors.headline5,
     height: 1.33,
   );

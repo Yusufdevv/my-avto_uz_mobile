@@ -20,4 +20,5 @@ class AppImages {
   static const carFromOpposite = 'assets/images/global/car_from_opposite.png';
   static const carFromBack = 'assets/images/global/car_from_back.png';
   static const bmwInfo = 'assets/images/global/bmw_info.png';
+  static const logo = 'assets/images/global/logo.png';
 }

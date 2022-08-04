@@ -16,6 +16,8 @@ dependencies:
   equatable: ^2.0.3
   json_annotation: ^4.5.0
   dio: ^4.0.6
+  video_player: ^2.4.5
+  yandex_mapkit: ^3.0.3
   get_it: ^7.2.0
   formz: ^0.4.1
   flutter_bloc: ^8.0.0
@@ -50,17 +52,7 @@ flutter:
     - assets/icons/global/
     - assets/images/global/
     - assets/images/
-    - assets/icons/search/
-    - assets/icons/create/
     - assets/icons/global/
-    - assets/icons/main/
-    - assets/icons/profile/
     - assets/icons/navbar/
-    - assets/icons/event/
-    - assets/icons/auth/
-    - assets/icons/section/
-    - assets/icons/create_post/
-    - assets/icons/events/
-    - assets/fonts/
     - lib/assets/strings/
 

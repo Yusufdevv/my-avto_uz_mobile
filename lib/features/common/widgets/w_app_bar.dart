@@ -109,7 +109,7 @@ class WAppBar extends StatelessWidget implements PreferredSizeWidget {
                 ],
               ),
               if (child != null) Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [child!],
               ) else Row(
                 mainAxisAlignment: centerTitle

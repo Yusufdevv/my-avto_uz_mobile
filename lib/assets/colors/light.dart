@@ -46,13 +46,14 @@ class LightThemeColors {
   static const dividerColorToGrey = _solitude;
   static const warmerGreyToDarkGray = _ghost;
   static const solitudeToNero = _solitude2;
-  static const solitudeToDarkRider = _solitude;
+  static const solitudeToDarkRider = _solitudeBorder;
   static const veryLightGreyToEclipse = _veryLightGrey;
   static const whiteToDolphin = _white;
   static const solitudeToWhite35 = _solitude;
   static const solitudeToSolitude14 = _solitude;
   static const transparentToSolitude12 = _transparent;
   static const solitudeToDarkGray95 = _solitude;
+  static const mediumSlateBlueToWhite = _mediumSlateBlue;
   static const solitudeToCharcoal = _solitude;
   static const whiteToDark = _white;
   static const midnightExpressToWhite = _midnightExpress;
@@ -76,7 +77,19 @@ class LightThemeColors {
 
   static const whiteToGondola = _white;
   static const midnightExpressToDolphin = _midnightExpress;
-
+  static const whiteToWhite8 = _white;
+  static const whiteToSecondNero = _white;
+  static const greySuitToWhite60 = _grey;
+  static const dolphinToWhite60 = _dolphin;
+  static const solitudeToGondola = _white;
+  static const solitudeToPayneGrey = _solitude;
+  static const dolphinToGreySuit = _dolphin;
+  static const lightSlateBlue12ToLightSlateBlue = _lightSlateBlue12;
+  static const whiteLilacToWhiteLilac10 = _whiteLilac;
+  static const solitudeBorderToSolitudeBorder10 = _solitudeBorder;
+  static const whiteLilacToWhite4 = _whiteLilac;
+  static const  solitudeToDolphin8 = _solitudeBorder;
+  static const cinnabar12ToCinnabar = _cinnabar12;
 }
 
 // Main palette (http://www.color-blindness.com/color-name-hue/).
@@ -91,6 +104,7 @@ const _whiteSmoke = Color(0xfff8f8f8);
 const _grey = Color(0xff92929D);
 const _mediumSlateBlue = Color(0xff695CEA);
 const _cinnabar = Color(0xffEA5930);
+const _cinnabar12 = Color(0x1fEA5930);
 const _black = Color(0xff000000);
 const _blackOpacity = Color(0x80000000);
 const _dodgerBlue = Color(0xff007AFF);
@@ -105,3 +119,6 @@ const _ghostWhite = Color(0xffF7F6FF);
 const _solitudeContainer = Color(0xfffafafb);
 const _aluminum = Color(0xff7f878f);
 const _stormGrey12 = Color(0x1f767680);
+const _lightSlateBlue12 = Color(0x1f7B61FF);
+const _whiteLilac = Color(0xffF4F4F5);
+const _solitudeBorder = Color(0xffF1F1F5);

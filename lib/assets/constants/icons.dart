@@ -28,6 +28,7 @@ class AppIcons {
   static const arrowLeft = 'assets/icons/global/arrow_left.svg';
   static const close = 'assets/icons/global/close.svg';
   static const flagUzb = 'assets/icons/global/flag_uzb.svg';
+  static const bell = 'assets/icons/global/bell.svg';
   static const eye = 'assets/icons/global/eye.svg';
   static const circlePlus = 'assets/icons/global/circle_plus.svg';
   static const closeSquare = 'assets/icons/global/close_square.svg';
@@ -49,4 +50,19 @@ class AppIcons {
   static const id = 'assets/icons/global/id.svg';
   static const checkRounded = 'assets/icons/global/check_rounded.svg';
   static const plus = 'assets/icons/global/plus.svg';
+  static const backgroundIcon = 'assets/icons/global/background_icon.svg';
+  static const videoIcon = 'assets/icons/global/video_icon.svg';
+  static const flash = 'assets/icons/global/flash.svg';
+  static const vehicle = 'assets/icons/global/vehicle.svg';
+  static const carSharing = 'assets/icons/global/car_sharing.svg';
+  static const insurance = 'assets/icons/global/insurance.svg';
+  static const rentCar = 'assets/icons/global/rent_car.svg';
+  static const review = 'assets/icons/global/review.svg';
+  static const verification = 'assets/icons/global/verification.svg';
+  static const ads = 'assets/icons/global/ads.svg';
+  static const location = 'assets/icons/global/location.svg';
+  static const heart = 'assets/icons/global/heart.svg';
+  static const scale = 'assets/icons/global/scale.svg';
+  static const heartWhite = 'assets/icons/global/heart_white.svg';
+  static const closeWhite = 'assets/icons/global/close_white.svg';
 }

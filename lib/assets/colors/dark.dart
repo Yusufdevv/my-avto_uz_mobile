@@ -23,7 +23,7 @@ class DarkThemeColors {
   static const headline2 = _white;
   static const headline3 = _mediumSlateBlue;
   static const headline4 = _white;
-  static const headline5 = _cinnabar;
+  static const headline5 = _white;
   static const headline6 = _solitude;
   static const bodyText1 = _white;
   static const bodyText2 =  _dodgerBlue;
@@ -73,16 +73,28 @@ class DarkThemeColors {
   static const whiteSmokeToDark = _nero;
   static const transparentToNightRider = _nightRider;
   static const ghostToEclipse = _eclipse;
+  static const dolphinToGreySuit = _greySuit;
   static const snowToNero = _nero;
   static const blackToWhite = _white;
 
   static const solitudeToEclipse = _eclipse;
-
+  static const cinnabar12ToCinnabar = _cinnabar;
   static const stormGrey12ToStormGrey24 = _stormGrey24;
   static const whiteToSmoky = _smoky;
   static const whiteToGondola = _gondola;
+  static const solitudeToGondola = _gondola;
   static const midnightExpressToDolphin = _dolphin;
-
+  static const whiteToWhite8 = _white8;
+  static const solitudeToPayneGrey = _payneGrey;
+  static const lightSlateBlue12ToLightSlateBlue = _lightSlateBlue;
+  static const mediumSlateBlueToWhite = _white;
+  static const whiteLilacToWhiteLilac3 = _whiteLilac3;
+  static const solitudeBorderToSolitudeBorder10 = _solitudeBorder10;
+  static const whiteToSecondNero = _secondNero;
+  static const greySuitToWhite60 = _white60;
+  static const whiteLilacToWhite4 = _white4;
+  static const dolphinToWhite60 = _white60;
+  static const  solitudeToDolphin8 = _dolphin8;
 }
 
 // Main palette (http://www.color-blindness.com/color-name-hue/).
@@ -121,3 +133,12 @@ const _ultramarine30 = Color(0x4d170C85);
 const _stormGrey24 = Color(0x3d767680);
 const _smoky = Color(0xff636366);
 const _gondola = Color(0xff363636);
+const _white8 = Color(0x14ffffff);
+const _lightSlateBlue = Color(0xff7B61FF);
+const _payneGrey = Color(0xff404041);
+const _whiteLilac3 = Color(0x08F4F4F5);
+const _solitudeBorder10 = Color(0x1aF1F1F5);
+const _secondNero = Color(0xff252525);
+const _white60 = Color(0x99ffffff);
+const _white4 = Color(0x0affffff);
+const _dolphin8 = Color(0x14696974);
