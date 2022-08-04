@@ -4,6 +4,7 @@ import 'package:auto/assets/constants/images.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/common/widgets/w_textfield.dart';
 import 'package:auto/features/profile/presentation/widgets/app_bar_child.dart';
+import 'package:auto/features/profile/presentation/widgets/camera_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
@@ -203,15 +204,32 @@ class _ChatState extends State<Chat> {
                     Expanded(
                       child: WTextField(
                         height: 44,
-                        prefix: Container(
-                          height: 32,
-                          width: 32,
-                          margin: const EdgeInsets.all(6),
-                          padding: const EdgeInsets.all(4),
-                          decoration: BoxDecoration(
-                              color: border,
-                              borderRadius: BorderRadius.circular(6)),
-                          child: SvgPicture.asset(AppIcons.piperClip),
+                        prefix: WScaleAnimation(
+                          onTap: () {
+                            showModalBottomSheet(
+                                backgroundColor: Colors.transparent,
+                                isScrollControlled: true,
+                                context: context,
+                                useRootNavigator: true,
+                                constraints: BoxConstraints(
+                                    maxHeight:
+                                        MediaQuery.of(context).size.height *
+                                            0.3,
+                                    minWidth:
+                                        MediaQuery.of(context).size.width),
+                                builder: (context) =>
+                                    const CameraBottomSheet());
+                          },
+                          child: Container(
+                            height: 32,
+                            width: 32,
+                            margin: const EdgeInsets.all(6),
+                            padding: const EdgeInsets.all(4),
+                            decoration: BoxDecoration(
+                                color: border,
+                                borderRadius: BorderRadius.circular(6)),
+                            child: SvgPicture.asset(AppIcons.piperClip),
+                          ),
                         ),
                         borderRadius: 8,
                         hintText: 'Введите сообщение...',
