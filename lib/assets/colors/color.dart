@@ -46,6 +46,7 @@ const lavender = _lavender;
 const mediumSeaGreen = _mediumSeaGreen;
 const hoursGreen = _kellyGreen;
 const whiteSmoke = _whiteSmoke;
+const blackRock = _blackRock;
 // Main palette (http://www.color-blindness.com/color-name-hue/).
 const _bittersweet = Color(0xFFFF7474);
 const _whiteSmoke = Color(0xFFF4F4F4);
@@ -93,3 +94,4 @@ const _roseWhite = Color(0xFFFDF4F3);
 const _cosmicLatte = Color(0xFFEBFAF0);
 const _lavender = Color(0xFFF2F4FC);
 const _mediumSeaGreen = Color(0xFF38AF7F);
+const _blackRock = Color(0xFF292E37);

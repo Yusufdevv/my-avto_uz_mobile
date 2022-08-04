@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/features/common/widgets/cached_image.dart';
@@ -7,10 +6,8 @@ import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/common/widgets/w_textfield.dart';
 import 'package:auto/features/profile/presentation/widgets/camera_bottom_sheet.dart';
 import 'package:auto/features/profile/presentation/widgets/title_text_field_top.dart';
-import 'package:auto/utils/logger.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 class EditProfileScreen extends StatefulWidget {
@@ -23,28 +20,6 @@ class EditProfileScreen extends StatefulWidget {
 }
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
-  PickedFile? imageFile;
-  late ImagePicker picker;
-
-  Future<void> onImageButtonPressed(
-      ImageSource source, BuildContext context) async {
-    try {
-      final pickedFile = await picker.pickImage(source: source);
-      if (pickedFile != null) {
-        final length = File(pickedFile.path).lengthSync();
-        debugLogging(length);
-
-        if (length > 5242880) {
-          showError(context, 'select image less than 5 mb');
-        }
-      } else {
-        showError(context, 'image not found');
-      }
-    } on Exception catch (e) {
-      showError(context, 'image error: $e');
-    }
-  }
-
   void showError(BuildContext context, String msg) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
@@ -64,9 +39,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               margin: const EdgeInsets.only(top: 16),
               padding: const EdgeInsets.only(left: 16, right: 16, top: 24),
               decoration: const BoxDecoration(
-                borderRadius: BorderRadius.vertical(
-                  top: Radius.circular(20),
-                ),
+                borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
                 color: white,
               ),
               child: Column(

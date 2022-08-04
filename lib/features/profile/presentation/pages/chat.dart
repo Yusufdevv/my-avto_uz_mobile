@@ -10,6 +10,7 @@ import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 class Chat extends StatefulWidget {
   final bool hasChat;
+
   const Chat({Key? key, required this.hasChat}) : super(key: key);
 
   @override
@@ -67,6 +68,7 @@ class _ChatState extends State<Chat> {
                       )),
                 )
               : Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Container(
                       margin: const EdgeInsets.only(right: 16),
@@ -113,10 +115,12 @@ class _ChatState extends State<Chat> {
                       ),
                     ),
                     Container(
-                      margin: const EdgeInsets.only(left: 16),
+                      margin: const EdgeInsets.only(left: 16, top: 16),
                       child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           Container(
+                            margin: EdgeInsets.only(right: 8, bottom: 22),
                             height: 40,
                             width: 40,
                             decoration: const BoxDecoration(
@@ -127,22 +131,68 @@ class _ChatState extends State<Chat> {
                               ),
                             ),
                           ),
-                          Container(
-                            decoration: const BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(16),
-                                    topRight: Radius.circular(16),
-                                    bottomRight: Radius.circular(16),
-                                    bottomLeft: Radius.circular(4)),
-                                color: orange),
-                            child: Text(name),
-                          )
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                width: 283,
+                                padding:
+                                    const EdgeInsets.fromLTRB(12, 8, 12, 12),
+                                decoration: const BoxDecoration(
+                                    borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(16),
+                                        topRight: Radius.circular(16),
+                                        bottomRight: Radius.circular(16),
+                                        bottomLeft: Radius.circular(4)),
+                                    color: border),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'auto.uz',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headline1!
+                                          .copyWith(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w600),
+                                    ),
+                                    const SizedBox(height: 4),
+                                    Text(
+                                      name,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headline2!
+                                          .copyWith(color: blackRock),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(height: 4),
+                              Row(
+                                children: [
+                                  Text(
+                                    '18:18',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headline6!
+                                        .copyWith(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w400),
+                                  ),
+                                  const SizedBox(width: 4),
+                                  SvgPicture.asset(AppIcons.checks)
+                                ],
+                              )
+                            ],
+                          ),
                         ],
                       ),
-                    )
+                    ),
                   ],
                 ),
           bottomNavigationBar: Container(
+            margin: EdgeInsets.only(top: 24),
             padding: EdgeInsets.all(8),
             color: white,
             child: Column(
