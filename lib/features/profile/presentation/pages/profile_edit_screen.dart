@@ -1,10 +1,13 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/assets/themes/theme_extensions/w_textfield_style.dart';
 import 'package:auto/features/common/widgets/cached_image.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/common/widgets/w_textfield.dart';
 import 'package:auto/features/profile/presentation/widgets/camera_bottom_sheet.dart';
+import 'package:auto/features/profile/presentation/widgets/language_bottom_sheet.dart';
 import 'package:auto/features/profile/presentation/widgets/title_text_field_top.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -33,15 +36,17 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   Widget build(BuildContext context) => Scaffold(
         appBar: const WAppBar(textWithButton: 'Мой профиль'),
         body: KeyboardDismisser(
-          child: SingleChildScrollView(
-            physics: const BouncingScrollPhysics(),
-            child: Container(
-              margin: const EdgeInsets.only(top: 16),
-              padding: const EdgeInsets.only(left: 16, right: 16, top: 24),
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-                color: white,
-              ),
+          child: Container(
+            height: MediaQuery.of(context).size.height,
+            margin: const EdgeInsets.only(top: 16),
+            padding: const EdgeInsets.only(left: 16, right: 16, top: 24),
+            decoration: BoxDecoration(
+              borderRadius:
+                  const BorderRadius.vertical(top: Radius.circular(20)),
+              color: Theme.of(context).appBarTheme.backgroundColor,
+            ),
+            child: SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
               child: Column(
                 children: [
                   Align(
@@ -81,11 +86,13 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   ),
                   const TitleTextFieldTop(title: 'Имя'),
                   WTextField(
+                    disabledColor:
+                        Theme.of(context).appBarTheme.backgroundColor,
                     textStyle: Theme.of(context)
                         .textTheme
                         .headline1!
                         .copyWith(fontSize: 14, fontWeight: FontWeight.w600),
-                    borderRadius: 8,
+                    borderRadius: 12,
                     hintText: 'Джасурбек',
                     hintTextStyle: Theme.of(context)
                         .textTheme
@@ -95,11 +102,17 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     controller: TextEditingController(),
                     filled: true,
                     contentPadding: const EdgeInsets.symmetric(horizontal: 16),
-                    fillColor: borderCircular,
+                    fillColor: Theme.of(context).appBarTheme.backgroundColor,
                   ),
                   const TitleTextFieldTop(title: 'Фамилия'),
                   WTextField(
-                    borderRadius: 8,
+                    textStyle: Theme.of(context)
+                        .textTheme
+                        .headline1!
+                        .copyWith(fontSize: 14, fontWeight: FontWeight.w600),
+                    disabledColor:
+                        Theme.of(context).appBarTheme.backgroundColor,
+                    borderRadius: 12,
                     hintText: 'Нарзуллаев',
                     hintTextStyle: Theme.of(context)
                         .textTheme
@@ -109,27 +122,69 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     controller: TextEditingController(),
                     filled: true,
                     contentPadding: const EdgeInsets.symmetric(horizontal: 16),
-                    fillColor: borderCircular,
+                    fillColor: Theme.of(context).appBarTheme.backgroundColor,
                   ),
                   const TitleTextFieldTop(title: 'Регион'),
-                  WTextField(
-                    suffix: SvgPicture.asset(AppIcons.chevronRight),
-                    borderRadius: 8,
-                    hintText: 'г. Ташкент',
-                    hintTextStyle: Theme.of(context)
-                        .textTheme
-                        .headline1!
-                        .copyWith(fontWeight: FontWeight.w600, fontSize: 14),
-                    onChanged: (tmp) {},
-                    controller: TextEditingController(),
-                    filled: true,
-                    contentPadding: const EdgeInsets.symmetric(horizontal: 16),
-                    fillColor: borderCircular,
+                  WScaleAnimation(
+                    onTap: () {
+                      showModalBottomSheet(
+                          isScrollControlled: true,
+                          context: context,
+                          useRootNavigator: true,
+                          backgroundColor: Colors.transparent,
+                          constraints: BoxConstraints(
+                              maxHeight:
+                                  MediaQuery.of(context).size.height * 0.3,
+                              minWidth: MediaQuery.of(context).size.width),
+                          builder: (context) => const LanguageBottomSheet());
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.only(
+                          left: 16, top: 12, bottom: 12, right: 10),
+                      decoration: BoxDecoration(
+                        color:  Theme.of(context).appBarTheme.backgroundColor,
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(
+                            color: Theme.of(context)
+                                .extension<WTextFieldStyle>()!
+                                .borderColor),
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Row(
+                            children: [
+                              Text(
+                                'г. Ташкент',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline1!
+                                    .copyWith(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.w600),
+                              ),
+                              const Spacer(),
+                              SvgPicture.asset(
+                                AppIcons.chevronRight,
+                                color: Theme.of(context)
+                                    .extension<ThemedColors>()!
+                                    .darkGreyToWhite,
+                              )
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                   const TitleTextFieldTop(title: 'Email'),
                   WTextField(
+                    textStyle: Theme.of(context)
+                        .textTheme
+                        .headline1!
+                        .copyWith(fontSize: 14, fontWeight: FontWeight.w600),
+                    disabledColor:  Theme.of(context).appBarTheme.backgroundColor,
                     suffix: SvgPicture.asset(AppIcons.lock),
-                    borderRadius: 8,
+                    borderRadius: 12,
                     hintText: 'boss@auto.uz',
                     hintTextStyle: Theme.of(context)
                         .textTheme
@@ -139,7 +194,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     controller: TextEditingController(),
                     filled: true,
                     contentPadding: const EdgeInsets.symmetric(horizontal: 16),
-                    fillColor: borderCircular,
+                    fillColor:  Theme.of(context).appBarTheme.backgroundColor,
                   ),
                 ],
               ),

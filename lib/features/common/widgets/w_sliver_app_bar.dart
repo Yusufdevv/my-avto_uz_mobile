@@ -1,4 +1,3 @@
-import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:flutter/material.dart';
@@ -53,7 +52,7 @@ class WSliverAppBar extends StatelessWidget {
         flexibleSpace: FlexibleSpaceBar(
           collapseMode: CollapseMode.parallax,
           background: Container(
-            color: white,
+            color:  Theme.of(context).appBarTheme.backgroundColor,
             height: (height ?? 52) + MediaQuery.of(context).padding.top,
             padding: EdgeInsets.only(
                 left: 0,

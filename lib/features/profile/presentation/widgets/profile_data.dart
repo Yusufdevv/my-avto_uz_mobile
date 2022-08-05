@@ -1,6 +1,7 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/assets/themes/theme_extensions/w_textfield_style.dart';
 import 'package:auto/features/common/widgets/cached_image.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:flutter/material.dart';
@@ -30,8 +31,10 @@ class ProfileData extends StatelessWidget {
           margin: margin,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: border),
-            color: white,
+            border: Border.all(color: Theme.of(context)
+                .extension<WTextFieldStyle>()!
+                .borderColor),
+            color: Theme.of(context).extension<ThemedColors>()!.whiteToNero1,
           ),
           child: Column(
             children: [

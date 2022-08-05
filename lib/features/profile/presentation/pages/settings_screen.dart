@@ -33,6 +33,7 @@ class SettingsScreen extends StatelessWidget {
               Container(
                   margin: const EdgeInsets.all(63),
                   child: Image.asset(AppImages.editPassword)),
+              
             ],
           ),
         ),
@@ -41,7 +42,7 @@ class SettingsScreen extends StatelessWidget {
           onTap: () {
             Navigator.of(context).push(
               fade(
-                page: const PasswordChangeScreen(),
+                page: PasswordChangeScreen(),
               ),
             );
           },
@@ -51,4 +52,4 @@ class SettingsScreen extends StatelessWidget {
       );
 }
 
-//PasswordTextField(controller: _passwordController),
+//

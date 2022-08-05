@@ -1,4 +1,6 @@
 import 'package:auto/assets/colors/color.dart';
+import 'package:auto/assets/themes/theme_extensions/checkbox_style.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/profile/presentation/widgets/custom_tab.dart';
 import 'package:flutter/material.dart';
 
@@ -23,18 +25,18 @@ class ProfileTabBar extends StatelessWidget {
           height: 32,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8.91),
-            color: const Color.fromRGBO(118, 118, 128, 0.12),
+            color: const Color.fromRGBO(118, 118, 128, 0.24),
           ),
           child: Padding(
             padding: const EdgeInsets.all(2),
             child: TabBar(
               indicatorWeight: 0,
               onTap: onTap,
-              unselectedLabelColor: black,
               labelPadding: EdgeInsets.zero,
-              labelColor: black,
               indicator: BoxDecoration(
-                color: white,
+                color: Theme.of(context)
+                    .extension<CheckBoxStyle>()!
+                    .unselectedItemColor,
                 borderRadius: const BorderRadius.all(
                   Radius.circular(6.93),
                 ),
@@ -54,6 +56,10 @@ class ProfileTabBar extends StatelessWidget {
               ),
               controller: tabController,
               labelStyle: Theme.of(context).textTheme.headline6,
+              labelColor:
+                  Theme.of(context).extension<ThemedColors>()!.blackToWhite,
+              unselectedLabelColor:
+                  Theme.of(context).extension<ThemedColors>()!.blackToWhite,
               tabs: List.generate(
                 tabs.length,
                 (index) => CustomTab(

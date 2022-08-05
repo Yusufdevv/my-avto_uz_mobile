@@ -1,4 +1,3 @@
-import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
@@ -41,8 +40,8 @@ class ScrolledBottomSheet extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     alignment: Alignment.centerLeft,
                     width: double.infinity,
-                    decoration: const BoxDecoration(
-                        color: white,
+                    decoration: BoxDecoration(
+                        color: Theme.of(context).scaffoldBackgroundColor,
                         borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(20),
                           topRight: Radius.circular(20),
@@ -82,7 +81,7 @@ class ScrolledBottomSheet extends StatelessWidget {
                 SliverToBoxAdapter(
                   child: Container(
                     width: double.infinity,
-                    color: white,
+                    color: Theme.of(context).scaffoldBackgroundColor,
                     child: pinnedChild,
                   ),
                 )
@@ -91,14 +90,14 @@ class ScrolledBottomSheet extends StatelessWidget {
               if (child != null)
                 SliverFillRemaining(
                   child: Container(
-                    color: white,
+                    color: Theme.of(context).scaffoldBackgroundColor,
                     child: child,
                   ),
                 )
               else
                 SliverToBoxAdapter(
                   child: Container(
-                    color: white,
+                    color: Theme.of(context).scaffoldBackgroundColor,
                     child: ListView(
                       shrinkWrap: true,
                       children: [

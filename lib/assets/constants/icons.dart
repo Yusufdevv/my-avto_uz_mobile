@@ -57,4 +57,8 @@ class AppIcons {
   static const piperClip = 'assets/icons/profile/paperclip.svg';
   static const send = 'assets/icons/profile/send.svg';
   static const checks = 'assets/icons/profile/checks.svg';
+  static const scales = 'assets/icons/profile/scales.svg';
+  static const tabletNews = 'assets/icons/profile/tablet_news.svg';
+  static const tabletReport = 'assets/icons/profile/tablet_report.svg';
+  static const tablet = 'assets/icons/profile/tablet.svg';
 }

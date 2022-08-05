@@ -1,5 +1,5 @@
-import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/profile/presentation/widgets/scrolled_bottomsheet.dart';
@@ -28,6 +28,7 @@ class CameraBottomSheetState extends State<CameraBottomSheet> {
 
   int selectedCamera = 0;
   late final ValueChanged<ImageSource> imageType;
+
   @override
   Widget build(BuildContext context) => ScrolledBottomSheet(
         stackedWButton: WButton(
@@ -51,7 +52,8 @@ class CameraBottomSheetState extends State<CameraBottomSheet> {
             separatorBuilder: (context, index) => Container(
               margin: const EdgeInsets.symmetric(horizontal: 16),
               height: 1,
-              color: border,
+              color:
+                  Theme.of(context).extension<ThemedColors>()!.greyToDarkRider,
             ),
             itemCount: titleList.length,
             shrinkWrap: true,
@@ -86,11 +88,7 @@ class _ItemSelect extends StatelessWidget {
         onTap: () => onTapImageType(imageType),
         child: Container(
           width: double.infinity,
-          padding: const EdgeInsets.all(12),
-          decoration: BoxDecoration(
-              color: white,
-              borderRadius: BorderRadius.circular(6),
-              border: Border.all(color: border)),
+          padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
           child: Row(
             children: [
               SvgPicture.asset(camera),

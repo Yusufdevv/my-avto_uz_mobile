@@ -1,6 +1,7 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/images.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:flutter/material.dart';
@@ -55,7 +56,8 @@ class WAppBarChild extends StatelessWidget implements PreferredSizeWidget {
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
-              color: whiteSmoke,
+              color:
+                    Theme.of(context).extension<ThemedColors>()!.greyToDarkRider,
             ),
             child: SvgPicture.asset(AppIcons.phoneCall),
           ),

@@ -1,5 +1,6 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/cached_image.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
@@ -20,12 +21,12 @@ class SeeProfileScreen extends StatelessWidget {
         body: Container(
           margin: const EdgeInsets.only(top: 16),
           padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
-          decoration: const BoxDecoration(
-              borderRadius: BorderRadius.only(
+          decoration:   BoxDecoration(
+              borderRadius:const BorderRadius.only(
                 topLeft: Radius.circular(20),
                 topRight: Radius.circular(20),
               ),
-              color: white),
+              color: Theme.of(context).appBarTheme.backgroundColor),
           child: Column(
             children: [
               Row(
@@ -39,6 +40,7 @@ class SeeProfileScreen extends StatelessWidget {
                         height: 80,
                         width: 80,
                         borderRadius: BorderRadius.circular(40),
+                        border: Border.all(color: borderCircular),
                         fit: BoxFit.cover,
                         imageUrl:
                             'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_mNmpqHOTakNgIaKR5bxJFfkUtiLdPBXPMw&usqp=CAU'),
@@ -49,13 +51,17 @@ class SeeProfileScreen extends StatelessWidget {
                       padding: const EdgeInsets.all(10),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(8),
-                        color: border,
+                        color: Theme.of(context)
+                            .extension<ThemedColors>()!
+                            .borderGreyToDark,
                       ),
                       child: SvgPicture.asset(
                         AppIcons.edit,
                         height: 24,
                         width: 24,
-                        color: greyText,
+                        color: Theme.of(context)
+                            .extension<ThemedColors>()!
+                            .iconPearlToWhite,
                       ),
                     ),
                     onTap: () {

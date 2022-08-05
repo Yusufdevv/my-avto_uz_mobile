@@ -1,5 +1,6 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/images.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:flutter/material.dart';
 
@@ -13,7 +14,7 @@ class Rate extends StatelessWidget {
         decoration: BoxDecoration(
             border: Border.all(color: orange),
             borderRadius: BorderRadius.circular(12),
-            color: white),
+            color:   Theme.of(context).extension<ThemedColors>()!.whiteToNero1,),
         child: Row(
           children: [
             Column(

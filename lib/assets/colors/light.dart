@@ -14,6 +14,7 @@ class LightThemeColors {
   static const headline6 = _grey;
   static const bodyText1 = _dolphin;
   static const bodyText2 = _dodgerBlue;
+  static const bodyText3 = _blackRock;
   static const subTitle1 = _black;
   static const subTitle2 = _blackOpacity;
   static const caption = _nero;
@@ -36,6 +37,8 @@ class LightThemeColors {
   static const warmerGreyToDarkGrey = _ghost;
   static const whiteToWhiteOpacity20 = _white;
   static const solitudeToGhost = _solitude;
+  static const blackToWhite = _black;
+
   //for keyboard
   static const whiteToDimGray = _white;
   static const primaryColor = _cinnabar;
@@ -55,6 +58,20 @@ class LightThemeColors {
   static const transparentToSolitude12 = _transparent;
   static const solitudeToDarkGray95 = _solitude;
   static const solitudeToCharcoal = _solitude;
+  static const whiteToNero1 = _white;
+  static const navBarUnselected = _white;
+  static const borderGreyToDark = _solitude2;
+  static const iconPearlToWhite = _spunPearl;
+  static const whiteToDarkRider = _white;
+  static const borderGreyToGreen = _solitude2;
+  static const lightGreenToDarkGreen = _hummingBird;
+  static const greyToDarkRider = _solitude2;
+  static const darkToPurple = _midnightExpress;
+  static const darkToGrey = _midnightExpress;
+  static const greyContainer26 = _whiteLilac;
+  static const redContainer26 = _roseWhite;
+  static const greenContainer26 = _cosmicLatte;
+  static const blueContainer26 = _lavender;
 }
 
 // Main palette (http://www.color-blindness.com/color-name-hue/).
@@ -75,3 +92,11 @@ const _dodgerBlue = Color(0xff007AFF);
 const _veryLightGrey = Color(0xffCCCCCC);
 const _transparent = Colors.transparent;
 const _prussianBlue = Color(0xff022F5E);
+const _solitude2 = Color(0xFFF1F1F5);
+const _spunPearl = Color(0xFF9E9EA9);
+const _hummingBird = Color(0xffF0FAF6);
+const _blackRock = Color(0xFF292E37);
+const _whiteLilac = Color(0xFFF7F7F8);
+const _roseWhite = Color(0xFFFDF4F3);
+const _cosmicLatte = Color(0xFFEBFAF0);
+const _lavender = Color(0xFFF2F4FC);

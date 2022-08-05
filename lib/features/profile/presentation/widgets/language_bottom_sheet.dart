@@ -1,5 +1,5 @@
-import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/images.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/profile/presentation/widgets/radio_item.dart';
 import 'package:auto/features/profile/presentation/widgets/scrolled_bottomsheet.dart';
@@ -49,7 +49,7 @@ class LanguageBottomSheetState extends State<LanguageBottomSheet> {
               separatorBuilder: (context, index) => Container(
                     margin: const EdgeInsets.symmetric(horizontal: 16),
                     height: 1,
-                    color: border,
+                    color: Theme.of(context).extension<ThemedColors>()!.greyToDarkRider,
                   ),
               itemCount: titleList.length,
               shrinkWrap: true,

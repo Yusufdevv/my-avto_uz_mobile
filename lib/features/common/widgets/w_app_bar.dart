@@ -118,8 +118,8 @@ class WAppBar extends StatelessWidget implements PreferredSizeWidget {
                         style: titleStyle ??
                             Theme.of(context)
                                 .textTheme
-                                .headline5!
-                                .copyWith(color: dark, fontSize: 16),
+                                .headline1!
+                                .copyWith(fontSize: 16),
                       ),
                     ),
                     if (childWithButton != null)

@@ -1,4 +1,3 @@
-import 'package:auto/assets/colors/color.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
@@ -17,7 +16,6 @@ class NewPasswordsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) => KeyboardDismisser(
         child: Scaffold(
-          backgroundColor: white,
           appBar: const WAppBar(
             textWithButton: 'Смена пароля',
           ),
@@ -32,6 +30,7 @@ class NewPasswordsPage extends StatelessWidget {
                       .headline1!
                       .copyWith(fontSize: 32),
                 ),
+                SizedBox(height: 6),
                 Text('Придумайте новый пароль  и постарайтесь не забыть',
                     style: Theme.of(context).textTheme.headline2),
                 const SizedBox(height: 36),

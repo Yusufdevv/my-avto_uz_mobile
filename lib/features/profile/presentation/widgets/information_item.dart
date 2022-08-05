@@ -1,4 +1,4 @@
-import 'package:auto/assets/colors/color.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:flutter/material.dart';
 
@@ -43,7 +43,7 @@ class _InformationItemsState extends State<InformationItems> {
                           const EdgeInsets.only(top: 8, bottom: 8, left: 12),
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(8),
-                          color: whiteLilac),
+                          color: Theme.of(context).extension<ThemedColors>()!.greyContainer26,),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -72,7 +72,7 @@ class _InformationItemsState extends State<InformationItems> {
                           const EdgeInsets.only(top: 8, bottom: 8, left: 12),
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(8),
-                          color: roseWhite),
+                          color: Theme.of(context).extension<ThemedColors>()!.greenContainer26,),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -105,7 +105,7 @@ class _InformationItemsState extends State<InformationItems> {
                           const EdgeInsets.only(top: 8, bottom: 8, left: 12),
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(8),
-                          color: cosmicLatte),
+                          color: Theme.of(context).extension<ThemedColors>()!.redContainer26),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -134,7 +134,7 @@ class _InformationItemsState extends State<InformationItems> {
                           const EdgeInsets.only(top: 8, bottom: 8, left: 12),
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(8),
-                          color: lavender),
+                          color: Theme.of(context).extension<ThemedColors>()!.blueContainer26),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.spaceAround,

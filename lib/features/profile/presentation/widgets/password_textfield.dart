@@ -1,4 +1,4 @@
-import 'package:auto/assets/colors/color.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/w_textfield.dart';
 import 'package:flutter/material.dart';
 
@@ -27,17 +27,23 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
           obScure = !obScure;
         });
       },
-
-      // hintTextStyle: Theme.of(context).textTheme.headline1!.copyWith(fontSize: 14, fontWeight: FontWeight.w600),
+      hintTextStyle: Theme.of(context)
+          .textTheme
+          .headline2!
+          .copyWith(fontSize: 14, fontWeight: FontWeight.w600),
+      textStyle: Theme.of(context)
+          .textTheme
+          .headline1!
+          .copyWith(fontSize: 14, fontWeight: FontWeight.w600),
       borderRadius: 8,
-      borderColor: border,
-      disabledBorderColor: lavender,
+      // borderColor: border,
+      disabledBorderColor:
+          Theme.of(context).extension<ThemedColors>()!.blueContainer26,
       height: 44,
-      fillColor: Colors.white,
+      fillColor: Theme.of(context).appBarTheme.backgroundColor,
       hasBorderColor: false,
       controller: widget.controller,
       hintText: widget.hintText,
-      disabledColor: borderCircular,
-      focusColor: white,
+      disabledColor: Theme.of(context).appBarTheme.backgroundColor,
       onChanged: (text) {});
 }

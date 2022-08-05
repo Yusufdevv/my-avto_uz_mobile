@@ -1,6 +1,7 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/images.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/common/widgets/w_textfield.dart';
 import 'package:auto/features/profile/presentation/widgets/app_bar_child.dart';
@@ -30,7 +31,7 @@ class _ChatState extends State<Chat> {
               ? Center(
                   child: Container(
                       decoration: BoxDecoration(
-                        color: white,
+                        color: Theme.of(context).appBarTheme.backgroundColor,
                         borderRadius: BorderRadius.circular(12),
                         boxShadow: [
                           BoxShadow(
@@ -44,13 +45,26 @@ class _ChatState extends State<Chat> {
                       ),
                       margin: const EdgeInsets.symmetric(horizontal: 75),
                       padding: const EdgeInsets.all(16),
-                      height: 190,
+                      height: 200,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Image.asset(
-                            AppImages.hello,
-                            height: 56,
+                          Container(
+                            margin: EdgeInsets.only(top: 8),
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              boxShadow: [
+                                BoxShadow(
+                                    color: yellowShadow.withOpacity(0.3),
+                                    spreadRadius: 15,
+                                    blurRadius: 30,
+                                    offset: const Offset(0, 5)),
+                              ],
+                            ),
+                            child: Image.asset(
+                              AppImages.hello,
+                              height: 56,
+                            ),
                           ),
                           const SizedBox(height: 13),
                           Text(
@@ -109,7 +123,12 @@ class _ChatState extends State<Chat> {
                                         fontWeight: FontWeight.w400),
                               ),
                               const SizedBox(width: 4),
-                              SvgPicture.asset(AppIcons.checks)
+                              SvgPicture.asset(
+                                AppIcons.checks,
+                                color: Theme.of(context)
+                                    .extension<ThemedColors>()!
+                                    .darkToPurple,
+                              )
                             ],
                           )
                         ],
@@ -139,13 +158,16 @@ class _ChatState extends State<Chat> {
                                 width: 283,
                                 padding:
                                     const EdgeInsets.fromLTRB(12, 8, 12, 12),
-                                decoration: const BoxDecoration(
-                                    borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(16),
-                                        topRight: Radius.circular(16),
-                                        bottomRight: Radius.circular(16),
-                                        bottomLeft: Radius.circular(4)),
-                                    color: border),
+                                decoration: BoxDecoration(
+                                  borderRadius: const BorderRadius.only(
+                                      topLeft: Radius.circular(16),
+                                      topRight: Radius.circular(16),
+                                      bottomRight: Radius.circular(16),
+                                      bottomLeft: Radius.circular(4)),
+                                  color: Theme.of(context)
+                                      .extension<ThemedColors>()!
+                                      .greyToDarkRider,
+                                ),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -161,10 +183,8 @@ class _ChatState extends State<Chat> {
                                     const SizedBox(height: 4),
                                     Text(
                                       name,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .headline2!
-                                          .copyWith(color: blackRock),
+                                      style:
+                                          Theme.of(context).textTheme.headline2,
                                     ),
                                   ],
                                 ),
@@ -181,8 +201,22 @@ class _ChatState extends State<Chat> {
                                             fontSize: 14,
                                             fontWeight: FontWeight.w400),
                                   ),
-                                  const SizedBox(width: 4),
-                                  SvgPicture.asset(AppIcons.checks)
+                                  Container(
+                                    margin: EdgeInsets.symmetric(horizontal: 4),
+                                    width: 6,
+                                    height: 4,
+                                    decoration: BoxDecoration(
+                                        shape: BoxShape.circle, color: grey),
+                                  ),
+                                  Text(
+                                    'Тешмат',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headline6!
+                                        .copyWith(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w400),
+                                  ),
                                 ],
                               )
                             ],
@@ -193,9 +227,9 @@ class _ChatState extends State<Chat> {
                   ],
                 ),
           bottomNavigationBar: Container(
-            margin: EdgeInsets.only(top: 24),
-            padding: EdgeInsets.all(8),
-            color: white,
+            margin: const EdgeInsets.only(top: 24),
+            padding: const EdgeInsets.all(8),
+            color: Theme.of(context).appBarTheme.backgroundColor,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -203,14 +237,17 @@ class _ChatState extends State<Chat> {
                   children: [
                     Expanded(
                       child: WTextField(
+                        disabledColor: Theme.of(context)
+                            .extension<ThemedColors>()!
+                            .whiteToNero1,
                         height: 44,
                         prefix: WScaleAnimation(
                           onTap: () {
                             showModalBottomSheet(
-                                backgroundColor: Colors.transparent,
                                 isScrollControlled: true,
                                 context: context,
                                 useRootNavigator: true,
+                                backgroundColor: Colors.transparent,
                                 constraints: BoxConstraints(
                                     maxHeight:
                                         MediaQuery.of(context).size.height *
@@ -226,17 +263,30 @@ class _ChatState extends State<Chat> {
                             margin: const EdgeInsets.all(6),
                             padding: const EdgeInsets.all(4),
                             decoration: BoxDecoration(
-                                color: border,
+                                color: Theme.of(context)
+                                    .extension<ThemedColors>()!
+                                    .greyToDarkRider,
                                 borderRadius: BorderRadius.circular(6)),
-                            child: SvgPicture.asset(AppIcons.piperClip),
+                            child: SvgPicture.asset(
+                              AppIcons.piperClip,
+                              color: Theme.of(context)
+                                  .extension<ThemedColors>()!
+                                  .darkToGrey,
+                            ),
                           ),
                         ),
                         borderRadius: 8,
+                        textStyle: Theme.of(context)
+                            .textTheme
+                            .headline1!
+                            .copyWith(
+                                fontWeight: FontWeight.w600, fontSize: 14),
                         hintText: 'Введите сообщение...',
-                        // hintTextStyle: Theme.of(context)
-                        //     .textTheme
-                        //     .headline1!
-                        //     .copyWith(fontWeight: FontWeight.w600, fontSize: 14),
+                        hintTextStyle: Theme.of(context)
+                            .textTheme
+                            .headline2!
+                            .copyWith(
+                                fontWeight: FontWeight.w600, fontSize: 14),
                         onChanged: (tmp) {},
                         controller: TextEditingController(),
                         filled: true,
