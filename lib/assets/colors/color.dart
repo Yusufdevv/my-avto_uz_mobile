@@ -45,7 +45,7 @@ const whiteSmoke = _whiteSmoke;
 const blackRock = _blackRock;
 const profileContainers = _nero;
 const yellowShadow = _blanchedAlmond;
-const purpleHeart = _purpleHeart;
+const purpleHeart1 = _purpleHeart;
 const silver = _gainsboro;
 const blueGem = _blueGem;
 // Main palette (http://www.color-blindness.com/color-name-hue/).

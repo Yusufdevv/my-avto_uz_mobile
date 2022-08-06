@@ -65,6 +65,7 @@ abstract class DarkTheme {
             unselectedBackgroundColor: DarkThemeColors.lightGreyToEclipse,
             unselectedBorderColor: DarkThemeColors.warmerGreyToDarkGray,
             unselectedItemColor: DarkThemeColors.navBarUnselected,
+              unselectedBackgroundColor1: DarkThemeColors.whiteToEclipse,
           ),
           ThemedColors(
             darkToGrey: DarkThemeColors.darkToGrey,
@@ -96,24 +97,16 @@ abstract class DarkTheme {
             lightGreenToDarkGreen: DarkThemeColors.lightGreenToDarkGreen,
             blackToWhite: DarkThemeColors.blackToWhite,
             darkToPurple: DarkThemeColors.darkToPurple,
-          ),
-            solitudeToBastille: DarkThemeColors.solitudeToBastille,
-            blackToWhite80: DarkThemeColors.blackToWhite80,
+
             lavenderToUltramarine30: DarkThemeColors.lavenderToUltramarine30,
-            prussianBlueToWhite80: DarkThemeColors.prussianBlueToWhite80,
-            transparentToSolitude12: DarkThemeColors.transparentToSolitude12,
             whiteSmokeToEclipse: DarkThemeColors.whiteSmokeToEclipse,
             lavenderToMediumSlateBlue30:
                 DarkThemeColors.lavenderToMediumSlateBlue30,
             ghostWhiteToUltramarine10:
                 DarkThemeColors.ghostWhiteToUltramarine10,
-            solitudeToDarkGray95: DarkThemeColors.solitudeToDarkGray95,
             aluminumToDolphin: DarkThemeColors.aluminumToDolphin,
             whiteSmokeToDark: DarkThemeColors.whiteSmokeToDark,
             transparentToNightRider: DarkThemeColors.transparentToNightRider,
-            dodgerBlueToWhite80: DarkThemeColors.dodgerBlueToWhite80,
-            solitudeToWhite35: DarkThemeColors.solitudeToWhite35,
-            solitudeToSolitude14: DarkThemeColors.solitudeToSolitude14,
             whiteToDark: DarkThemeColors.whiteToDark,
             solitudeBorderToSolitudeBorder10:
                 DarkThemeColors.solitudeBorderToSolitudeBorder10,
@@ -125,7 +118,6 @@ abstract class DarkTheme {
             mediumSlateBlue50ToNightRider:
                 DarkThemeColors.mediumSlateBlue50ToNightRider,
             stormGrey16ToStormGrey32: DarkThemeColors.stormGrey16ToStormGrey32,
-            darkToWhite: DarkThemeColors.darkToWhite,
             midnightExpressToDolphin: DarkThemeColors.midnightExpressToDolphin,
             ghostToEclipse: DarkThemeColors.ghostToEclipse,
             mediumSlateBlueToWhite: DarkThemeColors.mediumSlateBlueToWhite,
@@ -134,7 +126,6 @@ abstract class DarkTheme {
             lightSlateBlue12ToLightSlateBlue:
                 DarkThemeColors.lightSlateBlue12ToLightSlateBlue,
             solitudeToPayneGrey: DarkThemeColors.solitudeToPayneGrey,
-            blackToWhite: DarkThemeColors.blackToWhite,
             stormGrey12ToStormGrey24: DarkThemeColors.stormGrey12ToStormGrey24,
             snowToNero: DarkThemeColors.snowToNero,
             dolphinToGreySuit: DarkThemeColors.dolphinToGreySuit,
@@ -145,11 +136,6 @@ abstract class DarkTheme {
             cinnabar12ToCinnabar: DarkThemeColors.cinnabar12ToCinnabar,
             whiteLilacToWhite4: DarkThemeColors.whiteLilacToWhite4,
             solitudeToEclipse: DarkThemeColors.solitudeToEclipse,
-            dividerColorToGrey: DarkThemeColors.dividerColorToGrey,
-            whiteToDolphin: DarkThemeColors.whiteToDolphin,
-            solitudeToCharcoal: DarkThemeColors.solitudeToCharcoal,
-            whiteToWhiteOpacity20: DarkThemeColors.whiteToWhiteOpacity20,
-            veryLightGreyToEclipse: DarkThemeColors.veryLightGreyToEclipse,
             solitudeContainerToDark: DarkThemeColors.solitudeContainerToDark,
             whiteToGondola: DarkThemeColors.whiteToGondola,
             whiteToWhite8: DarkThemeColors.whiteToWhite8,

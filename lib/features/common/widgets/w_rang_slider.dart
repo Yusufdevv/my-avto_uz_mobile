@@ -1636,6 +1636,8 @@ class _RenderRangeSlider extends RenderBox with RelayoutWhenSystemFontsChangeMix
     final double decreasedEndValue = values.end - _semanticActionUnit;
     return decreasedEndValue >= values.start + _minThumbSeparationValue ? decreasedEndValue : values.end;
   }
+
+  double clampDouble(double value, double d, double e) {}
 }
 
 

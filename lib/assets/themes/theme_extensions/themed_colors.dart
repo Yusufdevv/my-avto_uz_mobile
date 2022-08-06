@@ -53,7 +53,6 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
   final Color whiteToDarkRider;
   final Color borderGreyToGreen;
   final Color lightGreenToDarkGreen;
-  final Color blackToWhite;
   final Color greyToDarkRider;
   final Color darkToPurple;
   final Color darkToGrey;
@@ -100,13 +99,9 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
     required this.blackToWhite,
     required this.greyToDarkRider,
     required this.darkToPurple,
-    required this.darkToGrey,
-  });
-  const ThemedColors({required this.dividerColorToGrey,
-    required this.solitudeToSolitude14,
+    required this.darkToGrey, required this.cinnabar12ToCinnabar, required this.dolphinToWhite60, required this.greySuitToWhite60, required this.whiteToWhite8, required this.whiteToSmoky, required this.solitudeToDolphin8,
     required this.dividerColorToWhiteOpacity,
     required this.whiteLilacToWhite4,
-    required this.cinnabar12ToCinnabar,
     required this.solitudeBorderToSolitudeBorder10,
     required this.whiteToSecondNero,
     required this.stormGrey12ToStormGrey24,
@@ -114,46 +109,29 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
     required this.dolphinToGreySuit,
     required this.mediumSlateBlueToWhite,
     required this.solitudeToPayneGrey,
-    required this.greySuitToWhite60,
     required this.ghostToEclipse,
     required this.transparentToNightRider,
     required this.stormGrey16ToStormGrey32,
     required this.midnightExpressToWhite,
     required this.solitudeToNero,
     required this.whiteSmokeToDark,
-    required this.dolphinToWhite60,
     required this.mediumSlateBlue50ToNightRider,
     required this.solitudeContainerToDark,
     required this.lavenderToUltramarine30,
     required this.solitudeToDarkRider,
-    required this.prussianBlueToWhite80,
     required this.whiteToDark,
-    required this.whiteToSmoky,
     required this.whiteLilacToWhiteLilac10,
     required this.whiteToGondola,
     required this.lightSlateBlue12ToLightSlateBlue,
     required this.snowToNightRider,
     required this.aluminumToDolphin,
     required this.whiteSmokeToEclipse,
-    required this.blackToWhite80,
     required this.ghostWhiteToUltramarine10,
-    required this.solitudeToCharcoal,
-    required this.dodgerBlueToWhite80,
-    required this.solitudeToDarkGray95,
-    required this.darkToWhite,
-    required this.transparentToSolitude12,
-    required this.whiteToWhite8,
-    required this.solitudeToWhite35,
-    required this.solitudeToBastille,
-    required this.whiteToDolphin,
     required this.solitudeToEclipse,
     required this.snowToNero,
     required this.midnightExpressToDolphin,
-    required this.blackToWhite,
-    required this.solitudeToDolphin8,
     required this.solitudeToGondola,
-    required this.veryLightGreyToEclipse,
-    required this.whiteToWhiteOpacity20});
+  });
 
   @override
   ThemeExtension<ThemedColors> copyWith({
@@ -186,16 +164,12 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
     Color? redContainer26,
     Color? greenContainer26,
     Color? blueContainer26,
-  }) =>
-  ThemeExtension<ThemedColors> copyWith({Color? whiteToWhiteOpacity20,
-    Color? dividerColorToGrey,
     Color? whiteLilacToWhite4,
     Color? solitudeBorderToSolitudeBorder10,
     Color? cinnabar12ToCinnabar,
     Color? solitudeToDolphin8,
     Color? stormGrey12ToStormGrey24,
     Color? solitudeToGondola,
-    Color? darkToWhite,
     Color? midnightExpressToWhite,
     Color? dividerColorToWhiteOpacity,
     Color? dolphinToWhite60,
@@ -205,10 +179,8 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
     Color? snowToNero,
     Color? whiteSmokeToDark,
     Color? ghostToEclipse,
-    Color? dodgerBlueToWhite80,
     Color? greySuitToWhite60,
     Color? stormGrey16ToStormGrey32,
-    Color? blackToWhite,
     Color? whiteToWhite8,
     Color? mediumSlateBlue50ToNightRider,
     Color? whiteToSmoky,
@@ -217,28 +189,19 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
     Color? solitudeToDarkRider,
     Color? solitudeToPayneGrey,
     Color? solitudeToEclipse,
-    Color? prussianBlueToWhite80,
-    Color? solitudeToSolitude14,
     Color? lavenderToMediumSlateBlue30,
     Color? lavenderToUltramarine30,
     Color? whiteToSecondNero,
     Color? solitudeToNero,
     Color? whiteLilacToWhiteLilac10,
-    Color? solitudeToCharcoal,
     Color? lightSlateBlue12ToLightSlateBlue,
-    Color? veryLightGreyToEclipse,
     Color? whiteToGondola,
-    Color? whiteToDolphin,
     Color? ghostWhiteToUltramarine10,
     Color? aluminumToDolphin,
     Color? whiteToDark,
-    Color? solitudeToBastille,
     Color? whiteSmokeToEclipse,
-    Color? solitudeToDarkGray95,
     Color? snowToNightRider,
-    Color? blackToWhite80,
-    Color? transparentToSolitude12,
-    Color? solitudeToWhite35}) =>
+  }) =>
       ThemedColors(
           darkToGrey: darkToGrey ?? this.darkToGrey,
           greyContainer26: greyContainer26 ?? this.greyContainer26,
@@ -249,7 +212,7 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
           greyToDarkRider: greyToDarkRider ?? this.greyToDarkRider,
           blackToWhite: blackToWhite ?? this.blackToWhite,
           lightGreenToDarkGreen:
-              lightGreenToDarkGreen ?? this.lightGreenToDarkGreen,
+          lightGreenToDarkGreen ?? this.lightGreenToDarkGreen,
           borderGreyToGreen: borderGreyToGreen ?? this.borderGreyToGreen,
           whiteToDarkRider: whiteToDarkRider ?? this.whiteToDarkRider,
           iconPearlToWhite: iconPearlToWhite ?? this.iconPearlToWhite,
@@ -271,7 +234,6 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
           solitudeToPayneGrey: solitudeToPayneGrey ?? this.solitudeToPayneGrey,
           whiteLilacToWhiteLilac10: whiteLilacToWhiteLilac10 ??
               this.whiteLilacToWhiteLilac10,
-          blackToWhite: blackToWhite ?? this.blackToWhite,
           whiteToWhite8: whiteToWhite8 ?? this.whiteToWhite8,
           solitudeToGondola: solitudeToGondola ?? this.solitudeToGondola,
           aluminumToDolphin: aluminumToDolphin ?? this.aluminumToDolphin,
@@ -475,50 +437,42 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
             solitudeToPayneGrey,
         whiteToWhiteOpacity20: Color.lerp(
             whiteToWhiteOpacity20, other.whiteToWhiteOpacity20, t) ??
-            whiteToWhiteOpacity20);
+            whiteToWhiteOpacity20,
         darkToGrey: Color.lerp(darkToGrey, other.darkToGrey, t) ?? darkToGrey,
-        greyContainer26: Color.lerp(greyContainer26, other.greyContainer26, t) ??
+        greyContainer26: Color.lerp(
+            greyContainer26, other.greyContainer26, t) ??
             greyContainer26,
         redContainer26: Color.lerp(redContainer26, other.redContainer26, t) ??
             redContainer26,
-        greenContainer26: Color.lerp(greenContainer26, other.greenContainer26, t) ??
+        greenContainer26: Color.lerp(
+            greenContainer26, other.greenContainer26, t) ??
             greenContainer26,
-        blueContainer26: Color.lerp(blueContainer26, other.blueContainer26, t) ??
+        blueContainer26: Color.lerp(
+            blueContainer26, other.blueContainer26, t) ??
             blueContainer26,
         darkToPurple:
-            Color.lerp(darkToPurple, other.darkToPurple, t) ?? darkToPurple,
-        greyToDarkRider: Color.lerp(greyToDarkRider, other.greyToDarkRider, t) ??
+        Color.lerp(darkToPurple, other.darkToPurple, t) ?? darkToPurple,
+        greyToDarkRider: Color.lerp(
+            greyToDarkRider, other.greyToDarkRider, t) ??
             greyToDarkRider,
-        blackToWhite:
-            Color.lerp(blackToWhite, other.blackToWhite, t) ?? blackToWhite,
         lightGreenToDarkGreen:
-            Color.lerp(lightGreenToDarkGreen, other.lightGreenToDarkGreen, t) ??
-                lightGreenToDarkGreen,
+        Color.lerp(lightGreenToDarkGreen, other.lightGreenToDarkGreen, t) ??
+            lightGreenToDarkGreen,
         borderGreyToGreen:
-            Color.lerp(borderGreyToGreen, other.borderGreyToGreen, t) ??
-                borderGreyToGreen,
-        whiteToDarkRider: Color.lerp(whiteToDarkRider, other.whiteToDarkRider, t) ??
+        Color.lerp(borderGreyToGreen, other.borderGreyToGreen, t) ??
+            borderGreyToGreen,
+        whiteToDarkRider: Color.lerp(
+            whiteToDarkRider, other.whiteToDarkRider, t) ??
             whiteToDarkRider,
         iconPearlToWhite:
-            Color.lerp(iconPearlToWhite, other.iconPearlToWhite, t) ??
-                iconPearlToWhite,
-        borderGreyToDark: Color.lerp(borderGreyToDark, other.darkGreyToWhite, t) ??
+        Color.lerp(iconPearlToWhite, other.iconPearlToWhite, t) ??
+            iconPearlToWhite,
+        borderGreyToDark: Color.lerp(
+            borderGreyToDark, other.darkGreyToWhite, t) ??
             borderGreyToDark,
-        whiteToNero1: Color.lerp(whiteToNero1, other.whiteToNero1, t) ?? whiteToNero1,
-        solitudeToSolitude14: Color.lerp(solitudeToSolitude14, other.solitudeToSolitude14, t) ?? solitudeToSolitude14,
-        prussianBlueToWhite80: Color.lerp(prussianBlueToWhite80, other.prussianBlueToWhite80, t) ?? prussianBlueToWhite80,
-        blackToWhite80: Color.lerp(blackToWhite80, other.blackToWhite80, t) ?? blackToWhite80,
-        solitudeToCharcoal: Color.lerp(solitudeToCharcoal, other.solitudeToCharcoal, t) ?? solitudeToCharcoal,
-        dodgerBlueToWhite80: Color.lerp(dodgerBlueToWhite80, other.dodgerBlueToWhite80, t) ?? dodgerBlueToWhite80,
-        solitudeToDarkGray95: Color.lerp(solitudeToDarkGray95, other.solitudeToDarkGray95, t) ?? solitudeToDarkGray95,
-        darkToWhite: Color.lerp(darkToWhite, other.darkToWhite, t) ?? darkToWhite,
-        solitudeToWhite35: Color.lerp(solitudeToWhite35, other.solitudeToWhite35, t) ?? solitudeToWhite35,
-        transparentToSolitude12: Color.lerp(transparentToSolitude12, other.transparentToSolitude12, t) ?? transparentToSolitude12,
-        solitudeToBastille: Color.lerp(solitudeToBastille, other.solitudeToBastille, t) ?? solitudeToBastille,
-        whiteToDolphin: Color.lerp(whiteToDolphin, other.whiteToDolphin, t) ?? whiteToDolphin,
-        dividerColorToGrey: Color.lerp(dividerColorToGrey, other.dividerColorToGrey, t) ?? dividerColorToGrey,
-        veryLightGreyToEclipse: Color.lerp(veryLightGreyToEclipse, other.veryLightGreyToEclipse, t) ?? veryLightGreyToEclipse,
-        whiteToWhiteOpacity20: Color.lerp(whiteToWhiteOpacity20, other.whiteToWhiteOpacity20, t) ?? whiteToWhiteOpacity20,
-        darkGreyToWhite: Color.lerp(darkGreyToWhite, other.darkGreyToWhite, t) ?? darkGreyToWhite);
+        whiteToNero1: Color.lerp(whiteToNero1, other.whiteToNero1, t) ??
+            whiteToNero1,
+        darkGreyToWhite: Color.lerp(
+            darkGreyToWhite, other.darkGreyToWhite, t) ?? darkGreyToWhite);
   }
 }

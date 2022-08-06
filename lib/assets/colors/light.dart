@@ -46,9 +46,9 @@ class LightThemeColors {
   static const dodgerBlueToWhite80 = _dodgerBlue;
   static const blackToWhite80 = _black;
   static const prussianBlueToWhite80 = _prussianBlue;
-
   static const dividerColorToGrey = _solitude;
   static const warmerGreyToDarkGray = _ghost;
+  static const lightGreyToEclipse = _eclipse;
   static const solitudeToNero = _solitude2;
   static const solitudeToDarkRider = _solitudeBorder;
   static const veryLightGreyToEclipse = _veryLightGrey;
@@ -75,7 +75,7 @@ class LightThemeColors {
   static const ghostToEclipse = _ghost;
   static const snowToNero = _snow;
   static const solitudeToEclipse = _solitude2;
-  static const blackToWhite = _black;
+  static const blackToWhite1 = _black;
   static const stormGrey12ToStormGrey24 = _stormGrey12;
   static const whiteToSmoky = _white;
 
@@ -101,13 +101,13 @@ class LightThemeColors {
   static const whiteToDarkRider = _white;
   static const borderGreyToGreen = _solitude2;
   static const lightGreenToDarkGreen = _hummingBird;
-  static const greyToDarkRider = _solitude2;
+  static const greyToDarkRider = _solitude1;
   static const darkToPurple = _midnightExpress;
   static const darkToGrey = _midnightExpress;
-  static const greyContainer26 = _whiteLilac;
+  static const greyContainer26 = _whiteLilac1;
   static const redContainer26 = _roseWhite;
   static const greenContainer26 = _cosmicLatte;
-  static const blueContainer26 = _lavender;
+  static const blueContainer26 = _lavender1;
 }
 
 // Main palette (http://www.color-blindness.com/color-name-hue/).
@@ -141,11 +141,12 @@ const _stormGrey12 = Color(0x1f767680);
 const _lightSlateBlue12 = Color(0x1f7B61FF);
 const _whiteLilac = Color(0xffF4F4F5);
 const _solitudeBorder = Color(0xffF1F1F5);
-const _solitude2 = Color(0xFFF1F1F5);
+const _solitude1 = Color(0xFFF1F1F5);
 const _spunPearl = Color(0xFF9E9EA9);
 const _hummingBird = Color(0xffF0FAF6);
 const _blackRock = Color(0xFF292E37);
-const _whiteLilac = Color(0xFFF7F7F8);
+const _whiteLilac1 = Color(0xFFF7F7F8);
 const _roseWhite = Color(0xFFFDF4F3);
 const _cosmicLatte = Color(0xFFEBFAF0);
-const _lavender = Color(0xFFF2F4FC);
+const _lavender1 = Color(0xFFF2F4FC);
+const _eclipse = Color(0xff373737);

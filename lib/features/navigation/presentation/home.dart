@@ -107,7 +107,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               height: 64 + MediaQuery.of(context).padding.bottom,
               decoration: BoxDecoration(
                 borderRadius: const BorderRadius.only(topLeft: Radius.circular(15),topRight: Radius.circular(15)),
-                color: white,
+                color:  Theme.of(context).appBarTheme.backgroundColor,
                 // border: Border(
                 //
                 //     top: BorderSide(
