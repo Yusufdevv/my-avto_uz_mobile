@@ -14,6 +14,7 @@ class LightThemeColors {
   static const headline6 = _grey;
   static const bodyText1 = _dolphin;
   static const bodyText2 = _dodgerBlue;
+  static const bodyText3 = _blackRock;
   static const subTitle1 = _black;
   static const subTitle2 = _blackOpacity;
   static const caption = _nero;
@@ -36,8 +37,11 @@ class LightThemeColors {
   static const warmerGreyToDarkGrey = _ghost;
   static const whiteToWhiteOpacity20 = _white;
   static const solitudeToGhost = _solitude;
+  static const blackToWhite = _black;
+
   //for keyboard
   static const whiteToDimGray = _white;
+  static const primaryColor = _cinnabar;
 
   static const dodgerBlueToWhite80 = _dodgerBlue;
   static const blackToWhite80 = _black;
@@ -88,8 +92,22 @@ class LightThemeColors {
   static const whiteLilacToWhiteLilac10 = _whiteLilac;
   static const solitudeBorderToSolitudeBorder10 = _solitudeBorder;
   static const whiteLilacToWhite4 = _whiteLilac;
-  static const  solitudeToDolphin8 = _solitudeBorder;
+  static const solitudeToDolphin8 = _solitudeBorder;
   static const cinnabar12ToCinnabar = _cinnabar12;
+  static const whiteToNero1 = _white;
+  static const navBarUnselected = _white;
+  static const borderGreyToDark = _solitude2;
+  static const iconPearlToWhite = _spunPearl;
+  static const whiteToDarkRider = _white;
+  static const borderGreyToGreen = _solitude2;
+  static const lightGreenToDarkGreen = _hummingBird;
+  static const greyToDarkRider = _solitude2;
+  static const darkToPurple = _midnightExpress;
+  static const darkToGrey = _midnightExpress;
+  static const greyContainer26 = _whiteLilac;
+  static const redContainer26 = _roseWhite;
+  static const greenContainer26 = _cosmicLatte;
+  static const blueContainer26 = _lavender;
 }
 
 // Main palette (http://www.color-blindness.com/color-name-hue/).
@@ -103,6 +121,7 @@ const _ghost = Color(0xffB5B5BE);
 const _whiteSmoke = Color(0xfff8f8f8);
 const _grey = Color(0xff92929D);
 const _mediumSlateBlue = Color(0xff695CEA);
+const _fuzzyWuzzyBrown = Color(0xffC8534D);
 const _cinnabar = Color(0xffEA5930);
 const _cinnabar12 = Color(0x1fEA5930);
 const _black = Color(0xff000000);
@@ -122,3 +141,11 @@ const _stormGrey12 = Color(0x1f767680);
 const _lightSlateBlue12 = Color(0x1f7B61FF);
 const _whiteLilac = Color(0xffF4F4F5);
 const _solitudeBorder = Color(0xffF1F1F5);
+const _solitude2 = Color(0xFFF1F1F5);
+const _spunPearl = Color(0xFF9E9EA9);
+const _hummingBird = Color(0xffF0FAF6);
+const _blackRock = Color(0xFF292E37);
+const _whiteLilac = Color(0xFFF7F7F8);
+const _roseWhite = Color(0xFFFDF4F3);
+const _cosmicLatte = Color(0xFFEBFAF0);
+const _lavender = Color(0xFFF2F4FC);

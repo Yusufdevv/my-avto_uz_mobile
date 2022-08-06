@@ -14,6 +14,7 @@ class TabNavigatorRoutes {
 class TabNavigator extends StatefulWidget {
   final GlobalKey<NavigatorState> navigatorKey;
   final NavItemEnum tabItem;
+
   const TabNavigator(
       {required this.tabItem, required this.navigatorKey, Key? key})
       : super(key: key);
@@ -45,7 +46,7 @@ class _TabNavigatorState extends State<TabNavigator>
         };
       case NavItemEnum.profile:
         return {
-          TabNavigatorRoutes.root: (context) => const ProfileScreen(),
+          TabNavigatorRoutes.root: (context) => ProfileScreen(),
         };
       default:
         return {
@@ -88,6 +89,4 @@ PageRouteBuilder fade({required Widget page, RouteSettings? settings}) =>
               child: child,
             ),
         settings: settings,
-        pageBuilder: (context, animation,
-                secondaryAnimation) =>
-            page);
+        pageBuilder: (context, animation, secondaryAnimation) => page);

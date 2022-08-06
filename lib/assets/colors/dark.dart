@@ -15,9 +15,9 @@ class DarkThemeColors {
   static const navBarBackground = _nero;
   static const navBarSelected = _mediumSlateBlue;
   static const navBarUnselected = _dolphin;
-  static const buttonColor =_cinnabar;
+  static const buttonColor = _cinnabar;
   static const buttonDisabledColor = _eclipse;
-
+  static const primaryColor = _cinnabar;
 
   static const headline1 = _white;
   static const headline2 = _white;
@@ -26,7 +26,8 @@ class DarkThemeColors {
   static const headline5 = _white;
   static const headline6 = _solitude;
   static const bodyText1 = _white;
-  static const bodyText2 =  _dodgerBlue;
+  static const bodyText2 = _dodgerBlue;
+  static const bodyText3 = _greySuit;
   static const subTitle1 = _white;
   static const subTitle2 = _blackOpacity;
   static const caption = _white80;
@@ -52,14 +53,29 @@ class DarkThemeColors {
   static const veryLightGreyToEclipse = _eclipse;
   static const whiteToDolphin = _dolphin;
   static const solitudeToWhite35 = _white35;
-  static const solitudeToSolitude14  = _solitude14;
+  static const solitudeToSolitude14 = _solitude14;
   static const transparentToSolitude12 = _solitude12;
   static const solitudeToDarkGray95 = _solitude;
   static const dodgerBlueToWhite80 = _white80;
   static const blackToWhite80 = _white80;
   static const prussianBlueToWhite80 = _white80;
   static const solitudeToCharcoal = _charcoal;
-  static const midnightExpressToWhite  = _white;
+  static const whiteToNero1 = _nero1;
+  static const borderGreyToDark = _darkRider;
+  static const iconPearlToWhite = _white;
+  static const darkGreyToWhite = _dolphin;
+  static const whiteToDarkRider = _darkRider;
+  static const borderGreyToGreen = _mediumSeaGreen;
+  static const lightGreenToDarkGreen = _englishHolly;
+  static const blackToWhite = _white;
+  static const greyToDarkRider = _darkRider;
+  static const darkToPurple = _mediumSlateBlue;
+  static const darkToGrey = _greySuit;
+  static const greyContainer26 = _greySuit26;
+  static const redContainer26 = _cinnabar26;
+  static const greenContainer26 = _mediumSeaGreen26;
+  static const blueContainer26 = _mediumSlateBlue26;
+  static const midnightExpressToWhite = _white;
   static const whiteToDark = _nero;
   static const snowToNightRider = _nightRider;
   static const mediumSlateBlue50ToNightRider = _nightRider;
@@ -94,10 +110,11 @@ class DarkThemeColors {
   static const greySuitToWhite60 = _white60;
   static const whiteLilacToWhite4 = _white4;
   static const dolphinToWhite60 = _white60;
-  static const  solitudeToDolphin8 = _dolphin8;
+  static const solitudeToDolphin8 = _dolphin8;
 }
 
 // Main palette (http://www.color-blindness.com/color-name-hue/).
+
 const _black = Color(0xff121212);
 const _mediumSlateBlue = Color(0xff695CEA);
 const _nightRider = Color(0xff2F2F2F);
@@ -126,6 +143,14 @@ const _solitude12 = Color(0xf1e2e2ea);
 const _darkGray95 = Color(0xf2A0A0A0);
 const _white80 = Color(0xccffffff);
 const _charcoal = Color(0xff444444);
+const _nero1 = Color(0xFF252525);
+const _mediumSeaGreen = Color(0xFF38AF7F);
+const _englishHolly = Color(0xFF243931);
+const _greySuit26 = Color(0x4292929D);
+const _cinnabar26 = Color(0x42EA5930);
+const _mediumSeaGreen26 = Color(0x4238AF7F);
+const _mediumSlateBlue26 = Color(0x42695CEA);
+
 const _stormGrey32 = Color(0x52787880);
 const _mediumSlateBlue30 = Color(0x4d695cea);
 const _ultramarine10 = Color(0x1a170C85);

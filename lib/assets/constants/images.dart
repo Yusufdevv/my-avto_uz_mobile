@@ -21,4 +21,11 @@ class AppImages {
   static const carFromBack = 'assets/images/global/car_from_back.png';
   static const bmwInfo = 'assets/images/global/bmw_info.png';
   static const logo = 'assets/images/global/logo.png';
+  static const editPassword = 'assets/images/global/edit_password.png';
+  static const russian = 'assets/images/global/russian.png';
+  static const uzbek = 'assets/images/global/uzbek.png';
+  static const stars = 'assets/images/global/stars.png';
+  static const autoUz = 'assets/images/global/autouz.png';
+  static const autoUzCircle = 'assets/images/global/auto_uz_circle.png';
+  static const hello = 'assets/images/global/hello.png';
 }

@@ -39,6 +39,8 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
+  json_serializable: ^6.3.1
+  build_runner: ^2.2.0
   flutter_lints: ^2.0.0
 
 flutter:
@@ -53,6 +55,14 @@ flutter:
     - assets/images/global/
     - assets/images/
     - assets/icons/global/
+    - assets/icons/main/
+    - assets/icons/profile/
     - assets/icons/navbar/
+    - assets/icons/event/
+    - assets/icons/auth/
+    - assets/icons/section/
+    - assets/icons/create_post/
+    - assets/icons/events/
+    - assets/fonts/
     - lib/assets/strings/
 

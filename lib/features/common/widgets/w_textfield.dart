@@ -6,6 +6,7 @@ import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
+
 class WTextField extends StatefulWidget {
   final bool? hasSearch;
   final bool? hasBorderColor;
@@ -148,7 +149,7 @@ class _WTextFieldState extends State<WTextField>
     focusNode = FocusNode();
 
     focusNode.addListener(
-          () => setState(() {
+      () => setState(() {
         print('focused');
         focused = !focused;
       }),
@@ -164,274 +165,293 @@ class _WTextFieldState extends State<WTextField>
 
   @override
   Widget build(BuildContext context) => Container(
-      margin: widget.margin,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          if (widget.title.isNotEmpty)
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    Text(
-                      widget.title,
-                      style: widget.titleTextStyle ??
-                          Theme.of(context).textTheme.headline2!.copyWith(
-                            fontWeight: FontWeight.w600,
-                          ),
-                    ),
-                    Text(
-                      ' ${widget.hintNextToTitle}',
-                      style: Theme.of(context).textTheme.button!.copyWith(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w500,
+        margin: widget.margin,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            if (widget.title.isNotEmpty)
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      Text(
+                        widget.title,
+                        style: widget.titleTextStyle ??
+                            Theme.of(context).textTheme.headline2!.copyWith(
+                                  fontWeight: FontWeight.w600,
+                                ),
                       ),
-                    ),
-                  ],
-                ),
-                if (widget.suffixTitleWidget != null) widget.suffixTitleWidget!,
-              ],
-            )
-          else
-            const SizedBox(),
-          SizedBox(
-            height:
-            widget.title.isNotEmpty ? widget.sizeBetweenFieldTitle : null,
-          ),
-          Container(
-            height: widget.height ?? 44,
-            width: widget.width,
-            decoration: BoxDecoration(
-              borderRadius:
-              widget.detailedBorderRadius ?? BorderRadius.circular(6),
-              color: Colors.transparent,
-            ),
-            child: Stack(
-              children: [
-                ClipRRect(
-                  borderRadius: widget.detailedBorderRadius ??
-                      BorderRadius.circular(widget.borderRadius),
-                  child: TextFormField(
-                    autovalidateMode: widget.autoValidateMode,
-                    validator: widget.validate,
-                    maxLines: widget.maxLines,
-                    onTap: widget.onTap,
-                    readOnly: widget.readOnly,
-                    textAlign: widget.textAlign,
-                    inputFormatters: widget.textInputFormatters,
-                    textInputAction: widget.textInputAction,
-                    textCapitalization: widget.textCapitalization,
-                    obscureText: isObscure,
-                    keyboardType: widget.keyBoardType,
-                    maxLength: widget.maxLength,
-                    controller: widget.controller,
-                    autofocus: widget.autoFocus,
-                    cursorColor: Theme.of(context).colorScheme.surface,
-                    obscuringCharacter: '●',
-                    cursorHeight: 18,
-                    onEditingComplete: widget.onEditCompleted,
-                    onChanged: (s) {
-                      setState(() => hasText = s.isNotEmpty);
-                      widget.onChanged(s);
-                    },
-                    focusNode: widget.focusNode ?? focusNode,
-                    style: widget.textStyle ??
-                        Theme.of(context)
-                            .textTheme
-                            .headline2!
-                            .copyWith(fontWeight: FontWeight.w400),
-                    decoration: InputDecoration(
-                      suffix: widget.suffix != null
-                          ? SizedBox(width: widget.suffixSize)
-                          : null,
-                      border: OutlineInputBorder(
-                        borderRadius: widget.detailedBorderRadius ??
-                            BorderRadius.circular(widget.borderRadius),
-                        borderSide: BorderSide(
-                          width: 1,
-                          color: widget.hasError
-                              ? Theme.of(context).colorScheme.error
-                              : widget.enabledBorderColor ?? red,
-                        ),
+                      Text(
+                        ' ${widget.hintNextToTitle}',
+                        style: Theme.of(context).textTheme.button!.copyWith(
+                              fontSize: 15,
+                              fontWeight: FontWeight.w500,
+                            ),
                       ),
-                      counterText: widget.hideCounterText != null &&
-                          widget.hideCounterText!
-                          ? ''
-                          : null,
-                      hintText: widget.hintText,
-                      hintStyle: widget.hintTextStyle ??
-                          Theme.of(context).textTheme.subtitle2!.copyWith(color: Theme.of(context).hintColor),
-                      filled: widget.filled,
-                      // prefixIconConstraints:
-                      // const BoxConstraints(maxWidth: 20, maxHeight: 20),
-                      prefixIcon: widget.hasSearch != null && widget.hasSearch!
-                          ? Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 12, vertical: 10),
-                        child: SvgPicture.asset(
-                          AppIcons.search,
-
-                        ),
-                      )
-                          : widget.prefix,
-                      fillColor: focused
-                          ? widget.focusColor
-                          : widget.disabledColor != null
-                          ? widget.controller != null &&
-                          widget.controller!.text.isNotEmpty
-                          ? widget.fillColor ?? Theme.of(context).extension<WTextFieldStyle>()!.fillColor
-                          : widget.disabledColor
-                          : widget.fillColor,
-                      contentPadding: widget.contentPadding,
-
-                      disabledBorder: OutlineInputBorder(
-                        borderRadius: widget.detailedBorderRadius ??
-                            BorderRadius.circular(widget.borderRadius),
-                        borderSide: BorderSide(
-                          width: 1,
-                          color: widget.hasBorderColor != null &&
-                              !widget.hasBorderColor!
-                              ? Theme.of(context).extension<WTextFieldStyle>()!.fillColor
-                              : widget.hasError
-                              ? Theme.of(context).colorScheme.error
-                              : widget.disabledBorderColor ??
-                              widget.borderColor ??
-                              Theme.of(context).extension<WTextFieldStyle>()!.borderColor
-                        ),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: widget.detailedBorderRadius ??
-                            BorderRadius.circular(widget.borderRadius),
-                        borderSide: BorderSide(
-                          width: 1,
-                          color: widget.hasBorderColor != null &&
-                              !widget.hasBorderColor!
-                              ? Theme.of(context).extension<WTextFieldStyle>()!.borderColor
-                              : widget.hasError
-                              ? Theme.of(context).colorScheme.error
-                              : widget.disabledBorderColor ??
-                              widget.enabledBorderColor ??
-                              Theme.of(context).extension<WTextFieldStyle>()!.borderColor                        ),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: widget.detailedBorderRadius ??
-                            BorderRadius.circular(widget.borderRadius),
-                        borderSide: BorderSide(
-                          width: 1,
-                          color: widget.hasBorderColor != null &&
-                              !widget.hasBorderColor!
-                              ?
-                          Theme.of(context).extension<WTextFieldStyle>()!.borderColor
-                              : widget.hasError
-                              ? Theme.of(context).colorScheme.error
-                              : widget.borderColor ??
-
-                              Theme.of(context).extension<WTextFieldStyle>()!.borderColor,
-                        ),
-                      ),
-                    ),
+                    ],
                   ),
-                ),
-                if (widget.prefixText.isNotEmpty)
-                  Positioned(
-                    top: 11,
-                    left: 12,
-                    child: Padding(
-                      padding: widget.prefixPadding ?? EdgeInsets.zero,
-                      child: Text(
-                        widget.prefixText,
-                        style: widget.prefixStyle ??
+                  if (widget.suffixTitleWidget != null)
+                    widget.suffixTitleWidget!,
+                ],
+              )
+            else
+              const SizedBox(),
+            SizedBox(
+              height:
+                  widget.title.isNotEmpty ? widget.sizeBetweenFieldTitle : null,
+            ),
+            Container(
+              height: widget.height ?? 44,
+              width: widget.width,
+              decoration: BoxDecoration(
+                borderRadius:
+                    widget.detailedBorderRadius ?? BorderRadius.circular(6),
+                color: Colors.transparent,
+              ),
+              child: Stack(
+                children: [
+                  ClipRRect(
+                    borderRadius: widget.detailedBorderRadius ??
+                        BorderRadius.circular(widget.borderRadius),
+                    child: TextFormField(
+                      autovalidateMode: widget.autoValidateMode,
+                      validator: widget.validate,
+                      maxLines: widget.maxLines,
+                      onTap: widget.onTap,
+                      readOnly: widget.readOnly,
+                      textAlign: widget.textAlign,
+                      inputFormatters: widget.textInputFormatters,
+                      textInputAction: widget.textInputAction,
+                      textCapitalization: widget.textCapitalization,
+                      obscureText: isObscure,
+                      keyboardType: widget.keyBoardType,
+                      maxLength: widget.maxLength,
+                      controller: widget.controller,
+                      autofocus: widget.autoFocus,
+                      cursorColor: Theme.of(context).colorScheme.surface,
+                      obscuringCharacter: '●',
+                      cursorHeight: 18,
+                      onEditingComplete: widget.onEditCompleted,
+                      onChanged: (s) {
+                        setState(() => hasText = s.isNotEmpty);
+                        widget.onChanged(s);
+                      },
+                      focusNode: widget.focusNode ?? focusNode,
+                      style: widget.textStyle ??
+                          Theme.of(context)
+                              .textTheme
+                              .headline2!
+                              .copyWith(fontWeight: FontWeight.w400),
+                      decoration: InputDecoration(
+                        suffix: widget.suffix != null
+                            ? SizedBox(width: widget.suffixSize)
+                            : null,
+                        border: OutlineInputBorder(
+                          borderRadius: widget.detailedBorderRadius ??
+                              BorderRadius.circular(widget.borderRadius),
+                          borderSide: BorderSide(
+                            width: 1,
+                            color: widget.hasError
+                                ? Theme.of(context).colorScheme.error
+                                : widget.enabledBorderColor ?? red,
+                          ),
+                        ),
+                        counterText: widget.hideCounterText != null &&
+                                widget.hideCounterText!
+                            ? ''
+                            : null,
+                        hintText: widget.hintText,
+                        hintStyle: widget.hintTextStyle ??
                             Theme.of(context)
                                 .textTheme
-                                .headline1!
-                                .copyWith(fontSize: 15),
-                      ),
-                    ),
-                  )
-                else
-                  const SizedBox(),
-                Positioned(
-                  top: 0,
-                  bottom: 0,
-                  right: widget.suffixRightPosition ?? 0,
-                  child: widget.hasClearButton != null && widget.hasClearButton!
-                      ? widget.controller != null &&
-                      widget.controller!.text.isNotEmpty
-                      ? GestureDetector(
-                    onTap: () {
-                      setState(() {});
-                      widget.controller!.clear();
-                    },
-                    child:  Padding(
-                      padding:const EdgeInsets.symmetric(horizontal: 8),
-                      child: SvgPicture.asset(AppIcons.cancelRound),
-                    ),
-                  )
-                      : const SizedBox()
-                      : Padding(
-                    padding:
-                    widget.suffixPadding ?? const EdgeInsets.all(8.0),
-                    child: widget.suffix ?? const SizedBox(),
-                  ),
-                ),
-                Positioned(
-                  // top: 0,
-                  right: 8,
-                  child: widget.isObscure == null
-                      ? widget.suffixIcon != null
-                      ? WScaleAnimation(
-                    onTap: () {},
-                    child: Padding(
-                      padding: const EdgeInsets.fromLTRB(0, 6, 2, 6),
-                      child: SvgPicture.asset(
-                        widget.suffixIcon!,
-                      ),
-                    ),
-                  )
-                      : const SizedBox()
-                      : GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        isObscure = !isObscure;
-                      });
-                      if (showStroke) {
-                        showStroke = false;
-                        animationController.forward();
-                      } else {
-                        showStroke = true;
-                        animationController.reverse();
-                      }
-                    },
-                    child: Container(
-                      alignment: Alignment.center,
-                      //margin: const EdgeInsets.only(top: 12),
-                      // width: 24,
-                      // height: 24,
-                      child: Center(
-                        child: AnimatedBuilder(
-                          animation: animationController,
-                          child: SvgPicture.asset(
-                            AppIcons.search,
-                          ),
-                          builder: (context, child) => SizedBox(
-                            width: 24,
-                            height: 24,
-                            child: CustomPaint(
-                              foregroundPainter:
-                              StrokePaint(animationController.value),
-                              child: child,
-                            ),
+                                .subtitle2!
+                                .copyWith(color: Theme.of(context).hintColor),
+                        filled: widget.filled,
+                        // prefixIconConstraints:
+                        // const BoxConstraints(maxWidth: 20, maxHeight: 20),
+                        prefixIcon:
+                            widget.hasSearch != null && widget.hasSearch!
+                                ? Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 12, vertical: 10),
+                                    child: SvgPicture.asset(
+                                      AppIcons.search,
+                                    ),
+                                  )
+                                : widget.prefix,
+                        fillColor: focused
+                            ? widget.focusColor
+                            : widget.disabledColor != null
+                                ? widget.controller != null &&
+                                        widget.controller!.text.isNotEmpty
+                                    ? widget.fillColor ??
+                                        Theme.of(context)
+                                            .extension<WTextFieldStyle>()!
+                                            .fillColor
+                                    : widget.disabledColor
+                                : widget.fillColor,
+                        contentPadding: widget.contentPadding,
+
+                        disabledBorder: OutlineInputBorder(
+                          borderRadius: widget.detailedBorderRadius ??
+                              BorderRadius.circular(widget.borderRadius),
+                          borderSide: BorderSide(
+                              width: 1,
+                              color: widget.hasBorderColor != null &&
+                                      !widget.hasBorderColor!
+                                  ? Theme.of(context)
+                                      .extension<WTextFieldStyle>()!
+                                      .fillColor
+                                  : widget.hasError
+                                      ? Theme.of(context).colorScheme.error
+                                      : widget.disabledBorderColor ??
+                                          widget.borderColor ??
+                                          Theme.of(context)
+                                              .extension<WTextFieldStyle>()!
+                                              .borderColor),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: widget.detailedBorderRadius ??
+                              BorderRadius.circular(widget.borderRadius),
+                          borderSide: BorderSide(
+                              width: 1,
+                              color: widget.hasBorderColor != null &&
+                                      !widget.hasBorderColor!
+                                  ? Theme.of(context)
+                                      .extension<WTextFieldStyle>()!
+                                      .borderColor
+                                  : widget.hasError
+                                      ? Theme.of(context).colorScheme.error
+                                      : widget.disabledBorderColor ??
+                                          widget.enabledBorderColor ??
+                                          Theme.of(context)
+                                              .extension<WTextFieldStyle>()!
+                                              .borderColor),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: widget.detailedBorderRadius ??
+                              BorderRadius.circular(widget.borderRadius),
+                          borderSide: BorderSide(
+                            width: 1,
+                            color: widget.hasBorderColor != null &&
+                                    !widget.hasBorderColor!
+                                ? Theme.of(context)
+                                    .extension<WTextFieldStyle>()!
+                                    .borderColor
+                                : widget.hasError
+                                    ? Theme.of(context).colorScheme.error
+                                    : widget.borderColor ??
+                                        Theme.of(context)
+                                            .extension<WTextFieldStyle>()!
+                                            .borderColor,
                           ),
                         ),
                       ),
                     ),
                   ),
-                ),
-              ],
+                  if (widget.prefixText.isNotEmpty)
+                    Positioned(
+                      top: 11,
+                      left: 12,
+                      child: Padding(
+                        padding: widget.prefixPadding ?? EdgeInsets.zero,
+                        child: Text(
+                          widget.prefixText,
+                          style: widget.prefixStyle ??
+                              Theme.of(context)
+                                  .textTheme
+                                  .headline1!
+                                  .copyWith(fontSize: 15),
+                        ),
+                      ),
+                    )
+                  else
+                    const SizedBox(),
+                  Positioned(
+                    top: 0,
+                    bottom: 0,
+                    right: widget.suffixRightPosition ?? 0,
+                    child: widget.hasClearButton != null &&
+                            widget.hasClearButton!
+                        ? widget.controller != null &&
+                                widget.controller!.text.isNotEmpty
+                            ? GestureDetector(
+                                onTap: () {
+                                  setState(() {});
+                                  widget.controller!.clear();
+                                },
+                                child: Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(horizontal: 8),
+                                  child: SvgPicture.asset(AppIcons.cancelRound),
+                                ),
+                              )
+                            : const SizedBox()
+                        : Padding(
+                            padding: widget.suffixPadding ??
+                                const EdgeInsets.all(8.0),
+                            child: widget.suffix ?? const SizedBox(),
+                          ),
+                  ),
+                  Positioned(
+                    // top: 0,
+                    right: 8,
+                    child: widget.isObscure == null
+                        ? widget.suffixIcon != null
+                            ? WScaleAnimation(
+                                onTap: () {},
+                                child: Padding(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(0, 6, 2, 6),
+                                  child: SvgPicture.asset(
+                                    widget.suffixIcon!,
+                                  ),
+                                ),
+                              )
+                            : const SizedBox()
+                        : GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                isObscure = !isObscure;
+                              });
+                              if (showStroke) {
+                                showStroke = false;
+                                animationController.forward();
+                              } else {
+                                showStroke = true;
+                                animationController.reverse();
+                              }
+                            },
+                            child: Container(
+                              alignment: Alignment.center,
+                              //margin: const EdgeInsets.only(top: 12),
+                              // width: 24,
+                              // height: 24,
+                              child: Center(
+                                child: AnimatedBuilder(
+                                  animation: animationController,
+                                  child: SvgPicture.asset(
+                                    AppIcons.search,
+                                  ),
+                                  builder: (context, child) => SizedBox(
+                                    width: 24,
+                                    height: 24,
+                                    child: CustomPaint(
+                                      foregroundPainter: StrokePaint(
+                                          animationController.value),
+                                      child: child,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
-      ),
-    );
+          ],
+        ),
+      );
 }
