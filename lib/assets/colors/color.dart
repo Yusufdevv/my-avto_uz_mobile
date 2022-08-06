@@ -38,6 +38,9 @@ const indigo = _persianIndigo;
 const purpleHeart  = _purpleHeart;
 const silver = _gainsboro;
 const blueGem = _blueGem;
+const brightGrey = _brightGrey;
+const blackRussian = _blackRussian;
+const bottomSheetColor = _nero2;
 // Main palette (http://www.color-blindness.com/color-name-hue/).
 const _darkGray = Color(0xffA4A4A4);
 const _cinnabar = Color(0xffEA5930);
@@ -77,3 +80,6 @@ const _purpleHeart = Color(0xff7A39C6);
 const _persianIndigo = Color(0xff461B93);
 const _gainsboro = Color(0xffDCDCDC);
 const _blueGem = Color(0xff3F3695);
+const _brightGrey = Color(0xff545458);
+const _blackRussian = Color(0xff1c1c1e);
+const _nero2 = Color(0xff181818);
