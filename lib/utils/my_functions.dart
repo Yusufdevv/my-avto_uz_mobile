@@ -48,6 +48,6 @@ class MyFunctions {
     return buffer.toString();
   }
 
-  static String getHours(String data) =>
+  static String getHoursFormat(String data) =>
       Jiffy(data).format('h-mm').replaceAll('-', ':').toString();
 }
