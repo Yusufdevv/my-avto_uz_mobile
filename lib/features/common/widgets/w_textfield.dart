@@ -132,10 +132,10 @@ class WTextField extends StatefulWidget {
 class _WTextFieldState extends State<WTextField>
     with SingleTickerProviderStateMixin {
   late FocusNode focusNode;
-  bool focused = false;
-  bool hasText = false;
-  bool isObscure = false;
-  bool showStroke = false;
+  bool focused = true;
+  bool hasText = true;
+  bool isObscure = true;
+  bool showStroke = true;
   late AnimationController animationController;
 
   @override
@@ -425,14 +425,14 @@ class _WTextFieldState extends State<WTextField>
                             },
                             child: Container(
                               alignment: Alignment.center,
-                              //margin: const EdgeInsets.only(top: 12),
+                              margin: const EdgeInsets.only(top: 10),
                               // width: 24,
                               // height: 24,
                               child: Center(
                                 child: AnimatedBuilder(
                                   animation: animationController,
                                   child: SvgPicture.asset(
-                                    AppIcons.search,
+                                    AppIcons.eye,
                                   ),
                                   builder: (context, child) => SizedBox(
                                     width: 24,

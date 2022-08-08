@@ -112,6 +112,7 @@ class DarkThemeColors {
   static const whiteLilacToWhite4 = _white4;
   static const dolphinToWhite60 = _white60;
   static const solitudeToDolphin8 = _dolphin8;
+  static const solitudeToDolphinBorder = _dolphin;
 }
 
 // Main palette (http://www.color-blindness.com/color-name-hue/).

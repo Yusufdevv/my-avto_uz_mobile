@@ -141,6 +141,7 @@ abstract class DarkTheme {
             whiteToWhite8: DarkThemeColors.whiteToWhite8,
             solitudeToGondola: DarkThemeColors.solitudeToGondola,
             midnightExpressToWhite: DarkThemeColors.midnightExpressToWhite,
+              solitudeToDolphinBorder: DarkThemeColors.solitudeToDolphinBorder,
           ),
           WTextFieldStyle(
             fillColor: DarkThemeColors.solitudeToNero,

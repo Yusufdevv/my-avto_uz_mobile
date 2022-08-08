@@ -29,9 +29,7 @@ class AuthHeader extends StatelessWidget {
           Text(
             desc ?? '',
             textAlign: TextAlign.center,
-            style: Theme.of(context)
-                .textTheme
-                .headline2,
+            style: Theme.of(context).textTheme.headline2!.copyWith(color: grey),
           ),
           const SizedBox(
             height: 12,
@@ -42,13 +40,15 @@ class AuthHeader extends StatelessWidget {
               child: Container(
                 padding: const EdgeInsets.fromLTRB(8, 7, 9, 7),
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12), color: border),
+                  borderRadius: BorderRadius.circular(12),
+                  color: Theme.of(context).appBarTheme.backgroundColor,
+                ),
                 child: Text(
                   phone.toString(),
                   style: Theme.of(context)
                       .textTheme
-                      .bodyText1!
-                      .copyWith(fontWeight: FontWeight.w600, fontSize: 16),
+                      .headline2!
+                      .copyWith(color: grey),
                 ),
               ),
             )

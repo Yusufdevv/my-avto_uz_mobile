@@ -69,6 +69,7 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
 
   final Color greenContainer26;
   final Color blueContainer26;
+  final Color solitudeToDolphinBorder;
 
   const ThemedColors({
     required this.greyContainer26,
@@ -99,7 +100,13 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
     required this.blackToWhite,
     required this.greyToDarkRider,
     required this.darkToPurple,
-    required this.darkToGrey, required this.cinnabar12ToCinnabar, required this.dolphinToWhite60, required this.greySuitToWhite60, required this.whiteToWhite8, required this.whiteToSmoky, required this.solitudeToDolphin8,
+    required this.darkToGrey,
+    required this.cinnabar12ToCinnabar,
+    required this.dolphinToWhite60,
+    required this.greySuitToWhite60,
+    required this.whiteToWhite8,
+    required this.whiteToSmoky,
+    required this.solitudeToDolphin8,
     required this.dividerColorToWhiteOpacity,
     required this.whiteLilacToWhite4,
     required this.solitudeBorderToSolitudeBorder10,
@@ -131,10 +138,12 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
     required this.snowToNero,
     required this.midnightExpressToDolphin,
     required this.solitudeToGondola,
+    required this.solitudeToDolphinBorder,
   });
 
   @override
   ThemeExtension<ThemedColors> copyWith({
+    Color? solitudeToDolphinBorder,
     Color? whiteToWhiteOpacity20,
     Color? dividerColorToGrey,
     Color? darkToWhite,
@@ -203,6 +212,8 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
     Color? snowToNightRider,
   }) =>
       ThemedColors(
+          solitudeToDolphinBorder: solitudeToDolphinBorder ??
+              this.solitudeToDolphinBorder,
           darkToGrey: darkToGrey ?? this.darkToGrey,
           greyContainer26: greyContainer26 ?? this.greyContainer26,
           redContainer26: redContainer26 ?? this.redContainer26,
@@ -300,6 +311,9 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
       return this;
     }
     return ThemedColors(
+        solitudeToDolphinBorder: Color.lerp(
+            solitudeToDolphinBorder, other.solitudeToDolphinBorder, t) ??
+            solitudeToDolphinBorder,
         solitudeToSolitude14:
         Color.lerp(solitudeToSolitude14, other.solitudeToSolitude14, t) ??
             solitudeToSolitude14,

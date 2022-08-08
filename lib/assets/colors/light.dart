@@ -108,6 +108,7 @@ class LightThemeColors {
   static const redContainer26 = _roseWhite;
   static const greenContainer26 = _cosmicLatte;
   static const blueContainer26 = _lavender1;
+  static const solitudeToDolphinBorder = _solitudeBorder;
 }
 
 // Main palette (http://www.color-blindness.com/color-name-hue/).
