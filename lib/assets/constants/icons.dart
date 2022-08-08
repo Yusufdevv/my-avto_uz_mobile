@@ -44,15 +44,14 @@ class AppIcons {
   static const arrowRight = 'assets/icons/global/arrow_right.svg';
   static const russia = 'assets/icons/global/russia.svg';
   static const uzbekistan = 'assets/icons/global/uzbekistan.svg';
-  static const chevronRight = 'assets/icons/global/chevron_right.svg';
 
   // PROFILE
   static const alert = 'assets/icons/profile/alert.svg';
   static const heartBlue = 'assets/icons/profile/heart.svg';
   static const refresh = 'assets/icons/profile/refresh.svg';
-  static const share = 'assets/icons/profile/share.svg';
   static const editProfile = 'assets/icons/profile/edit.svg';
   static const settings = 'assets/icons/profile/settings.svg';
+  static const antivirus = 'assets/icons/global/antivirus.svg';
   static const info = 'assets/icons/profile/info.svg';
   static const refreshSmall = 'assets/icons/profile/refresh_small.svg';
   static const file = 'assets/icons/profile/file.svg';

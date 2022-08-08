@@ -69,7 +69,6 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
 
   final Color greenContainer26;
   final Color blueContainer26;
-  final Color solitudeToDolphinBorder;
 
   const ThemedColors({
     required this.greyContainer26,
@@ -138,7 +137,6 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
     required this.snowToNero,
     required this.midnightExpressToDolphin,
     required this.solitudeToGondola,
-    required this.solitudeToDolphinBorder,
   });
 
   @override
@@ -212,8 +210,6 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
     Color? snowToNightRider,
   }) =>
       ThemedColors(
-          solitudeToDolphinBorder: solitudeToDolphinBorder ??
-              this.solitudeToDolphinBorder,
           darkToGrey: darkToGrey ?? this.darkToGrey,
           greyContainer26: greyContainer26 ?? this.greyContainer26,
           redContainer26: redContainer26 ?? this.redContainer26,
@@ -311,9 +307,6 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
       return this;
     }
     return ThemedColors(
-        solitudeToDolphinBorder: Color.lerp(
-            solitudeToDolphinBorder, other.solitudeToDolphinBorder, t) ??
-            solitudeToDolphinBorder,
         solitudeToSolitude14:
         Color.lerp(solitudeToSolitude14, other.solitudeToSolitude14, t) ??
             solitudeToSolitude14,
@@ -484,9 +477,8 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
         borderGreyToDark: Color.lerp(
             borderGreyToDark, other.darkGreyToWhite, t) ??
             borderGreyToDark,
-        whiteToNero1: Color.lerp(whiteToNero1, other.whiteToNero1, t) ??
-            whiteToNero1,
-        darkGreyToWhite: Color.lerp(
-            darkGreyToWhite, other.darkGreyToWhite, t) ?? darkGreyToWhite);
+        whiteToNero1: Color.lerp(whiteToNero1, other.whiteToNero1, t) ?? whiteToNero1,
+        darkGreyToWhite: Color.lerp(darkGreyToWhite, other.darkGreyToWhite, t) ?? darkGreyToWhite,
+      );
   }
 }

@@ -37,7 +37,6 @@ class LightThemeColors {
   static const warmerGreyToDarkGrey = _ghost;
   static const whiteToWhiteOpacity20 = _white;
   static const solitudeToGhost = _solitude;
-  static const blackToWhite = _black;
 
   //for keyboard
   static const whiteToDimGray = _white;
@@ -75,7 +74,7 @@ class LightThemeColors {
   static const ghostToEclipse = _ghost;
   static const snowToNero = _snow;
   static const solitudeToEclipse = _solitude2;
-  static const blackToWhite1 = _black;
+  static const blackToWhite = _black;
   static const stormGrey12ToStormGrey24 = _stormGrey12;
   static const whiteToSmoky = _white;
 

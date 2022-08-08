@@ -97,7 +97,6 @@ abstract class DarkTheme {
             lightGreenToDarkGreen: DarkThemeColors.lightGreenToDarkGreen,
             blackToWhite: DarkThemeColors.blackToWhite,
             darkToPurple: DarkThemeColors.darkToPurple,
-
             lavenderToUltramarine30: DarkThemeColors.lavenderToUltramarine30,
             whiteSmokeToEclipse: DarkThemeColors.whiteSmokeToEclipse,
             lavenderToMediumSlateBlue30:
@@ -141,7 +140,6 @@ abstract class DarkTheme {
             whiteToWhite8: DarkThemeColors.whiteToWhite8,
             solitudeToGondola: DarkThemeColors.solitudeToGondola,
             midnightExpressToWhite: DarkThemeColors.midnightExpressToWhite,
-              solitudeToDolphinBorder: DarkThemeColors.solitudeToDolphinBorder,
           ),
           WTextFieldStyle(
             fillColor: DarkThemeColors.solitudeToNero,

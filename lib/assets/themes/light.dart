@@ -63,9 +63,9 @@ abstract class LightTheme {
             dividerColorToGrey: LightThemeColors.dividerColorToGrey,
             darkToWhite: LightThemeColors.darkToWhite,
             prussianBlueToWhite80: LightThemeColors.prussianBlueToWhite80,
-            blackToWhite: LightThemeColors.blackToWhite,
             stormGrey12ToStormGrey24: LightThemeColors.stormGrey12ToStormGrey24,
             dodgerBlueToWhite80: LightThemeColors.dodgerBlueToWhite80,
+            blackToWhite: LightThemeColors.blackToWhite,
             blackToWhite80: LightThemeColors.blackToWhite80,
             solitudeToCharcoal: LightThemeColors.solitudeToCharcoal,
             solitudeToDolphin8: LightThemeColors.solitudeToDolphin8,
@@ -132,7 +132,6 @@ abstract class LightTheme {
             lavenderToMediumSlateBlue30:
                 LightThemeColors.lavenderToMediumSlateBlue30,
             midnightExpressToWhite: LightThemeColors.midnightExpressToWhite,
-            solitudeToDolphinBorder: LightThemeColors.solitudeToDolphinBorder,
           ),
           WTextFieldStyle(
             fillColor: LightThemeColors.solitudeToNero,

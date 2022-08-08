@@ -152,7 +152,6 @@ const _greySuit26 = Color(0x4292929D);
 const _cinnabar26 = Color(0x42EA5930);
 const _mediumSeaGreen26 = Color(0x4238AF7F);
 const _mediumSlateBlue26 = Color(0x42695CEA);
-
 const _stormGrey32 = Color(0x52787880);
 const _mediumSlateBlue30 = Color(0x4d695cea);
 const _ultramarine10 = Color(0x1a170C85);
