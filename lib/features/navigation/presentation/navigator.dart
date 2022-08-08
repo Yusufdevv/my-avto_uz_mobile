@@ -3,6 +3,7 @@ import 'package:auto/features/main/presentation/pages/main_screen.dart';
 import 'package:auto/features/navigation/presentation/home.dart';
 import 'package:auto/features/posting_ad/posting_ad_screen.dart';
 import 'package:auto/features/profile/presentation/pages/profile_screen.dart';
+import 'package:auto/features/reels/presentation/pages/reels_screen.dart';
 import 'package:auto/features/reviews/presentation/pages/reviews_screen.dart';
 import 'package:auto/features/search/presentation/pages/search_screen.dart';
 import 'package:flutter/cupertino.dart';
@@ -42,7 +43,7 @@ class _TabNavigatorState extends State<TabNavigator>
         };
       case NavItemEnum.categories:
         return {
-          TabNavigatorRoutes.root: (context) => const ReviewsScreen(),
+          TabNavigatorRoutes.root: (context) =>  Container(),
         };
       case NavItemEnum.profile:
         return {

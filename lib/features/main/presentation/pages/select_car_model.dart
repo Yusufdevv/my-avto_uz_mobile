@@ -100,32 +100,7 @@ class _SelectCarModelScreenState extends State<SelectCarModelScreen> {
     const CarBrandEntity(title: 'Chevrolet', icon: AppImages.chevrolet),
     const CarBrandEntity(title: 'Chevrolet', icon: AppImages.chevrolet),
   ];
-  final List<String> letters = [
-    'A',
-    'B',
-    'C',
-    'D',
-    'E',
-    'F',
-    'G',
-    'H',
-    'I',
-    'J',
-    'K',
-    'L',
-    'M',
-    'N',
-    'O',
-    'P',
-    'Q',
-    'R',
-    'S',
-    'T',
-    'Y',
-    'U',
-    'W',
-    'Z',
-  ];
+
 
   @override
   Widget build(BuildContext context) => KeyboardDismisser(

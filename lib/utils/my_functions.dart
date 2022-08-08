@@ -36,4 +36,18 @@ class MyFunctions {
 
   static String getHours(String data) =>
       Jiffy(data).format('h-mm').replaceAll('-', ':').toString();
+
+  static String getFormattedPrice(String content, List<int> stopsList) {
+    final buffer = StringBuffer();
+    for (var i = 0; i < content.length; i++) {
+      if (stopsList.contains(i + 1)) {
+        buffer.write(' ');
+      }
+      buffer.write(content[i]);
+    }
+    return buffer.toString();
+  }
+
+  static String getHours(String data) =>
+      Jiffy(data).format('h-mm').replaceAll('-', ':').toString();
 }

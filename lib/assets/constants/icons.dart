@@ -90,4 +90,15 @@ class AppIcons {
   static const scale = 'assets/icons/global/scale.svg';
   static const heartWhite = 'assets/icons/global/heart_white.svg';
   static const closeWhite = 'assets/icons/global/close_white.svg';
+  static const whiteLogo = 'assets/icons/global/logo_white.svg';
+  static const chevronRight = 'assets/icons/global/chevron_right.svg';
+  static const chevronLeftWhite = 'assets/icons/global/chevron_left_white.svg';
+  static const discountContainer = 'assets/icons/global/discount_container.svg';
+  static const like = 'assets/icons/global/like.svg';
+  static const share = 'assets/icons/global/share.svg';
+  static const more = 'assets/icons/global/more.svg';
+  static const likeSelected = 'assets/icons/global/like_selected.svg';
+  static const liked = 'assets/icons/global/liked.svg';
+  static const secondLiked = 'assets/icons/global/like_second.svg';
+  static const thirdLiked = 'assets/icons/global/third_like.svg';
 }
