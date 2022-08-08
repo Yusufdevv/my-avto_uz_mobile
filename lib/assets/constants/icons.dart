@@ -48,13 +48,12 @@ class AppIcons {
 
   // PROFILE
   static const alert = 'assets/icons/profile/alert.svg';
-  static const heart = 'assets/icons/profile/heart.svg';
+  static const heartBlue = 'assets/icons/profile/heart.svg';
   static const refresh = 'assets/icons/profile/refresh.svg';
   static const share = 'assets/icons/profile/share.svg';
   static const editProfile = 'assets/icons/profile/edit.svg';
   static const settings = 'assets/icons/profile/settings.svg';
   static const info = 'assets/icons/profile/info.svg';
-  static const close = 'assets/icons/profile/close.svg';
   static const refreshSmall = 'assets/icons/profile/refresh_small.svg';
   static const file = 'assets/icons/profile/file.svg';
   static const lock = 'assets/icons/profile/lock.svg';

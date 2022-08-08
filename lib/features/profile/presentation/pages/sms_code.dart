@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
@@ -38,7 +37,6 @@ class _SmsCodePageState extends State<SmsCodePage> {
   @override
   Widget build(BuildContext context) => KeyboardDismisser(
         child: Scaffold(
-          backgroundColor: white,
           appBar: const WAppBar(
             textWithButton: 'Смена пароля',
           ),
@@ -48,11 +46,19 @@ class _SmsCodePageState extends State<SmsCodePage> {
               AuthHeader(
                 phone: widget.phone,
                 desc:
-                    'Введите код подтверждения из SMS.  Код подтверждения отправлено на номер',
+                    'Введите код подтверждения из SMS.\n Код подтверждения отправлено на номер',
                 title: 'Смена пароля',
               ),
               const SizedBox(
-                height: 50,
+                height: 32,
+              ),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Text('Код подтверждения',
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline2!
+                        .copyWith(color: grey)),
               ),
               const SizedBox(
                 height: 12,
@@ -68,13 +74,14 @@ class _SmsCodePageState extends State<SmsCodePage> {
                 height: 12,
               ),
               Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
                     'Отправить код снова через',
                     style: Theme.of(context)
                         .textTheme
-                        .bodyText1!
-                        .copyWith(fontWeight: FontWeight.w400, fontSize: 14),
+                        .subtitle1!
+                        .copyWith(color: grey),
                   ),
                   const SizedBox(
                     width: 8,

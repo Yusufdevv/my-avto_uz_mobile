@@ -18,6 +18,7 @@ class DarkThemeColors {
   static const buttonColor = _cinnabar;
   static const buttonDisabledColor = _eclipse;
   static const primaryColor = _cinnabar;
+  static const whiteToEclipse = _white;
 
   static const headline1 = _white;
   static const headline2 = _white;
@@ -61,14 +62,14 @@ class DarkThemeColors {
   static const prussianBlueToWhite80 = _white80;
   static const solitudeToCharcoal = _charcoal;
   static const whiteToNero1 = _nero1;
-  static const borderGreyToDark = _darkRider;
+  static const borderGreyToDark = _nightRider;
   static const iconPearlToWhite = _white;
   static const darkGreyToWhite = _dolphin;
-  static const whiteToDarkRider = _darkRider;
+  static const whiteToDarkRider = _nightRider;
   static const borderGreyToGreen = _mediumSeaGreen;
   static const lightGreenToDarkGreen = _englishHolly;
   static const blackToWhite = _white;
-  static const greyToDarkRider = _darkRider;
+  static const greyToDarkRider = _nightRider;
   static const darkToPurple = _mediumSlateBlue;
   static const darkToGrey = _greySuit;
   static const greyContainer26 = _greySuit26;
@@ -91,7 +92,7 @@ class DarkThemeColors {
   static const ghostToEclipse = _eclipse;
   static const dolphinToGreySuit = _greySuit;
   static const snowToNero = _nero;
-  static const blackToWhite = _white;
+  static const blackToWhite1 = _white;
 
   static const solitudeToEclipse = _eclipse;
   static const cinnabar12ToCinnabar = _cinnabar;
@@ -111,6 +112,7 @@ class DarkThemeColors {
   static const whiteLilacToWhite4 = _white4;
   static const dolphinToWhite60 = _white60;
   static const solitudeToDolphin8 = _dolphin8;
+  static const solitudeToDolphinBorder = _dolphin;
 }
 
 // Main palette (http://www.color-blindness.com/color-name-hue/).

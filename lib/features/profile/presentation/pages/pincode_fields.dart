@@ -1,6 +1,5 @@
 import 'dart:async';
-
-import 'package:auto/assets/colors/color.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
@@ -37,20 +36,25 @@ class _SmsPinCodeFieldsState extends State<SmsPinCodeFields> {
         autoDismissKeyboard: true,
         autoDisposeControllers: false,
         autoFocus: true,
-        textStyle: ThemeData.light().textTheme.headline1!.copyWith(fontSize: 20),
+        textStyle: Theme.of(context)
+            .textTheme
+            .headline1!
+            .copyWith(fontSize: 14, fontWeight: FontWeight.w600),
         length: 6,
         animationType: AnimationType.scale,
         showCursor: true,
         pinTheme: PinTheme(
-          activeColor: Theme.of(context).colorScheme.primary,
+          activeColor:
+              Theme.of(context).extension<ThemedColors>()!.blueContainer26,
           selectedColor: Theme.of(context).colorScheme.primary,
-          inactiveFillColor: borderCircular,
-          activeFillColor: borderCircular,
-          inactiveColor: widget.borderColor ?? border,
+          inactiveFillColor: Theme.of(context).appBarTheme.backgroundColor,
+          activeFillColor: Theme.of(context).appBarTheme.backgroundColor,
+          inactiveColor:
+              Theme.of(context).extension<ThemedColors>()!.solitudeToDolphinBorder,
           borderWidth: 1.5,
           shape: PinCodeFieldShape.box,
           borderRadius: BorderRadius.circular(8),
-          selectedFillColor: white,
+          selectedFillColor: Theme.of(context).appBarTheme.backgroundColor,
           fieldHeight: 43,
           fieldWidth: 43,
           fieldOuterPadding: EdgeInsets.zero,
