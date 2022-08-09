@@ -52,6 +52,7 @@ class AppIcons {
   static const editProfile = 'assets/icons/profile/edit.svg';
   static const settings = 'assets/icons/profile/settings.svg';
   static const antivirus = 'assets/icons/global/antivirus.svg';
+  static const filter = 'assets/icons/global/filter.svg';
   static const info = 'assets/icons/profile/info.svg';
   static const refreshSmall = 'assets/icons/profile/refresh_small.svg';
   static const file = 'assets/icons/profile/file.svg';
@@ -99,4 +100,5 @@ class AppIcons {
   static const liked = 'assets/icons/global/liked.svg';
   static const secondLiked = 'assets/icons/global/like_second.svg';
   static const thirdLiked = 'assets/icons/global/third_like.svg';
+  static const chevronRightBlack = 'assets/icons/global/chevron_right_black.svg';
 }

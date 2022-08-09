@@ -5,7 +5,6 @@ import 'package:auto/features/common/domain/entity/car_brand_entity.dart';
 import 'package:auto/features/common/widgets/car_brand_item.dart';
 import 'package:auto/features/main/domain/entities/ads_entity.dart';
 import 'package:auto/features/main/domain/entities/service_entity.dart';
-import 'package:auto/features/main/domain/entities/story_item_entity.dart';
 import 'package:auto/features/main/presentation/widgets/ads_item.dart';
 import 'package:auto/features/main/presentation/widgets/car_model_item.dart';
 import 'package:auto/features/main/presentation/widgets/deal_button.dart';

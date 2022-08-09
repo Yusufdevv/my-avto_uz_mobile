@@ -25,7 +25,7 @@ class LightThemeColors {
   static const dividerColorToDarkGreyOpacity = _solitude;
   static const whiteToGrey = _white;
   static const dividerColorToWhiteOpacity = _solitude;
-  static const scaffoldBackground = _whiteSmoke;
+  static const scaffoldBackground = _solitudeContainer;
   static const solitudeToBastille = _solitude;
   static const whiteToEclipse = _white;
   static const backgroundColor = _black;
@@ -108,6 +108,10 @@ class LightThemeColors {
   static const greenContainer26 = _cosmicLatte;
   static const blueContainer26 = _lavender1;
   static const solitudeToDolphinBorder = _solitudeBorder;
+  static const whiteSmoke2ToNightRider = _whiteSmoke2;
+  static const whiteSmoke78ToWhiteSmoke12 = _whiteSmoke78;
+  static const ghostToGondola = _ghost;
+  static const tangerineYellowToMediumSlateBlue = _tangerineYellow;
 }
 
 // Main palette (http://www.color-blindness.com/color-name-hue/).
@@ -150,3 +154,6 @@ const _roseWhite = Color(0xFFFDF4F3);
 const _cosmicLatte = Color(0xFFEBFAF0);
 const _lavender1 = Color(0xFFF2F4FC);
 const _eclipse = Color(0xff373737);
+const _whiteSmoke2 = Color(0xfff4f4f4);
+const _whiteSmoke78 = Color(0xc7e9e9e9);
+const _tangerineYellow = Color(0xffFFC908);

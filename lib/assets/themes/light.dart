@@ -66,6 +66,7 @@ abstract class LightTheme {
             stormGrey12ToStormGrey24: LightThemeColors.stormGrey12ToStormGrey24,
             dodgerBlueToWhite80: LightThemeColors.dodgerBlueToWhite80,
             blackToWhite: LightThemeColors.blackToWhite,
+            whiteSmoke2ToNightRider: LightThemeColors.whiteSmoke2ToNightRider,
             blackToWhite80: LightThemeColors.blackToWhite80,
             solitudeToCharcoal: LightThemeColors.solitudeToCharcoal,
             solitudeToDolphin8: LightThemeColors.solitudeToDolphin8,
@@ -129,6 +130,9 @@ abstract class LightTheme {
             whiteToSmoky: LightThemeColors.whiteToSmoky,
             whiteToSecondNero: LightThemeColors.whiteToSecondNero,
             whiteToWhite8: LightThemeColors.whiteToWhite8,
+            ghostToGondola: LightThemeColors.ghostToGondola,
+            tangerineYellowToMediumSlateBlue: LightThemeColors.tangerineYellowToMediumSlateBlue,
+            whiteSmoke78ToWhiteSmoke12: LightThemeColors.whiteSmoke78ToWhiteSmoke12,
             lavenderToMediumSlateBlue30:
                 LightThemeColors.lavenderToMediumSlateBlue30,
             midnightExpressToWhite: LightThemeColors.midnightExpressToWhite,
