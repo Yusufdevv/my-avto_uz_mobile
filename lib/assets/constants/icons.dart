@@ -108,5 +108,6 @@ class AppIcons {
   static const shieldCheck = 'assets/icons/search/shield_check.svg';
   static const phone = 'assets/icons/search/phone.svg';
   static const shopping = 'assets/icons/search/shopping.svg';
-  static const chevronRightBlack = 'assets/icons/global/chevron_right_black.svg';
+  static const chevronRightBlack =
+      'assets/icons/global/chevron_right_black.svg';
 }

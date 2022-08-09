@@ -41,7 +41,7 @@ class _TabNavigatorState extends State<TabNavigator>
         };
       case NavItemEnum.categories:
         return {
-          TabNavigatorRoutes.root: (context) =>  Container(),
+          TabNavigatorRoutes.root: (context) => Container(),
         };
       case NavItemEnum.profile:
         return {

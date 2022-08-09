@@ -131,8 +131,10 @@ abstract class LightTheme {
             whiteToSecondNero: LightThemeColors.whiteToSecondNero,
             whiteToWhite8: LightThemeColors.whiteToWhite8,
             ghostToGondola: LightThemeColors.ghostToGondola,
-            tangerineYellowToMediumSlateBlue: LightThemeColors.tangerineYellowToMediumSlateBlue,
-            whiteSmoke78ToWhiteSmoke12: LightThemeColors.whiteSmoke78ToWhiteSmoke12,
+            tangerineYellowToMediumSlateBlue:
+                LightThemeColors.tangerineYellowToMediumSlateBlue,
+            whiteSmoke78ToWhiteSmoke12:
+                LightThemeColors.whiteSmoke78ToWhiteSmoke12,
             lavenderToMediumSlateBlue30:
                 LightThemeColors.lavenderToMediumSlateBlue30,
             midnightExpressToWhite: LightThemeColors.midnightExpressToWhite,

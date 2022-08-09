@@ -117,8 +117,6 @@ class DarkThemeColors {
   static const whiteSmoke78ToWhiteSmoke12 = _whiteSmoke12;
   static const ghostToGondola = _gondola;
   static const tangerineYellowToMediumSlateBlue = _mediumSlateBlue;
-
-
 }
 
 // Main palette (http://www.color-blindness.com/color-name-hue/).

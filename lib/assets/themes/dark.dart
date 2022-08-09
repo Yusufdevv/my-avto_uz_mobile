@@ -84,7 +84,8 @@ abstract class DarkTheme {
             dodgerBlueToWhite80: DarkThemeColors.dodgerBlueToWhite80,
             solitudeToWhite35: DarkThemeColors.solitudeToWhite35,
             solitudeToSolitude14: DarkThemeColors.solitudeToSolitude14,
-            tangerineYellowToMediumSlateBlue: DarkThemeColors.tangerineYellowToMediumSlateBlue,
+            tangerineYellowToMediumSlateBlue:
+                DarkThemeColors.tangerineYellowToMediumSlateBlue,
             darkToWhite: DarkThemeColors.darkToWhite,
             dividerColorToGrey: DarkThemeColors.dividerColorToGrey,
             whiteToDolphin: DarkThemeColors.whiteToDolphin,
@@ -139,7 +140,8 @@ abstract class DarkTheme {
             whiteLilacToWhite4: DarkThemeColors.whiteLilacToWhite4,
             solitudeToEclipse: DarkThemeColors.solitudeToEclipse,
             solitudeContainerToDark: DarkThemeColors.solitudeContainerToDark,
-            whiteSmoke78ToWhiteSmoke12: DarkThemeColors.whiteSmoke78ToWhiteSmoke12,
+            whiteSmoke78ToWhiteSmoke12:
+                DarkThemeColors.whiteSmoke78ToWhiteSmoke12,
             whiteToGondola: DarkThemeColors.whiteToGondola,
             whiteToWhite8: DarkThemeColors.whiteToWhite8,
             solitudeToGondola: DarkThemeColors.solitudeToGondola,
