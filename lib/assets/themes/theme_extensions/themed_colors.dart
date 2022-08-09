@@ -70,7 +70,7 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
   final Color greenContainer26;
   final Color blueContainer26;
   final Color solitudeToDolphinBorder;
-
+  final Color ghostToGondola;
   const ThemedColors({
     required this.greyContainer26,
     required this.redContainer26,
@@ -139,6 +139,7 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
     required this.midnightExpressToDolphin,
     required this.solitudeToGondola,
     required this.solitudeToDolphinBorder,
+    required this.ghostToGondola,
   });
 
   @override
@@ -210,8 +211,10 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
     Color? whiteToDark,
     Color? whiteSmokeToEclipse,
     Color? snowToNightRider,
+    Color? ghostToGondola,
   }) =>
       ThemedColors(
+          ghostToGondola: ghostToGondola ?? this.ghostToGondola,
           solitudeToDolphinBorder: solitudeToDolphinBorder ??
               this.solitudeToDolphinBorder,
           darkToGrey: darkToGrey ?? this.darkToGrey,
@@ -311,6 +314,7 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
       return this;
     }
     return ThemedColors(
+        ghostToGondola: Color.lerp(ghostToGondola, other.ghostToGondola, t) ?? ghostToGondola,
         solitudeToDolphinBorder: Color.lerp(
             solitudeToDolphinBorder, other.solitudeToDolphinBorder, t) ??
             solitudeToDolphinBorder,

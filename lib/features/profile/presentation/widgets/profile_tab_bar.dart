@@ -55,7 +55,7 @@ class ProfileTabBar extends StatelessWidget {
                 ],
               ),
               controller: tabController,
-              labelStyle: Theme.of(context).textTheme.headline6,
+              labelStyle: Theme.of(context).textTheme.subtitle1!.copyWith(fontSize: 13),
               labelColor:
                   Theme.of(context).extension<ThemedColors>()!.blackToWhite,
               unselectedLabelColor:

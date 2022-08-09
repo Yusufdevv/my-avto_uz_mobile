@@ -9,14 +9,23 @@ import 'package:flutter_svg/svg.dart';
 
 class AllTabs extends StatelessWidget {
   const AllTabs({Key? key}) : super(key: key);
+  final String image1 =
+      'https://images.unsplash.com/photo-1659812903095-d7e87abb0b3c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw4Mnx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60';
+  final String imege2 =
+      'https://images.unsplash.com/photo-1658856226250-5b236fa6137d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxMDR8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60';
 
   @override
   Widget build(BuildContext context) => Container(
-        margin: const EdgeInsets.only(top: 12,bottom: 12),
+        margin: const EdgeInsets.only(top: 12, bottom: 12),
         color: Theme.of(context).appBarTheme.backgroundColor,
         child: Column(
           children: [
-            Advertising(),
+            Advertising(
+              isClient: true,
+              isSalon: true,
+              image1: image1,
+              imege2: imege2,
+            ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               child: Column(
@@ -163,7 +172,7 @@ class AllTabs extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(
                               vertical: 10, horizontal: 11),
                           onTap: () {},
-                          child: SvgPicture.asset(AppIcons.share),
+                          child: SvgPicture.asset(AppIcons.share1),
                         )
                       ],
                     ),

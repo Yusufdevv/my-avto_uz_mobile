@@ -132,10 +132,10 @@ class WTextField extends StatefulWidget {
 class _WTextFieldState extends State<WTextField>
     with SingleTickerProviderStateMixin {
   late FocusNode focusNode;
-  bool focused = true;
-  bool hasText = true;
-  bool isObscure = true;
-  bool showStroke = true;
+  bool focused = false;
+  bool hasText = false;
+  bool isObscure = false;
+  bool showStroke = false;
   late AnimationController animationController;
 
   @override

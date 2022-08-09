@@ -22,10 +22,9 @@ class CustomTab extends StatelessWidget {
           ),
           if (!isLastItem) ...{
             Container(
-              margin: const EdgeInsets.symmetric(vertical: 8),
-              width: 1,
-              color: grey,
-            )
+                margin: const EdgeInsets.symmetric(vertical: 8),
+                width: 0.65,
+                color: dividerInTab)
           }
         ],
       );

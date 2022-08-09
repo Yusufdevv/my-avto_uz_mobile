@@ -7,6 +7,7 @@ class WSliverAppBar extends StatelessWidget {
   final bool hasBackButton;
   final String? title;
   final Widget? child;
+  final Widget? icon;
   final TextStyle? titleStyle;
   final List<Widget> extraActions;
   final Color? backgroundColor;
@@ -32,12 +33,12 @@ class WSliverAppBar extends StatelessWidget {
     this.centerTitle = true,
     this.titleStyle,
     this.hasBackButton = true,
+    this.icon,
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) => SliverAppBar(
-
         pinned: true,
         floating: true,
         snap: false,
@@ -52,7 +53,7 @@ class WSliverAppBar extends StatelessWidget {
         flexibleSpace: FlexibleSpaceBar(
           collapseMode: CollapseMode.parallax,
           background: Container(
-            color:  Theme.of(context).appBarTheme.backgroundColor,
+            color: Theme.of(context).appBarTheme.backgroundColor,
             height: (height ?? 52) + MediaQuery.of(context).padding.top,
             padding: EdgeInsets.only(
                 left: 0,
@@ -87,6 +88,14 @@ class WSliverAppBar extends StatelessWidget {
                                   fontSize: 16,
                                   fontWeight: FontWeight.w600,
                                 ),
+                      ),
+                    ),
+                    const Spacer(),
+                    WScaleAnimation(
+                      onTap: () {},
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 16),
+                        child: icon,
                       ),
                     ),
                   ],

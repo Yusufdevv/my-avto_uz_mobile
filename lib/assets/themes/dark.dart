@@ -65,7 +65,7 @@ abstract class DarkTheme {
             unselectedBackgroundColor: DarkThemeColors.lightGreyToEclipse,
             unselectedBorderColor: DarkThemeColors.warmerGreyToDarkGray,
             unselectedItemColor: DarkThemeColors.navBarUnselected,
-              unselectedBackgroundColor1: DarkThemeColors.whiteToEclipse,
+            unselectedBackgroundColor1: DarkThemeColors.whiteToEclipse,
           ),
           ThemedColors(
             darkToGrey: DarkThemeColors.darkToGrey,
@@ -97,7 +97,6 @@ abstract class DarkTheme {
             lightGreenToDarkGreen: DarkThemeColors.lightGreenToDarkGreen,
             blackToWhite: DarkThemeColors.blackToWhite,
             darkToPurple: DarkThemeColors.darkToPurple,
-
             lavenderToUltramarine30: DarkThemeColors.lavenderToUltramarine30,
             whiteSmokeToEclipse: DarkThemeColors.whiteSmokeToEclipse,
             lavenderToMediumSlateBlue30:
@@ -141,7 +140,8 @@ abstract class DarkTheme {
             whiteToWhite8: DarkThemeColors.whiteToWhite8,
             solitudeToGondola: DarkThemeColors.solitudeToGondola,
             midnightExpressToWhite: DarkThemeColors.midnightExpressToWhite,
-              solitudeToDolphinBorder: DarkThemeColors.solitudeToDolphinBorder,
+            solitudeToDolphinBorder: DarkThemeColors.solitudeToDolphinBorder,
+            ghostToGondola: DarkThemeColors.ghostToGondola,
           ),
           WTextFieldStyle(
             fillColor: DarkThemeColors.solitudeToNero,
@@ -199,12 +199,6 @@ abstract class DarkTheme {
     fontWeight: FontWeight.w500,
     letterSpacing: -0.3,
     color: DarkThemeColors.bodyText2,
-  );
-  static const bodyText3 = TextStyle(
-    fontSize: 14,
-    fontWeight: FontWeight.w400,
-    letterSpacing: -0.3,
-    color: DarkThemeColors.bodyText3,
   );
 
   static const subTitle1 = TextStyle(

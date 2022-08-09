@@ -95,7 +95,7 @@ class ProfileScreen extends StatelessWidget {
                           children: [
                             Row(
                               children: [
-                                SvgPicture.asset(AppIcons.heart),
+                                SvgPicture.asset(AppIcons.heartBlue),
                                 const SizedBox(width: 8),
                                 Column(
                                   children: [
@@ -118,9 +118,9 @@ class ProfileScreen extends StatelessWidget {
                                 const SizedBox(width: 10),
                                 SvgPicture.asset(
                                   AppIcons.chevronRight,
-                                  // color: Theme.of(context)
-                                  //     .extension<ThemedColors>()!
-                                  //     .darkGreyToWhite,
+                                  color: Theme.of(context)
+                                      .extension<ThemedColors>()!
+                                      .darkGreyToWhite,
                                 )
                               ],
                             ),
@@ -231,9 +231,9 @@ class ProfileScreen extends StatelessWidget {
                                 const SizedBox(width: 10),
                                 SvgPicture.asset(
                                   AppIcons.chevronRight,
-                                  // color: Theme.of(context)
-                                  //     .extension<ThemedColors>()!
-                                  //     .darkGreyToWhite,
+                                  color: Theme.of(context)
+                                      .extension<ThemedColors>()!
+                                      .darkGreyToWhite,
                                 )
                               ],
                             ),
@@ -387,9 +387,9 @@ class ProfileScreen extends StatelessWidget {
                                 const SizedBox(width: 10),
                                 SvgPicture.asset(
                                   AppIcons.chevronRight,
-                                  // color: Theme.of(context)
-                                  //     .extension<ThemedColors>()!
-                                  //     .darkGreyToWhite,
+                                  color: Theme.of(context)
+                                      .extension<ThemedColors>()!
+                                      .darkGreyToWhite,
                                 )
                               ],
                             ),
@@ -568,7 +568,6 @@ class ProfileScreen extends StatelessWidget {
                   ),
                 ),
               )
-
             ],
           ),
         ),

@@ -57,14 +57,8 @@ flutter:
     - assets/images/global/
     - assets/images/
     - assets/icons/global/
-    - assets/icons/main/
     - assets/icons/profile/
     - assets/icons/navbar/
-    - assets/icons/event/
-    - assets/icons/auth/
-    - assets/icons/section/
-    - assets/icons/create_post/
-    - assets/icons/events/
-    - assets/fonts/
+    - assets/icons/search/
     - lib/assets/strings/
 

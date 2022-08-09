@@ -50,7 +50,7 @@ class AppIcons {
   static const alert = 'assets/icons/profile/alert.svg';
   static const heartBlue = 'assets/icons/profile/heart.svg';
   static const refresh = 'assets/icons/profile/refresh.svg';
-  static const share = 'assets/icons/profile/share.svg';
+  static const share1 = 'assets/icons/profile/share.svg';
   static const editProfile = 'assets/icons/profile/edit.svg';
   static const settings = 'assets/icons/profile/settings.svg';
   static const info = 'assets/icons/profile/info.svg';
@@ -90,7 +90,6 @@ class AppIcons {
   static const heartWhite = 'assets/icons/global/heart_white.svg';
   static const closeWhite = 'assets/icons/global/close_white.svg';
   static const whiteLogo = 'assets/icons/global/logo_white.svg';
-  static const chevronRight = 'assets/icons/global/chevron_right.svg';
   static const chevronLeftWhite = 'assets/icons/global/chevron_left_white.svg';
   static const discountContainer = 'assets/icons/global/discount_container.svg';
   static const like = 'assets/icons/global/like.svg';
@@ -100,4 +99,12 @@ class AppIcons {
   static const liked = 'assets/icons/global/liked.svg';
   static const secondLiked = 'assets/icons/global/like_second.svg';
   static const thirdLiked = 'assets/icons/global/third_like.svg';
+
+  // SEARCH
+  static const parameter = 'assets/icons/search/parameter.svg';
+  static const searchWithHeart = 'assets/icons/search/search_with_heart.svg';
+  static const circleClose = 'assets/icons/search/circle_close.svg';
+  static const shieldCheck = 'assets/icons/search/shield_check.svg';
+  static const phone = 'assets/icons/search/phone.svg';
+  static const shopping = 'assets/icons/search/shopping.svg';
 }

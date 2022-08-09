@@ -14,7 +14,6 @@ class LightThemeColors {
   static const headline6 = _grey;
   static const bodyText1 = _dolphin;
   static const bodyText2 = _dodgerBlue;
-  static const bodyText3 = _blackRock;
   static const subTitle1 = _black;
   static const subTitle2 = _blackOpacity;
   static const caption = _nero;
@@ -109,6 +108,7 @@ class LightThemeColors {
   static const greenContainer26 = _cosmicLatte;
   static const blueContainer26 = _lavender1;
   static const solitudeToDolphinBorder = _solitudeBorder;
+  static const ghostToGondola = _ghost;
 }
 
 // Main palette (http://www.color-blindness.com/color-name-hue/).

@@ -28,7 +28,6 @@ class DarkThemeColors {
   static const headline6 = _solitude;
   static const bodyText1 = _white;
   static const bodyText2 = _dodgerBlue;
-  static const bodyText3 = _greySuit;
   static const subTitle1 = _white;
   static const subTitle2 = _blackOpacity;
   static const caption = _white80;
@@ -113,6 +112,7 @@ class DarkThemeColors {
   static const dolphinToWhite60 = _white60;
   static const solitudeToDolphin8 = _dolphin8;
   static const solitudeToDolphinBorder = _dolphin;
+  static const ghostToGondola = _gondola;
 }
 
 // Main palette (http://www.color-blindness.com/color-name-hue/).

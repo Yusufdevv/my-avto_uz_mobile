@@ -17,15 +17,16 @@ class PasswordTextField extends StatefulWidget {
 }
 
 class _PasswordTextFieldState extends State<PasswordTextField> {
+  bool obScure = false;
 
   @override
   Widget build(BuildContext context) => WTextField(
-      isObscure: true,
-      // onObscure: () {
-      //   setState(() {
-      //     obScure = !obScure;
-      //   });
-      // },
+      isObscure: obScure,
+      onObscure: () {
+        setState(() {
+          obScure = !obScure;
+        });
+      },
       hintTextStyle: Theme.of(context)
           .textTheme
           .headline2!

@@ -133,6 +133,7 @@ abstract class LightTheme {
                 LightThemeColors.lavenderToMediumSlateBlue30,
             midnightExpressToWhite: LightThemeColors.midnightExpressToWhite,
             solitudeToDolphinBorder: LightThemeColors.solitudeToDolphinBorder,
+            ghostToGondola: LightThemeColors.ghostToGondola,
           ),
           WTextFieldStyle(
             fillColor: LightThemeColors.solitudeToNero,
