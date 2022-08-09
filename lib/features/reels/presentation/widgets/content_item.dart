@@ -33,7 +33,6 @@ class _ContentItemState extends State<ContentItem> {
         videoPlayerBloc.add(InitializeVideoPlayerEvent(
             totalDuration: Duration(
                 seconds: videoPlayerController.value.duration.inSeconds)));
-
       })
       ..setLooping(true);
 
@@ -91,12 +90,7 @@ class _ContentItemState extends State<ContentItem> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              '${MyFunctions.getFormattedPrice(widget.contentEntity.oldPrice, [
-                                    0,
-                                    4,
-                                    7,
-                                    10
-                                  ])} UZS',
+                              '${MyFunctions.getFormatCost(widget.contentEntity.oldPrice)} UZS',
                               style: Theme.of(context)
                                   .textTheme
                                   .headline5!
@@ -108,12 +102,7 @@ class _ContentItemState extends State<ContentItem> {
                             Row(
                               children: [
                                 Text(
-                                  '${MyFunctions.getFormattedPrice(widget.contentEntity.price, [
-                                        0,
-                                        4,
-                                        7,
-                                        10
-                                      ])} UZS',
+                                  '${MyFunctions.getFormatCost(widget.contentEntity.price)} UZS',
                                   style: Theme.of(context)
                                       .textTheme
                                       .headline4!
@@ -161,12 +150,7 @@ class _ContentItemState extends State<ContentItem> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              '${MyFunctions.getFormattedPrice(widget.contentEntity.price, [
-                                    0,
-                                    4,
-                                    7,
-                                    10
-                                  ])} UZS',
+                              '${MyFunctions.getFormatCost(widget.contentEntity.price)} UZS',
                               style: Theme.of(context)
                                   .textTheme
                                   .headline4!
@@ -227,10 +211,12 @@ class _ContentItemState extends State<ContentItem> {
                   ],
                 ),
               ),
-               Positioned(
+              Positioned(
                 right: 11,
                 bottom: 31,
-                child: OptionsItem(shareUrl: widget.contentEntity.url,),
+                child: OptionsItem(
+                  shareUrl: widget.contentEntity.url,
+                ),
               ),
               Positioned(
                 bottom: 5,

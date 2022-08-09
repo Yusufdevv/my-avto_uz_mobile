@@ -20,7 +20,7 @@ class BusySheet extends StatelessWidget {
           ),
           child: CupertinoActionSheetAction(
             child:  Text(
-              'Shikoyat qilish',
+              'Пожаловаться',
               style: Theme.of(context).textTheme.headline1!.copyWith(fontWeight: FontWeight.w400,color: red),
             ),
             onPressed: () {

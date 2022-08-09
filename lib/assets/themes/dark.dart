@@ -69,6 +69,7 @@ abstract class DarkTheme {
           ),
           ThemedColors(
             darkToGrey: DarkThemeColors.darkToGrey,
+            ghostToGondola: DarkThemeColors.ghostToGondola,
             greyContainer26: DarkThemeColors.greyContainer26,
             redContainer26: DarkThemeColors.redContainer26,
             greenContainer26: DarkThemeColors.greenContainer26,
@@ -83,6 +84,7 @@ abstract class DarkTheme {
             dodgerBlueToWhite80: DarkThemeColors.dodgerBlueToWhite80,
             solitudeToWhite35: DarkThemeColors.solitudeToWhite35,
             solitudeToSolitude14: DarkThemeColors.solitudeToSolitude14,
+            tangerineYellowToMediumSlateBlue: DarkThemeColors.tangerineYellowToMediumSlateBlue,
             darkToWhite: DarkThemeColors.darkToWhite,
             dividerColorToGrey: DarkThemeColors.dividerColorToGrey,
             whiteToDolphin: DarkThemeColors.whiteToDolphin,
@@ -97,7 +99,6 @@ abstract class DarkTheme {
             lightGreenToDarkGreen: DarkThemeColors.lightGreenToDarkGreen,
             blackToWhite: DarkThemeColors.blackToWhite,
             darkToPurple: DarkThemeColors.darkToPurple,
-
             lavenderToUltramarine30: DarkThemeColors.lavenderToUltramarine30,
             whiteSmokeToEclipse: DarkThemeColors.whiteSmokeToEclipse,
             lavenderToMediumSlateBlue30:
@@ -122,6 +123,7 @@ abstract class DarkTheme {
             ghostToEclipse: DarkThemeColors.ghostToEclipse,
             mediumSlateBlueToWhite: DarkThemeColors.mediumSlateBlueToWhite,
             solitudeToDolphin8: DarkThemeColors.solitudeToDolphin8,
+            whiteSmoke2ToNightRider: DarkThemeColors.whiteSmoke2ToNightRider,
             dolphinToWhite60: DarkThemeColors.dolphinToWhite60,
             lightSlateBlue12ToLightSlateBlue:
                 DarkThemeColors.lightSlateBlue12ToLightSlateBlue,
@@ -137,11 +139,11 @@ abstract class DarkTheme {
             whiteLilacToWhite4: DarkThemeColors.whiteLilacToWhite4,
             solitudeToEclipse: DarkThemeColors.solitudeToEclipse,
             solitudeContainerToDark: DarkThemeColors.solitudeContainerToDark,
+            whiteSmoke78ToWhiteSmoke12: DarkThemeColors.whiteSmoke78ToWhiteSmoke12,
             whiteToGondola: DarkThemeColors.whiteToGondola,
             whiteToWhite8: DarkThemeColors.whiteToWhite8,
             solitudeToGondola: DarkThemeColors.solitudeToGondola,
             midnightExpressToWhite: DarkThemeColors.midnightExpressToWhite,
-              solitudeToDolphinBorder: DarkThemeColors.solitudeToDolphinBorder,
           ),
           WTextFieldStyle(
             fillColor: DarkThemeColors.solitudeToNero,

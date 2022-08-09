@@ -3,6 +3,7 @@ import 'package:auto/features/profile/presentation/pages/sms_code.dart';
 import 'package:flutter/material.dart';
 import 'package:jiffy/jiffy.dart';
 
+// ignore: avoid_classes_with_only_static_members
 class MyFunctions {
   static String getData(String data) =>
       Jiffy(data).format('dd-MM-yyyy').replaceAll('-', '/').toString();
@@ -47,7 +48,18 @@ class MyFunctions {
     }
     return buffer.toString();
   }
+  static String getFormatCost(String cost) {
+    String oldCost = cost;
+    if (cost.contains('.')) {
+      List<String> arr = cost.split('.');
+      oldCost = arr.first;
+    }
+    String newCost = "";
 
-  static String getHours(String data) =>
-      Jiffy(data).format('h-mm').replaceAll('-', ':').toString();
+    for (int i = 0; i < oldCost.length; i++) {
+      if ((oldCost.length - i) % 3 == 0) newCost += ' ';
+      newCost += oldCost[i];
+    }
+    return newCost.trimLeft();
+  }
 }

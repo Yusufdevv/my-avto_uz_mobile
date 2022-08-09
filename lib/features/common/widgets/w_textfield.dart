@@ -1,5 +1,6 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/assets/themes/theme_extensions/w_textfield_style.dart';
 import 'package:auto/features/common/widgets/stroke_paint.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
@@ -132,10 +133,10 @@ class WTextField extends StatefulWidget {
 class _WTextFieldState extends State<WTextField>
     with SingleTickerProviderStateMixin {
   late FocusNode focusNode;
-  bool focused = true;
-  bool hasText = true;
-  bool isObscure = true;
-  bool showStroke = true;
+  bool focused = false;
+  bool hasText = false;
+  bool isObscure = false;
+  bool showStroke = false;
   late AnimationController animationController;
 
   @override
@@ -263,10 +264,9 @@ class _WTextFieldState extends State<WTextField>
                             : null,
                         hintText: widget.hintText,
                         hintStyle: widget.hintTextStyle ??
-                            Theme.of(context)
-                                .textTheme
-                                .subtitle2!
-                                .copyWith(color: Theme.of(context).hintColor),
+                            Theme.of(context).textTheme.subtitle2!.copyWith(
+                                color: Theme.of(context).hintColor,
+                                fontWeight: FontWeight.w400),
                         filled: widget.filled,
                         // prefixIconConstraints:
                         // const BoxConstraints(maxWidth: 20, maxHeight: 20),
@@ -384,7 +384,16 @@ class _WTextFieldState extends State<WTextField>
                                 child: Padding(
                                   padding:
                                       const EdgeInsets.symmetric(horizontal: 8),
-                                  child: SvgPicture.asset(AppIcons.cancelRound),
+                                  child: Container(
+                                    height: 24,
+                                    width: 24,
+                                    padding: const EdgeInsets.all(4),
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: Theme.of(context).extension<ThemedColors>()!.whiteSmoke78ToWhiteSmoke12
+                                    ),
+                                      child: SvgPicture.asset(AppIcons.close)
+                                  ),
                                 ),
                               )
                             : const SizedBox()
