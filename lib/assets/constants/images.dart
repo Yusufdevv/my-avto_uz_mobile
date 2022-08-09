@@ -28,4 +28,5 @@ class AppImages {
   static const autoUz = 'assets/images/global/autouz.png';
   static const autoUzCircle = 'assets/images/global/auto_uz_circle.png';
   static const hello = 'assets/images/global/hello.png';
+  static const bmwModel = 'assets/images/global/bmw_model.png';
 }

@@ -153,6 +153,9 @@ class _SelectCarModelScreenState extends State<SelectCarModelScreen> {
                       ),
                     ),
                   ),
+                  const SliverToBoxAdapter(
+                    child: SizedBox(height: 16,),
+                  ),
                   SliverToBoxAdapter(
                     child: SizedBox(
                       height: 100,

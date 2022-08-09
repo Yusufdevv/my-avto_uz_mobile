@@ -1,4 +1,5 @@
 import 'package:auto/features/main/presentation/pages/main_screen.dart';
+import 'package:auto/features/favorites/presentation/pages/favourite_screen.dart';
 import 'package:auto/features/navigation/presentation/home.dart';
 import 'package:auto/features/posting_ad/posting_ad_screen.dart';
 import 'package:auto/features/profile/presentation/pages/profile_screen.dart';

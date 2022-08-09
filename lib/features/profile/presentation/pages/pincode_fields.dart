@@ -50,7 +50,7 @@ class _SmsPinCodeFieldsState extends State<SmsPinCodeFields> {
           inactiveFillColor: Theme.of(context).appBarTheme.backgroundColor,
           activeFillColor: Theme.of(context).appBarTheme.backgroundColor,
           inactiveColor:
-              Theme.of(context).extension<ThemedColors>()!.solitudeToDolphinBorder,
+              Theme.of(context).extension<ThemedColors>()!.solitudeToDolphin8,
           borderWidth: 1.5,
           shape: PinCodeFieldShape.box,
           borderRadius: BorderRadius.circular(8),

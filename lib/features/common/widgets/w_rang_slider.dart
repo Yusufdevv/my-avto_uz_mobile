@@ -1,7 +1,7 @@
 // Copyright 2014 The Flutter Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-/*
+
 import 'dart:async';
 import 'dart:math' as math;
 import 'dart:ui' as ui;
@@ -1637,7 +1637,6 @@ class _RenderRangeSlider extends RenderBox with RelayoutWhenSystemFontsChangeMix
     return decreasedEndValue >= values.start + _minThumbSeparationValue ? decreasedEndValue : values.end;
   }
 
-  double clampDouble(double value, double d, double e) {}
 }
 
 
@@ -1703,4 +1702,3 @@ class _RenderValueIndicator extends RenderBox with RelayoutWhenSystemFontsChange
     return constraints.smallest;
   }
 }
-*/

@@ -26,7 +26,7 @@ class WCheckBox extends StatelessWidget {
               ? checkBoxColor
               : Theme.of(context)
                   .extension<CheckBoxStyle>()!
-                  .unselectedBackgroundColor,
+                  .unselectedBackgroundColor1,
           borderRadius: BorderRadius.circular(4),
           border: Border.all(
               color: isChecked
