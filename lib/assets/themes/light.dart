@@ -54,7 +54,7 @@ abstract class LightTheme {
           caption: caption,
           button: button,
         ),
-        extensions: {
+        extensions: const {
           CheckBoxStyle(
             unselectedBackgroundColor: LightThemeColors.lightGreyToEclipse,
             unselectedBorderColor: LightThemeColors.warmerGreyToDarkGray,
@@ -155,6 +155,7 @@ abstract class LightTheme {
             lavenderToMediumSlateBlue30:
                 LightThemeColors.lavenderToMediumSlateBlue30,
             solitudeToDolphinBorder: LightThemeColors.solitudeToDolphinBorder,
+            greyToCinnabar: LightThemeColors.greyToCinnabar,
             ghostToGondola: LightThemeColors.ghostToGondola,
             tangerineYellowToMediumSlateBlue:
                 LightThemeColors.tangerineYellowToMediumSlateBlue,

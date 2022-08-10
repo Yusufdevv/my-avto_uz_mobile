@@ -166,6 +166,7 @@ abstract class DarkTheme {
             snowToNero1: DarkThemeColors.snowToNero1,
             whiteToNightRider: DarkThemeColors.whiteToNightRider,
             whiteLilacToPayneGrey: DarkThemeColors.whiteLilacToPayneGrey,
+            greyToCinnabar: DarkThemeColors.greyToCinnabar,
           ),
           WTextFieldStyle(
             fillColor: DarkThemeColors.solitudeToNero,
