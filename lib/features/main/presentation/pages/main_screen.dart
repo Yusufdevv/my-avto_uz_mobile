@@ -37,16 +37,23 @@ class _MainScreenState extends State<MainScreen> {
     const CarBrandEntity(title: 'Chevrolet', icon: AppImages.chevrolet),
   ];
 
-  late List<ServiceEntity> serviceEntity = [];
+  final List<ServiceEntity>   serviceEntity = [
+    const ServiceEntity(title: 'Проверка', icon: AppIcons.verification, ),
+    const ServiceEntity(title: 'Объявления', icon: AppIcons.ads),
+    const ServiceEntity(title: 'Каршеринг', icon: AppIcons.carSharing,),
+    const ServiceEntity(title: 'Страхование', icon: AppIcons.insurance,),
+    const ServiceEntity(title: 'Коммерческий транспорт', icon: AppIcons.commercialCar,),
+    const ServiceEntity(title: 'RentCar', icon: AppIcons.rentCar,),
+  ];
   @override
   void initState() {
-    serviceEntity = [
-      ServiceEntity(title: 'Проверка', icon: AppIcons.verification, onTap: (){}),
-      ServiceEntity(title: 'Объявления', icon: AppIcons.ads,onTap: (){}),
-      ServiceEntity(title: 'Каршеринг', icon: AppIcons.carSharing,onTap: (){}),
-      ServiceEntity(title: 'Страхование', icon: AppIcons.insurance,onTap: (){}),
-      ServiceEntity(title: 'Коммерческий транспорт', icon: AppIcons.commercialCar,onTap: () =>Navigator.push(context, fade(page: CommercialScreen()))),
-      ServiceEntity(title: 'RentCar', icon: AppIcons.rentCar,onTap: (){}),
+    serviceTaps = [
+          (){},
+          (){},
+          (){},
+          (){},
+          () => Navigator.push(context, fade(page: const CommercialScreen())),
+          (){},
     ];
     super.initState();
   }
@@ -56,6 +63,7 @@ class _MainScreenState extends State<MainScreen> {
     const AdsEntity(imageUrl: 'https://cdn.motor1.com/images/mgl/LBl63/s1/2021-genesis-g80.jpg', place: 'г. Ташкент', price: '1 519 123 200 UZS', aboutCar: 'Land Cruiser, 145 894 км,\nВнедорожник 5дв, АКПП, Дизел...', carName: 'Hyundai Genesis G90 long'),
   ];
 
+  late List<VoidCallback> serviceTaps = [];
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
@@ -95,7 +103,7 @@ class _MainScreenState extends State<MainScreen> {
                 child: ListView.builder(
                   padding: const EdgeInsets.only(right: 16),
                   itemBuilder: (context, index) =>
-                      ServiceItem(serviceEntity: serviceEntity[index]),
+                      ServiceItem(serviceEntity: serviceEntity[index], onTap: serviceTaps[index],),
                   itemCount: serviceEntity.length,
                   scrollDirection: Axis.horizontal,
                 ),
