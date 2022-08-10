@@ -85,7 +85,6 @@ class LightThemeColors {
   static const lavenderToMediumSlateBlue30 = _lavender;
   static const ghostWhiteToUltramarine10 = _ghostWhite;
   static const lavenderToUltramarine30 = _lavender;
-  static const whiteSmokeToEclipse = _whiteSmoke;
   static const whiteSmokeToDark = _whiteSmoke;
   static const solitudeContainerToDark = _solitudeContainer;
   static const aluminumToDolphin = _aluminum;
@@ -94,7 +93,6 @@ class LightThemeColors {
   static const snowToNero = _snow;
   static const blackToWhite = _black;
   static const stormGrey12ToStormGrey24 = _stormGrey12;
-
   static const whiteToGondola = _white;
   static const midnightExpressToDolphin = _midnightExpress;
   static const whiteToWhite8 = _white;
@@ -111,6 +109,7 @@ class LightThemeColors {
   static const solitudeToDolphin8 = _solitudeBorder;
   static const cinnabar12ToCinnabar = _cinnabar12;
   static const navBarUnselected = _white;
+  static const whiteToEclipse = _white;
   static const borderGreyToDark = _solitude2;
   static const iconPearlToWhite = _spunPearl;
   static const whiteToDarkRider = _white;
@@ -124,7 +123,6 @@ class LightThemeColors {
   static const greenContainer26 = _cosmicLatte;
   static const blueContainer26 = _lavender1;
   static const solitudeToDolphinBorder = _solitudeBorder;
-  static const whiteSmoke2ToNightRider = _whiteSmoke2;
   static const whiteSmoke78ToWhiteSmoke12 = _whiteSmoke78;
   static const ghostToGondola = _ghost;
   static const tangerineYellowToMediumSlateBlue = _tangerineYellow;

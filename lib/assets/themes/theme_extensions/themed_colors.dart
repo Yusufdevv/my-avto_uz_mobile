@@ -86,7 +86,6 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
   final Color whiteToNightRider;
   final Color whiteLilacToPayneGrey;
   final Color greenContainer26;
-  final Color ghostToGondola;
   final Color blueContainer26;
   final Color solitudeToDolphinBorder;
   const ThemedColors({
@@ -133,7 +132,6 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
     required this.whiteToDolphin,
     required this.darkGreyToWhite,
     required this.veryLightGreyToEclipse,
-    required this.whiteToWhiteOpacity20,
     required this.borderGreyToDark,
     required this.iconPearlToWhite,
     required this.whiteToDarkRider,
@@ -205,7 +203,6 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
     Color? whiteToNightRider,
     Color? whiteLilacToPayneGrey,
     Color? solitudeToDolphinBorder,
-    Color? whiteToWhiteOpacity20,
     Color? dividerColorToGrey,
     Color? whiteSmoke2ToNightRider,
     Color? darkToWhite,

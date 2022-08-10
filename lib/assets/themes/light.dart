@@ -13,8 +13,7 @@ abstract class LightTheme {
   /// More info for color schema: https://api.flutter.dev/flutter/material/ColorScheme-class.html
   /// More info for theme: https://docs.flutter.dev/cookbook/design/themes
 
-  static ThemeData theme() =>
-      ThemeData(
+  static ThemeData theme() => ThemeData(
         fontFamily: 'NotoSans',
         scaffoldBackgroundColor: LightThemeColors.scaffoldBackground,
         backgroundColor: LightThemeColors.backgroundColor,
@@ -22,12 +21,6 @@ abstract class LightTheme {
         dividerColor: LightThemeColors.divider,
         hintColor: LightThemeColors.hintColor,
         unselectedWidgetColor: grey,
-        appBarTheme: const AppBarTheme(
-          color: LightThemeColors.appBarColor,
-          actionsIconTheme: CupertinoIconThemeData(
-            color: LightThemeColors.appBarActionIcon,
-          ),
-        ),
         appBarTheme: const AppBarTheme(
           color: LightThemeColors.appBarColor,
           actionsIconTheme: CupertinoIconThemeData(
@@ -61,8 +54,7 @@ abstract class LightTheme {
           caption: caption,
           button: button,
         ),
-        extensions: const {
-
+        extensions: {
           CheckBoxStyle(
             unselectedBackgroundColor: LightThemeColors.lightGreyToEclipse,
             unselectedBorderColor: LightThemeColors.warmerGreyToDarkGray,
@@ -89,7 +81,7 @@ abstract class LightTheme {
             whiteToDolphin: LightThemeColors.whiteToDolphin,
             greySuitToWhite60: LightThemeColors.greySuitToWhite60,
             dividerColorToWhiteOpacity:
-            LightThemeColors.dividerColorToWhiteOpacity,
+                LightThemeColors.dividerColorToWhiteOpacity,
             dolphinToGreySuit: LightThemeColors.dolphinToGreySuit,
             whiteLilacToWhite4: LightThemeColors.whiteLilacToWhite4,
             solitudeContainerToDark: LightThemeColors.solitudeContainerToDark,
@@ -98,9 +90,9 @@ abstract class LightTheme {
             whiteToGondola: LightThemeColors.whiteToGondola,
             whiteLilacToWhiteLilac10: LightThemeColors.whiteLilacToWhiteLilac10,
             solitudeBorderToSolitudeBorder10:
-            LightThemeColors.solitudeBorderToSolitudeBorder10,
+                LightThemeColors.solitudeBorderToSolitudeBorder10,
             lightSlateBlue12ToLightSlateBlue:
-            LightThemeColors.lightSlateBlue12ToLightSlateBlue,
+                LightThemeColors.lightSlateBlue12ToLightSlateBlue,
             mediumSlateBlueToWhite: LightThemeColors.mediumSlateBlueToWhite,
             midnightExpressToDolphin: LightThemeColors.midnightExpressToDolphin,
             cinnabar12ToCinnabar: LightThemeColors.cinnabar12ToCinnabar,
@@ -127,10 +119,10 @@ abstract class LightTheme {
             solitudeToNero: LightThemeColors.solitudeToNero,
             solitudeToEclipse: LightThemeColors.solitudeToEclipse,
             mediumSlateBlue50ToNightRider:
-            LightThemeColors.mediumSlateBlue50ToNightRider,
+                LightThemeColors.mediumSlateBlue50ToNightRider,
             stormGrey16ToStormGrey32: LightThemeColors.stormGrey16ToStormGrey32,
             ghostWhiteToUltramarine10:
-            LightThemeColors.ghostWhiteToUltramarine10,
+                LightThemeColors.ghostWhiteToUltramarine10,
             snowToNero: LightThemeColors.snowToNero,
             solitudeToDarkRider: LightThemeColors.solitudeToDarkRider,
             whiteToDark: LightThemeColors.whiteToDark,
@@ -139,15 +131,9 @@ abstract class LightTheme {
             whiteToSmoky: LightThemeColors.whiteToSmoky,
             whiteToSecondNero: LightThemeColors.whiteToSecondNero,
             whiteToWhite8: LightThemeColors.whiteToWhite8,
-            dividerColorToGrey: LightThemeColors.dividerColorToGrey,
-            whiteToWhiteOpacity20: LightThemeColors.whiteToWhiteOpacity20,
-            whiteToSmoky: LightThemeColors.whiteToSmoky,
             whiteSmokeToNightRider: LightThemeColors.whiteSmokeToNightRider,
             whiteToNero: LightThemeColors.whiteToNero,
-            mediumSlateBlueToDolphin:
-            LightThemeColors.mediumSlateBlueToDolphin,
-            whiteSmokeToEclipse: LightThemeColors.whiteSmokeToEclipse,
-            solitudeToEclipse: LightThemeColors.solitudeToEclipse,
+            mediumSlateBlueToDolphin: LightThemeColors.mediumSlateBlueToDolphin,
             gainsboroToBlack: LightThemeColors.gainsboroToBlack,
             greySuitToWhite: LightThemeColors.greySuitToWhite,
             midnightExpressToWhite: LightThemeColors.midnightExpressToWhite,
@@ -155,26 +141,23 @@ abstract class LightTheme {
             solitude2ToNero: LightThemeColors.solitude2ToNero,
             solitude2ToNightRider: LightThemeColors.solitude2ToNightRider,
             snowToBlack: LightThemeColors.snowToBlack,
-            whiteWithOpacity90ToNero:
-            LightThemeColors.whiteWithOpacity90ToNero,
+            whiteWithOpacity90ToNero: LightThemeColors.whiteWithOpacity90ToNero,
             whiteSmoke2ToNightRider: LightThemeColors.whiteSmoke2ToNightRider,
             solitudeTo1Black: LightThemeColors.solitudeTo1Black,
             whiteLilacToNightRider: LightThemeColors.whiteLilacToNightRider,
             midnightExpressToGreySuit:
-            LightThemeColors.midnightExpressToGreySuit,
+                LightThemeColors.midnightExpressToGreySuit,
             snowToNero1: LightThemeColors.snowToNero1,
-            whiteToNero1: LightThemeColors.whiteToNero1,
             whiteToNightRider: LightThemeColors.whiteToNightRider,
-            whiteLilacToPayneGrey: LightThemeColors.whiteLilacToPayneGrey
+            whiteLilacToPayneGrey: LightThemeColors.whiteLilacToPayneGrey,
+            whiteSmoke78ToWhiteSmoke12:
+                LightThemeColors.whiteSmoke78ToWhiteSmoke12,
+            lavenderToMediumSlateBlue30:
+                LightThemeColors.lavenderToMediumSlateBlue30,
+            solitudeToDolphinBorder: LightThemeColors.solitudeToDolphinBorder,
             ghostToGondola: LightThemeColors.ghostToGondola,
             tangerineYellowToMediumSlateBlue:
-            LightThemeColors.tangerineYellowToMediumSlateBlue,
-            whiteSmoke78ToWhiteSmoke12:
-            LightThemeColors.whiteSmoke78ToWhiteSmoke12,
-            lavenderToMediumSlateBlue30:
-            LightThemeColors.lavenderToMediumSlateBlue30,
-            midnightExpressToWhite: LightThemeColors.midnightExpressToWhite,
-            solitudeToDolphinBorder: LightThemeColors.solitudeToDolphinBorder,
+                LightThemeColors.tangerineYellowToMediumSlateBlue,
           ),
           WTextFieldStyle(
             fillColor: LightThemeColors.solitudeToNero,
