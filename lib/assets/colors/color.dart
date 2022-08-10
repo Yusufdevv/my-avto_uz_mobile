@@ -27,7 +27,6 @@ const accentYellow = _cornSilk;
 const accentGreen = _hummingBird;
 const accentRed = _mistyRose;
 const timerBackground = _darkCinnabar;
-const timerBackground = _darkCinnabar;
 const solitude = _solitude1;
 const dark = _nero;
 const radicalRed = _radicalRed;

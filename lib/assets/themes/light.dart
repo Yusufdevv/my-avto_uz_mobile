@@ -13,13 +13,21 @@ abstract class LightTheme {
   /// More info for color schema: https://api.flutter.dev/flutter/material/ColorScheme-class.html
   /// More info for theme: https://docs.flutter.dev/cookbook/design/themes
 
-  static ThemeData theme() => ThemeData(
+  static ThemeData theme() =>
+      ThemeData(
         fontFamily: 'NotoSans',
         scaffoldBackgroundColor: LightThemeColors.scaffoldBackground,
         backgroundColor: LightThemeColors.backgroundColor,
         indicatorColor: LightThemeColors.navBarIndicator,
         dividerColor: LightThemeColors.divider,
         hintColor: LightThemeColors.hintColor,
+        unselectedWidgetColor: grey,
+        appBarTheme: const AppBarTheme(
+          color: LightThemeColors.appBarColor,
+          actionsIconTheme: CupertinoIconThemeData(
+            color: LightThemeColors.appBarActionIcon,
+          ),
+        ),
         appBarTheme: const AppBarTheme(
           color: LightThemeColors.appBarColor,
           actionsIconTheme: CupertinoIconThemeData(
@@ -54,6 +62,7 @@ abstract class LightTheme {
           button: button,
         ),
         extensions: const {
+
           CheckBoxStyle(
             unselectedBackgroundColor: LightThemeColors.lightGreyToEclipse,
             unselectedBorderColor: LightThemeColors.warmerGreyToDarkGray,
@@ -67,7 +76,6 @@ abstract class LightTheme {
             stormGrey12ToStormGrey24: LightThemeColors.stormGrey12ToStormGrey24,
             dodgerBlueToWhite80: LightThemeColors.dodgerBlueToWhite80,
             blackToWhite: LightThemeColors.blackToWhite,
-            whiteSmoke2ToNightRider: LightThemeColors.whiteSmoke2ToNightRider,
             blackToWhite80: LightThemeColors.blackToWhite80,
             solitudeToCharcoal: LightThemeColors.solitudeToCharcoal,
             solitudeToDolphin8: LightThemeColors.solitudeToDolphin8,
@@ -81,7 +89,7 @@ abstract class LightTheme {
             whiteToDolphin: LightThemeColors.whiteToDolphin,
             greySuitToWhite60: LightThemeColors.greySuitToWhite60,
             dividerColorToWhiteOpacity:
-                LightThemeColors.dividerColorToWhiteOpacity,
+            LightThemeColors.dividerColorToWhiteOpacity,
             dolphinToGreySuit: LightThemeColors.dolphinToGreySuit,
             whiteLilacToWhite4: LightThemeColors.whiteLilacToWhite4,
             solitudeContainerToDark: LightThemeColors.solitudeContainerToDark,
@@ -90,9 +98,9 @@ abstract class LightTheme {
             whiteToGondola: LightThemeColors.whiteToGondola,
             whiteLilacToWhiteLilac10: LightThemeColors.whiteLilacToWhiteLilac10,
             solitudeBorderToSolitudeBorder10:
-                LightThemeColors.solitudeBorderToSolitudeBorder10,
+            LightThemeColors.solitudeBorderToSolitudeBorder10,
             lightSlateBlue12ToLightSlateBlue:
-                LightThemeColors.lightSlateBlue12ToLightSlateBlue,
+            LightThemeColors.lightSlateBlue12ToLightSlateBlue,
             mediumSlateBlueToWhite: LightThemeColors.mediumSlateBlueToWhite,
             midnightExpressToDolphin: LightThemeColors.midnightExpressToDolphin,
             cinnabar12ToCinnabar: LightThemeColors.cinnabar12ToCinnabar,
@@ -119,10 +127,10 @@ abstract class LightTheme {
             solitudeToNero: LightThemeColors.solitudeToNero,
             solitudeToEclipse: LightThemeColors.solitudeToEclipse,
             mediumSlateBlue50ToNightRider:
-                LightThemeColors.mediumSlateBlue50ToNightRider,
+            LightThemeColors.mediumSlateBlue50ToNightRider,
             stormGrey16ToStormGrey32: LightThemeColors.stormGrey16ToStormGrey32,
             ghostWhiteToUltramarine10:
-                LightThemeColors.ghostWhiteToUltramarine10,
+            LightThemeColors.ghostWhiteToUltramarine10,
             snowToNero: LightThemeColors.snowToNero,
             solitudeToDarkRider: LightThemeColors.solitudeToDarkRider,
             whiteToDark: LightThemeColors.whiteToDark,
@@ -131,13 +139,40 @@ abstract class LightTheme {
             whiteToSmoky: LightThemeColors.whiteToSmoky,
             whiteToSecondNero: LightThemeColors.whiteToSecondNero,
             whiteToWhite8: LightThemeColors.whiteToWhite8,
+            dividerColorToGrey: LightThemeColors.dividerColorToGrey,
+            whiteToWhiteOpacity20: LightThemeColors.whiteToWhiteOpacity20,
+            whiteToSmoky: LightThemeColors.whiteToSmoky,
+            whiteSmokeToNightRider: LightThemeColors.whiteSmokeToNightRider,
+            whiteToNero: LightThemeColors.whiteToNero,
+            mediumSlateBlueToDolphin:
+            LightThemeColors.mediumSlateBlueToDolphin,
+            whiteSmokeToEclipse: LightThemeColors.whiteSmokeToEclipse,
+            solitudeToEclipse: LightThemeColors.solitudeToEclipse,
+            gainsboroToBlack: LightThemeColors.gainsboroToBlack,
+            greySuitToWhite: LightThemeColors.greySuitToWhite,
+            midnightExpressToWhite: LightThemeColors.midnightExpressToWhite,
+            solitude1ToNero: LightThemeColors.solitude1ToNero,
+            solitude2ToNero: LightThemeColors.solitude2ToNero,
+            solitude2ToNightRider: LightThemeColors.solitude2ToNightRider,
+            snowToBlack: LightThemeColors.snowToBlack,
+            whiteWithOpacity90ToNero:
+            LightThemeColors.whiteWithOpacity90ToNero,
+            whiteSmoke2ToNightRider: LightThemeColors.whiteSmoke2ToNightRider,
+            solitudeTo1Black: LightThemeColors.solitudeTo1Black,
+            whiteLilacToNightRider: LightThemeColors.whiteLilacToNightRider,
+            midnightExpressToGreySuit:
+            LightThemeColors.midnightExpressToGreySuit,
+            snowToNero1: LightThemeColors.snowToNero1,
+            whiteToNero1: LightThemeColors.whiteToNero1,
+            whiteToNightRider: LightThemeColors.whiteToNightRider,
+            whiteLilacToPayneGrey: LightThemeColors.whiteLilacToPayneGrey
             ghostToGondola: LightThemeColors.ghostToGondola,
             tangerineYellowToMediumSlateBlue:
-                LightThemeColors.tangerineYellowToMediumSlateBlue,
+            LightThemeColors.tangerineYellowToMediumSlateBlue,
             whiteSmoke78ToWhiteSmoke12:
-                LightThemeColors.whiteSmoke78ToWhiteSmoke12,
+            LightThemeColors.whiteSmoke78ToWhiteSmoke12,
             lavenderToMediumSlateBlue30:
-                LightThemeColors.lavenderToMediumSlateBlue30,
+            LightThemeColors.lavenderToMediumSlateBlue30,
             midnightExpressToWhite: LightThemeColors.midnightExpressToWhite,
             solitudeToDolphinBorder: LightThemeColors.solitudeToDolphinBorder,
           ),
@@ -146,70 +181,6 @@ abstract class LightTheme {
             borderColor: LightThemeColors.solitudeToDarkRider,
           ),
           ThemedIcons(imageUrl: LightIcons.logo),
-        },
-      );
-        fontFamily: 'NotoSans',
-        scaffoldBackgroundColor: LightThemeColors.scaffoldBackground,
-        backgroundColor: LightThemeColors.backgroundColor,
-        indicatorColor: LightThemeColors.navBarIndicator,
-        dividerColor: LightThemeColors.divider,
-        hintColor: LightThemeColors.hintColor,
-        unselectedWidgetColor: grey,
-        appBarTheme: const AppBarTheme(
-          color: LightThemeColors.appBarColor,
-          actionsIconTheme: CupertinoIconThemeData(
-            color: LightThemeColors.appBarActionIcon,
-          ),
-        ),
-        textTheme: const TextTheme(
-          headline1: headline1,
-          headline2: headline2,
-          headline3: headline3,
-          headline4: headline4,
-          headline5: headline5,
-          headline6: headline6,
-          bodyText1: bodyText1,
-          bodyText2: bodyText2,
-          subtitle1: subTitle1,
-          subtitle2: subTitle2,
-          caption: caption,
-          button: button,
-        ),
-        extensions: const {
-          CheckBoxStyle(
-              unselectedBackgroundColor: LightThemeColors.lightGreyToEclipse,
-              unselectedBorderColor: LightThemeColors.warmerGreyToDarkGray),
-          ThemedColors(
-              dividerColorToGrey: LightThemeColors.dividerColorToGrey,
-              whiteToWhiteOpacity20: LightThemeColors.whiteToWhiteOpacity20,
-              whiteToSmoky: LightThemeColors.whiteToSmoky,
-              whiteSmokeToNightRider: LightThemeColors.whiteSmokeToNightRider,
-              whiteToNero: LightThemeColors.whiteToNero,
-              mediumSlateBlueToDolphin:
-                  LightThemeColors.mediumSlateBlueToDolphin,
-              whiteSmokeToEclipse: LightThemeColors.whiteSmokeToEclipse,
-              solitudeToEclipse: LightThemeColors.solitudeToEclipse,
-              gainsboroToBlack: LightThemeColors.gainsboroToBlack,
-              greySuitToWhite: LightThemeColors.greySuitToWhite,
-              midnightExpressToWhite: LightThemeColors.midnightExpressToWhite,
-              solitude1ToNero: LightThemeColors.solitude1ToNero,
-              solitude2ToNero: LightThemeColors.solitude2ToNero,
-              solitude2ToNightRider: LightThemeColors.solitude2ToNightRider,
-              snowToBlack: LightThemeColors.snowToBlack,
-              whiteWithOpacity90ToNero:
-                  LightThemeColors.whiteWithOpacity90ToNero,
-              whiteSmoke2ToNightRider: LightThemeColors.whiteSmoke2ToNightRider,
-              solitudeTo1Black: LightThemeColors.solitudeTo1Black,
-              whiteLilacToNightRider: LightThemeColors.whiteLilacToNightRider,
-              midnightExpressToGreySuit:
-                  LightThemeColors.midnightExpressToGreySuit,
-              snowToNero1: LightThemeColors.snowToNero1,
-              whiteToNero1: LightThemeColors.whiteToNero1,
-              whiteToNightRider: LightThemeColors.whiteToNightRider,
-              whiteLilacToPayneGrey: LightThemeColors.whiteLilacToPayneGrey),
-          WTextFieldStyle(
-              fillColor: LightThemeColors.solitudeToNero,
-              borderColor: LightThemeColors.solitudeToDarkRider)
         },
       );
 

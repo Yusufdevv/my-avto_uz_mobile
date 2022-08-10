@@ -23,14 +23,12 @@ class AppIcons {
 
   //GLOBAL
   static const chevronLeft = 'assets/icons/global/chevron_left.svg';
-  static const chevronRight = 'assets/icons/global/chevron_right.svg';
   static const search = 'assets/icons/global/search.svg';
   static const engine = 'assets/icons/global/engine.svg';
   static const cancelRound = 'assets/icons/global/cancel_round.svg';
   static const filter = 'assets/icons/global/filter.svg';
   static const vehicleCar = 'assets/icons/global/vehicle_car.svg';
   static const clock = 'assets/icons/global/clock.svg';
-  static const close = 'assets/icons/global/close.svg';
   static const ticked = 'assets/icons/global/tick.svg';
   static const tablerInfo = 'assets/icons/global/tabler_info_circle.svg';
   static const tablerPhone = 'assets/icons/global/tabler_phone.svg';
@@ -39,7 +37,6 @@ class AppIcons {
   static const chevrolet = 'assets/icons/global/chevrolet.svg';
   static const kia = 'assets/icons/global/kia.svg';
   static const roundedClose = 'assets/icons/global/rounded_close.svg';
-  static const chevronDown = 'assets/icons/global/chevron_down.svg';
   static const addCarIcon = 'assets/icons/global/add_car_icon.svg';
   static const statusGood = 'assets/icons/global/status_good.svg';
   static const statusNotGood = 'assets/icons/global/status_not_good.svg';
@@ -71,7 +68,6 @@ class AppIcons {
   static const editProfile = 'assets/icons/profile/edit.svg';
   static const settings = 'assets/icons/profile/settings.svg';
   static const antivirus = 'assets/icons/global/antivirus.svg';
-  static const filter = 'assets/icons/global/filter.svg';
   static const info = 'assets/icons/profile/info.svg';
   static const refreshSmall = 'assets/icons/profile/refresh_small.svg';
   static const file = 'assets/icons/profile/file.svg';

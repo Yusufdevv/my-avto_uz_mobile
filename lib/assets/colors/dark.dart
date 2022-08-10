@@ -25,13 +25,9 @@ class DarkThemeColors {
   static const headline3 = _mediumSlateBlue;
   static const headline4 = _white;
   static const headline5 = _fuzzyWuzzyBrown;
-  static const headline6 = _grey;
+  static const headline6 = _solitude;
   static const headline7 = _white;
   static const bodyText1 = _solitude;
-  static const bodyText2 = _dodgerBlue;
-  static const headline5 = _white;
-  static const headline6 = _solitude;
-  static const bodyText1 = _white;
   static const bodyText2 = _dodgerBlue;
   static const subTitle1 = _white;
   static const subTitle2 = _blackOpacity;
@@ -103,7 +99,6 @@ class DarkThemeColors {
   static const redContainer26 = _cinnabar26;
   static const greenContainer26 = _mediumSeaGreen26;
   static const blueContainer26 = _mediumSlateBlue26;
-  static const midnightExpressToWhite = _white;
   static const whiteToDark = _nero;
   static const snowToNightRider = _nightRider;
   static const mediumSlateBlue50ToNightRider = _nightRider;
@@ -111,7 +106,6 @@ class DarkThemeColors {
   static const lavenderToMediumSlateBlue30 = _mediumSlateBlue30;
   static const ghostWhiteToUltramarine10 = _ultramarine10;
   static const lavenderToUltramarine30 = _ultramarine30;
-  static const whiteSmokeToEclipse = _eclipse;
   static const solitudeContainerToDark = _nero;
   static const aluminumToDolphin = _dolphin;
   static const whiteSmokeToDark = _nero;
@@ -120,11 +114,8 @@ class DarkThemeColors {
   static const dolphinToGreySuit = _greySuit;
   static const snowToNero = _nero;
   static const blackToWhite1 = _white;
-
-  static const solitudeToEclipse = _eclipse;
   static const cinnabar12ToCinnabar = _cinnabar;
   static const stormGrey12ToStormGrey24 = _stormGrey24;
-  static const whiteToSmoky = _smoky;
   static const whiteToGondola = _gondola;
   static const solitudeToGondola = _gondola;
   static const midnightExpressToDolphin = _dolphin;
@@ -140,7 +131,6 @@ class DarkThemeColors {
   static const dolphinToWhite60 = _white60;
   static const solitudeToDolphin8 = _dolphin8;
   static const solitudeToDolphinBorder = _dolphin;
-  static const whiteSmoke2ToNightRider = _nightRider;
   static const whiteSmoke78ToWhiteSmoke12 = _whiteSmoke12;
   static const ghostToGondola = _gondola;
   static const tangerineYellowToMediumSlateBlue = _mediumSlateBlue;
@@ -177,7 +167,6 @@ const _solitude12 = Color(0xf1e2e2ea);
 const _darkGray95 = Color(0xf2A0A0A0);
 const _white80 = Color(0xccffffff);
 const _charcoal = Color(0xff444444);
-const _nero1 = Color(0xFF252525);
 const _mediumSeaGreen = Color(0xFF38AF7F);
 const _englishHolly = Color(0xFF243931);
 const _greySuit26 = Color(0x4292929D);
@@ -201,6 +190,3 @@ const _white60 = Color(0x99ffffff);
 const _white4 = Color(0x0affffff);
 const _dolphin8 = Color(0x14696974);
 const _whiteSmoke12 = Color(0x1fe9e9e9);
-const _smoky = Color(0xff636366);
-const _nightRider = Color(0xff2F2F2F);
-const _payneGrey = Color(0xff404042);
