@@ -71,6 +71,13 @@ abstract class DarkTheme {
             whiteSmoke2ToNightRider: DarkThemeColors.whiteSmoke2ToNightRider,
             solitudeTo1Black: DarkThemeColors.solitude1ToBlack,
             whiteLilacToNightRider: DarkThemeColors.whiteLilacToNightRider,
+            midnightExpressToGreySuit:
+                DarkThemeColors.midnightExpressToGreySuit,
+            solitude2ToNero: DarkThemeColors.solitude2ToNero,
+            snowToNero1: DarkThemeColors.snowToNero1,
+            whiteToNero1: DarkThemeColors.whiteToNero1,
+            whiteToNightRider: DarkThemeColors.whiteToNightRider,
+            whiteLilacToPayneGrey: DarkThemeColors.whiteLilacToPayneGrey,
           ),
           WTextFieldStyle(
             fillColor: DarkThemeColors.solitudeToNero,

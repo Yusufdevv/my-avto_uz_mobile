@@ -1,6 +1,8 @@
 import 'package:auto/assets/colors/color.dart';
+import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class CarsCard extends StatelessWidget {
   const CarsCard({
@@ -26,9 +28,21 @@ class CarsCard extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(12),
-                      child: Text('image'),
+                    Container(
+                      height: 72,
+                      width: 72,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Theme.of(context)
+                              .extension<ThemedColors>()!
+                              .solitude2ToNightRider,
+                        ),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(12),
+                        child: SvgPicture.asset(AppImages.placeHolder),
+                      ),
                     ),
                     const SizedBox(width: 8),
                     Flexible(
@@ -62,11 +76,13 @@ class CarsCard extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: 12),
-                const Text('1 200 000 000 UZS',
+                Text('1 200 000 000 UZS',
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
-                      color: purple,
+                      color: Theme.of(context)
+                          .extension<ThemedColors>()!
+                          .midnightExpressToWhite,
                     ))
               ],
             ),

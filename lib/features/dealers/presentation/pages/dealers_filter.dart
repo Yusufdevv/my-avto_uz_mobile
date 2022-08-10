@@ -1,6 +1,7 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
+import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/dealers/presentation/widgets/filter_radio.dart';
 import 'package:auto/features/dealers/presentation/widgets/filter_region_mark_container.dart';
 import 'package:flutter/material.dart';
@@ -129,28 +130,12 @@ class _DealersFilterState extends State<DealersFilter> {
                   ],
                 ),
               ),
-              SizedBox(
-                height: 44,
-                width: double.maxFinite,
-                child: TextButton(
-                  onPressed: () {},
-                  style: TextButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    backgroundColor: orange,
-                  ),
-                  child: GestureDetector(
-                    child: const Text(
-                      'Применить',
-                      style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 14,
-                          color: white),
-                    ),
-                  ),
-                ),
-              ),
+              WButton(
+                textStyle:
+                    const TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
+                onTap: () {},
+                text: 'Применить',
+              )
             ],
           ),
         ),

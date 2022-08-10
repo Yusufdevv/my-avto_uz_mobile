@@ -20,4 +20,13 @@ class AppIcons {
   static const ticked = 'assets/icons/global/tick.svg';
   static const tablerInfo = 'assets/icons/global/tabler_info_circle.svg';
   static const tablerPhone = 'assets/icons/global/tabler_phone.svg';
+  static const carIcon = 'assets/icons/global/car.png';
+  static const smallClose = 'assets/icons/global/smallClose.svg';
+  static const chevrolet = 'assets/icons/global/chevrolet.svg';
+  static const kia = 'assets/icons/global/kia.svg';
+  static const roundedClose = 'assets/icons/global/rounded_close.svg';
+  static const chevronDown = 'assets/icons/global/chevron_down.svg';
+  static const addCarIcon = 'assets/icons/global/add_car_icon.svg';
+  static const statusGood = 'assets/icons/global/status_good.svg';
+  static const statusNotGood = 'assets/icons/global/status_not_good.svg';
 }

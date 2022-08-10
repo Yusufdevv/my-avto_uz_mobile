@@ -75,6 +75,7 @@ class _BottomSheetContentState extends State<BottomSheetContent> {
                       behavior: HitTestBehavior.opaque,
                       onTap: () {
                         setState(() => currentValue = marks[index].id);
+                        Navigator.pop(context);
                       },
                       child: Container(
                         color: currentValue == marks[index].id

@@ -29,94 +29,89 @@ class _DealersMainState extends State<DealersMain>
   @override
   Widget build(BuildContext context) => DefaultTabController(
         length: 2,
-        child: SafeArea(
-          child: Scaffold(
-            body: CustomScrollView(
-              physics: NeverScrollableScrollPhysics(),
-              slivers: [
-                SliverSafeArea(
-                  sliver: SliverAppBar(
-                    stretch: true,
-                    snap: true,
-                    floating: true,
-                    pinned: isPinned,
-                    elevation: 0,
-                    backgroundColor: Theme.of(context)
-                        .extension<ThemedColors>()!
-                        .whiteToNero,
-                    leadingWidth: 0,
-                    title: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        GestureDetector(
-                          child: SvgPicture.asset(AppIcons.chevronLeft),
-                        ),
-                        const SizedBox(width: 12),
-                        Expanded(
-                          child: WTextField(
-                            hasBorderColor: false,
-                            fillColor: Theme.of(context)
-                                .extension<ThemedColors>()!
-                                .whiteSmokeToNightRider,
-                            hintText: 'Марка, Модель',
-                            hintTextStyle: const TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w400,
-                                color: grey),
-                            focusColor: Theme.of(context)
-                                .extension<ThemedColors>()!
-                                .whiteSmokeToNightRider,
-                            onChanged: (value) {},
-                            hasSearch: true,
-                            borderRadius: 8,
-                          ),
-                        ),
-                        const SizedBox(width: 11),
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => const DealersFilter()));
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(8),
-                                color: Theme.of(context)
-                                    .extension<ThemedColors>()!
-                                    .whiteSmokeToNightRider),
-                            padding: const EdgeInsets.all(8),
-                            child: SvgPicture.asset(
-                              AppIcons.filter,
-                              color: Theme.of(context)
-                                  .extension<ThemedColors>()!
-                                  .mediumSlateBlueToDolphin,
-                            ),
-                          ),
-                        ),
-                      ],
+        child: Scaffold(
+          body: CustomScrollView(
+            physics: const NeverScrollableScrollPhysics(),
+            slivers: [
+              SliverAppBar(
+                stretch: true,
+                snap: true,
+                floating: true,
+                pinned: isPinned,
+                elevation: 0,
+                backgroundColor:
+                    Theme.of(context).extension<ThemedColors>()!.whiteToNero,
+                leadingWidth: 0,
+                title: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    GestureDetector(
+                      child: SvgPicture.asset(AppIcons.chevronLeft),
                     ),
-                  ),
-                ),
-                SliverPersistentHeader(
-                  pinned: true,
-                  delegate: SegmentedControl(
-                      maxHeight: 64,
-                      minHeight: 64,
-                      boolean: (pinned) {
-                        setState(() => isPinned = pinned);
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: WTextField(
+                        hasBorderColor: false,
+                        fillColor: Theme.of(context)
+                            .extension<ThemedColors>()!
+                            .whiteSmokeToNightRider,
+                        hintText: 'Марка, Модель',
+                        hintTextStyle: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w400,
+                            color: grey),
+                        focusColor: Theme.of(context)
+                            .extension<ThemedColors>()!
+                            .whiteSmokeToNightRider,
+                        onChanged: (value) {},
+                        hasSearch: true,
+                        borderRadius: 8,
+                      ),
+                    ),
+                    const SizedBox(width: 11),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => const DealersFilter()));
                       },
-                      pageController: _pageController),
+                      child: Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8),
+                            color: Theme.of(context)
+                                .extension<ThemedColors>()!
+                                .whiteSmokeToNightRider),
+                        padding: const EdgeInsets.all(8),
+                        child: SvgPicture.asset(
+                          AppIcons.filter,
+                          color: Theme.of(context)
+                              .extension<ThemedColors>()!
+                              .mediumSlateBlueToDolphin,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-                SliverFillRemaining(
-                  child: TabBarView(
-                    physics: const NeverScrollableScrollPhysics(),
-                    children: [
-                      DealersList(),
-                      const YandexMap(),
-                    ],
-                  ),
-                )
-              ],
-            ),
+              ),
+              SliverPersistentHeader(
+                pinned: true,
+                delegate: SegmentedControl(
+                    maxHeight: 64,
+                    minHeight: 64,
+                    boolean: (pinned) {
+                      setState(() => isPinned = pinned);
+                    },
+                    pageController: _pageController),
+              ),
+              SliverFillRemaining(
+                child: TabBarView(
+                  physics: const NeverScrollableScrollPhysics(),
+                  children: [
+                    DealersList(),
+                    const YandexMap(),
+                  ],
+                ),
+              )
+            ],
           ),
         ),
       );

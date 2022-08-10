@@ -28,6 +28,12 @@ class _AnimatedImagesState extends State<AnimatedImages>
   List<Color> images = [
     Colors.green,
     Colors.black,
+    Colors.green,
+    Colors.red,
+    Colors.yellow,
+    Colors.orange,
+    Colors.white10,
+    Colors.greenAccent,
   ];
   @override
   void initState() {

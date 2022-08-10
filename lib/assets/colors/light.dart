@@ -47,11 +47,16 @@ class LightThemeColors {
   static const gainsboroToBlack = _solitude1;
   static const solitude1ToNero = _solitude1;
   static const solitude2ToNightRider = _solitude2;
+  static const solitude2ToNero = _solitude2;
   static const whiteWithOpacity90ToNero = _whiteWithOpacity90ToNero;
   static const whiteSmoke2ToNightRider = _whiteSmoke2;
   static const solitudeTo1Black = _solitude1;
   static const whiteLilacToNightRider = _whiteLilac;
-
+  static const whiteToNightRider = _white;
+  static const midnightExpressToGreySuit = _midnightExpress;
+  static const snowToNero1 = _snow;
+  static const whiteToNero1 = _white;
+  static const whiteLilacToPayneGrey = _whiteLilac;
   //for keyboard
   static const whiteToDimGray = _white;
   static const dividerColorToGrey = _solitude;

@@ -50,6 +50,5 @@ flutter:
     - assets/icons/
     - assets/icons/splash/
     - assets/icons/global/
-    - assets/icons/global/
     - lib/assets/strings/
 

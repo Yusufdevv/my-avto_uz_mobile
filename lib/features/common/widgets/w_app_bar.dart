@@ -159,11 +159,6 @@ class WAppBar extends StatelessWidget implements PreferredSizeWidget {
                 ),
               ),
             ),
-          Container(
-            color: backgroundColor ??
-                Theme.of(context).appBarTheme.backgroundColor,
-            child: bottom,
-          ),
           if (hasUnderline)
             Container(
               height: 1,

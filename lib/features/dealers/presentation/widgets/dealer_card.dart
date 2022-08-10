@@ -1,6 +1,7 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/dealers/presentation/pages/seller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -35,8 +36,10 @@ class _DealerCardState extends State<DealerCard> {
         onTap: () {},
         child: GestureDetector(
           onTap: () {
-            Navigator.of(context)
-                .push(MaterialPageRoute(builder: (context) => Seller()));
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => Seller(
+                      dealerType: widget.dealerType,
+                    )));
           },
           child: Container(
             margin: const EdgeInsets.only(top: 16),
@@ -49,7 +52,17 @@ class _DealerCardState extends State<DealerCard> {
               children: [
                 Row(
                   children: [
-                    SvgPicture.asset(widget.dealerImageUrl),
+                    Container(
+                      height: 64,
+                      width: 64,
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(color: dividerColor)),
+                      child: ClipRRect(
+                          borderRadius: BorderRadius.circular(32),
+                          child: SvgPicture.asset(widget.dealerImageUrl)),
+                    ),
+                    const SizedBox(width: 12),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -60,9 +73,7 @@ class _DealerCardState extends State<DealerCard> {
                                     fontSize: 16,
                                   ),
                         ),
-                        const SizedBox(
-                          height: 2,
-                        ),
+                        const SizedBox(height: 2),
                         Text(
                           widget.dealerType,
                           style: const TextStyle(
@@ -74,9 +85,7 @@ class _DealerCardState extends State<DealerCard> {
                     )
                   ],
                 ),
-                const SizedBox(
-                  height: 16,
-                ),
+                const SizedBox(height: 16),
                 Row(
                   children: [
                     SvgPicture.asset(AppIcons.vehicleCar),
@@ -86,9 +95,7 @@ class _DealerCardState extends State<DealerCard> {
                             fontSize: 14, fontWeight: FontWeight.w400))
                   ],
                 ),
-                const SizedBox(
-                  height: 10,
-                ),
+                const SizedBox(height: 10),
                 Row(
                   children: [
                     SvgPicture.asset(AppIcons.clock),
@@ -98,9 +105,7 @@ class _DealerCardState extends State<DealerCard> {
                             fontSize: 14, fontWeight: FontWeight.w400))
                   ],
                 ),
-                const SizedBox(
-                  height: 18,
-                ),
+                const SizedBox(height: 18),
                 Row(
                   children: [
                     const Expanded(
@@ -111,10 +116,15 @@ class _DealerCardState extends State<DealerCard> {
                           fontSize: 13,
                           color: warmerGrey),
                     )),
-                    Text(widget.contractCode,
-                        style: Theme.of(context).textTheme.headline1!.copyWith(
-                            fontSize: 16, fontWeight: FontWeight.w600)),
-                    GestureDetector(
+                    Text(
+                      widget.contractCode,
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline1!
+                          .copyWith(fontSize: 16, fontWeight: FontWeight.w600),
+                    ),
+                    const SizedBox(width: 9),
+                    WScaleAnimation(
                       onTap: () {},
                       child: Container(
                         padding: const EdgeInsets.symmetric(

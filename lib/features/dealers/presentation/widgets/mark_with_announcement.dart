@@ -2,6 +2,8 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../../../assets/themes/theme_extensions/themed_colors.dart';
+
 class MarksWithAnnouncements extends StatelessWidget {
   final String mark;
   final int quantity;
@@ -26,17 +28,22 @@ class MarksWithAnnouncements extends StatelessWidget {
                 border: Border.all(color: solitude),
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: SvgPicture.asset(imageUrl),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: SvgPicture.asset(imageUrl),
+              ),
             ),
             const SizedBox(height: 8),
             Row(
               children: [
                 Text(
                   mark,
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline1
-                      ?.copyWith(fontWeight: FontWeight.w400, fontSize: 12),
+                  style: TextStyle(
+                      fontWeight: FontWeight.w400,
+                      fontSize: 12,
+                      color: Theme.of(context)
+                          .extension<ThemedColors>()!
+                          .midnightExpressToGreySuit),
                 ),
                 const SizedBox(
                   width: 4,

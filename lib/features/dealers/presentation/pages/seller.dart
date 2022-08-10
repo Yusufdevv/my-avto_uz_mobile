@@ -1,20 +1,26 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/dealers/domain/entities/models/marks_with_announcements.dart';
 import 'package:auto/features/dealers/presentation/pages/all_marks_with_announcements.dart';
 import 'package:auto/features/dealers/presentation/widgets/automobile_card.dart';
 import 'package:auto/features/dealers/presentation/widgets/dealer_info.dart';
 import 'package:auto/features/dealers/presentation/widgets/dealer_info_sliver_delegate.dart';
-import 'package:auto/features/dealers/presentation/widgets/marks_with_announcements.dart';
+import 'package:auto/features/dealers/presentation/widgets/mark_with_announcement.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class Seller extends StatelessWidget {
-  List<MarksWithAnnouncementsModel> marks = [
-    MarksWithAnnouncementsModel(imageUrl: '', mark: 'BMW', quantity: 24),
-    MarksWithAnnouncementsModel(imageUrl: '', mark: 'BMW', quantity: 24),
-    MarksWithAnnouncementsModel(imageUrl: '', mark: 'BMW', quantity: 24),
+  final String dealerType;
+  Seller({required this.dealerType});
+  List<MarksWithAnnouncementModel> marks = [
+    MarksWithAnnouncementModel(imageUrl: '', mark: 'BMW', quantity: 24),
+    MarksWithAnnouncementModel(imageUrl: '', mark: 'BMW', quantity: 24),
+    MarksWithAnnouncementModel(imageUrl: '', mark: 'BMW', quantity: 24),
+    MarksWithAnnouncementModel(imageUrl: '', mark: 'BMW', quantity: 24),
+    MarksWithAnnouncementModel(imageUrl: '', mark: 'BMW', quantity: 24),
+    MarksWithAnnouncementModel(imageUrl: '', mark: 'BMW', quantity: 24),
   ];
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -24,7 +30,9 @@ class Seller extends StatelessWidget {
           headerSliverBuilder: (context, innerBoxIsScrolled) => <Widget>[
             SliverPersistentHeader(
               pinned: true,
-              delegate: SellerSliverDelegate(showroomOrPerson: 'showroom'),
+              delegate: SellerSliverDelegate(
+                  minHeight: MediaQuery.of(context).size.height * 0.11,
+                  showroomOrPerson: dealerType),
             )
           ],
           body: SingleChildScrollView(
@@ -32,63 +40,65 @@ class Seller extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
-                const SellerInfo(
-                    dealerType: 'showroom',
-                    dealerName: 'Orient motors',
+                SellerInfo(
+                    dealerType: dealerType,
+                    dealerName: dealerType,
                     quantityOfCars: 164,
                     workingHours: '9:00 - 21:00',
-                    contract: '+998 90 872 54 45',
+                    contact: '+998 90 872 54 45',
                     additionalInfo:
                         'Автомобили от популярных брендов, линейки всех категорий от семейного до представительского, шикарный дизайн! Плюс гарантия на год!',
                     longitude: 12.2,
                     latitude: 12.2),
-                Padding(
-                  padding: const EdgeInsets.only(top: 16, bottom: 12),
-                  child: Row(
-                    children: [
-                      const Expanded(
-                          child: Text('Все марки с объявлениями',
-                              style: TextStyle(
-                                  color: orange,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w600))),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) =>
-                                  AllMarksWithAnnouncements(marks: marks)));
-                        },
-                        child: Row(
-                          children: [
-                            const Text(
-                              'все',
-                              style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w400,
-                                  color: greyText),
-                            ),
-                            const SizedBox(
-                              width: 4,
-                            ),
-                            SvgPicture.asset(AppIcons.chevronRight)
-                          ],
-                        ),
-                      )
-                    ],
+                if (dealerType == 'showroom') ...{
+                  Padding(
+                    padding: const EdgeInsets.only(top: 16, bottom: 12),
+                    child: Row(
+                      children: [
+                        const Expanded(
+                            child: Text('Все марки с объявлениями',
+                                style: TextStyle(
+                                    color: orange,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w600))),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) =>
+                                    AllMarksWithAnnouncements(marks: marks)));
+                          },
+                          child: Row(
+                            children: [
+                              const Text(
+                                'все',
+                                style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w400,
+                                    color: greyText),
+                              ),
+                              const SizedBox(
+                                width: 4,
+                              ),
+                              SvgPicture.asset(AppIcons.chevronRight)
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
                   ),
-                ),
-                SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    children: List.generate(
-                        marks.length,
-                        (index) => const MarksWithAnnouncements(
-                              quantity: 12,
-                              imageUrl: AppIcons.chevronLeft,
-                              mark: 'BMW',
-                            )),
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: List.generate(
+                          marks.length,
+                          (index) => const MarksWithAnnouncements(
+                                quantity: 12,
+                                imageUrl: AppImages.placeHolder,
+                                mark: 'BMW',
+                              )),
+                    ),
                   ),
-                ),
+                },
                 Padding(
                   padding: const EdgeInsets.only(top: 16, bottom: 12),
                   child: Row(

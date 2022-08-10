@@ -9,7 +9,7 @@ class SellerInfo extends StatelessWidget {
   final String dealerName;
   final int quantityOfCars;
   final String workingHours;
-  final String contract;
+  final String contact;
   final String additionalInfo;
   final double longitude;
   final double latitude;
@@ -18,7 +18,7 @@ class SellerInfo extends StatelessWidget {
     required this.dealerName,
     required this.quantityOfCars,
     required this.workingHours,
-    required this.contract,
+    required this.contact,
     required this.additionalInfo,
     required this.longitude,
     required this.latitude,
@@ -54,16 +54,18 @@ class SellerInfo extends StatelessWidget {
             ),
           },
           Info(text: 'Каждый день, $workingHours', icon: AppIcons.clock),
-          const SizedBox(
-            height: 16,
-          ),
+          const SizedBox(height: 20),
           Container(
-            height: 112,
+            height: 110,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(color: warmerGrey),
+            ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16),
+            padding: const EdgeInsets.symmetric(vertical: 20),
             child: Info(
-              text: contract,
+              text: contact,
               icon: AppIcons.tablerPhone,
             ),
           ),
@@ -87,14 +89,18 @@ class Info extends StatelessWidget {
           SvgPicture.asset(icon),
           const SizedBox(width: 8),
           Flexible(
-            child: Text(text,
-                style: icon == AppIcons.tablerPhone
-                    ? const TextStyle(
-                        fontSize: 14, fontWeight: FontWeight.w600, color: blue)
-                    : Theme.of(context)
-                        .textTheme
-                        .headline1!
-                        .copyWith(fontSize: 14, fontWeight: FontWeight.w400)),
+            child: Text(
+              text,
+              style: icon == AppIcons.tablerPhone
+                  ? const TextStyle(
+                      fontSize: 14, fontWeight: FontWeight.w600, color: blue)
+                  : TextStyle(
+                      fontWeight: FontWeight.w400,
+                      fontSize: 14,
+                      color: Theme.of(context)
+                          .extension<ThemedColors>()!
+                          .midnightExpressToGreySuit),
+            ),
           ),
         ],
       );
