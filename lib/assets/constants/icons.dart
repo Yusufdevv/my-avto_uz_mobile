@@ -100,7 +100,8 @@ class AppIcons {
   static const liked = 'assets/icons/global/liked.svg';
   static const secondLiked = 'assets/icons/global/like_second.svg';
   static const thirdLiked = 'assets/icons/global/third_like.svg';
-
+  static const chevronRight = 'assets/icons/global/chevron_right.svg';
+  static const commercialCar = 'assets/icons/global/commercial_car.svg';
   // SEARCH
   static const parameter = 'assets/icons/search/parameter.svg';
   static const searchWithHeart = 'assets/icons/search/search_with_heart.svg';

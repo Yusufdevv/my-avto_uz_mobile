@@ -11,7 +11,7 @@ class ServiceItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => WButton(
-    onTap: (){},
+    onTap: serviceEntity.onTap,
     margin: const EdgeInsets.only(left: 16),
       color: Theme.of(context).extension<ThemedColors>()!.whiteLilacToWhiteLilac10,
       border: Border.all(
