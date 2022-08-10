@@ -29,6 +29,8 @@ class WAppBar extends StatelessWidget implements PreferredSizeWidget {
   ///Default is set true
   final bool centerTitle;
 
+  final Widget? bottom;
+
   const WAppBar({
     Key? key,
     this.bottomRadius,
@@ -51,6 +53,7 @@ class WAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.hasRoundedEnd = false,
     this.textWithButton = '',
     this.childWithButton,
+    this.bottom,
   }) : super(key: key);
 
   @override

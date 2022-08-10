@@ -62,4 +62,5 @@ flutter:
     - assets/icons/navbar/
     - assets/icons/search/
     - lib/assets/strings/
+    - lib/assets/strings/
 

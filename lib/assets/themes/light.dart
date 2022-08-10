@@ -1,3 +1,4 @@
+import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/colors/light.dart';
 import 'package:auto/assets/constants/light.dart';
 import 'package:auto/assets/themes/theme_extensions/checkbox_style.dart';
@@ -146,6 +147,70 @@ abstract class LightTheme {
             borderColor: LightThemeColors.solitudeToDarkRider,
           ),
           ThemedIcons(imageUrl: LightIcons.logo),
+        },
+      );
+        fontFamily: 'NotoSans',
+        scaffoldBackgroundColor: LightThemeColors.scaffoldBackground,
+        backgroundColor: LightThemeColors.backgroundColor,
+        indicatorColor: LightThemeColors.navBarIndicator,
+        dividerColor: LightThemeColors.divider,
+        hintColor: LightThemeColors.hintColor,
+        unselectedWidgetColor: grey,
+        appBarTheme: const AppBarTheme(
+          color: LightThemeColors.appBarColor,
+          actionsIconTheme: CupertinoIconThemeData(
+            color: LightThemeColors.appBarActionIcon,
+          ),
+        ),
+        textTheme: const TextTheme(
+          headline1: headline1,
+          headline2: headline2,
+          headline3: headline3,
+          headline4: headline4,
+          headline5: headline5,
+          headline6: headline6,
+          bodyText1: bodyText1,
+          bodyText2: bodyText2,
+          subtitle1: subTitle1,
+          subtitle2: subTitle2,
+          caption: caption,
+          button: button,
+        ),
+        extensions: const {
+          CheckBoxStyle(
+              unselectedBackgroundColor: LightThemeColors.lightGreyToEclipse,
+              unselectedBorderColor: LightThemeColors.warmerGreyToDarkGray),
+          ThemedColors(
+              dividerColorToGrey: LightThemeColors.dividerColorToGrey,
+              whiteToWhiteOpacity20: LightThemeColors.whiteToWhiteOpacity20,
+              whiteToSmoky: LightThemeColors.whiteToSmoky,
+              whiteSmokeToNightRider: LightThemeColors.whiteSmokeToNightRider,
+              whiteToNero: LightThemeColors.whiteToNero,
+              mediumSlateBlueToDolphin:
+                  LightThemeColors.mediumSlateBlueToDolphin,
+              whiteSmokeToEclipse: LightThemeColors.whiteSmokeToEclipse,
+              solitudeToEclipse: LightThemeColors.solitudeToEclipse,
+              gainsboroToBlack: LightThemeColors.gainsboroToBlack,
+              greySuitToWhite: LightThemeColors.greySuitToWhite,
+              midnightExpressToWhite: LightThemeColors.midnightExpressToWhite,
+              solitude1ToNero: LightThemeColors.solitude1ToNero,
+              solitude2ToNero: LightThemeColors.solitude2ToNero,
+              solitude2ToNightRider: LightThemeColors.solitude2ToNightRider,
+              snowToBlack: LightThemeColors.snowToBlack,
+              whiteWithOpacity90ToNero:
+                  LightThemeColors.whiteWithOpacity90ToNero,
+              whiteSmoke2ToNightRider: LightThemeColors.whiteSmoke2ToNightRider,
+              solitudeTo1Black: LightThemeColors.solitudeTo1Black,
+              whiteLilacToNightRider: LightThemeColors.whiteLilacToNightRider,
+              midnightExpressToGreySuit:
+                  LightThemeColors.midnightExpressToGreySuit,
+              snowToNero1: LightThemeColors.snowToNero1,
+              whiteToNero1: LightThemeColors.whiteToNero1,
+              whiteToNightRider: LightThemeColors.whiteToNightRider,
+              whiteLilacToPayneGrey: LightThemeColors.whiteLilacToPayneGrey),
+          WTextFieldStyle(
+              fillColor: LightThemeColors.solitudeToNero,
+              borderColor: LightThemeColors.solitudeToDarkRider)
         },
       );
 

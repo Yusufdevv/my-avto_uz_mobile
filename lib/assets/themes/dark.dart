@@ -1,3 +1,4 @@
+import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/colors/dark.dart';
 import 'package:auto/assets/constants/dark.dart';
 import 'package:auto/assets/themes/theme_extensions/checkbox_style.dart';
@@ -18,6 +19,7 @@ abstract class DarkTheme {
         indicatorColor: DarkThemeColors.navBarIndicator,
         dividerColor: DarkThemeColors.divider,
         hintColor: DarkThemeColors.hintColor,
+        unselectedWidgetColor: grey,
         colorScheme: const ColorScheme(
           background: DarkThemeColors.surface,
           brightness: Brightness.dark,
@@ -148,6 +150,32 @@ abstract class DarkTheme {
             midnightExpressToWhite: DarkThemeColors.midnightExpressToWhite,
             solitudeToDolphinBorder: DarkThemeColors.solitudeToDolphinBorder,
             ghostToGondola: DarkThemeColors.ghostToGondola,
+          ),
+            dividerColorToGrey: DarkThemeColors.dividerColorToGrey,
+            whiteToWhiteOpacity20: DarkThemeColors.whiteToWhiteOpacity20,
+            whiteToSmoky: DarkThemeColors.whiteToSmoky,
+            whiteSmokeToNightRider: DarkThemeColors.whiteSmokeToNightRider,
+            whiteToNero: DarkThemeColors.whiteToNero,
+            mediumSlateBlueToDolphin: DarkThemeColors.mediumSlateBlueToDolphin,
+            whiteSmokeToEclipse: DarkThemeColors.whiteSmokeToEclipse,
+            solitudeToEclipse: DarkThemeColors.solitudeToEclipse,
+            gainsboroToBlack: DarkThemeColors.gainsboroToBlack,
+            greySuitToWhite: DarkThemeColors.greySuitToWhite,
+            midnightExpressToWhite: DarkThemeColors.midnightExpressToWhite,
+            solitude1ToNero: DarkThemeColors.solitude1ToNero,
+            solitude2ToNightRider: DarkThemeColors.solitude2ToNightRider,
+            snowToBlack: DarkThemeColors.snowToBlack,
+            whiteWithOpacity90ToNero: DarkThemeColors.whiteWithOpacity90ToNero,
+            whiteSmoke2ToNightRider: DarkThemeColors.whiteSmoke2ToNightRider,
+            solitudeTo1Black: DarkThemeColors.solitude1ToBlack,
+            whiteLilacToNightRider: DarkThemeColors.whiteLilacToNightRider,
+            midnightExpressToGreySuit:
+                DarkThemeColors.midnightExpressToGreySuit,
+            solitude2ToNero: DarkThemeColors.solitude2ToNero,
+            snowToNero1: DarkThemeColors.snowToNero1,
+            whiteToNero1: DarkThemeColors.whiteToNero1,
+            whiteToNightRider: DarkThemeColors.whiteToNightRider,
+            whiteLilacToPayneGrey: DarkThemeColors.whiteLilacToPayneGrey,
           ),
           WTextFieldStyle(
             fillColor: DarkThemeColors.solitudeToNero,
