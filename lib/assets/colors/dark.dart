@@ -84,7 +84,6 @@ class DarkThemeColors {
   static const blackToWhite80 = _white80;
   static const prussianBlueToWhite80 = _white80;
   static const solitudeToCharcoal = _charcoal;
-  static const whiteToNero1 = _nero1;
   static const borderGreyToDark = _nightRider;
   static const iconPearlToWhite = _white;
   static const darkGreyToWhite = _dolphin;
