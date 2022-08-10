@@ -26,7 +26,7 @@ class _AppState extends State<MyApp> {
         title: 'Auto.Uz',
         theme: LightTheme.theme(),
         darkTheme: DarkTheme.theme(),
-        themeMode: ThemeMode.dark,
+        themeMode: ThemeMode.light,
         navigatorKey: _navigatorKey,
         home: const HomeScreen(),
         // onGenerateRoute: (settings) => SplashScreen.route(),

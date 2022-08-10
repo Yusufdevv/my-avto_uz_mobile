@@ -1,6 +1,7 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/features/common/widgets/cached_image.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/profile/presentation/widgets/advertising.dart';
 import 'package:auto/features/search/domain/entities/commercial_item_entity.dart';
@@ -114,18 +115,13 @@ class _AllCommercialItemState extends State<AllCommercialItem> {
                   const SizedBox(height: 12),
                   Row(
                     children: [
-                      Container(
+                      CachedImage(
+                        fit: BoxFit.cover,
                         height: 36,
                         width: 36,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(color: white),
-                          image: DecorationImage(
-                              image: NetworkImage(
-                                widget.commercialItemEntity.clientAvatar,
-                              ),
-                              fit: BoxFit.cover),
-                        ),
+                        imageUrl: widget.commercialItemEntity.clientAvatar,
+                        border: Border.all(color: borderCircular),
+                        borderRadius: BorderRadius.circular(24),
                       ),
                       const SizedBox(width: 8),
                       Column(

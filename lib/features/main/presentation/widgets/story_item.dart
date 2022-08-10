@@ -1,4 +1,5 @@
 import 'package:auto/assets/colors/color.dart';
+import 'package:auto/features/common/widgets/cached_image.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/main/domain/entities/story_item_entity.dart';
 import 'package:auto/features/main/presentation/pages/story_screen.dart';
@@ -13,11 +14,15 @@ class StoryItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => WScaleAnimation(
-    onTap: () => Navigator.of(context, rootNavigator: true).push( fade(page: StoryScreen(story: storyEntity),),),
-    child: Container(
+        onTap: () => Navigator.of(context, rootNavigator: true).push(
+          fade(
+            page: StoryScreen(story: storyEntity),
+          ),
+        ),
+        child: Container(
           height: 96,
           width: 80,
-          margin: const EdgeInsets.only(left: 16.0),
+          margin: const EdgeInsets.only(left: 16),
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
               gradient: LinearGradient(
@@ -44,20 +49,21 @@ class StoryItem extends StatelessWidget {
               children: [
                 Positioned.fill(
                   child: Container(
-                    margin: const EdgeInsets.all(3),
                     padding: const EdgeInsets.all(4),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
-                        image: DecorationImage(
-                            image: NetworkImage(storyItemEntity.image),
-                            fit: BoxFit.cover)),
+                    child: CachedImage(
+                      fit: BoxFit.cover,
+                      height: 40,
+                      width: 40,
+                      imageUrl: storyItemEntity.image,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
                   ),
                 ),
                 Container(
                   margin: const EdgeInsets.all(3),
                   padding: const EdgeInsets.all(4),
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(8),
                     gradient: LinearGradient(
                         begin: Alignment.topLeft,
                         end: Alignment.bottomCenter,
@@ -78,5 +84,5 @@ class StoryItem extends StatelessWidget {
             ),
           ),
         ),
-  );
+      );
 }
