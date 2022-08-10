@@ -68,7 +68,8 @@ class _WRangeSliderState extends State<WRangeSlider> {
                   min: widget.startValue,
                   max: widget.endValue,
                   activeColor: purple,
-                  inactiveColor: red,
+
+                  inactiveColor: rangeSliderBackground,
                   values: values,
                   onChanged: (value) {
                     setState(() {

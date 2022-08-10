@@ -6,6 +6,8 @@ import 'package:auto/features/common/widgets/w_sliver_app_bar.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/profile/domain/entities/profile_item.dart';
 import 'package:auto/features/profile/presentation/widgets/profile_tab_bar.dart';
+import 'package:auto/features/search/domain/entities/commercial_item_entity.dart';
+import 'package:auto/features/search/presentation/pages/parameter_screen.dart';
 import 'package:auto/features/search/presentation/pages/select_car.dart';
 import 'package:auto/features/search/presentation/widgets/all_commertial_item.dart';
 import 'package:flutter/material.dart';
@@ -34,6 +36,27 @@ class _CommercialItemState extends State<CommercialItem>
     tabController.dispose();
     super.dispose();
   }
+
+  final List<CommercialItemEntity> commercialItemEntity = [
+    const CommercialItemEntity(
+      autoName: 'Mercedes-Benz Sprinter',
+      autoYear: 2020,
+      clientName: 'Анвар Гулямов',
+      title:
+          'Mercedes-Benz Sprinter — семейство малотоннажных автомобилей компании Mercedes-Benz. Существует...',
+      priceAuto: '227 000 000 UZS',
+      oldPriceAuto: '270 000 000 UZS',
+      clientAvatar:
+          'https://images.unsplash.com/photo-1659880233848-1f4eaf4f753c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyOHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60',
+      image1:
+          'https://images.unsplash.com/photo-1659812903095-d7e87abb0b3c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw4Mnx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60',
+      image2:
+          'https://images.unsplash.com/photo-1658856226250-5b236fa6137d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxMDR8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60',
+      isClient: true,
+      isSalon: false,
+      isLike: true,
+    ),
+  ];
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -102,7 +125,10 @@ class _CommercialItemState extends State<CommercialItem>
                         children: [
                           Expanded(
                             child: WScaleAnimation(
-                              onTap: () {},
+                              onTap: () {
+                                Navigator.push(
+                                    context, fade(page: const ParameterScreen()));
+                              },
                               child: Container(
                                 padding:
                                     const EdgeInsets.fromLTRB(12, 10, 8, 10),
@@ -124,7 +150,7 @@ class _CommercialItemState extends State<CommercialItem>
                                           .subtitle1!
                                           .copyWith(color: orange),
                                     ),
-                                    Spacer(),
+                                    const Spacer(),
                                     WScaleAnimation(
                                       child: Container(
                                           height: 14,
@@ -185,24 +211,11 @@ class _CommercialItemState extends State<CommercialItem>
                         ],
                       ),
                     ),
-                    const AllCommercialItem(
-                      autoName: 'Mercedes-Benz Sprinter',
-                      autoYear: 2020,
-                      clientName: 'Анвар Гулямов',
-                      title:
-                          'Mercedes-Benz Sprinter — семейство малотоннажных автомобилей компании Mercedes-Benz. Существует...',
-                      priceAuto: '227 000 000 UZS',
-                      oldPriceAuto: '270 000 000 UZS',
-                      clientAvatar:
-                          'https://images.unsplash.com/photo-1659880233848-1f4eaf4f753c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyOHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60',
-                      image1:
-                          'https://images.unsplash.com/photo-1659812903095-d7e87abb0b3c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw4Mnx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60',
-                      image2:
-                          'https://images.unsplash.com/photo-1658856226250-5b236fa6137d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxMDR8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60',
-                      isClient: true,
-                      isSalon: false,
-                      isLike: true,
-                      isScale: true,
+                    ...List.generate(
+                      commercialItemEntity.length,
+                      (index) => AllCommercialItem(
+                        commercialItemEntity: commercialItemEntity[index],
+                      ),
                     ),
                     const SizedBox(height: 16),
                     WScaleAnimation(

@@ -115,8 +115,8 @@ class DarkThemeColors {
   static const ghostToGondola = _gondola;
   static const whiteSmoke2ToNightRider = _nightRider;
   static const whiteSmoke78ToWhiteSmoke12 = _whiteSmoke12;
-  static const ghostToGondola = _gondola;
   static const tangerineYellowToMediumSlateBlue = _mediumSlateBlue;
+  static const greyToCinnabar = _cinnabar;
 }
 
 // Main palette (http://www.color-blindness.com/color-name-hue/).

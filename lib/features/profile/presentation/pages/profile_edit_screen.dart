@@ -165,7 +165,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                               ),
                               const Spacer(),
                               SvgPicture.asset(
-                                AppIcons.chevronRight,
+                                AppIcons.chevronRightBlack,
                                 color: Theme.of(context)
                                     .extension<ThemedColors>()!
                                     .darkGreyToWhite,

@@ -3,38 +3,15 @@ import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/profile/presentation/widgets/advertising.dart';
+import 'package:auto/features/search/domain/entities/commercial_item_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class AllCommercialItem extends StatefulWidget {
-  final String autoName;
-  final int autoYear;
-  final bool isClient;
-  final bool isSalon;
-  final String priceAuto;
-  final String oldPriceAuto;
-  final String title;
-  final String clientName;
-  final String clientAvatar;
-  final String image1;
-  final String image2;
-  final bool isLike;
-  final bool isScale;
+  final CommercialItemEntity commercialItemEntity;
 
   const AllCommercialItem({
-    required this.title,
-    required this.autoName,
-    required this.autoYear,
-    required this.clientName,
-    required this.priceAuto,
-    required this.oldPriceAuto,
-    required this.image1,
-    required this.image2,
-    required this.clientAvatar,
-    this.isClient = true,
-    this.isSalon = true,
-    this.isLike = false,
-    this.isScale = false,
+    required this.commercialItemEntity,
     Key? key,
   }) : super(key: key);
 
@@ -44,12 +21,10 @@ class AllCommercialItem extends StatefulWidget {
 
 class _AllCommercialItemState extends State<AllCommercialItem> {
   late bool isLiked;
-  late bool isScaled;
 
   @override
   void initState() {
-    isLiked = widget.isLike;
-    isScaled = widget.isScale;
+    isLiked = widget.commercialItemEntity.isLike;
     super.initState();
   }
 
@@ -61,10 +36,10 @@ class _AllCommercialItemState extends State<AllCommercialItem> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Advertising(
-                image1: widget.image1,
-                imege2: widget.image2,
-                isClient: widget.isClient,
-                isSalon: widget.isSalon),
+                image1: widget.commercialItemEntity.image1,
+                imege2: widget.commercialItemEntity.image2,
+                isClient: widget.commercialItemEntity.isClient,
+                isSalon: widget.commercialItemEntity.isSalon),
             Container(
               margin: const EdgeInsets.only(top: 8, left: 16),
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
@@ -86,7 +61,7 @@ class _AllCommercialItemState extends State<AllCommercialItem> {
                   Row(
                     children: [
                       Text(
-                        widget.autoName,
+                        widget.commercialItemEntity.autoName,
                         style: Theme.of(context).textTheme.headline1!.copyWith(
                             fontWeight: FontWeight.w400, fontSize: 14),
                       ),
@@ -99,7 +74,7 @@ class _AllCommercialItemState extends State<AllCommercialItem> {
                           color: purple.withOpacity(0.1),
                         ),
                         child: Text(
-                          widget.autoYear.toString(),
+                          widget.commercialItemEntity.autoYear.toString(),
                           style: Theme.of(context)
                               .textTheme
                               .headline3!
@@ -113,13 +88,13 @@ class _AllCommercialItemState extends State<AllCommercialItem> {
                   Row(
                     children: [
                       Text(
-                        widget.priceAuto,
+                        widget.commercialItemEntity.priceAuto,
                         style: Theme.of(context).textTheme.headline5!.copyWith(
                             color: green, fontWeight: FontWeight.w600),
                       ),
                       const SizedBox(width: 4),
                       Text(
-                        widget.oldPriceAuto,
+                        widget.commercialItemEntity.oldPriceAuto,
                         style: Theme.of(context)
                             .textTheme
                             .headline2!
@@ -129,7 +104,7 @@ class _AllCommercialItemState extends State<AllCommercialItem> {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    widget.title,
+                    widget.commercialItemEntity.title,
                     overflow: TextOverflow.ellipsis,
                     maxLines: 2,
                     style: Theme.of(context).textTheme.headline2!.copyWith(
@@ -147,7 +122,7 @@ class _AllCommercialItemState extends State<AllCommercialItem> {
                           border: Border.all(color: white),
                           image: DecorationImage(
                               image: NetworkImage(
-                                widget.clientAvatar,
+                                widget.commercialItemEntity.clientAvatar,
                               ),
                               fit: BoxFit.cover),
                         ),
@@ -157,13 +132,13 @@ class _AllCommercialItemState extends State<AllCommercialItem> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            widget.clientName,
+                            widget.commercialItemEntity.clientName,
                             style: Theme.of(context)
                                 .textTheme
                                 .headline1!
                                 .copyWith(fontSize: 14),
                           ),
-                          if (widget.isClient)
+                          if (widget.commercialItemEntity.isClient)
                             Text(
                               'Частное лицо',
                               style: Theme.of(context)
@@ -208,18 +183,13 @@ class _AllCommercialItemState extends State<AllCommercialItem> {
                       ),
                       const Spacer(),
                       WScaleAnimation(
-                        onTap: () {
-                          setState(() {
-                            isScaled = !isScaled;
-                          });
-                        },
-                        child: isScaled
-                            ? SvgPicture.asset(
-                                AppIcons.scales,
-                                height: 28,
-                                width: 28,
-                              )
-                            : SvgPicture.asset(AppIcons.scale),
+                        onTap: () {},
+                        child: SvgPicture.asset(
+                          AppIcons.scale,
+                          color: Theme.of(context)
+                              .extension<ThemedColors>()!
+                              .greyToCinnabar,
+                        ),
                       ),
                       const SizedBox(width: 8),
                       WScaleAnimation(
@@ -229,15 +199,12 @@ class _AllCommercialItemState extends State<AllCommercialItem> {
                           });
                         },
                         child: isLiked
-                            ? SvgPicture.asset(
-                                AppIcons.heartBlue,
-                                height: 28,
-                                width: 28,
-                              )
+                            ? SvgPicture.asset(AppIcons.enabledHeart)
                             : SvgPicture.asset(
-                                AppIcons.heart,
-                                height: 28,
-                                width: 28,
+                                AppIcons.disabledHeart,
+                                color: Theme.of(context)
+                                    .extension<ThemedColors>()!
+                                    .greyToCinnabar,
                               ),
                       ),
                       const SizedBox(

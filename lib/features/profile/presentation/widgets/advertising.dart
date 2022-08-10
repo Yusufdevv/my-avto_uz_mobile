@@ -24,13 +24,13 @@ class Advertising extends StatefulWidget {
 
 class _AdvertisingState extends State<Advertising> {
   @override
-  Widget build(BuildContext context) => Stack(
-        children: [
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Container(
-              margin: const EdgeInsets.only(top: 12, left: 16, right: 16),
-              child: Row(
+  Widget build(BuildContext context) => SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Container(
+          margin: const EdgeInsets.only(top: 12, left: 16, right: 16),
+          child: Row(
+            children: [
+              Stack(
                 children: [
                   CachedImage(
                     height: 201,
@@ -41,91 +41,91 @@ class _AdvertisingState extends State<Advertising> {
                     ),
                     imageUrl: widget.image1,
                   ),
-                  const SizedBox(width: 4),
-                  CachedImage(
-                    height: 201,
-                    width: 264,
-                    imageUrl: widget.imege2,
-                  ),
-                  SizedBox(width: 4),
-                  if (widget.isClient)
-                    Container(
-                      height: 201,
-                      width: 264,
-                      decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                            topRight: Radius.circular(8),
-                            bottomRight: Radius.circular(8)),
-                        color: green,
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SvgPicture.asset(AppIcons.phone),
-                          Text(
-                            'Позвонить',
-                            style: Theme.of(context)
-                                .textTheme
-                                .headline1!
-                                .copyWith(color: white),
-                          )
-                        ],
-                      ),
-                    )
-                  else if (widget.isSalon)
-                    Container(
-                      height: 201,
-                      width: 264,
-                      decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                            topRight: Radius.circular(8),
-                            bottomRight: Radius.circular(8)),
-                        color: red,
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SvgPicture.asset(AppIcons.shopping),
-                          Text(
-                            'Купить',
-                            style: Theme.of(context)
-                                .textTheme
-                                .headline1!
-                                .copyWith(color: white),
-                          )
-                        ],
-                      ),
-                    )
-                  else
-                    SizedBox(),
+                  Positioned(
+                      top: 4,
+                      left: 4,
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 4),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(4),
+                          color: white,
+                        ),
+                        child: Row(
+                          children: [
+                            SvgPicture.asset(AppIcons.shieldCheck),
+                            const SizedBox(width: 4),
+                            Text('С пробегом',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyText1!
+                                    .copyWith(color: green)),
+                          ],
+                        ),
+                      ))
                 ],
               ),
-            ),
-          ),
-          Positioned(
-              top: 16,
-              left: 20,
-              child: Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(4),
-                  color: white,
-                ),
-                child: Row(
-                  children: [
-                    SvgPicture.asset(AppIcons.shieldCheck),
-                    const SizedBox(width: 4),
-                    Text('С пробегом',
+              const SizedBox(width: 4),
+              CachedImage(
+                height: 201,
+                width: 264,
+                imageUrl: widget.imege2,
+              ),
+              SizedBox(width: 4),
+              if (widget.isClient)
+                Container(
+                  height: 201,
+                  width: 264,
+                  decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(8),
+                        bottomRight: Radius.circular(8)),
+                    color: green,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SvgPicture.asset(AppIcons.phone),
+                      Text(
+                        'Позвонить',
                         style: Theme.of(context)
                             .textTheme
-                            .bodyText1!
-                            .copyWith(color: green)),
-                  ],
-                ),
-              ))
-        ],
+                            .headline1!
+                            .copyWith(color: white),
+                      )
+                    ],
+                  ),
+                )
+              else if (widget.isSalon)
+                Container(
+                  height: 201,
+                  width: 264,
+                  decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(8),
+                        bottomRight: Radius.circular(8)),
+                    color: red,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SvgPicture.asset(AppIcons.shopping),
+                      Text(
+                        'Купить',
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline1!
+                            .copyWith(color: white),
+                      )
+                    ],
+                  ),
+                )
+              else
+                SizedBox(),
+            ],
+          ),
+        ),
       );
 }

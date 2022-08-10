@@ -61,7 +61,7 @@ class PasswordChangeScreen extends StatelessWidget {
                           ),
                           const Spacer(),
                           SvgPicture.asset(
-                            AppIcons.chevronRight,
+                            AppIcons.chevronRightBlack,
                             color: Theme.of(context)
                                 .extension<ThemedColors>()!
                                 .darkGreyToWhite,
@@ -118,7 +118,7 @@ class PasswordChangeScreen extends StatelessWidget {
                           ),
                           const SizedBox(width: 12),
                           SvgPicture.asset(
-                            AppIcons.chevronRight,
+                            AppIcons.chevronRightBlack,
                             color: Theme.of(context)
                                 .extension<ThemedColors>()!
                                 .darkGreyToWhite,

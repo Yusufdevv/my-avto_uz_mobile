@@ -112,7 +112,8 @@ class WAppBar extends StatelessWidget implements PreferredSizeWidget {
                       )
                     else
                       const SizedBox(),
-                    Padding(
+                    Container(
+                      alignment: Alignment.center,
                       padding: const EdgeInsets.only(left: 8),
                       child: Text(
                         textWithButton,

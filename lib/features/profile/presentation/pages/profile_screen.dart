@@ -35,9 +35,8 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) => Scaffold(
       appBar: const WAppBar(
         filledBackButton: true,
-        centerTitle: false,
         hasBackButton: false,
-        title: 'Мой профиль',
+        textWithButton: 'Мой профиль',
       ),
       body: SingleChildScrollView(
         child: Padding(
