@@ -61,7 +61,6 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
   final Color darkToPurple;
   final Color darkToGrey;
   final Color greyContainer26;
-
   final Color redContainer26;
   final Color mediumSlateBlueToWhite;
   final Color solitudeToPayneGrey;
@@ -70,12 +69,9 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
   final Color dividerColorToWhiteOpacity;
   final Color whiteLilacToWhite4;
   final Color cinnabar12ToCinnabar;
-
   final Color greenContainer26;
   final Color blueContainer26;
-
   final Color solitudeToDolphinBorder;
-  final Color ghostToGondola;
   const ThemedColors({
     required this.greyContainer26,
     required this.redContainer26,
@@ -148,7 +144,6 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
     required this.midnightExpressToDolphin,
     required this.solitudeToGondola,
     required this.solitudeToDolphinBorder,
-    required this.ghostToGondola,
   });
 
   @override
@@ -224,7 +219,6 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
     Color? whiteToDark,
     Color? whiteSmokeToEclipse,
     Color? snowToNightRider,
-    Color? ghostToGondola,
   }) =>
       ThemedColors(
           ghostToGondola: ghostToGondola ?? this.ghostToGondola,
@@ -250,7 +244,6 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
           whiteToDarkRider: whiteToDarkRider ?? this.whiteToDarkRider,
           iconPearlToWhite: iconPearlToWhite ?? this.iconPearlToWhite,
           borderGreyToDark: borderGreyToDark ?? this.darkGreyToWhite,
-          ghostToGondola: ghostToGondola ?? this.ghostToGondola,
           whiteToNero1: whiteToNero1 ?? this.whiteToNero1,
           dividerColorToGrey: dividerColorToGrey ?? this.dividerColorToGrey,
           dolphinToGreySuit: dolphinToGreySuit ?? this.dolphinToGreySuit,
@@ -521,8 +514,6 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
               other.tangerineYellowToMediumSlateBlue,
               t) ??
           tangerineYellowToMediumSlateBlue,
-      ghostToGondola:
-          Color.lerp(ghostToGondola, other.ghostToGondola, t) ?? ghostToGondola,
       whiteSmoke78ToWhiteSmoke12: Color.lerp(whiteSmoke78ToWhiteSmoke12,
               other.whiteSmoke78ToWhiteSmoke12, t) ??
           whiteSmoke78ToWhiteSmoke12,

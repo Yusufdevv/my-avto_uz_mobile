@@ -111,7 +111,6 @@ class LightThemeColors {
   static const whiteSmoke78ToWhiteSmoke12 = _whiteSmoke78;
   static const ghostToGondola = _ghost;
   static const tangerineYellowToMediumSlateBlue = _tangerineYellow;
-  static const ghostToGondola = _ghost;
 }
 
 // Main palette (http://www.color-blindness.com/color-name-hue/).

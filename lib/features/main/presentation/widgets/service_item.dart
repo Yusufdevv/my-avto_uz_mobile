@@ -7,11 +7,12 @@ import 'package:flutter_svg/svg.dart';
 
 class ServiceItem extends StatelessWidget {
   final ServiceEntity serviceEntity;
-  const ServiceItem({required this.serviceEntity,Key? key}) : super(key: key);
+  final VoidCallback onTap;
+  const ServiceItem({required this.onTap, required this.serviceEntity,Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) => WButton(
-    onTap: (){},
+    onTap: onTap,
     margin: const EdgeInsets.only(left: 16),
       color: Theme.of(context).extension<ThemedColors>()!.whiteLilacToWhiteLilac10,
       border: Border.all(

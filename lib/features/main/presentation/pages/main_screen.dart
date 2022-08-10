@@ -13,6 +13,8 @@ import 'package:auto/features/main/presentation/widgets/service_item.dart';
 import 'package:auto/features/main/presentation/widgets/story_data.dart';
 import 'package:auto/features/main/presentation/widgets/story_item.dart';
 import 'package:auto/features/main/presentation/widgets/yandex_map.dart';
+import 'package:auto/features/navigation/presentation/navigator.dart';
+import 'package:auto/features/search/presentation/pages/commercial_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -34,21 +36,34 @@ class _MainScreenState extends State<MainScreen> {
     const CarBrandEntity(title: 'Chevrolet', icon: AppImages.chevrolet),
     const CarBrandEntity(title: 'Chevrolet', icon: AppImages.chevrolet),
   ];
-  final List<ServiceEntity> serviceEntity = [
-    const ServiceEntity(title: 'Проверка', icon: AppIcons.verification),
+
+  final List<ServiceEntity>   serviceEntity = [
+    const ServiceEntity(title: 'Проверка', icon: AppIcons.verification, ),
     const ServiceEntity(title: 'Объявления', icon: AppIcons.ads),
-    const ServiceEntity(title: 'Каршеринг', icon: AppIcons.carSharing),
-    const ServiceEntity(title: 'Страхование', icon: AppIcons.insurance),
-    const ServiceEntity(title: 'Отзывы', icon: AppIcons.review),
-    const ServiceEntity(title: 'RentCar', icon: AppIcons.rentCar),
+    const ServiceEntity(title: 'Каршеринг', icon: AppIcons.carSharing,),
+    const ServiceEntity(title: 'Страхование', icon: AppIcons.insurance,),
+    const ServiceEntity(title: 'Коммерческий транспорт', icon: AppIcons.commercialCar,),
+    const ServiceEntity(title: 'RentCar', icon: AppIcons.rentCar,),
   ];
-  
+  @override
+  void initState() {
+    serviceTaps = [
+          (){},
+          (){},
+          (){},
+          (){},
+          () => Navigator.push(context, fade(page: const CommercialScreen())),
+          (){},
+    ];
+    super.initState();
+  }
   final List<AdsEntity> adsEntity = [
     const AdsEntity(imageUrl: 'https://cdn.motor1.com/images/mgl/LBl63/s1/2021-genesis-g80.jpg', place: 'г. Ташкент', price: '1 519 123 200 UZS', aboutCar: 'Land Cruiser, 145 894 км,\nВнедорожник 5дв, АКПП, Дизел...', carName: 'Hyundai Genesis G90 long'),
     const AdsEntity(imageUrl: 'https://cdn.motor1.com/images/mgl/LBl63/s1/2021-genesis-g80.jpg', place: 'г. Ташкент', price: '1 519 123 200 UZS', aboutCar: 'Land Cruiser, 145 894 км,\nВнедорожник 5дв, АКПП, Дизел...', carName: 'Hyundai Genesis G90 long'),
     const AdsEntity(imageUrl: 'https://cdn.motor1.com/images/mgl/LBl63/s1/2021-genesis-g80.jpg', place: 'г. Ташкент', price: '1 519 123 200 UZS', aboutCar: 'Land Cruiser, 145 894 км,\nВнедорожник 5дв, АКПП, Дизел...', carName: 'Hyundai Genesis G90 long'),
   ];
 
+  late List<VoidCallback> serviceTaps = [];
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
@@ -88,7 +103,7 @@ class _MainScreenState extends State<MainScreen> {
                 child: ListView.builder(
                   padding: const EdgeInsets.only(right: 16),
                   itemBuilder: (context, index) =>
-                      ServiceItem(serviceEntity: serviceEntity[index]),
+                      ServiceItem(serviceEntity: serviceEntity[index], onTap: serviceTaps[index],),
                   itemCount: serviceEntity.length,
                   scrollDirection: Axis.horizontal,
                 ),
