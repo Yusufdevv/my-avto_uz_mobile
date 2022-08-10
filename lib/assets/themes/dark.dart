@@ -71,7 +71,6 @@ abstract class DarkTheme {
           ),
           ThemedColors(
             darkToGrey: DarkThemeColors.darkToGrey,
-            ghostToGondola: DarkThemeColors.ghostToGondola,
             greyContainer26: DarkThemeColors.greyContainer26,
             redContainer26: DarkThemeColors.redContainer26,
             greenContainer26: DarkThemeColors.greenContainer26,
@@ -167,6 +166,7 @@ abstract class DarkTheme {
             whiteToNightRider: DarkThemeColors.whiteToNightRider,
             whiteLilacToPayneGrey: DarkThemeColors.whiteLilacToPayneGrey,
             greyToCinnabar: DarkThemeColors.greyToCinnabar,
+            ghostToGondola: DarkThemeColors.ghostToGondola,
           ),
           WTextFieldStyle(
             fillColor: DarkThemeColors.solitudeToNero,

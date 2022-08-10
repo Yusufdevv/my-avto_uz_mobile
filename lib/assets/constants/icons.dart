@@ -125,7 +125,7 @@ class AppIcons {
   static const shopping = 'assets/icons/search/shopping.svg';
   static const chevronRightBlack =
       'assets/icons/global/chevron_right_black.svg';
-  static const chevronRight = 'assets/icons/profile/chevron_right.svg';
+  static const chevronRight1 = 'assets/icons/profile/chevron_right.svg';
   static const enabledHeart = 'assets/icons/search/enabled_heart.svg';
   static const disabledHeart = 'assets/icons/search/disabled_heart.svg';
   static const scalesRed = 'assets/icons/search/scales_red.svg';

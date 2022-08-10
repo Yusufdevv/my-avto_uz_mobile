@@ -75,10 +75,13 @@ class FavouriteItem extends StatelessWidget {
               height: 12,
             ),
             WButton(
-              onTap: () => Navigator.push(context, fade(page: const FavouriteScreen())),
+              onTap: () =>
+                  Navigator.push(context, fade(page: FavouriteScreen())),
               text: 'Перейти к поиску',
               height: 36,
-              color: Theme.of(context).extension<ThemedColors>()!.cinnabar12ToCinnabar,
+              color: Theme.of(context)
+                  .extension<ThemedColors>()!
+                  .cinnabar12ToCinnabar,
               textStyle:
                   Theme.of(context).textTheme.headline5!.copyWith(fontSize: 14),
             ),
