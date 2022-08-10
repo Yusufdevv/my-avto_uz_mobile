@@ -140,7 +140,6 @@ class DarkThemeColors {
   static const dolphinToWhite60 = _white60;
   static const solitudeToDolphin8 = _dolphin8;
   static const solitudeToDolphinBorder = _dolphin;
-  static const ghostToGondola = _gondola;
   static const whiteSmoke2ToNightRider = _nightRider;
   static const whiteSmoke78ToWhiteSmoke12 = _whiteSmoke12;
   static const ghostToGondola = _gondola;

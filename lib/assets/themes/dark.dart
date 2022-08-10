@@ -149,7 +149,6 @@ abstract class DarkTheme {
             solitudeToGondola: DarkThemeColors.solitudeToGondola,
             midnightExpressToWhite: DarkThemeColors.midnightExpressToWhite,
             solitudeToDolphinBorder: DarkThemeColors.solitudeToDolphinBorder,
-            ghostToGondola: DarkThemeColors.ghostToGondola,
           ),
             dividerColorToGrey: DarkThemeColors.dividerColorToGrey,
             whiteToWhiteOpacity20: DarkThemeColors.whiteToWhiteOpacity20,

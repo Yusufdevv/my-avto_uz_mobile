@@ -10,6 +10,7 @@ import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/search/domain/entities/search_item_entity.dart';
 import 'package:auto/features/search/presentation/bloc/searched_bloc/searched_bloc.dart';
 import 'package:auto/features/search/presentation/pages/filter_screen.dart';
+import 'package:auto/features/search/presentation/pages/results_screen.dart';
 import 'package:auto/features/search/presentation/widgets/filter_item.dart';
 import 'package:auto/features/search/presentation/widgets/searched_models_item.dart';
 import 'package:flutter/material.dart';
@@ -329,7 +330,7 @@ class _SearchScreenState extends State<SearchScreen> {
             ),
             bottomNavigationBar: searchController.text.isNotEmpty ?  WButton(
               margin: const EdgeInsets.only(bottom: 16),
-              onTap: () {},
+              onTap: () => Navigator.push(context, fade(page: ResultsScreen(controller: searchController),),),
               text: 'Показать 32 результата',
             ) : const SizedBox(),
           ),

@@ -293,7 +293,6 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
     Color? whiteToDark,
     Color? whiteSmokeToEclipse,
     Color? snowToNightRider,
-    Color? ghostToGondola,
   }) =>
       ThemedColors(
           ghostToGondola: ghostToGondola ?? this.ghostToGondola,
@@ -687,8 +686,6 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
               other.tangerineYellowToMediumSlateBlue,
               t) ??
           tangerineYellowToMediumSlateBlue,
-      ghostToGondola:
-          Color.lerp(ghostToGondola, other.ghostToGondola, t) ?? ghostToGondola,
       whiteSmoke78ToWhiteSmoke12: Color.lerp(whiteSmoke78ToWhiteSmoke12,
               other.whiteSmoke78ToWhiteSmoke12, t) ??
           whiteSmoke78ToWhiteSmoke12,
