@@ -18,6 +18,7 @@ class NavItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Container(
+        margin: const EdgeInsets.only(bottom: 4),
         width: double.maxFinite,
         child: Column(
           children: [
@@ -82,10 +83,12 @@ class NavItemWidget extends StatelessWidget {
                 style: currentIndex == navBar.id
                     ? Theme.of(context)
                         .textTheme
+                        .headline1!
+                        .copyWith(fontSize: 12, fontWeight: FontWeight.w400)
+                    : Theme.of(context)
+                        .textTheme
                         .bodyText1!
-                        .copyWith(fontSize: 10, fontWeight: FontWeight.w400)
-                    : Theme.of(context).textTheme.bodyText2!.copyWith(
-                        fontSize: 10, fontWeight: FontWeight.w400, color: grey),
+                        .copyWith(color: greyText),
               ),
             ),
           ],

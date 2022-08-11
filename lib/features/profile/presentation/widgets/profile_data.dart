@@ -92,7 +92,7 @@ class ProfileData extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(right: 16),
                     child: SvgPicture.asset(
-                      AppIcons.chevronRight,
+                      AppIcons.chevronRight1,
                       color: Theme.of(context)
                           .extension<ThemedColors>()!
                           .darkGreyToWhite,
