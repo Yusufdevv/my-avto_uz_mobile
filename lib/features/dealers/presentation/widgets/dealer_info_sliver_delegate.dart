@@ -25,7 +25,7 @@ class SellerSliverDelegate extends SliverPersistentHeaderDelegate {
                       ? 0.6
                       : shrinkOffset >= 80 && shrinkOffset <= 160
                           ? 0.4
-                          : shrinkOffset >= 140
+                          : shrinkOffset >= 150
                               ? 0.2
                               : 1,
               child: AnimatedImages(

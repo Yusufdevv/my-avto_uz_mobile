@@ -89,10 +89,10 @@ class CharacteristicsParametersWidget extends StatelessWidget {
                                 color: index % 2 == 0
                                     ? Theme.of(context)
                                         .extension<ThemedColors>()!
-                                        .solitude1ToNero
+                                        .solitudeContainerToNero1
                                     : Theme.of(context)
                                         .extension<ThemedColors>()!
-                                        .whiteLilacToNightRider,
+                                        .whiteToNightRider,
                                 numberOfAddedCars: numberOfAddedCars,
                               )
                             else

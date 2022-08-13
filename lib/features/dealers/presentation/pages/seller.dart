@@ -1,19 +1,20 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/images.dart';
-import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/dealers/domain/entities/models/marks_with_announcements.dart';
 import 'package:auto/features/dealers/presentation/pages/all_marks_with_announcements.dart';
 import 'package:auto/features/dealers/presentation/widgets/automobile_card.dart';
 import 'package:auto/features/dealers/presentation/widgets/dealer_info.dart';
 import 'package:auto/features/dealers/presentation/widgets/dealer_info_sliver_delegate.dart';
 import 'package:auto/features/dealers/presentation/widgets/mark_with_announcement.dart';
+import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class Seller extends StatelessWidget {
   final String dealerType;
-  Seller({required this.dealerType});
+  final String dealerName;
+  Seller({required this.dealerType, required this.dealerName});
   List<MarksWithAnnouncementModel> marks = [
     MarksWithAnnouncementModel(imageUrl: '', mark: 'BMW', quantity: 24),
     MarksWithAnnouncementModel(imageUrl: '', mark: 'BMW', quantity: 24),
@@ -24,8 +25,6 @@ class Seller extends StatelessWidget {
   ];
   @override
   Widget build(BuildContext context) => Scaffold(
-        backgroundColor:
-            Theme.of(context).extension<ThemedColors>()!.solitudeTo1Black,
         body: NestedScrollView(
           headerSliverBuilder: (context, innerBoxIsScrolled) => <Widget>[
             SliverPersistentHeader(
@@ -33,7 +32,7 @@ class Seller extends StatelessWidget {
               delegate: SellerSliverDelegate(
                   minHeight: MediaQuery.of(context).size.height * 0.11,
                   showroomOrPerson: dealerType),
-            )
+            ),
           ],
           body: SingleChildScrollView(
             padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -42,7 +41,7 @@ class Seller extends StatelessWidget {
               children: [
                 SellerInfo(
                     dealerType: dealerType,
-                    dealerName: dealerType,
+                    dealerName: dealerName,
                     quantityOfCars: 164,
                     workingHours: '9:00 - 21:00',
                     contact: '+998 90 872 54 45',
@@ -63,9 +62,11 @@ class Seller extends StatelessWidget {
                                     fontWeight: FontWeight.w600))),
                         GestureDetector(
                           onTap: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) =>
-                                    AllMarksWithAnnouncements(marks: marks)));
+                            Navigator.push(
+                                context,
+                                fade(
+                                    page: AllMarksWithAnnouncements(
+                                        marks: marks)));
                           },
                           child: Row(
                             children: [
@@ -79,7 +80,8 @@ class Seller extends StatelessWidget {
                               const SizedBox(
                                 width: 4,
                               ),
-                              SvgPicture.asset(AppIcons.chevronRight)
+                              SvgPicture.asset(AppIcons.chevronRightBlack,
+                                  color: greyText)
                             ],
                           ),
                         )
@@ -87,6 +89,7 @@ class Seller extends StatelessWidget {
                     ),
                   ),
                   SingleChildScrollView(
+                    physics: const BouncingScrollPhysics(),
                     scrollDirection: Axis.horizontal,
                     child: Row(
                       children: List.generate(
@@ -123,7 +126,8 @@ class Seller extends StatelessWidget {
                             const SizedBox(
                               width: 4,
                             ),
-                            SvgPicture.asset(AppIcons.chevronRight)
+                            SvgPicture.asset(AppIcons.chevronRightBlack,
+                                color: greyText)
                           ],
                         ),
                       )

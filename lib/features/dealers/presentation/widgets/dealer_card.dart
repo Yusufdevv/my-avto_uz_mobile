@@ -3,6 +3,7 @@ import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/dealers/presentation/pages/seller.dart';
+import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -36,16 +37,24 @@ class _DealerCardState extends State<DealerCard> {
         onTap: () {},
         child: GestureDetector(
           onTap: () {
-            Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => Seller(
-                      dealerType: widget.dealerType,
-                    )));
+            Navigator.push(
+              context,
+              fade(
+                page: Seller(
+                  dealerType: widget.dealerType,
+                  dealerName: widget.dealerName,
+                ),
+              ),
+            );
           },
           child: Container(
-            margin: const EdgeInsets.only(top: 16),
             decoration: BoxDecoration(
                 color: Theme.of(context).extension<ThemedColors>()!.whiteToNero,
-                borderRadius: BorderRadius.circular(12)),
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(
+                    color: Theme.of(context)
+                        .extension<ThemedColors>()!
+                        .solitude2ToNightRider)),
             padding: const EdgeInsets.all(12),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -110,7 +119,7 @@ class _DealerCardState extends State<DealerCard> {
                   children: [
                     const Expanded(
                         child: Text(
-                      'Контракты:',
+                      'Контакты:',
                       style: TextStyle(
                           fontWeight: FontWeight.w600,
                           fontSize: 13,

@@ -106,6 +106,8 @@ class DarkThemeColors {
   static const ghostWhiteToUltramarine10 = _ultramarine10;
   static const lavenderToUltramarine30 = _ultramarine30;
   static const solitudeContainerToDark = _nero;
+  static const solitudeContainerToBlack = _black;
+  static const solitudeContainerToNero1 = _nero1;
   static const aluminumToDolphin = _dolphin;
   static const whiteSmokeToDark = _nero;
   static const transparentToNightRider = _nightRider;

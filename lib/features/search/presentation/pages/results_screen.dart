@@ -13,7 +13,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 class ResultsScreen extends StatefulWidget {
   final TextEditingController controller;
-
   const ResultsScreen({required this.controller, Key? key}) : super(key: key);
 
   @override
@@ -41,7 +40,6 @@ class _ResultsScreenState extends State<ResultsScreen> {
       isLike: true,
     ),
   ];
-
   @override
   Widget build(BuildContext context) => Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,

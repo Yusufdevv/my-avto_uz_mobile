@@ -25,43 +25,28 @@ class _DealersFilterState extends State<DealersFilter> {
           titleStyle:
               Theme.of(context).textTheme.headline1!.copyWith(fontSize: 16),
           extraActions: [
-            GestureDetector(
-              child: const Text(
-                'Очистить',
-                style: TextStyle(
-                    color: blue, fontWeight: FontWeight.w600, fontSize: 14),
-              ),
+            Text('Фильтр',
+                style: Theme.of(context)
+                    .textTheme
+                    .headline1!
+                    .copyWith(fontSize: 16, fontWeight: FontWeight.w600)),
+            const Spacer(
+              flex: 30,
             ),
-            const SizedBox(
-              width: 16,
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Text(
+                'Очистить',
+                style: Theme.of(context)
+                    .textTheme
+                    .subtitle1!
+                    .copyWith(color: blue),
+              ),
             )
           ],
-          child: Align(
-            alignment: Alignment.center,
-            child: Align(
-              alignment: Alignment.center,
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Text(
-                    'Фильтр',
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline1
-                        ?.copyWith(fontSize: 16, fontWeight: FontWeight.w600),
-                  ),
-                  const SizedBox(
-                    width: 250,
-                  )
-                ],
-              ),
-            ),
-          ),
         ),
         body: Container(
-          color: Theme.of(context).extension<ThemedColors>()!.gainsboroToBlack,
-          padding: const EdgeInsets.fromLTRB(16, 20, 16, 50),
+          padding: const EdgeInsets.fromLTRB(16, 20, 16, 16),
           child: Column(
             children: [
               Expanded(
@@ -113,7 +98,7 @@ class _DealersFilterState extends State<DealersFilter> {
                             fontWeight: FontWeight.w400)),
                     const SizedBox(height: 8),
                     const ContainerRegionMark(
-                      markOrRegion: 'Марка',
+                      markOrRegion: 'Регион',
                     ),
                     const SizedBox(height: 16),
                     Text('Марка',
@@ -124,8 +109,8 @@ class _DealersFilterState extends State<DealersFilter> {
                             fontSize: 14,
                             fontWeight: FontWeight.w400)),
                     const SizedBox(height: 8),
-                    ContainerRegionMark(
-                      markOrRegion: 'Регион',
+                    const ContainerRegionMark(
+                      markOrRegion: 'Марка',
                     ),
                   ],
                 ),

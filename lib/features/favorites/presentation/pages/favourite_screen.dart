@@ -25,22 +25,24 @@ class FavouriteScreen extends StatelessWidget {
       isLike: true,
     ),
   ];
-
   @override
   Widget build(BuildContext context) => Scaffold(
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-      appBar: const WAppBar(
-        title: 'Избранные',
-        centerTitle: false,
-      ),
-      body: Column(
-        children: [
-          ...List.generate(
-            commercialItemEntity.length,
-            (index) => AllCommercialItem(
-              commercialItemEntity: commercialItemEntity[index],
-            ),
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        appBar: const WAppBar(
+          title: 'Избранные',
+          centerTitle: false,
+        ),
+        body: ListView.builder(
+          itemBuilder: (context, index) => Column(
+            children: [
+              ...List.generate(
+                commercialItemEntity.length,
+                (index) => AllCommercialItem(
+                  commercialItemEntity: commercialItemEntity[index],
+                ),
+              ),
+            ],
           ),
-        ],
-      ));
+        ),
+      );
 }

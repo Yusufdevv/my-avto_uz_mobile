@@ -120,8 +120,9 @@ class _AnimatedImagesState extends State<AnimatedImages>
             child: Container(
               width: MediaQuery.of(context).size.width,
               height: 36,
-              color:
-                  Theme.of(context).extension<ThemedColors>()!.solitudeTo1Black,
+              color: Theme.of(context)
+                  .extension<ThemedColors>()!
+                  .solitudeContainerToBlack,
             ),
           ),
           Positioned(

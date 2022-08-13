@@ -1,4 +1,4 @@
-import 'package:auto/features/navigation/presentation/home.dart';
+import 'package:auto/features/dealers/presentation/pages/dealers_main.dart';
 import 'package:flutter/material.dart';
 
 import 'assets/themes/dark.dart';
@@ -28,7 +28,7 @@ class _AppState extends State<MyApp> {
         darkTheme: DarkTheme.theme(),
         themeMode: ThemeMode.dark,
         navigatorKey: _navigatorKey,
-        home: const HomeScreen(),
+        home: const DealersMain(),
         // onGenerateRoute: (settings) => SplashScreen.route(),
       );
 }
