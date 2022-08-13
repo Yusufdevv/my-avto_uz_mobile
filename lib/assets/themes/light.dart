@@ -159,12 +159,17 @@ abstract class LightTheme {
             ghostToGondola: LightThemeColors.ghostToGondola,
             tangerineYellowToMediumSlateBlue:
                 LightThemeColors.tangerineYellowToMediumSlateBlue,
+            solitudeContainerToBlack: LightThemeColors.solitudeContainerToBlack,
+            solitudeContainerToNero1: LightThemeColors.solitudeContainerToNero1,
           ),
           WTextFieldStyle(
             fillColor: LightThemeColors.solitudeToNero,
             borderColor: LightThemeColors.solitudeToDarkRider,
           ),
-          ThemedIcons(imageUrl: LightIcons.logo),
+          ThemedIcons(
+            imageUrl: LightIcons.logo,
+            filterIcon: LightIcons.filterIcon,
+          ),
         },
       );
 

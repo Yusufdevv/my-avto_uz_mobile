@@ -9,10 +9,10 @@ class MarksWithAnnouncements extends StatelessWidget {
   final int quantity;
   final String imageUrl;
   const MarksWithAnnouncements({
-    Key? key,
     required this.mark,
     required this.quantity,
     required this.imageUrl,
+    Key? key,
   }) : super(key: key);
 
   @override

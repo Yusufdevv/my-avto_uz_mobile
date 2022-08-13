@@ -3,6 +3,7 @@ import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:yandex_mapkit/yandex_mapkit.dart';
 
 class SellerInfo extends StatelessWidget {
   final String dealerType;
@@ -29,12 +30,14 @@ class SellerInfo extends StatelessWidget {
   Widget build(BuildContext context) => Container(
       margin: const EdgeInsets.only(top: 20),
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12),
-          color: Theme.of(context).extension<ThemedColors>()!.whiteToNero,
-          border: Border.all(
-              color: Theme.of(context)
-                  .extension<ThemedColors>()!
-                  .solitude2ToNightRider)),
+        borderRadius: BorderRadius.circular(12),
+        color: Theme.of(context).extension<ThemedColors>()!.whiteToNero,
+        border: Border.all(
+          color: Theme.of(context)
+              .extension<ThemedColors>()!
+              .solitude2ToNightRider,
+        ),
+      ),
       padding: const EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -56,12 +59,15 @@ class SellerInfo extends StatelessWidget {
           Info(text: 'Каждый день, $workingHours', icon: AppIcons.clock),
           const SizedBox(height: 20),
           Container(
-            height: 110,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8),
-              border: Border.all(color: warmerGrey),
-            ),
-          ),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(6),
+                color: warmerGrey,
+              ),
+              padding: const EdgeInsets.all(1),
+              height: 110,
+              child: ClipRRect(
+                  borderRadius: BorderRadius.circular(6),
+                  child: const YandexMap())),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 20),
             child: Info(

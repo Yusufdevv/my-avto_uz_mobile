@@ -88,6 +88,8 @@ class LightThemeColors {
   static const lavenderToUltramarine30 = _lavender;
   static const whiteSmokeToDark = _whiteSmoke;
   static const solitudeContainerToDark = _solitudeContainer;
+  static const solitudeContainerToBlack = _solitudeContainer;
+  static const solitudeContainerToNero1 = _solitudeContainer;
   static const aluminumToDolphin = _aluminum;
   static const transparentToNightRider = Colors.transparent;
   static const ghostToEclipse = _ghost;

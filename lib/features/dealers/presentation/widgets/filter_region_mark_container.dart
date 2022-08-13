@@ -31,11 +31,12 @@ class ContainerRegionMark extends StatelessWidget {
                   BottomSheetContent(markOrRegion: markOrRegion));
         },
         child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          padding: const EdgeInsets.only(left: 16, right: 10),
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8),
-              color:
-                  Theme.of(context).extension<ThemedColors>()!.solitude1ToNero,
+              color: Theme.of(context)
+                  .extension<ThemedColors>()!
+                  .solitudeContainerToNero1,
               border: Border.all(
                   color: Theme.of(context)
                       .extension<ThemedColors>()!
@@ -43,16 +44,25 @@ class ContainerRegionMark extends StatelessWidget {
           child: Row(
             children: [
               Expanded(
-                  child: Text(
-                markOrRegion == 'Марка' ? 'Выберите марку' : 'Выберите регион',
-                style: const TextStyle(
-                  fontWeight: FontWeight.w600,
-                  fontSize: 14,
-                  color: grey,
+                  child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 13),
+                child: Text(
+                  markOrRegion == 'Марка'
+                      ? 'Выберите марку'
+                      : 'Выберите регион',
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 14,
+                    color: grey,
+                  ),
                 ),
               )),
-              SvgPicture.asset(
-                AppIcons.chevronRight,
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 12),
+                child: SvgPicture.asset(
+                  AppIcons.chevronRightBlack,
+                  color: greyText,
+                ),
               )
             ],
           ),

@@ -8,6 +8,8 @@ import 'package:auto/features/comparison/presentation/widgets/sliver_delegate.da
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../../../../assets/themes/theme_extensions/themed_colors.dart';
+
 class ComparisonPage2 extends StatefulWidget {
   final int numberofAddedCars;
   const ComparisonPage2({Key? key, required this.numberofAddedCars})
@@ -70,6 +72,7 @@ class _ComparisonPage2State extends State<ComparisonPage2> {
   ];
   @override
   Widget build(BuildContext context) => Scaffold(
+      backgroundColor: Theme.of(context).extension<ThemedColors>()!.whiteToNero,
       appBar: AppBar(
         automaticallyImplyLeading: false,
         leading: GestureDetector(
@@ -97,7 +100,7 @@ class _ComparisonPage2State extends State<ComparisonPage2> {
               sliver: SliverPersistentHeader(
                 delegate: SliverWidget(
                     numberOfAddedCars: widget.numberofAddedCars,
-                    Boolean: showDifferences,
+                    boolean: showDifferences,
                     onChanged: (showDifferences1) =>
                         setState(() => showDifferences = showDifferences1)),
                 pinned: true,
@@ -116,7 +119,7 @@ class _ComparisonPage2State extends State<ComparisonPage2> {
                   style: Theme.of(context)
                       .textTheme
                       .headline1!
-                      .copyWith(fontSize: 16),
+                      .copyWith(fontSize: 18),
                 ),
               ),
               ...List.generate(
@@ -141,7 +144,7 @@ class _ComparisonPage2State extends State<ComparisonPage2> {
                   style: Theme.of(context)
                       .textTheme
                       .headline1!
-                      .copyWith(fontSize: 16),
+                      .copyWith(fontSize: 18),
                 ),
               ),
               ...List.generate(

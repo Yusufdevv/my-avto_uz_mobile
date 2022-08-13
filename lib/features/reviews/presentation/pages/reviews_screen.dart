@@ -1,4 +1,4 @@
-import 'package:auto/assets/colors/color.dart';
+import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:flutter/material.dart';
 
 class ReviewsScreen extends StatelessWidget {
@@ -6,8 +6,9 @@ class ReviewsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        body: Container(
-          color: yellow,
+        appBar: const WAppBar(
+          title: 'Отзывы',
         ),
+        body: Column(),
       );
 }
