@@ -29,4 +29,6 @@ class AppImages {
   static const autoUzCircle = 'assets/images/global/auto_uz_circle.png';
   static const hello = 'assets/images/global/hello.png';
   static const carCrashed = 'assets/images/car_single/car_crashed.png';
+  static const carSingle = 'assets/images/car_single/car_single300kb.png';
+  static const priceConditions = 'assets/images/car_single/price_conditions.png';
 }

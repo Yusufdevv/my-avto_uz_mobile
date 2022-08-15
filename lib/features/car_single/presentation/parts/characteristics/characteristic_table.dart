@@ -1,3 +1,5 @@
+import 'package:auto/features/car_single/domain/entities/car_detail.dart';
+import 'package:auto/features/car_single/presentation/widgets/characteristic_box.dart';
 import 'package:flutter/material.dart';
 
 class CharacteristicTable extends StatelessWidget {
@@ -16,6 +18,10 @@ class CharacteristicTable extends StatelessWidget {
                   .textTheme
                   .headline1!
                   .copyWith(fontWeight: FontWeight.w700, fontSize: 18),
+            ),
+            CharacteristicBox(
+              entity: CarDetailEntity(
+                  value: '1591 куб.см', title: 'Обьем двигателя'),
             ),
 
           ],

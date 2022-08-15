@@ -99,4 +99,15 @@ class AppIcons {
   static const secondLiked = 'assets/icons/global/like_second.svg';
   static const thirdLiked = 'assets/icons/global/third_like.svg';
   static const crown = 'assets/icons/car_single/crown.svg';
+  // static const crown = 'assets/icons/car_single/calendar.svg';
+  // static const crown = 'assets/icons/car_single/double_check.svg';
+  // static const crown = 'assets/icons/car_single/equals.svg';
+  // static const crown = 'assets/icons/car_single/eye.svg';
+  // static const crown = 'assets/icons/car_single/fire.svg';
+  // static const crown = 'assets/icons/car_single/id.svg';
+  // static const crown = 'assets/icons/car_single/refreshers.svg';
+  // static const crown = 'assets/icons/car_single/rocket.svg';
+  // static const crown = 'assets/icons/car_single/safety.svg';
+  // static const crown = 'assets/icons/car_single/statistic.svg';
+  // static const crown = 'assets/icons/car_single/three_dot.svg';
 }

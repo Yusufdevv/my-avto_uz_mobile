@@ -53,6 +53,7 @@ const blackRussian = _blackRussian;
 const bottomSheetColor = _nero2;
 const strokeDark = _strokeDark;
 const background = Color(0xff121212);
+const secondary = Color(0xff373737);
 // Main palette (http://www.color-blindness.com/color-name-hue/).
 const _bittersweet = Color(0xFFFF7474);
 const _whiteSmoke = Color(0xFFF4F4F4);
