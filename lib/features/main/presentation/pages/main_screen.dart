@@ -14,6 +14,7 @@ import 'package:auto/features/main/presentation/widgets/story_data.dart';
 import 'package:auto/features/main/presentation/widgets/story_item.dart';
 import 'package:auto/features/main/presentation/widgets/yandex_map.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
+import 'package:auto/features/rent/presentation/rent_screen.dart';
 import 'package:auto/features/search/presentation/pages/commercial_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -53,7 +54,7 @@ class _MainScreenState extends State<MainScreen> {
           (){},
           (){},
           () => Navigator.push(context, fade(page: const CommercialScreen())),
-          (){},
+          () => Navigator.of(context, rootNavigator: true).push(fade(page: const RentScreen())),
     ];
     super.initState();
   }

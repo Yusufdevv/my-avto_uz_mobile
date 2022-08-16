@@ -57,7 +57,6 @@ class LightThemeColors {
   static const snowToNero1 = _snow;
   static const whiteToNero1 = _white;
   static const whiteLilacToPayneGrey = _whiteLilac;
-
   //for keyboard
   static const whiteToDimGray = _white;
   static const primaryColor = _cinnabar;
@@ -132,6 +131,14 @@ class LightThemeColors {
   static const greySuitToWhite = _grey;
   static const snowToBlack = _snow;
   static const greyToCinnabar = _grey;
+  static const snow1ToCocoaBrown = _snow1;
+
+  static const lavenderBlueToCharcoal = _lavenderBlue;
+  static const ghostWhite1ToNero = _ghostWhite1;
+  static const ghostToGreySuit = _ghost;
+  static const silver50ToNightRider = _silver50;
+  static const whiteSmokeToBlack = _whiteSmoke1;
+  static const silverToNightRider = _silver;
 }
 
 // Main palette (http://www.color-blindness.com/color-name-hue/).
@@ -179,3 +186,8 @@ const _eclipse = Color(0xff373737);
 const _whiteSmoke2 = Color(0xfff4f4f4);
 const _whiteSmoke78 = Color(0xc7e9e9e9);
 const _tangerineYellow = Color(0xffFFC908);
+const _snow1 = Color(0xfffff7f5);
+const _lavenderBlue = Color(0xffE2DFFF);
+const _ghostWhite1 = Color(0xffF2F1FF);
+const _silver50 = Color(0x80B6B6B6);
+const _silver = Color(0xffc4c4c4);

@@ -9,12 +9,13 @@ class SelectorItem extends StatelessWidget {
   final String title;
   final String hintText;
   final VoidCallback onTap;
-
+  final bool hasArrowDown;
   const SelectorItem(
       {required this.onTap,
       required this.title,
       required this.hintText,
-      Key? key})
+      this.hasArrowDown = false,
+        Key? key})
       : super(key: key);
 
   @override
@@ -54,7 +55,7 @@ class SelectorItem extends StatelessWidget {
                         .copyWith(color: grey),
                   ),
                   const Spacer(),
-                  SvgPicture.asset(AppIcons.chevronRightBlack)
+                  SvgPicture.asset(hasArrowDown ? AppIcons.chevronDownGrey :  AppIcons.chevronRightBlack)
                 ],
               ),
             ),

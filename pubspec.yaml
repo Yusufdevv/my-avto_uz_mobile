@@ -6,7 +6,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.17.1 <3.0.0"
+  sdk: ">=2.17.5 <3.0.0"
 
 
 dependencies:
@@ -14,6 +14,7 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^1.0.2
   equatable: ^2.0.3
+  syncfusion_flutter_datepicker: ^20.2.43
   json_annotation: ^4.5.0
   dio: ^4.0.6
   video_player: ^2.4.5
@@ -34,7 +35,7 @@ dependencies:
   shimmer: ^2.0.0
   easy_localization: ^3.0.0
   sensors_plus: ^1.3.2
-  chewie: ^1.3.4
+  flutter_rating_bar: ^4.0.1
   azlistview: ^2.0.0
   syncfusion_flutter_sliders: ^20.2.40
   carousel_slider: ^4.1.1

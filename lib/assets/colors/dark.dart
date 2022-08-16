@@ -133,9 +133,17 @@ class DarkThemeColors {
   static const solitudeToDolphin8 = _dolphin8;
   static const solitudeToDolphinBorder = _dolphin;
   static const whiteSmoke78ToWhiteSmoke12 = _whiteSmoke12;
+  static const ghostToGondola = _gondola;
+  static const snow1ToCocoaBrown = _cocoaBrown;
   static const tangerineYellowToMediumSlateBlue = _mediumSlateBlue;
   static const greyToCinnabar = _cinnabar;
   static const ghostToGondola = _gondola;
+  static const lavenderBlueToCharcoal = _charcoal1;
+  static const ghostWhite1ToNero = _nero1;
+  static const ghostToGreySuit = _greySuit;
+  static const silver50ToNightRider = _nightRider;
+  static const whiteSmokeToBlack = _black;
+  static const silverToNightRider = _nightRider;
 }
 
 // Main palette (http://www.color-blindness.com/color-name-hue/).
@@ -191,3 +199,5 @@ const _white60 = Color(0x99ffffff);
 const _white4 = Color(0x0affffff);
 const _dolphin8 = Color(0x14696974);
 const _whiteSmoke12 = Color(0x1fe9e9e9);
+const _cocoaBrown = Color(0xff241815);
+const _charcoal1 = Color(0xff404040);

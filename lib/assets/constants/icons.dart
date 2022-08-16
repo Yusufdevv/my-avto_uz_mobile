@@ -23,6 +23,7 @@ class AppIcons {
   //GLOBAL
   static const chevronLeft = 'assets/icons/global/chevron_left.svg';
   static const search = 'assets/icons/global/search.svg';
+  static const rentFilter = 'assets/icons/global/rent_filter.svg';
   static const engine = 'assets/icons/global/engine.svg';
   static const cancelRound = 'assets/icons/global/cancel_round.svg';
   static const filter = 'assets/icons/global/filter.svg';
@@ -58,6 +59,7 @@ class AppIcons {
   static const arrowRight = 'assets/icons/global/arrow_right.svg';
   static const russia = 'assets/icons/global/russia.svg';
   static const uzbekistan = 'assets/icons/global/uzbekistan.svg';
+  static const chevronDownGrey = 'assets/icons/global/chevron_down_grey.svg';
   static const chevronRight = 'assets/icons/global/chevron_right.svg';
 
   // PROFILE
@@ -108,13 +110,23 @@ class AppIcons {
   static const chevronLeftWhite = 'assets/icons/global/chevron_left_white.svg';
   static const discountContainer = 'assets/icons/global/discount_container.svg';
   static const like = 'assets/icons/global/like.svg';
+  static const share = 'assets/icons/global/share.svg';
+  static const circle = 'assets/icons/global/circle.svg';
+  static const searchOrange = 'assets/icons/global/search_orange.svg';
+  static const blueCheck = 'assets/icons/global/blue_check.svg';
   static const more = 'assets/icons/global/more.svg';
+  static const mad = 'assets/icons/global/mad.svg';
+  static const star = 'assets/icons/global/star_filled.svg';
   static const likeSelected = 'assets/icons/global/like_selected.svg';
   static const liked = 'assets/icons/global/liked.svg';
   static const secondLiked = 'assets/icons/global/like_second.svg';
+  static const gas = 'assets/icons/global/gas.svg';
+  static const gearBox = 'assets/icons/global/gear_box.svg';
+  static const child = 'assets/icons/global/child.svg';
   static const thirdLiked = 'assets/icons/global/third_like.svg';
   static const chevronRight = 'assets/icons/global/chevron_right.svg';
   static const commercialCar = 'assets/icons/global/commercial_car.svg';
+  static const checkGreen = 'assets/icons/global/check_green.svg';
   // SEARCH
   static const parameter = 'assets/icons/search/parameter.svg';
   static const searchWithHeart = 'assets/icons/search/search_with_heart.svg';
@@ -122,6 +134,8 @@ class AppIcons {
   static const shieldCheck = 'assets/icons/search/shield_check.svg';
   static const phone = 'assets/icons/search/phone.svg';
   static const shopping = 'assets/icons/search/shopping.svg';
+  static const chevronRightGrey = 'assets/icons/global/chevron_right_grey.svg';
+  static const wind = 'assets/icons/global/wind.svg';
   static const chevronRightBlack =
       'assets/icons/global/chevron_right_black.svg';
   static const chevronRight1 = 'assets/icons/profile/chevron_right.svg';

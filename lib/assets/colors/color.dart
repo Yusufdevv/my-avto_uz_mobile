@@ -58,6 +58,7 @@ const rangeSliderBackground = _silver;
 const strokeDark = _strokeDark;
 const background = Color(0xff121212);
 const secondary = Color(0xff373737);
+const stormGrey12 = _stormGrey12;
 // Main palette (http://www.color-blindness.com/color-name-hue/).
 const _bittersweet = Color(0xFFFF7474);
 const _whiteSmoke = Color(0xFFF4F4F4);
@@ -72,7 +73,7 @@ const _ghost = Color(0xffB5B5BE);
 const _greySuit = Color(0xff92929D);
 const _dimGray = Color(0xff6c6c6c);
 const _white = Color(0xffffffff);
-const _whiteTransperent = Color(0x33FFFFFF);
+const _whiteTransparent = Color(0x33FFFFFF);
 const _solitude = Color(0xffE2E2EA);
 const _neroOpacity = Color(0xB3181818);
 const _coralRed = Color(0xffFF453A);
