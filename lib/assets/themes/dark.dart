@@ -184,6 +184,7 @@ abstract class DarkTheme {
           ThemedIcons(
             imageUrl: DarkIcons.logo,
             check: DarkIcons.blueCheck,
+            filterIcon: DarkIcons.filterIcon,
           ),
         },
       );

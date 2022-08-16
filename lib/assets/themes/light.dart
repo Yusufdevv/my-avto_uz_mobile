@@ -54,7 +54,7 @@ abstract class LightTheme {
           caption: caption,
           button: button,
         ),
-        extensions: {
+        extensions: const {
           CheckBoxStyle(
             unselectedBackgroundColor: LightThemeColors.lightGreyToEclipse,
             unselectedBorderColor: LightThemeColors.warmerGreyToDarkGray,
@@ -176,6 +176,7 @@ abstract class LightTheme {
           ThemedIcons(
             imageUrl: LightIcons.logo,
             check: LightIcons.check,
+            filterIcon: LightIcons.filterIcon,
           ),
         },
       );

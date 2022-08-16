@@ -9,7 +9,7 @@ const warmerGrey = _ghost;
 const grey = _greySuit;
 const dimGray = _dimGray;
 const white = _white;
-const transparentButton = _whiteTransparent;
+//const transparentButton = _whiteTransparent;
 const dividerColor = _solitude;
 const darkWithOpacity = _neroOpacity;
 const complaintColor = _coralRed;
@@ -105,7 +105,6 @@ const _persianIndigo = Color(0xff461B93);
 const _mediumSeaGreen = Color(0xFF38AF7F);
 const _blackRock = Color(0xFF292E37);
 const _blanchedAlmond = Color(0xFFFEE9D0);
-
 const _gainsboro = Color(0xffDCDCDC);
 const _blueGem = Color(0xff3F3695);
 const _brightGrey = Color(0xff545458);
@@ -113,8 +112,7 @@ const _blackRussian = Color(0xff1c1c1e);
 const _nero2 = Color(0xff181818);
 const _brightGrey65 = Color(0xA6545458);
 const _solitude1 = Color(0xffF1F1F5);
-
+const _stormGrey12 = Color(0x1f767680);
 const _silver = Color(0xFFC4C4C4);
-
 const _strokeDark = Color(0xff181818);
 const dark1 = Color(0xff1E1E1E);

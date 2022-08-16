@@ -133,7 +133,7 @@ class _ContentItemState extends State<ContentItem> {
                                   ],
                                 ),
                                 SvgPicture.asset(
-                                  AppIcons.chevronRight,
+                                  AppIcons.chevronRight2,
                                 )
                               ],
                             ),
@@ -160,7 +160,7 @@ class _ContentItemState extends State<ContentItem> {
                               width: 4,
                             ),
                             SvgPicture.asset(
-                              AppIcons.chevronRight,
+                              AppIcons.chevronRight2,
                             ),
                           ],
                         ),
