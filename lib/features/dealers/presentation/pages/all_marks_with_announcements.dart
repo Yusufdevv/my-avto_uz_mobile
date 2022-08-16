@@ -3,6 +3,7 @@ import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/dealers/domain/entities/models/marks_with_announcements.dart';
 import 'package:auto/features/dealers/presentation/pages/single_mark_announcements.dart';
+import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -14,21 +15,16 @@ class AllMarksWithAnnouncements extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: WAppBar(
-          child: Row(
-            children: [
-              Align(
-                alignment: Alignment.center,
-                child: Text(
-                  'Все марки с объявлениями',
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline1
-                      ?.copyWith(fontWeight: FontWeight.w600, fontSize: 16),
-                ),
-              ),
-              SizedBox(width: MediaQuery.of(context).size.width * 0.25),
-            ],
-          ),
+          extraActions: [
+            Text('Все марки с объявлениями',
+                style: Theme.of(context)
+                    .textTheme
+                    .headline1!
+                    .copyWith(fontSize: 16, fontWeight: FontWeight.w600)),
+            const Spacer(
+              flex: 120,
+            ),
+          ],
         ),
         body: SingleChildScrollView(
           padding: const EdgeInsets.all(16),
@@ -41,9 +37,8 @@ class AllMarksWithAnnouncements extends StatelessWidget {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) =>
-                              const SingleMarkAnnouncements()));
+                      Navigator.push(
+                          context, fade(page: const SingleMarkAnnouncements()));
                     },
                     child: Container(
                       height: 91,

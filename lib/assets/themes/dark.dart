@@ -71,7 +71,6 @@ abstract class DarkTheme {
           ),
           ThemedColors(
             darkToGrey: DarkThemeColors.darkToGrey,
-            ghostToGondola: DarkThemeColors.ghostToGondola,
             greyContainer26: DarkThemeColors.greyContainer26,
             redContainer26: DarkThemeColors.redContainer26,
             greenContainer26: DarkThemeColors.greenContainer26,
@@ -142,6 +141,7 @@ abstract class DarkTheme {
             whiteLilacToWhite4: DarkThemeColors.whiteLilacToWhite4,
             solitudeToEclipse: DarkThemeColors.solitudeToEclipse,
             solitudeContainerToDark: DarkThemeColors.solitudeContainerToDark,
+            solitudeContainerToNero1: DarkThemeColors.solitudeContainerToNero1,
             whiteSmoke78ToWhiteSmoke12:
                 DarkThemeColors.whiteSmoke78ToWhiteSmoke12,
             whiteToGondola: DarkThemeColors.whiteToGondola,
@@ -167,12 +167,15 @@ abstract class DarkTheme {
             whiteToNightRider: DarkThemeColors.whiteToNightRider,
             whiteLilacToPayneGrey: DarkThemeColors.whiteLilacToPayneGrey,
             greyToCinnabar: DarkThemeColors.greyToCinnabar,
+            ghostToGondola: DarkThemeColors.ghostToGondola,
+            solitudeContainerToBlack: DarkThemeColors.solitudeContainerToBlack,
           ),
           WTextFieldStyle(
             fillColor: DarkThemeColors.solitudeToNero,
             borderColor: DarkThemeColors.solitudeToDarkRider,
           ),
-          ThemedIcons(imageUrl: DarkIcons.logo),
+          ThemedIcons(
+              imageUrl: DarkIcons.logo, filterIcon: DarkIcons.filterIcon),
         },
       );
 
@@ -203,7 +206,7 @@ abstract class DarkTheme {
   static const headline5 = TextStyle(
     fontSize: 18,
     fontWeight: FontWeight.w600,
-    color: DarkThemeColors.headline5,
+    color: DarkThemeColors.headline1,
     height: 1.33,
   );
   static const headline6 = TextStyle(

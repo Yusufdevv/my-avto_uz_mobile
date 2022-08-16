@@ -51,7 +51,7 @@ class SelectorItem extends StatelessWidget {
                     .copyWith(color: grey),
               ),
               const Spacer(),
-              SvgPicture.asset(AppIcons.chevronRight)
+              SvgPicture.asset(AppIcons.chevronRight1)
             ],
           ),
         ),

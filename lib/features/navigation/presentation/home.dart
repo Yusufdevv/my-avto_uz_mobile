@@ -1,4 +1,3 @@
-import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/features/navigation/domain/entities/navbar.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
@@ -104,10 +103,12 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           child: Scaffold(
             resizeToAvoidBottomInset: true,
             bottomNavigationBar: Container(
-              height: 64 + MediaQuery.of(context).padding.bottom,
+              height: 68 + MediaQuery.of(context).padding.bottom,
               decoration: BoxDecoration(
-                borderRadius: const BorderRadius.only(topLeft: Radius.circular(15),topRight: Radius.circular(15)),
-                color:  Theme.of(context).appBarTheme.backgroundColor,
+                borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(15),
+                    topRight: Radius.circular(15)),
+                color: Theme.of(context).appBarTheme.backgroundColor,
                 // border: Border(
                 //
                 //     top: BorderSide(
@@ -121,7 +122,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 ],
               ),
               child: TabBar(
-
                 enableFeedback: true,
                 onTap: (index) {},
                 indicator: const BoxDecoration(),
@@ -171,9 +171,9 @@ class HomeTabControllerProvider extends InheritedWidget {
   final TabController controller;
 
   const HomeTabControllerProvider({
-    Key? key,
     required Widget child,
     required this.controller,
+    Key? key,
   }) : super(key: key, child: child);
 
   static HomeTabControllerProvider of(BuildContext context) {

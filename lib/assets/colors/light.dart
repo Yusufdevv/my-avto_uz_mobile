@@ -57,6 +57,7 @@ class LightThemeColors {
   static const snowToNero1 = _snow;
   static const whiteToNero1 = _white;
   static const whiteLilacToPayneGrey = _whiteLilac;
+
   //for keyboard
   static const whiteToDimGray = _white;
   static const primaryColor = _cinnabar;
@@ -87,6 +88,8 @@ class LightThemeColors {
   static const lavenderToUltramarine30 = _lavender;
   static const whiteSmokeToDark = _whiteSmoke;
   static const solitudeContainerToDark = _solitudeContainer;
+  static const solitudeContainerToBlack = _solitudeContainer;
+  static const solitudeContainerToNero1 = _solitudeContainer;
   static const aluminumToDolphin = _aluminum;
   static const transparentToNightRider = Colors.transparent;
   static const ghostToEclipse = _ghost;
@@ -136,15 +139,12 @@ const _midnightExpress = Color(0xff171725);
 const _nero = Color(0xff2B2B2B);
 const _dolphin = Color(0xff696974);
 const _solitude = Color(0xffE2E2EA);
-const _solitude1 = Color(0xffFAFAFB);
 const _solitude2 = Color(0xffF1F1F5);
 const _white = Color(0xffffffff);
 const _whiteWithOpacity90ToNero = Color.fromRGBO(255, 255, 255, 9);
-const _whiteLilac = Color(0xffeeeeef);
 const _ghost = Color(0xffB5B5BE);
 const _whiteSmoke = Color(0xfff8f8f8);
 const _whiteSmoke1 = Color(0xffF4F4F4);
-const _whiteSmoke2 = Color(0xffE9E9E9);
 const _grey = Color(0xff92929D);
 const _mediumSlateBlue = Color(0xff695CEA);
 const _fuzzyWuzzyBrown = Color(0xffC8534D);

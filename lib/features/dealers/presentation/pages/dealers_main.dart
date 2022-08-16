@@ -1,13 +1,16 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_icons.dart';
 import 'package:auto/features/common/widgets/w_textfield.dart';
 import 'package:auto/features/dealers/presentation/pages/dealers_filter.dart';
 import 'package:auto/features/dealers/presentation/pages/dealers_list.dart';
 import 'package:auto/features/dealers/presentation/widgets/segmented_control.dart';
+import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:yandex_mapkit/yandex_mapkit.dart';
+
+import 'dealers_map.dart';
 
 class DealersMain extends StatefulWidget {
   const DealersMain({Key? key}) : super(key: key);
@@ -19,7 +22,6 @@ class DealersMain extends StatefulWidget {
 class _DealersMainState extends State<DealersMain>
     with TickerProviderStateMixin {
   late PageController _pageController;
-  bool isPinned = false;
   @override
   void initState() {
     _pageController = PageController();
@@ -34,11 +36,7 @@ class _DealersMainState extends State<DealersMain>
             physics: const NeverScrollableScrollPhysics(),
             slivers: [
               SliverAppBar(
-                stretch: true,
-                snap: true,
-                floating: true,
-                pinned: isPinned,
-                elevation: 0,
+                pinned: true,
                 backgroundColor:
                     Theme.of(context).extension<ThemedColors>()!.whiteToNero,
                 leadingWidth: 0,
@@ -51,7 +49,9 @@ class _DealersMainState extends State<DealersMain>
                     const SizedBox(width: 12),
                     Expanded(
                       child: WTextField(
-                        hasBorderColor: false,
+                        borderColor: Theme.of(context)
+                            .extension<ThemedColors>()!
+                            .whiteSmokeToNightRider,
                         fillColor: Theme.of(context)
                             .extension<ThemedColors>()!
                             .whiteSmokeToNightRider,
@@ -71,43 +71,33 @@ class _DealersMainState extends State<DealersMain>
                     const SizedBox(width: 11),
                     GestureDetector(
                       onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => const DealersFilter()));
+                        Navigator.push(
+                            context, fade(page: const DealersFilter()));
                       },
                       child: Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8),
-                            color: Theme.of(context)
-                                .extension<ThemedColors>()!
-                                .whiteSmokeToNightRider),
-                        padding: const EdgeInsets.all(8),
-                        child: SvgPicture.asset(
-                          AppIcons.filter,
-                          color: Theme.of(context)
-                              .extension<ThemedColors>()!
-                              .mediumSlateBlueToDolphin,
-                        ),
-                      ),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8),
+                              color: Theme.of(context)
+                                  .extension<ThemedColors>()!
+                                  .whiteSmokeToNightRider),
+                          padding: const EdgeInsets.all(10),
+                          child: SvgPicture.asset(Theme.of(context)
+                              .extension<ThemedIcons>()!
+                              .filterIcon)),
                     ),
                   ],
                 ),
               ),
               SliverPersistentHeader(
                 pinned: true,
-                delegate: SegmentedControl(
-                    maxHeight: 64,
-                    minHeight: 64,
-                    boolean: (pinned) {
-                      setState(() => isPinned = pinned);
-                    },
-                    pageController: _pageController),
+                delegate: SegmentedControl(maxHeight: 64, minHeight: 64),
               ),
               SliverFillRemaining(
                 child: TabBarView(
                   physics: const NeverScrollableScrollPhysics(),
                   children: [
                     DealersList(),
-                    const YandexMap(),
+                    const YandexKarta(),
                   ],
                 ),
               )

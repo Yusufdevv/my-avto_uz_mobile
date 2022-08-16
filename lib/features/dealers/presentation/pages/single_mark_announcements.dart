@@ -9,21 +9,16 @@ class SingleMarkAnnouncements extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Scaffold(
       appBar: WAppBar(
-        child: Row(
-          children: [
-            Align(
-              alignment: Alignment.center,
-              child: Text(
-                'Genesis',
-                style: Theme.of(context)
-                    .textTheme
-                    .headline1
-                    ?.copyWith(fontWeight: FontWeight.w600, fontSize: 16),
-              ),
-            ),
-            const SizedBox(width: 250),
-          ],
-        ),
+        extraActions: [
+          Text('Genesis',
+              style: Theme.of(context)
+                  .textTheme
+                  .headline1!
+                  .copyWith(fontSize: 16, fontWeight: FontWeight.w600)),
+          const Spacer(
+            flex: 120,
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),

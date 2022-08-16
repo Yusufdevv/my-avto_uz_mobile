@@ -10,11 +10,11 @@ import 'package:flutter_svg/svg.dart';
 
 class SliverWidget extends SliverPersistentHeaderDelegate {
   final int numberOfAddedCars;
-  final bool Boolean;
+  final bool boolean;
   final ValueChanged<bool> onChanged;
   SliverWidget(
       {required this.numberOfAddedCars,
-      required this.Boolean,
+      required this.boolean,
       required this.onChanged});
 
   @override
@@ -35,12 +35,17 @@ class SliverWidget extends SliverPersistentHeaderDelegate {
                 ),
               )
             : Container(
-                padding: const EdgeInsets.only(top: 16, left: 16, bottom: 8),
+                color: Theme.of(context)
+                    .extension<ThemedColors>()!
+                    .solitudeContainerToBlack,
+                padding: const EdgeInsets.only(
+                    top: 16, bottom: 8, right: 16, left: 16),
                 child: SingleChildScrollView(
                   physics: const BouncingScrollPhysics(),
                   child: Column(
                     children: [
                       Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const AddedCar(),
                           const SizedBox(width: 12),
@@ -64,7 +69,7 @@ class SliverWidget extends SliverPersistentHeaderDelegate {
                             ),
                           ),
                           CupertinoSwitch(
-                            value: Boolean,
+                            value: boolean,
                             onChanged: onChanged,
                             activeColor: green,
                             thumbColor: white,
@@ -154,10 +159,8 @@ class AddedCar extends StatelessWidget {
           Container(
             width: MediaQuery.of(context).size.width / 2 - 22,
             padding: const EdgeInsets.only(bottom: 18),
-            decoration: BoxDecoration(
-              color:
-                  Theme.of(context).extension<ThemedColors>()!.solitudeTo1Black,
-              borderRadius: const BorderRadius.only(
+            decoration: const BoxDecoration(
+              borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(12),
                 topRight: Radius.circular(12),
               ),

@@ -88,7 +88,7 @@ class ProfileScreen extends StatelessWidget {
                   children: [
                     WScaleAnimation(
                       onTap: () {
-                        Navigator.push(context, fade(page: const FavouriteScreen()));
+                        Navigator.push(context, fade(page: FavouriteScreen()));
                       },
                       child: Container(
                         padding: const EdgeInsets.fromLTRB(12, 12, 12, 16),
@@ -119,7 +119,7 @@ class ProfileScreen extends StatelessWidget {
                                 ),
                                 const SizedBox(width: 10),
                                 SvgPicture.asset(
-                                  AppIcons.chevronRight,
+                                  AppIcons.chevronRight1,
                                   color: Theme.of(context)
                                       .extension<ThemedColors>()!
                                       .darkGreyToWhite,
@@ -168,7 +168,7 @@ class ProfileScreen extends StatelessWidget {
                                 ),
                                 const SizedBox(width: 10),
                                 SvgPicture.asset(
-                                  AppIcons.chevronRight,
+                                  AppIcons.chevronRight1,
                                   color: Theme.of(context)
                                       .extension<ThemedColors>()!
                                       .darkGreyToWhite,
@@ -232,7 +232,7 @@ class ProfileScreen extends StatelessWidget {
                                 ),
                                 const SizedBox(width: 10),
                                 SvgPicture.asset(
-                                  AppIcons.chevronRight,
+                                  AppIcons.chevronRight1,
                                   color: Theme.of(context)
                                       .extension<ThemedColors>()!
                                       .darkGreyToWhite,
@@ -281,7 +281,7 @@ class ProfileScreen extends StatelessWidget {
                                 ),
                                 const SizedBox(width: 10),
                                 SvgPicture.asset(
-                                  AppIcons.chevronRight,
+                                  AppIcons.chevronRight1,
                                   color: Theme.of(context)
                                       .extension<ThemedColors>()!
                                       .darkGreyToWhite,
@@ -330,7 +330,7 @@ class ProfileScreen extends StatelessWidget {
                                 ),
                                 const SizedBox(width: 10),
                                 SvgPicture.asset(
-                                  AppIcons.chevronRight,
+                                  AppIcons.chevronRight1,
                                   color: Theme.of(context)
                                       .extension<ThemedColors>()!
                                       .darkGreyToWhite,
@@ -388,7 +388,7 @@ class ProfileScreen extends StatelessWidget {
                                 ),
                                 const SizedBox(width: 10),
                                 SvgPicture.asset(
-                                  AppIcons.chevronRight,
+                                  AppIcons.chevronRight1,
                                   color: Theme.of(context)
                                       .extension<ThemedColors>()!
                                       .darkGreyToWhite,
@@ -445,7 +445,7 @@ class ProfileScreen extends StatelessWidget {
                                 ),
                                 const SizedBox(width: 10),
                                 SvgPicture.asset(
-                                  AppIcons.chevronRight,
+                                  AppIcons.chevronRight1,
                                   color: Theme.of(context)
                                       .extension<ThemedColors>()!
                                       .darkGreyToWhite,
@@ -500,7 +500,7 @@ class ProfileScreen extends StatelessWidget {
                                 ),
                                 const SizedBox(width: 10),
                                 SvgPicture.asset(
-                                  AppIcons.chevronRight,
+                                  AppIcons.chevronRight1,
                                   color: Theme.of(context)
                                       .extension<ThemedColors>()!
                                       .darkGreyToWhite,
@@ -558,7 +558,7 @@ class ProfileScreen extends StatelessWidget {
                             const Spacer(),
                             const SizedBox(width: 10),
                             SvgPicture.asset(
-                              AppIcons.chevronRight,
+                              AppIcons.chevronRight1,
                               color: Theme.of(context)
                                   .extension<ThemedColors>()!
                                   .darkGreyToWhite,
