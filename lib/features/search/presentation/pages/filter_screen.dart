@@ -92,11 +92,13 @@ class _FilterScreenState extends State<FilterScreen> {
                 onTap: () {},
                 hintText: 'Выберите регион',
                 title: 'Регион',
+                hasArrowDown: true,
               ),
               SelectorItem(
                 onTap: () {},
                 hintText: 'Выберите марку',
                 title: 'Марка',
+                hasArrowDown: true,
               ),
               SelectorItem(
                 onTap: () {},

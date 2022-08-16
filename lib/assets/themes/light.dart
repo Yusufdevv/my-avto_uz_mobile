@@ -54,7 +54,7 @@ abstract class LightTheme {
           caption: caption,
           button: button,
         ),
-        extensions: {
+        extensions: const {
           CheckBoxStyle(
             unselectedBackgroundColor: LightThemeColors.lightGreyToEclipse,
             unselectedBorderColor: LightThemeColors.warmerGreyToDarkGray,
@@ -87,6 +87,8 @@ abstract class LightTheme {
             solitudeContainerToDark: LightThemeColors.solitudeContainerToDark,
             aluminumToDolphin: LightThemeColors.aluminumToDolphin,
             whiteSmokeToDark: LightThemeColors.whiteSmokeToDark,
+            silver50ToNightRider: LightThemeColors.silver50ToNightRider,
+            whiteSmokeToBlack: LightThemeColors.whiteSmokeToBlack,
             whiteToGondola: LightThemeColors.whiteToGondola,
             whiteLilacToWhiteLilac10: LightThemeColors.whiteLilacToWhiteLilac10,
             solitudeBorderToSolitudeBorder10:
@@ -98,6 +100,9 @@ abstract class LightTheme {
             cinnabar12ToCinnabar: LightThemeColors.cinnabar12ToCinnabar,
             transparentToNightRider: LightThemeColors.transparentToNightRider,
             darkToGrey: LightThemeColors.darkToGrey,
+            ghostWhite1ToNero: LightThemeColors.ghostWhite1ToNero,
+            lavenderBlueToCharcoal: LightThemeColors.lavenderBlueToCharcoal,
+            ghostToGreySuit: LightThemeColors.ghostToGreySuit,
             greyContainer26: LightThemeColors.greyContainer26,
             redContainer26: LightThemeColors.redContainer26,
             greenContainer26: LightThemeColors.greenContainer26,
@@ -118,6 +123,7 @@ abstract class LightTheme {
             solitudeToPayneGrey: LightThemeColors.solitudeToPayneGrey,
             solitudeToNero: LightThemeColors.solitudeToNero,
             solitudeToEclipse: LightThemeColors.solitudeToEclipse,
+            snow1ToCocoaBrown: LightThemeColors.snow1ToCocoaBrown,
             mediumSlateBlue50ToNightRider:
                 LightThemeColors.mediumSlateBlue50ToNightRider,
             stormGrey16ToStormGrey32: LightThemeColors.stormGrey16ToStormGrey32,
@@ -156,6 +162,7 @@ abstract class LightTheme {
                 LightThemeColors.lavenderToMediumSlateBlue30,
             solitudeToDolphinBorder: LightThemeColors.solitudeToDolphinBorder,
             ghostToGondola: LightThemeColors.ghostToGondola,
+            silverToNightRider: LightThemeColors.silverToNightRider,
             tangerineYellowToMediumSlateBlue:
                 LightThemeColors.tangerineYellowToMediumSlateBlue,
           ),
@@ -163,7 +170,10 @@ abstract class LightTheme {
             fillColor: LightThemeColors.solitudeToNero,
             borderColor: LightThemeColors.solitudeToDarkRider,
           ),
-          ThemedIcons(imageUrl: LightIcons.logo),
+          ThemedIcons(
+            imageUrl: LightIcons.logo,
+            check: LightIcons.check,
+          ),
         },
       );
 

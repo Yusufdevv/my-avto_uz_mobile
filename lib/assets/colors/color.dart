@@ -54,6 +54,7 @@ const brightGrey = _brightGrey;
 const blackRussian = _blackRussian;
 const bottomSheetColor = _nero2;
 const dividerInTab = _brightGrey65;
+const stormGrey12 = _stormGrey12;
 // Main palette (http://www.color-blindness.com/color-name-hue/).
 const _bittersweet = Color(0xFFFF7474);
 const _whiteSmoke = Color(0xFFF4F4F4);
@@ -100,7 +101,7 @@ const _persianIndigo = Color(0xff461B93);
 const _mediumSeaGreen = Color(0xFF38AF7F);
 const _blackRock = Color(0xFF292E37);
 const _blanchedAlmond = Color(0xFFFEE9D0);
-
+const _stormGrey12 = Color(0x1f767680);
 const _gainsboro = Color(0xffDCDCDC);
 const _blueGem = Color(0xff3F3695);
 const _brightGrey = Color(0xff545458);

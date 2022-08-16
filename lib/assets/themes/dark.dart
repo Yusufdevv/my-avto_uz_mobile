@@ -103,6 +103,8 @@ abstract class DarkTheme {
             blackToWhite: DarkThemeColors.blackToWhite,
             darkToPurple: DarkThemeColors.darkToPurple,
             lavenderToUltramarine30: DarkThemeColors.lavenderToUltramarine30,
+            silver50ToNightRider: DarkThemeColors.silver50ToNightRider,
+            whiteSmokeToBlack: DarkThemeColors.whiteSmokeToBlack,
             whiteSmokeToEclipse: DarkThemeColors.whiteSmokeToEclipse,
             lavenderToMediumSlateBlue30:
                 DarkThemeColors.lavenderToMediumSlateBlue30,
@@ -119,6 +121,7 @@ abstract class DarkTheme {
             whiteLilacToWhiteLilac10: DarkThemeColors.whiteLilacToWhiteLilac3,
             snowToNightRider: DarkThemeColors.snowToNightRider,
             greySuitToWhite60: DarkThemeColors.greySuitToWhite60,
+            ghostToGreySuit: DarkThemeColors.ghostToGreySuit,
             mediumSlateBlue50ToNightRider:
                 DarkThemeColors.mediumSlateBlue50ToNightRider,
             stormGrey16ToStormGrey32: DarkThemeColors.stormGrey16ToStormGrey32,
@@ -141,6 +144,8 @@ abstract class DarkTheme {
             cinnabar12ToCinnabar: DarkThemeColors.cinnabar12ToCinnabar,
             whiteLilacToWhite4: DarkThemeColors.whiteLilacToWhite4,
             solitudeToEclipse: DarkThemeColors.solitudeToEclipse,
+            ghostWhite1ToNero: DarkThemeColors.ghostWhite1ToNero,
+            lavenderBlueToCharcoal: DarkThemeColors.lavenderBlueToCharcoal,
             solitudeContainerToDark: DarkThemeColors.solitudeContainerToDark,
             whiteSmoke78ToWhiteSmoke12:
                 DarkThemeColors.whiteSmoke78ToWhiteSmoke12,
@@ -156,6 +161,7 @@ abstract class DarkTheme {
             greySuitToWhite: DarkThemeColors.greySuitToWhite,
             solitude1ToNero: DarkThemeColors.solitude1ToNero,
             solitude2ToNightRider: DarkThemeColors.solitude2ToNightRider,
+            snow1ToCocoaBrown: DarkThemeColors.snow1ToCocoaBrown,
             snowToBlack: DarkThemeColors.snowToBlack,
             whiteWithOpacity90ToNero: DarkThemeColors.whiteWithOpacity90ToNero,
             solitudeTo1Black: DarkThemeColors.solitude1ToBlack,
@@ -165,13 +171,17 @@ abstract class DarkTheme {
             solitude2ToNero: DarkThemeColors.solitude2ToNero,
             snowToNero1: DarkThemeColors.snowToNero1,
             whiteToNightRider: DarkThemeColors.whiteToNightRider,
+            silverToNightRider: DarkThemeColors.silverToNightRider,
             whiteLilacToPayneGrey: DarkThemeColors.whiteLilacToPayneGrey,
           ),
           WTextFieldStyle(
             fillColor: DarkThemeColors.solitudeToNero,
             borderColor: DarkThemeColors.solitudeToDarkRider,
           ),
-          ThemedIcons(imageUrl: DarkIcons.logo),
+          ThemedIcons(
+            imageUrl: DarkIcons.logo,
+            check: DarkIcons.blueCheck,
+          ),
         },
       );
 

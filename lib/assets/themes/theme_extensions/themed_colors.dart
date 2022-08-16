@@ -5,6 +5,7 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
   final Color dividerColorToGrey;
   final Color blackToWhite;
   final Color veryLightGreyToEclipse;
+  final Color ghostWhite1ToNero;
   final Color whiteToDolphin;
   final Color solitudeToBastille;
   final Color solitudeToWhite35;
@@ -13,10 +14,12 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
   final Color ghostToGondola;
   final Color tangerineYellowToMediumSlateBlue;
   final Color solitudeToGondola;
+  final Color lavenderBlueToCharcoal;
   final Color whiteToWhite8;
   final Color lightSlateBlue12ToLightSlateBlue;
   final Color darkToWhite;
   final Color stormGrey12ToStormGrey24;
+  final Color ghostToGreySuit;
   final Color solitudeToDarkGray95;
   final Color greySuitToWhite60;
   final Color whiteToGondola;
@@ -37,6 +40,7 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
   final Color stormGrey16ToStormGrey32;
   final Color ghostWhiteToUltramarine10;
   final Color solitudeToDolphin8;
+  final Color whiteSmokeToBlack;
   final Color mediumSlateBlue50ToNightRider;
   final Color solitudeToDarkRider;
   final Color solitudeContainerToDark;
@@ -64,6 +68,7 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
   final Color whiteToSecondNero;
   final Color dividerColorToWhiteOpacity;
   final Color whiteLilacToWhite4;
+  final Color silverToNightRider;
   final Color cinnabar12ToCinnabar;
   final Color whiteToSmoky;
   final Color whiteSmokeToNightRider;
@@ -72,6 +77,8 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
   final Color whiteSmokeToEclipse;
   final Color greySuitToWhite;
   final Color gainsboroToBlack;
+  final Color snow1ToCocoaBrown;
+  final Color silver50ToNightRider;
   final Color solitude1ToNero;
   final Color solitude2ToNightRider;
   final Color snowToBlack;
@@ -88,9 +95,11 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
   final Color greenContainer26;
   final Color blueContainer26;
   final Color solitudeToDolphinBorder;
+
   const ThemedColors({
     required this.whiteToWhiteOpacity20,
     required this.whiteToSmoky,
+    required this.ghostToGreySuit,
     required this.whiteSmokeToNightRider,
     required this.whiteToNero,
     required this.mediumSlateBlueToDolphin,
@@ -102,10 +111,12 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
     required this.solitude1ToNero,
     required this.solitude2ToNightRider,
     required this.snowToBlack,
+    required this.snow1ToCocoaBrown,
     required this.whiteWithOpacity90ToNero,
     required this.solitudeTo1Black,
     required this.whiteLilacToNightRider,
     required this.midnightExpressToGreySuit,
+    required this.lavenderBlueToCharcoal,
     required this.solitude2ToNero,
     required this.snowToNero1,
     required this.whiteToNero1,
@@ -114,6 +125,7 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
     required this.greyContainer26,
     required this.redContainer26,
     required this.whiteSmoke78ToWhiteSmoke12,
+    required this.whiteSmokeToBlack,
     required this.greenContainer26,
     required this.blueContainer26,
     required this.dividerColorToGrey,
@@ -124,6 +136,7 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
     required this.solitudeToCharcoal,
     required this.tangerineYellowToMediumSlateBlue,
     required this.dodgerBlueToWhite80,
+    required this.ghostWhite1ToNero,
     required this.solitudeToDarkGray95,
     required this.darkToWhite,
     required this.transparentToSolitude12,
@@ -134,9 +147,11 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
     required this.veryLightGreyToEclipse,
     required this.borderGreyToDark,
     required this.iconPearlToWhite,
+    required this.silverToNightRider,
     required this.whiteToDarkRider,
     required this.borderGreyToGreen,
     required this.lightGreenToDarkGreen,
+    required this.silver50ToNightRider,
     required this.blackToWhite,
     required this.greyToDarkRider,
     required this.darkToPurple,
@@ -185,15 +200,19 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
     Color? whiteSmokeToNightRider,
     Color? whiteToNero,
     Color? mediumSlateBlueToDolphin,
+    Color? snow1ToCocoaBrown,
     Color? whiteSmokeToEclipse,
     Color? solitudeToEclipse,
     Color? gainsboroToBlack,
     Color? greySuitToWhite,
+    Color? ghostWhite1ToNero,
     Color? midnightExpressToWhite,
     Color? solitude1ToNero,
     Color? solitude1ToBlack,
     Color? solitude2ToNightRider,
+    Color? silverToNightRider,
     Color? snowToBlack,
+    Color? silver50ToNightRider,
     Color? whiteWithOpacity90ToNero,
     Color? whiteLilacToNightRider,
     Color? midnightExpressToGreySuit,
@@ -205,6 +224,7 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
     Color? solitudeToDolphinBorder,
     Color? dividerColorToGrey,
     Color? whiteSmoke2ToNightRider,
+    Color? lavenderBlueToCharcoal,
     Color? darkToWhite,
     Color? dodgerBlueToWhite80,
     Color? ghostToGondola,
@@ -243,11 +263,13 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
     Color? dividerColorToWhiteOpacity,
     Color? dolphinToWhite60,
     Color? dolphinToGreySuit,
+    Color? whiteSmokeToBlack,
     Color? mediumSlateBlueToWhite,
     Color? midnightExpressToDolphin,
     Color? snowToNero,
     Color? whiteSmokeToDark,
     Color? ghostToEclipse,
+    Color? ghostToGreySuit,
     Color? greySuitToWhite60,
     Color? stormGrey16ToStormGrey32,
     Color? whiteToWhite8,
@@ -272,12 +294,17 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
         solitudeToDolphinBorder:
             solitudeToDolphinBorder ?? this.solitudeToDolphinBorder,
         darkToGrey: darkToGrey ?? this.darkToGrey,
+        ghostWhite1ToNero: ghostWhite1ToNero ?? this.ghostWhite1ToNero,
+        lavenderBlueToCharcoal:
+            lavenderBlueToCharcoal ?? this.lavenderBlueToCharcoal,
         greyContainer26: greyContainer26 ?? this.greyContainer26,
+        silver50ToNightRider: silver50ToNightRider ?? this.silver50ToNightRider,
         tangerineYellowToMediumSlateBlue: tangerineYellowToMediumSlateBlue ??
             this.tangerineYellowToMediumSlateBlue,
         redContainer26: redContainer26 ?? this.redContainer26,
         greenContainer26: greenContainer26 ?? this.greenContainer26,
         blueContainer26: blueContainer26 ?? this.blueContainer26,
+        whiteSmokeToBlack: whiteSmokeToBlack ?? this.whiteSmokeToBlack,
         whiteSmoke78ToWhiteSmoke12:
             whiteSmoke78ToWhiteSmoke12 ?? this.whiteSmoke78ToWhiteSmoke12,
         darkToPurple: darkToPurple ?? this.darkToPurple,
@@ -293,10 +320,12 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
         borderGreyToDark: borderGreyToDark ?? this.darkGreyToWhite,
         ghostToGondola: ghostToGondola ?? this.ghostToGondola,
         dividerColorToGrey: dividerColorToGrey ?? this.dividerColorToGrey,
+        ghostToGreySuit: ghostToGreySuit ?? this.ghostToGreySuit,
         dolphinToGreySuit: dolphinToGreySuit ?? this.dolphinToGreySuit,
         dolphinToWhite60: dolphinToWhite60 ?? this.dolphinToWhite60,
         solitudeToDolphin8: solitudeToDolphin8 ?? this.solitudeToDolphin8,
         whiteLilacToWhite4: whiteLilacToWhite4 ?? this.whiteLilacToWhite4,
+        silverToNightRider: silverToNightRider ?? this.silverToNightRider,
         whiteToSecondNero: whiteToSecondNero ?? this.whiteToSecondNero,
         solitudeBorderToSolitudeBorder10: solitudeBorderToSolitudeBorder10 ??
             this.solitudeBorderToSolitudeBorder10,
@@ -347,6 +376,7 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
         prussianBlueToWhite80:
             prussianBlueToWhite80 ?? this.prussianBlueToWhite80,
         blackToWhite80: blackToWhite80 ?? this.blackToWhite80,
+        snow1ToCocoaBrown: snow1ToCocoaBrown ?? this.snow1ToCocoaBrown,
         dodgerBlueToWhite80: dodgerBlueToWhite80 ?? this.dodgerBlueToWhite80,
         solitudeToDarkGray95: solitudeToDarkGray95 ?? this.solitudeToDarkGray95,
         darkToWhite: darkToWhite ?? this.darkToWhite,
@@ -399,6 +429,9 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
       dividerColorToGrey:
           Color.lerp(dividerColorToGrey, other.dividerColorToGrey, t) ??
               dividerColorToGrey,
+      silverToNightRider:
+          Color.lerp(silverToNightRider, other.silverToNightRider, t) ??
+              silverToNightRider,
       whiteToSmoky:
           Color.lerp(whiteToSmoky, other.whiteToSmoky, t) ?? whiteToSmoky,
       whiteSmokeToNightRider:
@@ -425,6 +458,9 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
       whiteWithOpacity90ToNero: Color.lerp(
               whiteWithOpacity90ToNero, other.whiteWithOpacity90ToNero, t) ??
           whiteWithOpacity90ToNero,
+      whiteSmokeToBlack:
+          Color.lerp(whiteSmokeToBlack, other.whiteSmokeToBlack, t) ??
+              whiteSmokeToBlack,
       whiteSmoke2ToNightRider: Color.lerp(
               whiteSmoke2ToNightRider, other.whiteSmoke2ToNightRider, t) ??
           whiteSmoke2ToNightRider,
@@ -465,6 +501,9 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
       solitudeToEclipse:
           Color.lerp(solitudeToEclipse, other.solitudeToEclipse, t) ??
               solitudeToEclipse,
+      silver50ToNightRider:
+          Color.lerp(silver50ToNightRider, other.silver50ToNightRider, t) ??
+              silver50ToNightRider,
       solitudeToNero:
           Color.lerp(solitudeToNero, other.solitudeToNero, t) ?? solitudeToNero,
       ghostToEclipse:
@@ -530,6 +569,8 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
       mediumSlateBlue50ToNightRider: Color.lerp(mediumSlateBlue50ToNightRider,
               other.mediumSlateBlue50ToNightRider, t) ??
           mediumSlateBlue50ToNightRider,
+      ghostToGreySuit: Color.lerp(ghostToGreySuit, other.ghostToGreySuit, t) ??
+          ghostToGreySuit,
       solitudeToWhite35:
           Color.lerp(solitudeToWhite35, other.solitudeToWhite35, t) ??
               solitudeToWhite35,
@@ -630,6 +671,15 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
           whiteSmoke78ToWhiteSmoke12,
       darkGreyToWhite: Color.lerp(darkGreyToWhite, other.darkGreyToWhite, t) ??
           darkGreyToWhite,
+      snow1ToCocoaBrown:
+          Color.lerp(snow1ToCocoaBrown, other.snow1ToCocoaBrown, t) ??
+              snow1ToCocoaBrown,
+      ghostWhite1ToNero:
+          Color.lerp(ghostWhite1ToNero, other.ghostWhite1ToNero, t) ??
+              ghostWhite1ToNero,
+      lavenderBlueToCharcoal:
+          Color.lerp(lavenderBlueToCharcoal, other.lavenderBlueToCharcoal, t) ??
+              lavenderBlueToCharcoal,
     );
   }
 }
