@@ -16,7 +16,6 @@ class AppIcons {
   static const navBarMore = 'assets/icons/navbar/more.svg';
 
   static const facebook = 'assets/icons/splash/facebook.svg';
-
   static const apple = 'assets/icons/global/apple.svg';
   static const google = 'assets/icons/global/google.svg';
   static const imkon = 'assets/icons/global/imkon.svg';
@@ -59,12 +58,13 @@ class AppIcons {
   static const arrowRight = 'assets/icons/global/arrow_right.svg';
   static const russia = 'assets/icons/global/russia.svg';
   static const uzbekistan = 'assets/icons/global/uzbekistan.svg';
+  static const chevronRight = 'assets/icons/global/chevron_right.svg';
 
   // PROFILE
   static const alert = 'assets/icons/profile/alert.svg';
   static const heartBlue = 'assets/icons/profile/heart.svg';
   static const refresh = 'assets/icons/profile/refresh.svg';
-  static const share1 = 'assets/icons/profile/share.svg';
+  static const share = 'assets/icons/profile/share.svg';
   static const editProfile = 'assets/icons/profile/edit.svg';
   static const settings = 'assets/icons/profile/settings.svg';
   static const antivirus = 'assets/icons/global/antivirus.svg';
@@ -108,7 +108,6 @@ class AppIcons {
   static const chevronLeftWhite = 'assets/icons/global/chevron_left_white.svg';
   static const discountContainer = 'assets/icons/global/discount_container.svg';
   static const like = 'assets/icons/global/like.svg';
-  static const share = 'assets/icons/global/share.svg';
   static const more = 'assets/icons/global/more.svg';
   static const likeSelected = 'assets/icons/global/like_selected.svg';
   static const liked = 'assets/icons/global/liked.svg';
@@ -129,4 +128,16 @@ class AppIcons {
   static const enabledHeart = 'assets/icons/search/enabled_heart.svg';
   static const disabledHeart = 'assets/icons/search/disabled_heart.svg';
   static const scalesRed = 'assets/icons/search/scales_red.svg';
+  static const crown = 'assets/icons/car_single/crown.svg';
+  // static const crown = 'assets/icons/car_single/calendar.svg';
+  // static const crown = 'assets/icons/car_single/double_check.svg';
+  // static const crown = 'assets/icons/car_single/equals.svg';
+  // static const crown = 'assets/icons/car_single/eye.svg';
+  // static const crown = 'assets/icons/car_single/fire.svg';
+  // static const crown = 'assets/icons/car_single/id.svg';
+  // static const crown = 'assets/icons/car_single/refreshers.svg';
+  // static const crown = 'assets/icons/car_single/rocket.svg';
+  // static const crown = 'assets/icons/car_single/safety.svg';
+  // static const crown = 'assets/icons/car_single/statistic.svg';
+  // static const crown = 'assets/icons/car_single/three_dot.svg';
 }

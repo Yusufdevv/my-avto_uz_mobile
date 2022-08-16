@@ -55,6 +55,9 @@ const blackRussian = _blackRussian;
 const bottomSheetColor = _nero2;
 const dividerInTab = _brightGrey65;
 const rangeSliderBackground = _silver;
+const strokeDark = _strokeDark;
+const background = Color(0xff121212);
+const secondary = Color(0xff373737);
 // Main palette (http://www.color-blindness.com/color-name-hue/).
 const _bittersweet = Color(0xFFFF7474);
 const _whiteSmoke = Color(0xFFF4F4F4);
@@ -69,7 +72,7 @@ const _ghost = Color(0xffB5B5BE);
 const _greySuit = Color(0xff92929D);
 const _dimGray = Color(0xff6c6c6c);
 const _white = Color(0xffffffff);
-const _whiteTransparent = Color(0x33FFFFFF);
+const _whiteTransperent = Color(0x33FFFFFF);
 const _solitude = Color(0xffE2E2EA);
 const _neroOpacity = Color(0xB3181818);
 const _coralRed = Color(0xffFF453A);
@@ -111,3 +114,6 @@ const _brightGrey65 = Color(0xA6545458);
 const _solitude1 = Color(0xffF1F1F5);
 
 const _silver = Color(0xFFC4C4C4);
+
+const _strokeDark = Color(0xff181818);
+const dark1 = Color(0xff1E1E1E);

@@ -37,6 +37,7 @@ dependencies:
   chewie: ^1.3.4
   azlistview: ^2.0.0
   syncfusion_flutter_sliders: ^20.2.40
+  carousel_slider: ^4.1.1
   flutter_cupertino_datetime_picker: ^3.0.0
 dev_dependencies:
   flutter_test:
@@ -60,6 +61,8 @@ flutter:
     - assets/icons/global/
     - assets/icons/profile/
     - assets/icons/navbar/
+    - assets/images/car_single/
+    - assets/icons/car_single/
     - assets/icons/search/
     - lib/assets/strings/
     - lib/assets/strings/
