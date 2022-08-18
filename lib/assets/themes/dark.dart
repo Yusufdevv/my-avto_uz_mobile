@@ -175,6 +175,7 @@ abstract class DarkTheme {
             whiteLilacToPayneGrey: DarkThemeColors.whiteLilacToPayneGrey,
             greyToCinnabar: DarkThemeColors.greyToCinnabar,
             ghostToGondola: DarkThemeColors.ghostToGondola,
+            whiteToEclipse: DarkThemeColors.whiteToEclipse,
             solitudeContainerToBlack: DarkThemeColors.solitudeContainerToBlack,
           ),
           WTextFieldStyle(
@@ -184,6 +185,7 @@ abstract class DarkTheme {
           ThemedIcons(
             imageUrl: DarkIcons.logo,
             check: DarkIcons.blueCheck,
+            filterIcon: DarkIcons.filterIcon,
           ),
         },
       );

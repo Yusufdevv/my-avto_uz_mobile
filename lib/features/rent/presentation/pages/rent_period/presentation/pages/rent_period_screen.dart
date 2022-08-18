@@ -40,7 +40,6 @@ class _RentPeriodScreenState extends State<RentPeriodScreen> {
           ..add('0$i : 30');
       }
     }
-    print(list);
     super.initState();
   }
 

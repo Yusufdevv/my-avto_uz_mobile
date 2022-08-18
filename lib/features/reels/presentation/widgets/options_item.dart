@@ -78,7 +78,7 @@ class _OptionsItemState extends State<OptionsItem> {
                 height: 20,
               ),
               WScaleAnimation(
-                  child: SvgPicture.asset(AppIcons.share), onTap: () {
+                  child: SvgPicture.asset(AppIcons.share1), onTap: () {
                     Share.share(widget.shareUrl);
               }),
               const SizedBox(

@@ -97,7 +97,7 @@ class CarSellerCard extends StatelessWidget {
                           child: Row(
                             children: [
                               SvgPicture.asset(
-                                AppIcons.settings,
+                                AppIcons.safe,
                                 width: 16,
                                 height: 16,
                               ),
@@ -126,7 +126,7 @@ class CarSellerCard extends StatelessWidget {
                         AppImages.carCrashed,
                         width: 105,
                         height: 48,
-                      ))
+                      )),
                 ],
               ),
             )

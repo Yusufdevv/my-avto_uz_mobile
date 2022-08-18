@@ -1,4 +1,5 @@
 import 'package:auto/assets/colors/color.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:flutter/material.dart';
 
 String text =
@@ -8,8 +9,15 @@ class SellerComment extends StatelessWidget {
   const SellerComment({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => Container(margin: const EdgeInsets.only(right: 32),
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+  Widget build(BuildContext context) => Container(  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+    margin: const EdgeInsets.only(bottom: 12),
+    decoration: BoxDecoration(
+        border: Border.all(
+          width: 1,
+          color: Theme.of(context).extension<ThemedColors>()!.solitudeToDarkRider,
+        ),
+        color: Theme.of(context).extension<ThemedColors>()!.solitudeToNero
+    ),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(

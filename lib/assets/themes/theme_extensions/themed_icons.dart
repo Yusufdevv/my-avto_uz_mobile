@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 class ThemedIcons extends ThemeExtension<ThemedIcons> {
   final String imageUrl;
   final String check;
-
-  const ThemedIcons({required this.imageUrl, required this.check});
+  final String filterIcon;
+  const ThemedIcons({required this.filterIcon, required this.imageUrl, required this.check});
 
   @override
   ThemeExtension<ThemedIcons> copyWith({
@@ -14,6 +14,7 @@ class ThemedIcons extends ThemeExtension<ThemedIcons> {
       ThemedIcons(
         imageUrl: imageUrl ?? this.imageUrl,
         check: check ?? this.check,
+        filterIcon: filterIcon ?? this.filterIcon,
       );
 
   @override
@@ -25,6 +26,7 @@ class ThemedIcons extends ThemeExtension<ThemedIcons> {
     return ThemedIcons(
       imageUrl: imageUrl,
       check: check,
+      filterIcon: filterIcon,
     );
   }
 }

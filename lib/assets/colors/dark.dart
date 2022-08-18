@@ -137,7 +137,6 @@ class DarkThemeColors {
   static const snow1ToCocoaBrown = _cocoaBrown;
   static const tangerineYellowToMediumSlateBlue = _mediumSlateBlue;
   static const greyToCinnabar = _cinnabar;
-  static const ghostToGondola = _gondola;
   static const lavenderBlueToCharcoal = _charcoal1;
   static const ghostWhite1ToNero = _nero1;
   static const ghostToGreySuit = _greySuit;

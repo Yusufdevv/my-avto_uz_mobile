@@ -54,7 +54,7 @@ abstract class LightTheme {
           caption: caption,
           button: button,
         ),
-        extensions: {
+        extensions: const {
           CheckBoxStyle(
             unselectedBackgroundColor: LightThemeColors.lightGreyToEclipse,
             unselectedBorderColor: LightThemeColors.warmerGreyToDarkGray,
@@ -155,6 +155,7 @@ abstract class LightTheme {
                 LightThemeColors.midnightExpressToGreySuit,
             snowToNero1: LightThemeColors.snowToNero1,
             whiteToNightRider: LightThemeColors.whiteToNightRider,
+            whiteToEclipse: LightThemeColors.whiteToEclipse,
             whiteLilacToPayneGrey: LightThemeColors.whiteLilacToPayneGrey,
             whiteSmoke78ToWhiteSmoke12:
                 LightThemeColors.whiteSmoke78ToWhiteSmoke12,
@@ -176,6 +177,7 @@ abstract class LightTheme {
           ThemedIcons(
             imageUrl: LightIcons.logo,
             check: LightIcons.check,
+            filterIcon: LightIcons.filterIcon,
           ),
         },
       );
