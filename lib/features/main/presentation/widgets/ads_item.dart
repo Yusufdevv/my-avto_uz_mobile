@@ -6,7 +6,6 @@ import 'package:flutter_svg/svg.dart';
 
 class AdsItem extends StatelessWidget {
   final AdsEntity adsEntity;
-
   const AdsItem({required this.adsEntity, Key? key}) : super(key: key);
 
   @override

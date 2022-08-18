@@ -12,16 +12,16 @@ class CarActions extends StatelessWidget {
           children: [
             CarActionsBox(
                 carStatistic: CarStatistic(
-                    valueText: 'Отчет (VIN)', icon: AppIcons.settings)),
+                    valueText: 'Отчет (VIN)', icon: AppIcons.file)),
             CarActionsBox(
                 carStatistic: CarStatistic(
-                    valueText: 'Сравнить', icon: AppIcons.settings)),
+                    valueText: 'Сравнить', icon: AppIcons.scale)),
             CarActionsBox(
                 carStatistic: CarStatistic(
-                    valueText: 'В заметку', icon: AppIcons.settings)),
+                    valueText: 'В заметку', icon: AppIcons.note)),
             CarActionsBox(
                 carStatistic: CarStatistic(
-                    valueText: 'Поделиться', icon: AppIcons.settings)),
+                    valueText: 'Поделиться', icon: AppIcons.share)),
           ],
         ),
       );

@@ -1,4 +1,5 @@
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/comparison/domain/entities/characteristics_model.dart';
 import 'package:auto/features/comparison/domain/entities/chracteristics_parameters_model.dart';
 import 'package:auto/features/comparison/domain/entities/complectation_model.dart';
@@ -7,8 +8,6 @@ import 'package:auto/features/comparison/presentation/widgets/parameters_widget.
 import 'package:auto/features/comparison/presentation/widgets/sliver_delegate.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-
-import '../../../../assets/themes/theme_extensions/themed_colors.dart';
 
 class ComparisonPage2 extends StatefulWidget {
   final int numberofAddedCars;

@@ -11,7 +11,7 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
   final Color solitudeToWhite35;
   final Color solitudeToSolitude14;
   final Color transparentToSolitude12;
-
+  final Color whiteToEclipse;
   final Color ghostToGondola;
   final Color tangerineYellowToMediumSlateBlue;
   final Color solitudeToGondola;
@@ -146,6 +146,7 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
     required this.darkToWhite,
     required this.transparentToSolitude12,
     required this.solitudeToWhite35,
+    required this.whiteToEclipse,
     required this.solitudeToBastille,
     required this.whiteToDolphin,
     required this.darkGreyToWhite,
@@ -262,6 +263,7 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
           Color? blueContainer26,
           Color? whiteSmoke78ToWhiteSmoke12,
           Color? whiteLilacToWhite4,
+          Color? whiteToEclipse,
           Color? solitudeBorderToSolitudeBorder10,
           Color? cinnabar12ToCinnabar,
           Color? solitudeToDolphin8,
@@ -321,6 +323,7 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
         darkToPurple: darkToPurple ?? this.darkToPurple,
         greyToDarkRider: greyToDarkRider ?? this.greyToDarkRider,
         blackToWhite: blackToWhite ?? this.blackToWhite,
+        whiteToEclipse: whiteToEclipse ?? this.whiteToEclipse,
         whiteSmoke2ToNightRider:
             whiteSmoke2ToNightRider ?? this.whiteSmoke2ToNightRider,
         lightGreenToDarkGreen:
@@ -798,6 +801,8 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
       solitudeContainerToNero1: Color.lerp(
               solitudeContainerToNero1, other.solitudeContainerToNero1, t) ??
           solitudeContainerToNero1,
+      whiteToEclipse:
+          Color.lerp(whiteToEclipse, other.whiteToEclipse, t) ?? whiteToEclipse,
     );
   }
 }

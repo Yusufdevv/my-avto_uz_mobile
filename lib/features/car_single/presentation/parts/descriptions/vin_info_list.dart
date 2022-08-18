@@ -10,11 +10,11 @@ class VinInfoList extends StatelessWidget {
 
   static const List<OwnerActionEntity> list = [
     OwnerActionEntity(
-        icon: AppIcons.bell, title: 'Характеристики совпадают с ПТС'),
-    OwnerActionEntity(icon: AppIcons.bell, title: '1 владелец в ПТС'),
+        icon: AppIcons.shieldCheckOutlined, title: 'Характеристики совпадают с ПТС'),
+    OwnerActionEntity(icon: AppIcons.lock, title: '1 владелец в ПТС'),
     OwnerActionEntity(
-        icon: AppIcons.bell, title: '12 записей в истории эксплутации'),
-    OwnerActionEntity(icon: AppIcons.bell, title: 'Поиск данных о залоге'),
+        icon: AppIcons.lock, title: '12 записей в истории эксплутации'),
+    OwnerActionEntity(icon: AppIcons.lock, title: 'Поиск данных о залоге'),
   ];
 
   @override

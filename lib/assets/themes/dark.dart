@@ -175,6 +175,7 @@ abstract class DarkTheme {
             whiteLilacToPayneGrey: DarkThemeColors.whiteLilacToPayneGrey,
             greyToCinnabar: DarkThemeColors.greyToCinnabar,
             ghostToGondola: DarkThemeColors.ghostToGondola,
+            whiteToEclipse: DarkThemeColors.whiteToEclipse,
             solitudeContainerToBlack: DarkThemeColors.solitudeContainerToBlack,
           ),
           WTextFieldStyle(
