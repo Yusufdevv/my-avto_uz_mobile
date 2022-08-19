@@ -172,7 +172,7 @@ class AllTabs extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(
                               vertical: 10, horizontal: 11),
                           onTap: () {},
-                          child: SvgPicture.asset(AppIcons.share1),
+                          child: SvgPicture.asset(AppIcons.share),
                         )
                       ],
                     ),

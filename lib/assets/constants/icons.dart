@@ -110,7 +110,6 @@ class AppIcons {
   static const chevronLeftWhite = 'assets/icons/global/chevron_left_white.svg';
   static const discountContainer = 'assets/icons/global/discount_container.svg';
   static const like = 'assets/icons/global/like.svg';
-  static const share = 'assets/icons/global/share.svg';
   static const circle = 'assets/icons/global/circle.svg';
   static const searchOrange = 'assets/icons/global/search_orange.svg';
   static const blueCheck = 'assets/icons/global/blue_check.svg';
@@ -124,7 +123,6 @@ class AppIcons {
   static const gearBox = 'assets/icons/global/gear_box.svg';
   static const child = 'assets/icons/global/child.svg';
   static const thirdLiked = 'assets/icons/global/third_like.svg';
-  static const chevronRight = 'assets/icons/global/chevron_right.svg';
   static const commercialCar = 'assets/icons/global/commercial_car.svg';
   static const checkGreen = 'assets/icons/global/check_green.svg';
   // SEARCH
