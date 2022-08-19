@@ -1,6 +1,6 @@
 import 'package:auto/assets/themes/dark.dart';
 import 'package:auto/assets/themes/light.dart';
-import 'package:auto/features/car_single/presentation/car_single_screen.dart';
+import 'package:auto/features/navigation/presentation/home.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -27,7 +27,7 @@ class _AppState extends State<MyApp> {
         darkTheme: DarkTheme.theme(),
         themeMode: ThemeMode.dark,
         navigatorKey: _navigatorKey,
-        home: const CarSingleScreen(),
+        home: const HomeScreen(),
         // onGenerateRoute: (settings) => SplashScreen.route(),
       );
 }
