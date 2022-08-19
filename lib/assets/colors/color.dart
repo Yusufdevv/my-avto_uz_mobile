@@ -5,6 +5,7 @@ const orange = _cinnabar;
 const purple = _mediumSlateBlue;
 const blue = _havelockBlue;
 const red = _fuzzyWuzzyBrown;
+const dodgerBlue = _dodgerBlue2;
 const warmerGrey = _ghost;
 const grey = _greySuit;
 const dimGray = _dimGray;
@@ -101,6 +102,7 @@ const _persianIndigo = Color(0xff461B93);
 const _mediumSeaGreen = Color(0xFF38AF7F);
 const _blackRock = Color(0xFF292E37);
 const _blanchedAlmond = Color(0xFFFEE9D0);
+const _dodgerBlue2 = Color(0xff007AFF);
 
 const _gainsboro = Color(0xffDCDCDC);
 const _blueGem = Color(0xff3F3695);

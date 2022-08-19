@@ -14,7 +14,7 @@ class AdsItem extends StatelessWidget {
         width: 225,
         margin: const EdgeInsets.only(left: 16),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(12),
           color: Theme.of(context).extension<ThemedColors>()!.whiteToSecondNero,
           border: Border.all(
             width: 1,
@@ -28,10 +28,13 @@ class AdsItem extends StatelessWidget {
           children: [
             ClipRRect(
                 borderRadius:
-                    const BorderRadius.vertical(top: Radius.circular(16)),
+                    const BorderRadius.vertical(top: Radius.circular(12)),
                 child: SizedBox(
                   height: 126,
-                  child: Image.network(adsEntity.imageUrl, fit: BoxFit.cover,),
+                  child: Image.network(
+                    adsEntity.imageUrl,
+                    fit: BoxFit.cover,
+                  ),
                 )),
             const SizedBox(
               height: 12,
@@ -56,9 +59,7 @@ class AdsItem extends StatelessWidget {
                     .copyWith(fontSize: 16),
               ),
             ),
-            const SizedBox(
-              height: 16,
-            ),
+            const SizedBox(height: 8),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Text(
@@ -71,27 +72,23 @@ class AdsItem extends StatelessWidget {
                         .greySuitToWhite60),
               ),
             ),
-            const SizedBox(
-              height: 10,
-            ),
+            const SizedBox(height: 10),
             Container(
               height: 1,
               margin: const EdgeInsets.only(left: 16),
-              color: Theme.of(context).extension<ThemedColors>()!.solitudeToWhite35,
+              color: Theme.of(context)
+                  .extension<ThemedColors>()!
+                  .solitudeToWhite35,
             ),
-            const SizedBox(
-              height: 10,
-            ),
+            const SizedBox(height: 10),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12),
+              padding: const EdgeInsets.only(right: 12, left: 16, bottom: 10),
               child: Row(
                 children: [
                   Row(
                     children: [
                       SvgPicture.asset(AppIcons.location),
-                      const SizedBox(
-                        width: 4,
-                      ),
+                      const SizedBox(width: 4),
                       Text(
                         adsEntity.place,
                         style: Theme.of(context).textTheme.headline6!.copyWith(
@@ -106,9 +103,7 @@ class AdsItem extends StatelessWidget {
                   Row(
                     children: [
                       SvgPicture.asset(AppIcons.heart),
-                      const SizedBox(
-                        width: 12,
-                      ),
+                      const SizedBox(width: 12),
                       SvgPicture.asset(AppIcons.scale),
                     ],
                   )

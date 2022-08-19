@@ -37,30 +37,65 @@ class _MainScreenState extends State<MainScreen> {
     const CarBrandEntity(title: 'Chevrolet', icon: AppImages.chevrolet),
   ];
 
-  final List<ServiceEntity>   serviceEntity = [
-    const ServiceEntity(title: 'Проверка', icon: AppIcons.verification, ),
+  final List<ServiceEntity> serviceEntity = [
+    const ServiceEntity(
+      title: 'Проверка',
+      icon: AppIcons.verification,
+    ),
     const ServiceEntity(title: 'Объявления', icon: AppIcons.ads),
-    const ServiceEntity(title: 'Каршеринг', icon: AppIcons.carSharing,),
-    const ServiceEntity(title: 'Страхование', icon: AppIcons.insurance,),
-    const ServiceEntity(title: 'Коммерческий транспорт', icon: AppIcons.commercialCar,),
-    const ServiceEntity(title: 'RentCar', icon: AppIcons.rentCar,),
+    const ServiceEntity(
+      title: 'Каршеринг',
+      icon: AppIcons.carSharing,
+    ),
+    const ServiceEntity(
+      title: 'Страхование',
+      icon: AppIcons.insurance,
+    ),
+    const ServiceEntity(
+      title: 'Коммерческий транспорт',
+      icon: AppIcons.commercialCar,
+    ),
+    const ServiceEntity(
+      title: 'RentCar',
+      icon: AppIcons.rentCar,
+    ),
   ];
   @override
   void initState() {
     serviceTaps = [
-          (){},
-          (){},
-          (){},
-          (){},
-          () => Navigator.push(context, fade(page: const CommercialScreen())),
-          (){},
+      () {},
+      () {},
+      () {},
+      () {},
+      () => Navigator.pushReplacement(
+          context, fade(page: const CommercialScreen())),
+      () {},
     ];
     super.initState();
   }
+
   final List<AdsEntity> adsEntity = [
-    const AdsEntity(imageUrl: 'https://cdn.motor1.com/images/mgl/LBl63/s1/2021-genesis-g80.jpg', place: 'г. Ташкент', price: '1 519 123 200 UZS', aboutCar: 'Land Cruiser, 145 894 км,\nВнедорожник 5дв, АКПП, Дизел...', carName: 'Hyundai Genesis G90 long'),
-    const AdsEntity(imageUrl: 'https://cdn.motor1.com/images/mgl/LBl63/s1/2021-genesis-g80.jpg', place: 'г. Ташкент', price: '1 519 123 200 UZS', aboutCar: 'Land Cruiser, 145 894 км,\nВнедорожник 5дв, АКПП, Дизел...', carName: 'Hyundai Genesis G90 long'),
-    const AdsEntity(imageUrl: 'https://cdn.motor1.com/images/mgl/LBl63/s1/2021-genesis-g80.jpg', place: 'г. Ташкент', price: '1 519 123 200 UZS', aboutCar: 'Land Cruiser, 145 894 км,\nВнедорожник 5дв, АКПП, Дизел...', carName: 'Hyundai Genesis G90 long'),
+    const AdsEntity(
+        imageUrl:
+            'https://cdn.motor1.com/images/mgl/LBl63/s1/2021-genesis-g80.jpg',
+        place: 'г. Ташкент',
+        price: '1 519 123 200 UZS',
+        aboutCar: 'Land Cruiser, 145 894 км,\nВнедорожник 5дв, АКПП, Дизел...',
+        carName: 'Hyundai Genesis G90 long'),
+    const AdsEntity(
+        imageUrl:
+            'https://cdn.motor1.com/images/mgl/LBl63/s1/2021-genesis-g80.jpg',
+        place: 'г. Ташкент',
+        price: '1 519 123 200 UZS',
+        aboutCar: 'Land Cruiser, 145 894 км,\nВнедорожник 5дв, АКПП, Дизел...',
+        carName: 'Hyundai Genesis G90 long'),
+    const AdsEntity(
+        imageUrl:
+            'https://cdn.motor1.com/images/mgl/LBl63/s1/2021-genesis-g80.jpg',
+        place: 'г. Ташкент',
+        price: '1 519 123 200 UZS',
+        aboutCar: 'Land Cruiser, 145 894 км,\nВнедорожник 5дв, АКПП, Дизел...',
+        carName: 'Hyundai Genesis G90 long'),
   ];
 
   late List<VoidCallback> serviceTaps = [];
@@ -84,7 +119,7 @@ class _MainScreenState extends State<MainScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(
-                height: 100,
+                height: 96,
                 child: ListView.builder(
                   itemBuilder: (context, index) => StoryItem(
                     storyItemEntity: storyItemsEntity[index],
@@ -93,27 +128,24 @@ class _MainScreenState extends State<MainScreen> {
                   scrollDirection: Axis.horizontal,
                 ),
               ),
-              const SizedBox(
-                height: 20,
-              ),
+              const SizedBox(height: 16),
               const DealButton(),
               const CarModelItem(),
               SizedBox(
-                height: 50,
+                height: 48,
                 child: ListView.builder(
-                  padding: const EdgeInsets.only(right: 16),
-                  itemBuilder: (context, index) =>
-                      ServiceItem(serviceEntity: serviceEntity[index], onTap: serviceTaps[index],),
+                  padding: const EdgeInsets.only(right: 12),
+                  itemBuilder: (context, index) => ServiceItem(
+                    serviceEntity: serviceEntity[index],
+                    onTap: serviceTaps[index],
+                  ),
                   itemCount: serviceEntity.length,
                   scrollDirection: Axis.horizontal,
                 ),
               ),
-              const SizedBox(
-                height: 16,
-              ),
+              const SizedBox(height: 16),
               Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Text(
                   'Топ марок автомобилей',
                   style: Theme.of(context)
@@ -122,22 +154,21 @@ class _MainScreenState extends State<MainScreen> {
                       .copyWith(fontSize: 18),
                 ),
               ),
-              const SizedBox(height: 16,),
+              const SizedBox(height: 8),
               SizedBox(
                 height: 100,
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) =>
-                      CarBrandItem(carBrandEntity: carBrandEntity[index], hasShadow: true,),
+                  itemBuilder: (context, index) => CarBrandItem(
+                    carBrandEntity: carBrandEntity[index],
+                    hasShadow: true,
+                  ),
                   itemCount: carBrandEntity.length,
                 ),
               ),
-              const SizedBox(
-                height: 16,
-              ),
+              const SizedBox(height: 16),
               Padding(
-                padding:
-                const EdgeInsets.symmetric(horizontal: 16),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Text(
                   'Лучшие предложения',
                   style: Theme.of(context)
@@ -146,9 +177,9 @@ class _MainScreenState extends State<MainScreen> {
                       .copyWith(fontSize: 18),
                 ),
               ),
-              const SizedBox(height: 8,),
+              const SizedBox(height: 8),
               SizedBox(
-                height: 280,
+                height: 276,
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (context, index) =>
@@ -156,12 +187,9 @@ class _MainScreenState extends State<MainScreen> {
                   itemCount: adsEntity.length,
                 ),
               ),
-              const SizedBox(
-                height: 16,
-              ),
+              const SizedBox(height: 16),
               Padding(
-                padding:
-                const EdgeInsets.symmetric(horizontal: 16),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Text(
                   'Избраннные',
                   style: Theme.of(context)

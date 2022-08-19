@@ -1,8 +1,7 @@
-import 'package:auto/features/dealers/presentation/pages/dealers_main.dart';
+import 'package:auto/assets/themes/dark.dart';
+import 'package:auto/assets/themes/light.dart';
+import 'package:auto/features/navigation/presentation/home.dart';
 import 'package:flutter/material.dart';
-
-import 'assets/themes/dark.dart';
-import 'assets/themes/light.dart';
 
 void main() {
   runApp(const MyApp());
@@ -26,9 +25,9 @@ class _AppState extends State<MyApp> {
         title: 'Auto.Uz',
         theme: LightTheme.theme(),
         darkTheme: DarkTheme.theme(),
-        themeMode: ThemeMode.dark,
+        themeMode: ThemeMode.light,
         navigatorKey: _navigatorKey,
-        home: const DealersMain(),
+        home: const HomeScreen(),
         // onGenerateRoute: (settings) => SplashScreen.route(),
       );
 }

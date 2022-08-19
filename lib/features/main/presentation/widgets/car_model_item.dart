@@ -15,20 +15,19 @@ class CarModelItem extends StatelessWidget {
         margin: const EdgeInsets.all(16),
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12),
-          color: Theme.of(context).extension<ThemedColors>()!.whiteToWhite8,
-          boxShadow: [
-            BoxShadow(
-              offset: const Offset(0, 8),
-              blurRadius: 19,
-              color: dark.withOpacity(.07)
-            )
-          ]
-        ),
+            borderRadius: BorderRadius.circular(12),
+            color: Theme.of(context).extension<ThemedColors>()!.whiteToWhite8,
+            boxShadow: [
+              BoxShadow(
+                  offset: const Offset(0, 8),
+                  blurRadius: 19,
+                  color: dark.withOpacity(.07))
+            ]),
         child: Column(
           children: [
             WButton(
-              onTap: () => Navigator.push(context, fade(page: SelectCarModelScreen())),
+              onTap: () => Navigator.push(
+                  context, fade(page: const SelectCarModelScreen())),
               color: Theme.of(context)
                   .extension<ThemedColors>()!
                   .solitudeToGondola,
@@ -68,7 +67,7 @@ class CarModelItem extends StatelessWidget {
                 ],
               ),
             ),
-            const SizedBox(height: 16,),
+            const SizedBox(height: 16),
             WButton(
               onTap: () {},
               color: Theme.of(context)
@@ -80,7 +79,7 @@ class CarModelItem extends StatelessWidget {
                     .extension<ThemedColors>()!
                     .solitudeToPayneGrey,
               ),
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
               text: 'Показать 161 675  предложений',
               textStyle: Theme.of(context).textTheme.headline6!.copyWith(
                   fontSize: 14,

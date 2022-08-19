@@ -129,4 +129,5 @@ class AppIcons {
   static const enabledHeart = 'assets/icons/search/enabled_heart.svg';
   static const disabledHeart = 'assets/icons/search/disabled_heart.svg';
   static const scalesRed = 'assets/icons/search/scales_red.svg';
+  static const greyPhoneCall = 'assets/icons/global/grey_phone_call.svg';
 }

@@ -40,7 +40,7 @@ class ModelItems extends StatelessWidget {
             child: Column(
               children: [
                 Container(
-                  height: 40,
+                  height: 35,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [

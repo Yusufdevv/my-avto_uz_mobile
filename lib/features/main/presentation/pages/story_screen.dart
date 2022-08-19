@@ -79,8 +79,8 @@ class _StoryScreenState extends State<StoryScreen>
               },
             ),
             Positioned(
-              top: 40,
-              left: 10,
+              top: MediaQuery.of(context).padding.top + 12,
+              left: 16,
               right: 10,
               child: Row(
                 children: widget.story
@@ -103,43 +103,39 @@ class _StoryScreenState extends State<StoryScreen>
                   gradient: LinearGradient(
                       begin: Alignment.bottomCenter,
                       end: Alignment.center,
-                      colors: [
-                        dark.withOpacity(1),
-                        dark.withOpacity(0)
-                      ]
-                  )
-              ),
+                      colors: [dark.withOpacity(1), dark.withOpacity(0)])),
             ),
-
             Positioned(
-              bottom: MediaQuery.of(context).padding.bottom + 12,
+              bottom: MediaQuery.of(context).padding.bottom + 8,
               left: 16,
               right: 16,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    story.storyItemEntity.descriptionTitle,
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline4!
-                        .copyWith(fontWeight: FontWeight.w600),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 4),
+                    child: Text(
+                      story.storyItemEntity.descriptionTitle,
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline4!
+                          .copyWith(fontWeight: FontWeight.w600),
+                    ),
                   ),
-                  const SizedBox(
-                    height: 8,
+                  const SizedBox(height: 8),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 4),
+                    child: Text(
+                      story.storyItemEntity.description,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: Theme.of(context).textTheme.subtitle2!.copyWith(
+                          fontWeight: FontWeight.w400, color: dividerColor),
+                    ),
                   ),
-                  Text(
-                    story.storyItemEntity.description,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context).textTheme.subtitle2!.copyWith(
-                        fontWeight: FontWeight.w400, color: dividerColor),
-                  ),
-                  const SizedBox(
-                    height: 18,
-                  ),
+                  const SizedBox(height: 28),
                   WButton(
-                    onTap: (){},
+                    onTap: () {},
                     text: 'Подробнее',
                     textColor: white,
                     color: white.withOpacity(.2),
@@ -148,38 +144,42 @@ class _StoryScreenState extends State<StoryScreen>
               ),
             ),
             Positioned(
-              top: 60,
-              left: 16,
+              top: MediaQuery.of(context).padding.top + 28,
+              left: 20,
               right: 16,
               child: Row(
                 children: [
-                  Container(
-                    height: 32,
-                    width: 32,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(40),
-                      border: Border.all(
-                        width: 1.5,
-                        color: white.withOpacity(.4),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 4),
+                    child: Container(
+                      height: 32,
+                      width: 32,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(40),
+                        border: Border.all(
+                          width: 1.5,
+                          color: white.withOpacity(.4),
+                        ),
                       ),
-                    ),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(40),
-                      child: CachedNetworkImage(
-                        imageUrl: story.storyItemEntity.image,
-                        fit: BoxFit.cover,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(40),
+                        child: CachedNetworkImage(
+                          imageUrl: story.storyItemEntity.image,
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
                   ),
-                  const SizedBox(
-                    width: 12,
-                  ),
-                  Text(
-                    story.storyItemEntity.title,
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline4!
-                        .copyWith(fontSize: 16),
+                  const SizedBox(width: 12),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 10),
+                    child: Text(
+                      story.storyItemEntity.title,
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline4!
+                          .copyWith(fontSize: 16),
+                    ),
                   ),
                   const Spacer(),
                   WScaleAnimation(
@@ -188,7 +188,6 @@ class _StoryScreenState extends State<StoryScreen>
                 ],
               ),
             ),
-
           ],
         ),
       ),

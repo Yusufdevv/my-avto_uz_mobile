@@ -1,6 +1,9 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/features/common/widgets/cached_image.dart';
+import 'package:auto/features/common/widgets/w_scale.dart';
+import 'package:auto/features/search/presentation/widgets/bottom_sheet.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -71,30 +74,38 @@ class _AdvertisingState extends State<Advertising> {
                 width: 264,
                 imageUrl: widget.imege2,
               ),
-              SizedBox(width: 4),
+              const SizedBox(width: 4),
               if (widget.isClient)
-                Container(
-                  height: 201,
-                  width: 264,
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(8),
-                        bottomRight: Radius.circular(8)),
-                    color: green,
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SvgPicture.asset(AppIcons.phone),
-                      Text(
-                        'Позвонить',
-                        style: Theme.of(context)
-                            .textTheme
-                            .headline1!
-                            .copyWith(color: white),
-                      )
-                    ],
+                WScaleAnimation(
+                  onTap: () {
+                    showCupertinoModalPopup(
+                        context: context,
+                        barrierColor: black.withOpacity(.7),
+                        builder: (context) => const CallBottomSheet());
+                  },
+                  child: Container(
+                    height: 201,
+                    width: 264,
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(8),
+                          bottomRight: Radius.circular(8)),
+                      color: green,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SvgPicture.asset(AppIcons.phone),
+                        Text(
+                          'Позвонить',
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline1!
+                              .copyWith(color: white),
+                        ),
+                      ],
+                    ),
                   ),
                 )
               else if (widget.isSalon)
@@ -123,7 +134,7 @@ class _AdvertisingState extends State<Advertising> {
                   ),
                 )
               else
-                SizedBox(),
+                const SizedBox(),
             ],
           ),
         ),

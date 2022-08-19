@@ -32,7 +32,6 @@ class CarTypeItem extends StatelessWidget {
               : Colors.transparent,
           child: Container(
             padding: const EdgeInsets.only(right: 16, top: 10, bottom: 10),
-
             decoration: BoxDecoration(
               border: Border(
                   bottom: BorderSide(
@@ -41,7 +40,7 @@ class CarTypeItem extends StatelessWidget {
             child: Column(
               children: [
                 SizedBox(
-                  height: 44,
+                  height: 40,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [

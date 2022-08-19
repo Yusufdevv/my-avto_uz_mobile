@@ -16,24 +16,24 @@ class _YandexMapItemState extends State<YandexMapItem> {
 
   @override
   Widget build(BuildContext context) => Container(
-    height: 191,
-    width: double.infinity,
-    margin: const EdgeInsets.all(16),
-    decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(12),
-      border: Border.all(
-        width: 1,
-        color: dividerColor
-      )
-    ),
-    child: ClipRRect(
-      borderRadius: BorderRadius.circular(12),
-      child: YandexMap(
-        onMapCreated: (controller) {
-          yandexMapController = controller;
-          yandexMapController.toggleUserLayer(visible: true);
-        },
-      ),
-    ),
-  );
+        height: 191,
+        width: double.infinity,
+        margin: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12),
+          color: dividerColor,
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(1),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(12),
+            child: YandexMap(
+              onMapCreated: (controller) {
+                yandexMapController = controller;
+                yandexMapController.toggleUserLayer(visible: true);
+              },
+            ),
+          ),
+        ),
+      );
 }

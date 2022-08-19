@@ -76,7 +76,6 @@ class _SearchScreenState extends State<SearchScreen> {
     'Nexia 3',
     'Nexia 3',
   ];
-
   List<String> searchedCars = [
     'Mercedes',
     'Gentra 1.5',
@@ -84,7 +83,6 @@ class _SearchScreenState extends State<SearchScreen> {
     'Nexia 3',
     'Nexia 3',
   ];
-
   List<String> filterItems = [
     'Объявления',
     'С пробегом',
@@ -115,9 +113,19 @@ class _SearchScreenState extends State<SearchScreen> {
               hasBackButton: false,
               extraActions: [
                 WTextField(
+                  fillColor: Theme.of(context)
+                      .extension<ThemedColors>()!
+                      .whiteSmoke2ToNightRider,
                   onChanged: (value) {
                     setState(() {});
                   },
+                  borderColor: purple,
+                  focusColor: Theme.of(context)
+                      .extension<ThemedColors>()!
+                      .whiteSmoke2ToNightRider,
+                  enabledBorderColor: Theme.of(context)
+                      .extension<ThemedColors>()!
+                      .whiteSmoke2ToNightRider,
                   height: 44,
                   margin: const EdgeInsets.only(top: 15),
                   width: 300,
@@ -125,7 +133,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   controller: searchController,
                   hasSearch: true,
                   hintText: 'Марка, Модель',
-                  hasClearButton: true,
+                  hasClearButton: false,
                 ),
                 const Spacer(),
                 WButton(
@@ -139,9 +147,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       .whiteSmoke2ToNightRider,
                   child: SvgPicture.asset(AppIcons.filter),
                 ),
-                const SizedBox(
-                  width: 12,
-                )
+                const SizedBox(width: 12)
               ],
             ),
             body: BlocBuilder<SearchedBloc, SearchedState>(
@@ -159,7 +165,7 @@ class _SearchScreenState extends State<SearchScreen> {
                               children: [
                                 ...List.generate(
                                   filterItems.length,
-                                      (index) => FilterItem(
+                                  (index) => FilterItem(
                                     title: filterItems[index],
                                   ),
                                 ),
@@ -170,16 +176,13 @@ class _SearchScreenState extends State<SearchScreen> {
                         ),
                         Expanded(
                           child: ListView(
-
                             children: [
-
                               ...List.generate(
                                 searchItemEntity.length,
-                                    (index) => SearchedModelsItem(
+                                (index) => SearchedModelsItem(
                                   controller: searchController,
                                   searchItemEntity: searchItemEntity[index],
                                 ),
-
                               )
                             ],
                           ),
@@ -189,7 +192,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   );
                 } else {
                   return SingleChildScrollView(
-                    child:Column(
+                    child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SizedBox(
@@ -200,7 +203,7 @@ class _SearchScreenState extends State<SearchScreen> {
                               children: [
                                 ...List.generate(
                                   filterItems.length,
-                                      (index) => FilterItem(
+                                  (index) => FilterItem(
                                     title: filterItems[index],
                                   ),
                                 ),
@@ -213,8 +216,7 @@ class _SearchScreenState extends State<SearchScreen> {
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 12, vertical: 4),
                             child: Row(
-                              mainAxisAlignment:
-                              MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
                                   'Последние запросы',
@@ -222,11 +224,11 @@ class _SearchScreenState extends State<SearchScreen> {
                                       .textTheme
                                       .headline2!
                                       .copyWith(
-                                    fontSize: 13,
-                                    color: Theme.of(context)
-                                        .extension<ThemedColors>()!
-                                        .dolphinToGreySuit,
-                                  ),
+                                        fontSize: 13,
+                                        color: Theme.of(context)
+                                            .extension<ThemedColors>()!
+                                            .dolphinToGreySuit,
+                                      ),
                                 ),
                                 WScaleAnimation(
                                   onTap: () {
@@ -247,7 +249,7 @@ class _SearchScreenState extends State<SearchScreen> {
                           const SizedBox(),
                         ...List.generate(
                           state.searchedCars.length,
-                              (index) => Container(
+                          (index) => Container(
                             margin: const EdgeInsets.only(bottom: 1),
                             width: double.infinity,
                             color: Theme.of(context)
@@ -255,8 +257,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                 .whiteToDark,
                             padding: const EdgeInsets.all(16),
                             child: Row(
-                              mainAxisAlignment:
-                              MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
                                   state.searchedCars[index],
@@ -264,17 +265,17 @@ class _SearchScreenState extends State<SearchScreen> {
                                       .textTheme
                                       .headline1!
                                       .copyWith(
-                                      fontSize: 13,
-                                      fontWeight: FontWeight.w600),
+                                          fontSize: 13,
+                                          fontWeight: FontWeight.w600),
                                 ),
                                 WScaleAnimation(
                                   child: SvgPicture.asset(AppIcons.close),
                                   onTap: () {
                                     context.read<SearchedBloc>().add(
-                                      RemoveSearchItem(
-                                          carName:
-                                          state.searchedCars[index]),
-                                    );
+                                          RemoveSearchItem(
+                                              carName:
+                                                  state.searchedCars[index]),
+                                        );
                                   },
                                 ),
                               ],
@@ -291,20 +292,18 @@ class _SearchScreenState extends State<SearchScreen> {
                               horizontal: 12, vertical: 4),
                           child: Text(
                             'Популярные запросы',
-                            style: Theme.of(context)
-                                .textTheme
-                                .headline2!
-                                .copyWith(
-                              fontSize: 13,
-                              color: Theme.of(context)
-                                  .extension<ThemedColors>()!
-                                  .dolphinToGreySuit,
-                            ),
+                            style:
+                                Theme.of(context).textTheme.headline2!.copyWith(
+                                      fontSize: 13,
+                                      color: Theme.of(context)
+                                          .extension<ThemedColors>()!
+                                          .dolphinToGreySuit,
+                                    ),
                           ),
                         ),
                         ...List.generate(
                           cars.length,
-                              (index) => Container(
+                          (index) => Container(
                             margin: const EdgeInsets.only(bottom: 1),
                             width: double.infinity,
                             color: Theme.of(context)
@@ -317,8 +316,8 @@ class _SearchScreenState extends State<SearchScreen> {
                                   .textTheme
                                   .headline1!
                                   .copyWith(
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.w600),
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.w600),
                             ),
                           ),
                         ),
@@ -328,11 +327,18 @@ class _SearchScreenState extends State<SearchScreen> {
                 }
               },
             ),
-            bottomNavigationBar: searchController.text.isNotEmpty ?  WButton(
-              margin: const EdgeInsets.only(bottom: 16),
-              onTap: () => Navigator.push(context, fade(page: ResultsScreen(controller: searchController),),),
-              text: 'Показать 32 результата',
-            ) : const SizedBox(),
+            bottomNavigationBar: searchController.text.isNotEmpty
+                ? WButton(
+                    margin: const EdgeInsets.all(16),
+                    onTap: () => Navigator.push(
+                      context,
+                      fade(
+                        page: ResultsScreen(controller: searchController),
+                      ),
+                    ),
+                    text: 'Показать 32 результата',
+                  )
+                : const SizedBox(),
           ),
         ),
       );

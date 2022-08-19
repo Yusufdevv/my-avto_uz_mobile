@@ -96,10 +96,10 @@ class _AllCommercialItemState extends State<AllCommercialItem> {
                       const SizedBox(width: 4),
                       Text(
                         widget.commercialItemEntity.oldPriceAuto,
-                        style: Theme.of(context)
-                            .textTheme
-                            .headline2!
-                            .copyWith(decoration: TextDecoration.lineThrough),
+                        style: Theme.of(context).textTheme.headline2!.copyWith(
+                              decoration: TextDecoration.lineThrough,
+                              color: darkGray,
+                            ),
                       )
                     ],
                   ),
@@ -164,7 +164,10 @@ class _AllCommercialItemState extends State<AllCommercialItem> {
                     children: [
                       Text(
                         'г. Ташкент',
-                        style: Theme.of(context).textTheme.bodyText1,
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyText1
+                            ?.copyWith(color: grey),
                       ),
                       Container(
                         margin: const EdgeInsets.symmetric(horizontal: 4),
@@ -175,7 +178,10 @@ class _AllCommercialItemState extends State<AllCommercialItem> {
                       ),
                       Text(
                         'Сегодня',
-                        style: Theme.of(context).textTheme.bodyText1,
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyText1
+                            ?.copyWith(color: grey),
                       ),
                       const Spacer(),
                       WScaleAnimation(

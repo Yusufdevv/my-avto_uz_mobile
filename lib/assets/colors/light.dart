@@ -57,6 +57,7 @@ class LightThemeColors {
   static const snowToNero1 = _snow;
   static const whiteToNero1 = _white;
   static const whiteLilacToPayneGrey = _whiteLilac;
+  static const whiteToNero2 = _white;
 
   //for keyboard
   static const whiteToDimGray = _white;
@@ -132,6 +133,8 @@ class LightThemeColors {
   static const greySuitToWhite = _grey;
   static const snowToBlack = _snow;
   static const greyToCinnabar = _grey;
+  static const solitudeToNightRider = _solitude;
+  static const whiteToBlack = _white;
 }
 
 // Main palette (http://www.color-blindness.com/color-name-hue/).

@@ -43,9 +43,7 @@ class FavouriteItem extends StatelessWidget {
                       ]),
                   child: SvgPicture.asset(AppIcons.heartWhite),
                 ),
-                const SizedBox(
-                  width: 8,
-                ),
+                const SizedBox(width: 8),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -56,9 +54,7 @@ class FavouriteItem extends StatelessWidget {
                           .headline1!
                           .copyWith(fontSize: 14, fontWeight: FontWeight.w600),
                     ),
-                    const SizedBox(
-                      height: 4,
-                    ),
+                    const SizedBox(height: 4),
                     Text(
                       'Сохраняйте объявления, которые  понравились вам при поиске.',
                       style: Theme.of(context).textTheme.headline6!.copyWith(
@@ -71,9 +67,7 @@ class FavouriteItem extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(
-              height: 12,
-            ),
+            const SizedBox(height: 12),
             WButton(
               onTap: () =>
                   Navigator.push(context, fade(page: FavouriteScreen())),
@@ -83,7 +77,7 @@ class FavouriteItem extends StatelessWidget {
                   .extension<ThemedColors>()!
                   .cinnabar12ToCinnabar,
               textStyle:
-                  Theme.of(context).textTheme.headline5!.copyWith(fontSize: 14),
+                  Theme.of(context).textTheme.headline5!.copyWith(fontSize: 12),
             ),
           ],
         ),

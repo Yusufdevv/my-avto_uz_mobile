@@ -1,11 +1,11 @@
 import 'package:auto/assets/colors/color.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/w_check_box.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:flutter/material.dart';
 
 class WChips extends StatefulWidget {
   final String title;
-
   const WChips({required this.title, Key? key}) : super(key: key);
 
   @override
@@ -24,9 +24,17 @@ class _WChipsState extends State<WChips> {
             borderRadius: BorderRadius.circular(46),
             border: Border.all(
               width: 1,
-              color: purple,
+              color: isChecked
+                  ? purple
+                  : Theme.of(context)
+                      .extension<ThemedColors>()!
+                      .solitudeToEclipse,
             ),
-            color: purple.withOpacity(0.1),
+            color: isChecked
+                ? purple.withOpacity(0.1)
+                : Theme.of(context)
+                    .extension<ThemedColors>()!
+                    .whiteSmokeToEclipse,
           ),
           child: Row(
             children: [
@@ -39,7 +47,16 @@ class _WChipsState extends State<WChips> {
               ),
               Text(
                 widget.title,
-                style: Theme.of(context).textTheme.subtitle1,
+                style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                    color: isChecked
+                        ? Theme.of(context)
+                            .extension<ThemedColors>()!
+                            .midnightExpressToWhite
+                        : Theme.of(context)
+                            .extension<ThemedColors>()!
+                            .darkGreyToWhite),
               )
             ],
           ),

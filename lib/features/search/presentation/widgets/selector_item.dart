@@ -6,16 +6,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class SelectorItem extends StatelessWidget {
+  final String screenName;
   final String title;
   final String hintText;
   final VoidCallback onTap;
 
-  const SelectorItem(
-      {required this.onTap,
-      required this.title,
-      required this.hintText,
-      Key? key})
-      : super(key: key);
+  const SelectorItem({
+    required this.screenName,
+    required this.onTap,
+    required this.title,
+    required this.hintText,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) => Column(
@@ -23,38 +25,37 @@ class SelectorItem extends StatelessWidget {
         children: [
           Text(
             title,
-            style: Theme.of(context)
-                .textTheme
-                .headline2!
-                .copyWith(fontWeight: FontWeight.w600),
+            style: Theme.of(context).textTheme.headline2!.copyWith(
+                fontWeight: title == 'Регион' || title == 'Марка'
+                    ? FontWeight.w600
+                    : FontWeight.w400),
           ),
-          const SizedBox(
-            height: 8,
-          ),
+          const SizedBox(height: 8),
           WScaleAnimation(
             onTap: onTap,
             child: Container(
               margin: const EdgeInsets.only(bottom: 16),
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 13),
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-                border: Border.all(
-                  width: 1,
-                  color: Theme.of(context).extension<ThemedColors>()!.solitudeToDarkRider
-                ),
-                color: Theme.of(context).extension<ThemedColors>()!.solitudeToNero
-              ),
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(
+                      width: 1,
+                      color: Theme.of(context)
+                          .extension<ThemedColors>()!
+                          .solitudeToNightRider),
+                  color: Theme.of(context)
+                      .extension<ThemedColors>()!
+                      .solitudeContainerToNero1),
               child: Row(
                 children: [
                   Text(
                     hintText,
-                    style: Theme.of(context)
-                        .textTheme
-                        .subtitle1!
-                        .copyWith(color: grey),
+                    style: Theme.of(context).textTheme.subtitle1!.copyWith(
+                          color: grey,
+                        ),
                   ),
                   const Spacer(),
-                  SvgPicture.asset(AppIcons.chevronRightBlack)
+                  SvgPicture.asset(AppIcons.chevronRightBlack, color: greyText)
                 ],
               ),
             ),

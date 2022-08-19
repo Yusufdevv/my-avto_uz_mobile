@@ -35,7 +35,7 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
   Widget build(BuildContext context) => KeyboardDismisser(
         child: Scaffold(
           body: BaseWidget(
-            onTap: textController.text.isNotEmpty  ? widget.onTap : (){},
+            onTap: textController.text.isNotEmpty ? widget.onTap : () {},
             child: Padding(
               padding: const EdgeInsets.all(16),
               child: Column(
@@ -51,32 +51,34 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
                   const SizedBox(
                     height: 12,
                   ),
-                  WTextField(
-                    onChanged: (value) {},
-                    hintText:
-                        'Честно опишите достоинства и недостатки своего автомобиля',
-                    disabledBorderColor: Theme.of(context)
-                        .extension<ThemedColors>()!
-                        .transparentToNightRider,
-                    enabledBorderColor: Theme.of(context)
-                        .extension<ThemedColors>()!
-                        .transparentToNightRider,
-                    borderColor: Theme.of(context)
-                        .extension<ThemedColors>()!
-                        .transparentToNightRider,
-                    fillColor: Theme.of(context)
-                        .extension<ThemedColors>()!
-                        .whiteSmokeToDark,
-                    focusColor: Theme.of(context)
-                        .extension<ThemedColors>()!
-                        .whiteSmokeToDark,
-                    disabledColor: Theme.of(context)
-                        .extension<ThemedColors>()!
-                        .whiteSmokeToDark,
-                    controller: textController,
-                    borderRadius: 8,
-                    maxLines: null,
-                    height: 125,
+                  SizedBox(
+                    height: 124,
+                    child: WTextField(
+                      onChanged: (value) {},
+                      hintText:
+                          'Честно опишите достоинства и недостатки своего автомобиля',
+                      disabledBorderColor: Theme.of(context)
+                          .extension<ThemedColors>()!
+                          .transparentToNightRider,
+                      enabledBorderColor: Theme.of(context)
+                          .extension<ThemedColors>()!
+                          .transparentToNightRider,
+                      borderColor: Theme.of(context)
+                          .extension<ThemedColors>()!
+                          .transparentToNightRider,
+                      fillColor: Theme.of(context)
+                          .extension<ThemedColors>()!
+                          .whiteSmokeToDark,
+                      focusColor: Theme.of(context)
+                          .extension<ThemedColors>()!
+                          .whiteSmokeToDark,
+                      disabledColor: Theme.of(context)
+                          .extension<ThemedColors>()!
+                          .whiteSmokeToDark,
+                      controller: textController,
+                      borderRadius: 8,
+                      maxLines: null,
+                    ),
                   ),
                   const SizedBox(
                     height: 28,
