@@ -2,6 +2,8 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
+import 'package:auto/features/navigation/presentation/home.dart';
+import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/onboarding/presentation/widgets/social_media_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -17,7 +19,7 @@ class BaseOnBoarding extends StatelessWidget {
         child: Column(
           children: [
             WButton(
-              onTap: () {},
+              onTap: () => Navigator.pushAndRemoveUntil(context, fade(page: const HomeScreen()), (route) => false),
               text: 'Войти в систему',
               color: color,
               borderRadius: 8,

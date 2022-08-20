@@ -62,59 +62,56 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        body: Stack(
-          children: [
-            PageView(
-              onPageChanged: (int page) {
-                setState(() {
-                  currentIndex = page;
-                });
-              },
-              children: const [
-                OnBoardingItems(
-                    icon: AppImages.flash,
-                    title: 'Легкая \nпродажа авто',
-                    image: AppImages.firstImage),
-                OnBoardingItems(
-                    icon: AppImages.done,
-                    title: 'Доверенные    автосалоны',
-                    image: AppImages.secondImage),
-                OnBoardingItems(
-                  icon: AppImages.omg,
-                  hasSecondText: true,
-                  title: 'Более ',
-                  secondText: '10 000',
-                  image: AppImages.thirdImage,
-                  thirdText: ' объявлений',
-                ),
-              ],
-            ),
-            Positioned(
-              bottom: 16 + MediaQuery.of(context).padding.bottom,
-              left: 0,
-              right: 0,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 32),
-                    child: Row(
-                      children: buildIndicator(),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 32,
-                  ),
-                  BaseOnBoarding(
-                    color: currentIndex == 1 && currentIndex == 2
-                        ? Theme.of(context)
-                            .extension<ThemedColors>()!
-                            .veryLightGreyToEclipse
-                        : orange,
+        body: Column(
+           children: [
+            Expanded(
+              child: PageView(
+                onPageChanged: (int page) {
+                  setState(() {
+                    currentIndex = page;
+                  });
+                },
+                children: const [
+                  OnBoardingItems(
+                      icon: AppImages.flash,
+                      title: 'Легкая \nпродажа авто',
+                      image: AppImages.firstImage),
+                  OnBoardingItems(
+                      icon: AppImages.done,
+                      title: 'Доверенные    автосалоны',
+                      image: AppImages.secondImage),
+                  OnBoardingItems(
+                    icon: AppImages.omg,
+                    hasSecondText: true,
+                    title: 'Более ',
+                    secondText: '10 000',
+                    image: AppImages.thirdImage,
+                    thirdText: ' объявлений',
                   ),
                 ],
               ),
             ),
+            const SizedBox(height: 24,),
+            Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 32),
+                  child: Row(
+                    children: buildIndicator(),
+                  ),
+                ),
+                const SizedBox(
+                  height: 24,
+                ),
+                BaseOnBoarding(
+                  color: currentIndex == 1 && currentIndex == 2
+                      ? Theme.of(context)
+                          .extension<ThemedColors>()!
+                          .veryLightGreyToEclipse
+                      : orange,
+                ),
+              ],
+            )
           ],
         ),
       );

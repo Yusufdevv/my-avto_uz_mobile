@@ -43,12 +43,22 @@ class YearItem extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(entity.year,
-                          style: Theme.of(context)
+                      RichText(text: TextSpan(
+                        children: [
+                          TextSpan(
+                            text: entity.year.substring(0, 2), style:  Theme.of(context)
                               .textTheme
                               .headline1!
                               .copyWith(
-                                  fontSize: 16, fontWeight: FontWeight.w400)),
+                              fontSize: 16, fontWeight: FontWeight.w400, color: grey),
+                          ),
+                          TextSpan(text: entity.year.substring(2, 4), style: Theme.of(context)
+                          .textTheme
+                          .headline1!
+                          .copyWith(
+                          fontSize: 16, fontWeight: FontWeight.w400),),
+                        ]
+                      )),
                       if (id == selectedId)
                         SvgPicture.asset(
                           AppIcons.check,

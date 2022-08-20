@@ -205,7 +205,7 @@ abstract class LightTheme {
     color: LightThemeColors.headline3,
   );
   static const headline4 = TextStyle(
-    fontSize: 20,
+    fontSize: 16,
     fontWeight: FontWeight.w700,
     color: LightThemeColors.headline4,
     height: 1.2,

@@ -35,50 +35,49 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
   Widget build(BuildContext context) => KeyboardDismisser(
         child: Scaffold(
           body: BaseWidget(
-            onTap: textController.text.isNotEmpty ? widget.onTap : () {},
+            onTap: textController.text.isEmpty ? (){} : widget.onTap,
             child: Padding(
               padding: const EdgeInsets.all(16),
               child: Column(
                 children: [
-                  Text(
-                    'Пожалуйста, не указывайте ссылки, цену, контактные данные и не предлагайте услуги — такое объявление не пройдет модерацию',
-                    style: Theme.of(context).textTheme.headline6!.copyWith(
-                        fontSize: 14,
-                        color: Theme.of(context)
-                            .extension<ThemedColors>()!
-                            .aluminumToDolphin),
-                  ),
+                Expanded(child: ListView(children: [  Text(
+                  'Пожалуйста, не указывайте ссылки, цену, контактные данные и не предлагайте услуги — такое объявление не пройдет модерацию',
+                  style: Theme.of(context).textTheme.headline6!.copyWith(
+                      fontSize: 14,
+                      color: Theme.of(context)
+                          .extension<ThemedColors>()!
+                          .aluminumToDolphin),
+                ),
                   const SizedBox(
                     height: 12,
                   ),
-                  SizedBox(
-                    height: 124,
-                    child: WTextField(
-                      onChanged: (value) {},
-                      hintText:
-                          'Честно опишите достоинства и недостатки своего автомобиля',
-                      disabledBorderColor: Theme.of(context)
-                          .extension<ThemedColors>()!
-                          .transparentToNightRider,
-                      enabledBorderColor: Theme.of(context)
-                          .extension<ThemedColors>()!
-                          .transparentToNightRider,
-                      borderColor: Theme.of(context)
-                          .extension<ThemedColors>()!
-                          .transparentToNightRider,
-                      fillColor: Theme.of(context)
-                          .extension<ThemedColors>()!
-                          .whiteSmokeToDark,
-                      focusColor: Theme.of(context)
-                          .extension<ThemedColors>()!
-                          .whiteSmokeToDark,
-                      disabledColor: Theme.of(context)
-                          .extension<ThemedColors>()!
-                          .whiteSmokeToDark,
-                      controller: textController,
-                      borderRadius: 8,
-                      maxLines: null,
-                    ),
+                  WTextField(
+                    onChanged: (value) {},
+
+                    hintText:
+                    'Честно опишите достоинства и недостатки своего автомобиля',
+                    disabledBorderColor: Theme.of(context)
+                        .extension<ThemedColors>()!
+                        .transparentToNightRider,
+                    enabledBorderColor: Theme.of(context)
+                        .extension<ThemedColors>()!
+                        .transparentToNightRider,
+                    borderColor: Theme.of(context)
+                        .extension<ThemedColors>()!
+                        .transparentToNightRider,
+                    fillColor: Theme.of(context)
+                        .extension<ThemedColors>()!
+                        .whiteSmokeToDark,
+                    focusColor: Theme.of(context)
+                        .extension<ThemedColors>()!
+                        .whiteSmokeToDark,
+                    disabledColor: Theme.of(context)
+                        .extension<ThemedColors>()!
+                        .whiteSmokeToDark,
+                    controller: textController,
+                    borderRadius: 8,
+                    maxLines: 6,
+                    height: 125,
                   ),
                   const SizedBox(
                     height: 28,
@@ -100,7 +99,7 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
                                 .copyWith(color: greyText),
                           )
                         ],
-                      ))
+                      ))],))
                 ],
               ),
             ),

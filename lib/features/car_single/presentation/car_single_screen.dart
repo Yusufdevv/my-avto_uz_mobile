@@ -31,6 +31,7 @@ backgroundColor: Theme.of(context).scaffoldBackgroundColor,
               floating: false,
               elevation: 0,
               expandedHeight: 300,
+              automaticallyImplyLeading: false,
               title: Row(
                 children: [
                   GestureDetector(
