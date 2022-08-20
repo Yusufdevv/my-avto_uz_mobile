@@ -54,25 +54,21 @@ class _ParameterScreenState extends State<ParameterScreen> {
                         onTap: () {},
                         hintText: 'Выберите тип кузова',
                         title: 'Тип кузова',
-                        screenName: 'commercial',
                       ),
                       SelectorItem(
                         onTap: () {},
                         hintText: 'Выберите класс',
                         title: 'Класс',
-                        screenName: 'commercial',
                       ),
                       SelectorItem(
                         onTap: () {},
                         hintText: 'Выберите тип привода',
                         title: 'Привод',
-                        screenName: 'commercial',
                       ),
                       SelectorItem(
                         onTap: () {},
                         hintText: 'Выберите тип коробки',
                         title: 'Коробка',
-                        screenName: 'commercial',
                       ),
                       const SizedBox(
                         height: 16,

@@ -102,7 +102,6 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
   final Color solitudeToNightRider;
   final Color whiteToNero2;
   final Color whiteToBlack;
-  final Color whiteToBlack;
 
   const ThemedColors({
     required this.ghostToGondola,
@@ -422,100 +421,6 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
             veryLightGreyToEclipse ?? this.veryLightGreyToEclipse,
         solitudeToNightRider:
             solitude2ToNightRider ?? this.solitude2ToNightRider,
-        // solitudeToDolphinBorder:
-        //     solitudeToDolphinBorder ?? this.solitudeToDolphinBorder,
-        // darkToGrey: darkToGrey ?? this.darkToGrey,
-        // greyContainer26: greyContainer26 ?? this.greyContainer26,
-        // tangerineYellowToMediumSlateBlue: tangerineYellowToMediumSlateBlue ??
-        //     this.tangerineYellowToMediumSlateBlue,
-        // redContainer26: redContainer26 ?? this.redContainer26,
-        // greenContainer26: greenContainer26 ?? this.greenContainer26,
-        // blueContainer26: blueContainer26 ?? this.blueContainer26,
-        // whiteSmoke78ToWhiteSmoke12:
-        //     whiteSmoke78ToWhiteSmoke12 ?? this.whiteSmoke78ToWhiteSmoke12,
-        // darkToPurple: darkToPurple ?? this.darkToPurple,
-        // greyToDarkRider: greyToDarkRider ?? this.greyToDarkRider,
-        // blackToWhite: blackToWhite ?? this.blackToWhite,
-        // whiteSmoke2ToNightRider:
-        //     whiteSmoke2ToNightRider ?? this.whiteSmoke2ToNightRider,
-        // lightGreenToDarkGreen:
-        //     lightGreenToDarkGreen ?? this.lightGreenToDarkGreen,
-        // borderGreyToGreen: borderGreyToGreen ?? this.borderGreyToGreen,
-        // whiteToDarkRider: whiteToDarkRider ?? this.whiteToDarkRider,
-        // iconPearlToWhite: iconPearlToWhite ?? this.iconPearlToWhite,
-        // borderGreyToDark: borderGreyToDark ?? this.darkGreyToWhite,
-        // ghostToGondola: ghostToGondola ?? this.ghostToGondola,
-        // dividerColorToGrey: dividerColorToGrey ?? this.dividerColorToGrey,
-        // dolphinToGreySuit: dolphinToGreySuit ?? this.dolphinToGreySuit,
-        // dolphinToWhite60: dolphinToWhite60 ?? this.dolphinToWhite60,
-        // solitudeToDolphin8: solitudeToDolphin8 ?? this.solitudeToDolphin8,
-        // whiteLilacToWhite4: whiteLilacToWhite4 ?? this.whiteLilacToWhite4,
-        // whiteToSecondNero: whiteToSecondNero ?? this.whiteToSecondNero,
-        // solitudeBorderToSolitudeBorder10: solitudeBorderToSolitudeBorder10 ??
-        //     this.solitudeBorderToSolitudeBorder10,
-        // lightSlateBlue12ToLightSlateBlue: lightSlateBlue12ToLightSlateBlue ??
-        //     this.lightSlateBlue12ToLightSlateBlue,
-        // mediumSlateBlueToWhite:
-        //     mediumSlateBlueToWhite ?? this.mediumSlateBlueToWhite,
-        // greySuitToWhite60: greySuitToWhite60 ?? this.greySuitToWhite60,
-        // solitudeToPayneGrey: solitudeToPayneGrey ?? this.solitudeToPayneGrey,
-        // whiteLilacToWhiteLilac10:
-        //     whiteLilacToWhiteLilac10 ?? this.whiteLilacToWhiteLilac10,
-        // whiteToWhite8: whiteToWhite8 ?? this.whiteToWhite8,
-        // solitudeToGondola: solitudeToGondola ?? this.solitudeToGondola,
-        // aluminumToDolphin: aluminumToDolphin ?? this.aluminumToDolphin,
-        // dividerColorToWhiteOpacity:
-        //     dividerColorToWhiteOpacity ?? this.dividerColorToWhiteOpacity,
-        // solitudeToNero: solitudeToNero ?? this.solitudeToNero,
-        // ghostToEclipse: ghostToEclipse ?? this.ghostToEclipse,
-        // cinnabar12ToCinnabar: cinnabar12ToCinnabar ?? this.cinnabar12ToCinnabar,
-        // whiteToSmoky: whiteToSmoky ?? this.whiteToSmoky,
-        // solitudeToEclipse: solitudeToEclipse ?? this.solitudeToEclipse,
-        // snowToNero: snowToNero ?? this.snowToNero,
-        // stormGrey12ToStormGrey24:
-        //     stormGrey12ToStormGrey24 ?? this.stormGrey12ToStormGrey24,
-        // whiteSmokeToEclipse: whiteSmokeToEclipse ?? this.whiteSmokeToEclipse,
-        // solitudeContainerToDark:
-        //     solitudeContainerToDark ?? this.solitudeContainerToDark,
-        // lavenderToUltramarine30:
-        //     lavenderToUltramarine30 ?? this.lavenderToUltramarine30,
-        // ghostWhiteToUltramarine10:
-        //     ghostWhiteToUltramarine10 ?? this.ghostWhiteToUltramarine10,
-        // lavenderToMediumSlateBlue30:
-        //     lavenderToMediumSlateBlue30 ?? this.lavenderToMediumSlateBlue30,
-        // stormGrey16ToStormGrey32:
-        //     stormGrey16ToStormGrey32 ?? this.stormGrey16ToStormGrey32,
-        // transparentToNightRider:
-        //     transparentToNightRider ?? this.transparentToNightRider,
-        // mediumSlateBlue50ToNightRider:
-        //     mediumSlateBlue50ToNightRider ?? this.mediumSlateBlue50ToNightRider,
-        // whiteSmokeToDark: whiteSmokeToDark ?? this.whiteSmokeToDark,
-        // solitudeToDarkRider: solitudeToDarkRider ?? this.solitudeToDarkRider,
-        // snowToNightRider: snowToNightRider ?? this.snowToNightRider,
-        // solitudeToCharcoal: solitudeToCharcoal ?? this.solitudeToCharcoal,
-        // darkGreyToWhite: darkGreyToWhite ?? this.darkGreyToWhite,
-        // whiteToDark: whiteToDark ?? this.whiteToDark,
-        // midnightExpressToWhite:
-        //     midnightExpressToWhite ?? this.midnightExpressToWhite,
-        // prussianBlueToWhite80:
-        //     prussianBlueToWhite80 ?? this.prussianBlueToWhite80,
-        // blackToWhite80: blackToWhite80 ?? this.blackToWhite80,
-        // dodgerBlueToWhite80: dodgerBlueToWhite80 ?? this.dodgerBlueToWhite80,
-        // solitudeToDarkGray95: solitudeToDarkGray95 ?? this.solitudeToDarkGray95,
-        // darkToWhite: darkToWhite ?? this.darkToWhite,
-        // whiteToGondola: whiteToGondola ?? this.whiteToGondola,
-        // transparentToSolitude12:
-        //     transparentToSolitude12 ?? this.transparentToSolitude12,
-        // solitudeToSolitude14: solitudeToSolitude14 ?? this.solitudeToSolitude14,
-        // solitudeToWhite35: solitudeToWhite35 ?? this.solitudeToWhite35,
-        // whiteToDolphin: whiteToDolphin ?? this.whiteToDolphin,
-        // solitudeToBastille: solitudeToBastille ?? this.solitudeToBastille,
-        // whiteToWhiteOpacity20:
-        //     whiteToWhiteOpacity20 ?? this.whiteToWhiteOpacity20,
-        // midnightExpressToDolphin:
-        //     midnightExpressToDolphin ?? this.midnightExpressToDolphin,
-        // veryLightGreyToEclipse:
-        //     veryLightGreyToEclipse ?? this.veryLightGreyToEclipse,
         whiteSmokeToNightRider:
             whiteSmokeToNightRider ?? this.whiteSmokeToNightRider,
         whiteToNero: whiteToNero ?? this.whiteToNero,
