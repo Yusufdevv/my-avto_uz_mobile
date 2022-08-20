@@ -205,7 +205,6 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
     required this.solitudeToNightRider,
     required this.whiteToNero2,
     required this.whiteToBlack,
-    required this.whiteToBlack,
   });
 
   @override
@@ -311,7 +310,6 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
     Color? whiteToBlack,
     Color? solitudeContainerToBlack,
     Color? solitudeContainerToNero1,
-    Color? whiteToBlack,
   }) =>
       ThemedColors(
         whiteToBlack: whiteToBlack ?? this.whiteToBlack,
@@ -450,7 +448,6 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
         solitudeContainerToNero1:
             solitudeContainerToNero1 ?? this.solitudeContainerToNero1,
         whiteToNero2: whiteToNero2 ?? this.whiteToNero2,
-        whiteToBlack: whiteToBlack ?? this.whiteToBlack,
       );
 
   @override
@@ -731,8 +728,6 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
               solitudeToNightRider,
       whiteToNero2:
           Color.lerp(whiteToNero2, other.whiteToNero2, t) ?? whiteToNero2,
-      whiteToBlack:
-          Color.lerp(whiteToBlack, other.whiteToBlack, t) ?? whiteToBlack,
       whiteToEclipse:
           Color.lerp(whiteToEclipse, other.whiteToEclipse, t) ?? whiteToEclipse,
     );

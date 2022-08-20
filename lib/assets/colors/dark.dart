@@ -146,7 +146,6 @@ class DarkThemeColors {
   static const silver50ToNightRider = _nightRider;
   static const whiteSmokeToBlack = _black;
   static const silverToNightRider = _nightRider;
-  static const whiteToBlack = _black;
 }
 
 // Main palette (http://www.color-blindness.com/color-name-hue/).
