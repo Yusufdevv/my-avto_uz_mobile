@@ -39,12 +39,19 @@ class AllRationItem extends StatelessWidget {
                   initialRating: 3,
                   minRating: 1,
                   itemSize: 16,
-                  unratedColor: Theme.of(context).extension<ThemedColors>()!.solitudeToDolphinBorder,
+                  unratedColor: Theme.of(context)
+                      .extension<ThemedColors>()!
+                      .solitudeToDolphinBorder,
                   itemPadding: const EdgeInsets.symmetric(horizontal: 1),
-                  itemBuilder: (context, _) => SizedBox(height: 16, width: 16, child: SvgPicture.asset(AppIcons.star)),
+                  itemBuilder: (context, _) => SizedBox(
+                      height: 16,
+                      width: 16,
+                      child: SvgPicture.asset(AppIcons.star)),
                   onRatingUpdate: (rating) {},
                 ),
-                const SizedBox(width: 12,),
+                const SizedBox(
+                  width: 12,
+                ),
                 Text(
                   '57 моделей, 9 отзывов',
                   style: Theme.of(context)
@@ -83,7 +90,9 @@ class AllRationItem extends StatelessWidget {
                         ),
                       ]),
                 ),
-                const SizedBox(width: 28,),
+                const SizedBox(
+                  width: 28,
+                ),
                 RichText(
                   text: TextSpan(
                       text: 'Минусы',

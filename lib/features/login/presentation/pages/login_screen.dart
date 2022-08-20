@@ -1,16 +1,15 @@
 import 'package:auto/assets/colors/color.dart';
+import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
-import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
-import 'package:auto/assets/constants/icons.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:auto/features/login/presentation/pages/password_recovery_screen.dart';
 import 'package:auto/features/login/presentation/pages/register_screen.dart';
 import 'package:auto/features/login/presentation/widgets/z_text_form_field.dart';
 import 'package:auto/features/navigation/presentation/home.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -46,7 +45,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
           leading: Padding(
-            padding: EdgeInsets.all(16),
+            padding: const EdgeInsets.all(16),
             child: SvgPicture.asset(
               AppIcons.chevronLeft,
               height: 24,
@@ -163,8 +162,11 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
         ),
         bottomNavigationBar: WButton(
-          onTap: () => Navigator.pushAndRemoveUntil(
-              context, fade(page: const HomeScreen()), (route) => false),
+          onTap: () => phoneController.text.isEmpty ||
+                  passwordController.text.isEmpty
+              ? () {}
+              : Navigator.pushAndRemoveUntil(
+                  context, fade(page: const HomeScreen()), (route) => false),
           shadow: [
             BoxShadow(
                 offset: const Offset(0, 1),

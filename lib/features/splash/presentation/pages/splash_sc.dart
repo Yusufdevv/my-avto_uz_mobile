@@ -1,9 +1,10 @@
 import 'dart:async';
+
 import 'package:auto/assets/themes/theme_extensions/themed_icons.dart';
 import 'package:auto/features/onboarding/presentation/first_onboarding.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:lottie/lottie.dart';
+//import 'package:lottie/lottie.dart';
 
 class SplashSc extends StatefulWidget {
   @override
@@ -25,12 +26,12 @@ class _SplashScState extends State<SplashSc> {
         body: Center(
           child: Column(
             children: [
-              Spacer(),
+              const Spacer(),
               SvgPicture.asset(
                 Theme.of(context).extension<ThemedIcons>()!.autoUzLightDark,
               ),
-              Spacer(),
-              Lottie.asset('assets/lottie/red_car.json', height: 86),
+              const Spacer(),
+              //Lottie.asset('assets/lottie/red_car.json', height: 86),
             ],
           ),
         ),

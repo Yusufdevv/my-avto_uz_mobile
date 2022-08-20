@@ -65,7 +65,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
         body: Stack(
           children: [
             PageView(
-              onPageChanged: (int page) {
+              onPageChanged: (page) {
                 setState(() {
                   currentIndex = page;
                 });
