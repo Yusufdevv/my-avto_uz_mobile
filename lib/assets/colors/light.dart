@@ -47,7 +47,7 @@ class LightThemeColors {
   static const gainsboroToBlack = _solitude1;
   static const solitude1ToNero = _solitude1;
   static const solitude2ToNightRider = _solitude2;
-  static const solitude2ToNero = _solitude2;
+  static const solitude2ToNero = _solitude3;
   static const whiteWithOpacity90ToNero = _whiteWithOpacity90ToNero;
   static const whiteSmoke2ToNightRider = _whiteSmoke2;
   static const solitudeTo1Black = _solitude1;
@@ -69,7 +69,7 @@ class LightThemeColors {
   static const dividerColorToGrey = _solitude;
   static const warmerGreyToDarkGray = _ghost;
   static const lightGreyToEclipse = _eclipse;
-  static const solitudeToNero = _solitude2;
+  static const solitudeToNero = _solitude3;
   static const solitudeToDarkRider = _solitudeBorder;
   static const veryLightGreyToEclipse = _veryLightGrey;
   static const whiteToDolphin = _white;
@@ -151,6 +151,7 @@ const _nero = Color(0xff2B2B2B);
 const _dolphin = Color(0xff696974);
 const _solitude = Color(0xffE2E2EA);
 const _solitude2 = Color(0xffF1F1F5);
+const _solitude3= Color(0xffFAFAFB);
 const _white = Color(0xffffffff);
 const _whiteWithOpacity90ToNero = Color.fromRGBO(255, 255, 255, 9);
 const _ghost = Color(0xffB5B5BE);

@@ -46,7 +46,7 @@ class OnBoardingItems extends StatelessWidget {
                   )),
             ),
           ),
-          Image.asset(image),
+          Expanded(child: Image.asset(image,width: double.maxFinite,),),
           Padding(
             padding: const EdgeInsets.only(left: 32),
             child: RichText(

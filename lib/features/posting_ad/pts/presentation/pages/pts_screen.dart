@@ -50,7 +50,7 @@ class _PtsScreenState extends State<PtsScreen> {
           child: Scaffold(
             body: BaseWidget(
               onTap:  ownerId.isNotEmpty && currentId.isNotEmpty ? widget.onTap:  (){} ,
-              child: Padding(
+              child: SingleChildScrollView(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 16, vertical: 25),
                 child: Column(
@@ -132,6 +132,7 @@ class _PtsScreenState extends State<PtsScreen> {
                         ),
                       ),
                     ),
+                    const SizedBox(height: 50,)
                   ],
                 ),
               ),

@@ -77,7 +77,7 @@ class FavouriteItem extends StatelessWidget {
                   .extension<ThemedColors>()!
                   .cinnabar12ToCinnabar,
               textStyle:
-                  Theme.of(context).textTheme.headline5!.copyWith(fontSize: 12),
+                  Theme.of(context).textTheme.headline1!.copyWith(fontSize: 12, fontWeight: FontWeight.w600),
             ),
           ],
         ),

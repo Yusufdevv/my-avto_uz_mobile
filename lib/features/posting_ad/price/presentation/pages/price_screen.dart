@@ -29,7 +29,7 @@ class _PriceScreenState extends State<PriceScreen> {
   Widget build(BuildContext context) => KeyboardDismisser(
         child: Scaffold(
           body: BaseWidget(
-            onTap: priceController.text.isNotEmpty ? widget.onTap : (){},
+            onTap: priceController.text.isEmpty ? (){} : widget.onTap,
             child: Padding(
               padding: const EdgeInsets.all(16),
               child: Column(
