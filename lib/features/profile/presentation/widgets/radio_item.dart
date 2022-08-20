@@ -26,7 +26,7 @@ class RadioItem extends StatelessWidget {
           onTap(groupValue);
         },
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 16),
+          padding: const EdgeInsets.symmetric(vertical: 14),
           child: Column(
             children: [
               Row(
@@ -43,7 +43,7 @@ class RadioItem extends StatelessWidget {
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(2),
                             child: Image.asset(
-                              img! ,
+                              img!,
                             ),
                           ),
                         ),
@@ -68,7 +68,6 @@ class RadioItem extends StatelessWidget {
                   const SizedBox(width: 4),
                 ],
               ),
-
             ],
           ),
         ),

@@ -62,6 +62,7 @@ abstract class LightTheme {
             unselectedBackgroundColor1: LightThemeColors.whiteToEclipse,
           ),
           ThemedColors(
+            whiteToBlack: LightThemeColors.whiteToBlack,
             dividerColorToGrey: LightThemeColors.dividerColorToGrey,
             darkToWhite: LightThemeColors.darkToWhite,
             prussianBlueToWhite80: LightThemeColors.prussianBlueToWhite80,
@@ -178,6 +179,7 @@ abstract class LightTheme {
             imageUrl: LightIcons.logo,
             check: LightIcons.check,
             filterIcon: LightIcons.filterIcon,
+            autoUzLightDark: LightIcons.autoUzLightDark,
           ),
         },
       );

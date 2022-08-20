@@ -177,6 +177,7 @@ abstract class DarkTheme {
             ghostToGondola: DarkThemeColors.ghostToGondola,
             whiteToEclipse: DarkThemeColors.whiteToEclipse,
             solitudeContainerToBlack: DarkThemeColors.solitudeContainerToBlack,
+            whiteToBlack: DarkThemeColors.whiteToBlack,
           ),
           WTextFieldStyle(
             fillColor: DarkThemeColors.solitudeToNero,
@@ -186,6 +187,7 @@ abstract class DarkTheme {
             imageUrl: DarkIcons.logo,
             check: DarkIcons.blueCheck,
             filterIcon: DarkIcons.filterIcon,
+            autoUzLightDark: DarkIcons.autoUzLightDark,
           ),
         },
       );

@@ -44,6 +44,7 @@ class WTextField extends StatefulWidget {
   final double sizeBetweenFieldTitle;
   final Color? errorColor;
   final Color? fillColor;
+  final Color? cursorColor;
   final EdgeInsets? margin;
   final VoidCallback? onEyeTap;
   final FocusNode? focusNode;
@@ -124,6 +125,7 @@ class WTextField extends StatefulWidget {
     this.suffixTitleWidget,
     this.hintNextToTitle = '',
     this.hasSearch,
+    this.cursorColor,
   }) : super(key: key);
 
   @override
@@ -230,7 +232,8 @@ class _WTextFieldState extends State<WTextField>
                       maxLength: widget.maxLength,
                       controller: widget.controller,
                       autofocus: widget.autoFocus,
-                      cursorColor: Theme.of(context).colorScheme.surface,
+                      cursorColor: widget.cursorColor ??
+                          Theme.of(context).colorScheme.surface,
                       obscuringCharacter: '●',
                       cursorHeight: 18,
                       onEditingComplete: widget.onEditCompleted,
@@ -398,8 +401,8 @@ class _WTextFieldState extends State<WTextField>
                               )
                             : const SizedBox()
                         : Padding(
-                            padding: widget.suffixPadding ??
-                                const EdgeInsets.all(8),
+                            padding:
+                                widget.suffixPadding ?? const EdgeInsets.all(8),
                             child: widget.suffix ?? const SizedBox(),
                           ),
                   ),

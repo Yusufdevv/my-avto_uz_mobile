@@ -1,6 +1,8 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/images.dart';
+import 'package:auto/features/navigation/presentation/navigator.dart';
+import 'package:auto/features/onboarding/presentation/pages/on_boarding_screen.dart';
 import 'package:auto/features/onboarding/presentation/widgets/language_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -46,23 +48,23 @@ class OnBoardingBottom extends StatelessWidget {
                         WidgetSpan(child: Image.asset(AppImages.magic))
                       ]),
                 ),
-                const SizedBox(height: 35,),
+                const SizedBox(
+                  height: 35,
+                ),
                 const LanguageItem()
               ],
             ),
           ),
           Container(
             decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.bottomCenter,
-                end: Alignment.topCenter,
-                colors: [
+                gradient: LinearGradient(
+                    begin: Alignment.bottomCenter,
+                    end: Alignment.topCenter,
+                    colors: [
                   orange.withOpacity(.03),
                   orange.withOpacity(.1),
                   orange.withOpacity(.01),
-                ]
-              )
-            ),
+                ])),
           ),
           Positioned(
               right: 0,
@@ -73,7 +75,8 @@ class OnBoardingBottom extends StatelessWidget {
                       right: 10,
                       top: 110,
                       child: GestureDetector(
-                          onTap: () => print('clicked'),
+                          onTap: () => Navigator.of(context)
+                              .push(fade(page: const OnBoardingScreen())),
                           child: SvgPicture.asset(
                             AppIcons.arrowRight,
                           ))),

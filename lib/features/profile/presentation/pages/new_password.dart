@@ -33,7 +33,7 @@ class NewPasswordsPage extends StatelessWidget {
                         .copyWith(fontSize: 32),
                   ),
                   const SizedBox(height: 6),
-                  Text('Придумайте новый пароль \nи постарайтесь не забыть',
+                  Text('Придумайте новый пароль\nи постарайтесь не забыть',
                       style: Theme.of(context).textTheme.headline2),
                   const SizedBox(height: 36),
                   Align(

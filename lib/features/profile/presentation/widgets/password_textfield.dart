@@ -1,4 +1,4 @@
-import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/assets/colors/color.dart';
 import 'package:auto/features/common/widgets/w_textfield.dart';
 import 'package:flutter/material.dart';
 
@@ -21,6 +21,9 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
 
   @override
   Widget build(BuildContext context) => WTextField(
+      focusColor: Theme.of(context).appBarTheme.backgroundColor,
+      borderColor: purple,
+      cursorColor: purple,
       isObscure: obScure,
       onObscure: () {
         setState(() {
@@ -36,11 +39,9 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
           .headline1!
           .copyWith(fontSize: 14, fontWeight: FontWeight.w600),
       borderRadius: 8,
-      disabledBorderColor:
-          Theme.of(context).extension<ThemedColors>()!.blueContainer26,
       height: 44,
       fillColor: Theme.of(context).appBarTheme.backgroundColor,
-      hasBorderColor: false,
+      hasBorderColor: true,
       controller: widget.controller,
       hintText: widget.hintText,
       disabledColor: Theme.of(context).appBarTheme.backgroundColor,
