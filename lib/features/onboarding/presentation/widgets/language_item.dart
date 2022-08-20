@@ -13,45 +13,91 @@ class LanguageItem extends StatefulWidget {
 }
 
 class _LanguageItemState extends State<LanguageItem> {
-  bool isSelected = false;
+  bool isSelected = true;
   @override
   Widget build(BuildContext context) => Row(
         children: [
           Expanded(
             child: WButton(
               onTap: () {
-                setState((){
+                setState(() {
                   isSelected = true;
                 });
               },
-              color: isSelected ? orange : Theme.of(context).extension<ThemedColors>()!.solitudeToCharcoal,
+              color: isSelected
+                  ? orange
+                  : Theme.of(context)
+                      .extension<ThemedColors>()!
+                      .solitudeToCharcoal,
               child: Row(
-
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  ClipRRect(borderRadius: BorderRadius.circular(20), child: SvgPicture.asset(AppIcons.russia, fit: BoxFit.cover,),),
-                  const SizedBox(width: 4,),
-                  Text('Русский', style: isSelected ?  Theme.of(context).textTheme.bodyText1!.copyWith(fontWeight: FontWeight.w600, color: white) : Theme.of(context).textTheme.bodyText1!.copyWith(fontWeight: FontWeight.w600),),
-
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(20),
+                    child: SvgPicture.asset(
+                      AppIcons.russia,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 4,
+                  ),
+                  Text(
+                    'Русский',
+                    style: isSelected
+                        ? Theme.of(context)
+                            .textTheme
+                            .bodyText1!
+                            .copyWith(fontWeight: FontWeight.w600, color: white)
+                        : Theme.of(context).textTheme.bodyText1!.copyWith(
+                            fontWeight: FontWeight.w600,
+                            color: Theme.of(context)
+                                .extension<ThemedColors>()!
+                                .greySuitToWhite),
+                  ),
                 ],
               ),
             ),
           ),
-          const SizedBox(width: 15,),
+          const SizedBox(
+            width: 16,
+          ),
           Expanded(
             child: WButton(
-              color: isSelected ? Theme.of(context).extension<ThemedColors>()!.solitudeToCharcoal : orange ,
+              color: isSelected
+                  ? Theme.of(context)
+                      .extension<ThemedColors>()!
+                      .solitudeToCharcoal
+                  : orange,
               onTap: () {
-                setState((){
+                setState(() {
                   isSelected = false;
                 });
               },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  ClipRRect(borderRadius: BorderRadius.circular(20), child: SvgPicture.asset(AppIcons.uzbekistan, fit: BoxFit.cover,),),
-                  const SizedBox(width: 4,),
-                  Text('O‘zbekcha', style: isSelected ?   Theme.of(context).textTheme.bodyText1!.copyWith(fontWeight: FontWeight.w600) :  Theme.of(context).textTheme.bodyText1!.copyWith(fontWeight: FontWeight.w600, color: white),),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(20),
+                    child: SvgPicture.asset(
+                      AppIcons.uzbekistan,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 4,
+                  ),
+                  Text(
+                    'O‘zbekcha',
+                    style: isSelected
+                        ? Theme.of(context).textTheme.bodyText1!.copyWith(
+                            fontWeight: FontWeight.w600,
+                            color: Theme.of(context)
+                                .extension<ThemedColors>()!
+                                .greySuitToWhite)
+                        : Theme.of(context).textTheme.bodyText1!.copyWith(
+                            fontWeight: FontWeight.w600, color: white),
+                  ),
                 ],
               ),
             ),

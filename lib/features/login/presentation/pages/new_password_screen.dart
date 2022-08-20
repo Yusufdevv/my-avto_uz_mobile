@@ -74,13 +74,18 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                         hintText: 'Подтверждение пароля',
                         controller: confirmPasswordController,
                       ),
-                      const SizedBox(height: 10,)
+                      const SizedBox(
+                        height: 10,
+                      )
                     ],
                   ),
                 ),
                 WButton(
-                  onTap: () => Navigator.pushAndRemoveUntil(context,
-                      fade(page: const HomeScreen()), (route) => false),
+                  onTap: () => newPasswordController.text.isEmpty ||
+                          confirmPasswordController.text.isEmpty
+                      ? () {}
+                      : Navigator.pushAndRemoveUntil(context,
+                          fade(page: const HomeScreen()), (route) => false),
                   shadow: [
                     BoxShadow(
                         offset: const Offset(0, 1),

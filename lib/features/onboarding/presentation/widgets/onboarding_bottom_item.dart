@@ -7,12 +7,28 @@ import 'package:auto/features/onboarding/presentation/widgets/language_item.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-class OnBoardingBottom extends StatelessWidget {
+class OnBoardingBottom extends StatefulWidget {
   const OnBoardingBottom({Key? key}) : super(key: key);
 
   @override
+  State<OnBoardingBottom> createState() => _OnBoardingBottomState();
+}
+
+class _OnBoardingBottomState extends State<OnBoardingBottom> {
+  @override
   Widget build(BuildContext context) => Stack(
         children: [
+          Container(
+            decoration: BoxDecoration(
+                gradient: LinearGradient(
+                    begin: Alignment.bottomCenter,
+                    end: Alignment.topCenter,
+                    colors: [
+                  orange.withOpacity(.03),
+                  orange.withOpacity(.1),
+                  orange.withOpacity(.01),
+                ])),
+          ),
           Padding(
             padding: const EdgeInsets.symmetric(
               horizontal: 32,
@@ -55,31 +71,22 @@ class OnBoardingBottom extends StatelessWidget {
               ],
             ),
           ),
-          Container(
-            decoration: BoxDecoration(
-                gradient: LinearGradient(
-                    begin: Alignment.bottomCenter,
-                    end: Alignment.topCenter,
-                    colors: [
-                  orange.withOpacity(.03),
-                  orange.withOpacity(.1),
-                  orange.withOpacity(.01),
-                ])),
-          ),
           Positioned(
               right: 0,
               child: Stack(
                 children: [
                   SvgPicture.asset(AppIcons.orangePolygon),
                   Positioned(
-                      right: 10,
-                      top: 110,
-                      child: GestureDetector(
-                          onTap: () => Navigator.of(context)
-                              .push(fade(page: const OnBoardingScreen())),
-                          child: SvgPicture.asset(
-                            AppIcons.arrowRight,
-                          ))),
+                    right: 10,
+                    top: 110,
+                    child: GestureDetector(
+                      onTap: () => Navigator.of(context)
+                          .push(fade(page: const OnBoardingScreen())),
+                      child: SvgPicture.asset(
+                        AppIcons.arrowRight,
+                      ),
+                    ),
+                  ),
                 ],
               ))
         ],

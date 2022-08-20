@@ -10,7 +10,7 @@ class FirstOnBoarding extends StatelessWidget {
         body: Column(
           children: [
             Expanded(flex: 3, child: StackedOnBoardingWidget()),
-            Expanded(flex: 2, child: OnBoardingBottom())
+            const Expanded(flex: 2, child: OnBoardingBottom())
           ],
         ),
       );
