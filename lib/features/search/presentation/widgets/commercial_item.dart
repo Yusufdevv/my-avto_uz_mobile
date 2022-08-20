@@ -2,7 +2,6 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
-import 'package:auto/features/common/widgets/w_sliver_app_bar.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/profile/domain/entities/profile_item.dart';
 import 'package:auto/features/profile/presentation/widgets/profile_tab_bar.dart';
@@ -10,6 +9,7 @@ import 'package:auto/features/search/domain/entities/commercial_item_entity.dart
 import 'package:auto/features/search/presentation/pages/parameter_screen.dart';
 import 'package:auto/features/search/presentation/pages/select_car.dart';
 import 'package:auto/features/search/presentation/widgets/all_commertial_item.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -61,25 +61,49 @@ class _CommercialItemState extends State<CommercialItem>
   @override
   Widget build(BuildContext context) => Scaffold(
         body: NestedScrollView(
-          headerSliverBuilder: (context, item) => [
-            WSliverAppBar(
-              title: 'Лёгкий коммерческий транспорт',
-              icon: WScaleAnimation(
+          headerSliverBuilder: (context, item) => <Widget>[
+            SliverAppBar(
+              elevation: 0,
+              pinned: true,
+              titleSpacing: 16,
+              title: Row(
+                children: [
+                  GestureDetector(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 20),
+                      child: SvgPicture.asset(AppIcons.chevronLeft),
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  Text(
+                    'Лёгкий коммерческий транспорт',
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline1
+                        ?.copyWith(fontSize: 16, fontWeight: FontWeight.w600),
+                  ),
+                ],
+              ),
+              actions: [
+                WScaleAnimation(
                   onTap: () => Navigator.push(
                       context, fade(page: const SelectCarScreen())),
-                  child: SvgPicture.asset(AppIcons.searchWithHeart)),
-              child: Expanded(
-                child: ProfileTabBar(
-                  tabController: tabController,
-                  onTap: (index) {},
-                  tabs: const [
-                    'Все',
-                    'Новые',
-                    'С пробегом',
-                  ],
+                  child: SvgPicture.asset(AppIcons.searchWithHeart),
                 ),
-              ),
+                const SizedBox(width: 16),
+              ],
             ),
+            SliverPersistentHeader(
+              delegate: ProfileTabBar(
+                tabController: tabController,
+                onTap: (index) {},
+                tabs: const [
+                  'Все',
+                  'Новые',
+                  'С пробегом',
+                ],
+              ),
+            )
           ],
           body: TabBarView(
             controller: tabController,
@@ -88,9 +112,9 @@ class _CommercialItemState extends State<CommercialItem>
                 child: Column(
                   children: [
                     Container(
-                      margin: EdgeInsets.fromLTRB(16, 16, 16, 12),
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                      margin: const EdgeInsets.fromLTRB(16, 16, 16, 12),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 12, vertical: 8),
                       width: double.infinity,
                       decoration: BoxDecoration(
                           color: Theme.of(context).appBarTheme.backgroundColor,
@@ -126,12 +150,12 @@ class _CommercialItemState extends State<CommercialItem>
                           Expanded(
                             child: WScaleAnimation(
                               onTap: () {
-                                Navigator.push(
-                                    context, fade(page: const ParameterScreen()));
+                                Navigator.of(context, rootNavigator: true)
+                                    .push(fade(page: const ParameterScreen()));
                               },
                               child: Container(
                                 padding:
-                                    const EdgeInsets.fromLTRB(12, 10, 8, 10),
+                                    const EdgeInsets.fromLTRB(12, 10, 10, 10),
                                 decoration: BoxDecoration(
                                     color: Theme.of(context)
                                         .appBarTheme
@@ -160,8 +184,11 @@ class _CommercialItemState extends State<CommercialItem>
                                               color: Theme.of(context)
                                                   .extension<ThemedColors>()!
                                                   .ghostToGondola),
-                                          child: SvgPicture.asset(
-                                              AppIcons.closeWhite)),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(2),
+                                            child: SvgPicture.asset(
+                                                AppIcons.closeWhite),
+                                          )),
                                       onTap: () {},
                                     )
                                   ],
@@ -169,7 +196,7 @@ class _CommercialItemState extends State<CommercialItem>
                               ),
                             ),
                           ),
-                          SizedBox(width: 8),
+                          const SizedBox(width: 8),
                           Expanded(
                             child: Container(
                               padding: const EdgeInsets.fromLTRB(12, 10, 8, 10),
@@ -200,8 +227,11 @@ class _CommercialItemState extends State<CommercialItem>
                                             color: Theme.of(context)
                                                 .extension<ThemedColors>()!
                                                 .ghostToGondola),
-                                        child: SvgPicture.asset(
-                                            AppIcons.closeWhite)),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(2),
+                                          child: SvgPicture.asset(
+                                              AppIcons.closeWhite),
+                                        )),
                                     onTap: () {},
                                   )
                                 ],

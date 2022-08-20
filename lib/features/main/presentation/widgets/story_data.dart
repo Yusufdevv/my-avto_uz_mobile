@@ -2,43 +2,40 @@ import 'package:auto/features/main/domain/entities/story_enrtity.dart';
 import 'package:auto/features/main/domain/entities/story_item_entity.dart';
 
 const StoryItemEntity storyItemEntity = StoryItemEntity(
-  image:
-      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5KE6WdlzR4U5HhztmWfzsNktNZLGMwF3M9A&usqp=CAU',
-  title: 'Новые авто с салона',
+    image:
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5KE6WdlzR4U5HhztmWfzsNktNZLGMwF3M9A&usqp=CAU',
+    title: 'Новые авто с салона',
     descriptionTitle: 'All New Tesla Model X',
-    description: 'A refined Tesla Sport Suspension, based on Tesla’s 2-axle air suspension system, with Active A refined Tesla Sport Suspension, based on Tesla’s 2-axle air suspension system, with Active'
-);
-
+    description:
+        'A refined Tesla Sport Suspension, based on Tesla’s 2-axle air suspension system, with Active A refined Tesla Sport Suspension, based on Tesla’s 2-axle air suspension system, with Active');
 
 final List<StoryItemEntity> storyItemsEntity = [
   const StoryItemEntity(
       image:
-      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5KE6WdlzR4U5HhztmWfzsNktNZLGMwF3M9A&usqp=CAU',
+          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5KE6WdlzR4U5HhztmWfzsNktNZLGMwF3M9A&usqp=CAU',
       title: 'Новые авто с салона',
-      description: 'A refined ALPINA Sport Suspension, based on BMW’s 2-axle air suspension system, with Active R',
-      descriptionTitle: 'All new BMW XB7 Alpina'
-  ),
+      description:
+          'A refined ALPINA Sport Suspension, based on BMW’s 2-axle air suspension system, with Active R',
+      descriptionTitle: 'All new BMW XB7 Alpina'),
   const StoryItemEntity(
       image:
-      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5KE6WdlzR4U5HhztmWfzsNktNZLGMwF3M9A&usqp=CAU',
+          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5KE6WdlzR4U5HhztmWfzsNktNZLGMwF3M9A&usqp=CAU',
       title: 'Новые авто с салона',
       description: 'All New Tesla Model X',
-      descriptionTitle: 'A refined Tesla Sport Suspension, based on Tesla’s 2-axle air suspension system, with Active R'
-  ),
+      descriptionTitle:
+          'A refined Tesla Sport Suspension, based on Tesla’s 2-axle air suspension system, with Active R'),
   const StoryItemEntity(
       image:
-      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5KE6WdlzR4U5HhztmWfzsNktNZLGMwF3M9A&usqp=CAU',
+          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5KE6WdlzR4U5HhztmWfzsNktNZLGMwF3M9A&usqp=CAU',
       title: 'Новые авто с салона',
       description: '',
-      descriptionTitle: ''
-  ),
+      descriptionTitle: ''),
   const StoryItemEntity(
       image:
-      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5KE6WdlzR4U5HhztmWfzsNktNZLGMwF3M9A&usqp=CAU',
+          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5KE6WdlzR4U5HhztmWfzsNktNZLGMwF3M9A&usqp=CAU',
       title: 'Новые авто с салона',
       description: '',
-      descriptionTitle: ''
-  ),
+      descriptionTitle: ''),
 ];
 final List<StoryEntity> storyEntity = [
   const StoryEntity(

@@ -1,5 +1,6 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/themes/theme_extensions/checkbox_style.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -24,9 +25,7 @@ class WCheckBox extends StatelessWidget {
         decoration: BoxDecoration(
           color: isChecked
               ? checkBoxColor
-              : Theme.of(context)
-                  .extension<CheckBoxStyle>()!
-                  .unselectedBackgroundColor1,
+              : Theme.of(context).extension<ThemedColors>()!.whiteToNightRider,
           borderRadius: BorderRadius.circular(4),
           border: Border.all(
               color: isChecked

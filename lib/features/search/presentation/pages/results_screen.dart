@@ -59,6 +59,15 @@ class _ResultsScreenState extends State<ResultsScreen> {
         hasBackButton: false,
         extraActions: [
           WTextField(
+            fillColor: Theme.of(context)
+                .extension<ThemedColors>()!
+                .whiteSmoke2ToNightRider,
+            focusColor: Theme.of(context)
+                .extension<ThemedColors>()!
+                .whiteSmoke2ToNightRider,
+            enabledBorderColor: Theme.of(context)
+                .extension<ThemedColors>()!
+                .whiteSmoke2ToNightRider,
             onChanged: (value) {
               setState(() {});
             },
@@ -88,14 +97,16 @@ class _ResultsScreenState extends State<ResultsScreen> {
           )
         ],
       ),
-      body: Column(
-        children: [
-          ...List.generate(
-            commercialItemEntity.length,
-            (index) => AllCommercialItem(
-              commercialItemEntity: commercialItemEntity[index],
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            ...List.generate(
+              commercialItemEntity.length,
+              (index) => AllCommercialItem(
+                commercialItemEntity: commercialItemEntity[index],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ));
 }

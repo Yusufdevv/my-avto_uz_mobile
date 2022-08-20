@@ -11,20 +11,18 @@ class DealButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => WButton(
-        onTap: () => Navigator.of(context, rootNavigator: true).push(fade(page: const ReelsScreen())),
+        height: 52,
+        onTap: () => Navigator.of(context, rootNavigator: true)
+            .push(fade(page: const ReelsScreen())),
         borderRadius: 12,
         color: purple,
-        border: Border.all(
-          width: 1,
-          color: white.withOpacity(0.84)
-        ),
-    shadow: [
-      BoxShadow(
-        offset: const Offset(0, 4),
-        blurRadius: 24,
-        color: blueGem.withOpacity(0.35)
-      ),
-    ],
+        border: Border.all(width: 1, color: white.withOpacity(0.84)),
+        shadow: [
+          BoxShadow(
+              offset: const Offset(0, 4),
+              blurRadius: 24,
+              color: blueGem.withOpacity(0.35)),
+        ],
         margin: const EdgeInsets.symmetric(horizontal: 16),
         child: Stack(
           children: [
@@ -39,14 +37,12 @@ class DealButton extends StatelessWidget {
             ),
             Positioned(
               right: 28,
-              child: ClipRRect(
-                  borderRadius: BorderRadius.circular(12),
-                  child: SvgPicture.asset(AppIcons.videoIcon)),
+              child: ClipRRect(child: SvgPicture.asset(AppIcons.videoIcon)),
             ),
             Positioned(
               left: 20,
-              top: 7,
-              bottom: 7,
+              top: 14,
+              bottom: 14,
               child: Row(
                 children: [
                   SvgPicture.asset(AppIcons.flash),

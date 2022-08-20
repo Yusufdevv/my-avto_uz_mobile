@@ -5,12 +5,11 @@ import 'package:auto/assets/themes/theme_extensions/themed_icons.dart';
 import 'package:auto/features/common/widgets/w_textfield.dart';
 import 'package:auto/features/dealers/presentation/pages/dealers_filter.dart';
 import 'package:auto/features/dealers/presentation/pages/dealers_list.dart';
+import 'package:auto/features/dealers/presentation/pages/dealers_map.dart';
 import 'package:auto/features/dealers/presentation/widgets/segmented_control.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
-import 'dealers_map.dart';
 
 class DealersMain extends StatefulWidget {
   const DealersMain({Key? key}) : super(key: key);

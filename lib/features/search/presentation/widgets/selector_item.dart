@@ -15,7 +15,7 @@ class SelectorItem extends StatelessWidget {
       required this.title,
       required this.hintText,
       this.hasArrowDown = false,
-        Key? key})
+      Key? key})
       : super(key: key);
 
   @override
@@ -38,13 +38,15 @@ class SelectorItem extends StatelessWidget {
               margin: const EdgeInsets.only(bottom: 16),
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 13),
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-                border: Border.all(
-                  width: 1,
-                  color: Theme.of(context).extension<ThemedColors>()!.solitudeToDarkRider
-                ),
-                color: Theme.of(context).extension<ThemedColors>()!.solitudeToNero
-              ),
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(
+                      width: 1,
+                      color: Theme.of(context)
+                          .extension<ThemedColors>()!
+                          .solitudeToDarkRider),
+                  color: Theme.of(context)
+                      .extension<ThemedColors>()!
+                      .solitudeToNero),
               child: Row(
                 children: [
                   Text(
@@ -55,7 +57,9 @@ class SelectorItem extends StatelessWidget {
                         .copyWith(color: grey),
                   ),
                   const Spacer(),
-                  SvgPicture.asset(hasArrowDown ? AppIcons.chevronDownGrey :  AppIcons.chevronRightBlack)
+                  SvgPicture.asset(hasArrowDown
+                      ? AppIcons.chevronDownGrey
+                      : AppIcons.chevronRightBlack)
                 ],
               ),
             ),

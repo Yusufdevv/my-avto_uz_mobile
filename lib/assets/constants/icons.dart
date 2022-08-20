@@ -164,4 +164,5 @@ class AppIcons {
   static const redWarning = 'assets/icons/car_single/red_warning.svg';
   static const yellowWarning = 'assets/icons/car_single/yellow_warning.svg';
 //  static const file = 'assets/icons/car_single/file.svg';
+  static const greyPhoneCall = 'assets/icons/global/grey_phone_call.svg';
 }

@@ -57,6 +57,8 @@ class LightThemeColors {
   static const snowToNero1 = _snow;
   static const whiteToNero1 = _white;
   static const whiteLilacToPayneGrey = _whiteLilac;
+  static const whiteToNero2 = _white;
+
   //for keyboard
   static const whiteToDimGray = _white;
   static const primaryColor = _cinnabar;
@@ -131,6 +133,8 @@ class LightThemeColors {
   static const greySuitToWhite = _grey;
   static const snowToBlack = _snow;
   static const greyToCinnabar = _grey;
+  static const solitudeToNightRider = _solitude;
+  static const whiteToBlack = _white;
   static const snow1ToCocoaBrown = _snow1;
 
   static const lavenderBlueToCharcoal = _lavenderBlue;

@@ -1,4 +1,5 @@
 import 'package:auto/assets/colors/color.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/range_slider.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
@@ -15,6 +16,8 @@ class ParameterScreen extends StatefulWidget {
 class _ParameterScreenState extends State<ParameterScreen> {
   @override
   Widget build(BuildContext context) => Scaffold(
+        backgroundColor:
+            Theme.of(context).extension<ThemedColors>()!.whiteToBlack,
         appBar: WAppBar(
           extraActions: [
             Text('Параметры',
@@ -37,55 +40,67 @@ class _ParameterScreenState extends State<ParameterScreen> {
             )
           ],
         ),
-        body: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+        body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SelectorItem(
-                onTap: () {},
-                hintText: 'Выберите тип кузова',
-                title: 'Тип кузова',
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SelectorItem(
+                        onTap: () {},
+                        hintText: 'Выберите тип кузова',
+                        title: 'Тип кузова',
+                        screenName: 'commercial',
+                      ),
+                      SelectorItem(
+                        onTap: () {},
+                        hintText: 'Выберите класс',
+                        title: 'Класс',
+                        screenName: 'commercial',
+                      ),
+                      SelectorItem(
+                        onTap: () {},
+                        hintText: 'Выберите тип привода',
+                        title: 'Привод',
+                        screenName: 'commercial',
+                      ),
+                      SelectorItem(
+                        onTap: () {},
+                        hintText: 'Выберите тип коробки',
+                        title: 'Коробка',
+                        screenName: 'commercial',
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      const WRangeSlider(
+                        title: 'Год выпуска',
+                        endValue: 2022,
+                        startValue: 1960,
+                        sliderStatus: '',
+                      ),
+                      const SizedBox(height: 20),
+                      const WRangeSlider(
+                        title: 'Цена',
+                        endValue: 500000,
+                        startValue: 1000,
+                        sliderStatus: 'price',
+                      ),
+                    ],
+                  ),
+                ),
               ),
-              SelectorItem(
-                onTap: () {},
-                hintText: 'Выберите класс',
-                title: 'Класс',
-              ),
-              SelectorItem(
-                onTap: () {},
-                hintText: 'Выберите тип привода',
-                title: 'Привод',
-              ),
-              SelectorItem(
-                onTap: () {},
-                hintText: 'Выберите тип коробки',
-                title: 'Коробка',
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-              const WRangeSlider(
-                title: 'Год выпуска',
-                endValue: 2022,
-                startValue: 1960,
-                sliderStatus: '',
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-              const WRangeSlider(
-                title: 'Цена',
-                endValue: 500000,
-                startValue: 1000,
-                sliderStatus: 'price',
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-              WButton(
-                onTap: () {},
-                text: 'Применить',
+              Padding(
+                padding: EdgeInsets.only(
+                    bottom: MediaQuery.of(context).padding.bottom + 20),
+                child: WButton(
+                  onTap: () {},
+                  text: 'Применить',
+                ),
               )
             ],
           ),

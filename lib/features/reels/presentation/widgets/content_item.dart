@@ -77,14 +77,13 @@ class _ContentItemState extends State<ContentItem> {
               ),
               Positioned(
                 left: 16,
-                bottom: 102,
+                bottom: MediaQuery.of(context).padding.bottom + 93,
                 child: widget.contentEntity.isDiscount
                     ? WButton(
                         onTap: () {},
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 18, vertical: 12),
+                        padding: const EdgeInsets.fromLTRB(16, 12, 8, 16),
                         borderRadius: 16,
-                        height: 81,
+                        height: 83,
                         color: white.withOpacity(.38),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -99,6 +98,7 @@ class _ContentItemState extends State<ContentItem> {
                                     color: black.withOpacity(.5),
                                   ),
                             ),
+                            const SizedBox(height: 2),
                             Row(
                               children: [
                                 Text(
@@ -132,6 +132,7 @@ class _ContentItemState extends State<ContentItem> {
                                     )
                                   ],
                                 ),
+                                // const SizedBox(width: 3),
                                 SvgPicture.asset(
                                   AppIcons.chevronRight2,
                                 )
@@ -142,7 +143,7 @@ class _ContentItemState extends State<ContentItem> {
                       )
                     : WButton(
                         onTap: () {},
-                        padding: const EdgeInsets.symmetric(horizontal: 18),
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
                         height: 55,
                         borderRadius: 16,
                         color: purple.withOpacity(.88),
@@ -154,7 +155,7 @@ class _ContentItemState extends State<ContentItem> {
                               style: Theme.of(context)
                                   .textTheme
                                   .headline4!
-                                  .copyWith(fontSize: 22),
+                                  .copyWith(fontSize: 24),
                             ),
                             const SizedBox(
                               width: 4,
@@ -219,7 +220,7 @@ class _ContentItemState extends State<ContentItem> {
                 ),
               ),
               Positioned(
-                bottom: 5,
+                bottom: 0,
                 left: 0,
                 right: 0,
                 child: VideoProgressIndicator(

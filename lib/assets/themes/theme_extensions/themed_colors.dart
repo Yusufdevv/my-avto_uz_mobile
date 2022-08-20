@@ -99,6 +99,9 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
   final Color greyToCinnabar;
   final Color solitudeContainerToBlack;
   final Color solitudeContainerToNero1;
+  final Color solitudeToNightRider;
+  final Color whiteToNero2;
+  final Color whiteToBlack;
   final Color whiteToBlack;
 
   const ThemedColors({
@@ -200,6 +203,9 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
     required this.greyToCinnabar,
     required this.solitudeContainerToBlack,
     required this.solitudeContainerToNero1,
+    required this.solitudeToNightRider,
+    required this.whiteToNero2,
+    required this.whiteToBlack,
     required this.whiteToBlack,
   });
 
@@ -301,6 +307,9 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
     Color? whiteToDark,
     Color? snowToNightRider,
     Color? greyToCinnabar,
+    Color? solitudeToNightRider,
+    Color? whiteToNero2,
+    Color? whiteToBlack,
     Color? solitudeContainerToBlack,
     Color? solitudeContainerToNero1,
     Color? whiteToBlack,
@@ -411,6 +420,8 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
             midnightExpressToDolphin ?? this.midnightExpressToDolphin,
         veryLightGreyToEclipse:
             veryLightGreyToEclipse ?? this.veryLightGreyToEclipse,
+        solitudeToNightRider:
+            solitude2ToNightRider ?? this.solitude2ToNightRider,
         // solitudeToDolphinBorder:
         //     solitudeToDolphinBorder ?? this.solitudeToDolphinBorder,
         // darkToGrey: darkToGrey ?? this.darkToGrey,
@@ -533,6 +544,8 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
             solitudeContainerToBlack ?? this.solitudeContainerToBlack,
         solitudeContainerToNero1:
             solitudeContainerToNero1 ?? this.solitudeContainerToNero1,
+        whiteToNero2: whiteToNero2 ?? this.whiteToNero2,
+        whiteToBlack: whiteToBlack ?? this.whiteToBlack,
       );
 
   @override
@@ -808,6 +821,13 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
       solitudeContainerToNero1: Color.lerp(
               solitudeContainerToNero1, other.solitudeContainerToNero1, t) ??
           solitudeContainerToNero1,
+      solitudeToNightRider:
+          Color.lerp(solitudeToNightRider, other.solitudeToNightRider, t) ??
+              solitudeToNightRider,
+      whiteToNero2:
+          Color.lerp(whiteToNero2, other.whiteToNero2, t) ?? whiteToNero2,
+      whiteToBlack:
+          Color.lerp(whiteToBlack, other.whiteToBlack, t) ?? whiteToBlack,
       whiteToEclipse:
           Color.lerp(whiteToEclipse, other.whiteToEclipse, t) ?? whiteToEclipse,
     );

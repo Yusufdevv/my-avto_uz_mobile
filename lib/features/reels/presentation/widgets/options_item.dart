@@ -25,6 +25,7 @@ class _OptionsItemState extends State<OptionsItem> {
     videoPlayerBloc = VideoPlayerBloc();
     super.initState();
   }
+
   bool isLiked = false;
   bool clicked = true;
   @override
@@ -34,15 +35,16 @@ class _OptionsItemState extends State<OptionsItem> {
           builder: (context, state) => Column(
             children: [
               WScaleAnimation(
-                onTap: clicked ?   () {
-                  setState(() {
-                    isLiked = true;
-                    clicked = false;
-                    context
-                        .read<VideoPlayerBloc>()
-                        .add(GetTotalLikes(incrementLikes: state.totalLikes));
-                  });
-                } : (){},
+                onTap: clicked
+                    ? () {
+                        setState(() {
+                          isLiked = true;
+                          clicked = false;
+                          context.read<VideoPlayerBloc>().add(
+                              GetTotalLikes(incrementLikes: state.totalLikes));
+                        });
+                      }
+                    : () {},
                 child: AnimatedSwitcher(
                   transitionBuilder: (child, anim) => ScaleTransition(
                     scale: anim,
@@ -51,17 +53,17 @@ class _OptionsItemState extends State<OptionsItem> {
                   duration: const Duration(milliseconds: 300),
                   child: isLiked
                       ? SvgPicture.asset(
-                    AppIcons.liked,
-                    key: const ValueKey<int>(1),
-                    width:  24,
-                    height: 24,
-                  )
+                          AppIcons.liked,
+                          key: const ValueKey<int>(1),
+                          width: 28,
+                          height: 28,
+                        )
                       : SvgPicture.asset(
-                    AppIcons.like,
-                    key: const ValueKey<int>(2),
-                    width:28,
-                    height:28,
-                  ),
+                          AppIcons.like,
+                          key: const ValueKey<int>(2),
+                          width: 28,
+                          height: 28,
+                        ),
                 ),
               ),
               const SizedBox(
@@ -78,9 +80,10 @@ class _OptionsItemState extends State<OptionsItem> {
                 height: 20,
               ),
               WScaleAnimation(
-                  child: SvgPicture.asset(AppIcons.share1), onTap: () {
+                  child: SvgPicture.asset(AppIcons.share),
+                  onTap: () {
                     Share.share(widget.shareUrl);
-              }),
+                  }),
               const SizedBox(
                 height: 2,
               ),
@@ -95,9 +98,13 @@ class _OptionsItemState extends State<OptionsItem> {
                 height: 20,
               ),
               WScaleAnimation(
-                  child: SvgPicture.asset(AppIcons.more), onTap: () {
-                showCupertinoModalPopup(context: context,barrierColor: black.withOpacity(.6), builder: (context) => const BusySheet());
-              }),
+                  child: SvgPicture.asset(AppIcons.more),
+                  onTap: () {
+                    showCupertinoModalPopup(
+                        context: context,
+                        barrierColor: black.withOpacity(.6),
+                        builder: (context) => const BusySheet());
+                  }),
             ],
           ),
         ),

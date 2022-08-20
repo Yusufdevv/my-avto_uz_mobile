@@ -25,7 +25,7 @@ class _FilterScreenState extends State<FilterScreen> {
                     .headline1!
                     .copyWith(fontSize: 16, fontWeight: FontWeight.w600)),
             const Spacer(
-              flex: 30,
+              flex: 100,
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -40,7 +40,8 @@ class _FilterScreenState extends State<FilterScreen> {
           ],
         ),
         body: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+          padding: EdgeInsets.fromLTRB(
+              16, 20, 16, MediaQuery.of(context).padding.bottom + 16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -51,9 +52,7 @@ class _FilterScreenState extends State<FilterScreen> {
                     .headline2!
                     .copyWith(fontWeight: FontWeight.w600),
               ),
-              const SizedBox(
-                height: 8,
-              ),
+              const SizedBox(height: 8),
               Row(
                 children: const [
                   WChips(title: 'Объявления'),
@@ -63,9 +62,7 @@ class _FilterScreenState extends State<FilterScreen> {
                   WChips(title: 'Марки'),
                 ],
               ),
-              const SizedBox(
-                height: 16,
-              ),
+              const SizedBox(height: 16),
               Text(
                 'Дилеры по продаже автомобилей',
                 style: Theme.of(context)
@@ -73,9 +70,7 @@ class _FilterScreenState extends State<FilterScreen> {
                     .headline2!
                     .copyWith(fontWeight: FontWeight.w600),
               ),
-              const SizedBox(
-                height: 8,
-              ),
+              const SizedBox(height: 8),
               Row(
                 children: const [
                   WChips(title: 'Новые'),
@@ -85,9 +80,7 @@ class _FilterScreenState extends State<FilterScreen> {
                   WChips(title: 'С пробегом'),
                 ],
               ),
-              const SizedBox(
-                height: 16,
-              ),
+              const SizedBox(height: 16),
               SelectorItem(
                 onTap: () {},
                 hintText: 'Выберите регион',
@@ -129,18 +122,14 @@ class _FilterScreenState extends State<FilterScreen> {
                 startValue: 1960,
                 sliderStatus: '',
               ),
-              const SizedBox(
-                height: 16,
-              ),
+              const SizedBox(height: 16),
               const WRangeSlider(
                 title: 'Цена',
                 endValue: 500000,
                 startValue: 1000,
                 sliderStatus: 'price',
               ),
-              const SizedBox(
-                height: 16,
-              ),
+              const SizedBox(height: 30),
               WButton(
                 onTap: () {},
                 text: 'Применить',
