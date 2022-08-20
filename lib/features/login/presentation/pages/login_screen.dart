@@ -3,7 +3,11 @@ import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
+import 'package:auto/features/login/presentation/pages/password_recovery_screen.dart';
+import 'package:auto/features/login/presentation/pages/register_screen.dart';
 import 'package:auto/features/login/presentation/widgets/z_text_form_field.dart';
+import 'package:auto/features/navigation/presentation/home.dart';
+import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:flutter/material.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
@@ -70,12 +74,15 @@ class _LoginScreenState extends State<LoginScreen> {
                   const SizedBox(
                     width: 4,
                   ),
-                  Text(
-                    'Регистрация',
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline3!
-                        .copyWith(fontWeight: FontWeight.w600, fontSize: 13),
+                  GestureDetector(
+                    onTap: () => Navigator.push(context, fade(page: const RegisterScreen())),
+                    child: Text(
+                      'Регистрация',
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline3!
+                          .copyWith(fontWeight: FontWeight.w600, fontSize: 13),
+                    ),
                   )
                 ],
               ),
@@ -118,6 +125,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 height: 16,
               ),
               GestureDetector(
+                onTap: () => Navigator.push(context, fade(page: const PasswordRecoveryScreen(phone: '+998 97 777 77 77',))),
                 child: Text(
                   'Забыли пароль?',
                   style: Theme.of(context)
@@ -128,7 +136,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               const Spacer(),
               WButton(
-                onTap: () {},
+                onTap: () => Navigator.pushAndRemoveUntil(context, fade(page: const HomeScreen()), (route) => false),
                 shadow: [
                   BoxShadow(
                       offset: const Offset(0, 1),
@@ -143,6 +151,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 text: 'Продолжить',
                 border: Border.all(
                   width: 1,
+
                   color:   Theme.of(context)
                       .extension<ThemedColors>()!
                       .whiteToDolphin ,

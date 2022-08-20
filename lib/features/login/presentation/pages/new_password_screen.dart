@@ -4,7 +4,10 @@ import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/login/presentation/widgets/login_header_widget.dart';
 import 'package:auto/features/login/presentation/widgets/z_text_form_field.dart';
+import 'package:auto/features/navigation/presentation/home.dart';
+import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:flutter/material.dart';
+import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 class NewPasswordScreen extends StatefulWidget {
   const NewPasswordScreen({Key? key}) : super(key: key);
@@ -32,66 +35,77 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
   }
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-        appBar: const WAppBar(
-          title: 'Безопасность',
-        ),
-        body: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const LoginHeader(
-                  title: 'Новый пароль',
-                  description:
-                      'Придумайте новый пароль и постарайтесь не забыть'),
-              const SizedBox(
-                height: 36,
-              ),
-              ZTextFormField(
-                onChanged: (value) {
-                  setState(() {});
-                },
-                hintText: 'Новый пароль',
-                controller: newPasswordController,
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-              ZTextFormField(
-                onChanged: (value) {
-                  setState(() {});
-                },
-                hintText: 'Подтверждение пароля',
-                controller: confirmPasswordController,
-              ),
-              const Spacer(),
-              WButton(
-                onTap: () {},
-                shadow: [
-                  BoxShadow(
-                      offset: const Offset(0, 1),
-                      blurRadius: 5,
-                      color: Theme.of(context)
-                          .extension<ThemedColors>()!
-                          .transparentToSolitude12)
-                ],
-                margin: const EdgeInsets.only(bottom: 20),
-                color: (newPasswordController.text.isNotEmpty &&
-                        confirmPasswordController.text.isNotEmpty)
-                    ? orange
-                    : Theme.of(context)
-                        .extension<ThemedColors>()!
-                        .veryLightGreyToEclipse,
-                text: 'Продолжить',
-                border: Border.all(
-                  width: 1,
-                  color: Theme.of(context)
-                      .extension<ThemedColors>()!
-                      .whiteToDolphin,
+  Widget build(BuildContext context) => KeyboardDismisser(
+        child: Scaffold(
+          appBar: const WAppBar(
+            title: 'Безопасность',
+          ),
+          body: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  child: ListView(
+                    children: [
+                      const LoginHeader(
+                          title: 'Новый пароль',
+                          description:
+                              'Придумайте новый пароль и постарайтесь не забыть'),
+                      const SizedBox(
+                        height: 36,
+                      ),
+                      ZTextFormField(
+                        onChanged: (value) {
+                          setState(() {});
+                        },
+                        isObscure: true,
+                        hintText: 'Новый пароль',
+                        controller: newPasswordController,
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      ZTextFormField(
+                        onChanged: (value) {
+                          setState(() {});
+                        },
+                        isObscure: true,
+                        hintText: 'Подтверждение пароля',
+                        controller: confirmPasswordController,
+                      ),
+                      const SizedBox(height: 10,)
+                    ],
+                  ),
                 ),
-              ),
-            ],
+                WButton(
+                  onTap: () => Navigator.pushAndRemoveUntil(context,
+                      fade(page: const HomeScreen()), (route) => false),
+                  shadow: [
+                    BoxShadow(
+                        offset: const Offset(0, 1),
+                        blurRadius: 5,
+                        color: Theme.of(context)
+                            .extension<ThemedColors>()!
+                            .transparentToSolitude12)
+                  ],
+                  margin: const EdgeInsets.only(bottom: 20),
+                  color: (newPasswordController.text.isNotEmpty &&
+                          confirmPasswordController.text.isNotEmpty)
+                      ? orange
+                      : Theme.of(context)
+                          .extension<ThemedColors>()!
+                          .veryLightGreyToEclipse,
+                  text: 'Продолжить',
+                  border: Border.all(
+                    width: 1,
+                    color: Theme.of(context)
+                        .extension<ThemedColors>()!
+                        .whiteToDolphin,
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       );

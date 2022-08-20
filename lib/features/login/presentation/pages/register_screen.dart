@@ -3,8 +3,10 @@ import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
+import 'package:auto/features/login/presentation/pages/verification_screen.dart';
 import 'package:auto/features/login/presentation/widgets/login_header_widget.dart';
 import 'package:auto/features/login/presentation/widgets/z_text_form_field.dart';
+import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:flutter/material.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
@@ -74,7 +76,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ),
               const Spacer(),
               WButton(
-                onTap: () {},
+                onTap: () => Navigator.push(context, fade(page: const VerificationScreen(phone: '+998 97 777 77 77',))),
                 shadow: [
                   BoxShadow(
                       offset: const Offset(0, 1),
