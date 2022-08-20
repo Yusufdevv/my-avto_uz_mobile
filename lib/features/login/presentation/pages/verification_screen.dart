@@ -3,13 +3,18 @@ import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
+import 'package:auto/features/login/presentation/pages/personal_data_screen.dart';
 import 'package:auto/features/login/presentation/widgets/login_header_widget.dart';
+import 'package:auto/features/navigation/presentation/navigator.dart';
+import 'package:auto/features/profile/presentation/widgets/refresh_button.dart';
+import 'package:auto/features/profile/presentation/widgets/time_counter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 class VerificationScreen extends StatefulWidget {
-  const VerificationScreen({Key? key}) : super(key: key);
+  final String phone;
+  const VerificationScreen({required this.phone, Key? key}) : super(key: key);
 
   @override
   State<VerificationScreen> createState() => _VerificationScreenState();
@@ -17,7 +22,7 @@ class VerificationScreen extends StatefulWidget {
 
 class _VerificationScreenState extends State<VerificationScreen> {
   late TextEditingController verificationController;
-
+  bool timeComplete = false;
   @override
   void initState() {
     verificationController = TextEditingController();
@@ -128,25 +133,41 @@ class _VerificationScreenState extends State<VerificationScreen> {
                   const SizedBox(
                     width: 6,
                   ),
-                  Container(
-                    padding: const EdgeInsets.all(4),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(4),
-                      color: red.withOpacity(.1),
-                    ),
-                    child: Text(
-                      '00:59',
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline5!
-                          .copyWith(fontSize: 12, fontWeight: FontWeight.w600),
-                    ),
-                  ),
-                ],
+                  if (timeComplete)
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 4, vertical: 3),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(4),
+                          color: orange.withOpacity(0.1)),
+                      child: RefreshButton(
+                        filteredPhone: widget.phone,
+                        onSucces: () {
+                          setState(() {
+                            timeComplete = false;
+                          });
+                        },
+                      ),
+                    )
+                  else
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 4, vertical: 3),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(4),
+                          color: orange.withOpacity(0.1)),
+                      child: TimeCounter(
+                        onComplete: () {
+                          setState(() {
+                            timeComplete = true;
+                          });
+                        },
+                      ),
+                    )                ],
               ),
               const Spacer(),
               WButton(
-                onTap: () {},
+                onTap: () => Navigator.pushReplacement(context, fade(page: const PersonalDataScreen())),
                 margin: const EdgeInsets.only(bottom: 20),
                 color: (verificationController.text.isNotEmpty &&
                         verificationController.text.length == 6)
