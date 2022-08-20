@@ -1,6 +1,6 @@
 import 'package:auto/assets/constants/icons.dart';
-import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_icons.dart';
 import 'package:auto/assets/themes/theme_extensions/w_textfield_style.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
@@ -55,7 +55,9 @@ class AboutAppScreen extends StatelessWidget {
             ),
             const Rate(),
             const Spacer(),
-            Image.asset(AppImages.autoUz, height: 28),
+            SvgPicture.asset(
+              Theme.of(context).extension<ThemedIcons>()!.autoUzLightDark,
+            ),
             Padding(
               padding: const EdgeInsets.only(top: 12, bottom: 36),
               child: Text(

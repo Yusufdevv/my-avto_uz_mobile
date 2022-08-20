@@ -1,5 +1,6 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/main/domain/entities/ads_entity.dart';
 import 'package:auto/features/main/presentation/widgets/ads_item.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +9,7 @@ import 'package:flutter_svg/svg.dart';
 class OtherAds extends StatelessWidget {
   const OtherAds({Key? key}) : super(key: key);
 
-  static const List<AdsEntity> list = const [
+  static const List<AdsEntity> list = [
     AdsEntity(
         imageUrl:
             'https://cdn.motor1.com/images/mgl/LBl63/s1/2021-genesis-g80.jpg',
@@ -59,7 +60,7 @@ class OtherAds extends StatelessWidget {
             ),
             Container(
               decoration: BoxDecoration(
-                color: dark,
+                color: Theme.of(context).extension<ThemedColors>()!.solitudeTo1Black,
                 borderRadius: BorderRadius.circular(12),
               ),
               padding: const EdgeInsets.all(2),
@@ -83,7 +84,12 @@ class OtherAds extends StatelessWidget {
                     width: 50,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(7.5),
-                        color: secondary),
+                        color: Theme.of(context).extension<ThemedColors>()!.whiteToEclipse,
+                      border: Border.all(
+                        width: 1,
+                        color: Theme.of(context).extension<ThemedColors>()!.solitudeToDarkRider
+                      )
+                    ),
                     height: 36,
                     child: Center(
                       child: SvgPicture.asset(AppIcons.crown),
@@ -98,7 +104,7 @@ class OtherAds extends StatelessWidget {
             SingleChildScrollView(scrollDirection: Axis.horizontal,
               child: Row(
                 children: List.generate(
-                    list.length, (index) => AdsItem(adsEntity: list[index])),
+                    list.length, (index) => AdsItem(adsEntity: list[index],)),
               ),
             )
           ],

@@ -44,6 +44,7 @@ class WTextField extends StatefulWidget {
   final double sizeBetweenFieldTitle;
   final Color? errorColor;
   final Color? fillColor;
+  final Color? cursorColor;
   final EdgeInsets? margin;
   final VoidCallback? onEyeTap;
   final FocusNode? focusNode;
@@ -124,6 +125,7 @@ class WTextField extends StatefulWidget {
     this.suffixTitleWidget,
     this.hintNextToTitle = '',
     this.hasSearch,
+    this.cursorColor,
   }) : super(key: key);
 
   @override
@@ -216,7 +218,6 @@ class _WTextFieldState extends State<WTextField>
                     borderRadius: widget.detailedBorderRadius ??
                         BorderRadius.circular(widget.borderRadius),
                     child: TextFormField(
-
                       autovalidateMode: widget.autoValidateMode,
                       validator: widget.validate,
                       maxLines: widget.maxLines,
@@ -231,7 +232,8 @@ class _WTextFieldState extends State<WTextField>
                       maxLength: widget.maxLength,
                       controller: widget.controller,
                       autofocus: widget.autoFocus,
-                      cursorColor: Theme.of(context).colorScheme.surface,
+                      cursorColor: widget.cursorColor ??
+                          Theme.of(context).colorScheme.surface,
                       obscuringCharacter: '●',
                       cursorHeight: 18,
                       onEditingComplete: widget.onEditCompleted,
@@ -386,21 +388,21 @@ class _WTextFieldState extends State<WTextField>
                                   padding:
                                       const EdgeInsets.symmetric(horizontal: 8),
                                   child: Container(
-                                    height: 24,
-                                    width: 24,
-                                    padding: const EdgeInsets.all(4),
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      color: Theme.of(context).extension<ThemedColors>()!.whiteSmoke78ToWhiteSmoke12
-                                    ),
-                                      child: SvgPicture.asset(AppIcons.close)
-                                  ),
+                                      height: 24,
+                                      width: 24,
+                                      padding: const EdgeInsets.all(4),
+                                      decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: Theme.of(context)
+                                              .extension<ThemedColors>()!
+                                              .whiteSmoke78ToWhiteSmoke12),
+                                      child: SvgPicture.asset(AppIcons.close)),
                                 ),
                               )
                             : const SizedBox()
                         : Padding(
-                            padding: widget.suffixPadding ??
-                                const EdgeInsets.all(8.0),
+                            padding:
+                                widget.suffixPadding ?? const EdgeInsets.all(8),
                             child: widget.suffix ?? const SizedBox(),
                           ),
                   ),

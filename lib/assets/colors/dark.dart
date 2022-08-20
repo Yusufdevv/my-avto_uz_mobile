@@ -137,13 +137,13 @@ class DarkThemeColors {
   static const snow1ToCocoaBrown = _cocoaBrown;
   static const tangerineYellowToMediumSlateBlue = _mediumSlateBlue;
   static const greyToCinnabar = _cinnabar;
-  static const ghostToGondola = _gondola;
   static const lavenderBlueToCharcoal = _charcoal1;
   static const ghostWhite1ToNero = _nero1;
   static const ghostToGreySuit = _greySuit;
   static const silver50ToNightRider = _nightRider;
   static const whiteSmokeToBlack = _black;
   static const silverToNightRider = _nightRider;
+  static const whiteToBlack = _black;
 }
 
 // Main palette (http://www.color-blindness.com/color-name-hue/).

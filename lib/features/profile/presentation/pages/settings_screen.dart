@@ -13,8 +13,8 @@ class SettingsScreen extends StatelessWidget {
         appBar: const WAppBar(
           textWithButton: 'Настройки',
         ),
-        body: Container(
-          margin: const EdgeInsets.only(top: 36, left: 16),
+        body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16,vertical: 36),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -31,9 +31,10 @@ class SettingsScreen extends StatelessWidget {
                 style: Theme.of(context).textTheme.headline2,
               ),
               Container(
-                  margin: const EdgeInsets.all(63),
+                  margin: const EdgeInsets.only(top: 64),
+                  alignment: Alignment.center,
+                  height: 249,
                   child: Image.asset(AppImages.editPassword)),
-              
             ],
           ),
         ),

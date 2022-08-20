@@ -21,8 +21,8 @@ class SeeProfileScreen extends StatelessWidget {
         body: Container(
           margin: const EdgeInsets.only(top: 16),
           padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
-          decoration:   BoxDecoration(
-              borderRadius:const BorderRadius.only(
+          decoration: BoxDecoration(
+              borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(20),
                 topRight: Radius.circular(20),
               ),
@@ -89,7 +89,7 @@ class SeeProfileScreen extends StatelessWidget {
                 style: Theme.of(context)
                     .textTheme
                     .headline2!
-                    .copyWith(fontWeight: FontWeight.w600),
+                    .copyWith(fontWeight: FontWeight.w600, color: grey),
               ),
               const TextSpacer(
                 title: 'Телефон номер',

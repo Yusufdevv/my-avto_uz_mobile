@@ -1,9 +1,11 @@
+import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
+import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/profile/presentation/widgets/radio_item.dart';
-import 'package:auto/features/profile/presentation/widgets/scrolled_bottomsheet.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class LanguageBottomSheet extends StatefulWidget {
   const LanguageBottomSheet({
@@ -27,29 +29,42 @@ class LanguageBottomSheetState extends State<LanguageBottomSheet> {
   int selectedLanguage = 0;
 
   @override
-  Widget build(BuildContext context) => ScrolledBottomSheet(
-        stackedWButton: WButton(
-          margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-          onTap: () {
-            Navigator.pop(context);
-          },
-          child: Text(
-            'Подтвердить',
-            style: Theme.of(context)
-                .textTheme
-                .headline4!
-                .copyWith(fontSize: 14, fontWeight: FontWeight.w600),
+  Widget build(BuildContext context) => Container(
+        padding:
+            const EdgeInsets.only(left: 16, right: 16, top: 20, bottom: 12),
+        decoration: BoxDecoration(
+          borderRadius: const BorderRadius.only(
+            topRight: Radius.circular(20),
+            topLeft: Radius.circular(20),
           ),
+          color: Theme.of(context).extension<ThemedColors>()!.whiteToBlack,
         ),
-        hasHeader: true,
-        title: 'Язык',
-        child: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
-          child: ListView.separated(
+        child: Column(mainAxisSize: MainAxisSize.min, children: [
+          Row(
+            children: [
+              Text(
+                'Язык',
+                style: Theme.of(context).textTheme.headline1,
+              ),
+              const Spacer(),
+              WScaleAnimation(
+                  child: SvgPicture.asset(
+                    AppIcons.close,
+                    width: 32,
+                    height: 32,
+                  ),
+                  onTap: () {
+                    Navigator.of(context).pop();
+                  }),
+            ],
+          ),
+          const SizedBox(height: 12),
+          ListView.separated(
               separatorBuilder: (context, index) => Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 16),
                     height: 1,
-                    color: Theme.of(context).extension<ThemedColors>()!.greyToDarkRider,
+                    color: Theme.of(context)
+                        .extension<ThemedColors>()!
+                        .greyToDarkRider,
                   ),
               itemCount: titleList.length,
               shrinkWrap: true,
@@ -66,6 +81,19 @@ class LanguageBottomSheetState extends State<LanguageBottomSheet> {
                     value: selectedLanguage,
                     groupValue: index,
                   )),
-        ),
+          WButton(
+            margin: const EdgeInsets.only(top: 20),
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: Text(
+              'Подтвердить',
+              style: Theme.of(context)
+                  .textTheme
+                  .headline4!
+                  .copyWith(fontSize: 14, fontWeight: FontWeight.w600),
+            ),
+          ),
+        ]),
       );
 }

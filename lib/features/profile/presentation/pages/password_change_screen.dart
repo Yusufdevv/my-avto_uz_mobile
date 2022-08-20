@@ -81,7 +81,7 @@ class PasswordChangeScreen extends StatelessWidget {
                       useRootNavigator: true,
                       backgroundColor: Colors.transparent,
                       constraints: BoxConstraints(
-                          maxHeight: MediaQuery.of(context).size.height * 0.3,
+                          maxHeight: MediaQuery.of(context).size.height * 0.36,
                           minWidth: MediaQuery.of(context).size.width),
                       builder: (context) => const LanguageBottomSheet());
                 },

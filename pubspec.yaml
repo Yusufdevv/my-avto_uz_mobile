@@ -40,6 +40,8 @@ dependencies:
   syncfusion_flutter_sliders: ^20.2.40
   carousel_slider: ^4.1.1
   flutter_cupertino_datetime_picker: ^3.0.0
+  grouped_list: ^5.1.2
+  lottie: ^1.4.1
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -67,4 +69,5 @@ flutter:
     - assets/icons/search/
     - lib/assets/strings/
     - lib/assets/strings/
+    - assets/lottie/
 

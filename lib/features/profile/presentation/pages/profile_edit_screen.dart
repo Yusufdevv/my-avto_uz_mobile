@@ -55,13 +55,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         onTap: () {
                           showModalBottomSheet(
                               backgroundColor: Colors.transparent,
-                              isScrollControlled: true,
                               context: context,
                               useRootNavigator: true,
-                              constraints: BoxConstraints(
-                                  maxHeight:
-                                      MediaQuery.of(context).size.height * 0.3,
-                                  minWidth: MediaQuery.of(context).size.width),
+
                               builder: (context) => const CameraBottomSheet());
                         },
                         child: Column(
@@ -86,6 +82,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   ),
                   const TitleTextFieldTop(title: 'Имя'),
                   WTextField(
+                    focusColor: Theme.of(context).appBarTheme.backgroundColor,
+                    borderColor: purple,
+                    cursorColor: purple,
                     disabledColor:
                         Theme.of(context).appBarTheme.backgroundColor,
                     textStyle: Theme.of(context)
@@ -106,6 +105,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   ),
                   const TitleTextFieldTop(title: 'Фамилия'),
                   WTextField(
+                    focusColor: Theme.of(context).appBarTheme.backgroundColor,
+                    borderColor: purple,
+                    cursorColor: purple,
                     textStyle: Theme.of(context)
                         .textTheme
                         .headline1!
@@ -134,7 +136,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           backgroundColor: Colors.transparent,
                           constraints: BoxConstraints(
                               maxHeight:
-                                  MediaQuery.of(context).size.height * 0.3,
+                                  MediaQuery.of(context).size.height * 0.36,
                               minWidth: MediaQuery.of(context).size.width),
                           builder: (context) => const LanguageBottomSheet());
                     },
@@ -142,7 +144,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       padding: const EdgeInsets.only(
                           left: 16, top: 12, bottom: 12, right: 10),
                       decoration: BoxDecoration(
-                        color:  Theme.of(context).appBarTheme.backgroundColor,
+                        color: Theme.of(context).appBarTheme.backgroundColor,
                         borderRadius: BorderRadius.circular(12),
                         border: Border.all(
                             color: Theme.of(context)
@@ -178,11 +180,15 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   ),
                   const TitleTextFieldTop(title: 'Email'),
                   WTextField(
+                    focusColor: Theme.of(context).appBarTheme.backgroundColor,
+                    borderColor: purple,
+                    cursorColor: purple,
                     textStyle: Theme.of(context)
                         .textTheme
                         .headline1!
                         .copyWith(fontSize: 14, fontWeight: FontWeight.w600),
-                    disabledColor:  Theme.of(context).appBarTheme.backgroundColor,
+                    disabledColor:
+                        Theme.of(context).appBarTheme.backgroundColor,
                     suffix: SvgPicture.asset(AppIcons.lock),
                     borderRadius: 12,
                     hintText: 'boss@auto.uz',
@@ -194,7 +200,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     controller: TextEditingController(),
                     filled: true,
                     contentPadding: const EdgeInsets.symmetric(horizontal: 16),
-                    fillColor:  Theme.of(context).appBarTheme.backgroundColor,
+                    fillColor: Theme.of(context).appBarTheme.backgroundColor,
                   ),
                 ],
               ),
