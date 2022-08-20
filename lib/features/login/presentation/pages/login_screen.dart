@@ -3,6 +3,8 @@ import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
+import 'package:auto/assets/constants/icons.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:auto/features/login/presentation/pages/password_recovery_screen.dart';
 import 'package:auto/features/login/presentation/pages/register_screen.dart';
 import 'package:auto/features/login/presentation/widgets/z_text_form_field.dart';
@@ -20,7 +22,7 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final phoneFormatter = MaskTextInputFormatter(
-    mask: '(##) ###-##-##',
+    mask: '## ### ## ##',
     filter: {"#": RegExp(r'[0-9]')},
   );
   late TextEditingController phoneController;
@@ -39,10 +41,24 @@ class _LoginScreenState extends State<LoginScreen> {
     passwordController.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) => Scaffold(
-        appBar: const WAppBar(
-          title: 'Войти',
+        appBar: AppBar(
+          leading: Padding(
+            padding: EdgeInsets.all(16),
+            child: SvgPicture.asset(
+              AppIcons.chevronLeft,
+              height: 24,
+              width: 24,
+            ),
+          ),
+          title: Text(
+            'Войти',
+            style:
+                Theme.of(context).textTheme.headline1!.copyWith(fontSize: 16),
+          ),
+          elevation: 1,
         ),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -75,7 +91,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     width: 4,
                   ),
                   GestureDetector(
-                    onTap: () => Navigator.push(context, fade(page: const RegisterScreen())),
+                    onTap: () => Navigator.push(
+                        context, fade(page: const RegisterScreen())),
                     child: Text(
                       'Регистрация',
                       style: Theme.of(context)
@@ -90,7 +107,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 height: 36,
               ),
               ZTextFormField(
-                onChanged: (onChanged) {setState((){});},
+                onChanged: (onChanged) {
+                  setState(() {});
+                },
                 controller: phoneController,
                 prefixIcon: Row(
                   children: [
@@ -98,7 +117,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     const SizedBox(
                       width: 4,
                     ),
-
                     Text(
                       '+998',
                       style: Theme.of(context)
@@ -116,7 +134,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 height: 30,
               ),
               ZTextFormField(
-                onChanged: (value) {setState((){});},
+                onChanged: (value) {
+                  setState(() {});
+                },
                 hintText: 'Пароль',
                 controller: passwordController,
                 isObscure: true,
@@ -125,7 +145,12 @@ class _LoginScreenState extends State<LoginScreen> {
                 height: 16,
               ),
               GestureDetector(
-                onTap: () => Navigator.push(context, fade(page: const PasswordRecoveryScreen(phone: '+998 97 777 77 77',))),
+                onTap: () => Navigator.push(
+                    context,
+                    fade(
+                        page: const PasswordRecoveryScreen(
+                      phone: '+998 97 777 77 77',
+                    ))),
                 child: Text(
                   'Забыли пароль?',
                   style: Theme.of(context)
@@ -134,31 +159,35 @@ class _LoginScreenState extends State<LoginScreen> {
                       .copyWith(fontSize: 13, fontWeight: FontWeight.w600),
                 ),
               ),
-              const Spacer(),
-              WButton(
-                onTap: () => Navigator.pushAndRemoveUntil(context, fade(page: const HomeScreen()), (route) => false),
-                shadow: [
-                  BoxShadow(
-                      offset: const Offset(0, 1),
-                      blurRadius: 5,
-                      color: Theme.of(context).extension<ThemedColors>()!.transparentToSolitude12
-                  )
-                ],
-                margin: const EdgeInsets.only(bottom: 20),
-                color:(passwordController.text.isNotEmpty && phoneController.text.isNotEmpty)?orange : Theme.of(context)
-                    .extension<ThemedColors>()!
-                    .veryLightGreyToEclipse ,
-                text: 'Продолжить',
-                border: Border.all(
-                  width: 1,
-
-                  color:   Theme.of(context)
-                      .extension<ThemedColors>()!
-                      .whiteToDolphin ,
-                ),
-              ),
-
             ],
+          ),
+        ),
+        bottomNavigationBar: WButton(
+          onTap: () => Navigator.pushAndRemoveUntil(
+              context, fade(page: const HomeScreen()), (route) => false),
+          shadow: [
+            BoxShadow(
+                offset: const Offset(0, 1),
+                blurRadius: 5,
+                color: Theme.of(context)
+                    .extension<ThemedColors>()!
+                    .transparentToSolitude12)
+          ],
+          margin: EdgeInsets.only(
+            bottom: 8 + MediaQuery.of(context).padding.bottom,
+            right: 16,
+            left: 16,
+          ),
+          color: (passwordController.text.isNotEmpty &&
+                  phoneController.text.isNotEmpty)
+              ? orange
+              : Theme.of(context)
+                  .extension<ThemedColors>()!
+                  .veryLightGreyToEclipse,
+          text: 'Продолжить',
+          border: Border.all(
+            width: 1,
+            color: Theme.of(context).extension<ThemedColors>()!.whiteToDolphin,
           ),
         ),
       );

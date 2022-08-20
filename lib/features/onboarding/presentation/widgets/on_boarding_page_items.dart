@@ -21,63 +21,63 @@ class OnBoardingItems extends StatelessWidget {
       : super(key: key);
 
   @override
-  Widget build(BuildContext context) => SingleChildScrollView(
-        physics: NeverScrollableScrollPhysics(),
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 32),
-              child: Align(
-                alignment: Alignment.centerRight,
-                child: GestureDetector(
-                    onTap: () {
-                      Navigator.of(context)
-                          .pushReplacement(fade(page: const LoginScreen()));
-                    },
-                    child: Text(
-                      'Пропустить',
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline1!
-                          .copyWith(fontSize: 15, fontWeight: FontWeight.w400),
-                    )),
-              ),
-            ),
-            Image.asset(image),
-            Padding(
-              padding: const EdgeInsets.only(left: 32),
-              child: RichText(
-                text: TextSpan(children: [
-                  WidgetSpan(child: Image.asset(icon)),
-                  TextSpan(
-                    text: title,
+  Widget build(BuildContext context) => Column(
+        mainAxisSize: MainAxisSize.max,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: EdgeInsets.only(
+                right: 32,
+                left: 32,
+                top: MediaQuery.of(context).padding.top + 8),
+            child: Align(
+              alignment: Alignment.centerRight,
+              child: GestureDetector(
+                  onTap: () {
+                    Navigator.of(context)
+                        .pushReplacement(fade(page: const LoginScreen()));
+                  },
+                  child: Text(
+                    'Пропустить',
                     style: Theme.of(context)
                         .textTheme
                         .headline1!
-                        .copyWith(fontSize: 36),
-                  ),
-                  TextSpan(
-                      text: secondText,
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline3!
-                          .copyWith(fontSize: 36, fontWeight: FontWeight.w700)),
-                  TextSpan(
-                    text: thirdText,
+                        .copyWith(fontSize: 15, fontWeight: FontWeight.w400),
+                  )),
+            ),
+          ),
+          Image.asset(image),
+          Padding(
+            padding: const EdgeInsets.only(left: 32),
+            child: RichText(
+              text: TextSpan(children: [
+                WidgetSpan(child: Image.asset(icon)),
+                TextSpan(
+                  text: title,
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline1!
+                      .copyWith(fontSize: 36),
+                ),
+                TextSpan(
+                    text: secondText,
                     style: Theme.of(context)
                         .textTheme
-                        .headline1!
-                        .copyWith(fontSize: 36),
-                  ),
-                ]),
-              ),
+                        .headline3!
+                        .copyWith(fontSize: 36, fontWeight: FontWeight.w700)),
+                TextSpan(
+                  text: thirdText,
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline1!
+                      .copyWith(fontSize: 36),
+                ),
+              ]),
             ),
-            const SizedBox(
-              height: 24,
-            ),
-          ],
-        ),
+          ),
+          const SizedBox(
+            height: 24,
+          ),
+        ],
       );
 }

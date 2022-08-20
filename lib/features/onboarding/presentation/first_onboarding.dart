@@ -7,11 +7,11 @@ class FirstOnBoarding extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-    body: Column(
-      children: [
-        Expanded(flex: 3, child: StackedOnBoardingWidget()),
-        Expanded(flex: 2, child: OnBoardingBottom())
-      ],
-    ),
-  );
+        body: Column(
+          children: [
+            Expanded(flex: 3, child: StackedOnBoardingWidget()),
+            Expanded(flex: 2, child: OnBoardingBottom())
+          ],
+        ),
+      );
 }
