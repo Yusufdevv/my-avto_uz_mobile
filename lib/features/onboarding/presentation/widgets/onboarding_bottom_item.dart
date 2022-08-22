@@ -1,6 +1,7 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/images.dart';
+import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/onboarding/presentation/pages/on_boarding_screen.dart';
 import 'package:auto/features/onboarding/presentation/widgets/language_item.dart';
@@ -73,21 +74,21 @@ class _OnBoardingBottomState extends State<OnBoardingBottom> {
           ),
           Positioned(
               right: 0,
-              child: Stack(
-                children: [
-                  SvgPicture.asset(AppIcons.orangePolygon),
-                  Positioned(
-                    right: 10,
-                    top: 110,
-                    child: GestureDetector(
-                      onTap: () => Navigator.of(context)
-                          .push(fade(page: const OnBoardingScreen())),
+              child: WScaleAnimation(
+                onTap: () => Navigator.of(context)
+                    .push(fade(page: const OnBoardingScreen())),
+                child: Stack(
+                  children: [
+                    SvgPicture.asset(AppIcons.orangePolygon),
+                    Positioned(
+                      right: 10,
+                      top: 110,
                       child: SvgPicture.asset(
                         AppIcons.arrowRight,
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ))
         ],
       );

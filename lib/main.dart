@@ -1,8 +1,7 @@
 import 'package:auto/assets/themes/dark.dart';
 import 'package:auto/assets/themes/light.dart';
+import 'package:auto/features/splash/presentation/pages/splash_sc.dart';
 import 'package:flutter/material.dart';
-
-import 'features/onboarding/presentation/first_onboarding.dart';
 
 void main() {
   runApp(const MyApp());
@@ -26,9 +25,9 @@ class _AppState extends State<MyApp> {
         title: 'Auto.Uz',
         theme: LightTheme.theme(),
         darkTheme: DarkTheme.theme(),
-        themeMode: ThemeMode.dark,
+        themeMode: ThemeMode.light,
         navigatorKey: _navigatorKey,
-        home: const FirstOnBoarding(),
+        home: SplashSc(),
         // onGenerateRoute: (settings) => SplashScreen.route(),
       );
 }

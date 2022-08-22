@@ -90,7 +90,7 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                 extraActions: [
                   if (currentTabIndex > 1)
                     Padding(
-                      padding: const EdgeInsets.all(16.0),
+                      padding: const EdgeInsets.all(16),
                       child: WScaleAnimation(
                           child: SvgPicture.asset(
                             AppIcons.close,

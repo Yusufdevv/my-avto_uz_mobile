@@ -211,8 +211,8 @@ class ProfileScreen extends StatelessWidget {
                                           .textTheme
                                           .headline1!
                                           .copyWith(
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.w600),
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.w600),
                                     ),
                                   ],
                                 ),
@@ -234,11 +234,10 @@ class ProfileScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-
                   ],
                 ),
               ),
-               Container(
+              Container(
                 margin: const EdgeInsets.only(top: 12),
                 decoration: BoxDecoration(
                   color:
@@ -251,7 +250,6 @@ class ProfileScreen extends StatelessWidget {
                 ),
                 child: Column(
                   children: [
-
                     WScaleAnimation(
                       onTap: () {
                         Navigator.of(context, rootNavigator: true).push(
