@@ -25,6 +25,10 @@ class WAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Widget? childWithButton;
 
   final List<BoxShadow>? boxShadow;
+  ///Default is 20
+  final double backButtonSize;
+  ///Default is 8
+  final double backTitleBetweenSize;
 
   ///Default is set true
   final bool centerTitle;
@@ -33,6 +37,8 @@ class WAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   const WAppBar({
     Key? key,
+    this.backTitleBetweenSize=8,
+    this.backButtonSize=20,
     this.bottomRadius,
     this.topMargin,
     this.underlineColor,
@@ -109,7 +115,7 @@ class WAppBar extends StatelessWidget implements PreferredSizeWidget {
                               },
                           child: Padding(
                             padding: const EdgeInsets.only(left: 16),
-                            child: SvgPicture.asset(AppIcons.chevronLeft),
+                            child: SvgPicture.asset(AppIcons.chevronLeft,width: backButtonSize,height: backButtonSize,),
                           ),
                         ),
                       )
@@ -147,18 +153,19 @@ class WAppBar extends StatelessWidget implements PreferredSizeWidget {
                         ? MainAxisAlignment.center
                         : MainAxisAlignment.start,
                     children: [
+                      if(!centerTitle)...{
+                        SizedBox(width: backButtonSize+16+backTitleBetweenSize,)
+                      },
+
                       Align(
                         alignment: Alignment.center,
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 40),
-                          child: Text(
-                            title ?? '',
-                            style: titleStyle ??
-                                Theme.of(context).textTheme.subtitle1!.copyWith(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                          ),
+                        child: Text(
+                          title ?? '',
+                          style: titleStyle ??
+                              Theme.of(context).textTheme.subtitle1!.copyWith(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w600,
+                                  ),
                         ),
                       )
                     ],

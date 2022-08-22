@@ -11,17 +11,17 @@ class CarStatistics extends StatelessWidget {
   List<CarStatistic> mockList = [
     CarStatistic(
       valueText: '2 февраля 2021',
-      icon: AppIcons.settings,
+      icon: AppIcons.calendar,
     ),
     CarStatistic(
       valueText: '31 490 (629 сегодня)',
-      icon: AppIcons.settings,
+      icon: AppIcons.eye,
     ),
-    CarStatistic(valueText: '8323543', icon:AppIcons.settings, titleText: ''),
+    CarStatistic(valueText: '8323543', icon:AppIcons.id, titleText: ''),
   ];
 
   @override
-  Widget build(BuildContext context) => Container(margin: EdgeInsets.only(right: 40),
+  Widget build(BuildContext context) => Container(margin: const EdgeInsets.only(right: 40),
     child: Wrap(
       spacing: 12,
       direction: Axis.horizontal,

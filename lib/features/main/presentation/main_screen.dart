@@ -3,6 +3,7 @@ import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_icons.dart';
 import 'package:auto/features/common/domain/entity/car_brand_entity.dart';
 import 'package:auto/features/common/widgets/car_brand_item.dart';
+import 'package:auto/features/common/widgets/popups.dart';
 import 'package:auto/features/main/domain/entities/ads_entity.dart';
 import 'package:auto/features/main/domain/entities/service_entity.dart';
 import 'package:auto/features/main/presentation/widgets/ads_item.dart';
@@ -61,6 +62,7 @@ class _MainScreenState extends State<MainScreen> {
       icon: AppIcons.rentCar,
     ),
   ];
+
   @override
   void initState() {
     serviceTaps = [
@@ -100,6 +102,7 @@ class _MainScreenState extends State<MainScreen> {
   ];
 
   late List<VoidCallback> serviceTaps = [];
+
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
@@ -110,7 +113,8 @@ class _MainScreenState extends State<MainScreen> {
           actions: [
             Padding(
               padding: const EdgeInsets.only(right: 16),
-              child: SvgPicture.asset(AppIcons.bell),
+              child: GestureDetector(
+                  onTap: () {}, child: SvgPicture.asset(AppIcons.bell)),
             )
           ],
         ),
@@ -156,18 +160,16 @@ class _MainScreenState extends State<MainScreen> {
                 ),
               ),
               const SizedBox(height: 8),
-              SizedBox(
-                height: 100,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) => CarBrandItem(
-                    carBrandEntity: carBrandEntity[index],
-                    hasShadow: true,
-                  ),
-                  itemCount: carBrandEntity.length,
+              SingleChildScrollView(scrollDirection: Axis.horizontal,padding: const EdgeInsets.only(bottom: 16),
+                child: Row(
+                  children: List.generate(
+                     carBrandEntity.length,
+                      (index) => CarBrandItem(
+                            carBrandEntity: carBrandEntity[index],
+                            hasShadow: true,
+                          )),
                 ),
               ),
-              const SizedBox(height: 16),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Text(

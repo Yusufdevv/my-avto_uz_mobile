@@ -80,7 +80,7 @@ class AllTabs extends StatelessWidget {
                           style: Theme.of(context)
                               .textTheme
                               .headline2!
-                              .copyWith(decoration: TextDecoration.lineThrough),
+                              .copyWith(decoration: TextDecoration.lineThrough,color: grey),
                         )
                       ],
                     ),

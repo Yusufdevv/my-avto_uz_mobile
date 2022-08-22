@@ -2,7 +2,7 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_textfield.dart';
-import 'package:auto/features/main/presentation/pages/main_screen.dart';
+import 'package:auto/features/main/presentation/main_screen.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:flutter/material.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';

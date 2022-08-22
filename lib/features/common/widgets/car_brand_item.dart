@@ -11,7 +11,7 @@ class CarBrandItem extends StatelessWidget {
       : super(key: key);
 
   @override
-  Widget build(BuildContext context) => Container(
+  Widget build(BuildContext context) => Container(height: 100,width: 80,
         padding: const EdgeInsets.symmetric(horizontal: 8),
         margin: const EdgeInsets.only(left: 12),
         decoration: BoxDecoration(
@@ -37,7 +37,8 @@ class CarBrandItem extends StatelessWidget {
             Image.asset(carBrandEntity.icon),
             const SizedBox(height: 8),
             Text(
-              carBrandEntity.title,
+              carBrandEntity.title+' Company',textAlign: TextAlign.center,
+              maxLines: 2,
               style: Theme.of(context)
                   .textTheme
                   .headline1!

@@ -82,7 +82,7 @@ class LanguageBottomSheetState extends State<LanguageBottomSheet> {
                     groupValue: index,
                   )),
           WButton(
-            margin: const EdgeInsets.only(top: 20),
+            margin:  EdgeInsets.only(top: 20,bottom: MediaQuery.of(context).padding.bottom),
             onTap: () {
               Navigator.pop(context);
             },

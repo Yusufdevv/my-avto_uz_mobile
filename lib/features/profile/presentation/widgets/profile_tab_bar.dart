@@ -93,7 +93,7 @@ class ProfileTabBar extends SliverPersistentHeaderDelegate {
   Widget build(
           BuildContext context, double shrinkOffset, bool overlapsContent) =>
       Container(
-        color: white,
+color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
         // padding: const EdgeInsets.only(bottom: 12),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(6),

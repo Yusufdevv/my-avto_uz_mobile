@@ -1,6 +1,6 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
-import 'package:auto/features/main/presentation/pages/main_screen.dart';
+import 'package:auto/features/main/presentation/main_screen.dart';
 import 'package:auto/features/navigation/presentation/home.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/posting_ad/preview/domain/entity/preview_entity.dart';
