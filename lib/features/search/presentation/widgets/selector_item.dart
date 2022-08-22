@@ -32,7 +32,7 @@ class SelectorItem extends StatelessWidget {
           const SizedBox(
             height: 8,
           ),
-          WScaleAnimation(
+          GestureDetector(
             onTap: onTap,
             child: Container(
               margin: const EdgeInsets.only(bottom: 16),

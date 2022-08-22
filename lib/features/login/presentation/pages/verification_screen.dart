@@ -10,10 +10,12 @@ import 'package:auto/features/profile/presentation/widgets/refresh_button.dart';
 import 'package:auto/features/profile/presentation/widgets/time_counter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 class VerificationScreen extends StatefulWidget {
   final String phone;
+
   const VerificationScreen({required this.phone, Key? key}) : super(key: key);
 
   @override
@@ -23,6 +25,7 @@ class VerificationScreen extends StatefulWidget {
 class _VerificationScreenState extends State<VerificationScreen> {
   late TextEditingController verificationController;
   bool timeComplete = false;
+
   @override
   void initState() {
     verificationController = TextEditingController();
@@ -36,162 +39,167 @@ class _VerificationScreenState extends State<VerificationScreen> {
   }
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-        appBar: const WAppBar(
-          title: 'Регистрация',
-        ),
-        body: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const LoginHeader(
-                  title: 'Подтверждение номера',
-                  description:
-                      'Введите код подтверждения из SMS. Код подтверждения отправлено на номер'),
-              const SizedBox(
-                height: 12,
-              ),
-              Container(
-                width: 170,
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                  color: Theme.of(context)
-                      .extension<ThemedColors>()!
-                      .solitudeToBastille,
+  Widget build(BuildContext context) => KeyboardDismisser(
+        child: Scaffold(
+          appBar: const WAppBar(
+            title: 'Регистрация',
+          ),
+          body: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const LoginHeader(
+                    title: 'Подтверждение номера',
+                    description:
+                        'Введите код подтверждения из SMS. Код подтверждения отправлено на номер'),
+                const SizedBox(
+                  height: 12,
                 ),
-                child: Row(
+                Container(
+                  width: 170,
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    color: Theme.of(context)
+                        .extension<ThemedColors>()!
+                        .solitudeToBastille,
+                  ),
+                  child: Row(
+                    children: [
+                      Text(
+                        '+998 88 033 18 05',
+                        style: Theme.of(context).textTheme.headline6!.copyWith(
+                            fontWeight: FontWeight.w400, fontSize: 14),
+                      ),
+                      const SizedBox(
+                        width: 12,
+                      ),
+                      WButton(
+                        onTap: () {},
+                        padding: const EdgeInsets.all(4),
+                        color: Theme.of(context)
+                            .extension<ThemedColors>()!
+                            .solitudeToSolitude14,
+                        height: 24,
+                        child: SvgPicture.asset(AppIcons.edit),
+                      )
+                    ],
+                  ),
+                ),
+                const SizedBox(
+                  height: 35,
+                ),
+                PinCodeTextField(
+                  onChanged: (value) {
+                    setState(() {});
+                  },
+                  controller: verificationController,
+                  length: 6,
+                  pinTheme: PinTheme(
+                    inactiveColor: Theme.of(context)
+                        .extension<ThemedColors>()!
+                        .solitudeToWhite35,
+                    errorBorderColor: red,
+                    activeColor: purple,
+                    activeFillColor: purple,
+                    selectedColor: purple,
+                    shape: PinCodeFieldShape.underline,
+                    fieldHeight: 44,
+                    fieldWidth: 50,
+                  ),
+                  cursorColor: white,
+                  keyboardType: TextInputType.number,
+                  enableActiveFill: false,
+                  textStyle: Theme.of(context)
+                      .textTheme
+                      .headline1!
+                      .copyWith(fontSize: 18),
+                  hintStyle: Theme.of(context)
+                      .textTheme
+                      .bodyText2!
+                      .copyWith(fontSize: 4),
+                  appContext: context,
+                  showCursor: true,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                ),
+                const SizedBox(
+                  height: 18,
+                ),
+                Row(
                   children: [
-                    Text(
-                      '+998 88 033 18 05',
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline6!
-                          .copyWith(fontWeight: FontWeight.w400, fontSize: 14),
-                    ),
+                    Text('Отправить код снова через',
+                        style: Theme.of(context).textTheme.headline6!.copyWith(
+                              fontSize: 14,
+                            )),
                     const SizedBox(
-                      width: 12,
+                      width: 6,
                     ),
-                    WButton(
-                      onTap: () {},
-                      padding: const EdgeInsets.all(4),
-                      color: Theme.of(context)
-                          .extension<ThemedColors>()!
-                          .solitudeToSolitude14,
-                      height: 24,
-                      child: SvgPicture.asset(AppIcons.edit),
-                    )
+                    if (timeComplete)
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 4, vertical: 3),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(4),
+                            color: orange.withOpacity(0.1)),
+                        child: RefreshButton(
+                          filteredPhone: widget.phone,
+                          onSucces: () {
+                            setState(() {
+                              timeComplete = false;
+                            });
+                          },
+                        ),
+                      )
+                    else
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 4, vertical: 3),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(4),
+                            color: orange.withOpacity(0.1)),
+                        child: TimeCounter(
+                          onComplete: () {
+                            setState(() {
+                              timeComplete = true;
+                            });
+                          },
+                        ),
+                      )
                   ],
                 ),
-              ),
-              const SizedBox(
-                height: 35,
-              ),
-              PinCodeTextField(
-                onChanged: (value) {
-                  setState(() {});
-                },
-                controller: verificationController,
-                length: 6,
-                pinTheme: PinTheme(
-                  inactiveColor: Theme.of(context)
-                      .extension<ThemedColors>()!
-                      .solitudeToWhite35,
-                  errorBorderColor: red,
-                  activeColor: purple,
-                  activeFillColor: purple,
-                  selectedColor: purple,
-                  shape: PinCodeFieldShape.underline,
-                  fieldHeight: 44,
-                  fieldWidth: 50,
-                ),
-                cursorColor: white,
-                keyboardType: TextInputType.number,
-                enableActiveFill: false,
-                textStyle: Theme.of(context)
-                    .textTheme
-                    .headline1!
-                    .copyWith(fontSize: 18),
-                hintStyle: Theme.of(context)
-                    .textTheme
-                    .bodyText2!
-                    .copyWith(fontSize: 4),
-                appContext: context,
-                showCursor: true,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              ),
-              const SizedBox(
-                height: 18,
-              ),
-              Row(
-                children: [
-                  Text('Отправить код снова через',
-                      style: Theme.of(context).textTheme.headline6!.copyWith(
-                            fontSize: 14,
-                          )),
-                  const SizedBox(
-                    width: 6,
-                  ),
-                  if (timeComplete)
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 4, vertical: 3),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(4),
-                          color: orange.withOpacity(0.1)),
-                      child: RefreshButton(
-                        filteredPhone: widget.phone,
-                        onSucces: () {
-                          setState(() {
-                            timeComplete = false;
-                          });
-                        },
-                      ),
-                    )
-                  else
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 4, vertical: 3),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(4),
-                          color: orange.withOpacity(0.1)),
-                      child: TimeCounter(
-                        onComplete: () {
-                          setState(() {
-                            timeComplete = true;
-                          });
-                        },
-                      ),
-                    )                ],
-              ),
-              const Spacer(),
-              WButton(
-                onTap: () => Navigator.pushReplacement(context, fade(page: const PersonalDataScreen())),
-                margin: const EdgeInsets.only(bottom: 20),
-                color: (verificationController.text.isNotEmpty &&
-                        verificationController.text.length == 6)
-                    ? orange
-                    : Theme.of(context)
-                        .extension<ThemedColors>()!
-                        .veryLightGreyToEclipse,
-                text: 'Продолжить',
-                shadow: [
-                  BoxShadow(
-                      offset: const Offset(0, 1),
-                      blurRadius: 5,
-                      color: Theme.of(context)
+                const Spacer(),
+                WButton(
+                  onTap: () => verificationController.text.isNotEmpty &&
+                          verificationController.text.length == 6
+                      ? Navigator.pushReplacement(
+                          context, fade(page: const PersonalDataScreen()))
+                      : {},
+                  margin: EdgeInsets.only(
+                      bottom: MediaQuery.of(context).padding.bottom + 4),
+                  color: (verificationController.text.isNotEmpty &&
+                          verificationController.text.length == 6)
+                      ? orange
+                      : Theme.of(context)
                           .extension<ThemedColors>()!
-                          .transparentToSolitude12)
-                ],
-                border: Border.all(
-                  width: 1,
-                  color: Theme.of(context)
-                      .extension<ThemedColors>()!
-                      .whiteToDolphin,
+                          .veryLightGreyToEclipse,
+                  text: 'Продолжить',
+                  shadow: [
+                    BoxShadow(
+                        offset: const Offset(0, 4),
+                        blurRadius: 20,
+                        color: solitude.withOpacity(.12)),
+                  ],
+                  border: Border.all(
+                    width: 1,
+                    color: Theme.of(context)
+                        .extension<ThemedColors>()!
+                        .whiteToDolphin,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       );

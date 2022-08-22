@@ -39,7 +39,7 @@ class OnBoardingBottom extends StatelessWidget {
                 ),
                 RichText(
                   text: TextSpan(
-                      text: 'Планы на автомобили постройте\nвместе с нами',
+                      text: 'Планы на\nавтомобили постройте\nвместе с нами',
                       style: Theme.of(context)
                           .textTheme
                           .caption!
@@ -67,21 +67,24 @@ class OnBoardingBottom extends StatelessWidget {
                 ])),
           ),
           Positioned(
-              right: 0,
+            right: 0,
+            child: GestureDetector(
+              onTap: () => Navigator.of(context)
+                  .push(fade(page: const OnBoardingScreen())),
               child: Stack(
                 children: [
                   SvgPicture.asset(AppIcons.orangePolygon),
                   Positioned(
-                      right: 10,
-                      top: 110,
-                      child: GestureDetector(
-                          onTap: () => Navigator.of(context)
-                              .push(fade(page: const OnBoardingScreen())),
-                          child: SvgPicture.asset(
-                            AppIcons.arrowRight,
-                          ))),
+                    right: 10,
+                    top: 110,
+                    child: SvgPicture.asset(
+                      AppIcons.arrowRight,
+                    ),
+                  ),
                 ],
-              ))
+              ),
+            ),
+          ),
         ],
       );
 }

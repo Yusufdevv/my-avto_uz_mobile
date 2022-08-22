@@ -14,7 +14,6 @@ import 'package:auto/features/main/presentation/widgets/story_data.dart';
 import 'package:auto/features/main/presentation/widgets/story_item.dart';
 import 'package:auto/features/main/presentation/widgets/yandex_map.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
-import 'package:auto/features/rent/presentation/rent_screen.dart';
 import 'package:auto/features/search/presentation/pages/commercial_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -102,6 +101,7 @@ class _MainScreenState extends State<MainScreen> {
   late List<VoidCallback> serviceTaps = [];
   @override
   Widget build(BuildContext context) => Scaffold(
+    backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         appBar: AppBar(
           elevation: 0,
           title: SvgPicture.asset(
@@ -156,7 +156,8 @@ class _MainScreenState extends State<MainScreen> {
                 ),
               ),
               const SizedBox(height: 8),
-              SizedBox(
+              Container(
+                color: Theme.of(context).scaffoldBackgroundColor,
                 height: 100,
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,

@@ -62,9 +62,9 @@ class _WRangeSliderState extends State<WRangeSlider> {
             height: 20,
             width: double.infinity,
             child: SliderTheme(
-              data: SliderTheme.of(context).copyWith(thumbColor: red),
+              data: SliderTheme.of(context).copyWith(thumbColor: white),
               child: RangeSlider(
-                  divisions: 100,
+                  divisions: 5000,
                   min: widget.startValue,
                   max: widget.endValue,
                   activeColor: purple,

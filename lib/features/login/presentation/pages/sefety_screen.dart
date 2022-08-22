@@ -4,6 +4,8 @@ import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/login/presentation/widgets/login_header_widget.dart';
 import 'package:auto/features/login/presentation/widgets/z_text_form_field.dart';
+import 'package:auto/features/navigation/presentation/home.dart';
+import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:flutter/material.dart';
 
 class SafetyScreen extends StatefulWidget {
@@ -55,18 +57,18 @@ bool  secondPasswordEmpty = true;
           }, hintText: 'Пароль', isObscure: true, controller: repeatPasswordController,),
           const Spacer(),
           WButton(
-            onTap: () {},
-            margin: const EdgeInsets.only(bottom: 20),
+            onTap: () => passwordController.text.isNotEmpty && repeatPasswordController.text.isNotEmpty? Navigator.pushAndRemoveUntil(context, fade(page: const HomeScreen()), (route) => false) :{},
+            margin:   EdgeInsets.only(bottom: 4 + MediaQuery.of(context).padding.bottom),
             color:(passwordController.text.isNotEmpty && repeatPasswordController.text.isNotEmpty)?orange : Theme.of(context)
                 .extension<ThemedColors>()!
                 .veryLightGreyToEclipse ,
             text: 'Продолжить',
             shadow: [
               BoxShadow(
-                offset: const Offset(0, 1),
-                blurRadius: 5,
-                color: Theme.of(context).extension<ThemedColors>()!.transparentToSolitude12
-              )
+                  offset: const Offset(0, 4),
+                  blurRadius: 20,
+                  color: solitude.withOpacity(.12)
+              ),
             ],
             border: Border.all(
               width: 1,

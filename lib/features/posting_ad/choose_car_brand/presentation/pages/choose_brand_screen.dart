@@ -119,6 +119,7 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
                         hintText: 'Поиск',
                         height: 40,
                         controller: searchController,
+                        hasClearButton: true,
                       ),
                     ),
                     SliverToBoxAdapter(

@@ -2,6 +2,7 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/cached_image.dart';
+import 'package:auto/features/common/widgets/w_like.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/profile/presentation/widgets/advertising.dart';
 import 'package:auto/features/search/domain/entities/commercial_item_entity.dart';
@@ -188,27 +189,11 @@ class _AllCommercialItemState extends State<AllCommercialItem> {
                         onTap: () {},
                         child: SvgPicture.asset(
                           AppIcons.scale,
-                          color: Theme.of(context)
-                              .extension<ThemedColors>()!
-                              .greyToCinnabar,
+
                         ),
                       ),
                       const SizedBox(width: 8),
-                      WScaleAnimation(
-                        onTap: () {
-                          setState(() {
-                            isLiked = !isLiked;
-                          });
-                        },
-                        child: isLiked
-                            ? SvgPicture.asset(AppIcons.enabledHeart)
-                            : SvgPicture.asset(
-                                AppIcons.disabledHeart,
-                                color: Theme.of(context)
-                                    .extension<ThemedColors>()!
-                                    .greyToCinnabar,
-                              ),
-                      ),
+                    const WLike(),
                       const SizedBox(
                         width: 8,
                       ),

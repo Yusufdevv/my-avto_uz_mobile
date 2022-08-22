@@ -182,6 +182,7 @@ abstract class LightTheme {
             check: LightIcons.check,
             filterIcon: LightIcons.filterIcon,
             autoUzLightDark: LightIcons.autoUzLightDark,
+            google: LightIcons.google,
           ),
         },
       );

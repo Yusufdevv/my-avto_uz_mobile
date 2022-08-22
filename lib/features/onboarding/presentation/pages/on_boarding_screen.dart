@@ -1,6 +1,8 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/features/login/presentation/pages/login_screen.dart';
+import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/onboarding/presentation/widgets/base_onboarding.dart';
 import 'package:auto/features/onboarding/presentation/widgets/indicator.dart';
 import 'package:auto/features/onboarding/presentation/widgets/on_boarding_page_items.dart';
@@ -104,7 +106,8 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                   height: 24,
                 ),
                 BaseOnBoarding(
-                  color: currentIndex == 1 && currentIndex == 2
+                  onTap: currentIndex == 0 || currentIndex == 1 ? (){} :() =>Navigator.pushAndRemoveUntil(context, fade(page: const LoginScreen()), (route) => false),
+                  color: currentIndex == 0 || currentIndex == 1
                       ? Theme.of(context)
                           .extension<ThemedColors>()!
                           .veryLightGreyToEclipse

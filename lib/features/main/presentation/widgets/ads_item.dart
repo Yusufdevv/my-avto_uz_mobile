@@ -1,6 +1,7 @@
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/car_single/presentation/car_single_screen.dart';
+import 'package:auto/features/common/widgets/w_like.dart';
 import 'package:auto/features/main/domain/entities/ads_entity.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:flutter/material.dart';
@@ -105,7 +106,7 @@ class AdsItem extends StatelessWidget {
                     const Spacer(),
                     Row(
                       children: [
-                        SvgPicture.asset(AppIcons.heart),
+                        const WLike(),
                         const SizedBox(width: 12),
                         SvgPicture.asset(AppIcons.scale),
                       ],
