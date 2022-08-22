@@ -33,25 +33,27 @@ class _CarsImageSliderState extends State<CarsImageSlider> {
                     })),
           ),
           Positioned(
-              bottom: 12,
-              right: 16,
-              left: 16,
-              child: Row(
-                children: List.generate(
-                    5,
-                    (index) => Expanded(
-                          child: AnimatedContainer(
-                            margin: const EdgeInsets.only(right: 4),
-                            duration: const Duration(milliseconds: 300),
-                            height: 4,
-                            decoration: BoxDecoration(
-                                color: currentIndex == index
-                                    ? Colors.white
-                                    : const Color(0xffB5B5BE),
-                                borderRadius: BorderRadius.circular(2)),
-                          ),
-                        )),
-              ))
+            bottom: 12,
+            right: 16,
+            left: 16,
+            child: Row(
+              children: List.generate(
+                5,
+                (index) => Expanded(
+                  child: AnimatedContainer(
+                    margin: const EdgeInsets.only(right: 4),
+                    duration: const Duration(milliseconds: 300),
+                    height: 4,
+                    decoration: BoxDecoration(
+                        color: currentIndex == index
+                            ? Colors.white
+                            : const Color(0xffB5B5BE),
+                        borderRadius: BorderRadius.circular(2)),
+                  ),
+                ),
+              ),
+            ),
+          ),
         ],
       );
 }

@@ -79,23 +79,22 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ),
               const Spacer(),
               WButton(
-                onTap: () => phoneController.text.isEmpty
-                    ? () {}
-                    : Navigator.push(
+                onTap: () => phoneController.text.isNotEmpty
+                    ? Navigator.push(
                         context,
                         fade(
                             page: const VerificationScreen(
                           phone: '+998 97 777 77 77',
-                        ))),
+                        )))
+                    : {},
                 shadow: [
                   BoxShadow(
-                      offset: const Offset(0, 1),
-                      blurRadius: 5,
-                      color: Theme.of(context)
-                          .extension<ThemedColors>()!
-                          .transparentToSolitude12)
+                      offset: const Offset(0, 4),
+                      blurRadius: 20,
+                      color: solitude.withOpacity(.12)),
                 ],
-                margin: const EdgeInsets.only(bottom: 20),
+                margin: EdgeInsets.only(
+                    bottom: 4 + MediaQuery.of(context).padding.bottom),
                 color: (phoneController.text.isNotEmpty)
                     ? orange
                     : Theme.of(context)

@@ -20,16 +20,18 @@ class PriceScreen extends StatefulWidget {
 
 class _PriceScreenState extends State<PriceScreen> {
   late TextEditingController priceController;
+
   @override
   void initState() {
     priceController = TextEditingController();
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) => KeyboardDismisser(
         child: Scaffold(
           body: BaseWidget(
-            onTap: priceController.text.isEmpty ? (){} : widget.onTap,
+            onTap: widget.onTap,
             child: Padding(
               padding: const EdgeInsets.all(16),
               child: Column(
@@ -116,7 +118,14 @@ class _PriceScreenState extends State<PriceScreen> {
                               .headline2!
                               .copyWith(color: grey),
                         ),
-                        Text('≈ 270 000 у.е', style: Theme.of(context).textTheme.headline1!.copyWith(fontWeight: FontWeight.w600, fontSize: 14),)
+                        Text(
+                          '≈ 270 000 у.е',
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline1!
+                              .copyWith(
+                                  fontWeight: FontWeight.w600, fontSize: 14),
+                        )
                       ],
                     ),
                   ),

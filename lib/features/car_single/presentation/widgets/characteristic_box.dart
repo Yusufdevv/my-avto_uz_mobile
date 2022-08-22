@@ -14,7 +14,7 @@ class CharacteristicBox extends StatelessWidget {
     color: color,
     //height: 52,
     padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-    width: 160,
+    width: 180,
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

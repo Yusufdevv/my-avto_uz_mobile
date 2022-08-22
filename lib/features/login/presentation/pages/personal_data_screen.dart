@@ -21,6 +21,7 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
   late TextEditingController passwordController;
   late TextEditingController regionController;
   late TextEditingController emailController;
+
   @override
   void initState() {
     passwordController = TextEditingController();
@@ -91,21 +92,20 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
                   ),
                 ),
                 WButton(
-                  onTap: () => passwordController.text.isNotEmpty ||
-                          regionController.text.isNotEmpty ||
+                  onTap: () => passwordController.text.isNotEmpty &&
+                          regionController.text.isNotEmpty &&
                           emailController.text.isNotEmpty
                       ? Navigator.push(
                           context, fade(page: const NewPasswordScreen()))
-                      : () {},
+                      : {},
                   shadow: [
                     BoxShadow(
-                        offset: const Offset(0, 1),
-                        blurRadius: 5,
-                        color: Theme.of(context)
-                            .extension<ThemedColors>()!
-                            .transparentToSolitude12)
+                        offset: const Offset(0, 4),
+                        blurRadius: 20,
+                        color: solitude.withOpacity(.12)),
                   ],
-                  margin: const EdgeInsets.only(bottom: 20),
+                  margin: EdgeInsets.only(
+                      bottom: 4 + MediaQuery.of(context).padding.bottom),
                   color: (passwordController.text.isNotEmpty &&
                           regionController.text.isNotEmpty &&
                           emailController.text.isNotEmpty)

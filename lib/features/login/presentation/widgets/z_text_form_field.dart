@@ -118,7 +118,7 @@ void initState() {
 
   focusNode.addListener(
         () => setState(() {
-      print('focused');
+      debugPrint('focused');
       focused = !focused;
     }),
   );
@@ -227,7 +227,6 @@ void dispose() {
           ),
         ),
       ),
-
     ],
   );
 }

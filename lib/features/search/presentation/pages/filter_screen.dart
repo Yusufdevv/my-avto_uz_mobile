@@ -131,7 +131,7 @@ class _FilterScreenState extends State<FilterScreen> {
               ),
               const SizedBox(height: 30),
               WButton(
-                onTap: () {},
+                onTap: () => Navigator.pop(context),
                 text: 'Применить',
               )
             ],

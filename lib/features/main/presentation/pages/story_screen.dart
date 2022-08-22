@@ -41,6 +41,8 @@ class _StoryScreenState extends State<StoryScreen>
           if (currentIndex + 1 < widget.story.length) {
             currentIndex += 1;
             _loadStory(story: widget.story[currentIndex]);
+          } else if (currentIndex == widget.story.length - 1) {
+            Navigator.pop(context);
           } else {
             currentIndex = 0;
             _loadStory(story: widget.story[currentIndex]);
@@ -89,9 +91,10 @@ class _StoryScreenState extends State<StoryScreen>
                       (i, e) => MapEntry(
                         i,
                         AnimatedBar(
-                            animationController: animationController,
-                            currentIndex: currentIndex,
-                            position: i),
+                          animationController: animationController,
+                          currentIndex: currentIndex,
+                          position: i,
+                        ),
                       ),
                     )
                     .values
@@ -206,13 +209,17 @@ class _StoryScreenState extends State<StoryScreen>
       });
     } else if (dx > 2 * screenWidth / 3) {
       setState(() {
-        if (currentIndex + 1 < widget.story.length) {
+        if (currentIndex + 1 < widget.story.length + 1) {
           currentIndex += 1;
+          if(currentIndex == widget.story.length){
+            Navigator.pop(context);
+          }
           _loadStory(story: widget.story[currentIndex]);
-        } else {
+        }else {
           currentIndex = 0;
           _loadStory(story: widget.story[currentIndex]);
         }
+
       });
     } else {}
   }
@@ -223,7 +230,6 @@ class _StoryScreenState extends State<StoryScreen>
       ..reset()
       ..duration = story.duration
       ..forward();
-
     if (animateToPage) {
       pageController.animateToPage(currentIndex,
           duration: const Duration(milliseconds: 1), curve: Curves.easeInOut);

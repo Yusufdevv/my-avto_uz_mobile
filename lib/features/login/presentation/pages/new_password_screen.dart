@@ -81,20 +81,19 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                   ),
                 ),
                 WButton(
-                  onTap: () => newPasswordController.text.isEmpty ||
-                          confirmPasswordController.text.isEmpty
-                      ? () {}
-                      : Navigator.pushAndRemoveUntil(context,
-                          fade(page: const HomeScreen()), (route) => false),
+                  onTap: () => newPasswordController.text.isNotEmpty &&
+                          confirmPasswordController.text.isNotEmpty
+                      ? Navigator.pushAndRemoveUntil(context,
+                          fade(page: const HomeScreen()), (route) => false)
+                      : {},
                   shadow: [
                     BoxShadow(
-                        offset: const Offset(0, 1),
-                        blurRadius: 5,
-                        color: Theme.of(context)
-                            .extension<ThemedColors>()!
-                            .transparentToSolitude12)
+                        offset: const Offset(0, 4),
+                        blurRadius: 20,
+                        color: solitude.withOpacity(.12)),
                   ],
-                  margin: const EdgeInsets.only(bottom: 20),
+                  margin: EdgeInsets.only(
+                      bottom: 4 + MediaQuery.of(context).padding.bottom),
                   color: (newPasswordController.text.isNotEmpty &&
                           confirmPasswordController.text.isNotEmpty)
                       ? orange

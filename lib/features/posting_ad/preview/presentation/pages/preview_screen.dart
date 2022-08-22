@@ -1,10 +1,10 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
-import 'package:auto/features/main/presentation/pages/main_screen.dart';
 import 'package:auto/features/navigation/presentation/home.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/posting_ad/preview/domain/entity/preview_entity.dart';
 import 'package:auto/features/posting_ad/preview/presentation/widgets/preview_item.dart';
+import 'package:auto/features/profile/presentation/pages/my_ad_screen.dart';
 import 'package:flutter/material.dart';
 
 class PreviewScreen extends StatelessWidget {
@@ -33,27 +33,32 @@ class PreviewScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        body: Stack(
-          children: [
-            PreviewItem(
-              previewEntity: preview[0],
-            ),
-            Positioned(
-                bottom: MediaQuery.of(context).padding.bottom + 16,
-                right: 16,
-                left: 16,
-                child: WButton(
-                  onTap: () {},
-                  text: 'Разместить бесплатно на 7 дней',
-                  shadow: [
-                    BoxShadow(
-                        offset: const Offset(0, 4),
-                        blurRadius: 20,
-                        color: orange.withOpacity(0.2)),
-                  ],
-                )),
+          body: Stack(
+        children: [
+          PreviewItem(
+            previewEntity: preview[0],
+          ),
+          Positioned(
+              bottom: MediaQuery.of(context).padding.bottom + 16,
+              right: 16,
+              left: 16,
+              child: WButton(
+                onTap: () async {
+                  Navigator.pop(context);
+                  HomeTabControllerProvider.of(context)
+                      .controller
+                      .animateTo(4);
 
-          ],
-        )
-      );
+                  Navigator.push(context, fade(page: const MyAdScreen()));
+                },
+                text: 'Разместить бесплатно на 7 дней',
+                shadow: [
+                  BoxShadow(
+                      offset: const Offset(0, 4),
+                      blurRadius: 20,
+                      color: orange.withOpacity(0.2)),
+                ],
+              )),
+        ],
+      ));
 }

@@ -1,16 +1,16 @@
-import 'package:auto/assets/colors/color.dart';
+ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
-import 'package:auto/features/common/widgets/w_button.dart';
-import 'package:auto/features/navigation/presentation/home.dart';
-import 'package:auto/features/navigation/presentation/navigator.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_icons.dart';
+ import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/onboarding/presentation/widgets/social_media_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class BaseOnBoarding extends StatelessWidget {
   final Color color;
-  const BaseOnBoarding({required this.color, Key? key})
+  final VoidCallback onTap;
+  const BaseOnBoarding({required this.onTap, required this.color, Key? key})
       : super(key: key);
 
   @override
@@ -19,10 +19,17 @@ class BaseOnBoarding extends StatelessWidget {
         child: Column(
           children: [
             WButton(
-              onTap: () => Navigator.pushAndRemoveUntil(context, fade(page: const HomeScreen()), (route) => false),
+              onTap:  onTap,
               text: 'Войти в систему',
               color: color,
               borderRadius: 8,
+              shadow: [
+                BoxShadow(
+                  offset: const Offset(0, 4),
+                  blurRadius: 20,
+                  color: solitude.withOpacity(.12)
+                ),
+              ],
             ),
             const SizedBox(
               height: 8,
@@ -70,7 +77,7 @@ class BaseOnBoarding extends StatelessWidget {
                 const SizedBox(
                   width: 24,
                 ),
-                SocialMediaItem(icon: SvgPicture.asset(AppIcons.google),),
+                SocialMediaItem(icon: SvgPicture.asset(Theme.of(context).extension<ThemedIcons>()!.google),),
                 const SizedBox(
                   width: 24,
                 ),

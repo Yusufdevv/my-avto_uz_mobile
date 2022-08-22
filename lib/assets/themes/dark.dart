@@ -190,6 +190,7 @@ abstract class DarkTheme {
             check: DarkIcons.blueCheck,
             filterIcon: DarkIcons.filterIcon,
             autoUzLightDark: DarkIcons.autoUzLightDark,
+            google: DarkIcons.google,
           ),
         },
       );
