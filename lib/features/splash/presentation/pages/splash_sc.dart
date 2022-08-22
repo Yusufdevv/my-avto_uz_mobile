@@ -25,11 +25,11 @@ class _SplashScState extends State<SplashSc> {
         body: Center(
           child: Column(
             children: [
-              Spacer(),
+              const Spacer(),
               SvgPicture.asset(
                 Theme.of(context).extension<ThemedIcons>()!.autoUzLightDark,
               ),
-              Spacer(),
+              const Spacer(),
               Lottie.asset('assets/lottie/red_car.json', height: 86),
             ],
           ),

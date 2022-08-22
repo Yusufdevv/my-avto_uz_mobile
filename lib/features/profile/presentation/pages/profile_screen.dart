@@ -178,23 +178,7 @@ class ProfileScreen extends StatelessWidget {
                           ],
                         ),
                       ),
-                    )
-                  ],
-                ),
-              ),
-              Container(
-                margin: const EdgeInsets.only(top: 12),
-                decoration: BoxDecoration(
-                  color:
-                      Theme.of(context).extension<ThemedColors>()!.whiteToNero1,
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(
-                      color: Theme.of(context)
-                          .extension<WTextFieldStyle>()!
-                          .borderColor),
-                ),
-                child: Column(
-                  children: [
+                    ),
                     WScaleAnimation(
                       onTap: () {
                         Navigator.of(context).push(
@@ -243,104 +227,6 @@ class ProfileScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 12),
-                      height: 1,
-                      color: Theme.of(context)
-                          .extension<WTextFieldStyle>()!
-                          .borderColor,
-                    ),
-                    WScaleAnimation(
-                      onTap: () {},
-                      child: Container(
-                        padding: const EdgeInsets.fromLTRB(12, 12, 12, 16),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Row(
-                              children: [
-                                SvgPicture.asset(AppIcons.tabletReport),
-                                const SizedBox(width: 8),
-                                Column(
-                                  children: [
-                                    Text(
-                                      'Мои поиски',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .headline1!
-                                          .copyWith(
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.w600),
-                                    ),
-                                  ],
-                                ),
-                                const Spacer(),
-                                const Text(
-                                  '56',
-                                  style: TextStyle(color: purple),
-                                ),
-                                const SizedBox(width: 10),
-                                SvgPicture.asset(
-                                  AppIcons.chevronRight1,
-                                  color: Theme.of(context)
-                                      .extension<ThemedColors>()!
-                                      .darkGreyToWhite,
-                                )
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 12),
-                      height: 1,
-                      color: Theme.of(context)
-                          .extension<WTextFieldStyle>()!
-                          .borderColor,
-                    ),
-                    WScaleAnimation(
-                      onTap: () {},
-                      child: Container(
-                        padding: const EdgeInsets.fromLTRB(12, 12, 12, 16),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Row(
-                              children: [
-                                SvgPicture.asset(AppIcons.message),
-                                const SizedBox(width: 8),
-                                Column(
-                                  children: [
-                                    Text(
-                                      'Мои отзывы',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .headline1!
-                                          .copyWith(
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.w600),
-                                    ),
-                                  ],
-                                ),
-                                const Spacer(),
-                                const Text(
-                                  '21',
-                                  style: TextStyle(color: purple),
-                                ),
-                                const SizedBox(width: 10),
-                                SvgPicture.asset(
-                                  AppIcons.chevronRight1,
-                                  color: Theme.of(context)
-                                      .extension<ThemedColors>()!
-                                      .darkGreyToWhite,
-                                )
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    )
                   ],
                 ),
               ),
@@ -357,55 +243,6 @@ class ProfileScreen extends StatelessWidget {
                 ),
                 child: Column(
                   children: [
-                    WScaleAnimation(
-                      onTap: () {},
-                      child: Container(
-                        padding: const EdgeInsets.fromLTRB(12, 12, 12, 16),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Row(
-                              children: [
-                                SvgPicture.asset(AppIcons.tablet),
-                                const SizedBox(width: 8),
-                                Column(
-                                  children: [
-                                    Text(
-                                      'Справочник',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .headline1!
-                                          .copyWith(
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.w600),
-                                    ),
-                                  ],
-                                ),
-                                const Spacer(),
-                                const Text(
-                                  '15',
-                                  style: TextStyle(color: purple),
-                                ),
-                                const SizedBox(width: 10),
-                                SvgPicture.asset(
-                                  AppIcons.chevronRight1,
-                                  color: Theme.of(context)
-                                      .extension<ThemedColors>()!
-                                      .darkGreyToWhite,
-                                )
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 12),
-                      height: 1,
-                      color: Theme.of(context)
-                          .extension<WTextFieldStyle>()!
-                          .borderColor,
-                    ),
                     WScaleAnimation(
                       onTap: () {
                         Navigator.of(context, rootNavigator: true).push(

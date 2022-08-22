@@ -1,6 +1,6 @@
 import 'package:auto/assets/themes/dark.dart';
 import 'package:auto/assets/themes/light.dart';
-import 'package:auto/features/login/presentation/pages/login_screen.dart';
+import 'package:auto/features/splash/presentation/pages/splash_sc.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -25,9 +25,9 @@ class _AppState extends State<MyApp> {
         title: 'Auto.Uz',
         theme: LightTheme.theme(),
         darkTheme: DarkTheme.theme(),
-        themeMode: ThemeMode.dark,
+        themeMode: ThemeMode.light,
         navigatorKey: _navigatorKey,
-        home: const LoginScreen(),
+        home: SplashSc(),
         // onGenerateRoute: (settings) => SplashScreen.route(),
       );
 }

@@ -167,7 +167,7 @@ class _ChatState extends State<Chat> {
                                     crossAxisAlignment: CrossAxisAlignment.end,
                                     children: [
                                       Container(
-                                        margin: EdgeInsets.only(
+                                        margin: const EdgeInsets.only(
                                             right: 8, bottom: 22),
                                         height: 40,
                                         width: 40,
