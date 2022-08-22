@@ -30,7 +30,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class PostingAdScreen extends StatefulWidget {
-  const PostingAdScreen({Key? key}) : super(key: key);
+
+  const PostingAdScreen(
+      { Key? key})
+      : super(key: key);
 
   @override
   State<PostingAdScreen> createState() => _PostingAdScreenState();
@@ -79,13 +82,13 @@ class _PostingAdScreenState extends State<PostingAdScreen>
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               WAppBar(
-                onTapBack: (){
-                 if(currentTabIndex == 0){
-                   Navigator.pop(context);
-                 } else {
-                   --currentTabIndex;
-                   tabController.animateTo(currentTabIndex);
-                 }
+                onTapBack: () {
+                  if (currentTabIndex == 0) {
+                    Navigator.pop(context);
+                  } else {
+                    --currentTabIndex;
+                    tabController.animateTo(currentTabIndex);
+                  }
                 },
                 extraActions: [
                   if (currentTabIndex > 1)

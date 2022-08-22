@@ -2,6 +2,7 @@ import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/features/navigation/domain/entities/navbar.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/navigation/presentation/widgets/nav_bar_item.dart';
+import 'package:auto/features/posting_ad/qr_code/pages/qr_code.dart';
 import 'package:flutter/material.dart';
 
 enum NavItemEnum { head, search, newPost, categories, profile }
@@ -123,7 +124,12 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               ),
               child: TabBar(
                 enableFeedback: true,
-                onTap: (index) {},
+                onTap: (index) {
+                  if (index == 2) {
+                    Navigator.of(context, rootNavigator: true)
+                        .push(fade(page: const QRScannerScreen()));
+                  }
+                },
                 indicator: const BoxDecoration(),
                 controller: _controller,
                 labelPadding: EdgeInsets.zero,
