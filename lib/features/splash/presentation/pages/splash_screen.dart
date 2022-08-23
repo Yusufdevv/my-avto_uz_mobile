@@ -8,6 +8,9 @@ import 'package:sensors_plus/sensors_plus.dart';
 class SplashScreen extends StatelessWidget {
   double dx = 100, dy = 100;
 
+  static Route route() =>
+      MaterialPageRoute<void>(builder: (_) =>  SplashScreen());
+
   SplashScreen({Key? key}) : super(key: key);
 
   @override

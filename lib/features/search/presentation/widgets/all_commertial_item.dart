@@ -38,9 +38,7 @@ class _AllCommercialItemState extends State<AllCommercialItem> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Advertising(
-                image1: widget.commercialItemEntity.image1,
-                imege2: widget.commercialItemEntity.image2,
-                isClient: widget.commercialItemEntity.isClient,
+                images: widget.commercialItemEntity.images,
                 isSalon: widget.commercialItemEntity.isSalon),
             Container(
               margin: const EdgeInsets.only(top: 8, left: 16),
@@ -135,7 +133,7 @@ class _AllCommercialItemState extends State<AllCommercialItem> {
                                 .headline1!
                                 .copyWith(fontSize: 14),
                           ),
-                          if (widget.commercialItemEntity.isClient)
+                          if (widget.commercialItemEntity.isSalon)
                             Text(
                               'Частное лицо',
                               style: Theme.of(context)
@@ -189,11 +187,10 @@ class _AllCommercialItemState extends State<AllCommercialItem> {
                         onTap: () {},
                         child: SvgPicture.asset(
                           AppIcons.scale,
-
                         ),
                       ),
                       const SizedBox(width: 8),
-                    const WLike(),
+                      const WLike(),
                       const SizedBox(
                         width: 8,
                       ),

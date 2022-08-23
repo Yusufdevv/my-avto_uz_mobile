@@ -89,6 +89,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         controller: _controller,
         child: WillPopScope(
           onWillPop: () async {
+            print('calling pop');
             final isFirstRouteInCurrentTab =
                 !await _navigatorKeys[NavItemEnum.values[_currentIndex]]!
                     .currentState!
@@ -110,10 +111,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                     topLeft: Radius.circular(15),
                     topRight: Radius.circular(15)),
                 color: Theme.of(context).appBarTheme.backgroundColor,
-                // border: Border(
-                //
-                //     top: BorderSide(
-                //         color: const Color(0xFF696974).withOpacity(.2))),
                 boxShadow: [
                   BoxShadow(
                     color: const Color(0xFF171725).withOpacity(0.05),

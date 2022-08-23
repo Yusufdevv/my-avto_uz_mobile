@@ -1,18 +1,18 @@
 class CommercialItemEntity {
   final String autoName;
+  final String model;
   final int autoYear;
   final String clientName;
   final String title;
   final String priceAuto;
   final String oldPriceAuto;
   final String clientAvatar;
-  final String image1;
-  final String image2;
-  final bool isClient;
+  final List<String> images;
   final bool isSalon;
   final bool isLike;
 
   const CommercialItemEntity({
+    required this.model,
     required this.autoName,
     required this.autoYear,
     required this.clientName,
@@ -20,9 +20,7 @@ class CommercialItemEntity {
     required this.priceAuto,
     required this.oldPriceAuto,
     required this.clientAvatar,
-    required this.image1,
-    required this.image2,
-    this.isClient = false,
+    required this.images,
     this.isSalon = false,
     this.isLike = false,
   });

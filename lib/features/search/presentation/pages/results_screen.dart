@@ -13,6 +13,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 class ResultsScreen extends StatefulWidget {
   final TextEditingController controller;
+
   const ResultsScreen({required this.controller, Key? key}) : super(key: key);
 
   @override
@@ -22,6 +23,7 @@ class ResultsScreen extends StatefulWidget {
 class _ResultsScreenState extends State<ResultsScreen> {
   final List<CommercialItemEntity> commercialItemEntity = [
     const CommercialItemEntity(
+      model: 'Sprinter',
       autoName: 'Mercedes-Benz Sprinter',
       autoYear: 2020,
       clientName: 'Анвар Гулямов',
@@ -31,15 +33,15 @@ class _ResultsScreenState extends State<ResultsScreen> {
       oldPriceAuto: '270 000 000 UZS',
       clientAvatar:
           'https://images.unsplash.com/photo-1659880233848-1f4eaf4f753c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyOHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60',
-      image1:
-          'https://images.unsplash.com/photo-1659812903095-d7e87abb0b3c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw4Mnx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60',
-      image2:
-          'https://images.unsplash.com/photo-1658856226250-5b236fa6137d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxMDR8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60',
-      isClient: true,
       isSalon: false,
       isLike: true,
+      images: [
+        'https://images.unsplash.com/photo-1659880233848-1f4eaf4f753c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyOHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60',
+        'https://images.unsplash.com/photo-1658856226250-5b236fa6137d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxMDR8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60'
+      ],
     ),
   ];
+
   @override
   Widget build(BuildContext context) => Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
