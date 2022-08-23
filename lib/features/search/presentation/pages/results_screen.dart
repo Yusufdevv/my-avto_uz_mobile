@@ -30,7 +30,7 @@ class _ResultsScreenState extends State<ResultsScreen> {
 
   @override
   void initState() {
-    resultBloc = SearchResultBloc(GetSearchResultsUseCase());
+    resultBloc = SearchResultBloc(GetSearchResultsUseCase())..add(SearchResultEvent.getResults(isRefresh: false));
     super.initState();
   }
 
