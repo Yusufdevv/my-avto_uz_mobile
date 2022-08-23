@@ -7,9 +7,9 @@ part 'search_item.g.dart';
 
 @JsonSerializable()
 class SearchItemModel extends CommercialItemEntity {
-  @JsonKey(name: 'id', defaultValue: '')
+  @JsonKey(name: 'id', defaultValue: 0)
   final int id;
-  @JsonKey(name: 'car_year', defaultValue: '')
+  @JsonKey(name: 'car_year', defaultValue: 0)
   final int carYear;
   @JsonKey(name: 'licence_type', defaultValue: '')
   final String licenseType;
@@ -23,17 +23,17 @@ class SearchItemModel extends CommercialItemEntity {
   final String contactEmail;
   @JsonKey(name: 'contact_phone', defaultValue: '')
   final String contactPhone;
-  @JsonKey(name: 'is_registered_locally', defaultValue: '')
+  @JsonKey(name: 'is_registered_locally', defaultValue: false)
   final bool isRegisteredLocally;
-  @JsonKey(name: 'user_type', defaultValue: '')
+  @JsonKey(name: 'user_type', defaultValue:false)
   final bool userType;
-  @JsonKey(name: 'is_new', defaultValue: '')
+  @JsonKey(name: 'is_new', defaultValue: false)
   final bool isNew;
-  @JsonKey(name: 'price', defaultValue: '')
+  @JsonKey(name: 'price', defaultValue: 0)
   final int price;
-  @JsonKey(name: 'currency', defaultValue: '')
+  @JsonKey(name: 'currency', defaultValue: 0)
   final int currency;
-  @JsonKey(name: 'published_at', defaultValue: '')
+  @JsonKey(name: 'published_at', defaultValue: 0)
   final int publishedAt;
   @JsonKey(
     name: 'car_make',

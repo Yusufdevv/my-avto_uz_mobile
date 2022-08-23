@@ -5,12 +5,13 @@ import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_textfield.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
-import 'package:auto/features/pagination/presentation/pagination_loader.dart';
+import 'package:auto/features/pagination/presentation/paginator.dart';
 import 'package:auto/features/search/domain/entities/commercial_item_entity.dart';
 import 'package:auto/features/search/domain/usecases/get_search_result.dart';
 import 'package:auto/features/search/presentation/bloc/search_results/search_result_bloc.dart';
 import 'package:auto/features/search/presentation/pages/filter_screen.dart';
 import 'package:auto/features/search/presentation/widgets/all_commertial_item.dart';
+import 'package:auto/features/search/presentation/widgets/commercial_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -93,13 +94,13 @@ class _ResultsScreenState extends State<ResultsScreen> {
               ],
             ),
             body: BlocBuilder<SearchResultBloc, SearchResultState>(
-              builder: (context, state) => PaginationLoader2(
-                  shouldLoad: state.count > state.list.length,
-                  list: state.list,
-                  loadingCallback: () {
+              builder: (context, state) => Paginator(
+                  hasMoreToFetch: state.count > state.list.length,
+                  itemBuilder:(context,index)=>CommercialItem(entity: state.list[index],),
+                  fetchMoreFunction: () {
                     resultBloc.add(SearchResultEvent.getMoreResults());
                   },
-                  status: state.status),
+                  paginatorStatus: state.status, itemCount: state.list.length, errorWidget: SizedBox(),),
             )),
       );
 }

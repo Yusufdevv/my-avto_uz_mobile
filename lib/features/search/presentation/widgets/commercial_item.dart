@@ -14,7 +14,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class CommercialItem extends StatefulWidget {
-  const CommercialItem({Key? key}) : super(key: key);
+  final CommercialItemEntity entity;
+  const CommercialItem({required this.entity,Key? key}) : super(key: key);
 
   @override
   State<CommercialItem> createState() => _CommercialItemState();
