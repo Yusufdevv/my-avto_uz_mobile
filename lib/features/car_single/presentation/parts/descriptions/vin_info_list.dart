@@ -1,5 +1,6 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/car_single/domain/entities/owner_action.dart';
 import 'package:auto/features/car_single/presentation/widgets/vin_info_tile.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
@@ -19,7 +20,7 @@ class VinInfoList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Container(
-        color: dark1,
+    color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
         padding: const EdgeInsets.only(top: 20, left: 16, right: 16,bottom: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -56,7 +57,7 @@ class VinInfoList extends StatelessWidget {
               text: 'Показать бесплатный отчёт',
               textColor: grey,
               onTap: () {},
-              color: const Color(0xff373737),
+              color: Theme.of(context).extension<ThemedColors>()!.solitudeToEclipse,
               height: 36,
               borderRadius: 8,
             ),

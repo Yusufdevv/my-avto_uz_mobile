@@ -1,11 +1,12 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
-import 'package:auto/features/dealers/domain/entities/models/marks_with_announcements.dart';
-import 'package:auto/features/dealers/presentation/pages/single_mark_announcements.dart';
+ import 'package:auto/features/dealers/presentation/pages/single_mark_announcements.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+
+import '../../domain/entities/marks_with_announcements.dart';
 
 class AllMarksWithAnnouncements extends StatelessWidget {
   final List<MarksWithAnnouncementModel> marks;

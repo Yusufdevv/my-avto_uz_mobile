@@ -1,3 +1,4 @@
+import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/images.dart';
 import 'package:carousel_slider/carousel_options.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -46,7 +47,7 @@ class _CarsImageSliderState extends State<CarsImageSlider> {
                     height: 4,
                     decoration: BoxDecoration(
                         color: currentIndex == index
-                            ? Colors.white
+                            ? white
                             : const Color(0xffB5B5BE),
                         borderRadius: BorderRadius.circular(2)),
                   ),

@@ -28,7 +28,7 @@ class _QRViewExampleState extends State<QRViewExample> {
                 child: WButton(
                   color: white,
                   onTap: () {},
-                  child: Text('Ввести вручную'),
+                  child: const Text('Ввести вручную'),
                 ))
             /*Expanded(
               child: FittedBox(

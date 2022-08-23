@@ -1,4 +1,3 @@
-import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/main/domain/entities/ads_entity.dart';
@@ -35,32 +34,32 @@ class OtherAds extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Container(
-        color: dark1,
-        padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
+        color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Divider(
-              height: 1,
-              thickness: 1,
-              color: strokeDark,
-            ),
             const SizedBox(
               height: 20,
             ),
-            Text(
-              'Другие объявления:',
-              style: Theme.of(context)
-                  .textTheme
-                  .headline1!
-                  .copyWith(fontWeight: FontWeight.w700, fontSize: 18),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Text(
+                'Другие объявления:',
+                style: Theme.of(context)
+                    .textTheme
+                    .headline1!
+                    .copyWith(fontWeight: FontWeight.w700, fontSize: 18),
+              ),
             ),
             const SizedBox(
               height: 8,
             ),
             Container(
+              margin: const EdgeInsets.symmetric(horizontal: 16),
               decoration: BoxDecoration(
-                color: Theme.of(context).extension<ThemedColors>()!.solitudeTo1Black,
+                color: Theme.of(context)
+                    .extension<ThemedColors>()!
+                    .solitudeTo1Black,
                 borderRadius: BorderRadius.circular(12),
               ),
               padding: const EdgeInsets.all(2),
@@ -84,12 +83,14 @@ class OtherAds extends StatelessWidget {
                     width: 50,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(7.5),
-                        color: Theme.of(context).extension<ThemedColors>()!.whiteToEclipse,
-                      border: Border.all(
-                        width: 1,
-                        color: Theme.of(context).extension<ThemedColors>()!.solitudeToDarkRider
-                      )
-                    ),
+                        color: Theme.of(context)
+                            .extension<ThemedColors>()!
+                            .whiteToEclipse,
+                        border: Border.all(
+                            width: 1,
+                            color: Theme.of(context)
+                                .extension<ThemedColors>()!
+                                .solitudeToDarkRider)),
                     height: 36,
                     child: Center(
                       child: SvgPicture.asset(AppIcons.crown),
@@ -101,10 +102,14 @@ class OtherAds extends StatelessWidget {
             const SizedBox(
               height: 12,
             ),
-            SingleChildScrollView(scrollDirection: Axis.horizontal,
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
               child: Row(
                 children: List.generate(
-                    list.length, (index) => AdsItem(adsEntity: list[index],)),
+                    list.length,
+                    (index) => AdsItem(
+                          adsEntity: list[index],
+                        )),
               ),
             )
           ],
