@@ -1,7 +1,7 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/images.dart';
-import 'package:auto/features/dealers/domain/entities/models/marks_with_announcements.dart';
+import 'package:auto/features/dealers/domain/entities/marks_with_announcements.dart';
 import 'package:auto/features/dealers/presentation/pages/all_marks_with_announcements.dart';
 import 'package:auto/features/dealers/presentation/widgets/automobile_card.dart';
 import 'package:auto/features/dealers/presentation/widgets/dealer_info.dart';

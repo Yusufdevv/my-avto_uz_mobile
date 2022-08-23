@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../../../assets/constants/icons.dart';
-import '../../domain/entities/models/bottom_sheet_variants.dart';
+import '../../domain/entities/bottom_sheet_variants.dart';
 
 class BottomSheetContent extends StatefulWidget {
   final String markOrRegion;

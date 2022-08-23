@@ -29,7 +29,7 @@ class _DescriptionTabsState extends State<DescriptionTabs>
 
   @override
   Widget build(BuildContext context) => Container(
-        color: background,
+        color: Theme.of(context).scaffoldBackgroundColor,
         padding: const EdgeInsets.only(bottom: 16, top: 12),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -44,30 +44,32 @@ class _DescriptionTabsState extends State<DescriptionTabs>
               ),
               margin: const EdgeInsets.symmetric(horizontal: 16),
               child: TabBar(
-                  controller: _tabController,
-                  onTap: (integer) {
-                    setState(() {
-                      currentIndex = integer;
-                    });
-                  },
-                  padding: const EdgeInsets.all(2),
-                  indicator: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      color: Theme.of(context)
-                          .extension<ThemedColors>()!
-                          .whiteToSmoky),
-                  labelStyle: Theme.of(context)
-                      .textTheme
-                      .headline1!
-                      .copyWith(fontSize: 13, fontWeight: FontWeight.w600),
-                  tabs: const [
-                    Tab(
-                      text: 'Описание',
+                controller: _tabController,
+                onTap: (integer) {
+                  setState(() {
+                    currentIndex = integer;
+                  });
+                },
+                padding: const EdgeInsets.all(2),
+                indicator: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                  color:
+                      Theme.of(context).extension<ThemedColors>()!.whiteToSmoky,
+                ),
+                labelStyle: Theme.of(context).textTheme.headline1!.copyWith(
+                      fontSize: 13,
+                      fontWeight: FontWeight.w600,
                     ),
-                    Tab(
-                      text: 'Характеристика',
-                    ),
-                  ]),
+                labelColor: Theme.of(context).extension<ThemedColors>()!.darkToWhite,
+                tabs: const [
+                  Tab(
+                    text: 'Описание',
+                  ),
+                  Tab(
+                    text: 'Характеристика',
+                  ),
+                ],
+              ),
             ),
             const SizedBox(
               height: 12,
@@ -83,9 +85,10 @@ class _DescriptionTabsState extends State<DescriptionTabs>
             else
               Container(
                 padding: const EdgeInsets.only(bottom: 16),
-                color: Theme.of(context).extension<ThemedColors>()!.whiteToNero1,
+                color:
+                    Theme.of(context).extension<ThemedColors>()!.whiteToNero1,
                 child: Column(
-                  children:  [
+                  children: [
                     const CharacteristicTable(
                       titleList: [
                         'Количество передач',
@@ -179,13 +182,27 @@ class _DescriptionTabsState extends State<DescriptionTabs>
                       ],
                       title: 'Характеристики автомобиля',
                     ),
-                    const SizedBox(height: 12,),
+                    const SizedBox(
+                      height: 12,
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text('Все параметры', style: Theme.of(context).textTheme.headline3!.copyWith(fontSize: 14, fontWeight: FontWeight.w600),),
-                        const SizedBox(width: 4,),
-                        SvgPicture.asset(AppIcons.chevronDown, color: purple,)
+                        Text(
+                          'Все параметры',
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline3!
+                              .copyWith(
+                                  fontSize: 14, fontWeight: FontWeight.w600),
+                        ),
+                        const SizedBox(
+                          width: 4,
+                        ),
+                        SvgPicture.asset(
+                          AppIcons.chevronDown,
+                          color: purple,
+                        )
                       ],
                     )
                   ],
@@ -195,3 +212,4 @@ class _DescriptionTabsState extends State<DescriptionTabs>
         ),
       );
 }
+

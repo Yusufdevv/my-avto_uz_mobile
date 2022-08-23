@@ -18,7 +18,7 @@ class CarCharacteristic extends StatelessWidget {
                   .extension<ThemedColors>()!
                   .solitudeToDarkRider,
             ),
-            color: Theme.of(context).extension<ThemedColors>()!.solitudeToNero),
+            color: Theme.of(context).extension<ThemedColors>()!.whiteToNero),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

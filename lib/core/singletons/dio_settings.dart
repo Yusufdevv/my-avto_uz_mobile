@@ -1,7 +1,6 @@
 import 'package:auto/core/singletons/storage.dart';
 import 'package:dio/dio.dart';
 
-
 class DioSettings {
   BaseOptions _dioBaseOptions = BaseOptions(
     baseUrl: 'http://10.10.0.179:8000/api/v1/',

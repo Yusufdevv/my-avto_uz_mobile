@@ -1,6 +1,7 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/images.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -9,7 +10,7 @@ class CarSellerCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Container(
-        color: dark1,
+    color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
         padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -26,7 +27,7 @@ class CarSellerCard extends StatelessWidget {
             ),
             Row(
               children: [
-                Container(height: 44,width: 44,
+                SizedBox(height: 44,width: 44,
                   child: CircleAvatar(
                     radius: 16,
                     child: ClipRRect(
@@ -69,12 +70,12 @@ class CarSellerCard extends StatelessWidget {
             Container(
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12),
-                  color: background,
-                  border: Border.all(color: strokeDark)),
+                  color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
+                  border: Border.all(color: Theme.of(context).extension<ThemedColors>()!.solitudeToDarkRider)),
               child: Stack(
                 children: [
                   Container(
-                    padding: EdgeInsets.fromLTRB(12, 12, 0, 12),
+                    padding: const EdgeInsets.fromLTRB(12, 12, 0, 12),
                     child: Row(
                       children: [
                         Text(
@@ -111,7 +112,7 @@ class CarSellerCard extends StatelessWidget {
                                     .headline1!
                                     .copyWith(
                                         fontWeight: FontWeight.w400,
-                                        fontSize: 14),
+                                        fontSize: 14, color: white),
                               ),
                             ],
                           ),

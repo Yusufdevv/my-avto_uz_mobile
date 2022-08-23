@@ -16,7 +16,7 @@ class SellerComment extends StatelessWidget {
           width: 1,
           color: Theme.of(context).extension<ThemedColors>()!.solitudeToDarkRider,
         ),
-        color: Theme.of(context).extension<ThemedColors>()!.solitudeToNero
+        color: Theme.of(context).extension<ThemedColors>()!.whiteToNero
     ),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start,
           children: [
