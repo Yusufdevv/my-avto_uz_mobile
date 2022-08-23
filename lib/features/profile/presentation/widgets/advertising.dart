@@ -8,17 +8,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class Advertising extends StatefulWidget {
-  final String image1;
-  final String imege2;
+  final List<String> images;
   final bool isSalon;
-  final bool isClient;
 
   const Advertising({
     Key? key,
-    required this.image1,
-    required this.imege2,
+    required this.images,
     required this.isSalon,
-    required this.isClient,
+
   }) : super(key: key);
 
   @override
@@ -33,49 +30,45 @@ class _AdvertisingState extends State<Advertising> {
           margin: const EdgeInsets.only(top: 12, left: 16, right: 16),
           child: Row(
             children: [
-              Stack(
-                children: [
-                  CachedImage(
-                    height: 201,
-                    width: 264,
-                    borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(8),
-                      bottomLeft: Radius.circular(8),
-                    ),
-                    imageUrl: widget.image1,
-                  ),
-                  Positioned(
-                      top: 4,
-                      left: 4,
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 16, vertical: 4),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(4),
-                          color: white,
-                        ),
-                        child: Row(
-                          children: [
-                            SvgPicture.asset(AppIcons.shieldCheck),
-                            const SizedBox(width: 4),
-                            Text('С пробегом',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyText1!
-                                    .copyWith(color: green)),
-                          ],
-                        ),
-                      ))
-                ],
-              ),
+              ...List.generate(
+                  widget.images.length,
+                  (index) => Stack(
+                        children: [
+                          CachedImage(
+                            height: 201,
+                            width: 264,
+                            borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(8),
+                              bottomLeft: Radius.circular(8),
+                            ),
+                            imageUrl: widget.images[index],
+                          ),
+                          Positioned(
+                              top: 4,
+                              left: 4,
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 16, vertical: 4),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(4),
+                                  color: white,
+                                ),
+                                child: Row(
+                                  children: [
+                                    SvgPicture.asset(AppIcons.shieldCheck),
+                                    const SizedBox(width: 4),
+                                    Text('С пробегом',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyText1!
+                                            .copyWith(color: green)),
+                                  ],
+                                ),
+                              ))
+                        ],
+                      )),
               const SizedBox(width: 4),
-              CachedImage(
-                height: 201,
-                width: 264,
-                imageUrl: widget.imege2,
-              ),
-              const SizedBox(width: 4),
-              if (widget.isClient)
+              if (!widget.isSalon)
                 WScaleAnimation(
                   onTap: () {
                     showCupertinoModalPopup(

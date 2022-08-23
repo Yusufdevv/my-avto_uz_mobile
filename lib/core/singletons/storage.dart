@@ -24,7 +24,8 @@ class StorageRepository {
     return _preferences!.setString(key, value);
   }
 
-  static String getTemporaryToken() => '';
+  static String getTemporaryToken() =>
+      'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjQzNDU3NzczLCJqdGkiOiI4OGI4ZGY1YjBlYTI0YTVjOTE2Mjc3ZTkyODE4MDRhNCIsInVzZXJfaWQiOjI1OX0.uRYeuib-RI6nNCq2RIDa1BG7hIsYCGknO6gFC9pM7OI';
 
   static Future<bool>? putList(String key, List<String> value) {
     if (_preferences == null) return null;

@@ -1,9 +1,10 @@
-import 'package:auto/utils/shared_preferences.dart';
+import 'package:auto/core/singletons/storage.dart';
 import 'package:dio/dio.dart';
 
+
 class DioSettings {
-  Dio _dioBaseOptions = Dio(BaseOptions(
-    baseUrl: 'https://lentabeta.xn--h28h.uz/api/v1',
+  BaseOptions _dioBaseOptions = BaseOptions(
+    baseUrl: 'http://10.10.0.179:8000/api/v1/',
     connectTimeout: 35000,
     receiveTimeout: 33000,
     followRedirects: false,
@@ -11,20 +12,20 @@ class DioSettings {
       'Accept-Language': StorageRepository.getString('language', defValue: 'uz')
     },
     validateStatus: (status) => status != null && status <= 500,
-  ))
-    ..interceptors.addAll([]);
+  );
 
   void setBaseOptions({String? lang}) {
-    _dioBaseOptions = Dio(BaseOptions(
-      baseUrl: 'https://lentabeta.xn--h28h.uz/api/v1',
+    _dioBaseOptions = BaseOptions(
+      baseUrl: 'http://10.10.0.179:8000/api/v1/',
       connectTimeout: 35000,
       receiveTimeout: 33000,
       headers: <String, dynamic>{'Accept-Language': lang},
       followRedirects: false,
       validateStatus: (status) => status != null && status <= 500,
-    ))
-      ..interceptors.addAll([]);
+    );
   }
 
-  Dio get dio => _dioBaseOptions;
+  BaseOptions get dioBaseOptions => _dioBaseOptions;
+
+  Dio get dio => Dio(_dioBaseOptions);
 }

@@ -2,35 +2,45 @@ import 'package:auto/assets/themes/dark.dart';
 import 'package:auto/assets/themes/light.dart';
 import 'package:auto/features/dealers/presentation/dealers_main.dart';
 import 'package:auto/features/navigation/presentation/home.dart';
+import 'package:auto/features/splash/presentation/pages/splash_screen.dart';
 import 'package:flutter/material.dart';
 
-import 'features/onboarding/presentation/first_onboarding.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const AppProvider());
 }
 
-class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
+
+
+class AppProvider extends StatelessWidget {
+  const AppProvider({Key? key}) : super(key: key);
 
   @override
-  State<MyApp> createState() => _AppState();
+  Widget build(BuildContext context) => const App();
 }
 
-class _AppState extends State<MyApp> {
-  final _navigatorKey = GlobalKey<NavigatorState>();
 
-  // NavigatorState get _navigator => _navigatorKey.currentState!;
+class App extends StatefulWidget {
+  const App({Key? key}) : super(key: key);
+
+  @override
+  State<App> createState() => _AppState();
+}
+
+class _AppState extends State<App> {
+  final _navigatorKey = GlobalKey<NavigatorState>();
 
   @override
   Widget build(BuildContext context) => MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Auto.Uz',
-        theme: LightTheme.theme(),
-        darkTheme: DarkTheme.theme(),
-        themeMode: ThemeMode.light,
-        navigatorKey: _navigatorKey,
-        home: HomeScreen(),
-        // onGenerateRoute: (settings) => SplashScreen.route(),
-      );
+      debugShowCheckedModeBanner: false,
+      title: 'Auto.Uz',
+      theme: LightTheme.theme(),
+      darkTheme: DarkTheme.theme(),
+      themeMode: ThemeMode.light,
+      navigatorKey: _navigatorKey, onGenerateRoute: (settings) => SplashScreen.route(),
+      home: HomeScreen(),
+      // onGenerateRoute: (settings) => SplashScreen.route(),
+    );
 }
+
+

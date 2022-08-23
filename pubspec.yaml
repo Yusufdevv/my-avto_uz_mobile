@@ -37,6 +37,7 @@ dependencies:
   sensors_plus: ^1.3.2
   flutter_rating_bar: ^4.0.1
   azlistview: ^2.0.0
+  freezed_annotation: ^2.0.1
   syncfusion_flutter_sliders: ^20.2.40
   carousel_slider: ^4.1.1
   flutter_cupertino_datetime_picker: ^3.0.0
@@ -50,7 +51,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
+  freezed: ^2.0.2
   json_serializable: ^6.3.1
   build_runner: ^2.2.0
   flutter_lints: ^2.0.0

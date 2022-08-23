@@ -23,10 +23,9 @@ class AllTabs extends StatelessWidget {
           child: Column(
             children: [
               Advertising(
-                isClient: true,
+
                 isSalon: true,
-                image1: image1,
-                imege2: imege2,
+             images: [image1,imege2],
               ),
               Padding(
                 padding:
