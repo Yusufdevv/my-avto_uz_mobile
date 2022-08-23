@@ -1,10 +1,12 @@
 import 'package:auto/features/common/models/naming.dart';
 import 'package:auto/features/search/data/models/car_make.dart';
+import 'package:auto/features/search/domain/entities/commercial_item_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
+
 part 'search_item.g.dart';
 
 @JsonSerializable()
-class SearchItemModel {
+class SearchItemModel extends CommercialItemEntity {
   @JsonKey(name: 'id', defaultValue: '')
   final int id;
   @JsonKey(name: 'car_year', defaultValue: '')
@@ -37,7 +39,9 @@ class SearchItemModel {
     name: 'car_make',
   )
   final CarMake carMake;
-  @JsonKey(name: 'car_model',)
+  @JsonKey(
+    name: 'car_model',
+  )
   final NamingModel carModel;
 
   SearchItemModel(
@@ -56,7 +60,19 @@ class SearchItemModel {
       required this.licenseType,
       required this.ownerShip,
       required this.publishedAt,
-      required this.userType});
+      required this.userType})
+      : super(
+            autoName: carMake.name,
+            autoYear: carYear,
+            model: carModel.name,
+            title: 'this sould be title ',
+            priceAuto: price.toString(),
+            oldPriceAuto: '',
+            isLike: false,
+            isSalon: false,
+            images: [],
+            clientAvatar: '',
+            clientName: '');
 
   factory SearchItemModel.fromJson(Map<String, dynamic> json) =>
       _$SearchItemModelFromJson(json);

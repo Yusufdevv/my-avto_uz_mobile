@@ -95,7 +95,7 @@ class _DealerScreenState extends State<DealerScreen>
                 child: TabBarView(
                   physics: const NeverScrollableScrollPhysics(),
                   children: [
-                    DealersList(),
+                    // DealersList(),
                     const YandexKarta(),
                   ],
                 ),
