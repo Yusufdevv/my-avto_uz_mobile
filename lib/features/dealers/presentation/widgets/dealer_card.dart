@@ -13,7 +13,8 @@ class DealerCard extends StatefulWidget {
   final String dealerName;
   final String dealerImageUrl;
   final int quantityOfCars;
-  final String workingHours;
+   final String contactTo;
+  final String contactFrom;
   final String contractCode;
   final String contractNumber;
   const DealerCard(
@@ -21,7 +22,8 @@ class DealerCard extends StatefulWidget {
       required this.dealerName,
       required this.dealerImageUrl,
       required this.quantityOfCars,
-      required this.workingHours,
+      required this.contactTo,
+      required this.contactFrom,
       required this.contractCode,
       required this.contractNumber,
       Key? key})
@@ -32,6 +34,7 @@ class DealerCard extends StatefulWidget {
 }
 
 class _DealerCardState extends State<DealerCard> {
+  bool isSelected = false;
   @override
   Widget build(BuildContext context) => GestureDetector(
         onTap: () {},
@@ -109,7 +112,7 @@ class _DealerCardState extends State<DealerCard> {
                   children: [
                     SvgPicture.asset(AppIcons.clock),
                     const SizedBox(width: 8),
-                    Text('Каждый день, ${widget.workingHours}',
+                    Text('Каждый день, ${widget.contactFrom} - ${widget.contactTo}',
                         style: Theme.of(context).textTheme.headline1!.copyWith(
                             fontSize: 14, fontWeight: FontWeight.w400))
                   ],
@@ -134,8 +137,13 @@ class _DealerCardState extends State<DealerCard> {
                     ),
                     const SizedBox(width: 9),
                     WScaleAnimation(
-                      onTap: () {},
-                      child: Container(
+                      onTap: () {
+                        setState(() => isSelected = true);
+                      },
+                      child: isSelected ? Text(widget.contractNumber, style:  Theme.of(context)
+                          .textTheme
+                          .headline1!
+                          .copyWith(fontSize: 16, fontWeight: FontWeight.w600),) : Container(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 16, vertical: 5),
                         decoration: BoxDecoration(

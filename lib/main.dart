@@ -2,8 +2,7 @@ import 'package:auto/assets/themes/dark.dart';
 import 'package:auto/assets/themes/light.dart';
 import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/features/dealers/presentation/dealers_main.dart';
-import 'package:auto/features/navigation/presentation/home.dart';
-import 'package:auto/features/splash/presentation/pages/splash_screen.dart';
+ import 'package:auto/features/splash/presentation/pages/splash_screen.dart';
 import 'package:flutter/material.dart';
 
 
@@ -40,7 +39,7 @@ class _AppState extends State<App> {
       darkTheme: DarkTheme.theme(),
       themeMode: ThemeMode.light,
       navigatorKey: _navigatorKey, onGenerateRoute: (settings) => SplashScreen.route(),
-      home: const HomeScreen(),
+      home: DealerScreen(),
       // onGenerateRoute: (settings) => SplashScreen.route(),
     );
 }
