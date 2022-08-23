@@ -1,8 +1,10 @@
 import 'package:auto/assets/themes/dark.dart';
 import 'package:auto/assets/themes/light.dart';
+import 'package:auto/features/dealers/presentation/dealers_main.dart';
 import 'package:auto/features/navigation/presentation/home.dart';
-import 'package:auto/features/splash/presentation/pages/splash_sc.dart';
 import 'package:flutter/material.dart';
+
+import 'features/onboarding/presentation/first_onboarding.dart';
 
 void main() {
   runApp(const MyApp());
@@ -28,7 +30,7 @@ class _AppState extends State<MyApp> {
         darkTheme: DarkTheme.theme(),
         themeMode: ThemeMode.light,
         navigatorKey: _navigatorKey,
-        home: const HomeScreen(),
+        home: HomeScreen(),
         // onGenerateRoute: (settings) => SplashScreen.route(),
       );
 }

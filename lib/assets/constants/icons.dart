@@ -143,26 +143,25 @@ class AppIcons {
   static const disabledHeart = 'assets/icons/search/disabled_heart.svg';
   static const scalesRed = 'assets/icons/search/scales_red.svg';
   static const crown = 'assets/icons/car_single/crown.svg';
-  // static const crown = 'assets/icons/car_single/calendar.svg';
+  // static const calendar = 'assets/icons/car_single/calendar.svg';
   static const doubleCheck = 'assets/icons/car_single/double_check.svg';
   static const equals = 'assets/icons/car_single/equals.svg';
   static const lockVin = 'assets/icons/car_single/lock.svg';
-  // static const crown = 'assets/icons/car_single/eye.svg';
+  // static const eye = 'assets/icons/car_single/eye.svg';
   static const fire = 'assets/icons/car_single/fire.svg';
-  // static const crown = 'assets/icons/car_single/id.svg';
+  // static const id = 'assets/icons/car_single/id.svg';
   static const refresher = 'assets/icons/car_single/refreshers.svg';
   static const rocket = 'assets/icons/car_single/rocket.svg';
   static const safe = 'assets/icons/car_single/safety.svg';
   static const shieldCheckOutlined =
       'assets/icons/car_single/shield_check_outlined.svg';
-  // static const crown = 'assets/icons/car_single/statistic.svg';
-  // static const crown = 'assets/icons/car_single/three_dot.svg';
+
   static const moreVertical = 'assets/icons/car_single/more.svg';
   static const note = 'assets/icons/car_single/note.svg';
   static const blueWarning = 'assets/icons/car_single/blue_warning.svg';
   static const blueCheckRounded = 'assets/icons/car_single/blue_check.svg';
   static const redWarning = 'assets/icons/car_single/red_warning.svg';
   static const yellowWarning = 'assets/icons/car_single/yellow_warning.svg';
-//  static const file = 'assets/icons/car_single/file.svg';
+
   static const greyPhoneCall = 'assets/icons/global/grey_phone_call.svg';
 }

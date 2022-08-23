@@ -26,6 +26,12 @@ class WAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   final List<BoxShadow>? boxShadow;
 
+  ///Default is 20
+  final double backButtonSize;
+
+  ///Default is 8
+  final double backTitleBetweenSize;
+
   ///Default is set true
   final bool centerTitle;
 
@@ -33,6 +39,8 @@ class WAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   const WAppBar({
     Key? key,
+    this.backTitleBetweenSize = 8,
+    this.backButtonSize = 20,
     this.bottomRadius,
     this.topMargin,
     this.underlineColor,
@@ -147,17 +155,22 @@ class WAppBar extends StatelessWidget implements PreferredSizeWidget {
                         ? MainAxisAlignment.center
                         : MainAxisAlignment.start,
                     children: [
+                      if (!centerTitle) ...{
+                        SizedBox(
+                          width: backButtonSize + 16 + backTitleBetweenSize,
+                        )
+                      },
                       Align(
                         alignment: Alignment.center,
                         child: Text(
-                         title ?? '',
-                         style: titleStyle ??
-                             Theme.of(context).textTheme.subtitle1!.copyWith(
-                                   fontSize: 16,
-                                   fontWeight: FontWeight.w600,
-                                 ),
-                          ),
+                          title ?? '',
+                          style: titleStyle ??
+                              Theme.of(context).textTheme.subtitle1!.copyWith(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w600,
+                                  ),
                         ),
+                      )
                     ],
                   )
               ],
@@ -171,6 +184,11 @@ class WAppBar extends StatelessWidget implements PreferredSizeWidget {
               ),
               child: Container(
                 height: 20,
+                child: SvgPicture.asset(
+                  AppIcons.chevronLeft,
+                  width: backButtonSize,
+                  height: backButtonSize,
+                ),
                 decoration: BoxDecoration(
                   color: roundedEndColor ??
                       Theme.of(context).scaffoldBackgroundColor,

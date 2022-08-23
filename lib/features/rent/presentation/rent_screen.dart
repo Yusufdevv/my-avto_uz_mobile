@@ -3,7 +3,7 @@ import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
-import 'package:auto/features/main/presentation/pages/main_screen.dart';
+import 'package:auto/features/main/presentation/main_screen.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/rent/presentation/pages/cars/pages/cars_screen.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/pages/rent_filter_screen.dart';

@@ -11,14 +11,14 @@ import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class DealersMain extends StatefulWidget {
-  const DealersMain({Key? key}) : super(key: key);
+class DealerScreen extends StatefulWidget {
+  const DealerScreen({Key? key}) : super(key: key);
 
   @override
-  State<DealersMain> createState() => _DealersMainState();
+  State<DealerScreen> createState() => _DealerScreenState();
 }
 
-class _DealersMainState extends State<DealersMain>
+class _DealerScreenState extends State<DealerScreen>
     with TickerProviderStateMixin {
   late PageController _pageController;
   @override

@@ -33,7 +33,7 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
       hintTextStyle: Theme.of(context)
           .textTheme
           .headline2!
-          .copyWith(fontSize: 14, fontWeight: FontWeight.w600),
+          .copyWith(fontSize: 14, fontWeight: FontWeight.w600,color: grey),
       textStyle: Theme.of(context)
           .textTheme
           .headline1!

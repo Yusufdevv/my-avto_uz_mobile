@@ -9,7 +9,7 @@ class VinInfoTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Container(
-        margin: EdgeInsets.only(bottom: 16),
+        margin: const EdgeInsets.only(bottom: 16),
         child: Row(
           children: [
             Container(

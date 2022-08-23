@@ -17,20 +17,22 @@ class _CarsImageSliderState extends State<CarsImageSlider> {
   Widget build(BuildContext context) => Stack(
         children: [
           Positioned.fill(
-            child: CarouselSlider.builder(
-                itemCount: 5,
-                itemBuilder: (c, item, index) => Image.asset(
-                      AppImages.carSingle,
-                      fit: BoxFit.cover,
-                      width: double.maxFinite,
-                    ),
-                options: CarouselOptions(
-                    viewportFraction: 1,
-                    onPageChanged: (index, reason) {
-                      setState(() {
-                        currentIndex = index;
-                      });
-                    })),
+            child: Container(
+              child: CarouselSlider.builder(
+                  itemCount: 5,
+                  itemBuilder: (c, item, index) => Image.asset(
+                        AppImages.carSingle,
+                        fit: BoxFit.cover,
+                        width: double.maxFinite,
+                      ),
+                  options: CarouselOptions(
+                      viewportFraction: 1,
+                      onPageChanged: (index, reason) {
+                        setState(() {
+                          currentIndex = index;
+                        });
+                      })),
+            ),
           ),
           Positioned(
             bottom: 12,

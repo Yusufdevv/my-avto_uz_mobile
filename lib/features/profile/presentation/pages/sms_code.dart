@@ -36,7 +36,7 @@ class _SmsCodePageState extends State<SmsCodePage> {
 
   @override
   Widget build(BuildContext context) => KeyboardDismisser(
-        child: Scaffold(
+        child: Scaffold(resizeToAvoidBottomInset: false,
           appBar: const WAppBar(
             textWithButton: 'Смена пароля',
           ),
@@ -124,7 +124,7 @@ class _SmsCodePageState extends State<SmsCodePage> {
               ),
               const Spacer(),
               WButton(
-                margin: const EdgeInsets.only(bottom: 24),
+                margin:  EdgeInsets.only(bottom: 15+MediaQuery.of(context).padding.bottom),
                 // isLoading: state.registerStatus.isSubmissionInProgress ||
                 //     state.loginStatus.isSubmissionInProgress,
                 padding: EdgeInsets.zero,

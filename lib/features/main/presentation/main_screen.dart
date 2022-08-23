@@ -3,6 +3,7 @@ import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_icons.dart';
 import 'package:auto/features/common/domain/entity/car_brand_entity.dart';
 import 'package:auto/features/common/widgets/car_brand_item.dart';
+import 'package:auto/features/common/widgets/popups.dart';
 import 'package:auto/features/main/domain/entities/ads_entity.dart';
 import 'package:auto/features/main/domain/entities/service_entity.dart';
 import 'package:auto/features/main/presentation/widgets/ads_item.dart';
@@ -60,6 +61,7 @@ class _MainScreenState extends State<MainScreen> {
       icon: AppIcons.rentCar,
     ),
   ];
+
   @override
   void initState() {
     serviceTaps = [
@@ -99,9 +101,10 @@ class _MainScreenState extends State<MainScreen> {
   ];
 
   late List<VoidCallback> serviceTaps = [];
+
   @override
   Widget build(BuildContext context) => Scaffold(
-    backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         appBar: AppBar(
           elevation: 0,
           title: SvgPicture.asset(
@@ -110,7 +113,8 @@ class _MainScreenState extends State<MainScreen> {
           actions: [
             Padding(
               padding: const EdgeInsets.only(right: 16),
-              child: SvgPicture.asset(AppIcons.bell),
+              child: GestureDetector(
+                  onTap: () {}, child: SvgPicture.asset(AppIcons.bell)),
             )
           ],
         ),
@@ -168,7 +172,6 @@ class _MainScreenState extends State<MainScreen> {
                   itemCount: carBrandEntity.length,
                 ),
               ),
-              const SizedBox(height: 16),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Text(
