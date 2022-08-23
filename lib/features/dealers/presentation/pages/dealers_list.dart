@@ -39,7 +39,7 @@ class _DealersListState extends State<DealersList> {
                 contractCode:
                     '+998 ${state.dealerCardEntity[index].phone.substring(0, 2)}',
                 contractNumber:
-                    state.dealerCardEntity[index].phone.substring(3, 8),
+                    state.dealerCardEntity[index].phone.substring(3, 9),
                 contactTo: state.dealerCardEntity[index].contactTo,
                 contactFrom: state.dealerCardEntity[index].contactFrom,
               ),
