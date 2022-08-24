@@ -24,7 +24,7 @@ class DealerCardEntity extends Equatable {
   final String type;
   @JsonKey(name: 'carCount', defaultValue: 0)
   final int carCount;
-  @JsonKey(name: 'avatar', defaultValue: 0)
+  @JsonKey(name: 'avatar', defaultValue: '')
   final String avatar;
   @JsonKey(name: 'district', defaultValue: 0)
   final int district;

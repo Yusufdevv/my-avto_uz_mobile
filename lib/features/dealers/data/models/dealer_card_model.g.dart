@@ -19,7 +19,7 @@ DealerCardModel _$DealerCardModelFromJson(Map<String, dynamic> json) =>
       latitude: (json['latitude'] as num?)?.toDouble() ?? 0,
       type: json['type'] as String? ?? '',
       carCount: json['carCount'] as int? ?? 0,
-      avatar: json['avatar'] as String? ?? 0,
+      avatar: json['avatar'] as String? ?? '',
       district: json['district'] as int? ?? 0,
     );
 

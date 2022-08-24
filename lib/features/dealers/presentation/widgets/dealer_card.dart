@@ -4,6 +4,7 @@ import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/dealers/presentation/pages/seller.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
+import 'package:auto/utils/my_functions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -13,15 +14,18 @@ class DealerCard extends StatefulWidget {
   final String dealerName;
   final String dealerImageUrl;
   final int quantityOfCars;
-  final String workingHours;
+  final String contactTo;
+  final String contactFrom;
   final String contractCode;
   final String contractNumber;
+
   const DealerCard(
       {required this.dealerType,
       required this.dealerName,
       required this.dealerImageUrl,
       required this.quantityOfCars,
-      required this.workingHours,
+      required this.contactTo,
+      required this.contactFrom,
       required this.contractCode,
       required this.contractNumber,
       Key? key})
@@ -32,6 +36,8 @@ class DealerCard extends StatefulWidget {
 }
 
 class _DealerCardState extends State<DealerCard> {
+  bool isSelected = false;
+
   @override
   Widget build(BuildContext context) => GestureDetector(
         onTap: () {},
@@ -109,7 +115,8 @@ class _DealerCardState extends State<DealerCard> {
                   children: [
                     SvgPicture.asset(AppIcons.clock),
                     const SizedBox(width: 8),
-                    Text('Каждый день, ${widget.workingHours}',
+                    Text(
+                        'Каждый день, ${widget.contactFrom} - ${widget.contactTo}',
                         style: Theme.of(context).textTheme.headline1!.copyWith(
                             fontSize: 14, fontWeight: FontWeight.w400))
                   ],
@@ -132,24 +139,40 @@ class _DealerCardState extends State<DealerCard> {
                           .headline1!
                           .copyWith(fontSize: 16, fontWeight: FontWeight.w600),
                     ),
-                    const SizedBox(width: 9),
+
+                   isSelected ? const SizedBox(width: 3,) : const SizedBox(width: 9),
                     WScaleAnimation(
-                      onTap: () {},
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 16, vertical: 5),
-                        decoration: BoxDecoration(
-                          color: green,
-                          borderRadius: BorderRadius.circular(4),
-                        ),
-                        child: const Text(
-                          'Показать контакт',
-                          style: TextStyle(
-                              color: white,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 14),
-                        ),
-                      ),
+                      onTap: () {
+                        setState(() => isSelected = true);
+                      },
+                      child: isSelected
+                          ? Padding(
+                              padding: const EdgeInsets.fromLTRB(0, 5, 16, 5),
+                              child: Text(
+                                MyFunctions.phoneFormatter(widget.contractNumber, [4, 6, ]),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline1!
+                                    .copyWith(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w600),
+                              ),
+                            )
+                          : Container(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 16, vertical: 5),
+                              decoration: BoxDecoration(
+                                color: green,
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                              child: const Text(
+                                'Показать контакт',
+                                style: TextStyle(
+                                    color: white,
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 14),
+                              ),
+                            ),
                     )
                   ],
                 )
