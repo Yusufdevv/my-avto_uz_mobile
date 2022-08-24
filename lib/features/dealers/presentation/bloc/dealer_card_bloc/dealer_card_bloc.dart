@@ -15,7 +15,11 @@ class DealerCardBloc extends Bloc<DealerCardEvent, DealerCardState> {
   DealerCardBloc(this.dealerUseCase) : super(DealerCardState()) {
     on<DealerCardEvent>((event, emit) async {
       final result = await dealerUseCase.call(NoParams());
-      emit(state.copyWith(dealerCardEntity: result.right));
+      if(result.isRight){
+        emit(state.copyWith(dealerCardEntity: result.right));
+      } else {
+        print('fuck');
+      }
     });
   }
 }

@@ -5,7 +5,7 @@ import 'package:auto/features/dealers/data/repositories/dealer_repository.dart';
 import 'package:auto/utils/either.dart';
 
 class DealerUseCase extends UseCase<List<DealerCardModel>, NoParams> {
-  final DealerRepository dealerRepository=DealerRepository();
+  final DealerRepository dealerRepository = DealerRepository();
 
 
   @override
