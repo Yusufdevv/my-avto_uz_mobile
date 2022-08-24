@@ -15,9 +15,10 @@ class AddNewCar extends StatelessWidget {
   Widget build(BuildContext context) => GestureDetector(
         onTap: () {
           Navigator.push(
-              context, fade(page: const ComparisonPage2(numberofAddedCars: 2)));
+              context, fade(page: const ComparisonPage2(numberOfAddedCars: 3)));
         },
         child: Container(
+          margin: EdgeInsets.only(bottom: 34),
           width: MediaQuery.of(context).size.width / 2 - 22,
           height: 216,
           decoration: BoxDecoration(

@@ -59,7 +59,7 @@ class ComparisonPage extends StatelessWidget {
               child: WButton(
                 onTap: () {
                   Navigator.push(context,
-                      fade(page: const ComparisonPage2(numberofAddedCars: 1)));
+                      fade(page: const ComparisonPage2(numberOfAddedCars: 2)));
                 },
                 color: purple,
                 text: 'Добавить объявление',

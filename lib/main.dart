@@ -2,7 +2,7 @@ import 'package:auto/assets/themes/dark.dart';
 import 'package:auto/assets/themes/light.dart';
 import 'package:flutter/material.dart';
 
-import 'features/onboarding/presentation/first_onboarding.dart';
+import 'features/comparison/presentation/pages/comparison.dart';
 
 void main() {
   runApp(const MyApp());
@@ -26,9 +26,9 @@ class _AppState extends State<MyApp> {
         title: 'Auto.Uz',
         theme: LightTheme.theme(),
         darkTheme: DarkTheme.theme(),
-        themeMode: ThemeMode.light,
+        themeMode: ThemeMode.dark,
         navigatorKey: _navigatorKey,
-        home: const FirstOnBoarding(),
+        home: const ComparisonPage(),
         // onGenerateRoute: (settings) => SplashScreen.route(),
       );
 }

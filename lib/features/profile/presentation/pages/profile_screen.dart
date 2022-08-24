@@ -4,6 +4,7 @@ import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/assets/themes/theme_extensions/w_textfield_style.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
+import 'package:auto/features/comparison/presentation/pages/comparison.dart';
 import 'package:auto/features/favorites/presentation/pages/favourite_screen.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/profile/presentation/pages/about_app_screen.dart';
@@ -138,7 +139,10 @@ class ProfileScreen extends StatelessWidget {
                           .borderColor,
                     ),
                     WScaleAnimation(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(
+                            context, fade(page: const ComparisonPage()));
+                      },
                       child: Container(
                         padding: const EdgeInsets.fromLTRB(12, 12, 12, 16),
                         child: Column(

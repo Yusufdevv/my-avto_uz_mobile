@@ -4,14 +4,15 @@ import 'package:auto/features/comparison/domain/entities/characteristics_model.d
 import 'package:auto/features/comparison/domain/entities/chracteristics_parameters_model.dart';
 import 'package:auto/features/comparison/domain/entities/complectation_model.dart';
 import 'package:auto/features/comparison/domain/entities/complectation_parameters_model.dart';
-import 'package:auto/features/comparison/presentation/widgets/parameters_widget.dart';
+import 'package:auto/features/comparison/presentation/widgets/main_parameters_widget.dart';
 import 'package:auto/features/comparison/presentation/widgets/sliver_delegate.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:linked_scroll_controller/linked_scroll_controller.dart';
 
 class ComparisonPage2 extends StatefulWidget {
-  final int numberofAddedCars;
-  const ComparisonPage2({Key? key, required this.numberofAddedCars})
+  final int numberOfAddedCars;
+  const ComparisonPage2({Key? key, required this.numberOfAddedCars})
       : super(key: key);
 
   @override
@@ -20,8 +21,14 @@ class ComparisonPage2 extends StatefulWidget {
 
 class _ComparisonPage2State extends State<ComparisonPage2> {
   bool showDifferences = false;
-  int currentValue = -1;
+  int currentValueOfCharacteristics = -1;
+  int currentValueOfComplectation = -1;
+  late int totalNUmberOfParameters;
   double pii = 0;
+
+  late ScrollController sliverWidgetScrollController;
+  late LinkedScrollControllerGroup linkedScrollControllerGroup;
+  late List<ScrollController> scrollControllers;
   List<Characteristics> characteristicsParameters = [
     Characteristics(
       parameterName: 'Основные',
@@ -56,22 +63,48 @@ class _ComparisonPage2State extends State<ComparisonPage2> {
   List<Complectation> complectationParameters = [
     Complectation(
         parameterName: 'Элементы экстерьера',
-        id: 7,
+        id: 0,
         complectationParameters: [
           ComplectationParameters(comparisonParameters: 'Рейлинги на крыше'),
           ComplectationParameters(comparisonParameters: 'Аэрография')
         ]),
-    Complectation(parameterName: 'Обзор', id: 11, complectationParameters: []),
+    Complectation(parameterName: 'Обзор', id: 1, complectationParameters: []),
     Complectation(
-        parameterName: 'Безопасность', id: 8, complectationParameters: []),
+        parameterName: 'Безопасность', id: 2, complectationParameters: []),
     Complectation(
-        parameterName: 'Мультимедиа', id: 9, complectationParameters: []),
+        parameterName: 'Мультимедиа', id: 3, complectationParameters: []),
     Complectation(
         parameterName: 'Защита от угона', id: 10, complectationParameters: [])
   ];
+
+  @override
+  void initState() {
+    totalNUmberOfParameters =
+        characteristicsParameters.length + complectationParameters.length;
+    sliverWidgetScrollController = ScrollController();
+    linkedScrollControllerGroup = LinkedScrollControllerGroup();
+    scrollControllers = [
+      ...List.generate(
+          characteristicsParameters.length + complectationParameters.length + 1,
+          (index) => ScrollController())
+    ];
+    for (var i = 0; i < totalNUmberOfParameters; i++) {
+      scrollControllers[i] = linkedScrollControllerGroup.addAndGet();
+    }
+    sliverWidgetScrollController = linkedScrollControllerGroup.addAndGet();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    sliverWidgetScrollController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) => Scaffold(
-      backgroundColor: Theme.of(context).extension<ThemedColors>()!.whiteToNero,
+      backgroundColor:
+          Theme.of(context).extension<ThemedColors>()!.solitudeContainerToBlack,
       appBar: AppBar(
         automaticallyImplyLeading: false,
         leading: GestureDetector(
@@ -98,10 +131,12 @@ class _ComparisonPage2State extends State<ComparisonPage2> {
               top: false,
               sliver: SliverPersistentHeader(
                 delegate: SliverWidget(
-                    numberOfAddedCars: widget.numberofAddedCars,
-                    boolean: showDifferences,
-                    onChanged: (showDifferences1) =>
-                        setState(() => showDifferences = showDifferences1)),
+                  numberOfAddedCars: widget.numberOfAddedCars,
+                  boolean: showDifferences,
+                  onChanged: (showDifferences1) =>
+                      setState(() => showDifferences = showDifferences1),
+                  scrollController: sliverWidgetScrollController,
+                ),
                 pinned: true,
               ),
             ),
@@ -111,54 +146,82 @@ class _ComparisonPage2State extends State<ComparisonPage2> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 16, top: 12),
-                child: Text(
-                  'Характеристики',
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline1!
-                      .copyWith(fontSize: 18),
+              Container(
+                color: Theme.of(context).extension<ThemedColors>()!.whiteToNero,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 12, left: 16),
+                      child: Text(
+                        'Характеристики',
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline1!
+                            .copyWith(fontSize: 18),
+                      ),
+                    ),
+                    ...List.generate(
+                      characteristicsParameters.length,
+                      (index) => CharacteristicsParametersWidget(
+                        onChanged: (integer) {
+                          setState(() {
+                            currentValueOfCharacteristics = integer;
+                          });
+                        },
+                        parameterName:
+                            characteristicsParameters[index].parameterName,
+                        selectedValue: currentValueOfCharacteristics,
+                        parameterId: characteristicsParameters[index].id,
+                        listOfComparisonParameters:
+                            characteristicsParameters[index]
+                                .comparisonParameters,
+                        characteristicsOrComplectation: 'characteristics',
+                        numberOfAddedCars: widget.numberOfAddedCars,
+                        controller: scrollControllers[index],
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              ...List.generate(
-                characteristicsParameters.length,
-                (index) => CharacteristicsParametersWidget(
-                  parameterName: characteristicsParameters[index].parameterName,
-                  onChanged: (value) {
-                    setState(() => currentValue = value);
-                  },
-                  selectedValue: currentValue,
-                  parameterId: characteristicsParameters[index].id,
-                  listOfComparisonParameters:
-                      characteristicsParameters[index].comparisonParameters,
-                  characteristicsOrComplectation: 'characteristics',
-                  numberOfAddedCars: widget.numberofAddedCars,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 16, top: 12),
-                child: Text(
-                  'Комплектация',
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline1!
-                      .copyWith(fontSize: 18),
-                ),
-              ),
-              ...List.generate(
-                complectationParameters.length,
-                (index) => CharacteristicsParametersWidget(
-                  parameterName: complectationParameters[index].parameterName,
-                  onChanged: (value) {
-                    setState(() => currentValue = value);
-                  },
-                  selectedValue: currentValue,
-                  parameterId: complectationParameters[index].id,
-                  listOfComparisonParameters:
-                      complectationParameters[index].complectationParameters,
-                  characteristicsOrComplectation: 'complectation',
-                  numberOfAddedCars: widget.numberofAddedCars,
+              const SizedBox(height: 8),
+              Container(
+                color: Theme.of(context).extension<ThemedColors>()!.whiteToNero,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 12, left: 16),
+                      child: Text(
+                        'Комплектация',
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline1!
+                            .copyWith(fontSize: 18),
+                      ),
+                    ),
+                    ...List.generate(
+                      complectationParameters.length,
+                      (index) => CharacteristicsParametersWidget(
+                        onChanged: (integer) {
+                          setState(() {
+                            currentValueOfComplectation = integer;
+                          });
+                        },
+                        parameterName:
+                            complectationParameters[index].parameterName,
+                        selectedValue: currentValueOfComplectation,
+                        parameterId: complectationParameters[index].id,
+                        listOfComparisonParameters:
+                            complectationParameters[index]
+                                .complectationParameters,
+                        characteristicsOrComplectation: 'complectation',
+                        numberOfAddedCars: 2,
+                        controller: scrollControllers[
+                            index + characteristicsParameters.length],
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ],
