@@ -1,21 +1,34 @@
 import 'package:auto/assets/colors/color.dart';
-import 'package:auto/assets/constants/icons.dart';
-import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
-import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/comparison/presentation/widgets/add_new_car.dart';
+import 'package:auto/features/comparison/presentation/widgets/added_car_sticky.dart';
+import 'package:auto/features/comparison/presentation/widgets/added_car_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 
 class SliverWidget extends SliverPersistentHeaderDelegate {
+  final ScrollController scrollController;
   final int numberOfAddedCars;
   final bool boolean;
   final ValueChanged<bool> onChanged;
-  SliverWidget(
-      {required this.numberOfAddedCars,
-      required this.boolean,
-      required this.onChanged});
+  SliverWidget({
+    required this.numberOfAddedCars,
+    required this.boolean,
+    required this.onChanged,
+    required this.scrollController,
+  });
+  List<Row> items(BuildContext context) {
+    var itemsss = <Row>[];
+    for (var i = 0; i < numberOfAddedCars; i++) {
+      itemsss.add(Row(
+        key: Key('$i'),
+        children: const [
+          AddedCar(),
+        ],
+      ));
+    }
+    return itemsss;
+  }
 
   @override
   Widget build(
@@ -24,38 +37,43 @@ class SliverWidget extends SliverPersistentHeaderDelegate {
         duration: const Duration(milliseconds: 500),
         child: shrinkOffset >= 246
             ? Container(
+                width: MediaQuery.of(context).size.width,
                 color: Theme.of(context).extension<ThemedColors>()!.whiteToNero,
                 padding:
                     const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                child: Row(
+                child: ListView(
+                  shrinkWrap: true,
+                  controller: scrollController,
+                  scrollDirection: Axis.horizontal,
                   children: const [
                     StickyAdderCar(),
                     StickyAdderCar(),
                   ],
-                ),
-              )
+                ))
             : Container(
                 color: Theme.of(context)
                     .extension<ThemedColors>()!
                     .solitudeContainerToBlack,
-                padding: const EdgeInsets.only(
-                    top: 16, bottom: 8, right: 16, left: 16),
+                padding: const EdgeInsets.only(top: 16, left: 8),
                 child: SingleChildScrollView(
-                  physics: const BouncingScrollPhysics(),
+                  padding: const EdgeInsets.only(left: 6),
+                  physics: const NeverScrollableScrollPhysics(),
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const AddedCar(),
-                          const SizedBox(width: 12),
-                          if (numberOfAddedCars == 1)
+                      SizedBox(
+                        height: 234,
+                        child: SingleChildScrollView(
+                          controller: scrollController,
+                          scrollDirection: Axis.horizontal,
+                          child: Row(children: [
+                            ListOfAddedCars(
+                              list: items(context),
+                            ),
                             const AddNewCar()
-                          else
-                            const AddedCar(),
-                        ],
+                          ]),
+                        ),
                       ),
-                      const SizedBox(height: 18),
                       Row(
                         children: [
                           const Expanded(
@@ -98,167 +116,33 @@ class SliverWidget extends SliverPersistentHeaderDelegate {
       true;
 }
 
-class StickyAdderCar extends StatelessWidget {
-  const StickyAdderCar({
-    Key? key,
-  }) : super(key: key);
+class ListOfAddedCars extends StatefulWidget {
+  // final ScrollController scrollController;
+  final List list;
+  const ListOfAddedCars({Key? key, required this.list}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => Flexible(
-        child: Row(
-          children: [
-            SizedBox(
-              width: 44,
-              height: 44,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(4),
-                child:
-                    SvgPicture.asset(AppImages.placeHolder, fit: BoxFit.fill),
-              ),
-            ),
-            const SizedBox(width: 8),
-            Flexible(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    '227 000 000 UZS',
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline1!
-                        .copyWith(fontWeight: FontWeight.w600, fontSize: 12),
-                  ),
-                  const SizedBox(height: 2),
-                  Flexible(
-                    child: Text(
-                      'Lexus LX',
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline1!
-                          .copyWith(fontWeight: FontWeight.w400, fontSize: 12),
-                    ),
-                  ),
-                ],
-              ),
-            )
-          ],
-        ),
-      );
+  State<ListOfAddedCars> createState() => _ListOfAddedCarsState();
 }
 
-class AddedCar extends StatelessWidget {
-  const AddedCar({
-    Key? key,
-  }) : super(key: key);
-
+class _ListOfAddedCarsState extends State<ListOfAddedCars> {
   @override
-  Widget build(BuildContext context) => Stack(
-        children: [
-          Container(
-            width: MediaQuery.of(context).size.width / 2 - 22,
-            padding: const EdgeInsets.only(bottom: 18),
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(12),
-                topRight: Radius.circular(12),
-              ),
-            ),
-            child: Container(
-              height: 216,
-              decoration: BoxDecoration(
-                color:
-                    Theme.of(context).extension<ThemedColors>()!.whiteToNero1,
-                borderRadius: BorderRadius.circular(12),
-                border: Border.all(
-                    color: Theme.of(context)
-                        .extension<ThemedColors>()!
-                        .solitude2ToNightRider),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width / 2 - 22,
-                    height: 112,
-                    child: ClipRRect(
-                      borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(12),
-                        topRight: Radius.circular(12),
-                      ),
-                      child: SvgPicture.asset(AppImages.placeHolder,
-                          fit: BoxFit.fill),
-                    ),
-                  ),
-                  const SizedBox(height: 12),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: Text(
-                      '227 000 000 UZS',
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline1!
-                          .copyWith(fontSize: 13),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: Text(
-                      'Lexus LX 600 2022',
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline1!
-                          .copyWith(fontSize: 12, fontWeight: FontWeight.w400),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          Positioned(
-            top: 10,
-            right: 0,
-            child: GestureDetector(
-              onTap: () => Navigator.pop(context),
-              child: Stack(
-                children: [
-                  SvgPicture.asset(AppIcons.roundedClose),
-                ],
-              ),
-            ),
-          ),
-          Positioned(
-            bottom: 0,
-            right: 0,
-            left: 0,
-            child: WScaleAnimation(
-              onTap: () {},
-              child: Container(
-                margin: const EdgeInsets.symmetric(horizontal: 12),
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 23, vertical: 8),
-                decoration: BoxDecoration(
-                  color: green,
-                  borderRadius: BorderRadius.circular(150),
-                ),
-                child: Row(
-                  children: [
-                    SvgPicture.asset(AppIcons.tablerPhone, color: white),
-                    const SizedBox(width: 4),
-                    const Text(
-                      'Позвонить',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 14,
-                        color: white,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          )
-        ],
+  Widget build(BuildContext context) => SizedBox(
+        width: MediaQuery.of(context).size.width - 20,
+        child: ReorderableListView(
+          scrollDirection: Axis.horizontal,
+          onReorder: (oldIndex, newIndex) {
+            setState(() {
+              if (oldIndex < newIndex) {
+                newIndex -= 1;
+              }
+              final Row item = widget.list.removeAt(oldIndex);
+              widget.list.insert(newIndex, item);
+            });
+          },
+          children: [
+            ...List.generate(2, (index) => widget.list[index]),
+          ],
+        ),
       );
 }

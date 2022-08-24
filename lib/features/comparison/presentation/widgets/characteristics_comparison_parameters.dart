@@ -13,7 +13,29 @@ class CharacteristicsComparisonWidget extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => Container(
+  Widget build(BuildContext context) => Stack(children: [
+        Container(
+          height: 54,
+          color: color,
+          child: ListView(
+            scrollDirection: Axis.horizontal,
+          ),
+        ),
+        Positioned(
+            top: 8,
+            left: 16,
+            child: Text(
+              parameterName,
+              style: const TextStyle(
+                fontWeight: FontWeight.w400,
+                fontSize: 12,
+                color: grey,
+              ),
+            ))
+      ]);
+}
+
+/*Container(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         color: color,
         child: Column(
@@ -55,5 +77,4 @@ class CharacteristicsComparisonWidget extends StatelessWidget {
             )
           ],
         ),
-      );
-}
+      )*/

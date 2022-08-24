@@ -47,6 +47,7 @@ dependencies:
     git:
       url: https://github.com/X-SLAYER/qr_code_scanner.git
       ref: flutter-beta
+  linked_scroll_controller: ^0.2.0
 
 dev_dependencies:
   flutter_test:
