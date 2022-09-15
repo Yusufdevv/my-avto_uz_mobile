@@ -27,7 +27,7 @@ class SearchResultBloc extends Bloc<SearchResultEvent, SearchResultState> {
             count: result.right.count,
             next: result.right.next!));
       } else {
-        emit(state.copyWith(status: FormzStatus.submissionSuccess));
+        emit(state.copyWith(status: FormzStatus.submissionFailure));
       }
     });
 

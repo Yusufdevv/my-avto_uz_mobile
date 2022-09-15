@@ -1,4 +1,4 @@
-import 'package:auto/features/login/presentation/pages/login_screen.dart';
+import 'package:auto/features/login/presentation/login_screen.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:flutter/material.dart';
 
