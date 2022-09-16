@@ -6,6 +6,7 @@ import 'package:auto/features/login/presentation/pages/new_password_screen.dart'
 import 'package:auto/features/login/presentation/widgets/add_photo_item.dart';
 import 'package:auto/features/login/presentation/widgets/login_header_widget.dart';
 import 'package:auto/features/login/presentation/widgets/personal_data_item.dart';
+import 'package:auto/features/login/presentation/widgets/region_button.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:flutter/material.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
@@ -60,7 +61,7 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
                       const SizedBox(
                         height: 36,
                       ),
-                      const AddPhotoItem(),
+                       const AddPhotoItem(),
                       PersonalDataItem(
                         title: 'Имя',
                         controller: passwordController,
@@ -69,14 +70,7 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
                           setState(() {});
                         },
                       ),
-                      PersonalDataItem(
-                        title: 'Регион',
-                        controller: regionController,
-                        hintText: 'Выберите регион',
-                        onChanged: (String value) {
-                          setState(() {});
-                        },
-                      ),
+                      const RegionButton(title: '',),
                       PersonalDataItem(
                         title: 'Email',
                         controller: emailController,

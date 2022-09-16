@@ -46,6 +46,7 @@ class AuthenticationBloc
       final result = await repository.login(
           login: event.userName, password: event.password);
       if (result.isRight) {
+        print('auth good ');
         add(AuthenticationStatusChanged(
             status: AuthenticationStatus.authenticated));
       } else {
@@ -56,12 +57,12 @@ class AuthenticationBloc
     });
 
     on<CheckUser>((event, emit) async {
-      var hasToken =
+      final hasToken =
           StorageRepository.getString('token', defValue: '').isNotEmpty;
       if (hasToken) {
         print(StorageRepository.getString('token'));
         print('hello');
-        var response = await repository.getUser();
+        final response = await repository.getUser();
         if (response.isRight) {
           add(AuthenticationStatusChanged(
               status: AuthenticationStatus.authenticated));

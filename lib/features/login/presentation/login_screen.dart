@@ -38,17 +38,18 @@ class _LoginScreenState extends State<LoginScreen> {
     super.initState();
   }
 
-  @override
-  void dispose() {
-    phoneController.dispose();
-    passwordController.dispose();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   phoneController.dispose();
+  //   passwordController.dispose();
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) => KeyboardDismisser(
         child: Scaffold(
-          appBar: const WAppBar(hasBackButton: false,
+          appBar: const WAppBar(
+            hasBackButton: false,
             title: 'Войти',
           ),
           body: Padding(
@@ -135,11 +136,13 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 GestureDetector(
                   onTap: () => Navigator.push(
-                      context,
-                      fade(
-                          page: const PasswordRecoveryScreen(
+                    context,
+                    fade(
+                      page: const PasswordRecoveryScreen(
                         phone: '+998 97 777 77 77',
-                      ))),
+                      ),
+                    ),
+                  ),
                   child: Text(
                     'Забыли пароль?',
                     style: Theme.of(context)
@@ -152,11 +155,14 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           ),
           bottomNavigationBar: WButton(
-            onTap: passwordController.text.length>=4 &&
-                    phoneController.text.length==12
+            onTap: passwordController.text.length >= 4 &&
+                    phoneController.text.length == 12
                 ? () {
-
-                   context.read<AuthenticationBloc>().add(LoginUser(password: passwordController.text, userName:passwordController.text.replaceAll('+998', '') ));
+              print('available');
+                    context.read<AuthenticationBloc>().add(LoginUser(
+                        password: passwordController.text,
+                        userName:
+                            phoneController.text.replaceAll('+998', '')));
                   }
                 : () {},
             shadow: [
@@ -170,8 +176,8 @@ class _LoginScreenState extends State<LoginScreen> {
               right: 16,
               left: 16,
             ),
-            color: (passwordController.text.length>=4 &&
-                phoneController.text.length==12)
+            color: (passwordController.text.length >= 4 &&
+                    phoneController.text.length == 12)
                 ? orange
                 : Theme.of(context)
                     .extension<ThemedColors>()!

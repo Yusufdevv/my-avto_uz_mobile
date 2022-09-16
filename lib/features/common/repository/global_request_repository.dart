@@ -5,7 +5,6 @@ import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/utils/either.dart';
 import 'package:dio/dio.dart';
 
-
 class GlobalRequestRepository {
   final dio = serviceLocator<DioSettings>().dio;
 
@@ -17,18 +16,23 @@ class GlobalRequestRepository {
       required S Function(Map<String, dynamic>) fromJson,
       bool sendToken = true}) async {
     try {
+      print(StorageRepository.getString('token', defValue: ''));
       final result = await dio.get(endpoint,
           queryParameters: query,
           options: Options(
               headers: sendToken
                   ? {
-                      "Authorization":
+                      'Authorization':
                           "Bearer ${StorageRepository.getString('token', defValue: '')}"
                     }
                   : {}));
       print(result.realUri);
       print(result.data);
-      return Right(fromJson(result.data));
+      if (result.statusCode! >= 200 && result.statusCode! < 300) {
+        return Right(fromJson(result.data));
+      } else {
+        return Left(ServerFailure());
+      }
     } catch (e) {
       print(e.toString());
       return Left(ServerFailure(statusCode: 141, errorMessage: ''));
@@ -51,7 +55,7 @@ class GlobalRequestRepository {
           options: Options(
               headers: sendToken
                   ? {
-                      "Authorization":
+                      'Authorization':
                           "Bearer ${StorageRepository.getString('token', defValue: '')}"
                     }
                   : {}));
@@ -59,15 +63,20 @@ class GlobalRequestRepository {
       print(result.realUri);
       print(result.data);
       List<S> list = [];
-      if (responseDataKey != null && responseDataKey.isNotEmpty) {
-        var data = result.data[responseDataKey] as List<dynamic>;
-        list = data.map((e) => fromJson(e)).toList();
-      } else {
-        var data = result.data as List<dynamic>;
-        list = data.map((e) => fromJson(e)).toList();
-      }
 
-      return Right(list);
+      if (result.statusCode! >= 200 && result.statusCode! < 300) {
+        if (responseDataKey != null && responseDataKey.isNotEmpty) {
+          var data = result.data[responseDataKey] as List<dynamic>;
+          list = data.map((e) => fromJson(e)).toList();
+        } else {
+          var data = result.data as List<dynamic>;
+          list = data.map((e) => fromJson(e)).toList();
+        }
+
+        return Right(list);
+      } else {
+        return Left(ServerFailure());
+      }
     } catch (e) {
       print(e.toString());
       return Left(ServerFailure(statusCode: 141, errorMessage: ''));
@@ -90,16 +99,20 @@ class GlobalRequestRepository {
           options: Options(
               headers: sendToken
                   ? {
-                      "Authorization":
+                      'Authorization':
                           "Bearer ${StorageRepository.getString('token', defValue: '')}"
                     }
                   : {}));
       print(result.realUri);
       print(result.data);
-      if (responseDataKey != null && responseDataKey.isNotEmpty) {
-        return Right(fromJson(result.data[responseDataKey]));
+      if (result.statusCode! >= 200 && result.statusCode! < 300) {
+        if (responseDataKey != null && responseDataKey.isNotEmpty) {
+          return Right(fromJson(result.data[responseDataKey]));
+        } else {
+          return Right(fromJson(result.data));
+        }
       } else {
-        return Right(fromJson(result.data));
+        return Left(ServerFailure());
       }
     } catch (e) {
       return Left(ServerFailure(statusCode: 141, errorMessage: ''));
@@ -127,16 +140,21 @@ class GlobalRequestRepository {
                   : {}));
       print(result.realUri);
       print(result.data);
-      List<S> list = [];
-      if (responseDataKey != null && responseDataKey.isNotEmpty) {
-        var data = result.data[responseDataKey] as List<dynamic>;
-        list = data.map((e) => fromJson(e)).toList();
-      } else {
-        var data = result.data as List<dynamic>;
-        list = data.map((e) => fromJson(e)).toList();
-      }
+      var list = <S>[];
 
-      return Right(list);
+      if (result.statusCode! >= 200 && result.statusCode! < 300) {
+        if (responseDataKey != null && responseDataKey.isNotEmpty) {
+          final data = result.data[responseDataKey] as List<dynamic>;
+          list = data.map((e) => fromJson(e)).toList();
+        } else {
+          final data = result.data as List<dynamic>;
+          list = data.map((e) => fromJson(e)).toList();
+        }
+
+        return Right(list);
+      } else {
+        return Left(ServerFailure());
+      }
     } catch (e) {
       return Left(ServerFailure(statusCode: 141, errorMessage: ''));
     }

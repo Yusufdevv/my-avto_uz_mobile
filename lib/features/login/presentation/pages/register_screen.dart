@@ -3,11 +3,16 @@ import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
+import 'package:auto/features/login/domain/usecases/register_user.dart';
+import 'package:auto/features/login/domain/usecases/send_code.dart';
+import 'package:auto/features/login/domain/usecases/verify_code.dart';
+import 'package:auto/features/login/presentation/bloc/register/register_bloc.dart';
 import 'package:auto/features/login/presentation/pages/verification_screen.dart';
 import 'package:auto/features/login/presentation/widgets/login_header_widget.dart';
 import 'package:auto/features/login/presentation/widgets/z_text_form_field.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -23,9 +28,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
     filter: {"#": RegExp(r'[0-9]')},
   );
   late TextEditingController phoneController;
+  late RegisterBloc registerBloc;
 
   @override
   void initState() {
+    registerBloc = RegisterBloc(
+        sendCodeUseCase: SendCodeUseCase(),
+        registerUseCase: RegisterUseCase(),
+        verifyCodeUseCase: VerifyCodeUseCase());
     phoneController = TextEditingController();
     super.initState();
   }
@@ -37,78 +47,90 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-        appBar: const WAppBar(
-          title: 'Регистрация',
-        ),
-        body: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const LoginHeader(
-                title: 'Номер телефона',
-                description: 'Мы проверим ваш номер телефона в системе',
-              ),
-              const SizedBox(
-                height: 12,
-              ),
-              ZTextFormField(
-                onChanged: (onChanged) {
-                  setState(() {});
-                },
-                controller: phoneController,
-                prefixIcon: Row(
-                  children: [
-                    Image.asset(AppImages.flagUzb),
-                    const SizedBox(
-                      width: 4,
-                    ),
-                    Text(
-                      '+998',
-                      style: Theme.of(context)
-                          .textTheme
-                          .subtitle1!
-                          .copyWith(fontSize: 15),
-                    ),
+  Widget build(BuildContext context) => BlocProvider.value(
+        value: registerBloc,
+        child: Scaffold(
+          appBar: const WAppBar(
+            title: 'Регистрация',
+          ),
+          body: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const LoginHeader(
+                  title: 'Номер телефона',
+                  description: 'Мы проверим ваш номер телефона в системе',
+                ),
+                const SizedBox(
+                  height: 12,
+                ),
+                ZTextFormField(
+                  onChanged: (onChanged) {
+                    setState(() {});
+                  },
+                  controller: phoneController,
+                  prefixIcon: Row(
+                    children: [
+                      Image.asset(AppImages.flagUzb),
+                      const SizedBox(
+                        width: 4,
+                      ),
+                      Text(
+                        '+998',
+                        style: Theme.of(context)
+                            .textTheme
+                            .subtitle1!
+                            .copyWith(fontSize: 15),
+                      ),
+                    ],
+                  ),
+                  hintText: '91 234 56 78',
+                  keyBoardType: TextInputType.number,
+                  textInputFormatters: [phoneFormatter],
+                ),
+                const Spacer(),
+                WButton(
+                  onTap: () {
+                    print(phoneController.text.length);
+                    if (phoneController.text.length == 12) {
+                      registerBloc.add(RegisterEvent.sendCode(
+                          phoneController.text.replaceAll('+998', ''),
+                          onSuccess: (session) {
+                        Navigator.push(
+                            context,
+                            fade(
+                                page: BlocProvider.value(value: registerBloc,
+                                  child: VerificationScreen(session: session,
+                                      phone: phoneController.text
+                                          .replaceAll('+998', '')),
+                                )));
+                      }));
+                    } else {}
+                  },
+                  shadow: [
+                    BoxShadow(
+                        offset: const Offset(0, 4),
+                        blurRadius: 20,
+                        color: solitude.withOpacity(.12)),
                   ],
-                ),
-                hintText: '91 234 56 78',
-                keyBoardType: TextInputType.number,
-                textInputFormatters: [phoneFormatter],
-              ),
-              const Spacer(),
-              WButton(
-                onTap: () => phoneController.text.isNotEmpty
-                    ? Navigator.push(
-                        context,
-                        fade(
-                            page: const VerificationScreen(
-                          phone: '+998 97 777 77 77',
-                        )))
-                    : {},
-                shadow: [
-                  BoxShadow(
-                      offset: const Offset(0, 4),
-                      blurRadius: 20,
-                      color: solitude.withOpacity(.12)),
-                ],
-                margin: EdgeInsets.only(
-                    bottom: 4 + MediaQuery.of(context).padding.bottom),
-                color: (phoneController.text.isNotEmpty)
-                    ? orange
-                    : Theme.of(context)
+                  margin: EdgeInsets.only(
+                      bottom: 4 + MediaQuery.of(context).padding.bottom),
+                  color: (phoneController.text.isNotEmpty)
+                      ? orange
+                      : Theme.of(context)
+                          .extension<ThemedColors>()!
+                          .veryLightGreyToEclipse,
+                  text: 'Продолжить',
+                  border: Border.all(
+                    width: 1,
+                    color: Theme.of(context)
                         .extension<ThemedColors>()!
-                        .veryLightGreyToEclipse,
-                text: 'Продолжить',
-                border: Border.all(
-                  width: 1,
-                  color: Theme.of(context)
-                      .extension<ThemedColors>()!
-                      .whiteToDolphin,
+                        .whiteToDolphin,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       );

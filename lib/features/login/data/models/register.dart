@@ -5,21 +5,24 @@ part 'register.g.dart';
 
 @JsonSerializable()
 class RegisterModel extends Equatable {
-  @JsonKey(name: 'full_name', defaultValue: '')
+  @JsonKey(name: 'full_name', )
   final String fullName;
-  @JsonKey(name: 'region', defaultValue: 0)
+  @JsonKey(name: 'region', )
   final int region;
-  @JsonKey(name: 'phone_number', defaultValue: '')
+  @JsonKey(name: 'phone_number', )
   final String phoneNumber;
-  @JsonKey(name: 'email', defaultValue: '')
+  @JsonKey(name: 'email', )
   final String email;
-  @JsonKey(name: 'password', defaultValue: '')
+  @JsonKey(name: 'password', )
   final String password;
+  @JsonKey(name: 'image', )
+  final String image;
 
   const RegisterModel(
       { this.password='',
        this.phoneNumber='',
        this.email='',
+        this.image='',
        this.fullName='',
        this.region=0});
 
@@ -29,8 +32,9 @@ class RegisterModel extends Equatable {
     String? phoneNumber,
     String? email,
     String? password,
+    String? image,
   }) =>
-      RegisterModel(
+      RegisterModel(image: image??this.image,
           password: password ?? this.password,
           phoneNumber: phoneNumber ?? this.phoneNumber,
           email: email ?? this.email,
@@ -48,6 +52,6 @@ class RegisterModel extends Equatable {
     region,
     phoneNumber,
     email,
-    password,
+    password,image
   ];
 }

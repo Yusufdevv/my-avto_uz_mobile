@@ -7,7 +7,8 @@ class SendCodeUseCase extends UseCase<String, String> {
   final GlobalRequestRepository repo = GlobalRequestRepository();
 
   @override
-  Future<Either<Failure, String>> call(String params) => repo.postAndSingle(
-      endpoint: '/user/registration/sms-verification/entrypoint/',
-      fromJson: (data) => '');
+  Future<Either<Failure, String>> call(String phone) => repo.postAndSingle(sendToken: false,
+      endpoint: '/users/registration/sms-verification/entrypoint/',
+      fromJson: (data) => data['session'],
+      data: {'phone': '+998${phone.replaceAll(' ', '')}'});
 }

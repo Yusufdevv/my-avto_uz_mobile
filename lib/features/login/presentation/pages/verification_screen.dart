@@ -3,20 +3,26 @@ import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
+import 'package:auto/features/login/domain/usecases/verify_code.dart';
+import 'package:auto/features/login/presentation/bloc/register/register_bloc.dart';
 import 'package:auto/features/login/presentation/pages/personal_data_screen.dart';
 import 'package:auto/features/login/presentation/widgets/login_header_widget.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/profile/presentation/widgets/refresh_button.dart';
 import 'package:auto/features/profile/presentation/widgets/time_counter.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 class VerificationScreen extends StatefulWidget {
   final String phone;
+  final String session;
 
-  const VerificationScreen({required this.phone, Key? key}) : super(key: key);
+  const VerificationScreen(
+      {required this.phone, required this.session, Key? key})
+      : super(key: key);
 
   @override
   State<VerificationScreen> createState() => _VerificationScreenState();
@@ -57,7 +63,6 @@ class _VerificationScreenState extends State<VerificationScreen> {
                   height: 12,
                 ),
                 Container(
-                  width: 170,
                   padding:
                       const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                   decoration: BoxDecoration(
@@ -67,9 +72,10 @@ class _VerificationScreenState extends State<VerificationScreen> {
                         .solitudeToBastille,
                   ),
                   child: Row(
+                    mainAxisSize: MainAxisSize.min,
                     children: [
                       Text(
-                        '+998 88 033 18 05',
+                        '+998 ${widget.phone}',
                         style: Theme.of(context).textTheme.headline6!.copyWith(
                             fontWeight: FontWeight.w400, fontSize: 14),
                       ),
@@ -77,7 +83,9 @@ class _VerificationScreenState extends State<VerificationScreen> {
                         width: 12,
                       ),
                       WButton(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
                         padding: const EdgeInsets.all(4),
                         color: Theme.of(context)
                             .extension<ThemedColors>()!
@@ -173,8 +181,19 @@ class _VerificationScreenState extends State<VerificationScreen> {
                 WButton(
                   onTap: () => verificationController.text.isNotEmpty &&
                           verificationController.text.length == 6
-                      ? Navigator.pushReplacement(
-                          context, fade(page: const PersonalDataScreen()))
+                      ? context.read<RegisterBloc>().add(
+                              RegisterEvent.verifyCode(
+                                  VerifyParam(
+                                      code: verificationController.text,
+                                      phone: widget.phone,
+                                      session: widget.session), onSuccess: () {
+                            Navigator.pushReplacement(
+                                context,
+                                fade(
+                                    page: BlocProvider.value(
+                                        value: context.read<RegisterBloc>(),
+                                        child: const PersonalDataScreen())));
+                          }))
                       : {},
                   margin: EdgeInsets.only(
                       bottom: MediaQuery.of(context).padding.bottom + 4),
