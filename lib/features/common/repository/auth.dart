@@ -16,7 +16,8 @@ class AuthRepository {
       StreamController.broadcast(sync: true);
 
   Future<Either<Failure, UserModel>> getUser() async {
-    StorageRepository.getString('token', defValue: '');
+
+  await  StorageRepository.putString('token', '');
     final result = await repo.getSingle(
       endpoint: '/users/detail/',
       fromJson: UserModel.fromJson,
@@ -33,17 +34,17 @@ class AuthRepository {
       fromJson: TokenModel.fromJson,
       sendToken: false,
       data: {
-        'phone_number': login.replaceAll(' ', ''),
+        'phone_number': '+998${login.replaceAll(' ', '')}',
         'password': password,
       },
     );
     if(result.isRight){
-      print('tokenize ${result.right.access} ');
+      print('tokenize ${result.right.access}');
       await StorageRepository.putString('token', result.right.access);
       await StorageRepository.putString('refresh', result.right.refresh);
       return Right(result.right);
     }else {
-      print('errorize ');
+      print('errorize');
       return Left(result.left);
     }
 
@@ -55,7 +56,7 @@ class AuthRepository {
       fromJson: TokenModel.fromJson,
       sendToken: false,
       data: {
-        "refresh": StorageRepository.getString('token', defValue: ''),
+        'refresh': StorageRepository.getString('token', defValue: ''),
       },
     );
     if(result.isRight){

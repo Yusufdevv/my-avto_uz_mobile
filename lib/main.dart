@@ -80,12 +80,12 @@ class _AppState extends State<App> {
                                   sendCodeUseCase: SendCodeUseCase(),
                                   registerUseCase: RegisterUseCase(),
                                   verifyCodeUseCase: VerifyCodeUseCase()),
-                              child: const PersonalDataScreen())),
+                              child: const LoginScreen())),
                       (route) => false);
                   break;
                 case AuthenticationStatus.authenticated:
                   navigator.pushAndRemoveUntil(
-                      fade(page: const RegisterScreen()), (route) => false);
+                      fade(page: const HomeScreen()), (route) => false);
                   break;
               }
             },

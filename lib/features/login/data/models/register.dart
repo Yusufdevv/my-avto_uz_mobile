@@ -1,3 +1,4 @@
+import 'package:auto/features/common/domain/model/token_model.dart';
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -17,6 +18,7 @@ class RegisterModel extends Equatable {
   final String password;
   @JsonKey(name: 'image', )
   final String image;
+
 
   const RegisterModel(
       { this.password='',

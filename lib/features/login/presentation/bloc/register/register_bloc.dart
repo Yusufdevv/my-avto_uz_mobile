@@ -27,7 +27,8 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
       emit(state.copyWith(verifyStatus: FormzStatus.submissionInProgress));
       final result = await verifyCodeUseCase(event.param);
       if (result.isRight) {
-        emit(state.copyWith(
+        print(result.right+'from Bloc');
+        emit(state.copyWith(registerModel: state.registerModel.copyWith(phoneNumber: result.right),
           verifyStatus: FormzStatus.submissionSuccess,
         ));
         if (event.onSuccess != null) {
@@ -56,6 +57,9 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
       emit(state.copyWith(
           registerModel: state.registerModel
               .copyWith(fullName: event.fullName, email: event.email)));
+      if (event.onSuccess != null) {
+        event.onSuccess!();
+      }
     });
     on<_Register>((event, emit) async {
       emit(state.copyWith(registerStatus: FormzStatus.submissionInProgress));
@@ -80,7 +84,8 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
       );
     });
     on<_ChangeRegion>((event, emit) {
-      emit(state.copyWith(registerModel: state.registerModel.copyWith(region: event.region)));
+      emit(state.copyWith(
+          registerModel: state.registerModel.copyWith(region: event.region)));
     });
   }
 }

@@ -105,6 +105,7 @@ class GlobalRequestRepository {
                   : {}));
       print(result.realUri);
       print(result.data);
+      print(result.statusCode);
       if (result.statusCode! >= 200 && result.statusCode! < 300) {
         if (responseDataKey != null && responseDataKey.isNotEmpty) {
           return Right(fromJson(result.data[responseDataKey]));

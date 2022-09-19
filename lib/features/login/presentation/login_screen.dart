@@ -138,8 +138,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   onTap: () => Navigator.push(
                     context,
                     fade(
-                      page: const PasswordRecoveryScreen(
-                        phone: '+998 97 777 77 77',
+                      page:  PasswordRecoveryScreen(
+                        phone: phoneController.text,
                       ),
                     ),
                   ),
@@ -158,11 +158,9 @@ class _LoginScreenState extends State<LoginScreen> {
             onTap: passwordController.text.length >= 4 &&
                     phoneController.text.length == 12
                 ? () {
-              print('available');
                     context.read<AuthenticationBloc>().add(LoginUser(
                         password: passwordController.text,
-                        userName:
-                            phoneController.text.replaceAll('+998', '')));
+                        userName: phoneController.text.replaceAll('+998', '')));
                   }
                 : () {},
             shadow: [

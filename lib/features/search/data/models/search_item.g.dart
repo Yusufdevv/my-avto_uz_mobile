@@ -10,7 +10,7 @@ SearchItemModel _$SearchItemModelFromJson(Map<String, dynamic> json) =>
     SearchItemModel(
       id: json['id'] as int? ?? 0,
       carModel: NamingModel.fromJson(json['car_model'] as Map<String, dynamic>),
-      carMake: CarMake.fromJson(json['car_make'] as Map<String, dynamic>),
+      carMake: CarBrand.fromJson(json['car_make'] as Map<String, dynamic>),
       currency: json['currency'] as int? ?? 0,
       price: json['price'] as int? ?? 0,
       description: json['description '] as String? ?? '',

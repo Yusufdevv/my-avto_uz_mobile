@@ -61,11 +61,15 @@ class _RegionButtonState extends State<RegionButton> {
                                     currentRegion!.title.isNotEmpty
                                 ? currentRegion!.title
                                 : 'Выберите регион',
-                            style: Theme.of(context)
-                                .textTheme
-                                .headline6!
-                                .copyWith(
-                                    fontSize: 14, fontWeight: FontWeight.w400),
+                            style: currentRegion == null ||
+                                    currentRegion!.title.isEmpty
+                                ? Theme.of(context)
+                                    .textTheme
+                                    .headline6!
+                                    .copyWith(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w400)
+                                : Theme.of(context).textTheme.subtitle1!.copyWith(fontSize: 15),
                           ),
                           SvgPicture.asset(
                             AppIcons.chevronRight,

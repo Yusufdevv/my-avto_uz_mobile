@@ -1,9 +1,9 @@
 import 'package:auto/features/common/models/image.dart';
 import 'package:json_annotation/json_annotation.dart';
-part 'car_make.g.dart';
+part 'car_brand.g.dart';
 
 @JsonSerializable()
-class CarMake {
+class CarBrand {
   @JsonKey(name: 'id',defaultValue: 0)
   final int id ;
   @JsonKey(name: 'name',defaultValue: '')
@@ -12,7 +12,6 @@ class CarMake {
   final String slug;
   @JsonKey(name: 'logo',)
   final ImageModel logo;
-  CarMake({required this.name,required this.id,required this.logo,required this.slug});
-
-  factory CarMake.fromJson(Map<String,dynamic> json)=>_$CarMakeFromJson(json);
+  CarBrand({required this.name,required this.id,required this.logo,required this.slug});
+  factory CarBrand.fromJson(Map<String,dynamic> json)=>_$CarBrandFromJson(json);
 }
