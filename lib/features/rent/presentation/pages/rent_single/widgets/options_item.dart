@@ -1,13 +1,13 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
-import 'package:auto/features/rent/domain/entities/options_entity.dart';
+import 'package:auto/features/rent/domain/entities/rent_car_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class OptionsItem extends StatelessWidget {
-  final OptionsEntity optionsEntity;
-  const OptionsItem({required this.optionsEntity, Key? key})
+  final RentCarEntity rentCarEntity;
+  const OptionsItem({required this.rentCarEntity, Key? key})
       : super(key: key);
 
   @override
@@ -26,7 +26,7 @@ class OptionsItem extends StatelessWidget {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            if (optionsEntity.hasOption)
+            if (rentCarEntity.hasAirConditioner)
               SvgPicture.asset(AppIcons.checkGreen)
             else
               SvgPicture.asset(AppIcons.mad),
@@ -34,7 +34,7 @@ class OptionsItem extends StatelessWidget {
               width: 8,
             ),
             Text(
-              optionsEntity.title,
+              rentCarEntity.model,
               style: Theme.of(context)
                   .textTheme
                   .headline4!

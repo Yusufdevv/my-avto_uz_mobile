@@ -1,15 +1,15 @@
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/common/widgets/w_textfield.dart';
-import 'package:auto/features/rent/domain/entities/category_entity.dart';
+import 'package:auto/features/rent/domain/entities/rent_entity.dart';
 import 'package:auto/features/rent/presentation/pages/category_single/widgets/category_single_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class SingleCategoryScreen extends StatefulWidget {
-  final CategoryEntity categoryEntity;
+  final RentEntity rentEntity;
 
-  const SingleCategoryScreen({required this.categoryEntity, Key? key})
+  const SingleCategoryScreen({required this.rentEntity, Key? key})
       : super(key: key);
 
   @override
@@ -18,16 +18,19 @@ class SingleCategoryScreen extends StatefulWidget {
 
 class _SingleCategoryScreenState extends State<SingleCategoryScreen> {
   late TextEditingController searchController;
+
   @override
   void initState() {
     searchController = TextEditingController();
     super.initState();
   }
+
   @override
   void dispose() {
     searchController.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
@@ -40,7 +43,7 @@ class _SingleCategoryScreenState extends State<SingleCategoryScreen> {
                 width: 8,
               ),
               Text(
-                widget.categoryEntity.title,
+                widget.rentEntity.rentCar.model,
                 style: Theme.of(context).textTheme.subtitle1!.copyWith(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
@@ -61,12 +64,14 @@ class _SingleCategoryScreenState extends State<SingleCategoryScreen> {
           ),
         ),
         body: ListView.separated(
-          separatorBuilder: (context, index) => const SizedBox(height: 16,),
+          separatorBuilder: (context, index) => const SizedBox(
+            height: 16,
+          ),
           padding: const EdgeInsets.all(16),
           itemBuilder: (context, index) => CategorySingleItem(
-            rentCarEntity: widget.categoryEntity.rentCarEntity[index],
+            rentCarEntity: widget.rentEntity.rentCar,
           ),
-          itemCount: widget.categoryEntity.rentCarEntity.length,
+          itemCount: widget.rentEntity.id,
         ),
       );
 }

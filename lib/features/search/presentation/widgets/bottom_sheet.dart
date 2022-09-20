@@ -2,9 +2,9 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class CallBottomSheet extends StatelessWidget {
   const CallBottomSheet({Key? key}) : super(key: key);
@@ -14,7 +14,9 @@ class CallBottomSheet extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           WScaleAnimation(
-            onTap: () {},
+            onTap: () async => {
+              await launch('tel:+998991443429'),
+            },
             child: Container(
               width: MediaQuery.of(context).size.width - 16,
               decoration: BoxDecoration(

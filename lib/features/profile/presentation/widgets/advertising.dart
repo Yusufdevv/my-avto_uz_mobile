@@ -12,10 +12,9 @@ class Advertising extends StatefulWidget {
   final bool isSalon;
 
   const Advertising({
-    Key? key,
     required this.images,
     required this.isSalon,
-
+    Key? key,
   }) : super(key: key);
 
   @override

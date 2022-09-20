@@ -1,18 +1,29 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/features/common/widgets/cached_image.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
-import 'package:auto/features/profile/presentation/widgets/advertising.dart';
+import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/profile/presentation/widgets/information_item.dart';
+import 'package:auto/features/search/presentation/widgets/bottom_sheet.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-class AllTabs extends StatelessWidget {
-  const AllTabs({Key? key}) : super(key: key);
-  final String image1 =
-      'https://images.unsplash.com/photo-1659812903095-d7e87abb0b3c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw4Mnx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60';
-  final String imege2 =
-      'https://images.unsplash.com/photo-1658856226250-5b236fa6137d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxMDR8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60';
+class AllTabs extends StatefulWidget {
+  final bool isSalon;
+
+  const AllTabs({this.isSalon = true, Key? key}) : super(key: key);
+
+  @override
+  State<AllTabs> createState() => _AllTabsState();
+}
+
+class _AllTabsState extends State<AllTabs> {
+  final List<String> images = [
+    'https://images.unsplash.com/photo-1659812903095-d7e87abb0b3c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw4Mnx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60',
+    'https://images.unsplash.com/photo-1658856226250-5b236fa6137d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxMDR8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60',
+  ];
 
   @override
   Widget build(BuildContext context) => SingleChildScrollView(
@@ -22,11 +33,123 @@ class AllTabs extends StatelessWidget {
           color: Theme.of(context).appBarTheme.backgroundColor,
           child: Column(
             children: [
-              Advertising(
-
-                isSalon: true,
-             images: [image1,imege2],
+              SizedBox(
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Container(
+                    margin: const EdgeInsets.only(top: 12, left: 16, right: 16),
+                    child: Row(
+                      children: [
+                        ...List.generate(
+                            images.length,
+                            (index) => Stack(
+                                  children: [
+                                    CachedImage(
+                                      height: 201,
+                                      width: 264,
+                                      borderRadius: const BorderRadius.only(
+                                        topLeft: Radius.circular(8),
+                                        bottomLeft: Radius.circular(8),
+                                      ),
+                                      imageUrl: images[index],
+                                    ),
+                                    Positioned(
+                                        top: 4,
+                                        left: 4,
+                                        child: Container(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 16, vertical: 4),
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(4),
+                                            color: white,
+                                          ),
+                                          child: Row(
+                                            children: [
+                                              SvgPicture.asset(
+                                                  AppIcons.shieldCheck),
+                                              const SizedBox(width: 4),
+                                              Text('С пробегом',
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .bodyText1!
+                                                      .copyWith(color: green)),
+                                            ],
+                                          ),
+                                        ))
+                                  ],
+                                )),
+                        const SizedBox(width: 4),
+                        if (!widget.isSalon)
+                          WScaleAnimation(
+                            onTap: () {
+                              showCupertinoModalPopup(
+                                  context: context,
+                                  barrierColor: black.withOpacity(.7),
+                                  builder: (context) =>
+                                      const CallBottomSheet());
+                            },
+                            child: Container(
+                              height: 201,
+                              width: 264,
+                              decoration: const BoxDecoration(
+                                borderRadius: BorderRadius.only(
+                                    topRight: Radius.circular(8),
+                                    bottomRight: Radius.circular(8)),
+                                color: green,
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  SvgPicture.asset(AppIcons.phone),
+                                  Text(
+                                    'Позвонить',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headline1!
+                                        .copyWith(color: white),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          )
+                        else if (widget.isSalon)
+                          Container(
+                            height: 201,
+                            width: 264,
+                            decoration: const BoxDecoration(
+                              borderRadius: BorderRadius.only(
+                                  topRight: Radius.circular(8),
+                                  bottomRight: Radius.circular(8)),
+                              color: red,
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                SvgPicture.asset(AppIcons.shopping),
+                                Text(
+                                  'Купить',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headline1!
+                                      .copyWith(color: white),
+                                )
+                              ],
+                            ),
+                          )
+                        else
+                          const SizedBox(),
+                      ],
+                    ),
+                  ),
+                ),
               ),
+              // Advertising(
+              //   isSalon: true,
+              //   images: [image1, imege2],
+              // ),
               Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -79,7 +202,9 @@ class AllTabs extends StatelessWidget {
                           style: Theme.of(context)
                               .textTheme
                               .headline2!
-                              .copyWith(decoration: TextDecoration.lineThrough,color: grey),
+                              .copyWith(
+                                  decoration: TextDecoration.lineThrough,
+                                  color: grey),
                         )
                       ],
                     ),

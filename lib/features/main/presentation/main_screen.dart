@@ -3,7 +3,6 @@ import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_icons.dart';
 import 'package:auto/features/common/domain/entity/car_brand_entity.dart';
 import 'package:auto/features/common/widgets/car_brand_item.dart';
-import 'package:auto/features/common/widgets/popups.dart';
 import 'package:auto/features/main/domain/entities/ads_entity.dart';
 import 'package:auto/features/main/domain/entities/service_entity.dart';
 import 'package:auto/features/main/presentation/widgets/ads_item.dart';
@@ -15,6 +14,7 @@ import 'package:auto/features/main/presentation/widgets/story_data.dart';
 import 'package:auto/features/main/presentation/widgets/story_item.dart';
 import 'package:auto/features/main/presentation/widgets/yandex_map.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
+import 'package:auto/features/rent/presentation/rent_screen.dart';
 import 'package:auto/features/search/presentation/pages/commercial_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -71,7 +71,7 @@ class _MainScreenState extends State<MainScreen> {
       () {},
       () => Navigator.pushReplacement(
           context, fade(page: const CommercialScreen())),
-      () {},
+      () => Navigator.push(context, fade(page: const RentScreen())),
     ];
     super.initState();
   }
