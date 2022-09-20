@@ -56,7 +56,7 @@ class AdsItem extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Text(
-                  adsEntity.price,
+                  '${adsEntity.price} UZS',
                   style: Theme.of(context)
                       .textTheme
                       .headline1!

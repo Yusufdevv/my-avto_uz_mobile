@@ -13,21 +13,28 @@ class OtherAds extends StatelessWidget {
         imageUrl:
             'https://cdn.motor1.com/images/mgl/LBl63/s1/2021-genesis-g80.jpg',
         place: 'г. Ташкент',
-        price: '1 519 123 200 UZS',
+        price: 1519123200,
         aboutCar: 'Land Cruiser, 145 894 км,\nВнедорожник 5дв, АКПП, Дизел...',
         carName: 'Hyundai Genesis G90 long'),
     AdsEntity(
         imageUrl:
             'https://cdn.motor1.com/images/mgl/LBl63/s1/2021-genesis-g80.jpg',
         place: 'г. Ташкент',
-        price: '1 519 123 200 UZS',
+        price: 1519123200,
         aboutCar: 'Land Cruiser, 145 894 км,\nВнедорожник 5дв, АКПП, Дизел...',
         carName: 'Hyundai Genesis G90 long'),
     AdsEntity(
         imageUrl:
             'https://cdn.motor1.com/images/mgl/LBl63/s1/2021-genesis-g80.jpg',
         place: 'г. Ташкент',
-        price: '1 519 123 200 UZS',
+        price: 1519123200,
+        aboutCar: 'Land Cruiser, 145 894 км,\nВнедорожник 5дв, АКПП, Дизел...',
+        carName: 'Hyundai Genesis G90 long'),
+    AdsEntity(
+        imageUrl:
+            'https://cdn.motor1.com/images/mgl/LBl63/s1/2021-genesis-g80.jpg',
+        place: 'г. Ташкент',
+        price: 1519123200,
         aboutCar: 'Land Cruiser, 145 894 км,\nВнедорожник 5дв, АКПП, Дизел...',
         carName: 'Hyundai Genesis G90 long'),
   ];

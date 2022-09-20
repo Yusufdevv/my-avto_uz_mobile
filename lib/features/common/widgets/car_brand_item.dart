@@ -6,12 +6,15 @@ import 'package:flutter/material.dart';
 class CarBrandItem extends StatelessWidget {
   final CarBrandEntity carBrandEntity;
   final bool hasShadow;
+
   const CarBrandItem(
       {required this.carBrandEntity, this.hasShadow = false, Key? key})
       : super(key: key);
 
   @override
-  Widget build(BuildContext context) => Container(height: 100,width: 80,
+  Widget build(BuildContext context) => Container(
+        height: 100,
+        width: 80,
         padding: const EdgeInsets.symmetric(horizontal: 8),
         margin: const EdgeInsets.only(left: 12),
         decoration: BoxDecoration(
@@ -34,10 +37,11 @@ class CarBrandItem extends StatelessWidget {
         child: Column(
           children: [
             const SizedBox(height: 16),
-            Image.asset(carBrandEntity.icon),
+            Image.network(carBrandEntity.icon,width: 40,height: 40,),
             const SizedBox(height: 8),
             Text(
-              carBrandEntity.title+' Company',textAlign: TextAlign.center,
+              carBrandEntity.title,
+              textAlign: TextAlign.center,
               maxLines: 2,
               style: Theme.of(context)
                   .textTheme

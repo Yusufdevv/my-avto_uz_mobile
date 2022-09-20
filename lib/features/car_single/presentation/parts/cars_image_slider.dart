@@ -1,6 +1,5 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/images.dart';
-import 'package:carousel_slider/carousel_options.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
@@ -18,22 +17,21 @@ class _CarsImageSliderState extends State<CarsImageSlider> {
   Widget build(BuildContext context) => Stack(
         children: [
           Positioned.fill(
-            child: Container(
-              child: CarouselSlider.builder(
-                  itemCount: 5,
-                  itemBuilder: (c, item, index) => Image.asset(
-                        AppImages.carSingle,
-                        fit: BoxFit.cover,
-                        width: double.maxFinite,
-                      ),
-                  options: CarouselOptions(
-                      viewportFraction: 1,
-                      onPageChanged: (index, reason) {
-                        setState(() {
-                          currentIndex = index;
-                        });
-                      })),
-            ),
+            child: CarouselSlider.builder(
+                itemCount: 5,
+                itemBuilder: (c, item, index) => Image.asset(
+                      AppImages.carSingle,
+                      fit: BoxFit.cover,
+                      width: double.maxFinite,
+                    ),
+                options: CarouselOptions(
+                    viewportFraction: 1,
+                    height: double.infinity,
+                    onPageChanged: (index, reason) {
+                      setState(() {
+                        currentIndex = index;
+                      });
+                    })),
           ),
           Positioned(
             bottom: 12,

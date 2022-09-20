@@ -1,9 +1,11 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/features/common/bloc/auth/authentication_bloc.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:auto/features/login/presentation/pages/password_recovery_screen.dart';
 import 'package:auto/features/login/presentation/pages/register_screen.dart';
@@ -36,17 +38,18 @@ class _LoginScreenState extends State<LoginScreen> {
     super.initState();
   }
 
-  @override
-  void dispose() {
-    phoneController.dispose();
-    passwordController.dispose();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   phoneController.dispose();
+  //   passwordController.dispose();
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) => KeyboardDismisser(
         child: Scaffold(
           appBar: const WAppBar(
+            hasBackButton: false,
             title: 'Войти',
           ),
           body: Padding(
@@ -133,11 +136,13 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 GestureDetector(
                   onTap: () => Navigator.push(
-                      context,
-                      fade(
-                          page: const PasswordRecoveryScreen(
-                        phone: '+998 97 777 77 77',
-                      ))),
+                    context,
+                    fade(
+                      page:  PasswordRecoveryScreen(
+                        phone: phoneController.text,
+                      ),
+                    ),
+                  ),
                   child: Text(
                     'Забыли пароль?',
                     style: Theme.of(context)
@@ -150,11 +155,12 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           ),
           bottomNavigationBar: WButton(
-            onTap: passwordController.text.isNotEmpty ||
-                    phoneController.text.isNotEmpty
+            onTap: passwordController.text.length >= 4 &&
+                    phoneController.text.length == 12
                 ? () {
-                    Navigator.pushAndRemoveUntil(context,
-                        fade(page: const HomeScreen()), (route) => false);
+                    context.read<AuthenticationBloc>().add(LoginUser(
+                        password: passwordController.text,
+                        userName: phoneController.text.replaceAll('+998', '')));
                   }
                 : () {},
             shadow: [
@@ -168,8 +174,8 @@ class _LoginScreenState extends State<LoginScreen> {
               right: 16,
               left: 16,
             ),
-            color: (passwordController.text.isNotEmpty &&
-                    phoneController.text.isNotEmpty)
+            color: (passwordController.text.length >= 4 &&
+                    phoneController.text.length == 12)
                 ? orange
                 : Theme.of(context)
                     .extension<ThemedColors>()!

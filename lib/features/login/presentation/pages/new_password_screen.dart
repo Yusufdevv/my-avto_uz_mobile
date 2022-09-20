@@ -1,16 +1,21 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/features/common/bloc/auth/authentication_bloc.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
+import 'package:auto/features/login/presentation/bloc/register/register_bloc.dart';
 import 'package:auto/features/login/presentation/widgets/login_header_widget.dart';
 import 'package:auto/features/login/presentation/widgets/z_text_form_field.dart';
 import 'package:auto/features/navigation/presentation/home.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 class NewPasswordScreen extends StatefulWidget {
-  const NewPasswordScreen({Key? key}) : super(key: key);
+  final Function(String, String) onSubmit;
+
+  const NewPasswordScreen({required this.onSubmit, Key? key}) : super(key: key);
 
   @override
   State<NewPasswordScreen> createState() => _NewPasswordScreenState();
@@ -81,11 +86,15 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                   ),
                 ),
                 WButton(
-                  onTap: () => newPasswordController.text.isNotEmpty &&
-                          confirmPasswordController.text.isNotEmpty
-                      ? Navigator.pushAndRemoveUntil(context,
-                          fade(page: const HomeScreen()), (route) => false)
-                      : {},
+                  onTap: () {
+                    if ((newPasswordController.text.length >= 6 &&
+                            confirmPasswordController.text.length >= 6) &&
+                        newPasswordController.text ==
+                            confirmPasswordController.text) {
+                      widget.onSubmit(newPasswordController.text,
+                          confirmPasswordController.text);
+                    } else {}
+                  },
                   shadow: [
                     BoxShadow(
                         offset: const Offset(0, 4),

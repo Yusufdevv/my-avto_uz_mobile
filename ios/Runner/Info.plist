@@ -16,6 +16,12 @@
 	<string>auto</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>We need permission for gallery to upload media</string>
+	<key>NSCameraUsageDescription</key>
+	<string>We need permission for camera to upload media</string>
+	<key>NSMicrophoneUsageDescription</key>
+    <string>We need permission for microphone to record video sounds</string>
 	<key>CFBundleShortVersionString</key>
 	<string>$(FLUTTER_BUILD_NAME)</string>
 	<key>CFBundleSignature</key>

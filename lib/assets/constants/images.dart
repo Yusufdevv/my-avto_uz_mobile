@@ -35,6 +35,7 @@ class AppImages {
   static const carImage = 'assets/icons/global/car_image.svg';
   static const carCrashed = 'assets/images/car_single/car_crashed.png';
   static const carSingle = 'assets/images/car_single/car_single300kb.png';
+  static const imagePlaceHolder = 'assets/images/global/place_holder.png';
   static const priceConditions =
       'assets/images/car_single/price_conditions.png';
 }

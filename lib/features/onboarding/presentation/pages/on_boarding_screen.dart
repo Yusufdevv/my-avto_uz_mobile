@@ -1,7 +1,7 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
-import 'package:auto/features/login/presentation/pages/login_screen.dart';
+import 'package:auto/features/login/presentation/login_screen.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/onboarding/presentation/widgets/base_onboarding.dart';
 import 'package:auto/features/onboarding/presentation/widgets/indicator.dart';

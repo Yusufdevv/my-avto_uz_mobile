@@ -1,5 +1,5 @@
 import 'package:auto/features/common/models/naming.dart';
-import 'package:auto/features/search/data/models/car_make.dart';
+import 'package:auto/features/search/data/models/car_brand.dart';
 import 'package:auto/features/search/domain/entities/commercial_item_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -25,7 +25,7 @@ class SearchItemModel extends CommercialItemEntity {
   final String contactPhone;
   @JsonKey(name: 'is_registered_locally', defaultValue: false)
   final bool isRegisteredLocally;
-  @JsonKey(name: 'user_type', defaultValue:false)
+  @JsonKey(name: 'user_type', defaultValue: false)
   final bool userType;
   @JsonKey(name: 'is_new', defaultValue: false)
   final bool isNew;
@@ -35,44 +35,40 @@ class SearchItemModel extends CommercialItemEntity {
   final int currency;
   @JsonKey(name: 'published_at', defaultValue: 0)
   final int publishedAt;
-  @JsonKey(
-    name: 'car_make',
-  )
-  final CarMake carMake;
-  @JsonKey(
-    name: 'car_model',
-  )
+  @JsonKey(name: 'car_make')
+  final CarBrand carMake;
+  @JsonKey(name: 'car_model')
   final NamingModel carModel;
 
   SearchItemModel(
       {required this.id,
-        required this.carModel,
-        required this.carMake,
-        required this.currency,
-        required this.price,
-        required this.description,
-        required this.carYear,
-        required this.contactEmail,
-        required this.contactName,
-        required this.contactPhone,
-        required this.isNew,
-        required this.isRegisteredLocally,
-        required this.licenseType,
-        required this.ownerShip,
-        required this.publishedAt,
-        required this.userType})
+      required this.carModel,
+      required this.carMake,
+      required this.currency,
+      required this.price,
+      required this.description,
+      required this.carYear,
+      required this.contactEmail,
+      required this.contactName,
+      required this.contactPhone,
+      required this.isNew,
+      required this.isRegisteredLocally,
+      required this.licenseType,
+      required this.ownerShip,
+      required this.publishedAt,
+      required this.userType})
       : super(
-      autoName: carMake.name,
-      autoYear: carYear,
-      model: carModel.name,
-      title: 'this sould be title ',
-      priceAuto: price.toString(),
-      oldPriceAuto: '',
-      isLike: false,
-      isSalon: false,
-      images: [],
-      clientAvatar: '',
-      clientName: '');
+            autoName: carMake.name,
+            autoYear: carYear,
+            model: carModel.name,
+            title: 'this sould be title ',
+            priceAuto: price.toString(),
+            oldPriceAuto: '',
+            isLike: false,
+            isSalon: false,
+            images: [],
+            clientAvatar: '',
+            clientName: '');
 
   factory SearchItemModel.fromJson(Map<String, dynamic> json) =>
       _$SearchItemModelFromJson(json);

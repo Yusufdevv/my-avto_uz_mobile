@@ -13,7 +13,6 @@ import 'package:auto/features/car_single/presentation/parts/other_ads.dart';
 import 'package:auto/features/car_single/presentation/parts/owner_actions.dart';
 import 'package:auto/features/car_single/presentation/parts/statistics.dart';
 import 'package:auto/features/car_single/presentation/widgets/car_price_bottom.dart';
-import 'package:auto/features/car_single/presentation/widgets/persistant_header.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -113,7 +112,7 @@ class CarSingleScreen extends StatelessWidget {
                                       isScrollControlled: true,
                                       shape: RoundedRectangleBorder(
                                         borderRadius:
-                                            BorderRadius.circular(16.0),
+                                            BorderRadius.circular(16),
                                       ),
                                       context: context,
                                       builder: (context) =>

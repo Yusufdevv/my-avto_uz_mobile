@@ -14,8 +14,9 @@ class CategorySingleItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => GestureDetector(
-    onTap: () => Navigator.of(context).push(fade(page: const CarsSingleScreen())),
-    child: Container(
+        onTap: () =>
+            Navigator.of(context).push(fade(page: const CarsSingleScreen())),
+        child: Container(
           padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12),
@@ -42,7 +43,7 @@ class CategorySingleItem extends StatelessWidget {
                 child: CachedNetworkImage(
                   height: 137,
                   width: double.infinity,
-                  imageUrl: rentCarEntity.url,
+                  imageUrl: rentCarEntity.gallery[0],
                   fit: BoxFit.cover,
                 ),
               ),
@@ -50,7 +51,7 @@ class CategorySingleItem extends StatelessWidget {
                 height: 8,
               ),
               Text(
-                rentCarEntity.carModel,
+                rentCarEntity.model,
                 style: Theme.of(context)
                     .textTheme
                     .headline1!
@@ -59,5 +60,5 @@ class CategorySingleItem extends StatelessWidget {
             ],
           ),
         ),
-  );
+      );
 }
