@@ -4,14 +4,14 @@ part 'generic_pagination.g.dart';
 
 @JsonSerializable(genericArgumentFactories: true)
 class GenericPagination<T> {
-  @JsonKey(name: 'next_link')
+  @JsonKey(name: 'next')
   final String? next;
-  @JsonKey(name: 'previous_link')
+  @JsonKey(name: 'previous')
   final String? previous;
   @JsonKey(name: 'results', defaultValue: [])
   final List<T> results;
   @JsonKey(
-    name: 'total_count',
+    name: 'count',
     defaultValue: 0,
   )
   final int count;

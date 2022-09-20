@@ -1,6 +1,8 @@
+import 'package:auto/features/rent/data/models/rent_car_model.dart';
 import 'package:auto/features/rent/domain/entities/rent_car_category_entity.dart';
 import 'package:auto/features/rent/domain/entities/rent_car_type_entity.dart';
 import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
 
 class RentCarEntity extends Equatable {
   final int id;
@@ -74,14 +76,14 @@ class RentCarEntity extends Equatable {
       ];
 }
 
-// class RentCarConverter
-//     implements JsonConverter<RentCarEntity, Map<String, dynamic>?> {
-//   const RentCarConverter();
+class RentCarConverter
+    implements JsonConverter<RentCarEntity, Map<String, dynamic>?> {
+  const RentCarConverter();
 
-// @override
-// RentCarEntity fromJson(Map<String, dynamic>? json) =>
-//     RentCarModel.fromJson(json ?? {});
+@override
+RentCarEntity fromJson(Map<String, dynamic>? json) =>
+    RentCarModel.fromJson(json ?? {});
 
-//   @override
-//   Map<String, dynamic> toJson(RentCarEntity object) => {};
-// }
+  @override
+  Map<String, dynamic> toJson(RentCarEntity object) => {};
+}

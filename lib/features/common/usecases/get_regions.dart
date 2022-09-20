@@ -1,4 +1,5 @@
-import 'package:auto/core/error/failures.dart';
+
+import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/core/usecases/usecase.dart';
 import 'package:auto/features/common/models/region.dart';
 import 'package:auto/features/common/repository/global_request_repository.dart';

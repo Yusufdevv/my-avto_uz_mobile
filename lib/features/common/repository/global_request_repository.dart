@@ -1,4 +1,4 @@
-import 'package:auto/core/error/failures.dart';
+import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/core/singletons/dio_settings.dart';
 import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/core/singletons/storage.dart';
@@ -8,7 +8,6 @@ import 'package:dio/dio.dart';
 class GlobalRequestRepository {
   final dio = serviceLocator<DioSettings>().dio;
 
-  String token = 'fe977373806790366944dac3f8206452fc79441b';
 
   Future<Either<Failure, S>> getSingle<S>(
       {required String endpoint,
@@ -31,7 +30,7 @@ class GlobalRequestRepository {
       if (result.statusCode! >= 200 && result.statusCode! < 300) {
         return Right(fromJson(result.data));
       } else {
-        return Left(ServerFailure());
+        return Left(ServerFailure(errorMessage: '', statusCode: 141));
       }
     } catch (e) {
       print(e.toString());
@@ -75,7 +74,7 @@ class GlobalRequestRepository {
 
         return Right(list);
       } else {
-        return Left(ServerFailure());
+        return Left(ServerFailure(errorMessage: '', statusCode: 141));
       }
     } catch (e) {
       print(e.toString());
@@ -113,7 +112,7 @@ class GlobalRequestRepository {
           return Right(fromJson(result.data));
         }
       } else {
-        return Left(ServerFailure());
+        return Left(ServerFailure(errorMessage: '', statusCode: 141));
       }
     } catch (e) {
       return Left(ServerFailure(statusCode: 141, errorMessage: ''));
@@ -135,7 +134,7 @@ class GlobalRequestRepository {
           options: Options(
               headers: sendToken
                   ? {
-                      "Authorization":
+                      'Authorization':
                           "Bearer ${StorageRepository.getString('token', defValue: '')}"
                     }
                   : {}));
@@ -154,10 +153,10 @@ class GlobalRequestRepository {
 
         return Right(list);
       } else {
-        return Left(ServerFailure());
+        return Left(ServerFailure(errorMessage: '', statusCode: 141));
       }
     } catch (e) {
-      return Left(ServerFailure(statusCode: 141, errorMessage: ''));
+      return Left(ServerFailure(statusCode: 141, errorMessage: e.toString()));
     }
   }
 }

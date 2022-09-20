@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:auto/core/error/failures.dart';
+import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/common/bloc/auth/authentication_bloc.dart';
 import 'package:auto/features/common/domain/model/token_model.dart';
@@ -17,7 +17,7 @@ class AuthRepository {
 
   Future<Either<Failure, UserModel>> getUser() async {
 
-  await  StorageRepository.putString('token', '');
+  // await  StorageRepository.putString('token', '');
     final result = await repo.getSingle(
       endpoint: '/users/detail/',
       fromJson: UserModel.fromJson,

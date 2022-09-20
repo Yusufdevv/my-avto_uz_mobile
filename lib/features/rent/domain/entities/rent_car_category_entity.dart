@@ -18,7 +18,7 @@ class RentCarCategoryEntity extends Equatable {
       ];
 }
 
-class RentCarCategoryConverter
+class RentCarCategoryConverter<S>
     implements JsonConverter<RentCarCategoryEntity, Map<String, dynamic>?> {
   const RentCarCategoryConverter();
 

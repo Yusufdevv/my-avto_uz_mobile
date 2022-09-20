@@ -67,7 +67,7 @@ class _AppState extends State<App> {
           darkTheme: DarkTheme.theme(),
           themeMode: ThemeMode.light,
           navigatorKey: _navigatorKey,
-          onGenerateRoute: (settings) => SplashScreen.route(),
+          onGenerateRoute: (settings) => SplashSc.route(),
           builder: (context, child) =>
               BlocListener<AuthenticationBloc, AuthenticationState>(
             listener: (context, state) {

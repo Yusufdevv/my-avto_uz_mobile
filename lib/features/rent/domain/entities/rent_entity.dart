@@ -1,3 +1,5 @@
+import 'package:auto/features/common/converter/entity_converter.dart';
+import 'package:auto/features/rent/data/models/rent_car_model.dart';
 import 'package:auto/features/rent/domain/entities/region_entity.dart';
 import 'package:auto/features/rent/domain/entities/rent_car_entity.dart';
 import 'package:equatable/equatable.dart';
@@ -5,7 +7,7 @@ import 'package:equatable/equatable.dart';
 class RentEntity extends Equatable {
   final int id;
 
-  // @RentCarConverter()
+  @RentCarConverter()
   final RentCarEntity rentCar;
   @RegionConverter()
   final RegionEntity region;

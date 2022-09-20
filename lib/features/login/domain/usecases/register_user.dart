@@ -1,4 +1,4 @@
-import 'package:auto/core/error/failures.dart';
+import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/core/usecases/usecase.dart';
 import 'package:auto/features/common/domain/model/token_model.dart';

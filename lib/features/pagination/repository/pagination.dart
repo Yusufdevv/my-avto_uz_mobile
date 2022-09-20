@@ -17,16 +17,16 @@ class PaginationRepository {
       required T Function(Map<String, dynamic>) fromJson,
       Map<String, dynamic>? query}) async {
     try {
-      Map<String, dynamic> queryParams = {};
+      var queryParams = <String, dynamic>{};
       if (query != null) {
         queryParams = query;
       }
 
       final result = await dio.get(
-        next ?? url,
+        next != null && next.isNotEmpty ? next : url,
         options: Options(headers: {
           'Authorization':
-              "Token ${StorageRepository.getString('token', defValue: '')}"
+              "Bearer ${StorageRepository.getString('token', defValue: '')}"
         }),
         queryParameters: queryParams,
       );
@@ -47,50 +47,6 @@ class PaginationRepository {
     } catch (e) {
       print(e.toString() + 'error read here ');
       return Left(ServerFailure(errorMessage: '', statusCode: 0));
-    }
-  }
-}
-
-class PaginationDatasource {
-  final dio = serviceLocator<DioSettings>().dio;
-
-  /// Give empty String for "next" if you don't have next link
-  Future<GenericPagination<T>> fetchMore<T>({
-    required String url,
-    String? next,
-    required T Function(Map<String, dynamic>) fromJson,
-    Map<String, dynamic>? query,
-    int size = 15,
-  }) async {
-    try {
-      Map<String, dynamic> queryParams = {'size': size};
-      if (query != null) {
-        queryParams = query;
-      }
-
-      final result = await dio.get(next ?? url,
-          queryParameters: queryParams,
-          options: Options(headers: {
-            'Authorization':
-                'Bearer ${StorageRepository.getString('token', defValue: '')}'
-          }));
-
-      // print(queryParams);
-      // print(result.realUri);
-      // print(result.data);
-      // print(result.statusCode);
-      if (result.statusCode! >= 200 && result.statusCode! < 300) {
-        final data = GenericPagination<T>.fromJson(
-            result.data!, (data) => fromJson(data as Map<String, dynamic>));
-
-        return data;
-      } else {
-        throw ServerException(
-            statusCode: result.statusCode!,
-            errorMessage: 'GenericPagination2 Failure!');
-      }
-    } catch (_) {
-      rethrow;
     }
   }
 }

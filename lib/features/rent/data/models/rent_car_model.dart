@@ -1,7 +1,9 @@
+import 'package:auto/features/rent/domain/entities/rent_car_category_entity.dart';
 import 'package:auto/features/rent/domain/entities/rent_car_entity.dart';
+import 'package:auto/features/rent/domain/entities/rent_car_type_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-// part 'rent_car_model.g.dart';
+part 'rent_car_model.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class RentCarModel extends RentCarEntity {
@@ -28,8 +30,8 @@ class RentCarModel extends RentCarEntity {
     required super.isClean,
   });
   //
-  // factory RentCarModel.fromJson(Map<String, dynamic> json) =>
-  //     _$RentCarModelFromJson(json);
-  //
-  // Map<String, dynamic> toJson() => _$RentCarModelToJson(this);
+  factory RentCarModel.fromJson(Map<String, dynamic> json) =>
+      _$RentCarModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$RentCarModelToJson(this);
 }

@@ -5,7 +5,7 @@ class TopBrandState with _$TopBrandState {
   factory TopBrandState({
     @Default(FormzStatus.pure) FormzStatus status,
     @Default([]) List<TopBrandModel> brands,
-    @Default('') String next,
+    String? next,
     @Default(0) int count,
   }) = _TopBrandState;
 }

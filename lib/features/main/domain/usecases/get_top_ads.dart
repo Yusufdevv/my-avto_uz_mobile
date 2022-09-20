@@ -1,4 +1,4 @@
-import 'package:auto/core/error/failures.dart';
+import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/core/usecases/usecase.dart';
 import 'package:auto/features/common/models/ad.dart';
 import 'package:auto/features/main/data/models/top_brand.dart';

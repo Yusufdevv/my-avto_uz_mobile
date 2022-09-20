@@ -6,18 +6,21 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lottie/lottie.dart';
 
 class SplashSc extends StatefulWidget {
+static  Route route() =>
+      MaterialPageRoute<void>(builder: (_) =>  SplashSc());
   @override
   _SplashScState createState() => _SplashScState();
 }
 
 class _SplashScState extends State<SplashSc> {
+
   @override
   void initState() {
     super.initState();
-    Timer(
-        const Duration(seconds: 3),
-        () => Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (context) => const FirstOnBoarding())));
+    // Timer(
+    //     const Duration(seconds: 3),
+    //     () => Navigator.pushReplacement(context,
+    //         MaterialPageRoute(builder: (context) => const FirstOnBoarding())));
   }
 
   @override

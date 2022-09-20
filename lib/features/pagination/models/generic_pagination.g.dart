@@ -11,11 +11,11 @@ GenericPagination<T> _$GenericPaginationFromJson<T>(
   T Function(Object? json) fromJsonT,
 ) =>
     GenericPagination<T>(
-      next: json['next_link'] as String?,
-      previous: json['previous_link'] as String?,
+      next: json['next'] as String?,
+      previous: json['previous'] as String?,
       results:
           (json['results'] as List<dynamic>?)?.map(fromJsonT).toList() ?? [],
-      count: json['total_count'] as int? ?? 0,
+      count: json['count'] as int? ?? 0,
     );
 
 Map<String, dynamic> _$GenericPaginationToJson<T>(
@@ -23,8 +23,8 @@ Map<String, dynamic> _$GenericPaginationToJson<T>(
   Object? Function(T value) toJsonT,
 ) =>
     <String, dynamic>{
-      'next_link': instance.next,
-      'previous_link': instance.previous,
+      'next': instance.next,
+      'previous': instance.previous,
       'results': instance.results.map(toJsonT).toList(),
-      'total_count': instance.count,
+      'count': instance.count,
     };
