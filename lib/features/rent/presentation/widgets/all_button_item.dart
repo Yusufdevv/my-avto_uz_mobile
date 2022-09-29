@@ -1,5 +1,7 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -19,7 +21,7 @@ class AllButtonItem extends StatelessWidget {
           onTap: onTap,
           child: Row(
             children: [
-              Text('все', style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 14, color: greyText),),
+              Text(LocaleKeys.all.tr(), style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 14, color: greyText),),
               const SizedBox(width: 4,),
               SvgPicture.asset(AppIcons.chevronRightGrey)
             ],

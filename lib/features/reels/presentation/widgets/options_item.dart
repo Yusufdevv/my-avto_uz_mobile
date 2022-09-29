@@ -11,6 +11,7 @@ import 'package:share_plus/share_plus.dart';
 
 class OptionsItem extends StatefulWidget {
   final String shareUrl;
+
   const OptionsItem({required this.shareUrl, Key? key}) : super(key: key);
 
   @override
@@ -28,6 +29,7 @@ class _OptionsItemState extends State<OptionsItem> {
 
   bool isLiked = false;
   bool clicked = true;
+
   @override
   Widget build(BuildContext context) => BlocProvider.value(
         value: videoPlayerBloc,
@@ -98,13 +100,14 @@ class _OptionsItemState extends State<OptionsItem> {
                 height: 20,
               ),
               WScaleAnimation(
-                  child: SvgPicture.asset(AppIcons.more),
-                  onTap: () {
-                    showCupertinoModalPopup(
-                        context: context,
-                        barrierColor: black.withOpacity(.6),
-                        builder: (context) => const BusySheet());
-                  }),
+                child: SvgPicture.asset(AppIcons.more),
+                onTap: () {
+                  showCupertinoModalPopup(
+                      context: context,
+                      barrierColor: black.withOpacity(.6),
+                      builder: (context) => const BusySheet());
+                },
+              ),
             ],
           ),
         ),

@@ -1,5 +1,7 @@
 import 'package:auto/features/common/widgets/car_brand_item.dart';
 import 'package:auto/features/main/presentation/bloc/top_brand/top_brand_bloc.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -13,7 +15,7 @@ class TopBrands extends StatelessWidget {
       Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Text(
-          'Топ марок автомобилей',
+          LocaleKeys.top_marks.tr(),
           style: Theme.of(context)
               .textTheme
               .headline1!

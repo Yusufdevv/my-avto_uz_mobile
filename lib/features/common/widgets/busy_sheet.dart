@@ -1,5 +1,7 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -19,14 +21,14 @@ class BusySheet extends StatelessWidget {
           ),
           child: CupertinoActionSheetAction(
             child: Text(
-              'Пожаловаться',
+              LocaleKeys.Complain.tr(),
               style: Theme.of(context)
                   .textTheme
                   .headline1!
                   .copyWith(fontWeight: FontWeight.w400, color: red),
             ),
             onPressed: () {
-              Navigator.pop(context, 'Shikoyat qilish');
+              Navigator.pop(context, LocaleKeys.Complain.tr());
             },
           ),
         ),
@@ -42,14 +44,14 @@ class BusySheet extends StatelessWidget {
           ),
           child: CupertinoActionSheetAction(
             child: Text(
-              'Копировать ссылку',
+              LocaleKeys.copy_url.tr(),
               style: Theme.of(context)
                   .textTheme
                   .headline4!
                   .copyWith(fontWeight: FontWeight.w400, fontSize: 20),
             ),
             onPressed: () {
-              Navigator.pop(context, 'Shikoyat qilish');
+              Navigator.pop(context, LocaleKeys.Complain.tr());
             },
           ),
         ),
@@ -57,7 +59,7 @@ class BusySheet extends StatelessWidget {
         WButton(
             height: 60,
             borderRadius: 13,
-            text: 'Отмена',
+            text: LocaleKeys.cancel.tr(),
             color: blackRussian,
             textStyle: Theme.of(context)
                 .textTheme

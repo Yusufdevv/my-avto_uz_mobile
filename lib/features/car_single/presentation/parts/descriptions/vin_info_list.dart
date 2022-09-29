@@ -4,6 +4,8 @@ import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/car_single/domain/entities/owner_action.dart';
 import 'package:auto/features/car_single/presentation/widgets/vin_info_tile.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class VinInfoList extends StatelessWidget {
@@ -26,7 +28,7 @@ class VinInfoList extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Отчёт о проверке по VIN',
+              LocaleKeys.VIN_check_report.tr(),
               style: Theme.of(context)
                   .textTheme
                   .headline1!
@@ -45,7 +47,7 @@ class VinInfoList extends StatelessWidget {
               height: 10,
             ),
             WButton(
-              text: 'Купить полный отчёт',
+              text: LocaleKeys.buy_full_report.tr(),
               textColor: Colors.white,
               onTap: () {},
               color: orange,
@@ -54,7 +56,7 @@ class VinInfoList extends StatelessWidget {
             ),
             const SizedBox(height: 8,),
             WButton(
-              text: 'Показать бесплатный отчёт',
+              text: LocaleKeys.show_free_report.tr(),
               textColor: grey,
               onTap: () {},
               color: Theme.of(context).extension<ThemedColors>()!.solitudeToEclipse,

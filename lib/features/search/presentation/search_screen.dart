@@ -12,6 +12,8 @@ import 'package:auto/features/search/presentation/pages/filter_screen.dart';
 import 'package:auto/features/search/presentation/pages/results_screen.dart';
 import 'package:auto/features/search/presentation/widgets/filter_item.dart';
 import 'package:auto/features/search/presentation/widgets/searched_models_item.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -98,52 +100,53 @@ class _SearchScreenState extends State<SearchScreen> {
             child: Scaffold(
               backgroundColor: Theme.of(context).scaffoldBackgroundColor,
               appBar: PreferredSize(
-                preferredSize: const Size.fromHeight(76),
-                child: Container(
-                  color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: WTextField(
-                          fillColor: Theme.of(context)
-                              .extension<ThemedColors>()!
-                              .whiteSmoke2ToNightRider,
-                          onChanged: (value) {
-                            setState(() {});
-                          },
-                          borderColor: purple,
-                          focusColor: Theme.of(context)
-                              .extension<ThemedColors>()!
-                              .whiteSmoke2ToNightRider,
-                          enabledBorderColor: Theme.of(context)
-                              .extension<ThemedColors>()!
-                              .whiteSmoke2ToNightRider,
-                          height: 44,
-                          margin: const EdgeInsets.fromLTRB(16, 16, 8, 16),
-                          //width: 300,
-                          borderRadius: 12,
-                          controller: searchController,
-                          hasSearch: true,
-                          hintText: 'Марка, Модель',
-                          hasClearButton: true,
+                  preferredSize: const Size.fromHeight(76),
+                  child: Container(
+                    color: Theme.of(context)
+                        .extension<ThemedColors>()!
+                        .whiteToDark,
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: WTextField(
+                            fillColor: Theme.of(context)
+                                .extension<ThemedColors>()!
+                                .whiteSmoke2ToNightRider,
+                            onChanged: (value) {
+                              setState(() {});
+                            },
+                            borderColor: purple,
+                            focusColor: Theme.of(context)
+                                .extension<ThemedColors>()!
+                                .whiteSmoke2ToNightRider,
+                            enabledBorderColor: Theme.of(context)
+                                .extension<ThemedColors>()!
+                                .whiteSmoke2ToNightRider,
+                            height: 44,
+                            margin: const EdgeInsets.fromLTRB(16, 16, 8, 16),
+                            //width: 300,
+                            borderRadius: 12,
+                            controller: searchController,
+                            hasSearch: true,
+                            hintText: LocaleKeys.model_brand.tr(),
+                            hasClearButton: true,
+                          ),
                         ),
-                      ),
-                      WButton(
-                        onTap: () => Navigator.push(
-                            context, fade(page: const FilterScreen())),
-                        width: 44,
-                        height: 44,
-                        borderRadius: 12,
-                        margin: const EdgeInsets.only( left: 10, right: 16),
-                        color: Theme.of(context)
-                            .extension<ThemedColors>()!
-                            .whiteSmoke2ToNightRider,
-                        child: SvgPicture.asset(AppIcons.filter),
-                      ),
-                    ],
-                  ),
-                )
-              ),
+                        WButton(
+                          onTap: () => Navigator.push(
+                              context, fade(page: const FilterScreen())),
+                          width: 44,
+                          height: 44,
+                          borderRadius: 12,
+                          margin: const EdgeInsets.only(left: 10, right: 16),
+                          color: Theme.of(context)
+                              .extension<ThemedColors>()!
+                              .whiteSmoke2ToNightRider,
+                          child: SvgPicture.asset(AppIcons.filter),
+                        ),
+                      ],
+                    ),
+                  )),
               body: BlocBuilder<SearchedBloc, SearchedState>(
                 builder: (context, state) {
                   if (searchController.text.isNotEmpty) {
@@ -177,7 +180,8 @@ class _SearchScreenState extends State<SearchScreen> {
                                       searchItemEntity.length,
                                       (index) => SearchedModelsItem(
                                         controller: searchController,
-                                        searchItemEntity: searchItemEntity[index],
+                                        searchItemEntity:
+                                            searchItemEntity[index],
                                       ),
                                     )
                                   ],
@@ -191,13 +195,16 @@ class _SearchScreenState extends State<SearchScreen> {
                           left: 16,
                           right: 16,
                           child: WButton(
-                             onTap: () => Navigator.push(
+                            onTap: () => Navigator.push(
                               context,
                               fade(
-                                page: ResultsScreen(controller: searchController),
+                                page:
+                                    ResultsScreen(controller: searchController),
                               ),
                             ),
-                            text: 'Показать 32 результата',
+                            text: LocaleKeys.show.tr() +
+                                ' 32 ' +
+                                LocaleKeys.result.tr(),
                           ),
                         )
                       ],
@@ -228,10 +235,11 @@ class _SearchScreenState extends State<SearchScreen> {
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 12, vertical: 4),
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    'Последние запросы',
+                                    LocaleKeys.last_requests.tr(),
                                     style: Theme.of(context)
                                         .textTheme
                                         .headline2!
@@ -247,7 +255,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                       searchedBloc.add(const ClearSearchItem());
                                     },
                                     child: Text(
-                                      'Очистить',
+                                      LocaleKeys.clear.tr(),
                                       style: Theme.of(context)
                                           .textTheme
                                           .subtitle1!
@@ -269,7 +277,8 @@ class _SearchScreenState extends State<SearchScreen> {
                                   .whiteToDark,
                               padding: const EdgeInsets.all(16),
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
                                     state.searchedCars[index],
@@ -285,7 +294,8 @@ class _SearchScreenState extends State<SearchScreen> {
                                     onTap: () {
                                       context.read<SearchedBloc>().add(
                                             RemoveSearchItem(
-                                              carName: state.searchedCars[index],
+                                              carName:
+                                                  state.searchedCars[index],
                                             ),
                                           );
                                     },
@@ -303,14 +313,16 @@ class _SearchScreenState extends State<SearchScreen> {
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 12, vertical: 4),
                             child: Text(
-                              'Популярные запросы',
-                              style:
-                                  Theme.of(context).textTheme.headline2!.copyWith(
-                                        fontSize: 13,
-                                        color: Theme.of(context)
-                                            .extension<ThemedColors>()!
-                                            .dolphinToGreySuit,
-                                      ),
+                              LocaleKeys.popular_requests.tr(),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline2!
+                                  .copyWith(
+                                    fontSize: 13,
+                                    color: Theme.of(context)
+                                        .extension<ThemedColors>()!
+                                        .dolphinToGreySuit,
+                                  ),
                             ),
                           ),
                           ...List.generate(

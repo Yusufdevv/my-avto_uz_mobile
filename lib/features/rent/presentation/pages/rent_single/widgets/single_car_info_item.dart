@@ -1,7 +1,9 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/features/rent/domain/entities/rent_car_entity.dart';
 import 'package:auto/features/rent/presentation/pages/rent_single/widgets/info_item.dart';
+import 'package:auto/generated/locale_keys.g.dart';
 import 'package:auto/utils/my_functions.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class SingleCarInfoItem extends StatelessWidget {
@@ -17,7 +19,7 @@ class SingleCarInfoItem extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Об автомобиле',
+              LocaleKeys.about_car.tr(),
               style:
                   Theme.of(context).textTheme.headline1!.copyWith(fontSize: 18),
             ),
@@ -25,30 +27,30 @@ class SingleCarInfoItem extends StatelessWidget {
               height: 8,
             ),
             InfoItem(
-                title: 'Год выпуска',
+                title: LocaleKeys.year_of_issue.tr(),
                 description: rentCarEntity.year.toString()),
             InfoItem(
-                title: 'Пробег',
+                title: LocaleKeys.Mileage.tr(),
                 description:
                     '${MyFunctions.getFormatCost(rentCarEntity.distanceTraveled.toString())} km'),
-            InfoItem(title: 'Кузов', description: rentCarEntity.bodyType),
-            InfoItem(title: 'Цвет', description: rentCarEntity.color),
+            InfoItem(title: LocaleKeys.body.tr(), description: rentCarEntity.bodyType),
+            InfoItem(title: LocaleKeys.color.tr(), description: rentCarEntity.color),
             InfoItem(
-              title: 'Комплектация',
+              title: LocaleKeys.complectation.tr(),
               description: rentCarEntity.equipmentType,
               textStyle:
                   Theme.of(context).textTheme.subtitle2!.copyWith(color: blue),
             ),
             InfoItem(
-                title: 'Объем двигателя, л',
+                title: LocaleKeys.engine_volume_l.tr(),
                 description: rentCarEntity.engineType),
             InfoItem(
-                title: 'Коробка передач',
+                title: LocaleKeys.Transmission.tr(),
                 description: rentCarEntity.gearboxType),
             InfoItem(
-                title: 'Кондиционер',
-                description: rentCarEntity.hasAirConditioner ? 'Есть' : 'Нет'),
-            InfoItem(title: 'Привод', description: rentCarEntity.driveType),
+                title: LocaleKeys.conditioner.tr(),
+                description: rentCarEntity.hasAirConditioner ? LocaleKeys.have.tr(): LocaleKeys.no.tr(),),
+            InfoItem(title: LocaleKeys.drive_unit.tr(), description: rentCarEntity.driveType),
           ],
         ),
       );

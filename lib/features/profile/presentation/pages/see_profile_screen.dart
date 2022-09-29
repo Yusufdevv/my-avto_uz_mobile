@@ -7,6 +7,8 @@ import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/profile/presentation/pages/profile_edit_screen.dart';
 import 'package:auto/features/profile/presentation/widgets/text_spacer.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -15,8 +17,8 @@ class SeeProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        appBar: const WAppBar(
-          textWithButton: 'Мой профиль',
+        appBar:  WAppBar(
+          textWithButton: LocaleKeys.my_profile.tr(),
         ),
         body: Container(
           margin: const EdgeInsets.only(top: 16),
@@ -85,19 +87,19 @@ class SeeProfileScreen extends StatelessWidget {
                 ),
               ),
               Text(
-                '0 объявлений',
+                 '0 ' +  LocaleKeys.how_many_ads.tr(),
                 style: Theme.of(context)
                     .textTheme
                     .headline2!
                     .copyWith(fontWeight: FontWeight.w600, color: grey),
               ),
-              const TextSpacer(
-                title: 'Телефон номер',
+               TextSpacer(
+                title: LocaleKeys.tel_number.tr(),
                 value: '+998 88 033 18 05',
                 padding: EdgeInsets.only(top: 36, bottom: 16),
               ),
-              const TextSpacer(
-                title: 'Регион',
+               TextSpacer(
+                title: LocaleKeys.region.tr(),
                 value: 'г. Ташкент',
                 padding: EdgeInsets.only(bottom: 16),
               ),

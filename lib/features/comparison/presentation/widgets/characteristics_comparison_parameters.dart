@@ -5,6 +5,7 @@ class CharacteristicsComparisonWidget extends StatelessWidget {
   final int numberOfAddedCars;
   final String parameterName;
   final Color color;
+
   const CharacteristicsComparisonWidget({
     required this.color,
     required this.parameterName,
@@ -13,15 +14,16 @@ class CharacteristicsComparisonWidget extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => Stack(children: [
-        Container(
-          height: 54,
-          color: color,
-          child: ListView(
-            scrollDirection: Axis.horizontal,
+  Widget build(BuildContext context) => Stack(
+        children: [
+          Container(
+            height: 54,
+            color: color,
+            child: ListView(
+              scrollDirection: Axis.horizontal,
+            ),
           ),
-        ),
-        Positioned(
+          Positioned(
             top: 8,
             left: 16,
             child: Text(
@@ -31,8 +33,10 @@ class CharacteristicsComparisonWidget extends StatelessWidget {
                 fontSize: 12,
                 color: grey,
               ),
-            ))
-      ]);
+            ),
+          ),
+        ],
+      );
 }
 
 /*Container(

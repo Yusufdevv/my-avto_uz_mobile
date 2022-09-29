@@ -1,8 +1,8 @@
 import 'package:auto/assets/colors/color.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../../../assets/themes/theme_extensions/themed_colors.dart';
 
 class MarksWithAnnouncements extends StatelessWidget {
   final String mark;

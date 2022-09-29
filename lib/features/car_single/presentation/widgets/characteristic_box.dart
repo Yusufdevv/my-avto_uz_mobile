@@ -1,6 +1,4 @@
 import 'package:auto/assets/colors/color.dart';
-import 'package:auto/features/car_single/domain/entities/car_detail.dart';
-import 'package:auto/features/car_single/presentation/parts/car_details.dart';
 import 'package:flutter/material.dart';
 
 class CharacteristicBox extends StatelessWidget {

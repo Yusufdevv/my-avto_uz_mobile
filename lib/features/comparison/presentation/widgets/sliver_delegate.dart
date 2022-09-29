@@ -3,6 +3,8 @@ import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/comparison/presentation/widgets/add_new_car.dart';
 import 'package:auto/features/comparison/presentation/widgets/added_car_sticky.dart';
 import 'package:auto/features/comparison/presentation/widgets/added_car_widget.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -11,12 +13,14 @@ class SliverWidget extends SliverPersistentHeaderDelegate {
   final int numberOfAddedCars;
   final bool boolean;
   final ValueChanged<bool> onChanged;
+
   SliverWidget({
     required this.numberOfAddedCars,
     required this.boolean,
     required this.onChanged,
     required this.scrollController,
   });
+
   List<Row> items(BuildContext context) {
     var itemsss = <Row>[];
     for (var i = 0; i < numberOfAddedCars; i++) {
@@ -49,7 +53,7 @@ class SliverWidget extends SliverPersistentHeaderDelegate {
                     StickyAdderCar(),
                     StickyAdderCar(),
                   ],
-                ))
+                ),)
             : Container(
                 color: Theme.of(context)
                     .extension<ThemedColors>()!
@@ -76,10 +80,10 @@ class SliverWidget extends SliverPersistentHeaderDelegate {
                       ),
                       Row(
                         children: [
-                          const Expanded(
+                          Expanded(
                             child: Text(
-                              'Показать только отличия',
-                              style: TextStyle(
+                              LocaleKeys.show_only_difference.tr(),
+                              style: const TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,
                                 color: greyText,
@@ -94,7 +98,7 @@ class SliverWidget extends SliverPersistentHeaderDelegate {
                             trackColor: Theme.of(context)
                                 .extension<ThemedColors>()!
                                 .whiteLilacToPayneGrey,
-                          )
+                          ),
                         ],
                       ),
                     ],
@@ -119,6 +123,7 @@ class SliverWidget extends SliverPersistentHeaderDelegate {
 class ListOfAddedCars extends StatefulWidget {
   // final ScrollController scrollController;
   final List list;
+
   const ListOfAddedCars({Key? key, required this.list}) : super(key: key);
 
   @override

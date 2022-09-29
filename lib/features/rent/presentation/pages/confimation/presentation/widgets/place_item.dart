@@ -1,6 +1,8 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_icons.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -24,7 +26,7 @@ class PlaceItem extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Среднесуточный пробег',
+          LocaleKeys.dayly_milleage.tr(),
           style:
           Theme.of(context).textTheme.headline1!.copyWith(fontSize: 14),
         ),
@@ -59,7 +61,7 @@ class PlaceItem extends StatelessWidget {
                   .copyWith(color: greyText, fontSize: 12),
             ),
             Text(
-              '130 тыс./сутки',
+              '130 тыс.' + LocaleKeys.per_day.tr(),
               style: Theme.of(context)
                   .textTheme
                   .bodyText1!
@@ -85,7 +87,7 @@ class PlaceItem extends StatelessWidget {
                   .copyWith(color: greyText, fontSize: 12),
             ),
             Text(
-              '200 тыс./сутки',
+              '200 тыс.' + LocaleKeys.per_day.tr(),
               style: Theme.of(context)
                   .textTheme
                   .bodyText1!

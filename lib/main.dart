@@ -19,14 +19,27 @@ import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/onboarding/presentation/pages/on_boarding_screen.dart';
 import 'package:auto/features/splash/presentation/pages/splash_sc.dart';
 import 'package:auto/features/splash/presentation/pages/splash_screen.dart';
+import 'package:auto/generated/codegen_loader.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
   setupLocator();
   await StorageRepository.getInstance();
-  runApp(const AppProvider());
+  runApp(
+    EasyLocalization(
+        supportedLocales: const [
+          Locale('ru'),
+          Locale('uz'),
+        ],
+        path: 'lib/assets/strings', // <-- change the path of the translation files
+        fallbackLocale: Locale('ru'),
+        assetLoader: CodegenLoader(),
+        child: AppProvider()),
+  );
 }
 
 class AppProvider extends StatelessWidget {
@@ -61,6 +74,9 @@ class _AppState extends State<App> {
           ),
         ],
         child: MaterialApp(
+          supportedLocales: context.supportedLocales,
+          localizationsDelegates: context.localizationDelegates,
+          locale: context.locale,
           debugShowCheckedModeBanner: false,
           title: 'Auto.Uz',
           theme: LightTheme.theme(),

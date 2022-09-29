@@ -7,6 +7,8 @@ import 'package:auto/features/rent/presentation/pages/rent_period/presentation/p
 import 'package:auto/features/rent/presentation/pages/rent_single/widgets/additional_options.dart';
 import 'package:auto/features/rent/presentation/pages/rent_single/widgets/all_rating_item.dart';
 import 'package:auto/features/rent/presentation/pages/rent_single/widgets/car_single_preview.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class CarsSingleScreen extends StatefulWidget {
@@ -20,8 +22,8 @@ class _CarsSingleScreenState extends State<CarsSingleScreen> {
   @override
   Widget build(BuildContext context) => Scaffold(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        appBar: const WAppBar(
-          title: 'Для свиданий',
+        appBar: WAppBar(
+          title: LocaleKeys.for_dates.tr(),
           centerTitle: false,
         ),
         body: SingleChildScrollView(
@@ -41,7 +43,7 @@ class _CarsSingleScreenState extends State<CarsSingleScreen> {
               Navigator.push(context, fade(page: const RentPeriodScreen())),
           margin: EdgeInsets.fromLTRB(
               16, 0, 16, MediaQuery.of(context).padding.bottom + 16),
-          text: 'Далее',
+          text: LocaleKeys.further.tr(),
           shadow: [
             BoxShadow(
                 offset: const Offset(0, 4),

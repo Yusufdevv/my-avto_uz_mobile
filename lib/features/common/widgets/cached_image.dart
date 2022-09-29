@@ -12,6 +12,7 @@ class CachedImage extends StatelessWidget {
   final Border? border;
   final double? preloadWidth;
   final double? preloadHeight;
+
   const CachedImage({
     this.imageUrl = '',
     this.width,

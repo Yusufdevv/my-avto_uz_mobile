@@ -1,15 +1,12 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
-import 'package:auto/features/common/bloc/auth/authentication_bloc.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
-import 'package:auto/features/login/presentation/bloc/register/register_bloc.dart';
 import 'package:auto/features/login/presentation/widgets/login_header_widget.dart';
 import 'package:auto/features/login/presentation/widgets/z_text_form_field.dart';
-import 'package:auto/features/navigation/presentation/home.dart';
-import 'package:auto/features/navigation/presentation/navigator.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 class NewPasswordScreen extends StatefulWidget {
@@ -42,8 +39,8 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
   @override
   Widget build(BuildContext context) => KeyboardDismisser(
         child: Scaffold(
-          appBar: const WAppBar(
-            title: 'Безопасность',
+          appBar: WAppBar(
+            title: LocaleKeys.security.tr(),
           ),
           body: Padding(
             padding: const EdgeInsets.all(16),
@@ -53,10 +50,10 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                 Expanded(
                   child: ListView(
                     children: [
-                      const LoginHeader(
-                          title: 'Новый пароль',
-                          description:
-                              'Придумайте новый пароль и постарайтесь не забыть'),
+                      LoginHeader(
+                        title: LocaleKeys.new_password.tr(),
+                        description: LocaleKeys.create_password.tr(),
+                      ),
                       const SizedBox(
                         height: 36,
                       ),
@@ -65,7 +62,7 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                           setState(() {});
                         },
                         isObscure: true,
-                        hintText: 'Новый пароль',
+                        hintText: LocaleKeys.new_password.tr(),
                         controller: newPasswordController,
                       ),
                       const SizedBox(
@@ -76,7 +73,7 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                           setState(() {});
                         },
                         isObscure: true,
-                        hintText: 'Подтверждение пароля',
+                        hintText: LocaleKeys.confirm_password.tr(),
                         controller: confirmPasswordController,
                       ),
                       const SizedBox(
@@ -109,7 +106,7 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                       : Theme.of(context)
                           .extension<ThemedColors>()!
                           .veryLightGreyToEclipse,
-                  text: 'Продолжить',
+                  text: LocaleKeys.continuee.tr(),
                   border: Border.all(
                     width: 1,
                     color: Theme.of(context)

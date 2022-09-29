@@ -15,7 +15,6 @@ class ProfileMenuTile extends StatelessWidget {
   const ProfileMenuTile({
     required this.name,
     required this.onTap,
-
     required this.iconPath,
     this.count,
     Key? key,
@@ -43,19 +42,19 @@ class ProfileMenuTile extends StatelessWidget {
                     ],
                   ),
                   const Spacer(),
-            if(count!=null)...{
-              Text(
-                count.toString(),
-                style: const TextStyle(color: purple),
-              )
-            }  ,
+                  if (count != null) ...{
+                    Text(
+                      count.toString(),
+                      style: const TextStyle(color: purple),
+                    )
+                  },
                   const SizedBox(width: 10),
                   SvgPicture.asset(
                     AppIcons.chevronRight1,
                     color: Theme.of(context)
                         .extension<ThemedColors>()!
                         .darkGreyToWhite,
-                  )
+                  ),
                 ],
               ),
             ],

@@ -7,6 +7,8 @@ import 'package:auto/features/common/widgets/w_textfield.dart';
 import 'package:auto/features/profile/domain/entities/message_entity.dart';
 import 'package:auto/features/profile/presentation/widgets/app_bar_child.dart';
 import 'package:auto/features/profile/presentation/widgets/camera_bottom_sheet.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:grouped_list/grouped_list.dart';
@@ -25,7 +27,7 @@ class _ChatState extends State<Chat> {
   List<MessageEntity> messages = [
     MessageEntity(
         user: AppIcons.checks,
-        text: 'Здравствуйте',
+        text: LocaleKeys.hello.tr(),
         date: DateTime.now().subtract(const Duration(minutes: 1)),
         isSendByMe: true,
         id: 1),
@@ -90,7 +92,7 @@ class _ChatState extends State<Chat> {
                                 .copyWith(fontSize: 24),
                           ),
                           Text(
-                            'Здесь вы сможете получить ответы на любые интересующие вас вопросы.',
+                            LocaleKeys.there_you_can.tr(),
                             textAlign: TextAlign.center,
                             style: Theme.of(context).textTheme.headline2,
                           ),
@@ -305,7 +307,7 @@ class _ChatState extends State<Chat> {
                             .headline1!
                             .copyWith(
                                 fontWeight: FontWeight.w600, fontSize: 14),
-                        hintText: 'Введите сообщение...',
+                        hintText: LocaleKeys.write_message.tr(),
                         hintTextStyle: Theme.of(context)
                             .textTheme
                             .headline2!

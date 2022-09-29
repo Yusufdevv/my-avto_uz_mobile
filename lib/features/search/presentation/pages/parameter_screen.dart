@@ -4,6 +4,8 @@ import 'package:auto/features/common/widgets/range_slider.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/search/presentation/widgets/selector_item.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class ParameterScreen extends StatefulWidget {
@@ -20,7 +22,7 @@ class _ParameterScreenState extends State<ParameterScreen> {
             Theme.of(context).extension<ThemedColors>()!.whiteToBlack,
         appBar: WAppBar(
           extraActions: [
-            Text('Параметры',
+            Text(LocaleKeys.settings.tr(),
                 style: Theme.of(context)
                     .textTheme
                     .headline1!
@@ -31,7 +33,7 @@ class _ParameterScreenState extends State<ParameterScreen> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Text(
-                'Сбросить',
+                LocaleKeys.reset.tr(),
                 style: Theme.of(context)
                     .textTheme
                     .subtitle1!
@@ -52,36 +54,36 @@ class _ParameterScreenState extends State<ParameterScreen> {
                     children: [
                       SelectorItem(
                         onTap: () {},
-                        hintText: 'Выберите тип кузова',
-                        title: 'Тип кузова',
+                        hintText: LocaleKeys.choose_body.tr(),
+                        title: LocaleKeys.body_type.tr(),
                       ),
                       SelectorItem(
                         onTap: () {},
-                        hintText: 'Выберите класс',
-                        title: 'Класс',
+                        hintText: LocaleKeys.choose_class.tr(),
+                        title: LocaleKeys.classs.tr(),
                       ),
                       SelectorItem(
                         onTap: () {},
-                        hintText: 'Выберите тип привода',
-                        title: 'Привод',
+                        hintText: LocaleKeys.choose_drive_type.tr(),
+                        title: LocaleKeys.drive_unit.tr(),
                       ),
                       SelectorItem(
                         onTap: () {},
-                        hintText: 'Выберите тип коробки',
-                        title: 'Коробка',
+                        hintText: LocaleKeys.choose_box_type.tr(),
+                        title: LocaleKeys.box.tr(),
                       ),
                       const SizedBox(
                         height: 16,
                       ),
-                      const WRangeSlider(
-                        title: 'Год выпуска',
+                      WRangeSlider(
+                        title: LocaleKeys.year_of_issue.tr(),
                         endValue: 2022,
                         startValue: 1960,
                         sliderStatus: '',
                       ),
                       const SizedBox(height: 20),
-                      const WRangeSlider(
-                        title: 'Цена',
+                      WRangeSlider(
+                        title: LocaleKeys.price.tr(),
                         endValue: 500000,
                         startValue: 1000,
                         sliderStatus: 'price',
@@ -95,9 +97,9 @@ class _ParameterScreenState extends State<ParameterScreen> {
                     bottom: MediaQuery.of(context).padding.bottom + 20),
                 child: WButton(
                   onTap: () {},
-                  text: 'Применить',
+                  text: LocaleKeys.apply.tr(),
                 ),
-              )
+              ),
             ],
           ),
         ),

@@ -8,6 +8,7 @@ class ComplectationComparisonWidget extends StatelessWidget {
   final String parameterName;
   final int numberOfCars;
   final Color color;
+
   const ComplectationComparisonWidget({
     required this.color,
     required this.parameterName,
@@ -49,7 +50,7 @@ class ComplectationComparisonWidget extends StatelessWidget {
                         : SvgPicture.asset(AppIcons.statusNotGood),
                   ),
               ],
-            )
+            ),
           ],
         ),
       );

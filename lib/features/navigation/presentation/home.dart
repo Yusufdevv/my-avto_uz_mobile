@@ -3,6 +3,8 @@ import 'package:auto/features/navigation/domain/entities/navbar.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/navigation/presentation/widgets/nav_bar_item.dart';
 import 'package:auto/features/posting_ad/qr_code/pages/qr_code.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 enum NavItemEnum { head, search, newPost, categories, profile }
@@ -28,33 +30,33 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     NavItemEnum.profile: GlobalKey<NavigatorState>(),
   };
 
-  final List<NavBar> lables = const [
+  final List<NavBar> lables =  [
     NavBar(
-      title: 'Главная',
+      title: LocaleKeys.main.tr(),
       id: 0,
       icon: AppIcons.navBarMain,
       outlinedIcon: AppIcons.navBarMainOutline,
     ),
     NavBar(
-      title: 'Поиск',
+      title: LocaleKeys.search.tr(),
       id: 1,
       icon: AppIcons.navBarSearch,
       outlinedIcon: AppIcons.navBarSearchOutline,
     ),
     NavBar(
-      title: 'Добавить',
+      title: LocaleKeys.add.tr(),
       id: 2,
       icon: AppIcons.navBarPlus,
       outlinedIcon: AppIcons.navBarPlusOutline,
     ),
     NavBar(
-      title: 'Полоса',
+      title: LocaleKeys.band.tr(),
       id: 3,
       icon: AppIcons.navBarRoad,
       outlinedIcon: AppIcons.navBarRoadOutline,
     ),
     NavBar(
-      title: 'Профиль',
+      title: LocaleKeys.profile.tr(),
       id: 4,
       icon: AppIcons.navBarUser,
       outlinedIcon: AppIcons.navBarUserOutline,

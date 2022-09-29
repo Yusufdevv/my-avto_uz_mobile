@@ -9,6 +9,8 @@ import 'package:auto/features/common/widgets/w_textfield.dart';
 import 'package:auto/features/profile/presentation/widgets/camera_bottom_sheet.dart';
 import 'package:auto/features/profile/presentation/widgets/language_bottom_sheet.dart';
 import 'package:auto/features/profile/presentation/widgets/title_text_field_top.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
@@ -34,7 +36,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        appBar: const WAppBar(textWithButton: 'Мой профиль'),
+        appBar: WAppBar(
+          textWithButton: LocaleKeys.my_profile.tr(),
+        ),
         body: KeyboardDismisser(
           child: Container(
             height: MediaQuery.of(context).size.height,
@@ -57,7 +61,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                               backgroundColor: Colors.transparent,
                               context: context,
                               useRootNavigator: true,
-
                               builder: (context) => const CameraBottomSheet());
                         },
                         child: Column(
@@ -71,7 +74,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_mNmpqHOTakNgIaKR5bxJFfkUtiLdPBXPMw&usqp=CAU'),
                             const SizedBox(height: 8),
                             Text(
-                              'Изменить фото',
+                              LocaleKeys.change_photo.tr(),
                               style: Theme.of(context)
                                   .textTheme
                                   .headline2!
@@ -80,7 +83,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           ],
                         )),
                   ),
-                  const TitleTextFieldTop(title: 'Имя'),
+                  TitleTextFieldTop(
+                    title: LocaleKeys.name.tr(),
+                  ),
                   WTextField(
                     focusColor: Theme.of(context).appBarTheme.backgroundColor,
                     borderColor: purple,
@@ -103,7 +108,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     contentPadding: const EdgeInsets.symmetric(horizontal: 16),
                     fillColor: Theme.of(context).appBarTheme.backgroundColor,
                   ),
-                  const TitleTextFieldTop(title: 'Фамилия'),
+                  TitleTextFieldTop(
+                    title: LocaleKeys.surname.tr(),
+                  ),
                   WTextField(
                     focusColor: Theme.of(context).appBarTheme.backgroundColor,
                     borderColor: purple,
@@ -126,7 +133,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     contentPadding: const EdgeInsets.symmetric(horizontal: 16),
                     fillColor: Theme.of(context).appBarTheme.backgroundColor,
                   ),
-                  const TitleTextFieldTop(title: 'Регион'),
+                  TitleTextFieldTop(
+                    title: LocaleKeys.region.tr(),
+                  ),
                   WScaleAnimation(
                     onTap: () {
                       showModalBottomSheet(

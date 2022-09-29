@@ -6,6 +6,8 @@ import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_textfield.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/rent/presentation/pages/confimation/presentation/pages/confirmation_screen.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
@@ -37,8 +39,8 @@ class _MapScreenState extends State<MapScreen> {
   @override
   Widget build(BuildContext context) => KeyboardDismisser(
     child: Scaffold(
-          appBar: const WAppBar(
-            title: 'Получение и возврат',
+          appBar: WAppBar(
+            title: LocaleKeys.receipt_and_return.tr(),
             centerTitle: false,
           ),
           body: Stack(
@@ -92,7 +94,7 @@ class _MapScreenState extends State<MapScreen> {
                                 disabledColor: Theme.of(context)
                                     .extension<ThemedColors>()!
                                     .whiteSmokeToBlack,
-                                hintText: 'Получение отсюда',
+                                hintText: LocaleKeys.getting_here.tr(),
                                 prefix: Padding(
                                   padding:getController.text.isNotEmpty ?  const EdgeInsets.all(10) : const EdgeInsets.all(6),
                                   child:  SvgPicture.asset(getController.text.isNotEmpty ? AppIcons.searchOrange : AppIcons.circle),
@@ -106,7 +108,7 @@ class _MapScreenState extends State<MapScreen> {
                             ClipRRect(
                               borderRadius: const BorderRadius.vertical(bottom: Radius.circular(8)),
                               child: WTextField(
-                                hintText: 'Возврат сюда',
+                                hintText: LocaleKeys.return_here.tr(),
                                 controller: returnController,
                                 prefix: Padding(
                                   padding:returnController.text.isNotEmpty ?  const EdgeInsets.all(10) : const EdgeInsets.all(6),
@@ -138,7 +140,7 @@ class _MapScreenState extends State<MapScreen> {
                     ),
                     WButton(
                       onTap: () => Navigator.push(context, fade(page: const ConfirmationScreen())),
-                      text: 'Далее',
+                      text: LocaleKeys.further.tr(),
                       shadow: [
                         BoxShadow(
                             offset: const Offset(0, 4),

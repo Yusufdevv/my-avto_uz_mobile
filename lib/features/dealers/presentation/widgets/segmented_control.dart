@@ -1,11 +1,15 @@
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
 class SegmentedControl extends SliverPersistentHeaderDelegate {
   SegmentedControl({required this.maxHeight, required this.minHeight});
+
   final double maxHeight;
   final double minHeight;
+
   @override
   Widget build(
           BuildContext context, double shrinkOffset, bool overlapsContent) =>
@@ -22,31 +26,31 @@ class SegmentedControl extends SliverPersistentHeaderDelegate {
                 .whiteLilacToNightRider,
           ),
           child: TabBar(
-              indicator: BoxDecoration(
-                borderRadius: BorderRadius.circular(7),
-                color:
-                    Theme.of(context).extension<ThemedColors>()!.whiteToSmoky,
-              ),
-              tabs: [
-                Tab(
-                  child: Text(
-                    'Списком',
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline1!
-                        .copyWith(fontSize: 13),
-                  ),
+            indicator: BoxDecoration(
+              borderRadius: BorderRadius.circular(7),
+              color: Theme.of(context).extension<ThemedColors>()!.whiteToSmoky,
+            ),
+            tabs: [
+              Tab(
+                child: Text(
+                  LocaleKeys.list.tr(),
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline1!
+                      .copyWith(fontSize: 13),
                 ),
-                Tab(
-                  child: Text(
-                    'На карте',
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline1!
-                        .copyWith(fontSize: 13),
-                  ),
-                )
-              ]),
+              ),
+              Tab(
+                child: Text(
+                  LocaleKeys.on_map.tr(),
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline1!
+                      .copyWith(fontSize: 13),
+                ),
+              ),
+            ],
+          ),
         ),
       );
 

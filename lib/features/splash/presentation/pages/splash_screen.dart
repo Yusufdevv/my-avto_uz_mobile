@@ -1,6 +1,8 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/images.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:sensors_plus/sensors_plus.dart';
@@ -9,7 +11,7 @@ class SplashScreen extends StatelessWidget {
   double dx = 100, dy = 100;
 
   static Route route() =>
-      MaterialPageRoute<void>(builder: (_) =>  SplashScreen());
+      MaterialPageRoute<void>(builder: (_) => SplashScreen());
 
   SplashScreen({Key? key}) : super(key: key);
 
@@ -65,7 +67,7 @@ class SplashScreen extends StatelessWidget {
                             width: 8,
                           ),
                           Text(
-                            'Возможность брать\nмашину в аренду',
+                            LocaleKeys.possibility_to_rent.tr(),
                             style: Theme.of(context)
                                 .textTheme
                                 .headline6!
@@ -132,12 +134,12 @@ class SplashScreen extends StatelessWidget {
                             width: 8,
                           ),
                           Text(
-                            'Легкая  продажа авто',
+                            LocaleKeys.easy_send.tr(),
                             style: Theme.of(context)
                                 .textTheme
                                 .headline6!
                                 .copyWith(color: white, fontSize: 10),
-                          )
+                          ),
                         ],
                       ),
                     ),
@@ -198,7 +200,7 @@ class SplashScreen extends StatelessWidget {
                             width: 8,
                           ),
                           Text(
-                            'Легкая  покупка авто',
+                            LocaleKeys.easy_buying.tr(),
                             style: Theme.of(context)
                                 .textTheme
                                 .headline6!
@@ -240,21 +242,15 @@ class SplashScreen extends StatelessWidget {
                   dy = snapshot.data!.x;
                 }
                 return Transform.translate(
-                  offset: Offset(dx, dy),
-                  child: Container(
-                    height: 13,
-                    width: 13,
-                    decoration: const BoxDecoration(
-                      shape: BoxShape.circle,
-                      gradient: LinearGradient(
-                        colors: [
-                          purpleHeart,
-                          indigo
-                        ]
-                      )
-                    ),
-                  )
-                );
+                    offset: Offset(dx, dy),
+                    child: Container(
+                      height: 13,
+                      width: 13,
+                      decoration: const BoxDecoration(
+                          shape: BoxShape.circle,
+                          gradient:
+                              LinearGradient(colors: [purpleHeart, indigo])),
+                    ));
               },
             ),
           ),
@@ -277,9 +273,9 @@ class SplashScreen extends StatelessWidget {
           ),
           Positioned(
             left: 0,
-            top: height +233,
+            top: height + 233,
             child: SvgPicture.asset(AppIcons.polygon),
-          )
+          ),
         ],
       ),
     );

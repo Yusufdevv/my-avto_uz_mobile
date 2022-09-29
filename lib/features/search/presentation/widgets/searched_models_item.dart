@@ -2,6 +2,8 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/w_highlited_textfield.dart';
 import 'package:auto/features/search/domain/entities/search_item_entity.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class SearchedModelsItem extends StatelessWidget {
@@ -34,7 +36,7 @@ class SearchedModelsItem extends StatelessWidget {
                         .extension<ThemedColors>()!
                         .tangerineYellowToMediumSlateBlue,
                 ),
-                Text('Автомобили', style: Theme.of(context)
+                Text(LocaleKeys.cars.tr(), style: Theme.of(context)
                     .textTheme
                     .subtitle1!
                     .copyWith(color: grey),)

@@ -27,7 +27,7 @@ class _ColorsScreenState extends State<ColorsScreen> {
     'Белый',
     'Бордовый',
     'Желтый',
-    'Оранжевый',
+    'Оранжевыйq',
   ];
   String currentId = '';
 

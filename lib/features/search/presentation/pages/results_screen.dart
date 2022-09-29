@@ -10,6 +10,8 @@ import 'package:auto/features/search/domain/usecases/get_search_result.dart';
 import 'package:auto/features/search/presentation/bloc/search_results/search_result_bloc.dart';
 import 'package:auto/features/search/presentation/pages/filter_screen.dart';
 import 'package:auto/features/search/presentation/widgets/commercial_item.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -72,7 +74,7 @@ class _ResultsScreenState extends State<ResultsScreen> {
                   borderRadius: 12,
                   controller: widget.controller,
                   hasSearch: true,
-                  hintText: 'Марка, Модель',
+                  hintText: LocaleKeys.model_brand.tr(),
                   hasClearButton: true,
                 ),
                 const Spacer(),

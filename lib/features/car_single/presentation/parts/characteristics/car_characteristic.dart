@@ -1,6 +1,8 @@
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -23,7 +25,7 @@ class CarCharacteristic extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Характеристики автомобиля',
+              LocaleKeys.auto_characters.tr(),
               style:
                   Theme.of(context).textTheme.headline1!.copyWith(fontSize: 18),
             ),
@@ -34,7 +36,7 @@ class CarCharacteristic extends StatelessWidget {
                   width: 4,
                 ),
                 Text(
-                  'Проверено от auto.uz',
+                  LocaleKeys.checked_by_autouz.tr(),
                   style: Theme.of(context)
                       .textTheme
                       .headline1!

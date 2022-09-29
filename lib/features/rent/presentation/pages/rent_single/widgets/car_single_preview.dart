@@ -4,7 +4,9 @@ import 'package:auto/features/posting_ad/preview/presentation/widgets/image_view
 import 'package:auto/features/rent/domain/entities/rent_car_entity.dart';
 import 'package:auto/features/rent/domain/entities/rent_entity.dart';
 import 'package:auto/features/rent/presentation/pages/rent_single/widgets/single_car_info_item.dart';
+import 'package:auto/generated/locale_keys.g.dart';
 import 'package:auto/utils/my_functions.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class CarSinglePreview extends StatelessWidget {
@@ -52,7 +54,7 @@ class CarSinglePreview extends StatelessWidget {
                     width: 4,
                   ),
                   Text(
-                    '/сутки',
+                    LocaleKeys.per_day.tr(),
                     style: Theme.of(context)
                         .textTheme
                         .headline2!

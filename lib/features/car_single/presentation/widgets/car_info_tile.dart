@@ -38,7 +38,7 @@ class CarInfoTile extends StatelessWidget {
                   .headline1!
                   .copyWith(fontWeight: FontWeight.w600, fontSize: 14,color: grey),
             ),
-            SizedBox(width: 70,),
+            const SizedBox(width: 70,),
           ],
         ),
       );

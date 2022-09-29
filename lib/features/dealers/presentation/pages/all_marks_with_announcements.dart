@@ -1,15 +1,17 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
- import 'package:auto/features/dealers/presentation/pages/single_mark_announcements.dart';
+import 'package:auto/features/dealers/domain/entities/marks_with_announcements.dart';
+import 'package:auto/features/dealers/presentation/pages/single_mark_announcements.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../domain/entities/marks_with_announcements.dart';
-
 class AllMarksWithAnnouncements extends StatelessWidget {
   final List<MarksWithAnnouncementModel> marks;
+
   const AllMarksWithAnnouncements({Key? key, required this.marks})
       : super(key: key);
 
@@ -17,7 +19,7 @@ class AllMarksWithAnnouncements extends StatelessWidget {
   Widget build(BuildContext context) => Scaffold(
         appBar: WAppBar(
           extraActions: [
-            Text('Все марки с объявлениями',
+            Text(LocaleKeys.all_brands_with_ads.tr(),
                 style: Theme.of(context)
                     .textTheme
                     .headline1!
@@ -85,7 +87,7 @@ class AllMarksWithAnnouncements extends StatelessWidget {
                         ],
                       ),
                     ),
-                  )
+                  ),
                 ],
               ),
             ),

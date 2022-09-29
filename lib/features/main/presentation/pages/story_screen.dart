@@ -4,7 +4,9 @@ import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/main/domain/entities/story_enrtity.dart';
 import 'package:auto/features/main/presentation/widgets/animated_bar.dart';
+import 'package:auto/generated/locale_keys.g.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -139,7 +141,7 @@ class _StoryScreenState extends State<StoryScreen>
                   const SizedBox(height: 28),
                   WButton(
                     onTap: () {},
-                    text: 'Подробнее',
+                    text: LocaleKeys.more.tr(),
                     textColor: white,
                     color: white.withOpacity(.2),
                   ),

@@ -2,15 +2,20 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/dealers/presentation/widgets/animated_images.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class SellerSliverDelegate extends SliverPersistentHeaderDelegate {
   final double minHeight;
   final String showroomOrPerson;
+
   SellerSliverDelegate(
       {required this.showroomOrPerson, required this.minHeight});
+
   final Duration _duration = const Duration(milliseconds: 80);
+
   @override
   Widget build(
           BuildContext context, double shrinkOffset, bool overlapsContent) =>
@@ -136,14 +141,19 @@ class SellerSliverDelegate extends SliverPersistentHeaderDelegate {
                                             shrinkOffset >= 180 ? 14 : 16),
                                 child: const Text('ORIENT MOTORS')),
                             AnimatedDefaultTextStyle(
-                                duration: _duration,
-                                style: TextStyle(
-                                    fontSize: shrinkOffset >= 180 ? 12 : 14,
-                                    fontWeight: FontWeight.w400,
-                                    color: purple),
-                                child: showroomOrPerson == 'person'
-                                    ? const Text('Частное лицо')
-                                    : const Text('Автосалон')),
+                              duration: _duration,
+                              style: TextStyle(
+                                  fontSize: shrinkOffset >= 180 ? 12 : 14,
+                                  fontWeight: FontWeight.w400,
+                                  color: purple),
+                              child: showroomOrPerson == 'person'
+                                  ? Text(
+                                      LocaleKeys.private_person.tr(),
+                                    )
+                                  : Text(
+                                      LocaleKeys.autosalon.tr(),
+                                    ),
+                            ),
                           ],
                         )
                       ],

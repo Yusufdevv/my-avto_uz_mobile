@@ -5,6 +5,7 @@ import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/rent/presentation/pages/map_screen/presentation/pages/map_screen.dart';
 import 'package:auto/features/rent/presentation/pages/rent_period/presentation/widgets/period_header.dart';
+import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
@@ -54,8 +55,8 @@ class _RentPeriodScreenState extends State<RentPeriodScreen> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        appBar: const WAppBar(
-          title: 'Срок аренды',
+        appBar: WAppBar(
+          title: LocaleKeys.rent_period.tr(),
           centerTitle: false,
         ),
         body: SingleChildScrollView(
@@ -130,7 +131,7 @@ class _RentPeriodScreenState extends State<RentPeriodScreen> {
                     Padding(
                       padding: const EdgeInsets.fromLTRB(12, 12, 12, 0),
                       child: Text(
-                        'Начало',
+                        LocaleKeys.start.tr(),
                         style: Theme.of(context).textTheme.headline1!.copyWith(
                             fontSize: 13, fontWeight: FontWeight.w400),
                       ),
@@ -170,7 +171,7 @@ class _RentPeriodScreenState extends State<RentPeriodScreen> {
                     Padding(
                       padding: const EdgeInsets.fromLTRB(12, 0, 12, 0),
                       child: Text(
-                        'Окончание',
+                        LocaleKeys.end.tr(),
                         style: Theme.of(context).textTheme.headline1!.copyWith(
                             fontSize: 13, fontWeight: FontWeight.w400),
                       ),
@@ -221,7 +222,7 @@ class _RentPeriodScreenState extends State<RentPeriodScreen> {
           onTap: () => Navigator.push(context, fade(page: const MapScreen())),
           margin: EdgeInsets.fromLTRB(
               16, 0, 16, MediaQuery.of(context).padding.bottom + 16),
-          text: 'Далее',
+          text: LocaleKeys.further.tr(),
           shadow: [
             BoxShadow(
                 offset: const Offset(0, 4),

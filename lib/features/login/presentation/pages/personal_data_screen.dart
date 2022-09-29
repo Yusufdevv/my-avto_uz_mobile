@@ -10,6 +10,8 @@ import 'package:auto/features/login/presentation/widgets/login_header_widget.dar
 import 'package:auto/features/login/presentation/widgets/personal_data_item.dart';
 import 'package:auto/features/login/presentation/widgets/region_button.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
@@ -42,8 +44,8 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
   @override
   Widget build(BuildContext context) => KeyboardDismisser(
         child: Scaffold(
-          appBar: const WAppBar(
-            title: 'Регистрация',
+          appBar: WAppBar(
+            title: LocaleKeys.register.tr(),
           ),
           body: Padding(
             padding: const EdgeInsets.all(16),
@@ -53,9 +55,9 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
                 Expanded(
                   child: ListView(
                     children: [
-                      const LoginHeader(
-                        title: 'Персональные данные',
-                        description: 'Придумайте пароль для входа',
+                      LoginHeader(
+                        title: LocaleKeys.personal_data.tr(),
+                        description: LocaleKeys.create_password.tr(),
                         hasSizedBox: false,
                       ),
                       const SizedBox(
@@ -63,9 +65,9 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
                       ),
                       const AddPhotoItem(),
                       PersonalDataItem(
-                        title: 'Имя',
+                        title: LocaleKeys.name.tr(),
                         controller: nameController,
-                        hintText: 'Пароль',
+                        hintText: LocaleKeys.password.tr(),
                         onChanged: (value) {
                           setState(() {});
                         },
@@ -76,7 +78,7 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
                       PersonalDataItem(
                         title: 'Email',
                         controller: emailController,
-                        hintText: 'Пароль',
+                        hintText: LocaleKeys.password.tr(),
                         onChanged: (value) {
                           setState(() {});
                         },
@@ -93,29 +95,36 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
                         emailController.text.isNotEmpty) {
                       context.read<RegisterBloc>().add(
                             RegisterEvent.setName(
-                                fullName: nameController.text,
-                                email: emailController.text,
-                                onSuccess: () {
-                                  Navigator.push(
-                                    context,
-                                    fade(
-                                      page: BlocProvider.value(
-                                          value: context.read<RegisterBloc>(),
-                                          child:  NewPasswordScreen(onSubmit: (password,confirmPassword) {
-                                            context.read<RegisterBloc>().add(
-                                              RegisterEvent.register(
+                              fullName: nameController.text,
+                              email: emailController.text,
+                              onSuccess: () {
+                                Navigator.push(
+                                  context,
+                                  fade(
+                                    page: BlocProvider.value(
+                                      value: context.read<RegisterBloc>(),
+                                      child: NewPasswordScreen(
+                                        onSubmit: (password, confirmPassword) {
+                                          context.read<RegisterBloc>().add(
+                                                RegisterEvent.register(
                                                   validPassword: password,
                                                   onSuccess: () {
-                                                    context.read<AuthenticationBloc>().add(
-                                                        AuthenticationStatusChanged(
+                                                    context
+                                                        .read<
+                                                            AuthenticationBloc>()
+                                                        .add(AuthenticationStatusChanged(
                                                             status: AuthenticationStatus
                                                                 .authenticated));
-                                                  }),
-                                            );
-                                          },)),
+                                                  },
+                                                ),
+                                              );
+                                        },
+                                      ),
                                     ),
-                                  );
-                                }),
+                                  ),
+                                );
+                              },
+                            ),
                           );
                     } else {}
                   },
@@ -133,7 +142,7 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
                       : Theme.of(context)
                           .extension<ThemedColors>()!
                           .veryLightGreyToEclipse,
-                  text: 'Продолжить',
+                  text: LocaleKeys.continuee.tr(),
                   border: Border.all(
                     width: 1,
                     color: Theme.of(context)

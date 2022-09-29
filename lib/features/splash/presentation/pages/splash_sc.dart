@@ -1,19 +1,16 @@
-import 'dart:async';
 import 'package:auto/assets/themes/theme_extensions/themed_icons.dart';
-import 'package:auto/features/onboarding/presentation/first_onboarding.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lottie/lottie.dart';
 
 class SplashSc extends StatefulWidget {
-static  Route route() =>
-      MaterialPageRoute<void>(builder: (_) =>  SplashSc());
+  static Route route() => MaterialPageRoute<void>(builder: (_) => SplashSc());
+
   @override
   _SplashScState createState() => _SplashScState();
 }
 
 class _SplashScState extends State<SplashSc> {
-
   @override
   void initState() {
     super.initState();

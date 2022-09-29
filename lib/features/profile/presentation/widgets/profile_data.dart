@@ -14,6 +14,7 @@ class ProfileData extends StatelessWidget {
   final String subTitle;
   final VoidCallback onTap;
   final bool hasAlert;
+
   const ProfileData(
       {Key? key,
       required this.onTap,
@@ -31,9 +32,10 @@ class ProfileData extends StatelessWidget {
           margin: margin,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: Theme.of(context)
-                .extension<WTextFieldStyle>()!
-                .borderColor),
+            border: Border.all(
+                color: Theme.of(context)
+                    .extension<WTextFieldStyle>()!
+                    .borderColor),
             color: Theme.of(context).extension<ThemedColors>()!.whiteToNero1,
           ),
           child: Column(
@@ -97,7 +99,7 @@ class ProfileData extends StatelessWidget {
                           .extension<ThemedColors>()!
                           .darkGreyToWhite,
                     ),
-                  )
+                  ),
                 ],
               ),
             ],

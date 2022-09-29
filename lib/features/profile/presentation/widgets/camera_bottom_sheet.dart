@@ -2,6 +2,8 @@ import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
@@ -17,8 +19,8 @@ class CameraBottomSheet extends StatefulWidget {
 
 class CameraBottomSheetState extends State<CameraBottomSheet> {
   List<String> titleList = [
-    'Камера',
-    'Выбрать фото',
+    LocaleKeys.camera.tr(),
+    LocaleKeys.choose_photo.tr(),
   ];
   List<String> img = [
     AppIcons.camera,
@@ -43,7 +45,7 @@ class CameraBottomSheetState extends State<CameraBottomSheet> {
           Row(
             children: [
               Text(
-                'Прикрепить файл',
+                LocaleKeys.attach_file.tr(),
                 style: Theme.of(context).textTheme.headline1,
               ),
               const Spacer(),
@@ -83,7 +85,7 @@ class CameraBottomSheetState extends State<CameraBottomSheet> {
               Navigator.pop(context);
             },
             child: Text(
-              'Подтвердить',
+              LocaleKeys.confirm.tr(),
               style: Theme.of(context)
                   .textTheme
                   .headline4!
