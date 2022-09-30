@@ -1,9 +1,8 @@
-import 'package:auto/features/onboarding/presentation/widgets/indicator.dart';
 import 'package:auto/features/posting_ad/preview/presentation/widgets/image_indicator.dart';
 import 'package:flutter/material.dart';
 
 class ImageViewer extends StatefulWidget {
-  final List<String> images;
+  final List<String?> images;
 
   const ImageViewer({required this.images, Key? key}) : super(key: key);
 
@@ -45,21 +44,23 @@ class _ImageViewerState extends State<ImageViewer> {
       }
     });
   }
+
   @override
-  void initState(){
+  void initState() {
     pageController = PageController();
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) => SizedBox(
-    height: 311,
-    child: Stack(
+        height: 311,
+        child: Stack(
           children: [
             Positioned.fill(
               child: PageView(
                 controller: pageController,
-                onPageChanged: (int page){
-                  setState((){
+                onPageChanged: (int page) {
+                  setState(() {
                     currentIndex = page;
                   });
                 },
@@ -67,7 +68,10 @@ class _ImageViewerState extends State<ImageViewer> {
                   widget.images.length,
                   (index) => SizedBox(
                     width: double.infinity,
-                  child: Image.network(widget.images[index], fit: BoxFit.cover,),
+                    child: Image.network(
+                      widget.images[index] ?? '',
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
               ),
@@ -81,8 +85,7 @@ class _ImageViewerState extends State<ImageViewer> {
                 children: buildIndicator(),
               ),
             ),
-
           ],
         ),
-  );
+      );
 }

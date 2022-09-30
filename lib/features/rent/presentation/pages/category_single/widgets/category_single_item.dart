@@ -43,7 +43,7 @@ class CategorySingleItem extends StatelessWidget {
                 child: CachedNetworkImage(
                   height: 137,
                   width: double.infinity,
-                  imageUrl: rentCarEntity.gallery[0],
+                  imageUrl: rentCarEntity.gallery[0] ?? '',
                   fit: BoxFit.cover,
                 ),
               ),

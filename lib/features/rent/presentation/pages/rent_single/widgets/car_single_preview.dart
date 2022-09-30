@@ -2,13 +2,13 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/posting_ad/preview/presentation/widgets/image_viewer.dart';
 import 'package:auto/features/rent/domain/entities/rent_car_entity.dart';
-import 'package:auto/features/rent/domain/entities/rent_entity.dart';
+import 'package:auto/features/rent/domain/entities/rent_list_entity.dart';
 import 'package:auto/features/rent/presentation/pages/rent_single/widgets/single_car_info_item.dart';
 import 'package:auto/utils/my_functions.dart';
 import 'package:flutter/material.dart';
 
 class CarSinglePreview extends StatelessWidget {
-  final RentEntity rentEntity;
+  final RentListEntity rentEntity;
   final bool hasCarInfo;
 
   const CarSinglePreview(
@@ -20,7 +20,7 @@ class CarSinglePreview extends StatelessWidget {
         color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
         child: Column(
           children: [
-            ImageViewer(images: rentEntity.rentCar.gallery),
+            ImageViewer(images: rentEntity.rentCar.gallery ),
             const SizedBox(
               height: 12,
             ),

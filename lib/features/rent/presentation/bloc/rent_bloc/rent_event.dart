@@ -1,10 +1,8 @@
 part of 'rent_bloc.dart';
 
-@immutable
-abstract class RentEvent {}
+@Freezed()
+class RentEvent with _$RentEvent {
+  factory RentEvent.getResults({required bool isRefresh}) = _GetResults;
 
-class Rents extends RentEvent {
-  final String query;
-
-  Rents({required this.query});
+  factory RentEvent.getMoreResults() = _GetMoreResults;
 }

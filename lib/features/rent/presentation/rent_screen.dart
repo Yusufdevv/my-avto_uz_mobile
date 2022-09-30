@@ -3,11 +3,13 @@ import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
-import 'package:auto/features/main/presentation/main_screen.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
+import 'package:auto/features/rent/domain/usecases/rent_usecase.dart';
+import 'package:auto/features/rent/presentation/bloc/rent_bloc/rent_bloc.dart';
 import 'package:auto/features/rent/presentation/pages/cars/pages/cars_screen.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/pages/rent_filter_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
 class RentScreen extends StatefulWidget {
@@ -20,13 +22,15 @@ class RentScreen extends StatefulWidget {
 class _RentScreenState extends State<RentScreen>
     with SingleTickerProviderStateMixin {
   late TabController tabController;
+  late RentBloc rentBloc;
 
   @override
   void initState() {
     tabController = TabController(length: 2, vsync: this);
+    rentBloc = RentBloc(RentUseCase())
+      ..add(RentEvent.getResults(isRefresh: false));
     super.initState();
   }
-
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -41,7 +45,8 @@ class _RentScreenState extends State<RentScreen>
                   Padding(
                     padding: const EdgeInsets.only(right: 12),
                     child: WScaleAnimation(
-                        onTap: () => Navigator.push(context, fade(page: const RentFilterScreen())),
+                        onTap: () => Navigator.push(
+                            context, fade(page: const RentFilterScreen())),
                         child: SvgPicture.asset(AppIcons.rentFilter)),
                   )
                 ],
@@ -106,12 +111,19 @@ class _RentScreenState extends State<RentScreen>
             ],
           ),
         ),
-        body: TabBarView(
-          controller: tabController,
-          children:const [
-            CarsScreen(),
-            CarsScreen(),
-          ],
+        body: BlocProvider.value(
+          value: rentBloc,
+          child: TabBarView(
+            controller: tabController,
+            children: [
+              CarsScreen(
+                rentBloc: rentBloc,
+              ),
+              CarsScreen(
+                rentBloc: rentBloc,
+              ),
+            ],
+          ),
         ),
       );
 }

@@ -1,32 +1,19 @@
 import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/core/usecases/usecase.dart';
 import 'package:auto/features/pagination/models/generic_pagination.dart';
-import 'package:auto/features/rent/domain/entities/rent_entity.dart';
-import 'package:auto/features/rent/domain/repositories/rent_repository.dart';
+import 'package:auto/features/pagination/repository/pagination.dart';
+import 'package:auto/features/rent/data/models/rent_main_model.dart';
 import 'package:auto/utils/either.dart';
-import 'package:equatable/equatable.dart';
 
-class RentUseCase
-    implements UseCase<GenericPagination<RentEntity>, RentParams> {
-  final RentRepository repository;
-
-  RentUseCase({required this.repository});
+class RentUseCase extends UseCase<GenericPagination<RentMainModel>, String> {
+  final PaginationRepository repo = PaginationRepository();
 
   @override
-  Future<Either<Failure, GenericPagination<RentEntity>>> call(
-          RentParams params) =>
-      repository.rent(query: params.query, next: params.next);
-}
-
-class RentParams extends Equatable {
-  final String query;
-  final String? next;
-
-  const RentParams({required this.query, this.next});
-
-  @override
-  List<Object?> get props => [
-        query,
-        next,
-      ];
+  Future<Either<Failure, GenericPagination<RentMainModel>>> call(
+          String params) async =>
+      await repo.fetchMore(
+        url: 'rent/main_page/rent-cars-by-category/',
+        fromJson: RentMainModel.fromJson,
+        next: params,
+      );
 }

@@ -19,7 +19,7 @@ class RentCarEntity extends Equatable {
   final String equipmentType;
   final String gearboxType;
   final String engineType;
-  final int engineVolume;
+  final double engineVolume;
   final String color;
   final int distanceTraveled;
   final bool hasAirConditioner;
@@ -41,7 +41,7 @@ class RentCarEntity extends Equatable {
     this.equipmentType = '',
     this.gearboxType = '',
     this.engineType = '',
-    this.engineVolume = 0,
+    this.engineVolume = 0.0,
     this.color = '',
     this.distanceTraveled = 0,
     this.hasAirConditioner = false,

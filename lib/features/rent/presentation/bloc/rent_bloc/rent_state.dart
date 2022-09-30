@@ -1,36 +1,12 @@
 part of 'rent_bloc.dart';
 
-class RentState extends Equatable {
-  final PaginatorStatus status;
-  final String? next;
-  final List<RentEntity> rents;
-  final bool fetchMore;
-
-  const RentState({
-    this.status = PaginatorStatus.PAGINATOR_INITIAL,
-    this.next,
-    this.rents = const [],
-    this.fetchMore = false,
-  });
-
-  RentState copyWith({
-    PaginatorStatus? status,
+@Freezed()
+class RentState with _$RentState {
+  factory RentState({
+    @Default([]) List<RentMainEntity> list,
+    @Default(FormzStatus.pure) FormzStatus status,
+    @Default(FormzStatus.pure) FormzStatus paginationStatus,
     String? next,
-    List<RentEntity>? rents,
-    bool? fetchMore,
-  }) =>
-      RentState(
-        next: next,
-        status: status ?? this.status,
-        rents: rents ?? this.rents,
-        fetchMore: fetchMore ?? this.fetchMore,
-      );
-
-  @override
-  List<Object?> get props => [
-        status,
-        next,
-        rents,
-        fetchMore,
-      ];
+    @Default(0) int count,
+  }) = _RentState;
 }

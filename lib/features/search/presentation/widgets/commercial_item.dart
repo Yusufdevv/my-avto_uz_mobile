@@ -9,13 +9,13 @@ import 'package:auto/features/search/domain/entities/commercial_item_entity.dart
 import 'package:auto/features/search/presentation/pages/parameter_screen.dart';
 import 'package:auto/features/search/presentation/pages/select_car.dart';
 import 'package:auto/features/search/presentation/widgets/all_commertial_item.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class CommercialItem extends StatefulWidget {
   final CommercialItemEntity entity;
-  const CommercialItem({required this.entity,Key? key}) : super(key: key);
+
+  const CommercialItem({required this.entity, Key? key}) : super(key: key);
 
   @override
   State<CommercialItem> createState() => _CommercialItemState();
@@ -39,7 +39,7 @@ class _CommercialItemState extends State<CommercialItem>
   }
 
   final List<CommercialItemEntity> commercialItemEntity = [
-     CommercialItemEntity(
+    CommercialItemEntity(
       autoName: 'Mercedes-Benz Sprinter',
       autoYear: 2020,
       clientName: 'Анвар Гулямов',
@@ -49,9 +49,12 @@ class _CommercialItemState extends State<CommercialItem>
       oldPriceAuto: '270 000 000 UZS',
       clientAvatar:
           'https://images.unsplash.com/photo-1659880233848-1f4eaf4f753c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyOHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60',
-  images: ['https://images.unsplash.com/photo-1658856226250-5b236fa6137d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxMDR8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60'],
+      images: [
+        'https://images.unsplash.com/photo-1658856226250-5b236fa6137d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxMDR8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60'
+      ],
       isSalon: false,
-      isLike: true, model: 'Sprinteing',
+      isLike: true,
+      model: 'Sprinteing',
     ),
   ];
 

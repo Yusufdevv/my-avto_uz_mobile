@@ -1,17 +1,17 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
-import 'package:auto/features/rent/domain/entities/rent_car_entity.dart';
-import 'package:auto/features/rent/domain/entities/rent_entity.dart';
+import 'package:auto/features/rent/domain/entities/rent_list_entity.dart';
+import 'package:auto/features/rent/domain/entities/rent_main_entity.dart';
 import 'package:auto/features/rent/presentation/widgets/rent_car_items.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class CategoryTypeItem extends StatelessWidget {
-  final RentCarEntity rentCarEntity;
+  final RentMainEntity rentMainEntity;
   final VoidCallback onTap;
 
   const CategoryTypeItem(
-      {required this.onTap, required this.rentCarEntity, Key? key})
+      {required this.onTap, required this.rentMainEntity, Key? key})
       : super(key: key);
 
   @override
@@ -23,7 +23,7 @@ class CategoryTypeItem extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  rentCarEntity.model,
+                  rentMainEntity.name,
                   style: Theme.of(context)
                       .textTheme
                       .headline1!
@@ -55,9 +55,9 @@ class CategoryTypeItem extends StatelessWidget {
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) => RentCarItems(
-                rentEntity: RentEntity(),
+                rentEntity: rentMainEntity.rentCars[index],
               ),
-              itemCount: rentCarEntity.id,
+              itemCount: rentMainEntity.rentCars.length,
             ),
           ),
         ],

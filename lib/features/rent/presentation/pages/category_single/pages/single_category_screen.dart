@@ -1,15 +1,16 @@
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/common/widgets/w_textfield.dart';
-import 'package:auto/features/rent/domain/entities/rent_entity.dart';
+import 'package:auto/features/rent/domain/entities/rent_car_entity.dart';
+import 'package:auto/features/rent/domain/entities/rent_main_entity.dart';
 import 'package:auto/features/rent/presentation/pages/category_single/widgets/category_single_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class SingleCategoryScreen extends StatefulWidget {
-  final RentEntity rentEntity;
+  final RentMainEntity rentMainEntity;
 
-  const SingleCategoryScreen({required this.rentEntity, Key? key})
+  const SingleCategoryScreen({required this.rentMainEntity, Key? key})
       : super(key: key);
 
   @override
@@ -43,7 +44,7 @@ class _SingleCategoryScreenState extends State<SingleCategoryScreen> {
                 width: 8,
               ),
               Text(
-                widget.rentEntity.rentCar.model,
+                widget.rentMainEntity.name,
                 style: Theme.of(context).textTheme.subtitle1!.copyWith(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
@@ -69,9 +70,9 @@ class _SingleCategoryScreenState extends State<SingleCategoryScreen> {
           ),
           padding: const EdgeInsets.all(16),
           itemBuilder: (context, index) => CategorySingleItem(
-            rentCarEntity: widget.rentEntity.rentCar,
+            rentCarEntity: RentCarEntity(),
           ),
-          itemCount: widget.rentEntity.id,
+          itemCount: widget.rentMainEntity.rentCars.length,
         ),
       );
 }
