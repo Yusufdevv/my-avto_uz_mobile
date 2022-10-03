@@ -19,4 +19,16 @@ class ProfileRepositoryImpl extends ProfileRepository {
       return Left(ServerFailure(statusCode: 141, errorMessage: error.errorMessage));
     }
   }
+
+  @override
+  Future<Either<ServerFailure, ProfileEntity>> editProfile(
+      {String? image, String? name, String? surName, int? region}) async {
+    try {
+      final result =
+          await dataSource.editProfile(image: image, name: name, surName: surName, region: region);
+      return Right(result);
+    } on ServerException catch (error) {
+      return Left(ServerFailure(statusCode: 141, errorMessage: error.errorMessage));
+    }
+  }
 }

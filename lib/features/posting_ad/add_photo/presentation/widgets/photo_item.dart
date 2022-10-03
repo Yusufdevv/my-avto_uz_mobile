@@ -9,6 +9,7 @@ import 'package:auto/features/posting_ad/add_photo/presentation/widgets/image_it
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:image_picker/image_picker.dart';
 
 class PhotoItem extends StatefulWidget {
   final List<String> images;
@@ -25,7 +26,7 @@ class _PhotoItemState extends State<PhotoItem> {
   Widget build(BuildContext context) => widget.images.isEmpty
       ? WScaleAnimation(
           onTap: () {
-            context.read<ImageBloc>().add(const PickImage());
+            context.read<ImageBloc>().add( PickImage(source: ImageSource.camera));
           },
           child: Container(
             height: 110,
@@ -52,7 +53,7 @@ class _PhotoItemState extends State<PhotoItem> {
             children: [
               WScaleAnimation(
                 onTap: () {
-                  context.read<ImageBloc>().add(const PickImage());
+                  context.read<ImageBloc>().add( PickImage(source: ImageSource.camera));
                 },
                 child: Container(
                   height: 110,

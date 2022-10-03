@@ -6,8 +6,8 @@ part of 'user_count.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-UserCountModel _$UserCountModelFromJson(Map<String, dynamic> json) =>
-    UserCountModel(
+UsercountdataModel _$UsercountdataModelFromJson(Map<String, dynamic> json) =>
+    UsercountdataModel(
       id: json['id'] as int? ?? 0,
       user: json['user'] as int? ?? 0,
       announcementCount: json['announcement_count'] as int? ?? 0,
@@ -17,7 +17,7 @@ UserCountModel _$UserCountModelFromJson(Map<String, dynamic> json) =>
       wishListCount: json['announcement_wishlist_count'] as int? ?? 0,
     );
 
-Map<String, dynamic> _$UserCountModelToJson(UserCountModel instance) =>
+Map<String, dynamic> _$UsercountdataModelToJson(UsercountdataModel instance) =>
     <String, dynamic>{
       'id': instance.id,
       'user': instance.user,

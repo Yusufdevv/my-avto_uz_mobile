@@ -4,20 +4,20 @@ abstract class ImageEvent extends Equatable {
   const ImageEvent();
 }
 
+class PickImage extends ImageEvent {
+  final ImageSource source;
 
-class PickImage extends ImageEvent{
-  const PickImage();
+  const PickImage({required this.source});
+
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [source];
 }
 
-class DeleteImage extends ImageEvent{
+class DeleteImage extends ImageEvent {
   final String imageUrl;
 
   const DeleteImage({required this.imageUrl});
 
   @override
   List<Object?> get props => [imageUrl];
-
-
 }

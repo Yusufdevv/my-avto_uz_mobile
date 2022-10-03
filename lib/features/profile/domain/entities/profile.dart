@@ -1,3 +1,4 @@
+import 'package:auto/features/profile/data/models/user_count.dart';
 import 'package:auto/features/profile/domain/entities/user_count.dart';
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
@@ -33,8 +34,6 @@ class ProfileEntity extends Equatable {
   final String lastLogin;
   @JsonKey(name: 'date_joined', defaultValue: '')
   final String dateJoined;
-  @UserCountEntityConverter()
-  final UserCountEntity usercountdata;
 
   const ProfileEntity({
     required this.id,
@@ -52,7 +51,6 @@ class ProfileEntity extends Equatable {
     required this.isSuperuser,
     required this.lastLogin,
     required this.username,
-    required this.usercountdata,
   });
 
   @override
@@ -72,6 +70,5 @@ class ProfileEntity extends Equatable {
         isSuperuser,
         lastLogin,
         username,
-        usercountdata,
       ];
 }

@@ -16,3 +16,21 @@ class ChangePasswordEvent extends ProfileEvent {
     required this.newPasswordConfirm,
   });
 }
+
+class EditProfileEvent extends ProfileEvent {
+  final String? name;
+  final String? surName;
+  final String? image;
+  final int? region;
+  final Function onSuccess;
+  final Function(String text) onError;
+
+  EditProfileEvent({
+    required this.onSuccess,
+    required this.onError,
+    this.name,
+    this.region,
+    this.image,
+    this.surName,
+  });
+}

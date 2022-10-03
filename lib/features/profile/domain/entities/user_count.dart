@@ -2,7 +2,7 @@ import 'package:auto/features/profile/data/models/user_count.dart';
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-class UserCountEntity extends Equatable {
+class UsercountdataEntity extends Equatable {
   @JsonKey(name: 'id', defaultValue: 0)
   final int id;
   @JsonKey(name: 'user', defaultValue: 0)
@@ -18,7 +18,7 @@ class UserCountEntity extends Equatable {
   @JsonKey(name: 'reviews_count', defaultValue: 0)
   final int reviewsCount;
 
-  const UserCountEntity({
+  const UsercountdataEntity({
     required this.id,
     required this.user,
     required this.announcementCount,
@@ -40,12 +40,12 @@ class UserCountEntity extends Equatable {
       ];
 }
 
-class UserCountEntityConverter extends JsonConverter<UserCountEntity, Map<String, dynamic>?> {
-  const UserCountEntityConverter();
+class UsercountdataEntityConverter extends JsonConverter<UsercountdataEntity, Map<String, dynamic>?> {
+  const UsercountdataEntityConverter();
 
   @override
-  UserCountEntity fromJson(Map<String, dynamic>? json) => UserCountModel.fromJson(json ?? {});
+  UsercountdataEntity fromJson(Map<String, dynamic>? json) => UsercountdataModel.fromJson(json ?? {});
 
   @override
-  Map<String, dynamic> toJson(UserCountEntity object) => {};
+  Map<String, dynamic> toJson(UsercountdataEntity object) => {};
 }

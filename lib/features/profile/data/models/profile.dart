@@ -21,7 +21,6 @@ class ProfileModel extends ProfileEntity {
     required super.isSuperuser,
     required super.lastLogin,
     required super.username,
-    required super.usercountdata,
   });
 
   factory ProfileModel.fromJson(Map<String, dynamic> json) => _$ProfileModelFromJson(json);

@@ -22,8 +22,6 @@ ProfileModel _$ProfileModelFromJson(Map<String, dynamic> json) => ProfileModel(
       isSuperuser: json['is_superuser'] as bool? ?? false,
       lastLogin: json['last_login'] as String? ?? '',
       username: json['username'] as String? ?? '',
-      usercountdata: const UserCountEntityConverter()
-          .fromJson(json['usercountdata'] as Map<String, dynamic>?),
     );
 
 Map<String, dynamic> _$ProfileModelToJson(ProfileModel instance) =>
@@ -43,6 +41,4 @@ Map<String, dynamic> _$ProfileModelToJson(ProfileModel instance) =>
       'is_superuser': instance.isSuperuser,
       'last_login': instance.lastLogin,
       'date_joined': instance.dateJoined,
-      'usercountdata':
-          const UserCountEntityConverter().toJson(instance.usercountdata),
     };

@@ -4,8 +4,8 @@ import 'package:json_annotation/json_annotation.dart';
 part 'user_count.g.dart';
 
 @JsonSerializable()
-class UserCountModel extends UserCountEntity {
-  const UserCountModel({
+class UsercountdataModel extends UsercountdataEntity {
+  const UsercountdataModel({
     required super.id,
     required super.user,
     required super.announcementCount,
@@ -15,5 +15,6 @@ class UserCountModel extends UserCountEntity {
     required super.wishListCount,
   });
 
-  factory UserCountModel.fromJson(Map<String, dynamic> json) => _$UserCountModelFromJson(json);
+  factory UsercountdataModel.fromJson(Map<String, dynamic> json) => _$UsercountdataModelFromJson
+    (json);
 }

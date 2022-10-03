@@ -8,6 +8,8 @@ import 'package:dio/dio.dart';
 
 abstract class ProfileRemoteDataSource {
   Future<ProfileModel> getProfile();
+
+  Future<ProfileModel> editProfile({String? image, String? name, String? surName, int? region});
 }
 
 class ProfileRemoteDataSourceImpl extends ProfileRemoteDataSource {
@@ -16,15 +18,52 @@ class ProfileRemoteDataSourceImpl extends ProfileRemoteDataSource {
   @override
   Future<ProfileModel> getProfile() async {
     try {
-      final response = await dio.get('/users/detail-with-counts/',
-          options: Options(
-            headers: StorageRepository.getString('token').isNotEmpty
-                ? {'Authorization': 'Token ${StorageRepository.getString('token')}'}
-                : {},
-          ));
+      final response = await dio.get(
+        '/users/detail-with-counts/',
+        options:
+            Options(headers: {'Authorization': 'Bearer ${StorageRepository.getString('token')}'}),
+      );
+      print(StorageRepository.getString('token'));
+      print(response.data);
+      print(response.statusCode);
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
         return ProfileModel.fromJson(response.data);
       }
+      throw ServerException(
+          statusCode: response.statusCode ?? 0, errorMessage: response.statusMessage ?? '');
+    } on ServerException {
+      rethrow;
+    } on DioError {
+      throw DioException();
+    } on Exception catch (e) {
+      throw ParsingException(errorMessage: e.toString());
+    }
+  }
+
+  @override
+  Future<ProfileModel> editProfile(
+      {String? image, String? name, String? surName, int? region}) async {
+    final data = <String, dynamic>{};
+    print('first_name: $name');
+
+    try {
+      if (surName != null) {
+        data.putIfAbsent('last_name', () => surName);
+      }
+      if (name != null) {
+        data.putIfAbsent('first_name', () => name);
+      }
+
+      final response = await dio.patch('/users/detail/edit/',
+          data: data,
+          options: Options(
+              headers: {'Authorization': 'Bearer ${StorageRepository.getString('token')}'}));
+      print(response.statusCode);
+      print(response.data);
+      if (response.statusCode! >= 200 && response.statusCode! < 300) {
+        return ProfileModel.fromJson(response.data);
+      }
+
       throw ServerException(
           statusCode: response.statusCode ?? 0, errorMessage: response.statusMessage ?? '');
     } on ServerException {
