@@ -12,6 +12,8 @@ import 'package:auto/features/login/presentation/widgets/login_header_widget.dar
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/profile/presentation/widgets/refresh_button.dart';
 import 'package:auto/features/profile/presentation/widgets/time_counter.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
@@ -62,10 +64,10 @@ class _PasswordRecoveryScreenState extends State<PasswordRecoveryScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const LoginHeader(
-                    title: 'Восстановление пароля',
-                    description:
-                        'Введите код подтверждения из SMS. Код подтверждения отправлено на номер'),
+                LoginHeader(
+                  title: LocaleKeys.recovery_password.tr(),
+                  description: LocaleKeys.enter_password_sms.tr(),
+                ),
                 const SizedBox(
                   height: 12,
                 ),
@@ -127,7 +129,7 @@ class _PasswordRecoveryScreenState extends State<PasswordRecoveryScreen> {
                 ),
                 Row(
                   children: [
-                    Text('Отправить код снова через',
+                    Text(LocaleKeys.send_via_password.tr(),
                         style: Theme.of(context).textTheme.headline6!.copyWith(
                               fontSize: 14,
                             )),
@@ -170,20 +172,22 @@ class _PasswordRecoveryScreenState extends State<PasswordRecoveryScreen> {
                 const Spacer(),
                 WButton(
                   onTap: () {
-                    recoveryBloc.add(RecoveryEvent.verifyCode(
+                    recoveryBloc.add(
+                      RecoveryEvent.verifyCode(
                         VerifyParam(
                             phone: widget.phone,
                             code: passwordRecoveryController.text,
-                            session: sessions), onSuccess: () {
-                      Navigator.pushReplacement(
-                          context,
-                          fade(
+                            session: sessions),
+                        onSuccess: () {
+                          Navigator.pushReplacement(
+                            context,
+                            fade(
                               page: BlocProvider.value(
-                            value: recoveryBloc,
-                            child: NewPasswordScreen(
-                              onSubmit: (password, confirmPassword) {
-                                recoveryBloc
-                                    .add(RecoveryEvent.changePassword(
+                                value: recoveryBloc,
+                                child: NewPasswordScreen(
+                                  onSubmit: (password, confirmPassword) {
+                                    recoveryBloc.add(
+                                      RecoveryEvent.changePassword(
                                         password: password,
                                         onSuccess: () {
                                           context
@@ -191,12 +195,17 @@ class _PasswordRecoveryScreenState extends State<PasswordRecoveryScreen> {
                                               .add(AuthenticationStatusChanged(
                                                   status: AuthenticationStatus
                                                       .authenticated));
-                                        }));
-                              },
+                                        },
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
                             ),
-                          )));
-                    }));
-                    ;
+                          );
+                        },
+                      ),
+                    );
                   },
                   shadow: [
                     BoxShadow(
@@ -211,7 +220,7 @@ class _PasswordRecoveryScreenState extends State<PasswordRecoveryScreen> {
                       : Theme.of(context)
                           .extension<ThemedColors>()!
                           .veryLightGreyToEclipse,
-                  text: 'Продолжить',
+                  text: LocaleKeys.continuee.tr(),
                   border: Border.all(
                     width: 1,
                     color: Theme.of(context)

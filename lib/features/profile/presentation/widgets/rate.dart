@@ -2,6 +2,8 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class Rate extends StatelessWidget {
@@ -21,14 +23,14 @@ class Rate extends StatelessWidget {
               children: [
                 RichText(
                   text: TextSpan(
-                    text: 'Оцените',
+                    text: LocaleKeys.rate.tr(),
                     style: Theme.of(context)
                         .textTheme
                         .headline5!
                         .copyWith(fontSize: 20, fontWeight: FontWeight.w600),
                     children: [
                       TextSpan(
-                          text: '\nнас в App Store',
+                          text: LocaleKeys.rate_us.tr(),
                           style: Theme.of(context)
                               .textTheme
                               .headline1!
@@ -42,7 +44,7 @@ class Rate extends StatelessWidget {
                       const EdgeInsets.symmetric(vertical: 8, horizontal: 46),
                   onTap: () {},
                   child: Text(
-                    'Оценить',
+                    LocaleKeys.rate.tr(),
                     style: Theme.of(context)
                         .textTheme
                         .headline4!

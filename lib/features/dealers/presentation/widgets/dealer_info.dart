@@ -1,6 +1,8 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:yandex_mapkit/yandex_mapkit.dart';
@@ -43,7 +45,7 @@ class SellerInfo extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            dealerType == 'showroom' ? dealerName : 'Информация о продавце',
+            dealerType == 'showroom' ? dealerName : LocaleKeys.about_dealer.tr(),
             style: const TextStyle(
                 color: orange, fontSize: 16, fontWeight: FontWeight.w600),
           ),
@@ -56,7 +58,7 @@ class SellerInfo extends StatelessWidget {
               height: 16,
             ),
           },
-          Info(text: 'Каждый день, $workingHours', icon: AppIcons.clock),
+          Info(text: LocaleKeys.every_day.tr() + ' $workingHours', icon: AppIcons.clock),
           const SizedBox(height: 20),
           Container(
               decoration: BoxDecoration(

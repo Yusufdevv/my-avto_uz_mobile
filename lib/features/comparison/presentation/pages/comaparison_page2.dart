@@ -6,12 +6,15 @@ import 'package:auto/features/comparison/domain/entities/complectation_model.dar
 import 'package:auto/features/comparison/domain/entities/complectation_parameters_model.dart';
 import 'package:auto/features/comparison/presentation/widgets/main_parameters_widget.dart';
 import 'package:auto/features/comparison/presentation/widgets/sliver_delegate.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:linked_scroll_controller/linked_scroll_controller.dart';
 
 class ComparisonPage2 extends StatefulWidget {
   final int numberOfAddedCars;
+
   const ComparisonPage2({Key? key, required this.numberOfAddedCars})
       : super(key: key);
 
@@ -31,50 +34,93 @@ class _ComparisonPage2State extends State<ComparisonPage2> {
   late List<ScrollController> scrollControllers;
   List<Characteristics> characteristicsParameters = [
     Characteristics(
-      parameterName: 'Основные',
+      parameterName: LocaleKeys.mains.tr(),
       id: 0,
       comparisonParameters: [
-        CharacteristicsParameters(comparisonParameters: 'Год выпуска'),
-        CharacteristicsParameters(comparisonParameters: 'Пробег'),
         CharacteristicsParameters(
-            comparisonParameters: 'Сколько было владельцев?'),
-        CharacteristicsParameters(comparisonParameters: 'Состояние'),
-        CharacteristicsParameters(comparisonParameters: 'Цвет'),
-        CharacteristicsParameters(comparisonParameters: 'Разгон до 100 км/ч'),
-        CharacteristicsParameters(comparisonParameters: 'Объем багажника'),
-        CharacteristicsParameters(comparisonParameters: 'Класс автомобиля'),
-        CharacteristicsParameters(comparisonParameters: 'Тип кузова')
+          comparisonParameters: LocaleKeys.year_of_issue.tr(),
+        ),
+        CharacteristicsParameters(
+          comparisonParameters: LocaleKeys.Mileage.tr(),
+        ),
+        CharacteristicsParameters(
+          comparisonParameters: LocaleKeys.How_many_owners.tr(),
+        ),
+        CharacteristicsParameters(
+          comparisonParameters: LocaleKeys.state.tr(),
+        ),
+        CharacteristicsParameters(
+          comparisonParameters: LocaleKeys.color.tr(),
+        ),
+        CharacteristicsParameters(
+          comparisonParameters: LocaleKeys.Acceleration_to_100_kmh.tr(),
+        ),
+        CharacteristicsParameters(
+          comparisonParameters: LocaleKeys.trunk_volume.tr(),
+        ),
+        CharacteristicsParameters(
+          comparisonParameters: LocaleKeys.auto_class.tr(),
+        ),
+        CharacteristicsParameters(
+          comparisonParameters: LocaleKeys.body_type.tr(),
+        )
       ],
     ),
-    Characteristics(parameterName: 'Размеры', id: 1, comparisonParameters: [
-      CharacteristicsParameters(comparisonParameters: 'Год выпуска'),
-      CharacteristicsParameters(comparisonParameters: 'Пробег'),
-      CharacteristicsParameters(
-          comparisonParameters: 'Сколько было владельцев?'),
-    ]),
     Characteristics(
-        parameterName: 'Объем и масса', id: 2, comparisonParameters: []),
+        parameterName: LocaleKeys.size.tr(),
+        id: 1,
+        comparisonParameters: [
+          CharacteristicsParameters(
+            comparisonParameters: LocaleKeys.year_of_issue.tr(),
+          ),
+          CharacteristicsParameters(
+            comparisonParameters: LocaleKeys.Mileage.tr(),
+          ),
+          CharacteristicsParameters(
+            comparisonParameters: LocaleKeys.How_many_owners.tr(),
+          ),
+        ]),
     Characteristics(
-        parameterName: 'Двигатель', id: 3, comparisonParameters: []),
+        parameterName: LocaleKeys.volume_and_masses.tr(),
+        id: 2,
+        comparisonParameters: []),
     Characteristics(
-        parameterName: 'Подвески и тормоза', id: 4, comparisonParameters: []),
-    Characteristics(parameterName: 'Прочее', id: 5, comparisonParameters: []),
+        parameterName: LocaleKeys.motor.tr(), id: 3, comparisonParameters: []),
+    Characteristics(
+        parameterName: LocaleKeys.suspensions_and_brakes.tr(),
+        id: 4,
+        comparisonParameters: []),
+    Characteristics(
+        parameterName: LocaleKeys.others.tr(), id: 5, comparisonParameters: []),
   ];
   List<Complectation> complectationParameters = [
     Complectation(
-        parameterName: 'Элементы экстерьера',
+        parameterName: LocaleKeys.exterier_elements.tr(),
         id: 0,
         complectationParameters: [
-          ComplectationParameters(comparisonParameters: 'Рейлинги на крыше'),
-          ComplectationParameters(comparisonParameters: 'Аэрография')
+          ComplectationParameters(
+            comparisonParameters: LocaleKeys.roof_relief.tr(),
+          ),
+          ComplectationParameters(
+            comparisonParameters: LocaleKeys.aerography.tr(),
+          )
         ]),
-    Complectation(parameterName: 'Обзор', id: 1, complectationParameters: []),
     Complectation(
-        parameterName: 'Безопасность', id: 2, complectationParameters: []),
+        parameterName: LocaleKeys.view.tr(),
+        id: 1,
+        complectationParameters: []),
     Complectation(
-        parameterName: 'Мультимедиа', id: 3, complectationParameters: []),
+        parameterName: LocaleKeys.security.tr(),
+        id: 2,
+        complectationParameters: []),
     Complectation(
-        parameterName: 'Защита от угона', id: 10, complectationParameters: [])
+        parameterName: LocaleKeys.multimedia.tr(),
+        id: 3,
+        complectationParameters: []),
+    Complectation(
+        parameterName: LocaleKeys.theft_protection.tr(),
+        id: 10,
+        complectationParameters: [])
   ];
 
   @override
@@ -116,7 +162,7 @@ class _ComparisonPage2State extends State<ComparisonPage2> {
               child: SvgPicture.asset(AppIcons.chevronLeft)),
         ),
         elevation: 0,
-        title: const Text('Сарвнение автомобилей'),
+        title: Text(LocaleKeys.car_comparison.tr()),
         centerTitle: true,
         titleTextStyle: Theme.of(context)
             .textTheme
@@ -154,7 +200,7 @@ class _ComparisonPage2State extends State<ComparisonPage2> {
                     Padding(
                       padding: const EdgeInsets.only(top: 12, left: 16),
                       child: Text(
-                        'Характеристики',
+                        LocaleKeys.characteristic.tr(),
                         style: Theme.of(context)
                             .textTheme
                             .headline1!
@@ -193,7 +239,7 @@ class _ComparisonPage2State extends State<ComparisonPage2> {
                     Padding(
                       padding: const EdgeInsets.only(top: 12, left: 16),
                       child: Text(
-                        'Комплектация',
+                        LocaleKeys.complectation.tr(),
                         style: Theme.of(context)
                             .textTheme
                             .headline1!

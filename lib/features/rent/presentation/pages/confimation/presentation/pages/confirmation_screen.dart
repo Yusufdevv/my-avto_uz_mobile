@@ -9,6 +9,8 @@ import 'package:auto/features/rent/presentation/pages/confimation/presentation/w
 import 'package:auto/features/rent/presentation/pages/confimation/presentation/widgets/requirement_item.dart';
 import 'package:auto/features/rent/presentation/pages/registration_lease/presentation/pages/registration_lease.dart';
 import 'package:auto/features/rent/presentation/pages/rent_single/widgets/car_single_preview.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class ConfirmationScreen extends StatefulWidget {
@@ -21,8 +23,8 @@ class ConfirmationScreen extends StatefulWidget {
 class _ConfirmationScreenState extends State<ConfirmationScreen> {
   @override
   Widget build(BuildContext context) => Scaffold(
-        appBar: const WAppBar(
-          title: 'Подтверждение',
+        appBar: WAppBar(
+          title: LocaleKeys.confirmation.tr(),
           centerTitle: false,
         ),
         body: SingleChildScrollView(
@@ -48,7 +50,7 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
               context, fade(page: const RegistrationLeaseScreen())),
           margin: EdgeInsets.fromLTRB(
               16, 0, 16, MediaQuery.of(context).padding.bottom + 16),
-          text: 'Оформить заказ',
+          text: LocaleKeys.form_order.tr(),
           shadow: [
             BoxShadow(
                 offset: const Offset(0, 4),

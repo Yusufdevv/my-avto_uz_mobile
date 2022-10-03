@@ -2,7 +2,6 @@ import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_icons.dart';
 import 'package:auto/features/common/domain/entity/car_brand_entity.dart';
-import 'package:auto/features/common/widgets/car_brand_item.dart';
 import 'package:auto/features/main/domain/entities/ads_entity.dart';
 import 'package:auto/features/main/domain/entities/service_entity.dart';
 import 'package:auto/features/main/domain/usecases/get_top_ads.dart';
@@ -11,7 +10,6 @@ import 'package:auto/features/main/presentation/bloc/top_ad/top_ad_bloc.dart';
 import 'package:auto/features/main/presentation/bloc/top_brand/top_brand_bloc.dart';
 import 'package:auto/features/main/presentation/parts/top_ads.dart';
 import 'package:auto/features/main/presentation/parts/top_brands.dart';
-import 'package:auto/features/main/presentation/widgets/ads_item.dart';
 import 'package:auto/features/main/presentation/widgets/car_model_item.dart';
 import 'package:auto/features/main/presentation/widgets/deal_button.dart';
 import 'package:auto/features/main/presentation/widgets/favourite_item.dart';
@@ -22,6 +20,8 @@ import 'package:auto/features/main/presentation/widgets/yandex_map.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/rent/presentation/rent_screen.dart';
 import 'package:auto/features/search/presentation/pages/commercial_screen.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -181,7 +181,7 @@ class _MainScreenState extends State<MainScreen> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: Text(
-                    'Избраннные',
+                    LocaleKeys.favorites.tr(),
                     style: Theme.of(context)
                         .textTheme
                         .headline1!

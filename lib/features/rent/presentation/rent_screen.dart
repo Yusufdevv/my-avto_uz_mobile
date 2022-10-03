@@ -3,10 +3,11 @@ import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
-import 'package:auto/features/main/presentation/main_screen.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/rent/presentation/pages/cars/pages/cars_screen.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/pages/rent_filter_screen.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -27,7 +28,6 @@ class _RentScreenState extends State<RentScreen>
     super.initState();
   }
 
-
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: PreferredSize(
@@ -36,12 +36,13 @@ class _RentScreenState extends State<RentScreen>
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               WAppBar(
-                title: 'Аренда авто',
+                title: LocaleKeys.auto_rent.tr(),
                 extraActions: [
                   Padding(
                     padding: const EdgeInsets.only(right: 12),
                     child: WScaleAnimation(
-                        onTap: () => Navigator.push(context, fade(page: const RentFilterScreen())),
+                        onTap: () => Navigator.push(
+                            context, fade(page: const RentFilterScreen())),
                         child: SvgPicture.asset(AppIcons.rentFilter)),
                   )
                 ],
@@ -96,9 +97,13 @@ class _RentScreenState extends State<RentScreen>
                         .blackToWhite,
                     unselectedLabelStyle: const TextStyle(
                         fontWeight: FontWeight.w500, fontSize: 15),
-                    tabs: const [
-                      Tab(text: 'Легковые'),
-                      Tab(text: 'Коммерческие'),
+                    tabs: [
+                      Tab(
+                        text: LocaleKeys.passenger_cars.tr(),
+                      ),
+                      Tab(
+                        text: LocaleKeys.commercial.tr(),
+                      ),
                     ],
                   ),
                 ),
@@ -108,7 +113,7 @@ class _RentScreenState extends State<RentScreen>
         ),
         body: TabBarView(
           controller: tabController,
-          children:const [
+          children: const [
             CarsScreen(),
             CarsScreen(),
           ],

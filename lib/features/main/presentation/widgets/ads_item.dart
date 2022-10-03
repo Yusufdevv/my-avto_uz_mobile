@@ -110,7 +110,7 @@ class AdsItem extends StatelessWidget {
                         const SizedBox(width: 12),
                         SvgPicture.asset(AppIcons.scale),
                       ],
-                    )
+                    ),
                   ],
                 ),
               )

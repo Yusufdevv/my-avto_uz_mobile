@@ -127,7 +127,7 @@ class _DamageScreenState extends State<DamageScreen>
               ),
               const SituationTitleItem(
                 title: 'Багажник',
-                situation: 'Идеальное',
+                situation: 'Идеальное.',
               ),
             ],
           ),

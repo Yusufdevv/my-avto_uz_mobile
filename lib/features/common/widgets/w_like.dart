@@ -24,26 +24,26 @@ class _WLikeState extends State<WLike> {
 
   @override
   Widget build(BuildContext context) => GestureDetector(
-    onTap: () {
-      setState(() {
-        isLiked = !isLiked;
-      });
-    },
-    child: AnimatedSwitcher(
-      duration: const Duration(milliseconds: 300),
-      transitionBuilder: (child, animation) => ScaleTransition(
-        scale: animation,
-        child: child,
-      ),
-      child: isLiked
-          ? SvgPicture.asset(
-        AppIcons.enabledHeart,
-        key: const ValueKey<int>(1),
-      )
-          : SvgPicture.asset(
-        AppIcons.heart,
-        key: const ValueKey<int>(2),
-      ),
-    ),
-  );
+        onTap: () {
+          setState(() {
+            isLiked = !isLiked;
+          });
+        },
+        child: AnimatedSwitcher(
+          duration: const Duration(milliseconds: 300),
+          transitionBuilder: (child, animation) => ScaleTransition(
+            scale: animation,
+            child: child,
+          ),
+          child: isLiked
+              ? SvgPicture.asset(
+                  AppIcons.enabledHeart,
+                  key: const ValueKey<int>(1),
+                )
+              : SvgPicture.asset(
+                  AppIcons.heart,
+                  key: const ValueKey<int>(2),
+                ),
+        ),
+      );
 }

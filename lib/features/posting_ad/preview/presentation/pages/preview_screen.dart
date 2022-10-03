@@ -50,7 +50,7 @@ class PreviewScreen extends StatelessWidget {
 
                   Navigator.push(context, fade(page: const MyAdScreen()));
                 },
-                text: 'Разместить бесплатно на 7 дней',
+                text: 'Разместить бесплатно на 7 дней....',
                 shadow: [
                   BoxShadow(
                       offset: const Offset(0, 4),

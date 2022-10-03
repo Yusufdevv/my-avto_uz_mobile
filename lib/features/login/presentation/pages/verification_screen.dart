@@ -10,6 +10,8 @@ import 'package:auto/features/login/presentation/widgets/login_header_widget.dar
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/profile/presentation/widgets/refresh_button.dart';
 import 'package:auto/features/profile/presentation/widgets/time_counter.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -55,10 +57,10 @@ class _VerificationScreenState extends State<VerificationScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const LoginHeader(
-                    title: 'Подтверждение номера',
-                    description:
-                        'Введите код подтверждения из SMS. Код подтверждения отправлено на номер'),
+                LoginHeader(
+                  title: LocaleKeys.confim_number.tr(),
+                  description: LocaleKeys.enter_password_sms.tr(),
+                ),
                 const SizedBox(
                   height: 12,
                 ),
@@ -137,7 +139,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
                 ),
                 Row(
                   children: [
-                    Text('Отправить код снова через',
+                    Text(LocaleKeys.send_password_again.tr(),
                         style: Theme.of(context).textTheme.headline6!.copyWith(
                               fontSize: 14,
                             )),
@@ -203,7 +205,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
                       : Theme.of(context)
                           .extension<ThemedColors>()!
                           .veryLightGreyToEclipse,
-                  text: 'Продолжить',
+                  text: LocaleKeys.continuee.tr(),
                   shadow: [
                     BoxShadow(
                         offset: const Offset(0, 4),

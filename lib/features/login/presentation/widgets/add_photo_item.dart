@@ -4,6 +4,8 @@ import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/w_bottom_sheet.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/login/presentation/bloc/register/register_bloc.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
@@ -103,7 +105,7 @@ class _AddPhotoItemState extends State<AddPhotoItem> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
-            'Фото',
+           LocaleKeys.photo.tr(),
             style: Theme.of(context)
                 .textTheme
                 .headline1!
@@ -148,7 +150,7 @@ class _AddPhotoItemState extends State<AddPhotoItem> {
                       borderRadius: 4,
                       height: 24,
                       padding: const EdgeInsets.symmetric(horizontal: 12),
-                      text: 'Добавить фото',
+                      text: LocaleKeys.add_photo.tr(),
                       textColor: grey,
                       color: Theme.of(context)
                           .extension<ThemedColors>()!
@@ -165,10 +167,10 @@ class _AddPhotoItemState extends State<AddPhotoItem> {
                   color: Theme.of(context)
                       .extension<ThemedColors>()!
                       .solitudeToWhite35,
-                )
+                ),
               ],
             ),
-          )
+          ),
         ],
       );
 }

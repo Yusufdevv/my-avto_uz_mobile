@@ -27,7 +27,7 @@ class _PtsScreenState extends State<PtsScreen> {
   String ownerId = '';
   final List<String> documentList = [
     'Оригинал / Электронный ПТС',
-    'Дубликат',
+    'Дубликат..',
   ];
 
   final List<String> ownerList = [

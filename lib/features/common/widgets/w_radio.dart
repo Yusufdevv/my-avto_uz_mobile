@@ -21,39 +21,39 @@ class WRadio extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => GestureDetector(
-    behavior: HitTestBehavior.opaque,
-    onTap: () {
-      onChanged(value);
-    },
-    child: Stack(
-      alignment: Alignment.center,
-      children: [
-        AnimatedContainer(
-          duration: const Duration(milliseconds: 150),
-          height: 20,
-          width: 20,
-          decoration: BoxDecoration(
-            border: Border.all(
-              color: value == groupValue ? activeColor :grey,
-              width: borderWidth,
+        behavior: HitTestBehavior.opaque,
+        onTap: () {
+          onChanged(value);
+        },
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            AnimatedContainer(
+              duration: const Duration(milliseconds: 150),
+              height: 20,
+              width: 20,
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: value == groupValue ? activeColor : grey,
+                  width: borderWidth,
+                ),
+                shape: BoxShape.circle,
+                color: Colors.transparent,
+              ),
+              padding: value == groupValue
+                  ? const EdgeInsets.all(3)
+                  : EdgeInsets.zero,
             ),
-            shape: BoxShape.circle,
-            color: Colors.transparent,
-          ),
-          padding: value == groupValue
-              ? const EdgeInsets.all(3)
-              : EdgeInsets.zero,
+            AnimatedContainer(
+              duration: const Duration(milliseconds: 150),
+              height: 13,
+              width: 13,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: value == groupValue ? activeColor : Colors.transparent,
+              ),
+            ),
+          ],
         ),
-        AnimatedContainer(
-          duration: const Duration(milliseconds: 150),
-          height: 13,
-          width: 13,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: value == groupValue ? activeColor : Colors.transparent,
-          ),
-        ),
-      ],
-    ),
-  );
+      );
 }

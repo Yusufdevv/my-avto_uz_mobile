@@ -8,13 +8,17 @@ import 'package:auto/features/dealers/presentation/widgets/dealer_info.dart';
 import 'package:auto/features/dealers/presentation/widgets/dealer_info_sliver_delegate.dart';
 import 'package:auto/features/dealers/presentation/widgets/mark_with_announcement.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class Seller extends StatelessWidget {
   final String dealerType;
   final String dealerName;
+
   Seller({required this.dealerType, required this.dealerName});
+
   List<MarksWithAnnouncementModel> marks = [
     MarksWithAnnouncementModel(imageUrl: '', mark: 'BMW', quantity: 24),
     MarksWithAnnouncementModel(imageUrl: '', mark: 'BMW', quantity: 24),
@@ -23,6 +27,7 @@ class Seller extends StatelessWidget {
     MarksWithAnnouncementModel(imageUrl: '', mark: 'BMW', quantity: 24),
     MarksWithAnnouncementModel(imageUrl: '', mark: 'BMW', quantity: 24),
   ];
+
   @override
   Widget build(BuildContext context) => Scaffold(
         body: NestedScrollView(
@@ -54,9 +59,9 @@ class Seller extends StatelessWidget {
                     padding: const EdgeInsets.only(top: 16, bottom: 12),
                     child: Row(
                       children: [
-                        const Expanded(
-                            child: Text('Все марки с объявлениями',
-                                style: TextStyle(
+                        Expanded(
+                            child: Text(LocaleKeys.all_brands_with_ads.tr(),
+                                style: const TextStyle(
                                     color: orange,
                                     fontSize: 16,
                                     fontWeight: FontWeight.w600))),
@@ -70,9 +75,9 @@ class Seller extends StatelessWidget {
                           },
                           child: Row(
                             children: [
-                              const Text(
-                                'все',
-                                style: TextStyle(
+                              Text(
+                                LocaleKeys.all.tr(),
+                                style: const TextStyle(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w400,
                                     color: greyText),
@@ -93,12 +98,13 @@ class Seller extends StatelessWidget {
                     scrollDirection: Axis.horizontal,
                     child: Row(
                       children: List.generate(
-                          marks.length,
-                          (index) => const MarksWithAnnouncements(
-                                quantity: 12,
-                                imageUrl: AppImages.placeHolder,
-                                mark: 'BMW',
-                              )),
+                        marks.length,
+                        (index) => const MarksWithAnnouncements(
+                          quantity: 12,
+                          imageUrl: AppImages.placeHolder,
+                          mark: 'BMW',
+                        ),
+                      ),
                     ),
                   ),
                 },
@@ -116,9 +122,9 @@ class Seller extends StatelessWidget {
                         onTap: () {},
                         child: Row(
                           children: [
-                            const Text(
-                              'все',
-                              style: TextStyle(
+                            Text(
+                              LocaleKeys.all.tr(),
+                              style: const TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w400,
                                   color: greyText),

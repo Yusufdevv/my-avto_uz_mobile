@@ -1,7 +1,8 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/features/car_single/presentation/parts/price_indicator.dart';
-import 'package:auto/features/common/widgets/w_button.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -68,7 +69,7 @@ class CarPriceBottom extends StatelessWidget {
               height: 28,
             ),
             Text(
-              'Средняя цена похожих автомобилей',
+              LocaleKeys.price_of_similar_cars.tr(),
               style: Theme.of(context).textTheme.headline2!.copyWith(
                   fontWeight: FontWeight.w400, fontSize: 14, color: grey),
             ),
@@ -79,13 +80,13 @@ class CarPriceBottom extends StatelessWidget {
                   .headline2!
                   .copyWith(fontWeight: FontWeight.w400, fontSize: 14),
             ),
-            SizedBox(
+            const SizedBox(
               height: 16,
             ),
-            Divider(
+            const Divider(
               color: strokeDark,
             ),
-            SizedBox(
+            const SizedBox(
               height: 12,
             ),
             Text(

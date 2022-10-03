@@ -7,19 +7,24 @@ import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/profile/presentation/pages/new_password.dart';
 import 'package:auto/features/profile/presentation/pages/password_changing_screen.dart';
 import 'package:auto/features/profile/presentation/widgets/language_bottom_sheet.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class SettingsScreen extends StatelessWidget {
   SettingsScreen({Key? key}) : super(key: key);
   final edit = <List<String>>[
-    ['Смена пароля', 'Язык']
+    [
+      LocaleKeys.change_password.tr(),
+      LocaleKeys.language.tr(),
+    ]
   ];
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        appBar: const WAppBar(
-          textWithButton: 'Настройки',
+        appBar: WAppBar(
+          textWithButton: LocaleKeys.settings.tr(),
         ),
         body: Container(
           margin: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
@@ -53,7 +58,7 @@ class SettingsScreen extends StatelessWidget {
                       Row(
                         children: [
                           Text(
-                            'Смена пароля',
+                            LocaleKeys.change_password.tr(),
                             style: Theme.of(context)
                                 .textTheme
                                 .headline1!
@@ -103,7 +108,7 @@ class SettingsScreen extends StatelessWidget {
                       Row(
                         children: [
                           Text(
-                            'Язык',
+                            LocaleKeys.language.tr(),
                             style: Theme.of(context)
                                 .textTheme
                                 .headline1!
@@ -121,7 +126,7 @@ class SettingsScreen extends StatelessWidget {
                             color: Theme.of(context)
                                 .extension<ThemedColors>()!
                                 .darkGreyToWhite,
-                          )
+                          ),
                         ],
                       ),
                     ],

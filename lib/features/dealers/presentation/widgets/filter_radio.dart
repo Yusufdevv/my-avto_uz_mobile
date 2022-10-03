@@ -1,26 +1,30 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/dealers/presentation/pages/dealers_filter.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class FilterRadio extends StatelessWidget {
   final Category value;
   final ValueChanged<Category> onChanged;
   final Category currentValue;
+
   const FilterRadio(
       {required this.value,
       required this.onChanged,
       required this.currentValue,
       Key? key})
       : super(key: key);
+
   String getCategory(Category category) {
     switch (category) {
       case Category.all:
-        return 'Все';
+        return LocaleKeys.all.tr();
       case Category.news:
-        return 'Новые';
+        return LocaleKeys.news.tr();
       case Category.withMileage:
-        return 'С пробегом';
+        return LocaleKeys.with_Mileage.tr();
     }
   }
 

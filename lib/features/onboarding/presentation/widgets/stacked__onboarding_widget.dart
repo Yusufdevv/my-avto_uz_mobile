@@ -1,6 +1,8 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/images.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:sensors_plus/sensors_plus.dart';
@@ -61,7 +63,7 @@ class StackedOnBoardingWidget extends StatelessWidget {
                           width: 8,
                         ),
                         Text(
-                          'Возможность брать\nмашину в аренду',
+                          LocaleKeys.possibility_to_rent.tr(),
                           style: Theme.of(context)
                               .textTheme
                               .headline6!
@@ -96,8 +98,8 @@ class StackedOnBoardingWidget extends StatelessWidget {
                   left: 60,
                   child: Container(
                     width: 140,
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 10, vertical: 8),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
                     decoration: BoxDecoration(
                       color: jadeGreen,
                       borderRadius: BorderRadius.circular(24),
@@ -128,7 +130,7 @@ class StackedOnBoardingWidget extends StatelessWidget {
                           width: 8,
                         ),
                         Text(
-                          'Легкая  продажа авто',
+                          LocaleKeys.easy_send.tr(),
                           style: Theme.of(context)
                               .textTheme
                               .headline6!
@@ -155,8 +157,7 @@ class StackedOnBoardingWidget extends StatelessWidget {
                   decoration: const BoxDecoration(
                       shape: BoxShape.circle,
                       image: DecorationImage(
-                          image: AssetImage(AppImages.bmw),
-                          fit: BoxFit.cover)),
+                          image: AssetImage(AppImages.bmw), fit: BoxFit.cover)),
                 ),
                 Positioned(
                   top: 8,
@@ -194,7 +195,7 @@ class StackedOnBoardingWidget extends StatelessWidget {
                           width: 8,
                         ),
                         Text(
-                          'Легкая  покупка авто',
+                          LocaleKeys.easy_buying.tr(),
                           style: Theme.of(context)
                               .textTheme
                               .headline6!
@@ -242,15 +243,9 @@ class StackedOnBoardingWidget extends StatelessWidget {
                     width: 13,
                     decoration: const BoxDecoration(
                         shape: BoxShape.circle,
-                        gradient: LinearGradient(
-                            colors: [
-                              purpleHeart,
-                              indigo
-                            ]
-                        )
-                    ),
-                  )
-              );
+                        gradient:
+                            LinearGradient(colors: [purpleHeart, indigo])),
+                  ));
             },
           ),
         ),
@@ -273,9 +268,9 @@ class StackedOnBoardingWidget extends StatelessWidget {
         ),
         Positioned(
           left: 0,
-          top: height +233,
+          top: height + 233,
           child: SvgPicture.asset(AppIcons.polygon),
-        )
+        ),
       ],
     );
   }

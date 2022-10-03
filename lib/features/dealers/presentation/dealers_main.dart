@@ -8,6 +8,8 @@ import 'package:auto/features/dealers/presentation/pages/dealers_list.dart';
 import 'package:auto/features/dealers/presentation/pages/dealers_map.dart';
 import 'package:auto/features/dealers/presentation/widgets/segmented_control.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -21,6 +23,7 @@ class DealerScreen extends StatefulWidget {
 class _DealerScreenState extends State<DealerScreen>
     with TickerProviderStateMixin {
   late PageController _pageController;
+
   @override
   void initState() {
     _pageController = PageController();
@@ -54,7 +57,7 @@ class _DealerScreenState extends State<DealerScreen>
                         fillColor: Theme.of(context)
                             .extension<ThemedColors>()!
                             .whiteSmokeToNightRider,
-                        hintText: 'Марка, Модель',
+                        hintText: LocaleKeys.model_brand.tr(),
                         hintTextStyle: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w400,
@@ -99,7 +102,7 @@ class _DealerScreenState extends State<DealerScreen>
                     const YandexKarta(),
                   ],
                 ),
-              )
+              ),
             ],
           ),
         ),

@@ -3,7 +3,8 @@ import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/profile/presentation/pages/new_password.dart';
-import 'package:auto/features/profile/presentation/pages/settings_screen.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class PasswordChangingScreen extends StatelessWidget {
@@ -11,16 +12,16 @@ class PasswordChangingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        appBar: const WAppBar(
-          textWithButton: 'Настройки',
+        appBar: WAppBar(
+          textWithButton: LocaleKeys.settings.tr(),
         ),
         body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16,vertical: 36),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 36),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Смена пароля',
+                LocaleKeys.change_password.tr(),
                 style: Theme.of(context)
                     .textTheme
                     .headline1!
@@ -28,7 +29,7 @@ class PasswordChangingScreen extends StatelessWidget {
               ),
               const SizedBox(height: 4),
               Text(
-                'Чтобы сменить пароль, потребуется ввести текущий пароль или код из SMS',
+                LocaleKeys.need_code_from_sms.tr(),
                 style: Theme.of(context).textTheme.headline2,
               ),
               Container(
@@ -40,7 +41,8 @@ class PasswordChangingScreen extends StatelessWidget {
           ),
         ),
         bottomNavigationBar: WButton(
-          margin:  EdgeInsets.fromLTRB(16, 20, 16, 15+MediaQuery.of(context).padding.bottom),
+          margin: EdgeInsets.fromLTRB(
+              16, 20, 16, 15 + MediaQuery.of(context).padding.bottom),
           onTap: () {
             Navigator.of(context).push(
               fade(
@@ -49,9 +51,9 @@ class PasswordChangingScreen extends StatelessWidget {
             );
           },
           //
-          child: const Text('Сменить пароль'),
+          child: Text(
+            LocaleKeys.change_password.tr(),
+          ),
         ),
       );
 }
-
-//

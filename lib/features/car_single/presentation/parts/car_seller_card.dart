@@ -2,6 +2,8 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -16,7 +18,7 @@ class CarSellerCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Продавец авто',
+              LocaleKeys.auto_seller.tr(),
               style: Theme.of(context)
                   .textTheme
                   .headline1!
@@ -54,7 +56,7 @@ class CarSellerCard extends StatelessWidget {
                       height: 2,
                     ),
                     Text(
-                      'Частное лицо',
+                      LocaleKeys.private_person.tr(),
                       style: Theme.of(context).textTheme.headline2!.copyWith(
                           fontWeight: FontWeight.w600,
                           fontSize: 16,
@@ -79,7 +81,7 @@ class CarSellerCard extends StatelessWidget {
                     child: Row(
                       children: [
                         Text(
-                          'Участие в ДТП:',
+                          LocaleKeys.participation_in_accident.tr(),
                           style: Theme.of(context)
                               .textTheme
                               .headline1!
@@ -106,7 +108,7 @@ class CarSellerCard extends StatelessWidget {
                                 width: 4,
                               ),
                               Text(
-                                'Не обнаружено',
+                                LocaleKeys.not_found.tr(),
                                 style: Theme.of(context)
                                     .textTheme
                                     .headline1!

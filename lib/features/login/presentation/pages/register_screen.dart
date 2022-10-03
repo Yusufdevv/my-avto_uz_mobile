@@ -11,6 +11,8 @@ import 'package:auto/features/login/presentation/pages/verification_screen.dart'
 import 'package:auto/features/login/presentation/widgets/login_header_widget.dart';
 import 'package:auto/features/login/presentation/widgets/z_text_form_field.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
@@ -50,17 +52,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
   Widget build(BuildContext context) => BlocProvider.value(
         value: registerBloc,
         child: Scaffold(
-          appBar: const WAppBar(
-            title: 'Регистрация',
+          appBar: WAppBar(
+            title: LocaleKeys.register.tr(),
           ),
           body: Padding(
             padding: const EdgeInsets.all(16),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const LoginHeader(
-                  title: 'Номер телефона',
-                  description: 'Мы проверим ваш номер телефона в системе',
+                LoginHeader(
+                  title: LocaleKeys.tel_number.tr(),
+                  description: LocaleKeys.check_number.tr(),
                 ),
                 const SizedBox(
                   height: 12,
@@ -100,11 +102,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         Navigator.push(
                             context,
                             fade(
-                                page: BlocProvider.value(value: registerBloc,
-                                  child: VerificationScreen(session: session,
-                                      phone: phoneController.text
-                                          .replaceAll('+998', '')),
-                                )));
+                                page: BlocProvider.value(
+                              value: registerBloc,
+                              child: VerificationScreen(
+                                  session: session,
+                                  phone: phoneController.text
+                                      .replaceAll('+998', '')),
+                            )));
                       }));
                     } else {}
                   },
@@ -121,7 +125,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       : Theme.of(context)
                           .extension<ThemedColors>()!
                           .veryLightGreyToEclipse,
-                  text: 'Продолжить',
+                  text: LocaleKeys.continuee.tr(),
                   border: Border.all(
                     width: 1,
                     color: Theme.of(context)

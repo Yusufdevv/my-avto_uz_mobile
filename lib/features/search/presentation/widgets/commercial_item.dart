@@ -9,6 +9,8 @@ import 'package:auto/features/search/domain/entities/commercial_item_entity.dart
 import 'package:auto/features/search/presentation/pages/parameter_screen.dart';
 import 'package:auto/features/search/presentation/pages/select_car.dart';
 import 'package:auto/features/search/presentation/widgets/all_commertial_item.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -71,9 +73,9 @@ class _CommercialItemState extends State<CommercialItem>
                       child: SvgPicture.asset(AppIcons.chevronLeft),
                     ),
                   ),
-                  const SizedBox(width: 8),
+                   SizedBox(width: 8),
                   Text(
-                    'Лёгкий коммерческий транспорт',
+                    LocaleKeys.light_commercial_vehicles.tr(),
                     style: Theme.of(context)
                         .textTheme
                         .headline1
@@ -94,10 +96,10 @@ class _CommercialItemState extends State<CommercialItem>
               delegate: ProfileTabBar(
                 tabController: tabController,
                 onTap: (index) {},
-                tabs: const [
-                  'Все',
-                  'Новые',
-                  'С пробегом',
+                tabs: [
+                  LocaleKeys.all.tr(),
+                  LocaleKeys.news.tr(),
+                  LocaleKeys.with_Mileage.tr(),
                 ],
               ),
             )
@@ -165,7 +167,7 @@ class _CommercialItemState extends State<CommercialItem>
                                     SvgPicture.asset(AppIcons.parameter),
                                     const SizedBox(width: 8),
                                     Text(
-                                      'Параметры',
+                                      LocaleKeys.settings.tr(),
                                       style: Theme.of(context)
                                           .textTheme
                                           .subtitle1!
@@ -256,7 +258,7 @@ class _CommercialItemState extends State<CommercialItem>
                         ),
                         padding: const EdgeInsets.symmetric(
                             horizontal: 32, vertical: 11),
-                        child: Text('Загрузить еще',
+                        child: Text(LocaleKeys.load_more.tr(),
                             style: Theme.of(context)
                                 .textTheme
                                 .subtitle1!

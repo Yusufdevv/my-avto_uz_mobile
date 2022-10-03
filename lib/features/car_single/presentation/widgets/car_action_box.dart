@@ -1,5 +1,4 @@
 import 'package:auto/assets/colors/color.dart';
-import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/features/car_single/domain/entities/car_statistic.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';

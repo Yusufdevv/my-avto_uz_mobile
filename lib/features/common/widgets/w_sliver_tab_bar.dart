@@ -1,5 +1,7 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/features/common/widgets/sliver_tabbar_delegate.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class WSliverTabBar extends StatelessWidget {
@@ -14,7 +16,7 @@ class WSliverTabBar extends StatelessWidget {
   final String centerText;
   final String rightText;
 
-  const WSliverTabBar({
+   const WSliverTabBar({
     this.padding,
     this.backgroundColor,
     this.tabBarMargin,
@@ -23,9 +25,9 @@ class WSliverTabBar extends StatelessWidget {
     required this.tabs,
     this.onTap,
     Key? key,
-    this.leftText = 'Все',
-    this.centerText = 'Действующие',
-    this.rightText = 'Закрытые',
+    this.leftText = 'LocaleKeys.all',
+    this.centerText = 'LocaleKeys.using',
+    this.rightText = 'LocaleKeys.close',
   }) : super(key: key);
 
   @override

@@ -3,6 +3,8 @@ import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/common/widgets/w_textfield.dart';
 import 'package:auto/features/rent/domain/entities/rent_entity.dart';
 import 'package:auto/features/rent/presentation/pages/category_single/widgets/category_single_item.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -59,7 +61,7 @@ class _SingleCategoryScreenState extends State<SingleCategoryScreen> {
               margin: const EdgeInsets.fromLTRB(16, 0, 16, 16),
               borderRadius: 12,
               hasSearch: true,
-              hintText: 'Поиск',
+              hintText: LocaleKeys.search.tr(),
             ),
           ),
         ),

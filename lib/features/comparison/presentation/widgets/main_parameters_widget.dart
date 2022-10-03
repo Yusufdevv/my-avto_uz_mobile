@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
@@ -50,26 +49,37 @@ class CharacteristicsParametersWidget extends StatelessWidget {
                   Expanded(
                     child: AnimatedDefaultTextStyle(
                       style: TextStyle(
-                          color: selectedValue != parameterId
-                              ? Theme.of(context)
-                                  .extension<ThemedColors>()!
-                                  .midnightExpressToWhite
-                              : orange,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600),
-                      duration: const Duration(milliseconds: 100),
-                      child: Text(parameterName),
+                        color: selectedValue != parameterId
+                            ? Theme.of(context)
+                                .extension<ThemedColors>()!
+                                .midnightExpressToWhite
+                            : orange,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                      ),
+                      duration: const Duration(
+                        milliseconds: 100,
+                      ),
+                      child: Text(
+                        parameterName,
+                      ),
                     ),
                   ),
                   TweenAnimationBuilder<double>(
                     tween: Tween<double>(
                         begin: 0, end: selectedValue == parameterId ? pi : 0),
-                    duration: const Duration(milliseconds: 100),
+                    duration: const Duration(
+                      milliseconds: 100,
+                    ),
                     child: SvgPicture.asset(
                       AppIcons.chevronDown,
                       color: selectedValue != parameterId ? warmerGrey : orange,
                     ),
-                    builder: (context, value, child) =>
+                    builder: (
+                      context,
+                      value,
+                      child,
+                    ) =>
                         Transform.rotate(angle: value, child: child!),
                   )
                 ],
@@ -109,14 +119,16 @@ class CharacteristicsParametersWidget extends StatelessWidget {
                                         padding: const EdgeInsets.only(
                                             left: 16, top: 28),
                                         height: 54,
-                                        child: Text('data',
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .headline1!
-                                                .copyWith(
-                                                    fontSize: 14,
-                                                    fontWeight:
-                                                        FontWeight.w600)),
+                                        child: Text(
+                                          'data',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headline1!
+                                              .copyWith(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w600,
+                                              ),
+                                        ),
                                       )
                                     ],
                                   ),
@@ -181,12 +193,12 @@ class CharacteristicsParametersWidget extends StatelessWidget {
                                                     fontSize: 14,
                                                     fontWeight:
                                                         FontWeight.w600)),
-                                      )
+                                      ),
                                     ],
                                   ),
                                 ),
                               ),
-                            )
+                            ),
                           ],
                         ),
                       ),
@@ -212,7 +224,9 @@ class CharacteristicsParametersWidget extends StatelessWidget {
             crossFadeState: selectedValue == parameterId
                 ? CrossFadeState.showFirst
                 : CrossFadeState.showSecond,
-            duration: const Duration(milliseconds: 100),
+            duration: const Duration(
+              milliseconds: 100,
+            ),
             alignment: Alignment.bottomLeft,
           ),
           SizedBox(
@@ -227,7 +241,7 @@ class CharacteristicsParametersWidget extends StatelessWidget {
                   .extension<ThemedColors>()!
                   .solitude2ToNightRider,
             ),
-          )
+          ),
         ],
       );
 }

@@ -4,6 +4,8 @@ import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/car_single/presentation/parts/characteristics/characteristic_table.dart';
 import 'package:auto/features/car_single/presentation/parts/descriptions/equipment.dart';
 import 'package:auto/features/car_single/presentation/parts/descriptions/seller_comment.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -61,12 +63,12 @@ class _DescriptionTabsState extends State<DescriptionTabs>
                       fontWeight: FontWeight.w600,
                     ),
                 labelColor: Theme.of(context).extension<ThemedColors>()!.darkToWhite,
-                tabs: const [
+                tabs:  [
                   Tab(
-                    text: 'Описание',
+                    text: LocaleKeys.description.tr(),
                   ),
                   Tab(
-                    text: 'Характеристика',
+                    text: LocaleKeys.characteristic.tr(),
                   ),
                 ],
               ),
@@ -89,20 +91,20 @@ class _DescriptionTabsState extends State<DescriptionTabs>
                     Theme.of(context).extension<ThemedColors>()!.whiteToNero1,
                 child: Column(
                   children: [
-                    const CharacteristicTable(
+                     CharacteristicTable(
                       titleList: [
-                        'Количество передач',
-                        'Обьем двигателя',
-                        'Мин-ый обьем багажника',
-                        'Привод',
-                        'Тип двигателя',
-                        'Дорожный просвет',
-                        'Разгон до 100 км/ч',
-                        'Мощность двигателя',
-                        'Снаряженная масса',
-                        'Расход топлива на 100 км',
-                        'Коробка передач',
-                        'Тип кузова',
+                        LocaleKeys.gears_number.tr(),
+                        LocaleKeys.engine_volume.tr(),
+                        LocaleKeys.Min_trunk_volume.tr(),
+                        LocaleKeys.Drive_unit.tr(),
+                        LocaleKeys.engine_type.tr(),
+                        LocaleKeys.Ground_clearance.tr(),
+                        LocaleKeys.Acceleration_to_100_kmh.toString(),
+                        LocaleKeys.Engine_power.tr(),
+                        LocaleKeys.Curb_weight.tr(),
+                        LocaleKeys.Fuel_consumption_per_100_km.tr(),
+                        LocaleKeys.Transmission.tr(),
+                        LocaleKeys.body_type.tr(),
                       ],
                       list: [
                         '7',
@@ -120,20 +122,20 @@ class _DescriptionTabsState extends State<DescriptionTabs>
                       ],
                       title: 'Характеристики автомобиля',
                     ),
-                    const CharacteristicTable(
+                     CharacteristicTable(
                       titleList: [
-                        'Количество передач',
-                        'Обьем двигателя',
-                        'Мин-ый обьем багажника',
-                        'Привод',
-                        'Тип двигателя',
-                        'Дорожный просвет',
-                        'Разгон до 100 км/ч',
-                        'Мощность двигателя',
-                        'Снаряженная масса',
-                        'Расход топлива на 100 км',
-                        'Коробка передач',
-                        'Тип кузова',
+                        LocaleKeys.gears_number.tr(),
+                        LocaleKeys.engine_volume.tr(),
+                        LocaleKeys.Min_trunk_volume.tr(),
+                        LocaleKeys.Drive_unit.tr(),
+                        LocaleKeys.engine_type.tr(),
+                        LocaleKeys.Ground_clearance.tr(),
+                        LocaleKeys.Acceleration_to_100_kmh.toString(),
+                        LocaleKeys.Engine_power.tr(),
+                        LocaleKeys.Curb_weight.tr(),
+                        LocaleKeys.Fuel_consumption_per_100_km.tr(),
+                        LocaleKeys.Transmission.tr(),
+                        LocaleKeys.body_type.tr(),
                       ],
                       list: [
                         '7',
@@ -151,20 +153,20 @@ class _DescriptionTabsState extends State<DescriptionTabs>
                       ],
                       title: 'Характеристики автомобиля',
                     ),
-                    const CharacteristicTable(
+                     CharacteristicTable(
                       titleList: [
-                        'Количество передач',
-                        'Обьем двигателя',
-                        'Мин-ый обьем багажника',
-                        'Привод',
-                        'Тип двигателя',
-                        'Дорожный просвет',
-                        'Разгон до 100 км/ч',
-                        'Мощность двигателя',
-                        'Снаряженная масса',
-                        'Расход топлива на 100 км',
-                        'Коробка передач',
-                        'Тип кузова',
+                        LocaleKeys.gears_number.tr(),
+                        LocaleKeys.engine_volume.tr(),
+                        LocaleKeys.Min_trunk_volume.tr(),
+                        LocaleKeys.Drive_unit.tr(),
+                        LocaleKeys.engine_type.tr(),
+                        LocaleKeys.Ground_clearance.tr(),
+                        LocaleKeys.Acceleration_to_100_kmh.toString(),
+                        LocaleKeys.Engine_power.tr(),
+                        LocaleKeys.Curb_weight.tr(),
+                        LocaleKeys.Fuel_consumption_per_100_km.tr(),
+                        LocaleKeys.Transmission.tr(),
+                        LocaleKeys.body_type.tr(),
                       ],
                       list: [
                         '7',
@@ -189,7 +191,7 @@ class _DescriptionTabsState extends State<DescriptionTabs>
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          'Все параметры',
+                          LocaleKeys.all_params.tr(),
                           style: Theme.of(context)
                               .textTheme
                               .headline3!

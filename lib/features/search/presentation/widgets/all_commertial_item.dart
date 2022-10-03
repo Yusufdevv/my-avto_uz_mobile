@@ -6,6 +6,8 @@ import 'package:auto/features/common/widgets/w_like.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/profile/presentation/widgets/advertising.dart';
 import 'package:auto/features/search/domain/entities/commercial_item_entity.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -47,7 +49,7 @@ class _AllCommercialItemState extends State<AllCommercialItem> {
                 borderRadius: BorderRadius.circular(4),
                 color: orange.withOpacity(0.15),
               ),
-              child: Text('Продажа Автомобиля',
+              child: Text(LocaleKeys.car_sale.tr(),
                   style: Theme.of(context)
                       .textTheme
                       .bodyText1!
@@ -135,7 +137,7 @@ class _AllCommercialItemState extends State<AllCommercialItem> {
                           ),
                           if (widget.commercialItemEntity.isSalon)
                             Text(
-                              'Частное лицо',
+                              LocaleKeys.autosalon.tr(),
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyText1!
@@ -143,7 +145,7 @@ class _AllCommercialItemState extends State<AllCommercialItem> {
                             )
                           else
                             Text(
-                              'Автосалон',
+                              LocaleKeys.private_person.tr(),
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyText1!
@@ -176,7 +178,7 @@ class _AllCommercialItemState extends State<AllCommercialItem> {
                             shape: BoxShape.circle, color: grey),
                       ),
                       Text(
-                        'Сегодня',
+                        LocaleKeys.today.tr(),
                         style: Theme.of(context)
                             .textTheme
                             .bodyText1

@@ -1,6 +1,8 @@
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/rent/domain/entities/rent_car_entity.dart';
 import 'package:auto/features/rent/presentation/pages/rent_single/widgets/options_item.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class AdditionalOptions extends StatefulWidget {
@@ -28,7 +30,7 @@ class _AdditionalOptionsState extends State<AdditionalOptions> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Дополнительные опции',
+              LocaleKeys.additional_options.tr(),
               style:
                   Theme.of(context).textTheme.headline1!.copyWith(fontSize: 18),
             ),

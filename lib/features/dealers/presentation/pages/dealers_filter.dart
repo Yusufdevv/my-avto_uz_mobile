@@ -4,6 +4,8 @@ import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/dealers/presentation/widgets/filter_radio.dart';
 import 'package:auto/features/dealers/presentation/widgets/filter_region_mark_container.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class DealersFilter extends StatefulWidget {
@@ -17,6 +19,7 @@ enum Category { all, news, withMileage }
 
 class _DealersFilterState extends State<DealersFilter> {
   Category selectedCategory = Category.all;
+
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: WAppBar(
@@ -25,7 +28,7 @@ class _DealersFilterState extends State<DealersFilter> {
           titleStyle:
               Theme.of(context).textTheme.headline1!.copyWith(fontSize: 16),
           extraActions: [
-            Text('Фильтр',
+            Text(LocaleKeys.filter.tr(),
                 style: Theme.of(context)
                     .textTheme
                     .headline1!
@@ -36,13 +39,13 @@ class _DealersFilterState extends State<DealersFilter> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Text(
-                'Очистить',
+                LocaleKeys.clear.tr(),
                 style: Theme.of(context)
                     .textTheme
                     .subtitle1!
                     .copyWith(color: blue),
               ),
-            )
+            ),
           ],
         ),
         body: Container(
@@ -53,7 +56,7 @@ class _DealersFilterState extends State<DealersFilter> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Дилеры по продаже автомобилей',
+                    Text(LocaleKeys.car_dealers.tr(),
                         style: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w600,
@@ -89,7 +92,7 @@ class _DealersFilterState extends State<DealersFilter> {
                     const SizedBox(
                       height: 16,
                     ),
-                    Text('Регион',
+                    Text(LocaleKeys.region.tr(),
                         style: TextStyle(
                             color: Theme.of(context)
                                 .extension<ThemedColors>()!
@@ -97,11 +100,11 @@ class _DealersFilterState extends State<DealersFilter> {
                             fontSize: 14,
                             fontWeight: FontWeight.w400)),
                     const SizedBox(height: 8),
-                    const ContainerRegionMark(
-                      markOrRegion: 'Регион',
+                    ContainerRegionMark(
+                      markOrRegion: LocaleKeys.region.tr(),
                     ),
                     const SizedBox(height: 16),
-                    Text('Марка',
+                    Text(LocaleKeys.brand.tr(),
                         style: TextStyle(
                             color: Theme.of(context)
                                 .extension<ThemedColors>()!
@@ -109,8 +112,8 @@ class _DealersFilterState extends State<DealersFilter> {
                             fontSize: 14,
                             fontWeight: FontWeight.w400)),
                     const SizedBox(height: 8),
-                    const ContainerRegionMark(
-                      markOrRegion: 'Марка',
+                    ContainerRegionMark(
+                      markOrRegion: LocaleKeys.brand.tr(),
                     ),
                   ],
                 ),
@@ -119,8 +122,8 @@ class _DealersFilterState extends State<DealersFilter> {
                 textStyle:
                     const TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
                 onTap: () {},
-                text: 'Применить',
-              )
+                text: LocaleKeys.apply.tr(),
+              ),
             ],
           ),
         ),

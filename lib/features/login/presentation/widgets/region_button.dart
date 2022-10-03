@@ -4,6 +4,8 @@ import 'package:auto/features/common/bloc/regions/regions_bloc.dart';
 import 'package:auto/features/common/models/region.dart';
 import 'package:auto/features/login/presentation/bloc/register/register_bloc.dart';
 import 'package:auto/features/login/presentation/widgets/regions_bottomsheet.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -41,7 +43,7 @@ class _RegionButtonState extends State<RegionButton> {
               children: [
                 Expanded(
                   child: Text(
-                    'Регион',
+                    LocaleKeys.region.tr(),
                     style: Theme.of(context)
                         .textTheme
                         .headline1!
@@ -60,7 +62,7 @@ class _RegionButtonState extends State<RegionButton> {
                             currentRegion != null &&
                                     currentRegion!.title.isNotEmpty
                                 ? currentRegion!.title
-                                : 'Выберите регион',
+                                : LocaleKeys.choose_region.tr(),
                             style: currentRegion == null ||
                                     currentRegion!.title.isEmpty
                                 ? Theme.of(context)
@@ -69,7 +71,10 @@ class _RegionButtonState extends State<RegionButton> {
                                     .copyWith(
                                         fontSize: 14,
                                         fontWeight: FontWeight.w400)
-                                : Theme.of(context).textTheme.subtitle1!.copyWith(fontSize: 15),
+                                : Theme.of(context)
+                                    .textTheme
+                                    .subtitle1!
+                                    .copyWith(fontSize: 15),
                           ),
                           SvgPicture.asset(
                             AppIcons.chevronRight,
@@ -85,7 +90,7 @@ class _RegionButtonState extends State<RegionButton> {
                       const Divider(
                         height: 1,
                         color: dividerColor,
-                      )
+                      ),
                     ],
                   ),
                 ),

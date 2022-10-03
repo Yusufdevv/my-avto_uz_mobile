@@ -3,6 +3,8 @@ import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/profile/presentation/pages/sms_code.dart';
 import 'package:auto/features/profile/presentation/widgets/password_textfield.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
@@ -16,8 +18,8 @@ class NewPasswordsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) => KeyboardDismisser(
         child: Scaffold(
-          appBar: const WAppBar(
-            textWithButton: 'Смена пароля',
+          appBar: WAppBar(
+            textWithButton: LocaleKeys.change_password.tr(),
           ),
           body: SingleChildScrollView(
             physics: const ClampingScrollPhysics(),
@@ -26,60 +28,61 @@ class NewPasswordsPage extends StatelessWidget {
               child: Column(
                 children: [
                   Text(
-                    'Смена пароля',
+                    LocaleKeys.change_password.tr(),
                     style: Theme.of(context)
                         .textTheme
                         .headline1!
                         .copyWith(fontSize: 32),
                   ),
                   const SizedBox(height: 6),
-                  Text('Придумайте новый пароль\nи постарайтесь не забыть',
+                  Text(LocaleKeys.create_unfoget.tr(),
                       style: Theme.of(context).textTheme.headline2),
                   const SizedBox(height: 36),
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      'Старый пароль',
+                      LocaleKeys.old_password.tr(),
                       style: Theme.of(context).textTheme.headline2,
                     ),
                   ),
                   const SizedBox(height: 8),
                   PasswordTextField(
                     controller: _passwordController,
-                    hintText: 'Введите старый пароль',
+                    hintText: LocaleKeys.write_old_password.tr(),
                   ),
                   const SizedBox(height: 20),
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      'Новый пароль',
+                      LocaleKeys.new_password.tr(),
                       style: Theme.of(context).textTheme.headline2,
                     ),
                   ),
                   const SizedBox(height: 8),
                   PasswordTextField(
                     controller: _password1Controller,
-                    hintText: 'Введите пароль',
+                    hintText: LocaleKeys.enter_Passowrd.tr(),
                   ),
                   const SizedBox(height: 20),
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      'Подтверждение пароля',
+                      LocaleKeys.confirm_password.tr(),
                       style: Theme.of(context).textTheme.headline2,
                     ),
                   ),
                   const SizedBox(height: 8),
                   PasswordTextField(
                     controller: _password2Controller,
-                    hintText: 'Введите пароль ещё раз',
+                    hintText: LocaleKeys.write_again.tr(),
                   ),
                 ],
               ),
             ),
           ),
           bottomNavigationBar: WButton(
-            margin: EdgeInsets.fromLTRB(16, 24, 16, 24+MediaQuery.of(context).viewInsets.bottom),
+            margin: EdgeInsets.fromLTRB(
+                16, 24, 16, 24 + MediaQuery.of(context).viewInsets.bottom),
             onTap: () {
               Navigator.of(context, rootNavigator: true).push(
                 fade(
@@ -87,7 +90,9 @@ class NewPasswordsPage extends StatelessWidget {
                 ),
               );
             },
-            child: const Text('Далее'),
+            child: Text(
+              LocaleKeys.further.tr(),
+            ),
           ),
         ),
       );

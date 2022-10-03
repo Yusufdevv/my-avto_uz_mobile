@@ -11,6 +11,8 @@ import 'package:auto/features/main/presentation/bloc/change_car_bloc.dart';
 import 'package:auto/features/main/presentation/widgets/cars_item.dart';
 import 'package:auto/features/posting_ad/choose_car_brand/domain/entity/change_car_entity.dart';
 import 'package:auto/features/posting_ad/choose_car_brand/presentation/widget/persistant_header.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -101,7 +103,6 @@ class _SelectCarModelScreenState extends State<SelectCarModelScreen> {
     const CarBrandEntity(title: 'Chevrolet', icon: AppImages.chevrolet),
   ];
 
-
   @override
   Widget build(BuildContext context) => KeyboardDismisser(
         child: BlocProvider.value(
@@ -123,7 +124,7 @@ class _SelectCarModelScreenState extends State<SelectCarModelScreen> {
                           width: 8,
                         ),
                         Text(
-                          'Выберите марку автомобиля',
+                          LocaleKeys.choose_brand_auto.tr(),
                           style:
                               Theme.of(context).textTheme.subtitle1!.copyWith(
                                     fontSize: 16,
@@ -142,19 +143,20 @@ class _SelectCarModelScreenState extends State<SelectCarModelScreen> {
                       height: 55,
                       color: Theme.of(context).appBarTheme.backgroundColor,
                       child: WTextField(
-                        margin: const EdgeInsets.symmetric(
-                            horizontal: 16),
+                        margin: const EdgeInsets.symmetric(horizontal: 16),
                         onChanged: (value) {},
                         borderRadius: 12,
                         hasSearch: true,
-                        hintText: 'Поиск',
+                        hintText: LocaleKeys.search.tr(),
                         height: 40,
                         controller: searchController,
                       ),
                     ),
                   ),
                   const SliverToBoxAdapter(
-                    child: SizedBox(height: 16,),
+                    child: SizedBox(
+                      height: 16,
+                    ),
                   ),
                   SliverToBoxAdapter(
                     child: SizedBox(
@@ -215,25 +217,26 @@ class _SelectCarModelScreenState extends State<SelectCarModelScreen> {
                 ),
               ),
               Positioned(
-                  bottom: 16,
-                  right: 16,
-                  left: 16,
-                  child: BlocBuilder<ChangeCarBloc, ChangeCarState>(
-                    builder: (context, state) => WButton(
-                      onTap: state.selectedId == -1
-                          ? () {}
-                          : () {
-                              Navigator.pop(context);
-                            },
-                      text: 'Далее',
-                      shadow: [
-                        BoxShadow(
-                            offset: const Offset(0, 4),
-                            blurRadius: 20,
-                            color: orange.withOpacity(0.2)),
-                      ],
-                    ),
-                  )),
+                bottom: 16,
+                right: 16,
+                left: 16,
+                child: BlocBuilder<ChangeCarBloc, ChangeCarState>(
+                  builder: (context, state) => WButton(
+                    onTap: state.selectedId == -1
+                        ? () {}
+                        : () {
+                            Navigator.pop(context);
+                          },
+                    text: LocaleKeys.further.tr(),
+                    shadow: [
+                      BoxShadow(
+                          offset: const Offset(0, 4),
+                          blurRadius: 20,
+                          color: orange.withOpacity(0.2)),
+                    ],
+                  ),
+                ),
+              ),
             ],
           ),
         ),

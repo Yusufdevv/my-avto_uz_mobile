@@ -10,6 +10,7 @@ class RadioItem extends StatelessWidget {
   final String title;
   final bool hasImage;
   final String? image;
+
   const RadioItem({
     required this.onTap,
     required this.title,
@@ -37,69 +38,69 @@ class RadioItem extends StatelessWidget {
           ),
           margin: const EdgeInsets.symmetric(horizontal: 16),
           padding: const EdgeInsets.all(16),
-          child: hasImage ? Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-
-              Row(
-                children: [
-                  GestureDetector(
-                    behavior: HitTestBehavior.opaque,
-                    onTap: () {
-                      onTap(value);
-                    },
-                    child: Stack(
-                      alignment: Alignment.center,
+          child: hasImage
+              ? Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
                       children: [
-                        AnimatedContainer(
-                          duration: const Duration(milliseconds: 150),
-                          height: 20,
-                          width: 20,
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: value == groupValue ? purple : grey,
-                              width: 1.5,
-                            ),
-                            shape: BoxShape.circle,
-                            color: Colors.transparent,
+                        GestureDetector(
+                          behavior: HitTestBehavior.opaque,
+                          onTap: () {
+                            onTap(value);
+                          },
+                          child: Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              AnimatedContainer(
+                                duration: const Duration(milliseconds: 150),
+                                height: 20,
+                                width: 20,
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: value == groupValue ? purple : grey,
+                                    width: 1.5,
+                                  ),
+                                  shape: BoxShape.circle,
+                                  color: Colors.transparent,
+                                ),
+                                padding: value == groupValue
+                                    ? const EdgeInsets.all(3)
+                                    : EdgeInsets.zero,
+                              ),
+                              AnimatedContainer(
+                                duration: const Duration(milliseconds: 150),
+                                height: 13,
+                                width: 13,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: value == groupValue
+                                      ? purple
+                                      : Colors.transparent,
+                                ),
+                              ),
+                            ],
                           ),
-                          padding: value == groupValue
-                              ? const EdgeInsets.all(3)
-                              : EdgeInsets.zero,
                         ),
-                        AnimatedContainer(
-                          duration: const Duration(milliseconds: 150),
-                          height: 13,
-                          width: 13,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: value == groupValue
-                                ? purple
-                                : Colors.transparent,
-                          ),
+                        const SizedBox(width: 10),
+                        Text(
+                          title,
+                          style: value == groupValue
+                              ? Theme.of(context).textTheme.headline1!.copyWith(
+                                  fontSize: 16, fontWeight: FontWeight.w600)
+                              : Theme.of(context)
+                                  .textTheme
+                                  .headline6!
+                                  .copyWith(color: greyText),
                         ),
                       ],
                     ),
-                  ),
-                  const SizedBox(width: 10),
-                  Text(
-                    title,
-                    style: value == groupValue ? Theme.of(context)
-                        .textTheme
-                        .headline1!
-                        .copyWith(
-                        fontSize: 16, fontWeight: FontWeight.w600) :Theme.of(context)
-                        .textTheme
-                        .headline6!
-                        .copyWith(color: greyText),
-                  ),
-                ],
-              ),
-              SvgPicture.asset(image!),
-            ],
-          ) : Row(
-            children: [
-             GestureDetector(
+                    SvgPicture.asset(image!),
+                  ],
+                )
+              : Row(
+                  children: [
+                    GestureDetector(
                       behavior: HitTestBehavior.opaque,
                       onTap: () {
                         onTap(value);
@@ -137,20 +138,19 @@ class RadioItem extends StatelessWidget {
                         ],
                       ),
                     ),
-              const SizedBox(width: 10),
-              Text(
-                title,
-                style: value == groupValue ? Theme.of(context)
-                    .textTheme
-                    .headline1!
-                    .copyWith(
-                    fontSize: 16, fontWeight: FontWeight.w600) :Theme.of(context)
-                    .textTheme
-                    .headline6!
-                    .copyWith(color: greyText),
-              ),
-            ],
-          ),
+                    const SizedBox(width: 10),
+                    Text(
+                      title,
+                      style: value == groupValue
+                          ? Theme.of(context).textTheme.headline1!.copyWith(
+                              fontSize: 16, fontWeight: FontWeight.w600)
+                          : Theme.of(context)
+                              .textTheme
+                              .headline6!
+                              .copyWith(color: greyText),
+                    ),
+                  ],
+                ),
         ),
       );
 }

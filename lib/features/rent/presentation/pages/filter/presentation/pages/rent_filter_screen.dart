@@ -7,6 +7,8 @@ import 'package:auto/features/common/widgets/w_chips.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/rent/presentation/rent_screen.dart';
 import 'package:auto/features/search/presentation/widgets/selector_item.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class RentFilterScreen extends StatefulWidget {
@@ -22,7 +24,7 @@ class _RentFilterScreenState extends State<RentFilterScreen> {
     appBar: WAppBar(
       boxShadow: [],
       extraActions: [
-        Text('Фильтр',
+        Text(LocaleKeys.filter.tr(),
             style: Theme.of(context)
                 .textTheme
                 .headline1!
@@ -33,7 +35,7 @@ class _RentFilterScreenState extends State<RentFilterScreen> {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Text(
-            'Очистить',
+            LocaleKeys.clear.tr(),
             style: Theme.of(context)
                 .textTheme
                 .subtitle1!
@@ -49,42 +51,42 @@ class _RentFilterScreenState extends State<RentFilterScreen> {
         children: [
           SelectorItem(
             onTap: () {},
-            hintText: 'Выберите регион',
-            title: 'Регион',
+            hintText: LocaleKeys.choose_region.tr(),
+            title: LocaleKeys.region.tr(),
             hasArrowDown: true,
 
           ),
           SelectorItem(
             onTap: () {},
-            hintText: 'Выберите марку',
-            title: 'Марка',
+            hintText: LocaleKeys.choose_brand.tr(),
+            title: LocaleKeys.brand.tr(),
             hasArrowDown: true,
           ),
           SelectorItem(
             onTap: () {},
-            hintText: 'Выберите тип кузова',
-            title: 'Тип кузова',
+            hintText: LocaleKeys.choose_body.tr(),
+            title: LocaleKeys.body_type.tr(),
           ),
           SelectorItem(
             onTap: () {},
-            hintText: 'Выберите класс',
-            title: 'Класс',
+            hintText: LocaleKeys.choose_class.tr(),
+            title: LocaleKeys.classs.tr(),
           ),
           SelectorItem(
             onTap: () {},
-            hintText: 'Выберите тип привода',
-            title: 'Привод',
+            hintText: LocaleKeys.choose_drive_type.tr(),
+            title: LocaleKeys.drive_unit.tr(),
           ),
           SelectorItem(
             onTap: () {},
-            hintText: 'Выберите тип коробки',
-            title: 'Коробка',
+            hintText: LocaleKeys.choose_box_type.tr(),
+            title: LocaleKeys.box.tr(),
           ),
           const SizedBox(
             height: 16,
           ),
-          const WRangeSlider(
-            title: 'Год выпуска',
+           WRangeSlider(
+            title: LocaleKeys.year_of_issue.tr(),
             endValue: 2022,
             startValue: 1960,
             sliderStatus: '',
@@ -92,8 +94,8 @@ class _RentFilterScreenState extends State<RentFilterScreen> {
           const SizedBox(
             height: 16,
           ),
-          const WRangeSlider(
-            title: 'Цена',
+           WRangeSlider(
+            title: LocaleKeys.price.tr(),
             endValue: 500000,
             startValue: 1000,
             sliderStatus: 'price',
@@ -103,8 +105,8 @@ class _RentFilterScreenState extends State<RentFilterScreen> {
           ),
           WButton(
             onTap: () => Navigator.pop(context),
-            text: 'Применить',
-          )
+            text: LocaleKeys.apply.tr(),
+          ),
         ],
       ),
     ),

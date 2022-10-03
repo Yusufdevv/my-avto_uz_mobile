@@ -1,12 +1,14 @@
-import 'package:flutter/cupertino.dart';
+import 'package:auto/assets/colors/color.dart';
+import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/assets/constants/images.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/features/common/widgets/w_scale.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../../../assets/colors/color.dart';
-import '../../../../assets/constants/icons.dart';
-import '../../../../assets/constants/images.dart';
-import '../../../../assets/themes/theme_extensions/themed_colors.dart';
-import '../../../common/widgets/w_scale.dart';
+
 
 class AddedCar extends StatelessWidget {
   const AddedCar({
@@ -106,9 +108,9 @@ class AddedCar extends StatelessWidget {
                     children: [
                       SvgPicture.asset(AppIcons.tablerPhone, color: white),
                       const SizedBox(width: 4),
-                      const Text(
-                        'Позвонить',
-                        style: TextStyle(
+                       Text(
+                        LocaleKeys.call.tr(),
+                        style: const TextStyle(
                           fontWeight: FontWeight.w600,
                           fontSize: 14,
                           color: white,

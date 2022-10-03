@@ -4,6 +4,8 @@ import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_icons.dart';
  import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/onboarding/presentation/widgets/social_media_item.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -20,7 +22,7 @@ class BaseOnBoarding extends StatelessWidget {
           children: [
             WButton(
               onTap:  onTap,
-              text: 'Войти в систему',
+              text: LocaleKeys.enter_to_system.tr(),
               color: color,
               borderRadius: 8,
               shadow: [
@@ -48,7 +50,7 @@ class BaseOnBoarding extends StatelessWidget {
                   width: 4,
                 ),
                 Text(
-                  'Другие способы входа',
+                  LocaleKeys.another_ways.tr(),
                   style: Theme.of(context)
                       .textTheme
                       .bodyText1!
@@ -87,7 +89,7 @@ class BaseOnBoarding extends StatelessWidget {
                 ),
                 SocialMediaItem(icon: SvgPicture.asset(AppIcons.imkon, color: Theme.of(context).extension<ThemedColors>()!.prussianBlueToWhite80,)),
               ],
-            )
+            ),
           ],
         ),
       );

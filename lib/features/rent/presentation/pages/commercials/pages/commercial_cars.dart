@@ -3,6 +3,8 @@ import 'package:auto/features/rent/domain/entities/rent_entity.dart';
 import 'package:auto/features/rent/presentation/widgets/all_button_item.dart';
 import 'package:auto/features/rent/presentation/widgets/rent_car_items.dart';
 import 'package:auto/features/rent/presentation/widgets/service_type_item.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class CarsScreen extends StatefulWidget {
@@ -13,7 +15,7 @@ class CarsScreen extends StatefulWidget {
 }
 
 class _CarsScreenState extends State<CarsScreen> {
-  final List<String> titles = ['Кондиционер', 'Полный бак', 'Автомат коробка'];
+  final List<String> titles = [LocaleKeys.conditioner.tr(), LocaleKeys.full_tank.tr(), LocaleKeys.automatic_box.tr(),];
   final List<String> icons = [
     AppIcons.wind,
     AppIcons.gas,
@@ -39,7 +41,7 @@ class _CarsScreenState extends State<CarsScreen> {
             height: 10,
           ),
           AllButtonItem(
-            title: 'Минивены',
+            title: LocaleKeys.miniwen.tr(),
             onTap: () {},
           ),
           SizedBox(
@@ -56,7 +58,7 @@ class _CarsScreenState extends State<CarsScreen> {
             height: 16,
           ),
           AllButtonItem(
-            title: 'Грузовые',
+            title: LocaleKeys.freight.tr(),
             onTap: () {},
           ),
           SizedBox(
@@ -73,7 +75,7 @@ class _CarsScreenState extends State<CarsScreen> {
             height: 16,
           ),
           AllButtonItem(
-            title: 'Шаттл',
+            title: LocaleKeys.shuttle.tr(),
             onTap: () {},
           ),
           SizedBox(

@@ -1,8 +1,6 @@
-import 'package:flutter/cupertino.dart';
+import 'package:auto/assets/constants/images.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-
-import '../../../../assets/constants/images.dart';
 
 class StickyAdderCar extends StatelessWidget {
   const StickyAdderCar({
@@ -43,7 +41,7 @@ class StickyAdderCar extends StatelessWidget {
                     .copyWith(fontWeight: FontWeight.w400, fontSize: 12),
               ),
             ],
-          )
+          ),
         ],
       );
 }

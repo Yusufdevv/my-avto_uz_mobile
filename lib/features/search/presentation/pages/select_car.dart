@@ -13,6 +13,8 @@ import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/posting_ad/choose_car_brand/domain/entity/change_car_entity.dart';
 import 'package:auto/features/posting_ad/choose_car_brand/presentation/widget/persistant_header.dart';
 import 'package:auto/features/search/presentation/pages/choose_car.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -124,7 +126,7 @@ class _SelectCarScreenState extends State<SelectCarScreen> {
                           width: 8,
                         ),
                         Text(
-                          'Выберите марку автомобиля',
+                          LocaleKeys.choose_brand.tr(),
                           style:
                               Theme.of(context).textTheme.subtitle1!.copyWith(
                                     fontSize: 16,
@@ -147,7 +149,7 @@ class _SelectCarScreenState extends State<SelectCarScreen> {
                         onChanged: (value) {},
                         borderRadius: 12,
                         hasSearch: true,
-                        hintText: 'Поиск',
+                        hintText: LocaleKeys.search.tr(),
                         height: 40,
                         controller: searchController,
                       ),
@@ -226,7 +228,7 @@ class _SelectCarScreenState extends State<SelectCarScreen> {
                                   onTap: () {},
                                 ),
                               )),
-                      text: 'Далее',
+                      text: LocaleKeys.further.tr(),
                       shadow: [
                         BoxShadow(
                             offset: const Offset(0, 4),

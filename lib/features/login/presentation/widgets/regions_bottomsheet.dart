@@ -6,33 +6,35 @@ import 'package:flutter/material.dart';
 Future<Region> showRegionsBottomSheet(
         BuildContext context, List<Region> list) async =>
     await showModalBottomSheet<Region>(
-        context: context,isScrollControlled: false,
-        builder: (c) => WBottomSheet(children: [
-              Column(
-                children: List.generate(
-                    list.length,
-                    (index) => GestureDetector(onTap: (){
-                      Navigator.pop(context,list[index]);
-                    },
-                      child: Container(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 15, horizontal: 16),
-                            decoration: const BoxDecoration(
-                                border: Border(top: BorderSide(color: border))),
-                            child: Row(
-                              children: [
-                                Text(
-                                  list[index].title,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headline1!
-                                      .copyWith(
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: 16),
-                                )
-                              ],
-                            ),
-                          ),
-                    )),
-              )
-            ])).then((value) => value ?? Region());
+      context: context,
+      isScrollControlled: false,
+      builder: (c) => WBottomSheet(
+        children: [
+          Column(
+            children: List.generate(
+              list.length,
+              (index) => GestureDetector(
+                onTap: () {
+                  Navigator.pop(context, list[index]);
+                },
+                child: Container(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 15, horizontal: 16),
+                  decoration: const BoxDecoration(
+                      border: Border(top: BorderSide(color: border))),
+                  child: Row(
+                    children: [
+                      Text(
+                        list[index].title,
+                        style: Theme.of(context).textTheme.headline1!.copyWith(
+                            fontWeight: FontWeight.w600, fontSize: 16),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    ).then((value) => value ?? Region());

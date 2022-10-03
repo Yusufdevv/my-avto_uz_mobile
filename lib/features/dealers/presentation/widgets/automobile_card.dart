@@ -13,7 +13,7 @@ class CarsCard extends StatelessWidget {
   Widget build(BuildContext context) => Stack(
         children: [
           Container(
-            margin: EdgeInsets.only(bottom: 16),
+            margin: const EdgeInsets.only(bottom: 16),
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
               color: Theme.of(context).extension<ThemedColors>()!.whiteToNero,
@@ -107,7 +107,7 @@ class CarsCard extends StatelessWidget {
                 ),
               ),
             ),
-          )
+          ),
         ],
       );
 }

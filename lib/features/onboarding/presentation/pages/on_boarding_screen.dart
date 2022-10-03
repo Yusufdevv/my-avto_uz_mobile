@@ -6,6 +6,8 @@ import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/onboarding/presentation/widgets/base_onboarding.dart';
 import 'package:auto/features/onboarding/presentation/widgets/indicator.dart';
 import 'package:auto/features/onboarding/presentation/widgets/on_boarding_page_items.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class OnBoardingScreen extends StatefulWidget {
@@ -72,22 +74,22 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                   currentIndex = page;
                 });
               },
-              children: const [
+              children:  [
                 OnBoardingItems(
                     icon: AppImages.flash,
-                    title: 'Легкая \nпродажа авто',
+                    title: LocaleKeys.easy_send.tr(),
                     image: AppImages.firstImage),
                 OnBoardingItems(
                     icon: AppImages.done,
-                    title: 'Доверенные    автосалоны',
+                    title: LocaleKeys.trusted_car_dealers.tr(),
                     image: AppImages.secondImage),
                 OnBoardingItems(
                   icon: AppImages.omg,
                   hasSecondText: true,
-                  title: 'Более ',
-                  secondText: '10 000',
+                  title: LocaleKeys.more_than.tr(),
+                  secondText: ' 10 000',
                   image: AppImages.thirdImage,
-                  thirdText: ' объявлений',
+                  thirdText: ' offers',
                 ),
               ],
             ),
