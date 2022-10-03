@@ -10,7 +10,9 @@ import 'package:auto/features/rent/presentation/pages/rent_single/widgets/car_si
 import 'package:flutter/material.dart';
 
 class CarsSingleScreen extends StatefulWidget {
-  const CarsSingleScreen({Key? key}) : super(key: key);
+  final RentListEntity rentListEntity;
+  const CarsSingleScreen({required this.rentListEntity, Key? key})
+      : super(key: key);
 
   @override
   State<CarsSingleScreen> createState() => _CarsSingleScreenState();
@@ -26,12 +28,14 @@ class _CarsSingleScreenState extends State<CarsSingleScreen> {
         ),
         body: SingleChildScrollView(
           child: Column(
-            children: const [
+            children: [
               CarSinglePreview(
-                rentEntity: RentListEntity(),
+                rentEntity: widget.rentListEntity,
               ),
-               AdditionalOptions(),
-               AllRationItem(),
+              AdditionalOptions(
+                rentCarEntity: widget.rentListEntity.rentCar,
+              ),
+              AllRationItem(),
             ],
           ),
         ),

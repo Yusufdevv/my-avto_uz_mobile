@@ -13,6 +13,7 @@ import 'package:auto/features/search/presentation/widgets/commercial_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:formz/formz.dart';
 
 class ResultsScreen extends StatefulWidget {
   final TextEditingController controller;
@@ -101,9 +102,9 @@ class _ResultsScreenState extends State<ResultsScreen> {
                 fetchMoreFunction: () {
                   resultBloc.add(SearchResultEvent.getMoreResults());
                 },
-                paginatorStatus: PaginatorStatus.PAGINATOR_LOADING,
+                paginatorStatus: FormzStatus.submissionInProgress,
                 itemCount: state.list.length,
-                errorWidget: SizedBox(),
+                errorWidget: const SizedBox(),
               ),
             )),
       );

@@ -1,21 +1,20 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
-import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/rent/domain/entities/rent_car_entity.dart';
-import 'package:auto/features/rent/presentation/pages/rent_single/pages/cars_single_screen.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class CategorySingleItem extends StatelessWidget {
   final RentCarEntity rentCarEntity;
+  final VoidCallback onTap;
 
-  const CategorySingleItem({required this.rentCarEntity, Key? key})
+  const CategorySingleItem(
+      {required this.rentCarEntity, required this.onTap, Key? key})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) => GestureDetector(
-        onTap: () =>
-            Navigator.of(context).push(fade(page: const CarsSingleScreen())),
+        onTap: onTap,
         child: Container(
           padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(
@@ -43,7 +42,7 @@ class CategorySingleItem extends StatelessWidget {
                 child: CachedNetworkImage(
                   height: 137,
                   width: double.infinity,
-                  imageUrl: rentCarEntity.gallery[0] ?? '',
+                  imageUrl: rentCarEntity.gallery.first,
                   fit: BoxFit.cover,
                 ),
               ),

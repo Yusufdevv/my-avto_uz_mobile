@@ -4,7 +4,9 @@ import 'package:auto/features/rent/presentation/pages/rent_single/widgets/option
 import 'package:flutter/material.dart';
 
 class AdditionalOptions extends StatefulWidget {
-  const AdditionalOptions({Key? key}) : super(key: key);
+  final RentCarEntity rentCarEntity;
+  const AdditionalOptions({required this.rentCarEntity, Key? key})
+      : super(key: key);
 
   @override
   State<AdditionalOptions> createState() => _AdditionalOptionsState();
@@ -35,18 +37,23 @@ class _AdditionalOptionsState extends State<AdditionalOptions> {
             const SizedBox(
               height: 8,
             ),
-            Wrap(
-              spacing: 12,
-              runSpacing: 8,
-              direction: Axis.horizontal,
+            Row(
               children: [
-                ...List.generate(
-                  10,
-                  (index) => OptionsItem(
-                    rentCarEntity: RentCarEntity(),
-                  ),
+                OptionsItem(
+                  isHas: widget.rentCarEntity.isClean,
+                  title: 'Помытая машина',
+                ),
+                const SizedBox(width: 12),
+                OptionsItem(
+                  isHas: widget.rentCarEntity.hasBabySeat,
+                  title: 'Детское кресло',
                 ),
               ],
+            ),
+            const SizedBox(height: 12),
+            OptionsItem(
+              isHas: widget.rentCarEntity.isFullFuel,
+              title: 'Полный бак бензина',
             ),
           ],
         ),

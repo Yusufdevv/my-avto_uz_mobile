@@ -5,8 +5,10 @@ import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/rent/domain/usecases/rent_usecase.dart';
+import 'package:auto/features/rent/presentation/bloc/commercial_bloc/commercial_bloc.dart';
 import 'package:auto/features/rent/presentation/bloc/rent_bloc/rent_bloc.dart';
 import 'package:auto/features/rent/presentation/pages/cars/pages/cars_screen.dart';
+import 'package:auto/features/rent/presentation/pages/cars/pages/commercial_screen.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/pages/rent_filter_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -23,12 +25,15 @@ class _RentScreenState extends State<RentScreen>
     with SingleTickerProviderStateMixin {
   late TabController tabController;
   late RentBloc rentBloc;
+  late CommercialBloc commercialBloc;
 
   @override
   void initState() {
     tabController = TabController(length: 2, vsync: this);
-    rentBloc = RentBloc(RentUseCase())
+    rentBloc = RentBloc(RentUseCase(), 5)
       ..add(RentEvent.getResults(isRefresh: false));
+    commercialBloc = CommercialBloc(RentUseCase(), 6)
+      ..add(CommercialEvent.getResults(isRefresh: false));
     super.initState();
   }
 
@@ -111,17 +116,20 @@ class _RentScreenState extends State<RentScreen>
             ],
           ),
         ),
-        body: BlocProvider.value(
-          value: rentBloc,
+        body: MultiBlocProvider(
+          providers: [
+            BlocProvider.value(
+              value: rentBloc,
+            ),
+            BlocProvider.value(
+              value: commercialBloc,
+            ),
+          ],
           child: TabBarView(
             controller: tabController,
-            children: [
-              CarsScreen(
-                rentBloc: rentBloc,
-              ),
-              CarsScreen(
-                rentBloc: rentBloc,
-              ),
+            children: const [
+              CarsScreen(),
+              CommercialScreen(),
             ],
           ),
         ),

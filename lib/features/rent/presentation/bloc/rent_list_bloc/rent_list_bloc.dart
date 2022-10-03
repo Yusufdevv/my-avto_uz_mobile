@@ -1,25 +1,21 @@
-import 'package:auto/features/rent/domain/entities/rent_main_entity.dart';
-import 'package:auto/features/rent/domain/usecases/rent_usecase.dart';
+import 'package:auto/features/rent/domain/entities/rent_list_entity.dart';
+import 'package:auto/features/rent/domain/usecases/rent_list_usecase.dart';
 import 'package:bloc/bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'rent_event.dart';
+part 'rent_list_event.dart';
+part 'rent_list_state.dart';
+part 'rent_list_bloc.freezed.dart';
 
-part 'rent_state.dart';
-
-part 'rent_bloc.freezed.dart';
-
-class RentBloc extends Bloc<RentEvent, RentState> {
-  final RentUseCase rentUseCase;
-  final int id;
-
-  RentBloc(this.rentUseCase, this.id) : super(RentState()) {
+class RentListBloc extends Bloc<RentListEvent, RentListState> {
+  final RentListUseCase rentListUseCase;
+  RentListBloc(this.rentListUseCase) : super(RentListState()) {
     on<_GetResults>((event, emit) async {
       if (!event.isRefresh) {
         emit(state.copyWith(status: FormzStatus.submissionInProgress));
       }
-      final result = await rentUseCase(Param(next: '', id: id));
+      final result = await rentListUseCase('');
       if (result.isRight) {
         emit(state.copyWith(
             status: FormzStatus.submissionSuccess,
@@ -32,7 +28,7 @@ class RentBloc extends Bloc<RentEvent, RentState> {
     });
     on<_GetMoreResults>((event, emit) async {
       emit(state.copyWith(status: FormzStatus.submissionInProgress));
-      final result = await rentUseCase(Param(next: state.next!, id: id));
+      final result = await rentListUseCase(state.next!);
       if (result.isRight) {
         emit(state.copyWith(
             status: FormzStatus.submissionSuccess,

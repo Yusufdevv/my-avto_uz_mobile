@@ -1,7 +1,6 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/posting_ad/preview/presentation/widgets/image_viewer.dart';
-import 'package:auto/features/rent/domain/entities/rent_car_entity.dart';
 import 'package:auto/features/rent/domain/entities/rent_list_entity.dart';
 import 'package:auto/features/rent/presentation/pages/rent_single/widgets/single_car_info_item.dart';
 import 'package:auto/utils/my_functions.dart';
@@ -19,15 +18,16 @@ class CarSinglePreview extends StatelessWidget {
   Widget build(BuildContext context) => Container(
         color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ImageViewer(images: rentEntity.rentCar.gallery ),
+            ImageViewer(images: rentEntity.rentCar.gallery),
             const SizedBox(
               height: 12,
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Text(
-                rentEntity.rentCar.model,
+                '${rentEntity.rentCar.make} ${rentEntity.rentCar.model}',
                 style: Theme.of(context)
                     .textTheme
                     .headline1!
@@ -75,7 +75,7 @@ class CarSinglePreview extends StatelessWidget {
             else
               const SizedBox(),
             if (hasCarInfo)
-              SingleCarInfoItem(rentCarEntity: RentCarEntity())
+              SingleCarInfoItem(rentCarEntity: rentEntity.rentCar)
             else
               const SizedBox(),
           ],
