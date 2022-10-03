@@ -20,6 +20,7 @@ import 'package:auto/features/profile/presentation/pages/settings_screen.dart';
 import 'package:auto/features/profile/presentation/widgets/profile_data.dart';
 import 'package:auto/features/profile/presentation/widgets/profile_divider.dart';
 import 'package:auto/features/profile/presentation/widgets/profile_menu_tile.dart';
+import 'package:auto/features/reviews/presentation/pages/reviews_screen.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
@@ -41,10 +42,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   initState() {
     profileBloc = ProfileBloc(
-        changePasswordUseCase:
-            ChangePasswordUseCase(repository: serviceLocator<ProfileRepositoryImpl>()),
-        editProfileUseCase: EditProfileUseCase(repository: serviceLocator<ProfileRepositoryImpl>()),
-        profileUseCase: ProfileUseCase(repository: serviceLocator<ProfileRepositoryImpl>()));
+        changePasswordUseCase: ChangePasswordUseCase(
+            repository: serviceLocator<ProfileRepositoryImpl>()),
+        editProfileUseCase: EditProfileUseCase(
+            repository: serviceLocator<ProfileRepositoryImpl>()),
+        profileUseCase: ProfileUseCase(
+            repository: serviceLocator<ProfileRepositoryImpl>()));
     imageBloc = ImageBloc();
     super.initState();
   }
@@ -96,71 +99,170 @@ class _ProfileScreenState extends State<ProfileScreen> {
   ];
 
   @override
-  Widget build(BuildContext context) => BlocProvider.value(
-        value: profileBloc,
-        child: BlocBuilder<ProfileBloc, ProfileState>(
-          builder: (context, state) {
-            print(state.status);
-            if (state.status.isPure) {
-              context.read<ProfileBloc>().add(GetProfileEvent());
-            } else if (state.status.isSubmissionInProgress) {
-              return const Center(child: CupertinoActivityIndicator());
-            } else if (state.status.isSubmissionFailure) {
-              return const Center(child: Text("Fail"));
-            } else if (state.status.isSubmissionSuccess) {
-              return Scaffold(
-                appBar: WAppBar(
-                  filledBackButton: true,
-                  hasBackButton: false,
-                  textWithButton: LocaleKeys.my_profile.tr(),
-                ),
-                body: SingleChildScrollView(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
+  Widget build(BuildContext context) => Scaffold(
+      appBar: WAppBar(
+        filledBackButton: true,
+        hasBackButton: false,
+        textWithButton: LocaleKeys.my_profile.tr(),
+      ),
+      body: SingleChildScrollView(
+          child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Column(
+                children: [
+                  ProfileData(
+                    onTap: () {
+                      Navigator.of(context).push(
+                        fade(
+                            page: SeeProfileScreen(
+                                profileEntity: profileBloc.state.profileEntity,
+                                profileBloc: profileBloc,
+                                imageBloc: imageBloc)),
+                      );
+                    },
+                    title: 'Шохрух Бахтияров',
+                    subTitle: '0 ' + LocaleKeys.how_many_ads.tr(),
+                    imageUrl:
+                        'https://images.unsplash.com/photo-1658739398669-0df60d6b39e0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyMjR8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60',
+                    margin: const EdgeInsets.only(top: 16, bottom: 12),
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                        color: iconBackground),
+                    margin: const EdgeInsets.only(bottom: 12),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 16, vertical: 12),
+                    child: Text(
+                      LocaleKeys.number_dont_regist.tr(),
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline4!
+                          .copyWith(fontSize: 12),
+                    ),
+                  ),
+                  Container(
+                    // padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
+                    decoration: BoxDecoration(
+                      color: Theme.of(context)
+                          .extension<ThemedColors>()!
+                          .whiteToNero1,
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(
+                          color: Theme.of(context)
+                              .extension<WTextFieldStyle>()!
+                              .borderColor),
+                    ),
                     child: Column(
                       children: [
-                        ProfileData(
+                        ProfileMenuTile(
+                          name: LocaleKeys.favorites.tr(),
+                          onTap: () {
+                            Navigator.push(
+                                context, fade(page: FavouriteScreen()));
+                          },
+                          iconPath: AppIcons.heartBlue,
+                          count: 37,
+                        ),
+                        const ProfileDivider(),
+                        ProfileMenuTile(
+                          name: LocaleKeys.comparisons.tr(),
+                          onTap: () {},
+                          iconPath: AppIcons.scales,
+                          count: 54,
+                        ),
+                        const ProfileDivider(),
+                        ProfileMenuTile(
+                          name: LocaleKeys.my_ads.tr(),
                           onTap: () {
                             Navigator.of(context).push(
                               fade(
-                                page: SeeProfileScreen(
-                                  profileEntity: state.profileEntity,
-                                  profileBloc: profileBloc,
-                                  imageBloc: imageBloc,
-                                ),
+                                page: const MyAdScreen(),
                               ),
                             );
                           },
-                          title: state.profileEntity.fullName,
-                          subTitle: '0 ' + LocaleKeys.how_many_ads.tr(),
-                          imageUrl: state.profileEntity.image,
-                          margin: const EdgeInsets.only(top: 16, bottom: 12),
+                          iconPath: AppIcons.tabletNews,
+                          count: 23,
+                        ),
+                        const ProfileDivider(),
+                        ProfileMenuTile(
+                          name: 'Revievs',
+                          onTap: () {
+                            Navigator.push(
+                                context, fade(page: ReviewsScreen()));
+                          },
+                          iconPath: AppIcons.review,
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(top: 12),
+                    decoration: BoxDecoration(
+                      color: Theme.of(context)
+                          .extension<ThemedColors>()!
+                          .whiteToNero1,
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(
+                          color: Theme.of(context)
+                              .extension<WTextFieldStyle>()!
+                              .borderColor),
+                    ),
+                    child: Column(
+                      children: [
+                        ProfileMenuTile(
+                          name: LocaleKeys.chat.tr(),
+                          onTap: () {
+                            Navigator.of(context, rootNavigator: true)
+                                .push(fade(
+                              page: Chat(
+                                hasChat: false,
+                                imageBloc: imageBloc,
+                              ),
+                            ));
+                          },
+                          iconPath: profileBloc.state.profileEntity.image,
+                          // title: state.profileEntity.fullName,
+                          // subTitle: '0 ' + LocaleKeys.how_many_ads.tr(),
+                          // imageUrl: state.profileEntity.image,
+                          // margin: const EdgeInsets.only(top: 16, bottom: 12),
                         ),
                         Container(
                           decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(12), color: iconBackground),
+                              borderRadius: BorderRadius.circular(12),
+                              color: iconBackground),
                           margin: const EdgeInsets.only(bottom: 12),
-                          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 16, vertical: 12),
                           child: Text(
                             LocaleKeys.number_dont_regist.tr(),
                             textAlign: TextAlign.center,
-                            style: Theme.of(context).textTheme.headline4!.copyWith(fontSize: 12),
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline4!
+                                .copyWith(fontSize: 12),
                           ),
                         ),
                         Container(
                           // padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
                           decoration: BoxDecoration(
-                            color: Theme.of(context).extension<ThemedColors>()!.whiteToNero1,
+                            color: Theme.of(context)
+                                .extension<ThemedColors>()!
+                                .whiteToNero1,
                             borderRadius: BorderRadius.circular(12),
                             border: Border.all(
-                                color: Theme.of(context).extension<WTextFieldStyle>()!.borderColor),
+                                color: Theme.of(context)
+                                    .extension<WTextFieldStyle>()!
+                                    .borderColor),
                           ),
                           child: Column(
                             children: [
                               ProfileMenuTile(
                                 name: LocaleKeys.favorites.tr(),
                                 onTap: () {
-                                  Navigator.push(context, fade(page: FavouriteScreen()));
+                                  Navigator.push(
+                                      context, fade(page: FavouriteScreen()));
                                 },
                                 iconPath: AppIcons.heartBlue,
                                 count: 37,
@@ -191,17 +293,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         Container(
                           margin: const EdgeInsets.only(top: 12),
                           decoration: BoxDecoration(
-                            color: Theme.of(context).extension<ThemedColors>()!.whiteToNero1,
+                            color: Theme.of(context)
+                                .extension<ThemedColors>()!
+                                .whiteToNero1,
                             borderRadius: BorderRadius.circular(12),
                             border: Border.all(
-                                color: Theme.of(context).extension<WTextFieldStyle>()!.borderColor),
+                                color: Theme.of(context)
+                                    .extension<WTextFieldStyle>()!
+                                    .borderColor),
                           ),
                           child: Column(
                             children: [
                               ProfileMenuTile(
                                 name: LocaleKeys.chat.tr(),
                                 onTap: () {
-                                  Navigator.of(context, rootNavigator: true).push(
+                                  Navigator.of(context, rootNavigator: true)
+                                      .push(
                                     fade(
                                       page: Chat(
                                         hasChat: false,
@@ -218,7 +325,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 name: LocaleKeys.settings.tr(),
                                 onTap: () {
                                   Navigator.of(context).push(
-                                    fade(page: SettingsScreen(profileBloc: profileBloc)),
+                                    fade(
+                                        page: SettingsScreen(
+                                            profileBloc: profileBloc)),
                                   );
                                 },
                                 iconPath: AppIcons.settings,
@@ -230,10 +339,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         Container(
                           margin: const EdgeInsets.only(top: 12, bottom: 20),
                           decoration: BoxDecoration(
-                            color: Theme.of(context).extension<ThemedColors>()!.whiteToNero1,
+                            color: Theme.of(context)
+                                .extension<ThemedColors>()!
+                                .whiteToNero1,
                             borderRadius: BorderRadius.circular(12),
                             border: Border.all(
-                                color: Theme.of(context).extension<WTextFieldStyle>()!.borderColor),
+                                color: Theme.of(context)
+                                    .extension<WTextFieldStyle>()!
+                                    .borderColor),
                           ),
                           child: ProfileMenuTile(
                             name: LocaleKeys.about_app.tr(),
@@ -250,11 +363,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ],
                     ),
                   ),
-                ),
-              );
-            }
-            return const Center(child: CupertinoActivityIndicator());
-          },
-        ),
-      );
+                ],
+              ))));
 }
