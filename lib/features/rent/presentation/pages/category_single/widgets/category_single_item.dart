@@ -1,11 +1,11 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
-import 'package:auto/features/rent/domain/entities/rent_car_entity.dart';
+import 'package:auto/features/rent/domain/entities/rent_list_entity.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class CategorySingleItem extends StatelessWidget {
-  final RentCarEntity rentCarEntity;
+  final RentListEntity rentCarEntity;
   final VoidCallback onTap;
 
   const CategorySingleItem(
@@ -16,6 +16,7 @@ class CategorySingleItem extends StatelessWidget {
   Widget build(BuildContext context) => GestureDetector(
         onTap: onTap,
         child: Container(
+          margin: const EdgeInsets.only(bottom: 16),
           padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12),
@@ -42,7 +43,7 @@ class CategorySingleItem extends StatelessWidget {
                 child: CachedNetworkImage(
                   height: 137,
                   width: double.infinity,
-                  imageUrl: rentCarEntity.gallery.first,
+                  imageUrl: rentCarEntity.rentCar.gallery.first,
                   fit: BoxFit.cover,
                 ),
               ),
@@ -50,7 +51,7 @@ class CategorySingleItem extends StatelessWidget {
                 height: 8,
               ),
               Text(
-                rentCarEntity.model,
+                '${rentCarEntity.rentCar.year} ${rentCarEntity.rentCar.model}',
                 style: Theme.of(context)
                     .textTheme
                     .headline1!

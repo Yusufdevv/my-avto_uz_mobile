@@ -5,16 +5,21 @@ import 'package:auto/features/pagination/repository/pagination.dart';
 import 'package:auto/features/rent/data/models/rent_list_model.dart';
 import 'package:auto/utils/either.dart';
 
-class RentListUseCase
-    extends UseCase<GenericPagination<RentListModel>, String> {
+class RentListUseCase extends UseCase<GenericPagination<RentListModel>, Param> {
   final PaginationRepository repo = PaginationRepository();
 
   @override
   Future<Either<Failure, GenericPagination<RentListModel>>> call(
-          String params) async =>
+          Param params) async =>
       await repo.fetchMore(
-        url: 'rent/list/',
-        fromJson: RentListModel.fromJson,
-        next: params,
-      );
+          url: 'rent/list/',
+          fromJson: RentListModel.fromJson,
+          next: params.next,
+          query: params.id != null ? {'rent_car__category': params.id} : null);
+}
+
+class Param {
+  final String? next;
+  final int? id;
+  Param({this.next, this.id});
 }

@@ -15,7 +15,7 @@ class RentListBloc extends Bloc<RentListEvent, RentListState> {
       if (!event.isRefresh) {
         emit(state.copyWith(status: FormzStatus.submissionInProgress));
       }
-      final result = await rentListUseCase('');
+      final result = await rentListUseCase(Param(id: event.id));
       if (result.isRight) {
         emit(state.copyWith(
             status: FormzStatus.submissionSuccess,
@@ -28,7 +28,7 @@ class RentListBloc extends Bloc<RentListEvent, RentListState> {
     });
     on<_GetMoreResults>((event, emit) async {
       emit(state.copyWith(status: FormzStatus.submissionInProgress));
-      final result = await rentListUseCase(state.next!);
+      final result = await rentListUseCase(Param(next: state.next));
       if (result.isRight) {
         emit(state.copyWith(
             status: FormzStatus.submissionSuccess,

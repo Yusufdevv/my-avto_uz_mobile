@@ -21,6 +21,7 @@ class _CarsScreenState extends State<CarsScreen> {
     AppIcons.gas,
     AppIcons.gearBox,
   ];
+  final List<bool> isSelected = [false, false, false];
 
   @override
   Widget build(BuildContext context) => ListView(
@@ -33,7 +34,10 @@ class _CarsScreenState extends State<CarsScreen> {
                 ...List.generate(
                     titles.length,
                     (index) => ServiceTypeItem(
-                        icon: icons[index], title: titles[index]))
+                          icon: icons[index],
+                          title: titles[index],
+                          onTap: () {},
+                        ))
               ],
             ),
           ),

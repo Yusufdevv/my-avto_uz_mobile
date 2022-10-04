@@ -43,5 +43,8 @@ class RentBloc extends Bloc<RentEvent, RentState> {
         emit(state.copyWith(status: FormzStatus.submissionFailure));
       }
     });
+    on<_SetId>((event, emit) async {
+      emit(state.copyWith(categaryId: id));
+    });
   }
 }

@@ -1,3 +1,4 @@
+import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/common/widgets/w_textfield.dart';
@@ -15,9 +16,10 @@ import 'package:flutter_svg/svg.dart';
 import 'package:formz/formz.dart';
 
 class SingleCategoryScreen extends StatefulWidget {
-  final RentMainEntity rentMainEntity;
-
-  const SingleCategoryScreen({required this.rentMainEntity, Key? key})
+  final int id;
+  final String categoryName;
+  const SingleCategoryScreen(
+      {required this.id, required this.categoryName, Key? key})
       : super(key: key);
 
   @override
@@ -31,7 +33,7 @@ class _SingleCategoryScreenState extends State<SingleCategoryScreen> {
   @override
   void initState() {
     resultBloc = RentListBloc(RentListUseCase())
-      ..add(RentListEvent.getResults(isRefresh: false));
+      ..add(RentListEvent.getResults(isRefresh: false, id: widget.id));
     searchController = TextEditingController();
     super.initState();
   }
@@ -47,6 +49,8 @@ class _SingleCategoryScreenState extends State<SingleCategoryScreen> {
         value: resultBloc,
         child: Scaffold(
           appBar: AppBar(
+            elevation: 8,
+            shadowColor: dark.withOpacity(0.08),
             title: Row(
               children: [
                 WScaleAnimation(
@@ -56,7 +60,7 @@ class _SingleCategoryScreenState extends State<SingleCategoryScreen> {
                   width: 8,
                 ),
                 Text(
-                  widget.rentMainEntity.name,
+                  widget.categoryName,
                   style: Theme.of(context).textTheme.subtitle1!.copyWith(
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
@@ -83,6 +87,7 @@ class _SingleCategoryScreenState extends State<SingleCategoryScreen> {
                   child: CupertinoActivityIndicator(),
                 );
               } else if (state.status.isSubmissionSuccess) {
+                print(state.list);
                 return Paginator(
                     hasMoreToFetch: state.count > state.list.length,
                     paginatorStatus: FormzStatus.submissionSuccess,
@@ -92,16 +97,15 @@ class _SingleCategoryScreenState extends State<SingleCategoryScreen> {
                           .read<RentListBloc>()
                           .add(RentListEvent.getMoreResults());
                     },
-                    padding: const EdgeInsets.all(16),
+                    padding:
+                        const EdgeInsets.only(left: 16, right: 16, top: 16),
                     itemBuilder: (context, index) => CategorySingleItem(
-                          rentCarEntity:
-                              widget.rentMainEntity.rentList[index].rentCar,
+                          rentCarEntity: state.list[index],
                           onTap: () => Navigator.of(context).push(fade(
                               page: CarsSingleScreen(
-                                  rentListEntity:
-                                      widget.rentMainEntity.rentList[index]))),
+                                  rentListEntity: state.list[index]))),
                         ),
-                    itemCount: widget.rentMainEntity.rentList.length);
+                    itemCount: state.list.length);
               } else if (state.status.isSubmissionFailure) {
                 return const Center(
                   child: Text('Error'),

@@ -29,6 +29,12 @@ class _CommercialScreenState extends State<CommercialScreen> {
     AppIcons.gas,
     AppIcons.gearBox,
   ];
+  final List<bool> isSelected = [
+    false,
+    false,
+    false,
+    false,
+  ];
 
   @override
   Widget build(BuildContext context) => ListView(
@@ -41,7 +47,10 @@ class _CommercialScreenState extends State<CommercialScreen> {
                 ...List.generate(
                     titles.length,
                     (index) => ServiceTypeItem(
-                        icon: icons[index], title: titles[index]))
+                          icon: icons[index],
+                          title: titles[index],
+                          onTap: () {},
+                        ))
               ],
             ),
           ),
@@ -62,7 +71,8 @@ class _CommercialScreenState extends State<CommercialScreen> {
                         context,
                         fade(
                             page: SingleCategoryScreen(
-                          rentMainEntity: state.list[index],
+                          id: state.list[index].id,
+                          categoryName: state.list[index].name,
                         ))),
                     rentMainEntity: state.list[index],
                   ),

@@ -19,18 +19,21 @@ mixin _$RentEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(bool isRefresh) getResults,
+    required TResult Function(int id) setId,
     required TResult Function() getMoreResults,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(bool isRefresh)? getResults,
+    TResult Function(int id)? setId,
     TResult Function()? getMoreResults,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(bool isRefresh)? getResults,
+    TResult Function(int id)? setId,
     TResult Function()? getMoreResults,
     required TResult orElse(),
   }) =>
@@ -38,18 +41,21 @@ mixin _$RentEvent {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_GetResults value) getResults,
+    required TResult Function(_SetId value) setId,
     required TResult Function(_GetMoreResults value) getMoreResults,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_GetResults value)? getResults,
+    TResult Function(_SetId value)? setId,
     TResult Function(_GetMoreResults value)? getMoreResults,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetResults value)? getResults,
+    TResult Function(_SetId value)? setId,
     TResult Function(_GetMoreResults value)? getMoreResults,
     required TResult orElse(),
   }) =>
@@ -136,6 +142,7 @@ class _$_GetResults implements _GetResults {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(bool isRefresh) getResults,
+    required TResult Function(int id) setId,
     required TResult Function() getMoreResults,
   }) {
     return getResults(isRefresh);
@@ -145,6 +152,7 @@ class _$_GetResults implements _GetResults {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(bool isRefresh)? getResults,
+    TResult Function(int id)? setId,
     TResult Function()? getMoreResults,
   }) {
     return getResults?.call(isRefresh);
@@ -154,6 +162,7 @@ class _$_GetResults implements _GetResults {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(bool isRefresh)? getResults,
+    TResult Function(int id)? setId,
     TResult Function()? getMoreResults,
     required TResult orElse(),
   }) {
@@ -167,6 +176,7 @@ class _$_GetResults implements _GetResults {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_GetResults value) getResults,
+    required TResult Function(_SetId value) setId,
     required TResult Function(_GetMoreResults value) getMoreResults,
   }) {
     return getResults(this);
@@ -176,6 +186,7 @@ class _$_GetResults implements _GetResults {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_GetResults value)? getResults,
+    TResult Function(_SetId value)? setId,
     TResult Function(_GetMoreResults value)? getMoreResults,
   }) {
     return getResults?.call(this);
@@ -185,6 +196,7 @@ class _$_GetResults implements _GetResults {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetResults value)? getResults,
+    TResult Function(_SetId value)? setId,
     TResult Function(_GetMoreResults value)? getMoreResults,
     required TResult orElse(),
   }) {
@@ -201,6 +213,143 @@ abstract class _GetResults implements RentEvent {
   bool get isRefresh;
   @JsonKey(ignore: true)
   _$$_GetResultsCopyWith<_$_GetResults> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_SetIdCopyWith<$Res> {
+  factory _$$_SetIdCopyWith(_$_SetId value, $Res Function(_$_SetId) then) =
+      __$$_SetIdCopyWithImpl<$Res>;
+  $Res call({int id});
+}
+
+/// @nodoc
+class __$$_SetIdCopyWithImpl<$Res> extends _$RentEventCopyWithImpl<$Res>
+    implements _$$_SetIdCopyWith<$Res> {
+  __$$_SetIdCopyWithImpl(_$_SetId _value, $Res Function(_$_SetId) _then)
+      : super(_value, (v) => _then(v as _$_SetId));
+
+  @override
+  _$_SetId get _value => super._value as _$_SetId;
+
+  @override
+  $Res call({
+    Object? id = freezed,
+  }) {
+    return _then(_$_SetId(
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_SetId implements _SetId {
+  _$_SetId({required this.id});
+
+  @override
+  final int id;
+
+  @override
+  String toString() {
+    return 'RentEvent.setId(id: $id)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_SetId &&
+            const DeepCollectionEquality().equals(other.id, id));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(id));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$_SetIdCopyWith<_$_SetId> get copyWith =>
+      __$$_SetIdCopyWithImpl<_$_SetId>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(bool isRefresh) getResults,
+    required TResult Function(int id) setId,
+    required TResult Function() getMoreResults,
+  }) {
+    return setId(id);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(bool isRefresh)? getResults,
+    TResult Function(int id)? setId,
+    TResult Function()? getMoreResults,
+  }) {
+    return setId?.call(id);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(bool isRefresh)? getResults,
+    TResult Function(int id)? setId,
+    TResult Function()? getMoreResults,
+    required TResult orElse(),
+  }) {
+    if (setId != null) {
+      return setId(id);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_GetResults value) getResults,
+    required TResult Function(_SetId value) setId,
+    required TResult Function(_GetMoreResults value) getMoreResults,
+  }) {
+    return setId(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_GetResults value)? getResults,
+    TResult Function(_SetId value)? setId,
+    TResult Function(_GetMoreResults value)? getMoreResults,
+  }) {
+    return setId?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetResults value)? getResults,
+    TResult Function(_SetId value)? setId,
+    TResult Function(_GetMoreResults value)? getMoreResults,
+    required TResult orElse(),
+  }) {
+    if (setId != null) {
+      return setId(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _SetId implements RentEvent {
+  factory _SetId({required final int id}) = _$_SetId;
+
+  int get id;
+  @JsonKey(ignore: true)
+  _$$_SetIdCopyWith<_$_SetId> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -246,6 +395,7 @@ class _$_GetMoreResults implements _GetMoreResults {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(bool isRefresh) getResults,
+    required TResult Function(int id) setId,
     required TResult Function() getMoreResults,
   }) {
     return getMoreResults();
@@ -255,6 +405,7 @@ class _$_GetMoreResults implements _GetMoreResults {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(bool isRefresh)? getResults,
+    TResult Function(int id)? setId,
     TResult Function()? getMoreResults,
   }) {
     return getMoreResults?.call();
@@ -264,6 +415,7 @@ class _$_GetMoreResults implements _GetMoreResults {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(bool isRefresh)? getResults,
+    TResult Function(int id)? setId,
     TResult Function()? getMoreResults,
     required TResult orElse(),
   }) {
@@ -277,6 +429,7 @@ class _$_GetMoreResults implements _GetMoreResults {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_GetResults value) getResults,
+    required TResult Function(_SetId value) setId,
     required TResult Function(_GetMoreResults value) getMoreResults,
   }) {
     return getMoreResults(this);
@@ -286,6 +439,7 @@ class _$_GetMoreResults implements _GetMoreResults {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_GetResults value)? getResults,
+    TResult Function(_SetId value)? setId,
     TResult Function(_GetMoreResults value)? getMoreResults,
   }) {
     return getMoreResults?.call(this);
@@ -295,6 +449,7 @@ class _$_GetMoreResults implements _GetMoreResults {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetResults value)? getResults,
+    TResult Function(_SetId value)? setId,
     TResult Function(_GetMoreResults value)? getMoreResults,
     required TResult orElse(),
   }) {
@@ -316,6 +471,7 @@ mixin _$RentState {
   FormzStatus get paginationStatus => throw _privateConstructorUsedError;
   String? get next => throw _privateConstructorUsedError;
   int get count => throw _privateConstructorUsedError;
+  int get categaryId => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $RentStateCopyWith<RentState> get copyWith =>
@@ -331,7 +487,8 @@ abstract class $RentStateCopyWith<$Res> {
       FormzStatus status,
       FormzStatus paginationStatus,
       String? next,
-      int count});
+      int count,
+      int categaryId});
 }
 
 /// @nodoc
@@ -349,6 +506,7 @@ class _$RentStateCopyWithImpl<$Res> implements $RentStateCopyWith<$Res> {
     Object? paginationStatus = freezed,
     Object? next = freezed,
     Object? count = freezed,
+    Object? categaryId = freezed,
   }) {
     return _then(_value.copyWith(
       list: list == freezed
@@ -371,6 +529,10 @@ class _$RentStateCopyWithImpl<$Res> implements $RentStateCopyWith<$Res> {
           ? _value.count
           : count // ignore: cast_nullable_to_non_nullable
               as int,
+      categaryId: categaryId == freezed
+          ? _value.categaryId
+          : categaryId // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -386,7 +548,8 @@ abstract class _$$_RentStateCopyWith<$Res> implements $RentStateCopyWith<$Res> {
       FormzStatus status,
       FormzStatus paginationStatus,
       String? next,
-      int count});
+      int count,
+      int categaryId});
 }
 
 /// @nodoc
@@ -406,6 +569,7 @@ class __$$_RentStateCopyWithImpl<$Res> extends _$RentStateCopyWithImpl<$Res>
     Object? paginationStatus = freezed,
     Object? next = freezed,
     Object? count = freezed,
+    Object? categaryId = freezed,
   }) {
     return _then(_$_RentState(
       list: list == freezed
@@ -428,6 +592,10 @@ class __$$_RentStateCopyWithImpl<$Res> extends _$RentStateCopyWithImpl<$Res>
           ? _value.count
           : count // ignore: cast_nullable_to_non_nullable
               as int,
+      categaryId: categaryId == freezed
+          ? _value.categaryId
+          : categaryId // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -440,7 +608,8 @@ class _$_RentState implements _RentState {
       this.status = FormzStatus.pure,
       this.paginationStatus = FormzStatus.pure,
       this.next,
-      this.count = 0})
+      this.count = 0,
+      this.categaryId = -1})
       : _list = list;
 
   final List<RentMainEntity> _list;
@@ -462,10 +631,13 @@ class _$_RentState implements _RentState {
   @override
   @JsonKey()
   final int count;
+  @override
+  @JsonKey()
+  final int categaryId;
 
   @override
   String toString() {
-    return 'RentState(list: $list, status: $status, paginationStatus: $paginationStatus, next: $next, count: $count)';
+    return 'RentState(list: $list, status: $status, paginationStatus: $paginationStatus, next: $next, count: $count, categaryId: $categaryId)';
   }
 
   @override
@@ -478,7 +650,9 @@ class _$_RentState implements _RentState {
             const DeepCollectionEquality()
                 .equals(other.paginationStatus, paginationStatus) &&
             const DeepCollectionEquality().equals(other.next, next) &&
-            const DeepCollectionEquality().equals(other.count, count));
+            const DeepCollectionEquality().equals(other.count, count) &&
+            const DeepCollectionEquality()
+                .equals(other.categaryId, categaryId));
   }
 
   @override
@@ -488,7 +662,8 @@ class _$_RentState implements _RentState {
       const DeepCollectionEquality().hash(status),
       const DeepCollectionEquality().hash(paginationStatus),
       const DeepCollectionEquality().hash(next),
-      const DeepCollectionEquality().hash(count));
+      const DeepCollectionEquality().hash(count),
+      const DeepCollectionEquality().hash(categaryId));
 
   @JsonKey(ignore: true)
   @override
@@ -502,7 +677,8 @@ abstract class _RentState implements RentState {
       final FormzStatus status,
       final FormzStatus paginationStatus,
       final String? next,
-      final int count}) = _$_RentState;
+      final int count,
+      final int categaryId}) = _$_RentState;
 
   @override
   List<RentMainEntity> get list;
@@ -514,6 +690,8 @@ abstract class _RentState implements RentState {
   String? get next;
   @override
   int get count;
+  @override
+  int get categaryId;
   @override
   @JsonKey(ignore: true)
   _$$_RentStateCopyWith<_$_RentState> get copyWith =>

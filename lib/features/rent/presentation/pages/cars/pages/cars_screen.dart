@@ -1,6 +1,7 @@
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/pagination/presentation/paginator.dart';
+import 'package:auto/features/rent/domain/usecases/rent_usecase.dart';
 import 'package:auto/features/rent/presentation/bloc/rent_bloc/rent_bloc.dart';
 import 'package:auto/features/rent/presentation/pages/category_single/pages/single_category_screen.dart';
 import 'package:auto/features/rent/presentation/widgets/category_type_item.dart';
@@ -17,6 +18,7 @@ class CarsScreen extends StatefulWidget {
 }
 
 class _CarsScreenState extends State<CarsScreen> {
+  late RentBloc rentBloc;
   final List<String> titles = [
     'Кондиционер',
     'Детское кресло',
@@ -39,9 +41,18 @@ class _CarsScreenState extends State<CarsScreen> {
               scrollDirection: Axis.horizontal,
               children: [
                 ...List.generate(
-                    titles.length,
-                    (index) => ServiceTypeItem(
-                        icon: icons[index], title: titles[index]))
+                  titles.length,
+                  (index) => ServiceTypeItem(
+                    icon: icons[index],
+                    title: titles[index],
+                    onTap: () {
+                      setState(() {
+                        RentBloc(RentUseCase(), 5)
+                            .add(RentEvent.getResults(isRefresh: false));
+                      });
+                    },
+                  ),
+                ),
               ],
             ),
           ),
@@ -62,7 +73,8 @@ class _CarsScreenState extends State<CarsScreen> {
                       context,
                       fade(
                         page: SingleCategoryScreen(
-                          rentMainEntity: state.list[index],
+                          id: state.list[index].id,
+                          categoryName: state.list[index].name,
                         ),
                       ),
                     ),

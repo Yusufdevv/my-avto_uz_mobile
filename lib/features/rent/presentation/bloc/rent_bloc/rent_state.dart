@@ -8,5 +8,6 @@ class RentState with _$RentState {
     @Default(FormzStatus.pure) FormzStatus paginationStatus,
     String? next,
     @Default(0) int count,
+    @Default(-1) int categaryId,
   }) = _RentState;
 }
