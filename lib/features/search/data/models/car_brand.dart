@@ -10,8 +10,8 @@ class CarBrand {
   final String name ;
   @JsonKey(name: 'slug',defaultValue: '')
   final String slug;
-  @JsonKey(name: 'logo',)
-  final ImageModel logo;
+  @JsonKey(name: 'logo',defaultValue: '')
+  final String logo;
   CarBrand({required this.name,required this.id,required this.logo,required this.slug});
   factory CarBrand.fromJson(Map<String,dynamic> json)=>_$CarBrandFromJson(json);
 }
