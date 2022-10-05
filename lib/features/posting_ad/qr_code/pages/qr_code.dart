@@ -150,7 +150,7 @@ class _QRScannerScreenState extends State<QRScannerScreen> {
                 BoxShadow(
                   color: white.withOpacity(0.2),
                   blurRadius: 20,
-                  offset: Offset(0, 4), // changes position of shadow
+                  offset: const Offset(0, 4), // changes position of shadow
                 ),
               ],
               onTap: () => Navigator.of(context)

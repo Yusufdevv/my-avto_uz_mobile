@@ -1,5 +1,6 @@
 import 'package:auto/features/rent/data/models/rent_car_model.dart';
 import 'package:auto/features/rent/domain/entities/rent_car_category_entity.dart';
+import 'package:auto/features/rent/domain/entities/rent_car_make_entity.dart';
 import 'package:auto/features/rent/domain/entities/rent_car_type_entity.dart';
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
@@ -10,7 +11,8 @@ class RentCarEntity extends Equatable {
   final RentCarTypeEntity type;
   @RentCarCategoryConverter()
   final RentCarCategoryEntity category;
-  final String make;
+  @RentCarMakeConverter()
+  final RentCarMakeEntity make;
   final String model;
   final String generation;
   final String bodyType;
@@ -32,7 +34,7 @@ class RentCarEntity extends Equatable {
     this.id = 0,
     this.type = const RentCarTypeEntity(),
     this.category = const RentCarCategoryEntity(),
-    this.make = '',
+    this.make = const RentCarMakeEntity(),
     this.model = '',
     this.generation = '',
     this.bodyType = '',
@@ -80,9 +82,9 @@ class RentCarConverter
     implements JsonConverter<RentCarEntity, Map<String, dynamic>?> {
   const RentCarConverter();
 
-@override
-RentCarEntity fromJson(Map<String, dynamic>? json) =>
-    RentCarModel.fromJson(json ?? {});
+  @override
+  RentCarEntity fromJson(Map<String, dynamic>? json) =>
+      RentCarModel.fromJson(json ?? {});
 
   @override
   Map<String, dynamic> toJson(RentCarEntity object) => {};

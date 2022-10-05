@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:formz/formz.dart';
 import 'package:meta/meta.dart';
+import 'package:rxdart/rxdart.dart';
 
 part 'search_rent_event.dart';
 part 'search_rent_state.dart';
@@ -47,6 +48,8 @@ class SearchRentBloc extends Bloc<SearchRentEvent, SearchRentState> {
       } else {
         emit(state.copyWith(searchStatus: FormzStatus.submissionFailure));
       }
-    }, transformer: droppable());
+    }, transformer: debounce(const Duration(milliseconds: 300)));
   }
 }
+EventTransformer<MyEvent> debounce<MyEvent>(Duration duration) =>
+        (events, mapper) => events.debounceTime(duration).flatMap(mapper);
