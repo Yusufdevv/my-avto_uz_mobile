@@ -4,6 +4,7 @@ import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/common/bloc/auth/authentication_bloc.dart';
 import 'package:auto/features/common/bloc/regions/regions_bloc.dart';
+import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
 import 'package:auto/features/common/repository/auth.dart';
 import 'package:auto/features/common/usecases/get_regions.dart';
 import 'package:auto/features/dealers/presentation/dealers_main.dart';
@@ -72,6 +73,9 @@ class _AppState extends State<App> {
             create: (context) => RegionsBloc(GetRegionsUseCase())
               ..add(RegionsEvent.getRegions()),
           ),
+          BlocProvider(
+            create: (context)=>ShowPopUpBloc(),
+          )
         ],
         child: MaterialApp(
           supportedLocales: context.supportedLocales,

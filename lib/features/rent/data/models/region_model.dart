@@ -8,6 +8,7 @@ class RegionModel extends RegionEntity {
   const RegionModel({
     required super.id,
     required super.title,
+    required super.soato,
   });
 
   factory RegionModel.fromJson(Map<String, dynamic> json) =>
