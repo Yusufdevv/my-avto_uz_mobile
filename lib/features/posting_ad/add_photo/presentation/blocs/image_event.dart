@@ -21,3 +21,12 @@ class DeleteImage extends ImageEvent {
   @override
   List<Object?> get props => [imageUrl];
 }
+
+class GetImage extends ImageEvent {
+  final ImageSource source;
+
+  const GetImage({required this.source});
+
+  @override
+  List<Object?> get props => [source];
+}

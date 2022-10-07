@@ -8,6 +8,7 @@ import 'package:auto/features/posting_ad/presentation/widgets/base_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:image_picker/image_picker.dart';
 
 class AddPhotoScreen extends StatefulWidget {
   final VoidCallback onTap;

@@ -8,7 +8,7 @@ class ProfileEntity extends Equatable {
   final int id;
   @JsonKey(name: 'username', defaultValue: '')
   final String username;
-  @JsonKey(name: 'firs_name', defaultValue: '')
+  @JsonKey(name: 'first_name', defaultValue: '')
   final String firstName;
   @JsonKey(name: 'last_name', defaultValue: '')
   final String lastName;

@@ -9,7 +9,7 @@ part of 'profile.dart';
 ProfileModel _$ProfileModelFromJson(Map<String, dynamic> json) => ProfileModel(
       id: json['id'] as int? ?? 0,
       lastName: json['last_name'] as String? ?? '',
-      firstName: json['firs_name'] as String? ?? '',
+      firstName: json['first_name'] as String? ?? '',
       image: json['image'] as String? ?? '',
       region: json['region'] as int? ?? 0,
       email: json['email'] as String? ?? '',
@@ -28,7 +28,7 @@ Map<String, dynamic> _$ProfileModelToJson(ProfileModel instance) =>
     <String, dynamic>{
       'id': instance.id,
       'username': instance.username,
-      'firs_name': instance.firstName,
+      'first_name': instance.firstName,
       'last_name': instance.lastName,
       'full_name': instance.fullName,
       'email': instance.email,

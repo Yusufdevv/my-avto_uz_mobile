@@ -31,4 +31,16 @@ class ProfileRepositoryImpl extends ProfileRepository {
       return Left(ServerFailure(statusCode: 141, errorMessage: error.errorMessage));
     }
   }
+
+  @override
+  Future<Either<ServerFailure, String>> changePassword(
+      {required String oldPassword, required String newPassword}) async {
+    try {
+      final result =
+          await dataSource.changePassword(oldPassword: oldPassword, newPassword: newPassword);
+      return Right(result);
+    } on ServerException catch (error) {
+      return Left(ServerFailure(statusCode: 141, errorMessage: error.errorMessage));
+    }
+  }
 }

@@ -8,6 +8,7 @@ import 'package:auto/features/favorites/presentation/favourite_screen.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/posting_ad/add_photo/presentation/blocs/image_bloc.dart';
 import 'package:auto/features/profile/data/repositories/profile_repository_impl.dart';
+import 'package:auto/features/profile/domain/usecases/change_password.dart';
 import 'package:auto/features/profile/domain/usecases/edit_profile.dart';
 import 'package:auto/features/profile/domain/usecases/profile.dart';
 import 'package:auto/features/profile/presentation/bloc/profile/profile_bloc.dart';
@@ -40,6 +41,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   initState() {
     profileBloc = ProfileBloc(
+        changePasswordUseCase:
+            ChangePasswordUseCase(repository: serviceLocator<ProfileRepositoryImpl>()),
         editProfileUseCase: EditProfileUseCase(repository: serviceLocator<ProfileRepositoryImpl>()),
         profileUseCase: ProfileUseCase(repository: serviceLocator<ProfileRepositoryImpl>()));
     imageBloc = ImageBloc();
@@ -215,9 +218,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 name: LocaleKeys.settings.tr(),
                                 onTap: () {
                                   Navigator.of(context).push(
-                                    fade(
-                                      page: SettingsScreen(),
-                                    ),
+                                    fade(page: SettingsScreen(profileBloc: profileBloc)),
                                   );
                                 },
                                 iconPath: AppIcons.settings,

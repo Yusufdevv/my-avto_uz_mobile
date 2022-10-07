@@ -81,9 +81,9 @@ class CameraBottomSheetState extends State<CameraBottomSheet> {
                 imageType: ImageSource.gallery,
                 onTapImageType: (_imageType) {
                   if (index == 0) {
-                    widget.imageBloc.add(const PickImage(source: ImageSource.camera));
+                    widget.imageBloc.add(const GetImage(source: ImageSource.camera));
                   } else {
-                    widget.imageBloc.add(const PickImage(source: ImageSource.gallery));
+                    widget.imageBloc.add(const GetImage(source: ImageSource.gallery));
                   }
                   Navigator.of(context).pop();
                 },

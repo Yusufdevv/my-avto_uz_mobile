@@ -10,6 +10,8 @@ abstract class ProfileRemoteDataSource {
   Future<ProfileModel> getProfile();
 
   Future<ProfileModel> editProfile({String? image, String? name, String? surName, int? region});
+
+  Future<String> changePassword({required String oldPassword, required String newPassword});
 }
 
 class ProfileRemoteDataSourceImpl extends ProfileRemoteDataSource {
@@ -53,6 +55,9 @@ class ProfileRemoteDataSourceImpl extends ProfileRemoteDataSource {
       if (name != null) {
         data.putIfAbsent('first_name', () => name);
       }
+      if (image != null) {
+        data.putIfAbsent('image', () => image);
+      }
 
       final response = await dio.patch('/users/detail/edit/',
           data: data,
@@ -64,6 +69,29 @@ class ProfileRemoteDataSourceImpl extends ProfileRemoteDataSource {
         return ProfileModel.fromJson(response.data);
       }
 
+      throw ServerException(
+          statusCode: response.statusCode ?? 0, errorMessage: response.statusMessage ?? '');
+    } on ServerException {
+      rethrow;
+    } on DioError {
+      throw DioException();
+    } on Exception catch (e) {
+      throw ParsingException(errorMessage: e.toString());
+    }
+  }
+
+  @override
+  Future<String> changePassword({required String oldPassword, required String newPassword}) async {
+    try {
+      final response = await dio.post(
+        '/users/change-password/',
+        options: Options(
+          headers: {'Authorization': 'Bearer ${StorageRepository.getString('token')}'},
+        ),
+      );
+      if (response.statusCode! >= 200 && response.statusCode! < 300) {
+        return '';
+      }
       throw ServerException(
           statusCode: response.statusCode ?? 0, errorMessage: response.statusMessage ?? '');
     } on ServerException {

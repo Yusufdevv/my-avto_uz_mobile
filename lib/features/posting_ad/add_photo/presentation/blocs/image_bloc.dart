@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -11,7 +12,11 @@ part 'image_state.dart';
 class ImageBloc extends Bloc<ImageEvent, ImageState> {
   final imagePicker = ImagePicker();
 
-  ImageBloc() : super(const ImageState(images: [])) {
+  ImageBloc()
+      : super(ImageState(
+          images: const [],
+          image: File(''),
+        )) {
     on<PickImage>((event, emit) async {
       final image = await imagePicker.pickImage(source: event.source);
       if (image != null) {
@@ -24,6 +29,12 @@ class ImageBloc extends Bloc<ImageEvent, ImageState> {
         image.remove(event.imageUrl);
       }
       emit(state.copyWith(images: image));
+    });
+    on<GetImage>((event, emit) async {
+      final image = await imagePicker.pickImage(source: event.source);
+      if (image != null) {
+        emit(state.copyWith(image: File(image.path)));
+      }
     });
   }
 }

@@ -9,11 +9,15 @@ class ChangePasswordEvent extends ProfileEvent {
   final String oldPassword;
   final String newPassword;
   final String newPasswordConfirm;
+  final Function onSuccess;
+  final Function(String text) onError;
 
   ChangePasswordEvent({
     required this.newPassword,
     required this.oldPassword,
     required this.newPasswordConfirm,
+    required this.onSuccess,
+    required this.onError,
   });
 }
 

@@ -40,8 +40,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
   @override
   initState() {
-    nameController = TextEditingController();
-    surNameController = TextEditingController();
+    nameController = TextEditingController(text: widget.profileBloc.state.profileEntity.firstName);
+    surNameController =
+        TextEditingController(text: widget.profileBloc.state.profileEntity.lastName);
     super.initState();
   }
 
@@ -64,6 +65,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
+    print(nameController.text);
     return MultiBlocProvider(
       providers: [
         BlocProvider.value(value: widget.profileBloc),
@@ -83,8 +85,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     EditProfileEvent(
                       name: nameController.text,
                       surName: surNameController.text,
-                      image: widget.imageBloc.state.images.isNotEmpty
-                          ? widget.imageBloc.state.images[0]
+                      image: widget.imageBloc.state.image.path.isNotEmpty
+                          ? widget.imageBloc.state.image.path
                           : null,
                       onSuccess: () {
                         print('success');
@@ -126,15 +128,21 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                               BlocBuilder<ImageBloc, ImageState>(
                                 builder: (context, state) {
                                   print(state.images.isEmpty);
-                                  return CachedImage(
-                                    height: 80,
-                                    width: 80,
-                                    borderRadius: BorderRadius.circular(40),
-                                    fit: BoxFit.cover,
-                                    imageUrl: state.images.isEmpty
-                                        ? widget.profileBloc.state.profileEntity.image
-                                        : state.images[0],
-                                  );
+                                  return state.image.path.isEmpty
+                                      ? CachedImage(
+                                          height: 80,
+                                          width: 80,
+                                          borderRadius: BorderRadius.circular(40),
+                                          fit: BoxFit.cover,
+                                          imageUrl: widget.profileBloc.state.profileEntity.image,
+                                        )
+                                      : Container(
+                                          height: 80,
+                                          width: 80,
+                                          child: ClipRRect(
+                                              borderRadius: BorderRadius.circular(40),
+                                              child: Image.file(state.image, fit: BoxFit.cover)),
+                                        );
                                 },
                               ),
                               const SizedBox(height: 8),
@@ -158,7 +166,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           .headline1!
                           .copyWith(fontSize: 14, fontWeight: FontWeight.w600),
                       borderRadius: 12,
-                      hintText: 'Джасурбек',
+                      hintText: '',
                       hintTextStyle: Theme.of(context)
                           .textTheme
                           .headline1!
@@ -182,7 +190,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           .copyWith(fontSize: 14, fontWeight: FontWeight.w600),
                       disabledColor: Theme.of(context).appBarTheme.backgroundColor,
                       borderRadius: 12,
-                      hintText: 'Нарзуллаев',
+                      hintText: '',
                       hintTextStyle: Theme.of(context)
                           .textTheme
                           .headline1!

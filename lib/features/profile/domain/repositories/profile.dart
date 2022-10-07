@@ -9,4 +9,7 @@ abstract class ProfileRepository {
 
   Future<Either<ServerFailure, ProfileEntity>> editProfile(
       {String? image, String? name, String? surName, int? region});
+
+  Future<Either<ServerFailure, String>> changePassword(
+      {required String oldPassword, required String newPassword});
 }

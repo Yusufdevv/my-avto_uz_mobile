@@ -4,6 +4,7 @@ import 'package:auto/assets/themes/theme_extensions/w_textfield_style.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
+import 'package:auto/features/profile/presentation/bloc/profile/profile_bloc.dart';
 import 'package:auto/features/profile/presentation/pages/new_password.dart';
 import 'package:auto/features/profile/presentation/pages/password_changing_screen.dart';
 import 'package:auto/features/profile/presentation/widgets/language_bottom_sheet.dart';
@@ -13,7 +14,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class SettingsScreen extends StatelessWidget {
-  SettingsScreen({Key? key}) : super(key: key);
+  final ProfileBloc profileBloc;
+
+  SettingsScreen({required this.profileBloc, Key? key}) : super(key: key);
   final edit = <List<String>>[
     [
       LocaleKeys.change_password.tr(),
@@ -35,22 +38,17 @@ class SettingsScreen extends StatelessWidget {
                 onTap: () {
                   Navigator.of(context, rootNavigator: true).push(
                     fade(
-                      page: const PasswordChangingScreen(),
+                      page:  PasswordChangingScreen(profileBloc:profileBloc),
                     ),
                   );
                 },
                 child: Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
+                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
                   decoration: BoxDecoration(
-                    color: Theme.of(context)
-                        .extension<ThemedColors>()!
-                        .whiteToNero1,
+                    color: Theme.of(context).extension<ThemedColors>()!.whiteToNero1,
                     borderRadius: BorderRadius.circular(12),
                     border: Border.all(
-                        color: Theme.of(context)
-                            .extension<WTextFieldStyle>()!
-                            .borderColor),
+                        color: Theme.of(context).extension<WTextFieldStyle>()!.borderColor),
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -62,15 +60,12 @@ class SettingsScreen extends StatelessWidget {
                             style: Theme.of(context)
                                 .textTheme
                                 .headline1!
-                                .copyWith(
-                                    fontSize: 15, fontWeight: FontWeight.w600),
+                                .copyWith(fontSize: 15, fontWeight: FontWeight.w600),
                           ),
                           const Spacer(),
                           SvgPicture.asset(
                             AppIcons.chevronRightBlack,
-                            color: Theme.of(context)
-                                .extension<ThemedColors>()!
-                                .darkGreyToWhite,
+                            color: Theme.of(context).extension<ThemedColors>()!.darkGreyToWhite,
                           )
                         ],
                       ),
@@ -85,22 +80,16 @@ class SettingsScreen extends StatelessWidget {
                       context: context,
                       useRootNavigator: true,
                       backgroundColor: Colors.transparent,
-                      constraints: BoxConstraints(
-                          minWidth: MediaQuery.of(context).size.width),
+                      constraints: BoxConstraints(minWidth: MediaQuery.of(context).size.width),
                       builder: (context) => const LanguageBottomSheet());
                 },
                 child: Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
+                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
                   decoration: BoxDecoration(
-                    color: Theme.of(context)
-                        .extension<ThemedColors>()!
-                        .whiteToNero1,
+                    color: Theme.of(context).extension<ThemedColors>()!.whiteToNero1,
                     borderRadius: BorderRadius.circular(12),
                     border: Border.all(
-                        color: Theme.of(context)
-                            .extension<WTextFieldStyle>()!
-                            .borderColor),
+                        color: Theme.of(context).extension<WTextFieldStyle>()!.borderColor),
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -112,8 +101,7 @@ class SettingsScreen extends StatelessWidget {
                             style: Theme.of(context)
                                 .textTheme
                                 .headline1!
-                                .copyWith(
-                                    fontSize: 15, fontWeight: FontWeight.w600),
+                                .copyWith(fontSize: 15, fontWeight: FontWeight.w600),
                           ),
                           const Spacer(),
                           Text(
@@ -123,9 +111,7 @@ class SettingsScreen extends StatelessWidget {
                           const SizedBox(width: 12),
                           SvgPicture.asset(
                             AppIcons.chevronRightBlack,
-                            color: Theme.of(context)
-                                .extension<ThemedColors>()!
-                                .darkGreyToWhite,
+                            color: Theme.of(context).extension<ThemedColors>()!.darkGreyToWhite,
                           ),
                         ],
                       ),
