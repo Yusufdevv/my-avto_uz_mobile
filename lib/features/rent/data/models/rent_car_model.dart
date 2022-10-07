@@ -1,7 +1,15 @@
+import 'package:auto/features/rent/domain/entities/rent_car_bodytype_entity.dart';
 import 'package:auto/features/rent/domain/entities/rent_car_category_entity.dart';
 import 'package:auto/features/rent/domain/entities/rent_car_entity.dart';
+import 'package:auto/features/rent/domain/entities/rent_car_generation_entity.dart';
+import 'package:auto/features/rent/domain/entities/rent_car_make_entity.dart';
+import 'package:auto/features/rent/domain/entities/rent_car_models_entity.dart';
+import 'package:auto/features/rent/domain/entities/rent_car_modification_entity.dart';
 import 'package:auto/features/rent/domain/entities/rent_car_type_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
+
+
+
 
 part 'rent_car_model.g.dart';
 
@@ -18,7 +26,7 @@ class RentCarModel extends RentCarEntity {
     required super.engineVolume,
     required super.engineType,
     required super.gearboxType,
-    required super.equipmentType,
+    required super.modificationType,
     required super.driveType,
     required super.year,
     required super.bodyType,

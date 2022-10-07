@@ -5,11 +5,11 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class CategorySingleItem extends StatelessWidget {
-  final RentListEntity rentCarEntity;
+  final RentListEntity rentListEntity;
   final VoidCallback onTap;
 
   const CategorySingleItem(
-      {required this.rentCarEntity, required this.onTap, Key? key})
+      {required this.rentListEntity, required this.onTap, Key? key})
       : super(key: key);
 
   @override
@@ -43,7 +43,7 @@ class CategorySingleItem extends StatelessWidget {
                 child: CachedNetworkImage(
                   height: 137,
                   width: double.infinity,
-                  imageUrl: rentCarEntity.rentCar.gallery.first,
+                  imageUrl: rentListEntity.rentCar.gallery.first,
                   fit: BoxFit.cover,
                 ),
               ),
@@ -51,7 +51,8 @@ class CategorySingleItem extends StatelessWidget {
                 height: 8,
               ),
               Text(
-                '${rentCarEntity.rentCar.year} ${rentCarEntity.rentCar.model}',
+                '${rentListEntity.rentCar.generation.yearBegin}-${rentListEntity.rentCar.generation.yearEnd}, '
+                    '${rentListEntity.rentCar.model.name}',
                 style: Theme.of(context)
                     .textTheme
                     .headline1!

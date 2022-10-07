@@ -1,7 +1,7 @@
+import 'package:auto/features/rent/domain/entities/region_entity.dart';
+import 'package:auto/features/rent/domain/entities/rent_car_entity.dart';
 import 'package:auto/features/rent/domain/entities/rent_list_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:auto/features/rent/domain/entities/rent_car_entity.dart';
-import 'package:auto/features/rent/domain/entities/region_entity.dart';
 
 part 'rent_list_model.g.dart';
 

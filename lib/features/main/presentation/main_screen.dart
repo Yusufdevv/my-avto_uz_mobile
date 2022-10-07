@@ -2,7 +2,6 @@ import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_icons.dart';
 import 'package:auto/features/common/domain/entity/car_brand_entity.dart';
-import 'package:auto/features/common/widgets/car_brand_item.dart';
 import 'package:auto/features/main/domain/entities/ads_entity.dart';
 import 'package:auto/features/main/domain/entities/service_entity.dart';
 import 'package:auto/features/main/domain/usecases/get_top_ads.dart';
@@ -11,7 +10,6 @@ import 'package:auto/features/main/presentation/bloc/top_ad/top_ad_bloc.dart';
 import 'package:auto/features/main/presentation/bloc/top_brand/top_brand_bloc.dart';
 import 'package:auto/features/main/presentation/parts/top_ads.dart';
 import 'package:auto/features/main/presentation/parts/top_brands.dart';
-import 'package:auto/features/main/presentation/widgets/ads_item.dart';
 import 'package:auto/features/main/presentation/widgets/car_model_item.dart';
 import 'package:auto/features/main/presentation/widgets/deal_button.dart';
 import 'package:auto/features/main/presentation/widgets/favourite_item.dart';
@@ -83,7 +81,7 @@ class _MainScreenState extends State<MainScreen> {
       () {},
       () => Navigator.pushReplacement(
           context, fade(page: const CommercialScreen())),
-      () => Navigator.push(context, fade(page: const RentScreen())),
+      () => Navigator.of(context,rootNavigator: true).push(fade(page: const RentScreen())),
     ];
     super.initState();
   }

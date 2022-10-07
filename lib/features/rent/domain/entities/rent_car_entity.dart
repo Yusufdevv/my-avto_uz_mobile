@@ -1,6 +1,10 @@
 import 'package:auto/features/rent/data/models/rent_car_model.dart';
+import 'package:auto/features/rent/domain/entities/rent_car_bodytype_entity.dart';
 import 'package:auto/features/rent/domain/entities/rent_car_category_entity.dart';
+import 'package:auto/features/rent/domain/entities/rent_car_generation_entity.dart';
 import 'package:auto/features/rent/domain/entities/rent_car_make_entity.dart';
+import 'package:auto/features/rent/domain/entities/rent_car_models_entity.dart';
+import 'package:auto/features/rent/domain/entities/rent_car_modification_entity.dart';
 import 'package:auto/features/rent/domain/entities/rent_car_type_entity.dart';
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
@@ -13,14 +17,23 @@ class RentCarEntity extends Equatable {
   final RentCarCategoryEntity category;
   @RentCarMakeConverter()
   final RentCarMakeEntity make;
-  final String model;
-  final String generation;
-  final String bodyType;
+  @RentCarModelsConverter()
+  final RentCarModelsEntity model;
+  @RentCarGenerationConverter()
+  final RentCarGenerationEntity generation;
+  @RentCarBodyTypeConverter()
+  final RentCarBodyTypeEntity bodyType;
   final int year;
-  final String driveType;
-  final String equipmentType;
-  final String gearboxType;
-  final String engineType;
+  @RentCarBodyTypeConverter()
+  final RentCarBodyTypeEntity driveType;
+  @RentCarModificationConverter()
+  final RentCarModificationEntity modificationType;
+
+  // final String equipmentType;
+  @RentCarBodyTypeConverter()
+  final RentCarBodyTypeEntity gearboxType;
+  @RentCarBodyTypeConverter()
+  final RentCarBodyTypeEntity engineType;
   final double engineVolume;
   final String color;
   final int distanceTraveled;
@@ -35,14 +48,14 @@ class RentCarEntity extends Equatable {
     this.type = const RentCarTypeEntity(),
     this.category = const RentCarCategoryEntity(),
     this.make = const RentCarMakeEntity(),
-    this.model = '',
-    this.generation = '',
-    this.bodyType = '',
+    this.model = const RentCarModelsEntity(),
+    this.generation = const RentCarGenerationEntity(),
+    this.bodyType = const RentCarBodyTypeEntity(),
     this.year = 0,
-    this.driveType = '',
-    this.equipmentType = '',
-    this.gearboxType = '',
-    this.engineType = '',
+    this.driveType = const RentCarBodyTypeEntity(),
+    this.modificationType = const RentCarModificationEntity(),
+    this.gearboxType = const RentCarBodyTypeEntity(),
+    this.engineType = const RentCarBodyTypeEntity(),
     this.engineVolume = 0.0,
     this.color = '',
     this.distanceTraveled = 0,
@@ -64,7 +77,7 @@ class RentCarEntity extends Equatable {
         bodyType,
         year,
         driveType,
-        equipmentType,
+        modificationType,
         gearboxType,
         engineType,
         engineVolume,

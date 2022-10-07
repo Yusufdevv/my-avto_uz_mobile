@@ -10,16 +10,23 @@ class RentListUseCase extends UseCase<GenericPagination<RentListModel>, Param> {
 
   @override
   Future<Either<Failure, GenericPagination<RentListModel>>> call(
-          Param params) async =>
-      await repo.fetchMore(
+          Param params) async {
+    final map =<String,dynamic>{'search': params.search};
+    if(params.id != null){
+      map.addAll({'rent_car__category': params.id});
+    }
+    return await repo.fetchMore(
           url: 'rent/list/',
           fromJson: RentListModel.fromJson,
           next: params.next,
-          query: params.id != null ? {'rent_car__category': params.id} : null);
+          query:  map);
+  }
+
 }
 
 class Param {
   final String? next;
   final int? id;
-  Param({this.next, this.id});
+  final String? search;
+  Param({this.next, this.id,this.search});
 }

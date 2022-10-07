@@ -1,6 +1,6 @@
+import 'package:auto/features/rent/domain/entities/rent_list_entity.dart';
 import 'package:auto/features/rent/domain/entities/rent_main_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:auto/features/rent/domain/entities/rent_list_entity.dart';
 
 part 'rent_main_model.g.dart';
 

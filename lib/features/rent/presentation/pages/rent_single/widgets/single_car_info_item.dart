@@ -31,24 +31,25 @@ class SingleCarInfoItem extends StatelessWidget {
                 title: 'Пробег',
                 description:
                     '${MyFunctions.getFormatCost(rentCarEntity.distanceTraveled.toString())} km'),
-            InfoItem(title: 'Кузов', description: rentCarEntity.bodyType),
+            InfoItem(title: 'Кузов', description: rentCarEntity.bodyType.type),
             InfoItem(title: 'Цвет', description: rentCarEntity.color),
             InfoItem(
               title: 'Комплектация',
-              description: rentCarEntity.equipmentType,
+              description: rentCarEntity.modificationType.power,
               textStyle:
                   Theme.of(context).textTheme.subtitle2!.copyWith(color: blue),
             ),
             InfoItem(
                 title: 'Объем двигателя, л',
-                description: rentCarEntity.engineType),
+                description: rentCarEntity.modificationType.volume),
             InfoItem(
                 title: 'Коробка передач',
-                description: rentCarEntity.gearboxType),
+                description: rentCarEntity.gearboxType.type),
             InfoItem(
                 title: 'Кондиционер',
                 description: rentCarEntity.hasAirConditioner ? 'Есть' : 'Нет'),
-            InfoItem(title: 'Привод', description: rentCarEntity.driveType),
+            InfoItem(
+                title: 'Привод', description: rentCarEntity.driveType.type),
           ],
         ),
       );

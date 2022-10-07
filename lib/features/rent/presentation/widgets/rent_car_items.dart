@@ -50,7 +50,7 @@ class RentCarItems extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8),
                 child: Text(
-                  '${rentEntity.rentCar.make} ${rentEntity.rentCar.model}',
+                  '${rentEntity.rentCar.make.name} ${rentEntity.rentCar.model.name}',
                   style: Theme.of(context).textTheme.headline1!.copyWith(
                         fontSize: 12,
                         fontWeight: FontWeight.w400,
@@ -65,7 +65,7 @@ class RentCarItems extends StatelessWidget {
                 child: Row(
                   children: [
                     Text(
-                      '${MyFunctions.getFormatCost(rentEntity.minAge.toString())} UZS',
+                      '${MyFunctions.getFormatCost(rentEntity.price)} UZS',
                       style: Theme.of(context)
                           .textTheme
                           .headline3!

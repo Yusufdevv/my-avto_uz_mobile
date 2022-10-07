@@ -18,19 +18,19 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$RentListEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(bool isRefresh, int id) getResults,
+    required TResult Function(bool isRefresh, int id, String search) getResults,
     required TResult Function() getMoreResults,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(bool isRefresh, int id)? getResults,
+    TResult Function(bool isRefresh, int id, String search)? getResults,
     TResult Function()? getMoreResults,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(bool isRefresh, int id)? getResults,
+    TResult Function(bool isRefresh, int id, String search)? getResults,
     TResult Function()? getMoreResults,
     required TResult orElse(),
   }) =>
@@ -78,7 +78,7 @@ abstract class _$$_GetResultsCopyWith<$Res> {
   factory _$$_GetResultsCopyWith(
           _$_GetResults value, $Res Function(_$_GetResults) then) =
       __$$_GetResultsCopyWithImpl<$Res>;
-  $Res call({bool isRefresh, int id});
+  $Res call({bool isRefresh, int id, String search});
 }
 
 /// @nodoc
@@ -96,6 +96,7 @@ class __$$_GetResultsCopyWithImpl<$Res>
   $Res call({
     Object? isRefresh = freezed,
     Object? id = freezed,
+    Object? search = freezed,
   }) {
     return _then(_$_GetResults(
       isRefresh: isRefresh == freezed
@@ -106,6 +107,10 @@ class __$$_GetResultsCopyWithImpl<$Res>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
+      search: search == freezed
+          ? _value.search
+          : search // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -113,16 +118,19 @@ class __$$_GetResultsCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_GetResults implements _GetResults {
-  _$_GetResults({required this.isRefresh, required this.id});
+  _$_GetResults(
+      {required this.isRefresh, required this.id, required this.search});
 
   @override
   final bool isRefresh;
   @override
   final int id;
+  @override
+  final String search;
 
   @override
   String toString() {
-    return 'RentListEvent.getResults(isRefresh: $isRefresh, id: $id)';
+    return 'RentListEvent.getResults(isRefresh: $isRefresh, id: $id, search: $search)';
   }
 
   @override
@@ -131,14 +139,16 @@ class _$_GetResults implements _GetResults {
         (other.runtimeType == runtimeType &&
             other is _$_GetResults &&
             const DeepCollectionEquality().equals(other.isRefresh, isRefresh) &&
-            const DeepCollectionEquality().equals(other.id, id));
+            const DeepCollectionEquality().equals(other.id, id) &&
+            const DeepCollectionEquality().equals(other.search, search));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(isRefresh),
-      const DeepCollectionEquality().hash(id));
+      const DeepCollectionEquality().hash(id),
+      const DeepCollectionEquality().hash(search));
 
   @JsonKey(ignore: true)
   @override
@@ -148,30 +158,30 @@ class _$_GetResults implements _GetResults {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(bool isRefresh, int id) getResults,
+    required TResult Function(bool isRefresh, int id, String search) getResults,
     required TResult Function() getMoreResults,
   }) {
-    return getResults(isRefresh, id);
+    return getResults(isRefresh, id, search);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(bool isRefresh, int id)? getResults,
+    TResult Function(bool isRefresh, int id, String search)? getResults,
     TResult Function()? getMoreResults,
   }) {
-    return getResults?.call(isRefresh, id);
+    return getResults?.call(isRefresh, id, search);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(bool isRefresh, int id)? getResults,
+    TResult Function(bool isRefresh, int id, String search)? getResults,
     TResult Function()? getMoreResults,
     required TResult orElse(),
   }) {
     if (getResults != null) {
-      return getResults(isRefresh, id);
+      return getResults(isRefresh, id, search);
     }
     return orElse();
   }
@@ -209,11 +219,14 @@ class _$_GetResults implements _GetResults {
 }
 
 abstract class _GetResults implements RentListEvent {
-  factory _GetResults({required final bool isRefresh, required final int id}) =
-      _$_GetResults;
+  factory _GetResults(
+      {required final bool isRefresh,
+      required final int id,
+      required final String search}) = _$_GetResults;
 
   bool get isRefresh;
   int get id;
+  String get search;
   @JsonKey(ignore: true)
   _$$_GetResultsCopyWith<_$_GetResults> get copyWith =>
       throw _privateConstructorUsedError;
@@ -260,7 +273,7 @@ class _$_GetMoreResults implements _GetMoreResults {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(bool isRefresh, int id) getResults,
+    required TResult Function(bool isRefresh, int id, String search) getResults,
     required TResult Function() getMoreResults,
   }) {
     return getMoreResults();
@@ -269,7 +282,7 @@ class _$_GetMoreResults implements _GetMoreResults {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(bool isRefresh, int id)? getResults,
+    TResult Function(bool isRefresh, int id, String search)? getResults,
     TResult Function()? getMoreResults,
   }) {
     return getMoreResults?.call();
@@ -278,7 +291,7 @@ class _$_GetMoreResults implements _GetMoreResults {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(bool isRefresh, int id)? getResults,
+    TResult Function(bool isRefresh, int id, String search)? getResults,
     TResult Function()? getMoreResults,
     required TResult orElse(),
   }) {

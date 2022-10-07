@@ -27,7 +27,7 @@ class CarSinglePreview extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Text(
-                '${rentEntity.rentCar.make} ${rentEntity.rentCar.model}',
+                '${rentEntity.rentCar.make.name} ${rentEntity.rentCar.model.name}',
                 style: Theme.of(context)
                     .textTheme
                     .headline1!
