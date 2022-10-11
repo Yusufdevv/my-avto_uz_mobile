@@ -7,9 +7,12 @@ import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/common/widgets/w_textfield.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/search/domain/entities/search_item_entity.dart';
+import 'package:auto/features/search/domain/usecases/get_search_result.dart';
+import 'package:auto/features/search/presentation/bloc/search_results/search_result_bloc.dart';
 import 'package:auto/features/search/presentation/bloc/searched_bloc/searched_bloc.dart';
 import 'package:auto/features/search/presentation/pages/filter_screen.dart';
 import 'package:auto/features/search/presentation/pages/results_screen.dart';
+import 'package:auto/features/search/presentation/part/result_page.dart';
 import 'package:auto/features/search/presentation/widgets/filter_item.dart';
 import 'package:auto/features/search/presentation/widgets/searched_models_item.dart';
 import 'package:auto/generated/locale_keys.g.dart';
@@ -28,12 +31,14 @@ class SearchScreen extends StatefulWidget {
 
 class _SearchScreenState extends State<SearchScreen> {
   late TextEditingController searchController;
-  late SearchedBloc searchedBloc;
+  late SearchBloc searchBloc;
+  late SearchResultBloc searchResultBloc;
 
   @override
   void initState() {
     searchController = TextEditingController();
-    searchedBloc = SearchedBloc(carsList: searchedCars);
+    searchResultBloc = SearchResultBloc(GetSearchResultsUseCase())..add(SearchResultEvent.getResults(isRefresh: false));
+    searchBloc = SearchBloc()..add(SearchEvent.getSearchResults(search: ''));
     super.initState();
   }
 
@@ -45,44 +50,10 @@ class _SearchScreenState extends State<SearchScreen> {
     super.dispose();
   }
 
-  final List<SearchItemEntity> searchItemEntity = [
-    const SearchItemEntity(title: 'BMW Xdrive', icon: AppImages.bmwModel),
-    const SearchItemEntity(title: 'BMW X5 sport', icon: AppImages.bmwModel),
-    const SearchItemEntity(
-        title: 'BMW X6 Competition', icon: AppImages.bmwModel),
-    const SearchItemEntity(title: 'BMW X 7', icon: AppImages.bmwModel),
-    const SearchItemEntity(title: 'BMW X 7', icon: AppImages.bmwModel),
-    const SearchItemEntity(title: 'BMW X 7', icon: AppImages.bmwModel),
-    const SearchItemEntity(title: 'BMW X 7', icon: AppImages.bmwModel),
-    const SearchItemEntity(title: 'BMW X 7', icon: AppImages.bmwModel),
-    const SearchItemEntity(title: 'BMW X 7', icon: AppImages.bmwModel),
-    const SearchItemEntity(title: 'BMW X 7', icon: AppImages.bmwModel),
-  ];
-  List<String> cars = [
-    'Gentra 1.5',
-    'Nexia 3',
-    'Nexia 3',
-    'Nexia 3',
-  ];
-  List<String> searchedCars = [
-    'Mercedes',
-    'Gentra 1.5',
-    'Nexia 3',
-    'Nexia 3',
-    'Nexia 3',
-  ];
-  List<String> filterItems = [
-    'Объявления',
-    'С пробегом',
-    'г. Ташкент',
-    'г. Ташкент',
-    'г. Ташкент',
-  ];
-
   @override
   Widget build(BuildContext context) => KeyboardDismisser(
         child: BlocProvider.value(
-          value: searchedBloc,
+          value: searchResultBloc,
           child: SafeArea(
             child: Scaffold(
               backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -134,9 +105,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       ],
                     ),
                   )),
-              body: BlocBuilder<SearchedBloc, SearchedState>(
-                builder: (context, state) => Container(),
-              ),
+              body: ResultPage(),
             ),
           ),
         ),

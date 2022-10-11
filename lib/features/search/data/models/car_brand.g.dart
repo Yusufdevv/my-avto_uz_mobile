@@ -9,7 +9,7 @@ part of 'car_brand.dart';
 CarBrand _$CarBrandFromJson(Map<String, dynamic> json) => CarBrand(
       name: json['name'] as String? ?? '',
       id: json['id'] as int? ?? 0,
-      logo: ImageModel.fromJson(json['logo'] as Map<String, dynamic>),
+      logo: json['logo'] as String? ?? '',
       slug: json['slug'] as String? ?? '',
     );
 

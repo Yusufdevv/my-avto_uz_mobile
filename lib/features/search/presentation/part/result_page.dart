@@ -9,20 +9,16 @@ class ResultPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) =>
-      Container(child: BlocBuilder<SearchResultBloc, SearchResultState>(
-        builder: (context, state) =>
-            Paginator(
-              hasMoreToFetch: state.count > state.list.length,
-              itemBuilder: (context, index) =>
-                  CommercialItem(
-                    entity: state.list[index],
-                  ),
-              fetchMoreFunction: () {
-
-              },
-              paginatorStatus: PaginatorStatus.PAGINATOR_LOADING,
-              itemCount: state.list.length,
-              errorWidget: SizedBox(),
-            ),
-      ),);
+      BlocBuilder<SearchResultBloc, SearchResultState>(
+        builder: (context, state) => Paginator(
+          hasMoreToFetch: state.count > state.list.length,
+          itemBuilder: (context, index) => CommercialItem(
+            entity: state.list[index],
+          ),
+          fetchMoreFunction: () {},
+          paginatorStatus: PaginatorStatus.PAGINATOR_LOADING,
+          itemCount: state.list.length,
+          errorWidget: const SizedBox(),
+        ),
+      );
 }

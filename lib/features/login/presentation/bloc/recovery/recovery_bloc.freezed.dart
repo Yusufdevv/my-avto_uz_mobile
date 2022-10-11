@@ -122,7 +122,7 @@ class __$$_SendCodeCopyWithImpl<$Res> extends _$RecoveryEventCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_SendCode with DiagnosticableTreeMixin implements _SendCode {
+class _$_SendCode implements _SendCode {
   _$_SendCode(this.phone, {required this.onSuccess});
 
   @override
@@ -131,17 +131,8 @@ class _$_SendCode with DiagnosticableTreeMixin implements _SendCode {
   final dynamic Function(String) onSuccess;
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'RecoveryEvent.sendCode(phone: $phone, onSuccess: $onSuccess)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'RecoveryEvent.sendCode'))
-      ..add(DiagnosticsProperty('phone', phone))
-      ..add(DiagnosticsProperty('onSuccess', onSuccess));
   }
 
   @override
@@ -287,9 +278,7 @@ class __$$_ChangePasswordCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_ChangePassword
-    with DiagnosticableTreeMixin
-    implements _ChangePassword {
+class _$_ChangePassword implements _ChangePassword {
   _$_ChangePassword({required this.password, required this.onSuccess});
 
   @override
@@ -298,17 +287,8 @@ class _$_ChangePassword
   final VoidCallback onSuccess;
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'RecoveryEvent.changePassword(password: $password, onSuccess: $onSuccess)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'RecoveryEvent.changePassword'))
-      ..add(DiagnosticsProperty('password', password))
-      ..add(DiagnosticsProperty('onSuccess', onSuccess));
   }
 
   @override
@@ -455,7 +435,7 @@ class __$$_VerifyCodeCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_VerifyCode with DiagnosticableTreeMixin implements _VerifyCode {
+class _$_VerifyCode implements _VerifyCode {
   _$_VerifyCode(this.param, {required this.onSuccess});
 
   @override
@@ -464,17 +444,8 @@ class _$_VerifyCode with DiagnosticableTreeMixin implements _VerifyCode {
   final VoidCallback onSuccess;
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'RecoveryEvent.verifyCode(param: $param, onSuccess: $onSuccess)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'RecoveryEvent.verifyCode'))
-      ..add(DiagnosticsProperty('param', param))
-      ..add(DiagnosticsProperty('onSuccess', onSuccess));
   }
 
   @override
@@ -697,7 +668,7 @@ class __$$_RecoveryStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_RecoveryState with DiagnosticableTreeMixin implements _RecoveryState {
+class _$_RecoveryState implements _RecoveryState {
   _$_RecoveryState(
       {this.registerStatus = FormzStatus.pure,
       this.verifyStatus = FormzStatus.pure,
@@ -718,19 +689,8 @@ class _$_RecoveryState with DiagnosticableTreeMixin implements _RecoveryState {
   final String phone;
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'RecoveryState(registerStatus: $registerStatus, verifyStatus: $verifyStatus, sendCodeStatus: $sendCodeStatus, phone: $phone)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'RecoveryState'))
-      ..add(DiagnosticsProperty('registerStatus', registerStatus))
-      ..add(DiagnosticsProperty('verifyStatus', verifyStatus))
-      ..add(DiagnosticsProperty('sendCodeStatus', sendCodeStatus))
-      ..add(DiagnosticsProperty('phone', phone));
   }
 
   @override
