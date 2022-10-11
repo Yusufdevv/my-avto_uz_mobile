@@ -319,7 +319,13 @@ class CodegenLoader extends AssetLoader{
   "load_more": "Загрузить еще",
   "show": "Показать",
   "result": "результата",
-  "cars": "Автомобили"
+  "cars": "Автомобили",
+  "moto": "Мото",
+  "category": "Категория",
+  "add_review": "Добавить отзыв",
+  "auto": "Автомобиль",
+  "filled": "Заполнено",
+  "ownership_term": "Срок владения"
 };
 static const Map<String,dynamic> uz = {
   "call": "Qo'ng'iroq qilish"
