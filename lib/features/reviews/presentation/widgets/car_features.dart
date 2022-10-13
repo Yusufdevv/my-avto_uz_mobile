@@ -3,7 +3,7 @@ import 'package:auto/assets/constants/icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-Widget features(String text) => Padding(
+Widget features(String text) => Container(
       padding: const EdgeInsets.only(left: 16, right: 23.5),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

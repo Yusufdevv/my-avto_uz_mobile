@@ -325,7 +325,10 @@ class CodegenLoader extends AssetLoader{
   "add_review": "Добавить отзыв",
   "auto": "Автомобиль",
   "filled": "Заполнено",
-  "ownership_term": "Срок владения"
+  "ownership_term": "Срок владения",
+  "rating_comment3": "Оцените ходовые качества",
+  "rating_comment2": "Cредний",
+  "rating_comment1": "Нехорошо"
 };
 static const Map<String,dynamic> uz = {
   "call": "Qo'ng'iroq qilish"

@@ -174,4 +174,5 @@ class AppIcons {
   static const moto = 'assets/icons/reviews/motorcycle.svg';
   static const appbar_back = 'assets/icons/reviews/appbar_back.svg';
   static const chevron_up = 'assets/icons/reviews/chevron_up.svg';
+  static const starr = 'assets/icons/global/star.svg';
 }

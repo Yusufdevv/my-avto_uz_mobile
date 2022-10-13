@@ -1,6 +1,10 @@
 import 'package:auto/assets/colors/light.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/features/reviews/presentation/pages/publish_screen.dart';
 import 'package:auto/features/reviews/presentation/widgets/car_features.dart';
+import 'package:auto/features/reviews/presentation/widgets/model_bottomsheet.dart';
+import 'package:auto/features/reviews/presentation/widgets/next_container.dart';
+import 'package:auto/features/reviews/presentation/widgets/rating_bottomsheet.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -29,6 +33,22 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
     LocaleKeys.plus.tr(),
     LocaleKeys.minus.tr(),
     LocaleKeys.rate.tr(),
+  ];
+
+  List bottomsheets = [
+    const OwnershipBottomsheet(),
+    const OwnershipBottomsheet(),
+    const OwnershipBottomsheet(),
+    const OwnershipBottomsheet(),
+    const OwnershipBottomsheet(),
+    const OwnershipBottomsheet(),
+    const OwnershipBottomsheet(),
+    const OwnershipBottomsheet(),
+    const OwnershipBottomsheet(),
+    const OwnershipBottomsheet(),
+    const OwnershipBottomsheet(),
+    const OwnershipBottomsheet(),
+    const RatingBottomsheet(),
   ];
   @override
   Widget build(BuildContext context) {
@@ -122,7 +142,23 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
             Expanded(
               child: ListView.separated(
                 physics: const BouncingScrollPhysics(),
-                itemBuilder: (context, index) => features(strings[index]),
+                itemBuilder: (context, index) => GestureDetector(
+                  behavior: HitTestBehavior.opaque,
+                  onTap: () {
+                    showModalBottomSheet(
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(20),
+                          topRight: Radius.circular(20),
+                        ),
+                      ),
+                      backgroundColor: Colors.white,
+                      context: context,
+                      builder: (context) => bottomsheets[index],
+                    );
+                  },
+                  child: features(strings[index]),
+                ),
                 separatorBuilder: (context, index) => const Divider(
                   thickness: 1,
                   indent: 16,
@@ -131,24 +167,12 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
                 itemCount: 13,
               ),
             ),
-            Container(
-              margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 44),
-              height: 44,
-              width: double.maxFinite,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-                color: LightThemeColors.headline5,
+            GestureDetector(
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const PublishScreen()),
               ),
-              child: Center(
-                child: Text(
-                  LocaleKeys.further.tr(),
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              ),
+              child: nexContainer(),
             ),
           ],
         ),
