@@ -2,7 +2,7 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
-import 'package:auto/features/rent/domain/entities/rent_entity.dart';
+import 'package:auto/features/rent/domain/entities/rent_list_entity.dart';
 import 'package:auto/features/rent/presentation/pages/rent_period/presentation/pages/rent_period_screen.dart';
 import 'package:auto/features/rent/presentation/pages/rent_single/widgets/additional_options.dart';
 import 'package:auto/features/rent/presentation/pages/rent_single/widgets/all_rating_item.dart';
@@ -12,7 +12,10 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class CarsSingleScreen extends StatefulWidget {
-  const CarsSingleScreen({Key? key}) : super(key: key);
+  final RentListEntity rentListEntity;
+
+  const CarsSingleScreen({required this.rentListEntity, Key? key})
+      : super(key: key);
 
   @override
   State<CarsSingleScreen> createState() => _CarsSingleScreenState();
@@ -28,12 +31,14 @@ class _CarsSingleScreenState extends State<CarsSingleScreen> {
         ),
         body: SingleChildScrollView(
           child: Column(
-            children: const [
+            children: [
               CarSinglePreview(
-                rentEntity: RentEntity(),
+                rentEntity: widget.rentListEntity,
               ),
-               AdditionalOptions(),
-               AllRationItem(),
+              AdditionalOptions(
+                rentCarEntity: widget.rentListEntity.rentCar,
+              ),
+              const AllRationItem(),
             ],
           ),
         ),

@@ -1,12 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'rent_model.dart';
+part of 'rent_list_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-RentModel _$RentModelFromJson(Map<String, dynamic> json) => RentModel(
+RentListModel _$RentListModelFromJson(Map<String, dynamic> json) =>
+    RentListModel(
       id: json['id'] as int? ?? 0,
       minDrivingExperience: json['min_driving_experience'] as int? ?? 0,
       minAge: json['min_age'] as int? ?? 0,
@@ -21,7 +22,8 @@ RentModel _$RentModelFromJson(Map<String, dynamic> json) => RentModel(
               .fromJson(json['rent_car'] as Map<String, dynamic>?),
     );
 
-Map<String, dynamic> _$RentModelToJson(RentModel instance) => <String, dynamic>{
+Map<String, dynamic> _$RentListModelToJson(RentListModel instance) =>
+    <String, dynamic>{
       'id': instance.id,
       'rent_car': const RentCarConverter().toJson(instance.rentCar),
       'region': const RegionConverter().toJson(instance.region),

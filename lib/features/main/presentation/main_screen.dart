@@ -83,7 +83,7 @@ class _MainScreenState extends State<MainScreen> {
       () {},
       () => Navigator.pushReplacement(
           context, fade(page: const CommercialScreen())),
-      () => Navigator.push(context, fade(page: const RentScreen())),
+      () => Navigator.of(context,rootNavigator: true).push(fade(page: const RentScreen())),
     ];
     super.initState();
   }

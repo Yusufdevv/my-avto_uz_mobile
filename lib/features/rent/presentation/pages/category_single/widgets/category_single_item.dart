@@ -1,22 +1,22 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
-import 'package:auto/features/navigation/presentation/navigator.dart';
-import 'package:auto/features/rent/domain/entities/rent_car_entity.dart';
-import 'package:auto/features/rent/presentation/pages/rent_single/pages/cars_single_screen.dart';
+import 'package:auto/features/rent/domain/entities/rent_list_entity.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class CategorySingleItem extends StatelessWidget {
-  final RentCarEntity rentCarEntity;
+  final RentListEntity rentListEntity;
+  final VoidCallback onTap;
 
-  const CategorySingleItem({required this.rentCarEntity, Key? key})
+  const CategorySingleItem(
+      {required this.rentListEntity, required this.onTap, Key? key})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) => GestureDetector(
-        onTap: () =>
-            Navigator.of(context).push(fade(page: const CarsSingleScreen())),
+        onTap: onTap,
         child: Container(
+          margin: const EdgeInsets.only(bottom: 16),
           padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12),
@@ -43,7 +43,7 @@ class CategorySingleItem extends StatelessWidget {
                 child: CachedNetworkImage(
                   height: 137,
                   width: double.infinity,
-                  imageUrl: rentCarEntity.gallery[0],
+                  imageUrl: rentListEntity.rentCar.gallery.first,
                   fit: BoxFit.cover,
                 ),
               ),
@@ -51,7 +51,8 @@ class CategorySingleItem extends StatelessWidget {
                 height: 8,
               ),
               Text(
-                rentCarEntity.model,
+                '${rentListEntity.rentCar.generation.yearBegin}-${rentListEntity.rentCar.generation.yearEnd}, '
+                    '${rentListEntity.rentCar.model.name}',
                 style: Theme.of(context)
                     .textTheme
                     .headline1!

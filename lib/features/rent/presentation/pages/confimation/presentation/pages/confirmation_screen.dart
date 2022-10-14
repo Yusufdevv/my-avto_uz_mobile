@@ -2,7 +2,7 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
-import 'package:auto/features/rent/domain/entities/rent_entity.dart';
+import 'package:auto/features/rent/domain/entities/rent_list_entity.dart';
 import 'package:auto/features/rent/presentation/pages/confimation/presentation/widgets/details_item.dart';
 import 'package:auto/features/rent/presentation/pages/confimation/presentation/widgets/milage_price_item.dart';
 import 'package:auto/features/rent/presentation/pages/confimation/presentation/widgets/place_item.dart';
@@ -31,7 +31,7 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
           child: Column(
             children: const [
               CarSinglePreview(
-                rentEntity: RentEntity(),
+                rentEntity: RentListEntity(),
                 hasCarInfo: false,
               ),
               RequirementItem(

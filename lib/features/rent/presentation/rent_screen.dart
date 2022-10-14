@@ -4,11 +4,16 @@ import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
+import 'package:auto/features/rent/domain/usecases/rent_usecase.dart';
+import 'package:auto/features/rent/presentation/bloc/commercial_bloc/commercial_bloc.dart';
+import 'package:auto/features/rent/presentation/bloc/rent_bloc/rent_bloc.dart';
 import 'package:auto/features/rent/presentation/pages/cars/pages/cars_screen.dart';
+import 'package:auto/features/rent/presentation/pages/cars/pages/commercial_screen.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/pages/rent_filter_screen.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
 class RentScreen extends StatefulWidget {
@@ -21,17 +26,24 @@ class RentScreen extends StatefulWidget {
 class _RentScreenState extends State<RentScreen>
     with SingleTickerProviderStateMixin {
   late TabController tabController;
+  late RentBloc rentBloc;
+  late CommercialBloc commercialBloc;
 
   @override
   void initState() {
     tabController = TabController(length: 2, vsync: this);
+    rentBloc = RentBloc(RentUseCase(), 5)
+      ..add(RentEvent.getResults(isRefresh: false));
+    commercialBloc = CommercialBloc(RentUseCase(), 6)
+      ..add(CommercialEvent.getResults(isRefresh: false));
     super.initState();
   }
+
 
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(108),
+          preferredSize: const Size.fromHeight(100),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -69,7 +81,7 @@ class _RentScreenState extends State<RentScreen>
                   ),
                   padding: const EdgeInsets.all(2),
                   margin:
-                      const EdgeInsets.only(left: 16, right: 16, bottom: 10),
+                      const EdgeInsets.only(left: 16, right: 16, bottom: 16),
                   child: TabBar(
                     controller: tabController,
                     indicator: BoxDecoration(
@@ -111,12 +123,22 @@ class _RentScreenState extends State<RentScreen>
             ],
           ),
         ),
-        body: TabBarView(
-          controller: tabController,
-          children: const [
-            CarsScreen(),
-            CarsScreen(),
+        body: MultiBlocProvider(
+          providers: [
+            BlocProvider.value(
+              value: rentBloc,
+            ),
+            BlocProvider.value(
+              value: commercialBloc,
+            ),
           ],
+          child: TabBarView(
+            controller: tabController,
+            children: [
+              CarsScreen(id: rentBloc.id,),
+              const CommercialScreen(),
+            ],
+          ),
         ),
       );
 }

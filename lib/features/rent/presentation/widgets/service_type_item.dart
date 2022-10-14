@@ -7,39 +7,74 @@ import 'package:flutter_svg/svg.dart';
 class ServiceTypeItem extends StatefulWidget {
   final String icon;
   final String title;
-  const ServiceTypeItem({required this.icon, required this.title,Key? key}) : super(key: key);
+  final VoidCallback onTap;
+  final bool isSelect;
+
+  const ServiceTypeItem(
+      {required this.icon,
+      required this.title,
+      required this.onTap,
+      required this.isSelect,
+      Key? key})
+      : super(key: key);
 
   @override
   State<ServiceTypeItem> createState() => _ServiceTypeItemState();
 }
 
 class _ServiceTypeItemState extends State<ServiceTypeItem> {
-  bool isSelected = false;
+
+  @override
+  void initState() {
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) => WScaleAnimation(
-    onTap: (){
-      setState((){
-        isSelected = !isSelected;
-      });
-    },
-    child: Container(
-      padding: const EdgeInsets.all(12),
-      margin: const EdgeInsets.only(left: 12, ),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(
-          width: 1,
-          color:isSelected ? orange : Theme.of(context).extension<ThemedColors>()!.solitudeContainerToDark,
+        onTap: widget.onTap,
+        child: Container(
+          padding: const EdgeInsets.all(12),
+          margin: const EdgeInsets.only(
+            left: 12,
+          ),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(8),
+            border: Border.all(
+              width: 1,
+              color: widget.isSelect
+                  ? orange
+                  : Theme.of(context)
+                      .extension<ThemedColors>()!
+                      .solitudeContainerToDark,
+            ),
+            color: widget.isSelect
+                ? Theme.of(context).extension<ThemedColors>()!.snow1ToCocoaBrown
+                : Theme.of(context).extension<ThemedColors>()!.whiteToNero1,
+          ),
+          child: Row(
+            children: [
+              SvgPicture.asset(
+                widget.icon,
+                color:widget.isSelect ? orange : grey,
+              ),
+              const SizedBox(
+                width: 8,
+              ),
+              Text(
+                widget.title,
+                style: widget.isSelect
+                    ? Theme.of(context)
+                        .textTheme
+                        .bodyText1!
+                        .copyWith(fontSize: 14, color: orange)
+                    : Theme.of(context)
+                        .textTheme
+                        .headline1!
+                        .copyWith(fontWeight: FontWeight.w600, fontSize: 14),
+              )
+            ],
+          ),
         ),
-        color: isSelected ? Theme.of(context).extension<ThemedColors>()!.snow1ToCocoaBrown : Theme.of(context).extension<ThemedColors>()!.whiteToNero1,
-      ),
-      child: Row(
-        children: [
-          SvgPicture.asset(widget.icon, color: isSelected ? orange : grey,),
-          const SizedBox(width: 8,),
-          Text(widget.title, style: isSelected ? Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 14, color: orange) : Theme.of(context).textTheme.headline1!.copyWith(fontWeight: FontWeight.w600, fontSize: 14),)
-        ],
-      ),
-    ),
-  );
+      );
 }

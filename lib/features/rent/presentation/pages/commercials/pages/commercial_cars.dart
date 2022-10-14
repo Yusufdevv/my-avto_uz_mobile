@@ -1,5 +1,7 @@
 import 'package:auto/assets/constants/icons.dart';
-import 'package:auto/features/rent/domain/entities/rent_entity.dart';
+import 'package:auto/features/navigation/presentation/navigator.dart';
+import 'package:auto/features/rent/domain/entities/rent_list_entity.dart';
+import 'package:auto/features/rent/presentation/pages/rent_single/pages/cars_single_screen.dart';
 import 'package:auto/features/rent/presentation/widgets/all_button_item.dart';
 import 'package:auto/features/rent/presentation/widgets/rent_car_items.dart';
 import 'package:auto/features/rent/presentation/widgets/service_type_item.dart';
@@ -21,6 +23,7 @@ class _CarsScreenState extends State<CarsScreen> {
     AppIcons.gas,
     AppIcons.gearBox,
   ];
+  final List<bool> isSelected = [false, false, false];
 
   @override
   Widget build(BuildContext context) => ListView(
@@ -33,7 +36,11 @@ class _CarsScreenState extends State<CarsScreen> {
                 ...List.generate(
                     titles.length,
                     (index) => ServiceTypeItem(
-                        icon: icons[index], title: titles[index]))
+                          isSelect: isSelected[index],
+                          icon: icons[index],
+                          title: titles[index],
+                          onTap: () {},
+                        ))
               ],
             ),
           ),
@@ -49,7 +56,14 @@ class _CarsScreenState extends State<CarsScreen> {
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) => RentCarItems(
-                rentEntity: RentEntity(),
+                rentEntity: const RentListEntity(),
+                onTap: () => Navigator.push(
+                  context,
+                  fade(
+                    page: const CarsSingleScreen(
+                        rentListEntity: RentListEntity()),
+                  ),
+                ),
               ),
               itemCount: 10,
             ),
@@ -66,7 +80,14 @@ class _CarsScreenState extends State<CarsScreen> {
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) => RentCarItems(
-                rentEntity: RentEntity(),
+                rentEntity: const RentListEntity(),
+                onTap: () => Navigator.push(
+                  context,
+                  fade(
+                    page: const CarsSingleScreen(
+                        rentListEntity: RentListEntity()),
+                  ),
+                ),
               ),
               itemCount: 10,
             ),
@@ -83,7 +104,14 @@ class _CarsScreenState extends State<CarsScreen> {
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) => RentCarItems(
-                rentEntity: RentEntity(),
+                rentEntity: const RentListEntity(),
+                onTap: () => Navigator.push(
+                  context,
+                  fade(
+                    page: const CarsSingleScreen(
+                        rentListEntity: RentListEntity()),
+                  ),
+                ),
               ),
               itemCount: 10,
             ),

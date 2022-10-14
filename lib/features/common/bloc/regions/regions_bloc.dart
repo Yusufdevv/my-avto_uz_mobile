@@ -23,7 +23,8 @@ class RegionsBloc extends Bloc<RegionsEvent, RegionsState> {
       if (result.isRight) {
         print('isRight141');
         emit(state.copyWith(
-            status: FormzStatus.submissionSuccess, regions: result.right.results));
+            status: FormzStatus.submissionSuccess,
+            regions: result.right.results));
       } else {
         print('isRight142');
         emit(state.copyWith(status: FormzStatus.submissionFailure));

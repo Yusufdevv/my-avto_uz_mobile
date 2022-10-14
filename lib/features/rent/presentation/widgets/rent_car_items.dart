@@ -4,20 +4,22 @@ import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/rent/domain/entities/rent_entity.dart';
 import 'package:auto/features/rent/presentation/pages/rent_single/pages/cars_single_screen.dart';
 import 'package:auto/generated/locale_keys.g.dart';
+import 'package:auto/features/rent/domain/entities/rent_list_entity.dart';
 import 'package:auto/utils/my_functions.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class RentCarItems extends StatelessWidget {
-  final RentEntity rentEntity;
+  final RentListEntity rentEntity;
+  final VoidCallback onTap;
 
-  const RentCarItems({required this.rentEntity, Key? key}) : super(key: key);
+  const RentCarItems({required this.rentEntity, required this.onTap, Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) => GestureDetector(
-        onTap: () =>
-            Navigator.push(context, fade(page: const CarsSingleScreen())),
+        onTap: onTap,
         child: Container(
           padding: const EdgeInsets.all(4),
           margin: const EdgeInsets.only(left: 12),
@@ -39,10 +41,11 @@ class RentCarItems extends StatelessWidget {
                   bottom: Radius.circular(4),
                 ),
                 child: CachedNetworkImage(
-                  //height: 96,
                   width: 162,
                   height: 96,
-                  imageUrl: rentEntity.rentCar.gallery[0],
+                  imageUrl: rentEntity.rentCar.gallery.isNotEmpty
+                      ? rentEntity.rentCar.gallery.first
+                      : '',
                   fit: BoxFit.cover,
                 ),
               ),
@@ -52,7 +55,7 @@ class RentCarItems extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8),
                 child: Text(
-                  rentEntity.rentCar.model,
+                  '${rentEntity.rentCar.make.name} ${rentEntity.rentCar.model.name}',
                   style: Theme.of(context).textTheme.headline1!.copyWith(
                         fontSize: 12,
                         fontWeight: FontWeight.w400,

@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
+import 'package:formz/formz.dart';
 
 class Paginator extends StatelessWidget {
-  final PaginatorStatus paginatorStatus;
+  final FormzStatus paginatorStatus;
   final Widget Function(BuildContext context, int index) itemBuilder;
   final int itemCount;
   final VoidCallback fetchMoreFunction;
@@ -26,9 +27,9 @@ class Paginator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (paginatorStatus == PaginatorStatus.PAGINATOR_LOADING) {
+    if (paginatorStatus == FormzStatus.submissionInProgress) {
       return const Center(child: CupertinoActivityIndicator());
-    } else if (paginatorStatus == PaginatorStatus.PAGINATOR_ERROR) {
+    } else if (paginatorStatus == FormzStatus.submissionFailure) {
       return errorWidget;
     } else {
       return ListView.separated(
@@ -46,17 +47,11 @@ class Paginator extends StatelessWidget {
           }
           return itemBuilder(context, index);
         },
-        separatorBuilder: separatorBuilder ?? (context, index) => const SizedBox(),
+        separatorBuilder:
+            separatorBuilder ?? (context, index) => const SizedBox(),
         itemCount: itemCount + 1,
         shrinkWrap: true,
       );
     }
   }
-}
-
-enum PaginatorStatus {
-  PAGINATOR_LOADING,
-  PAGINATOR_SUCCESS,
-  PAGINATOR_ERROR,
-  PAGINATOR_INITIAL,
 }
