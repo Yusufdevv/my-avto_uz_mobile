@@ -2,6 +2,7 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
+import 'package:auto/features/rent/domain/entities/rent_main_entity.dart';
 
 import 'package:auto/features/rent/presentation/pages/rent_single/pages/cars_single_screen.dart';
 import 'package:auto/features/rent/presentation/widgets/rent_car_items.dart';

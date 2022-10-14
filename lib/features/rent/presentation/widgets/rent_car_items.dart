@@ -1,10 +1,7 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
-import 'package:auto/features/navigation/presentation/navigator.dart';
-import 'package:auto/features/rent/domain/entities/rent_entity.dart';
-import 'package:auto/features/rent/presentation/pages/rent_single/pages/cars_single_screen.dart';
-import 'package:auto/generated/locale_keys.g.dart';
 import 'package:auto/features/rent/domain/entities/rent_list_entity.dart';
+import 'package:auto/generated/locale_keys.g.dart';
 import 'package:auto/utils/my_functions.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
