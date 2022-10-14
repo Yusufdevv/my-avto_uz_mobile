@@ -10,19 +10,45 @@ class RentUseCase extends UseCase<GenericPagination<RentMainModel>, Param> {
 
   @override
   Future<Either<Failure, GenericPagination<RentMainModel>>> call(
-          Param params) async =>
-      await repo.fetchMore(
+      Param params) async {
+    final map = <String, dynamic>{};
+    if (params.hasAirConditioner != null) {
+      map.addAll({'rent_car__has_air_conditioner': params.hasAirConditioner});
+    }
+    if (params.hasBabySeat != null) {
+      map.addAll({'rent_car__has_baby_seat': params.hasBabySeat});
+    }
+    if (params.rentCarIsClean != null) {
+      map.addAll({'rent_car__is_clean': params.rentCarIsClean});
+    }
+    if (params.rentCarIsFullFuel != null) {
+      map.addAll({'rent_car__is_full_fuel': params.rentCarIsFullFuel});
+    }
+    if (params.id != null) {
+      map.addAll({'rent_car_type_id': params.id});
+    }
+    return await repo.fetchMore(
         url: 'rent/main_page/${params.id}/',
         fromJson: RentMainModel.fromJson,
         next: params.next,
-      );
+        query: map);
+  }
 }
 
 class Param {
-  final String next;
-  final int id;
+  final String? next;
+  final int? id;
+  final int? hasAirConditioner;
+  final int? hasBabySeat;
+  final int? rentCarIsClean;
+  final int? rentCarIsFullFuel;
+
   Param({
-    this.next = '',
-    this.id = 0,
+    this.hasAirConditioner,
+    this.next,
+    this.id,
+    this.hasBabySeat,
+    this.rentCarIsClean,
+    this.rentCarIsFullFuel,
   });
 }

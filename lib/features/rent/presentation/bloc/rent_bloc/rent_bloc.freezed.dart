@@ -19,21 +19,27 @@ mixin _$RentEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(bool isRefresh) getResults,
-    required TResult Function(int id) setId,
+    required TResult Function(int id, int? hasAirConditioner, int? hasBabySeat,
+            int? rentCarIsClean, int? rentCarIsFullFuel)
+        setId,
     required TResult Function() getMoreResults,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(bool isRefresh)? getResults,
-    TResult Function(int id)? setId,
+    TResult Function(int id, int? hasAirConditioner, int? hasBabySeat,
+            int? rentCarIsClean, int? rentCarIsFullFuel)?
+        setId,
     TResult Function()? getMoreResults,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(bool isRefresh)? getResults,
-    TResult Function(int id)? setId,
+    TResult Function(int id, int? hasAirConditioner, int? hasBabySeat,
+            int? rentCarIsClean, int? rentCarIsFullFuel)?
+        setId,
     TResult Function()? getMoreResults,
     required TResult orElse(),
   }) =>
@@ -142,7 +148,9 @@ class _$_GetResults implements _GetResults {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(bool isRefresh) getResults,
-    required TResult Function(int id) setId,
+    required TResult Function(int id, int? hasAirConditioner, int? hasBabySeat,
+            int? rentCarIsClean, int? rentCarIsFullFuel)
+        setId,
     required TResult Function() getMoreResults,
   }) {
     return getResults(isRefresh);
@@ -152,7 +160,9 @@ class _$_GetResults implements _GetResults {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(bool isRefresh)? getResults,
-    TResult Function(int id)? setId,
+    TResult Function(int id, int? hasAirConditioner, int? hasBabySeat,
+            int? rentCarIsClean, int? rentCarIsFullFuel)?
+        setId,
     TResult Function()? getMoreResults,
   }) {
     return getResults?.call(isRefresh);
@@ -162,7 +172,9 @@ class _$_GetResults implements _GetResults {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(bool isRefresh)? getResults,
-    TResult Function(int id)? setId,
+    TResult Function(int id, int? hasAirConditioner, int? hasBabySeat,
+            int? rentCarIsClean, int? rentCarIsFullFuel)?
+        setId,
     TResult Function()? getMoreResults,
     required TResult orElse(),
   }) {
@@ -220,7 +232,12 @@ abstract class _GetResults implements RentEvent {
 abstract class _$$_SetIdCopyWith<$Res> {
   factory _$$_SetIdCopyWith(_$_SetId value, $Res Function(_$_SetId) then) =
       __$$_SetIdCopyWithImpl<$Res>;
-  $Res call({int id});
+  $Res call(
+      {int id,
+      int? hasAirConditioner,
+      int? hasBabySeat,
+      int? rentCarIsClean,
+      int? rentCarIsFullFuel});
 }
 
 /// @nodoc
@@ -235,12 +252,32 @@ class __$$_SetIdCopyWithImpl<$Res> extends _$RentEventCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = freezed,
+    Object? hasAirConditioner = freezed,
+    Object? hasBabySeat = freezed,
+    Object? rentCarIsClean = freezed,
+    Object? rentCarIsFullFuel = freezed,
   }) {
     return _then(_$_SetId(
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
+      hasAirConditioner: hasAirConditioner == freezed
+          ? _value.hasAirConditioner
+          : hasAirConditioner // ignore: cast_nullable_to_non_nullable
+              as int?,
+      hasBabySeat: hasBabySeat == freezed
+          ? _value.hasBabySeat
+          : hasBabySeat // ignore: cast_nullable_to_non_nullable
+              as int?,
+      rentCarIsClean: rentCarIsClean == freezed
+          ? _value.rentCarIsClean
+          : rentCarIsClean // ignore: cast_nullable_to_non_nullable
+              as int?,
+      rentCarIsFullFuel: rentCarIsFullFuel == freezed
+          ? _value.rentCarIsFullFuel
+          : rentCarIsFullFuel // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
@@ -248,14 +285,27 @@ class __$$_SetIdCopyWithImpl<$Res> extends _$RentEventCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_SetId implements _SetId {
-  _$_SetId({required this.id});
+  _$_SetId(
+      {required this.id,
+      this.hasAirConditioner,
+      this.hasBabySeat,
+      this.rentCarIsClean,
+      this.rentCarIsFullFuel});
 
   @override
   final int id;
+  @override
+  final int? hasAirConditioner;
+  @override
+  final int? hasBabySeat;
+  @override
+  final int? rentCarIsClean;
+  @override
+  final int? rentCarIsFullFuel;
 
   @override
   String toString() {
-    return 'RentEvent.setId(id: $id)';
+    return 'RentEvent.setId(id: $id, hasAirConditioner: $hasAirConditioner, hasBabySeat: $hasBabySeat, rentCarIsClean: $rentCarIsClean, rentCarIsFullFuel: $rentCarIsFullFuel)';
   }
 
   @override
@@ -263,12 +313,25 @@ class _$_SetId implements _SetId {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_SetId &&
-            const DeepCollectionEquality().equals(other.id, id));
+            const DeepCollectionEquality().equals(other.id, id) &&
+            const DeepCollectionEquality()
+                .equals(other.hasAirConditioner, hasAirConditioner) &&
+            const DeepCollectionEquality()
+                .equals(other.hasBabySeat, hasBabySeat) &&
+            const DeepCollectionEquality()
+                .equals(other.rentCarIsClean, rentCarIsClean) &&
+            const DeepCollectionEquality()
+                .equals(other.rentCarIsFullFuel, rentCarIsFullFuel));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(id));
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(id),
+      const DeepCollectionEquality().hash(hasAirConditioner),
+      const DeepCollectionEquality().hash(hasBabySeat),
+      const DeepCollectionEquality().hash(rentCarIsClean),
+      const DeepCollectionEquality().hash(rentCarIsFullFuel));
 
   @JsonKey(ignore: true)
   @override
@@ -279,32 +342,41 @@ class _$_SetId implements _SetId {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(bool isRefresh) getResults,
-    required TResult Function(int id) setId,
+    required TResult Function(int id, int? hasAirConditioner, int? hasBabySeat,
+            int? rentCarIsClean, int? rentCarIsFullFuel)
+        setId,
     required TResult Function() getMoreResults,
   }) {
-    return setId(id);
+    return setId(
+        id, hasAirConditioner, hasBabySeat, rentCarIsClean, rentCarIsFullFuel);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(bool isRefresh)? getResults,
-    TResult Function(int id)? setId,
+    TResult Function(int id, int? hasAirConditioner, int? hasBabySeat,
+            int? rentCarIsClean, int? rentCarIsFullFuel)?
+        setId,
     TResult Function()? getMoreResults,
   }) {
-    return setId?.call(id);
+    return setId?.call(
+        id, hasAirConditioner, hasBabySeat, rentCarIsClean, rentCarIsFullFuel);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(bool isRefresh)? getResults,
-    TResult Function(int id)? setId,
+    TResult Function(int id, int? hasAirConditioner, int? hasBabySeat,
+            int? rentCarIsClean, int? rentCarIsFullFuel)?
+        setId,
     TResult Function()? getMoreResults,
     required TResult orElse(),
   }) {
     if (setId != null) {
-      return setId(id);
+      return setId(id, hasAirConditioner, hasBabySeat, rentCarIsClean,
+          rentCarIsFullFuel);
     }
     return orElse();
   }
@@ -345,9 +417,18 @@ class _$_SetId implements _SetId {
 }
 
 abstract class _SetId implements RentEvent {
-  factory _SetId({required final int id}) = _$_SetId;
+  factory _SetId(
+      {required final int id,
+      final int? hasAirConditioner,
+      final int? hasBabySeat,
+      final int? rentCarIsClean,
+      final int? rentCarIsFullFuel}) = _$_SetId;
 
   int get id;
+  int? get hasAirConditioner;
+  int? get hasBabySeat;
+  int? get rentCarIsClean;
+  int? get rentCarIsFullFuel;
   @JsonKey(ignore: true)
   _$$_SetIdCopyWith<_$_SetId> get copyWith =>
       throw _privateConstructorUsedError;
@@ -395,7 +476,9 @@ class _$_GetMoreResults implements _GetMoreResults {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(bool isRefresh) getResults,
-    required TResult Function(int id) setId,
+    required TResult Function(int id, int? hasAirConditioner, int? hasBabySeat,
+            int? rentCarIsClean, int? rentCarIsFullFuel)
+        setId,
     required TResult Function() getMoreResults,
   }) {
     return getMoreResults();
@@ -405,7 +488,9 @@ class _$_GetMoreResults implements _GetMoreResults {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(bool isRefresh)? getResults,
-    TResult Function(int id)? setId,
+    TResult Function(int id, int? hasAirConditioner, int? hasBabySeat,
+            int? rentCarIsClean, int? rentCarIsFullFuel)?
+        setId,
     TResult Function()? getMoreResults,
   }) {
     return getMoreResults?.call();
@@ -415,7 +500,9 @@ class _$_GetMoreResults implements _GetMoreResults {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(bool isRefresh)? getResults,
-    TResult Function(int id)? setId,
+    TResult Function(int id, int? hasAirConditioner, int? hasBabySeat,
+            int? rentCarIsClean, int? rentCarIsFullFuel)?
+        setId,
     TResult Function()? getMoreResults,
     required TResult orElse(),
   }) {
@@ -471,7 +558,11 @@ mixin _$RentState {
   FormzStatus get paginationStatus => throw _privateConstructorUsedError;
   String? get next => throw _privateConstructorUsedError;
   int get count => throw _privateConstructorUsedError;
-  int get categaryId => throw _privateConstructorUsedError;
+  int get categoryId => throw _privateConstructorUsedError;
+  int get hasAirConditioners => throw _privateConstructorUsedError;
+  int get hasBabySeat => throw _privateConstructorUsedError;
+  int get rentCarIsClean => throw _privateConstructorUsedError;
+  int get rentCarIsFullFuel => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $RentStateCopyWith<RentState> get copyWith =>
@@ -488,7 +579,11 @@ abstract class $RentStateCopyWith<$Res> {
       FormzStatus paginationStatus,
       String? next,
       int count,
-      int categaryId});
+      int categoryId,
+      int hasAirConditioners,
+      int hasBabySeat,
+      int rentCarIsClean,
+      int rentCarIsFullFuel});
 }
 
 /// @nodoc
@@ -506,7 +601,11 @@ class _$RentStateCopyWithImpl<$Res> implements $RentStateCopyWith<$Res> {
     Object? paginationStatus = freezed,
     Object? next = freezed,
     Object? count = freezed,
-    Object? categaryId = freezed,
+    Object? categoryId = freezed,
+    Object? hasAirConditioners = freezed,
+    Object? hasBabySeat = freezed,
+    Object? rentCarIsClean = freezed,
+    Object? rentCarIsFullFuel = freezed,
   }) {
     return _then(_value.copyWith(
       list: list == freezed
@@ -529,9 +628,25 @@ class _$RentStateCopyWithImpl<$Res> implements $RentStateCopyWith<$Res> {
           ? _value.count
           : count // ignore: cast_nullable_to_non_nullable
               as int,
-      categaryId: categaryId == freezed
-          ? _value.categaryId
-          : categaryId // ignore: cast_nullable_to_non_nullable
+      categoryId: categoryId == freezed
+          ? _value.categoryId
+          : categoryId // ignore: cast_nullable_to_non_nullable
+              as int,
+      hasAirConditioners: hasAirConditioners == freezed
+          ? _value.hasAirConditioners
+          : hasAirConditioners // ignore: cast_nullable_to_non_nullable
+              as int,
+      hasBabySeat: hasBabySeat == freezed
+          ? _value.hasBabySeat
+          : hasBabySeat // ignore: cast_nullable_to_non_nullable
+              as int,
+      rentCarIsClean: rentCarIsClean == freezed
+          ? _value.rentCarIsClean
+          : rentCarIsClean // ignore: cast_nullable_to_non_nullable
+              as int,
+      rentCarIsFullFuel: rentCarIsFullFuel == freezed
+          ? _value.rentCarIsFullFuel
+          : rentCarIsFullFuel // ignore: cast_nullable_to_non_nullable
               as int,
     ));
   }
@@ -549,7 +664,11 @@ abstract class _$$_RentStateCopyWith<$Res> implements $RentStateCopyWith<$Res> {
       FormzStatus paginationStatus,
       String? next,
       int count,
-      int categaryId});
+      int categoryId,
+      int hasAirConditioners,
+      int hasBabySeat,
+      int rentCarIsClean,
+      int rentCarIsFullFuel});
 }
 
 /// @nodoc
@@ -569,7 +688,11 @@ class __$$_RentStateCopyWithImpl<$Res> extends _$RentStateCopyWithImpl<$Res>
     Object? paginationStatus = freezed,
     Object? next = freezed,
     Object? count = freezed,
-    Object? categaryId = freezed,
+    Object? categoryId = freezed,
+    Object? hasAirConditioners = freezed,
+    Object? hasBabySeat = freezed,
+    Object? rentCarIsClean = freezed,
+    Object? rentCarIsFullFuel = freezed,
   }) {
     return _then(_$_RentState(
       list: list == freezed
@@ -592,9 +715,25 @@ class __$$_RentStateCopyWithImpl<$Res> extends _$RentStateCopyWithImpl<$Res>
           ? _value.count
           : count // ignore: cast_nullable_to_non_nullable
               as int,
-      categaryId: categaryId == freezed
-          ? _value.categaryId
-          : categaryId // ignore: cast_nullable_to_non_nullable
+      categoryId: categoryId == freezed
+          ? _value.categoryId
+          : categoryId // ignore: cast_nullable_to_non_nullable
+              as int,
+      hasAirConditioners: hasAirConditioners == freezed
+          ? _value.hasAirConditioners
+          : hasAirConditioners // ignore: cast_nullable_to_non_nullable
+              as int,
+      hasBabySeat: hasBabySeat == freezed
+          ? _value.hasBabySeat
+          : hasBabySeat // ignore: cast_nullable_to_non_nullable
+              as int,
+      rentCarIsClean: rentCarIsClean == freezed
+          ? _value.rentCarIsClean
+          : rentCarIsClean // ignore: cast_nullable_to_non_nullable
+              as int,
+      rentCarIsFullFuel: rentCarIsFullFuel == freezed
+          ? _value.rentCarIsFullFuel
+          : rentCarIsFullFuel // ignore: cast_nullable_to_non_nullable
               as int,
     ));
   }
@@ -609,7 +748,11 @@ class _$_RentState implements _RentState {
       this.paginationStatus = FormzStatus.pure,
       this.next,
       this.count = 0,
-      this.categaryId = -1})
+      this.categoryId = -1,
+      this.hasAirConditioners = 0,
+      this.hasBabySeat = 0,
+      this.rentCarIsClean = 0,
+      this.rentCarIsFullFuel = 0})
       : _list = list;
 
   final List<RentMainEntity> _list;
@@ -633,11 +776,23 @@ class _$_RentState implements _RentState {
   final int count;
   @override
   @JsonKey()
-  final int categaryId;
+  final int categoryId;
+  @override
+  @JsonKey()
+  final int hasAirConditioners;
+  @override
+  @JsonKey()
+  final int hasBabySeat;
+  @override
+  @JsonKey()
+  final int rentCarIsClean;
+  @override
+  @JsonKey()
+  final int rentCarIsFullFuel;
 
   @override
   String toString() {
-    return 'RentState(list: $list, status: $status, paginationStatus: $paginationStatus, next: $next, count: $count, categaryId: $categaryId)';
+    return 'RentState(list: $list, status: $status, paginationStatus: $paginationStatus, next: $next, count: $count, categoryId: $categoryId, hasAirConditioners: $hasAirConditioners, hasBabySeat: $hasBabySeat, rentCarIsClean: $rentCarIsClean, rentCarIsFullFuel: $rentCarIsFullFuel)';
   }
 
   @override
@@ -652,7 +807,15 @@ class _$_RentState implements _RentState {
             const DeepCollectionEquality().equals(other.next, next) &&
             const DeepCollectionEquality().equals(other.count, count) &&
             const DeepCollectionEquality()
-                .equals(other.categaryId, categaryId));
+                .equals(other.categoryId, categoryId) &&
+            const DeepCollectionEquality()
+                .equals(other.hasAirConditioners, hasAirConditioners) &&
+            const DeepCollectionEquality()
+                .equals(other.hasBabySeat, hasBabySeat) &&
+            const DeepCollectionEquality()
+                .equals(other.rentCarIsClean, rentCarIsClean) &&
+            const DeepCollectionEquality()
+                .equals(other.rentCarIsFullFuel, rentCarIsFullFuel));
   }
 
   @override
@@ -663,7 +826,11 @@ class _$_RentState implements _RentState {
       const DeepCollectionEquality().hash(paginationStatus),
       const DeepCollectionEquality().hash(next),
       const DeepCollectionEquality().hash(count),
-      const DeepCollectionEquality().hash(categaryId));
+      const DeepCollectionEquality().hash(categoryId),
+      const DeepCollectionEquality().hash(hasAirConditioners),
+      const DeepCollectionEquality().hash(hasBabySeat),
+      const DeepCollectionEquality().hash(rentCarIsClean),
+      const DeepCollectionEquality().hash(rentCarIsFullFuel));
 
   @JsonKey(ignore: true)
   @override
@@ -678,7 +845,11 @@ abstract class _RentState implements RentState {
       final FormzStatus paginationStatus,
       final String? next,
       final int count,
-      final int categaryId}) = _$_RentState;
+      final int categoryId,
+      final int hasAirConditioners,
+      final int hasBabySeat,
+      final int rentCarIsClean,
+      final int rentCarIsFullFuel}) = _$_RentState;
 
   @override
   List<RentMainEntity> get list;
@@ -691,7 +862,15 @@ abstract class _RentState implements RentState {
   @override
   int get count;
   @override
-  int get categaryId;
+  int get categoryId;
+  @override
+  int get hasAirConditioners;
+  @override
+  int get hasBabySeat;
+  @override
+  int get rentCarIsClean;
+  @override
+  int get rentCarIsFullFuel;
   @override
   @JsonKey(ignore: true)
   _$$_RentStateCopyWith<_$_RentState> get copyWith =>

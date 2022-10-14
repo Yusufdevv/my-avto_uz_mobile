@@ -8,8 +8,14 @@ class ServiceTypeItem extends StatefulWidget {
   final String icon;
   final String title;
   final VoidCallback onTap;
+  final bool isSelect;
+
   const ServiceTypeItem(
-      {required this.icon, required this.title, required this.onTap, Key? key})
+      {required this.icon,
+      required this.title,
+      required this.onTap,
+      required this.isSelect,
+      Key? key})
       : super(key: key);
 
   @override
@@ -17,7 +23,13 @@ class ServiceTypeItem extends StatefulWidget {
 }
 
 class _ServiceTypeItemState extends State<ServiceTypeItem> {
-  bool isSelected = false;
+
+  @override
+  void initState() {
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) => WScaleAnimation(
         onTap: widget.onTap,
@@ -30,13 +42,13 @@ class _ServiceTypeItemState extends State<ServiceTypeItem> {
             borderRadius: BorderRadius.circular(8),
             border: Border.all(
               width: 1,
-              color: isSelected
+              color: widget.isSelect
                   ? orange
                   : Theme.of(context)
                       .extension<ThemedColors>()!
                       .solitudeContainerToDark,
             ),
-            color: isSelected
+            color: widget.isSelect
                 ? Theme.of(context).extension<ThemedColors>()!.snow1ToCocoaBrown
                 : Theme.of(context).extension<ThemedColors>()!.whiteToNero1,
           ),
@@ -44,14 +56,14 @@ class _ServiceTypeItemState extends State<ServiceTypeItem> {
             children: [
               SvgPicture.asset(
                 widget.icon,
-                color: isSelected ? orange : grey,
+                color:widget.isSelect ? orange : grey,
               ),
               const SizedBox(
                 width: 8,
               ),
               Text(
                 widget.title,
-                style: isSelected
+                style: widget.isSelect
                     ? Theme.of(context)
                         .textTheme
                         .bodyText1!

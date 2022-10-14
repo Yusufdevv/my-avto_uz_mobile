@@ -122,6 +122,7 @@ class AppIcons {
   static const secondLiked = 'assets/icons/global/like_second.svg';
   static const gas = 'assets/icons/global/gas.svg';
   static const gearBox = 'assets/icons/global/gear_box.svg';
+  static const carWash = 'assets/icons/global/car_wash.svg';
   static const child = 'assets/icons/global/child.svg';
   static const thirdLiked = 'assets/icons/global/third_like.svg';
   static const chevronRight2 = 'assets/icons/global/chevron_right.svg';

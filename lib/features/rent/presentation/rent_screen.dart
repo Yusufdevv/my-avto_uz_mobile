@@ -40,7 +40,7 @@ class _RentScreenState extends State<RentScreen>
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(108),
+          preferredSize: const Size.fromHeight(100),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -78,7 +78,7 @@ class _RentScreenState extends State<RentScreen>
                   ),
                   padding: const EdgeInsets.all(2),
                   margin:
-                      const EdgeInsets.only(left: 16, right: 16, bottom: 10),
+                      const EdgeInsets.only(left: 16, right: 16, bottom: 16),
                   child: TabBar(
                     controller: tabController,
                     indicator: BoxDecoration(
@@ -127,9 +127,9 @@ class _RentScreenState extends State<RentScreen>
           ],
           child: TabBarView(
             controller: tabController,
-            children: const [
-              CarsScreen(),
-              CommercialScreen(),
+            children: [
+              CarsScreen(id: rentBloc.id,),
+              const CommercialScreen(),
             ],
           ),
         ),

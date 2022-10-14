@@ -28,8 +28,6 @@ class RentCarEntity extends Equatable {
   final RentCarBodyTypeEntity driveType;
   @RentCarModificationConverter()
   final RentCarModificationEntity modificationType;
-
-  // final String equipmentType;
   @RentCarBodyTypeConverter()
   final RentCarBodyTypeEntity gearboxType;
   @RentCarBodyTypeConverter()

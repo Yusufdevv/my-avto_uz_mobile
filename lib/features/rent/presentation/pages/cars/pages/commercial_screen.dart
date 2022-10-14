@@ -47,6 +47,7 @@ class _CommercialScreenState extends State<CommercialScreen> {
                 ...List.generate(
                     titles.length,
                     (index) => ServiceTypeItem(
+                      isSelect: isSelected[index],
                           icon: icons[index],
                           title: titles[index],
                           onTap: () {},

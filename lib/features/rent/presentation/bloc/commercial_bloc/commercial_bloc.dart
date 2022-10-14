@@ -5,7 +5,9 @@ import 'package:formz/formz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'commercial_event.dart';
+
 part 'commercial_state.dart';
+
 part 'commercial_bloc.freezed.dart';
 
 class CommercialBloc extends Bloc<CommercialEvent, CommercialState> {

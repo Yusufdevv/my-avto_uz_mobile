@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 
 class CarsSingleScreen extends StatefulWidget {
   final RentListEntity rentListEntity;
+
   const CarsSingleScreen({required this.rentListEntity, Key? key})
       : super(key: key);
 
@@ -35,7 +36,7 @@ class _CarsSingleScreenState extends State<CarsSingleScreen> {
               AdditionalOptions(
                 rentCarEntity: widget.rentListEntity.rentCar,
               ),
-              AllRationItem(),
+              const AllRationItem(),
             ],
           ),
         ),
