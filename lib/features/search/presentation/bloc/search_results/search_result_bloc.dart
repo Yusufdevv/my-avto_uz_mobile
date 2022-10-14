@@ -25,7 +25,7 @@ class SearchResultBloc extends Bloc<SearchResultEvent, SearchResultState> {
             status: FormzStatus.submissionSuccess,
             list: result.right.results,
             count: result.right.count,
-            next: result.right.next!));
+            next: result.right.next));
       } else {
         emit(state.copyWith(status: FormzStatus.submissionFailure));
       }
@@ -39,7 +39,7 @@ class SearchResultBloc extends Bloc<SearchResultEvent, SearchResultState> {
             status: FormzStatus.submissionSuccess,
             list: [...state.list, ...result.right.results],
             count: result.right.count,
-            next: result.right.next!));
+            next: result.right.next));
       } else {
         emit(state.copyWith(status: FormzStatus.submissionSuccess));
       }

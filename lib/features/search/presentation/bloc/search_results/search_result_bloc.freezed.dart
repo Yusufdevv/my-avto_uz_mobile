@@ -317,7 +317,7 @@ mixin _$SearchResultState {
   List<CommercialItemEntity> get list => throw _privateConstructorUsedError;
   FormzStatus get status => throw _privateConstructorUsedError;
   FormzStatus get paginationStatus => throw _privateConstructorUsedError;
-  String get next => throw _privateConstructorUsedError;
+  String? get next => throw _privateConstructorUsedError;
   int get count => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -334,7 +334,7 @@ abstract class $SearchResultStateCopyWith<$Res> {
       {List<CommercialItemEntity> list,
       FormzStatus status,
       FormzStatus paginationStatus,
-      String next,
+      String? next,
       int count});
 }
 
@@ -371,7 +371,7 @@ class _$SearchResultStateCopyWithImpl<$Res>
       next: next == freezed
           ? _value.next
           : next // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       count: count == freezed
           ? _value.count
           : count // ignore: cast_nullable_to_non_nullable
@@ -391,7 +391,7 @@ abstract class _$$_SearchResultStateCopyWith<$Res>
       {List<CommercialItemEntity> list,
       FormzStatus status,
       FormzStatus paginationStatus,
-      String next,
+      String? next,
       int count});
 }
 
@@ -430,7 +430,7 @@ class __$$_SearchResultStateCopyWithImpl<$Res>
       next: next == freezed
           ? _value.next
           : next // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       count: count == freezed
           ? _value.count
           : count // ignore: cast_nullable_to_non_nullable
@@ -446,7 +446,7 @@ class _$_SearchResultState implements _SearchResultState {
       {final List<CommercialItemEntity> list = const [],
       this.status = FormzStatus.pure,
       this.paginationStatus = FormzStatus.pure,
-      this.next = '',
+      this.next,
       this.count = 0})
       : _list = list;
 
@@ -465,8 +465,7 @@ class _$_SearchResultState implements _SearchResultState {
   @JsonKey()
   final FormzStatus paginationStatus;
   @override
-  @JsonKey()
-  final String next;
+  final String? next;
   @override
   @JsonKey()
   final int count;
@@ -510,7 +509,7 @@ abstract class _SearchResultState implements SearchResultState {
       {final List<CommercialItemEntity> list,
       final FormzStatus status,
       final FormzStatus paginationStatus,
-      final String next,
+      final String? next,
       final int count}) = _$_SearchResultState;
 
   @override
@@ -520,7 +519,7 @@ abstract class _SearchResultState implements SearchResultState {
   @override
   FormzStatus get paginationStatus;
   @override
-  String get next;
+  String? get next;
   @override
   int get count;
   @override

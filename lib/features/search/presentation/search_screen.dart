@@ -1,20 +1,14 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
-import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
-import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/common/widgets/w_textfield.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
-import 'package:auto/features/search/domain/entities/search_item_entity.dart';
 import 'package:auto/features/search/domain/usecases/get_search_result.dart';
 import 'package:auto/features/search/presentation/bloc/search_results/search_result_bloc.dart';
-import 'package:auto/features/search/presentation/bloc/searched_bloc/searched_bloc.dart';
 import 'package:auto/features/search/presentation/pages/filter_screen.dart';
-import 'package:auto/features/search/presentation/pages/results_screen.dart';
 import 'package:auto/features/search/presentation/part/result_page.dart';
-import 'package:auto/features/search/presentation/widgets/filter_item.dart';
-import 'package:auto/features/search/presentation/widgets/searched_models_item.dart';
+
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -31,14 +25,13 @@ class SearchScreen extends StatefulWidget {
 
 class _SearchScreenState extends State<SearchScreen> {
   late TextEditingController searchController;
-  late SearchBloc searchBloc;
   late SearchResultBloc searchResultBloc;
 
   @override
   void initState() {
     searchController = TextEditingController();
-    searchResultBloc = SearchResultBloc(GetSearchResultsUseCase())..add(SearchResultEvent.getResults(isRefresh: false));
-    searchBloc = SearchBloc()..add(SearchEvent.getSearchResults(search: ''));
+    searchResultBloc = SearchResultBloc(GetSearchResultsUseCase())
+      ..add(SearchResultEvent.getResults(isRefresh: false));
     super.initState();
   }
 

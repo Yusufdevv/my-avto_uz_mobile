@@ -7,7 +7,7 @@ part of 'search_result_bloc.dart';
      @Default([]) List<CommercialItemEntity> list ,
      @Default(FormzStatus.pure) FormzStatus status ,
      @Default(FormzStatus.pure) FormzStatus paginationStatus ,
-     @Default('')String next ,
+     String? next ,
      @Default(0)int count ,
 
  })=_SearchResultState;

@@ -11,8 +11,8 @@ SearchItemModel _$SearchItemModelFromJson(Map<String, dynamic> json) =>
       id: json['id'] as int? ?? 0,
       carModel: NamingModel.fromJson(json['car_model'] as Map<String, dynamic>),
       carMake: CarBrand.fromJson(json['car_make'] as Map<String, dynamic>),
-      currency: json['currency'] as int? ?? 0,
-      price: json['price'] as int? ?? 0,
+      currency: json['currency'] as String? ?? '',
+      price: (json['price'] as num?)?.toDouble() ?? 0,
       description: json['description '] as String? ?? '',
       carYear: json['car_year'] as int? ?? 0,
       contactEmail: json['contact_email'] as String? ?? '',
@@ -22,8 +22,8 @@ SearchItemModel _$SearchItemModelFromJson(Map<String, dynamic> json) =>
       isRegisteredLocally: json['is_registered_locally'] as bool? ?? false,
       licenseType: json['licence_type'] as String? ?? '',
       ownerShip: json['ownership'] as String? ?? '',
-      publishedAt: json['published_at'] as int? ?? 0,
-      userType: json['user_type'] as bool? ?? false,
+      publishedAt: json['published_at'] as String? ?? '',
+      userType: json['user_type'] as String? ?? '',
     );
 
 Map<String, dynamic> _$SearchItemModelToJson(SearchItemModel instance) =>

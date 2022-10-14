@@ -13,9 +13,9 @@ class GetSearchResultsUseCase
 
   @override
   Future<Either<Failure, GenericPagination<SearchItemModel>>> call(
-          String next) async =>
+          String? next) async =>
      await repo.fetchMore<SearchItemModel>(
           url: 'es/AnnouncementElasticSearch/',
-          next: next,
+
           fromJson: SearchItemModel.fromJson);
 }

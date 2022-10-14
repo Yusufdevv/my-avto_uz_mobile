@@ -25,16 +25,16 @@ class SearchItemModel extends CommercialItemEntity {
   final String contactPhone;
   @JsonKey(name: 'is_registered_locally', defaultValue: false)
   final bool isRegisteredLocally;
-  @JsonKey(name: 'user_type', defaultValue: false)
-  final bool userType;
+  @JsonKey(name: 'user_type', defaultValue: '')
+  final String userType;
   @JsonKey(name: 'is_new', defaultValue: false)
   final bool isNew;
   @JsonKey(name: 'price', defaultValue: 0)
-  final int price;
-  @JsonKey(name: 'currency', defaultValue: 0)
-  final int currency;
-  @JsonKey(name: 'published_at', defaultValue: 0)
-  final int publishedAt;
+  final double price;
+  @JsonKey(name: 'currency', defaultValue: '')
+  final String currency;
+  @JsonKey(name: 'published_at', defaultValue: '')
+  final String publishedAt;
   @JsonKey(name: 'car_make')
   final CarBrand carMake;
   @JsonKey(name: 'car_model')
