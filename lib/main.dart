@@ -18,6 +18,7 @@ import 'package:auto/features/login/presentation/pages/register_screen.dart';
 import 'package:auto/features/navigation/presentation/home.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/onboarding/presentation/pages/on_boarding_screen.dart';
+import 'package:auto/features/reviews/presentation/pages/reviews_screen.dart';
 import 'package:auto/features/splash/presentation/pages/splash_sc.dart';
 import 'package:auto/features/splash/presentation/pages/splash_screen.dart';
 import 'package:auto/generated/codegen_loader.g.dart';
@@ -36,7 +37,8 @@ void main() async {
           Locale('ru'),
           Locale('uz'),
         ],
-        path: 'lib/assets/strings', // <-- change the path of the translation files
+        path:
+            'lib/assets/strings', // <-- change the path of the translation files
         fallbackLocale: Locale('ru'),
         assetLoader: CodegenLoader(),
         child: AppProvider()),

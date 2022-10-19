@@ -175,4 +175,8 @@ class AppIcons {
   static const appbar_back = 'assets/icons/reviews/appbar_back.svg';
   static const chevron_up = 'assets/icons/reviews/chevron_up.svg';
   static const starr = 'assets/icons/global/star.svg';
+  static const draft = 'assets/icons/reviews/draft.svg';
+  static const draftIcon = 'assets/icons/reviews/drat_icon.svg';
+  static const alertTriangle = 'assets/icons/reviews/alert_triangle.svg';
+  static const delete = 'assets/icons/reviews/delete.svg';
 }

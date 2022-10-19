@@ -51,132 +51,136 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
     const RatingBottomsheet(),
   ];
   @override
-  Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
-    ));
-    return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(kToolbarHeight),
-        child: Container(
-          decoration: const BoxDecoration(boxShadow: [
-            BoxShadow(
-              color: Color.fromRGBO(23, 23, 37, 0.08),
-              offset: Offset(0, 8),
-              blurRadius: 24,
-            )
-          ]),
-          child: AppBar(
-            automaticallyImplyLeading: false,
-            elevation: 0,
-            titleSpacing: 24,
-            title: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                IconButton(
-                  onPressed: () => Navigator.pop(context),
-                  icon: SvgPicture.asset(AppIcons.appbar_back),
+  Widget build(BuildContext context) => AnnotatedRegion(
+        value: const SystemUiOverlayStyle(
+          statusBarColor: Colors.transparent,
+        ),
+        child: Scaffold(
+          appBar: PreferredSize(
+            preferredSize: const Size.fromHeight(kToolbarHeight),
+            child: Container(
+              decoration: const BoxDecoration(boxShadow: [
+                BoxShadow(
+                  color: Color.fromRGBO(23, 23, 37, 0.08),
+                  offset: Offset(0, 8),
+                  blurRadius: 24,
+                )
+              ]),
+              child: AppBar(
+                automaticallyImplyLeading: false,
+                elevation: 0,
+                titleSpacing: 24,
+                title: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    IconButton(
+                      onPressed: () => Navigator.pop(context),
+                      icon: SvgPicture.asset(AppIcons.appbar_back),
+                    ),
+                    const SizedBox(width: 16),
+                    Text(
+                      LocaleKeys.add_review.tr(),
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ],
                 ),
-                const SizedBox(width: 16),
-                Text(
-                  LocaleKeys.add_review.tr(),
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
+          body: Container(
+            height: double.maxFinite,
+            width: double.maxFinite,
+            margin: const EdgeInsets.only(top: 16),
+            decoration: const BoxDecoration(
+              color: LightThemeColors.appBarColor,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(20),
+                topRight: Radius.circular(20),
+              ),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 16, top: 16, bottom: 2),
+                  child: Row(
+                    children: [
+                      const CircleAvatar(
+                        radius: 13,
+                        backgroundColor: Color.fromRGBO(241, 241, 245, 1),
+                        child: CircleAvatar(
+                          radius: 12,
+                          backgroundColor: Colors.white,
+                        ),
+                      ),
+                      const SizedBox(width: 12),
+                      Text(
+                        LocaleKeys.auto.tr(),
+                        style: const TextStyle(
+                          color: Colors.black,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 52, bottom: 30),
+                  child: Text(
+                    '${LocaleKeys.filled.tr()} 1 из 13',
+                    style: const TextStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.w400,
+                      color: Color(0xff696974),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: ListView.separated(
+                    physics: const BouncingScrollPhysics(),
+                    itemBuilder: (context, index) => GestureDetector(
+                      behavior: HitTestBehavior.opaque,
+                      onTap: () {
+                        showModalBottomSheet(
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(20),
+                              topRight: Radius.circular(20),
+                            ),
+                          ),
+                          backgroundColor: Colors.white,
+                          context: context,
+                          builder: (context) => bottomsheets[index],
+                        );
+                      },
+                      child: features(strings[index]),
+                    ),
+                    separatorBuilder: (context, index) => const Divider(
+                      thickness: 1,
+                      indent: 16,
+                      height: 32,
+                    ),
+                    itemCount: 13,
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const PublishScreen()),
+                  ),
+                  child: nexContainer(
+                    LightThemeColors.headline5,
+                    LocaleKeys.further.tr(),
                   ),
                 ),
               ],
             ),
           ),
         ),
-      ),
-      body: Container(
-        height: double.maxFinite,
-        width: double.maxFinite,
-        margin: const EdgeInsets.only(top: 16),
-        decoration: const BoxDecoration(
-          color: LightThemeColors.appBarColor,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(20),
-            topRight: Radius.circular(20),
-          ),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 16, top: 16, bottom: 2),
-              child: Row(
-                children: [
-                  const CircleAvatar(
-                    radius: 13,
-                    backgroundColor: Color.fromRGBO(241, 241, 245, 1),
-                    child: CircleAvatar(
-                      radius: 12,
-                      backgroundColor: Colors.white,
-                    ),
-                  ),
-                  const SizedBox(width: 12),
-                  Text(
-                    LocaleKeys.auto.tr(),
-                    style: const TextStyle(
-                      color: Colors.black,
-                      fontSize: 20,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  )
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 52, bottom: 30),
-              child: Text(
-                '${LocaleKeys.filled.tr()} 1 из 13',
-                style: const TextStyle(
-                  fontSize: 13,
-                  fontWeight: FontWeight.w400,
-                  color: Color(0xff696974),
-                ),
-              ),
-            ),
-            Expanded(
-              child: ListView.separated(
-                physics: const BouncingScrollPhysics(),
-                itemBuilder: (context, index) => GestureDetector(
-                  behavior: HitTestBehavior.opaque,
-                  onTap: () {
-                    showModalBottomSheet(
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(20),
-                          topRight: Radius.circular(20),
-                        ),
-                      ),
-                      backgroundColor: Colors.white,
-                      context: context,
-                      builder: (context) => bottomsheets[index],
-                    );
-                  },
-                  child: features(strings[index]),
-                ),
-                separatorBuilder: (context, index) => const Divider(
-                  thickness: 1,
-                  indent: 16,
-                  height: 32,
-                ),
-                itemCount: 13,
-              ),
-            ),
-            GestureDetector(
-              onTap: () => Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const PublishScreen()),
-              ),
-              child: nexContainer(),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+      );
 }

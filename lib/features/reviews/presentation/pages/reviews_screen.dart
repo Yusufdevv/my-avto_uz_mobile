@@ -1,7 +1,6 @@
-import 'package:auto/assets/colors/light.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/features/reviews/presentation/widgets/floating_action_button.dart';
 import 'package:auto/features/reviews/presentation/widgets/item_container.dart';
-import 'package:auto/features/reviews/presentation/widgets/add_bottomsheet.dart';
 import 'package:auto/features/reviews/presentation/widgets/model_mark.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -25,24 +24,7 @@ class _ReviewsScreenState extends State<ReviewsScreen> {
     return DefaultTabController(
       length: 3,
       child: Scaffold(
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            showModalBottomSheet(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20),
-              ),
-              context: context,
-              builder: (context) => const ModalBottomSheet(),
-            );
-          },
-          backgroundColor: LightThemeColors.button,
-          child: SvgPicture.asset(
-            AppIcons.plus,
-            color: Colors.white,
-            height: 22,
-            width: 22,
-          ),
-        ),
+        floatingActionButton: floatingActionButton(context),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         appBar: AppBar(
           leading: SvgPicture.asset(AppIcons.appbar_back),
@@ -104,4 +86,6 @@ Widget typeMobile(String text) => Text(
         fontSize: 13,
         fontWeight: FontWeight.w600,
       ),
+      overflow: TextOverflow.ellipsis,
+      maxLines: 1,
     );
