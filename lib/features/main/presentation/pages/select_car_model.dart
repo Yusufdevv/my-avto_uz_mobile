@@ -8,6 +8,7 @@ import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/common/widgets/w_textfield.dart';
 import 'package:auto/features/main/presentation/bloc/change_car_bloc.dart';
+import 'package:auto/features/main/presentation/pages/story_screen.dart';
 import 'package:auto/features/main/presentation/widgets/cars_item.dart';
 import 'package:auto/features/posting_ad/choose_car_brand/domain/entity/change_car_entity.dart';
 import 'package:auto/features/posting_ad/choose_car_brand/presentation/widget/persistant_header.dart';
@@ -165,7 +166,8 @@ class _SelectCarModelScreenState extends State<SelectCarModelScreen> {
                         child: ListView.builder(
                           scrollDirection: Axis.horizontal,
                           itemBuilder: (context, index) => CarBrandItem(
-                              carBrandEntity: carBrandEntity[index]),
+                            carBrandEntity: carBrandEntity[index],
+                          ),
                           itemCount: carBrandEntity.length,
                         ),
                       ),
@@ -182,12 +184,13 @@ class _SelectCarModelScreenState extends State<SelectCarModelScreen> {
                           height: 20,
                           width: double.infinity,
                           decoration: BoxDecoration(
-                              color: Theme.of(context)
-                                  .extension<ThemedColors>()!
-                                  .whiteToDark,
-                              borderRadius: const BorderRadius.vertical(
-                                top: Radius.circular(20),
-                              )),
+                            color: Theme.of(context)
+                                .extension<ThemedColors>()!
+                                .whiteToDark,
+                            borderRadius: const BorderRadius.vertical(
+                              top: Radius.circular(20),
+                            ),
+                          ),
                         ),
                       ),
                     ),
@@ -225,16 +228,19 @@ class _SelectCarModelScreenState extends State<SelectCarModelScreen> {
                   child: BlocBuilder<ChangeCarBloc, ChangeCarState>(
                     builder: (context, state) => WButton(
                       onTap: state.selectedId == -1
-                          ? () {}
+                          ? () {
+                              // Navigator.push(context, MaterialPageRoute(builder: (context)=>StoryScreen(story: story)))
+                            }
                           : () {
                               Navigator.pop(context);
                             },
                       text: LocaleKeys.further.tr(),
                       shadow: [
                         BoxShadow(
-                            offset: const Offset(0, 4),
-                            blurRadius: 20,
-                            color: orange.withOpacity(0.2)),
+                          offset: const Offset(0, 4),
+                          blurRadius: 20,
+                          color: orange.withOpacity(0.2),
+                        ),
                       ],
                     ),
                   ),

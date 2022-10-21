@@ -38,8 +38,8 @@ class DeleteShowDialog extends StatelessWidget {
                 child: deleteCancelButton(
                   context,
                   'Отмена',
-                  Color(0xffF1F1F5),
-                  Color(0xff92929D),
+                  const Color(0xffF1F1F5),
+                  const Color(0xff92929D),
                 ),
               ),
               GestureDetector(
@@ -47,8 +47,8 @@ class DeleteShowDialog extends StatelessWidget {
                 child: deleteCancelButton(
                   context,
                   'Удалить',
-                  Color(0xffFAEEEE),
-                  Color(0xffC8534D),
+                  const Color(0xffFAEEEE),
+                  const Color(0xffC8534D),
                 ),
               ),
             ],

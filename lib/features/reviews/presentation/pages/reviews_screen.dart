@@ -27,14 +27,22 @@ class _ReviewsScreenState extends State<ReviewsScreen> {
         floatingActionButton: floatingActionButton(context),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         appBar: AppBar(
-          leading: SvgPicture.asset(AppIcons.appbar_back),
-          leadingWidth: 10,
-          automaticallyImplyLeading: false,
-          title: Center(
-            child: Text(
-              LocaleKeys.reviews.tr(),
-            ),
+          shadowColor: const Color.fromRGBO(23, 23, 27, 0.08),
+          leading: Row(
+            children: [
+              const SizedBox(width: 24),
+              SvgPicture.asset(
+                AppIcons.appbar_back,
+                width: 20,
+                height: 20,
+              ),
+            ],
           ),
+          automaticallyImplyLeading: false,
+          title: Text(
+            LocaleKeys.reviews.tr(),
+          ),
+          centerTitle: true,
           bottom: PreferredSize(
             preferredSize: const Size.fromHeight(60),
             child: Container(
@@ -64,7 +72,7 @@ class _ReviewsScreenState extends State<ReviewsScreen> {
         body: Column(
           mainAxisSize: MainAxisSize.max,
           children: [
-            modelContainer(),
+            modelContainer(context),
             Expanded(
               child: ListView.builder(
                 physics: const BouncingScrollPhysics(),

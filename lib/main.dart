@@ -93,23 +93,23 @@ class _AppState extends State<App> {
           builder: (context, child) =>
               BlocListener<AuthenticationBloc, AuthenticationState>(
             listener: (context, state) {
-              switch (state.status) {
-                case AuthenticationStatus.unauthenticated:
-                  navigator.pushAndRemoveUntil(
-                      fade(
-                          page: BlocProvider(
-                              create: (c) => RegisterBloc(
-                                  sendCodeUseCase: SendCodeUseCase(),
-                                  registerUseCase: RegisterUseCase(),
-                                  verifyCodeUseCase: VerifyCodeUseCase()),
-                              child: const LoginScreen())),
-                      (route) => false);
-                  break;
-                case AuthenticationStatus.authenticated:
-                  navigator.pushAndRemoveUntil(
-                      fade(page: const HomeScreen()), (route) => false);
-                  break;
-              }
+              // switch (state.status) {
+              //   case AuthenticationStatus.unauthenticated:
+              //     navigator.pushAndRemoveUntil(
+              //         fade(
+              //             page: BlocProvider(
+              //                 create: (c) => RegisterBloc(
+              //                     sendCodeUseCase: SendCodeUseCase(),
+              //                     registerUseCase: RegisterUseCase(),
+              //                     verifyCodeUseCase: VerifyCodeUseCase()),
+              //                 child: const LoginScreen())),
+              //         (route) => false);
+              //     break;
+              //   case AuthenticationStatus.authenticated:
+              navigator.pushAndRemoveUntil(
+                  fade(page: const ReviewsScreen()), (route) => false);
+              //     break;
+              // }
             },
             child: child,
           ),
