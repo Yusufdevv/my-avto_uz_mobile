@@ -201,7 +201,7 @@ class CarSingleScreen extends StatelessWidget {
                   child: SizedBox(
                     height: 44,
                   ),
-                ),
+                ),  
               ],
             ),
             Positioned(
