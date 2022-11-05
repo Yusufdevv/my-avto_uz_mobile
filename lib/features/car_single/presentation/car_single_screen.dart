@@ -356,7 +356,7 @@ class _CarSingleScreenState extends State<CarSingleScreen> {
                       ),
                     ],
                   ),
-                ),
+                ),  
               ],
             ),
           );
