@@ -39,7 +39,6 @@ class _RentScreenState extends State<RentScreen>
     super.initState();
   }
 
-
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: PreferredSize(
@@ -135,7 +134,7 @@ class _RentScreenState extends State<RentScreen>
           child: TabBarView(
             controller: tabController,
             children: [
-              CarsScreen(id: rentBloc.id,),
+              CarsScreen(id: rentBloc.id),
               const CommercialScreen(),
             ],
           ),

@@ -45,26 +45,32 @@ class _ReviewsScreenState extends State<ReviewsScreen> {
           centerTitle: true,
           bottom: PreferredSize(
             preferredSize: const Size.fromHeight(60),
-            child: Container(
-              margin: const EdgeInsets.all(16),
-              height: 38,
-              width: double.maxFinite,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-                color: const Color.fromRGBO(118, 118, 128, 0.12),
+            child: Theme(
+              data: ThemeData(
+                highlightColor: Colors.transparent,
+                splashColor: Colors.transparent,
               ),
-              child: TabBar(
-                padding: const EdgeInsets.all(2),
-                indicator: BoxDecoration(
-                  color: Colors.white,
+              child: Container(
+                margin: const EdgeInsets.all(16),
+                height: 38,
+                width: double.maxFinite,
+                decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8),
+                  color: const Color.fromRGBO(118, 118, 128, 0.12),
                 ),
-                indicatorColor: Colors.transparent,
-                tabs: [
-                  Tab(child: typeMobile(LocaleKeys.passenger_cars.tr())),
-                  Tab(child: typeMobile(LocaleKeys.commercial.tr())),
-                  Tab(child: typeMobile(LocaleKeys.moto.tr())),
-                ],
+                child: TabBar(
+                  padding: const EdgeInsets.all(2),
+                  indicator: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  indicatorColor: Colors.transparent,
+                  tabs: [
+                    Tab(child: typeMobile(LocaleKeys.passenger_cars.tr())),
+                    Tab(child: typeMobile(LocaleKeys.commercial.tr())),
+                    Tab(child: typeMobile(LocaleKeys.moto.tr())),
+                  ],
+                ),
               ),
             ),
           ),

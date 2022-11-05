@@ -18,7 +18,7 @@ import 'package:auto/features/login/presentation/pages/register_screen.dart';
 import 'package:auto/features/navigation/presentation/home.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/onboarding/presentation/pages/on_boarding_screen.dart';
-import 'package:auto/features/reviews/presentation/pages/reviews_screen.dart';
+import 'package:auto/features/reviews/presentation/reviews_screen.dart';
 import 'package:auto/features/splash/presentation/pages/splash_sc.dart';
 import 'package:auto/features/splash/presentation/pages/splash_screen.dart';
 import 'package:auto/generated/codegen_loader.g.dart';
@@ -76,7 +76,7 @@ class _AppState extends State<App> {
               ..add(RegionsEvent.getRegions()),
           ),
           BlocProvider(
-            create: (context)=>ShowPopUpBloc(),
+            create: (context) => ShowPopUpBloc(),
           )
         ],
         child: MaterialApp(
@@ -93,23 +93,23 @@ class _AppState extends State<App> {
           builder: (context, child) =>
               BlocListener<AuthenticationBloc, AuthenticationState>(
             listener: (context, state) {
-              // switch (state.status) {
-              //   case AuthenticationStatus.unauthenticated:
-              //     navigator.pushAndRemoveUntil(
-              //         fade(
-              //             page: BlocProvider(
-              //                 create: (c) => RegisterBloc(
-              //                     sendCodeUseCase: SendCodeUseCase(),
-              //                     registerUseCase: RegisterUseCase(),
-              //                     verifyCodeUseCase: VerifyCodeUseCase()),
-              //                 child: const LoginScreen())),
-              //         (route) => false);
-              //     break;
-              //   case AuthenticationStatus.authenticated:
-              navigator.pushAndRemoveUntil(
-                  fade(page: const ReviewsScreen()), (route) => false);
-              //     break;
-              // }
+              switch (state.status) {
+                case AuthenticationStatus.unauthenticated:
+                  navigator.pushAndRemoveUntil(
+                      fade(
+                          page: BlocProvider(
+                              create: (c) => RegisterBloc(
+                                  sendCodeUseCase: SendCodeUseCase(),
+                                  registerUseCase: RegisterUseCase(),
+                                  verifyCodeUseCase: VerifyCodeUseCase()),
+                              child: const LoginScreen())),
+                      (route) => false);
+                  break;
+                case AuthenticationStatus.authenticated:
+                  navigator.pushAndRemoveUntil(
+                      fade(page: const HomeScreen()), (route) => false);
+                  break;
+              }
             },
             child: child,
           ),

@@ -1,14 +1,13 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
-import 'package:auto/features/reviews/domain/entities/brand_entity.dart';
+//import 'package:auto/features/reviews/domain/entities/brand_entity.dart';
 import 'package:flutter/material.dart';
 
 class ReviewCarBrandItem extends StatelessWidget {
-  final BrandEntity carBrandEntity;
+  //final BrandEntity carBrandEntity;
   final bool hasShadow;
 
-  const ReviewCarBrandItem(
-      {required this.carBrandEntity, this.hasShadow = false, Key? key})
+  const ReviewCarBrandItem({this.hasShadow = false, Key? key})
       : super(key: key);
 
   @override
@@ -37,21 +36,21 @@ class ReviewCarBrandItem extends StatelessWidget {
         child: Column(
           children: [
             const SizedBox(height: 16),
-            Image.asset(
-              carBrandEntity.icon,
-              width: 40,
-              height: 40,
-            ),
-            const SizedBox(height: 8),
-            Text(
-              carBrandEntity.title,
-              textAlign: TextAlign.center,
-              maxLines: 2,
-              style: Theme.of(context)
-                  .textTheme
-                  .headline1!
-                  .copyWith(fontSize: 12, fontWeight: FontWeight.w400),
-            )
+            // Image.asset(
+            //   carBrandEntity.icon,
+            //   width: 40,
+            //   height: 40,
+            // ),
+            // const SizedBox(height: 8),
+            // Text(
+            //   carBrandEntity.title,
+            //   textAlign: TextAlign.center,
+            //   maxLines: 2,
+            //   style: Theme.of(context)
+            //       .textTheme
+            //       .headline1!
+            //       .copyWith(fontSize: 12, fontWeight: FontWeight.w400),
+            // )
           ],
         ),
       );

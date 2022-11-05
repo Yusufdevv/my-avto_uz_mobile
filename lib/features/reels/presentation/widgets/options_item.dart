@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/features/common/widgets/busy_sheet.dart';
@@ -102,10 +104,16 @@ class _OptionsItemState extends State<OptionsItem> {
               WScaleAnimation(
                 child: SvgPicture.asset(AppIcons.more),
                 onTap: () {
-                  showCupertinoModalPopup(
-                      context: context,
-                      barrierColor: black.withOpacity(.6),
-                      builder: (context) => const BusySheet());
+                  Platform.isIOS
+                      ? showCupertinoModalPopup(
+                          context: context,
+                          barrierColor: black.withOpacity(.6),
+                          builder: (context) => const BusySheet())
+                      : showModalBottomSheet(
+                          context: context,
+                          //backgroundColor: black.withOpacity(.6),
+                          backgroundColor: Colors.transparent,
+                          builder: (context) => const BusySheet());
                 },
               ),
             ],

@@ -4,7 +4,7 @@ import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/common/widgets/w_textfield.dart';
 import 'package:auto/features/posting_ad/choose_car_brand/presentation/widget/persistant_header.dart';
-import 'package:auto/features/reviews/domain/entities/brand_entity.dart';
+//import 'package:auto/features/reviews/domain/entities/brand_entity.dart';
 import 'package:auto/features/reviews/presentation/widgets/review_car_brand_item.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -21,16 +21,16 @@ class ChooseCarScreen extends StatefulWidget {
 class _ChooseCarScreenState extends State<ChooseCarScreen> {
   late TextEditingController searchController;
 
-  final List<BrandEntity> carBrandEntity = [
-    const BrandEntity(title: 'Chevrolet', icon: AppImages.chevrolet),
-    const BrandEntity(title: 'BMW', icon: AppImages.bmwModel),
-    const BrandEntity(title: 'Chevrolet', icon: AppImages.chevrolet),
-    const BrandEntity(title: 'Chevrolet', icon: AppImages.chevrolet),
-    const BrandEntity(title: 'Chevrolet', icon: AppImages.chevrolet),
-    const BrandEntity(title: 'Chevrolet', icon: AppImages.chevrolet),
-    const BrandEntity(title: 'Chevrolet', icon: AppImages.chevrolet),
-    const BrandEntity(title: 'Chevrolet', icon: AppImages.chevrolet),
-  ];
+  // final List<BrandEntity> carBrandEntity = [
+  //   const BrandEntity(title: 'Chevrolet', icon: AppImages.chevrolet),
+  //   const BrandEntity(title: 'BMW', icon: AppImages.bmwModel),
+  //   const BrandEntity(title: 'Chevrolet', icon: AppImages.chevrolet),
+  //   const BrandEntity(title: 'Chevrolet', icon: AppImages.chevrolet),
+  //   const BrandEntity(title: 'Chevrolet', icon: AppImages.chevrolet),
+  //   const BrandEntity(title: 'Chevrolet', icon: AppImages.chevrolet),
+  //   const BrandEntity(title: 'Chevrolet', icon: AppImages.chevrolet),
+  //   const BrandEntity(title: 'Chevrolet', icon: AppImages.chevrolet),
+  // ];
 
   @override
   void initState() {
@@ -98,18 +98,18 @@ class _ChooseCarScreenState extends State<ChooseCarScreen> {
                     height: 16,
                   ),
                 ),
-                SliverToBoxAdapter(
-                  child: SizedBox(
-                    height: 100,
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) => ReviewCarBrandItem(
-                        carBrandEntity: carBrandEntity[index],
-                      ),
-                      itemCount: carBrandEntity.length,
-                    ),
-                  ),
-                ),
+                // SliverToBoxAdapter(
+                //   child: SizedBox(
+                //     height: 100,
+                //     child: ListView.builder(
+                //       scrollDirection: Axis.horizontal,
+                //       itemBuilder: (context, index) => ReviewCarBrandItem(
+                //         carBrandEntity: carBrandEntity[index],
+                //       ),
+                //       itemCount: carBrandEntity.length,
+                //     ),
+                //   ),
+                // ),
                 const SliverToBoxAdapter(
                   child: SizedBox(
                     height: 20,

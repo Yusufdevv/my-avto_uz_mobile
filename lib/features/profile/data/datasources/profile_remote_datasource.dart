@@ -9,9 +9,11 @@ import 'package:dio/dio.dart';
 abstract class ProfileRemoteDataSource {
   Future<ProfileModel> getProfile();
 
-  Future<ProfileModel> editProfile({String? image, String? name, String? surName, int? region});
+  Future<ProfileModel> editProfile(
+      {String? image, String? name, String? surName, int? region});
 
-  Future<String> changePassword({required String oldPassword, required String newPassword});
+  Future<String> changePassword(
+      {required String oldPassword, required String newPassword});
 }
 
 class ProfileRemoteDataSourceImpl extends ProfileRemoteDataSource {
@@ -22,8 +24,9 @@ class ProfileRemoteDataSourceImpl extends ProfileRemoteDataSource {
     try {
       final response = await dio.get(
         '/users/detail-with-counts/',
-        options:
-            Options(headers: {'Authorization': 'Bearer ${StorageRepository.getString('token')}'}),
+        options: Options(headers: {
+          'Authorization': 'Bearer ${StorageRepository.getString('token')}'
+        }),
       );
       print(StorageRepository.getString('token'));
       print(response.data);
@@ -32,7 +35,8 @@ class ProfileRemoteDataSourceImpl extends ProfileRemoteDataSource {
         return ProfileModel.fromJson(response.data);
       }
       throw ServerException(
-          statusCode: response.statusCode ?? 0, errorMessage: response.statusMessage ?? '');
+          statusCode: response.statusCode ?? 0,
+          errorMessage: response.statusMessage ?? '');
     } on ServerException {
       rethrow;
     } on DioError {
@@ -61,8 +65,9 @@ class ProfileRemoteDataSourceImpl extends ProfileRemoteDataSource {
 
       final response = await dio.patch('/users/detail/edit/',
           data: data,
-          options: Options(
-              headers: {'Authorization': 'Bearer ${StorageRepository.getString('token')}'}));
+          options: Options(headers: {
+            'Authorization': 'Bearer ${StorageRepository.getString('token')}'
+          }));
       print(response.statusCode);
       print(response.data);
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
@@ -70,7 +75,8 @@ class ProfileRemoteDataSourceImpl extends ProfileRemoteDataSource {
       }
 
       throw ServerException(
-          statusCode: response.statusCode ?? 0, errorMessage: response.statusMessage ?? '');
+          statusCode: response.statusCode ?? 0,
+          errorMessage: response.statusMessage ?? '');
     } on ServerException {
       rethrow;
     } on DioError {
@@ -81,19 +87,23 @@ class ProfileRemoteDataSourceImpl extends ProfileRemoteDataSource {
   }
 
   @override
-  Future<String> changePassword({required String oldPassword, required String newPassword}) async {
+  Future<String> changePassword(
+      {required String oldPassword, required String newPassword}) async {
     try {
       final response = await dio.post(
         '/users/change-password/',
         options: Options(
-          headers: {'Authorization': 'Bearer ${StorageRepository.getString('token')}'},
+          headers: {
+            'Authorization': 'Bearer ${StorageRepository.getString('token')}'
+          },
         ),
       );
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
         return '';
       }
       throw ServerException(
-          statusCode: response.statusCode ?? 0, errorMessage: response.statusMessage ?? '');
+          statusCode: response.statusCode ?? 0,
+          errorMessage: response.statusMessage ?? '');
     } on ServerException {
       rethrow;
     } on DioError {
