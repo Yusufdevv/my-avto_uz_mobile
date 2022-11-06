@@ -64,6 +64,7 @@ class AppIcons {
 
   // PROFILE
   static const alert = 'assets/icons/profile/alert.svg';
+  static const statistic = 'assets/icons/car_single/statistic.svg';
   static const heartBlue = 'assets/icons/profile/heart.svg';
   static const refresh = 'assets/icons/profile/refresh.svg';
   static const share = 'assets/icons/profile/share.svg';
@@ -183,4 +184,9 @@ class AppIcons {
   static const draftIcon = 'assets/icons/reviews/drat_icon.svg';
   static const alertTriangle = 'assets/icons/reviews/alert_triangle.svg';
   static const delete = 'assets/icons/reviews/delete.svg';
+
+  static const payme = 'assets/images/car_single/payme.svg';
+  static const apelsin = 'assets/images/car_single/apelsin.svg';
+  static const click = 'assets/images/car_single/click.svg';
+  static const upay = 'assets/images/car_single/upay.svg';
 }
