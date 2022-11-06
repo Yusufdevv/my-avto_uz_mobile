@@ -10,8 +10,13 @@ class CarDetails extends StatelessWidget {
   static const List<CarDetailEntity> list = [
     CarDetailEntity(value: '2016', title: 'Год выпуска'),
     CarDetailEntity(value: '98 000 км', title: 'Пробег'),
-    CarDetailEntity(value: '2016', title: 'Год выпуска'),
-    CarDetailEntity(value: '2016', title: 'Год выпуска'),
+    CarDetailEntity(value: 'Седан', title: 'Кузов'),
+    CarDetailEntity(value: '''Черный
+(металлик)''', title: 'Цвет'),
+    CarDetailEntity(value: 'Luxury', title: 'Комплектация'),
+    CarDetailEntity(value: '2.1', title: 'Объем двигателя, л'),
+    CarDetailEntity(value: 'Механика', title: 'Коробка передач'),
+    CarDetailEntity(value: 'Да', title: 'Растаможен в Узбекистане'),
   ];
 
   @override

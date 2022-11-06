@@ -16,7 +16,7 @@ class CodegenLoader extends AssetLoader{
 
   static const Map<String,dynamic> ru = {
   "price_of_similar_cars": "Средняя цена похожих автомобилей",
-  "see_price_statustic": "Смотреть_статистику_цен",
+  "see_price_statustic": "Смотреть статистику цен",
   "report_vin": "Отчет (VIN)",
   "compare": "Сравнить",
   "note": "В заметку",
