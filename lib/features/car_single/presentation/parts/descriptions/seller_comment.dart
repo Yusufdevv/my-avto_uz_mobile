@@ -37,7 +37,7 @@ class SellerComment extends StatelessWidget {
               style: Theme.of(context)
                   .textTheme
                   .headline1!
-                  .copyWith(fontWeight: FontWeight.w400, fontSize: 14,color: grey),
+                  .copyWith(fontWeight: FontWeight.w400, fontSize: 14,color: profileContainers),
             )
           ],
         ),

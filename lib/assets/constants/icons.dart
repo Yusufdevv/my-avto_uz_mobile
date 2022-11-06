@@ -64,6 +64,7 @@ class AppIcons {
 
   // PROFILE
   static const alert = 'assets/icons/profile/alert.svg';
+  static const statistic = 'assets/icons/car_single/statistic.svg';
   static const heartBlue = 'assets/icons/profile/heart.svg';
   static const refresh = 'assets/icons/profile/refresh.svg';
   static const share = 'assets/icons/profile/share.svg';
@@ -128,6 +129,7 @@ class AppIcons {
   static const chevronRight2 = 'assets/icons/global/chevron_right.svg';
   static const commercialCar = 'assets/icons/global/commercial_car.svg';
   static const checkGreen = 'assets/icons/global/check_green.svg';
+
   // SEARCH
   static const parameter = 'assets/icons/search/parameter.svg';
   static const searchWithHeart = 'assets/icons/search/search_with_heart.svg';
@@ -144,12 +146,15 @@ class AppIcons {
   static const disabledHeart = 'assets/icons/search/disabled_heart.svg';
   static const scalesRed = 'assets/icons/search/scales_red.svg';
   static const crown = 'assets/icons/car_single/crown.svg';
+
   // static const calendar = 'assets/icons/car_single/calendar.svg';
   static const doubleCheck = 'assets/icons/car_single/double_check.svg';
   static const equals = 'assets/icons/car_single/equals.svg';
   static const lockVin = 'assets/icons/car_single/lock.svg';
+
   // static const eye = 'assets/icons/car_single/eye.svg';
   static const fire = 'assets/icons/car_single/fire.svg';
+
   // static const id = 'assets/icons/car_single/id.svg';
   static const refresher = 'assets/icons/car_single/refreshers.svg';
   static const rocket = 'assets/icons/car_single/rocket.svg';
@@ -167,4 +172,9 @@ class AppIcons {
   static const greyPhoneCall = 'assets/icons/global/grey_phone_call.svg';
   static const flashOff = 'assets/icons/global/flash_off.svg';
   static const flashOn = 'assets/icons/global/flash_on.svg';
+
+  static const payme = 'assets/images/car_single/payme.svg';
+  static const apelsin = 'assets/images/car_single/apelsin.svg';
+  static const click = 'assets/images/car_single/click.svg';
+  static const upay = 'assets/images/car_single/upay.svg';
 }
