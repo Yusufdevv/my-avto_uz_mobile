@@ -12,33 +12,34 @@ class CarInfoTile extends StatelessWidget {
         margin: const EdgeInsets.only(bottom: 10),
         child: Row(
           children: [
-            Text(
-              entity.title,
-              style: Theme.of(context)
-                  .textTheme
-                  .headline1!
-                  .copyWith(fontWeight: FontWeight.w600, fontSize: 14,color: grey),
-            ),
             Expanded(
-              child: Container(margin: const EdgeInsets.only(left: 2,right: 2),
-                child: Column(mainAxisAlignment: MainAxisAlignment.end,
-                  children: const[
-                     Divider(
-                      color:strokeDark,
-                      thickness: 1,
+              flex: 3,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Text(
+                    entity.title + ' ',
+                    style: Theme.of(context).textTheme.headline1!.copyWith(
+                        fontWeight: FontWeight.w600, fontSize: 14, color: grey),
+                  ),
+                  Expanded(
+                    child: Container(
+                      decoration: const BoxDecoration(
+                          border:
+                              Border(bottom: BorderSide(color: dividerColor))),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
-            Text(
-              entity.value,
-              style: Theme.of(context)
-                  .textTheme
-                  .headline1!
-                  .copyWith(fontWeight: FontWeight.w600, fontSize: 14,color: grey),
+            Expanded(
+              flex: 2,
+              child: Text(
+                ' ' + entity.value,
+                style: Theme.of(context).textTheme.headline1!.copyWith(
+                    fontWeight: FontWeight.w600, fontSize: 14, color: grey),
+              ),
             ),
-            const SizedBox(width: 70,),
           ],
         ),
       );

@@ -8,11 +8,12 @@ import 'package:auto/features/car_single/presentation/parts/car_seller_card.dart
 import 'package:auto/features/car_single/presentation/parts/cars_image_slider.dart';
 import 'package:auto/features/car_single/presentation/parts/characteristics/car_characteristic.dart';
 import 'package:auto/features/car_single/presentation/parts/description_tabs.dart';
-import 'package:auto/features/car_single/presentation/parts/descriptions/vin_info_list.dart';
 import 'package:auto/features/car_single/presentation/parts/other_ads.dart';
 import 'package:auto/features/car_single/presentation/parts/owner_actions.dart';
 import 'package:auto/features/car_single/presentation/parts/statistics.dart';
 import 'package:auto/features/car_single/presentation/widgets/car_price_bottom.dart';
+import 'package:auto/features/car_single/presentation/widgets/dealer_time_botomsheet.dart';
+import 'package:auto/features/car_single/presentation/widgets/more_actions.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -58,10 +59,21 @@ class CarSingleScreen extends StatelessWidget {
                       const SizedBox(
                         width: 8,
                       ),
-                      SvgPicture.asset(
-                        AppIcons.moreVertical,
-                        width: 36,
-                        height: 36,
+                      GestureDetector(
+                        child: SvgPicture.asset(
+                          AppIcons.moreVertical,
+                          width: 36,
+                          height: 36,
+                        ),
+                        onTap: () {
+                          showModalBottomSheet(
+                            useRootNavigator: true,
+                            backgroundColor: Colors.transparent,
+                            isScrollControlled: false,
+                            context: context,
+                            builder: (context) => const MoreActions(),
+                          );
+                        },
                       ),
                     ],
                   ),
@@ -111,14 +123,13 @@ class CarSingleScreen extends StatelessWidget {
                               WButton(
                                 onTap: () {
                                   showModalBottomSheet(
-                                      isScrollControlled: true,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(16),
-                                      ),
-                                      context: context,
-                                      builder: (context) =>
-                                          const CarPriceBottom());
+                                    useRootNavigator: true,
+                                    backgroundColor: Colors.transparent,
+                                    isScrollControlled: true,
+                                    context: context,
+                                    builder: (context) =>
+                                        const CarPriceBottom(),
+                                  );
                                 },
                                 height: 24,
                                 borderRadius: 6,
@@ -147,10 +158,12 @@ class CarSingleScreen extends StatelessWidget {
                           ),
                         ),
                         const CarActions(),
-                        Container(
-                            margin: const EdgeInsets.only(top: 4, bottom: 12),
-                            child: const Divider(
-                                thickness: 1, color: Colors.transparent)),
+                        Divider(
+                          thickness: 1,
+                          color: Theme.of(context)
+                              .extension<ThemedColors>()!
+                              .solitudeToDarkRider,
+                        ),
                         const CarDetails(),
                       ],
                     ),
@@ -184,9 +197,6 @@ class CarSingleScreen extends StatelessWidget {
                   child: DescriptionTabs(),
                 ),
                 const SliverToBoxAdapter(
-                  child: VinInfoList(),
-                ),
-                const SliverToBoxAdapter(
                   child: SizedBox(
                     height: 12,
                   ),
@@ -199,9 +209,9 @@ class CarSingleScreen extends StatelessWidget {
                 ),
                 const SliverToBoxAdapter(
                   child: SizedBox(
-                    height: 44,
+                    height: 70,
                   ),
-                ),  
+                ),
               ],
             ),
             Positioned(
@@ -212,7 +222,16 @@ class CarSingleScreen extends StatelessWidget {
                 children: [
                   Expanded(
                     child: WButton(
-                      onTap: () {},
+                      onTap: () {
+                        showModalBottomSheet(
+                          useRootNavigator: true,
+                          isScrollControlled: false,
+                          backgroundColor: Colors.transparent,
+                          context: context,
+                          builder: (context) => const DealerTime(),
+                        );
+                        // Navigator.of(context).push(fade(page: const DealerScreen()));
+                      },
                       height: 44,
                       borderRadius: 8,
                       color: green,
