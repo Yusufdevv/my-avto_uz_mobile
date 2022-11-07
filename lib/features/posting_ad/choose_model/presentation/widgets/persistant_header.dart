@@ -27,19 +27,31 @@ class ModelHeader extends SliverPersistentHeaderDelegate {
   ];
   @override
   Widget build(
-      BuildContext context, double shrinkOffset, bool overlapsContent) =>                       Container(
-    height: 36,
-    color: Theme.of(context)
-        .extension<ThemedColors>()!
-        .whiteToDark,
-    child: ListView.builder(
-      itemBuilder: (context, index) =>
-          NumberItems(number: numbers[index]),
-      itemCount: numbers.length,
-      shrinkWrap: true,
-      scrollDirection: Axis.horizontal,
-    ),
-  );
-
+          BuildContext context, double shrinkOffset, bool overlapsContent) =>
+      Container(
+        height: 36,
+        decoration: BoxDecoration(
+          color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
+          border: const Border(
+            bottom: BorderSide(color: dividerColor),
+          ),
+          boxShadow: [
+            BoxShadow(
+              offset: const Offset(0, 1),
+              color: dark.withOpacity(0.08),
+              blurRadius: 24,
+            ),
+            BoxShadow(
+              offset: const Offset(0, -1),
+              color: dark.withOpacity(0.08),
+            )
+          ],
+        ),
+        child: ListView.builder(
+          itemBuilder: (context, index) => NumberItems(number: numbers[index]),
+          itemCount: numbers.length,
+          shrinkWrap: true,
+          scrollDirection: Axis.horizontal,
+        ),
+      );
 }
-

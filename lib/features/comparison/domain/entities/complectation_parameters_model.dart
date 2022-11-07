@@ -1,4 +1,4 @@
-class ComplectationParameters {
+class ComplectationParametersEntity {
   final String comparisonParameters;
-  ComplectationParameters({required this.comparisonParameters});
+  ComplectationParametersEntity({required this.comparisonParameters});
 }

@@ -1,28 +1,33 @@
-import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
-import 'package:auto/features/comparison/domain/entities/characteristics_model.dart';
-import 'package:auto/features/comparison/domain/entities/chracteristics_parameters_model.dart';
-import 'package:auto/features/comparison/domain/entities/complectation_model.dart';
+import 'package:auto/features/comparison/domain/entities/car_params_entity.dart';
+import 'package:auto/features/comparison/domain/entities/characteristics_entity.dart';
+import 'package:auto/features/comparison/domain/entities/chracteristics_parameters_entity.dart';
+import 'package:auto/features/comparison/domain/entities/complectation_entity.dart';
 import 'package:auto/features/comparison/domain/entities/complectation_parameters_model.dart';
+import 'package:auto/features/comparison/presentation/bloc/comparison-bloc/comparison_bloc.dart';
 import 'package:auto/features/comparison/presentation/widgets/main_parameters_widget.dart';
 import 'package:auto/features/comparison/presentation/widgets/sliver_delegate.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:linked_scroll_controller/linked_scroll_controller.dart';
 
-class ComparisonPage2 extends StatefulWidget {
-  final int numberOfAddedCars;
+class Comparison extends StatefulWidget {
+  final bool isSticky;
+  final List<CarParamsEntity> cars;
 
-  const ComparisonPage2({Key? key, required this.numberOfAddedCars})
-      : super(key: key);
+  const Comparison({
+    required this.cars,
+    Key? key,
+    required this.isSticky,
+  }) : super(key: key);
 
   @override
-  State<ComparisonPage2> createState() => _ComparisonPage2State();
+  State<Comparison> createState() => _ComparisonState();
 }
 
-class _ComparisonPage2State extends State<ComparisonPage2> {
+class _ComparisonState extends State<Comparison> {
   bool showDifferences = false;
   int currentValueOfCharacteristics = -1;
   int currentValueOfComplectation = -1;
@@ -98,10 +103,10 @@ class _ComparisonPage2State extends State<ComparisonPage2> {
         parameterName: LocaleKeys.exterier_elements.tr(),
         id: 0,
         complectationParameters: [
-          ComplectationParameters(
+          ComplectationParametersEntity(
             comparisonParameters: LocaleKeys.roof_relief.tr(),
           ),
-          ComplectationParameters(
+          ComplectationParametersEntity(
             comparisonParameters: LocaleKeys.aerography.tr(),
           )
         ]),
@@ -148,28 +153,7 @@ class _ComparisonPage2State extends State<ComparisonPage2> {
   }
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-      backgroundColor:
-          Theme.of(context).extension<ThemedColors>()!.solitudeContainerToBlack,
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        leading: GestureDetector(
-          onTap: () {
-            Navigator.pop(context);
-          },
-          child: Padding(
-              padding: const EdgeInsets.all(18),
-              child: SvgPicture.asset(AppIcons.chevronLeft)),
-        ),
-        elevation: 0,
-        title: Text(LocaleKeys.car_comparison.tr()),
-        centerTitle: true,
-        titleTextStyle: Theme.of(context)
-            .textTheme
-            .headline1!
-            .copyWith(fontSize: 16, fontWeight: FontWeight.w600),
-      ),
-      body: NestedScrollView(
+  Widget build(BuildContext context) => NestedScrollView(
         headerSliverBuilder: (context, innerBoxIsScrolled) => [
           SliverOverlapAbsorber(
             handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context),
@@ -177,11 +161,22 @@ class _ComparisonPage2State extends State<ComparisonPage2> {
               top: false,
               sliver: SliverPersistentHeader(
                 delegate: SliverWidget(
-                  numberOfAddedCars: widget.numberOfAddedCars,
+                  numberOfAddedCars: widget.cars.length,
                   boolean: showDifferences,
                   onChanged: (showDifferences1) =>
                       setState(() => showDifferences = showDifferences1),
                   scrollController: sliverWidgetScrollController,
+                  onAddCar: () {
+                    context.read<ComparisonBloc>().add(AddCarEvent(
+                        carMark: 'carMark',
+                        carModel: 'carModel',
+                        generation: 'generation'));
+                  },
+                  setSticky: (val) {
+                    context
+                        .read<ComparisonBloc>()
+                        .add(SetStickyState(isSticky: val));
+                  },
                 ),
                 pinned: true,
               ),
@@ -223,8 +218,9 @@ class _ComparisonPage2State extends State<ComparisonPage2> {
                             characteristicsParameters[index]
                                 .comparisonParameters,
                         characteristicsOrComplectation: 'characteristics',
-                        numberOfAddedCars: widget.numberOfAddedCars,
+                        numberOfAddedCars: widget.cars.length,
                         controller: scrollControllers[index],
+                        isSticky: widget.isSticky,
                       ),
                     ),
                   ],
@@ -262,9 +258,10 @@ class _ComparisonPage2State extends State<ComparisonPage2> {
                             complectationParameters[index]
                                 .complectationParameters,
                         characteristicsOrComplectation: 'complectation',
-                        numberOfAddedCars: 2,
+                        numberOfAddedCars: widget.cars.length,
                         controller: scrollControllers[
                             index + characteristicsParameters.length],
+                        isSticky: widget.isSticky,
                       ),
                     ),
                   ],
@@ -273,5 +270,5 @@ class _ComparisonPage2State extends State<ComparisonPage2> {
             ],
           ),
         ),
-      ));
+      );
 }

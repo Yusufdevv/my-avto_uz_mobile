@@ -8,8 +8,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-
-
 class AddedCar extends StatelessWidget {
   const AddedCar({
     Key? key,
@@ -17,20 +15,24 @@ class AddedCar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Container(
-        color: Theme.of(context)
-            .extension<ThemedColors>()!
-            .solitudeContainerToBlack,
-        padding: const EdgeInsets.only(bottom: 18, right: 6, left: 6),
+        margin: const EdgeInsets.symmetric(horizontal: 6),
+        padding: const EdgeInsets.only(bottom: 18),
+        decoration: BoxDecoration(
+            color: Theme.of(context)
+                .extension<ThemedColors>()!
+                .solitudeContainerToBlack,
+            borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(12), topRight: Radius.circular(12))),
         child: Stack(
           children: [
             Container(
-              width: MediaQuery.of(context).size.width / 2 - 22,
+              width: (MediaQuery.of(context).size.width - 46) / 2,
               padding: const EdgeInsets.only(bottom: 18),
               decoration: BoxDecoration(
-                color: Theme.of(context)
-                    .extension<ThemedColors>()!
-                    .solitudeContainerToBlack,
-              ),
+                  color: Theme.of(context)
+                      .extension<ThemedColors>()!
+                      .solitudeContainerToBlack,
+                  borderRadius: BorderRadius.circular(12)),
               child: Container(
                 decoration: BoxDecoration(
                   color:
@@ -44,8 +46,8 @@ class AddedCar extends StatelessWidget {
                 child: Column(
                   children: [
                     SizedBox(
-                      width: MediaQuery.of(context).size.width / 2 - 22,
                       height: 112,
+                      width: MediaQuery.of(context).size.width / 2 - 22,
                       child: ClipRRect(
                         borderRadius: const BorderRadius.only(
                           topLeft: Radius.circular(12),
@@ -108,7 +110,7 @@ class AddedCar extends StatelessWidget {
                     children: [
                       SvgPicture.asset(AppIcons.tablerPhone, color: white),
                       const SizedBox(width: 4),
-                       Text(
+                      Text(
                         LocaleKeys.call.tr(),
                         style: const TextStyle(
                           fontWeight: FontWeight.w600,

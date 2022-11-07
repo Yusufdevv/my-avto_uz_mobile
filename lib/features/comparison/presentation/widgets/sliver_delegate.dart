@@ -13,72 +13,83 @@ class SliverWidget extends SliverPersistentHeaderDelegate {
   final int numberOfAddedCars;
   final bool boolean;
   final ValueChanged<bool> onChanged;
+  final VoidCallback onAddCar;
+  final ValueChanged<bool> setSticky;
 
   SliverWidget({
+    required this.onAddCar,
     required this.numberOfAddedCars,
     required this.boolean,
     required this.onChanged,
     required this.scrollController,
+    required this.setSticky,
   });
 
-  List<Row> items(BuildContext context) {
-    var itemsss = <Row>[];
+  List<AddedCar> items(BuildContext context) {
+    var itemsss = <AddedCar>[];
     for (var i = 0; i < numberOfAddedCars; i++) {
-      itemsss.add(Row(
-        key: Key('$i'),
-        children: const [
-          AddedCar(),
-        ],
-      ));
+      itemsss.add(
+        AddedCar(
+          key: Key('$i'),
+        ),
+      );
     }
     return itemsss;
   }
 
   @override
   Widget build(
-          BuildContext context, double shrinkOffset, bool overlapsContent) =>
-      AnimatedSwitcher(
-        duration: const Duration(milliseconds: 500),
-        child: shrinkOffset >= 246
-            ? Container(
-                width: MediaQuery.of(context).size.width,
-                color: Theme.of(context).extension<ThemedColors>()!.whiteToNero,
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                child: ListView(
-                  shrinkWrap: true,
-                  controller: scrollController,
-                  scrollDirection: Axis.horizontal,
-                  children: const [
-                    StickyAdderCar(),
-                    StickyAdderCar(),
-                  ],
-                ),)
-            : Container(
-                color: Theme.of(context)
-                    .extension<ThemedColors>()!
-                    .solitudeContainerToBlack,
-                padding: const EdgeInsets.only(top: 16, left: 8),
-                child: SingleChildScrollView(
-                  padding: const EdgeInsets.only(left: 6),
-                  physics: const NeverScrollableScrollPhysics(),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      SizedBox(
-                        height: 234,
-                        child: SingleChildScrollView(
-                          controller: scrollController,
-                          scrollDirection: Axis.horizontal,
-                          child: Row(children: [
-                            ListOfAddedCars(
-                              list: items(context),
-                            ),
-                            const AddNewCar()
-                          ]),
-                        ),
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
+    if (shrinkOffset >= 246) {
+      setSticky(true);
+    } else {
+      setSticky(false);
+    }
+    return AnimatedSwitcher(
+      duration: const Duration(milliseconds: 80),
+      child: shrinkOffset >= 246
+          ? Container(
+              width: MediaQuery.of(context).size.width,
+              color: Theme.of(context).extension<ThemedColors>()!.whiteToNero,
+              child: ListView(
+                shrinkWrap: true,
+                controller: scrollController,
+                scrollDirection: Axis.horizontal,
+                children: [
+                  ...List.generate(
+                      numberOfAddedCars, (index) => const StickyAdderCar())
+                ],
+              ),
+            )
+          : Container(
+              color: Theme.of(context)
+                  .extension<ThemedColors>()!
+                  .solitudeContainerToBlack,
+              padding: const EdgeInsets.only(top: 16),
+              child: SingleChildScrollView(
+                physics: const NeverScrollableScrollPhysics(),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    SizedBox(
+                      height: 234,
+                      child: SingleChildScrollView(
+                        padding: EdgeInsets.only(right: 16),
+                        controller: scrollController,
+                        scrollDirection: Axis.horizontal,
+                        child: Row(children: [
+                          ListOfAddedCars(
+                            list: items(context),
+                          ),
+                          AddNewCar(
+                            onTap: onAddCar,
+                          )
+                        ]),
                       ),
-                      Row(
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: Row(
                         children: [
                           Expanded(
                             child: Text(
@@ -101,14 +112,15 @@ class SliverWidget extends SliverPersistentHeaderDelegate {
                           ),
                         ],
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
-      );
+            ),
+    );
+  }
 
   @override
-  // TODO: implement maxExtent
   double get maxExtent => 315;
 
   @override
@@ -121,9 +133,7 @@ class SliverWidget extends SliverPersistentHeaderDelegate {
 }
 
 class ListOfAddedCars extends StatefulWidget {
-  // final ScrollController scrollController;
   final List list;
-
   const ListOfAddedCars({Key? key, required this.list}) : super(key: key);
 
   @override
@@ -132,22 +142,29 @@ class ListOfAddedCars extends StatefulWidget {
 
 class _ListOfAddedCarsState extends State<ListOfAddedCars> {
   @override
-  Widget build(BuildContext context) => SizedBox(
-        width: MediaQuery.of(context).size.width - 20,
-        child: ReorderableListView(
-          scrollDirection: Axis.horizontal,
-          onReorder: (oldIndex, newIndex) {
-            setState(() {
-              if (oldIndex < newIndex) {
-                newIndex -= 1;
-              }
-              final Row item = widget.list.removeAt(oldIndex);
-              widget.list.insert(newIndex, item);
-            });
-          },
-          children: [
-            ...List.generate(2, (index) => widget.list[index]),
-          ],
-        ),
-      );
+  Widget build(BuildContext context) {
+    print(widget.list.length);
+    return SizedBox(
+      width:
+          ((MediaQuery.of(context).size.width - 40) / 2) * widget.list.length +
+              20,
+      child: ReorderableListView(
+        padding: const EdgeInsets.only(left: 14),
+        physics: const NeverScrollableScrollPhysics(),
+        scrollDirection: Axis.horizontal,
+        onReorder: (oldIndex, newIndex) {
+          setState(() {
+            if (oldIndex < newIndex) {
+              newIndex -= 1;
+            }
+            final AddedCar item = widget.list.removeAt(oldIndex);
+            widget.list.insert(newIndex, item);
+          });
+        },
+        children: [
+          ...List.generate(widget.list.length, (index) => widget.list[index]),
+        ],
+      ),
+    );
+  }
 }

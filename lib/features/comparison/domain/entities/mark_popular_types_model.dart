@@ -1,5 +1,5 @@
-class PopularTypesModel {
+class PopularTypesEntity {
   final String type;
   final int id;
-  PopularTypesModel({required this.id, required this.type});
+  PopularTypesEntity({required this.id, required this.type});
 }

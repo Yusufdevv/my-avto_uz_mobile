@@ -4,6 +4,7 @@ import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/assets/themes/theme_extensions/w_textfield_style.dart';
 import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
+import 'package:auto/features/comparison/presentation/comparison_page.dart';
 import 'package:auto/features/favorites/presentation/favourite_screen.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/posting_ad/add_photo/presentation/blocs/image_bloc.dart';
@@ -41,10 +42,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   initState() {
     profileBloc = ProfileBloc(
-        changePasswordUseCase:
-            ChangePasswordUseCase(repository: serviceLocator<ProfileRepositoryImpl>()),
-        editProfileUseCase: EditProfileUseCase(repository: serviceLocator<ProfileRepositoryImpl>()),
-        profileUseCase: ProfileUseCase(repository: serviceLocator<ProfileRepositoryImpl>()));
+        changePasswordUseCase: ChangePasswordUseCase(
+            repository: serviceLocator<ProfileRepositoryImpl>()),
+        editProfileUseCase: EditProfileUseCase(
+            repository: serviceLocator<ProfileRepositoryImpl>()),
+        profileUseCase: ProfileUseCase(
+            repository: serviceLocator<ProfileRepositoryImpl>()));
     imageBloc = ImageBloc();
     super.initState();
   }
@@ -138,29 +141,39 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ),
                         Container(
                           decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(12), color: iconBackground),
+                              borderRadius: BorderRadius.circular(12),
+                              color: iconBackground),
                           margin: const EdgeInsets.only(bottom: 12),
-                          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 16, vertical: 12),
                           child: Text(
                             LocaleKeys.number_dont_regist.tr(),
                             textAlign: TextAlign.center,
-                            style: Theme.of(context).textTheme.headline4!.copyWith(fontSize: 12),
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline4!
+                                .copyWith(fontSize: 12),
                           ),
                         ),
                         Container(
                           // padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
                           decoration: BoxDecoration(
-                            color: Theme.of(context).extension<ThemedColors>()!.whiteToNero1,
+                            color: Theme.of(context)
+                                .extension<ThemedColors>()!
+                                .whiteToNero1,
                             borderRadius: BorderRadius.circular(12),
                             border: Border.all(
-                                color: Theme.of(context).extension<WTextFieldStyle>()!.borderColor),
+                                color: Theme.of(context)
+                                    .extension<WTextFieldStyle>()!
+                                    .borderColor),
                           ),
                           child: Column(
                             children: [
                               ProfileMenuTile(
                                 name: LocaleKeys.favorites.tr(),
                                 onTap: () {
-                                  Navigator.push(context, fade(page: FavouriteScreen()));
+                                  Navigator.push(
+                                      context, fade(page: FavouriteScreen()));
                                 },
                                 iconPath: AppIcons.heartBlue,
                                 count: 37,
@@ -168,7 +181,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               const ProfileDivider(),
                               ProfileMenuTile(
                                 name: LocaleKeys.comparisons.tr(),
-                                onTap: () {},
+                                onTap: () {
+                                  Navigator.of(context)
+                                      .push(fade(page: const ComparisonPage()));
+                                },
                                 iconPath: AppIcons.scales,
                                 count: 54,
                               ),
@@ -191,17 +207,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         Container(
                           margin: const EdgeInsets.only(top: 12),
                           decoration: BoxDecoration(
-                            color: Theme.of(context).extension<ThemedColors>()!.whiteToNero1,
+                            color: Theme.of(context)
+                                .extension<ThemedColors>()!
+                                .whiteToNero1,
                             borderRadius: BorderRadius.circular(12),
                             border: Border.all(
-                                color: Theme.of(context).extension<WTextFieldStyle>()!.borderColor),
+                                color: Theme.of(context)
+                                    .extension<WTextFieldStyle>()!
+                                    .borderColor),
                           ),
                           child: Column(
                             children: [
                               ProfileMenuTile(
                                 name: LocaleKeys.chat.tr(),
                                 onTap: () {
-                                  Navigator.of(context, rootNavigator: true).push(
+                                  Navigator.of(context, rootNavigator: true)
+                                      .push(
                                     fade(
                                       page: Chat(
                                         hasChat: false,
@@ -218,7 +239,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 name: LocaleKeys.settings.tr(),
                                 onTap: () {
                                   Navigator.of(context).push(
-                                    fade(page: SettingsScreen(profileBloc: profileBloc)),
+                                    fade(
+                                        page: SettingsScreen(
+                                            profileBloc: profileBloc)),
                                   );
                                 },
                                 iconPath: AppIcons.settings,
@@ -230,10 +253,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         Container(
                           margin: const EdgeInsets.only(top: 12, bottom: 20),
                           decoration: BoxDecoration(
-                            color: Theme.of(context).extension<ThemedColors>()!.whiteToNero1,
+                            color: Theme.of(context)
+                                .extension<ThemedColors>()!
+                                .whiteToNero1,
                             borderRadius: BorderRadius.circular(12),
                             border: Border.all(
-                                color: Theme.of(context).extension<WTextFieldStyle>()!.borderColor),
+                                color: Theme.of(context)
+                                    .extension<WTextFieldStyle>()!
+                                    .borderColor),
                           ),
                           child: ProfileMenuTile(
                             name: LocaleKeys.about_app.tr(),

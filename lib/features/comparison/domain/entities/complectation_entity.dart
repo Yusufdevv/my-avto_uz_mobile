@@ -3,7 +3,7 @@ import 'package:auto/features/comparison/domain/entities/complectation_parameter
 class Complectation {
   final String parameterName;
   final int id;
-  final List<ComplectationParameters> complectationParameters;
+  final List<ComplectationParametersEntity> complectationParameters;
   Complectation(
       {required this.parameterName,
       required this.id,
