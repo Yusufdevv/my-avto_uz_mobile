@@ -167,4 +167,16 @@ class AppIcons {
   static const greyPhoneCall = 'assets/icons/global/grey_phone_call.svg';
   static const flashOff = 'assets/icons/global/flash_off.svg';
   static const flashOn = 'assets/icons/global/flash_on.svg';
+  //REVIEWS
+  static const comment = 'assets/icons/reviews/comment.svg';
+  static const passenger_car = 'assets/icons/reviews/passanger_car.svg';
+  static const commercial_car = 'assets/icons/reviews/commercial_car.svg';
+  static const moto = 'assets/icons/reviews/motorcycle.svg';
+  static const appbar_back = 'assets/icons/reviews/appbar_back.svg';
+  static const chevron_up = 'assets/icons/reviews/chevron_up.svg';
+  static const starr = 'assets/icons/global/star.svg';
+  static const draft = 'assets/icons/reviews/draft.svg';
+  static const draftIcon = 'assets/icons/reviews/drat_icon.svg';
+  static const alertTriangle = 'assets/icons/reviews/alert_triangle.svg';
+  static const delete = 'assets/icons/reviews/delete.svg';
 }

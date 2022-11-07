@@ -8,11 +8,13 @@ class NavItemWidget extends StatelessWidget {
   final int currentIndex;
   final String? avatar;
   final NavBar navBar;
+  //final Function onDoubleTap;
 
   const NavItemWidget({
     this.avatar,
     required this.navBar,
     required this.currentIndex,
+    //required this.onDoubleTap,
     Key? key,
   }) : super(key: key);
 

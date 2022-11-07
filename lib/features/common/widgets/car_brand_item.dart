@@ -37,7 +37,11 @@ class CarBrandItem extends StatelessWidget {
         child: Column(
           children: [
             const SizedBox(height: 16),
-            Image.network(carBrandEntity.icon,width: 40,height: 40,),
+            Image.asset(
+              carBrandEntity.icon,
+              width: 40,
+              height: 40,
+            ),
             const SizedBox(height: 8),
             Text(
               carBrandEntity.title,

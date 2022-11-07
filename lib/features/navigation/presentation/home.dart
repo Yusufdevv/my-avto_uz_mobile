@@ -30,7 +30,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     NavItemEnum.profile: GlobalKey<NavigatorState>(),
   };
 
-  final List<NavBar> lables =  [
+  final List<NavBar> lables = [
     NavBar(
       title: LocaleKeys.main.tr(),
       id: 0,
@@ -74,7 +74,12 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     super.initState();
   }
 
-  void onTabChange() => setState(() => _currentIndex = _controller.index);
+  void onTabChange() => setState(() {
+        _currentIndex = _controller.index;
+        _navigatorKeys[NavItemEnum.values[_currentIndex]]!
+            .currentState!
+            .popUntil((route) => route.isFirst);
+      });
 
   Widget _buildPageNavigator(NavItemEnum tabItem) => TabNavigator(
         navigatorKey: _navigatorKeys[tabItem]!,
@@ -133,25 +138,55 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 controller: _controller,
                 labelPadding: EdgeInsets.zero,
                 tabs: [
-                  NavItemWidget(
-                    navBar: lables[0],
-                    currentIndex: _currentIndex,
+                  GestureDetector(
+                    onDoubleTap: () =>
+                        _navigatorKeys[NavItemEnum.values[_currentIndex]]!
+                            .currentState!
+                            .popUntil((route) => route.isFirst),
+                    child: NavItemWidget(
+                      navBar: lables[0],
+                      currentIndex: _currentIndex,
+                    ),
                   ),
-                  NavItemWidget(
-                    navBar: lables[1],
-                    currentIndex: _currentIndex,
+                  GestureDetector(
+                    onDoubleTap: () =>
+                        _navigatorKeys[NavItemEnum.values[_currentIndex]]!
+                            .currentState!
+                            .popUntil((route) => route.isFirst),
+                    child: NavItemWidget(
+                      navBar: lables[1],
+                      currentIndex: _currentIndex,
+                    ),
                   ),
-                  NavItemWidget(
-                    navBar: lables[2],
-                    currentIndex: _currentIndex,
+                  GestureDetector(
+                    onDoubleTap: () =>
+                        _navigatorKeys[NavItemEnum.values[_currentIndex]]!
+                            .currentState!
+                            .popUntil((route) => route.isFirst),
+                    child: NavItemWidget(
+                      navBar: lables[2],
+                      currentIndex: _currentIndex,
+                    ),
                   ),
-                  NavItemWidget(
-                    navBar: lables[3],
-                    currentIndex: _currentIndex,
+                  GestureDetector(
+                    onDoubleTap: () =>
+                        _navigatorKeys[NavItemEnum.values[_currentIndex]]!
+                            .currentState!
+                            .popUntil((route) => route.isFirst),
+                    child: NavItemWidget(
+                      navBar: lables[3],
+                      currentIndex: _currentIndex,
+                    ),
                   ),
-                  NavItemWidget(
-                    navBar: lables[4],
-                    currentIndex: _currentIndex,
+                  GestureDetector(
+                    onDoubleTap: () =>
+                        _navigatorKeys[NavItemEnum.values[_currentIndex]]!
+                            .currentState!
+                            .popUntil((route) => route.isFirst),
+                    child: NavItemWidget(
+                      navBar: lables[4],
+                      currentIndex: _currentIndex,
+                    ),
                   )
                 ],
               ),

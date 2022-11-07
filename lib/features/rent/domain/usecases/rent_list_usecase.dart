@@ -16,10 +16,11 @@ class RentListUseCase extends UseCase<GenericPagination<RentListModel>, Param> {
       map.addAll({'rent_car__category': params.id});
     }
     return await repo.fetchMore(
-        url: 'rent/list/',
-        fromJson: RentListModel.fromJson,
-        next: params.next,
-        query: map);
+      url: 'rent/list/',
+      fromJson: RentListModel.fromJson,
+      next: params.next,
+      query: map,
+    );
   }
 }
 

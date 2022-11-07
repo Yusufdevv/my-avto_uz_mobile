@@ -2,6 +2,7 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
 class WButton extends StatelessWidget {
   final double? width;
   final double? height;
@@ -43,44 +44,45 @@ class WButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => WScaleAnimation(
-      scaleValue: scaleValue ?? 0.95,
-      onTap: () {
-        if (!(isLoading || isDisabled)) {
-          onTap();
-        }
-      },
-      isDisabled: isDisabled,
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 200),
-        width: width,
-        height: height ?? 46,
-        margin: margin,
-        padding: padding ?? EdgeInsets.zero,
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
-          color: isDisabled ? disabledColor : color,
-          borderRadius: BorderRadius.circular(borderRadius),
-          border: border,
-          boxShadow: shadow,
-        ),
-        child: isLoading
-            ? const Center(child: CupertinoActivityIndicator())
-            : AnimatedDefaultTextStyle(
+        scaleValue: scaleValue ?? 0.95,
+        onTap: () {
+          if (!(isLoading || isDisabled)) {
+            onTap();
+          }
+        },
+        isDisabled: isDisabled,
+        child: AnimatedContainer(
           duration: const Duration(milliseconds: 200),
-          style: Theme.of(context).textTheme.bodyText2!.copyWith(
-              fontSize: 14,
-              fontWeight: isDisabled ? FontWeight.w700 : FontWeight.w600,
-              height: 1.36,
-              color: textColor),
-          child: child ??
-              Text(
-                text,
-                style: textStyle,
-                textAlign: TextAlign.center,
-                overflow: TextOverflow.ellipsis,
-                maxLines: 2,
-              ),
+          width: width,
+          height: height,
+          margin: margin,
+          padding: padding ?? EdgeInsets.zero,
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            color: isDisabled ? disabledColor : color,
+            borderRadius: BorderRadius.circular(borderRadius),
+            border: border,
+            boxShadow: shadow,
+          ),
+          child: isLoading
+              ? const Center(child: CupertinoActivityIndicator())
+              : AnimatedDefaultTextStyle(
+                  duration: const Duration(milliseconds: 200),
+                  style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                      fontSize: 14,
+                      fontWeight:
+                          isDisabled ? FontWeight.w700 : FontWeight.w600,
+                      height: 1.36,
+                      color: textColor),
+                  child: child ??
+                      Text(
+                        text,
+                        style: textStyle,
+                        textAlign: TextAlign.center,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 2,
+                      ),
+                ),
         ),
-      ),
-    );
+      );
 }

@@ -65,10 +65,10 @@ class _MainScreenState extends State<MainScreen> {
       title: 'Коммерческий транспорт',
       icon: AppIcons.commercialCar,
     ),
-    const ServiceEntity(
-      title: 'RentCar',
-      icon: AppIcons.rentCar,
-    ),
+    // const ServiceEntity(
+    //   title: 'RentCar',
+    //   icon: AppIcons.rentCar,
+    // ),
   ];
 
   @override
@@ -83,7 +83,8 @@ class _MainScreenState extends State<MainScreen> {
       () {},
       () => Navigator.pushReplacement(
           context, fade(page: const CommercialScreen())),
-      () => Navigator.of(context,rootNavigator: true).push(fade(page: const RentScreen())),
+      () => Navigator.of(context, rootNavigator: true)
+          .push(fade(page: const RentScreen())),
     ];
     super.initState();
   }

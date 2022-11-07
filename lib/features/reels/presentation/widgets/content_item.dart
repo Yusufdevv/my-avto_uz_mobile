@@ -83,7 +83,7 @@ class _ContentItemState extends State<ContentItem> {
                         onTap: () {},
                         padding: const EdgeInsets.fromLTRB(16, 12, 8, 16),
                         borderRadius: 16,
-                        height: 83,
+                        //height: 83,
                         color: white.withOpacity(.38),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,

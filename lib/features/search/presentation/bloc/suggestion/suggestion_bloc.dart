@@ -9,11 +9,8 @@ part 'suggestion_event.dart';
 part 'suggestion_state.dart';
 part 'suggestion_bloc.freezed.dart';
 
-
-
 class SuggestionBloc extends Bloc<SuggestionEvent, SuggestionState> {
   SuggestionBloc() : super(SuggestionState()) {
-    on<SuggestionEvent>((event, emit) {
-    });
+    on<SuggestionEvent>((event, emit) {});
   }
 }
