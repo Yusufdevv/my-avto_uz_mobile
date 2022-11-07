@@ -40,7 +40,7 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
               ),
               DetailsItem(),
               MileagePriceItem(),
-              PlaceItem(),
+              //PlaceItem(),
             ],
           ),
         ),

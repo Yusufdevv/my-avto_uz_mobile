@@ -38,7 +38,7 @@ class _CarsSingleScreenState extends State<CarsSingleScreen> {
               AdditionalOptions(
                 rentCarEntity: widget.rentListEntity.rentCar,
               ),
-              const AllRationItem(),
+              //const AllRationItem(),
             ],
           ),
         ),

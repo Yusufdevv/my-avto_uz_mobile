@@ -18,39 +18,48 @@ class SingleCarInfoItem extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Text(
-            //   LocaleKeys.about_car.tr(),
-            //   style:
-            //       Theme.of(context).textTheme.headline1!.copyWith(fontSize: 18),
-            // ),
-            // const SizedBox(
-            //   height: 8,
-            // ),
-            // InfoItem(
-            //     title: LocaleKeys.year_of_issue.tr(),
-            //     description: rentCarEntity.year.toString()),
-            // InfoItem(
-            //     title: LocaleKeys.Mileage.tr(),
-            //     description:
-            //         '${MyFunctions.getFormatCost(rentCarEntity.distanceTraveled.toString())} km'),
-            // InfoItem(title: LocaleKeys.body.tr(), description: rentCarEntity.bodyType),
-            // InfoItem(title: LocaleKeys.color.tr(), description: rentCarEntity.color),
-            // InfoItem(
-            //   title: LocaleKeys.complectation.tr(),
-            //   description: rentCarEntity.equipmentType,
-            //   textStyle:
-            //       Theme.of(context).textTheme.subtitle2!.copyWith(color: blue),
-            // ),
-            // InfoItem(
-            //     title: LocaleKeys.engine_volume_l.tr(),
-            //     description: rentCarEntity.engineType),
-            // InfoItem(
-            //     title: LocaleKeys.Transmission.tr(),
-            //     description: rentCarEntity.gearboxType),
-            // InfoItem(
-            //     title: LocaleKeys.conditioner.tr(),
-            //     description: rentCarEntity.hasAirConditioner ? LocaleKeys.have.tr(): LocaleKeys.no.tr(),),
-            // InfoItem(title: LocaleKeys.drive_unit.tr(), description: rentCarEntity.driveType),
+            Text(
+              LocaleKeys.about_car.tr(),
+              style:
+                  Theme.of(context).textTheme.headline1!.copyWith(fontSize: 18),
+            ),
+            const SizedBox(
+              height: 8,
+            ),
+            InfoItem(
+                title: LocaleKeys.year_of_issue.tr(),
+                description: rentCarEntity.year.toString()),
+            InfoItem(
+                title: LocaleKeys.Mileage.tr(),
+                description:
+                    '${MyFunctions.getFormatCost(rentCarEntity.distanceTraveled.toString())} km'),
+            InfoItem(
+                title: LocaleKeys.body.tr(),
+                description: rentCarEntity.bodyType.toString()),
+            InfoItem(
+                title: LocaleKeys.color.tr(), description: rentCarEntity.color),
+            InfoItem(
+              title: LocaleKeys.complectation.tr(),
+              //description: rentCarEntity.equipmentType.toString(),
+              description: 'Luxury',
+              textStyle:
+                  Theme.of(context).textTheme.subtitle2!.copyWith(color: blue),
+            ),
+            InfoItem(
+                title: LocaleKeys.engine_volume_l.tr(),
+                description: rentCarEntity.engineType.toString()),
+            InfoItem(
+                title: LocaleKeys.Transmission.tr(),
+                description: rentCarEntity.gearboxType.toString()),
+            InfoItem(
+              title: LocaleKeys.conditioner.tr(),
+              description: rentCarEntity.hasAirConditioner
+                  ? LocaleKeys.have.tr()
+                  : LocaleKeys.no.tr(),
+            ),
+            InfoItem(
+                title: LocaleKeys.drive_unit.tr(),
+                description: rentCarEntity.driveType.toString()),
           ],
         ),
       );
