@@ -1,4 +1,4 @@
-import 'package:auto/features/comparison/domain/entities/complectation_parameters_model.dart';
+import 'package:auto/features/comparison/domain/entities/complectation_parameters_entity.dart';
 
 class Complectation {
   final String parameterName;

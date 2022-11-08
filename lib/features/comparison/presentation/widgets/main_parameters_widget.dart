@@ -3,12 +3,13 @@ import 'dart:math';
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/features/comparison/domain/entities/car_params_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class CharacteristicsParametersWidget extends StatelessWidget {
   final ScrollController controller;
-  final int numberOfAddedCars;
+  final List<CarParamsEntity> numberOfAddedCars;
   final String characteristicsOrComplectation;
   final List listOfComparisonParameters;
   final int selectedValue;
@@ -101,7 +102,7 @@ class CharacteristicsParametersWidget extends StatelessWidget {
                           scrollDirection: Axis.horizontal,
                           children: [
                             ...List.generate(
-                              numberOfAddedCars,
+                              numberOfAddedCars.length,
                               (index) => Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: List.generate(
@@ -123,7 +124,7 @@ class CharacteristicsParametersWidget extends StatelessWidget {
                                             left: 16, top: 28),
                                         height: 54,
                                         child: Text(
-                                          'data',
+                                          numberOfAddedCars[index].type,
                                           style: Theme.of(context)
                                               .textTheme
                                               .headline1!

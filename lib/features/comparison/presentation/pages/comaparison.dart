@@ -3,7 +3,7 @@ import 'package:auto/features/comparison/domain/entities/car_params_entity.dart'
 import 'package:auto/features/comparison/domain/entities/characteristics_entity.dart';
 import 'package:auto/features/comparison/domain/entities/chracteristics_parameters_entity.dart';
 import 'package:auto/features/comparison/domain/entities/complectation_entity.dart';
-import 'package:auto/features/comparison/domain/entities/complectation_parameters_model.dart';
+import 'package:auto/features/comparison/domain/entities/complectation_parameters_entity.dart';
 import 'package:auto/features/comparison/presentation/bloc/comparison-bloc/comparison_bloc.dart';
 import 'package:auto/features/comparison/presentation/widgets/main_parameters_widget.dart';
 import 'package:auto/features/comparison/presentation/widgets/sliver_delegate.dart';
@@ -175,7 +175,7 @@ class _ComparisonState extends State<Comparison> {
                   setSticky: (val) {
                     context
                         .read<ComparisonBloc>()
-                        .add(SetStickyState(isSticky: val));
+                        .add(SetStickyEvent(isSticky: val));
                   },
                 ),
                 pinned: true,
@@ -218,7 +218,7 @@ class _ComparisonState extends State<Comparison> {
                             characteristicsParameters[index]
                                 .comparisonParameters,
                         characteristicsOrComplectation: 'characteristics',
-                        numberOfAddedCars: widget.cars.length,
+                        numberOfAddedCars: widget.cars,
                         controller: scrollControllers[index],
                         isSticky: widget.isSticky,
                       ),
@@ -258,7 +258,7 @@ class _ComparisonState extends State<Comparison> {
                             complectationParameters[index]
                                 .complectationParameters,
                         characteristicsOrComplectation: 'complectation',
-                        numberOfAddedCars: widget.cars.length,
+                        numberOfAddedCars: widget.cars,
                         controller: scrollControllers[
                             index + characteristicsParameters.length],
                         isSticky: widget.isSticky,

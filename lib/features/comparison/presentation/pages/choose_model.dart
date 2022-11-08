@@ -91,46 +91,62 @@ class _ChooseCarModelComparison extends State<ChooseCarModelComparison> {
                       automaticallyImplyLeading: false,
                       elevation: 0,
                       pinned: true,
-                      title: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          GestureDetector(
-                            onTap: () => Navigator.pop(context),
-                            child: Padding(
+                      title: GestureDetector(
+                        onTap: () => Navigator.pop(context),
+                        behavior: HitTestBehavior.opaque,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Padding(
                               padding: const EdgeInsets.only(
-                                  top: 16, bottom: 16, right: 8),
+                                  top: 16, bottom: 16, right: 4),
                               child: SvgPicture.asset(AppIcons.chevronLeft),
                             ),
-                          ),
-                          Text(
-                            'Выберите модель',
-                            style: Theme.of(context)
-                                .textTheme
-                                .headline1!
-                                .copyWith(
-                                    fontSize: 16, fontWeight: FontWeight.w600),
-                          ),
-                        ],
-                      ),
-                    ),
-                    SliverToBoxAdapter(
-                      child: Container(
-                        color: white,
-                        child: WTextField(
-                          margin: const EdgeInsets.only(
-                              left: 16, right: 16, bottom: 16),
-                          onChanged: (value) {},
-                          borderRadius: 12,
-                          hasSearch: true,
-                          hintText: 'Поиск',
-                          height: 40,
-                          controller: searchController,
-                          hasClearButton: true,
+                            Text(
+                              'Марка автомобиля',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline2!
+                                  .copyWith(fontWeight: FontWeight.w600),
+                            ),
+                          ],
                         ),
                       ),
                     ),
-                    const SliverToBoxAdapter(
-                      child: SizedBox(height: 16),
+                    SliverToBoxAdapter(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                top: 20, left: 16, bottom: 12),
+                            child: Text(
+                              'Выберите модель',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline1!
+                                  .copyWith(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w700),
+                            ),
+                          ),
+                          WTextField(
+                            fillColor: Theme.of(context)
+                                .extension<ThemedColors>()!
+                                .whiteToNightRider,
+                            margin: const EdgeInsets.only(
+                                left: 16, right: 16, bottom: 16),
+                            onChanged: (value) {},
+                            borderRadius: 12,
+                            hasSearch: true,
+                            hintText: 'Поиск',
+                            height: 40,
+                            controller: searchController,
+                            hasClearButton: true,
+                          ),
+                          SizedBox(height: 16),
+                        ],
+                      ),
                     ),
                     SliverToBoxAdapter(
                       child: Transform.translate(

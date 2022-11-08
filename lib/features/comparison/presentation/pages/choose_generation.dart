@@ -1,5 +1,6 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -64,24 +65,23 @@ class _ChooseGenerationComparisonState
                     ),
                   ),
                 ],
-                body: body,
+                body: Container(),
               ),
               Positioned(
-                  bottom: 16,
-                  right: 16,
-                  left: 16,
-                  child: BlocBuilder<CarSelectorBloc, SelectedCarItems>(
-                    builder: (context, state) => WButton(
-                      onTap: state.selectedId == -1 ? () {} : widget.onTap,
-                      text: 'Далее',
-                      shadow: [
-                        BoxShadow(
-                            offset: const Offset(0, 4),
-                            blurRadius: 20,
-                            color: orange.withOpacity(0.2)),
-                      ],
-                    ),
-                  )),
+                bottom: 16,
+                right: 16,
+                left: 16,
+                child: WButton(
+                  onTap: () {},
+                  text: 'Далее',
+                  shadow: [
+                    BoxShadow(
+                        offset: const Offset(0, 4),
+                        blurRadius: 20,
+                        color: orange.withOpacity(0.2)),
+                  ],
+                ),
+              ),
             ],
           ),
         ),

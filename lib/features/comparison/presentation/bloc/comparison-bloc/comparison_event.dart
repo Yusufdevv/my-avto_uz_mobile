@@ -12,10 +12,12 @@ class AddCarEvent extends ComparisonEvent {
       required this.generation});
 }
 
-class SetStickyState extends ComparisonEvent {
+class SetStickyEvent extends ComparisonEvent {
   final bool isSticky;
-  SetStickyState({required this.isSticky});
+  SetStickyEvent({required this.isSticky});
 }
+
+class GetComparableCars extends ComparisonEvent {}
 
 // class SelectCarMark extends ComparisonEvent {
 //   final String carMark;

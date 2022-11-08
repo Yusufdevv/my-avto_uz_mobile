@@ -7,12 +7,13 @@ import 'package:auto/features/common/bloc/regions/regions_bloc.dart';
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
 import 'package:auto/features/common/repository/auth.dart';
 import 'package:auto/features/common/usecases/get_regions.dart';
-import 'package:auto/features/comparison/presentation/comparison_page.dart';
 import 'package:auto/features/splash/presentation/pages/splash_sc.dart';
 import 'package:auto/generated/codegen_loader.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'features/commercial/presentation/commercial_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -78,7 +79,7 @@ class _AppState extends State<App> {
           themeMode: ThemeMode.light,
           navigatorKey: _navigatorKey,
           onGenerateRoute: (settings) => SplashSc.route(),
-          home: const ComparisonPage(),
+          home: const CommercialScreen(),
           // builder: (context, child) =>
           //     BlocListener<AuthenticationBloc, AuthenticationState>(
           //   listener: (context, state) {

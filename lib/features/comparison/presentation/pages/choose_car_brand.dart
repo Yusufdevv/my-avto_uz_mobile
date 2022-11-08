@@ -127,42 +127,60 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
                       automaticallyImplyLeading: false,
                       elevation: 0,
                       pinned: true,
-                      title: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          GestureDetector(
-                            onTap: () => Navigator.pop(context),
-                            child: Padding(
+                      title: GestureDetector(
+                        onTap: () => Navigator.pop(context),
+                        behavior: HitTestBehavior.opaque,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Padding(
                               padding: const EdgeInsets.only(
-                                  top: 16, bottom: 16, right: 8),
+                                  top: 16, bottom: 16, right: 4),
                               child: SvgPicture.asset(AppIcons.chevronLeft),
                             ),
-                          ),
-                          Text(
-                            'Выберите марку',
-                            style: Theme.of(context)
-                                .textTheme
-                                .headline1!
-                                .copyWith(
-                                    fontSize: 16, fontWeight: FontWeight.w600),
-                          ),
-                        ],
+                            Text(
+                              'Назад',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline2!
+                                  .copyWith(fontWeight: FontWeight.w600),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                     SliverToBoxAdapter(
-                      child: Container(
-                        color: white,
-                        child: WTextField(
-                          margin: const EdgeInsets.only(
-                              left: 16, right: 16, bottom: 16),
-                          onChanged: (value) {},
-                          borderRadius: 12,
-                          hasSearch: true,
-                          hintText: 'Поиск',
-                          height: 40,
-                          controller: searchController,
-                          hasClearButton: true,
-                        ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                top: 20, left: 16, bottom: 12),
+                            child: Text(
+                              'Выберите марку автомобиля',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline1!
+                                  .copyWith(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w700),
+                            ),
+                          ),
+                          WTextField(
+                            fillColor: Theme.of(context)
+                                .extension<ThemedColors>()!
+                                .whiteToNightRider,
+                            margin: const EdgeInsets.only(
+                                left: 16, right: 16, bottom: 16),
+                            onChanged: (value) {},
+                            borderRadius: 12,
+                            hasSearch: true,
+                            hintText: 'Поиск',
+                            height: 40,
+                            controller: searchController,
+                            hasClearButton: true,
+                          ),
+                        ],
                       ),
                     ),
                     SliverToBoxAdapter(

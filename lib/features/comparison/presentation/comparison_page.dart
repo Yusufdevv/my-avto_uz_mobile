@@ -1,4 +1,7 @@
+import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
+import 'package:auto/features/comparison/data/repositories/comparison_cars_repo_impl.dart';
+import 'package:auto/features/comparison/domain/usecases/comparison_cars_use_case.dart';
 import 'package:auto/features/comparison/presentation/bloc/comparison-bloc/comparison_bloc.dart';
 import 'package:auto/features/comparison/presentation/pages/choose_car_brand.dart';
 import 'package:auto/features/comparison/presentation/pages/choose_model.dart';
@@ -20,7 +23,10 @@ class ComparisonPage extends StatefulWidget {
 class _ComparisonPageState extends State<ComparisonPage> {
   @override
   Widget build(BuildContext context) => BlocProvider(
-        create: (context) => ComparisonBloc(),
+        create: (context) => ComparisonBloc(
+            comparisonCarsUseCase: ComparisonCarsUseCase(
+                comparisonCarsRepo: serviceLocator<ComparisonCarsRepoImpl>()))
+          ..add(GetComparableCars()),
         child: Scaffold(
             appBar: WAppBar(
               title: LocaleKeys.car_comparison.tr(),
