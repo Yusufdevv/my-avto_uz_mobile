@@ -1,6 +1,5 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/images.dart';
-import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/login/presentation/login_screen.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/onboarding/presentation/widgets/base_onboarding.dart';
@@ -74,7 +73,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                   currentIndex = page;
                 });
               },
-              children:  [
+              children: [
                 OnBoardingItems(
                     icon: AppImages.flash,
                     title: LocaleKeys.easy_send.tr(),
@@ -106,19 +105,11 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                       children: buildIndicator(),
                     ),
                   ),
-                  const SizedBox(
-                    height: 32,
-                  ),
+                  const SizedBox(height: 32),
                   BaseOnBoarding(
-                    onTap: currentIndex == 0 || currentIndex == 1
-                        ? () {}
-                        : () => Navigator.pushAndRemoveUntil(context,
-                            fade(page: const LoginScreen()), (route) => false),
-                    color: currentIndex == 1 && currentIndex == 2
-                        ? Theme.of(context)
-                            .extension<ThemedColors>()!
-                            .veryLightGreyToEclipse
-                        : orange,
+                    onTap: () => Navigator.pushAndRemoveUntil(context,
+                        fade(page: const LoginScreen()), (route) => false),
+                    color: orange,
                   ),
                 ],
               ),

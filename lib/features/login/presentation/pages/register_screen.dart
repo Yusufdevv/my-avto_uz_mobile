@@ -8,6 +8,7 @@ import 'package:auto/features/login/domain/usecases/send_code.dart';
 import 'package:auto/features/login/domain/usecases/verify_code.dart';
 import 'package:auto/features/login/presentation/bloc/register/register_bloc.dart';
 import 'package:auto/features/login/presentation/pages/verification_screen.dart';
+import 'package:auto/features/login/presentation/widgets/SignIn_with_socials.dart';
 import 'package:auto/features/login/presentation/widgets/login_header_widget.dart';
 import 'package:auto/features/login/presentation/widgets/z_text_form_field.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
@@ -87,52 +88,57 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                     ],
                   ),
-                  hintText: '91 234 56 78',
+                  hintText: '00 000 00 00',
                   keyBoardType: TextInputType.number,
                   textInputFormatters: [phoneFormatter],
                 ),
-                const Spacer(),
-                WButton(
-                  onTap: () {
-                    print(phoneController.text.length);
-                    if (phoneController.text.length == 12) {
-                      registerBloc.add(RegisterEvent.sendCode(
-                          phoneController.text.replaceAll('+998', ''),
-                          onSuccess: (session) {
-                        Navigator.push(
-                            context,
-                            fade(
-                                page: BlocProvider.value(
-                              value: registerBloc,
-                              child: VerificationScreen(
-                                  session: session,
-                                  phone: phoneController.text
-                                      .replaceAll('+998', '')),
-                            )));
-                      }));
-                    } else {}
-                  },
-                  shadow: [
-                    BoxShadow(
-                        offset: const Offset(0, 4),
-                        blurRadius: 20,
-                        color: solitude.withOpacity(.12)),
-                  ],
-                  margin: EdgeInsets.only(
-                      bottom: 4 + MediaQuery.of(context).padding.bottom),
-                  color: (phoneController.text.isNotEmpty)
-                      ? orange
-                      : Theme.of(context)
+                Padding(
+                  padding: const EdgeInsets.only(top: 24.0),
+                  child: WButton(
+                    onTap: () {
+                      print(phoneController.text.length);
+                      if (phoneController.text.length == 12) {
+                        registerBloc.add(RegisterEvent.sendCode(
+                            phoneController.text.replaceAll('+998', ''),
+                            onSuccess: (session) {
+                          Navigator.push(
+                              context,
+                              fade(
+                                  page: BlocProvider.value(
+                                value: registerBloc,
+                                child: VerificationScreen(
+                                    session: session,
+                                    phone: phoneController.text
+                                        .replaceAll('+998', '')),
+                              )));
+                        }));
+                      } else {}
+                    },
+                    shadow: [
+                      BoxShadow(
+                          offset: const Offset(0, 4),
+                          blurRadius: 20,
+                          color: solitude.withOpacity(.12)),
+                    ],
+                    margin: EdgeInsets.only(
+                        bottom: 4 + MediaQuery.of(context).padding.bottom),
+                    color: (phoneController.text.isNotEmpty)
+                        ? orange
+                        : Theme.of(context)
+                            .extension<ThemedColors>()!
+                            .veryLightGreyToEclipse,
+                    text: LocaleKeys.continuee.tr(),
+                    border: Border.all(
+                      width: 1,
+                      color: Theme.of(context)
                           .extension<ThemedColors>()!
-                          .veryLightGreyToEclipse,
-                  text: LocaleKeys.continuee.tr(),
-                  border: Border.all(
-                    width: 1,
-                    color: Theme.of(context)
-                        .extension<ThemedColors>()!
-                        .whiteToDolphin,
+                          .whiteToDolphin,
+                    ),
                   ),
                 ),
+                const Spacer(),
+                const SignInWithSocials(),
+                const SizedBox(height: 42)
               ],
             ),
           ),

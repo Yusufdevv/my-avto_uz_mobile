@@ -83,7 +83,8 @@ class _MainScreenState extends State<MainScreen> {
       () {},
       () => Navigator.pushReplacement(
           context, fade(page: const CommercialScreen())),
-      () => Navigator.of(context,rootNavigator: true).push(fade(page: const RentScreen())),
+      () => Navigator.of(context, rootNavigator: true)
+          .push(fade(page: const RentScreen())),
     ];
     super.initState();
   }
@@ -91,7 +92,7 @@ class _MainScreenState extends State<MainScreen> {
   final List<AdsEntity> adsEntity = [
     const AdsEntity(
         imageUrl:
-            'https://cdn.motor1.com/images/mgl/LBl63/s1/2021-genesis-g80.jpg',
+            'https://cdn.motor1.com/images/mgl/LBl63/s1/2021-genesis-g80genesis-g80.jpg',
         place: 'г. Ташкент',
         price: 13442343,
         aboutCar: 'Land Cruiser, 145 894 км,\nВнедорожник 5дв, АКПП, Дизел...',
@@ -177,7 +178,7 @@ class _MainScreenState extends State<MainScreen> {
                   ),
                 ),
                 const TopBrands(),
-                TopAds(),
+                const TopAds(),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: Text(
