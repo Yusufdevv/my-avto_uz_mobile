@@ -153,7 +153,6 @@ class _WTextFieldState extends State<WTextField>
 
     focusNode.addListener(
       () => setState(() {
-        print('focused');
         focused = !focused;
       }),
     );
@@ -241,6 +240,7 @@ class _WTextFieldState extends State<WTextField>
                         setState(() => hasText = s.isNotEmpty);
                         widget.onChanged(s);
                       },
+                      
                       focusNode: widget.focusNode ?? focusNode,
                       style: widget.textStyle ??
                           Theme.of(context)

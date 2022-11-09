@@ -146,6 +146,8 @@ class DarkThemeColors {
   static const silver50ToNightRider = _nightRider;
   static const whiteSmokeToBlack = _black;
   static const silverToNightRider = _nightRider;
+
+  static const seashellToCinnabar15 = _cinnabar15;
 }
 
 // Main palette (http://www.color-blindness.com/color-name-hue/).
@@ -183,6 +185,8 @@ const _mediumSeaGreen = Color(0xFF38AF7F);
 const _englishHolly = Color(0xFF243931);
 const _greySuit26 = Color(0x4292929D);
 const _cinnabar26 = Color(0x42EA5930);
+
+const _cinnabar15 = Color(0x26EA5930);
 const _mediumSeaGreen26 = Color(0x4238AF7F);
 const _mediumSlateBlue26 = Color(0x42695CEA);
 const _stormGrey32 = Color(0x52787880);

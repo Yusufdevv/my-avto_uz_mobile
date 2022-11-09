@@ -70,6 +70,7 @@ abstract class DarkTheme {
             unselectedBackgroundColor1: DarkThemeColors.whiteToEclipse,
           ),
           ThemedColors(
+            seashellToCinnabar15: DarkThemeColors.seashellToCinnabar15,
             darkToGrey: DarkThemeColors.darkToGrey,
             greyContainer26: DarkThemeColors.greyContainer26,
             redContainer26: DarkThemeColors.redContainer26,

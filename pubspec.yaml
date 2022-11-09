@@ -48,6 +48,7 @@ dependencies:
       url: https://github.com/X-SLAYER/qr_code_scanner.git
       ref: flutter-beta
   linked_scroll_controller: ^0.2.0
+  percent_indicator: ^4.2.2
 
 dev_dependencies:
   flutter_test:
@@ -74,6 +75,7 @@ flutter:
     - assets/images/car_single/
     - assets/icons/car_single/
     - assets/icons/search/
+    - assets/icons/review/
     - lib/assets/strings/
     - assets/lottie/
 

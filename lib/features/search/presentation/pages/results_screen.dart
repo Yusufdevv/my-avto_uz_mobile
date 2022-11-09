@@ -8,7 +8,7 @@ import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/pagination/presentation/paginator.dart';
 import 'package:auto/features/search/domain/usecases/get_search_result.dart';
 import 'package:auto/features/search/presentation/bloc/search_results/search_result_bloc.dart';
-import 'package:auto/features/search/presentation/pages/filter_screen.dart';
+import 'package:auto/features/search/presentation/part/sort_modal_bottom_sheet.dart';
 import 'package:auto/features/search/presentation/widgets/commercial_item.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -80,8 +80,8 @@ class _ResultsScreenState extends State<ResultsScreen> {
                 ),
                 const Spacer(),
                 WButton(
-                  onTap: () =>
-                      Navigator.push(context, fade(page: const FilterScreen())),
+                  // edit
+                  onTap: () => sortModalBottomSheet(context, 0, 1),
                   width: 44,
                   height: 44,
                   borderRadius: 12,

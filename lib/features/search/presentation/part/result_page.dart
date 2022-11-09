@@ -1,8 +1,6 @@
 import 'package:auto/features/common/widgets/paginator2.dart';
-import 'package:auto/features/pagination/presentation/paginator.dart';
 import 'package:auto/features/search/presentation/bloc/search_results/search_result_bloc.dart';
 import 'package:auto/features/search/presentation/widgets/all_commertial_item.dart';
-import 'package:auto/features/search/presentation/widgets/commercial_item.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -21,6 +19,7 @@ class ResultPage extends StatelessWidget {
           status: state.status,
           itemCount: state.list.length,
           errorWidget: const SizedBox(),
+          loadingLabel: 'Загрузка данных...',
         ),
       );
 }

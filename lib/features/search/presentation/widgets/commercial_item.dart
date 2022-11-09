@@ -7,7 +7,7 @@ import 'package:auto/features/profile/domain/entities/profile_item.dart';
 import 'package:auto/features/profile/presentation/widgets/profile_tab_bar.dart';
 import 'package:auto/features/search/domain/entities/commercial_item_entity.dart';
 import 'package:auto/features/search/presentation/pages/parameter_screen.dart';
-import 'package:auto/features/search/presentation/pages/select_car.dart';
+import 'package:auto/features/reviews/presentation/pages/select_brand_screen.dart';
 import 'package:auto/features/search/presentation/widgets/all_commertial_item.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -90,7 +90,7 @@ class _CommercialItemState extends State<CommercialItem>
               actions: [
                 WScaleAnimation(
                   onTap: () => Navigator.push(
-                      context, fade(page: const SelectCarScreen())),
+                      context, fade(page: const SelectBrandScreen())),
                   child: SvgPicture.asset(AppIcons.searchWithHeart),
                 ),
                 const SizedBox(width: 16),

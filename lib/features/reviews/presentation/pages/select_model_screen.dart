@@ -18,16 +18,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
-class ChooseCarScreen extends StatefulWidget {
+class SelectModelScreen extends StatefulWidget {
   final VoidCallback onTap;
 
-  const ChooseCarScreen({required this.onTap, Key? key}) : super(key: key);
+  const SelectModelScreen({required this.onTap, Key? key}) : super(key: key);
 
   @override
-  State<ChooseCarScreen> createState() => _ChooseCarScreenState();
+  State<SelectModelScreen> createState() => _SelectModelScreenState();
 }
 
-class _ChooseCarScreenState extends State<ChooseCarScreen> {
+class _SelectModelScreenState extends State<SelectModelScreen> {
   late TextEditingController searchController;
   late ModelSelectorBloc modelBloc;
   late CarTypeSelectorBloc carTypeSelectorBloc;

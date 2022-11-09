@@ -102,6 +102,7 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
   final Color solitudeToNightRider;
   final Color whiteToNero2;
   final Color whiteToBlack;
+  final Color seashellToCinnabar15;
 
   const ThemedColors({
     required this.ghostToGondola,
@@ -205,6 +206,7 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
     required this.solitudeToNightRider,
     required this.whiteToNero2,
     required this.whiteToBlack,
+    required this.seashellToCinnabar15,
   });
 
   @override
@@ -308,11 +310,13 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
     Color? solitudeToNightRider,
     Color? whiteToNero2,
     Color? whiteToBlack,
+    Color? seashellToCinnabar15,
     Color? solitudeContainerToBlack,
     Color? solitudeContainerToNero1,
   }) =>
       ThemedColors(
         whiteToBlack: whiteToBlack ?? this.whiteToBlack,
+        seashellToCinnabar15: seashellToCinnabar15 ?? this.seashellToCinnabar15,
         ghostToGondola: ghostToGondola ?? this.ghostToGondola,
         greyToCinnabar: greyToCinnabar ?? this.greyToCinnabar,
         solitudeToDolphinBorder:
@@ -459,6 +463,9 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
     return ThemedColors(
       whiteToBlack:
           Color.lerp(whiteToBlack, other.whiteToBlack, t) ?? whiteToBlack,
+      seashellToCinnabar15:
+          Color.lerp(seashellToCinnabar15, other.seashellToCinnabar15, t) ??
+              seashellToCinnabar15,
       ghostToGondola:
           Color.lerp(ghostToGondola, other.ghostToGondola, t) ?? ghostToGondola,
       greyToCinnabar:

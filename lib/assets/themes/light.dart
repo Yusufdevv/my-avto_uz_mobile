@@ -62,6 +62,7 @@ abstract class LightTheme {
             unselectedBackgroundColor1: LightThemeColors.whiteToEclipse,
           ),
           ThemedColors(
+            seashellToCinnabar15: LightThemeColors.seashellToCinnabar15,
             whiteToBlack: LightThemeColors.whiteToBlack,
             dividerColorToGrey: LightThemeColors.dividerColorToGrey,
             darkToWhite: LightThemeColors.darkToWhite,
