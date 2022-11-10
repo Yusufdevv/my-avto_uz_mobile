@@ -51,103 +51,97 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
             padding: const EdgeInsets.all(16),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Expanded(
-                  child: ListView(
-                    children: [
-                      LoginHeader(
-                        title: LocaleKeys.personal_data.tr(),
-                        description: LocaleKeys.create_password.tr(),
-                        hasSizedBox: false,
-                      ),
-                      const SizedBox(
-                        height: 36,
-                      ),
-                      const AddPhotoItem(),
-                      PersonalDataItem(
-                        title: LocaleKeys.name.tr(),
-                        controller: nameController,
-                        hintText: LocaleKeys.password.tr(),
-                        onChanged: (value) {
-                          setState(() {});
-                        },
-                      ),
-                      const RegionButton(
-                        title: '',
-                      ),
-                      PersonalDataItem(
-                        title: 'Email',
-                        controller: emailController,
-                        hintText: LocaleKeys.password.tr(),
-                        onChanged: (value) {
-                          setState(() {});
-                        },
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      )
-                    ],
-                  ),
+                LoginHeader(
+                  title: LocaleKeys.personal_data.tr(),
+                  description: LocaleKeys.complete_registration.tr(),
+                  hasSizedBox: false,
                 ),
-                WButton(
-                  onTap: () {
-                    if (nameController.text.isNotEmpty &&
-                        emailController.text.isNotEmpty) {
-                      context.read<RegisterBloc>().add(
-                            RegisterEvent.setName(
-                              fullName: nameController.text,
-                              email: emailController.text,
-                              onSuccess: () {
-                                Navigator.push(
-                                  context,
-                                  fade(
-                                    page: BlocProvider.value(
-                                      value: context.read<RegisterBloc>(),
-                                      child: NewPasswordScreen(
-                                        onSubmit: (password, confirmPassword) {
-                                          context.read<RegisterBloc>().add(
-                                                RegisterEvent.register(
-                                                  validPassword: password,
-                                                  onSuccess: () {
-                                                    context
-                                                        .read<
-                                                            AuthenticationBloc>()
-                                                        .add(AuthenticationStatusChanged(
-                                                            status: AuthenticationStatus
-                                                                .authenticated));
-                                                  },
-                                                ),
-                                              );
-                                        },
+                const SizedBox(
+                  height: 36,
+                ),
+                const AddPhotoItem(),
+                PersonalDataItem(
+                  title: LocaleKeys.name.tr(),
+                  controller: nameController,
+                  hintText: LocaleKeys.password.tr(),
+                  onChanged: (value) {
+                    setState(() {});
+                  },
+                ),
+                const RegionButton(
+                  title: '',
+                ),
+                PersonalDataItem(
+                  title: 'Email',
+                  controller: emailController,
+                  hintText: LocaleKeys.email_example.tr(),
+                  onChanged: (value) {
+                    setState(() {});
+                  },
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 24),
+                  child: WButton(
+                    onTap: () {
+                      if (nameController.text.isNotEmpty &&
+                          emailController.text.isNotEmpty) {
+                        context.read<RegisterBloc>().add(
+                              RegisterEvent.setName(
+                                fullName: nameController.text,
+                                email: emailController.text,
+                                onSuccess: () {
+                                  Navigator.push(
+                                    context,
+                                    fade(
+                                      page: BlocProvider.value(
+                                        value: context.read<RegisterBloc>(),
+                                        child: NewPasswordScreen(
+                                          onSubmit:
+                                              (password, confirmPassword) {
+                                            context.read<RegisterBloc>().add(
+                                                  RegisterEvent.register(
+                                                    validPassword: password,
+                                                    onSuccess: () {
+                                                      context
+                                                          .read<
+                                                              AuthenticationBloc>()
+                                                          .add(AuthenticationStatusChanged(
+                                                              status: AuthenticationStatus
+                                                                  .authenticated));
+                                                    },
+                                                  ),
+                                                );
+                                          },
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                );
-                              },
-                            ),
-                          );
-                    } else {}
-                  },
-                  shadow: [
-                    BoxShadow(
-                        offset: const Offset(0, 4),
-                        blurRadius: 20,
-                        color: solitude.withOpacity(.12)),
-                  ],
-                  margin: EdgeInsets.only(
-                      bottom: 4 + MediaQuery.of(context).padding.bottom),
-                  color: (nameController.text.isNotEmpty &&
-                          emailController.text.isNotEmpty)
-                      ? orange
-                      : Theme.of(context)
+                                  );
+                                },
+                              ),
+                            );
+                      } else {}
+                    },
+                    shadow: [
+                      BoxShadow(
+                          offset: const Offset(0, 4),
+                          blurRadius: 20,
+                          color: solitude.withOpacity(.12)),
+                    ],
+                    color: (nameController.text.isNotEmpty &&
+                            emailController.text.isNotEmpty)
+                        ? orange
+                        : Theme.of(context)
+                            .extension<ThemedColors>()!
+                            .veryLightGreyToEclipse,
+                    text: LocaleKeys.continuee.tr(),
+                    border: Border.all(
+                      width: 1,
+                      color: Theme.of(context)
                           .extension<ThemedColors>()!
-                          .veryLightGreyToEclipse,
-                  text: LocaleKeys.continuee.tr(),
-                  border: Border.all(
-                    width: 1,
-                    color: Theme.of(context)
-                        .extension<ThemedColors>()!
-                        .whiteToDolphin,
+                          .whiteToDolphin,
+                    ),
                   ),
                 ),
               ],

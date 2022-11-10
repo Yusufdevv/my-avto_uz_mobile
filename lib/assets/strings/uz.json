@@ -303,5 +303,11 @@
   "load_more":"Загрузить еще",
   "show": "Показать",
   "result": "результата",
-  "cars": "Автомобили"
+  "cars": "Автомобили",
+  "email_example": "example@auto.uz",
+  "i_accept_rules": "By proceeding with the registration, I acknowledge that\n",
+  "i_accept_rules1": "I accept the terms of use",
+  "i_accept_rules2": " and ",
+  "i_accept_rules3": "rules",
+  "complete_registration": "Fill in the fields to complete registration"
 }

@@ -123,7 +123,7 @@ class CodegenLoader extends AssetLoader{
   "hello": "Здравствуйте",
   "build_plans": "Планы на автомобили постройте \nвместе с нами",
   "possibility_to_rent": "Возможность брать \nмашину в аренду",
-  "easy_send": "Легкая  продажа авто",
+  "easy_send": " Легкая  продажа авто",
   "easy_buying": "Легкая  покупка авто",
   "photo_360": "Фото 360°",
   "adding_photo": "Добавление фото",
@@ -319,7 +319,13 @@ class CodegenLoader extends AssetLoader{
   "load_more": "Загрузить еще",
   "show": "Показать",
   "result": "результата",
-  "cars": "Автомобили"
+  "cars": "Автомобили",
+  "email_example": "example@auto.uz",
+  "i_accept_rules": "Продолжая регистрацию, я признаю что принимаю\n",
+  "i_accept_rules1": "условия использования",
+  "i_accept_rules2": " и ",
+  "i_accept_rules3": "правила",
+  "complete_registration": "Заполните поля для завершения регистрации"
 };
 static const Map<String,dynamic> uz = {
   "price_of_similar_cars": "Средняя цена похожих автомобилей",
@@ -626,7 +632,13 @@ static const Map<String,dynamic> uz = {
   "load_more": "Загрузить еще",
   "show": "Показать",
   "result": "результата",
-  "cars": "Автомобили"
+  "cars": "Автомобили",
+  "email_example": "example@auto.uz",
+  "i_accept_rules": "By proceeding with the registration, I acknowledge that\n",
+  "i_accept_rules1": "I accept the terms of use",
+  "i_accept_rules2": " and ",
+  "i_accept_rules3": "rules",
+  "complete_registration": "Fill in the fields to complete registration"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ru": ru, "uz": uz};
 }

@@ -1,27 +1,24 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
-import 'package:auto/features/common/bloc/auth/authentication_bloc.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
-import 'package:auto/features/login/presentation/pages/password_recovery_screen1.dart';
-import 'package:auto/features/login/presentation/pages/register_screen.dart';
+import 'package:auto/features/login/presentation/pages/password_recovery_screen.dart';
 import 'package:auto/features/login/presentation/widgets/SignIn_with_socials.dart';
 import 'package:auto/features/login/presentation/widgets/z_text_form_field.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+class LoginScreen1 extends StatefulWidget {
+  const LoginScreen1({Key? key}) : super(key: key);
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<LoginScreen1> createState() => _LoginScreenState1();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _LoginScreenState1 extends State<LoginScreen1> {
   final phoneFormatter = MaskTextInputFormatter(
     mask: '## ### ## ##',
     filter: {'#': RegExp('[0-9]')},
@@ -47,19 +44,17 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) => KeyboardDismisser(
       child: Scaffold(
           appBar: const WAppBar(
-            hasBackButton: false,
-            title: 'Войти',
+            hasBackButton: true,
+            title: 'Забыли пароль',
           ),
           body: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const SizedBox(
-                      height: 48,
-                    ),
+                    const SizedBox(height: 64),
                     Text(
-                      'Войти в существуюущий аккаунт',
+                      'Восстановление пароля',
                       style: Theme.of(context)
                           .textTheme
                           .headline1!
@@ -71,28 +66,13 @@ class _LoginScreenState extends State<LoginScreen> {
                     Row(
                       children: [
                         Text(
-                          'У вас нету аккаунта?',
+                          'Мы проверим ваш номер телефона в системе',
                           style: Theme.of(context)
                               .textTheme
                               .headline6!
                               .copyWith(
                                   fontSize: 13, fontWeight: FontWeight.w400),
                         ),
-                        const SizedBox(
-                          width: 4,
-                        ),
-                        GestureDetector(
-                          onTap: () => Navigator.push(
-                              context, fade(page: const RegisterScreen())),
-                          child: Text(
-                            'Регистрация',
-                            style: Theme.of(context)
-                                .textTheme
-                                .headline3!
-                                .copyWith(
-                                    fontWeight: FontWeight.w600, fontSize: 13),
-                          ),
-                        )
                       ],
                     ),
                     const SizedBox(
@@ -122,43 +102,17 @@ class _LoginScreenState extends State<LoginScreen> {
                       keyBoardType: TextInputType.number,
                       textInputFormatters: [phoneFormatter],
                     ),
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    ZTextFormField(
-                      onChanged: (value) {
-                        setState(() {});
-                      },
-                      hintText: 'Пароль',
-                      controller: passwordController,
-                      isObscure: true,
-                    ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    GestureDetector(
-                      onTap: () => Navigator.push(
-                        context,
-                        fade(page: const LoginScreen1()),
-                      ),
-                      child: Text(
-                        'Забыли пароль?',
-                        style: Theme.of(context).textTheme.headline3!.copyWith(
-                            fontSize: 13, fontWeight: FontWeight.w600),
-                      ),
-                    ),
                     Padding(
-                      padding: const EdgeInsets.only(top: 24),
+                      padding: const EdgeInsets.only(top: 36),
                       child: WButton(
-                        onTap: passwordController.text.length >= 4 &&
-                                phoneController.text.length == 12
-                            ? () {
-                                context.read<AuthenticationBloc>().add(
-                                    LoginUser(
-                                        password: passwordController.text,
-                                        userName: phoneController.text
-                                            .replaceAll('+998', '')));
-                              }
+                        onTap: phoneController.text.length == 12
+                            ? () => Navigator.push(
+                                  context,
+                                  fade(
+                                    page: PasswordRecoveryScreen(
+                                        phone: phoneController.text),
+                                  ),
+                                )
                             : () {},
                         shadow: [
                           BoxShadow(
@@ -171,8 +125,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           right: 16,
                           left: 16,
                         ),
-                        color: (passwordController.text.length >= 4 &&
-                                phoneController.text.length == 12)
+                        color: (phoneController.text.length == 12)
                             ? orange
                             : Theme.of(context)
                                 .extension<ThemedColors>()!
