@@ -4,16 +4,18 @@ import 'package:flutter/material.dart';
 
 class OrangeButton extends StatelessWidget {
   final Widget content;
+  final VoidCallback onTap;
+  final Color color;
 
-  const OrangeButton({required this.content});
+  const OrangeButton({required this.content,required this.onTap,required this.color});
 
   @override
   Widget build(BuildContext context) => WScaleAnimation(
-      onTap: (){},
+      onTap: onTap,
       child: Container(
         padding: const EdgeInsets.only(top: 12, bottom: 12),
         decoration: BoxDecoration(
-          color: orange,
+          color: color,
           borderRadius: BorderRadius.circular(8),
         ),
         child: Center(

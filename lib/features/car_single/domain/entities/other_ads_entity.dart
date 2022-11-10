@@ -3,11 +3,11 @@ class OtherAdsEntity {
   final String model;
   final String price;
   final String location;
-  final List<String> characteristic;
+  final String characteristic;
 
   const OtherAdsEntity({
     this.price = '',
-    this.characteristic = const [],
+    this.characteristic = '',
     this.imageUrl = '',
     this.location = '',
     this.model = '',

@@ -20,6 +20,7 @@ class MoreActions extends StatelessWidget {
           ),
         ),
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
             const SizedBox(
               height: 20,
@@ -114,6 +115,9 @@ class MoreActions extends StatelessWidget {
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
               ],
+            ),
+            const SizedBox(
+              height: 20,
             ),
           ],
         ),

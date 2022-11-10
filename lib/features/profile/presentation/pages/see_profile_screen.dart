@@ -1,6 +1,7 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/features/car_single/presentation/widgets/orange_button.dart';
 import 'package:auto/features/common/widgets/cached_image.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
@@ -56,7 +57,7 @@ class SeeProfileScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(40),
                       border: Border.all(color: borderCircular),
                       fit: BoxFit.cover,
-                      imageUrl: profileEntity.image,
+                      imageUrl: 'https://images.unsplash.com/photo-1667860920650-d23d24c0e4de?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyM3x8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60',
                     ),
                   ),
                   const Spacer(),
@@ -65,13 +66,17 @@ class SeeProfileScreen extends StatelessWidget {
                       padding: const EdgeInsets.all(10),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(8),
-                        color: Theme.of(context).extension<ThemedColors>()!.borderGreyToDark,
+                        color: Theme.of(context)
+                            .extension<ThemedColors>()!
+                            .borderGreyToDark,
                       ),
                       child: SvgPicture.asset(
                         AppIcons.edit,
                         height: 24,
                         width: 24,
-                        color: Theme.of(context).extension<ThemedColors>()!.iconPearlToWhite,
+                        color: Theme.of(context)
+                            .extension<ThemedColors>()!
+                            .iconPearlToWhite,
                       ),
                     ),
                     onTap: () {
@@ -91,7 +96,10 @@ class SeeProfileScreen extends StatelessWidget {
                 padding: const EdgeInsets.only(top: 16, bottom: 2),
                 child: Text(
                   profileEntity.fullName,
-                  style: Theme.of(context).textTheme.headline1!.copyWith(fontSize: 18),
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline1!
+                      .copyWith(fontSize: 18),
                 ),
               ),
               Text(
@@ -112,6 +120,26 @@ class SeeProfileScreen extends StatelessWidget {
                 padding: const EdgeInsets.only(bottom: 16),
               ),
               TextSpacer(title: 'Email', value: profileEntity.email),
+              const Spacer(),
+              OrangeButton(
+                  content: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SvgPicture.asset(AppIcons.logout),
+                      const SizedBox(
+                        width: 8,
+                      ),
+                      Text(
+                        'Выйти из аккаунта',
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline3!
+                            .copyWith(color: red),
+                      ),
+                    ],
+                  ),
+                  onTap: () {},
+                  color: red.withOpacity(0.1))
             ],
           ),
         ),

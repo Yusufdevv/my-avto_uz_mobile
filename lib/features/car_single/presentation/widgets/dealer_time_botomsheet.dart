@@ -17,6 +17,7 @@ class DealerTime extends StatelessWidget {
           ),
         ),
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(
@@ -77,6 +78,10 @@ class DealerTime extends StatelessWidget {
                     height: 28,
                   ),
                   OrangeButton(
+                    color: orange,
+                    onTap: () {
+                      Navigator.of(context).pop();
+                    },
                     content: Text(
                       'Понятно',
                       style: Theme.of(context).textTheme.subtitle1!.copyWith(
@@ -86,6 +91,9 @@ class DealerTime extends StatelessWidget {
                   ),
                 ],
               ),
+            ),
+            const SizedBox(
+              height: 20,
             ),
           ],
         ),

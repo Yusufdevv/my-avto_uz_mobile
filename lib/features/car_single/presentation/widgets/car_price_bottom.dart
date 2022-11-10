@@ -1,5 +1,8 @@
+import 'dart:ui';
+
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/assets/constants/images.dart';
 import 'package:auto/features/car_single/presentation/parts/price_indicator.dart';
 import 'package:auto/features/car_single/presentation/widgets/cars_price_controlling.dart';
 import 'package:auto/generated/locale_keys.g.dart';
@@ -51,30 +54,35 @@ class CarPriceBottom extends StatelessWidget {
             const SizedBox(
               height: 4,
             ),
-            Container(
-              margin: const EdgeInsets.only(left: 16),
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(4), color: blue),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    'Хорошая цена',
-                    style: Theme.of(context).textTheme.headline2!.copyWith(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 12,
-                        color: Colors.white),
-                  ),
-                  RotatedBox(
-                      quarterTurns: 1,
-                      child: SvgPicture.asset(
-                        AppIcons.chevronLeft,
-                        width: 24,
-                        height: 24,
-                        color: Colors.white,
-                      ))
-                ],
+            GestureDetector(
+              onTap: () {
+                Navigator.of(context).pop();
+              },
+              child: Container(
+                margin: const EdgeInsets.only(left: 16),
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(4), color: blue),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      'Хорошая цена',
+                      style: Theme.of(context).textTheme.headline2!.copyWith(
+                          fontWeight: FontWeight.w400,
+                          fontSize: 12,
+                          color: Colors.white),
+                    ),
+                    RotatedBox(
+                        quarterTurns: 1,
+                        child: SvgPicture.asset(
+                          AppIcons.chevronLeft,
+                          width: 24,
+                          height: 24,
+                          color: Colors.white,
+                        ))
+                  ],
+                ),
               ),
             ),
             const SizedBox(
@@ -119,15 +127,13 @@ class CarPriceBottom extends StatelessWidget {
               price: 'Стартовая цена',
               totalPrice: '480 000 000 UZS',
             ),
-            const SizedBox(
-              height: 12,
-            ),
             const Divider(
               color: grey,
             ),
-            const Padding(
-              padding: EdgeInsets.only(right: 16, left: 16, top: 20),
-              child: PriceIndicator(),
+            Image.asset(
+              AppImages.optimal,
+              fit: BoxFit.cover,
+              width: double.maxFinite,
             ),
           ],
         ),
