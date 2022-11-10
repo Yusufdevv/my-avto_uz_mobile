@@ -2,25 +2,29 @@ part of 'car_single_bloc.dart';
 
 class CarSingleState extends Equatable {
   final FormzStatus status;
-  final CarSingleEntity carSingle;
+  final List<String> images;
+  final CarSingleEntity entity;
+  final List<OtherAdsEntity> otherEntity;
 
   const CarSingleState({
-    this.status = FormzStatus.pure,
-    this.carSingle = const CarSingleEntity(),
+    required this.status,
+    required this.entity,
+    required this.images,
+    required this.otherEntity,
   });
 
   CarSingleState copyWith({
     FormzStatus? status,
-    CarSingleEntity? carSingle,
+    List<String>? images,
+    CarSingleEntity? entity,
+    List<OtherAdsEntity>? otherEntity,
   }) =>
       CarSingleState(
-        status: status ?? this.status,
-        carSingle: carSingle ?? this.carSingle,
-      );
+          status: status ?? this.status,
+          entity: entity ?? this.entity,
+          images: images ?? this.images,
+          otherEntity: otherEntity ?? this.otherEntity);
 
   @override
-  List<Object?> get props => [
-        status,
-        carSingle,
-      ];
+  List<Object?> get props => throw UnimplementedError();
 }

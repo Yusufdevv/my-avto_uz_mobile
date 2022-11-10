@@ -1,9 +1,23 @@
 part of 'car_single_bloc.dart';
 
-@immutable
 abstract class CarSingleEvent {}
 
-class GetCarSingle extends CarSingleEvent {
-  final int id;
-  GetCarSingle({required this.id});
-}
+class GetCarSingleEvent extends CarSingleEvent {}
+
+class GetOtherCarsSingleEvent extends CarSingleEvent {}
+
+class PayInvoiceEvent extends CarSingleEvent {}
+
+class ShowFreeVinEvent extends CarSingleEvent {}
+
+class BuyFullVinEvent extends CarSingleEvent {}
+
+class ShowPriceItemEvent extends CarSingleEvent {}
+
+class CompareEvent extends CarSingleEvent {}
+
+class PhoneEvent extends CarSingleEvent {}
+
+class ConfirmPayWay extends CarSingleEvent {}
+
+class LikeEvent extends CarSingleEvent {}

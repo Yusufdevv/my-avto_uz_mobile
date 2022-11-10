@@ -1,63 +1,69 @@
 import 'package:auto/features/car_single/domain/entities/car_single_entity.dart';
-import 'package:auto/features/car_single/domain/entities/car_user_entity.dart';
-import 'package:auto/features/car_single/domain/entities/damaged_parts_entity.dart';
-import 'package:auto/features/car_single/domain/entities/drive_type_entity.dart';
-import 'package:auto/features/car_single/domain/entities/engine_type_entity.dart';
-import 'package:auto/features/car_single/domain/entities/gearbox_type_entity.dart';
-import 'package:auto/features/rent/domain/entities/rent_car_bodytype_entity.dart';
-import 'package:auto/features/rent/domain/entities/rent_car_generation_entity.dart';
-import 'package:auto/features/rent/domain/entities/rent_car_make_entity.dart';
-import 'package:auto/features/rent/domain/entities/rent_car_models_entity.dart';
-import 'package:auto/features/rent/domain/entities/rent_car_modification_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'car_single_model.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class CarSingleModel extends CarSingleEntity {
-  CarSingleModel({
+  CarSingleModel(
+      {
     required super.id,
-    required super.make,
-    required super.model,
-    required super.autoName,
-    required super.price,
-    required super.currency,
-    required super.date,
-    required super.year,
-    required super.distanceTraveled,
-    required super.color,
-    required super.generation,
-    required super.bodyType,
-    required super.driveType,
-    required super.engineType,
-    required super.gearboxType,
-    required super.modificationType,
-    required super.licenceType,
-    required super.ownership,
-    required super.purchaseDate,
-    required super.description,
-    required super.isRegisteredLocally,
-    required super.registrationVin,
-    required super.registrationPlate,
-    required super.registrationCertificate,
-    required super.registrationSerialNumber,
-    required super.registeredInUzbekistan,
-    required super.user,
-    required super.contactName,
-    required super.contactEmail,
-    required super.contactPhone,
-    required super.isNew,
-    required super.gallery,
-    required super.longitude,
-    required super.latitude,
-    required super.isMine,
-    required super.viewsCount,
-    required super.createdAt,
-    required super.updatedAt,
-    required super.damagedParts,
-  });
+  required super.color,
+  required super.price,
+  required super.views,
+  required super.autoName,
+  required super.date,
+  required super.body,
+  required super.complectation,
+  required super.accident,
+  required super.bodytype,
+  required super.clearance,
+  required super.driverAirbag,
+  required super.driveUnit,
+  required super.enginePower,
+  required super.engineSize,
+  required super.engineSizeM,
+  required super.engineType,
+  required super.fuelConsuption,
+  required super.hsa,
+  required super.issueYear,
+  required super.leftDoor,
+  required super.leftFrontDoor,
+  required super.legsAirbag,
+  required super.milleage,
+  required super.milleageHistory,
+  required super.passengerAirabag,
+  required super.ptsOwner,
+  required super.rastomojka,
+  required super.rightDoor,
+  required super.rightFrontDoor,
+  required super.sellerComent,
+  required super.sellerName,
+  required super.similarPrice,
+  required super.speed,
+  required super.transmission,
+  required super.transmissionCount,
+  required super.transmissionType,
+  required super.wanted,
+  required super.weight,
+  required super.windowAirbag,
+  required super.zalog,
+      });
 
-  factory CarSingleModel.fromJson(Map<String, dynamic> json) => _$CarSingleModelFromJson(json);
+  factory CarSingleModel.fromJson(Map<String, dynamic> json) =>
+      _$CarSingleModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$CarSingleModelToJson(this);
+}
+
+class DistrictConverter
+    implements JsonConverter<CarSingleEntity, Map<String, dynamic>?> {
+  const DistrictConverter();
+
+  @override
+  CarSingleEntity fromJson(Map<String, dynamic>? json) =>
+      CarSingleModel.fromJson(json ?? {});
+
+  @override
+  Map<String, dynamic> toJson(CarSingleEntity object) => {};
 }

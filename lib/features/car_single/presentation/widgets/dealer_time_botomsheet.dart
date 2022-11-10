@@ -32,19 +32,10 @@ class DealerTime extends StatelessWidget {
                     style: Theme.of(context).textTheme.headline1,
                   ),
                   const Spacer(),
-                  // SvgPicture.asset(
-                  //   AppIcons.close,
-                  //   width: 32,
-                  //   height: 32,
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: SvgPicture.asset(
-                      AppIcons.close,
-                      width: 32,
-                      height: 32,
-                    ),
+                  SvgPicture.asset(
+                    AppIcons.close,
+                    width: 32,
+                    height: 32,
                   ),
                 ],
               ),
@@ -60,11 +51,15 @@ class DealerTime extends StatelessWidget {
                 children: [
                   Text(
                     'Пользователь доступен только в',
-                    style: Theme.of(context).textTheme.headline2!.copyWith(color: profileContainers),
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline2!
+                        .copyWith(color: profileContainers),
                   ),
                   Container(
                     margin: const EdgeInsets.only(top: 4),
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(4),
                       color: orange.withOpacity(
@@ -73,17 +68,16 @@ class DealerTime extends StatelessWidget {
                     ),
                     child: Text(
                       'от 09:00 - до 09:00',
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline2!
-                          .copyWith(fontWeight: FontWeight.w400, fontSize: 12, color: orange),
+                      style: Theme.of(context).textTheme.headline2!.copyWith(
+                          fontWeight: FontWeight.w400,
+                          fontSize: 12,
+                          color: orange),
                     ),
                   ),
                   const SizedBox(
                     height: 28,
                   ),
                   OrangeButton(
-                    shadowColor: orange.withOpacity(0.2),
                     color: orange,
                     onTap: () {
                       Navigator.of(context).pop();

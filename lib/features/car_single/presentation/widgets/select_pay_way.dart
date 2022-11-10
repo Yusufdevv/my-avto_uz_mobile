@@ -1,6 +1,7 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/features/car_single/presentation/widgets/w_container_style.dart';
 import 'package:auto/features/car_single/presentation/widgets/w_radio.dart';
+import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -24,23 +25,26 @@ class SelectPaymentItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => GestureDetector(
-        behavior: HitTestBehavior.opaque,
-        onTap: () => onTap(value),
+    behavior: HitTestBehavior.opaque,
+        onTap:() => onTap(value),
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-          height: 48,
+          height: 44,
           width: 22,
           decoration: BoxDecoration(
             color: color,
             borderRadius: BorderRadius.circular(8),
-            border:
-                Border.all(width: 1, color: borderColor ?? Theme.of(context).extension<WContainerStyle>()!.borderColor),
+            border: Border.all(
+                width: 1,
+                color: borderColor ??
+                    Theme.of(context)
+                        .extension<WContainerStyle>()!
+                        .borderColor),
           ),
           child: Row(
             children: [
               WRadio(
-                borderWidth: 12,
-                onChanged: onTap,
+                onChanged:onTap,
                 value: value,
                 groupValue: groupValue,
                 activeColor: purple,

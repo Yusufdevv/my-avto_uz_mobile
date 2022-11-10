@@ -1,5 +1,5 @@
 import 'package:auto/assets/colors/color.dart';
-import 'package:auto/assets/constants/images.dart';
+import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/features/car_single/presentation/widgets/invoice_in_progress.dart';
 import 'package:auto/features/car_single/presentation/widgets/orange_button.dart';
 import 'package:auto/features/car_single/presentation/widgets/select_pay_way.dart';
@@ -25,7 +25,6 @@ class _InvoicePageState extends State<InvoicePage> {
   Widget build(BuildContext context) => Scaffold(
         backgroundColor: white,
         appBar: const WAppBar(
-          hasUnderline: true,
           hasBackButton: true,
           title: 'Услуга',
         ),
@@ -49,7 +48,8 @@ class _InvoicePageState extends State<InvoicePage> {
                 child: Column(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(top: 12, right: 12, bottom: 6, left: 12),
+                      padding: const EdgeInsets.only(
+                          top: 12, right: 12, bottom: 6, left: 12),
                       child: Row(
                         children: [
                           Text(
@@ -59,7 +59,10 @@ class _InvoicePageState extends State<InvoicePage> {
                           const Spacer(),
                           Text(
                             '15 000 UZS',
-                            style: Theme.of(context).textTheme.headline1!.copyWith(fontSize: 14),
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline1!
+                                .copyWith(fontSize: 14),
                           ),
                         ],
                       ),
@@ -71,7 +74,8 @@ class _InvoicePageState extends State<InvoicePage> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(right: 12, bottom: 12, left: 12),
+                      padding: const EdgeInsets.only(
+                          right: 12, bottom: 12, left: 12),
                       child: Row(
                         children: [
                           Text(
@@ -81,7 +85,10 @@ class _InvoicePageState extends State<InvoicePage> {
                           const Spacer(),
                           Text(
                             '18.11.2022',
-                            style: Theme.of(context).textTheme.headline1!.copyWith(fontSize: 14),
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline1!
+                                .copyWith(fontSize: 14),
                           ),
                         ],
                       ),
@@ -93,14 +100,15 @@ class _InvoicePageState extends State<InvoicePage> {
                           width: 6,
                           decoration: const BoxDecoration(
                             color: white,
-                            borderRadius:
-                                BorderRadius.only(topRight: Radius.circular(16), bottomRight: Radius.circular(16)),
+                            borderRadius: BorderRadius.only(
+                                topRight: Radius.circular(16),
+                                bottomRight: Radius.circular(16)),
                           ),
                         ),
                         const Expanded(
                           child: DottedLine(
                             dashColor: dividerColor,
-                            dashLength: 9,
+                            dashLength: 8,
                           ),
                         ),
                         Container(
@@ -108,14 +116,16 @@ class _InvoicePageState extends State<InvoicePage> {
                           width: 6,
                           decoration: const BoxDecoration(
                             color: white,
-                            borderRadius:
-                                BorderRadius.only(topLeft: Radius.circular(16), bottomLeft: Radius.circular(16)),
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(16),
+                                bottomLeft: Radius.circular(16)),
                           ),
                         ),
                       ],
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(right: 12, bottom: 12, left: 12),
+                      padding: const EdgeInsets.only(
+                          right: 12, bottom: 12, left: 12),
                       child: Row(
                         children: [
                           Text(
@@ -125,7 +135,10 @@ class _InvoicePageState extends State<InvoicePage> {
                           const Spacer(),
                           Text(
                             '15 000 UZS',
-                            style: Theme.of(context).textTheme.headline1!.copyWith(fontSize: 14),
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline1!
+                                .copyWith(fontSize: 14),
                           ),
                         ],
                       ),
@@ -138,7 +151,10 @@ class _InvoicePageState extends State<InvoicePage> {
               ),
               Text(
                 'Способ оплаты',
-                style: Theme.of(context).textTheme.headline2!.copyWith(fontSize: 14),
+                style: Theme.of(context)
+                    .textTheme
+                    .headline2!
+                    .copyWith(fontSize: 14),
               ),
               const SizedBox(
                 height: 8,
@@ -157,7 +173,7 @@ class _InvoicePageState extends State<InvoicePage> {
                         value: 1,
                         groupValue: value,
                         color: value == 1 ? lavanda : borderCircular,
-                        iconPath: AppImages.apels,
+                        iconPath: AppIcons.payme,
                         borderColor: value == 1 ? purple : border,
                       ),
                     ),
@@ -172,9 +188,9 @@ class _InvoicePageState extends State<InvoicePage> {
                           });
                         },
                         value: 2,
-                        color: value == 2 ? lavanda : borderCircular,
+                        color: value == 2 ? lavanda : white,
                         groupValue: value,
-                        iconPath: AppImages.clickpng,
+                        iconPath: AppIcons.apelsin,
                         borderColor: value == 2 ? purple : border,
                       ),
                     ),
@@ -193,7 +209,7 @@ class _InvoicePageState extends State<InvoicePage> {
                       value: 3,
                       color: value == 3 ? lavanda : borderCircular,
                       groupValue: value,
-                      iconPath: AppImages.paymepng,
+                      iconPath: AppIcons.click,
                       borderColor: value == 3 ? purple : border,
                     ),
                   ),
@@ -210,7 +226,7 @@ class _InvoicePageState extends State<InvoicePage> {
                       value: 4,
                       color: value == 4 ? lavanda : borderCircular,
                       groupValue: value,
-                      iconPath: AppImages.hello,
+                      iconPath: AppIcons.upay,
                       borderColor: value == 4 ? purple : border,
                     ),
                   ),
@@ -228,15 +244,22 @@ class _InvoicePageState extends State<InvoicePage> {
                           children: [
                             const TextSpan(
                               text: 'Вы соглашаетесь с ',
-                              style: TextStyle(color: Colors.black, fontWeight: FontWeight.w400, fontSize: 12),
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 12),
                             ),
                             TextSpan(
-                                style: const TextStyle(color: Colors.blue, fontWeight: FontWeight.w400, fontSize: 12),
+                                style: const TextStyle(
+                                    color: Colors.blue,
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 12),
                                 //make link blue and underline
-                                text: 'Условиями использования и Политикой конфиденциальности',
+                                text:
+                                    'Условиями использования и Политикой конфиденциальности',
                                 recognizer: TapGestureRecognizer()
                                   ..onTap = () async {
-                                    const url = 'https://jobo.uz/companies/limonpay-1';
+                                    const url = '';
                                     final urllaunchable = await canLaunch(url);
                                     if (urllaunchable) {
                                       await launch(url);
@@ -246,7 +269,10 @@ class _InvoicePageState extends State<InvoicePage> {
                                   }),
                             const TextSpan(
                               text: ' вы подтверждаете свое согласие',
-                              style: TextStyle(color: Colors.black, fontWeight: FontWeight.w400, fontSize: 12),
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 12),
                             ),
                           ])),
                     ],
@@ -255,15 +281,16 @@ class _InvoicePageState extends State<InvoicePage> {
                     height: 16,
                   ),
                   OrangeButton(
-                    shadowColor: white,
                     color: orange,
-                    content: Text('Подтвердить', style: Theme.of(context).textTheme.headline4!.copyWith(fontSize: 14)),
+                    content: Text('Подтвердить',
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline4!
+                            .copyWith(fontSize: 14)),
                     onTap: () {
-                      Navigator.of(context).push(fade(page: const InvoiceInProgress()));
+                      Navigator.of(context)
+                          .push(fade(page: const InvoiceInProgress()));
                     },
-                  ),
-                  SizedBox(
-                    height: MediaQuery.of(context).padding.bottom + 16,
                   )
                 ],
               ),

@@ -10,7 +10,6 @@ import 'package:auto/features/posting_ad/add_photo/presentation/blocs/image_bloc
 import 'package:auto/features/profile/domain/entities/profile.dart';
 import 'package:auto/features/profile/presentation/bloc/profile/profile_bloc.dart';
 import 'package:auto/features/profile/presentation/pages/profile_edit_screen.dart';
-import 'package:auto/features/profile/presentation/widgets/log_out_bottomsheet.dart';
 import 'package:auto/features/profile/presentation/widgets/text_spacer.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -58,8 +57,7 @@ class SeeProfileScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(40),
                       border: Border.all(color: borderCircular),
                       fit: BoxFit.cover,
-                      imageUrl:
-                          'https://images.unsplash.com/photo-1667860920650-d23d24c0e4de?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyM3x8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60',
+                      imageUrl: 'https://images.unsplash.com/photo-1667860920650-d23d24c0e4de?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyM3x8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60',
                     ),
                   ),
                   const Spacer(),
@@ -78,7 +76,7 @@ class SeeProfileScreen extends StatelessWidget {
                         width: 24,
                         color: Theme.of(context)
                             .extension<ThemedColors>()!
-                            .darkGreyToWhite,
+                            .iconPearlToWhite,
                       ),
                     ),
                     onTap: () {
@@ -97,7 +95,7 @@ class SeeProfileScreen extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(top: 16, bottom: 2),
                 child: Text(
-                  "Ali xl",
+                  profileEntity.fullName,
                   style: Theme.of(context)
                       .textTheme
                       .headline1!
@@ -112,7 +110,7 @@ class SeeProfileScreen extends StatelessWidget {
                     .copyWith(fontWeight: FontWeight.w600, color: grey),
               ),
               TextSpacer(
-                title: "LocaleKeys.tel_number.tr()",
+                title: LocaleKeys.tel_number.tr(),
                 value: profileEntity.phoneNumber,
                 padding: const EdgeInsets.only(top: 36, bottom: 16),
               ),
@@ -124,33 +122,24 @@ class SeeProfileScreen extends StatelessWidget {
               TextSpacer(title: 'Email', value: profileEntity.email),
               const Spacer(),
               OrangeButton(
-                content: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SvgPicture.asset(AppIcons.logout),
-                    const SizedBox(
-                      width: 8,
-                    ),
-                    Text(
-                      'Выйти из аккаунта',
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline3!
-                          .copyWith(color: red),
-                    ),
-                  ],
-                ),
-                onTap: () {
-                  showModalBottomSheet(
-                      context: context,
-                      backgroundColor: Colors.transparent,
-                      constraints: BoxConstraints(
-                          minWidth: MediaQuery.of(context).size.width),
-                      builder: (context) => const LogoOutBottomsheet());
-                },
-                color: red.withOpacity(0.1),
-                shadowColor: white,
-              )
+                  content: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SvgPicture.asset(AppIcons.logout),
+                      const SizedBox(
+                        width: 8,
+                      ),
+                      Text(
+                        'Выйти из аккаунта',
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline3!
+                            .copyWith(color: red),
+                      ),
+                    ],
+                  ),
+                  onTap: () {},
+                  color: red.withOpacity(0.1))
             ],
           ),
         ),

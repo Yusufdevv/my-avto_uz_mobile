@@ -4,11 +4,12 @@ import 'package:auto/features/car_single/domain/entities/car_single_entity.dart'
 import 'package:auto/features/car_single/domain/repository/car_single_repository.dart';
 import 'package:auto/utils/either.dart';
 
-class GetCarSingleUseCase implements UseCase<CarSingleEntity, int> {
+class GetAdsUseCase implements UseCase<CarSingleEntity, NoParams> {
   final CarSingleRepository repository;
 
-  GetCarSingleUseCase({required this.repository});
+  GetAdsUseCase({required this.repository});
 
   @override
-  Future<Either<Failure, CarSingleEntity>> call(int params) async => await repository.getCarSingle(id: params);
+  Future<Either<Failure, CarSingleEntity>> call(NoParams params) async =>
+      repository.getCarAds();
 }
