@@ -61,7 +61,8 @@ class AppIcons {
   static const uzbekistan = 'assets/icons/global/uzbekistan.svg';
   static const chevronDownGrey = 'assets/icons/global/chevron_down_grey.svg';
   static const chevronRight = 'assets/icons/global/chevron_right.svg';
-
+  static const mapPin = 'assets/icons/global/map_pin.svg';
+  static const filterIcon = 'assets/icons/global/filter_icon.svg';
   // PROFILE
   static const alert = 'assets/icons/profile/alert.svg';
   static const heartBlue = 'assets/icons/profile/heart.svg';

@@ -26,27 +26,25 @@ class _DealersListState extends State<DealersList> {
         value: dealerCardBloc,
         child: Scaffold(
           body: BlocBuilder<DealerCardBloc, DealerCardState>(
-            builder: (context, state) {
-              print(state.dealerCardEntity.length);
-              return ListView.separated(
-                padding: const EdgeInsets.only(left: 16, right: 16, top: 20),
-                itemBuilder: (context, index) => DealerCard(
-                  dealerType: state.dealerCardEntity[index].type,
-                  dealerName: state.dealerCardEntity[index].name,
-                  dealerImageUrl: state.dealerCardEntity[index].avatar,
-                  quantityOfCars: state.dealerCardEntity[index].carCount,
-                  contractCode:
-                      '+998 ${state.dealerCardEntity[index].phone.substring(0, 2)}',
-                  contractNumber:
-                      state.dealerCardEntity[index].phone.substring(2, 9),
-                  contactTo: state.dealerCardEntity[index].contactTo,
-                  contactFrom: state.dealerCardEntity[index].contactFrom,
-                ),
-                separatorBuilder: (context, index) =>
-                    const SizedBox(height: 16),
-                itemCount: state.dealerCardEntity.length,
-              );
-            },
+            builder: (context, state) => ListView.separated(
+              padding: const EdgeInsets.only(left: 16, right: 16, top: 20),
+              itemBuilder: (context, index) => DealerCard(
+                dealerType: state.dealerCardEntity[index].type,
+                dealerName: state.dealerCardEntity[index].name,
+                dealerImageUrl: state.dealerCardEntity[index].avatar,
+                quantityOfCars: state.dealerCardEntity[index].carCount,
+                contractCode: state.dealerCardEntity[index].phone.isEmpty
+                    ? ''
+                    : '+998 ${state.dealerCardEntity[index].phone.substring(0, 2)}',
+                contractNumber: state.dealerCardEntity[index].phone.isEmpty
+                    ? ''
+                    : state.dealerCardEntity[index].phone.substring(2, 9),
+                contactTo: state.dealerCardEntity[index].contactTo,
+                contactFrom: state.dealerCardEntity[index].contactFrom,
+              ),
+              separatorBuilder: (context, index) => const SizedBox(height: 16),
+              itemCount: state.dealerCardEntity.length,
+            ),
           ),
         ),
       );

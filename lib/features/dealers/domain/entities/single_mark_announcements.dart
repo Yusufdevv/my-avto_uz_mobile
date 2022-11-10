@@ -1,9 +1,9 @@
-class SingleMarkWithAnnouncemets {
+class SingleMarkWithAnnouncemetsEntity {
   final String mark;
   final String description;
   final int year;
   final double amount;
-  SingleMarkWithAnnouncemets(
+  SingleMarkWithAnnouncemetsEntity(
       {required this.mark,
       required this.description,
       required this.year,

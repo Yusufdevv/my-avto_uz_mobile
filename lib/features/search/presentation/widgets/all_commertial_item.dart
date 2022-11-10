@@ -13,10 +13,12 @@ import 'package:flutter_svg/svg.dart';
 
 class AllCommercialItem extends StatefulWidget {
   final CommercialItemEntity commercialItemEntity;
+  final bool hasMilage;
 
   const AllCommercialItem({
     required this.commercialItemEntity,
     Key? key,
+    this.hasMilage = true,
   }) : super(key: key);
 
   @override
@@ -40,8 +42,10 @@ class _AllCommercialItemState extends State<AllCommercialItem> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Advertising(
-                images: widget.commercialItemEntity.images,
-                isSalon: widget.commercialItemEntity.isSalon),
+              images: widget.commercialItemEntity.images,
+              isSalon: widget.commercialItemEntity.isSalon,
+              hasMilage: widget.hasMilage,
+            ),
             Container(
               margin: const EdgeInsets.only(top: 8, left: 16),
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
@@ -114,6 +118,7 @@ class _AllCommercialItemState extends State<AllCommercialItem> {
                         ),
                   ),
                   const SizedBox(height: 12),
+
                   Row(
                     children: [
                       CachedImage(
@@ -155,6 +160,7 @@ class _AllCommercialItemState extends State<AllCommercialItem> {
                       )
                     ],
                   ),
+                  //divider is more ideal here
                   Container(
                       margin: const EdgeInsets.only(top: 16, bottom: 8),
                       height: 1,

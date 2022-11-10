@@ -39,7 +39,6 @@ class _RentScreenState extends State<RentScreen>
     super.initState();
   }
 
-
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: PreferredSize(
@@ -55,7 +54,7 @@ class _RentScreenState extends State<RentScreen>
                     child: WScaleAnimation(
                         onTap: () => Navigator.push(
                             context, fade(page: const RentFilterScreen())),
-                        child: SvgPicture.asset(AppIcons.rentFilter)),
+                        child: SvgPicture.asset(AppIcons.filterIcon)),
                   )
                 ],
               ),
@@ -68,10 +67,10 @@ class _RentScreenState extends State<RentScreen>
                         blurRadius: 24,
                         color: dark.withOpacity(.08),
                       ),
-                      BoxShadow(
-                        offset: const Offset(0, -1),
-                        color: dark.withOpacity(.08),
-                      ),
+                      // BoxShadow(
+                      //   offset: const Offset(0, -1),
+                      //   color: dark.withOpacity(.08),
+                      // ),
                     ]),
                 child: Container(
                   height: 32,
@@ -135,7 +134,9 @@ class _RentScreenState extends State<RentScreen>
           child: TabBarView(
             controller: tabController,
             children: [
-              CarsScreen(id: rentBloc.id,),
+              CarsScreen(
+                id: rentBloc.id,
+              ),
               const CommercialScreen(),
             ],
           ),
