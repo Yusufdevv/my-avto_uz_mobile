@@ -18,9 +18,11 @@ class _EngineScreenState extends State<EngineScreen> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        body: BaseWidget(onTap: widget.onTap, padding: const EdgeInsets.only(top: 16),child:             Column(
+          body: BaseWidget(
+        onTap: widget.onTap,
+        padding: const EdgeInsets.only(top: 16),
+        child: Column(
           children: [
-
             ListView.builder(
               itemBuilder: (context, index) => RadioItem(
                   onTap: (value) {
@@ -41,12 +43,14 @@ class _EngineScreenState extends State<EngineScreen> {
                 color: Theme.of(context).dividerColor,
               ),
             ),
-            const SizedBox(height: 13,),
+            const SizedBox(
+              height: 13,
+            ),
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 16),
               child: SwitcherRow(title: 'Газобаллонное оборудование'),
             ),
           ],
-        ),)
-      );
+        ),
+      ));
 }

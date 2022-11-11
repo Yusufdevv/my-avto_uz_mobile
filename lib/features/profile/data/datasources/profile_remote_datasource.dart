@@ -6,7 +6,7 @@ import 'package:auto/features/profile/data/models/profile.dart';
 
 import 'package:dio/dio.dart';
 
-abstract class ProfileRemoteDataSource {
+abstract class  ProfileRemoteDataSource {
   Future<ProfileModel> getProfile();
 
   Future<ProfileModel> editProfile({String? image, String? name, String? surName, int? region});
