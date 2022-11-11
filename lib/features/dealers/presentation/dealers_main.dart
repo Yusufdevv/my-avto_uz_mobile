@@ -94,12 +94,12 @@ class _DealerScreenState extends State<DealerScreen>
                 pinned: true,
                 delegate: SegmentedControl(maxHeight: 64, minHeight: 64),
               ),
-              SliverFillRemaining(
+              const SliverFillRemaining(
                 child: TabBarView(
-                  physics: const NeverScrollableScrollPhysics(),
+                  physics: NeverScrollableScrollPhysics(),
                   children: [
                     DealersList(),
-                    const YandexKarta(),
+                    YandexKarta(),
                   ],
                 ),
               ),

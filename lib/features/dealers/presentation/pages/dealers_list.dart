@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DealersList extends StatefulWidget {
-  DealersList({Key? key}) : super(key: key);
+  const DealersList({Key? key}) : super(key: key);
 
   @override
   State<DealersList> createState() => _DealersListState();
@@ -17,7 +17,7 @@ class _DealersListState extends State<DealersList> {
   @override
   void initState() {
     dealerCardBloc = DealerCardBloc(DealerUseCase())
-      ..add(DealerCardEvent.getList());
+      ..add(DealerCardEvent.getResults(isRefresh: false, search: ''));
     super.initState();
   }
 
@@ -27,24 +27,23 @@ class _DealersListState extends State<DealersList> {
         child: Scaffold(
           body: BlocBuilder<DealerCardBloc, DealerCardState>(
             builder: (context, state) {
-              print(state.dealerCardEntity.length);
+              print('${state.list.length} this is length for dealer cards');
               return ListView.separated(
                 padding: const EdgeInsets.only(left: 16, right: 16, top: 20),
                 itemBuilder: (context, index) => DealerCard(
-                  dealerType: state.dealerCardEntity[index].type,
-                  dealerName: state.dealerCardEntity[index].name,
-                  dealerImageUrl: state.dealerCardEntity[index].avatar,
-                  quantityOfCars: state.dealerCardEntity[index].carCount,
+                  dealerType: state.list[index].description,
+                  dealerName: state.list[index].name,
+                  dealerImageUrl: state.list[index].avatar,
+                  quantityOfCars: state.list[index].carCount,
                   contractCode:
-                      '+998 ${state.dealerCardEntity[index].phone.substring(0, 2)}',
-                  contractNumber:
-                      state.dealerCardEntity[index].phone.substring(2, 9),
-                  contactTo: state.dealerCardEntity[index].contactTo,
-                  contactFrom: state.dealerCardEntity[index].contactFrom,
+                      '+998 ${state.list[index].phoneNumber.substring(0, 2)}',
+                  contractNumber: state.list[index].phoneNumber.substring(2, 9),
+                  contactTo: state.list[index].contactTo,
+                  contactFrom: state.list[index].contactFrom,
                 ),
                 separatorBuilder: (context, index) =>
                     const SizedBox(height: 16),
-                itemCount: state.dealerCardEntity.length,
+                itemCount: state.count,
               );
             },
           ),

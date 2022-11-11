@@ -1,6 +1,11 @@
 part of 'dealer_card_bloc.dart';
 
- @Freezed()
+@Freezed()
 class DealerCardEvent with _$DealerCardEvent {
-  factory DealerCardEvent.getList()= _GetList;
+  factory DealerCardEvent.getResults({
+    required bool isRefresh,
+    required String search,
+  }) = _GetResults;
+
+  factory DealerCardEvent.getMoreResults() = _GetMoreResults;
 }
