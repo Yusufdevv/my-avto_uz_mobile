@@ -57,6 +57,7 @@ class AuthenticationBloc
     });
 
     on<CheckUser>((event, emit) async {
+      await Future.delayed(Duration(seconds: 2));
       final hasToken =
           StorageRepository.getString('token', defValue: '').isNotEmpty;
       if (hasToken) {

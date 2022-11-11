@@ -21,6 +21,7 @@ class WButton extends StatelessWidget {
   final bool isLoading;
   final double? scaleValue;
   final List<BoxShadow>? shadow;
+
   const WButton({
     required this.onTap,
     this.text = '',
@@ -54,7 +55,7 @@ class WButton extends StatelessWidget {
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 200),
           width: width,
-          height: height,
+          height: height ?? 46,
           margin: margin,
           padding: padding ?? EdgeInsets.zero,
           alignment: Alignment.center,

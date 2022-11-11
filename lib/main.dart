@@ -7,20 +7,15 @@ import 'package:auto/features/common/bloc/regions/regions_bloc.dart';
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
 import 'package:auto/features/common/repository/auth.dart';
 import 'package:auto/features/common/usecases/get_regions.dart';
-import 'package:auto/features/dealers/presentation/dealers_main.dart';
 import 'package:auto/features/login/domain/usecases/register_user.dart';
 import 'package:auto/features/login/domain/usecases/send_code.dart';
 import 'package:auto/features/login/domain/usecases/verify_code.dart';
 import 'package:auto/features/login/presentation/bloc/register/register_bloc.dart';
 import 'package:auto/features/login/presentation/login_screen.dart';
-import 'package:auto/features/login/presentation/pages/personal_data_screen.dart';
-import 'package:auto/features/login/presentation/pages/register_screen.dart';
 import 'package:auto/features/navigation/presentation/home.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
-import 'package:auto/features/onboarding/presentation/pages/on_boarding_screen.dart';
-import 'package:auto/features/reviews/presentation/reviews_screen.dart';
+import 'package:auto/features/onboarding/presentation/first_onboarding.dart';
 import 'package:auto/features/splash/presentation/pages/splash_sc.dart';
-import 'package:auto/features/splash/presentation/pages/splash_screen.dart';
 import 'package:auto/generated/codegen_loader.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -37,11 +32,11 @@ void main() async {
           Locale('ru'),
           Locale('uz'),
         ],
-        path:
-            'lib/assets/strings', // <-- change the path of the translation files
-        fallbackLocale: Locale('ru'),
-        assetLoader: CodegenLoader(),
-        child: AppProvider()),
+        path: 'lib/assets/strings',
+        // <-- change the path of the translation files
+        fallbackLocale: const Locale('ru'),
+        assetLoader: const CodegenLoader(),
+        child: const AppProvider()),
   );
 }
 
@@ -93,17 +88,24 @@ class _AppState extends State<App> {
           builder: (context, child) =>
               BlocListener<AuthenticationBloc, AuthenticationState>(
             listener: (context, state) {
+              print(state.status);
               switch (state.status) {
                 case AuthenticationStatus.unauthenticated:
-                  navigator.pushAndRemoveUntil(
-                      fade(
-                          page: BlocProvider(
-                              create: (c) => RegisterBloc(
-                                  sendCodeUseCase: SendCodeUseCase(),
-                                  registerUseCase: RegisterUseCase(),
-                                  verifyCodeUseCase: VerifyCodeUseCase()),
-                              child: const LoginScreen())),
-                      (route) => false);
+                  if (!StorageRepository.getBool('onboarding',
+                      defValue: false)) {
+                    navigator.pushAndRemoveUntil(
+                        fade(page: const FirstOnBoarding()), (route) => false);
+                  } else {
+                    navigator.pushAndRemoveUntil(
+                        fade(
+                            page: BlocProvider(
+                                create: (c) => RegisterBloc(
+                                    sendCodeUseCase: SendCodeUseCase(),
+                                    registerUseCase: RegisterUseCase(),
+                                    verifyCodeUseCase: VerifyCodeUseCase()),
+                                child: const LoginScreen())),
+                        (route) => false);
+                  }
                   break;
                 case AuthenticationStatus.authenticated:
                   navigator.pushAndRemoveUntil(

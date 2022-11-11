@@ -8,6 +8,7 @@ import 'package:auto/features/login/domain/usecases/send_recovery_code.dart';
 import 'package:auto/features/login/domain/usecases/verify_recovery.dart';
 import 'package:auto/features/login/presentation/bloc/recovery/recovery_bloc.dart';
 import 'package:auto/features/login/presentation/pages/new_password_screen.dart';
+import 'package:auto/features/login/presentation/widgets/SignIn_with_socials.dart';
 import 'package:auto/features/login/presentation/widgets/login_header_widget.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/profile/presentation/widgets/refresh_button.dart';
@@ -57,7 +58,7 @@ class _PasswordRecoveryScreenState extends State<PasswordRecoveryScreen> {
   Widget build(BuildContext context) => KeyboardDismisser(
         child: Scaffold(
           appBar: const WAppBar(
-            title: 'Войти',
+            title: 'Забыли пароль',
           ),
           body: Padding(
             padding: const EdgeInsets.all(16),
@@ -169,65 +170,70 @@ class _PasswordRecoveryScreenState extends State<PasswordRecoveryScreen> {
                       )
                   ],
                 ),
-                const Spacer(),
-                WButton(
-                  onTap: () {
-                    recoveryBloc.add(
-                      RecoveryEvent.verifyCode(
-                        VerifyParam(
-                            phone: widget.phone,
-                            code: passwordRecoveryController.text,
-                            session: sessions),
-                        onSuccess: () {
-                          Navigator.pushReplacement(
-                            context,
-                            fade(
-                              page: BlocProvider.value(
-                                value: recoveryBloc,
-                                child: NewPasswordScreen(
-                                  onSubmit: (password, confirmPassword) {
-                                    recoveryBloc.add(
-                                      RecoveryEvent.changePassword(
-                                        password: password,
-                                        onSuccess: () {
-                                          context
-                                              .read<AuthenticationBloc>()
-                                              .add(AuthenticationStatusChanged(
-                                                  status: AuthenticationStatus
-                                                      .authenticated));
-                                        },
-                                      ),
-                                    );
-                                  },
+                Padding(
+                  padding: const EdgeInsets.only(top: 24),
+                  child: WButton(
+                    onTap: () {
+                      recoveryBloc.add(
+                        RecoveryEvent.verifyCode(
+                          VerifyParam(
+                              phone: widget.phone,
+                              code: passwordRecoveryController.text,
+                              session: sessions),
+                          onSuccess: () {
+                            Navigator.pushReplacement(
+                              context,
+                              fade(
+                                page: BlocProvider.value(
+                                  value: recoveryBloc,
+                                  child: NewPasswordScreen(
+                                    onSubmit: (password, confirmPassword) {
+                                      recoveryBloc.add(
+                                        RecoveryEvent.changePassword(
+                                          password: password,
+                                          onSuccess: () {
+                                            context
+                                                .read<AuthenticationBloc>()
+                                                .add(AuthenticationStatusChanged(
+                                                    status: AuthenticationStatus
+                                                        .authenticated));
+                                          },
+                                        ),
+                                      );
+                                    },
+                                  ),
                                 ),
                               ),
-                            ),
-                          );
-                        },
-                      ),
-                    );
-                  },
-                  shadow: [
-                    BoxShadow(
-                        offset: const Offset(0, 4),
-                        blurRadius: 20,
-                        color: solitude.withOpacity(.12)),
-                  ],
-                  margin: EdgeInsets.only(
-                      bottom: 4 + MediaQuery.of(context).padding.bottom),
-                  color: (passwordRecoveryController.text.isNotEmpty)
-                      ? orange
-                      : Theme.of(context)
+                            );
+                          },
+                        ),
+                      );
+                    },
+                    shadow: [
+                      BoxShadow(
+                          offset: const Offset(0, 4),
+                          blurRadius: 20,
+                          color: solitude.withOpacity(.12)),
+                    ],
+                    margin: EdgeInsets.only(
+                        bottom: 4 + MediaQuery.of(context).padding.bottom),
+                    color: (passwordRecoveryController.text.isNotEmpty)
+                        ? orange
+                        : Theme.of(context)
+                            .extension<ThemedColors>()!
+                            .veryLightGreyToEclipse,
+                    text: LocaleKeys.continuee.tr(),
+                    border: Border.all(
+                      width: 1,
+                      color: Theme.of(context)
                           .extension<ThemedColors>()!
-                          .veryLightGreyToEclipse,
-                  text: LocaleKeys.continuee.tr(),
-                  border: Border.all(
-                    width: 1,
-                    color: Theme.of(context)
-                        .extension<ThemedColors>()!
-                        .whiteToDolphin,
+                          .whiteToDolphin,
+                    ),
                   ),
                 ),
+                const Spacer(),
+                const SignInWithSocials(),
+                const SizedBox(height: 42)
               ],
             ),
           ),

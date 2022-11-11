@@ -48,10 +48,10 @@ class _SafetyScreenState extends State<SafetyScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-               LoginHeader(
-                  title: LocaleKeys.security.tr(),
-                  description:
-                      LocaleKeys.create_password_6.tr(),),
+              LoginHeader(
+                title: LocaleKeys.forgot_password.tr(),
+                description: LocaleKeys.create_password_6.tr(),
+              ),
               const SizedBox(
                 height: 36,
               ),
@@ -74,33 +74,35 @@ class _SafetyScreenState extends State<SafetyScreen> {
                 isObscure: true,
                 controller: repeatPasswordController,
               ),
-              const Spacer(),
-              WButton(
-                onTap: () => passwordController.text.isNotEmpty &&
-                        repeatPasswordController.text.isNotEmpty
-                    ? Navigator.pushAndRemoveUntil(context,
-                        fade(page: const HomeScreen()), (route) => false)
-                    : {},
-                margin: EdgeInsets.only(
-                    bottom: 4 + MediaQuery.of(context).padding.bottom),
-                color: (passwordController.text.isNotEmpty &&
-                        repeatPasswordController.text.isNotEmpty)
-                    ? orange
-                    : Theme.of(context)
+              Padding(
+                padding: const EdgeInsets.only(top: 36),
+                child: WButton(
+                  onTap: () => passwordController.text.isNotEmpty &&
+                          repeatPasswordController.text.isNotEmpty
+                      ? Navigator.pushAndRemoveUntil(context,
+                          fade(page: const HomeScreen()), (route) => false)
+                      : {},
+                  // margin: EdgeInsets.only(
+                  //     bottom: 4 + MediaQuery.of(context).padding.bottom),
+                  color: (passwordController.text.isNotEmpty &&
+                          repeatPasswordController.text.isNotEmpty)
+                      ? orange
+                      : Theme.of(context)
+                          .extension<ThemedColors>()!
+                          .veryLightGreyToEclipse,
+                  text: LocaleKeys.continuee.tr(),
+                  shadow: [
+                    BoxShadow(
+                        offset: const Offset(0, 4),
+                        blurRadius: 20,
+                        color: solitude.withOpacity(.12)),
+                  ],
+                  border: Border.all(
+                    width: 1,
+                    color: Theme.of(context)
                         .extension<ThemedColors>()!
-                        .veryLightGreyToEclipse,
-                text: LocaleKeys.continuee.tr(),
-                shadow: [
-                  BoxShadow(
-                      offset: const Offset(0, 4),
-                      blurRadius: 20,
-                      color: solitude.withOpacity(.12)),
-                ],
-                border: Border.all(
-                  width: 1,
-                  color: Theme.of(context)
-                      .extension<ThemedColors>()!
-                      .whiteToDolphin,
+                        .whiteToDolphin,
+                  ),
                 ),
               ),
             ],
