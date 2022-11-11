@@ -1,4 +1,4 @@
-import 'chracteristics_parameters_model.dart';
+import 'package:auto/features/comparison/domain/entities/chracteristics_parameters_entity.dart';
 
 class Characteristics {
   final String parameterName;

@@ -143,6 +143,7 @@ class LightThemeColors {
   static const silver50ToNightRider = _silver50;
   static const whiteSmokeToBlack = _whiteSmoke1;
   static const silverToNightRider = _silver;
+  static const seashellToCinnabar15 = _seashell;
 }
 
 // Main palette (http://www.color-blindness.com/color-name-hue/).
@@ -151,7 +152,7 @@ const _nero = Color(0xff2B2B2B);
 const _dolphin = Color(0xff696974);
 const _solitude = Color(0xffE2E2EA);
 const _solitude2 = Color(0xffF1F1F5);
-const _solitude3= Color(0xffFAFAFB);
+const _solitude3 = Color(0xffFAFAFB);
 const _white = Color(0xffffffff);
 const _whiteWithOpacity90ToNero = Color.fromRGBO(255, 255, 255, 9);
 const _ghost = Color(0xffB5B5BE);
@@ -196,3 +197,4 @@ const _lavenderBlue = Color(0xffE2DFFF);
 const _ghostWhite1 = Color(0xffF2F1FF);
 const _silver50 = Color(0x80B6B6B6);
 const _silver = Color(0xffc4c4c4);
+const _seashell = Color(0xffFFF8F5);

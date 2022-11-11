@@ -1,32 +1,22 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
-import 'package:auto/features/comparison/presentation/pages/comaparison_page2.dart';
-import 'package:auto/features/navigation/presentation/navigator.dart';
-import 'package:auto/generated/locale_keys.g.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class AddNewCar extends StatelessWidget {
+  final VoidCallback onTap;
   const AddNewCar({
+    required this.onTap,
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) => GestureDetector(
-        onTap: () {
-          Navigator.push(
-            context,
-            fade(
-              page: const ComparisonPage2(numberOfAddedCars: 3),
-            ),
-          );
-        },
+        onTap: onTap,
         child: Container(
-          margin: const EdgeInsets.only(bottom: 34),
-          width: MediaQuery.of(context).size.width / 2 - 22,
-          height: 216,
+          margin: const EdgeInsets.only(bottom: 34, left: 12),
+          width: (MediaQuery.of(context).size.width - 46) / 2,
           decoration: BoxDecoration(
             color: Theme.of(context).extension<ThemedColors>()!.whiteToNero1,
             borderRadius: BorderRadius.circular(
@@ -57,10 +47,15 @@ class AddNewCar extends StatelessWidget {
                   ),
                   width: 36,
                   height: 36,
-                  decoration: const BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: purple,
-                  ),
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: purple,
+                      boxShadow: [
+                        BoxShadow(
+                            blurRadius: 26,
+                            offset: const Offset(0, 4),
+                            color: purple.withOpacity(0.4))
+                      ]),
                   child: SvgPicture.asset(
                     AppIcons.addCarIcon,
                   ),
@@ -68,9 +63,9 @@ class AddNewCar extends StatelessWidget {
                 const SizedBox(
                   height: 16,
                 ),
-                Text(
-                  LocaleKeys.add_advert.tr(),
-                  style: const TextStyle(
+                const Text(
+                  'Добавить автомобиль',
+                  style: TextStyle(
                     fontWeight: FontWeight.w600,
                     fontSize: 14,
                     color: purple,

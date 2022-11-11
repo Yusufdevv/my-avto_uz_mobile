@@ -135,7 +135,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   onTap: () => Navigator.push(
                     context,
                     fade(
-                      page:  PasswordRecoveryScreen(
+                      page: PasswordRecoveryScreen(
                         phone: phoneController.text,
                       ),
                     ),

@@ -1,19 +1,22 @@
 import 'dart:math';
+
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/features/comparison/domain/entities/car_params_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class CharacteristicsParametersWidget extends StatelessWidget {
   final ScrollController controller;
-  final int numberOfAddedCars;
+  final List<CarParamsEntity> numberOfAddedCars;
   final String characteristicsOrComplectation;
   final List listOfComparisonParameters;
   final int selectedValue;
   final int parameterId;
   final String parameterName;
   final ValueChanged<int> onChanged;
+  final bool isSticky;
 
   const CharacteristicsParametersWidget({
     required this.onChanged,
@@ -25,6 +28,7 @@ class CharacteristicsParametersWidget extends StatelessWidget {
     required this.numberOfAddedCars,
     required this.controller,
     Key? key,
+    required this.isSticky,
     // required this.pii,
   }) : super(key: key);
 
@@ -98,7 +102,7 @@ class CharacteristicsParametersWidget extends StatelessWidget {
                           scrollDirection: Axis.horizontal,
                           children: [
                             ...List.generate(
-                              3,
+                              numberOfAddedCars.length,
                               (index) => Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: List.generate(
@@ -120,7 +124,7 @@ class CharacteristicsParametersWidget extends StatelessWidget {
                                             left: 16, top: 28),
                                         height: 54,
                                         child: Text(
-                                          'data',
+                                          numberOfAddedCars[index].type,
                                           style: Theme.of(context)
                                               .textTheme
                                               .headline1!
@@ -129,12 +133,39 @@ class CharacteristicsParametersWidget extends StatelessWidget {
                                                 fontWeight: FontWeight.w600,
                                               ),
                                         ),
-                                      )
+                                      ),
                                     ],
                                   ),
                                 ),
                               ),
-                            )
+                            ),
+                            if (isSticky == false) ...{
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: List.generate(
+                                  listOfComparisonParameters.length,
+                                  (index) => Column(
+                                    children: [
+                                      Container(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.5,
+                                        color: index.isEven
+                                            ? Theme.of(context)
+                                                .extension<ThemedColors>()!
+                                                .solitudeContainerToNero1
+                                            : Theme.of(context)
+                                                .extension<ThemedColors>()!
+                                                .whiteToNightRider,
+                                        padding: const EdgeInsets.only(
+                                            left: 16, top: 28),
+                                        height: 54,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            }
                           ],
                         ),
                       ),
