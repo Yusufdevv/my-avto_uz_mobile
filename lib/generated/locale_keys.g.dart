@@ -306,6 +306,12 @@ abstract class LocaleKeys {
   static const show = 'show';
   static const result = 'result';
   static const cars = 'cars';
+  static const email_example = 'email_example';
+  static const i_accept_rules = 'i_accept_rules';
+  static const i_accept_rules1 = 'i_accept_rules1';
+  static const i_accept_rules2 = 'i_accept_rules2';
+  static const i_accept_rules3 = 'i_accept_rules3';
+  static const complete_registration = 'complete_registration';
   static const moto = 'moto';
   static const category = 'category';
   static const add_review = 'add_review';

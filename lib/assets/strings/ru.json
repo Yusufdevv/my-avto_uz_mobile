@@ -303,7 +303,6 @@
   "load_more":"Загрузить еще",
   "show": "Показать",
   "result": "результата",
-  "cars": "Автомобили",
   "moto":"Мото",
   "category":"Категория",
   "add_review":"Добавить отзыв",
@@ -311,4 +310,11 @@
   "filled":"Заполнено",
   "ownership_term":"Срок владения",
   "rating_comment":"Оцените ходовые качества"
+  "cars": "Автомобили",
+  "email_example": "example@auto.uz",
+  "i_accept_rules": "Продолжая регистрацию, я признаю что принимаю\n",
+  "i_accept_rules1": "условия использования",
+  "i_accept_rules2": " и ",
+  "i_accept_rules3": "правила",
+  "complete_registration": "Заполните поля для завершения регистрации"
 }

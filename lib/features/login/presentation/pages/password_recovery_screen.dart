@@ -58,7 +58,7 @@ class _PasswordRecoveryScreenState extends State<PasswordRecoveryScreen> {
   Widget build(BuildContext context) => KeyboardDismisser(
         child: Scaffold(
           appBar: const WAppBar(
-            title: 'Забыли пароль',
+            title: 'Забыли пароль1',
           ),
           body: Padding(
             padding: const EdgeInsets.all(16),

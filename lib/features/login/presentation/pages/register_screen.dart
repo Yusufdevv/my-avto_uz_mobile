@@ -28,7 +28,7 @@ class RegisterScreen extends StatefulWidget {
 class _RegisterScreenState extends State<RegisterScreen> {
   final phoneFormatter = MaskTextInputFormatter(
     mask: '## ### ## ##',
-    filter: {"#": RegExp(r'[0-9]')},
+    filter: {'#': RegExp(r'[0-9]')},
   );
   late TextEditingController phoneController;
   late RegisterBloc registerBloc;
@@ -57,7 +57,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
             title: LocaleKeys.register.tr(),
           ),
           body: Padding(
-            padding: const EdgeInsets.all(16),
+            padding:
+                const EdgeInsets.only(top: 50, left: 16, right: 16, bottom: 16),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -93,7 +94,45 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   textInputFormatters: [phoneFormatter],
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 24.0),
+                  padding: const EdgeInsets.only(top: 24),
+                  child: RichText(
+                    text: TextSpan(
+                      children: [
+                        TextSpan(text: LocaleKeys.i_accept_rules.tr()),
+                        TextSpan(
+                          text: LocaleKeys.i_accept_rules1.tr(),
+                          style:
+                              Theme.of(context).textTheme.headline6!.copyWith(
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.w400,
+                                    color: blue,
+                                  ),
+                        ),
+                        TextSpan(text: LocaleKeys.i_accept_rules2.tr()),
+                        TextSpan(
+                          text: LocaleKeys.i_accept_rules3.tr(),
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline6!
+                              .copyWith(
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.w400,
+                                  color: blue),
+                        ),
+                      ],
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline6!
+                          .copyWith(fontSize: 13, fontWeight: FontWeight.w400),
+                    ),
+                  ),
+
+                  // Text(
+                  //   '',
+                  //        // ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 12),
                   child: WButton(
                     onTap: () {
                       print(phoneController.text.length);

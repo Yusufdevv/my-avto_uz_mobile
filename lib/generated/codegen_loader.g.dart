@@ -123,7 +123,7 @@ class CodegenLoader extends AssetLoader{
   "hello": "Здравствуйте",
   "build_plans": "Планы на автомобили постройте \nвместе с нами",
   "possibility_to_rent": "Возможность брать \nмашину в аренду",
-  "easy_send": "Легкая  продажа авто",
+  "easy_send": " Легкая  продажа авто",
   "easy_buying": "Легкая  покупка авто",
   "photo_360": "Фото 360°",
   "adding_photo": "Добавление фото",
@@ -320,6 +320,12 @@ class CodegenLoader extends AssetLoader{
   "show": "Показать",
   "result": "результата",
   "cars": "Автомобили",
+  "email_example": "example@auto.uz",
+  "i_accept_rules": "Продолжая регистрацию, я признаю что принимаю\n",
+  "i_accept_rules1": "условия использования",
+  "i_accept_rules2": " и ",
+  "i_accept_rules3": "правила",
+  "complete_registration": "Заполните поля для завершения регистрации"
   "moto": "Мото",
   "category": "Категория",
   "add_review": "Добавить отзыв",

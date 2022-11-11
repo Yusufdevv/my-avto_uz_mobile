@@ -179,44 +179,47 @@ class _VerificationScreenState extends State<VerificationScreen> {
                       )
                   ],
                 ),
-                const Spacer(),
-                WButton(
-                  onTap: () => verificationController.text.isNotEmpty &&
-                          verificationController.text.length == 6
-                      ? context.read<RegisterBloc>().add(
-                              RegisterEvent.verifyCode(
-                                  VerifyParam(
-                                      code: verificationController.text,
-                                      phone: widget.phone,
-                                      session: widget.session), onSuccess: () {
-                            Navigator.pushReplacement(
-                                context,
-                                fade(
-                                    page: BlocProvider.value(
-                                        value: context.read<RegisterBloc>(),
-                                        child: const PersonalDataScreen())));
-                          }))
-                      : {},
-                  margin: EdgeInsets.only(
-                      bottom: MediaQuery.of(context).padding.bottom + 4),
-                  color: (verificationController.text.isNotEmpty &&
-                          verificationController.text.length == 6)
-                      ? orange
-                      : Theme.of(context)
+                Padding(
+                  padding: const EdgeInsets.only(top: 24),
+                  child: WButton(
+                    onTap: () => verificationController.text.isNotEmpty &&
+                            verificationController.text.length == 6
+                        ? context
+                            .read<RegisterBloc>()
+                            .add(RegisterEvent.verifyCode(
+                                VerifyParam(
+                                    code: verificationController.text,
+                                    phone: widget.phone,
+                                    session: widget.session), onSuccess: () {
+                              Navigator.pushReplacement(
+                                  context,
+                                  fade(
+                                      page: BlocProvider.value(
+                                          value: context.read<RegisterBloc>(),
+                                          child: const PersonalDataScreen())));
+                            }))
+                        : {},
+                    margin: EdgeInsets.only(
+                        bottom: MediaQuery.of(context).padding.bottom + 4),
+                    color: (verificationController.text.isNotEmpty &&
+                            verificationController.text.length == 6)
+                        ? orange
+                        : Theme.of(context)
+                            .extension<ThemedColors>()!
+                            .veryLightGreyToEclipse,
+                    text: LocaleKeys.continuee.tr(),
+                    shadow: [
+                      BoxShadow(
+                          offset: const Offset(0, 4),
+                          blurRadius: 20,
+                          color: solitude.withOpacity(.12)),
+                    ],
+                    border: Border.all(
+                      width: 1,
+                      color: Theme.of(context)
                           .extension<ThemedColors>()!
-                          .veryLightGreyToEclipse,
-                  text: LocaleKeys.continuee.tr(),
-                  shadow: [
-                    BoxShadow(
-                        offset: const Offset(0, 4),
-                        blurRadius: 20,
-                        color: solitude.withOpacity(.12)),
-                  ],
-                  border: Border.all(
-                    width: 1,
-                    color: Theme.of(context)
-                        .extension<ThemedColors>()!
-                        .whiteToDolphin,
+                          .whiteToDolphin,
+                    ),
                   ),
                 ),
               ],
