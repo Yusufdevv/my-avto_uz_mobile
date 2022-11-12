@@ -77,13 +77,7 @@ class InfoResultContainer extends StatelessWidget {
                         onTap: () {},
                         child: Container(
                           height: 201,
-                          decoration: const BoxDecoration(
-                            color: green,
-                            borderRadius: BorderRadius.only(
-                              topRight: Radius.circular(8),
-                              bottomRight: Radius.circular(8),
-                            ),
-                          ),
+                          color: green,
                           margin: const EdgeInsets.only(left: 2, right: 16),
                           width: 264,
                           child: Column(
@@ -107,23 +101,13 @@ class InfoResultContainer extends StatelessWidget {
                         height: 201,
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 2),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.only(
-                              topLeft: index == 0
-                                  ? const Radius.circular(8)
-                                  : Radius.zero,
-                              bottomLeft: index == 0
-                                  ? const Radius.circular(8)
-                                  : Radius.zero,
-                            ),
-                            child: CachedNetworkImage(
-                              placeholder: (context, url) => Image.asset(
-                                AppImages.carPlaceHolder,
-                                fit: BoxFit.cover,
-                              ),
-                              imageUrl: images[index],
+                          child: CachedNetworkImage(
+                            placeholder: (context, url) => Image.asset(
+                              AppImages.carPlaceHolder,
                               fit: BoxFit.cover,
                             ),
+                            imageUrl: images[index],
+                            fit: BoxFit.cover,
                           ),
                         ),
                       ),

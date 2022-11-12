@@ -17,7 +17,7 @@ class CarUserEntity extends Equatable {
   final String email;
   final String image;
   @override
-  List<Object?> get props => [id, fullName, phoneNumber, email];
+  List<Object?> get props => [id, fullName, phoneNumber, email,image];
 }
 
 class CarUserConverter

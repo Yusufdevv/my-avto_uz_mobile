@@ -56,7 +56,7 @@ class PopularSearchesField extends StatelessWidget {
               onTap: () {},
               color: white,
               borderRadius: 0,
-              padding: const EdgeInsets.all(16),
+              padding: const EdgeInsets.all(12),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

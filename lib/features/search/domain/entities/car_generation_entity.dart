@@ -1,4 +1,3 @@
-
 import 'package:auto/features/search/data/models/car_generation_model.dart';
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';

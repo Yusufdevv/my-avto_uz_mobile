@@ -18,11 +18,11 @@ class CommercialItemEntity extends Equatable {
   final String currency;
   final bool isWishlisted;
   final String userType;
+  final String contactPhone;
   @CarDistrictConverter()
   final CarDistrictEntity district;
   @CarUserConverter()
   final CarUserEntity user;
-  final String contactPhone;
   @CarModelConverter()
   final CarModelEntity carModel;
   @CarDealerConverter()

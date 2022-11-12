@@ -19,12 +19,13 @@ import 'package:auto/features/main/presentation/widgets/story_item.dart';
 import 'package:auto/features/main/presentation/widgets/yandex_map.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/rent/presentation/rent_screen.dart';
-import 'package:auto/features/search/presentation/pages/commercial_screen.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+
+import '../../rent/presentation/pages/cars/pages/commercial_screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);

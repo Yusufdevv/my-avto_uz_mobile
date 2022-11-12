@@ -21,6 +21,7 @@ Future<dynamic> sortModalBottomSheet(
           const SizedBox(height: 16),
           SelectorItem(
             onTap: () {
+              Navigator.pop(context);
               showModalBottomSheet(
                 context: context,
                 shape: const RoundedRectangleBorder(
@@ -41,6 +42,8 @@ Future<dynamic> sortModalBottomSheet(
                           setState(() {
                             summ = 0;
                           });
+                          Navigator.pop(context);
+                          sortModalBottomSheet(context, summ, date);
                         },
                       ),
                       const SizedBox(height: 12),
@@ -52,6 +55,8 @@ Future<dynamic> sortModalBottomSheet(
                           setState(() {
                             summ = 1;
                           });
+                          Navigator.pop(context);
+                          sortModalBottomSheet(context, summ, date);
                         },
                       ),
                     ],
@@ -65,6 +70,7 @@ Future<dynamic> sortModalBottomSheet(
           const SizedBox(height: 20),
           SelectorItem(
             onTap: () {
+              Navigator.pop(context);
               showModalBottomSheet(
                 context: context,
                 shape: const RoundedRectangleBorder(
@@ -82,6 +88,9 @@ Future<dynamic> sortModalBottomSheet(
                           setState(() {
                             date = 0;
                           });
+
+                          Navigator.pop(context);
+                          sortModalBottomSheet(context, summ, date);
                         },
                         groupValue: date,
                         value: 0,
@@ -93,6 +102,9 @@ Future<dynamic> sortModalBottomSheet(
                           setState(() {
                             date = 1;
                           });
+
+                          Navigator.pop(context);
+                          sortModalBottomSheet(context, summ, date);
                         },
                         groupValue: date,
                         value: 1,

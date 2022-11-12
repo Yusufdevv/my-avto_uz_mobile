@@ -1,4 +1,5 @@
 import 'package:auto/features/search/domain/entities/car_dealer_entity.dart';
+import 'package:auto/features/search/domain/entities/car_district_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 part 'car_dealer_model.g.dart';
 

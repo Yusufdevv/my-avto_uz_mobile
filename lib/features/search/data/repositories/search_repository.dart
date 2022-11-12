@@ -1,26 +1,28 @@
 
-// import 'package:auto/core/exceptions/failures.dart';
-// import 'package:auto/core/singletons/dio_settings.dart';
-// import 'package:auto/core/singletons/service_locator.dart';
-// import 'package:auto/features/search/data/models/search_item.dart';
-// import 'package:auto/utils/either.dart';
+import 'package:auto/core/exceptions/exceptions.dart';
+import 'package:auto/core/exceptions/failures.dart';
+import 'package:auto/features/search/data/datasources/search_results_datasource.dart';
+import 'package:auto/features/search/domain/entities/commercial_item_entity.dart';
+import 'package:auto/features/search/domain/repositories/search_repository_repository.dart';
+import 'package:auto/utils/either.dart';
 
-// class SearchRepository {
-//   final client = serviceLocator<DioSettings>().dio;
+class SearchRepositoryImpl extends SearchRepository {
+  final SearchResultsDatasource dataSource;
 
-//   Future<Either<Failure, List<SearchItemModel>>> getSearchAds() async {
-//     try {
-//       final result = await client.get('es/Announcements/');
+  SearchRepositoryImpl({required this.dataSource});
 
-//       if (result.statusCode! >= 200 && result.statusCode! < 300) {
-//         var data = (result.data as List<dynamic>)
-//             .map((e) => SearchItemModel.fromJson(e))
-//             .toList();
-//         return Right(data);
-//       }
-//     } catch (e) {
-//       print(e.toString());
-//       return Left(ServerFailure());
-//     }
-//   }
-// }
+  @override
+  Future<Either<Failure, CommercialItemEntity>> getSearchResults() async {
+    try {
+      final result = await dataSource.getSearchResults();
+      return Right(result);
+    } on DioException {
+      return Left(DioFailure());
+    } on ParsingException catch (e) {
+      return Left(ParsingFailure(errorMessage: e.errorMessage));
+    } on ServerException catch (e) {
+      return Left(ServerFailure(
+          errorMessage: e.errorMessage, statusCode: e.statusCode));
+    }
+  }
+}

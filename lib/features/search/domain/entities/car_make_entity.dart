@@ -3,12 +3,8 @@ import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 class CarMakeEntity extends Equatable {
-  const CarMakeEntity({
-    this.id = 0,
-    this.name = '',
-    this.slug = '',
-    this.logo = '',
-  });
+  const CarMakeEntity(
+      {this.id = 0, this.name = '', this.slug = '', this.logo = ''});
 
   final int id;
   final String name;
