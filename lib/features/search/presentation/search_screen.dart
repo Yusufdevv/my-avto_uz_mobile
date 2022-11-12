@@ -4,6 +4,8 @@ import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_textfield.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
+import 'package:auto/features/reviews/presentation/pages/my_reviews_screen.dart';
+import 'package:auto/features/reviews/presentation/pages/publication_my_review.dart';
 import 'package:auto/features/reviews/presentation/pages/reviews_body_screen.dart';
 import 'package:auto/features/reviews/presentation/pages/reviews_body_screen.dart';
 import 'package:auto/features/reviews/presentation/reviews_screen.dart';
@@ -158,12 +160,11 @@ class _SearchScreenState extends State<SearchScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     PopularSearchesField(
-                      title: 'Популярные запросы',
+                      title: 'Последние запросы',
                       elements: const [
                         'Gentra 1.5',
-                        'Cobalt',
-                        'Nexia 3',
-                        'Nexia 3'
+                        'Malibu 1.5 Turbo 2021',
+                        'BMW X6 M competition',
                       ],
                       hasClearTrailing: true,
                       hasClearButtonInTitle: true,
@@ -177,33 +178,22 @@ class _SearchScreenState extends State<SearchScreen> {
                         'Nexia 3'
                       ],
                     ),
-                    Center(
-                      child: WButton(
-                        margin: const EdgeInsets.all(24),
-                        onTap: () {
-                          Navigator.of(context, rootNavigator: true)
-                              .push(fade(page: const ReviewsScreen()));
-                        },
-                        text: 'Review',
-                      ),
-                    ),
                     WButton(
                       margin: const EdgeInsets.all(24),
                       onTap: () {
-                        Navigator.push(context,
-                            fade(page: ParameterScreen()));
+                        Navigator.push(context, fade(page: ParameterScreen()));
                       },
                       text: 'Parameter Screen',
                     ),
-                  
                     WButton(
                       margin: const EdgeInsets.all(24),
                       onTap: () {
                         Navigator.push(
-                            context,
-                            fade(
-                                page: ResultsScreen(
-                                    controller: searchController)));
+                          context,
+                          fade(
+                              page:
+                                  ResultsScreen(controller: searchController)),
+                        );
                       },
                       text: 'Results Screen',
                     ),
@@ -219,22 +209,22 @@ class _SearchScreenState extends State<SearchScreen> {
                                 .extension<ThemedColors>()!
                                 .borderGreyToDark),
                         itemBuilder: (context, index) => InfoResultContainer(
-                          avatarPicture: state.list[index].clientAvatar,
-                          carModel: state.list[index].model,
-                          hasDiscount: hasDiscount[index],
-                          location: 'г. Ташкент',
-                          owner: owner[index],
-                          ownerType: ownerType[index],
-                          publishTime: publishTime[index],
-                          subtitle:
-                              '\n\nMercedes-Benz Sprinter — семейство малотоннажных\nавтомобилей компании Mercedes-Benz. Существует...',
-                          year: state.list[index].autoYear,
+                          avatarPicture: state.list[index].user.image,
+                          carModel: state.list[index].carModel.name,
+                          hasDiscount: false,
+                          location: state.list[index].district.title,
+                          owner: state.list[index].user.fullName,
+                          ownerType: state.list[index].userType,
+                          publishTime: state.list[index].publishedAt,
+                          subtitle: state.list[index].description,
+                          // '\n\nMercedes-Benz Sprinter — семейство малотоннажных\nавтомобилей компании Mercedes-Benz. Существует...',
+                          year: state.list[index].carYear,
                           price: MyFunctions.getFormatCost(
-                              state.list[index].priceAuto),
-                          discountPrice: state.list[index].oldPriceAuto,
+                              state.list[index].price.toString()),
+                          discountPrice: state.list[index].price.toString(),
                           sellType: sellType[index],
-                          hasCallCard: hasDiscount[index],
-                          isNew: true,
+                          isNew: state.list[index].isNew,
+                          isWishlist: state.list[index].isWishlisted,
                         ),
                       ),
                     ),

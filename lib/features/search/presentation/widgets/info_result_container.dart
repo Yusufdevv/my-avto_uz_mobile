@@ -1,9 +1,13 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/colors/light.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
+import 'package:auto/features/common/widgets/w_like.dart';
+import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/search/presentation/widgets/custom_chip.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -21,14 +25,15 @@ class InfoResultContainer extends StatelessWidget {
       this.price,
       this.discountPrice,
       this.sellType,
-      this.hasCallCard = true,
       this.isNew = false,
+      this.images = const [],
+      this.isWishlist = false,
       super.key});
 
   final String? avatarPicture;
   final bool hasDiscount;
   final int? year;
-
+  final bool isWishlist;
   final String? carModel;
   final String? subtitle;
   final String? owner;
@@ -38,8 +43,8 @@ class InfoResultContainer extends StatelessWidget {
   final String? price;
   final String? discountPrice;
   final String? sellType;
-  final bool hasCallCard;
   final bool isNew;
+  final List<String> images;
   @override
   Widget build(BuildContext context) => Container(
         width: MediaQuery.of(context).size.width,
@@ -67,16 +72,17 @@ class InfoResultContainer extends StatelessWidget {
                 physics: const BouncingScrollPhysics(),
                 itemBuilder: (context, index) => Stack(
                   children: [
-                    if (index == 4)
-                      GestureDetector(
+                    if (index == images.length - 1 || images.isEmpty)
+                      WScaleAnimation(
                         onTap: () {},
                         child: Container(
                           height: 201,
-                          decoration: BoxDecoration(
-                            color: hasCallCard ? green : red,
-                            borderRadius: const BorderRadius.only(
-                                topRight: Radius.circular(8),
-                                bottomRight: Radius.circular(8)),
+                          decoration: const BoxDecoration(
+                            color: green,
+                            borderRadius: BorderRadius.only(
+                              topRight: Radius.circular(8),
+                              bottomRight: Radius.circular(8),
+                            ),
                           ),
                           margin: const EdgeInsets.only(left: 2, right: 16),
                           width: 264,
@@ -84,13 +90,9 @@ class InfoResultContainer extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              SvgPicture.asset(
-                                  hasCallCard
-                                      ? AppIcons.phone
-                                      : AppIcons.shopping,
-                                  color: white),
+                              SvgPicture.asset(AppIcons.phone, color: white),
                               Text(
-                                hasCallCard ? 'Позвонить' : 'Купить',
+                                'Позвонить',
                                 style: Theme.of(context)
                                     .textTheme
                                     .headline4!
@@ -101,24 +103,29 @@ class InfoResultContainer extends StatelessWidget {
                         ),
                       )
                     else
-                      Container(
+                      SizedBox(
                         height: 201,
-                        decoration: BoxDecoration(
-                          image: const DecorationImage(
-                            image: AssetImage(
-                                'assets/images/car_single/car_single300kb.png'),
-                            fit: BoxFit.cover,
-                          ),
-                          borderRadius: BorderRadius.only(
-                            topLeft: index == 0
-                                ? const Radius.circular(8)
-                                : Radius.zero,
-                            bottomLeft: index == 0
-                                ? const Radius.circular(8)
-                                : Radius.zero,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 2),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.only(
+                              topLeft: index == 0
+                                  ? const Radius.circular(8)
+                                  : Radius.zero,
+                              bottomLeft: index == 0
+                                  ? const Radius.circular(8)
+                                  : Radius.zero,
+                            ),
+                            child: CachedNetworkImage(
+                              placeholder: (context, url) => Image.asset(
+                                AppImages.carPlaceHolder,
+                                fit: BoxFit.cover,
+                              ),
+                              imageUrl: images[index],
+                              fit: BoxFit.cover,
+                            ),
                           ),
                         ),
-                        margin: const EdgeInsets.symmetric(horizontal: 2),
                       ),
                   ],
                 ),
@@ -273,6 +280,7 @@ class InfoResultContainer extends StatelessWidget {
                       fit: BoxFit.cover,
                     ),
                   ),
+                  WLike(initialLike: isWishlist),
                   WButton(
                     onTap: () {},
                     height: 28,

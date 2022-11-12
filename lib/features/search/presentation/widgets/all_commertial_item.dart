@@ -28,7 +28,7 @@ class _AllCommercialItemState extends State<AllCommercialItem> {
 
   @override
   void initState() {
-    isLiked = widget.commercialItemEntity.isLike;
+    isLiked = widget.commercialItemEntity.isWishlisted;
     super.initState();
   }
 
@@ -40,8 +40,8 @@ class _AllCommercialItemState extends State<AllCommercialItem> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Advertising(
-                images: widget.commercialItemEntity.images,
-                isSalon: widget.commercialItemEntity.isSalon),
+                images: widget.commercialItemEntity.gallery,
+                isSalon: widget.commercialItemEntity.userType == 'dealer'),
             Container(
               margin: const EdgeInsets.only(top: 8, left: 16),
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
@@ -63,7 +63,7 @@ class _AllCommercialItemState extends State<AllCommercialItem> {
                   Row(
                     children: [
                       Text(
-                        widget.commercialItemEntity.autoName,
+                        widget.commercialItemEntity.carModel.name,
                         style: Theme.of(context).textTheme.headline1!.copyWith(
                             fontWeight: FontWeight.w400, fontSize: 14),
                       ),
@@ -76,7 +76,7 @@ class _AllCommercialItemState extends State<AllCommercialItem> {
                           color: purple.withOpacity(0.1),
                         ),
                         child: Text(
-                          widget.commercialItemEntity.autoYear.toString(),
+                          widget.commercialItemEntity.carYear.toString(),
                           style: Theme.of(context)
                               .textTheme
                               .headline3!
@@ -90,13 +90,13 @@ class _AllCommercialItemState extends State<AllCommercialItem> {
                   Row(
                     children: [
                       Text(
-                        widget.commercialItemEntity.priceAuto,
+                        widget.commercialItemEntity.price.toString(),
                         style: Theme.of(context).textTheme.headline5!.copyWith(
                             color: green, fontWeight: FontWeight.w600),
                       ),
                       const SizedBox(width: 4),
                       Text(
-                        widget.commercialItemEntity.oldPriceAuto,
+                        widget.commercialItemEntity.price.toString(),
                         style: Theme.of(context).textTheme.headline2!.copyWith(
                               decoration: TextDecoration.lineThrough,
                               color: darkGray,
@@ -106,7 +106,7 @@ class _AllCommercialItemState extends State<AllCommercialItem> {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    widget.commercialItemEntity.title,
+                    widget.commercialItemEntity.description,
                     overflow: TextOverflow.ellipsis,
                     maxLines: 2,
                     style: Theme.of(context).textTheme.headline2!.copyWith(
@@ -120,7 +120,7 @@ class _AllCommercialItemState extends State<AllCommercialItem> {
                         fit: BoxFit.cover,
                         height: 36,
                         width: 36,
-                        imageUrl: widget.commercialItemEntity.clientAvatar,
+                        imageUrl: widget.commercialItemEntity.user.image,
                         border: Border.all(color: borderCircular),
                         borderRadius: BorderRadius.circular(24),
                       ),
@@ -129,13 +129,13 @@ class _AllCommercialItemState extends State<AllCommercialItem> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            widget.commercialItemEntity.clientName,
+                            widget.commercialItemEntity.user.fullName,
                             style: Theme.of(context)
                                 .textTheme
                                 .headline1!
                                 .copyWith(fontSize: 14),
                           ),
-                          if (widget.commercialItemEntity.isSalon)
+                          if (widget.commercialItemEntity.userType == 'dealer')
                             Text(
                               LocaleKeys.autosalon.tr(),
                               style: Theme.of(context)
@@ -164,7 +164,7 @@ class _AllCommercialItemState extends State<AllCommercialItem> {
                   Row(
                     children: [
                       Text(
-                        'г. Ташкент',
+                        widget.commercialItemEntity.district.title,
                         style: Theme.of(context)
                             .textTheme
                             .bodyText1
@@ -192,10 +192,8 @@ class _AllCommercialItemState extends State<AllCommercialItem> {
                         ),
                       ),
                       const SizedBox(width: 8),
-                      const WLike(),
-                      const SizedBox(
-                        width: 8,
-                      ),
+                      WLike(initialLike: isLiked),
+                      const SizedBox(width: 8),
                     ],
                   ),
                 ],

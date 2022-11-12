@@ -1,28 +1,41 @@
-import 'package:auto/features/search/data/models/search_item_model.dart';
 import 'package:auto/features/search/domain/entities/car_dealer_entity.dart';
 import 'package:auto/features/search/domain/entities/car_district_entity.dart';
 import 'package:auto/features/search/domain/entities/car_generation_entity.dart';
 import 'package:auto/features/search/domain/entities/car_make_entity.dart';
 import 'package:auto/features/search/domain/entities/car_model_entity.dart';
 import 'package:auto/features/search/domain/entities/car_user_entity.dart';
-import 'package:equatable/equatable.dart';
+import 'package:auto/features/search/domain/entities/commercial_item_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-class CommercialItemEntity extends Equatable {
+part 'search_item_model.g.dart';
+
+@JsonSerializable()
+class SearchItemModel extends CommercialItemEntity {
+  @JsonKey(name: 'car_year', defaultValue: 0)
   final int carYear;
+  @JsonKey(name: 'description ', defaultValue: '')
   final String description;
+  @JsonKey(name: 'gallery ', defaultValue: [])
   final List<String> gallery;
+  @JsonKey(name: 'published_at ', defaultValue: '')
   final String publishedAt;
+  @JsonKey(name: 'is_new ', defaultValue: false)
   final bool isNew;
+  @JsonKey(name: 'price ', defaultValue: 0)
   final int price;
+  @JsonKey(name: 'currency ', defaultValue: '')
   final String currency;
+  @JsonKey(name: 'is_wishlisted ', defaultValue: false)
   final bool isWishlisted;
+  @JsonKey(name: 'user_type ', defaultValue: '')
   final String userType;
+  @JsonKey(name: 'contact_phone ', defaultValue: '')
+  final String contactPhone;
+
   @CarDistrictConverter()
   final CarDistrictEntity district;
   @CarUserConverter()
   final CarUserEntity user;
-  final String contactPhone;
   @CarModelConverter()
   final CarModelEntity carModel;
   @CarDealerConverter()
@@ -32,52 +45,42 @@ class CommercialItemEntity extends Equatable {
   @CarMakeConverter()
   final CarMakeEntity carMake;
 
-  const CommercialItemEntity({
+  SearchItemModel({
     required this.carYear,
+    required this.description,
     required this.gallery,
     required this.publishedAt,
     required this.isNew,
     required this.price,
-    required this.currency,
     required this.isWishlisted,
+    required this.currency,
     required this.userType,
-    required this.description,
+    required this.contactPhone,
     required this.district,
     required this.user,
-    required this.contactPhone,
     required this.carModel,
     required this.dealer,
-    required this.carMake,
     required this.carGeneration,
-  });
+    required this.carMake,
+  }) : super(
+          carYear: 0,
+          description: '',
+          gallery: [],
+          publishedAt: '',
+          isNew: false,
+          price: 0,
+          isWishlisted: false,
+          currency: '',
+          userType: '',
+          contactPhone: '',
+          district: district,
+          user: user,
+          carModel: carModel,
+          dealer: dealer,
+          carGeneration: carGeneration,
+          carMake: carMake,
+        );
 
-  @override
-  List<Object?> get props => [
-        carYear,
-        gallery,
-        publishedAt,
-        isNew,
-        price,
-        currency,
-        isWishlisted,
-        userType,
-        description,
-        district,
-        user,
-        contactPhone,
-        carModel,
-        dealer,
-        carMake,
-        carGeneration
-      ];
-}
-
-class CommercialItemConverter
-    implements JsonConverter<CommercialItemEntity, Map<String, dynamic>?> {
-  @override
-  SearchItemModel fromJson(Map<String, dynamic>? json) =>
-      SearchItemModel.fromJson(json ?? {});
-
-  @override
-  Map<String, dynamic>? toJson(CommercialItemEntity object) => {};
+  factory SearchItemModel.fromJson(Map<String, dynamic> json) =>
+      _$SearchItemModelFromJson(json);
 }

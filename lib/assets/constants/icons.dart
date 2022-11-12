@@ -22,6 +22,7 @@ class AppIcons {
 
   //GLOBAL
   static const chevronLeft = 'assets/icons/global/chevron_left.svg';
+  static const chevronTop = 'assets/icons/global/chevron_top.svg';
   static const search = 'assets/icons/global/search.svg';
   static const rentFilter = 'assets/icons/global/rent_filter.svg';
   static const engine = 'assets/icons/global/engine.svg';
@@ -139,6 +140,9 @@ class AppIcons {
   static const likeHand = 'assets/icons/review/like_hand.svg';
   static const dislikeHand = 'assets/icons/review/dislike_hand.svg';
   static const minus = 'assets/icons/review/minus.svg';
+  static const document = 'assets/icons/review/document.svg';
+  static const alertTriangle = 'assets/icons/review/alert_triangle.svg';
+  static const trash = 'assets/icons/review/trash.svg';
 
   // SEARCH
   static const parameter = 'assets/icons/search/parameter.svg';

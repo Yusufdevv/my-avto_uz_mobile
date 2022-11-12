@@ -1,9 +1,9 @@
-import 'dart:html';
-
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
+import 'package:auto/features/navigation/presentation/navigator.dart';
+import 'package:auto/features/reviews/presentation/pages/publication_my_review.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
@@ -32,6 +32,7 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
     'Минусы',
     'Оценки'
   ];
+  bool isButtonActive = true;
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: const WAppBar(
@@ -40,7 +41,7 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
           centerTitle: false,
         ),
         body: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
+          physics: const ClampingScrollPhysics(),
           child: Column(
             children: [
               Padding(
@@ -80,10 +81,36 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
                 itemCount: titles.length,
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
-                itemBuilder: (context, index) =>
-                    SelectCarCharactersItem(title: titles[index]),
+                itemBuilder: (context, index) => SelectCarCharactersItem(
+                  title: titles[index],
+                  onTap: () {},
+                ),
                 separatorBuilder: (context, index) => const Divider(
                     height: 1, thickness: 1, color: border, indent: 16),
+              ),
+              WButton(
+                onTap: () {
+                  Navigator.of(context).push(fade(page: const PublicationMyReview()));
+                },
+                text: 'Далее',
+                textStyle: Theme.of(context).textTheme.bodyText1!.copyWith(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                    color: isButtonActive ? white : dividerColor),
+                color: orange,
+                borderRadius: 8,
+                disabledColor: warmerGrey,
+                isDisabled: !isButtonActive,
+                margin: const EdgeInsets.only(
+                    left: 16, right: 16, top: 44, bottom: 33),
+                shadow: const [
+                  BoxShadow(
+                    color: warmerGrey,
+                    offset: Offset(0, 4),
+                    blurRadius: 20,
+                  )
+                ],
+                height: 44,
               ),
             ],
           ),

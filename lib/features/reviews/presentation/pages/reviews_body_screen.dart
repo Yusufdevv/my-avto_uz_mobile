@@ -3,11 +3,13 @@ import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
+import 'package:auto/features/reviews/presentation/pages/add_review_screen.dart';
 import 'package:auto/features/reviews/presentation/pages/review_single_car_screen.dart';
+import 'package:auto/features/reviews/presentation/pages/select_brand_screen.dart';
+import 'package:auto/features/reviews/presentation/parts/selected_car_info.dart';
 import 'package:auto/features/reviews/presentation/widgets/review_bottom_sheet_item.dart';
 import 'package:auto/features/reviews/presentation/widgets/review_main_container.dart';
 import 'package:auto/features/reviews/presentation/widgets/select_model_info.dart';
-import 'package:auto/features/reviews/presentation/parts/selected_car_info.dart';
 import 'package:auto/features/search/presentation/widgets/sort_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -41,8 +43,10 @@ class ReviewsBodyScreen extends StatelessWidget {
                     children: [
                       SelectModelInfo(
                         onTap: () {
-                          Navigator.push(context,
-                              fade(page: const ReviewSingleCarScreen()));
+                          Navigator.push(
+                            context,
+                            fade(page: const SelectBrandScreen()),
+                          );
                         },
                         title: 'Марка и модель',
                         centerTitle: true,
@@ -133,7 +137,13 @@ class ReviewsBodyScreen extends StatelessWidget {
                           ),
                         ],
                       ),
-                      const SelectedCarInfo(),
+                      const SelectedCarInfo(
+                        pluses: [],
+                        minuses: [],
+                        reviewCount: 16,
+                        image: 'https://source.unsplash.com/random/1653',
+                        overallRating: 3.6,
+                      ),
                       Padding(
                         padding: const EdgeInsets.only(
                             left: 16, right: 16, bottom: 14),
@@ -171,8 +181,54 @@ class ReviewsBodyScreen extends StatelessWidget {
                             height: 12,
                             thickness: 0,
                             color: theme.borderGreyToDark),
-                        itemBuilder: (context, index) =>
-                            const ReviewMainContainer(
+                        itemBuilder: (context, index) => ReviewMainContainer(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              fade(
+                                page: ReviewSingleCarScreen(
+                                  hasMoreVert: false,
+                                  images: List.generate(
+                                      24,
+                                      (index) =>
+                                          'https://source.unsplash.com/random/1'),
+                                  titleCarInfo: 'BMW 5 серии VII (G30/G31)',
+                                  subtitleCarInfo:
+                                      'Модификация 530d xDrive 3.0d AT (249 л.с.)\n4WD',
+                                  avatarPicture:
+                                      'https://source.unsplash.com/random/1',
+                                  reviewName: 'Ракета 530 D 🚀\n',
+                                  publishDate: '24 февраля 2022',
+                                  owner: 'Мухаммадамин',
+                                  lastOnline: '12 января 2022 г.',
+                                  shortDescription:
+                                      'Хотелось купить машину быстрее этой, если у вас есть\nна руке быстрее этой машины, качественнее и\nмощнее, я могу купить. Но все таки, за все время не\nпожалел владением этой машины, очень комфортно,\nЗа год и 4 месяца не вызвала нареканий в сервисе\nбыла только на ТО , расход топлива умеренный , хотя\nи пробег не большой у машины , брал жене а катался\nсам она только пару раз прокатилась , ей больше моя\nнравиться Санта ФЕ , так что машина была только для\nразъезда по городу и для отвоза ребёнка в школу и\nобратно...',
+                                  fullDescription:
+                                      'Хотелось купить машину быстрее этой, если у вас есть\nна руке быстрее этой машины, качественнее и\nмощнее, я могу купить. Но все таки, за все время не\nпожалел владением этой машины, очень комфортно,\nЗа год и 4 месяца не вызвала нареканий в сервисе\nбыла только на ТО , расход топлива умеренный , хотя\nи пробег не большой у машины , брал жене а катался\nсам она только пару раз прокатилась , ей больше моя\nнравиться Санта ФЕ , так что машина была только для\nразъезда по городу и для отвоза ребёнка в школу и\nобратно...',
+                                  commentsCount: 38,
+                                  viewsCount: 276,
+                                  overallRating: 3.6,
+                                  pluses: const [
+                                    'Вместительность салона',
+                                    'Обзорность',
+                                    'Дизайн',
+                                    'Шумоизоляция',
+                                    'Безопасность'
+                                  ],
+                                  minuses: const [
+                                    'Качество сборки',
+                                    'Коробка передач'
+                                  ],
+                                  shareFunction: () {},
+                                  comfortRating: 4,
+                                  drivingRating: 2,
+                                  securityRating: 3,
+                                  appearanceRating: 1,
+                                  reliabilityRating: 3,
+                                ),
+                              ),
+                            );
+                          },
                           reviewCount: 3.6,
                           description:
                               '\n\nMercedes-Benz Sprinter — семейство малотоннажных\nавтомобилей компании Mercedes-Benz. Существует...',
@@ -206,15 +262,31 @@ class ReviewsBodyScreen extends StatelessWidget {
                 height: MediaQuery.of(context).size.height * 0.3,
                 hasDivider: false,
                 title: 'Категория',
-                children: const [
+                children: [
                   ReviewBottomSheetItem(
-                      icon: AppIcons.lightweightCar, title: 'Легковые'),
+                    icon: AppIcons.lightweightCar,
+                    title: 'Легковые',
+                    onTap: () => Navigator.push(
+                      context,
+                      fade(page: const AddReviewScreen()),
+                    ),
+                  ),
                   ReviewBottomSheetItem(
-                      icon: AppIcons.truck, title: 'Коммерческие'),
+                    icon: AppIcons.truck,
+                    title: 'Коммерческие',
+                    onTap: () => Navigator.push(
+                      context,
+                      fade(page: const AddReviewScreen()),
+                    ),
+                  ),
                   ReviewBottomSheetItem(
                     icon: AppIcons.motorcycle,
                     title: 'Мото',
                     hasDivider: false,
+                    onTap: () => Navigator.push(
+                      context,
+                      fade(page: const AddReviewScreen()),
+                    ),
                   ),
                 ],
               ),

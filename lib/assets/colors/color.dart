@@ -60,6 +60,7 @@ const strokeDark = _strokeDark;
 const background = Color(0xff121212);
 const secondary = Color(0xff373737);
 const stormGrey12 = _stormGrey12;
+const tutu = Color(0xffFAEEEE);
 // Main palette (http://www.color-blindness.com/color-name-hue/).
 const _bittersweet = Color(0xFFFF7474);
 const _whiteSmoke = Color(0xFFF4F4F4);
@@ -119,3 +120,4 @@ const _stormGrey12 = Color(0x1f767680);
 const _silver = Color(0xFFC4C4C4);
 const _strokeDark = Color(0xff181818);
 const dark1 = Color(0xff1E1E1E);
+

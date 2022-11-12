@@ -4,9 +4,12 @@ import 'package:flutter/material.dart';
 
 class SingleCarInformationItem extends StatelessWidget {
   const SingleCarInformationItem({
+    required this.informationTitle,
+    required this.informationSubtitle,
     Key? key,
   }) : super(key: key);
-
+  final String informationTitle;
+  final String informationSubtitle;
   @override
   Widget build(BuildContext context) => Container(
         margin: const EdgeInsets.only(left: 16, top: 16, right: 16, bottom: 24),
@@ -25,13 +28,13 @@ class SingleCarInformationItem extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'BMW 5 серии VII (G30/G31)',
+              informationTitle,
               style: Theme.of(context)
                   .textTheme
                   .subtitle1!
                   .copyWith(fontWeight: FontWeight.w400, fontSize: 16),
             ),
-            Text('Модификация 530d xDrive 3.0d AT (249 л.с.)\n4WD',
+            Text(informationSubtitle,
                 style: Theme.of(context).textTheme.headline2),
             const SizedBox(height: 16),
             Row(

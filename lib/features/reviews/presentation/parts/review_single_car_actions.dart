@@ -5,17 +5,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class ReviewSingleCarActions extends StatefulWidget {
-  const ReviewSingleCarActions({
+  ReviewSingleCarActions({
+    required this.isLike,
+    required this.isDislike,
+    required this.viewsCount,
+    required this.commentsCount,
     Key? key,
   }) : super(key: key);
-
+  bool? isLike;
+  bool? isDislike;
+  final int viewsCount;
+  final int commentsCount;
   @override
   State<ReviewSingleCarActions> createState() => _ReviewSingleCarActionsState();
 }
 
 class _ReviewSingleCarActionsState extends State<ReviewSingleCarActions> {
-  bool? isLike;
-  bool? isDislike;
   @override
   Widget build(BuildContext context) => Row(
         children: [
@@ -23,46 +28,48 @@ class _ReviewSingleCarActionsState extends State<ReviewSingleCarActions> {
           WButton(
             onTap: () {
               setState(() {
-                isDislike = true;
-                isLike = false;
+                widget
+                  ..isDislike = true
+                  ..isLike = false;
               });
             },
             height: 36,
             width: 36,
             borderRadius: 99,
-            border: Border.all(
-                color: isDislike == null || !isDislike! ? border : orange,
-                width: 1),
+            border: Border.all(color: border, width: 1),
             color: white,
             child: SvgPicture.asset(
               AppIcons.dislikeHand,
-              color: isDislike == null || !isDislike! ? warmerGrey : orange,
+              color: widget.isDislike == null || !widget.isDislike!
+                  ? warmerGrey
+                  : red,
             ),
           ),
           const SizedBox(width: 10),
           WButton(
             onTap: () {
               setState(() {
-                isLike = true;
-                isDislike = false;
+                widget
+                  ..isLike = true
+                  ..isDislike = false;
               });
             },
             height: 36,
             width: 36,
             borderRadius: 99,
-            border: Border.all(
-                color: isLike == null || !isLike! ? border : orange, width: 1),
+            border: Border.all(color: border, width: 1),
             color: white,
             child: SvgPicture.asset(
               AppIcons.likeHand,
-              color: isLike == null || !isLike! ? warmerGrey : orange,
+              color:
+                  widget.isLike == null || !widget.isLike! ? warmerGrey : green,
             ),
           ),
           const Spacer(),
           SvgPicture.asset(AppIcons.messageRectangle),
           const SizedBox(width: 8),
           Text(
-            9.toString(),
+            '${widget.commentsCount}',
             style:
                 Theme.of(context).textTheme.headline6!.copyWith(fontSize: 14),
           ),
@@ -70,7 +77,7 @@ class _ReviewSingleCarActionsState extends State<ReviewSingleCarActions> {
           SvgPicture.asset(AppIcons.eye),
           const SizedBox(width: 8),
           Text(
-            276.toString(),
+            '${widget.viewsCount}',
             style:
                 Theme.of(context).textTheme.headline6!.copyWith(fontSize: 14),
           ),

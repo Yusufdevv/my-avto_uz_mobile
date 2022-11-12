@@ -5,10 +5,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class CarShowRatingField extends StatelessWidget {
-  const CarShowRatingField({
-    Key? key,
-  }) : super(key: key);
-
+  const CarShowRatingField(
+      {required this.overallRating,
+      required this.appearanceRating,
+      required this.comfortRating,
+      required this.securityRating,
+      required this.drivingRating,
+      required this.reliabilityRating,
+      Key? key})
+      : super(key: key);
+  final double overallRating;
+  final int appearanceRating;
+  final int comfortRating;
+  final int securityRating;
+  final int drivingRating;
+  final int reliabilityRating;
   @override
   Widget build(BuildContext context) => Container(
         height: 241,
@@ -35,7 +46,7 @@ class CarShowRatingField extends StatelessWidget {
                 SvgPicture.asset(AppIcons.star),
                 const SizedBox(width: 8),
                 Text(
-                  '3,6',
+                  '$overallRating',
                   style: Theme.of(context)
                       .textTheme
                       .headline1!
@@ -50,29 +61,29 @@ class CarShowRatingField extends StatelessWidget {
                   Theme.of(context).textTheme.headline2!.copyWith(fontSize: 13),
             ),
             const Divider(color: border, thickness: 1),
-            const RatingInfoItem(
+            RatingInfoItem(
               title: 'Внешний вид',
-              activeStarCount: 4,
+              activeStarCount: appearanceRating,
               bottomPadding: 12,
             ),
-            const RatingInfoItem(
+            RatingInfoItem(
               title: 'Комфорт',
-              activeStarCount: 2,
+              activeStarCount: comfortRating,
               bottomPadding: 12,
             ),
-            const RatingInfoItem(
+            RatingInfoItem(
               title: 'Безопасность',
-              activeStarCount: 3,
+              activeStarCount: securityRating,
               bottomPadding: 12,
             ),
-            const RatingInfoItem(
+            RatingInfoItem(
               title: 'Ходовые качества',
-              activeStarCount: 1,
+              activeStarCount: drivingRating,
               bottomPadding: 12,
             ),
-            const RatingInfoItem(
+            RatingInfoItem(
               title: 'Надежность',
-              activeStarCount: 3,
+              activeStarCount: reliabilityRating,
             ),
           ],
         ),

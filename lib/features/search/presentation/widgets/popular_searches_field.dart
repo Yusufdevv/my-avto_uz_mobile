@@ -75,7 +75,7 @@ class PopularSearchesField extends StatelessWidget {
             ),
             separatorBuilder: (context, index) =>
                 const Divider(color: transparentButton, height: 1),
-            itemCount: 4,
+            itemCount: elements.length,
           ),
         ],
       );

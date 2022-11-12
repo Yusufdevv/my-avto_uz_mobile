@@ -1,10 +1,9 @@
 import 'package:auto/core/exceptions/exceptions.dart';
+import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/features/search/data/datasources/popular_searches_datasource.dart';
 import 'package:auto/features/search/domain/entities/popular_searches_entity.dart';
 import 'package:auto/features/search/domain/repositories/popular_searches_repo.dart';
 import 'package:auto/utils/either.dart';
-
-import '../../../../core/exceptions/failures.dart';
 
 class PopularSearchesRepositoryImpl extends PopularSearchesRepository {
   final PopularSearchesDataSource dataSource;

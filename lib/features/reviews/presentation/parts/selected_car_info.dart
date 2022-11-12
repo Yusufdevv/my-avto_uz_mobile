@@ -1,42 +1,76 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/assets/constants/images.dart';
+import 'package:auto/features/common/widgets/w_scale.dart';
+import 'package:auto/features/reviews/presentation/widgets/review_tab_bar.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class SelectedCarInfo extends StatelessWidget {
-  const SelectedCarInfo({super.key});
+class SelectedCarInfo extends StatefulWidget {
+  const SelectedCarInfo(
+      {required this.overallRating,
+      required this.pluses,
+      required this.minuses,
+      required this.reviewCount,
+      this.image = '',
+      super.key});
+  final String image;
+  final double overallRating;
+  final int reviewCount;
+  final List<String> pluses;
+  final List<String> minuses;
+
+  @override
+  State<SelectedCarInfo> createState() => _SelectedCarInfoState();
+}
+
+class _SelectedCarInfoState extends State<SelectedCarInfo>
+    with SingleTickerProviderStateMixin {
+  bool ratingState = false;
+  bool plusState = false;
+  late TabController tabController;
+  @override
+  void initState() {
+    tabController = TabController(length: 2, vsync: this);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) => Container(
         margin: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-            border: Border.all(color: border, width: 1),
-            borderRadius: BorderRadius.circular(12),
-            color: white,
-            boxShadow: [
-              BoxShadow(
-                color: black.withOpacity(0.05),
-                blurRadius: 16,
-                offset: const Offset(0, 4),
-              ),
-            ]),
+          border: Border.all(color: border, width: 1),
+          borderRadius: BorderRadius.circular(12),
+          color: white,
+          boxShadow: [
+            BoxShadow(
+              color: black.withOpacity(0.05),
+              blurRadius: 16,
+              offset: const Offset(0, 4),
+            ),
+          ],
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(
+            Container(
               height: 200,
+              foregroundDecoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: border, width: 1),
+              ),
+              padding: const EdgeInsets.all(4),
               width: double.maxFinite,
-              child: Padding(
-                padding: const EdgeInsets.all(4),
-                child: DecoratedBox(
-                  decoration: BoxDecoration(
-                    image: const DecorationImage(
-                      image: AssetImage(
-                          'assets/images/car_single/car_single300kb.png'),
-                      fit: BoxFit.cover,
-                    ),
-                    borderRadius: BorderRadius.circular(8),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(12),
+                child: CachedNetworkImage(
+                  placeholder: (context, url) => Image.asset(
+                    AppImages.carPlaceHolder,
+                    fit: BoxFit.cover,
                   ),
+                  imageUrl: widget.image,
+                  fit: BoxFit.cover,
                 ),
               ),
             ),
@@ -55,7 +89,7 @@ class SelectedCarInfo extends StatelessWidget {
                   SvgPicture.asset(AppIcons.star),
                   const SizedBox(width: 8),
                   Text(
-                    '3.6',
+                    '${widget.overallRating}',
                     style: Theme.of(context)
                         .textTheme
                         .headline1!
@@ -64,13 +98,14 @@ class SelectedCarInfo extends StatelessWidget {
                 ],
               ),
               subtitle: Text(
-                'По 16 отзывам',
+                'По ${widget.reviewCount} отзывам',
                 style: Theme.of(context).textTheme.headline1!.copyWith(
                       fontSize: 13,
                       fontWeight: FontWeight.w400,
                       color: grey,
                     ),
               ),
+              children: [const Text('Children')],
             ),
             const Divider(
                 indent: 12, color: dividerColor, thickness: 1, height: 1),
@@ -92,7 +127,7 @@ class SelectedCarInfo extends StatelessWidget {
                 text: TextSpan(
                   children: [
                     TextSpan(
-                      text: '7',
+                      text: '${widget.pluses.length}',
                       style: Theme.of(context).textTheme.headline1!.copyWith(
                             fontSize: 13,
                             fontWeight: FontWeight.w400,
@@ -108,7 +143,7 @@ class SelectedCarInfo extends StatelessWidget {
                           ),
                     ),
                     TextSpan(
-                      text: '1',
+                      text: '${widget.minuses.length}',
                       style: Theme.of(context).textTheme.headline1!.copyWith(
                             fontSize: 13,
                             fontWeight: FontWeight.w400,
@@ -118,7 +153,37 @@ class SelectedCarInfo extends StatelessWidget {
                   ],
                 ),
               ),
-            )
+              children: [
+                ReviewTabBar(
+                  tabController: tabController,
+                  tabLabels: const ['Плюсы', 'Минусы'],
+                  backgroundColor: border,
+                  indicatorColor: orange,
+                  selectedTextColor: white,
+                  unSelectedColor: black,
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.2,
+                  child: TabBarView(
+                    controller: tabController,
+                    children: [
+                      ListView.separated(
+                        itemCount: 1,
+                        shrinkWrap: true,
+                        separatorBuilder: (context, index) => const Divider(),
+                        itemBuilder: (context, index) => const ListTile(),
+                      ),
+                      ListView.separated(
+                        itemCount: 1,
+                        shrinkWrap: true,
+                        separatorBuilder: (context, index) => const Divider(),
+                        itemBuilder: (context, index) => const ListTile(),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ],
         ),
       );

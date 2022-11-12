@@ -4,9 +4,19 @@ import 'package:flutter/material.dart';
 
 class ReviewTabBar extends StatelessWidget {
   const ReviewTabBar(
-      {required this.tabController, required this.tabLabels, super.key});
+      {required this.tabController,
+      required this.tabLabels,
+      this.indicatorColor,
+      this.backgroundColor,
+      this.selectedTextColor,
+      this.unSelectedColor,
+      super.key});
   final TabController tabController;
   final List<String> tabLabels;
+  final Color? indicatorColor;
+  final Color? backgroundColor;
+  final Color? selectedTextColor;
+  final Color? unSelectedColor;
 
   @override
   Widget build(BuildContext context) => Container(
@@ -23,7 +33,7 @@ class ReviewTabBar extends StatelessWidget {
           height: 32,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(9),
-            color: stormGrey12,
+            color: backgroundColor ?? stormGrey12,
           ),
           padding: const EdgeInsets.all(2),
           margin: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
@@ -31,7 +41,7 @@ class ReviewTabBar extends StatelessWidget {
             controller: tabController,
             indicator: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
-                color:
+                color: indicatorColor ??
                     Theme.of(context).extension<ThemedColors>()!.whiteToDolphin,
                 boxShadow: [
                   BoxShadow(
@@ -44,17 +54,17 @@ class ReviewTabBar extends StatelessWidget {
                       offset: const Offset(0, 3)),
                 ]),
             labelPadding: EdgeInsets.zero,
-            labelColor:
+            labelColor: selectedTextColor ??
                 Theme.of(context).extension<ThemedColors>()!.blackToWhite,
             unselectedLabelStyle:
                 Theme.of(context).textTheme.subtitle1!.copyWith(
                       fontSize: 13,
                       fontWeight: FontWeight.w500,
                     ),
-            unselectedLabelColor:
+            unselectedLabelColor: unSelectedColor ??
                 Theme.of(context).extension<ThemedColors>()!.blackToWhite,
             labelStyle:
-                Theme.of(context).textTheme.subtitle1!.copyWith(fontSize: 14),
+                Theme.of(context).textTheme.subtitle1,
             tabs: [
               for (int i = 0; i < tabLabels.length - 1; i++)
                 Row(

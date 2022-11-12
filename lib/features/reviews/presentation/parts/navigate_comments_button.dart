@@ -4,9 +4,10 @@ import 'package:flutter/material.dart';
 
 class NavigateCommentsButton extends StatelessWidget {
   const NavigateCommentsButton({
+    required this.commentsCount,
     Key? key,
   }) : super(key: key);
-
+  final int commentsCount;
   @override
   Widget build(BuildContext context) => Container(
         color: white,
@@ -14,7 +15,7 @@ class NavigateCommentsButton extends StatelessWidget {
         width: double.maxFinite,
         child: WScaleAnimation(
           child: Text(
-            'Комментарии (38)',
+            'Комментарии ($commentsCount)',
             style: Theme.of(context).textTheme.subtitle1!.copyWith(color: blue),
           ),
           onTap: () {},

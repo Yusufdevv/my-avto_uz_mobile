@@ -1,17 +1,67 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/assets/constants/images.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/reviews/presentation/parts/car_show_rating_field.dart';
 import 'package:auto/features/reviews/presentation/parts/navigate_comments_button.dart';
 import 'package:auto/features/reviews/presentation/parts/review_single_car_actions.dart';
 import 'package:auto/features/reviews/presentation/parts/single_car_information_item.dart';
+import 'package:auto/features/reviews/presentation/widgets/review_wrap_builder.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class ReviewSingleCarScreen extends StatefulWidget {
-  const ReviewSingleCarScreen({super.key});
+  const ReviewSingleCarScreen(
+      {required this.hasMoreVert,
+      required this.images,
+      required this.titleCarInfo,
+      required this.subtitleCarInfo,
+      required this.avatarPicture,
+      required this.reviewName,
+      required this.publishDate,
+      required this.owner,
+      required this.lastOnline,
+      required this.shortDescription,
+      required this.fullDescription,
+      required this.commentsCount,
+      required this.viewsCount,
+      required this.overallRating,
+      required this.pluses,
+      required this.minuses,
+      required this.shareFunction,
+      this.moreVertFunction,
+      this.appearanceRating = 0,
+      this.comfortRating = 0,
+      this.securityRating = 0,
+      this.drivingRating = 0,
+      this.reliabilityRating = 0,
+      super.key});
+  final bool hasMoreVert;
+  final List<String> images;
+  final String titleCarInfo;
+  final String subtitleCarInfo;
+  final String avatarPicture;
+  final String reviewName;
+  final String publishDate;
+  final String owner;
+  final String lastOnline;
+  final String shortDescription;
+  final String fullDescription;
+  final int commentsCount;
+  final int viewsCount;
+  final double overallRating;
+  final int appearanceRating;
+  final int comfortRating;
+  final int securityRating;
+  final int drivingRating;
+  final int reliabilityRating;
+  final List<String> pluses;
+  final List<String> minuses;
+  final VoidCallback shareFunction;
+  final dynamic moreVertFunction;
 
   @override
   State<ReviewSingleCarScreen> createState() => _ReviewSingleCarScreenState();
@@ -19,6 +69,7 @@ class ReviewSingleCarScreen extends StatefulWidget {
 
 class _ReviewSingleCarScreenState extends State<ReviewSingleCarScreen> {
   int currentState = 1;
+
   CrossFadeState crossFadeState = CrossFadeState.showFirst;
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -28,6 +79,7 @@ class _ReviewSingleCarScreenState extends State<ReviewSingleCarScreen> {
           hasBackButton: true,
           extraActions: [
             WScaleAnimation(
+              onTap: widget.shareFunction,
               child: SvgPicture.asset(
                 AppIcons.share,
                 color: grey,
@@ -35,34 +87,51 @@ class _ReviewSingleCarScreenState extends State<ReviewSingleCarScreen> {
                 width: 24,
                 height: 24,
               ),
-              onTap: () {},
             ),
-            const SizedBox(width: 16),
+            const SizedBox(width: 8),
+            if (widget.hasMoreVert)
+              WScaleAnimation(
+                onTap: widget.moreVertFunction ?? () {},
+                child: SvgPicture.asset(
+                  AppIcons.moreVertical,
+                  color: grey,
+                  fit: BoxFit.cover,
+                  width: 24,
+                  height: 32,
+                ),
+              )
+            else
+              const SizedBox(),
+            SizedBox(width: widget.hasMoreVert ? 16 : 0),
           ],
           title: 'Отзыв',
           titleStyle:
               Theme.of(context).textTheme.subtitle1!.copyWith(fontSize: 16),
         ),
         body: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
+          physics: const ClampingScrollPhysics(),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SingleCarInformationItem(),
+              SingleCarInformationItem(
+                informationTitle: widget.titleCarInfo,
+                informationSubtitle: widget.subtitleCarInfo,
+              ),
               Stack(
                 children: [
                   CarouselSlider.builder(
-                    itemCount: 24,
-                    itemBuilder: (context, index, realIndex) => Container(
+                    itemCount: widget.images.length,
+                    itemBuilder: (context, index, realIndex) => SizedBox(
+                      height: 219,
                       width: double.maxFinite,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: NetworkImage(
-                              'https://source.unsplash.com/random/$index'),
+                      child: CachedNetworkImage(
+                        placeholder: (context, url) => Image.asset(
+                          AppImages.carPlaceHolder,
                           fit: BoxFit.cover,
                         ),
+                        imageUrl: widget.images[index],
+                        fit: BoxFit.cover,
                       ),
-                      height: 219,
                     ),
                     options: CarouselOptions(
                       viewportFraction: 1,
@@ -93,10 +162,10 @@ class _ReviewSingleCarScreenState extends State<ReviewSingleCarScreen> {
                   text: TextSpan(
                     children: [
                       TextSpan(
-                          text: 'Ракета 530 D 🚀\n',
+                          text: widget.reviewName,
                           style: Theme.of(context).textTheme.headline1),
                       TextSpan(
-                          text: '24 февраля 2022',
+                          text: widget.publishDate,
                           style: Theme.of(context)
                               .textTheme
                               .headline2!
@@ -109,20 +178,19 @@ class _ReviewSingleCarScreenState extends State<ReviewSingleCarScreen> {
                 padding: const EdgeInsets.only(top: 24, left: 16),
                 child: Row(
                   children: [
-                    const CircleAvatar(
+                    CircleAvatar(
                       radius: 22,
-                      backgroundImage:
-                          NetworkImage('https://source.unsplash.com/random/1'),
+                      backgroundImage: NetworkImage(widget.avatarPicture),
                     ),
                     const SizedBox(width: 8),
                     RichText(
                       text: TextSpan(
                         children: [
                           TextSpan(
-                              text: 'Мухаммадамин\n',
+                              text: '${widget.owner}\n',
                               style: Theme.of(context).textTheme.subtitle1),
                           TextSpan(
-                            text: '12 января 2022 г.',
+                            text: widget.lastOnline,
                             style: Theme.of(context)
                                 .textTheme
                                 .headline6!
@@ -148,8 +216,7 @@ class _ReviewSingleCarScreenState extends State<ReviewSingleCarScreen> {
                       text: TextSpan(
                         children: [
                           TextSpan(
-                            text:
-                                'Хотелось купить машину быстрее этой, если у вас есть\nна руке быстрее этой машины, качественнее и\nмощнее, я могу купить. Но все таки, за все время не\nпожалел владением этой машины, очень комфортно,\nЗа год и 4 месяца не вызвала нареканий в сервисе\nбыла только на ТО , расход топлива умеренный , хотя\nи пробег не большой у машины , брал жене а катался\nсам она только пару раз прокатилась , ей больше моя\nнравиться Санта ФЕ , так что машина была только для\nразъезда по городу и для отвоза ребёнка в школу и\nобратно...',
+                            text: widget.shortDescription,
                             style: Theme.of(context)
                                 .textTheme
                                 .headline2!
@@ -179,7 +246,7 @@ class _ReviewSingleCarScreenState extends State<ReviewSingleCarScreen> {
                     )),
                 secondChild: WScaleAnimation(
                   child: Text(
-                    'Back',
+                    widget.fullDescription,
                     style: Theme.of(context).textTheme.headline2!.copyWith(
                           color: orange,
                           fontSize: 13,
@@ -203,11 +270,23 @@ class _ReviewSingleCarScreenState extends State<ReviewSingleCarScreen> {
                 thickness: 1,
                 height: 37,
               ),
-              const ReviewSingleCarActions(),
+              ReviewSingleCarActions(
+                isLike: true,
+                isDislike: false,
+                commentsCount: widget.commentsCount,
+                viewsCount: widget.viewsCount,
+              ),
               const SizedBox(height: 16),
               const Divider(color: dividerColor, thickness: 1),
               const SizedBox(height: 25),
-              const CarShowRatingField(),
+              CarShowRatingField(
+                overallRating: widget.overallRating,
+                appearanceRating: widget.appearanceRating,
+                comfortRating: widget.comfortRating,
+                securityRating: widget.securityRating,
+                drivingRating: widget.drivingRating,
+                reliabilityRating: widget.reliabilityRating,
+              ),
               const SizedBox(height: 25),
               Container(
                 width: MediaQuery.of(context).size.width,
@@ -220,98 +299,27 @@ class _ReviewSingleCarScreenState extends State<ReviewSingleCarScreen> {
                     color: white),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
+                  children: [
                     ReviewWrapBuilder(
                       title: 'Плюсы',
                       titleIcon: AppIcons.plus,
                       iconColor: green,
-                      labels: [
-                        'Вместительность салона',
-                        'Обзорность',
-                        'Дизайн',
-                        'Шумоизоляция',
-                        'Безопасность'
-                      ],
+                      labels: widget.pluses,
                     ),
                     SizedBox(height: 20),
                     ReviewWrapBuilder(
                       title: 'Минусы',
                       titleIcon: AppIcons.minus,
                       iconColor: red,
-                      labels: ['Качество сборки', 'Коробка передач'],
+                      labels: widget.minuses,
                     ),
                   ],
                 ),
               ),
               const SizedBox(height: 32),
-              const NavigateCommentsButton()
+              NavigateCommentsButton(commentsCount: widget.commentsCount),
             ],
           ),
         ),
-      );
-}
-
-class ReviewWrapBuilder extends StatelessWidget {
-  final List<String> labels;
-  final String title;
-  final String titleIcon;
-  final Color iconColor;
-  const ReviewWrapBuilder({
-    required this.labels,
-    required this.title,
-    required this.titleIcon,
-    required this.iconColor,
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) => Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(4),
-                  color: iconColor.withOpacity(0.1),
-                ),
-                height: 20,
-                width: 20,
-                padding: const EdgeInsets.all(4),
-                child: SvgPicture.asset(
-                  titleIcon,
-                  color: iconColor,
-                ),
-              ),
-              const SizedBox(width: 8),
-              Text(
-                title,
-                style: Theme.of(context)
-                    .textTheme
-                    .headline1!
-                    .copyWith(fontSize: 16),
-              ),
-            ],
-          ),
-          const SizedBox(height: 12.5),
-          Wrap(
-            spacing: 4,
-            runSpacing: 4,
-            children: [
-              for (var i in labels)
-                Chip(
-                  label: Text(
-                    i,
-                    style: Theme.of(context).textTheme.headline2,
-                  ),
-                  shape: RoundedRectangleBorder(
-                    side: const BorderSide(color: border, width: 1),
-                    borderRadius: BorderRadius.circular(44),
-                  ),
-                  backgroundColor: borderCircular,
-                )
-            ],
-          ),
-        ],
       );
 }
