@@ -7,15 +7,16 @@ import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_like.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/search/presentation/widgets/custom_chip.dart';
+import 'package:auto/utils/my_functions.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class InfoResultContainer extends StatelessWidget {
   const InfoResultContainer(
-      {this.year,
+      {required this.callFunction,
+      this.year,
       this.avatarPicture,
-      this.hasDiscount = true,
       this.carModel,
       this.subtitle,
       this.owner,
@@ -29,9 +30,8 @@ class InfoResultContainer extends StatelessWidget {
       this.images = const [],
       this.isWishlist = false,
       super.key});
-
+  final VoidCallback callFunction;
   final String? avatarPicture;
-  final bool hasDiscount;
   final int? year;
   final bool isWishlist;
   final String? carModel;
@@ -65,16 +65,16 @@ class InfoResultContainer extends StatelessWidget {
               height: 201,
               child: PageView.builder(
                 pageSnapping: false,
-                itemCount: 5,
+                itemCount: images.isEmpty ? 1 : images.length,
                 padEnds: false,
                 clipBehavior: Clip.antiAlias,
-                controller: PageController(viewportFraction: 0.75),
+                controller: PageController(viewportFraction: 0.65),
                 physics: const BouncingScrollPhysics(),
                 itemBuilder: (context, index) => Stack(
                   children: [
                     if (index == images.length - 1 || images.isEmpty)
                       WScaleAnimation(
-                        onTap: () {},
+                        onTap: callFunction,
                         child: Container(
                           height: 201,
                           color: green,
@@ -99,6 +99,7 @@ class InfoResultContainer extends StatelessWidget {
                     else
                       SizedBox(
                         height: 201,
+                        width: 264,
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 2),
                           child: CachedNetworkImage(
@@ -108,6 +109,8 @@ class InfoResultContainer extends StatelessWidget {
                             ),
                             imageUrl: images[index],
                             fit: BoxFit.cover,
+                            height: 201,
+                            width: 264,
                           ),
                         ),
                       ),
@@ -166,51 +169,66 @@ class InfoResultContainer extends StatelessWidget {
                   const SizedBox(),
               ],
             ),
-            RichText(
-              text: TextSpan(
-                children: [
-                  TextSpan(
-                    text: price,
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
-                      color: hasDiscount
-                          ? green
-                          : Theme.of(context)
-                              .extension<ThemedColors>()!
-                              .darkToWhite,
-                    ),
+            if (discountPrice == null)
+              RichText(
+                text: TextSpan(
+                  text: MyFunctions.getFormatCost(price!),
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                    color: Theme.of(context)
+                        .extension<ThemedColors>()!
+                        .darkToWhite,
                   ),
-                  const WidgetSpan(child: SizedBox(width: 4)),
-                  WidgetSpan(
-                    child: Visibility(
-                      visible: hasDiscount,
-                      child: Text(
-                        discountPrice ?? '',
-                        style: Theme.of(context).textTheme.headline2!.copyWith(
-                              decoration: TextDecoration.lineThrough,
-                              color: grey,
-                            ),
+                ),
+              )
+            else
+              RichText(
+                text: TextSpan(
+                
+                  children: [
+                    TextSpan(
+                      text: MyFunctions.getFormatCost(discountPrice!),
+                      style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                        color: green,
                       ),
                     ),
-                  ),
-                  TextSpan(
-                    text: subtitle ?? '',
-                    style: Theme.of(context).textTheme.headline2!.copyWith(
-                          fontSize: 13,
-                          color: grey,
-                        ),
-                  ),
-                ],
+                    const WidgetSpan(child: SizedBox(width: 4)),
+                    TextSpan(
+                      text: MyFunctions.getFormatCost(price!),
+                      style: Theme.of(context).textTheme.headline2!.copyWith(
+                            decoration: TextDecoration.lineThrough,
+                            color: grey,
+                          ),
+                    ),
+                  ],
+                ),
               ),
+            SizedBox(height: 8),
+            Text(
+              subtitle ?? '',
+              style: Theme.of(context).textTheme.headline2!.copyWith(
+                    fontSize: 13,
+                    color: grey,
+                  ),
             ),
             const SizedBox(height: 12),
             Row(
               children: [
-                CircleAvatar(
-                  radius: 20,
-                  backgroundImage: AssetImage(avatarPicture!),
-                  backgroundColor: blue,
+                SizedBox(
+                  height: 36,
+                  width: 36,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(150),
+                    child: CachedNetworkImage(
+                      placeholder: (context, url) =>
+                          SvgPicture.asset(AppIcons.car),
+                      imageUrl: avatarPicture!,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
                 ),
                 const SizedBox(width: 8),
                 RichText(
@@ -245,11 +263,16 @@ class InfoResultContainer extends StatelessWidget {
               padding: const EdgeInsets.only(right: 16),
               child: Row(
                 children: [
-                  Text('$location • $publishTime',
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyText1!
-                          .copyWith(color: grey)),
+                  FittedBox(
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.3,
+                      child: Text('$location • $publishTime',
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyText1!
+                              .copyWith(color: grey)),
+                    ),
+                  ),
                   const Spacer(),
                   WButton(
                     onTap: () {},
@@ -265,17 +288,6 @@ class InfoResultContainer extends StatelessWidget {
                     ),
                   ),
                   WLike(initialLike: isWishlist),
-                  WButton(
-                    onTap: () {},
-                    height: 28,
-                    width: 28,
-                    color: transparentButton,
-                    child: SvgPicture.asset(
-                      AppIcons.heart,
-                      color: warmerGrey,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
                 ],
               ),
             )

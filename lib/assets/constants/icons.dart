@@ -148,6 +148,7 @@ class AppIcons {
   static const parameter = 'assets/icons/search/parameter.svg';
   static const searchWithHeart = 'assets/icons/search/search_with_heart.svg';
   static const circleClose = 'assets/icons/search/circle_close.svg';
+  static const car = 'assets/icons/search/lightweight_car.svg';
   static const shieldCheck = 'assets/icons/search/shield_check.svg';
   static const sort = 'assets/icons/search/sort.svg';
   static const phone = 'assets/icons/search/phone.svg';

@@ -39,4 +39,5 @@ class AppImages {
   static const carPlaceHolder = 'assets/images/global/car_placeholder.png';
   static const priceConditions =
       'assets/images/car_single/price_conditions.png';
+  static const noItemFoundCar = 'assets/images/global/no_item_found_car.png';
 }

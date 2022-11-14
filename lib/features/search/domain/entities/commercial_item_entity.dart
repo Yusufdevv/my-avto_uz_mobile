@@ -33,22 +33,22 @@ class CommercialItemEntity extends Equatable {
   final CarMakeEntity carMake;
 
   const CommercialItemEntity({
-    required this.carYear,
-    required this.gallery,
-    required this.publishedAt,
-    required this.isNew,
-    required this.price,
-    required this.currency,
-    required this.isWishlisted,
-    required this.userType,
-    required this.description,
-    required this.district,
-    required this.user,
-    required this.contactPhone,
-    required this.carModel,
-    required this.dealer,
-    required this.carMake,
-    required this.carGeneration,
+     this.carYear = 0,
+     this.gallery = const [],
+     this.publishedAt = '',
+     this.isNew = false,
+     this.price = 0,
+     this.currency = '',
+     this.isWishlisted = false,
+     this.userType = '',
+     this.description = '',
+     this.district = const CarDistrictEntity(),
+     this.user = const CarUserEntity(),
+     this.contactPhone = '',
+     this.carModel = const CarModelEntity(),
+     this.dealer = const CarDealerEntity(),
+     this.carMake = const CarMakeEntity(),
+     this.carGeneration = const CarGenerationEntity(),
   });
 
   @override
