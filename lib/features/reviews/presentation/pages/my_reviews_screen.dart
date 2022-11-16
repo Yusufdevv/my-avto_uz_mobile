@@ -6,6 +6,7 @@ import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/reviews/presentation/pages/add_review_screen.dart';
 import 'package:auto/features/reviews/presentation/widgets/cancelled_review_item.dart';
 import 'package:auto/features/reviews/presentation/widgets/my_reviews_item.dart';
+import 'package:auto/features/reviews/presentation/widgets/select_category_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -24,8 +25,7 @@ class MyReviewsScreen extends StatelessWidget {
               .copyWith(fontSize: 16, fontWeight: FontWeight.w600),
         ),
         floatingActionButton: WButton(
-          onTap: () => Navigator.of(context, rootNavigator: true)
-              .push(fade(page: const AddReviewScreen())),
+          onTap: () => selectCategoryBottomSheet(context),
           height: 64,
           width: 64,
           borderRadius: 200,

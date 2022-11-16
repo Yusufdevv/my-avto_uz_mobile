@@ -8,7 +8,7 @@ import 'package:auto/features/profile/presentation/widgets/profile_tab_bar.dart'
 import 'package:auto/features/reviews/presentation/pages/select_brand_screen.dart';
 import 'package:auto/features/search/domain/entities/commercial_item_entity.dart';
 import 'package:auto/features/search/presentation/pages/parameter_screen.dart';
-import 'package:auto/features/search/presentation/widgets/all_commertial_item.dart';
+import 'package:auto/features/search/presentation/widgets/info_result_container.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -229,9 +229,7 @@ class _CommercialItemState extends State<CommercialItem>
                     ),
                     ...List.generate(
                       10,
-                      (index) => AllCommercialItem(
-                        commercialItemEntity: widget.entity,
-                      ),
+                      (index) => InfoResultContainer(commercialItemEntity: widget.entity)
                     ),
                     const SizedBox(height: 16),
                     WScaleAnimation(

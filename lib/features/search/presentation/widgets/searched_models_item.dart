@@ -3,7 +3,6 @@ import 'package:auto/assets/colors/light.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
-import 'package:auto/features/common/widgets/w_highlited_textfield.dart';
 import 'package:auto/features/search/presentation/widgets/highlighted_text.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:cached_network_image/cached_network_image.dart';

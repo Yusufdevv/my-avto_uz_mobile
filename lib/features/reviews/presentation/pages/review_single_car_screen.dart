@@ -271,8 +271,6 @@ class _ReviewSingleCarScreenState extends State<ReviewSingleCarScreen> {
                 height: 37,
               ),
               ReviewSingleCarActions(
-                isLike: true,
-                isDislike: false,
                 commentsCount: widget.commentsCount,
                 viewsCount: widget.viewsCount,
               ),
@@ -306,7 +304,7 @@ class _ReviewSingleCarScreenState extends State<ReviewSingleCarScreen> {
                       iconColor: green,
                       labels: widget.pluses,
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     ReviewWrapBuilder(
                       title: 'Минусы',
                       titleIcon: AppIcons.minus,

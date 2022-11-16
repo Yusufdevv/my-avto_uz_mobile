@@ -2,7 +2,8 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
-import 'package:auto/features/reviews/presentation/widgets/review_tab_bar.dart';
+import 'package:auto/features/navigation/presentation/navigator.dart';
+import 'package:auto/features/reviews/presentation/pages/plus_minus_screen.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -25,16 +26,9 @@ class SelectedCarInfo extends StatefulWidget {
   State<SelectedCarInfo> createState() => _SelectedCarInfoState();
 }
 
-class _SelectedCarInfoState extends State<SelectedCarInfo>
-    with SingleTickerProviderStateMixin {
+class _SelectedCarInfoState extends State<SelectedCarInfo> {
   bool ratingState = false;
   bool plusState = false;
-  late TabController tabController;
-  @override
-  void initState() {
-    tabController = TabController(length: 2, vsync: this);
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) => Container(
@@ -56,10 +50,6 @@ class _SelectedCarInfoState extends State<SelectedCarInfo>
           children: [
             Container(
               height: 200,
-              foregroundDecoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: border, width: 1),
-              ),
               padding: const EdgeInsets.all(4),
               width: double.maxFinite,
               child: ClipRRect(
@@ -105,84 +95,93 @@ class _SelectedCarInfoState extends State<SelectedCarInfo>
                       color: grey,
                     ),
               ),
-              children: [const Text('Children')],
+              children: const [Text('Children')],
             ),
             const Divider(
                 indent: 12, color: dividerColor, thickness: 1, height: 1),
-            ExpansionTile(
-              title: Row(
-                children: [
-                  Text(
-                    'Плюсы и минусы',
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline1!
-                        .copyWith(fontSize: 16),
+            WScaleAnimation(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  fade(page: const PlusMinusScreen()),
+                );
+              },
+              child: Container(
+                decoration: const BoxDecoration(
+                  color: white,
+                  borderRadius: BorderRadius.vertical(
+                    bottom: Radius.circular(12),
                   ),
-                  const SizedBox(width: 8),
-                  SvgPicture.asset(AppIcons.plusMinus)
-                ],
-              ),
-              subtitle: RichText(
-                text: TextSpan(
+                ),
+                padding: const EdgeInsets.all(12),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    TextSpan(
-                      text: '${widget.pluses.length}',
-                      style: Theme.of(context).textTheme.headline1!.copyWith(
-                            fontSize: 13,
-                            fontWeight: FontWeight.w400,
-                            color: green,
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            Text(
+                              'Плюсы и минусы',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline1!
+                                  .copyWith(fontSize: 16),
+                            ),
+                            const SizedBox(width: 8),
+                            SvgPicture.asset(AppIcons.plusMinus)
+                          ],
+                        ),
+                        const SizedBox(height: 4),
+                        RichText(
+                          text: TextSpan(
+                            children: [
+                              TextSpan(
+                                text: '${widget.pluses.length}',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline1!
+                                    .copyWith(
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.w400,
+                                      color: green,
+                                    ),
+                              ),
+                              TextSpan(
+                                text: '/',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline1!
+                                    .copyWith(
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.w400,
+                                      color: dividerColor,
+                                    ),
+                              ),
+                              TextSpan(
+                                text: '${widget.minuses.length}',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline1!
+                                    .copyWith(
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.w400,
+                                      color: red,
+                                    ),
+                              ),
+                            ],
                           ),
+                        ),
+                      ],
                     ),
-                    TextSpan(
-                      text: '/',
-                      style: Theme.of(context).textTheme.headline1!.copyWith(
-                            fontSize: 13,
-                            fontWeight: FontWeight.w400,
-                            color: dividerColor,
-                          ),
-                    ),
-                    TextSpan(
-                      text: '${widget.minuses.length}',
-                      style: Theme.of(context).textTheme.headline1!.copyWith(
-                            fontSize: 13,
-                            fontWeight: FontWeight.w400,
-                            color: red,
-                          ),
-                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(right: 4),
+                      child: SvgPicture.asset(AppIcons.chevronRightGrey),
+                    )
                   ],
                 ),
               ),
-              children: [
-                ReviewTabBar(
-                  tabController: tabController,
-                  tabLabels: const ['Плюсы', 'Минусы'],
-                  backgroundColor: border,
-                  indicatorColor: orange,
-                  selectedTextColor: white,
-                  unSelectedColor: black,
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.2,
-                  child: TabBarView(
-                    controller: tabController,
-                    children: [
-                      ListView.separated(
-                        itemCount: 1,
-                        shrinkWrap: true,
-                        separatorBuilder: (context, index) => const Divider(),
-                        itemBuilder: (context, index) => const ListTile(),
-                      ),
-                      ListView.separated(
-                        itemCount: 1,
-                        shrinkWrap: true,
-                        separatorBuilder: (context, index) => const Divider(),
-                        itemBuilder: (context, index) => const ListTile(),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
             ),
           ],
         ),

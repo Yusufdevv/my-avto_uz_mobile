@@ -4,12 +4,13 @@ import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/reviews/presentation/pages/publication_my_review.dart';
+import 'package:auto/features/reviews/presentation/widgets/select_car_character_item.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
 class AddReviewScreen extends StatefulWidget {
-  const AddReviewScreen({super.key});
+  final String category;
+  const AddReviewScreen({required this.category, super.key});
 
   @override
   State<AddReviewScreen> createState() => _AddReviewScreenState();
@@ -18,6 +19,7 @@ class AddReviewScreen extends StatefulWidget {
 class _AddReviewScreenState extends State<AddReviewScreen> {
   int completed = 0;
   final List<String> titles = [
+    'Категория',
     'Марка',
     'Модель',
     'Год выпуска',
@@ -52,7 +54,7 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
                     CircularPercentIndicator(
                       radius: 15,
                       lineWidth: 3,
-                      percent: completed / 13,
+                      percent: completed / titles.length,
                       backgroundColor: border,
                       progressColor: hoursGreen,
                     ),
@@ -84,13 +86,15 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
                 itemBuilder: (context, index) => SelectCarCharactersItem(
                   title: titles[index],
                   onTap: () {},
+                  subtitle: widget.category,
                 ),
                 separatorBuilder: (context, index) => const Divider(
-                    height: 1, thickness: 1, color: border, indent: 16),
+                    height: 17, thickness: 1, color: border, indent: 16),
               ),
               WButton(
                 onTap: () {
-                  Navigator.of(context).push(fade(page: const PublicationMyReview()));
+                  Navigator.of(context)
+                      .push(fade(page: const PublicationMyReview()));
                 },
                 text: 'Далее',
                 textStyle: Theme.of(context).textTheme.bodyText1!.copyWith(
@@ -114,42 +118,6 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
               ),
             ],
           ),
-        ),
-      );
-}
-
-class SelectCarCharactersItem extends StatelessWidget {
-  const SelectCarCharactersItem({
-    required this.title,
-    required this.onTap,
-    this.subtitle,
-    Key? key,
-  }) : super(key: key);
-  final String title;
-  final String? subtitle;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) => WButton(
-        onTap: onTap,
-        color: white,
-        height: 54,
-        child: ListTile(
-          title: Text(
-            title,
-            style: Theme.of(context)
-                .textTheme
-                .headline2!
-                .copyWith(fontSize: subtitle == null ? 16 : 13),
-          ),
-          subtitle: subtitle == null
-              ? null
-              : Text(
-                  subtitle!,
-                  style: Theme.of(context).textTheme.subtitle2!.copyWith(
-                      fontWeight: FontWeight.w400, fontSize: 16, color: dark),
-                ),
-          trailing: SvgPicture.asset(AppIcons.chevronRight, color: darkGray),
         ),
       );
 }

@@ -5,12 +5,12 @@ final int __int64MaxValue = double.maxFinite.toInt();
 
 class HighlightedText extends StatelessWidget {
   const HighlightedText({
+    required this.allText,
     this.caseSensitive = false,
     this.maxLines,
     this.overflow = TextOverflow.clip,
     this.highlightedText,
     this.terms,
-    required this.allText,
     this.textAlign = TextAlign.left,
     this.textStyle = const TextStyle(color: Colors.black),
     this.textStyleHighlight = const TextStyle(color: Colors.red),

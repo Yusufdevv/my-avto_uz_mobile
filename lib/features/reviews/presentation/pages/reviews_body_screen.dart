@@ -1,5 +1,6 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
@@ -8,7 +9,9 @@ import 'package:auto/features/reviews/presentation/pages/review_single_car_scree
 import 'package:auto/features/reviews/presentation/pages/select_brand_screen.dart';
 import 'package:auto/features/reviews/presentation/parts/selected_car_info.dart';
 import 'package:auto/features/reviews/presentation/widgets/review_bottom_sheet_item.dart';
+import 'package:auto/features/reviews/presentation/widgets/review_item_shimmer.dart';
 import 'package:auto/features/reviews/presentation/widgets/review_main_container.dart';
+import 'package:auto/features/reviews/presentation/widgets/select_category_bottom_sheet.dart';
 import 'package:auto/features/reviews/presentation/widgets/select_model_info.dart';
 import 'package:auto/features/search/presentation/widgets/sort_bottom_sheet.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +29,6 @@ class ReviewsBodyScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
     final theme = Theme.of(context).extension<ThemedColors>()!;
     return Stack(
       children: [
@@ -48,100 +50,18 @@ class ReviewsBodyScreen extends StatelessWidget {
                             fade(page: const SelectBrandScreen()),
                           );
                         },
-                        title: 'Марка и модель',
-                        centerTitle: true,
-                      ),
-                      const SizedBox(height: 12),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          WButton(
-                            onTap: () {},
-                            width: size.width * 0.45,
-                            borderRadius: 8,
-                            margin: const EdgeInsets.only(left: 16),
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 12, horizontal: 10),
-                            border: Border.all(color: theme.dividerColorToGrey),
-                            color: Theme.of(context)
-                                .extension<ThemedColors>()!
-                                .whiteToDark,
-                            child: Row(
-                              children: [
-                                SvgPicture.asset(
-                                  AppIcons.filter,
-                                  color: orange,
-                                  height: 16,
-                                  width: 16,
-                                  fit: BoxFit.cover,
-                                ),
-                                const SizedBox(width: 8),
-                                Text('Параметры',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .subtitle1!
-                                        .copyWith(color: orange)),
-                                const Spacer(),
-                                CircleAvatar(
-                                  backgroundColor: warmerGrey,
-                                  radius: 10,
-                                  child: SvgPicture.asset(
-                                    AppIcons.close,
-                                    color: white,
-                                    fit: BoxFit.cover,
-                                    height: 14,
-                                    width: 14,
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                          WButton(
-                            onTap: () {},
-                            width: size.width * 0.45,
-                            borderRadius: 8,
-                            margin: const EdgeInsets.only(right: 16),
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 12, horizontal: 10),
-                            border: Border.all(color: theme.dividerColorToGrey),
-                            color: Theme.of(context)
-                                .extension<ThemedColors>()!
-                                .whiteToDark,
-                            child: Row(
-                              children: [
-                                SvgPicture.asset(
-                                  AppIcons.location,
-                                  color: theme.darkToWhite,
-                                  height: 16,
-                                  width: 16,
-                                  fit: BoxFit.cover,
-                                ),
-                                const SizedBox(width: 8),
-                                Text('г. Ташкент',
-                                    style:
-                                        Theme.of(context).textTheme.subtitle1),
-                                const Spacer(),
-                                CircleAvatar(
-                                  backgroundColor: warmerGrey,
-                                  radius: 10,
-                                  child: SvgPicture.asset(
-                                    AppIcons.close,
-                                    color: white,
-                                    fit: BoxFit.cover,
-                                    height: 14,
-                                    width: 14,
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                        ],
+                        title: 'Поиск по марке и моделю',
+                        suffixIconColor: paleCornflowerBlue,
+                        suffixIconPath: AppIcons.search,
+                        color: purple,
+                        shadowColor: blueGem.withOpacity(0.3),
+                        blurRadius: 24,
                       ),
                       const SelectedCarInfo(
                         pluses: [],
                         minuses: [],
                         reviewCount: 16,
-                        image: 'https://source.unsplash.com/random/1653',
+                        image: 'https://source.unsplash.com/random/1684123',
                         overallRating: 3.6,
                       ),
                       Padding(
@@ -175,71 +95,74 @@ class ReviewsBodyScreen extends StatelessWidget {
                       ),
                       ListView.separated(
                         physics: const NeverScrollableScrollPhysics(),
-                        itemCount: 2,
+                        itemCount: 3,
                         shrinkWrap: true,
                         separatorBuilder: (context, index) => Divider(
                             height: 12,
                             thickness: 0,
                             color: theme.borderGreyToDark),
-                        itemBuilder: (context, index) => ReviewMainContainer(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              fade(
-                                page: ReviewSingleCarScreen(
-                                  hasMoreVert: false,
-                                  images: List.generate(
-                                      24,
-                                      (index) =>
-                                          'https://source.unsplash.com/random/1'),
-                                  titleCarInfo: 'BMW 5 серии VII (G30/G31)',
-                                  subtitleCarInfo:
-                                      'Модификация 530d xDrive 3.0d AT (249 л.с.)\n4WD',
-                                  avatarPicture:
-                                      'https://source.unsplash.com/random/1',
-                                  reviewName: 'Ракета 530 D 🚀\n',
-                                  publishDate: '24 февраля 2022',
-                                  owner: 'Мухаммадамин',
-                                  lastOnline: '12 января 2022 г.',
-                                  shortDescription:
-                                      'Хотелось купить машину быстрее этой, если у вас есть\nна руке быстрее этой машины, качественнее и\nмощнее, я могу купить. Но все таки, за все время не\nпожалел владением этой машины, очень комфортно,\nЗа год и 4 месяца не вызвала нареканий в сервисе\nбыла только на ТО , расход топлива умеренный , хотя\nи пробег не большой у машины , брал жене а катался\nсам она только пару раз прокатилась , ей больше моя\nнравиться Санта ФЕ , так что машина была только для\nразъезда по городу и для отвоза ребёнка в школу и\nобратно...',
-                                  fullDescription:
-                                      'Хотелось купить машину быстрее этой, если у вас есть\nна руке быстрее этой машины, качественнее и\nмощнее, я могу купить. Но все таки, за все время не\nпожалел владением этой машины, очень комфортно,\nЗа год и 4 месяца не вызвала нареканий в сервисе\nбыла только на ТО , расход топлива умеренный , хотя\nи пробег не большой у машины , брал жене а катался\nсам она только пару раз прокатилась , ей больше моя\nнравиться Санта ФЕ , так что машина была только для\nразъезда по городу и для отвоза ребёнка в школу и\nобратно...',
-                                  commentsCount: 38,
-                                  viewsCount: 276,
-                                  overallRating: 3.6,
-                                  pluses: const [
-                                    'Вместительность салона',
-                                    'Обзорность',
-                                    'Дизайн',
-                                    'Шумоизоляция',
-                                    'Безопасность'
-                                  ],
-                                  minuses: const [
-                                    'Качество сборки',
-                                    'Коробка передач'
-                                  ],
-                                  shareFunction: () {},
-                                  comfortRating: 4,
-                                  drivingRating: 2,
-                                  securityRating: 3,
-                                  appearanceRating: 1,
-                                  reliabilityRating: 3,
-                                ),
+                        itemBuilder: (context, index) => index == 0
+                            ? const ReviewItemShimmer()
+                            : ReviewMainContainer(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    fade(
+                                      page: ReviewSingleCarScreen(
+                                        hasMoreVert: false,
+                                        images: List.generate(
+                                            24,
+                                            (index) =>
+                                                'https://source.unsplash.com/random/1'),
+                                        titleCarInfo:
+                                            'BMW 5 серии VII (G30/G31)',
+                                        subtitleCarInfo:
+                                            'Модификация 530d xDrive 3.0d AT (249 л.с.)\n4WD',
+                                        avatarPicture:
+                                            'https://source.unsplash.com/random/1',
+                                        reviewName: 'Ракета 530 D 🚀\n',
+                                        publishDate: '24 февраля 2022',
+                                        owner: 'Мухаммадамин',
+                                        lastOnline: '12 января 2022 г.',
+                                        shortDescription:
+                                            'Хотелось купить машину быстрее этой, если у вас есть\nна руке быстрее этой машины, качественнее и\nмощнее, я могу купить. Но все таки, за все время не\nпожалел владением этой машины, очень комфортно,\nЗа год и 4 месяца не вызвала нареканий в сервисе\nбыла только на ТО , расход топлива умеренный , хотя\nи пробег не большой у машины , брал жене а катался\nсам она только пару раз прокатилась , ей больше моя\nнравиться Санта ФЕ , так что машина была только для\nразъезда по городу и для отвоза ребёнка в школу и\nобратно...',
+                                        fullDescription:
+                                            'Хотелось купить машину быстрее этой, если у вас есть\nна руке быстрее этой машины, качественнее и\nмощнее, я могу купить. Но все таки, за все время не\nпожалел владением этой машины, очень комфортно,\nЗа год и 4 месяца не вызвала нареканий в сервисе\nбыла только на ТО , расход топлива умеренный , хотя\nи пробег не большой у машины , брал жене а катался\nсам она только пару раз прокатилась , ей больше моя\nнравиться Санта ФЕ , так что машина была только для\nразъезда по городу и для отвоза ребёнка в школу и\nобратно...',
+                                        commentsCount: 38,
+                                        viewsCount: 276,
+                                        overallRating: 3.6,
+                                        pluses: const [
+                                          'Вместительность салона',
+                                          'Обзорность',
+                                          'Дизайн',
+                                          'Шумоизоляция',
+                                          'Безопасность'
+                                        ],
+                                        minuses: const [
+                                          'Качество сборки',
+                                          'Коробка передач'
+                                        ],
+                                        shareFunction: () {},
+                                        comfortRating: 4,
+                                        drivingRating: 2,
+                                        securityRating: 3,
+                                        appearanceRating: 1,
+                                        reliabilityRating: 3,
+                                      ),
+                                    ),
+                                  );
+                                },
+                                reviewCount: 3.6,
+                                description:
+                                    '\n\nMercedes-Benz Sprinter — семейство малотоннажных\nавтомобилей компании Mercedes-Benz. Существует...',
+                                carName: 'Mercedes-Benz Sprinter',
+                                carImage:
+                                    'assets/images/car_single/car_single300kb.png',
+                                subtitle: '',
+                                commentCounts: 9,
+                                publishTime: '09.09.2022',
+                                viewCounts: 16,
                               ),
-                            );
-                          },
-                          reviewCount: 3.6,
-                          description:
-                              '\n\nMercedes-Benz Sprinter — семейство малотоннажных\nавтомобилей компании Mercedes-Benz. Существует...',
-                          carName: 'Mercedes-Benz Sprinter',
-                          carImage:
-                              'assets/images/car_single/car_single300kb.png',
-                          subtitle: '',
-                          commentCounts: 9,
-                          publishTime: '09.09.2022',
-                          viewCounts: 16,
-                        ),
                       ),
                       const SizedBox(height: 124),
                     ],
@@ -253,47 +176,7 @@ class ReviewsBodyScreen extends StatelessWidget {
           bottom: 40,
           right: MediaQuery.of(context).size.width * 0.4,
           child: WButton(
-            onTap: () => showModalBottomSheet(
-              context: context,
-              isScrollControlled: true,
-              useRootNavigator: true,
-              backgroundColor: white,
-              builder: (context) => SortBottomSheet(
-                height: MediaQuery.of(context).size.height * 0.3,
-                hasDivider: false,
-                title: 'Категория',
-                children: [
-                  ReviewBottomSheetItem(
-                    icon: AppIcons.lightweightCar,
-                    title: 'Легковые',
-                    onTap: () => Navigator.push(
-                      context,
-                      fade(page: const AddReviewScreen()),
-                    ),
-                  ),
-                  ReviewBottomSheetItem(
-                    icon: AppIcons.truck,
-                    title: 'Коммерческие',
-                    onTap: () => Navigator.push(
-                      context,
-                      fade(page: const AddReviewScreen()),
-                    ),
-                  ),
-                  ReviewBottomSheetItem(
-                    icon: AppIcons.motorcycle,
-                    title: 'Мото',
-                    hasDivider: false,
-                    onTap: () => Navigator.push(
-                      context,
-                      fade(page: const AddReviewScreen()),
-                    ),
-                  ),
-                ],
-              ),
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-              ),
-            ),
+            onTap: () => selectCategoryBottomSheet(context),
             height: 64,
             width: 64,
             borderRadius: 200,

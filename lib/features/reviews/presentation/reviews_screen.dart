@@ -1,14 +1,9 @@
-import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
-import 'package:auto/features/common/widgets/w_scale.dart';
-import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/reviews/presentation/pages/reviews_body_screen.dart';
 import 'package:auto/features/reviews/presentation/widgets/review_tab_bar.dart';
-import 'package:auto/features/reviews/presentation/pages/select_brand_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 class ReviewsScreen extends StatefulWidget {
@@ -45,10 +40,10 @@ class _ReviewsScreenState extends State<ReviewsScreen>
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  WAppBar(title: 'Отзывы'),
+                  const WAppBar(title: 'Отзывы'),
                   ReviewTabBar(
                     tabController: tabController,
-                    tabLabels: const ["Легковые", "Коммерческие", "Мото"],
+                    tabLabels: const ['Легковые', 'Коммерческие', 'Мото'],
                   ),
                 ],
               ),

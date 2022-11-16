@@ -108,6 +108,7 @@ const _mediumSeaGreen = Color(0xFF38AF7F);
 const _blackRock = Color(0xFF292E37);
 const _blanchedAlmond = Color(0xFFFEE9D0);
 const _dodgerBlue2 = Color(0xff007AFF);
+const paleCornflowerBlue = Color(0xffA59DF2);
 
 const _gainsboro = Color(0xffDCDCDC);
 const _blueGem = Color(0xff3F3695);
@@ -120,4 +121,3 @@ const _stormGrey12 = Color(0x1f767680);
 const _silver = Color(0xFFC4C4C4);
 const _strokeDark = Color(0xff181818);
 const dark1 = Color(0xff1E1E1E);
-

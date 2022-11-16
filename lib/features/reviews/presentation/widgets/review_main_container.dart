@@ -91,11 +91,11 @@ class ReviewMainContainer extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               Row(
                 children: [
                   Text(
-                '$publishTime',
+                    '$publishTime',
                     style: Theme.of(context).textTheme.headline2,
                   ),
                   const Spacer(),

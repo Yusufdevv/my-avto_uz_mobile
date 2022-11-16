@@ -1,7 +1,5 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
-import 'package:auto/features/navigation/presentation/navigator.dart';
-import 'package:auto/features/reviews/presentation/pages/add_review_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 

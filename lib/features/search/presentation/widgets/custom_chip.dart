@@ -1,9 +1,8 @@
-import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:flutter/material.dart';
 
 class CustomChip extends StatelessWidget {
-  CustomChip(
+  const CustomChip(
       {required this.label,
       this.labelPadding,
       this.labelColor,
@@ -23,23 +22,23 @@ class CustomChip extends StatelessWidget {
       this.margin,
       Key? key})
       : super(key: key);
-  String label;
-  EdgeInsets? labelPadding;
-  TextStyle? labelStyle;
-  Color? labelColor;
-  double? labelSize;
-  double? height;
-  double? width;
-  Widget? leading;
-  EdgeInsets? leadingPadding;
-  Widget? trailing;
-  EdgeInsets? trailingPadding;
-  dynamic trailingFunction;
-  Color? backgroundColor;
-  Gradient? gradient;
-  double? borderRadius;
-  Border? border;
-  EdgeInsets? margin;
+  final String label;
+  final EdgeInsets? labelPadding;
+  final TextStyle? labelStyle;
+  final Color? labelColor;
+  final double? labelSize;
+  final double? height;
+  final double? width;
+  final Widget? leading;
+  final EdgeInsets? leadingPadding;
+  final Widget? trailing;
+  final EdgeInsets? trailingPadding;
+  final dynamic trailingFunction;
+  final Color? backgroundColor;
+  final Gradient? gradient;
+  final double? borderRadius;
+  final Border? border;
+  final EdgeInsets? margin;
 
   @override
   Widget build(BuildContext context) => FittedBox(
