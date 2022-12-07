@@ -12,6 +12,7 @@ class InvoiceInProgress extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: const WAppBar(
+          hasUnderline: true,
           hasBackButton: true,
           title: 'Услуга',
         ),
@@ -33,6 +34,7 @@ class InvoiceInProgress extends StatelessWidget {
                 Column(
                   children: [
                     OrangeButton(
+                      shadowColor: white,
                         color: border,
                         content: Text('Обновить страницу',
                             style: Theme.of(context)
@@ -45,6 +47,7 @@ class InvoiceInProgress extends StatelessWidget {
                       height: 16,
                     ),
                     OrangeButton(
+                      shadowColor: white,
                         color: orange,
                         content: Text('Вернутся к объявлениям',
                             style: Theme.of(context)
@@ -56,6 +59,7 @@ class InvoiceInProgress extends StatelessWidget {
                           Navigator.of(context)
                               .push(fade(page: const CarSingleScreen()));
                         }),
+                    SizedBox(height: MediaQuery.of(context).padding.bottom +16,)
                   ],
                 ),
               ],

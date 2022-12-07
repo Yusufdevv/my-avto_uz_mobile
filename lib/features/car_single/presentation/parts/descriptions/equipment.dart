@@ -30,7 +30,9 @@ class _EquipmentCardState extends State<EquipmentCard> {
         decoration: BoxDecoration(
             border: Border.all(
               width: 1,
-              color: Theme.of(context).extension<ThemedColors>()!.solitudeToDarkRider,
+              color: Theme.of(context)
+                  .extension<ThemedColors>()!
+                  .solitudeToDarkRider,
             ),
             color: Theme.of(context).extension<ThemedColors>()!.whiteToNero),
         child: Column(
@@ -38,7 +40,8 @@ class _EquipmentCardState extends State<EquipmentCard> {
           children: [
             Text(
               'Комплектация CLS 400 4MATIC',
-              style: Theme.of(context).textTheme.headline1!.copyWith(fontSize: 18),
+              style:
+                  Theme.of(context).textTheme.headline1!.copyWith(fontSize: 18),
             ),
             const SizedBox(
               height: 12,
@@ -56,7 +59,10 @@ class _EquipmentCardState extends State<EquipmentCard> {
                 children: [
                   Text(
                     'Показать все',
-                    style: Theme.of(context).textTheme.headline3!.copyWith(fontSize: 14, fontWeight: FontWeight.w600),
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline3!
+                        .copyWith(fontSize: 14, fontWeight: FontWeight.w600),
                   ),
                   const SizedBox(
                     width: 4,

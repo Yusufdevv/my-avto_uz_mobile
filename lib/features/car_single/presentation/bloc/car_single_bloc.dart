@@ -7,6 +7,7 @@ import 'package:equatable/equatable.dart';
 import 'package:formz/formz.dart';
 
 part 'car_single_event.dart';
+
 part 'car_single_state.dart';
 
 class CarSingleBloc extends Bloc<CarSingleEvent, CarSingleState> {
@@ -14,6 +15,7 @@ class CarSingleBloc extends Bloc<CarSingleEvent, CarSingleState> {
 
   CarSingleBloc(this.useCase)
       : super(const CarSingleState(
+          isScroll: false,
           status: FormzStatus.pure,
           entity: CarSingleEntity(),
           images: [],
@@ -22,5 +24,6 @@ class CarSingleBloc extends Bloc<CarSingleEvent, CarSingleState> {
     on<GetCarSingleEvent>((event, emit) async {
       final result = await useCase.call(NoParams());
     });
+    on<ScrollingEvent>((event, emit) => state.isScroll);
   }
 }

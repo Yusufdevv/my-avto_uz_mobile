@@ -29,7 +29,7 @@ class SelectPaymentItem extends StatelessWidget {
         onTap:() => onTap(value),
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-          height: 44,
+          height: 48,
           width: 22,
           decoration: BoxDecoration(
             color: color,

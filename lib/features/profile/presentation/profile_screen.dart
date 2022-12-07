@@ -4,6 +4,7 @@ import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/assets/themes/theme_extensions/w_textfield_style.dart';
 import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
+import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/comparison/presentation/pages/comaparison_page2.dart';
 import 'package:auto/features/favorites/presentation/favourite_screen.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
@@ -142,7 +143,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       },
                       title: state.profileEntity.fullName,
                       subTitle: '0 ' + LocaleKeys.how_many_ads.tr(),
-                      imageUrl: 'https://images.unsplash.com/photo-1667860920650-d23d24c0e4de?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyM3x8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60',
+                      imageUrl:
+                          'https://images.unsplash.com/photo-1667860920650-d23d24c0e4de?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyM3x8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60',
                       margin: const EdgeInsets.only(top: 16, bottom: 12),
                     ),
                     // Container(
@@ -253,14 +255,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             name: 'Дилеры',
                             onTap: () {},
                             iconPath: AppIcons.dealers,
-                            count: 23,
                           ),
                           const ProfileDivider(),
                           ProfileMenuTile(
                             name: 'Справочник',
                             onTap: () {},
                             iconPath: AppIcons.direct,
-                            count: 23,
                           ),
                           const ProfileDivider(),
                           ProfileMenuTile(
@@ -276,7 +276,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               );
                             },
                             iconPath: AppIcons.message,
-                            count: 64,
                           ),
                           const ProfileDivider(),
                           ProfileMenuTile(
@@ -289,33 +288,41 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               );
                             },
                             iconPath: AppIcons.settings,
-                            count: 12,
                           ),
                         ],
                       ),
                     ),
-                    Container(
-                      margin: const EdgeInsets.only(top: 12, bottom: 20),
-                      decoration: BoxDecoration(
-                        color: Theme.of(context)
-                            .extension<ThemedColors>()!
-                            .whiteToNero1,
-                        borderRadius: BorderRadius.circular(12),
-                        border: Border.all(
-                            color: Theme.of(context)
-                                .extension<WTextFieldStyle>()!
-                                .borderColor),
-                      ),
-                      child: ProfileMenuTile(
-                        name: LocaleKeys.about_app.tr(),
-                        onTap: () {
-                          Navigator.of(context).push(
-                            fade(
-                              page: const AboutAppScreen(),
-                            ),
-                          );
-                        },
-                        iconPath: AppIcons.info,
+                    WScaleAnimation(
+                      onTap: () {
+                        Navigator.of(context).push(
+                          fade(
+                            page: const AboutAppScreen(),
+                          ),
+                        );
+                      },
+                      child: Container(
+                        margin: const EdgeInsets.only(top: 12, bottom: 20),
+                        decoration: BoxDecoration(
+                          color: Theme.of(context)
+                              .extension<ThemedColors>()!
+                              .whiteToNero1,
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(
+                              color: Theme.of(context)
+                                  .extension<WTextFieldStyle>()!
+                                  .borderColor),
+                        ),
+                        child: ProfileMenuTile(
+                          name: LocaleKeys.about_app.tr(),
+                          onTap: () {
+                            Navigator.of(context).push(
+                              fade(
+                                page: const AboutAppScreen(),
+                              ),
+                            );
+                          },
+                          iconPath: AppIcons.info,
+                        ),
                       ),
                     )
                   ],

@@ -21,7 +21,9 @@ class OwnerActions extends StatelessWidget {
                   Navigator.of(context).push(fade(page: const InvoicePage()));
                 },
                 child: const OwnerActionBox(
-                    color: accentYellow, entity: OwnerActionEntity(title: 'Стать VIP на 3 дня', icon: AppIcons.crown)),
+                    color: accentYellow,
+                    entity: OwnerActionEntity(
+                        title: 'Стать VIP на 3 дня', icon: AppIcons.crown)),
               ),
             ),
             const SizedBox(
@@ -34,7 +36,8 @@ class OwnerActions extends StatelessWidget {
                 },
                 child: const OwnerActionBox(
                     color: accentGreen,
-                    entity: OwnerActionEntity(title: 'Продлить на 7 дней', icon: AppIcons.refresher)),
+                    entity: OwnerActionEntity(
+                        title: 'Продлить на 7 дней', icon: AppIcons.refresher)),
               ),
             ),
             const SizedBox(
@@ -46,7 +49,9 @@ class OwnerActions extends StatelessWidget {
                   Navigator.of(context).push(fade(page: const InvoicePage()));
                 },
                 child: const OwnerActionBox(
-                    color: accentRed, entity: OwnerActionEntity(title: 'Отправить в “ТОП”', icon: AppIcons.rocket)),
+                    color: accentRed,
+                    entity: OwnerActionEntity(
+                        title: 'Отправить в “ТОП”', icon: AppIcons.rocket)),
               ),
             ),
             const SizedBox(
@@ -58,7 +63,9 @@ class OwnerActions extends StatelessWidget {
                   Navigator.of(context).push(fade(page: const InvoicePage()));
                 },
                 child: const OwnerActionBox(
-                    color: accentRed, entity: OwnerActionEntity(title: 'В горячие \n ', icon: AppIcons.fire)),
+                    color: accentRed,
+                    entity: OwnerActionEntity(
+                        title: 'В горячие \n ', icon: AppIcons.fire)),
               ),
             ),
           ],
