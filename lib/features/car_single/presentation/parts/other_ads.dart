@@ -1,6 +1,7 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/features/car_single/domain/entities/car_user_entity.dart';
 import 'package:auto/features/main/domain/entities/ads_entity.dart';
 import 'package:auto/features/main/presentation/widgets/ads_item.dart';
 import 'package:auto/generated/locale_keys.g.dart';
@@ -12,33 +13,81 @@ class OtherAds extends StatelessWidget {
 
   static const List<AdsEntity> list = [
     AdsEntity(
-        imageUrl:
-            'https://cdn.motor1.com/images/mgl/LBl63/s1/2021-genesis-g80.jpg',
-        place: 'г. Ташкент',
-        price: 1519123200,
-        aboutCar: 'Land Cruiser, 145 894 км,\nВнедорожник 5дв, АКПП, Дизел...',
-        carName: 'Hyundai Genesis G90 long'),
+      imageUrl: [
+        'https://cdn.motor1.com/images/mgl/LBl63/s1/2021-genesis-g80.jpg',
+        'https://cdn.motor1.com/images/mgl/LBl63/s1/2021-genesis-g80.jpg',
+      ],
+      isWishlisted: true,
+      description: 'description',
+      generation: 'generation',
+      make: 'make',
+      year: 2000,
+      latitude: 123.123,
+      longitude: 123.432,
+      viewCount: 11,
+      id: 1,
+      model: 'stark',
+      region: 'tashkent',
+      carUser: CarUserEntity(),
+      price: '9898',
+    ),
     AdsEntity(
-        imageUrl:
-            'https://cdn.motor1.com/images/mgl/LBl63/s1/2021-genesis-g80.jpg',
-        place: 'г. Ташкент',
-        price: 1519123200,
-        aboutCar: 'Land Cruiser, 145 894 км,\nВнедорожник 5дв, АКПП, Дизел...',
-        carName: 'Hyundai Genesis G90 long'),
+      imageUrl: [
+        'https://cdn.motor1.com/images/mgl/LBl63/s1/2021-genesis-g80.jpg',
+        'https://cdn.motor1.com/images/mgl/LBl63/s1/2021-genesis-g80.jpg',
+      ],
+      isWishlisted: true,
+      description: 'description',
+      generation: 'generation',
+      make: 'make',
+      year: 2000,
+      latitude: 123.123,
+      longitude: 123.432,
+      viewCount: 11,
+      id: 1,
+      model: 'stark',
+      region: 'tashkent',
+      carUser: CarUserEntity(),
+      price: '9898',
+    ),
     AdsEntity(
-        imageUrl:
-            'https://cdn.motor1.com/images/mgl/LBl63/s1/2021-genesis-g80.jpg',
-        place: 'г. Ташкент',
-        price: 1519123200,
-        aboutCar: 'Land Cruiser, 145 894 км,\nВнедорожник 5дв, АКПП, Дизел...',
-        carName: 'Hyundai Genesis G90 long'),
+      imageUrl: [
+        'https://cdn.motor1.com/images/mgl/LBl63/s1/2021-genesis-g80.jpg',
+        'https://cdn.motor1.com/images/mgl/LBl63/s1/2021-genesis-g80.jpg',
+      ],
+      isWishlisted: true,
+      description: 'description',
+      generation: 'generation',
+      make: 'make',
+      year: 2000,
+      latitude: 123.123,
+      longitude: 123.432,
+      viewCount: 11,
+      id: 1,
+      model: 'stark',
+      region: 'tashkent',
+      carUser: CarUserEntity(),
+      price: '9898',
+    ),
     AdsEntity(
-        imageUrl:
-            'https://cdn.motor1.com/images/mgl/LBl63/s1/2021-genesis-g80.jpg',
-        place: 'г. Ташкент',
-        price: 1519123200,
-        aboutCar: 'Land Cruiser, 145 894 км,\nВнедорожник 5дв, АКПП, Дизел...',
-        carName: 'Hyundai Genesis G90 long'),
+      imageUrl: [
+        'https://cdn.motor1.com/images/mgl/LBl63/s1/2021-genesis-g80.jpg',
+        'https://cdn.motor1.com/images/mgl/LBl63/s1/2021-genesis-g80.jpg',
+      ],
+      isWishlisted: true,
+      description: 'description',
+      generation: 'generation',
+      make: 'make',
+      year: 2000,
+      latitude: 123.123,
+      longitude: 123.432,
+      viewCount: 11,
+      id: 1,
+      model: 'stark',
+      region: 'tashkent',
+      carUser: CarUserEntity(),
+      price: '9898',
+    ),
   ];
 
   @override
@@ -47,8 +96,7 @@ class OtherAds extends StatelessWidget {
           bottom: 20,
         ),
         decoration: BoxDecoration(
-            color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
-            border: Border.all(color: border)),
+            color: Theme.of(context).extension<ThemedColors>()!.whiteToDark, border: Border.all(color: border)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -59,10 +107,7 @@ class OtherAds extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Text(
                 LocaleKeys.Other_announcements.tr(),
-                style: Theme.of(context)
-                    .textTheme
-                    .headline1!
-                    .copyWith(fontWeight: FontWeight.w700, fontSize: 18),
+                style: Theme.of(context).textTheme.headline1!.copyWith(fontWeight: FontWeight.w700, fontSize: 18),
               ),
             ),
             const SizedBox(
@@ -71,9 +116,7 @@ class OtherAds extends StatelessWidget {
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 16),
               decoration: BoxDecoration(
-                color: Theme.of(context)
-                    .extension<ThemedColors>()!
-                    .solitudeTo1Black,
+                color: Theme.of(context).extension<ThemedColors>()!.solitudeTo1Black,
                 borderRadius: BorderRadius.circular(12),
               ),
               padding: const EdgeInsets.all(2),
@@ -85,10 +128,7 @@ class OtherAds extends StatelessWidget {
                   ),
                   Text(
                     'Mercedes Benz',
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline1!
-                        .copyWith(fontSize: 14, fontWeight: FontWeight.w700),
+                    style: Theme.of(context).textTheme.headline1!.copyWith(fontSize: 14, fontWeight: FontWeight.w700),
                   ),
                   const SizedBox(
                     width: 28,
@@ -97,9 +137,7 @@ class OtherAds extends StatelessWidget {
                     width: 50,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(7.5),
-                        color: Theme.of(context)
-                            .extension<ThemedColors>()!
-                            .whiteToEclipse,
+                        color: Theme.of(context).extension<ThemedColors>()!.whiteToEclipse,
                         border: Border.all(color: border)),
                     height: 36,
                     child: Center(

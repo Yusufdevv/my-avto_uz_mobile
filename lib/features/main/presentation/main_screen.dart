@@ -2,9 +2,7 @@ import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_icons.dart';
 import 'package:auto/features/car_single/domain/entities/car_user_entity.dart';
-import 'package:auto/features/commercial/presentation/commercial_screen.dart';
 import 'package:auto/features/common/domain/entity/car_brand_entity.dart';
-import 'package:auto/features/dealers/presentation/dealers_main.dart';
 import 'package:auto/features/main/domain/entities/ads_entity.dart';
 import 'package:auto/features/main/domain/entities/service_entity.dart';
 import 'package:auto/features/main/domain/usecases/get_top_ads.dart';
@@ -22,6 +20,7 @@ import 'package:auto/features/main/presentation/widgets/story_item.dart';
 import 'package:auto/features/main/presentation/widgets/yandex_map.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/rent/presentation/rent_screen.dart';
+import 'package:auto/features/search/presentation/pages/commercial_screen.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -67,10 +66,10 @@ class _MainScreenState extends State<MainScreen> {
       title: 'Коммерческий транспорт',
       icon: AppIcons.commercialCar,
     ),
-    // const ServiceEntity(
-    //   title: 'RentCar',
-    //   icon: AppIcons.rentCar,
-    // ),
+    const ServiceEntity(
+      title: 'RentCar',
+      icon: AppIcons.rentCar,
+    ),
   ];
 
   @override
@@ -78,7 +77,7 @@ class _MainScreenState extends State<MainScreen> {
     topAdBloc = TopAdBloc(GetTopAdsUseCase())..add(TopAdEvent.getTopAds());
     topBrandBloc = TopBrandBloc(GetTopBrandUseCase())..add(TopBrandEvent.getBrand());
     serviceTaps = [
-      () => Navigator.pushReplacement(context, fade(page: const DealerScreen())),
+      () {},
       () {},
       () {},
       () {},
@@ -230,11 +229,6 @@ class _MainScreenState extends State<MainScreen> {
                   child: Text(
                     LocaleKeys.favorites.tr(),
                     style: Theme.of(context).textTheme.headline1!.copyWith(fontSize: 18),
-                    // () => Navigator.pushReplacement(context, fade(page: const CommercialScreen())),
-                    // () => Navigator.of(context, rootNavigator: true).push(fade(page: const RentScreen())),
-
-                    // child: GestureDetector(onTap: () {}, child: SvgPicture.asset(AppIcons.bell)),
-                    // const TopAds(),
                   ),
                 ),
                 const FavouriteItem(),

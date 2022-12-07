@@ -2,8 +2,6 @@ import 'package:auto/assets/themes/dark.dart';
 import 'package:auto/assets/themes/light.dart';
 import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/core/singletons/storage.dart';
-import 'package:auto/features/car_single/presentation/car_single_screen.dart';
-import 'package:auto/features/car_single/presentation/widgets/invoice_succes.dart';
 import 'package:auto/features/common/bloc/auth/authentication_bloc.dart';
 import 'package:auto/features/common/bloc/regions/regions_bloc.dart';
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
@@ -22,8 +20,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'features/car_single/presentation/widgets/invoice_in_progress.dart';
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
@@ -37,9 +33,9 @@ void main() async {
         ],
         path: 'lib/assets/strings',
         // <-- change the path of the translation files
-        fallbackLocale: const Locale('ru'),
-        assetLoader: const CodegenLoader(),
-        child: const AppProvider()),
+        fallbackLocale: Locale('ru'),
+        assetLoader: CodegenLoader(),
+        child: AppProvider()),
   );
 }
 
@@ -97,27 +93,11 @@ class _AppState extends State<App> {
                                   sendCodeUseCase: SendCodeUseCase(),
                                   registerUseCase: RegisterUseCase(),
                                   verifyCodeUseCase: VerifyCodeUseCase()),
-                              child: const CarSingleScreen())),
+                              child: const LoginScreen())),
                       (route) => false);
                   break;
                 case AuthenticationStatus.authenticated:
                   navigator.pushAndRemoveUntil(fade(page: const HomeScreen()), (route) => false);
-                  navigator.pushAndRemoveUntil(fade(page: const HomeScreen()), (route) => false);
-                  (context) => ShowPopUpBloc();
-                  print(state.status);
-                  if (!StorageRepository.getBool('onboarding', defValue: false)) {
-                    navigator.pushAndRemoveUntil(fade(page: const FirstOnBoarding()), (route) => false);
-                  } else {
-                    navigator.pushAndRemoveUntil(
-                        fade(
-                            page: BlocProvider(
-                                create: (c) => RegisterBloc(
-                                    sendCodeUseCase: SendCodeUseCase(),
-                                    registerUseCase: RegisterUseCase(),
-                                    verifyCodeUseCase: VerifyCodeUseCase()),
-                                child: const LoginScreen())),
-                        (route) => false);
-                  }
                   break;
               }
             },
