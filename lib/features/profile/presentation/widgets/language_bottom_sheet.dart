@@ -1,3 +1,4 @@
+import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
@@ -86,6 +87,13 @@ class LanguageBottomSheetState extends State<LanguageBottomSheet> {
                       groupValue: index,
                     )),
             WButton(
+              shadow: [
+                BoxShadow(
+                  blurRadius: 20,
+                  offset: const Offset(0, 4),
+                  color: orange.withOpacity(0.2),
+                ),
+              ],
               margin: EdgeInsets.only(
                   top: 20, bottom: MediaQuery.of(context).padding.bottom),
               onTap: () {

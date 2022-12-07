@@ -55,7 +55,23 @@ class _DescriptionTabsState extends State<DescriptionTabs>
                 },
                 padding: const EdgeInsets.all(2),
                 indicator: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
+                  boxShadow: [
+                    // BoxShadow(
+                    //   blurRadius: 1,
+                    //   offset: const Offset(0, 3),
+                    //   color: black.withOpacity(0.4),
+                    // ),
+                    BoxShadow(
+                      blurRadius: 8,
+                      offset: const Offset(0, 3),
+                      color: black.withOpacity(
+                        0.12,
+                      ),
+                    ),
+                  ],
+                  borderRadius: BorderRadius.circular(
+                    8,
+                  ),
                   color:
                       Theme.of(context).extension<ThemedColors>()!.whiteToSmoky,
                 ),

@@ -32,7 +32,7 @@ class CarPriceBottom extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    '488 000 000 UZS',
+                    '≈ 488 000 000 UZS',
                     style: Theme.of(context).textTheme.headline2!.copyWith(
                         fontWeight: FontWeight.w700,
                         fontSize: 24,

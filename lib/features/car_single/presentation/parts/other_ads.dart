@@ -1,11 +1,11 @@
-import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/assets/colors/color.dart';
+import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/main/domain/entities/ads_entity.dart';
 import 'package:auto/features/main/presentation/widgets/ads_item.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 
 class OtherAds extends StatelessWidget {
   const OtherAds({Key? key}) : super(key: key);
@@ -43,7 +43,12 @@ class OtherAds extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Container(
-        color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
+        padding: const EdgeInsets.only(
+          bottom: 20,
+        ),
+        decoration: BoxDecoration(
+            color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
+            border: Border.all(color: border)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -95,14 +100,10 @@ class OtherAds extends StatelessWidget {
                         color: Theme.of(context)
                             .extension<ThemedColors>()!
                             .whiteToEclipse,
-                        border: Border.all(
-                            width: 1,
-                            color: Theme.of(context)
-                                .extension<ThemedColors>()!
-                                .solitudeToDarkRider)),
+                        border: Border.all(color: border)),
                     height: 36,
                     child: Center(
-                      child: SvgPicture.asset(AppIcons.mercedes),
+                      child: Image.asset(AppImages.mercLogo),
                     ),
                   ),
                 ],
@@ -112,6 +113,7 @@ class OtherAds extends StatelessWidget {
               height: 12,
             ),
             SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
               scrollDirection: Axis.horizontal,
               child: Row(
                 children: List.generate(

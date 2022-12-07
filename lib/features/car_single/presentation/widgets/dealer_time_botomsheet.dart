@@ -32,10 +32,15 @@ class DealerTime extends StatelessWidget {
                     style: Theme.of(context).textTheme.headline1,
                   ),
                   const Spacer(),
-                  SvgPicture.asset(
-                    AppIcons.close,
-                    width: 32,
-                    height: 32,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: SvgPicture.asset(
+                      AppIcons.close,
+                      width: 32,
+                      height: 32,
+                    ),
                   ),
                 ],
               ),
@@ -78,6 +83,7 @@ class DealerTime extends StatelessWidget {
                     height: 28,
                   ),
                   OrangeButton(
+                    shadowColor: orange.withOpacity(0.2),
                     color: orange,
                     onTap: () {
                       Navigator.of(context).pop();

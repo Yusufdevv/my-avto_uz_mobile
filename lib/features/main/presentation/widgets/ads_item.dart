@@ -1,3 +1,4 @@
+import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/car_single/presentation/car_single_screen.dart';
@@ -9,23 +10,28 @@ import 'package:flutter_svg/svg.dart';
 
 class AdsItem extends StatelessWidget {
   final AdsEntity adsEntity;
+
   const AdsItem({required this.adsEntity, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) => GestureDetector(
-   onTap: () => Navigator.push(context, fade(page: const CarSingleScreen())),
-    child: Container(
+        onTap: () =>
+            Navigator.push(context, fade(page: const CarSingleScreen())),
+        child: Container(
           width: 225,
           margin: const EdgeInsets.only(left: 16),
           decoration: BoxDecoration(
+            boxShadow: [
+              BoxShadow(
+                blurRadius: 19,
+                spreadRadius: 0,
+                offset: const Offset(0, 4),
+                color: dark.withOpacity(.04),
+              ),
+            ],
             borderRadius: BorderRadius.circular(12),
-            color: Theme.of(context).extension<ThemedColors>()!.whiteToSecondNero,
-            border: Border.all(
-              width: 1,
-              color: Theme.of(context)
-                  .extension<ThemedColors>()!
-                  .solitudeToDarkRider,
-            ),
+            color:
+                Theme.of(context).extension<ThemedColors>()!.whiteToSecondNero,
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -95,11 +101,14 @@ class AdsItem extends StatelessWidget {
                         const SizedBox(width: 4),
                         Text(
                           adsEntity.place,
-                          style: Theme.of(context).textTheme.headline6!.copyWith(
-                              fontSize: 12,
-                              color: Theme.of(context)
-                                  .extension<ThemedColors>()!
-                                  .dolphinToGreySuit),
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline6!
+                              .copyWith(
+                                  fontSize: 12,
+                                  color: Theme.of(context)
+                                      .extension<ThemedColors>()!
+                                      .dolphinToGreySuit),
                         )
                       ],
                     ),
@@ -117,5 +126,5 @@ class AdsItem extends StatelessWidget {
             ],
           ),
         ),
-  );
+      );
 }

@@ -76,29 +76,30 @@ class ProfileData extends StatelessWidget {
                         subTitle,
                         style: Theme.of(context).textTheme.headline6!.copyWith(
                               fontSize: 14,
+                              fontWeight: FontWeight.w600,
                             ),
                       )
                     ],
                   ),
-                  if (hasAlert)
-                    Container(
-                      margin: const EdgeInsets.only(
-                        bottom: 18,
-                        left: 4,
-                      ),
-                      height: 16,
-                      width: 16,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(
-                            4,
-                          ),
-                          color: iconBackground.withOpacity(.1)),
-                      child: Center(
-                        child: SvgPicture.asset(AppIcons.alert),
-                      ),
-                    )
-                  else
-                    const SizedBox(),
+                  // if (hasAlert)
+                  //   Container(
+                  //     margin: const EdgeInsets.only(
+                  //       bottom: 18,
+                  //       left: 4,
+                  //     ),
+                  //     height: 16,
+                  //     width: 16,
+                  //     decoration: BoxDecoration(
+                  //         borderRadius: BorderRadius.circular(
+                  //           4,
+                  //         ),
+                  //         color: iconBackground.withOpacity(.1)),
+                  //     child: Center(
+                  //       child: SvgPicture.asset(AppIcons.alert),
+                  //     ),
+                  //   )
+                  // else
+                  //   const SizedBox(),
                   const Spacer(),
                   Padding(
                     padding: const EdgeInsets.only(
