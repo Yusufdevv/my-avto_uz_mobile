@@ -1,6 +1,7 @@
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_icons.dart';
+import 'package:auto/features/car_single/domain/entities/car_user_entity.dart';
 import 'package:auto/features/common/domain/entity/car_brand_entity.dart';
 import 'package:auto/features/main/domain/entities/ads_entity.dart';
 import 'package:auto/features/main/domain/entities/service_entity.dart';
@@ -74,49 +75,95 @@ class _MainScreenState extends State<MainScreen> {
   @override
   void initState() {
     topAdBloc = TopAdBloc(GetTopAdsUseCase())..add(TopAdEvent.getTopAds());
-    topBrandBloc = TopBrandBloc(GetTopBrandUseCase())
-      ..add(TopBrandEvent.getBrand());
+    topBrandBloc = TopBrandBloc(GetTopBrandUseCase())..add(TopBrandEvent.getBrand());
     serviceTaps = [
       () {},
       () {},
       () {},
       () {},
-      () => Navigator.pushReplacement(
-          context, fade(page: const CommercialScreen())),
-      () => Navigator.of(context,rootNavigator: true).push(fade(page: const RentScreen())),
+      () => Navigator.pushReplacement(context, fade(page: const CommercialScreen())),
+      () => Navigator.of(context, rootNavigator: true).push(fade(page: const RentScreen())),
     ];
     super.initState();
   }
 
   final List<AdsEntity> adsEntity = [
     const AdsEntity(
-        imageUrl:
-            'https://cdn.motor1.com/images/mgl/LBl63/s1/2021-genesis-g80.jpg',
-        place: 'г. Ташкент',
-        price: 13442343,
-        aboutCar: 'Land Cruiser, 145 894 км,\nВнедорожник 5дв, АКПП, Дизел...',
-        carName: 'Hyundai Genesis G90 long'),
+      imageUrl: [
+        'https://cdn.motor1.com/images/mgl/LBl63/s1/2021-genesis-g80.jpg',
+        'https://cdn.motor1.com/images/mgl/LBl63/s1/2021-genesis-g80.jpg',
+      ],
+      isWishlisted: true,
+      description: 'description',
+      generation: 'generation',
+      make: 'make',
+      year: 2000,
+      latitude: 123.123,
+      longitude: 123.432,
+      viewCount: 11,
+      id: 1,
+      model: 'stark',
+      region: 'tashkent',
+      carUser: CarUserEntity(),
+      price: '9898',
+    ),
     const AdsEntity(
-        imageUrl:
-            'https://cdn.motor1.com/images/mgl/LBl63/s1/2021-genesis-g80.jpg',
-        place: 'г. Ташкент',
-        price: 13442343,
-        aboutCar: 'Land Cruiser, 145 894 км,\nВнедорожник 5дв, АКПП, Дизел...',
-        carName: 'Hyundai Genesis G90 long'),
+      imageUrl: [
+        'https://cdn.motor1.com/images/mgl/LBl63/s1/2021-genesis-g80.jpg',
+        'https://cdn.motor1.com/images/mgl/LBl63/s1/2021-genesis-g80.jpg',
+      ],
+      isWishlisted: true,
+      description: 'description',
+      generation: 'generation',
+      make: 'make',
+      year: 2000,
+      latitude: 123.123,
+      longitude: 123.432,
+      viewCount: 11,
+      id: 1,
+      model: 'stark',
+      region: 'tashkent',
+      carUser: CarUserEntity(),
+      price: '9898',
+    ),
     const AdsEntity(
-        imageUrl:
-            'https://cdn.motor1.com/images/mgl/LBl63/s1/2021-genesis-g80.jpg',
-        place: 'г. Ташкент',
-        price: 13442343,
-        aboutCar: 'Land Cruiser, 145 894 км,\nВнедорожник 5дв, АКПП, Дизел...',
-        carName: 'Hyundai Genesis G90 long'),
+      imageUrl: [
+        'https://cdn.motor1.com/images/mgl/LBl63/s1/2021-genesis-g80.jpg',
+        'https://cdn.motor1.com/images/mgl/LBl63/s1/2021-genesis-g80.jpg',
+      ],
+      isWishlisted: true,
+      description: 'description',
+      generation: 'generation',
+      make: 'make',
+      year: 2000,
+      latitude: 123.123,
+      longitude: 123.432,
+      viewCount: 11,
+      id: 1,
+      model: 'stark',
+      region: 'tashkent',
+      carUser: CarUserEntity(),
+      price: '9898',
+    ),
     const AdsEntity(
-        imageUrl:
-            'https://cdn.motor1.com/images/mgl/LBl63/s1/2021-genesis-g80.jpg',
-        place: 'г. Ташкент',
-        price: 13442343,
-        aboutCar: 'Land Cruiser, 145 894 км,\nВнедорожник 5дв, АКПП, Дизел...',
-        carName: 'Hyundai Genesis G90 long'),
+      imageUrl: [
+        'https://cdn.motor1.com/images/mgl/LBl63/s1/2021-genesis-g80.jpg',
+        'https://cdn.motor1.com/images/mgl/LBl63/s1/2021-genesis-g80.jpg',
+      ],
+      isWishlisted: true,
+      description: 'description',
+      generation: 'generation',
+      make: 'make',
+      year: 2000,
+      latitude: 123.123,
+      longitude: 123.432,
+      viewCount: 11,
+      id: 1,
+      model: 'stark',
+      region: 'tashkent',
+      carUser: CarUserEntity(),
+      price: '9898',
+    ),
   ];
 
   late List<VoidCallback> serviceTaps = [];
@@ -141,8 +188,7 @@ class _MainScreenState extends State<MainScreen> {
             actions: [
               Padding(
                 padding: const EdgeInsets.only(right: 16),
-                child: GestureDetector(
-                    onTap: () {}, child: SvgPicture.asset(AppIcons.bell)),
+                child: GestureDetector(onTap: () {}, child: SvgPicture.asset(AppIcons.bell)),
               )
             ],
           ),
@@ -182,10 +228,7 @@ class _MainScreenState extends State<MainScreen> {
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: Text(
                     LocaleKeys.favorites.tr(),
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline1!
-                        .copyWith(fontSize: 18),
+                    style: Theme.of(context).textTheme.headline1!.copyWith(fontSize: 18),
                   ),
                 ),
                 const FavouriteItem(),

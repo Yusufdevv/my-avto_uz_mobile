@@ -12,7 +12,7 @@ AdModel _$AdModelFromJson(Map<String, dynamic> json) => AdModel(
       longitude: (json['longitude'] as num?)?.toDouble() ?? 0,
       latitude: (json['latitude'] as num?)?.toDouble() ?? 0,
       year: json['year'] as int? ?? 0,
-      mark: json['mark'] as String? ?? '',
+      make: json['make'] as String? ?? '',
       model: json['model'] as String? ?? '',
       generation: json['generation'] as String? ?? '',
       region: json['region'] as String? ?? '',
@@ -21,13 +21,17 @@ AdModel _$AdModelFromJson(Map<String, dynamic> json) => AdModel(
               ?.map((e) => e as String)
               .toList() ??
           const [],
-      user: json['user'] as String? ?? '',
-      isFav: json['is_wishlisted'] as bool? ?? false,
+      user: json['user'] == null
+          ? const CarUserEntity()
+          : const CarUserConverter()
+              .fromJson(json['user'] as Map<String, dynamic>?),
+      isWishlisted: json['is_wishlisted'] as bool? ?? false,
+      price: json['price'] as String? ?? '',
     );
 
 Map<String, dynamic> _$AdModelToJson(AdModel instance) => <String, dynamic>{
       'id': instance.id,
-      'mark': instance.mark,
+      'make': instance.make,
       'model': instance.model,
       'generation': instance.generation,
       'images': instance.images,
@@ -37,6 +41,7 @@ Map<String, dynamic> _$AdModelToJson(AdModel instance) => <String, dynamic>{
       'view_count': instance.viewCount,
       'longitude': instance.longitude,
       'latitude': instance.latitude,
-      'user': instance.user,
-      'is_wishlisted': instance.isFav,
+      'user': const CarUserConverter().toJson(instance.user),
+      'is_wishlisted': instance.isWishlisted,
+      'price': instance.price,
     };
