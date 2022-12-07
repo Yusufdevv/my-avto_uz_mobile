@@ -1,6 +1,7 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
 import 'package:auto/features/common/widgets/custom_screen.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
@@ -196,7 +197,11 @@ class _VerificationScreenState extends State<VerificationScreen> {
                                 VerifyParam(
                                     code: verificationController.text,
                                     phone: widget.phone,
-                                    session: widget.session), onSuccess: () {
+                                    session: widget.session), onError: (text) {
+                              context
+                                  .read<ShowPopUpBloc>()
+                                  .add(ShowPopUp(message: text));
+                            }, onSuccess: () {
                               Navigator.pushReplacement(
                                   context,
                                   fade(

@@ -20,7 +20,8 @@ mixin _$RegisterEvent {
   TResult when<TResult extends Object?>({
     required TResult Function(String phone, dynamic Function(String)? onSuccess)
         sendCode,
-    required TResult Function(VerifyParam param, VoidCallback? onSuccess)
+    required TResult Function(VerifyParam param, VoidCallback? onSuccess,
+            dynamic Function(String)? onError)
         verifyCode,
     required TResult Function(
             String fullName, String email, VoidCallback? onSuccess)
@@ -38,7 +39,9 @@ mixin _$RegisterEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(String phone, dynamic Function(String)? onSuccess)?
         sendCode,
-    TResult Function(VerifyParam param, VoidCallback? onSuccess)? verifyCode,
+    TResult Function(VerifyParam param, VoidCallback? onSuccess,
+            dynamic Function(String)? onError)?
+        verifyCode,
     TResult Function(String fullName, String email, VoidCallback? onSuccess)?
         setName,
     TResult Function(String validPassword, VoidCallback? onSuccess)? register,
@@ -53,7 +56,9 @@ mixin _$RegisterEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String phone, dynamic Function(String)? onSuccess)?
         sendCode,
-    TResult Function(VerifyParam param, VoidCallback? onSuccess)? verifyCode,
+    TResult Function(VerifyParam param, VoidCallback? onSuccess,
+            dynamic Function(String)? onError)?
+        verifyCode,
     TResult Function(String fullName, String email, VoidCallback? onSuccess)?
         setName,
     TResult Function(String validPassword, VoidCallback? onSuccess)? register,
@@ -193,7 +198,8 @@ class _$_SendCode implements _SendCode {
   TResult when<TResult extends Object?>({
     required TResult Function(String phone, dynamic Function(String)? onSuccess)
         sendCode,
-    required TResult Function(VerifyParam param, VoidCallback? onSuccess)
+    required TResult Function(VerifyParam param, VoidCallback? onSuccess,
+            dynamic Function(String)? onError)
         verifyCode,
     required TResult Function(
             String fullName, String email, VoidCallback? onSuccess)
@@ -214,7 +220,9 @@ class _$_SendCode implements _SendCode {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(String phone, dynamic Function(String)? onSuccess)?
         sendCode,
-    TResult Function(VerifyParam param, VoidCallback? onSuccess)? verifyCode,
+    TResult Function(VerifyParam param, VoidCallback? onSuccess,
+            dynamic Function(String)? onError)?
+        verifyCode,
     TResult Function(String fullName, String email, VoidCallback? onSuccess)?
         setName,
     TResult Function(String validPassword, VoidCallback? onSuccess)? register,
@@ -232,7 +240,9 @@ class _$_SendCode implements _SendCode {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String phone, dynamic Function(String)? onSuccess)?
         sendCode,
-    TResult Function(VerifyParam param, VoidCallback? onSuccess)? verifyCode,
+    TResult Function(VerifyParam param, VoidCallback? onSuccess,
+            dynamic Function(String)? onError)?
+        verifyCode,
     TResult Function(String fullName, String email, VoidCallback? onSuccess)?
         setName,
     TResult Function(String validPassword, VoidCallback? onSuccess)? register,
@@ -312,7 +322,10 @@ abstract class _$$_VerifyCodeCopyWith<$Res> {
   factory _$$_VerifyCodeCopyWith(
           _$_VerifyCode value, $Res Function(_$_VerifyCode) then) =
       __$$_VerifyCodeCopyWithImpl<$Res>;
-  $Res call({VerifyParam param, VoidCallback? onSuccess});
+  $Res call(
+      {VerifyParam param,
+      VoidCallback? onSuccess,
+      dynamic Function(String)? onError});
 }
 
 /// @nodoc
@@ -330,6 +343,7 @@ class __$$_VerifyCodeCopyWithImpl<$Res>
   $Res call({
     Object? param = freezed,
     Object? onSuccess = freezed,
+    Object? onError = freezed,
   }) {
     return _then(_$_VerifyCode(
       param == freezed
@@ -340,6 +354,10 @@ class __$$_VerifyCodeCopyWithImpl<$Res>
           ? _value.onSuccess
           : onSuccess // ignore: cast_nullable_to_non_nullable
               as VoidCallback?,
+      onError: onError == freezed
+          ? _value.onError
+          : onError // ignore: cast_nullable_to_non_nullable
+              as dynamic Function(String)?,
     ));
   }
 }
@@ -347,16 +365,18 @@ class __$$_VerifyCodeCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_VerifyCode implements _VerifyCode {
-  _$_VerifyCode(this.param, {this.onSuccess});
+  _$_VerifyCode(this.param, {this.onSuccess, this.onError});
 
   @override
   final VerifyParam param;
   @override
   final VoidCallback? onSuccess;
+  @override
+  final dynamic Function(String)? onError;
 
   @override
   String toString() {
-    return 'RegisterEvent.verifyCode(param: $param, onSuccess: $onSuccess)';
+    return 'RegisterEvent.verifyCode(param: $param, onSuccess: $onSuccess, onError: $onError)';
   }
 
   @override
@@ -366,12 +386,13 @@ class _$_VerifyCode implements _VerifyCode {
             other is _$_VerifyCode &&
             const DeepCollectionEquality().equals(other.param, param) &&
             (identical(other.onSuccess, onSuccess) ||
-                other.onSuccess == onSuccess));
+                other.onSuccess == onSuccess) &&
+            (identical(other.onError, onError) || other.onError == onError));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(param), onSuccess);
+  int get hashCode => Object.hash(runtimeType,
+      const DeepCollectionEquality().hash(param), onSuccess, onError);
 
   @JsonKey(ignore: true)
   @override
@@ -383,7 +404,8 @@ class _$_VerifyCode implements _VerifyCode {
   TResult when<TResult extends Object?>({
     required TResult Function(String phone, dynamic Function(String)? onSuccess)
         sendCode,
-    required TResult Function(VerifyParam param, VoidCallback? onSuccess)
+    required TResult Function(VerifyParam param, VoidCallback? onSuccess,
+            dynamic Function(String)? onError)
         verifyCode,
     required TResult Function(
             String fullName, String email, VoidCallback? onSuccess)
@@ -396,7 +418,7 @@ class _$_VerifyCode implements _VerifyCode {
     required TResult Function(String path) changeImage,
     required TResult Function(int region) changeRegion,
   }) {
-    return verifyCode(param, onSuccess);
+    return verifyCode(param, onSuccess, onError);
   }
 
   @override
@@ -404,7 +426,9 @@ class _$_VerifyCode implements _VerifyCode {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(String phone, dynamic Function(String)? onSuccess)?
         sendCode,
-    TResult Function(VerifyParam param, VoidCallback? onSuccess)? verifyCode,
+    TResult Function(VerifyParam param, VoidCallback? onSuccess,
+            dynamic Function(String)? onError)?
+        verifyCode,
     TResult Function(String fullName, String email, VoidCallback? onSuccess)?
         setName,
     TResult Function(String validPassword, VoidCallback? onSuccess)? register,
@@ -414,7 +438,7 @@ class _$_VerifyCode implements _VerifyCode {
     TResult Function(String path)? changeImage,
     TResult Function(int region)? changeRegion,
   }) {
-    return verifyCode?.call(param, onSuccess);
+    return verifyCode?.call(param, onSuccess, onError);
   }
 
   @override
@@ -422,7 +446,9 @@ class _$_VerifyCode implements _VerifyCode {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String phone, dynamic Function(String)? onSuccess)?
         sendCode,
-    TResult Function(VerifyParam param, VoidCallback? onSuccess)? verifyCode,
+    TResult Function(VerifyParam param, VoidCallback? onSuccess,
+            dynamic Function(String)? onError)?
+        verifyCode,
     TResult Function(String fullName, String email, VoidCallback? onSuccess)?
         setName,
     TResult Function(String validPassword, VoidCallback? onSuccess)? register,
@@ -434,7 +460,7 @@ class _$_VerifyCode implements _VerifyCode {
     required TResult orElse(),
   }) {
     if (verifyCode != null) {
-      return verifyCode(param, onSuccess);
+      return verifyCode(param, onSuccess, onError);
     }
     return orElse();
   }
@@ -488,10 +514,12 @@ class _$_VerifyCode implements _VerifyCode {
 
 abstract class _VerifyCode implements RegisterEvent {
   factory _VerifyCode(final VerifyParam param,
-      {final VoidCallback? onSuccess}) = _$_VerifyCode;
+      {final VoidCallback? onSuccess,
+      final dynamic Function(String)? onError}) = _$_VerifyCode;
 
   VerifyParam get param;
   VoidCallback? get onSuccess;
+  dynamic Function(String)? get onError;
   @JsonKey(ignore: true)
   _$$_VerifyCodeCopyWith<_$_VerifyCode> get copyWith =>
       throw _privateConstructorUsedError;
@@ -582,7 +610,8 @@ class _$_SetName implements _SetName {
   TResult when<TResult extends Object?>({
     required TResult Function(String phone, dynamic Function(String)? onSuccess)
         sendCode,
-    required TResult Function(VerifyParam param, VoidCallback? onSuccess)
+    required TResult Function(VerifyParam param, VoidCallback? onSuccess,
+            dynamic Function(String)? onError)
         verifyCode,
     required TResult Function(
             String fullName, String email, VoidCallback? onSuccess)
@@ -603,7 +632,9 @@ class _$_SetName implements _SetName {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(String phone, dynamic Function(String)? onSuccess)?
         sendCode,
-    TResult Function(VerifyParam param, VoidCallback? onSuccess)? verifyCode,
+    TResult Function(VerifyParam param, VoidCallback? onSuccess,
+            dynamic Function(String)? onError)?
+        verifyCode,
     TResult Function(String fullName, String email, VoidCallback? onSuccess)?
         setName,
     TResult Function(String validPassword, VoidCallback? onSuccess)? register,
@@ -621,7 +652,9 @@ class _$_SetName implements _SetName {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String phone, dynamic Function(String)? onSuccess)?
         sendCode,
-    TResult Function(VerifyParam param, VoidCallback? onSuccess)? verifyCode,
+    TResult Function(VerifyParam param, VoidCallback? onSuccess,
+            dynamic Function(String)? onError)?
+        verifyCode,
     TResult Function(String fullName, String email, VoidCallback? onSuccess)?
         setName,
     TResult Function(String validPassword, VoidCallback? onSuccess)? register,
@@ -775,7 +808,8 @@ class _$_Register implements _Register {
   TResult when<TResult extends Object?>({
     required TResult Function(String phone, dynamic Function(String)? onSuccess)
         sendCode,
-    required TResult Function(VerifyParam param, VoidCallback? onSuccess)
+    required TResult Function(VerifyParam param, VoidCallback? onSuccess,
+            dynamic Function(String)? onError)
         verifyCode,
     required TResult Function(
             String fullName, String email, VoidCallback? onSuccess)
@@ -796,7 +830,9 @@ class _$_Register implements _Register {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(String phone, dynamic Function(String)? onSuccess)?
         sendCode,
-    TResult Function(VerifyParam param, VoidCallback? onSuccess)? verifyCode,
+    TResult Function(VerifyParam param, VoidCallback? onSuccess,
+            dynamic Function(String)? onError)?
+        verifyCode,
     TResult Function(String fullName, String email, VoidCallback? onSuccess)?
         setName,
     TResult Function(String validPassword, VoidCallback? onSuccess)? register,
@@ -814,7 +850,9 @@ class _$_Register implements _Register {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String phone, dynamic Function(String)? onSuccess)?
         sendCode,
-    TResult Function(VerifyParam param, VoidCallback? onSuccess)? verifyCode,
+    TResult Function(VerifyParam param, VoidCallback? onSuccess,
+            dynamic Function(String)? onError)?
+        verifyCode,
     TResult Function(String fullName, String email, VoidCallback? onSuccess)?
         setName,
     TResult Function(String validPassword, VoidCallback? onSuccess)? register,
@@ -979,7 +1017,8 @@ class _$_CheckPassword implements _CheckPassword {
   TResult when<TResult extends Object?>({
     required TResult Function(String phone, dynamic Function(String)? onSuccess)
         sendCode,
-    required TResult Function(VerifyParam param, VoidCallback? onSuccess)
+    required TResult Function(VerifyParam param, VoidCallback? onSuccess,
+            dynamic Function(String)? onError)
         verifyCode,
     required TResult Function(
             String fullName, String email, VoidCallback? onSuccess)
@@ -1000,7 +1039,9 @@ class _$_CheckPassword implements _CheckPassword {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(String phone, dynamic Function(String)? onSuccess)?
         sendCode,
-    TResult Function(VerifyParam param, VoidCallback? onSuccess)? verifyCode,
+    TResult Function(VerifyParam param, VoidCallback? onSuccess,
+            dynamic Function(String)? onError)?
+        verifyCode,
     TResult Function(String fullName, String email, VoidCallback? onSuccess)?
         setName,
     TResult Function(String validPassword, VoidCallback? onSuccess)? register,
@@ -1018,7 +1059,9 @@ class _$_CheckPassword implements _CheckPassword {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String phone, dynamic Function(String)? onSuccess)?
         sendCode,
-    TResult Function(VerifyParam param, VoidCallback? onSuccess)? verifyCode,
+    TResult Function(VerifyParam param, VoidCallback? onSuccess,
+            dynamic Function(String)? onError)?
+        verifyCode,
     TResult Function(String fullName, String email, VoidCallback? onSuccess)?
         setName,
     TResult Function(String validPassword, VoidCallback? onSuccess)? register,
@@ -1163,7 +1206,8 @@ class _$_ChangeImage implements _ChangeImage {
   TResult when<TResult extends Object?>({
     required TResult Function(String phone, dynamic Function(String)? onSuccess)
         sendCode,
-    required TResult Function(VerifyParam param, VoidCallback? onSuccess)
+    required TResult Function(VerifyParam param, VoidCallback? onSuccess,
+            dynamic Function(String)? onError)
         verifyCode,
     required TResult Function(
             String fullName, String email, VoidCallback? onSuccess)
@@ -1184,7 +1228,9 @@ class _$_ChangeImage implements _ChangeImage {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(String phone, dynamic Function(String)? onSuccess)?
         sendCode,
-    TResult Function(VerifyParam param, VoidCallback? onSuccess)? verifyCode,
+    TResult Function(VerifyParam param, VoidCallback? onSuccess,
+            dynamic Function(String)? onError)?
+        verifyCode,
     TResult Function(String fullName, String email, VoidCallback? onSuccess)?
         setName,
     TResult Function(String validPassword, VoidCallback? onSuccess)? register,
@@ -1202,7 +1248,9 @@ class _$_ChangeImage implements _ChangeImage {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String phone, dynamic Function(String)? onSuccess)?
         sendCode,
-    TResult Function(VerifyParam param, VoidCallback? onSuccess)? verifyCode,
+    TResult Function(VerifyParam param, VoidCallback? onSuccess,
+            dynamic Function(String)? onError)?
+        verifyCode,
     TResult Function(String fullName, String email, VoidCallback? onSuccess)?
         setName,
     TResult Function(String validPassword, VoidCallback? onSuccess)? register,
@@ -1342,7 +1390,8 @@ class _$_ChangeRegion implements _ChangeRegion {
   TResult when<TResult extends Object?>({
     required TResult Function(String phone, dynamic Function(String)? onSuccess)
         sendCode,
-    required TResult Function(VerifyParam param, VoidCallback? onSuccess)
+    required TResult Function(VerifyParam param, VoidCallback? onSuccess,
+            dynamic Function(String)? onError)
         verifyCode,
     required TResult Function(
             String fullName, String email, VoidCallback? onSuccess)
@@ -1363,7 +1412,9 @@ class _$_ChangeRegion implements _ChangeRegion {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(String phone, dynamic Function(String)? onSuccess)?
         sendCode,
-    TResult Function(VerifyParam param, VoidCallback? onSuccess)? verifyCode,
+    TResult Function(VerifyParam param, VoidCallback? onSuccess,
+            dynamic Function(String)? onError)?
+        verifyCode,
     TResult Function(String fullName, String email, VoidCallback? onSuccess)?
         setName,
     TResult Function(String validPassword, VoidCallback? onSuccess)? register,
@@ -1381,7 +1432,9 @@ class _$_ChangeRegion implements _ChangeRegion {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String phone, dynamic Function(String)? onSuccess)?
         sendCode,
-    TResult Function(VerifyParam param, VoidCallback? onSuccess)? verifyCode,
+    TResult Function(VerifyParam param, VoidCallback? onSuccess,
+            dynamic Function(String)? onError)?
+        verifyCode,
     TResult Function(String fullName, String email, VoidCallback? onSuccess)?
         setName,
     TResult Function(String validPassword, VoidCallback? onSuccess)? register,

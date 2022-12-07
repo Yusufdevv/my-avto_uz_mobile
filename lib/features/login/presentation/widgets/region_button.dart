@@ -26,8 +26,9 @@ class _RegionButtonState extends State<RegionButton> {
   Widget build(BuildContext context) => GestureDetector(
         onTap: () {
           showRegionsBottomSheet(
-                  context, context.read<RegionsBloc>().state.regions)
-              .then((value) {
+            context,
+            context.read<RegionsBloc>().state.regions,
+          ).then((value) {
             context
                 .read<RegisterBloc>()
                 .add(RegisterEvent.changeRegion(region: value.id));
@@ -37,66 +38,70 @@ class _RegionButtonState extends State<RegionButton> {
           });
         },
         child: BlocBuilder<RegionsBloc, RegionsState>(
-          builder: (context, state) => Container(
-            padding: const EdgeInsets.only(right: 8, top: 16),
-            child: Row(
-              children: [
-                Expanded(
-                  child: Text(
-                    LocaleKeys.region.tr(),
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline1!
-                        .copyWith(fontSize: 14, fontWeight: FontWeight.w400),
+          builder: (context, state) {
+            print('regions');
+            print(state.regions);
+            return Container(
+              padding: const EdgeInsets.only(right: 8, top: 16),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      LocaleKeys.region.tr(),
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline1!
+                          .copyWith(fontSize: 14, fontWeight: FontWeight.w400),
+                    ),
                   ),
-                ),
-                Expanded(
-                  flex: 3,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            currentRegion != null &&
-                                    currentRegion!.title.isNotEmpty
-                                ? currentRegion!.title
-                                : LocaleKeys.choose_region.tr(),
-                            style: currentRegion == null ||
-                                    currentRegion!.title.isEmpty
-                                ? Theme.of(context)
-                                    .textTheme
-                                    .headline6!
-                                    .copyWith(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w400)
-                                : Theme.of(context)
-                                    .textTheme
-                                    .subtitle1!
-                                    .copyWith(fontSize: 15),
-                          ),
-                          SvgPicture.asset(
-                            AppIcons.chevronRight,
-                            height: 20,
-                            width: 20,
-                            color: Colors.black,
-                          )
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 12,
-                      ),
-                      const Divider(
-                        height: 1,
-                        color: dividerColor,
-                      ),
-                    ],
+                  Expanded(
+                    flex: 3,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              currentRegion != null &&
+                                      currentRegion!.title.isNotEmpty
+                                  ? currentRegion!.title
+                                  : LocaleKeys.choose_region.tr(),
+                              style: currentRegion == null ||
+                                      currentRegion!.title.isEmpty
+                                  ? Theme.of(context)
+                                      .textTheme
+                                      .headline6!
+                                      .copyWith(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w400)
+                                  : Theme.of(context)
+                                      .textTheme
+                                      .subtitle1!
+                                      .copyWith(fontSize: 15),
+                            ),
+                            SvgPicture.asset(
+                              AppIcons.chevronRight,
+                              height: 20,
+                              width: 20,
+                              color: Colors.black,
+                            )
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 12,
+                        ),
+                        const Divider(
+                          height: 1,
+                          color: dividerColor,
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ],
-            ),
-          ),
+                ],
+              ),
+            );
+          },
         ),
       );
 }
