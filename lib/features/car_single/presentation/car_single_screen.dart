@@ -2,7 +2,7 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
-import 'package:auto/core/singletons/service_locator.dart';
+import 'package:auto/features/car_single/data/datasource/car_single_datasource.dart';
 import 'package:auto/features/car_single/data/repository/car_single_repository_impl.dart';
 import 'package:auto/features/car_single/domain/usecases/get_ads_usecase.dart';
 import 'package:auto/features/car_single/presentation/bloc/car_single_bloc.dart';
@@ -32,8 +32,8 @@ class CarSingleScreen extends StatefulWidget {
 }
 
 class _CarSingleScreenState extends State<CarSingleScreen> {
+  late CarSingleBloc carSingleBloc;
   final Color color = white;
-  late GetAdsUseCase useCase;
   late bool isLike;
   late bool isDisable;
   final ScrollController _scrollController = ScrollController();
@@ -46,9 +46,14 @@ class _CarSingleScreenState extends State<CarSingleScreen> {
   void initState() {
     isDisable = true;
     isLike = false;
+    carSingleBloc = CarSingleBloc(
+      getCarSingleUseCase: GetCarSingleUseCase(
+        repository: CarSingleRepositoryImpl(
+          dataSource: CarSinglenDataSourceImpl(),
+        ),
+      ),
+    );
 
-    useCase =
-        GetAdsUseCase(repository: serviceLocator<CarSingleRepositoryImpl>());
     _scrollController.addListener(() {
       print(_scrollController.offset);
       if (_scrollController.offset > 225) {
@@ -71,306 +76,288 @@ class _CarSingleScreenState extends State<CarSingleScreen> {
   }
 
   @override
-  Widget build(BuildContext context) => BlocProvider(
-        create: (context) => CarSingleBloc(useCase)..add(GetCarSingleEvent()),
-        child: BlocBuilder<CarSingleBloc, CarSingleState>(
-            builder: (context, state) => Scaffold(
-                  backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-                  body: Stack(
-                    children: [
-                      CustomScrollView(
-                        controller: _scrollController,
-                        slivers: [
-                          SliverAppBar(
-                            stretch: true,
-                            pinned: true,
-                            floating: false,
-                            elevation: 0,
-                            expandedHeight: 300,
-                            automaticallyImplyLeading: false,
-                            title: Row(
-                              children: [
-                                GestureDetector(
-                                  onTap: () {
-                                    Navigator.pop(context);
-                                  },
-                                  child: SvgPicture.asset(
-                                    AppIcons.chevronLeft,
-                                    width: 24,
-                                    height: 24,
-                                  ),
-                                ),
-                                const Spacer(),
-                                GestureDetector(
-                                  onTap: () {},
-                                  child: SvgPicture.asset(
-                                    AppIcons.heart,
-                                    height: 30,
-                                    width: 30,
-                                    color: likeColor,
-                                  ),
-                                ),
-                                const SizedBox(
-                                  width: 8,
-                                ),
-                                GestureDetector(
-                                  child: SvgPicture.asset(
-                                    AppIcons.moreVertical,
-                                    width: 36,
-                                    height: 36,
-                                    color: grey,
-                                  ),
-                                  onTap: () {
-                                    showModalBottomSheet(
-                                      useRootNavigator: true,
-                                      backgroundColor: Colors.transparent,
-                                      isScrollControlled: false,
-                                      context: context,
-                                      builder: (context) => const MoreActions(),
-                                    );
-                                  },
-                                ),
-                              ],
+  Widget build(BuildContext context) => BlocProvider.value(
+        value: carSingleBloc,
+        child: BlocBuilder<CarSingleBloc, CarSingleState>(builder: (context, state) {
+          print('this is State ${state.carSingle}');
+          return Scaffold(
+            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+            body: Stack(
+              children: [
+                CustomScrollView(
+                  controller: _scrollController,
+                  slivers: [
+                    SliverAppBar(
+                      stretch: true,
+                      pinned: true,
+                      floating: false,
+                      elevation: 0,
+                      expandedHeight: 300,
+                      automaticallyImplyLeading: false,
+                      title: Row(
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.pop(context);
+                            },
+                            child: SvgPicture.asset(
+                              AppIcons.chevronLeft,
+                              width: 24,
+                              height: 24,
                             ),
                           ),
-                          SliverToBoxAdapter(
-                            child: Container(
-                              color: Theme.of(context)
-                                  .extension<ThemedColors>()!
-                                  .whiteToDark,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.fromLTRB(
-                                        16, 12, 16, 0),
-                                    child: Text(
-                                      'Mercedes-Benz CLS 400 II (C218) AMG Рестайлинг Mercedes-Benz CLS 400 II (C218) AMG',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .headline4!
-                                          .copyWith(
-                                            color: dark,
-                                          ),
-                                    ),
-                                  ),
-                                  Container(
-                                    margin: const EdgeInsets.only(
-                                      top: 8,
-                                      bottom: 12,
-                                      left: 16,
-                                      right: 16,
-                                    ),
-                                    child: Row(
-                                      children: [
-                                        Text(
-                                          '123 488 000 000 UZS',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headline2!
-                                              .copyWith(
-                                                fontSize: 24,
-                                                fontWeight: FontWeight.w700,
-                                                color: dark,
-                                              ),
-                                        ),
-                                        const SizedBox(
-                                          width: 12,
-                                        ),
-                                        // WButton(
-                                        //   onTap: () {
-                                        //     showModalBottomSheet(
-                                        //       useRootNavigator: true,
-                                        //       backgroundColor: Colors.transparent,
-                                        //       isScrollControlled: true,
-                                        //       context: context,
-                                        //       builder: (context) =>
-                                        //           const CarPriceBottom(),
-                                        //     );
-                                        //   },
-                                        //   height: 24,
-                                        //   borderRadius: 6,
-                                        //   color: blue,
-                                        //   width: 24,
-                                        //   child: SvgPicture.asset(
-                                        //     AppIcons.chevronDown,
-                                        //     color: Colors.white,
-                                        //   ),
-                                        // ),
-                                      ],
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.fromLTRB(
-                                      16,
-                                      0,
-                                      16,
-                                      0,
-                                    ),
-                                    child: CarStatistics(),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.fromLTRB(
-                                      16,
-                                      0,
-                                      16,
-                                      0,
-                                    ),
-                                    child: Divider(
-                                      height: 32,
-                                      thickness: 1,
-                                      color: Theme.of(context)
-                                          .extension<ThemedColors>()!
-                                          .solitudeToDarkRider,
-                                    ),
-                                  ),
-                                  const CarActions(),
-                                  Padding(
-                                    padding: const EdgeInsets.fromLTRB(
-                                      16,
-                                      0,
-                                      16,
-                                      0,
-                                    ),
-                                    child: Divider(
-                                      thickness: 1,
-                                      color: Theme.of(context)
-                                          .extension<ThemedColors>()!
-                                          .solitudeToDarkRider,
-                                    ),
-                                  ),
-                                  const CarDetails(),
-                                ],
-                              ),
+                          const Spacer(),
+                          GestureDetector(
+                            onTap: () {},
+                            child: SvgPicture.asset(
+                              AppIcons.heart,
+                              height: 30,
+                              width: 30,
+                              color: likeColor,
                             ),
                           ),
-                          SliverToBoxAdapter(
-                            child: Container(
-                              color: Theme.of(context).scaffoldBackgroundColor,
-                              padding: const EdgeInsets.symmetric(vertical: 12),
-                              child: const OwnerActions(),
+                          const SizedBox(
+                            width: 8,
+                          ),
+                          GestureDetector(
+                            child: SvgPicture.asset(
+                              AppIcons.moreVertical,
+                              width: 36,
+                              height: 36,
+                              color: grey,
                             ),
-                          ),
-                          SliverToBoxAdapter(
-                            child: Container(
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  width: 1,
-                                  color: Theme.of(context)
-                                      .extension<ThemedColors>()!
-                                      .solitudeToDarkRider,
-                                ),
-                                color: Theme.of(context)
-                                    .extension<ThemedColors>()!
-                                    .whiteToDark,
-                              ),
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 16),
-                              child: const CarSellerCard(),
-                            ),
-                          ),
-                          const SliverToBoxAdapter(
-                            child: DescriptionTabs(),
-                          ),
-                          const SliverToBoxAdapter(
-                            child: SizedBox(
-                              height: 12,
-                            ),
-                          ),
-                          const SliverToBoxAdapter(
-                            child: CarCharacteristic(),
-                          ),
-                          const SliverToBoxAdapter(
-                            child: OtherAds(),
-                          ),
-                          const SliverToBoxAdapter(
-                            child: SizedBox(
-                              height: 70,
-                            ),
+                            onTap: () {
+                              showModalBottomSheet(
+                                useRootNavigator: true,
+                                backgroundColor: Colors.transparent,
+                                isScrollControlled: false,
+                                context: context,
+                                builder: (context) => const MoreActions(),
+                              );
+                            },
                           ),
                         ],
                       ),
-                      Positioned(
-                        left: 16,
-                        right: 16,
-                        bottom: 16,
-                        child: Row(
+                    ),
+                    SliverToBoxAdapter(
+                      child: Container(
+                        color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Expanded(
-                              child: isDisable == false
-                                  ? WButton(
-                                      onTap: () {
-                                        showModalBottomSheet(
-                                          useRootNavigator: true,
-                                          isScrollControlled: false,
-                                          backgroundColor: Colors.transparent,
-                                          context: context,
-                                          builder: (context) =>
-                                              const DealerTime(),
-                                        );
-                                        // Navigator.of(context).push(fade(page: const DealerScreen()));
-                                      },
-                                      height: 44,
-                                      borderRadius: 8,
-                                      color: green,
-                                      text: LocaleKeys.call.tr(),
-                                      textColor: Colors.white,
-                                    )
-                                  : WButton(
-                                      onTap: () {
-                                        showModalBottomSheet(
-                                          useRootNavigator: true,
-                                          isScrollControlled: false,
-                                          backgroundColor: Colors.transparent,
-                                          context: context,
-                                          builder: (context) =>
-                                              const DealerTime(),
-                                        );
-                                        // Navigator.of(context).push(fade(page: const DealerScreen()));
-                                      },
-                                      height: 44,
-                                      borderRadius: 8,
-                                      color: const Color(0xffB5B5BE),
-                                      text: LocaleKeys.call.tr(),
-                                      textColor: Colors.white,
-                                      child: Row(
-                                        children: [
-                                          const Spacer(),
-                                          SvgPicture.asset(
-                                            AppIcons.info,
-                                            color: white,
-                                          ),
-                                          const SizedBox(
-                                            width: 8,
-                                          ),
-                                          const Text(
-                                            'Позвонить',
-                                            style: TextStyle(color: border),
-                                          ),
-                                          const Spacer(),
-                                        ],
-                                      ),
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(16, 12, 16, 0),
+                              child: Text(
+                                'Mercedes-Benz CLS 400 II (C218) AMG Рестайлинг Mercedes-Benz CLS 400 II (C218) AMG',
+                                style: Theme.of(context).textTheme.headline4!.copyWith(
+                                      color: dark,
                                     ),
-                            ),
-                            const SizedBox(
-                              width: 4,
-                            ),
-                            WScaleAnimation(
-                              onTap: () {},
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(8),
-                                child: Image.asset(
-                                  AppImages.tahoe,
-                                  width: 44,
-                                  height: 44,
-                                ),
                               ),
                             ),
+                            Container(
+                              margin: const EdgeInsets.only(
+                                top: 8,
+                                bottom: 12,
+                                left: 16,
+                                right: 16,
+                              ),
+                              child: Row(
+                                children: [
+                                  Text(
+                                    '123 488 000 000 UZS',
+                                    style: Theme.of(context).textTheme.headline2!.copyWith(
+                                          fontSize: 24,
+                                          fontWeight: FontWeight.w700,
+                                          color: dark,
+                                        ),
+                                  ),
+                                  const SizedBox(
+                                    width: 12,
+                                  ),
+                                  // WButton(
+                                  //   onTap: () {
+                                  //     showModalBottomSheet(
+                                  //       useRootNavigator: true,
+                                  //       backgroundColor: Colors.transparent,
+                                  //       isScrollControlled: true,
+                                  //       context: context,
+                                  //       builder: (context) =>
+                                  //           const CarPriceBottom(),
+                                  //     );
+                                  //   },
+                                  //   height: 24,
+                                  //   borderRadius: 6,
+                                  //   color: blue,
+                                  //   width: 24,
+                                  //   child: SvgPicture.asset(
+                                  //     AppIcons.chevronDown,
+                                  //     color: Colors.white,
+                                  //   ),
+                                  // ),
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(
+                                16,
+                                0,
+                                16,
+                                0,
+                              ),
+                              child: CarStatistics(),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(
+                                16,
+                                0,
+                                16,
+                                0,
+                              ),
+                              child: Divider(
+                                height: 32,
+                                thickness: 1,
+                                color: Theme.of(context).extension<ThemedColors>()!.solitudeToDarkRider,
+                              ),
+                            ),
+                            const CarActions(),
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(
+                                16,
+                                0,
+                                16,
+                                0,
+                              ),
+                              child: Divider(
+                                thickness: 1,
+                                color: Theme.of(context).extension<ThemedColors>()!.solitudeToDarkRider,
+                              ),
+                            ),
+                            const CarDetails(),
                           ],
+                        ),
+                      ),
+                    ),
+                    SliverToBoxAdapter(
+                      child: Container(
+                        color: Theme.of(context).scaffoldBackgroundColor,
+                        padding: const EdgeInsets.symmetric(vertical: 12),
+                        child: const OwnerActions(),
+                      ),
+                    ),
+                    SliverToBoxAdapter(
+                      child: Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            width: 1,
+                            color: Theme.of(context).extension<ThemedColors>()!.solitudeToDarkRider,
+                          ),
+                          color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
+                        ),
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        child: const CarSellerCard(),
+                      ),
+                    ),
+                    const SliverToBoxAdapter(
+                      child: DescriptionTabs(),
+                    ),
+                    const SliverToBoxAdapter(
+                      child: SizedBox(
+                        height: 12,
+                      ),
+                    ),
+                    const SliverToBoxAdapter(
+                      child: CarCharacteristic(),
+                    ),
+                    const SliverToBoxAdapter(
+                      child: OtherAds(),
+                    ),
+                    const SliverToBoxAdapter(
+                      child: SizedBox(
+                        height: 70,
+                      ),
+                    ),
+                  ],
+                ),
+                Positioned(
+                  left: 16,
+                  right: 16,
+                  bottom: 16,
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: isDisable == false
+                            ? WButton(
+                                onTap: () {
+                                  showModalBottomSheet(
+                                    useRootNavigator: true,
+                                    isScrollControlled: false,
+                                    backgroundColor: Colors.transparent,
+                                    context: context,
+                                    builder: (context) => const DealerTime(),
+                                  );
+                                  // Navigator.of(context).push(fade(page: const DealerScreen()));
+                                },
+                                height: 44,
+                                borderRadius: 8,
+                                color: green,
+                                text: LocaleKeys.call.tr(),
+                                textColor: Colors.white,
+                              )
+                            : WButton(
+                                onTap: () {
+                                  showModalBottomSheet(
+                                    useRootNavigator: true,
+                                    isScrollControlled: false,
+                                    backgroundColor: Colors.transparent,
+                                    context: context,
+                                    builder: (context) => const DealerTime(),
+                                  );
+                                  // Navigator.of(context).push(fade(page: const DealerScreen()));
+                                },
+                                height: 44,
+                                borderRadius: 8,
+                                color: const Color(0xffB5B5BE),
+                                text: LocaleKeys.call.tr(),
+                                textColor: Colors.white,
+                                child: Row(
+                                  children: [
+                                    const Spacer(),
+                                    SvgPicture.asset(
+                                      AppIcons.info,
+                                      color: white,
+                                    ),
+                                    const SizedBox(
+                                      width: 8,
+                                    ),
+                                    const Text(
+                                      'Позвонить',
+                                      style: TextStyle(color: border),
+                                    ),
+                                    const Spacer(),
+                                  ],
+                                ),
+                              ),
+                      ),
+                      const SizedBox(
+                        width: 4,
+                      ),
+                      WScaleAnimation(
+                        onTap: () {},
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(8),
+                          child: Image.asset(
+                            AppImages.tahoe,
+                            width: 44,
+                            height: 44,
+                          ),
                         ),
                       ),
                     ],
                   ),
-                )),
+                ),
+              ],
+            ),
+          );
+        }),
       );
 }

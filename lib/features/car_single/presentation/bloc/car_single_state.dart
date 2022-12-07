@@ -2,33 +2,25 @@ part of 'car_single_bloc.dart';
 
 class CarSingleState extends Equatable {
   final FormzStatus status;
-  final List<String> images;
-  final CarSingleEntity entity;
-  final List<OtherAdsEntity> otherEntity;
-  final bool isScroll;
+  final CarSingleEntity carSingle;
 
   const CarSingleState({
-    required this.isScroll,
-    required this.status,
-    required this.entity,
-    required this.images,
-    required this.otherEntity,
+    this.status = FormzStatus.pure,
+    this.carSingle = const CarSingleEntity(),
   });
 
   CarSingleState copyWith({
-    bool? isScroll,
     FormzStatus? status,
-    List<String>? images,
-    CarSingleEntity? entity,
-    List<OtherAdsEntity>? otherEntity,
+    CarSingleEntity? carSingle,
   }) =>
       CarSingleState(
-        isScroll: isScroll ?? this.isScroll,
-          status: status ?? this.status,
-          entity: entity ?? this.entity,
-          images: images ?? this.images,
-          otherEntity: otherEntity ?? this.otherEntity);
+        status: status ?? this.status,
+        carSingle: carSingle ?? this.carSingle,
+      );
 
   @override
-  List<Object?> get props => [isScroll,status,entity, images, otherEntity];
+  List<Object?> get props => [
+        status,
+        carSingle,
+      ];
 }
