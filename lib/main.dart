@@ -2,7 +2,6 @@ import 'package:auto/assets/themes/dark.dart';
 import 'package:auto/assets/themes/light.dart';
 import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/core/singletons/storage.dart';
-import 'package:auto/features/car_single/presentation/car_single_screen.dart';
 import 'package:auto/features/common/bloc/auth/authentication_bloc.dart';
 import 'package:auto/features/common/bloc/regions/regions_bloc.dart';
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
@@ -15,7 +14,6 @@ import 'package:auto/features/login/presentation/bloc/register/register_bloc.dar
 import 'package:auto/features/login/presentation/login_screen.dart';
 import 'package:auto/features/navigation/presentation/home.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
-import 'package:auto/features/onboarding/presentation/first_onboarding.dart';
 import 'package:auto/features/splash/presentation/pages/splash_sc.dart';
 import 'package:auto/generated/codegen_loader.g.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -95,10 +93,11 @@ class _AppState extends State<App> {
                                   sendCodeUseCase: SendCodeUseCase(),
                                   registerUseCase: RegisterUseCase(),
                                   verifyCodeUseCase: VerifyCodeUseCase()),
-                              child: const CarSingleScreen())),
+                              child: const LoginScreen())),
                       (route) => false);
                   break;
                 case AuthenticationStatus.authenticated:
+                  navigator.pushAndRemoveUntil(fade(page: const HomeScreen()), (route) => false);
                   navigator.pushAndRemoveUntil(fade(page: const HomeScreen()), (route) => false);
                   (context) => ShowPopUpBloc();
                   print(state.status);

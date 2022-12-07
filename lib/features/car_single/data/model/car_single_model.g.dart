@@ -9,89 +9,129 @@ part of 'car_single_model.dart';
 CarSingleModel _$CarSingleModelFromJson(Map<String, dynamic> json) =>
     CarSingleModel(
       id: json['id'] as int? ?? 0,
-      color: json['color'] as String? ?? '',
-      price: json['price'] as String? ?? '',
-      views: json['views'] as String? ?? '',
+      make: json['make'] == null
+          ? const RentCarMakeEntity()
+          : const RentCarMakeConverter()
+              .fromJson(json['make'] as Map<String, dynamic>?),
+      model: json['model'] == null
+          ? const RentCarModelsEntity()
+          : const RentCarModelsConverter()
+              .fromJson(json['model'] as Map<String, dynamic>?),
       autoName: json['auto_name'] as String? ?? '',
+      price: json['price'] as String? ?? '',
+      currency: json['currency'] as String? ?? '',
       date: json['date'] as String? ?? '',
-      body: json['body'] as String? ?? '',
-      complectation: json['complectation'] as String? ?? '',
-      accident: json['accident'] as String? ?? '',
-      bodytype: json['bodytype'] as String? ?? '',
-      clearance: json['clearance'] as String? ?? '',
-      driverAirbag: json['driver_airbag'] as String? ?? '',
-      driveUnit: json['drive_unit'] as String? ?? '',
-      enginePower: json['engine_power'] as String? ?? '',
-      engineSize: json['engine_size'] as String? ?? '',
-      engineSizeM: json['engine_size_m'] as String? ?? '',
-      engineType: json['engine_type'] as String? ?? '',
-      fuelConsuption: json['fuel_consuption'] as String? ?? '',
-      hsa: json['hsa'] as String? ?? '',
-      issueYear: json['issue_year'] as String? ?? '',
-      leftDoor: json['left_door'] as String? ?? '',
-      leftFrontDoor: json['left_front_door'] as String? ?? '',
-      legsAirbag: json['legs_airbag'] as String? ?? '',
-      milleage: json['milleage'] as String? ?? '',
-      milleageHistory: json['milleage_history'] as String? ?? '',
-      passengerAirabag: json['passenger_airabag'] as String? ?? '',
-      ptsOwner: json['pts_owner'] as String? ?? '',
-      rastomojka: json['rastomojka'] as String? ?? '',
-      rightDoor: json['right_door'] as String? ?? '',
-      rightFrontDoor: json['right_front_door'] as String? ?? '',
-      sellerComent: json['seller_coment'] as String? ?? '',
-      sellerName: json['seller_name'] as String? ?? '',
-      similarPrice: json['similar_price'] as String? ?? '',
-      speed: json['speed'] as String? ?? '',
-      transmission: json['transmission'] as String? ?? '',
-      transmissionCount: json['transmission_count'] as int? ?? 0,
-      transmissionType: json['transmission_type'] as String? ?? '',
-      wanted: json['wanted'] as String? ?? '',
-      weight: json['weight'] as String? ?? '',
-      windowAirbag: json['window_airbag'] as String? ?? '',
-      zalog: json['zalog'] as String? ?? '',
+      year: json['year'] as int? ?? 0,
+      distanceTraveled: json['distance_traveled'] as int? ?? 0,
+      color: json['color'] as String? ?? '',
+      generation: json['generation'] == null
+          ? const RentCarGenerationEntity()
+          : const RentCarGenerationConverter()
+              .fromJson(json['generation'] as Map<String, dynamic>?),
+      bodyType: json['body_type'] == null
+          ? const RentCarBodyTypeEntity()
+          : const RentCarBodyTypeConverter()
+              .fromJson(json['body_type'] as Map<String, dynamic>?),
+      driveType: json['drive_type'] == null
+          ? const RentCarDriveTypeEntity()
+          : const RentCarDriveTypeConverter()
+              .fromJson(json['drive_type'] as Map<String, dynamic>?),
+      engineType: json['engine_type'] == null
+          ? const RentCarEngineTypeEntity()
+          : const RentCarEngineTypeConverter()
+              .fromJson(json['engine_type'] as Map<String, dynamic>?),
+      gearboxType: json['gearbox_type'] == null
+          ? const RentCarGearboxTypeEntity()
+          : const RentCarGearboxTypeConverter()
+              .fromJson(json['gearbox_type'] as Map<String, dynamic>?),
+      modificationType: json['modification_type'] == null
+          ? const RentCarModificationEntity()
+          : const RentCarModificationConverter()
+              .fromJson(json['modification_type'] as Map<String, dynamic>?),
+      licenceType: json['licence_type'] as String? ?? '',
+      ownership: json['ownership'] as String? ?? '',
+      purchaseDate: json['purchase_date'] as String? ?? '',
+      description: json['description'] as String? ?? '',
+      isRegisteredLocally: json['is_registered_locally'] as bool? ?? false,
+      registrationVin: json['registration_vin'] as String? ?? '',
+      registrationPlate: json['registration_plate'] as String? ?? '',
+      registrationCertificate:
+          json['registration_certificate'] as String? ?? '',
+      registrationSerialNumber:
+          json['registration_serial_number'] as String? ?? '',
+      registeredInUzbekistan:
+          json['registered_in_uzbekistan'] as bool? ?? false,
+      user: json['user'] == null
+          ? const CarUserEntity()
+          : const CarUserConverter()
+              .fromJson(json['user'] as Map<String, dynamic>?),
+      contactName: json['contact_name'] as String? ?? '',
+      contactEmail: json['contact_email'] as String? ?? '',
+      contactPhone: json['contact_phone'] as String? ?? '',
+      isNew: json['is_new'] as bool? ?? false,
+      gallery: (json['gallery'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList() ??
+          const [],
+      longitude: json['longitude'] as int? ?? 0,
+      latitude: json['latitude'] as int? ?? 0,
+      isMine: json['is_mine'] as bool? ?? false,
+      viewsCount: json['views_count'] as int? ?? 0,
+      createdAt: json['created_at'] as String? ?? '',
+      updatedAt: json['updated_at'] as String? ?? '',
+      damagedParts: (json['damaged_parts'] as List<dynamic>?)
+              ?.map((e) => const DamagedPartsConverter()
+                  .fromJson(e as Map<String, dynamic>?))
+              .toList() ??
+          const [],
     );
 
 Map<String, dynamic> _$CarSingleModelToJson(CarSingleModel instance) =>
     <String, dynamic>{
+      'id': instance.id,
+      'make': const RentCarMakeConverter().toJson(instance.make),
+      'model': const RentCarModelsConverter().toJson(instance.model),
       'auto_name': instance.autoName,
       'price': instance.price,
+      'currency': instance.currency,
       'date': instance.date,
-      'views': instance.views,
-      'id': instance.id,
-      'issue_year': instance.issueYear,
-      'milleage': instance.milleage,
-      'body': instance.body,
+      'year': instance.year,
+      'distance_traveled': instance.distanceTraveled,
       'color': instance.color,
-      'complectation': instance.complectation,
-      'engine_size': instance.engineSize,
-      'transmission': instance.transmission,
-      'rastomojka': instance.rastomojka,
-      'seller_name': instance.sellerName,
-      'accident': instance.accident,
-      'seller_coment': instance.sellerComent,
-      'driver_airbag': instance.driverAirbag,
-      'passenger_airabag': instance.passengerAirabag,
-      'window_airbag': instance.windowAirbag,
-      'legs_airbag': instance.legsAirbag,
-      'hsa': instance.hsa,
-      'pts_owner': instance.ptsOwner,
-      'zalog': instance.zalog,
-      'wanted': instance.wanted,
-      'milleage_history': instance.milleageHistory,
-      'left_front_door': instance.leftFrontDoor,
-      'left_door': instance.leftDoor,
-      'right_front_door': instance.rightFrontDoor,
-      'right_door': instance.rightDoor,
-      'transmission_count': instance.transmissionCount,
-      'engine_size_m': instance.engineSizeM,
-      'drive_unit': instance.driveUnit,
-      'engine_type': instance.engineType,
-      'clearance': instance.clearance,
-      'speed': instance.speed,
-      'engine_power': instance.enginePower,
-      'weight': instance.weight,
-      'fuel_consuption': instance.fuelConsuption,
-      'transmission_type': instance.transmissionType,
-      'bodytype': instance.bodytype,
-      'similar_price': instance.similarPrice,
+      'generation':
+          const RentCarGenerationConverter().toJson(instance.generation),
+      'body_type': const RentCarBodyTypeConverter().toJson(instance.bodyType),
+      'drive_type':
+          const RentCarDriveTypeConverter().toJson(instance.driveType),
+      'engine_type':
+          const RentCarEngineTypeConverter().toJson(instance.engineType),
+      'gearbox_type':
+          const RentCarGearboxTypeConverter().toJson(instance.gearboxType),
+      'modification_type': const RentCarModificationConverter()
+          .toJson(instance.modificationType),
+      'licence_type': instance.licenceType,
+      'ownership': instance.ownership,
+      'purchase_date': instance.purchaseDate,
+      'description': instance.description,
+      'is_registered_locally': instance.isRegisteredLocally,
+      'registration_vin': instance.registrationVin,
+      'registration_plate': instance.registrationPlate,
+      'registration_certificate': instance.registrationCertificate,
+      'registration_serial_number': instance.registrationSerialNumber,
+      'registered_in_uzbekistan': instance.registeredInUzbekistan,
+      'user': const CarUserConverter().toJson(instance.user),
+      'contact_name': instance.contactName,
+      'contact_email': instance.contactEmail,
+      'contact_phone': instance.contactPhone,
+      'is_new': instance.isNew,
+      'gallery': instance.gallery,
+      'longitude': instance.longitude,
+      'latitude': instance.latitude,
+      'is_mine': instance.isMine,
+      'views_count': instance.viewsCount,
+      'created_at': instance.createdAt,
+      'updated_at': instance.updatedAt,
+      'damaged_parts': instance.damagedParts
+          .map(const DamagedPartsConverter().toJson)
+          .toList(),
     };
