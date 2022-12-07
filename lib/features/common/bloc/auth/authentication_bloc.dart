@@ -51,7 +51,7 @@ class AuthenticationBloc
             status: AuthenticationStatus.authenticated));
       } else {
         if (event.onError != null) {
-          event.onError!('error');
+          event.onError!(result.left.toString());
         }
       }
     });

@@ -180,6 +180,7 @@ abstract class DarkTheme {
             whiteToBlack: DarkThemeColors.whiteToBlack,
             solitudeToNightRider: DarkThemeColors.solitudeToNightRider,
             whiteToNero2: DarkThemeColors.whiteToNero2,
+            dividerColor: DarkThemeColors.dividerColor,
           ),
           WTextFieldStyle(
             fillColor: DarkThemeColors.solitudeToNero,

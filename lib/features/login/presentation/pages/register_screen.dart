@@ -91,7 +91,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   keyBoardType: TextInputType.number,
                   textInputFormatters: [phoneFormatter],
                 ),
-                const Spacer(),
+                const SizedBox(height: 24),
+                // RichText(
+                //     text: TextSpan(
+                //   children: [
+                //     TextSpan(
+                //         text: "Продолжая регистрацию, я признаю что принимаю",
+                //         style: Theme.of(context).textTheme.headline1),
+                //     TextSpan(text: ' условия использования'),
+                //     TextSpan(text: ' и'),
+                //     TextSpan(text: ' правила'),
+                //   ],
+                // )),
+                //const Spacer(),
                 WButton(
                   onTap: () {
                     print(phoneController.text.length);

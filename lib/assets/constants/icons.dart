@@ -63,6 +63,7 @@ class AppIcons {
   static const chevronRight = 'assets/icons/global/chevron_right.svg';
   static const mapPin = 'assets/icons/global/map_pin.svg';
   static const filterIcon = 'assets/icons/global/filter_icon.svg';
+  static const cancel='assets/icons/global/cancel.svg';
   // PROFILE
   static const alert = 'assets/icons/profile/alert.svg';
   static const heartBlue = 'assets/icons/profile/heart.svg';

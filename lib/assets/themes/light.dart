@@ -172,6 +172,7 @@ abstract class LightTheme {
             solitudeContainerToNero1: LightThemeColors.solitudeContainerToNero1,
             solitudeToNightRider: LightThemeColors.solitudeToNightRider,
             whiteToNero2: LightThemeColors.whiteToNero2,
+            dividerColor: LightThemeColors.dividerColor,
           ),
           WTextFieldStyle(
             fillColor: LightThemeColors.solitudeToNero,

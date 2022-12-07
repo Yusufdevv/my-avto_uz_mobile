@@ -102,6 +102,7 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
   final Color solitudeToNightRider;
   final Color whiteToNero2;
   final Color whiteToBlack;
+  final Color dividerColor;
 
   const ThemedColors({
     required this.ghostToGondola,
@@ -205,6 +206,7 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
     required this.solitudeToNightRider,
     required this.whiteToNero2,
     required this.whiteToBlack,
+    required this.dividerColor,
   });
 
   @override
@@ -310,6 +312,7 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
     Color? whiteToBlack,
     Color? solitudeContainerToBlack,
     Color? solitudeContainerToNero1,
+    Color? dividerColor,
   }) =>
       ThemedColors(
         whiteToBlack: whiteToBlack ?? this.whiteToBlack,
@@ -448,6 +451,7 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
         solitudeContainerToNero1:
             solitudeContainerToNero1 ?? this.solitudeContainerToNero1,
         whiteToNero2: whiteToNero2 ?? this.whiteToNero2,
+        dividerColor: dividerColor?? this.dividerColor,
       );
 
   @override
@@ -457,6 +461,7 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
       return this;
     }
     return ThemedColors(
+      dividerColor: Color.lerp(dividerColor, other.dividerColor, t)?? dividerColor,
       whiteToBlack:
           Color.lerp(whiteToBlack, other.whiteToBlack, t) ?? whiteToBlack,
       ghostToGondola:
