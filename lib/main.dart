@@ -34,9 +34,9 @@ void main() async {
         ],
         path: 'lib/assets/strings',
         // <-- change the path of the translation files
-        fallbackLocale: Locale('ru'),
-        assetLoader: CodegenLoader(),
-        child: AppProvider()),
+        fallbackLocale: const Locale('ru'),
+        assetLoader: const CodegenLoader(),
+        child: const AppProvider()),
   );
 }
 
@@ -99,6 +99,22 @@ class _AppState extends State<App> {
                   break;
                 case AuthenticationStatus.authenticated:
                   navigator.pushAndRemoveUntil(fade(page: const HomeScreen()), (route) => false);
+                  navigator.pushAndRemoveUntil(fade(page: const HomeScreen()), (route) => false);
+                  (context) => ShowPopUpBloc();
+                  print(state.status);
+                  if (!StorageRepository.getBool('onboarding', defValue: false)) {
+                    navigator.pushAndRemoveUntil(fade(page: const FirstOnBoarding()), (route) => false);
+                  } else {
+                    navigator.pushAndRemoveUntil(
+                        fade(
+                            page: BlocProvider(
+                                create: (c) => RegisterBloc(
+                                    sendCodeUseCase: SendCodeUseCase(),
+                                    registerUseCase: RegisterUseCase(),
+                                    verifyCodeUseCase: VerifyCodeUseCase()),
+                                child: const LoginScreen())),
+                        (route) => false);
+                  }
                   break;
               }
             },

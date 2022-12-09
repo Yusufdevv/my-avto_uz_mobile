@@ -20,7 +20,8 @@ class PriceIndicator extends StatelessWidget {
                   left: 0,
                   top: 0,
                   child: Container(
-                    padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
                     decoration: BoxDecoration(
                       color: const Color(0xff695CEA).withOpacity(0.1),
                       borderRadius: BorderRadius.circular(8),
@@ -41,7 +42,10 @@ class PriceIndicator extends StatelessWidget {
                           style: Theme.of(context)
                               .textTheme
                               .headline1!
-                              .copyWith(fontWeight: FontWeight.w600, fontSize: 14, color: profileContainers),
+                              .copyWith(
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 14,
+                                  color: profileContainers),
                         )
                       ],
                     ),
