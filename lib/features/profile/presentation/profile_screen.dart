@@ -4,8 +4,6 @@ import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/assets/themes/theme_extensions/w_textfield_style.dart';
 import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
-import 'package:auto/features/common/widgets/w_scale.dart';
-import 'package:auto/features/comparison/presentation/pages/comaparison_page2.dart';
 import 'package:auto/features/favorites/presentation/favourite_screen.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/posting_ad/add_photo/presentation/blocs/image_bloc.dart';
@@ -41,12 +39,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   initState() {
     profileBloc = ProfileBloc(
-        changePasswordUseCase: ChangePasswordUseCase(
-            repository: serviceLocator<ProfileRepositoryImpl>()),
-        editProfileUseCase: EditProfileUseCase(
-            repository: serviceLocator<ProfileRepositoryImpl>()),
-        profileUseCase: ProfileUseCase(
-            repository: serviceLocator<ProfileRepositoryImpl>()));
+        changePasswordUseCase: ChangePasswordUseCase(repository: serviceLocator<ProfileRepositoryImpl>()),
+        editProfileUseCase: EditProfileUseCase(repository: serviceLocator<ProfileRepositoryImpl>()),
+        profileUseCase: ProfileUseCase(repository: serviceLocator<ProfileRepositoryImpl>()));
     imageBloc = ImageBloc();
     super.initState();
   }
@@ -100,8 +95,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) => BlocProvider.value(
         value: profileBloc,
-        child:
-            BlocBuilder<ProfileBloc, ProfileState>(builder: (context, state) {
+        child: BlocBuilder<ProfileBloc, ProfileState>(builder: (context, state) {
           print(state.status);
           // if (state.status.isPure) {
           //   context.read<ProfileBloc>().add(GetProfileEvent());
@@ -161,22 +155,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     Container(
                       // padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
                       decoration: BoxDecoration(
-                        color: Theme.of(context)
-                            .extension<ThemedColors>()!
-                            .whiteToNero1,
+                        color: Theme.of(context).extension<ThemedColors>()!.whiteToNero1,
                         borderRadius: BorderRadius.circular(12),
-                        border: Border.all(
-                            color: Theme.of(context)
-                                .extension<WTextFieldStyle>()!
-                                .borderColor),
+                        border: Border.all(color: Theme.of(context).extension<WTextFieldStyle>()!.borderColor),
                       ),
                       child: Column(
                         children: [
                           ProfileMenuTile(
                             name: LocaleKeys.favorites.tr(),
                             onTap: () {
-                              Navigator.push(
-                                  context, fade(page: FavouriteScreen()));
+                              Navigator.push(context, fade(page: FavouriteScreen()));
                             },
                             iconPath: AppIcons.heartBlue,
                             count: 37,
@@ -185,10 +173,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ProfileMenuTile(
                             name: LocaleKeys.comparisons.tr(),
                             onTap: () {
-                              Navigator.of(context).push(fade(
-                                  page: const ComparisonPage2(
-                                numberOfAddedCars: 5,
-                              )));
+                              // Navigator.of(context).push(fade(
+                              //     page: const ComparisonPage2(
+                              //   numberOfAddedCars: 5,
+                              // )));
                             },
                             iconPath: AppIcons.scales,
                             count: 54,
@@ -199,14 +187,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     Container(
                       margin: const EdgeInsets.only(top: 12),
                       decoration: BoxDecoration(
-                        color: Theme.of(context)
-                            .extension<ThemedColors>()!
-                            .whiteToNero1,
+                        color: Theme.of(context).extension<ThemedColors>()!.whiteToNero1,
                         borderRadius: BorderRadius.circular(12),
-                        border: Border.all(
-                            color: Theme.of(context)
-                                .extension<WTextFieldStyle>()!
-                                .borderColor),
+                        border: Border.all(color: Theme.of(context).extension<WTextFieldStyle>()!.borderColor),
                       ),
                       child: Column(
                         children: [
@@ -238,16 +221,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         top: 12,
                       ),
                       decoration: BoxDecoration(
-                        color: Theme.of(context)
-                            .extension<ThemedColors>()!
-                            .whiteToNero1,
+                        color: Theme.of(context).extension<ThemedColors>()!.whiteToNero1,
                         borderRadius: BorderRadius.circular(
                           12,
                         ),
-                        border: Border.all(
-                            color: Theme.of(context)
-                                .extension<WTextFieldStyle>()!
-                                .borderColor),
+                        border: Border.all(color: Theme.of(context).extension<WTextFieldStyle>()!.borderColor),
                       ),
                       child: Column(
                         children: [
@@ -255,12 +233,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             name: 'Дилеры',
                             onTap: () {},
                             iconPath: AppIcons.dealers,
+                            count: 23,
                           ),
                           const ProfileDivider(),
                           ProfileMenuTile(
                             name: 'Справочник',
                             onTap: () {},
                             iconPath: AppIcons.direct,
+                            count: 23,
                           ),
                           const ProfileDivider(),
                           ProfileMenuTile(
@@ -276,53 +256,39 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               );
                             },
                             iconPath: AppIcons.message,
+                            count: 64,
                           ),
                           const ProfileDivider(),
                           ProfileMenuTile(
                             name: LocaleKeys.settings.tr(),
                             onTap: () {
                               Navigator.of(context).push(
-                                fade(
-                                    page: SettingsScreen(
-                                        profileBloc: profileBloc)),
+                                fade(page: SettingsScreen(profileBloc: profileBloc)),
                               );
                             },
                             iconPath: AppIcons.settings,
+                            count: 12,
                           ),
                         ],
                       ),
                     ),
-                    WScaleAnimation(
-                      onTap: () {
-                        Navigator.of(context).push(
-                          fade(
-                            page: const AboutAppScreen(),
-                          ),
-                        );
-                      },
-                      child: Container(
-                        margin: const EdgeInsets.only(top: 12, bottom: 20),
-                        decoration: BoxDecoration(
-                          color: Theme.of(context)
-                              .extension<ThemedColors>()!
-                              .whiteToNero1,
-                          borderRadius: BorderRadius.circular(12),
-                          border: Border.all(
-                              color: Theme.of(context)
-                                  .extension<WTextFieldStyle>()!
-                                  .borderColor),
-                        ),
-                        child: ProfileMenuTile(
-                          name: LocaleKeys.about_app.tr(),
-                          onTap: () {
-                            Navigator.of(context).push(
-                              fade(
-                                page: const AboutAppScreen(),
-                              ),
-                            );
-                          },
-                          iconPath: AppIcons.info,
-                        ),
+                    Container(
+                      margin: const EdgeInsets.only(top: 12, bottom: 20),
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).extension<ThemedColors>()!.whiteToNero1,
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(color: Theme.of(context).extension<WTextFieldStyle>()!.borderColor),
+                      ),
+                      child: ProfileMenuTile(
+                        name: LocaleKeys.about_app.tr(),
+                        onTap: () {
+                          Navigator.of(context).push(
+                            fade(
+                              page: const AboutAppScreen(),
+                            ),
+                          );
+                        },
+                        iconPath: AppIcons.info,
                       ),
                     )
                   ],
@@ -331,8 +297,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
           );
         }
-                // return const Center(child: CupertinoActivityIndicator());
-                // },
-                ),
+            // return const Center(child: CupertinoActivityIndicator());
+            // },
+            ),
       );
 }

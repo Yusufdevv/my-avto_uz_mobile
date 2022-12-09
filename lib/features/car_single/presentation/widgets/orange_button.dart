@@ -1,4 +1,3 @@
-import 'package:auto/assets/colors/color.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:flutter/material.dart';
 
@@ -8,8 +7,7 @@ class OrangeButton extends StatelessWidget {
   final Color shadowColor;
   final Color color;
 
-  const OrangeButton(
-      {required this.content, required this.onTap, required this.color,required this.shadowColor});
+  const OrangeButton({required this.content, required this.onTap, required this.color, required this.shadowColor});
 
   @override
   Widget build(BuildContext context) => WScaleAnimation(
@@ -20,12 +18,7 @@ class OrangeButton extends StatelessWidget {
             bottom: 12,
           ),
           decoration: BoxDecoration(
-            boxShadow: [
-              BoxShadow(
-                  blurRadius: 20,
-                  offset: const Offset(0, 4),
-                  color: shadowColor)
-            ],
+            boxShadow: [BoxShadow(blurRadius: 20, offset: const Offset(0, 4), color: shadowColor)],
             color: color,
             borderRadius: BorderRadius.circular(8),
           ),
