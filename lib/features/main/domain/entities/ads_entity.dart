@@ -16,19 +16,19 @@ class AdsEntity {
   final String price;
   final bool isWishlisted;
   const AdsEntity({
-    required this.imageUrl,
-    required this.price,
-    required this.model,
-    required this.id,
-    required this.description,
-    required this.longitude,
-    required this.latitude,
-    required this.carUser,
-    required this.generation,
-    required this.make,
-    required this.region,
-    required this.viewCount,
-    required this.year,
-    required this.isWishlisted,
+    this.imageUrl = const [],
+    this.price = '',
+    this.model = '',
+    this.id = 0,
+    this.description = '',
+    this.longitude = 0,
+    this.latitude = 0,
+    this.carUser = const CarUserEntity(),
+    this.generation = '',
+    this.make = '',
+    this.region = '',
+    this.viewCount = 0,
+    this.year = 0,
+    this.isWishlisted = false,
   });
 }

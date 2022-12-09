@@ -18,7 +18,14 @@ class AdsItem extends StatelessWidget {
   Widget build(BuildContext context) {
     print('object ${adsEntity.imageUrl}');
     return GestureDetector(
-      onTap: () => Navigator.push(context, fade(page: const CarSingleScreen())),
+      onTap: () {
+        Navigator.push(
+            context,
+            fade(
+                page: CarSingleScreen(
+              adsEntity: adsEntity,
+            )));
+      },
       child: Container(
         width: 225,
         margin: const EdgeInsets.only(left: 16),
