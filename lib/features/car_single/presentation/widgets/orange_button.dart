@@ -1,4 +1,5 @@
 import 'package:auto/features/common/widgets/w_scale.dart';
+import 'package:auto/assets/colors/color.dart';
 import 'package:flutter/material.dart';
 
 class OrangeButton extends StatelessWidget {

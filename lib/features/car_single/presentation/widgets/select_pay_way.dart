@@ -1,6 +1,7 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/features/car_single/presentation/widgets/w_container_style.dart';
 import 'package:auto/features/car_single/presentation/widgets/w_radio.dart';
+import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
