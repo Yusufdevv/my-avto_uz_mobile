@@ -2,6 +2,7 @@ import 'package:auto/assets/themes/dark.dart';
 import 'package:auto/assets/themes/light.dart';
 import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/core/singletons/storage.dart';
+import 'package:auto/features/car_single/presentation/car_single_screen.dart';
 import 'package:auto/features/common/bloc/auth/authentication_bloc.dart';
 import 'package:auto/features/common/bloc/regions/regions_bloc.dart';
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
@@ -94,7 +95,7 @@ class _AppState extends State<App> {
                                   sendCodeUseCase: SendCodeUseCase(),
                                   registerUseCase: RegisterUseCase(),
                                   verifyCodeUseCase: VerifyCodeUseCase()),
-                              child: const LoginScreen())),
+                              child: const CarSingleScreen())),
                       (route) => false);
                   break;
                 case AuthenticationStatus.authenticated:
