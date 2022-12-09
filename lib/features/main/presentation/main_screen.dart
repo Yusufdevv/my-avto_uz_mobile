@@ -105,7 +105,7 @@ class _MainScreenState extends State<MainScreen> {
       id: 1,
       model: 'stark',
       region: 'tashkent',
-      carUser:  CarUserEntity(),
+      carUser: CarUserEntity(),
       price: '9898',
     ),
     const AdsEntity(
@@ -230,11 +230,11 @@ class _MainScreenState extends State<MainScreen> {
                   child: Text(
                     LocaleKeys.favorites.tr(),
                     style: Theme.of(context).textTheme.headline1!.copyWith(fontSize: 18),
-      // () => Navigator.pushReplacement(context, fade(page: const CommercialScreen())),
-      // () => Navigator.of(context, rootNavigator: true).push(fade(page: const RentScreen())),
+                    // () => Navigator.pushReplacement(context, fade(page: const CommercialScreen())),
+                    // () => Navigator.of(context, rootNavigator: true).push(fade(page: const RentScreen())),
 
-                // child: GestureDetector(onTap: () {}, child: SvgPicture.asset(AppIcons.bell)),
-                // const TopAds(),
+                    // child: GestureDetector(onTap: () {}, child: SvgPicture.asset(AppIcons.bell)),
+                    // const TopAds(),
                   ),
                 ),
                 const FavouriteItem(),
