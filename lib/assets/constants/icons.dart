@@ -143,8 +143,7 @@ class AppIcons {
   static const shopping = 'assets/icons/search/shopping.svg';
   static const chevronRightGrey = 'assets/icons/global/chevron_right_grey.svg';
   static const wind = 'assets/icons/global/wind.svg';
-  static const chevronRightBlack =
-      'assets/icons/global/chevron_right_black.svg';
+  static const chevronRightBlack = 'assets/icons/global/chevron_right_black.svg';
   static const chevronRight1 = 'assets/icons/profile/chevron_right.svg';
   static const enabledHeart = 'assets/icons/search/enabled_heart.svg';
   static const disabledHeart = 'assets/icons/search/disabled_heart.svg';
@@ -163,8 +162,7 @@ class AppIcons {
   static const refresher = 'assets/icons/car_single/refreshers.svg';
   static const rocket = 'assets/icons/car_single/rocket.svg';
   static const safe = 'assets/icons/car_single/safety.svg';
-  static const shieldCheckOutlined =
-      'assets/icons/car_single/shield_check_outlined.svg';
+  static const shieldCheckOutlined = 'assets/icons/car_single/shield_check_outlined.svg';
 
   static const moreVertical = 'assets/icons/car_single/more.svg';
   static const note = 'assets/icons/car_single/note.svg';
@@ -179,6 +177,18 @@ class AppIcons {
   static const chevronRound = 'assets/icons/car_single/chevron_right_round.svg';
   static const shieldRound = 'assets/icons/car_single/shield_round.svg';
   static const lockRound = 'assets/icons/car_single/lock_round.svg';
+  //REVIEWS
+  static const comment = 'assets/icons/reviews/comment.svg';
+  static const passenger_car = 'assets/icons/reviews/passanger_car.svg';
+  static const commercial_car = 'assets/icons/reviews/commercial_car.svg';
+  static const moto = 'assets/icons/reviews/motorcycle.svg';
+  static const appbar_back = 'assets/icons/reviews/appbar_back.svg';
+  static const chevron_up = 'assets/icons/reviews/chevron_up.svg';
+  static const starr = 'assets/icons/global/star.svg';
+  static const draft = 'assets/icons/reviews/draft.svg';
+  static const draftIcon = 'assets/icons/reviews/drat_icon.svg';
+  static const alertTriangle = 'assets/icons/reviews/alert_triangle.svg';
+  static const delete = 'assets/icons/reviews/delete.svg';
 
   static const payme = 'assets/images/car_single/payme.svg';
   static const apelsin = 'assets/images/car_single/apelsin.svg';
