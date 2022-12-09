@@ -38,4 +38,8 @@ class AppImages {
   static const imagePlaceHolder = 'assets/images/global/place_holder.png';
   static const priceConditions =
       'assets/images/car_single/price_conditions.png';
+  static const optimal = 'assets/images/car_single/optimal.png';
+  static const nice = 'assets/images/car_single/nice.png';
+  static const bad = 'assets/images/car_single/bad.png';
+  static const defaultPhoto = 'assets/images/car_single/default.png';
 }

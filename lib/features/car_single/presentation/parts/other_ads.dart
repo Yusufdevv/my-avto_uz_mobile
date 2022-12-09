@@ -102,7 +102,7 @@ class OtherAds extends StatelessWidget {
                                 .solitudeToDarkRider)),
                     height: 36,
                     child: Center(
-                      child: SvgPicture.asset(AppIcons.crown),
+                      child: SvgPicture.asset(AppIcons.mercedes),
                     ),
                   ),
                 ],

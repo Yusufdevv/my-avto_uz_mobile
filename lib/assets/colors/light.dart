@@ -143,6 +143,7 @@ class LightThemeColors {
   static const silver50ToNightRider = _silver50;
   static const whiteSmokeToBlack = _whiteSmoke1;
   static const silverToNightRider = _silver;
+  static const textBlue = _blueText;
   static const seashellToCinnabar15 = _seashell;
 }
 
@@ -197,4 +198,5 @@ const _lavenderBlue = Color(0xffE2DFFF);
 const _ghostWhite1 = Color(0xffF2F1FF);
 const _silver50 = Color(0x80B6B6B6);
 const _silver = Color(0xffc4c4c4);
+const _blueText = Color(0xff4D88C8);
 const _seashell = Color(0xffFFF8F5);

@@ -64,6 +64,10 @@ class AppIcons {
 
   // PROFILE
   static const alert = 'assets/icons/profile/alert.svg';
+  static const logout = 'assets/icons/profile/logout.svg';
+  static const dealers = 'assets/icons/profile/dealer.svg';
+  static const direct = 'assets/icons/profile/tabler_news.svg';
+  static const mySearch = 'assets/icons/profile/my_search.svg';
   static const statistic = 'assets/icons/car_single/statistic.svg';
   static const heartBlue = 'assets/icons/profile/heart.svg';
   static const refresh = 'assets/icons/profile/refresh.svg';
@@ -187,4 +191,9 @@ class AppIcons {
   static const apelsin = 'assets/images/car_single/apelsin.svg';
   static const click = 'assets/images/car_single/click.svg';
   static const upay = 'assets/images/car_single/upay.svg';
+
+  static const succes = 'assets/images/car_single/succes.svg';
+  static const unsucc = 'assets/images/car_single/unsucc.svg';
+  static const wait = 'assets/images/car_single/waiting.svg';
+  static const mercedes = 'assets/icons/car_single/benz.svg';
 }

@@ -3,7 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'profile.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(fieldRename: FieldRename.snake)
 class ProfileModel extends ProfileEntity {
   const ProfileModel({
     required super.id,
@@ -23,5 +23,20 @@ class ProfileModel extends ProfileEntity {
     required super.username,
   });
 
-  factory ProfileModel.fromJson(Map<String, dynamic> json) => _$ProfileModelFromJson(json);
+  factory ProfileModel.fromJson(Map<String, dynamic> json) =>
+      _$ProfileModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ProfileModelToJson(this);
+}
+
+class DistrictConverter
+    implements JsonConverter<ProfileEntity, Map<String, dynamic>?> {
+  const DistrictConverter();
+
+  @override
+  ProfileEntity fromJson(Map<String, dynamic>? json) =>
+      ProfileModel.fromJson(json ?? {});
+
+  @override
+  Map<String, dynamic> toJson(ProfileEntity object) => {};
 }
