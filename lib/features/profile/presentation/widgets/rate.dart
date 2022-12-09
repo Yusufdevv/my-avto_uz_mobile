@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
@@ -14,9 +16,10 @@ class Rate extends StatelessWidget {
         margin: EdgeInsets.symmetric(horizontal: 16),
         padding: EdgeInsets.only(left: 16),
         decoration: BoxDecoration(
-            border: Border.all(color: orange),
-            borderRadius: BorderRadius.circular(12),
-            color:   Theme.of(context).extension<ThemedColors>()!.whiteToNero1,),
+          border: Border.all(color: orange),
+          borderRadius: BorderRadius.circular(12),
+          color: Theme.of(context).extension<ThemedColors>()!.whiteToNero1,
+        ),
         child: Row(
           children: [
             Column(
@@ -29,12 +32,17 @@ class Rate extends StatelessWidget {
                         .headline5!
                         .copyWith(fontSize: 20, fontWeight: FontWeight.w600),
                     children: [
-                      TextSpan(
-                          text: LocaleKeys.rate_us.tr(),
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline1!
-                              .copyWith(fontWeight: FontWeight.w600)),
+                      if (Platform.isIOS) TextSpan(
+                              text: 'Оцените нас в App Store',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline1!
+                                  .copyWith(fontWeight: FontWeight.w600)) else TextSpan(
+                              text: 'Оцените нас в Play Market',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline1!
+                                  .copyWith(fontWeight: FontWeight.w600)),
                     ],
                   ),
                 ),
@@ -44,7 +52,7 @@ class Rate extends StatelessWidget {
                       const EdgeInsets.symmetric(vertical: 8, horizontal: 46),
                   onTap: () {},
                   child: Text(
-                    LocaleKeys.rate.tr(),
+                    'Оценить',
                     style: Theme.of(context)
                         .textTheme
                         .headline4!

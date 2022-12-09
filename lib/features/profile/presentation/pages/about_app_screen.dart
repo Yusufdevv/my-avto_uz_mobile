@@ -15,7 +15,7 @@ class AboutAppScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        appBar:  WAppBar(
+        appBar: WAppBar(
           textWithButton: LocaleKeys.about_app.tr(),
         ),
         body: Column(
@@ -63,7 +63,7 @@ class AboutAppScreen extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(top: 12, bottom: 36),
               child: Text(
-                'Версия 1.1\nот 1 апреля 2022 г.',
+                'Версия ',
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.headline2,
               ),

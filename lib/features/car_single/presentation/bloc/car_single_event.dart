@@ -2,6 +2,8 @@ part of 'car_single_bloc.dart';
 
 abstract class CarSingleEvent {}
 
+class ScrollingEvent extends CarSingleEvent{}
+
 class GetCarSingleEvent extends CarSingleEvent {}
 
 class GetOtherCarsSingleEvent extends CarSingleEvent {}

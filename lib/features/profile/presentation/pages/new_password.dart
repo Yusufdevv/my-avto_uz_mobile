@@ -1,3 +1,4 @@
+import 'package:auto/assets/colors/color.dart';
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
 import 'package:auto/features/common/widgets/custom_screen.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
@@ -39,7 +40,10 @@ class NewPasswordsPage extends StatelessWidget {
                     children: [
                       Text(
                         LocaleKeys.change_password.tr(),
-                        style: Theme.of(context).textTheme.headline1!.copyWith(fontSize: 32),
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline1!
+                            .copyWith(fontSize: 32),
                       ),
                       const SizedBox(height: 6),
                       Text(LocaleKeys.create_unfoget.tr(),
@@ -89,9 +93,16 @@ class NewPasswordsPage extends StatelessWidget {
               ),
               bottomNavigationBar: BlocBuilder<ProfileBloc, ProfileState>(
                 builder: (context, state) => WButton(
+                  shadow: [
+                    BoxShadow(
+                      blurRadius: 20,
+                      offset: Offset(0, 4),
+                      color: orange.withOpacity(0.2),
+                    ),
+                  ],
                   isLoading: state.changeStatus.isSubmissionInProgress,
-                  margin: EdgeInsets.fromLTRB(
-                      16, 24, 16, 24 + MediaQuery.of(context).viewInsets.bottom),
+                  margin: EdgeInsets.fromLTRB(16, 24, 16,
+                      24 + MediaQuery.of(context).viewInsets.bottom),
                   onTap: () {
                     context.read<ProfileBloc>().add(
                           ChangePasswordEvent(
@@ -101,12 +112,15 @@ class NewPasswordsPage extends StatelessWidget {
                             onSuccess: () {
                               Navigator.of(context, rootNavigator: true).push(
                                 fade(
-                                  page: const SmsCodePage(phone: '+998 88 033 18 05'),
+                                  page: const SmsCodePage(
+                                      phone: '+998 88 033 18 05'),
                                 ),
                               );
                             },
                             onError: (message) {
-                              context.read<ShowPopUpBloc>().add(ShowPopUp(message: message));
+                              context
+                                  .read<ShowPopUpBloc>()
+                                  .add(ShowPopUp(message: message));
                               print('errror');
                               print(message);
                             },

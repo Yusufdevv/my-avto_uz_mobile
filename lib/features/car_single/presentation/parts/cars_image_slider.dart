@@ -12,13 +12,14 @@ class CarsImageSlider extends StatefulWidget {
 
 class _CarsImageSliderState extends State<CarsImageSlider> {
   int currentIndex = 0;
+  int itemCount = 3;
 
   @override
   Widget build(BuildContext context) => Stack(
         children: [
           Positioned.fill(
             child: CarouselSlider.builder(
-                itemCount: 5,
+                itemCount: itemCount,
                 itemBuilder: (c, item, index) => Image.asset(
                       AppImages.defaultPhoto,
                       fit: BoxFit.cover,
@@ -39,7 +40,7 @@ class _CarsImageSliderState extends State<CarsImageSlider> {
             left: 16,
             child: Row(
               children: List.generate(
-                5,
+                itemCount == 1 ? 0 : itemCount,
                 (index) => Expanded(
                   child: AnimatedContainer(
                     margin: const EdgeInsets.only(right: 4),

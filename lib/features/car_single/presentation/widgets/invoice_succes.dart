@@ -13,6 +13,7 @@ class InvoiceSucces extends StatelessWidget {
   Widget build(BuildContext context) => Scaffold(
         appBar: const WAppBar(
           hasBackButton: true,
+          hasUnderline: true,
           title: 'Услуга',
         ),
         body: Center(
@@ -24,6 +25,7 @@ class InvoiceSucces extends StatelessWidget {
                 const Spacer(),
                 Lottie.asset(
                   'assets/lottie/succes.json',
+                  repeat: false,
                 ),
                 Text(
                   'Услуга успешно подключена',
@@ -31,6 +33,7 @@ class InvoiceSucces extends StatelessWidget {
                 ),
                 const Spacer(),
                 OrangeButton(
+                    shadowColor: white,
                     color: orange,
                     content: Text('Вернутся на объявление',
                         style: Theme.of(context).textTheme.headline4!.copyWith(
@@ -39,6 +42,7 @@ class InvoiceSucces extends StatelessWidget {
                       Navigator.of(context)
                           .push(fade(page: const CarSingleScreen()));
                     }),
+                SizedBox(height: MediaQuery.of(context).padding.bottom +16,)
               ],
             ),
           ),
