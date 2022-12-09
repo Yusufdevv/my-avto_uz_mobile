@@ -139,8 +139,7 @@ class AppIcons {
   static const shopping = 'assets/icons/search/shopping.svg';
   static const chevronRightGrey = 'assets/icons/global/chevron_right_grey.svg';
   static const wind = 'assets/icons/global/wind.svg';
-  static const chevronRightBlack =
-      'assets/icons/global/chevron_right_black.svg';
+  static const chevronRightBlack = 'assets/icons/global/chevron_right_black.svg';
   static const chevronRight1 = 'assets/icons/profile/chevron_right.svg';
   static const enabledHeart = 'assets/icons/search/enabled_heart.svg';
   static const disabledHeart = 'assets/icons/search/disabled_heart.svg';
@@ -159,8 +158,7 @@ class AppIcons {
   static const refresher = 'assets/icons/car_single/refreshers.svg';
   static const rocket = 'assets/icons/car_single/rocket.svg';
   static const safe = 'assets/icons/car_single/safety.svg';
-  static const shieldCheckOutlined =
-      'assets/icons/car_single/shield_check_outlined.svg';
+  static const shieldCheckOutlined = 'assets/icons/car_single/shield_check_outlined.svg';
 
   static const moreVertical = 'assets/icons/car_single/more.svg';
   static const note = 'assets/icons/car_single/note.svg';
