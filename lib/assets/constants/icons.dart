@@ -200,18 +200,4 @@ class AppIcons {
   static const wait = 'assets/images/car_single/waiting.svg';
   static const mercedes = 'assets/icons/car_single/benz.svg';
   static const eye2 = 'assets/icons/car_single/eye2.svg';
-  static const chevronRound = 'assets/icons/car_single/chevron_right_round.svg';
-  static const shieldRound = 'assets/icons/car_single/shield_round.svg';
-  static const lockRound = 'assets/icons/car_single/lock_round.svg';
-
-  static const payme = 'assets/images/car_single/payme.svg';
-  static const apelsin = 'assets/images/car_single/apelsin.svg';
-  static const click = 'assets/images/car_single/click.svg';
-  static const upay = 'assets/images/car_single/upay.svg';
-
-  static const succes = 'assets/images/car_single/succes.svg';
-  static const unsucc = 'assets/images/car_single/unsucc.svg';
-  static const wait = 'assets/images/car_single/waiting.svg';
-  static const mercedes = 'assets/icons/car_single/benz.svg';
-  static const eye2 = 'assets/icons/car_single/eye2.svg';
 }

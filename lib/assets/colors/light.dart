@@ -37,6 +37,7 @@ class LightThemeColors {
   static const warmerGreyToDarkGrey = _ghost;
   static const whiteToWhiteOpacity20 = _white;
   static const solitudeToGhost = _solitude;
+  static const seashellToCinnabar15 = _seashell;
 
   static const whiteToSmoky = _white;
   static const whiteSmokeToNightRider = _whiteSmoke;
