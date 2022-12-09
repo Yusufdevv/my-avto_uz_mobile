@@ -1,6 +1,7 @@
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/features/car_single/presentation/widgets/door_item.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -44,7 +45,9 @@ class CarCharacteristic extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(height: 15,),
+            const SizedBox(
+              height: 15,
+            ),
             Center(
               child: Stack(
                 children: [
@@ -55,11 +58,13 @@ class CarCharacteristic extends StatelessWidget {
                     right: 35,
                     top: 25,
                     child: SvgPicture.asset(AppIcons.blueCheckRounded),
-                  )
+                  ),
                 ],
               ),
             ),
-            const SizedBox(height: 15,),
+            const SizedBox(
+              height: 15,
+            ),
             Row(
               children: [
                 Expanded(
@@ -83,7 +88,9 @@ class CarCharacteristic extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(height: 15,),
+            const SizedBox(
+              height: 15,
+            ),
             Center(
               child: Stack(
                 children: [
@@ -94,13 +101,43 @@ class CarCharacteristic extends StatelessWidget {
                     left: 35,
                     top: 25,
                     child: SvgPicture.asset(AppIcons.blueWarning),
-                  ), Positioned(
+                  ),
+                  Positioned(
                     right: 50,
                     top: 29,
-                    child: SvgPicture.asset(AppIcons.yellowWarning),
+                    child: SvgPicture.asset(
+                      AppIcons.yellowWarning,
+                    ),
                   ),
                 ],
               ),
+            ),
+            const DoorItem(
+              title: 'Левая передняя дверь',
+              subtitle: 'Идеальное',
+              title2: 'Левая задняя дверь',
+              subtitle2: 'Идеальное',
+            ),
+            const Divider(),
+            const DoorItem(
+              title: 'Левая передняя дверь',
+              subtitle: 'Идеальное',
+              title2: 'Левая задняя дверь',
+              subtitle2: 'Идеальное',
+            ),
+            const Divider(),
+            const DoorItem(
+              title: 'Левая передняя дверь',
+              subtitle: 'Идеальное',
+              title2: 'Левая задняя дверь',
+              subtitle2: 'Идеальное',
+            ),
+            const Divider(),
+            const DoorItem(
+              title: 'Левая передняя дверь',
+              subtitle: 'Идеальное',
+              title2: 'Левая задняя дверь',
+              subtitle2: 'Идеальное',
             ),
           ],
         ),

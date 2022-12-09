@@ -227,6 +227,7 @@ abstract class DarkTheme {
     height: 1.2,
   );
   static const headline5 = TextStyle(
+
     fontSize: 18,
     fontWeight: FontWeight.w600,
     color: DarkThemeColors.headline5,

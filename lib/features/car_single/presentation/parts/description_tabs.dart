@@ -4,6 +4,7 @@ import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/car_single/presentation/parts/characteristics/characteristic_table.dart';
 import 'package:auto/features/car_single/presentation/parts/descriptions/equipment.dart';
 import 'package:auto/features/car_single/presentation/parts/descriptions/seller_comment.dart';
+import 'package:auto/features/car_single/presentation/parts/descriptions/vin_info_list.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -54,7 +55,23 @@ class _DescriptionTabsState extends State<DescriptionTabs>
                 },
                 padding: const EdgeInsets.all(2),
                 indicator: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
+                  boxShadow: [
+                    // BoxShadow(
+                    //   blurRadius: 1,
+                    //   offset: const Offset(0, 3),
+                    //   color: black.withOpacity(0.4),
+                    // ),
+                    BoxShadow(
+                      blurRadius: 8,
+                      offset: const Offset(0, 3),
+                      color: black.withOpacity(
+                        0.12,
+                      ),
+                    ),
+                  ],
+                  borderRadius: BorderRadius.circular(
+                    8,
+                  ),
                   color:
                       Theme.of(context).extension<ThemedColors>()!.whiteToSmoky,
                 ),
@@ -62,8 +79,9 @@ class _DescriptionTabsState extends State<DescriptionTabs>
                       fontSize: 13,
                       fontWeight: FontWeight.w600,
                     ),
-                labelColor: Theme.of(context).extension<ThemedColors>()!.darkToWhite,
-                tabs:  [
+                labelColor:
+                    Theme.of(context).extension<ThemedColors>()!.darkToWhite,
+                tabs: [
                   Tab(
                     text: LocaleKeys.description.tr(),
                   ),
@@ -82,6 +100,7 @@ class _DescriptionTabsState extends State<DescriptionTabs>
                 children: const [
                   SellerComment(),
                   EquipmentCard(),
+                  VinInfoList(),
                 ],
               )
             else
@@ -91,7 +110,7 @@ class _DescriptionTabsState extends State<DescriptionTabs>
                     Theme.of(context).extension<ThemedColors>()!.whiteToNero1,
                 child: Column(
                   children: [
-                     CharacteristicTable(
+                    CharacteristicTable(
                       titleList: [
                         LocaleKeys.gears_number.tr(),
                         LocaleKeys.engine_volume.tr(),
@@ -106,7 +125,7 @@ class _DescriptionTabsState extends State<DescriptionTabs>
                         LocaleKeys.Transmission.tr(),
                         LocaleKeys.body_type.tr(),
                       ],
-                      list: [
+                      list: const [
                         '7',
                         '1591 куб.см',
                         '433 л',
@@ -122,7 +141,7 @@ class _DescriptionTabsState extends State<DescriptionTabs>
                       ],
                       title: 'Характеристики автомобиля',
                     ),
-                     CharacteristicTable(
+                    CharacteristicTable(
                       titleList: [
                         LocaleKeys.gears_number.tr(),
                         LocaleKeys.engine_volume.tr(),
@@ -137,7 +156,7 @@ class _DescriptionTabsState extends State<DescriptionTabs>
                         LocaleKeys.Transmission.tr(),
                         LocaleKeys.body_type.tr(),
                       ],
-                      list: [
+                      list: const [
                         '7',
                         '1591 куб.см',
                         '433 л',
@@ -151,9 +170,9 @@ class _DescriptionTabsState extends State<DescriptionTabs>
                         'Роботизированная',
                         'Внедорожник 5 дв.',
                       ],
-                      title: 'Характеристики автомобиля',
+                      title: 'Размеры',
                     ),
-                     CharacteristicTable(
+                    CharacteristicTable(
                       titleList: [
                         LocaleKeys.gears_number.tr(),
                         LocaleKeys.engine_volume.tr(),
@@ -168,7 +187,7 @@ class _DescriptionTabsState extends State<DescriptionTabs>
                         LocaleKeys.Transmission.tr(),
                         LocaleKeys.body_type.tr(),
                       ],
-                      list: [
+                      list: const [
                         '7',
                         '1591 куб.см',
                         '433 л',
@@ -182,7 +201,7 @@ class _DescriptionTabsState extends State<DescriptionTabs>
                         'Роботизированная',
                         'Внедорожник 5 дв.',
                       ],
-                      title: 'Характеристики автомобиля',
+                      title: 'Объём и масса',
                     ),
                     const SizedBox(
                       height: 12,
@@ -214,4 +233,3 @@ class _DescriptionTabsState extends State<DescriptionTabs>
         ),
       );
 }
-

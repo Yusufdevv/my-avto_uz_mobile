@@ -1,3 +1,4 @@
+import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
@@ -11,7 +12,8 @@ import 'package:flutter/material.dart';
 class PasswordChangingScreen extends StatelessWidget {
   final ProfileBloc profileBloc;
 
-  const PasswordChangingScreen({required this.profileBloc, Key? key}) : super(key: key);
+  const PasswordChangingScreen({required this.profileBloc, Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -25,7 +27,10 @@ class PasswordChangingScreen extends StatelessWidget {
             children: [
               Text(
                 LocaleKeys.change_password.tr(),
-                style: Theme.of(context).textTheme.headline1!.copyWith(fontSize: 24),
+                style: Theme.of(context)
+                    .textTheme
+                    .headline1!
+                    .copyWith(fontSize: 24),
               ),
               const SizedBox(height: 4),
               Text(
@@ -41,9 +46,18 @@ class PasswordChangingScreen extends StatelessWidget {
           ),
         ),
         bottomNavigationBar: WButton(
-          margin: EdgeInsets.fromLTRB(16, 20, 16, 15 + MediaQuery.of(context).padding.bottom),
+          shadow: [
+            BoxShadow(
+              blurRadius: 20,
+              offset: Offset(0, 4),
+              color: orange.withOpacity(0.2),
+            ),
+          ],
+          margin: EdgeInsets.fromLTRB(
+              16, 20, 16, 15 + MediaQuery.of(context).padding.bottom),
           onTap: () {
-            Navigator.of(context).push(fade(page: NewPasswordsPage(profileBloc: profileBloc)));
+            Navigator.of(context)
+                .push(fade(page: NewPasswordsPage(profileBloc: profileBloc)));
           },
           child: Text(
             LocaleKeys.change_password.tr(),

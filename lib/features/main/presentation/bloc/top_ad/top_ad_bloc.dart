@@ -1,18 +1,13 @@
-import 'dart:async';
-
 import 'package:auto/features/common/models/ad.dart';
 import 'package:auto/features/main/domain/usecases/get_top_ads.dart';
-import 'package:auto/features/main/domain/usecases/get_top_brand.dart';
 import 'package:bloc/bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:meta/meta.dart';
 
-part 'top_ad_event.dart';
-
-part 'top_ad_state.dart';
-
 part 'top_ad_bloc.freezed.dart';
+part 'top_ad_event.dart';
+part 'top_ad_state.dart';
 
 class TopAdBloc extends Bloc<TopAdEvent, TopAdState> {
   final GetTopAdsUseCase getTopBrand;
