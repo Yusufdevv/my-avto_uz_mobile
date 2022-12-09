@@ -40,9 +40,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
   @override
   initState() {
-    nameController = TextEditingController(text: widget.profileBloc.state.profileEntity.firstName);
-    surNameController =
-        TextEditingController(text: widget.profileBloc.state.profileEntity.lastName);
+    nameController = TextEditingController(
+        text: widget.profileBloc.state.profileEntity.firstName);
+    surNameController = TextEditingController(
+        text: widget.profileBloc.state.profileEntity.lastName);
     super.initState();
   }
 
@@ -78,7 +79,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           ),
           bottomNavigationBar: WButton(
             isLoading: state.editStatus.isSubmissionInProgress,
-            margin: EdgeInsets.fromLTRB(16, 0, 16, 8 + mediaQuery.padding.bottom),
+            margin:
+                EdgeInsets.fromLTRB(16, 0, 16, 8 + mediaQuery.padding.bottom),
             text: 'Подтвердить',
             onTap: () {
               context.read<ProfileBloc>().add(
@@ -105,7 +107,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               margin: const EdgeInsets.only(top: 16),
               padding: const EdgeInsets.only(left: 16, right: 16, top: 24),
               decoration: BoxDecoration(
-                borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
+                borderRadius:
+                    const BorderRadius.vertical(top: Radius.circular(20)),
                 color: Theme.of(context).appBarTheme.backgroundColor,
               ),
               child: SingleChildScrollView(
@@ -120,8 +123,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                 backgroundColor: Colors.transparent,
                                 context: context,
                                 useRootNavigator: true,
-                                builder: (context) =>
-                                    CameraBottomSheet(imageBloc: widget.imageBloc));
+                                builder: (context) => CameraBottomSheet(
+                                    imageBloc: widget.imageBloc));
                           },
                           child: Column(
                             children: [
@@ -132,23 +135,30 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                       ? CachedImage(
                                           height: 80,
                                           width: 80,
-                                          borderRadius: BorderRadius.circular(40),
+                                          borderRadius:
+                                              BorderRadius.circular(40),
                                           fit: BoxFit.cover,
-                                          imageUrl: widget.profileBloc.state.profileEntity.image,
+                                          imageUrl: widget.profileBloc.state
+                                              .profileEntity.image,
                                         )
                                       : Container(
                                           height: 80,
                                           width: 80,
                                           child: ClipRRect(
-                                              borderRadius: BorderRadius.circular(40),
-                                              child: Image.file(state.image, fit: BoxFit.cover)),
+                                              borderRadius:
+                                                  BorderRadius.circular(40),
+                                              child: Image.file(state.image,
+                                                  fit: BoxFit.cover)),
                                         );
                                 },
                               ),
                               const SizedBox(height: 8),
                               Text(
                                 LocaleKeys.change_photo.tr(),
-                                style: Theme.of(context).textTheme.headline2!.copyWith(color: blue),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline2!
+                                    .copyWith(color: blue),
                               ),
                             ],
                           )),
@@ -160,7 +170,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       focusColor: Theme.of(context).appBarTheme.backgroundColor,
                       borderColor: purple,
                       cursorColor: purple,
-                      disabledColor: Theme.of(context).appBarTheme.backgroundColor,
+                      disabledColor:
+                          Theme.of(context).appBarTheme.backgroundColor,
                       textStyle: Theme.of(context)
                           .textTheme
                           .headline1!
@@ -174,7 +185,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       onChanged: (tmp) {},
                       controller: nameController,
                       filled: true,
-                      contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+                      contentPadding:
+                          const EdgeInsets.symmetric(horizontal: 16),
                       fillColor: Theme.of(context).appBarTheme.backgroundColor,
                     ),
                     TitleTextFieldTop(
@@ -188,7 +200,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           .textTheme
                           .headline1!
                           .copyWith(fontSize: 14, fontWeight: FontWeight.w600),
-                      disabledColor: Theme.of(context).appBarTheme.backgroundColor,
+                      disabledColor:
+                          Theme.of(context).appBarTheme.backgroundColor,
                       borderRadius: 12,
                       hintText: '',
                       hintTextStyle: Theme.of(context)
@@ -198,7 +211,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       onChanged: (tmp) {},
                       controller: surNameController,
                       filled: true,
-                      contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+                      contentPadding:
+                          const EdgeInsets.symmetric(horizontal: 16),
                       fillColor: Theme.of(context).appBarTheme.backgroundColor,
                     ),
                     TitleTextFieldTop(
@@ -212,17 +226,21 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             useRootNavigator: true,
                             backgroundColor: Colors.transparent,
                             constraints: BoxConstraints(
-                                maxHeight: MediaQuery.of(context).size.height * 0.36,
+                                maxHeight:
+                                    MediaQuery.of(context).size.height * 0.36,
                                 minWidth: MediaQuery.of(context).size.width),
                             builder: (context) => const LanguageBottomSheet());
                       },
                       child: Container(
-                        padding: const EdgeInsets.only(left: 16, top: 12, bottom: 12, right: 10),
+                        padding: const EdgeInsets.only(
+                            left: 16, top: 12, bottom: 12, right: 10),
                         decoration: BoxDecoration(
                           color: Theme.of(context).appBarTheme.backgroundColor,
                           borderRadius: BorderRadius.circular(12),
                           border: Border.all(
-                              color: Theme.of(context).extension<WTextFieldStyle>()!.borderColor),
+                              color: Theme.of(context)
+                                  .extension<WTextFieldStyle>()!
+                                  .borderColor),
                         ),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -234,13 +252,16 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                   style: Theme.of(context)
                                       .textTheme
                                       .headline1!
-                                      .copyWith(fontSize: 15, fontWeight: FontWeight.w600),
+                                      .copyWith(
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w600),
                                 ),
                                 const Spacer(),
                                 SvgPicture.asset(
                                   AppIcons.chevronRightBlack,
-                                  color:
-                                      Theme.of(context).extension<ThemedColors>()!.darkGreyToWhite,
+                                  color: Theme.of(context)
+                                      .extension<ThemedColors>()!
+                                      .darkGreyToWhite,
                                 )
                               ],
                             ),
@@ -257,7 +278,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           .textTheme
                           .headline1!
                           .copyWith(fontSize: 14, fontWeight: FontWeight.w600),
-                      disabledColor: Theme.of(context).appBarTheme.backgroundColor,
+                      disabledColor:
+                          Theme.of(context).appBarTheme.backgroundColor,
                       suffix: SvgPicture.asset(AppIcons.lock),
                       borderRadius: 12,
                       hintText: 'boss@auto.uz',
@@ -268,7 +290,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       onChanged: (tmp) {},
                       controller: TextEditingController(),
                       filled: true,
-                      contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+                      contentPadding:
+                          const EdgeInsets.symmetric(horizontal: 16),
                       fillColor: Theme.of(context).appBarTheme.backgroundColor,
                     ),
                   ],

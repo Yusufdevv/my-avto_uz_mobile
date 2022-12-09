@@ -20,7 +20,7 @@ class _CarsImageSliderState extends State<CarsImageSlider> {
             child: CarouselSlider.builder(
                 itemCount: 5,
                 itemBuilder: (c, item, index) => Image.asset(
-                      AppImages.carSingle,
+                      AppImages.defaultPhoto,
                       fit: BoxFit.cover,
                       width: double.maxFinite,
                     ),

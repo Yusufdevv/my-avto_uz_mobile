@@ -14,6 +14,7 @@ class ProfileItemModel extends ProfileItemEntity {
     required String avatarUrl,
     required int count,
   }) : super(id: id, count: count, avatarUrl: avatarUrl, name: name);
+
   factory ProfileItemModel.empty() =>
       const ProfileItemModel(id: 0, name: '', avatarUrl: '', count: 0);
 

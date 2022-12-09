@@ -73,19 +73,22 @@ class PriceIndicator extends StatelessWidget {
                 'Отличная',
                 style: Theme.of(context).textTheme.headline2,
               ),
-              const SizedBox(
-                width: 39,
-              ),
+              const Spacer(),
               Text('Оптимальная', style: Theme.of(context).textTheme.headline2),
-              const SizedBox(width: 27),
+              const Spacer(),
               Text('Завышенная', style: Theme.of(context).textTheme.headline2),
+              const SizedBox(
+                width: 15,
+              ),
             ],
           ),
           const SizedBox(
             height: 20,
           ),
           const Divider(),
-          const SizedBox(height: 4,)
+          const SizedBox(
+            height: 4,
+          )
         ],
       );
 }

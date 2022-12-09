@@ -31,7 +31,9 @@ class ProfileData extends StatelessWidget {
         child: Container(
           margin: margin,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(
+              12,
+            ),
             border: Border.all(
                 color: Theme.of(context)
                     .extension<WTextFieldStyle>()!
@@ -43,14 +45,18 @@ class ProfileData extends StatelessWidget {
               Row(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.all(12),
+                    padding: const EdgeInsets.all(
+                      12,
+                    ),
                     child: CachedImage(
                       fit: BoxFit.cover,
                       height: 48,
                       width: 48,
                       imageUrl: imageUrl,
                       border: Border.all(color: borderCircular),
-                      borderRadius: BorderRadius.circular(24),
+                      borderRadius: BorderRadius.circular(
+                        24,
+                      ),
                     ),
                   ),
                   Column(
@@ -58,31 +64,34 @@ class ProfileData extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        title,
-                        style: Theme.of(context)
-                            .textTheme
-                            .headline1!
-                            .copyWith(fontSize: 18),
+                        'Ali XL',
+                        style: Theme.of(context).textTheme.headline1!.copyWith(
+                              fontSize: 18,
+                            ),
                       ),
                       const SizedBox(
                         height: 2,
                       ),
                       Text(
                         subTitle,
-                        style: Theme.of(context)
-                            .textTheme
-                            .headline6!
-                            .copyWith(fontSize: 14),
+                        style: Theme.of(context).textTheme.headline6!.copyWith(
+                              fontSize: 14,
+                            ),
                       )
                     ],
                   ),
                   if (hasAlert)
                     Container(
-                      margin: const EdgeInsets.only(bottom: 18, left: 4),
+                      margin: const EdgeInsets.only(
+                        bottom: 18,
+                        left: 4,
+                      ),
                       height: 16,
                       width: 16,
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(4),
+                          borderRadius: BorderRadius.circular(
+                            4,
+                          ),
                           color: iconBackground.withOpacity(.1)),
                       child: Center(
                         child: SvgPicture.asset(AppIcons.alert),
@@ -92,7 +101,9 @@ class ProfileData extends StatelessWidget {
                     const SizedBox(),
                   const Spacer(),
                   Padding(
-                    padding: const EdgeInsets.only(right: 16),
+                    padding: const EdgeInsets.only(
+                      right: 16,
+                    ),
                     child: SvgPicture.asset(
                       AppIcons.chevronRight1,
                       color: Theme.of(context)
