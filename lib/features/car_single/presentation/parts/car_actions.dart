@@ -19,7 +19,9 @@ class CarActions extends StatelessWidget {
             CarActionsBox(
                 onTap: () {}, carStatistic: CarStatistic(valueText: LocaleKeys.compare.tr(), icon: AppIcons.scale)),
             CarActionsBox(
-                onTap: ShareAuto, carStatistic: CarStatistic(valueText: LocaleKeys.share.tr(), icon: AppIcons.share)),
+              carStatistic: CarStatistic(valueText: LocaleKeys.share.tr(), icon: AppIcons.share),
+              onTap: ShareAuto,
+            ),
           ],
         ),
       );

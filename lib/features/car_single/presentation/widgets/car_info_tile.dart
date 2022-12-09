@@ -19,14 +19,14 @@ class CarInfoTile extends StatelessWidget {
                 children: [
                   Text(
                     entity.title + ' ',
-                    style: Theme.of(context).textTheme.headline1!.copyWith(
-                        fontWeight: FontWeight.w400, fontSize: 14, color: grey),
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline1!
+                        .copyWith(fontWeight: FontWeight.w600, fontSize: 14, color: grey),
                   ),
                   Expanded(
                     child: Container(
-                      decoration: const BoxDecoration(
-                          border:
-                              Border(bottom: BorderSide(color: dividerColor))),
+                      decoration: const BoxDecoration(border: Border(bottom: BorderSide(color: dividerColor))),
                     ),
                   ),
                 ],
@@ -36,8 +36,10 @@ class CarInfoTile extends StatelessWidget {
               flex: 2,
               child: Text(
                 ' ' + entity.value,
-                style: Theme.of(context).textTheme.headline1!.copyWith(
-                    fontWeight: FontWeight.w600, fontSize: 14, color: grey),
+                style: Theme.of(context)
+                    .textTheme
+                    .headline1!
+                    .copyWith(fontWeight: FontWeight.w600, fontSize: 14, color: grey),
               ),
             ),
           ],

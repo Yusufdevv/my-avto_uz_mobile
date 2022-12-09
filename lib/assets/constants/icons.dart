@@ -64,11 +64,11 @@ class AppIcons {
 
   // PROFILE
   static const alert = 'assets/icons/profile/alert.svg';
+  static const statistic = 'assets/icons/car_single/statistic.svg';
   static const logout = 'assets/icons/profile/logout.svg';
   static const dealers = 'assets/icons/profile/dealer.svg';
   static const direct = 'assets/icons/profile/tabler_news.svg';
   static const mySearch = 'assets/icons/profile/my_search.svg';
-  static const statistic = 'assets/icons/car_single/statistic.svg';
   static const heartBlue = 'assets/icons/profile/heart.svg';
   static const refresh = 'assets/icons/profile/refresh.svg';
   static const share = 'assets/icons/profile/share.svg';

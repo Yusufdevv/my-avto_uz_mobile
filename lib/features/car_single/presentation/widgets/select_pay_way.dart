@@ -39,6 +39,7 @@ class SelectPaymentItem extends StatelessWidget {
           child: Row(
             children: [
               WRadio(
+                borderWidth: 12,
                 onChanged: onTap,
                 value: value,
                 groupValue: groupValue,
