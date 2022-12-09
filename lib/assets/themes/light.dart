@@ -14,7 +14,7 @@ abstract class LightTheme {
   /// More info for theme: https://docs.flutter.dev/cookbook/design/themes
 
   static ThemeData theme() => ThemeData(
-        fontFamily: 'NotoSans',
+        fontFamily:'Averta CY',
         scaffoldBackgroundColor: LightThemeColors.scaffoldBackground,
         backgroundColor: LightThemeColors.backgroundColor,
         indicatorColor: LightThemeColors.navBarIndicator,

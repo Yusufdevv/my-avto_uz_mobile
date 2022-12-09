@@ -1,5 +1,5 @@
 import 'package:auto/assets/colors/color.dart';
-import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/assets/constants/images.dart';
 import 'package:auto/features/car_single/presentation/widgets/invoice_in_progress.dart';
 import 'package:auto/features/car_single/presentation/widgets/orange_button.dart';
 import 'package:auto/features/car_single/presentation/widgets/select_pay_way.dart';
@@ -25,6 +25,7 @@ class _InvoicePageState extends State<InvoicePage> {
   Widget build(BuildContext context) => Scaffold(
         backgroundColor: white,
         appBar: const WAppBar(
+          hasUnderline: true,
           hasBackButton: true,
           title: 'Услуга',
         ),
@@ -108,7 +109,7 @@ class _InvoicePageState extends State<InvoicePage> {
                         const Expanded(
                           child: DottedLine(
                             dashColor: dividerColor,
-                            dashLength: 8,
+                            dashLength: 9,
                           ),
                         ),
                         Container(
@@ -173,7 +174,7 @@ class _InvoicePageState extends State<InvoicePage> {
                         value: 1,
                         groupValue: value,
                         color: value == 1 ? lavanda : borderCircular,
-                        iconPath: AppIcons.payme,
+                        iconPath: AppImages.apels,
                         borderColor: value == 1 ? purple : border,
                       ),
                     ),
@@ -188,9 +189,9 @@ class _InvoicePageState extends State<InvoicePage> {
                           });
                         },
                         value: 2,
-                        color: value == 2 ? lavanda : white,
+                        color: value == 2 ? lavanda : borderCircular,
                         groupValue: value,
-                        iconPath: AppIcons.apelsin,
+                        iconPath: AppImages.clickpng,
                         borderColor: value == 2 ? purple : border,
                       ),
                     ),
@@ -209,7 +210,7 @@ class _InvoicePageState extends State<InvoicePage> {
                       value: 3,
                       color: value == 3 ? lavanda : borderCircular,
                       groupValue: value,
-                      iconPath: AppIcons.click,
+                      iconPath: AppImages.paymepng,
                       borderColor: value == 3 ? purple : border,
                     ),
                   ),
@@ -226,7 +227,7 @@ class _InvoicePageState extends State<InvoicePage> {
                       value: 4,
                       color: value == 4 ? lavanda : borderCircular,
                       groupValue: value,
-                      iconPath: AppIcons.upay,
+                      iconPath: AppImages.hello,
                       borderColor: value == 4 ? purple : border,
                     ),
                   ),
@@ -259,7 +260,8 @@ class _InvoicePageState extends State<InvoicePage> {
                                     'Условиями использования и Политикой конфиденциальности',
                                 recognizer: TapGestureRecognizer()
                                   ..onTap = () async {
-                                    const url = '';
+                                    const url =
+                                        'https://jobo.uz/companies/limonpay-1';
                                     final urllaunchable = await canLaunch(url);
                                     if (urllaunchable) {
                                       await launch(url);
@@ -281,6 +283,7 @@ class _InvoicePageState extends State<InvoicePage> {
                     height: 16,
                   ),
                   OrangeButton(
+                    shadowColor: white,
                     color: orange,
                     content: Text('Подтвердить',
                         style: Theme.of(context)
@@ -291,7 +294,9 @@ class _InvoicePageState extends State<InvoicePage> {
                       Navigator.of(context)
                           .push(fade(page: const InvoiceInProgress()));
                     },
-                  )
+                  ),
+                  SizedBox(height: MediaQuery.of(context).padding.bottom +16,)
+
                 ],
               ),
             ],

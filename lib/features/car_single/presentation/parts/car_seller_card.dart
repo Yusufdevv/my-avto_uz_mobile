@@ -59,7 +59,7 @@ class CarSellerCard extends StatelessWidget {
                       LocaleKeys.private_person.tr(),
                       style: Theme.of(context).textTheme.headline2!.copyWith(
                           fontWeight: FontWeight.w600,
-                          fontSize: 16,
+                          fontSize: 12  ,
                           color: const Color(0xff695CEA)),
                     ),
                   ],

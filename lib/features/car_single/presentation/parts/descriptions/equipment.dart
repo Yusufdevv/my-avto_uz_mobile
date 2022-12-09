@@ -18,6 +18,9 @@ class _EquipmentCardState extends State<EquipmentCard> {
     const EquipmentEntity(title: 'Подушки безопасности боковые'),
     const EquipmentEntity(title: 'Подушки безопасности боковые'),
     const EquipmentEntity(title: 'Подушки безопасности боковые'),
+    const EquipmentEntity(title: 'Подушки безопасности боковые'),
+    const EquipmentEntity(title: 'Подушки безопасности боковые'),
+    const EquipmentEntity(title: 'Подушки безопасности боковые'),
   ];
 
   @override
@@ -45,27 +48,33 @@ class _EquipmentCardState extends State<EquipmentCard> {
             ),
             ...List.generate(
               entity.length,
-              (index) => EquipmentTile(equipmentEntity: entity[index]),
+              (index) => Padding(
+                padding: const EdgeInsets.only(left: 8.0),
+                child: EquipmentTile(equipmentEntity: entity[index]),
+              ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'Показать все',
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline3!
-                      .copyWith(fontSize: 14, fontWeight: FontWeight.w600),
-                ),
-                const SizedBox(
-                  width: 4,
-                ),
-                SvgPicture.asset(
-                  AppIcons.chevronDown,
-                  color: purple,
-                )
-              ],
-            )
+            if (entity.length >= 6)
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Показать все',
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline3!
+                        .copyWith(fontSize: 14, fontWeight: FontWeight.w600),
+                  ),
+                  const SizedBox(
+                    width: 4,
+                  ),
+                  SvgPicture.asset(
+                    AppIcons.chevronDown,
+                    color: purple,
+                  ),
+                ],
+              )
+            else
+              const SizedBox(),
           ],
         ),
       );

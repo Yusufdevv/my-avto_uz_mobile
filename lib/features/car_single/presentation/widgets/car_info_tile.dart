@@ -20,7 +20,7 @@ class CarInfoTile extends StatelessWidget {
                   Text(
                     entity.title + ' ',
                     style: Theme.of(context).textTheme.headline1!.copyWith(
-                        fontWeight: FontWeight.w600, fontSize: 14, color: grey),
+                        fontWeight: FontWeight.w400, fontSize: 14, color: grey),
                   ),
                   Expanded(
                     child: Container(

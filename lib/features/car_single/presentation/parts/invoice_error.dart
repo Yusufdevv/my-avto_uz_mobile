@@ -13,6 +13,7 @@ class InvoiceError extends StatelessWidget {
   Widget build(BuildContext context) => Scaffold(
         appBar: const WAppBar(
           hasBackButton: true,
+          hasUnderline: true,
           title: 'Услуга',
         ),
         body: Center(
@@ -24,6 +25,7 @@ class InvoiceError extends StatelessWidget {
                 const Spacer(),
                 Lottie.asset(
                   'assets/lottie/error.json',
+                  repeat: false
                 ),
                 Text(
                   'Услуга успешно подключена',
@@ -33,6 +35,7 @@ class InvoiceError extends StatelessWidget {
                 Column(
                   children: [
                     OrangeButton(
+                        shadowColor: white,
                         color: border,
                         content: Text('Повторить попытку',
                             style: Theme.of(context)
@@ -45,6 +48,7 @@ class InvoiceError extends StatelessWidget {
                       height: 16,
                     ),
                     OrangeButton(
+                      shadowColor: white,
                         color: orange,
                         content: Text('Вернутся на объявление',
                             style: Theme.of(context)
@@ -56,6 +60,7 @@ class InvoiceError extends StatelessWidget {
                           Navigator.of(context)
                               .push(fade(page: const CarSingleScreen()));
                         }),
+                    SizedBox(height: MediaQuery.of(context).padding.bottom +16,)
                   ],
                 ),
               ],
