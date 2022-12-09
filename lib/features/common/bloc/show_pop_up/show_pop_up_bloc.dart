@@ -5,6 +5,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
 part 'show_pop_up_event.dart';
+
 part 'show_pop_up_state.dart';
 
 class ShowPopUpBloc extends Bloc<ShowPopUpEvent, ShowPopUpState> {
@@ -15,7 +16,7 @@ class ShowPopUpBloc extends Bloc<ShowPopUpEvent, ShowPopUpState> {
       if (timer.isActive) {
         timer.cancel();
       }
-      timer = Timer(const Duration(seconds: 100), () {
+      timer = Timer(const Duration(seconds: 3), () {
         add(HidePopUp());
       });
     });

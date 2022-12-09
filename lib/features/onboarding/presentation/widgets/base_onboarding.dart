@@ -69,46 +69,45 @@ class BaseOnBoarding extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(
-              height: 24,
-            ),
+            const SizedBox(height: 24),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SocialMediaItem(
-                  onTap: (){},
+                    onTap: () {},
                     icon: SvgPicture.asset(
-                  AppIcons.facebook,
-                  color: Theme.of(context)
-                      .extension<ThemedColors>()!
-                      .dodgerBlueToWhite80,
-                )),
+                      AppIcons.facebook,
+                      color: Theme.of(context)
+                          .extension<ThemedColors>()!
+                          .dodgerBlueToWhite80,
+                    )),
                 const SizedBox(width: 24),
                 SocialMediaItem(
-                  onTap: (){},
+                  onTap: () {},
                   icon: SvgPicture.asset(
                       Theme.of(context).extension<ThemedIcons>()!.google),
                 ),
                 const SizedBox(width: 24),
                 SocialMediaItem(
-                  onTap: (){},
+                    onTap: () {},
                     icon: SvgPicture.asset(
-                  AppIcons.apple,
-                  color: Theme.of(context)
-                      .extension<ThemedColors>()!
-                      .blackToWhite80,
-                )),
+                      AppIcons.apple,
+                      color: Theme.of(context)
+                          .extension<ThemedColors>()!
+                          .blackToWhite80,
+                    )),
                 const SizedBox(width: 24),
                 SocialMediaItem(
-                  onTap: (){},
+                    onTap: () {},
                     icon: SvgPicture.asset(
-                  AppIcons.imkon,
-                  color: Theme.of(context)
-                      .extension<ThemedColors>()!
-                      .prussianBlueToWhite80,
-                )),
+                      AppIcons.imkon,
+                      color: Theme.of(context)
+                          .extension<ThemedColors>()!
+                          .prussianBlueToWhite80,
+                    )),
               ],
             ),
+            const SizedBox(height: 24)
           ],
         ),
       );

@@ -76,4 +76,5 @@ flutter:
     - assets/icons/search/
     - lib/assets/strings/
     - assets/lottie/
+    - assets/icons/auth/
 

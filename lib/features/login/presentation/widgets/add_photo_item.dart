@@ -1,13 +1,17 @@
 import 'package:auto/assets/colors/color.dart';
+import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/w_bottom_sheet.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
+import 'package:auto/features/common/widgets/w_divider.dart';
 import 'package:auto/features/login/presentation/bloc/register/register_bloc.dart';
+import 'package:auto/features/login/presentation/widgets/teke_image_bottomsheet.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 
 class AddPhotoItem extends StatefulWidget {
@@ -22,14 +26,35 @@ class _AddPhotoItemState extends State<AddPhotoItem> {
 
   void showImageBottomSheet(
       {required Function(String) onSuccess, required BuildContext context}) {
+    final mediaQuery = MediaQuery.of(context);
     showModalBottomSheet(
         useRootNavigator: true,
         backgroundColor: Colors.transparent,
         context: context,
         builder: (c) => WBottomSheet(
-              contentPadding:
-                  const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+              contentPadding: EdgeInsets.fromLTRB(
+                  16, 20, 16, 12 + mediaQuery.padding.bottom),
               children: [
+                GestureDetector(
+                  onTap: () async {
+                    await takePhoto(isCamera: true)
+                        .then((value) => onSuccess(value));
+                  },
+                  child: Row(
+                    children: [
+                      SvgPicture.asset(AppIcons.icCamera),
+                      const SizedBox(width: 8),
+                      Text(
+                        'Камера',
+                        style:
+                            Theme.of(context).textTheme.headline1!.copyWith(),
+                      )
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 12),
+                const WDivider(),
+                const SizedBox(height: 12),
                 GestureDetector(
                   onTap: () async {
                     await takePhoto(isCamera: false)
@@ -37,45 +62,14 @@ class _AddPhotoItemState extends State<AddPhotoItem> {
                   },
                   child: Container(
                     color: Colors.transparent,
-                    margin: const EdgeInsets.symmetric(vertical: 4),
                     child: Row(
-                      children: const [
-                        Icon(
-                          Icons.photo,
-                          color: Colors.black38,
-                          size: 30,
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Text('Gallery')
-                      ],
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 6,
-                ),
-                GestureDetector(
-                  onTap: () async {
-                    await takePhoto(isCamera: true)
-                        .then((value) => onSuccess(value));
-                  },
-                  child: Container(
-                    color: Colors.transparent,
-                    margin: const EdgeInsets.symmetric(vertical: 8),
-                    child: Row(
-                      children: const [
-                        Icon(
-                          Icons.camera_alt,
-                          color: Colors.black38,
-                          size: 30,
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
+                      children: [
+                        SvgPicture.asset(AppIcons.gallery),
+                        const SizedBox(width: 8),
                         Text(
-                          'Camera',
+                          'Выбрать фото',
+                          style:
+                              Theme.of(context).textTheme.headline1!.copyWith(),
                         )
                       ],
                     ),
@@ -105,39 +99,41 @@ class _AddPhotoItemState extends State<AddPhotoItem> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
-           LocaleKeys.photo.tr(),
+            LocaleKeys.photo.tr(),
             style: Theme.of(context)
                 .textTheme
                 .headline1!
                 .copyWith(fontWeight: FontWeight.w400, fontSize: 14),
           ),
-          const SizedBox(
-            width: 48,
-          ),
+          const SizedBox(width: 48),
           Expanded(
             child: Column(
               children: [
                 Row(
                   children: [
                     BlocBuilder<RegisterBloc, RegisterState>(
-                      builder: (context, state) => Container(
-                        height: 64,
-                        width: 64,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          image: DecorationImage(fit: BoxFit.cover,
-                              image: AssetImage(
-                                  state.registerModel.image.isNotEmpty
-                                      ? state.registerModel.image
-                                      : AppImages.imagePlaceHolder)),
-                        ),
-                      ),
+                      builder: (context, state) {
+                        print('image');
+                        print(state.registerModel.image);
+                        return Container(
+                          height: 64,
+                          width: 64,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                                fit: BoxFit.cover,
+                                image: AssetImage(
+                                    state.registerModel.image.isNotEmpty
+                                        ? state.registerModel.image
+                                        : AppImages.imagePlaceHolder)),
+                          ),
+                        );
+                      },
                     ),
-                    const SizedBox(
-                      width: 21,
-                    ),
+                    const SizedBox(width: 21),
                     WButton(
                       onTap: () {
+                        //showTakeImageBottomSheet(context);
                         showImageBottomSheet(
                             onSuccess: (image) {
                               context

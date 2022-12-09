@@ -1,4 +1,8 @@
 class AppIcons {
+  //Auth
+  static const icCamera = 'assets/icons/auth/camera.svg';
+  static const gallery = 'assets/icons/auth/gallery.svg';
+
   //NavBar
   static const navBarMain = 'assets/icons/navbar/main.svg';
   static const navBarMainOutline = 'assets/icons/navbar/main_outline.svg';
@@ -63,7 +67,8 @@ class AppIcons {
   static const chevronRight = 'assets/icons/global/chevron_right.svg';
   static const mapPin = 'assets/icons/global/map_pin.svg';
   static const filterIcon = 'assets/icons/global/filter_icon.svg';
-  static const cancel='assets/icons/global/cancel.svg';
+  static const cancel = 'assets/icons/global/cancel.svg';
+
   // PROFILE
   static const alert = 'assets/icons/profile/alert.svg';
   static const heartBlue = 'assets/icons/profile/heart.svg';
@@ -130,6 +135,7 @@ class AppIcons {
   static const chevronRight2 = 'assets/icons/global/chevron_right.svg';
   static const commercialCar = 'assets/icons/global/commercial_car.svg';
   static const checkGreen = 'assets/icons/global/check_green.svg';
+
   // SEARCH
   static const parameter = 'assets/icons/search/parameter.svg';
   static const searchWithHeart = 'assets/icons/search/search_with_heart.svg';
@@ -146,12 +152,15 @@ class AppIcons {
   static const disabledHeart = 'assets/icons/search/disabled_heart.svg';
   static const scalesRed = 'assets/icons/search/scales_red.svg';
   static const crown = 'assets/icons/car_single/crown.svg';
+
   // static const calendar = 'assets/icons/car_single/calendar.svg';
   static const doubleCheck = 'assets/icons/car_single/double_check.svg';
   static const equals = 'assets/icons/car_single/equals.svg';
   static const lockVin = 'assets/icons/car_single/lock.svg';
+
   // static const eye = 'assets/icons/car_single/eye.svg';
   static const fire = 'assets/icons/car_single/fire.svg';
+
   // static const id = 'assets/icons/car_single/id.svg';
   static const refresher = 'assets/icons/car_single/refreshers.svg';
   static const rocket = 'assets/icons/car_single/rocket.svg';

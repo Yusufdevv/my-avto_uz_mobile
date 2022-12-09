@@ -155,13 +155,16 @@ class _LoginScreenState extends State<LoginScreen> {
                       ? () {
                           context.read<AuthenticationBloc>().add(LoginUser(
                               onError: (text) {
-                                context
-                                    .read<ShowPopUpBloc>()
-                                    .add(ShowPopUp(message: text));
+                                if (text.isNotEmpty) {
+                                  context
+                                      .read<ShowPopUpBloc>()
+                                      .add(ShowPopUp(message: text));
+                                } else {}
                               },
                               password: passwordController.text,
-                              userName:
-                                  phoneController.text.replaceAll('+998', '').replaceAll('', ' ')));
+                              userName: phoneController.text
+                                  .replaceAll('+998', '')
+                                  .replaceAll('', ' ')));
                         }
                       : () {},
                   shadow: [

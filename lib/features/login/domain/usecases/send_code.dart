@@ -10,6 +10,7 @@ class SendCodeUseCase extends UseCase<String, String> {
   Future<Either<Failure, String>> call(String phone) => repo.postAndSingle(sendToken: false,
       endpoint: '/users/registration/sms-verification/entrypoint/',
       fromJson: (data) => data['session'],
+
       data: {'phone': '+998${phone.replaceAll(' ', '')}'});
 }
 

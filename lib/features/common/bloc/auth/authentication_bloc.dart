@@ -1,11 +1,11 @@
 import 'dart:async';
 
+import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/common/domain/model/user.dart';
 import 'package:auto/features/common/repository/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 
 part 'authentication_event.dart';
 
@@ -51,7 +51,7 @@ class AuthenticationBloc
             status: AuthenticationStatus.authenticated));
       } else {
         if (event.onError != null) {
-          event.onError!(result.left.toString());
+          event.onError!((result.left as ServerFailure).errorMessage);
         }
       }
     });

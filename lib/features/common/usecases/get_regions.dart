@@ -1,4 +1,3 @@
-
 import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/core/usecases/usecase.dart';
 import 'package:auto/features/common/models/region.dart';
@@ -13,8 +12,9 @@ class GetRegionsUseCase extends UseCase<GenericPagination<Region>, String> {
   @override
   Future<Either<Failure, GenericPagination<Region>>> call(String params) =>
       repo.fetchMore(
-          url: '/common/regions/',
-          fromJson: Region.fromJson,
-          next: '',
-          query: {'limit': 20});
+        url: '/common/regions/',
+        fromJson: Region.fromJson,
+        next: '',
+        sendToken: false,
+      );
 }

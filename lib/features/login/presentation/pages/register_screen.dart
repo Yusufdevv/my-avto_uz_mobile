@@ -1,6 +1,8 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
+import 'package:auto/features/common/widgets/custom_screen.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/login/domain/usecases/register_user.dart';
@@ -51,101 +53,109 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) => BlocProvider.value(
         value: registerBloc,
-        child: Scaffold(
-          appBar: WAppBar(
-            title: LocaleKeys.register.tr(),
-          ),
-          body: Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                LoginHeader(
-                  title: LocaleKeys.tel_number.tr(),
-                  description: LocaleKeys.check_number.tr(),
-                ),
-                const SizedBox(
-                  height: 12,
-                ),
-                ZTextFormField(
-                  onChanged: (onChanged) {
-                    setState(() {});
-                  },
-                  controller: phoneController,
-                  prefixIcon: Row(
-                    children: [
-                      Image.asset(AppImages.flagUzb),
-                      const SizedBox(
-                        width: 4,
-                      ),
-                      Text(
-                        '+998',
-                        style: Theme.of(context)
-                            .textTheme
-                            .subtitle1!
-                            .copyWith(fontSize: 15),
-                      ),
+        child: CustomScreen(
+          child: Scaffold(
+            appBar: WAppBar(
+              title: LocaleKeys.register.tr(),
+            ),
+            body: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  LoginHeader(
+                    title: LocaleKeys.tel_number.tr(),
+                    description: LocaleKeys.check_number.tr(),
+                  ),
+                  const SizedBox(
+                    height: 12,
+                  ),
+                  ZTextFormField(
+                    onChanged: (onChanged) {
+                      setState(() {});
+                    },
+                    controller: phoneController,
+                    prefixIcon: Row(
+                      children: [
+                        Image.asset(AppImages.flagUzb),
+                        const SizedBox(
+                          width: 4,
+                        ),
+                        Text(
+                          '+998',
+                          style: Theme.of(context)
+                              .textTheme
+                              .subtitle1!
+                              .copyWith(fontSize: 15),
+                        ),
+                      ],
+                    ),
+                    hintText: '91 234 56 78',
+                    keyBoardType: TextInputType.number,
+                    textInputFormatters: [phoneFormatter],
+                  ),
+                  const SizedBox(height: 24),
+                  // RichText(
+                  //     text: TextSpan(
+                  //   children: [
+                  //     TextSpan(
+                  //         text: "Продолжая регистрацию, я признаю что принимаю",
+                  //         style: Theme.of(context).textTheme.headline1),
+                  //     TextSpan(text: ' условия использования'),
+                  //     TextSpan(text: ' и'),
+                  //     TextSpan(text: ' правила'),
+                  //   ],
+                  // )),
+                  //const Spacer(),
+                  WButton(
+                    onTap: () {
+                      print(phoneController.text.length);
+                      if (phoneController.text.length == 12) {
+                        registerBloc.add(RegisterEvent.sendCode(
+                            phoneController.text.replaceAll('+998', ''),
+                            onError: (text) {
+                          if (text.isNotEmpty) {
+                            context
+                                .read<ShowPopUpBloc>()
+                                .add(ShowPopUp(message: text));
+                          } else {}
+                        }, onSuccess: (session) {
+                          Navigator.push(
+                              context,
+                              fade(
+                                  page: BlocProvider.value(
+                                value: registerBloc,
+                                child: VerificationScreen(
+                                    session: session,
+                                    phone: phoneController.text
+                                        .replaceAll('+998', '')),
+                              )));
+                        }));
+                      } else {}
+                    },
+                    shadow: [
+                      BoxShadow(
+                          offset: const Offset(0, 4),
+                          blurRadius: 20,
+                          color: solitude.withOpacity(.12)),
                     ],
-                  ),
-                  hintText: '91 234 56 78',
-                  keyBoardType: TextInputType.number,
-                  textInputFormatters: [phoneFormatter],
-                ),
-                const SizedBox(height: 24),
-                // RichText(
-                //     text: TextSpan(
-                //   children: [
-                //     TextSpan(
-                //         text: "Продолжая регистрацию, я признаю что принимаю",
-                //         style: Theme.of(context).textTheme.headline1),
-                //     TextSpan(text: ' условия использования'),
-                //     TextSpan(text: ' и'),
-                //     TextSpan(text: ' правила'),
-                //   ],
-                // )),
-                //const Spacer(),
-                WButton(
-                  onTap: () {
-                    print(phoneController.text.length);
-                    if (phoneController.text.length == 12) {
-                      registerBloc.add(RegisterEvent.sendCode(
-                          phoneController.text.replaceAll('+998', ''),
-                          onSuccess: (session) {
-                        Navigator.push(
-                            context,
-                            fade(
-                                page: BlocProvider.value(
-                              value: registerBloc,
-                              child: VerificationScreen(
-                                  session: session,
-                                  phone: phoneController.text
-                                      .replaceAll('+998', '')),
-                            )));
-                      }));
-                    } else {}
-                  },
-                  shadow: [
-                    BoxShadow(
-                        offset: const Offset(0, 4),
-                        blurRadius: 20,
-                        color: solitude.withOpacity(.12)),
-                  ],
-                  margin: EdgeInsets.only(
-                      bottom: 4 + MediaQuery.of(context).padding.bottom),
-                  color: (phoneController.text.isNotEmpty)
-                      ? orange
-                      : Theme.of(context)
+                    margin: EdgeInsets.only(
+                        bottom: 4 + MediaQuery.of(context).padding.bottom),
+                    color: (phoneController.text.isNotEmpty)
+                        ? orange
+                        : Theme.of(context)
+                            .extension<ThemedColors>()!
+                            .veryLightGreyToEclipse,
+                    text: LocaleKeys.continuee.tr(),
+                    border: Border.all(
+                      width: 1,
+                      color: Theme.of(context)
                           .extension<ThemedColors>()!
-                          .veryLightGreyToEclipse,
-                  text: LocaleKeys.continuee.tr(),
-                  border: Border.all(
-                    width: 1,
-                    color: Theme.of(context)
-                        .extension<ThemedColors>()!
-                        .whiteToDolphin,
+                          .whiteToDolphin,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
