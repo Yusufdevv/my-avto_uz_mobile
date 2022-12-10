@@ -27,38 +27,36 @@ class RecoveryBloc extends Bloc<RecoveryEvent, RecoveryState> {
       if (result.isRight) {
         emit(state.copyWith(sendCodeStatus: FormzStatus.submissionSuccess));
 
-          event.onSuccess(result.right);
-
+        event.onSuccess(result.right);
       } else {
         emit(state.copyWith(sendCodeStatus: FormzStatus.submissionFailure));
       }
     });
 
-    on<_VerifyCode>((event, emit) async{
+    on<_VerifyCode>((event, emit) async {
       emit(state.copyWith(verifyStatus: FormzStatus.submissionInProgress));
       final result = await verifyCode(event.param);
       if (result.isRight) {
-        print(result.right+'from Bloc');
-        emit(state.copyWith(phone: result.right,
+        print(result.right + 'from Bloc');
+        emit(state.copyWith(
+          phone: result.right,
           verifyStatus: FormzStatus.submissionSuccess,
         ));
 
-          event.onSuccess();
-
+        event.onSuccess();
       } else {
         emit(state.copyWith(verifyStatus: FormzStatus.submissionInProgress));
       }
     });
 
-    on<_ChangePassword>((event, emit)async {
-
+    on<_ChangePassword>((event, emit) async {
       emit(state.copyWith(registerStatus: FormzStatus.submissionInProgress));
-      final result =await changePassword(ChangePassParam(phone: state.phone, validPassword: event.password));
-      if(result.isRight){
+      final result = await changePassword(
+          ChangePassParam(phone: state.phone, validPassword: event.password));
+      if (result.isRight) {
         event.onSuccess();
         emit(state.copyWith(registerStatus: FormzStatus.submissionSuccess));
-
-      }else {
+      } else {
         emit(state.copyWith(registerStatus: FormzStatus.submissionFailure));
       }
     });

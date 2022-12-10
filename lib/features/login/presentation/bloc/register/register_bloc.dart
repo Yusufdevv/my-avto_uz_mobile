@@ -59,6 +59,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
         print('left');
         if (event.onError != null) {
           print('null');
+          print(result.left);
           print((result.left as ServerFailure).errorMessage);
           event.onError!((result.left as ServerFailure).errorMessage);
         } else {}

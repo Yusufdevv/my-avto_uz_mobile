@@ -9,8 +9,8 @@ import 'package:auto/features/common/widgets/custom_screen.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_divider.dart';
-import 'package:auto/features/login/presentation/pages/password_recovery_screen.dart';
 import 'package:auto/features/login/presentation/pages/register_screen.dart';
+import 'package:auto/features/login/presentation/pages/reset_password.dart';
 import 'package:auto/features/login/presentation/widgets/z_text_form_field.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/onboarding/presentation/widgets/social_media_item.dart';
@@ -132,14 +132,18 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 const SizedBox(height: 16),
                 GestureDetector(
-                  onTap: () => Navigator.push(
-                    context,
-                    fade(
-                      page: PasswordRecoveryScreen(
-                        phone: phoneController.text,
-                      ),
-                    ),
-                  ),
+                  onTap: () {
+                    Navigator.of(context)
+                        .push(fade(page: const ResetPasswordScreen()));
+                    //   Navigator.push(
+                    //   context,
+                    //   fade(
+                    //     page: PasswordRecoveryScreen(
+                    //       phone: phoneController.text,
+                    //     ),
+                    //   ),
+                    // );
+                  },
                   child: Text(
                     'Забыли пароль?',
                     style: Theme.of(context)
@@ -150,6 +154,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 const SizedBox(height: 24),
                 WButton(
+                  isDisabled: !(passwordController.text.length >= 4 &&
+                      phoneController.text.length == 12),
                   onTap: passwordController.text.length >= 4 &&
                           phoneController.text.length == 12
                       ? () {
@@ -178,12 +184,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     right: 16,
                     left: 16,
                   ),
-                  color: (passwordController.text.length >= 4 &&
-                          phoneController.text.length == 12)
-                      ? orange
-                      : Theme.of(context)
-                          .extension<ThemedColors>()!
-                          .veryLightGreyToEclipse,
                   text: 'Продолжить',
                   border: Border.all(
                     width: 1,
@@ -241,13 +241,14 @@ class _LoginScreenState extends State<LoginScreen> {
                       )),
                   const SizedBox(width: 24),
                   SocialMediaItem(
-                      onTap: () {},
-                      icon: SvgPicture.asset(
-                        AppIcons.imkon,
-                        color: Theme.of(context)
-                            .extension<ThemedColors>()!
-                            .prussianBlueToWhite80,
-                      )),
+                    onTap: () {},
+                    icon: SvgPicture.asset(
+                      AppIcons.imkon,
+                      color: Theme.of(context)
+                          .extension<ThemedColors>()!
+                          .prussianBlueToWhite80,
+                    ),
+                  ),
                 ],
               ),
               SizedBox(height: 24 + mediaQuery.padding.bottom)
