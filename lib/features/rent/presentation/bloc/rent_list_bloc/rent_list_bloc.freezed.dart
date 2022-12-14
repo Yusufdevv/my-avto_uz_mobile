@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'rent_list_bloc.dart';
 
@@ -24,8 +24,8 @@ mixin _$RentListEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(bool isRefresh, int id, String search)? getResults,
-    TResult Function()? getMoreResults,
+    TResult? Function(bool isRefresh, int id, String search)? getResults,
+    TResult? Function()? getMoreResults,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -43,8 +43,8 @@ mixin _$RentListEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_GetResults value)? getResults,
-    TResult Function(_GetMoreResults value)? getMoreResults,
+    TResult? Function(_GetResults value)? getResults,
+    TResult? Function(_GetMoreResults value)? getMoreResults,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -60,17 +60,18 @@ mixin _$RentListEvent {
 abstract class $RentListEventCopyWith<$Res> {
   factory $RentListEventCopyWith(
           RentListEvent value, $Res Function(RentListEvent) then) =
-      _$RentListEventCopyWithImpl<$Res>;
+      _$RentListEventCopyWithImpl<$Res, RentListEvent>;
 }
 
 /// @nodoc
-class _$RentListEventCopyWithImpl<$Res>
+class _$RentListEventCopyWithImpl<$Res, $Val extends RentListEvent>
     implements $RentListEventCopyWith<$Res> {
   _$RentListEventCopyWithImpl(this._value, this._then);
 
-  final RentListEvent _value;
   // ignore: unused_field
-  final $Res Function(RentListEvent) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 }
 
 /// @nodoc
@@ -78,36 +79,35 @@ abstract class _$$_GetResultsCopyWith<$Res> {
   factory _$$_GetResultsCopyWith(
           _$_GetResults value, $Res Function(_$_GetResults) then) =
       __$$_GetResultsCopyWithImpl<$Res>;
+  @useResult
   $Res call({bool isRefresh, int id, String search});
 }
 
 /// @nodoc
 class __$$_GetResultsCopyWithImpl<$Res>
-    extends _$RentListEventCopyWithImpl<$Res>
+    extends _$RentListEventCopyWithImpl<$Res, _$_GetResults>
     implements _$$_GetResultsCopyWith<$Res> {
   __$$_GetResultsCopyWithImpl(
       _$_GetResults _value, $Res Function(_$_GetResults) _then)
-      : super(_value, (v) => _then(v as _$_GetResults));
+      : super(_value, _then);
 
-  @override
-  _$_GetResults get _value => super._value as _$_GetResults;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? isRefresh = freezed,
-    Object? id = freezed,
-    Object? search = freezed,
+    Object? isRefresh = null,
+    Object? id = null,
+    Object? search = null,
   }) {
     return _then(_$_GetResults(
-      isRefresh: isRefresh == freezed
+      isRefresh: null == isRefresh
           ? _value.isRefresh
           : isRefresh // ignore: cast_nullable_to_non_nullable
               as bool,
-      id: id == freezed
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
-      search: search == freezed
+      search: null == search
           ? _value.search
           : search // ignore: cast_nullable_to_non_nullable
               as String,
@@ -138,20 +138,18 @@ class _$_GetResults implements _GetResults {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_GetResults &&
-            const DeepCollectionEquality().equals(other.isRefresh, isRefresh) &&
-            const DeepCollectionEquality().equals(other.id, id) &&
-            const DeepCollectionEquality().equals(other.search, search));
+            (identical(other.isRefresh, isRefresh) ||
+                other.isRefresh == isRefresh) &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.search, search) || other.search == search));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(isRefresh),
-      const DeepCollectionEquality().hash(id),
-      const DeepCollectionEquality().hash(search));
+  int get hashCode => Object.hash(runtimeType, isRefresh, id, search);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_GetResultsCopyWith<_$_GetResults> get copyWith =>
       __$$_GetResultsCopyWithImpl<_$_GetResults>(this, _$identity);
 
@@ -167,8 +165,8 @@ class _$_GetResults implements _GetResults {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(bool isRefresh, int id, String search)? getResults,
-    TResult Function()? getMoreResults,
+    TResult? Function(bool isRefresh, int id, String search)? getResults,
+    TResult? Function()? getMoreResults,
   }) {
     return getResults?.call(isRefresh, id, search);
   }
@@ -198,8 +196,8 @@ class _$_GetResults implements _GetResults {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_GetResults value)? getResults,
-    TResult Function(_GetMoreResults value)? getMoreResults,
+    TResult? Function(_GetResults value)? getResults,
+    TResult? Function(_GetMoreResults value)? getMoreResults,
   }) {
     return getResults?.call(this);
   }
@@ -241,14 +239,11 @@ abstract class _$$_GetMoreResultsCopyWith<$Res> {
 
 /// @nodoc
 class __$$_GetMoreResultsCopyWithImpl<$Res>
-    extends _$RentListEventCopyWithImpl<$Res>
+    extends _$RentListEventCopyWithImpl<$Res, _$_GetMoreResults>
     implements _$$_GetMoreResultsCopyWith<$Res> {
   __$$_GetMoreResultsCopyWithImpl(
       _$_GetMoreResults _value, $Res Function(_$_GetMoreResults) _then)
-      : super(_value, (v) => _then(v as _$_GetMoreResults));
-
-  @override
-  _$_GetMoreResults get _value => super._value as _$_GetMoreResults;
+      : super(_value, _then);
 }
 
 /// @nodoc
@@ -282,8 +277,8 @@ class _$_GetMoreResults implements _GetMoreResults {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(bool isRefresh, int id, String search)? getResults,
-    TResult Function()? getMoreResults,
+    TResult? Function(bool isRefresh, int id, String search)? getResults,
+    TResult? Function()? getMoreResults,
   }) {
     return getMoreResults?.call();
   }
@@ -313,8 +308,8 @@ class _$_GetMoreResults implements _GetMoreResults {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_GetResults value)? getResults,
-    TResult Function(_GetMoreResults value)? getMoreResults,
+    TResult? Function(_GetResults value)? getResults,
+    TResult? Function(_GetMoreResults value)? getMoreResults,
   }) {
     return getMoreResults?.call(this);
   }
@@ -354,7 +349,8 @@ mixin _$RentListState {
 abstract class $RentListStateCopyWith<$Res> {
   factory $RentListStateCopyWith(
           RentListState value, $Res Function(RentListState) then) =
-      _$RentListStateCopyWithImpl<$Res>;
+      _$RentListStateCopyWithImpl<$Res, RentListState>;
+  @useResult
   $Res call(
       {List<RentListEntity> list,
       FormzStatus status,
@@ -364,44 +360,46 @@ abstract class $RentListStateCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$RentListStateCopyWithImpl<$Res>
+class _$RentListStateCopyWithImpl<$Res, $Val extends RentListState>
     implements $RentListStateCopyWith<$Res> {
   _$RentListStateCopyWithImpl(this._value, this._then);
 
-  final RentListState _value;
   // ignore: unused_field
-  final $Res Function(RentListState) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? list = freezed,
-    Object? status = freezed,
-    Object? paginationStatus = freezed,
+    Object? list = null,
+    Object? status = null,
+    Object? paginationStatus = null,
     Object? next = freezed,
-    Object? count = freezed,
+    Object? count = null,
   }) {
     return _then(_value.copyWith(
-      list: list == freezed
+      list: null == list
           ? _value.list
           : list // ignore: cast_nullable_to_non_nullable
               as List<RentListEntity>,
-      status: status == freezed
+      status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as FormzStatus,
-      paginationStatus: paginationStatus == freezed
+      paginationStatus: null == paginationStatus
           ? _value.paginationStatus
           : paginationStatus // ignore: cast_nullable_to_non_nullable
               as FormzStatus,
-      next: next == freezed
+      next: freezed == next
           ? _value.next
           : next // ignore: cast_nullable_to_non_nullable
               as String?,
-      count: count == freezed
+      count: null == count
           ? _value.count
           : count // ignore: cast_nullable_to_non_nullable
               as int,
-    ));
+    ) as $Val);
   }
 }
 
@@ -412,6 +410,7 @@ abstract class _$$_RentListStateCopyWith<$Res>
           _$_RentListState value, $Res Function(_$_RentListState) then) =
       __$$_RentListStateCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {List<RentListEntity> list,
       FormzStatus status,
@@ -422,41 +421,39 @@ abstract class _$$_RentListStateCopyWith<$Res>
 
 /// @nodoc
 class __$$_RentListStateCopyWithImpl<$Res>
-    extends _$RentListStateCopyWithImpl<$Res>
+    extends _$RentListStateCopyWithImpl<$Res, _$_RentListState>
     implements _$$_RentListStateCopyWith<$Res> {
   __$$_RentListStateCopyWithImpl(
       _$_RentListState _value, $Res Function(_$_RentListState) _then)
-      : super(_value, (v) => _then(v as _$_RentListState));
+      : super(_value, _then);
 
-  @override
-  _$_RentListState get _value => super._value as _$_RentListState;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? list = freezed,
-    Object? status = freezed,
-    Object? paginationStatus = freezed,
+    Object? list = null,
+    Object? status = null,
+    Object? paginationStatus = null,
     Object? next = freezed,
-    Object? count = freezed,
+    Object? count = null,
   }) {
     return _then(_$_RentListState(
-      list: list == freezed
+      list: null == list
           ? _value._list
           : list // ignore: cast_nullable_to_non_nullable
               as List<RentListEntity>,
-      status: status == freezed
+      status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as FormzStatus,
-      paginationStatus: paginationStatus == freezed
+      paginationStatus: null == paginationStatus
           ? _value.paginationStatus
           : paginationStatus // ignore: cast_nullable_to_non_nullable
               as FormzStatus,
-      next: next == freezed
+      next: freezed == next
           ? _value.next
           : next // ignore: cast_nullable_to_non_nullable
               as String?,
-      count: count == freezed
+      count: null == count
           ? _value.count
           : count // ignore: cast_nullable_to_non_nullable
               as int,
@@ -479,6 +476,7 @@ class _$_RentListState implements _RentListState {
   @override
   @JsonKey()
   List<RentListEntity> get list {
+    if (_list is EqualUnmodifiableListView) return _list;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_list);
   }
@@ -506,24 +504,25 @@ class _$_RentListState implements _RentListState {
         (other.runtimeType == runtimeType &&
             other is _$_RentListState &&
             const DeepCollectionEquality().equals(other._list, _list) &&
-            const DeepCollectionEquality().equals(other.status, status) &&
-            const DeepCollectionEquality()
-                .equals(other.paginationStatus, paginationStatus) &&
-            const DeepCollectionEquality().equals(other.next, next) &&
-            const DeepCollectionEquality().equals(other.count, count));
+            (identical(other.status, status) || other.status == status) &&
+            (identical(other.paginationStatus, paginationStatus) ||
+                other.paginationStatus == paginationStatus) &&
+            (identical(other.next, next) || other.next == next) &&
+            (identical(other.count, count) || other.count == count));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(_list),
-      const DeepCollectionEquality().hash(status),
-      const DeepCollectionEquality().hash(paginationStatus),
-      const DeepCollectionEquality().hash(next),
-      const DeepCollectionEquality().hash(count));
+      status,
+      paginationStatus,
+      next,
+      count);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_RentListStateCopyWith<_$_RentListState> get copyWith =>
       __$$_RentListStateCopyWithImpl<_$_RentListState>(this, _$identity);
 }

@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'regions_bloc.dart';
 
@@ -23,7 +23,7 @@ mixin _$RegionsEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? getRegions,
+    TResult? Function()? getRegions,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -39,7 +39,7 @@ mixin _$RegionsEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_GetRegions value)? getRegions,
+    TResult? Function(_GetRegions value)? getRegions,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -54,16 +54,18 @@ mixin _$RegionsEvent {
 abstract class $RegionsEventCopyWith<$Res> {
   factory $RegionsEventCopyWith(
           RegionsEvent value, $Res Function(RegionsEvent) then) =
-      _$RegionsEventCopyWithImpl<$Res>;
+      _$RegionsEventCopyWithImpl<$Res, RegionsEvent>;
 }
 
 /// @nodoc
-class _$RegionsEventCopyWithImpl<$Res> implements $RegionsEventCopyWith<$Res> {
+class _$RegionsEventCopyWithImpl<$Res, $Val extends RegionsEvent>
+    implements $RegionsEventCopyWith<$Res> {
   _$RegionsEventCopyWithImpl(this._value, this._then);
 
-  final RegionsEvent _value;
   // ignore: unused_field
-  final $Res Function(RegionsEvent) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 }
 
 /// @nodoc
@@ -74,14 +76,12 @@ abstract class _$$_GetRegionsCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_GetRegionsCopyWithImpl<$Res> extends _$RegionsEventCopyWithImpl<$Res>
+class __$$_GetRegionsCopyWithImpl<$Res>
+    extends _$RegionsEventCopyWithImpl<$Res, _$_GetRegions>
     implements _$$_GetRegionsCopyWith<$Res> {
   __$$_GetRegionsCopyWithImpl(
       _$_GetRegions _value, $Res Function(_$_GetRegions) _then)
-      : super(_value, (v) => _then(v as _$_GetRegions));
-
-  @override
-  _$_GetRegions get _value => super._value as _$_GetRegions;
+      : super(_value, _then);
 }
 
 /// @nodoc
@@ -114,7 +114,7 @@ class _$_GetRegions implements _GetRegions {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? getRegions,
+    TResult? Function()? getRegions,
   }) {
     return getRegions?.call();
   }
@@ -142,7 +142,7 @@ class _$_GetRegions implements _GetRegions {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_GetRegions value)? getRegions,
+    TResult? Function(_GetRegions value)? getRegions,
   }) {
     return getRegions?.call(this);
   }
@@ -178,33 +178,37 @@ mixin _$RegionsState {
 abstract class $RegionsStateCopyWith<$Res> {
   factory $RegionsStateCopyWith(
           RegionsState value, $Res Function(RegionsState) then) =
-      _$RegionsStateCopyWithImpl<$Res>;
+      _$RegionsStateCopyWithImpl<$Res, RegionsState>;
+  @useResult
   $Res call({FormzStatus status, List<Region> regions});
 }
 
 /// @nodoc
-class _$RegionsStateCopyWithImpl<$Res> implements $RegionsStateCopyWith<$Res> {
+class _$RegionsStateCopyWithImpl<$Res, $Val extends RegionsState>
+    implements $RegionsStateCopyWith<$Res> {
   _$RegionsStateCopyWithImpl(this._value, this._then);
 
-  final RegionsState _value;
   // ignore: unused_field
-  final $Res Function(RegionsState) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? status = freezed,
-    Object? regions = freezed,
+    Object? status = null,
+    Object? regions = null,
   }) {
     return _then(_value.copyWith(
-      status: status == freezed
+      status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as FormzStatus,
-      regions: regions == freezed
+      regions: null == regions
           ? _value.regions
           : regions // ignore: cast_nullable_to_non_nullable
               as List<Region>,
-    ));
+    ) as $Val);
   }
 }
 
@@ -215,31 +219,30 @@ abstract class _$$_RegionsStateCopyWith<$Res>
           _$_RegionsState value, $Res Function(_$_RegionsState) then) =
       __$$_RegionsStateCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({FormzStatus status, List<Region> regions});
 }
 
 /// @nodoc
 class __$$_RegionsStateCopyWithImpl<$Res>
-    extends _$RegionsStateCopyWithImpl<$Res>
+    extends _$RegionsStateCopyWithImpl<$Res, _$_RegionsState>
     implements _$$_RegionsStateCopyWith<$Res> {
   __$$_RegionsStateCopyWithImpl(
       _$_RegionsState _value, $Res Function(_$_RegionsState) _then)
-      : super(_value, (v) => _then(v as _$_RegionsState));
+      : super(_value, _then);
 
-  @override
-  _$_RegionsState get _value => super._value as _$_RegionsState;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? status = freezed,
-    Object? regions = freezed,
+    Object? status = null,
+    Object? regions = null,
   }) {
     return _then(_$_RegionsState(
-      status: status == freezed
+      status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as FormzStatus,
-      regions: regions == freezed
+      regions: null == regions
           ? _value._regions
           : regions // ignore: cast_nullable_to_non_nullable
               as List<Region>,
@@ -261,6 +264,7 @@ class _$_RegionsState implements _RegionsState {
   @override
   @JsonKey()
   List<Region> get regions {
+    if (_regions is EqualUnmodifiableListView) return _regions;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_regions);
   }
@@ -275,18 +279,17 @@ class _$_RegionsState implements _RegionsState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_RegionsState &&
-            const DeepCollectionEquality().equals(other.status, status) &&
+            (identical(other.status, status) || other.status == status) &&
             const DeepCollectionEquality().equals(other._regions, _regions));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(status),
-      const DeepCollectionEquality().hash(_regions));
+      runtimeType, status, const DeepCollectionEquality().hash(_regions));
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_RegionsStateCopyWith<_$_RegionsState> get copyWith =>
       __$$_RegionsStateCopyWithImpl<_$_RegionsState>(this, _$identity);
 }

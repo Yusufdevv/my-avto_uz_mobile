@@ -1,4 +1,4 @@
-import 'package:auto/features/ad/domain/year_of_issue/entity/years_entity.dart';
+import 'package:auto/features/ad/domain/entities/years/years.dart';
 import 'package:auto/features/ad/presentation/bloc/year_of_issue/year_issue_bloc.dart';
 import 'package:auto/features/ad/presentation/pages/year_of_issue/widget/years_item.dart';
 import 'package:auto/features/ad/presentation/widgets/base_widget.dart';
@@ -16,13 +16,12 @@ class YearIssueScreen extends StatefulWidget {
 
 class _YearIssueScreenState extends State<YearIssueScreen> {
   late YearIssueBloc yearIssueBloc;
-  final List<YearsEntity> years = [
-    const YearsEntity(year: '2019'),
-    const YearsEntity(year: '2020'),
-    const YearsEntity(year: '2021'),
-    const YearsEntity(year: '2022'),
-    const YearsEntity(year: '2023'),
-  ];
+  final YearsEntity years = const YearsEntity(
+    id: 1,
+    yearBegin: 2012,
+    yearEnd: 2020,
+    modelId: 2,
+  );
 
   @override
   void initState() {
@@ -42,10 +41,10 @@ class _YearIssueScreenState extends State<YearIssueScreen> {
               child: ListView.builder(
                 shrinkWrap: true,
                 itemBuilder: (context, index) => YearItem(
-                    entity: years[index],
+                    year: years.yearBegin + index,
                     selectedId: state.selectedId,
                     id: index),
-                itemCount: years.length,
+                itemCount: years.yearEnd - years.yearBegin,
               ),
             ),
           ),

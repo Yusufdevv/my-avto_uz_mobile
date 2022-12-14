@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'top_brand_bloc.dart';
 
@@ -24,8 +24,8 @@ mixin _$TopBrandEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? getBrand,
-    TResult Function()? getMoreBrand,
+    TResult? Function()? getBrand,
+    TResult? Function()? getMoreBrand,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -43,8 +43,8 @@ mixin _$TopBrandEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_GetBrand value)? getBrand,
-    TResult Function(_GetMoreBrand value)? getMoreBrand,
+    TResult? Function(_GetBrand value)? getBrand,
+    TResult? Function(_GetMoreBrand value)? getMoreBrand,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -60,17 +60,18 @@ mixin _$TopBrandEvent {
 abstract class $TopBrandEventCopyWith<$Res> {
   factory $TopBrandEventCopyWith(
           TopBrandEvent value, $Res Function(TopBrandEvent) then) =
-      _$TopBrandEventCopyWithImpl<$Res>;
+      _$TopBrandEventCopyWithImpl<$Res, TopBrandEvent>;
 }
 
 /// @nodoc
-class _$TopBrandEventCopyWithImpl<$Res>
+class _$TopBrandEventCopyWithImpl<$Res, $Val extends TopBrandEvent>
     implements $TopBrandEventCopyWith<$Res> {
   _$TopBrandEventCopyWithImpl(this._value, this._then);
 
-  final TopBrandEvent _value;
   // ignore: unused_field
-  final $Res Function(TopBrandEvent) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 }
 
 /// @nodoc
@@ -81,14 +82,12 @@ abstract class _$$_GetBrandCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_GetBrandCopyWithImpl<$Res> extends _$TopBrandEventCopyWithImpl<$Res>
+class __$$_GetBrandCopyWithImpl<$Res>
+    extends _$TopBrandEventCopyWithImpl<$Res, _$_GetBrand>
     implements _$$_GetBrandCopyWith<$Res> {
   __$$_GetBrandCopyWithImpl(
       _$_GetBrand _value, $Res Function(_$_GetBrand) _then)
-      : super(_value, (v) => _then(v as _$_GetBrand));
-
-  @override
-  _$_GetBrand get _value => super._value as _$_GetBrand;
+      : super(_value, _then);
 }
 
 /// @nodoc
@@ -122,8 +121,8 @@ class _$_GetBrand implements _GetBrand {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? getBrand,
-    TResult Function()? getMoreBrand,
+    TResult? Function()? getBrand,
+    TResult? Function()? getMoreBrand,
   }) {
     return getBrand?.call();
   }
@@ -153,8 +152,8 @@ class _$_GetBrand implements _GetBrand {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_GetBrand value)? getBrand,
-    TResult Function(_GetMoreBrand value)? getMoreBrand,
+    TResult? Function(_GetBrand value)? getBrand,
+    TResult? Function(_GetMoreBrand value)? getMoreBrand,
   }) {
     return getBrand?.call(this);
   }
@@ -186,14 +185,11 @@ abstract class _$$_GetMoreBrandCopyWith<$Res> {
 
 /// @nodoc
 class __$$_GetMoreBrandCopyWithImpl<$Res>
-    extends _$TopBrandEventCopyWithImpl<$Res>
+    extends _$TopBrandEventCopyWithImpl<$Res, _$_GetMoreBrand>
     implements _$$_GetMoreBrandCopyWith<$Res> {
   __$$_GetMoreBrandCopyWithImpl(
       _$_GetMoreBrand _value, $Res Function(_$_GetMoreBrand) _then)
-      : super(_value, (v) => _then(v as _$_GetMoreBrand));
-
-  @override
-  _$_GetMoreBrand get _value => super._value as _$_GetMoreBrand;
+      : super(_value, _then);
 }
 
 /// @nodoc
@@ -227,8 +223,8 @@ class _$_GetMoreBrand implements _GetMoreBrand {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? getBrand,
-    TResult Function()? getMoreBrand,
+    TResult? Function()? getBrand,
+    TResult? Function()? getMoreBrand,
   }) {
     return getMoreBrand?.call();
   }
@@ -258,8 +254,8 @@ class _$_GetMoreBrand implements _GetMoreBrand {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_GetBrand value)? getBrand,
-    TResult Function(_GetMoreBrand value)? getMoreBrand,
+    TResult? Function(_GetBrand value)? getBrand,
+    TResult? Function(_GetMoreBrand value)? getMoreBrand,
   }) {
     return getMoreBrand?.call(this);
   }
@@ -298,7 +294,8 @@ mixin _$TopBrandState {
 abstract class $TopBrandStateCopyWith<$Res> {
   factory $TopBrandStateCopyWith(
           TopBrandState value, $Res Function(TopBrandState) then) =
-      _$TopBrandStateCopyWithImpl<$Res>;
+      _$TopBrandStateCopyWithImpl<$Res, TopBrandState>;
+  @useResult
   $Res call(
       {FormzStatus status,
       List<TopBrandModel> brands,
@@ -307,39 +304,41 @@ abstract class $TopBrandStateCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$TopBrandStateCopyWithImpl<$Res>
+class _$TopBrandStateCopyWithImpl<$Res, $Val extends TopBrandState>
     implements $TopBrandStateCopyWith<$Res> {
   _$TopBrandStateCopyWithImpl(this._value, this._then);
 
-  final TopBrandState _value;
   // ignore: unused_field
-  final $Res Function(TopBrandState) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? status = freezed,
-    Object? brands = freezed,
+    Object? status = null,
+    Object? brands = null,
     Object? next = freezed,
-    Object? count = freezed,
+    Object? count = null,
   }) {
     return _then(_value.copyWith(
-      status: status == freezed
+      status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as FormzStatus,
-      brands: brands == freezed
+      brands: null == brands
           ? _value.brands
           : brands // ignore: cast_nullable_to_non_nullable
               as List<TopBrandModel>,
-      next: next == freezed
+      next: freezed == next
           ? _value.next
           : next // ignore: cast_nullable_to_non_nullable
               as String?,
-      count: count == freezed
+      count: null == count
           ? _value.count
           : count // ignore: cast_nullable_to_non_nullable
               as int,
-    ));
+    ) as $Val);
   }
 }
 
@@ -350,6 +349,7 @@ abstract class _$$_TopBrandStateCopyWith<$Res>
           _$_TopBrandState value, $Res Function(_$_TopBrandState) then) =
       __$$_TopBrandStateCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {FormzStatus status,
       List<TopBrandModel> brands,
@@ -359,36 +359,34 @@ abstract class _$$_TopBrandStateCopyWith<$Res>
 
 /// @nodoc
 class __$$_TopBrandStateCopyWithImpl<$Res>
-    extends _$TopBrandStateCopyWithImpl<$Res>
+    extends _$TopBrandStateCopyWithImpl<$Res, _$_TopBrandState>
     implements _$$_TopBrandStateCopyWith<$Res> {
   __$$_TopBrandStateCopyWithImpl(
       _$_TopBrandState _value, $Res Function(_$_TopBrandState) _then)
-      : super(_value, (v) => _then(v as _$_TopBrandState));
+      : super(_value, _then);
 
-  @override
-  _$_TopBrandState get _value => super._value as _$_TopBrandState;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? status = freezed,
-    Object? brands = freezed,
+    Object? status = null,
+    Object? brands = null,
     Object? next = freezed,
-    Object? count = freezed,
+    Object? count = null,
   }) {
     return _then(_$_TopBrandState(
-      status: status == freezed
+      status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as FormzStatus,
-      brands: brands == freezed
+      brands: null == brands
           ? _value._brands
           : brands // ignore: cast_nullable_to_non_nullable
               as List<TopBrandModel>,
-      next: next == freezed
+      next: freezed == next
           ? _value.next
           : next // ignore: cast_nullable_to_non_nullable
               as String?,
-      count: count == freezed
+      count: null == count
           ? _value.count
           : count // ignore: cast_nullable_to_non_nullable
               as int,
@@ -413,6 +411,7 @@ class _$_TopBrandState implements _TopBrandState {
   @override
   @JsonKey()
   List<TopBrandModel> get brands {
+    if (_brands is EqualUnmodifiableListView) return _brands;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_brands);
   }
@@ -433,22 +432,19 @@ class _$_TopBrandState implements _TopBrandState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_TopBrandState &&
-            const DeepCollectionEquality().equals(other.status, status) &&
+            (identical(other.status, status) || other.status == status) &&
             const DeepCollectionEquality().equals(other._brands, _brands) &&
-            const DeepCollectionEquality().equals(other.next, next) &&
-            const DeepCollectionEquality().equals(other.count, count));
+            (identical(other.next, next) || other.next == next) &&
+            (identical(other.count, count) || other.count == count));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(status),
-      const DeepCollectionEquality().hash(_brands),
-      const DeepCollectionEquality().hash(next),
-      const DeepCollectionEquality().hash(count));
+  int get hashCode => Object.hash(runtimeType, status,
+      const DeepCollectionEquality().hash(_brands), next, count);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_TopBrandStateCopyWith<_$_TopBrandState> get copyWith =>
       __$$_TopBrandStateCopyWithImpl<_$_TopBrandState>(this, _$identity);
 }

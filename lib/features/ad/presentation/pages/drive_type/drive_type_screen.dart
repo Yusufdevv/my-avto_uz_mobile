@@ -1,19 +1,16 @@
-import 'package:auto/assets/colors/color.dart';
-import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
-import 'package:auto/features/common/widgets/w_button.dart';
-import 'package:auto/features/common/widgets/w_radio_tile.dart';
 import 'package:auto/features/ad/presentation/widgets/base_widget.dart';
+import 'package:auto/features/common/widgets/w_radio_tile.dart';
 import 'package:flutter/material.dart';
 
-class TransmissionScreen extends StatefulWidget {
+class DriveTypeScreen extends StatefulWidget {
   final VoidCallback onTap;
-  const TransmissionScreen({required this.onTap, Key? key}) : super(key: key);
+  const DriveTypeScreen({required this.onTap, Key? key}) : super(key: key);
 
   @override
-  State<TransmissionScreen> createState() => _TransmissionScreenState();
+  State<DriveTypeScreen> createState() => _DriveTypeScreenState();
 }
 
-class _TransmissionScreenState extends State<TransmissionScreen> {
+class _DriveTypeScreenState extends State<DriveTypeScreen> {
   final List<String> titleList = [
     'Передний',
   ];

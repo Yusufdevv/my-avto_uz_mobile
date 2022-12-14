@@ -1,8 +1,6 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
-import 'package:auto/features/common/widgets/w_app_bar.dart';
-import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/ad/presentation/pages/add_photo/add_photo_screen.dart';
 import 'package:auto/features/ad/presentation/pages/adding_photo/adding_photo_screen.dart';
 import 'package:auto/features/ad/presentation/pages/carcase/carcase_screen.dart';
@@ -12,6 +10,7 @@ import 'package:auto/features/ad/presentation/pages/color/colors_screen.dart';
 import 'package:auto/features/ad/presentation/pages/contact/contact_screen.dart';
 import 'package:auto/features/ad/presentation/pages/damage/damage_screen.dart';
 import 'package:auto/features/ad/presentation/pages/description/description_screen.dart';
+import 'package:auto/features/ad/presentation/pages/drive_type/drive_type_screen.dart';
 import 'package:auto/features/ad/presentation/pages/engine/engine_screen.dart';
 import 'package:auto/features/ad/presentation/pages/equipment/equipment_screen.dart';
 import 'package:auto/features/ad/presentation/pages/gear_box/gearbox_screen.dart';
@@ -19,13 +18,14 @@ import 'package:auto/features/ad/presentation/pages/generation/generation_screen
 import 'package:auto/features/ad/presentation/pages/inspection_place/inspection_place_screen.dart';
 import 'package:auto/features/ad/presentation/pages/mileage/mileage_screen.dart';
 import 'package:auto/features/ad/presentation/pages/modification/modification_screen.dart';
-import 'package:auto/features/ad/presentation/widgets/completion_bar.dart';
 import 'package:auto/features/ad/presentation/pages/preview/preview_screen.dart';
 import 'package:auto/features/ad/presentation/pages/price/price_screen.dart';
 import 'package:auto/features/ad/presentation/pages/pts/pts_screen.dart';
 import 'package:auto/features/ad/presentation/pages/sts/sts_screen.dart';
-import 'package:auto/features/ad/presentation/pages/transmission/generation_screen.dart';
 import 'package:auto/features/ad/presentation/pages/year_of_issue/year_issue_screen.dart';
+import 'package:auto/features/ad/presentation/widgets/completion_bar.dart';
+import 'package:auto/features/common/widgets/w_app_bar.dart';
+import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -204,7 +204,7 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                 tabController.animateTo(6);
               }),
             ),
-            TransmissionScreen(
+            DriveTypeScreen(
               onTap: () => setState(() {
                 currentTabIndex = 7;
                 tabController.animateTo(7);

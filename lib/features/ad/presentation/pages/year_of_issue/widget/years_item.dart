@@ -1,19 +1,18 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
-import 'package:auto/features/ad/domain/year_of_issue/entity/years_entity.dart';
 import 'package:auto/features/ad/presentation/bloc/year_of_issue/year_issue_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
 class YearItem extends StatelessWidget {
-  final YearsEntity entity;
+  final int year;
   final int id;
   final int selectedId;
 
   const YearItem(
-      {required this.entity,
+      {required this.year,
       required this.selectedId,
       required this.id,
       Key? key})
@@ -46,7 +45,7 @@ class YearItem extends StatelessWidget {
                       RichText(
                           text: TextSpan(children: [
                         TextSpan(
-                          text: entity.year.substring(0, 2),
+                          text: year.toString(),
                           style: Theme.of(context)
                               .textTheme
                               .headline1!
@@ -56,7 +55,7 @@ class YearItem extends StatelessWidget {
                                   color: grey),
                         ),
                         TextSpan(
-                          text: entity.year.substring(2, 4),
+                          text: year.toString(),
                           style: Theme.of(context)
                               .textTheme
                               .headline1!
