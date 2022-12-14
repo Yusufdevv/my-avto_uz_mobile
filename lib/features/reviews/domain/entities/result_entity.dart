@@ -1,10 +1,8 @@
-import 'package:auto/features/posting_ad/generation/domain/entity/generation_entity.dart';
 import 'package:auto/features/reviews/data/models/result_model.dart';
 import 'package:auto/features/reviews/domain/entities/generate_entity.dart';
 import 'package:auto/features/reviews/domain/entities/make_entity.dart';
 import 'package:auto/features/reviews/domain/entities/model_entity.dart';
 import 'package:auto/features/reviews/domain/entities/modification_type_entity.dart';
-import 'package:auto/features/reviews/domain/entities/my_reviews_entity.dart';
 import 'package:auto/features/reviews/domain/entities/star_answer_entity.dart';
 import 'package:auto/features/reviews/domain/entities/type_entity.dart';
 import 'package:equatable/equatable.dart';
@@ -106,14 +104,13 @@ class ResultConverter
   @override
   Map<String, dynamic>? toJson(ResultEntity objrct) => {};
 }
-  //     class StarAnswerConverter
-  //   implements JsonConverter<StarAnswerEntity, Map<String, dynamic>?> {
-  // const StarAnswerConverter();
+//     class StarAnswerConverter
+//   implements JsonConverter<StarAnswerEntity, Map<String, dynamic>?> {
+// const StarAnswerConverter();
 
-  // @override
-  // StarAnswerEntity fromJson(Map<String, dynamic>? json) =>
-  //     StarAnswerModel.fromJson(json ?? {});
+// @override
+// StarAnswerEntity fromJson(Map<String, dynamic>? json) =>
+//     StarAnswerModel.fromJson(json ?? {});
 
-  // @override
-  // Map<String, dynamic>? toJson(StarAnswerEntity object) => {};
-
+// @override
+// Map<String, dynamic>? toJson(StarAnswerEntity object) => {};

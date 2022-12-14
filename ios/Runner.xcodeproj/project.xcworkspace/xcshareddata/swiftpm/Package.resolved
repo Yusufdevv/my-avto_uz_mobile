@@ -1,0 +1,77 @@
+{
+  "pins" : [
+    {
+      "identity" : "aexml",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/tadija/AEXML.git",
+      "state" : {
+        "revision" : "8623e73b193386909566a9ca20203e33a09af142",
+        "version" : "4.5.0"
+      }
+    },
+    {
+      "identity" : "dtcoretext",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Cocoanetics/DTCoreText.git",
+      "state" : {
+        "revision" : "9d2d4d2296e5d2d852a7d3c592b817d913a5d020",
+        "version" : "1.6.27"
+      }
+    },
+    {
+      "identity" : "dtfoundation",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Cocoanetics/DTFoundation.git",
+      "state" : {
+        "revision" : "76062513434421cb6c8a1ae1d4f8368a7ebc2da3",
+        "version" : "1.7.18"
+      }
+    },
+    {
+      "identity" : "fmdb",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/ccgus/fmdb.git",
+      "state" : {
+        "revision" : "61e51fde7f7aab6554f30ab061cc588b28a97d04",
+        "version" : "2.7.7"
+      }
+    },
+    {
+      "identity" : "ireaderlib",
+      "kind" : "remoteSourceControl",
+      "location" : "https://gitlab.uicgroup.tech/iskandar/ireaderlib.git",
+      "state" : {
+        "branch" : "master",
+        "revision" : "1ccaa3e97860d45db70fc9434366322a6ecdd290"
+      }
+    },
+    {
+      "identity" : "pkhud",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/pkluz/PKHUD.git",
+      "state" : {
+        "revision" : "8fd26f23057c6bebd6695524b1c3e05e93aba571",
+        "version" : "5.4.0"
+      }
+    },
+    {
+      "identity" : "snapkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/SnapKit/SnapKit.git",
+      "state" : {
+        "revision" : "f222cbdf325885926566172f6f5f06af95473158",
+        "version" : "5.6.0"
+      }
+    },
+    {
+      "identity" : "ziparchive",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/ZipArchive/ZipArchive.git",
+      "state" : {
+        "revision" : "38e0ce0598e06b034271f296a8e15b149c91aa19",
+        "version" : "2.4.3"
+      }
+    }
+  ],
+  "version" : 2
+}

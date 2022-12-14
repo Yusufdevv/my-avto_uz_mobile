@@ -63,10 +63,12 @@ class _AppState extends State<App> {
   Widget build(BuildContext context) => MultiBlocProvider(
         providers: [
           BlocProvider(
-            create: (c) => AuthenticationBloc(AuthRepository())..add(CheckUser()),
+            create: (c) =>
+                AuthenticationBloc(AuthRepository())..add(CheckUser()),
           ),
           BlocProvider(
-            create: (context) => RegionsBloc(GetRegionsUseCase())..add(RegionsEvent.getRegions()),
+            create: (context) => RegionsBloc(GetRegionsUseCase())
+              ..add(RegionsEvent.getRegions()),
           ),
           BlocProvider(
             create: (context) => ShowPopUpBloc(),
@@ -83,7 +85,8 @@ class _AppState extends State<App> {
           themeMode: ThemeMode.light,
           navigatorKey: _navigatorKey,
           onGenerateRoute: (settings) => SplashSc.route(),
-          builder: (context, child) => BlocListener<AuthenticationBloc, AuthenticationState>(
+          builder: (context, child) =>
+              BlocListener<AuthenticationBloc, AuthenticationState>(
             listener: (context, state) {
               switch (state.status) {
                 case AuthenticationStatus.unauthenticated:
@@ -98,12 +101,16 @@ class _AppState extends State<App> {
                       (route) => false);
                   break;
                 case AuthenticationStatus.authenticated:
-                  navigator.pushAndRemoveUntil(fade(page: const HomeScreen()), (route) => false);
-                  navigator.pushAndRemoveUntil(fade(page: const HomeScreen()), (route) => false);
+                  navigator.pushAndRemoveUntil(
+                      fade(page: const HomeScreen()), (route) => false);
+                  navigator.pushAndRemoveUntil(
+                      fade(page: const HomeScreen()), (route) => false);
                   (context) => ShowPopUpBloc();
                   print(state.status);
-                  if (!StorageRepository.getBool('onboarding', defValue: false)) {
-                    navigator.pushAndRemoveUntil(fade(page: const FirstOnBoarding()), (route) => false);
+                  if (!StorageRepository.getBool('onboarding',
+                      defValue: false)) {
+                    navigator.pushAndRemoveUntil(
+                        fade(page: const HomeScreen()), (route) => false);
                   } else {
                     navigator.pushAndRemoveUntil(
                         fade(

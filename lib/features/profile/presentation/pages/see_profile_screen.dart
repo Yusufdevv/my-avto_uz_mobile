@@ -1,12 +1,12 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/features/ad/presentation/bloc/add_photo/image_bloc.dart';
 import 'package:auto/features/car_single/presentation/widgets/orange_button.dart';
 import 'package:auto/features/common/widgets/cached_image.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
-import 'package:auto/features/posting_ad/add_photo/presentation/blocs/image_bloc.dart';
 import 'package:auto/features/profile/domain/entities/profile.dart';
 import 'package:auto/features/profile/presentation/bloc/profile/profile_bloc.dart';
 import 'package:auto/features/profile/presentation/pages/profile_edit_screen.dart';

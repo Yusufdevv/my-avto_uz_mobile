@@ -1,6 +1,6 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
-import 'package:auto/features/posting_ad/preview/presentation/widgets/image_viewer.dart';
+import 'package:auto/features/ad/presentation/pages/preview/widgets/image_viewer.dart';
 import 'package:auto/features/rent/domain/entities/rent_list_entity.dart';
 import 'package:auto/features/rent/presentation/pages/rent_single/widgets/single_car_info_item.dart';
 import 'package:auto/generated/locale_keys.g.dart';

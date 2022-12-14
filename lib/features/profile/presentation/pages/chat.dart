@@ -2,9 +2,9 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/features/ad/presentation/bloc/add_photo/image_bloc.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/common/widgets/w_textfield.dart';
-import 'package:auto/features/posting_ad/add_photo/presentation/blocs/image_bloc.dart';
 import 'package:auto/features/profile/domain/entities/message_entity.dart';
 import 'package:auto/features/profile/presentation/widgets/app_bar_child.dart';
 import 'package:auto/features/profile/presentation/widgets/camera_bottom_sheet.dart';
@@ -61,7 +61,8 @@ class _ChatState extends State<Chat> {
                             color: Colors.black.withOpacity(0.05),
                             spreadRadius: 0,
                             blurRadius: 16,
-                            offset: const Offset(0, 4), // changes position of shadow
+                            offset: const Offset(
+                                0, 4), // changes position of shadow
                           ),
                         ],
                       ),
@@ -91,7 +92,10 @@ class _ChatState extends State<Chat> {
                           const SizedBox(height: 13),
                           Text(
                             'auto.uz',
-                            style: Theme.of(context).textTheme.headline1!.copyWith(fontSize: 24),
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline1!
+                                .copyWith(fontSize: 24),
                           ),
                           Text(
                             LocaleKeys.there_you_can.tr(),
@@ -119,30 +123,39 @@ class _ChatState extends State<Chat> {
                                     crossAxisAlignment: CrossAxisAlignment.end,
                                     children: [
                                       Container(
-                                        padding:
-                                            const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 12, vertical: 8),
                                         decoration: const BoxDecoration(
                                             borderRadius: BorderRadius.only(
                                                 topLeft: Radius.circular(16),
                                                 topRight: Radius.circular(16),
                                                 bottomLeft: Radius.circular(16),
-                                                bottomRight: Radius.circular(4)),
+                                                bottomRight:
+                                                    Radius.circular(4)),
                                             color: orange),
                                         child: Text(
                                           message.text,
                                           style: Theme.of(context)
                                               .textTheme
                                               .headline4!
-                                              .copyWith(fontSize: 14, fontWeight: FontWeight.w400),
+                                              .copyWith(
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w400),
                                         ),
                                       ),
                                       Row(
-                                        mainAxisAlignment: MainAxisAlignment.end,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.end,
                                         children: [
                                           Text(
                                             '${message.date.hour}:${message.date.minute}',
-                                            style: Theme.of(context).textTheme.headline6!.copyWith(
-                                                fontSize: 14, fontWeight: FontWeight.w400),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .headline6!
+                                                .copyWith(
+                                                    fontSize: 14,
+                                                    fontWeight:
+                                                        FontWeight.w400),
                                           ),
                                           const SizedBox(width: 4),
                                           SvgPicture.asset(
@@ -162,7 +175,8 @@ class _ChatState extends State<Chat> {
                                     crossAxisAlignment: CrossAxisAlignment.end,
                                     children: [
                                       Container(
-                                        margin: const EdgeInsets.only(right: 8, bottom: 22),
+                                        margin: const EdgeInsets.only(
+                                            right: 8, bottom: 22),
                                         height: 40,
                                         width: 40,
                                         decoration: const BoxDecoration(
@@ -174,23 +188,31 @@ class _ChatState extends State<Chat> {
                                         ),
                                       ),
                                       Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
                                           Container(
                                             width: 283,
-                                            padding: const EdgeInsets.fromLTRB(12, 8, 12, 12),
+                                            padding: const EdgeInsets.fromLTRB(
+                                                12, 8, 12, 12),
                                             decoration: BoxDecoration(
-                                              borderRadius: const BorderRadius.only(
-                                                  topLeft: Radius.circular(16),
-                                                  topRight: Radius.circular(16),
-                                                  bottomRight: Radius.circular(16),
-                                                  bottomLeft: Radius.circular(4)),
+                                              borderRadius:
+                                                  const BorderRadius.only(
+                                                      topLeft:
+                                                          Radius.circular(16),
+                                                      topRight:
+                                                          Radius.circular(16),
+                                                      bottomRight:
+                                                          Radius.circular(16),
+                                                      bottomLeft:
+                                                          Radius.circular(4)),
                                               color: Theme.of(context)
                                                   .extension<ThemedColors>()!
                                                   .greyToDarkRider,
                                             ),
                                             child: Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
                                               children: [
                                                 Text(
                                                   'auto.uz',
@@ -199,12 +221,15 @@ class _ChatState extends State<Chat> {
                                                       .headline1!
                                                       .copyWith(
                                                           fontSize: 14,
-                                                          fontWeight: FontWeight.w600),
+                                                          fontWeight:
+                                                              FontWeight.w600),
                                                 ),
                                                 const SizedBox(height: 4),
                                                 Text(
                                                   message.text,
-                                                  style: Theme.of(context).textTheme.headline2,
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .headline2,
                                                 ),
                                               ],
                                             ),
@@ -212,8 +237,13 @@ class _ChatState extends State<Chat> {
                                           const SizedBox(height: 4),
                                           Text(
                                             '${message.date.hour}:${message.date.minute} • ${message.user}',
-                                            style: Theme.of(context).textTheme.headline6!.copyWith(
-                                                fontSize: 14, fontWeight: FontWeight.w400),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .headline6!
+                                                .copyWith(
+                                                    fontSize: 14,
+                                                    fontWeight:
+                                                        FontWeight.w400),
                                           ),
                                         ],
                                       ),
@@ -235,10 +265,13 @@ class _ChatState extends State<Chat> {
                   children: [
                     Expanded(
                       child: WTextField(
-                        focusColor: Theme.of(context).appBarTheme.backgroundColor,
+                        focusColor:
+                            Theme.of(context).appBarTheme.backgroundColor,
                         borderColor: purple,
                         cursorColor: purple,
-                        disabledColor: Theme.of(context).extension<ThemedColors>()!.whiteToNero1,
+                        disabledColor: Theme.of(context)
+                            .extension<ThemedColors>()!
+                            .whiteToNero1,
                         height: 44,
                         prefix: WScaleAnimation(
                           onTap: () {
@@ -248,9 +281,11 @@ class _ChatState extends State<Chat> {
                               useRootNavigator: true,
                               backgroundColor: Colors.transparent,
                               constraints: BoxConstraints(
-                                  maxHeight: MediaQuery.of(context).size.height * 0.3,
+                                  maxHeight:
+                                      MediaQuery.of(context).size.height * 0.3,
                                   minWidth: MediaQuery.of(context).size.width),
-                              builder: (context) => CameraBottomSheet(imageBloc: widget.imageBloc),
+                              builder: (context) => CameraBottomSheet(
+                                  imageBloc: widget.imageBloc),
                             );
                           },
                           child: Container(
@@ -259,11 +294,15 @@ class _ChatState extends State<Chat> {
                             margin: const EdgeInsets.all(6),
                             padding: const EdgeInsets.all(4),
                             decoration: BoxDecoration(
-                                color: Theme.of(context).extension<ThemedColors>()!.greyToDarkRider,
+                                color: Theme.of(context)
+                                    .extension<ThemedColors>()!
+                                    .greyToDarkRider,
                                 borderRadius: BorderRadius.circular(6)),
                             child: SvgPicture.asset(
                               AppIcons.piperClip,
-                              color: Theme.of(context).extension<ThemedColors>()!.darkToGrey,
+                              color: Theme.of(context)
+                                  .extension<ThemedColors>()!
+                                  .darkToGrey,
                             ),
                           ),
                         ),
@@ -271,23 +310,27 @@ class _ChatState extends State<Chat> {
                         textStyle: Theme.of(context)
                             .textTheme
                             .headline1!
-                            .copyWith(fontWeight: FontWeight.w600, fontSize: 14),
+                            .copyWith(
+                                fontWeight: FontWeight.w600, fontSize: 14),
                         hintText: LocaleKeys.write_message.tr(),
                         hintTextStyle: Theme.of(context)
                             .textTheme
                             .headline2!
-                            .copyWith(fontWeight: FontWeight.w600, fontSize: 14),
+                            .copyWith(
+                                fontWeight: FontWeight.w600, fontSize: 14),
                         onChanged: (tmp) {},
                         controller: TextEditingController(),
                         filled: true,
-                        contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+                        contentPadding:
+                            const EdgeInsets.symmetric(horizontal: 16),
                         fillColor: borderCircular,
                       ),
                     ),
                     WScaleAnimation(
                       onTap: () {},
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 18),
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 20, horizontal: 18),
                         child: SvgPicture.asset(AppIcons.send),
                       ),
                     )
