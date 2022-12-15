@@ -16,3 +16,9 @@ class ParsingException implements Exception {
 
   const ParsingException({required this.errorMessage});
 }
+
+class CacheException implements Exception {
+  final String errorMessage;
+
+  const CacheException({required this.errorMessage});
+}

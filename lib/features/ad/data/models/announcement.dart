@@ -44,4 +44,7 @@ class AnnouncementModel extends AnnouncementEntity {
 
   factory AnnouncementModel.fromJson(Map<String, dynamic> json) =>
       _$AnnouncementModelFromJson(json);
+
+  Map<String, dynamic> toJson(AnnouncementModel instance) =>
+      _$AnnouncementModelToJson(instance);
 }

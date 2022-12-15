@@ -1,4 +1,5 @@
-import 'package:auto/features/ad/data/models/announcement.dart';
+import 'package:auto/core/exceptions/exceptions.dart';
+import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/ad/data/models/body_type.dart';
 import 'package:auto/features/ad/data/models/car_model.dart';
 import 'package:auto/features/ad/data/models/drive_type.dart';
@@ -7,50 +8,51 @@ import 'package:auto/features/ad/data/models/gearbox_type.dart';
 import 'package:auto/features/ad/data/models/generation.dart';
 import 'package:auto/features/ad/data/models/make.dart';
 import 'package:auto/features/ad/data/models/years.dart';
-import 'package:auto/features/car_single/data/model/damaged_parts_model.dart';
+import 'package:auto/features/pagination/models/generic_pagination.dart';
 import 'package:auto/features/reviews/data/models/modification_type_model.dart';
+import 'package:dio/dio.dart';
 
 abstract class AdRemoteDataSource {
-  Future<MakeModel> getTopMakes();
+  Future<GenericPagination<MakeModel>> getTopMakes();
 
-  Future<MakeModel> getMake();
+  Future<GenericPagination<MakeModel>> getMake();
 
-  Future<CarModel> getCarModel({
+  Future<GenericPagination<CarModel>> getCarModel({
     required int makeId,
   });
 
-  Future<YearsModel> getYears({
+  Future<GenericPagination<YearsModel>> getYears({
     required int modelId,
   });
 
-  Future<GenerationModel> getGeneration({
+  Future<GenericPagination<GenerationModel>> getGeneration({
     required int modelId,
     required int year,
   });
 
-  Future<BodyTypeModel> getBodyType({
+  Future<GenericPagination<BodyTypeModel>> getBodyType({
     required int generationId,
   });
 
-  Future<EngineTypeModel> getEngineType({
+  Future<GenericPagination<EngineTypeModel>> getEngineType({
     required int generationId,
     required int bodyTypeId,
   });
 
-  Future<DriveTypeModel> getDriveType({
+  Future<GenericPagination<DriveTypeModel>> getDriveType({
     required int generationId,
     required int bodyTypeId,
     required int engineTypeId,
   });
 
-  Future<GearboxTypeModel> getGearboxType({
+  Future<GenericPagination<GearboxTypeModel>> getGearboxType({
     required int generationId,
     required int bodyTypeId,
     required int engineTypeId,
     required int driveTypeId,
   });
 
-  Future<ModificationTypeModel> getModificationType({
+  Future<GenericPagination<ModificationTypeModel>> getModificationType({
     required int generationId,
     required int bodyTypeId,
     required int engineTypeId,
@@ -58,161 +60,364 @@ abstract class AdRemoteDataSource {
     required int gearBoxTypeTypeId,
   });
 
-  Future<AnnouncementModel> createAnnouncement({
-    required int make,
-    required int model,
-    required int bodyType,
-    required int generation,
-    required int driveType,
-    required int engineType,
-    required int gearboxType,
-    required int year,
-    required int modificationType,
-    required String color,
-    required String licenceType,
-    required String ownership,
-    required String purchaseDate,
-    required String description,
-    required bool isRegisteredLocally,
-    required String contactName,
-    required String contactEmail,
-    required String contactPhone,
-    required String contactAvailableFrom,
-    required String contactAvailableTo,
-    required int region,
-    required int district,
-    required String locationUrl,
-    required String price,
-    required String currency,
-    required int distanceTraveled,
-    required String registrationVin,
-    required String registrationPlate,
-    required String registrationCertificate,
-    required String registrationSerialNumber,
-    required bool registeredInUzbekistan,
-    required bool isNew,
-    required List<String> gallery,
-    required List<DamagedPartsModel> damagedParts,
+  Future<void> createAnnouncement({
+    required Map<String, dynamic> announcementMap,
   });
 }
 
 class AdRemoteDataSourceImpl extends AdRemoteDataSource {
-  @override
-  Future<MakeModel> getTopMakes() {
-    // TODO: implement getTopMakes
-    throw UnimplementedError();
-  }
+  final Dio _dio;
 
-  Future<MakeModel> getMake() {
-    // TODO: implement getMake
-    throw UnimplementedError();
-  }
+  AdRemoteDataSourceImpl(this._dio);
 
   @override
-  Future<CarModel> getCarModel({required int makeId}) {
-    // TODO: implement getCarModel
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<YearsModel> getYears({required int modelId}) {
-    // TODO: implement getYears
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<GenerationModel> getGeneration(
-      {required int modelId, required int year}) {
-    // TODO: implement getGeneration
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<BodyTypeModel> getBodyType({required int generationId}) {
-    // TODO: implement getBodyType
-    throw UnimplementedError();
+  Future<GenericPagination<MakeModel>> getTopMakes() async {
+    try {
+      final response = await _dio.get(
+        '/car/makes/top/',
+        options: Options(
+          headers: StorageRepository.getString('token').isNotEmpty
+              ? {
+                  'Authorization':
+                      'Token ${StorageRepository.getString('token')}'
+                }
+              : {},
+        ),
+      );
+      if (response.statusCode! >= 200 && response.statusCode! < 300) {
+        return GenericPagination.fromJson(response.data,
+            (p0) => MakeModel.fromJson(p0 as Map<String, dynamic>));
+      } else {
+        throw ServerException(
+            statusCode: response.statusCode!, errorMessage: response.data);
+      }
+    } on ServerException {
+      rethrow;
+    } on DioError {
+      throw DioException();
+    } on Exception catch (e) {
+      throw ParsingException(errorMessage: e.toString());
+    }
   }
 
   @override
-  Future<EngineTypeModel> getEngineType({
+  Future<GenericPagination<MakeModel>> getMake() async {
+    try {
+      final response = await _dio.get(
+        '/car/makes/',
+        options: Options(
+          headers: StorageRepository.getString('token').isNotEmpty
+              ? {
+                  'Authorization':
+                      'Token ${StorageRepository.getString('token')}'
+                }
+              : {},
+        ),
+      );
+      if (response.statusCode! >= 200 && response.statusCode! < 300) {
+        return GenericPagination.fromJson(response.data,
+            (p0) => MakeModel.fromJson(p0 as Map<String, dynamic>));
+      } else {
+        throw ServerException(
+            statusCode: response.statusCode!, errorMessage: response.data);
+      }
+    } on ServerException {
+      rethrow;
+    } on DioError {
+      throw DioException();
+    } on Exception catch (e) {
+      throw ParsingException(errorMessage: e.toString());
+    }
+  }
+
+  @override
+  Future<GenericPagination<CarModel>> getCarModel({required int makeId}) async {
+    try {
+      final response = await _dio.get(
+        '/car/$makeId/models/',
+        options: Options(
+          headers: StorageRepository.getString('token').isNotEmpty
+              ? {
+                  'Authorization':
+                      'Token ${StorageRepository.getString('token')}'
+                }
+              : {},
+        ),
+      );
+      if (response.statusCode! >= 200 && response.statusCode! < 300) {
+        return GenericPagination.fromJson(response.data,
+            (p0) => CarModel.fromJson(p0 as Map<String, dynamic>));
+      } else {
+        throw ServerException(
+            statusCode: response.statusCode!, errorMessage: response.data);
+      }
+    } on ServerException {
+      rethrow;
+    } on DioError {
+      throw DioException();
+    } on Exception catch (e) {
+      throw ParsingException(errorMessage: e.toString());
+    }
+  }
+
+  @override
+  Future<GenericPagination<YearsModel>> getYears({required int modelId}) async {
+    try {
+      final response = await _dio.get(
+        '/car/$modelId/years/',
+        options: Options(
+          headers: StorageRepository.getString('token').isNotEmpty
+              ? {
+                  'Authorization':
+                      'Token ${StorageRepository.getString('token')}'
+                }
+              : {},
+        ),
+      );
+      if (response.statusCode! >= 200 && response.statusCode! < 300) {
+        return GenericPagination.fromJson(response.data,
+            (p0) => YearsModel.fromJson(p0 as Map<String, dynamic>));
+      } else {
+        throw ServerException(
+            statusCode: response.statusCode!, errorMessage: response.data);
+      }
+    } on ServerException {
+      rethrow;
+    } on DioError {
+      throw DioException();
+    } on Exception catch (e) {
+      throw ParsingException(errorMessage: e.toString());
+    }
+  }
+
+  @override
+  Future<GenericPagination<GenerationModel>> getGeneration(
+      {required int modelId, required int year}) async {
+    try {
+      final response = await _dio.get(
+        '/car/$modelId/${year}generations/',
+        options: Options(
+          headers: StorageRepository.getString('token').isNotEmpty
+              ? {
+                  'Authorization':
+                      'Token ${StorageRepository.getString('token')}'
+                }
+              : {},
+        ),
+      );
+      if (response.statusCode! >= 200 && response.statusCode! < 300) {
+        return GenericPagination.fromJson(response.data,
+            (p0) => GenerationModel.fromJson(p0 as Map<String, dynamic>));
+      } else {
+        throw ServerException(
+            statusCode: response.statusCode!, errorMessage: response.data);
+      }
+    } on ServerException {
+      rethrow;
+    } on DioError {
+      throw DioException();
+    } on Exception catch (e) {
+      throw ParsingException(errorMessage: e.toString());
+    }
+  }
+
+  @override
+  Future<GenericPagination<BodyTypeModel>> getBodyType(
+      {required int generationId}) async {
+    try {
+      final response = await _dio.get(
+        '/car/$generationId/body-types/',
+        options: Options(
+          headers: StorageRepository.getString('token').isNotEmpty
+              ? {
+                  'Authorization':
+                      'Token ${StorageRepository.getString('token')}'
+                }
+              : {},
+        ),
+      );
+      if (response.statusCode! >= 200 && response.statusCode! < 300) {
+        return GenericPagination.fromJson(response.data,
+            (p0) => BodyTypeModel.fromJson(p0 as Map<String, dynamic>));
+      } else {
+        throw ServerException(
+            statusCode: response.statusCode!, errorMessage: response.data);
+      }
+    } on ServerException {
+      rethrow;
+    } on DioError {
+      throw DioException();
+    } on Exception catch (e) {
+      throw ParsingException(errorMessage: e.toString());
+    }
+  }
+
+  @override
+  Future<GenericPagination<EngineTypeModel>> getEngineType({
     required int generationId,
     required int bodyTypeId,
-  }) {
-    // TODO: implement getEngineType
-    throw UnimplementedError();
+  }) async {
+    try {
+      final response = await _dio.get(
+        '/car/$generationId/$bodyTypeId/engine_type/',
+        options: Options(
+          headers: StorageRepository.getString('token').isNotEmpty
+              ? {
+                  'Authorization':
+                      'Token ${StorageRepository.getString('token')}'
+                }
+              : {},
+        ),
+      );
+      if (response.statusCode! >= 200 && response.statusCode! < 300) {
+        return GenericPagination.fromJson(response.data,
+            (p0) => EngineTypeModel.fromJson(p0 as Map<String, dynamic>));
+      } else {
+        throw ServerException(
+            statusCode: response.statusCode!, errorMessage: response.data);
+      }
+    } on ServerException {
+      rethrow;
+    } on DioError {
+      throw DioException();
+    } on Exception catch (e) {
+      throw ParsingException(errorMessage: e.toString());
+    }
   }
 
   @override
-  Future<DriveTypeModel> getDriveType({
+  Future<GenericPagination<DriveTypeModel>> getDriveType({
     required int generationId,
     required int bodyTypeId,
     required int engineTypeId,
-  }) {
-    // TODO: implement getDriveType
-    throw UnimplementedError();
+  }) async {
+    try {
+      final response = await _dio.get(
+        '/car/$generationId/$bodyTypeId/$engineTypeId/drive_type/',
+        options: Options(
+          headers: StorageRepository.getString('token').isNotEmpty
+              ? {
+                  'Authorization':
+                      'Token ${StorageRepository.getString('token')}'
+                }
+              : {},
+        ),
+      );
+      if (response.statusCode! >= 200 && response.statusCode! < 300) {
+        return GenericPagination.fromJson(response.data,
+            (p0) => DriveTypeModel.fromJson(p0 as Map<String, dynamic>));
+      } else {
+        throw ServerException(
+            statusCode: response.statusCode!, errorMessage: response.data);
+      }
+    } on ServerException {
+      rethrow;
+    } on DioError {
+      throw DioException();
+    } on Exception catch (e) {
+      throw ParsingException(errorMessage: e.toString());
+    }
   }
 
   @override
-  Future<GearboxTypeModel> getGearboxType({
+  Future<GenericPagination<GearboxTypeModel>> getGearboxType({
     required int generationId,
     required int bodyTypeId,
     required int engineTypeId,
     required int driveTypeId,
-  }) {
-    // TODO: implement getGearboxType
-    throw UnimplementedError();
+  }) async {
+    try {
+      final response = await _dio.get(
+        '/car/$generationId/$bodyTypeId/$engineTypeId/$driveTypeId/gearbox_type',
+        options: Options(
+          headers: StorageRepository.getString('token').isNotEmpty
+              ? {
+                  'Authorization':
+                      'Token ${StorageRepository.getString('token')}'
+                }
+              : {},
+        ),
+      );
+      if (response.statusCode! >= 200 && response.statusCode! < 300) {
+        return GenericPagination.fromJson(response.data,
+            (p0) => GearboxTypeModel.fromJson(p0 as Map<String, dynamic>));
+      } else {
+        throw ServerException(
+            statusCode: response.statusCode!, errorMessage: response.data);
+      }
+    } on ServerException {
+      rethrow;
+    } on DioError {
+      throw DioException();
+    } on Exception catch (e) {
+      throw ParsingException(errorMessage: e.toString());
+    }
   }
 
   @override
-  Future<ModificationTypeModel> getModificationType({
+  Future<GenericPagination<ModificationTypeModel>> getModificationType({
     required int generationId,
     required int bodyTypeId,
     required int engineTypeId,
     required int driveTypeId,
     required int gearBoxTypeTypeId,
-  }) {
-    // TODO: implement getModificationType
-    throw UnimplementedError();
+  }) async {
+    try {
+      final response = await _dio.get(
+        '/car/$generationId/$bodyTypeId/$engineTypeId/$driveTypeId/$gearBoxTypeTypeId/modification-type/',
+        options: Options(
+          headers: StorageRepository.getString('token').isNotEmpty
+              ? {
+                  'Authorization':
+                      'Token ${StorageRepository.getString('token')}'
+                }
+              : {},
+        ),
+      );
+      if (response.statusCode! >= 200 && response.statusCode! < 300) {
+        return GenericPagination.fromJson(response.data,
+            (p0) => ModificationTypeModel.fromJson(p0 as Map<String, dynamic>));
+      } else {
+        throw ServerException(
+            statusCode: response.statusCode!, errorMessage: response.data);
+      }
+    } on ServerException {
+      rethrow;
+    } on DioError {
+      throw DioException();
+    } on Exception catch (e) {
+      throw ParsingException(errorMessage: e.toString());
+    }
   }
 
   @override
-  Future<AnnouncementModel> createAnnouncement({
-    required int make,
-    required int model,
-    required int bodyType,
-    required int generation,
-    required int driveType,
-    required int engineType,
-    required int gearboxType,
-    required int year,
-    required int modificationType,
-    required String color,
-    required String licenceType,
-    required String ownership,
-    required String purchaseDate,
-    required String description,
-    required bool isRegisteredLocally,
-    required String contactName,
-    required String contactEmail,
-    required String contactPhone,
-    required String contactAvailableFrom,
-    required String contactAvailableTo,
-    required int region,
-    required int district,
-    required String locationUrl,
-    required String price,
-    required String currency,
-    required int distanceTraveled,
-    required String registrationVin,
-    required String registrationPlate,
-    required String registrationCertificate,
-    required String registrationSerialNumber,
-    required bool registeredInUzbekistan,
-    required bool isNew,
-    required List<String> gallery,
-    required List<DamagedPartsModel> damagedParts,
-  }) {
-    // TODO: implement createAnnouncement
-    throw UnimplementedError();
+  Future<void> createAnnouncement({
+    required Map<String, dynamic> announcementMap,
+  }) async {
+    try {
+      final response = await _dio.post(
+        '/car/announcement/create/',
+        data: announcementMap,
+        options: Options(
+          headers: StorageRepository.getString('token').isNotEmpty
+              ? {
+                  'Authorization':
+                      'Token ${StorageRepository.getString('token')}'
+                }
+              : {},
+        ),
+      );
+      if (response.statusCode! >= 200 && response.statusCode! < 300) {
+      } else {
+        throw ServerException(
+            statusCode: response.statusCode!, errorMessage: response.data);
+      }
+    } on ServerException {
+      rethrow;
+    } on DioError {
+      throw DioException();
+    } on Exception catch (e) {
+      throw ParsingException(errorMessage: e.toString());
+    }
   }
 }
