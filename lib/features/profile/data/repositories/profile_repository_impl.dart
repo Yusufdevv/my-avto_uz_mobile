@@ -3,7 +3,7 @@ import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/features/profile/data/datasources/profile_remote_datasource.dart';
 import 'package:auto/features/profile/domain/entities/profile.dart';
 import 'package:auto/features/profile/domain/repositories/profile.dart';
-import 'package:auto/utils/either.dart';
+import 'package:auto/core/utils/either.dart';
 
 class ProfileRepositoryImpl extends ProfileRepository {
   final ProfileRemoteDataSource dataSource;

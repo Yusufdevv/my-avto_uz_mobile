@@ -2,12 +2,11 @@ import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/core/singletons/dio_settings.dart';
 import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/core/singletons/storage.dart';
-import 'package:auto/utils/either.dart';
+import 'package:auto/core/utils/either.dart';
 import 'package:dio/dio.dart';
 
 class GlobalRequestRepository {
   final dio = serviceLocator<DioSettings>().dio;
-
 
   Future<Either<Failure, S>> getSingle<S>(
       {required String endpoint,

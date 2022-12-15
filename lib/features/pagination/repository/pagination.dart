@@ -1,10 +1,9 @@
-import 'package:auto/core/exceptions/exceptions.dart';
 import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/core/singletons/dio_settings.dart';
 import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/core/singletons/storage.dart';
+import 'package:auto/core/utils/either.dart';
 import 'package:auto/features/pagination/models/generic_pagination.dart';
-import 'package:auto/utils/either.dart';
 import 'package:dio/dio.dart';
 
 class PaginationRepository {

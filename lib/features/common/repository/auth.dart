@@ -6,9 +6,7 @@ import 'package:auto/features/common/bloc/auth/authentication_bloc.dart';
 import 'package:auto/features/common/domain/model/token_model.dart';
 import 'package:auto/features/common/domain/model/user.dart';
 import 'package:auto/features/common/repository/global_request_repository.dart';
-import 'package:auto/utils/either.dart';
-
-
+import 'package:auto/core/utils/either.dart';
 
 class AuthRepository {
   final GlobalRequestRepository repo = GlobalRequestRepository();
@@ -16,8 +14,7 @@ class AuthRepository {
       StreamController.broadcast(sync: true);
 
   Future<Either<Failure, UserModel>> getUser() async {
-
-  // await  StorageRepository.putString('token', '');
+    // await  StorageRepository.putString('token', '');
     final result = await repo.getSingle(
       endpoint: '/users/detail/',
       fromJson: UserModel.fromJson,
@@ -38,16 +35,15 @@ class AuthRepository {
         'password': password,
       },
     );
-    if(result.isRight){
+    if (result.isRight) {
       print('tokenize ${result.right.access}');
       await StorageRepository.putString('token', result.right.access);
       await StorageRepository.putString('refresh', result.right.refresh);
       return Right(result.right);
-    }else {
+    } else {
       print('errorize');
       return Left(result.left);
     }
-
   }
 
   Future<Either<Failure, TokenModel>> refreshToken() async {
@@ -59,11 +55,11 @@ class AuthRepository {
         'refresh': StorageRepository.getString('token', defValue: ''),
       },
     );
-    if(result.isRight){
+    if (result.isRight) {
       await StorageRepository.putString('token', result.right.access);
       await StorageRepository.putString('refresh', result.right.refresh);
       return Right(result.right);
-    }else {
+    } else {
       return Left(result.left);
     }
   }

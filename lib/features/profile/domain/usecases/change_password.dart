@@ -1,8 +1,7 @@
 import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/core/usecases/usecase.dart';
-import 'package:auto/features/login/domain/usecases/change_password.dart';
+import 'package:auto/core/utils/either.dart';
 import 'package:auto/features/profile/domain/repositories/profile.dart';
-import 'package:auto/utils/either.dart';
 import 'package:equatable/equatable.dart';
 
 class ChangePasswordUseCase extends UseCase<String, ChangePasswordParams> {
@@ -11,8 +10,9 @@ class ChangePasswordUseCase extends UseCase<String, ChangePasswordParams> {
   ChangePasswordUseCase({required this.repository});
 
   @override
-  Future<Either<Failure, String>> call(ChangePasswordParams params) async => await repository
-      .changePassword(oldPassword: params.oldPassword, newPassword: params.newPassword);
+  Future<Either<Failure, String>> call(ChangePasswordParams params) async =>
+      await repository.changePassword(
+          oldPassword: params.oldPassword, newPassword: params.newPassword);
 }
 
 class ChangePasswordParams extends Equatable {

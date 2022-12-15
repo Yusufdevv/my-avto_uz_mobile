@@ -3,7 +3,7 @@ import 'package:auto/core/usecases/usecase.dart';
 import 'package:auto/features/main/data/models/top_brand.dart';
 import 'package:auto/features/pagination/models/generic_pagination.dart';
 import 'package:auto/features/pagination/repository/pagination.dart';
-import 'package:auto/utils/either.dart';
+import 'package:auto/core/utils/either.dart';
 
 class GetTopBrandUseCase
     extends UseCase<GenericPagination<TopBrandModel>, String> {

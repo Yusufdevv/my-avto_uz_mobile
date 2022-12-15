@@ -2,7 +2,7 @@
 // import 'package:auto/core/singletons/dio_settings.dart';
 // import 'package:auto/core/singletons/service_locator.dart';
 // import 'package:auto/features/search/data/models/search_item.dart';
-// import 'package:auto/utils/either.dart';
+// import 'package:auto/core/utils/either.dart';
 //
 // class SearchRepository {
 //   final client = serviceLocator<DioSettings>().dio;

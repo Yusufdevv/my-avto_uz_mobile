@@ -1,5 +1,5 @@
 import 'package:auto/core/exceptions/failures.dart';
-import 'package:auto/utils/either.dart';
+import 'package:auto/core/utils/either.dart';
 import 'package:equatable/equatable.dart';
 
 abstract class UseCase<Type, Params> {
