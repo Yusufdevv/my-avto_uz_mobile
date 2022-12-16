@@ -1,6 +1,5 @@
 import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/core/utils/either.dart';
-import 'package:auto/features/ad/data/models/announcement.dart';
 import 'package:auto/features/ad/domain/entities/announcement/announcement.dart';
 import 'package:auto/features/ad/domain/entities/car_model/car_model_entity.dart';
 import 'package:auto/features/ad/domain/entities/generation/generation.dart';
@@ -86,6 +85,6 @@ abstract class AdRepository {
   Future<Either<Failure, AnnouncementEntity>> getDraftAnnouncement();
 
   Future<Either<Failure, void>> cacheDraftAnnouncement({
-    required AnnouncementModel announcementModel,
+    required AnnouncementEntity announcementEntity,
   });
 }

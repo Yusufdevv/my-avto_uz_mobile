@@ -286,11 +286,11 @@ class AdRepositoryImpl extends AdRepository {
 
   @override
   Future<Either<Failure, void>> cacheDraftAnnouncement({
-    required AnnouncementModel announcementModel,
+    required AnnouncementEntity announcementEntity,
   }) async {
     try {
       final result = await localDataSource.cacheDraftAnnouncement(
-          announcementModel: announcementModel);
+          announcementModel: announcementEntity as AnnouncementModel);
       return Right(result);
     } on ParsingException catch (e) {
       return Left(ParsingFailure(errorMessage: e.errorMessage));
