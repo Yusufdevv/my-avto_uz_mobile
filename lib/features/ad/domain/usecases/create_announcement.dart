@@ -3,6 +3,7 @@ import 'package:auto/core/usecases/usecase.dart';
 import 'package:auto/core/utils/either.dart';
 import 'package:auto/features/ad/domain/entities/announcement/announcement.dart';
 import 'package:auto/features/ad/domain/repositories/ad_repository.dart';
+import 'package:dio/dio.dart';
 
 class CreateAnnouncementUseCase extends UseCase<void, AnnouncementParams> {
   final AdRepository repository;
@@ -10,8 +11,8 @@ class CreateAnnouncementUseCase extends UseCase<void, AnnouncementParams> {
   CreateAnnouncementUseCase({required this.repository});
 
   @override
-  Future<Either<Failure, void>> call(AnnouncementParams params) {
-    final announcementMap = <String, dynamic>{
+  Future<Either<Failure, void>> call(AnnouncementParams params) async {
+    final announcementFields = <String, dynamic>{
       'make': params.announcementEntity.make,
       'model': params.announcementEntity.model,
       'generation': params.announcementEntity.generation,
@@ -44,16 +45,23 @@ class CreateAnnouncementUseCase extends UseCase<void, AnnouncementParams> {
       'registered_in_uzbekistan':
           params.announcementEntity.registeredInUzbekistan,
       'is_new': params.announcementEntity.isNew,
-      'licence_type': 'original',
-      'ownership': 'first',
-      'location_url': 'string',
-      'gallery': [...params.announcementEntity.gallery],
+      'licence_type': params.announcementEntity.licenceType,
+      'ownership': params.announcementEntity.ownership,
+      'location_url': params.announcementEntity.locationUrl,
       'damaged_parts': [
-        {'part': 'rigth_front_door', 'damage_type': 'ideal'}
+        ...params.announcementEntity.damagedParts.map((e) => e.toJson())
       ]
     };
 
-    return repository.createAnnouncement(announcementMap: announcementMap);
+    final announcementFormData = FormData.fromMap(announcementFields);
+    for (final element in params.announcementEntity.gallery) {
+      final multiParFile = await MultipartFile.fromFile(element);
+      announcementFormData.files.add(MapEntry('gallery', multiParFile));
+    }
+
+    return repository.createAnnouncement(
+      announcementFormData: announcementFormData,
+    );
   }
 }
 

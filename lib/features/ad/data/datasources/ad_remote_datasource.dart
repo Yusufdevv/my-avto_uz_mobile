@@ -69,7 +69,7 @@ abstract class AdRemoteDataSource {
   });
 
   Future<void> createAnnouncement({
-    required Map<String, dynamic> announcementMap,
+    required FormData announcementFormData,
   });
 }
 
@@ -309,11 +309,11 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
 
   @override
   Future<void> createAnnouncement({
-    required Map<String, dynamic> announcementMap,
+    required FormData announcementFormData,
   }) async {
     final response = await _dio.post(
       '/car/announcement/create/',
-      data: announcementMap,
+      data: announcementFormData,
       options: Options(
         headers: StorageRepository.getString('token').isNotEmpty
             ? {'Authorization': 'Token ${StorageRepository.getString('token')}'}
