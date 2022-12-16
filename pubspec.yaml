@@ -52,6 +52,7 @@ dependencies:
       ref: flutter-beta
   linked_scroll_controller: ^0.2.0
   shared_preferences: ^2.0.15
+  workmanager: ^0.5.1
 
 dev_dependencies:
   flutter_test:
