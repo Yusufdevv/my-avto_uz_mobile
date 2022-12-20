@@ -20,6 +20,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
+import 'bloc/suggestion/suggestion_bloc.dart';
+
 class SearchScreen extends StatefulWidget {
   const SearchScreen({Key? key}) : super(key: key);
 
@@ -108,79 +110,33 @@ class _SearchScreenState extends State<SearchScreen> {
                   child: Row(
                     children: [
                       Expanded(
-                        child: RawAutocomplete<String>(
-                          textEditingController: searchController,
+                        child: WTextField(
+                          fillColor: Theme.of(context)
+                              .extension<ThemedColors>()!
+                              .whiteSmoke2ToNightRider,
+                          onChanged: (value) {},
                           focusNode: focusNode,
-                          optionsBuilder: (textEditingValue) {
-                            if (textEditingValue.text == '') {
-                              return const Iterable<String>.empty();
-                            } else {
-                              final matches = <String>[];
-                              matches
-                                ..addAll(searchItemEntity)
-                                ..retainWhere((s) => s.toLowerCase().contains(
-                                    textEditingValue.text.toLowerCase()));
-                              return matches;
-                            }
-                          },
-                          onSelected: (selection) {},
-                          fieldViewBuilder: (context, textEditingController,
-                                  focusNode, onFieldSubmitted) =>
-                              WTextField(
-                            fillColor: Theme.of(context)
-                                .extension<ThemedColors>()!
-                                .whiteSmoke2ToNightRider,
-                            onChanged: (value) {
-                              setState(() {});
-                              Navigator.push(
-                                context,
-                                fade(
-                                  page: ResultsScreen(
-                                      controller: searchController),
-                                ),
-                              );
-                            },
-                            focusNode: focusNode,
-                            keyBoardType: TextInputType.name,
-                            textStyle: Theme.of(context)
-                                .textTheme
-                                .subtitle1!
-                                .copyWith(
-                                    fontSize: 16, fontWeight: FontWeight.w400),
-                            textInputAction: TextInputAction.search,
-                            borderColor: purple,
-                            focusColor: Theme.of(context)
-                                .extension<ThemedColors>()!
-                                .whiteSmoke2ToNightRider,
-                            enabledBorderColor: Theme.of(context)
-                                .extension<ThemedColors>()!
-                                .whiteSmoke2ToNightRider,
-                            height: 44,
-                            margin: const EdgeInsets.fromLTRB(16, 16, 8, 16),
-                            borderRadius: 12,
-                            controller: textEditingController,
-                            hasSearch: true,
-                            hintText: LocaleKeys.model_brand.tr(),
-                            hasClearButton: true,
-                          ),
-                          optionsViewBuilder: (context,
-                                  void Function(String) onSelected, options) =>
-                              ListView(
-                            shrinkWrap: true,
-                            padding: EdgeInsets.zero,
-                            children: options
-                                .map(
-                                  (opt) => SearchedModelsItem(
-                                    fullText: opt,
-                                    searchText: searchController.text,
-                                    onTap: () {
-                                      onSelected(opt);
-                                      focusNode.unfocus();
-                                    },
-                                  ),
-                                )
-                                .toList(),
-                          ),
+                          keyBoardType: TextInputType.name,
+                          textStyle: Theme.of(context)
+                              .textTheme
+                              .subtitle1!
+                              .copyWith(
+                                  fontSize: 16, fontWeight: FontWeight.w400),
+                          textInputAction: TextInputAction.search,
+                          borderColor: purple,
+                          focusColor: Theme.of(context)
+                              .extension<ThemedColors>()!
+                              .whiteSmoke2ToNightRider,
+                          enabledBorderColor: Theme.of(context)
+                              .extension<ThemedColors>()!
+                              .whiteSmoke2ToNightRider,
+                          height: 44,
+                          margin: const EdgeInsets.fromLTRB(16, 16, 8, 16),
+                          borderRadius: 12,
+                          controller: searchController,
+                          hasSearch: true,
+                          hintText: LocaleKeys.model_brand.tr(),
+                          hasClearButton: true,
                         ),
                       ),
                       Focus(
@@ -217,6 +173,24 @@ class _SearchScreenState extends State<SearchScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    BlocBuilder<SuggestionBloc, SuggestionState>(
+                      bloc: SuggestionBloc(),
+                      builder: (context, state) {
+                        return ListView(
+                          shrinkWrap: true,
+                          padding: EdgeInsets.zero,
+                          children: [
+                            SearchedModelsItem(
+                              fullText: 'eravr',
+                              searchText: searchController.text,
+                              onTap: () {
+                                focusNode.unfocus();
+                              },
+                            ),
+                          ],
+                        );
+                      },
+                    ),
                     WButton(
                       onTap: () {
                         Navigator.push(context, fade(page: ReviewsScreen()));
