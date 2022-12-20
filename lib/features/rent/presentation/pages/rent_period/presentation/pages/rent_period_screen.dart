@@ -3,6 +3,7 @@ import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
+import 'package:auto/features/rent/domain/entities/rent_list_entity.dart';
 import 'package:auto/features/rent/presentation/pages/map_screen/presentation/pages/map_screen.dart';
 import 'package:auto/features/rent/presentation/pages/rent_period/presentation/widgets/period_header.dart';
 import 'package:auto/generated/locale_keys.g.dart';
@@ -11,7 +12,9 @@ import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 class RentPeriodScreen extends StatefulWidget {
-  const RentPeriodScreen({Key? key}) : super(key: key);
+  final RentListEntity rentListEntity;
+  const RentPeriodScreen({required this.rentListEntity, Key? key})
+      : super(key: key);
 
   @override
   State<RentPeriodScreen> createState() => _RentPeriodScreenState();
@@ -151,7 +154,9 @@ class _RentPeriodScreenState extends State<RentPeriodScreen> {
                               label: hour.toString(),
                               min: minValue,
                               activeColor: purple,
-                              inactiveColor: Theme.of(context).extension<ThemedColors>()!.silverToNightRider,
+                              inactiveColor: Theme.of(context)
+                                  .extension<ThemedColors>()!
+                                  .silverToNightRider,
                               onChanged: (value) {
                                 setState(() {
                                   hour = value;
@@ -161,10 +166,21 @@ class _RentPeriodScreenState extends State<RentPeriodScreen> {
                           ),
                         ),
                         Positioned(
-                          left: sliderLength / sliderPadding / currentPosition -  hour + sliderPadding +  (currentPosition * hour).floorToDouble() - sliderPadding ,
+                          left: sliderLength / sliderPadding / currentPosition -
+                              hour +
+                              sliderPadding +
+                              (currentPosition * hour).floorToDouble() -
+                              sliderPadding,
                           // right: sliderLength - (currentPosition * hour).floorToDouble()-36 ,
-                          bottom:-5,
-                          child: Text(list[hour.floor()],  style: Theme.of(context).textTheme.headline1!.copyWith(fontWeight: FontWeight.w400, fontSize: 13),),
+                          bottom: -5,
+                          child: Text(
+                            list[hour.floor()],
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline1!
+                                .copyWith(
+                                    fontWeight: FontWeight.w400, fontSize: 13),
+                          ),
                         )
                       ],
                     ),
@@ -188,7 +204,9 @@ class _RentPeriodScreenState extends State<RentPeriodScreen> {
                               value: endHour,
                               max: maxValue,
                               activeColor: purple,
-                              inactiveColor: Theme.of(context).extension<ThemedColors>()!.silverToNightRider,
+                              inactiveColor: Theme.of(context)
+                                  .extension<ThemedColors>()!
+                                  .silverToNightRider,
                               label: hour.toString(),
                               min: minValue,
                               onChanged: (value) {
@@ -200,14 +218,27 @@ class _RentPeriodScreenState extends State<RentPeriodScreen> {
                           ),
                         ),
                         Positioned(
-                          left: sliderLength / sliderPadding / currentPosition -  endHour + sliderPadding +  (currentPosition * endHour).floorToDouble() - sliderPadding ,
-                           //right: sliderLength - (currentPosition * hour).floorToDouble()-36 ,
+                          left: sliderLength / sliderPadding / currentPosition -
+                              endHour +
+                              sliderPadding +
+                              (currentPosition * endHour).floorToDouble() -
+                              sliderPadding,
+                          //right: sliderLength - (currentPosition * hour).floorToDouble()-36 ,
                           bottom: -5,
-                          child: Text(list[endHour.floor()], style: Theme.of(context).textTheme.headline1!.copyWith(fontWeight: FontWeight.w400, fontSize: 13),),
+                          child: Text(
+                            list[endHour.floor()],
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline1!
+                                .copyWith(
+                                    fontWeight: FontWeight.w400, fontSize: 13),
+                          ),
                         )
                       ],
                     ),
-                    const SizedBox(height: 16,),
+                    const SizedBox(
+                      height: 16,
+                    ),
                   ],
                 ),
               ),
@@ -219,7 +250,8 @@ class _RentPeriodScreenState extends State<RentPeriodScreen> {
         ),
         bottomNavigationBar: WButton(
           height: 44,
-          onTap: () => Navigator.push(context, fade(page: const MapScreen())),
+          onTap: () => Navigator.push(context,
+              fade(page: MapScreen(rentListEntity: widget.rentListEntity))),
           margin: EdgeInsets.fromLTRB(
               16, 0, 16, MediaQuery.of(context).padding.bottom + 16),
           text: LocaleKeys.further.tr(),
@@ -234,7 +266,8 @@ class _RentPeriodScreenState extends State<RentPeriodScreen> {
 
   void getLengthOfSlider() {
     subtraction = (maxValue - minValue).floor();
-    sliderLength = (MediaQuery.of(context).size.width - (sliderPadding * 2)).floor();
+    sliderLength =
+        (MediaQuery.of(context).size.width - (sliderPadding * 2)).floor();
     currentPosition = (sliderLength / subtraction).floor();
   }
 

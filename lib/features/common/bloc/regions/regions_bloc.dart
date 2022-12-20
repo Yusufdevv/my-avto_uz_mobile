@@ -1,11 +1,8 @@
-import 'dart:async';
-
 import 'package:auto/features/common/models/region.dart';
 import 'package:auto/features/common/usecases/get_regions.dart';
 import 'package:bloc/bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:meta/meta.dart';
 
 part 'regions_event.dart';
 
@@ -21,7 +18,6 @@ class RegionsBloc extends Bloc<RegionsEvent, RegionsState> {
       emit(state.copyWith(status: FormzStatus.submissionInProgress));
       final result = await getRegions('');
       if (result.isRight) {
-        print('isRight141');
         emit(state.copyWith(
             status: FormzStatus.submissionSuccess,
             regions: result.right.results));

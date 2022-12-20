@@ -47,6 +47,7 @@ class _RentScreenState extends State<RentScreen>
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               WAppBar(
+                
                 boxShadow: const [],
                 title: LocaleKeys.auto_rent.tr(),
                 extraActions: [
@@ -131,7 +132,7 @@ class _RentScreenState extends State<RentScreen>
             ),
           ],
           child: TabBarView(
-            
+
             physics: BouncingScrollPhysics(),
             controller: tabController,
             children: [

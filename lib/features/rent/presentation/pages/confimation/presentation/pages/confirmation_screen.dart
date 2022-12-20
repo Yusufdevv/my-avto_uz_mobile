@@ -14,7 +14,11 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class ConfirmationScreen extends StatefulWidget {
-  const ConfirmationScreen({Key? key}) : super(key: key);
+  final RentListEntity rentListEntity;
+  const ConfirmationScreen({
+    required this.rentListEntity,
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<ConfirmationScreen> createState() => _ConfirmationScreenState();
@@ -29,18 +33,18 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
         ),
         body: SingleChildScrollView(
           child: Column(
-            children: const [
+            children: [
               CarSinglePreview(
-                rentEntity: RentListEntity(),
+                rentEntity: widget.rentListEntity,
                 hasCarInfo: false,
               ),
-              RequirementItem(
+              const RequirementItem(
                 age: '16',
                 experience: '2',
               ),
-              DetailsItem(),
-              MileagePriceItem(),
-              PlaceItem(),
+              const DetailsItem(),
+              const MileagePriceItem(),
+              const PlaceItem(),
             ],
           ),
         ),

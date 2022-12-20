@@ -5,6 +5,7 @@ import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_textfield.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
+import 'package:auto/features/rent/domain/entities/rent_list_entity.dart';
 import 'package:auto/features/rent/presentation/pages/confimation/presentation/pages/confirmation_screen.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -14,7 +15,8 @@ import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:yandex_mapkit/yandex_mapkit.dart';
 
 class MapScreen extends StatefulWidget {
-  const MapScreen({Key? key}) : super(key: key);
+  final RentListEntity rentListEntity;
+  const MapScreen({required this.rentListEntity, Key? key}) : super(key: key);
 
   @override
   State<MapScreen> createState() => _MapScreenState();
@@ -29,16 +31,18 @@ class _MapScreenState extends State<MapScreen> {
     returnController = TextEditingController();
     super.initState();
   }
+
   @override
   void dispose() {
     getController.dispose();
     returnController.dispose();
     super.dispose();
   }
+
   bool focused = false;
   @override
   Widget build(BuildContext context) => KeyboardDismisser(
-    child: Scaffold(
+        child: Scaffold(
           appBar: WAppBar(
             title: LocaleKeys.receipt_and_return.tr(),
             centerTitle: false,
@@ -67,20 +71,21 @@ class _MapScreenState extends State<MapScreen> {
                                 .silver50ToNightRider),
                       ),
                       child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8),
-                            color: Theme.of(context)
-                                .extension<ThemedColors>()!
-                                .whiteSmokeToBlack,
-                          ),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          color: Theme.of(context)
+                              .extension<ThemedColors>()!
+                              .whiteSmokeToBlack,
+                        ),
                         child: Column(
                           children: [
                             ClipRRect(
-                              borderRadius: const BorderRadius.vertical(top: Radius.circular(8)),
+                              borderRadius: const BorderRadius.vertical(
+                                  top: Radius.circular(8)),
                               child: WTextField(
-                                  controller: getController,
+                                controller: getController,
                                 onChanged: (value) {
-                                    setState((){});
+                                  setState(() {});
                                 },
                                 fillColor: Theme.of(context)
                                     .extension<ThemedColors>()!
@@ -96,8 +101,13 @@ class _MapScreenState extends State<MapScreen> {
                                     .whiteSmokeToBlack,
                                 hintText: LocaleKeys.getting_here.tr(),
                                 prefix: Padding(
-                                  padding:getController.text.isNotEmpty ?  const EdgeInsets.all(10) : const EdgeInsets.all(6),
-                                  child:  SvgPicture.asset(getController.text.isNotEmpty ? AppIcons.searchOrange : AppIcons.circle),
+                                  padding: getController.text.isNotEmpty
+                                      ? const EdgeInsets.all(10)
+                                      : const EdgeInsets.all(6),
+                                  child: SvgPicture.asset(
+                                      getController.text.isNotEmpty
+                                          ? AppIcons.searchOrange
+                                          : AppIcons.circle),
                                 ),
                               ),
                             ),
@@ -106,16 +116,22 @@ class _MapScreenState extends State<MapScreen> {
                               color: Theme.of(context).dividerColor,
                             ),
                             ClipRRect(
-                              borderRadius: const BorderRadius.vertical(bottom: Radius.circular(8)),
+                              borderRadius: const BorderRadius.vertical(
+                                  bottom: Radius.circular(8)),
                               child: WTextField(
                                 hintText: LocaleKeys.return_here.tr(),
                                 controller: returnController,
                                 prefix: Padding(
-                                  padding:returnController.text.isNotEmpty ?  const EdgeInsets.all(10) : const EdgeInsets.all(6),
-                                  child:  SvgPicture.asset(returnController.text.isNotEmpty ? AppIcons.searchOrange : AppIcons.circle),
+                                  padding: returnController.text.isNotEmpty
+                                      ? const EdgeInsets.all(10)
+                                      : const EdgeInsets.all(6),
+                                  child: SvgPicture.asset(
+                                      returnController.text.isNotEmpty
+                                          ? AppIcons.searchOrange
+                                          : AppIcons.circle),
                                 ),
                                 onChanged: (value) {
-                                  setState((){});
+                                  setState(() {});
                                 },
                                 fillColor: Theme.of(context)
                                     .extension<ThemedColors>()!
@@ -139,7 +155,11 @@ class _MapScreenState extends State<MapScreen> {
                       height: 24,
                     ),
                     WButton(
-                      onTap: () => Navigator.push(context, fade(page: const ConfirmationScreen())),
+                      onTap: () => Navigator.push(
+                          context,
+                          fade(
+                              page: ConfirmationScreen(
+                                  rentListEntity: widget.rentListEntity))),
                       text: LocaleKeys.further.tr(),
                       shadow: [
                         BoxShadow(
@@ -154,5 +174,5 @@ class _MapScreenState extends State<MapScreen> {
             ],
           ),
         ),
-  );
+      );
 }

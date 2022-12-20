@@ -54,22 +54,23 @@ class _SingleCategoryScreenState extends State<SingleCategoryScreen> {
           appBar: AppBar(
             elevation: 8,
             shadowColor: dark.withOpacity(0.08),
-            title: Row(
-              children: [
-                WScaleAnimation(
-                    child: SvgPicture.asset(AppIcons.chevronLeft),
-                    onTap: () => Navigator.pop(context)),
-                const SizedBox(
-                  width: 8,
-                ),
-                Text(
-                  widget.categoryName,
-                  style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                      ),
-                ),
-              ],
+            title: WScaleAnimation(
+              onTap: () => Navigator.pop(context),
+              child: Row(
+                children: [
+                  SvgPicture.asset(AppIcons.chevronLeft),
+                  const SizedBox(
+                    width: 8,
+                  ),
+                  Text(
+                    widget.categoryName,
+                    style: Theme.of(context).textTheme.subtitle1!.copyWith(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                        ),
+                  ),
+                ],
+              ),
             ),
             automaticallyImplyLeading: false,
             bottom: PreferredSize(
@@ -84,7 +85,7 @@ class _SingleCategoryScreenState extends State<SingleCategoryScreen> {
                 margin: const EdgeInsets.fromLTRB(16, 0, 16, 16),
                 borderRadius: 12,
                 hasSearch: true,
-                hintText:  LocaleKeys.search.tr(),
+                hintText: LocaleKeys.search.tr(),
               ),
             ),
           ),
@@ -123,5 +124,5 @@ class _SingleCategoryScreenState extends State<SingleCategoryScreen> {
             },
           ),
         ),
-       );
+      );
 }

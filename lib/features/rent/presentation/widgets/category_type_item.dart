@@ -39,7 +39,7 @@ class CategoryTypeItem extends StatelessWidget {
                     child: Row(
                       children: [
                         Text(
-                          LocaleKeys.all.tr(),
+                          LocaleKeys.all.tr().toLowerCase(),
                           style: Theme.of(context)
                               .textTheme
                               .bodyText1!
@@ -58,6 +58,7 @@ class CategoryTypeItem extends StatelessWidget {
             SizedBox(
               height: 158,
               child: ListView.builder(
+                padding: const EdgeInsets.only(right: 12),
                 key: UniqueKey(),
                 physics: const BouncingScrollPhysics(),
                 scrollDirection: Axis.horizontal,
@@ -77,5 +78,5 @@ class CategoryTypeItem extends StatelessWidget {
             ),
           ],
         )
-      :  const SizedBox();
+      : const SizedBox();
 }

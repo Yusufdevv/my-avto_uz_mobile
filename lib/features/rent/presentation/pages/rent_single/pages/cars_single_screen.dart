@@ -44,8 +44,12 @@ class _CarsSingleScreenState extends State<CarsSingleScreen> {
         ),
         bottomNavigationBar: WButton(
           height: 44,
-          onTap: () =>
-              Navigator.push(context, fade(page: const RentPeriodScreen())),
+          onTap: () => Navigator.push(
+              context,
+              fade(
+                  page: RentPeriodScreen(
+                rentListEntity: widget.rentListEntity,
+              ))),
           margin: EdgeInsets.fromLTRB(
               16, 0, 16, MediaQuery.of(context).padding.bottom + 16),
           text: LocaleKeys.further.tr(),
