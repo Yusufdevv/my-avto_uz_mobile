@@ -153,7 +153,7 @@ class _WTextFieldState extends State<WTextField>
 
     focusNode.addListener(
       () => setState(() {
-        print('focused');
+        print('== focused ==');
         focused = !focused;
       }),
     );

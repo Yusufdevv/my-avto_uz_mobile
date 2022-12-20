@@ -23,10 +23,11 @@ class RentListBloc extends Bloc<RentListEvent, RentListState> {
           await rentListUseCase(Param(id: event.id, search: event.search));
       if (result.isRight) {
         emit(state.copyWith(
-            status: FormzStatus.submissionSuccess,
-            list: result.right.results,
-            count: result.right.count,
-            next: result.right.next));
+          status: FormzStatus.submissionSuccess,
+          list: result.right.results,
+          count: result.right.count,
+          next: result.right.next,
+        ));
       } else {
         emit(state.copyWith(status: FormzStatus.submissionFailure));
       }

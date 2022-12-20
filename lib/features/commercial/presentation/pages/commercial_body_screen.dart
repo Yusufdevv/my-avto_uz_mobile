@@ -53,7 +53,7 @@ class CommercialBodyScreen extends StatelessWidget {
                           .textTheme
                           .subtitle1!
                           .copyWith(color: orange)),
-                  Spacer(),
+                 const   Spacer(),
                   CircleAvatar(
                     backgroundColor: warmerGrey,
                     radius: 10,
@@ -108,28 +108,28 @@ class CommercialBodyScreen extends StatelessWidget {
         ),
         const SizedBox(height: 16),
         ...List.generate(
-            2,
-            (index) => Padding(
-                  padding: const EdgeInsets.only(bottom: 12),
-                  child: InfoContainer(
-                    avatarPicture:
-                        'assets/images/car_single/car_single300kb.png',
-                    carModel: 'Mercedes-Benz Sprinter',
-                    hasDiscount: hasDiscount[index],
-                    location: 'г. Ташкент',
-                    owner: owner[index],
-                    ownerType: ownerType[index],
-                    publishTime: publishTime[index],
-                    subtitle:
-                        '\n\nMercedes-Benz Sprinter — семейство малотоннажных\nавтомобилей компании Mercedes-Benz. Существует...',
-                    year: 2020,
-                    price: '227 000 000 UZS',
-                    discountPrice: '270 000 000 UZS',
-                    sellType: sellType[index],
-                    hasStatusInfo: hasDiscount[index],
-                    hasCallCard: hasDiscount[index],
-                  ),
-                ))
+          2,
+          (index) => Padding(
+            padding: const EdgeInsets.only(bottom: 12),
+            child: InfoContainer(
+              avatarPicture: 'assets/images/car_single/car_single300kb.png',
+              carModel: 'Mercedes-Benz Sprinter',
+              hasDiscount: hasDiscount[index],
+              location: 'г. Ташкент',
+              owner: owner[index],
+              ownerType: ownerType[index],
+              publishTime: publishTime[index],
+              subtitle:
+                  '\n\nMercedes-Benz Sprinter — семейство малотоннажных\nавтомобилей компании Mercedes-Benz. Существует...',
+              year: 2020,
+              price: '227 000 000 UZS',
+              discountPrice: '270 000 000 UZS',
+              sellType: sellType[index],
+              hasStatusInfo: hasDiscount[index],
+              hasCallCard: hasDiscount[index],
+            ),
+          ),
+        )
       ],
     );
   }

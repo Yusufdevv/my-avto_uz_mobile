@@ -67,23 +67,42 @@ class _MainScreenState extends State<MainScreen> {
       title: 'Коммерческий транспорт',
       icon: AppIcons.commercialCar,
     ),
-    // const ServiceEntity(
-    //   title: 'RentCar',
-    //   icon: AppIcons.rentCar,
-    // ),
+    const ServiceEntity(
+      title: 'RentCar',
+      icon: AppIcons.rentCar,
+    ),
   ];
 
   @override
   void initState() {
     topAdBloc = TopAdBloc(GetTopAdsUseCase())..add(TopAdEvent.getTopAds());
-    topBrandBloc = TopBrandBloc(GetTopBrandUseCase())..add(TopBrandEvent.getBrand());
+    topBrandBloc = TopBrandBloc(GetTopBrandUseCase())
+      ..add(TopBrandEvent.getBrand());
     serviceTaps = [
-      () => Navigator.pushReplacement(context, fade(page: const DealerScreen())),
-      () {},
-      () {},
-      () {},
-      () => Navigator.pushReplacement(context, fade(page: const CommercialScreen())),
-      () => Navigator.of(context, rootNavigator: true).push(fade(page: const RentScreen())),
+      () {
+        print(' ===============   serviceTaps 0   ===============');
+        Navigator.pushReplacement(context, fade(page: const DealerScreen()));
+      },
+      () {
+        print(' ===============   serviceTaps 1   ===============');
+      },
+      () {
+        print(' ===============   serviceTaps 2   ===============');
+      },
+      () {
+        print(' ===============   serviceTaps 3   ===============');
+      },
+      () {
+        print(
+            ' ===============   comercials state button pressed   ===============');
+        Navigator.pushReplacement(
+            context, fade(page: const CommercialScreen()));
+      },
+      () {
+        print(' ===============   serviceTaps 5   ===============');
+        Navigator.of(context, rootNavigator: true)
+            .push(fade(page: const RentScreen()));
+      }
     ];
     super.initState();
   }
@@ -189,7 +208,8 @@ class _MainScreenState extends State<MainScreen> {
             actions: [
               Padding(
                 padding: const EdgeInsets.only(right: 16),
-                child: GestureDetector(onTap: () {}, child: SvgPicture.asset(AppIcons.bell)),
+                child: GestureDetector(
+                    onTap: () {}, child: SvgPicture.asset(AppIcons.bell)),
               )
             ],
           ),
@@ -229,7 +249,10 @@ class _MainScreenState extends State<MainScreen> {
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: Text(
                     LocaleKeys.favorites.tr(),
-                    style: Theme.of(context).textTheme.headline1!.copyWith(fontSize: 18),
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline1!
+                        .copyWith(fontSize: 18),
                     // () => Navigator.pushReplacement(context, fade(page: const CommercialScreen())),
                     // () => Navigator.of(context, rootNavigator: true).push(fade(page: const RentScreen())),
 

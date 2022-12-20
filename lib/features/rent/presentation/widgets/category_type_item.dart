@@ -1,7 +1,6 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
-import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/rent/domain/entities/rent_main_entity.dart';
 
 import 'package:auto/features/rent/presentation/pages/rent_single/pages/cars_single_screen.dart';
@@ -59,6 +58,8 @@ class CategoryTypeItem extends StatelessWidget {
             SizedBox(
               height: 158,
               child: ListView.builder(
+                key: UniqueKey(),
+                physics: const BouncingScrollPhysics(),
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) => RentCarItems(
                   rentEntity: rentMainEntity.rentList[index],
@@ -76,5 +77,5 @@ class CategoryTypeItem extends StatelessWidget {
             ),
           ],
         )
-      : const SizedBox();
+      :  const SizedBox();
 }

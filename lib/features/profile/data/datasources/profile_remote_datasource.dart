@@ -28,7 +28,7 @@ class ProfileRemoteDataSourceImpl extends ProfileRemoteDataSource {
           'Authorization': 'Bearer ${StorageRepository.getString('token')}'
         }),
       );
-      print(StorageRepository.getString('token'));
+      print(StorageRepository.getString(' ==========  token   ============'));
       print(response.data);
       print(response.statusCode);
       if (response.statusCode! >= 200 && response.statusCode! < 300) {

@@ -35,6 +35,7 @@ class AuthRepository {
         'password': password,
       },
     );
+
     if (result.isRight) {
       print('tokenize ${result.right.access}');
       await StorageRepository.putString('token', result.right.access);
@@ -42,6 +43,7 @@ class AuthRepository {
       return Right(result.right);
     } else {
       print('errorize');
+      print("=====  ${result.left.toString()} =====");
       return Left(result.left);
     }
   }

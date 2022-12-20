@@ -57,7 +57,7 @@ class _CarSingleScreenState extends State<CarSingleScreen> {
     );
 
     _scrollController.addListener(() {
-      print(_scrollController.offset);
+      // print(_scrollController.offset);
       if (_scrollController.offset > 225) {
         height = 100;
         likeColor = grey;

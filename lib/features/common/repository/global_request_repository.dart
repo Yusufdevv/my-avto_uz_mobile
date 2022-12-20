@@ -25,7 +25,7 @@ class GlobalRequestRepository {
                     }
                   : {}));
       print(result.realUri);
-      print(result.data);
+      print("====  ${result.data}  =====");
       if (result.statusCode! >= 200 && result.statusCode! < 300) {
         return Right(fromJson(result.data));
       } else {

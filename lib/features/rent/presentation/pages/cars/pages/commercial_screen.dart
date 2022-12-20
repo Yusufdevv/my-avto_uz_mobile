@@ -47,7 +47,7 @@ class _CommercialScreenState extends State<CommercialScreen> {
                 ...List.generate(
                     titles.length,
                     (index) => ServiceTypeItem(
-                      isSelect: isSelected[index],
+                          isSelect: isSelected[index],
                           icon: icons[index],
                           title: titles[index],
                           onTap: () {},
@@ -60,11 +60,30 @@ class _CommercialScreenState extends State<CommercialScreen> {
           ),
           BlocBuilder<CommercialBloc, CommercialState>(
             builder: (context, state) {
+              print('===== ${state.status.name}  =====');
+              // print("===== ${state.list.rentList.lenth}  =====");
+              print('===== ${state.status.isSubmissionSuccess}  =====');
               if (state.status.isSubmissionInProgress) {
                 return const Center(
                   child: CupertinoActivityIndicator(),
                 );
               } else if (state.status.isSubmissionSuccess) {
+                for (int i = 0; i < state.list.length; i++) {
+                  print('=====  ${state.list[i].name} =====');
+                   print("=====  ${state.list[i]} =====");
+                
+                  for (int n = 0; n < state.list[i].rentList.length; n++) {
+                    print('=====  ${state.list[i].rentList[n].minAge}');
+                    print(
+                        '=====  ${state.list[i].rentList[n].rentCar.gallery}');
+                    for (int m = 0;
+                        m < state.list[i].rentList[n].rentCar.gallery.length;
+                        m++) {
+                      print(" =====  ${state.list[i].rentList[n].rentCar.gallery[m]}  ===== ");
+                    }
+                  }
+                }
+                print('paginator returning');
                 return Paginator(
                   hasMoreToFetch: state.count > state.list.length,
                   itemBuilder: (context, index) => CategoryTypeItem(
