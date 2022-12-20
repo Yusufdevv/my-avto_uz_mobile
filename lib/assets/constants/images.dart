@@ -36,6 +36,7 @@ class AppImages {
   static const carCrashed = 'assets/images/car_single/car_crashed.png';
   static const carSingle = 'assets/images/car_single/car_single300kb.png';
   static const imagePlaceHolder = 'assets/images/global/place_holder.png';
+  static const carPlaceHolder = 'assets/images/global/car_placeholder.png';
   static const priceConditions =
       'assets/images/car_single/price_conditions.png';
   static const optimal = 'assets/images/car_single/optimal.png';
@@ -47,4 +48,5 @@ class AppImages {
   static const clickpng = 'assets/images/car_single/click.png';
   static const paymepng = 'assets/images/car_single/payme.png';
   static const upaypng = 'assets/images/car_single/upay.png';
+  static const noItemFoundCar = 'assets/images/global/no_item_found_car.png';
 }

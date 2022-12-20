@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:formz/formz.dart';
 
 class Paginator2 extends StatelessWidget {
@@ -11,6 +12,8 @@ class Paginator2 extends StatelessWidget {
   final EdgeInsets? padding;
   final Widget Function(BuildContext context, int index)? separatorBuilder;
   final Axis scrollDirection;
+  final Widget loadingIndicator;
+  final String? loadingLabel;
 
   const Paginator2({
     required this.status,
@@ -22,14 +25,33 @@ class Paginator2 extends StatelessWidget {
     this.padding = EdgeInsets.zero,
     this.scrollDirection = Axis.vertical,
     this.separatorBuilder,
+    this.loadingIndicator = const CupertinoActivityIndicator(),
+    this.loadingLabel,
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     if (status == FormzStatus.submissionInProgress) {
-      return const Center(child: CupertinoActivityIndicator());
-    } else if (status ==FormzStatus.submissionFailure) {
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const CupertinoActivityIndicator(),
+            if (loadingLabel == null)
+              const SizedBox()
+            else
+              Text(
+                loadingLabel!,
+                style: Theme.of(context)
+                    .textTheme
+                    .headline2!
+                    .copyWith(fontSize: 12),
+              )
+          ],
+        ),
+      );
+    } else if (status == FormzStatus.submissionFailure) {
       return errorWidget;
     } else {
       return ListView.separated(
@@ -47,7 +69,8 @@ class Paginator2 extends StatelessWidget {
           }
           return itemBuilder(context, index);
         },
-        separatorBuilder: separatorBuilder ?? (context, index) => const SizedBox(),
+        separatorBuilder:
+            separatorBuilder ?? (context, index) => const SizedBox(),
         itemCount: itemCount + 1,
         shrinkWrap: true,
       );

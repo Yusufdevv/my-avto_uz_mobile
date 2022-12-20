@@ -53,6 +53,7 @@ dependencies:
   linked_scroll_controller: ^0.2.0
   shared_preferences: ^2.0.15
   workmanager: ^0.5.1
+  percent_indicator: ^4.2.2
 
 dev_dependencies:
   flutter_test:
@@ -80,6 +81,7 @@ flutter:
     - assets/images/car_single/
     - assets/icons/car_single/
     - assets/icons/search/
+    - assets/icons/review/
     - lib/assets/strings/
     - assets/lottie/
 

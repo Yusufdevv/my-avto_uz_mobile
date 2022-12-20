@@ -28,6 +28,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../../rent/presentation/pages/cars/pages/commercial_screen.dart';
+
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
 
@@ -82,7 +84,7 @@ class _MainScreenState extends State<MainScreen> {
       () {},
       () {},
       () {},
-      () => Navigator.pushReplacement(context, fade(page: const CommercialScreen())),
+      () {}/*=> Navigator.pushReplacement(context, fade(page: const CommercialScreen()))*/,
       () => Navigator.of(context, rootNavigator: true).push(fade(page: const RentScreen())),
     ];
     super.initState();
