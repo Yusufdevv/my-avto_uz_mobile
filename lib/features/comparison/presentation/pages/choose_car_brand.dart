@@ -9,8 +9,10 @@ import 'package:auto/features/common/domain/entity/car_brand_entity.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_textfield.dart';
 import 'package:auto/features/comparison/presentation/bloc/scroll-bloc/scrolling_bloc.dart';
+import 'package:auto/features/comparison/presentation/comparison_page.dart';
 import 'package:auto/features/comparison/presentation/widgets/alphabetic_header.dart';
 import 'package:auto/features/comparison/presentation/widgets/card_brend_container.dart';
+import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -101,6 +103,30 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
         title: 'Volkswagen',
         icon:
             'https://seeklogo.com/images/V/Volkswagen-logo-FAE94F013E-seeklogo.com.png'),
+    ChangeCarEntity(
+        title: 'Volkswagen',
+        icon:
+            'https://seeklogo.com/images/V/Volkswagen-logo-FAE94F013E-seeklogo.com.png'),
+    ChangeCarEntity(
+        title: 'Volkswagen',
+        icon:
+            'https://seeklogo.com/images/V/Volkswagen-logo-FAE94F013E-seeklogo.com.png'),
+    ChangeCarEntity(
+        title: 'Volkswagen',
+        icon:
+            'https://seeklogo.com/images/V/Volkswagen-logo-FAE94F013E-seeklogo.com.png'),
+    ChangeCarEntity(
+        title: 'Volkswagen',
+        icon:
+            'https://seeklogo.com/images/V/Volkswagen-logo-FAE94F013E-seeklogo.com.png'),
+    ChangeCarEntity(
+        title: 'Volkswagen',
+        icon:
+            'https://seeklogo.com/images/V/Volkswagen-logo-FAE94F013E-seeklogo.com.png'),
+    ChangeCarEntity(
+        title: 'Volkswagen',
+        icon:
+            'https://seeklogo.com/images/V/Volkswagen-logo-FAE94F013E-seeklogo.com.png'),
   ];
   final List<CarBrandEntity> carBrandEntity = [
     const CarBrandEntity(title: 'Chevrolet', icon: AppImages.chevrolet),
@@ -124,10 +150,10 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
                   controller: scrollController,
                   headerSliverBuilder: (context, innerBoxIsScrolled) => [
                     SliverAppBar(
-                      automaticallyImplyLeading: false,
                       elevation: 0,
                       pinned: true,
-                      title: GestureDetector(
+                      leadingWidth: 85,
+                      leading: GestureDetector(
                         onTap: () => Navigator.pop(context),
                         behavior: HitTestBehavior.opaque,
                         child: Row(
@@ -135,7 +161,7 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
                           children: [
                             Padding(
                               padding: const EdgeInsets.only(
-                                  top: 16, bottom: 16, right: 4),
+                                  top: 16, bottom: 16, right: 4, left: 16),
                               child: SvgPicture.asset(AppIcons.chevronLeft),
                             ),
                             Text(
@@ -148,6 +174,17 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
                           ],
                         ),
                       ),
+                      actions: [
+                        Padding(
+                          padding: const EdgeInsets.only(right: 16),
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: SvgPicture.asset(AppIcons.close),
+                          ),
+                        ),
+                      ],
                     ),
                     SliverToBoxAdapter(
                       child: Column(
@@ -162,8 +199,9 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
                                   .textTheme
                                   .headline1!
                                   .copyWith(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w700),
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w700,
+                                  ),
                             ),
                           ),
                           WTextField(
@@ -190,7 +228,8 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
                           physics: const BouncingScrollPhysics(),
                           scrollDirection: Axis.horizontal,
                           itemBuilder: (context, index) => CarBrandContainer(
-                              carBrandEntity: carBrandEntity[index]),
+                            carBrandEntity: carBrandEntity[index],
+                          ),
                           itemCount: carBrandEntity.length,
                         ),
                       ),
@@ -202,12 +241,13 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
                           height: 20,
                           width: double.infinity,
                           decoration: BoxDecoration(
-                              color: Theme.of(context)
-                                  .extension<ThemedColors>()!
-                                  .whiteToDark,
-                              borderRadius: const BorderRadius.vertical(
-                                top: Radius.circular(20),
-                              )),
+                            color: Theme.of(context)
+                                .extension<ThemedColors>()!
+                                .whiteToDark,
+                            borderRadius: const BorderRadius.vertical(
+                              top: Radius.circular(20),
+                            ),
+                          ),
                         ),
                       ),
                     ),
@@ -221,11 +261,13 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
                     ),
                   ],
                   body: ListView.builder(
-                    padding: const EdgeInsets.only(bottom: 50),
+                    padding: const EdgeInsets.only(bottom: 60),
                     itemBuilder: (context, index) =>
                         BlocBuilder<CarSelectorBloc, SelectedCarItems>(
                       builder: (context, state) => Container(
-                        color: white,
+                        color: Theme.of(context)
+                            .extension<ThemedColors>()!
+                            .whiteToDark,
                         child: ChangeCarItems(
                           entity: carList[index],
                           selectedId: state.selectedId,
@@ -237,21 +279,23 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
                   ),
                 ),
                 Positioned(
-                    bottom: 16,
-                    right: 16,
-                    left: 16,
-                    child: BlocBuilder<CarSelectorBloc, SelectedCarItems>(
-                      builder: (context, state) => WButton(
-                        onTap: state.selectedId == -1 ? () {} : widget.onTap,
-                        text: 'Далее',
-                        shadow: [
-                          BoxShadow(
-                              offset: const Offset(0, 4),
-                              blurRadius: 20,
-                              color: orange.withOpacity(0.2)),
-                        ],
-                      ),
-                    )),
+                  bottom: 16,
+                  right: 16,
+                  left: 16,
+                  child: BlocBuilder<CarSelectorBloc, SelectedCarItems>(
+                    builder: (context, state) => WButton(
+                      onTap: state.selectedId == -1 ? () {} : widget.onTap,
+                      text: 'Далее',
+                      shadow: [
+                        BoxShadow(
+                          offset: const Offset(0, 4),
+                          blurRadius: 20,
+                          color: orange.withOpacity(0.2),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
               ],
             ),
           ),

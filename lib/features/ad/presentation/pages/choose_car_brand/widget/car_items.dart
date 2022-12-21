@@ -26,15 +26,20 @@ class ChangeCarItems extends StatelessWidget {
         },
         child: Container(
           padding: const EdgeInsets.only(left: 16),
-          color: id == selectedId
-              ? Theme.of(context).extension<ThemedColors>()!.snowToNightRider
-              : Colors.transparent,
+          // color: id == selectedId
+          //     ? Theme.of(context).extension<ThemedColors>()!.snowToNightRider
+          //     : Colors.transparent,
           child: Container(
             padding: const EdgeInsets.only(right: 16, top: 5, bottom: 5),
             decoration: BoxDecoration(
+              // color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
+              color: white,
               border: Border(
-                  bottom: BorderSide(
-                      width: 1, color: Theme.of(context).dividerColor)),
+                bottom: BorderSide(
+                  width: 1,
+                  color: Theme.of(context).dividerColor,
+                ),
+              ),
             ),
             child: SizedBox(
               height: 50,
@@ -50,12 +55,13 @@ class ChangeCarItems extends StatelessWidget {
                       const SizedBox(
                         width: 12,
                       ),
-                      Text(entity.title,
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline1!
-                              .copyWith(
-                                  fontSize: 16, fontWeight: FontWeight.w400)),
+                      Text(
+                        entity.title,
+                        style: Theme.of(context).textTheme.headline1!.copyWith(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w400,
+                            ),
+                      ),
                     ],
                   ),
                   if (id == selectedId)

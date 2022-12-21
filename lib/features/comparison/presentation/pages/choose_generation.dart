@@ -2,12 +2,16 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_textfield.dart';
+import 'package:auto/features/comparison/presentation/comparison_page.dart';
+import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 class ChooseGenerationComparison extends StatefulWidget {
-  const ChooseGenerationComparison({Key? key}) : super(key: key);
+  final VoidCallback onTap;
+  const ChooseGenerationComparison({Key? key, required this.onTap})
+      : super(key: key);
 
   @override
   State<ChooseGenerationComparison> createState() =>
@@ -27,41 +31,68 @@ class _ChooseGenerationComparisonState
                     automaticallyImplyLeading: false,
                     elevation: 0,
                     pinned: true,
-                    title: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        GestureDetector(
-                          onTap: () => Navigator.pop(context),
-                          child: Padding(
-                            padding: const EdgeInsets.only(
-                                top: 16, bottom: 16, right: 8),
-                            child: SvgPicture.asset(AppIcons.chevronLeft),
-                          ),
+                    title: GestureDetector(
+                      onTap: () => Navigator.pop(context),
+                      behavior: HitTestBehavior.opaque,
+                      child: SizedBox(
+                        width: 160,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  top: 16, bottom: 16, right: 4),
+                              child: SvgPicture.asset(AppIcons.chevronLeft),
+                            ),
+                            Text(
+                              'Модель автомобиля',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline2!
+                                  .copyWith(fontWeight: FontWeight.w600),
+                            ),
+                          ],
                         ),
-                        Text(
-                          'Выберите поколение',
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline1!
-                              .copyWith(
-                                  fontSize: 16, fontWeight: FontWeight.w600),
+                      ),
+                    ),
+                    actions: [
+                      Padding(
+                        padding: const EdgeInsets.only(right: 16),
+                        child: InkWell(
+                          onTap: () {
+                            Navigator.of(context).pop();
+                            Navigator.of(context).pop();
+                            Navigator.of(context).pop();
+                          },
+                          child: SvgPicture.asset(AppIcons.close),
                         ),
-                      ],
+                      ),
+                    ],
+                  ),
+                  const SliverToBoxAdapter(
+                    child: Padding(
+                      padding: EdgeInsets.only(top: 20, left: 16),
+                      child: Text(
+                        'Выберите поколение',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w700,
+                          color: dark,
+                        ),
+                      ),
                     ),
                   ),
                   SliverToBoxAdapter(
-                    child: Container(
-                      color: white,
-                      child: WTextField(
-                        margin: const EdgeInsets.only(
-                            left: 16, right: 16, bottom: 16),
-                        onChanged: (value) {},
-                        borderRadius: 12,
-                        hasSearch: true,
-                        hintText: 'Поиск',
-                        height: 40,
-                        hasClearButton: true,
-                      ),
+                    child: WTextField(
+                      disabledColor: white,
+                      focusColor: white,
+                      margin: const EdgeInsets.all(16),
+                      onChanged: (value) {},
+                      borderRadius: 12,
+                      hasSearch: true,
+                      hintText: 'Поиск',
+                      height: 40,
+                      hasClearButton: true,
                     ),
                   ),
                 ],
@@ -72,13 +103,14 @@ class _ChooseGenerationComparisonState
                 right: 16,
                 left: 16,
                 child: WButton(
-                  onTap: () {},
+                  onTap: widget.onTap,
                   text: 'Далее',
                   shadow: [
                     BoxShadow(
-                        offset: const Offset(0, 4),
-                        blurRadius: 20,
-                        color: orange.withOpacity(0.2)),
+                      offset: const Offset(0, 4),
+                      blurRadius: 20,
+                      color: orange.withOpacity(0.2),
+                    ),
                   ],
                 ),
               ),

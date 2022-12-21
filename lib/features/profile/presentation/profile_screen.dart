@@ -5,6 +5,7 @@ import 'package:auto/assets/themes/theme_extensions/w_textfield_style.dart';
 import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/features/ad/presentation/bloc/add_photo/image_bloc.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
+import 'package:auto/features/comparison/presentation/comparison_page.dart';
 import 'package:auto/features/favorites/presentation/favourite_screen.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/profile/data/repositories/profile_repository_impl.dart';
@@ -183,10 +184,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ProfileMenuTile(
                             name: LocaleKeys.comparisons.tr(),
                             onTap: () {
-                              // Navigator.of(context).push(fade(
-                              //     page: const ComparisonPage2(
-                              //   numberOfAddedCars: 5,
-                              // )));
+                              Navigator.of(context, rootNavigator: true).push(
+                                fade(
+                                  page: const ComparisonPage(),
+                                ),
+                              );
                             },
                             iconPath: AppIcons.scales,
                             count: 54,

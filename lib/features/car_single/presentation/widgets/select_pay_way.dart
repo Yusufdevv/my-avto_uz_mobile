@@ -34,7 +34,7 @@ class SelectPaymentItem extends StatelessWidget {
             color: color,
             borderRadius: BorderRadius.circular(8),
             border:
-                Border.all(width: 1, color: borderColor ?? Theme.of(context).extension<WContainerStyle>()!.borderColor),
+                Border.all(width: 1, color: borderColor),
           ),
           child: Row(
             children: [
