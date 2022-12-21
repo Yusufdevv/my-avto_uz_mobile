@@ -20,6 +20,7 @@ class RentBloc extends Bloc<RentEvent, RentState> {
       if (!event.isRefresh) {
         emit(state.copyWith(status: FormzStatus.submissionInProgress));
       }
+
       final result = await rentUseCase(Param(
         next: '',
         id: id,
@@ -29,11 +30,15 @@ class RentBloc extends Bloc<RentEvent, RentState> {
         // rentCarIsFullFuel: state.rentCarIsFullFuel,
       ));
       if (result.isRight) {
-        emit(state.copyWith(
+        print(' ==== ${result.right.toString()} ===== the get result right');
+        emit(
+          state.copyWith(
             status: FormzStatus.submissionSuccess,
             list: result.right.results,
             count: result.right.count,
-            next: result.right.next));
+            next: result.right.next,
+          ),
+        );
       } else {
         emit(state.copyWith(status: FormzStatus.submissionFailure));
       }

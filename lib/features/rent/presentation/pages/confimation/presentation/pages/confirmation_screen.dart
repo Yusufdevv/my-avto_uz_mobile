@@ -3,9 +3,8 @@ import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/rent/domain/entities/rent_list_entity.dart';
+import 'package:auto/features/rent/presentation/pages/confimation/presentation/widgets/additional_services_item.dart';
 import 'package:auto/features/rent/presentation/pages/confimation/presentation/widgets/details_item.dart';
-import 'package:auto/features/rent/presentation/pages/confimation/presentation/widgets/milage_price_item.dart';
-import 'package:auto/features/rent/presentation/pages/confimation/presentation/widgets/place_item.dart';
 import 'package:auto/features/rent/presentation/pages/confimation/presentation/widgets/requirement_item.dart';
 import 'package:auto/features/rent/presentation/pages/registration_lease/presentation/pages/registration_lease.dart';
 import 'package:auto/features/rent/presentation/pages/rent_single/widgets/car_single_preview.dart';
@@ -15,7 +14,15 @@ import 'package:flutter/material.dart';
 
 class ConfirmationScreen extends StatefulWidget {
   final RentListEntity rentListEntity;
+  final String fromDate;
+  final String toDate;
+  final String receivingAddress;
+  final String returningAddress;
   const ConfirmationScreen({
+    required this.receivingAddress,
+    required this.returningAddress,
+    required this.fromDate,
+    required this.toDate,
     required this.rentListEntity,
     Key? key,
   }) : super(key: key);
@@ -38,13 +45,20 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
                 rentEntity: widget.rentListEntity,
                 hasCarInfo: false,
               ),
-              const RequirementItem(
-                age: '16',
-                experience: '2',
+              RequirementItem(
+                age: widget.rentListEntity.minAge.toString(),
+                experience:
+                    widget.rentListEntity.minDrivingExperience.toString(),
               ),
-              const DetailsItem(),
-              const MileagePriceItem(),
-              const PlaceItem(),
+              DetailsItem(
+                fromDate: widget.fromDate,
+                toDate: widget.toDate,
+                receivingAddress: widget.receivingAddress,
+                returnigAddress: widget.receivingAddress,
+              ),
+              // const MileagePriceItem(),
+              // const PlaceItem(),
+              AdditionalServicesItem()
             ],
           ),
         ),

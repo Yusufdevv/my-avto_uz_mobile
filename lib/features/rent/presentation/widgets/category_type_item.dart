@@ -12,10 +12,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 class CategoryTypeItem extends StatelessWidget {
   final RentMainEntity rentMainEntity;
-  final VoidCallback onTap;
+  final VoidCallback onAllTap;
 
   const CategoryTypeItem(
-      {required this.onTap, required this.rentMainEntity, Key? key})
+      {required this.onAllTap, required this.rentMainEntity, Key? key})
       : super(key: key);
 
   @override
@@ -35,7 +35,7 @@ class CategoryTypeItem extends StatelessWidget {
                         .copyWith(fontSize: 16, fontWeight: FontWeight.w600),
                   ),
                   GestureDetector(
-                    onTap: onTap,
+                    onTap: onAllTap,
                     child: Row(
                       children: [
                         Text(
@@ -68,8 +68,7 @@ class CategoryTypeItem extends StatelessWidget {
                     context,
                     fade(
                       page: CarsSingleScreen(
-                        rentListEntity: rentMainEntity.rentList[index],
-                      ),
+                          rentListEntity: rentMainEntity.rentList[index]),
                     ),
                   ),
                 ),

@@ -77,11 +77,11 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
             emit(state.copyWith(changeStatus: FormzStatus.submissionFailure));
           }
         } else {
-          event.onError("Parol xato");
+          event.onError('Parol xato');
           emit(state.copyWith(changeStatus: FormzStatus.submissionFailure));
         }
       } else {
-        event.onError("Ma'lumotlarni to'ldiring");
+        event.onError("Ma'lumotlarni Требованияto'ldiring");
         emit(state.copyWith(changeStatus: FormzStatus.submissionFailure));
       }
     });

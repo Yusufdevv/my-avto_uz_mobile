@@ -4,6 +4,7 @@ import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/rent/domain/entities/rent_list_entity.dart';
+import 'package:auto/features/rent/presentation/pages/confimation/presentation/pages/confirmation_screen.dart';
 import 'package:auto/features/rent/presentation/pages/map_screen/presentation/pages/map_screen.dart';
 import 'package:auto/features/rent/presentation/pages/rent_period/presentation/widgets/period_header.dart';
 import 'package:auto/generated/locale_keys.g.dart';
@@ -184,6 +185,7 @@ class _RentPeriodScreenState extends State<RentPeriodScreen> {
                         )
                       ],
                     ),
+                    const SizedBox(height: 8),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(12, 0, 12, 0),
                       child: Text(
@@ -250,8 +252,18 @@ class _RentPeriodScreenState extends State<RentPeriodScreen> {
         ),
         bottomNavigationBar: WButton(
           height: 44,
-          onTap: () => Navigator.push(context,
-              fade(page: MapScreen(rentListEntity: widget.rentListEntity))),
+          onTap: () => Navigator.push(
+            context,
+            fade(
+              page: ConfirmationScreen(
+                receivingAddress: 'receiving address',
+                returningAddress: 'returning address',
+                rentListEntity: widget.rentListEntity,
+                fromDate: '$_startDate, ${list[hour.floor()]}',
+                toDate: '$_endDate, ${list[endHour.floor()]}',
+              ),
+            ),
+          ),
           margin: EdgeInsets.fromLTRB(
               16, 0, 16, MediaQuery.of(context).padding.bottom + 16),
           text: LocaleKeys.further.tr(),

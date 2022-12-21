@@ -133,7 +133,7 @@ class _RentScreenState extends State<RentScreen>
           ],
           child: TabBarView(
 
-            physics: BouncingScrollPhysics(),
+            physics:const  BouncingScrollPhysics(),
             controller: tabController,
             children: [
               CarsScreen(id: rentBloc.id),

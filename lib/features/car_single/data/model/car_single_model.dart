@@ -57,7 +57,8 @@ class CarSingleModel extends CarSingleEntity {
     required super.damagedParts,
   });
 
-  factory CarSingleModel.fromJson(Map<String, dynamic> json) => _$CarSingleModelFromJson(json);
+  factory CarSingleModel.fromJson(Map<String, dynamic> json) =>
+      _$CarSingleModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$CarSingleModelToJson(this);
 }

@@ -16,7 +16,14 @@ import 'package:yandex_mapkit/yandex_mapkit.dart';
 
 class MapScreen extends StatefulWidget {
   final RentListEntity rentListEntity;
-  const MapScreen({required this.rentListEntity, Key? key}) : super(key: key);
+  final String toDate;
+  final String fromDate;
+  const MapScreen(
+      {required this.fromDate,
+      required this.toDate,
+      required this.rentListEntity,
+      Key? key})
+      : super(key: key);
 
   @override
   State<MapScreen> createState() => _MapScreenState();
@@ -49,7 +56,16 @@ class _MapScreenState extends State<MapScreen> {
           ),
           body: Stack(
             children: [
-              const YandexMap(),
+              YandexMap(
+                
+                onMapTap: (argument) {
+                  print(' =====  ${argument.latitude.toString()}  =====');
+                  print(' =====  ${argument.longitude.toString()}  =====');
+                },
+                onMapCreated: (controller) {
+                  controller.getPoint(const ScreenPoint(x: 0.8, y: 0.8));
+                },
+              ),
               Positioned(
                 bottom: 16,
                 left: 16,
@@ -85,6 +101,7 @@ class _MapScreenState extends State<MapScreen> {
                               child: WTextField(
                                 controller: getController,
                                 onChanged: (value) {
+                                  print('first =====  $value  =====');
                                   setState(() {});
                                 },
                                 fillColor: Theme.of(context)
@@ -131,6 +148,7 @@ class _MapScreenState extends State<MapScreen> {
                                           : AppIcons.circle),
                                 ),
                                 onChanged: (value) {
+                                  print('=====  $value  =====');
                                   setState(() {});
                                 },
                                 fillColor: Theme.of(context)
@@ -156,10 +174,17 @@ class _MapScreenState extends State<MapScreen> {
                     ),
                     WButton(
                       onTap: () => Navigator.push(
-                          context,
-                          fade(
-                              page: ConfirmationScreen(
-                                  rentListEntity: widget.rentListEntity))),
+                        context,
+                        fade(
+                          page: ConfirmationScreen(
+                            receivingAddress: 'receiving address',
+                            returningAddress: 'returning address',
+                            fromDate: widget.fromDate,
+                            toDate: widget.toDate,
+                            rentListEntity: widget.rentListEntity,
+                          ),
+                        ),
+                      ),
                       text: LocaleKeys.further.tr(),
                       shadow: [
                         BoxShadow(

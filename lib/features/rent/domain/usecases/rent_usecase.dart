@@ -1,9 +1,9 @@
 import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/core/usecases/usecase.dart';
+import 'package:auto/core/utils/either.dart';
 import 'package:auto/features/pagination/models/generic_pagination.dart';
 import 'package:auto/features/pagination/repository/pagination.dart';
 import 'package:auto/features/rent/data/models/rent_main_model.dart';
-import 'package:auto/core/utils/either.dart';
 
 class RentUseCase extends UseCase<GenericPagination<RentMainModel>, Param> {
   final PaginationRepository repo = PaginationRepository();
@@ -27,11 +27,14 @@ class RentUseCase extends UseCase<GenericPagination<RentMainModel>, Param> {
     if (params.id != null) {
       map.addAll({'rent_car_type_id': params.id});
     }
-    return await repo.fetchMore(
-        url: 'rent/main_page/${params.id}/',
-        fromJson: RentMainModel.fromJson,
-        next: params.next,
-        query: map);
+    final v = await repo.fetchMore(
+      url: 'rent/main_page/${params.id}/',
+      fromJson: RentMainModel.fromJson,
+      next: params.next,
+      query: map,
+    );
+
+    return v;
   }
 }
 
