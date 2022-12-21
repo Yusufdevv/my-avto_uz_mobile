@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
@@ -10,6 +12,8 @@ import 'package:auto/features/ad/presentation/pages/choose_model/widgets/model_i
 import 'package:auto/features/ad/presentation/pages/choose_model/widgets/persistant_header.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_textfield.dart';
+import 'package:auto/features/comparison/presentation/comparison_page.dart';
+import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -94,24 +98,39 @@ class _ChooseCarModelComparison extends State<ChooseCarModelComparison> {
                       title: GestureDetector(
                         onTap: () => Navigator.pop(context),
                         behavior: HitTestBehavior.opaque,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                  top: 16, bottom: 16, right: 4),
-                              child: SvgPicture.asset(AppIcons.chevronLeft),
-                            ),
-                            Text(
-                              'Марка автомобиля',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline2!
-                                  .copyWith(fontWeight: FontWeight.w600),
-                            ),
-                          ],
+                        child: SizedBox(
+                          width: 160,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    top: 16, bottom: 16, right: 4),
+                                child: SvgPicture.asset(AppIcons.chevronLeft),
+                              ),
+                              Text(
+                                'Марка автомобиля',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline2!
+                                    .copyWith(fontWeight: FontWeight.w600),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
+                      actions: [
+                        Padding(
+                          padding: const EdgeInsets.only(right: 16),
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.of(context).pop();
+                              Navigator.of(context).pop();
+                            },
+                            child: SvgPicture.asset(AppIcons.close),
+                          ),
+                        ),
+                      ],
                     ),
                     SliverToBoxAdapter(
                       child: Column(
@@ -144,7 +163,7 @@ class _ChooseCarModelComparison extends State<ChooseCarModelComparison> {
                             controller: searchController,
                             hasClearButton: true,
                           ),
-                          SizedBox(height: 16),
+                          const SizedBox(height: 16),
                         ],
                       ),
                     ),
@@ -190,30 +209,28 @@ class _ChooseCarModelComparison extends State<ChooseCarModelComparison> {
                             const SizedBox(
                               height: 10,
                             ),
-                            Divider(
-                              thickness: 1,
-                              color: Theme.of(context).dividerColor,
-                            ),
                           ],
                         ),
                       ),
                     ),
                     SliverList(
-                        delegate: SliverChildBuilderDelegate(
-                            (context, index) => Container(
-                                  color: Theme.of(context)
-                                      .extension<ThemedColors>()!
-                                      .whiteToDark,
-                                  child: BlocBuilder<ModelSelectorBloc,
-                                      ModelSelectorState>(
-                                    builder: (context, state) => ModelItems(
-                                      entity: modelItems[index],
-                                      selectedId: state.selectedId,
-                                      id: index,
-                                    ),
-                                  ),
-                                ),
-                            childCount: modelItems.length)),
+                      delegate: SliverChildBuilderDelegate(
+                        (context, index) => Container(
+                          color: Theme.of(context)
+                              .extension<ThemedColors>()!
+                              .whiteToDark,
+                          child: BlocBuilder<ModelSelectorBloc,
+                              ModelSelectorState>(
+                            builder: (context, state) => ModelItems(
+                              entity: modelItems[index],
+                              selectedId: state.selectedId,
+                              id: index,
+                            ),
+                          ),
+                        ),
+                        childCount: modelItems.length,
+                      ),
+                    ),
                     SliverToBoxAdapter(
                       child: Container(
                         height: 10,
@@ -232,25 +249,29 @@ class _ChooseCarModelComparison extends State<ChooseCarModelComparison> {
                       ),
                     ),
                     SliverList(
-                        delegate: SliverChildBuilderDelegate(
-                            (context, index) => Container(
-                                  color: Theme.of(context)
-                                      .extension<ThemedColors>()!
-                                      .whiteToDark,
-                                  child: BlocBuilder<CarTypeSelectorBloc,
-                                      CarTypeSelectorState>(
-                                    builder: (context, state) => Container(
-                                      color: Theme.of(context)
-                                          .extension<ThemedColors>()!
-                                          .whiteToDark,
-                                      child: CarTypeItem(
-                                          entity: carTypes[index],
-                                          selectedId: state.selectedId,
-                                          id: index),
-                                    ),
-                                  ),
-                                ),
-                            childCount: carTypes.length)),
+                      delegate: SliverChildBuilderDelegate(
+                        (context, index) => Container(
+                          color: Theme.of(context)
+                              .extension<ThemedColors>()!
+                              .whiteToDark,
+                          child: BlocBuilder<CarTypeSelectorBloc,
+                              CarTypeSelectorState>(
+                            builder: (context, state) => Container(
+                              color: Theme.of(context)
+                                  .extension<ThemedColors>()!
+                                  .whiteToDark,
+                              child: CarTypeItem(
+                                entity: carTypes[index],
+                                selectedId: state.selectedId,
+                                id: index,
+                              ),
+                            ),
+                          ),
+                        ),
+                        childCount: carTypes.length,
+                      ),
+                    ),
+                    const SliverToBoxAdapter(child: SizedBox(height: 60)),
                   ],
                 ),
                 Positioned(
@@ -260,12 +281,14 @@ class _ChooseCarModelComparison extends State<ChooseCarModelComparison> {
                   child: BlocBuilder<CarTypeSelectorBloc, CarTypeSelectorState>(
                     builder: (context, state) => WButton(
                       onTap: state.selectedId == -1 ? () {} : widget.onTap,
+                      // onTap: widget.onTap,
                       text: 'Далее',
                       shadow: [
                         BoxShadow(
-                            offset: const Offset(0, 4),
-                            blurRadius: 20,
-                            color: orange.withOpacity(0.2)),
+                          offset: const Offset(0, 4),
+                          blurRadius: 20,
+                          color: orange.withOpacity(0.2),
+                        ),
                       ],
                     ),
                   ),

@@ -1,9 +1,12 @@
 import 'package:auto/core/singletons/service_locator.dart';
+import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/comparison/data/repositories/comparison_cars_repo_impl.dart';
+import 'package:auto/features/comparison/domain/entities/car_params_entity.dart';
 import 'package:auto/features/comparison/domain/usecases/comparison_cars_use_case.dart';
 import 'package:auto/features/comparison/presentation/bloc/comparison-bloc/comparison_bloc.dart';
 import 'package:auto/features/comparison/presentation/pages/choose_car_brand.dart';
+import 'package:auto/features/comparison/presentation/pages/choose_generation.dart';
 import 'package:auto/features/comparison/presentation/pages/choose_model.dart';
 import 'package:auto/features/comparison/presentation/pages/comaparison.dart';
 import 'package:auto/features/comparison/presentation/widgets/empty_widget.dart';
@@ -28,15 +31,16 @@ class _ComparisonPageState extends State<ComparisonPage> {
                 comparisonCarsRepo: serviceLocator<ComparisonCarsRepoImpl>()))
           ..add(GetComparableCars()),
         child: Scaffold(
-            appBar: WAppBar(
-              title: LocaleKeys.car_comparison.tr(),
-              titleStyle: Theme.of(context)
-                  .textTheme
-                  .headline1!
-                  .copyWith(fontSize: 16, fontWeight: FontWeight.w600),
-            ),
-            body: BlocBuilder<ComparisonBloc, ComparisonState>(
-                builder: (context, state) {
+          appBar: WAppBar(
+            title: LocaleKeys.car_comparison.tr(),
+            titleStyle: Theme.of(context)
+                .textTheme
+                .headline1!
+                .copyWith(fontSize: 16, fontWeight: FontWeight.w600),
+          ),
+          body: BlocBuilder<ComparisonBloc, ComparisonState>(
+            builder: (context, state) {
+              print('Bu token  ${StorageRepository.getString('token')}');
               if (state.cars.isEmpty) {
                 return EmptyComparison(onTap: () {
                   Navigator.push(
@@ -45,7 +49,41 @@ class _ComparisonPageState extends State<ComparisonPage> {
                       page: ChooseCarBrandComparison(
                         onTap: () => Navigator.of(context).push(
                           fade(
-                            page: ChooseCarModelComparison(onTap: () {}),
+                            page: ChooseCarModelComparison(
+                              onTap: () {
+                                Navigator.of(context).push(
+                                  fade(
+                                    page: ChooseGenerationComparison(
+                                      onTap: () {
+                                        Navigator.of(context).push(
+                                          fade(
+                                            page: Comparison(
+                                              isSticky: false,
+                                              cars: [
+                                                CarParamsEntity(
+                                                  mark: 'valeu',
+                                                  model: 'ana',
+                                                  price: 230030303,
+                                                  generation: "dg",
+                                                  year: 2002,
+                                                  numberOfOwners: 2992,
+                                                  probeg: "sdg",
+                                                  state: "dgs",
+                                                  color: "White",
+                                                  razgon: "20202",
+                                                  volume: "23u",
+                                                  type: "gadg",
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
                           ),
                         ),
                       ),
@@ -58,6 +96,8 @@ class _ComparisonPageState extends State<ComparisonPage> {
                   isSticky: state.isSticky,
                 );
               }
-            })),
+            },
+          ),
+        ),
       );
 }

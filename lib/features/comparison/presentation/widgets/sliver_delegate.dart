@@ -27,7 +27,7 @@ class SliverWidget extends SliverPersistentHeaderDelegate {
 
   List<AddedCar> items(BuildContext context) {
     var itemsss = <AddedCar>[];
-    for (var i = 0; i < numberOfAddedCars; i++) {
+    for (var i = 0; i < 4; i++) {
       itemsss.add(
         AddedCar(
           key: Key('$i'),
@@ -57,7 +57,9 @@ class SliverWidget extends SliverPersistentHeaderDelegate {
                 scrollDirection: Axis.horizontal,
                 children: [
                   ...List.generate(
-                      numberOfAddedCars, (index) => const StickyAdderCar())
+                    4,
+                    (index) => const StickyAdderCar(),
+                  )
                 ],
               ),
             )
@@ -74,19 +76,22 @@ class SliverWidget extends SliverPersistentHeaderDelegate {
                     SizedBox(
                       height: 234,
                       child: SingleChildScrollView(
-                        padding: EdgeInsets.only(right: 16),
+                        padding: const EdgeInsets.only(right: 16),
                         controller: scrollController,
                         scrollDirection: Axis.horizontal,
-                        child: Row(children: [
-                          ListOfAddedCars(
-                            list: items(context),
-                          ),
-                          AddNewCar(
-                            onTap: onAddCar,
-                          )
-                        ]),
+                        child: Row(
+                          children: [
+                            ListOfAddedCars(
+                              list: items(context),
+                            ),
+                            AddNewCar(
+                              onTap: onAddCar,
+                            )
+                          ],
+                        ),
                       ),
                     ),
+                    const SizedBox(height: 8),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16),
                       child: Row(
@@ -121,7 +126,7 @@ class SliverWidget extends SliverPersistentHeaderDelegate {
   }
 
   @override
-  double get maxExtent => 315;
+  double get maxExtent => 310;
 
   @override
   // TODO: implement minExtent
@@ -146,10 +151,10 @@ class _ListOfAddedCarsState extends State<ListOfAddedCars> {
     print(widget.list.length);
     return SizedBox(
       width:
-          ((MediaQuery.of(context).size.width - 40) / 2) * widget.list.length +
+          ((MediaQuery.of(context).size.width - 28) / 2) * widget.list.length +
               20,
       child: ReorderableListView(
-        padding: const EdgeInsets.only(left: 14),
+        padding: const EdgeInsets.only(left: 6),
         physics: const NeverScrollableScrollPhysics(),
         scrollDirection: Axis.horizontal,
         onReorder: (oldIndex, newIndex) {
