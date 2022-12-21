@@ -7,7 +7,7 @@ part of 'suggestion_bloc.dart';
      @Default(false) bool isLocaleSuggestion,
      @Default(false) bool isResultPage,
      @Default(FormzStatus.pure) FormzStatus status,
-     @Default([]) List<String> suggestions,
+     @Default(SuggestionEntity()) SuggestionEntity suggestions,
      @Default([]) List<String> popularSuggestions,
      @Default([]) List<String> localeSuggestions,
 

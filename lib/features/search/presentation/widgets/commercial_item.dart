@@ -227,10 +227,10 @@ class _CommercialItemState extends State<CommercialItem>
                         ],
                       ),
                     ),
-                    ...List.generate(
-                      10,
-                      (index) => InfoResultContainer(commercialItemEntity: widget.entity)
-                    ),
+                    // ...List.generate(
+                    //   10,
+                    //   (index) => InfoResultContainer(commercialItemEntity: widget.entity)
+                    // ),
                     const SizedBox(height: 16),
                     WScaleAnimation(
                       onTap: () {},

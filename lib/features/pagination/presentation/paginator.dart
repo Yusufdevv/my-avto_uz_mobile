@@ -11,6 +11,7 @@ class Paginator extends StatelessWidget {
   final EdgeInsets? padding;
   final Widget Function(BuildContext context, int index)? separatorBuilder;
   final Axis scrollDirection;
+  final Widget? loadingWidget;
 
   const Paginator({
     required this.paginatorStatus,
@@ -22,13 +23,14 @@ class Paginator extends StatelessWidget {
     this.padding = EdgeInsets.zero,
     this.scrollDirection = Axis.vertical,
     this.separatorBuilder,
+    this.loadingWidget,
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     if (paginatorStatus == FormzStatus.submissionInProgress) {
-      return const Center(child: CupertinoActivityIndicator());
+      return loadingWidget ?? const Center(child: CupertinoActivityIndicator());
     } else if (paginatorStatus == FormzStatus.submissionFailure) {
       return errorWidget;
     } else {

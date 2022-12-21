@@ -53,11 +53,11 @@ class ReviewSingleCarScreen extends StatefulWidget {
   final int commentsCount;
   final int viewsCount;
   final double overallRating;
-  final int appearanceRating;
-  final int comfortRating;
-  final int securityRating;
-  final int drivingRating;
-  final int reliabilityRating;
+  final double appearanceRating;
+  final double comfortRating;
+  final double securityRating;
+  final double drivingRating;
+  final double reliabilityRating;
   final List<String> pluses;
   final List<String> minuses;
   final VoidCallback shareFunction;

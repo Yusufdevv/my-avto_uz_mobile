@@ -4,7 +4,6 @@ import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_textfield.dart';
-import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/pagination/presentation/paginator.dart';
 import 'package:auto/features/search/domain/usecases/get_search_result_usecase.dart';
 import 'package:auto/features/search/presentation/bloc/search_results/search_result_bloc.dart';
@@ -31,8 +30,7 @@ class _ResultsScreenState extends State<ResultsScreen> {
 
   @override
   void initState() {
-    resultBloc = SearchResultBloc(GetSearchResultsUseCase())
-      ..add(SearchResultEvent.getResults(isRefresh: false));
+    resultBloc = SearchResultBloc(GetSearchResultsUseCase());
     super.initState();
   }
 
@@ -95,21 +93,21 @@ class _ResultsScreenState extends State<ResultsScreen> {
               )
             ],
           ),
-          body: BlocBuilder<SearchResultBloc, SearchResultState>(
-              builder: (context, state) {
-            print('state list length => ${state.status}');
-            return Paginator(
-              hasMoreToFetch: state.count > state.list.length,
-              itemBuilder: (context, index) =>
-                  CommercialItem(entity: state.list[index]),
-              fetchMoreFunction: () {
-                resultBloc.add(SearchResultEvent.getMoreResults());
-              },
-              paginatorStatus: FormzStatus.pure,
-              itemCount: state.list.length,
-              errorWidget: const SizedBox(),
-            );
-          }),
+          // body: BlocBuilder<SearchResultBloc, SearchResultState>(
+          //     builder: (context, state) {
+          //   print('state list length => ${state.status}');
+          //   return Paginator(
+          //     hasMoreToFetch: state.count > state.list.length,
+          //     itemBuilder: (context, index) =>
+          //         CommercialItem(entity: state.list[index]),
+          //     fetchMoreFunction: () {
+          //       resultBloc.add(SearchResultEvent.getMoreResults());
+          //     },
+          //     paginatorStatus: FormzStatus.pure,
+          //     itemCount: state.list.length,
+          //     errorWidget: const SizedBox(),
+          //   );
+          // }),
         ),
       );
 }

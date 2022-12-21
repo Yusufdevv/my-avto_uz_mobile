@@ -1,10 +1,10 @@
 import 'package:auto/features/search/data/models/search_item_model.dart';
-import 'package:auto/features/search/domain/entities/car_dealer_entity.dart';
-import 'package:auto/features/search/domain/entities/car_district_entity.dart';
-import 'package:auto/features/search/domain/entities/car_generation_entity.dart';
-import 'package:auto/features/search/domain/entities/car_make_entity.dart';
-import 'package:auto/features/search/domain/entities/car_model_entity.dart';
-import 'package:auto/features/search/domain/entities/car_user_entity.dart';
+import 'package:auto/features/common/domain/entity/car_dealer_entity.dart';
+import 'package:auto/features/common/domain/entity/car_district_entity.dart';
+import 'package:auto/features/common/domain/entity/car_generation_entity.dart';
+import 'package:auto/features/common/domain/entity/car_make_entity.dart';
+import 'package:auto/features/common/domain/entity/car_model_entity.dart';
+import 'package:auto/features/common/domain/entity/car_user_entity.dart';
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 

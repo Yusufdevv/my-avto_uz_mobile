@@ -1,6 +1,6 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
-import 'package:auto/features/reviews/presentation/widgets/rating_info_item.dart';
+import 'package:auto/features/common/widgets/rating_infos.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -15,11 +15,11 @@ class CarShowRatingField extends StatelessWidget {
       Key? key})
       : super(key: key);
   final double overallRating;
-  final int appearanceRating;
-  final int comfortRating;
-  final int securityRating;
-  final int drivingRating;
-  final int reliabilityRating;
+  final double appearanceRating;
+  final double comfortRating;
+  final double securityRating;
+  final double drivingRating;
+  final double reliabilityRating;
   @override
   Widget build(BuildContext context) => Container(
         height: 241,
@@ -61,29 +61,12 @@ class CarShowRatingField extends StatelessWidget {
                   Theme.of(context).textTheme.headline2!.copyWith(fontSize: 13),
             ),
             const Divider(color: border, thickness: 1),
-            RatingInfoItem(
-              title: 'Внешний вид',
-              activeStarCount: appearanceRating,
-              bottomPadding: 12,
-            ),
-            RatingInfoItem(
-              title: 'Комфорт',
-              activeStarCount: comfortRating,
-              bottomPadding: 12,
-            ),
-            RatingInfoItem(
-              title: 'Безопасность',
-              activeStarCount: securityRating,
-              bottomPadding: 12,
-            ),
-            RatingInfoItem(
-              title: 'Ходовые качества',
-              activeStarCount: drivingRating,
-              bottomPadding: 12,
-            ),
-            RatingInfoItem(
-              title: 'Надежность',
-              activeStarCount: reliabilityRating,
+            RatingInfos(
+              appearanceRating: appearanceRating,
+              comfortRating: comfortRating,
+              securityRating: securityRating,
+              drivingRating: drivingRating,
+              reliabilityRating: reliabilityRating,
             ),
           ],
         ),

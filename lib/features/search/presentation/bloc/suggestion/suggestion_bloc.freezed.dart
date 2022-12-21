@@ -1079,7 +1079,7 @@ mixin _$SuggestionState {
   bool get isLocaleSuggestion => throw _privateConstructorUsedError;
   bool get isResultPage => throw _privateConstructorUsedError;
   FormzStatus get status => throw _privateConstructorUsedError;
-  List<String> get suggestions => throw _privateConstructorUsedError;
+  SuggestionEntity get suggestions => throw _privateConstructorUsedError;
   List<String> get popularSuggestions => throw _privateConstructorUsedError;
   List<String> get localeSuggestions => throw _privateConstructorUsedError;
 
@@ -1097,7 +1097,7 @@ abstract class $SuggestionStateCopyWith<$Res> {
       {bool isLocaleSuggestion,
       bool isResultPage,
       FormzStatus status,
-      List<String> suggestions,
+      SuggestionEntity suggestions,
       List<String> popularSuggestions,
       List<String> localeSuggestions});
 }
@@ -1136,7 +1136,7 @@ class _$SuggestionStateCopyWithImpl<$Res>
       suggestions: suggestions == freezed
           ? _value.suggestions
           : suggestions // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+              as SuggestionEntity,
       popularSuggestions: popularSuggestions == freezed
           ? _value.popularSuggestions
           : popularSuggestions // ignore: cast_nullable_to_non_nullable
@@ -1160,7 +1160,7 @@ abstract class _$$_SuggestionStateCopyWith<$Res>
       {bool isLocaleSuggestion,
       bool isResultPage,
       FormzStatus status,
-      List<String> suggestions,
+      SuggestionEntity suggestions,
       List<String> popularSuggestions,
       List<String> localeSuggestions});
 }
@@ -1199,9 +1199,9 @@ class __$$_SuggestionStateCopyWithImpl<$Res>
           : status // ignore: cast_nullable_to_non_nullable
               as FormzStatus,
       suggestions: suggestions == freezed
-          ? _value._suggestions
+          ? _value.suggestions
           : suggestions // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+              as SuggestionEntity,
       popularSuggestions: popularSuggestions == freezed
           ? _value._popularSuggestions
           : popularSuggestions // ignore: cast_nullable_to_non_nullable
@@ -1221,11 +1221,10 @@ class _$_SuggestionState implements _SuggestionState {
       {this.isLocaleSuggestion = false,
       this.isResultPage = false,
       this.status = FormzStatus.pure,
-      final List<String> suggestions = const [],
+      this.suggestions = const SuggestionEntity(),
       final List<String> popularSuggestions = const [],
       final List<String> localeSuggestions = const []})
-      : _suggestions = suggestions,
-        _popularSuggestions = popularSuggestions,
+      : _popularSuggestions = popularSuggestions,
         _localeSuggestions = localeSuggestions;
 
   @override
@@ -1237,14 +1236,9 @@ class _$_SuggestionState implements _SuggestionState {
   @override
   @JsonKey()
   final FormzStatus status;
-  final List<String> _suggestions;
   @override
   @JsonKey()
-  List<String> get suggestions {
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_suggestions);
-  }
-
+  final SuggestionEntity suggestions;
   final List<String> _popularSuggestions;
   @override
   @JsonKey()
@@ -1277,7 +1271,7 @@ class _$_SuggestionState implements _SuggestionState {
                 .equals(other.isResultPage, isResultPage) &&
             const DeepCollectionEquality().equals(other.status, status) &&
             const DeepCollectionEquality()
-                .equals(other._suggestions, _suggestions) &&
+                .equals(other.suggestions, suggestions) &&
             const DeepCollectionEquality()
                 .equals(other._popularSuggestions, _popularSuggestions) &&
             const DeepCollectionEquality()
@@ -1290,7 +1284,7 @@ class _$_SuggestionState implements _SuggestionState {
       const DeepCollectionEquality().hash(isLocaleSuggestion),
       const DeepCollectionEquality().hash(isResultPage),
       const DeepCollectionEquality().hash(status),
-      const DeepCollectionEquality().hash(_suggestions),
+      const DeepCollectionEquality().hash(suggestions),
       const DeepCollectionEquality().hash(_popularSuggestions),
       const DeepCollectionEquality().hash(_localeSuggestions));
 
@@ -1305,7 +1299,7 @@ abstract class _SuggestionState implements SuggestionState {
       {final bool isLocaleSuggestion,
       final bool isResultPage,
       final FormzStatus status,
-      final List<String> suggestions,
+      final SuggestionEntity suggestions,
       final List<String> popularSuggestions,
       final List<String> localeSuggestions}) = _$_SuggestionState;
 
@@ -1316,7 +1310,7 @@ abstract class _SuggestionState implements SuggestionState {
   @override
   FormzStatus get status;
   @override
-  List<String> get suggestions;
+  SuggestionEntity get suggestions;
   @override
   List<String> get popularSuggestions;
   @override

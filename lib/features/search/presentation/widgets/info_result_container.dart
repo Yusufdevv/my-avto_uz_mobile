@@ -16,12 +16,36 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 class InfoResultContainer extends StatelessWidget {
   const InfoResultContainer(
-      {
-      required this.commercialItemEntity,
+      {required this.gallery,
+      required this.carModelName,
+      required this.carYear,
+      required this.contactPhone,
+      required this.description,
+      required this.districtTitle,
+      required this.isNew,
+      required this.isWishlisted,
+      required this.price,
+      required this.publishedAt,
+      required this.userFullName,
+      required this.userImage,
+      required this.userType,
       this.discountPrice,
       this.sellType,
       super.key});
-  final CommercialItemEntity commercialItemEntity;
+  final List<String> gallery;
+  final String contactPhone;
+  final String carModelName;
+  final int carYear;
+  final int price;
+  final bool isNew;
+  final String description;
+  final String userImage;
+  final String userFullName;
+  final String userType;
+  final String districtTitle;
+  final String publishedAt;
+  final bool isWishlisted;
+
   final String? discountPrice;
   final String? sellType;
   @override
@@ -44,21 +68,17 @@ class InfoResultContainer extends StatelessWidget {
               height: 201,
               child: PageView.builder(
                 pageSnapping: false,
-                itemCount: commercialItemEntity.gallery.isEmpty
-                    ? 1
-                    : commercialItemEntity.gallery.length,
+                itemCount: gallery.isEmpty ? 1 : gallery.length,
                 padEnds: false,
                 clipBehavior: Clip.antiAlias,
                 controller: PageController(viewportFraction: 0.65),
                 physics: const BouncingScrollPhysics(),
                 itemBuilder: (context, index) => Stack(
                   children: [
-                    if (index == commercialItemEntity.gallery.length - 1 ||
-                        commercialItemEntity.gallery.isEmpty)
+                    if (index == gallery.length - 1 || gallery.isEmpty)
                       WScaleAnimation(
                         onTap: () {
-                          bottomSheetForCalling(
-                              context, commercialItemEntity.contactPhone);
+                          bottomSheetForCalling(context, contactPhone);
                         },
                         child: Container(
                           height: 201,
@@ -92,7 +112,7 @@ class InfoResultContainer extends StatelessWidget {
                               AppImages.carPlaceHolder,
                               fit: BoxFit.cover,
                             ),
-                            imageUrl: commercialItemEntity.gallery[index],
+                            imageUrl: gallery[index],
                             fit: BoxFit.cover,
                             height: 201,
                             width: 264,
@@ -119,7 +139,7 @@ class InfoResultContainer extends StatelessWidget {
             Row(
               children: [
                 Text(
-                  commercialItemEntity.carModel.name,
+                  carModelName,
                   style: Theme.of(context)
                       .textTheme
                       .headline2!
@@ -127,7 +147,7 @@ class InfoResultContainer extends StatelessWidget {
                 ),
                 const SizedBox(width: 4),
                 CustomChip(
-                  label: '${commercialItemEntity.carYear}',
+                  label: '$carYear',
                   backgroundColor:
                       LightThemeColors.navBarIndicator.withOpacity(0.1),
                   borderRadius: 4,
@@ -138,7 +158,7 @@ class InfoResultContainer extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(width: 4),
-                if (commercialItemEntity.isNew)
+                if (isNew)
                   CustomChip(
                     leading: SvgPicture.asset(AppIcons.checkCurly),
                     label: 'Новый',
@@ -157,8 +177,7 @@ class InfoResultContainer extends StatelessWidget {
             if (discountPrice == null)
               RichText(
                 text: TextSpan(
-                  text: MyFunctions.getFormatCost(
-                      '${commercialItemEntity.price}'),
+                  text: MyFunctions.getFormatCost('$price'),
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w600,
@@ -182,8 +201,7 @@ class InfoResultContainer extends StatelessWidget {
                     ),
                     const WidgetSpan(child: SizedBox(width: 4)),
                     TextSpan(
-                      text: MyFunctions.getFormatCost(
-                          '${commercialItemEntity.price}'),
+                      text: MyFunctions.getFormatCost('$price'),
                       style: Theme.of(context).textTheme.headline2!.copyWith(
                             decoration: TextDecoration.lineThrough,
                             color: grey,
@@ -194,7 +212,7 @@ class InfoResultContainer extends StatelessWidget {
               ),
             const SizedBox(height: 8),
             Text(
-              commercialItemEntity.description,
+              description,
               style: Theme.of(context).textTheme.headline2!.copyWith(
                     fontSize: 13,
                     color: grey,
@@ -211,7 +229,7 @@ class InfoResultContainer extends StatelessWidget {
                     child: CachedNetworkImage(
                       placeholder: (context, url) =>
                           SvgPicture.asset(AppIcons.car),
-                      imageUrl: commercialItemEntity.user.image,
+                      imageUrl: userImage,
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -221,14 +239,14 @@ class InfoResultContainer extends StatelessWidget {
                   text: TextSpan(
                     children: [
                       TextSpan(
-                        text: '${commercialItemEntity.user.fullName}\n',
+                        text: '$userFullName\n',
                         style: Theme.of(context)
                             .textTheme
                             .headline2!
                             .copyWith(fontSize: 14),
                       ),
                       TextSpan(
-                        text: commercialItemEntity.userType,
+                        text: userType,
                         style: Theme.of(context)
                             .textTheme
                             .bodyText1!
@@ -252,8 +270,7 @@ class InfoResultContainer extends StatelessWidget {
                   FittedBox(
                     child: SizedBox(
                       width: MediaQuery.of(context).size.width * 0.3,
-                      child: Text(
-                          '${commercialItemEntity.district.title} • ${commercialItemEntity.publishedAt}',
+                      child: Text('${districtTitle} • ${publishedAt}',
                           style: Theme.of(context)
                               .textTheme
                               .bodyText1!
@@ -274,7 +291,7 @@ class InfoResultContainer extends StatelessWidget {
                       fit: BoxFit.cover,
                     ),
                   ),
-                  WLike(initialLike: commercialItemEntity.isWishlisted),
+                  WLike(initialLike: isWishlisted),
                 ],
               ),
             )
