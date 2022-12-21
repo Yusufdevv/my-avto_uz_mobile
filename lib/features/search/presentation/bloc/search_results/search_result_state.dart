@@ -8,5 +8,6 @@ class SearchResultState with _$SearchResultState {
     @Default(FormzStatus.pure) FormzStatus paginationStatus,
     String? next,
     @Default(0) int count,
+    @Default(false) moreFetch,
   }) = _SearchResultState;
 }

@@ -28,9 +28,9 @@ class PopularSearchesField extends StatefulWidget {
 
 class _PopularSearchesFieldState extends State<PopularSearchesField> {
   @override
-  Widget build(BuildContext context) => widget.elements.isEmpty
-      ? const SizedBox()
-      : Column(
+  Widget build(BuildContext context) => Visibility(
+        visible: widget.elements.isNotEmpty,
+        child: Column(
           children: [
             const SizedBox(height: 13),
             Padding(
@@ -73,6 +73,8 @@ class _PopularSearchesFieldState extends State<PopularSearchesField> {
               itemBuilder: (context, index) => WButton(
                 onTap: () {
                   widget.textController.text = widget.elements[index];
+                  widget.textController.selection = TextSelection.fromPosition(
+                      TextPosition(offset: widget.textController.text.length));
                   setState(() {});
                 },
                 color: white,
@@ -103,5 +105,6 @@ class _PopularSearchesFieldState extends State<PopularSearchesField> {
               itemCount: widget.elements.length,
             ),
           ],
-        );
+        ),
+      );
 }

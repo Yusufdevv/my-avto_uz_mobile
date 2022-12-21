@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 
 final int __int64MaxValue = double.maxFinite.toInt();
 
-class HighlightedText extends StatelessWidget {
-  const HighlightedText({
+class WHighlightedText extends StatelessWidget {
+  const WHighlightedText({
     required this.allText,
     this.caseSensitive = false,
     this.maxLines,

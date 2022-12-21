@@ -4,8 +4,10 @@ import 'package:flutter_svg/svg.dart';
 
 class WLike extends StatefulWidget {
   final bool? initialLike;
-
-  const WLike({this.initialLike, Key? key}) : super(key: key);
+  final String? activeIcon;
+  final String? inActiveIcon;
+  const WLike({this.initialLike, this.activeIcon, this.inActiveIcon, Key? key})
+      : super(key: key);
 
   @override
   State<WLike> createState() => _WLikeState();
@@ -37,11 +39,11 @@ class _WLikeState extends State<WLike> {
           ),
           child: isLiked
               ? SvgPicture.asset(
-                  AppIcons.enabledHeart,
+                  widget.activeIcon ?? AppIcons.enabledHeart,
                   key: const ValueKey<int>(1),
                 )
               : SvgPicture.asset(
-                  AppIcons.heart,
+                  widget.inActiveIcon ?? AppIcons.heart,
                   key: const ValueKey<int>(2),
                 ),
         ),

@@ -5,7 +5,7 @@ import 'package:auto/features/pagination/models/generic_pagination.dart';
 import 'package:dio/dio.dart';
 
 abstract class SearchResultsDatasource {
-  Future<GenericPagination<AutoModel>> getSearchResults();
+  Future<GenericPagination<AutoModel>> getSearchResults(String? searchedText);
   // Future<>
 }
 
@@ -15,9 +15,9 @@ class SearchResultsDatasourceImpl extends SearchResultsDatasource {
   SearchResultsDatasourceImpl(this._dio);
 
   @override
-  Future<GenericPagination<AutoModel>> getSearchResults() async {
+  Future<GenericPagination<AutoModel>> getSearchResults(String? searchedText) async {
     try {
-      final response = await _dio.get('es/Announcements/');
+      final response = await _dio.get('es/AnnouncementElasticSearch/',queryParameters: {'absolute_car_name__completion': searchedText});
       if (response.statusCode != null &&
           response.statusCode! >= 200 &&
           response.statusCode! < 300) {

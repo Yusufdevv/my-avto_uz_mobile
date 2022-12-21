@@ -1,4 +1,4 @@
-import 'package:auto/features/common/domain/entity/auto_entity.dart';
+import 'package:auto/features/common/domain/entity/auto_review_entity.dart';
 import 'package:auto/features/pagination/presentation/paginator.dart';
 import 'package:auto/features/reviews/presentation/pages/reviews_body_screen.dart';
 import 'package:flutter/material.dart';
@@ -6,7 +6,7 @@ import 'package:formz/formz.dart';
 
 class TabViewsPart extends StatelessWidget {
   final FormzStatus status;
-  final List<AutoEntity> entity;
+  final List<AutoReviewEntity> entity;
   final int count;
   final bool fetchMore;
   final Widget? loadingWidget;

@@ -2,11 +2,10 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/core/singletons/dio_settings.dart';
-import 'package:auto/features/common/domain/model/auto_model.dart';
+import 'package:auto/features/common/domain/entity/auto_review_entity.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
-import 'package:auto/features/pagination/presentation/paginator.dart';
 import 'package:auto/features/reviews/data/datasources/reviews_datasource.dart';
 import 'package:auto/features/reviews/data/models/reviews_model.dart';
 import 'package:auto/features/reviews/data/repositories/reviews_repository_impl.dart';
@@ -14,12 +13,10 @@ import 'package:auto/features/reviews/domain/usecases/reviews_usecase.dart';
 import 'package:auto/features/reviews/presentation/blocs/reviews_bloc/reviews_bloc.dart';
 import 'package:auto/features/reviews/presentation/pages/add_review_screen.dart';
 import 'package:auto/features/reviews/presentation/pages/plus_minus_screen.dart';
-import 'package:auto/features/reviews/presentation/pages/reviews_body_screen.dart';
 import 'package:auto/features/reviews/presentation/parts/tab_views_part.dart';
 import 'package:auto/features/reviews/presentation/widgets/review_bottom_sheet_item.dart';
 import 'package:auto/features/reviews/presentation/widgets/review_tab_bar.dart';
 import 'package:auto/features/search/presentation/widgets/sort_bottom_sheet.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -37,9 +34,9 @@ class _ReviewsScreenState extends State<ReviewsScreen>
     with SingleTickerProviderStateMixin {
   late TabController tabController;
   late ReviewsBloc reviewsBloc;
-  late List<AutoModel> cars;
-  late List<AutoModel> commmercials;
-  late List<AutoModel> motos;
+  late List<AutoReviewEntity> cars;
+  late List<AutoReviewEntity> commmercials;
+  late List<AutoReviewEntity> motos;
 
   @override
   void initState() {

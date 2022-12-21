@@ -1,10 +1,13 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/core/singletons/dio_settings.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_textfield.dart';
 import 'package:auto/features/pagination/presentation/paginator.dart';
+import 'package:auto/features/search/data/datasources/search_results_datasource.dart';
+import 'package:auto/features/search/data/repositories/search_repository.dart';
 import 'package:auto/features/search/domain/usecases/get_search_result_usecase.dart';
 import 'package:auto/features/search/presentation/bloc/search_results/search_result_bloc.dart';
 import 'package:auto/features/search/presentation/part/sort_modal_bottom_sheet.dart';
@@ -30,7 +33,9 @@ class _ResultsScreenState extends State<ResultsScreen> {
 
   @override
   void initState() {
-    resultBloc = SearchResultBloc(GetSearchResultsUseCase());
+    resultBloc = SearchResultBloc(GetSearchResultsUseCase(
+        repo: SearchRepositoryImpl(
+            dataSource: SearchResultsDatasourceImpl(DioSettings().dio))));
     super.initState();
   }
 

@@ -1,18 +1,18 @@
 import 'package:auto/core/exceptions/exceptions.dart';
-import 'package:auto/features/common/domain/model/auto_model.dart';
+import 'package:auto/features/common/domain/model/auto_review_model.dart';
 import 'package:auto/features/pagination/models/generic_pagination.dart';
 import 'package:auto/features/reviews/data/models/reviews_model.dart';
 import 'package:dio/dio.dart';
 
 abstract class ReviewsDatasource {
-  Future<GenericPagination<AutoModel>> getReviews({ReviewsModel? model});
+  Future<GenericPagination<AutoReviewModel>> getReviews({ReviewsModel? model});
 }
 
 class ReviewsDatasourceImpl implements ReviewsDatasource {
   final Dio _dio;
   ReviewsDatasourceImpl(this._dio);
   @override
-  Future<GenericPagination<AutoModel>> getReviews({
+  Future<GenericPagination<AutoReviewModel>> getReviews({
     ReviewsModel? model,
   }) async {
     try {
@@ -27,7 +27,7 @@ class ReviewsDatasourceImpl implements ReviewsDatasource {
           response.statusCode! >= 200 &&
           response.statusCode! < 300) {
         return GenericPagination.fromJson(response.data,
-            (p0) => AutoModel.fromJson(p0 as Map<String, dynamic>));
+            (p0) => AutoReviewModel.fromJson(p0 as Map<String, dynamic>));
       } else {
         throw ServerException(
             statusCode: response.statusCode!,

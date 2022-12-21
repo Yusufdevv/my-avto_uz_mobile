@@ -1,4 +1,5 @@
 import 'package:auto/features/common/domain/entity/auto_entity.dart';
+import 'package:auto/features/common/domain/entity/auto_review_entity.dart';
 import 'package:auto/features/search/domain/entities/commercial_item_entity.dart';
 import 'package:auto/features/search/domain/usecases/get_search_result_usecase.dart';
 import 'package:bloc/bloc.dart';
@@ -16,17 +17,19 @@ class SearchResultBloc extends Bloc<SearchResultEvent, SearchResultState> {
 
   SearchResultBloc(this.useCase) : super(SearchResultState()) {
     on<_GetResults>((event, emit) async {
-   
-        emit(state.copyWith(status: FormzStatus.submissionInProgress));
-    
+      emit(state.copyWith(status: FormzStatus.submissionInProgress));
 
       final result = await useCase.call(event.searchText);
       if (result.isRight) {
-        emit(state.copyWith(
+        emit(
+          state.copyWith(
             status: FormzStatus.submissionSuccess,
             list: result.right.results,
             count: result.right.count,
-            next: result.right.next));
+            next: result.right.next,
+            
+          ),
+        );
       } else {
         emit(state.copyWith(status: FormzStatus.submissionFailure));
       }
@@ -38,10 +41,11 @@ class SearchResultBloc extends Bloc<SearchResultEvent, SearchResultState> {
       if (result.isRight) {
         emit(
           state.copyWith(
-              status: FormzStatus.submissionSuccess,
-              list: [...state.list, ...result.right.results],
-              count: result.right.count,
-              next: result.right.next),
+            status: FormzStatus.submissionSuccess,
+            list: [...state.list, ...result.right.results],
+            count: result.right.count,
+            next: result.right.next,
+          ),
         );
       } else {
         emit(state.copyWith(status: FormzStatus.submissionSuccess));

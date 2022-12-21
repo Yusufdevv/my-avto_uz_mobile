@@ -4,7 +4,7 @@ part of 'reviews_bloc.dart';
 class ReviewsState with _$ReviewsState {
   factory ReviewsState({
     @Default(FormzStatus.pure) FormzStatus status,
-    @Default([]) List<AutoModel> entity,
+    @Default([]) List<AutoReviewModel> entity,
     @Default('') String next,
     @Default('') String previous,
     @Default(false) bool fetchMore,

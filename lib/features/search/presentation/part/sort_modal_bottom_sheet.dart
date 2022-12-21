@@ -34,11 +34,11 @@ Future<dynamic> sortModalBottomSheet(
                     hasBackbutton: true,
                     children: [
                       const SizedBox(height: 16),
-                      SortFieldRadio(
+                      RadioItem(
                         groupValue: summ,
                         value: 0,
                         title: 'По убыванию',
-                        onTap: () {
+                        onTap: (v) {
                           setState(() {
                             summ = 0;
                           });
@@ -47,11 +47,11 @@ Future<dynamic> sortModalBottomSheet(
                         },
                       ),
                       const SizedBox(height: 12),
-                      SortFieldRadio(
+                      RadioItem(
                         groupValue: summ,
                         value: 1,
                         title: 'По возрастанию',
-                        onTap: () {
+                        onTap: (v) {
                           setState(() {
                             summ = 1;
                           });
@@ -83,8 +83,8 @@ Future<dynamic> sortModalBottomSheet(
                     hasBackbutton: true,
                     children: [
                       const SizedBox(height: 16),
-                      SortFieldRadio(
-                        onTap: () {
+                      RadioItem(
+                        onTap: (v) {
                           setState(() {
                             date = 0;
                           });
@@ -97,8 +97,8 @@ Future<dynamic> sortModalBottomSheet(
                         title: 'По убыванию',
                       ),
                       const SizedBox(height: 12),
-                      SortFieldRadio(
-                        onTap: () {
+                      RadioItem(
+                        onTap: (v) {
                           setState(() {
                             date = 1;
                           });
@@ -128,30 +128,3 @@ Future<dynamic> sortModalBottomSheet(
         ],
       ),
     );
-
-class SortFieldRadio extends StatefulWidget {
-  final int groupValue;
-  final int value;
-  final String title;
-  final Function() onTap;
-  const SortFieldRadio({
-    required this.groupValue,
-    required this.value,
-    required this.title,
-    required this.onTap,
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  State<SortFieldRadio> createState() => _SortFieldRadioState();
-}
-
-class _SortFieldRadioState extends State<SortFieldRadio> {
-  @override
-  Widget build(BuildContext context) => RadioItem(
-        onTap: (value) => widget.onTap(),
-        title: widget.title,
-        groupValue: widget.groupValue,
-        value: widget.value,
-      );
-}

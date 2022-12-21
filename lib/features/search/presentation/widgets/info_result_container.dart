@@ -6,7 +6,6 @@ import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_like.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
-import 'package:auto/features/search/domain/entities/commercial_item_entity.dart';
 import 'package:auto/features/search/presentation/part/bottom_sheet_for_calling.dart';
 import 'package:auto/features/search/presentation/widgets/custom_chip.dart';
 import 'package:auto/utils/my_functions.dart';
@@ -29,6 +28,7 @@ class InfoResultContainer extends StatelessWidget {
       required this.userFullName,
       required this.userImage,
       required this.userType,
+      required this.hasComparison,
       this.discountPrice,
       this.sellType,
       super.key});
@@ -36,7 +36,7 @@ class InfoResultContainer extends StatelessWidget {
   final String contactPhone;
   final String carModelName;
   final int carYear;
-  final int price;
+  final double price;
   final bool isNew;
   final String description;
   final String userImage;
@@ -45,6 +45,7 @@ class InfoResultContainer extends StatelessWidget {
   final String districtTitle;
   final String publishedAt;
   final bool isWishlisted;
+  final bool hasComparison;
 
   final String? discountPrice;
   final String? sellType;
@@ -227,7 +228,7 @@ class InfoResultContainer extends StatelessWidget {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(150),
                     child: CachedNetworkImage(
-                      placeholder: (context, url) =>
+                      errorWidget: (context, url, error) =>
                           SvgPicture.asset(AppIcons.car),
                       imageUrl: userImage,
                       fit: BoxFit.cover,
@@ -270,7 +271,7 @@ class InfoResultContainer extends StatelessWidget {
                   FittedBox(
                     child: SizedBox(
                       width: MediaQuery.of(context).size.width * 0.3,
-                      child: Text('${districtTitle} • ${publishedAt}',
+                      child: Text('$districtTitle • $publishedAt',
                           style: Theme.of(context)
                               .textTheme
                               .bodyText1!
@@ -290,6 +291,11 @@ class InfoResultContainer extends StatelessWidget {
                       color: warmerGrey,
                       fit: BoxFit.cover,
                     ),
+                  ),
+                  WLike(
+                    initialLike: hasComparison,
+                    activeIcon: AppIcons.scalesRed,
+                    inActiveIcon: AppIcons.scale,
                   ),
                   WLike(initialLike: isWishlisted),
                 ],

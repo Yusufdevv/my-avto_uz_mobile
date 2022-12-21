@@ -5,11 +5,14 @@ import 'package:auto/core/singletons/dio_settings.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_textfield.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
+import 'package:auto/features/pagination/presentation/paginator.dart';
 import 'package:auto/features/reviews/presentation/reviews_screen.dart';
 import 'package:auto/features/search/data/datasources/popular_searches_datasource.dart';
+import 'package:auto/features/search/data/datasources/search_results_datasource.dart';
 import 'package:auto/features/search/data/datasources/suggestion_datasource.dart';
 import 'package:auto/features/search/data/datasources/user_searches_datasource.dart';
 import 'package:auto/features/search/data/repositories/popular_searches_repository.dart';
+import 'package:auto/features/search/data/repositories/search_repository.dart';
 import 'package:auto/features/search/data/repositories/suggestion_repository.dart';
 import 'package:auto/features/search/data/repositories/user_searches_repository_impl.dart';
 import 'package:auto/features/search/domain/usecases/get_search_result_usecase.dart';
@@ -19,7 +22,9 @@ import 'package:auto/features/search/domain/usecases/user_searches_usecase.dart'
 import 'package:auto/features/search/presentation/bloc/search_results/search_result_bloc.dart';
 import 'package:auto/features/search/presentation/bloc/suggestion/suggestion_bloc.dart';
 import 'package:auto/features/search/presentation/bloc/user_searches_bloc/user_searches_bloc.dart';
-import 'package:auto/features/search/presentation/part/popular_searches_field.dart';
+import 'package:auto/features/search/presentation/pages/last_popular_searches_screen.dart';
+import 'package:auto/features/search/presentation/pages/nothing_found_screen.dart';
+import 'package:auto/features/search/presentation/widgets/popular_searches_field.dart';
 import 'package:auto/features/search/presentation/part/sort_modal_bottom_sheet.dart';
 import 'package:auto/features/search/presentation/widgets/info_result_container.dart';
 import 'package:auto/features/search/presentation/widgets/search_item_shimmer.dart';
@@ -50,6 +55,7 @@ class _SearchScreenState extends State<SearchScreen> {
   final List<String> ownerType = ['Частное лицо', 'Автосалон'];
   final List<String> publishTime = ['Сегодня', '27 февраля'];
   final List<String> sellType = ['Продажа Автомобиля', 'Аренда c выкупом'];
+  bool isFocused = false;
 
   @override
   void initState() {
@@ -58,7 +64,9 @@ class _SearchScreenState extends State<SearchScreen> {
             repo: SuggestionRepositoryImpl(
                 dataSource: SuggestionDatasourceImpl(DioSettings().dio))));
     searchController = TextEditingController();
-    searchResultBloc = SearchResultBloc(GetSearchResultsUseCase());
+    searchResultBloc = SearchResultBloc(GetSearchResultsUseCase(
+        repo: SearchRepositoryImpl(
+            dataSource: SearchResultsDatasourceImpl(DioSettings().dio))));
     userSearchesBloc = UserSearchesBloc(
         useCase: UserSearchesUseCase(
             repo: UserSearchesRepositoryImpl(
@@ -84,28 +92,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
   int summ = 0;
   int date = 1;
-  final List<String> searchItemEntity = [
-    'BMW Xdrive',
-    'BMW X5 sport',
-    'BMW X6 Competition',
-    'BMW X 7',
-    'BMW X 7',
-    'BMW X 7',
-    'BMW X 7',
-    'BMW X 7',
-    'BMW X 7',
-    'BMW X 7',
-    'BMW X 7',
-    'BMW X 7',
-    'BMW X 7',
-    'BMW X 7',
-  ];
-  final List<String> lastSearches = [
-    'BMW Xdrive',
-    'BMW X5 sport',
-    'BMW X6 Competition',
-    'BMW X 7',
-  ];
+
   @override
   Widget build(BuildContext context) => KeyboardDismisser(
         child: MultiBlocProvider(
@@ -149,6 +136,11 @@ class _SearchScreenState extends State<SearchScreen> {
                                 search: searchController.text));
                             setState(() {});
                           },
+                          onEditCompleted: () {
+                            searchResultBloc.add(SearchResultEvent.getResults(
+                                searchText: searchController.text));
+                            setState(() {});
+                          },
                           focusNode: focusNode,
                           keyBoardType: TextInputType.name,
                           textStyle: Theme.of(context)
@@ -177,7 +169,9 @@ class _SearchScreenState extends State<SearchScreen> {
                         focusNode: focusNode,
                         onFocusChange: (value) {
                           if (searchController.text.isNotEmpty || !value) {
-                            setState(() {});
+                            setState(() {
+                              isFocused = value;
+                            });
                           }
                         },
                         child: WButton(
@@ -191,7 +185,7 @@ class _SearchScreenState extends State<SearchScreen> {
                               .extension<ThemedColors>()!
                               .whiteSmoke2ToNightRider,
                           child: SvgPicture.asset(
-                            AppIcons.sort,
+                            AppIcons.arrowsSort,
                             color: searchController.text.isEmpty ||
                                     focusNode.hasFocus
                                 ? greyText
@@ -203,94 +197,126 @@ class _SearchScreenState extends State<SearchScreen> {
                   ),
                 ),
               ),
-              body: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    BlocBuilder<SuggestionBloc, SuggestionState>(
-                      builder: (context, state) => ListView.builder(
-                        shrinkWrap: true,
-                        padding: EdgeInsets.zero,
-                        itemCount: state.suggestions
-                            .absoluteCarNameSuggestCompletion.length,
-                        itemBuilder: (context, index) =>
-                            state.status != FormzStatus.submissionSuccess ||
-                                    state
-                                        .suggestions
-                                        .absoluteCarNameSuggestCompletion
-                                        .isEmpty
-                                ? const SizedBox()
-                                : SearchedModelsItem(
-                                    fullText: state
-                                        .suggestions
-                                        .absoluteCarNameSuggestCompletion[index]
-                                        .options[index]
-                                        .source
-                                        .absoluteCarName,
-                                    searchText: searchController.text,
-                                    onTap: () {
-                                      focusNode.unfocus();
-                                    },
-                                  ),
-                      ),
-                    ),
-                    WButton(
-                      onTap: () {
-                        Navigator.of(context, rootNavigator: true)
-                            .push(fade(page: const ReviewsScreen()));
-                      },
-                      textColor: white,
-                      child: const Text('Review'),
-                    ),
-                    BlocBuilder<UserSearchesBloc, UserSearchesState>(
-                      builder: (context, state) => PopularSearchesField(
-                        textController: searchController,
-                        title: 'Последние запросы',
-                        elements: state.userSearches
-                            .map((e) => e.searchText)
-                            .toList(),
-                        hasClearTrailing: true,
-                        hasClearButtonInTitle: true,
-                      ),
-                    ),
-                    BlocBuilder<UserSearchesBloc, UserSearchesState>(
-                      builder: (context, state) => PopularSearchesField(
-                        textController: searchController,
-                        title: 'Популярные запросы',
-                        elements: state.popularSearches
-                            .map((e) => e.searchText)
-                            .toList(),
-                      ),
-                    ),
-                    const SearchItemShimmer(slideImageCount: 4),
-                    Column(
-                      children: [
-                        BlocListener<SearchResultBloc, SearchResultState>(
-                          listener: (context, state) {
-                            // TODO: implement listener
-                          },
-                          child: Container(),
+              // body: searchController.text.isNotEmpty
+              //     ? isFocused
+              //         ? BlocBuilder<SuggestionBloc, SuggestionState>(
+              //             builder: (context, state) => state.status !=
+              //                         FormzStatus.submissionSuccess ||
+              //                     state.suggestions.isEmpty
+              //                 ? const SizedBox()
+              //                 : Expanded(
+              //                     child: Paginator(
+              //                       fetchMoreFunction: () {},
+              //                       hasMoreToFetch: state.hasMoreFetch,
+              //                       paginatorStatus: state.status,
+              //                       separatorBuilder: (context, index) =>
+              //                           SizedBox(),
+              //                       errorWidget: SizedBox(),
+              //                       padding: EdgeInsets.zero,
+              //                       itemCount: state.suggestions.length,
+              //                       itemBuilder: (context, index) =>
+              //                           SearchedModelsItem(
+              //                         imageUrl: state.suggestions[index].logo,
+              //                         fullText: state.suggestions[index].name,
+              //                         searchText: searchController.text,
+              //                         onTap: () {
+              //                           focusNode.unfocus();
+              //                         },
+              //                       ),
+              //                     ),
+              //                   ),
+              //           )
+              //         : Column(
+              //             children: [
+              //               BlocBuilder<SearchResultBloc, SearchResultState>(
+              //                 builder: (context, state) {
+              //                   if (state.status !=
+              //                       FormzStatus.submissionSuccess) {
+              //                     return SizedBox();
+              //                   } else {
+              //                     if (state.list.isEmpty) {
+              //                       return const Expanded(
+              //                         child:
+              //                             Center(child: NothingFoundScreen()),
+              //                       );
+              //                     } else {
+              //                       return Expanded(
+              //                         child: Paginator(
+              //                           hasMoreToFetch: state.moreFetch,
+              //                           fetchMoreFunction: () {},
+              //                           itemCount: state.list.length,
+              //                           paginatorStatus: state.status,
+              //                           errorWidget: const SearchItemShimmer(
+              //                               slideImageCount: 2),
+              //                           separatorBuilder: (context, index) =>
+              //                               Divider(
+              //                             height: 12,
+              //                             thickness: 0,
+              //                             color: Theme.of(context)
+              //                                 .extension<ThemedColors>()!
+              //                                 .borderGreyToDark,
+              //                           ),
+              //                           itemBuilder: (context, index) =>
+              //                               InfoResultContainer(
+              //                             gallery: state.list[index].gallery,
+              //                             carModelName:
+              //                                 state.list[index].carModel.name,
+              //                             carYear: state.list[index].carYear,
+              //                             contactPhone:
+              //                                 state.list[index].contactPhone,
+              //                             description:
+              //                                 state.list[index].description,
+              //                             districtTitle:
+              //                                 state.list[index].district.title,
+              //                             isNew: state.list[index].isNew,
+              //                             isWishlisted:
+              //                                 state.list[index].isWishlisted,
+              //                             price: state.list[index].price,
+              //                             publishedAt:
+              //                                 state.list[index].publishedAt,
+              //                             userFullName: state
+              //                                 .list[index].carUser.fullName,
+              //                             userImage:
+              //                                 state.list[index].carUser.image,
+              //                             userType: state.list[index].userType,
+              //                             hasComparison: false,
+              //                           ),
+              //                         ),
+              //                       );
+              //                     }
+              //                   }
+              //                 },
+              //               ),
+              //             ],
+              //           )
+              //     : LastPopularSearchesScreen(
+              //         searchController: searchController),
+              body: SizedBox(
+                height: 400,
+                child: BlocBuilder<SuggestionBloc, SuggestionState>(
+                  builder: (context, state) => state.status !=
+                              FormzStatus.submissionSuccess ||
+                          state.suggestions.isEmpty
+                      ? const SizedBox()
+                      : Expanded(
+                          child: Paginator(
+                            fetchMoreFunction: () {},
+                            hasMoreToFetch: state.hasMoreFetch,
+                            paginatorStatus: state.status,
+                            separatorBuilder: (context, index) => SizedBox(),
+                            errorWidget: SizedBox(),
+                            padding: EdgeInsets.zero,
+                            itemCount: state.suggestions.length,
+                            itemBuilder: (context, index) => SearchedModelsItem(
+                              imageUrl: state.suggestions[index].logo,
+                              fullText: state.suggestions[index].name,
+                              searchText: searchController.text,
+                              onTap: () {
+                                focusNode.unfocus();
+                              },
+                            ),
+                          ),
                         ),
-                        // BlocBuilder<SearchResultBloc, SearchResultState>(
-                        //   builder: (context, state) => ListView.separated(
-                        //     physics: const BouncingScrollPhysics(),
-                        //     itemCount: state.list.length,
-                        //     shrinkWrap: true,
-                        //     separatorBuilder: (context, index) => Divider(
-                        //       height: 12,
-                        //       thickness: 0,
-                        //       color: Theme.of(context)
-                        //           .extension<ThemedColors>()!
-                        //           .borderGreyToDark,
-                        //     ),
-                        //     itemBuilder: (context, index) =>
-                        //         InfoResultContainer(
-                        //             commercialItemEntity: state.list[index]),
-                        //   ),
-                        // ),
-                      ],
-                    ),
-                  ],
                 ),
               ),
             ),

@@ -1,4 +1,4 @@
-import 'package:auto/features/common/domain/model/auto_model.dart';
+import 'package:auto/features/common/domain/model/auto_review_model.dart';
 import 'package:auto/features/reviews/domain/usecases/create_review_usecase.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';

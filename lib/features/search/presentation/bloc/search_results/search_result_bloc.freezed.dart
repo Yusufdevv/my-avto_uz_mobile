@@ -320,6 +320,7 @@ mixin _$SearchResultState {
   FormzStatus get paginationStatus => throw _privateConstructorUsedError;
   String? get next => throw _privateConstructorUsedError;
   int get count => throw _privateConstructorUsedError;
+  dynamic get moreFetch => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $SearchResultStateCopyWith<SearchResultState> get copyWith =>
@@ -336,7 +337,8 @@ abstract class $SearchResultStateCopyWith<$Res> {
       FormzStatus status,
       FormzStatus paginationStatus,
       String? next,
-      int count});
+      int count,
+      dynamic moreFetch});
 }
 
 /// @nodoc
@@ -355,6 +357,7 @@ class _$SearchResultStateCopyWithImpl<$Res>
     Object? paginationStatus = freezed,
     Object? next = freezed,
     Object? count = freezed,
+    Object? moreFetch = freezed,
   }) {
     return _then(_value.copyWith(
       list: list == freezed
@@ -377,6 +380,10 @@ class _$SearchResultStateCopyWithImpl<$Res>
           ? _value.count
           : count // ignore: cast_nullable_to_non_nullable
               as int,
+      moreFetch: moreFetch == freezed
+          ? _value.moreFetch
+          : moreFetch // ignore: cast_nullable_to_non_nullable
+              as dynamic,
     ));
   }
 }
@@ -393,7 +400,8 @@ abstract class _$$_SearchResultStateCopyWith<$Res>
       FormzStatus status,
       FormzStatus paginationStatus,
       String? next,
-      int count});
+      int count,
+      dynamic moreFetch});
 }
 
 /// @nodoc
@@ -414,6 +422,7 @@ class __$$_SearchResultStateCopyWithImpl<$Res>
     Object? paginationStatus = freezed,
     Object? next = freezed,
     Object? count = freezed,
+    Object? moreFetch = freezed,
   }) {
     return _then(_$_SearchResultState(
       list: list == freezed
@@ -436,6 +445,7 @@ class __$$_SearchResultStateCopyWithImpl<$Res>
           ? _value.count
           : count // ignore: cast_nullable_to_non_nullable
               as int,
+      moreFetch: moreFetch == freezed ? _value.moreFetch : moreFetch,
     ));
   }
 }
@@ -448,7 +458,8 @@ class _$_SearchResultState implements _SearchResultState {
       this.status = FormzStatus.pure,
       this.paginationStatus = FormzStatus.pure,
       this.next,
-      this.count = 0})
+      this.count = 0,
+      this.moreFetch = false})
       : _list = list;
 
   final List<AutoEntity> _list;
@@ -470,10 +481,13 @@ class _$_SearchResultState implements _SearchResultState {
   @override
   @JsonKey()
   final int count;
+  @override
+  @JsonKey()
+  final dynamic moreFetch;
 
   @override
   String toString() {
-    return 'SearchResultState(list: $list, status: $status, paginationStatus: $paginationStatus, next: $next, count: $count)';
+    return 'SearchResultState(list: $list, status: $status, paginationStatus: $paginationStatus, next: $next, count: $count, moreFetch: $moreFetch)';
   }
 
   @override
@@ -486,7 +500,8 @@ class _$_SearchResultState implements _SearchResultState {
             const DeepCollectionEquality()
                 .equals(other.paginationStatus, paginationStatus) &&
             const DeepCollectionEquality().equals(other.next, next) &&
-            const DeepCollectionEquality().equals(other.count, count));
+            const DeepCollectionEquality().equals(other.count, count) &&
+            const DeepCollectionEquality().equals(other.moreFetch, moreFetch));
   }
 
   @override
@@ -496,7 +511,8 @@ class _$_SearchResultState implements _SearchResultState {
       const DeepCollectionEquality().hash(status),
       const DeepCollectionEquality().hash(paginationStatus),
       const DeepCollectionEquality().hash(next),
-      const DeepCollectionEquality().hash(count));
+      const DeepCollectionEquality().hash(count),
+      const DeepCollectionEquality().hash(moreFetch));
 
   @JsonKey(ignore: true)
   @override
@@ -511,7 +527,8 @@ abstract class _SearchResultState implements SearchResultState {
       final FormzStatus status,
       final FormzStatus paginationStatus,
       final String? next,
-      final int count}) = _$_SearchResultState;
+      final int count,
+      final dynamic moreFetch}) = _$_SearchResultState;
 
   @override
   List<AutoEntity> get list;
@@ -523,6 +540,8 @@ abstract class _SearchResultState implements SearchResultState {
   String? get next;
   @override
   int get count;
+  @override
+  dynamic get moreFetch;
   @override
   @JsonKey(ignore: true)
   _$$_SearchResultStateCopyWith<_$_SearchResultState> get copyWith =>

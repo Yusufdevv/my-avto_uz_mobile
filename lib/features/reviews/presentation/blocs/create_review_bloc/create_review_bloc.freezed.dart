@@ -16,20 +16,20 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$CreateReviewEvent {
-  AutoModel get model => throw _privateConstructorUsedError;
+  AutoReviewModel get model => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(AutoModel model) createReview,
+    required TResult Function(AutoReviewModel model) createReview,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(AutoModel model)? createReview,
+    TResult Function(AutoReviewModel model)? createReview,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(AutoModel model)? createReview,
+    TResult Function(AutoReviewModel model)? createReview,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -60,7 +60,7 @@ abstract class $CreateReviewEventCopyWith<$Res> {
   factory $CreateReviewEventCopyWith(
           CreateReviewEvent value, $Res Function(CreateReviewEvent) then) =
       _$CreateReviewEventCopyWithImpl<$Res>;
-  $Res call({AutoModel model});
+  $Res call({AutoReviewModel model});
 }
 
 /// @nodoc
@@ -80,7 +80,7 @@ class _$CreateReviewEventCopyWithImpl<$Res>
       model: model == freezed
           ? _value.model
           : model // ignore: cast_nullable_to_non_nullable
-              as AutoModel,
+              as AutoReviewModel,
     ));
   }
 }
@@ -92,7 +92,7 @@ abstract class _$$_CreateReviewCopyWith<$Res>
           _$_CreateReview value, $Res Function(_$_CreateReview) then) =
       __$$_CreateReviewCopyWithImpl<$Res>;
   @override
-  $Res call({AutoModel model});
+  $Res call({AutoReviewModel model});
 }
 
 /// @nodoc
@@ -114,7 +114,7 @@ class __$$_CreateReviewCopyWithImpl<$Res>
       model: model == freezed
           ? _value.model
           : model // ignore: cast_nullable_to_non_nullable
-              as AutoModel,
+              as AutoReviewModel,
     ));
   }
 }
@@ -125,7 +125,7 @@ class _$_CreateReview implements _CreateReview {
   _$_CreateReview({required this.model});
 
   @override
-  final AutoModel model;
+  final AutoReviewModel model;
 
   @override
   String toString() {
@@ -152,7 +152,7 @@ class _$_CreateReview implements _CreateReview {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(AutoModel model) createReview,
+    required TResult Function(AutoReviewModel model) createReview,
   }) {
     return createReview(model);
   }
@@ -160,7 +160,7 @@ class _$_CreateReview implements _CreateReview {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(AutoModel model)? createReview,
+    TResult Function(AutoReviewModel model)? createReview,
   }) {
     return createReview?.call(model);
   }
@@ -168,7 +168,7 @@ class _$_CreateReview implements _CreateReview {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(AutoModel model)? createReview,
+    TResult Function(AutoReviewModel model)? createReview,
     required TResult orElse(),
   }) {
     if (createReview != null) {
@@ -207,10 +207,11 @@ class _$_CreateReview implements _CreateReview {
 }
 
 abstract class _CreateReview implements CreateReviewEvent {
-  factory _CreateReview({required final AutoModel model}) = _$_CreateReview;
+  factory _CreateReview({required final AutoReviewModel model}) =
+      _$_CreateReview;
 
   @override
-  AutoModel get model;
+  AutoReviewModel get model;
   @override
   @JsonKey(ignore: true)
   _$$_CreateReviewCopyWith<_$_CreateReview> get copyWith =>
@@ -220,7 +221,7 @@ abstract class _CreateReview implements CreateReviewEvent {
 /// @nodoc
 mixin _$CreateReviewState {
   FormzStatus get status => throw _privateConstructorUsedError;
-  List<AutoModel> get entity => throw _privateConstructorUsedError;
+  List<AutoReviewModel> get entity => throw _privateConstructorUsedError;
   String get previous => throw _privateConstructorUsedError;
   String get next => throw _privateConstructorUsedError;
   bool get fetchMore => throw _privateConstructorUsedError;
@@ -238,7 +239,7 @@ abstract class $CreateReviewStateCopyWith<$Res> {
       _$CreateReviewStateCopyWithImpl<$Res>;
   $Res call(
       {FormzStatus status,
-      List<AutoModel> entity,
+      List<AutoReviewModel> entity,
       String previous,
       String next,
       bool fetchMore,
@@ -271,7 +272,7 @@ class _$CreateReviewStateCopyWithImpl<$Res>
       entity: entity == freezed
           ? _value.entity
           : entity // ignore: cast_nullable_to_non_nullable
-              as List<AutoModel>,
+              as List<AutoReviewModel>,
       previous: previous == freezed
           ? _value.previous
           : previous // ignore: cast_nullable_to_non_nullable
@@ -301,7 +302,7 @@ abstract class _$$_CreateReviewStateCopyWith<$Res>
   @override
   $Res call(
       {FormzStatus status,
-      List<AutoModel> entity,
+      List<AutoReviewModel> entity,
       String previous,
       String next,
       bool fetchMore,
@@ -336,7 +337,7 @@ class __$$_CreateReviewStateCopyWithImpl<$Res>
       entity: entity == freezed
           ? _value._entity
           : entity // ignore: cast_nullable_to_non_nullable
-              as List<AutoModel>,
+              as List<AutoReviewModel>,
       previous: previous == freezed
           ? _value.previous
           : previous // ignore: cast_nullable_to_non_nullable
@@ -362,7 +363,7 @@ class __$$_CreateReviewStateCopyWithImpl<$Res>
 class _$_CreateReviewState implements _CreateReviewState {
   _$_CreateReviewState(
       {this.status = FormzStatus.pure,
-      final List<AutoModel> entity = const [],
+      final List<AutoReviewModel> entity = const [],
       this.previous = '',
       this.next = '',
       this.fetchMore = false,
@@ -372,10 +373,10 @@ class _$_CreateReviewState implements _CreateReviewState {
   @override
   @JsonKey()
   final FormzStatus status;
-  final List<AutoModel> _entity;
+  final List<AutoReviewModel> _entity;
   @override
   @JsonKey()
-  List<AutoModel> get entity {
+  List<AutoReviewModel> get entity {
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_entity);
   }
@@ -431,7 +432,7 @@ class _$_CreateReviewState implements _CreateReviewState {
 abstract class _CreateReviewState implements CreateReviewState {
   factory _CreateReviewState(
       {final FormzStatus status,
-      final List<AutoModel> entity,
+      final List<AutoReviewModel> entity,
       final String previous,
       final String next,
       final bool fetchMore,
@@ -440,7 +441,7 @@ abstract class _CreateReviewState implements CreateReviewState {
   @override
   FormzStatus get status;
   @override
-  List<AutoModel> get entity;
+  List<AutoReviewModel> get entity;
   @override
   String get previous;
   @override

@@ -218,7 +218,7 @@ abstract class _GetReviews implements ReviewsEvent {
 /// @nodoc
 mixin _$ReviewsState {
   FormzStatus get status => throw _privateConstructorUsedError;
-  List<AutoModel> get entity => throw _privateConstructorUsedError;
+  List<AutoReviewModel> get entity => throw _privateConstructorUsedError;
   String get next => throw _privateConstructorUsedError;
   String get previous => throw _privateConstructorUsedError;
   bool get fetchMore => throw _privateConstructorUsedError;
@@ -236,7 +236,7 @@ abstract class $ReviewsStateCopyWith<$Res> {
       _$ReviewsStateCopyWithImpl<$Res>;
   $Res call(
       {FormzStatus status,
-      List<AutoModel> entity,
+      List<AutoReviewModel> entity,
       String next,
       String previous,
       bool fetchMore,
@@ -268,7 +268,7 @@ class _$ReviewsStateCopyWithImpl<$Res> implements $ReviewsStateCopyWith<$Res> {
       entity: entity == freezed
           ? _value.entity
           : entity // ignore: cast_nullable_to_non_nullable
-              as List<AutoModel>,
+              as List<AutoReviewModel>,
       next: next == freezed
           ? _value.next
           : next // ignore: cast_nullable_to_non_nullable
@@ -298,7 +298,7 @@ abstract class _$$_ReviewsStateCopyWith<$Res>
   @override
   $Res call(
       {FormzStatus status,
-      List<AutoModel> entity,
+      List<AutoReviewModel> entity,
       String next,
       String previous,
       bool fetchMore,
@@ -333,7 +333,7 @@ class __$$_ReviewsStateCopyWithImpl<$Res>
       entity: entity == freezed
           ? _value._entity
           : entity // ignore: cast_nullable_to_non_nullable
-              as List<AutoModel>,
+              as List<AutoReviewModel>,
       next: next == freezed
           ? _value.next
           : next // ignore: cast_nullable_to_non_nullable
@@ -356,7 +356,7 @@ class __$$_ReviewsStateCopyWithImpl<$Res>
 class _$_ReviewsState implements _ReviewsState {
   _$_ReviewsState(
       {this.status = FormzStatus.pure,
-      final List<AutoModel> entity = const [],
+      final List<AutoReviewModel> entity = const [],
       this.next = '',
       this.previous = '',
       this.fetchMore = false,
@@ -366,10 +366,10 @@ class _$_ReviewsState implements _ReviewsState {
   @override
   @JsonKey()
   final FormzStatus status;
-  final List<AutoModel> _entity;
+  final List<AutoReviewModel> _entity;
   @override
   @JsonKey()
-  List<AutoModel> get entity {
+  List<AutoReviewModel> get entity {
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_entity);
   }
@@ -424,7 +424,7 @@ class _$_ReviewsState implements _ReviewsState {
 abstract class _ReviewsState implements ReviewsState {
   factory _ReviewsState(
       {final FormzStatus status,
-      final List<AutoModel> entity,
+      final List<AutoReviewModel> entity,
       final String next,
       final String previous,
       final bool fetchMore,
@@ -433,7 +433,7 @@ abstract class _ReviewsState implements ReviewsState {
   @override
   FormzStatus get status;
   @override
-  List<AutoModel> get entity;
+  List<AutoReviewModel> get entity;
   @override
   String get next;
   @override

@@ -23,5 +23,7 @@ class CarMakeConverter
       CarMakeModel.fromJson(json ?? {});
 
   @override
-  Map<String, dynamic> toJson(CarMakeEntity object) => CarMakeModel(id: object.id, logo: object.logo).toJson();
+  Map<String, dynamic> toJson(CarMakeEntity object) =>
+      CarMakeModel(id: object.id, logo: object.logo, name: object.name)
+          .toJson();
 }
