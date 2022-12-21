@@ -2,6 +2,7 @@ import 'package:auto/assets/themes/dark.dart';
 import 'package:auto/assets/themes/light.dart';
 import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/core/singletons/storage.dart';
+import 'package:auto/core/utils/size_config.dart';
 import 'package:auto/features/common/bloc/auth/authentication_bloc.dart';
 import 'package:auto/features/common/bloc/regions/regions_bloc.dart';
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
@@ -85,8 +86,9 @@ class _AppState extends State<App> {
           themeMode: ThemeMode.light,
           navigatorKey: _navigatorKey,
           onGenerateRoute: (settings) => SplashSc.route(),
-          builder: (context, child) =>
-              BlocListener<AuthenticationBloc, AuthenticationState>(
+          builder: (context, child) {
+            SizeConfig().init(context);
+                       return   BlocListener<AuthenticationBloc, AuthenticationState>(
             listener: (context, state) {
               switch (state.status) {
                 case AuthenticationStatus.unauthenticated:
@@ -126,7 +128,7 @@ class _AppState extends State<App> {
               }
             },
             child: child,
-          ),
+          );}
         ),
       );
 }

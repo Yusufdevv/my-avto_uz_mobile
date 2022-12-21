@@ -38,10 +38,6 @@ class _AdvertisingState extends State<Advertising> {
                           CachedImage(
                             height: 201,
                             width: 264,
-                            borderRadius: const BorderRadius.only(
-                              topLeft: Radius.circular(8),
-                              bottomLeft: Radius.circular(8),
-                            ),
                             imageUrl: widget.images[index],
                           ),
                           Positioned(

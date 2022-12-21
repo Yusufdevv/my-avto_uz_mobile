@@ -1,7 +1,7 @@
 import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/core/usecases/usecase.dart';
 import 'package:auto/core/utils/either.dart';
-import 'package:auto/features/profile/domain/repositories/profile.dart';
+import 'package:auto/features/profile/domain/repositories/profile_repository.dart';
 import 'package:equatable/equatable.dart';
 
 class ChangePasswordUseCase extends UseCase<String, ChangePasswordParams> {

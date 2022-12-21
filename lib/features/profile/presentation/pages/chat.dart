@@ -276,14 +276,14 @@ class _ChatState extends State<Chat> {
                         prefix: WScaleAnimation(
                           onTap: () {
                             showModalBottomSheet(
-                              isScrollControlled: true,
+                              // isScrollControlled: true,
                               context: context,
                               useRootNavigator: true,
                               backgroundColor: Colors.transparent,
-                              constraints: BoxConstraints(
-                                  maxHeight:
-                                      MediaQuery.of(context).size.height * 0.3,
-                                  minWidth: MediaQuery.of(context).size.width),
+                              // constraints: BoxConstraints(
+                              //     maxHeight:
+                              //         MediaQuery.of(context).size.height * 0.3,
+                              //     minWidth: MediaQuery.of(context).size.width),
                               builder: (context) => CameraBottomSheet(
                                   imageBloc: widget.imageBloc),
                             );

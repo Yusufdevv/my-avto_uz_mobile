@@ -1,6 +1,7 @@
 import 'package:auto/core/exceptions/failures.dart';
-import 'package:auto/features/profile/domain/entities/profile.dart';
 import 'package:auto/core/utils/either.dart';
+import 'package:auto/features/profile/domain/entities/favourite_entity.dart';
+import 'package:auto/features/profile/domain/entities/profile_entity.dart';
 
 abstract class ProfileRepository {
   const ProfileRepository();
@@ -12,4 +13,7 @@ abstract class ProfileRepository {
 
   Future<Either<ServerFailure, String>> changePassword(
       {required String oldPassword, required String newPassword});
+
+  Future<Either<ServerFailure, List<FavoriteEntity>>> getProfileFavorites();
+
 }

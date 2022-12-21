@@ -1,4 +1,4 @@
-import 'package:auto/features/profile/domain/entities/profile_item.dart';
+import 'package:auto/features/profile/domain/entities/profile_item_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'profile_item.g.dart';

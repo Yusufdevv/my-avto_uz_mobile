@@ -2,7 +2,7 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
-import 'package:auto/features/favorites/presentation/favourite_screen.dart';
+import 'package:auto/features/profile/presentation/pages/favourite_page.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -71,15 +71,16 @@ class FavouriteItem extends StatelessWidget {
             ),
             const SizedBox(height: 12),
             WButton(
-              onTap: () =>
-                  Navigator.push(context, fade(page: FavouriteScreen())),
+              onTap: () => Navigator.push(context, fade(page: FavouritePage())),
               text: LocaleKeys.go_search.tr(),
               height: 36,
               color: Theme.of(context)
                   .extension<ThemedColors>()!
                   .cinnabar12ToCinnabar,
-              textStyle:
-                  Theme.of(context).textTheme.headline1!.copyWith(fontSize: 12, fontWeight: FontWeight.w600),
+              textStyle: Theme.of(context)
+                  .textTheme
+                  .headline1!
+                  .copyWith(fontSize: 12, fontWeight: FontWeight.w600),
             ),
           ],
         ),
