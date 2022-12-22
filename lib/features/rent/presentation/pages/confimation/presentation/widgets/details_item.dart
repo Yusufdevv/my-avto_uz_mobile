@@ -5,14 +5,14 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class DetailsItem extends StatelessWidget {
-  final String receivingAddress;
+  final String receiptingAddress;
   final String returnigAddress;
   final String fromDate;
   final String toDate;
   const DetailsItem(
       {required this.fromDate,
       required this.toDate,
-      required this.receivingAddress,
+      required this.receiptingAddress,
       required this.returnigAddress,
       Key? key})
       : super(key: key);
@@ -41,50 +41,50 @@ class DetailsItem extends StatelessWidget {
             const SizedBox(
               height: 12,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  LocaleKeys.receipt.tr(),
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyText1!
-                      .copyWith(color: grey),
-                ),
-                Text(
-                  receivingAddress,
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline6!
-                      .copyWith(color: greyText, fontSize: 12),
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: 8,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  LocaleKeys.returner.tr(),
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyText1!
-                      .copyWith(color: grey),
-                ),
-                Text(
-                  returnigAddress,
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline6!
-                      .copyWith(color: greyText, fontSize: 12),
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: 8,
-            ),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //   children: [
+            //     Text(
+            //       LocaleKeys.receipt.tr(),
+            //       style: Theme.of(context)
+            //           .textTheme
+            //           .bodyText1!
+            //           .copyWith(color: grey),
+            //     ),
+            //     Text(
+            //       receiptingAddress,
+            //       style: Theme.of(context)
+            //           .textTheme
+            //           .headline6!
+            //           .copyWith(color: greyText, fontSize: 12),
+            //     ),
+            //   ],
+            // ),
+            // const SizedBox(
+            //   height: 8,
+            // ),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //   children: [
+            //     Text(
+            //       LocaleKeys.returner.tr(),
+            //       style: Theme.of(context)
+            //           .textTheme
+            //           .bodyText1!
+            //           .copyWith(color: grey),
+            //     ),
+            //     Text(
+            //       returnigAddress,
+            //       style: Theme.of(context)
+            //           .textTheme
+            //           .headline6!
+            //           .copyWith(color: greyText, fontSize: 12),
+            //     ),
+            //   ],
+            // ),
+            // const SizedBox(
+            //   height: 8,
+            // ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

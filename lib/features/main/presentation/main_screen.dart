@@ -234,7 +234,7 @@ class _MainScreenState extends State<MainScreen> {
                 SizedBox(
                   height: 48,
                   child: ListView.builder(
-                    physics:const BouncingScrollPhysics(),
+                    physics: const BouncingScrollPhysics(),
                     padding: const EdgeInsets.only(right: 12),
                     itemBuilder: (context, index) => ServiceItem(
                       serviceEntity: serviceEntity[index],

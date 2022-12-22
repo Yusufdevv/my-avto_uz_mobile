@@ -12,21 +12,22 @@ class RentUseCase extends UseCase<GenericPagination<RentMainModel>, Param> {
   Future<Either<Failure, GenericPagination<RentMainModel>>> call(
       Param params) async {
     final map = <String, dynamic>{};
-    if (params.hasAirConditioner != null) {
-      map.addAll({'rent_car__has_air_conditioner': params.hasAirConditioner});
+    if (params.hasAirConditioner != null && params.hasAirConditioner! > 0) {
+      map['rent_car__has_air_conditioner'] = params.hasAirConditioner;
     }
-    if (params.hasBabySeat != null) {
-      map.addAll({'rent_car__has_baby_seat': params.hasBabySeat});
+    if (params.hasBabySeat != null && params.hasBabySeat! > 0) {
+      map['rent_car__has_baby_seat'] = params.hasBabySeat;
     }
-    if (params.rentCarIsClean != null) {
-      map.addAll({'rent_car__is_clean': params.rentCarIsClean});
+    if (params.rentCarIsClean != null && params.rentCarIsClean! > 0) {
+      map['rent_car__is_clean'] = params.rentCarIsClean;
     }
-    if (params.rentCarIsFullFuel != null) {
-      map.addAll({'rent_car__is_full_fuel': params.rentCarIsFullFuel});
+    if (params.rentCarIsFullFuel != null && params.rentCarIsFullFuel! > 0) {
+      map['rent_car__is_full_fuel'] = params.rentCarIsFullFuel;
     }
     if (params.id != null) {
-      map.addAll({'rent_car_type_id': params.id});
+      map['rent_car_type_id'] = params.id;
     }
+    print('map ---- map ---- map ---- ${map.toString()}');
     final v = await repo.fetchMore(
       url: 'rent/main_page/${params.id}/',
       fromJson: RentMainModel.fromJson,

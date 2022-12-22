@@ -5,12 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class PeriodHeader extends StatelessWidget {
+  final VoidCallback onTap;
   final String startDate;
   final String endDate;
   final String startHour;
   final String endHour;
   const PeriodHeader(
       {required this.startHour,
+      required this.onTap,
       required this.endHour,
       required this.endDate,
       required this.startDate,
@@ -108,7 +110,7 @@ class PeriodHeader extends StatelessWidget {
                 width: 24,
                 height: 24,
               ),
-              onTap: () {},
+              onTap: onTap,
             ),
           ],
         ),

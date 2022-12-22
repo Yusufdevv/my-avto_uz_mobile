@@ -20,14 +20,14 @@ class RentBloc extends Bloc<RentEvent, RentState> {
       if (!event.isRefresh) {
         emit(state.copyWith(status: FormzStatus.submissionInProgress));
       }
-
+      print("=== id ====   $id  =========");
       final result = await rentUseCase(Param(
         next: '',
         id: id,
-        // hasAirConditioner: state.hasAirConditioners,
-        // hasBabySeat: state.hasBabySeat,
-        // rentCarIsClean: state.rentCarIsClean,
-        // rentCarIsFullFuel: state.rentCarIsFullFuel,
+        hasAirConditioner: state.hasAirConditioners,
+        hasBabySeat: state.hasBabySeat,
+        rentCarIsClean: state.rentCarIsClean,
+        rentCarIsFullFuel: state.rentCarIsFullFuel,
       ));
       if (result.isRight) {
         print(' ==== ${result.right.toString()} ===== the get result right');

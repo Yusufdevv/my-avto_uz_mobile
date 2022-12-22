@@ -5,6 +5,7 @@ import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_textfield.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
+import 'package:auto/features/rent/domain/entities/register_lease_entity.dart';
 import 'package:auto/features/rent/domain/entities/rent_list_entity.dart';
 import 'package:auto/features/rent/presentation/pages/confimation/presentation/pages/confirmation_screen.dart';
 import 'package:auto/generated/locale_keys.g.dart';
@@ -57,7 +58,6 @@ class _MapScreenState extends State<MapScreen> {
           body: Stack(
             children: [
               YandexMap(
-                
                 onMapTap: (argument) {
                   print(' =====  ${argument.latitude.toString()}  =====');
                   print(' =====  ${argument.longitude.toString()}  =====');
@@ -177,6 +177,7 @@ class _MapScreenState extends State<MapScreen> {
                         context,
                         fade(
                           page: ConfirmationScreen(
+                            lease: const RegisterLeaseEntity(),
                             receivingAddress: 'receiving address',
                             returningAddress: 'returning address',
                             fromDate: widget.fromDate,

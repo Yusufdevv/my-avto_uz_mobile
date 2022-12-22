@@ -3,9 +3,9 @@ import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
+import 'package:auto/features/rent/domain/entities/register_lease_entity.dart';
 import 'package:auto/features/rent/domain/entities/rent_list_entity.dart';
 import 'package:auto/features/rent/presentation/pages/confimation/presentation/pages/confirmation_screen.dart';
-import 'package:auto/features/rent/presentation/pages/map_screen/presentation/pages/map_screen.dart';
 import 'package:auto/features/rent/presentation/pages/rent_period/presentation/widgets/period_header.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -30,6 +30,7 @@ class _RentPeriodScreenState extends State<RentPeriodScreen> {
   void initState() {
     _controller = DateRangePickerController();
     final today = DateTime.now();
+    startDateForLease = DateFormat('yyyy-MM-dd').format(today).toString();
     _startDate = DateFormat('d.MM.y').format(today).toString();
     _endDate = DateFormat('d.MM.y')
         .format(today.add(const Duration(days: 3)))
@@ -67,6 +68,9 @@ class _RentPeriodScreenState extends State<RentPeriodScreen> {
           child: Column(
             children: [
               PeriodHeader(
+                onTap: () {
+                  dateToApi(startDateForLease, list[hour.floor()]);
+                },
                 endDate: _endDate,
                 startDate: _startDate,
                 startHour: list[hour.floor()],
@@ -256,6 +260,14 @@ class _RentPeriodScreenState extends State<RentPeriodScreen> {
             context,
             fade(
               page: ConfirmationScreen(
+                lease: RegisterLeaseEntity(
+                  startDate:
+                      dateToApi(startDateForLease, list[hour.floor()]) ?? '0',
+                  endDate: dateToApi(endDateForLease, list[hour.floor()]) ??
+                      dateToApi(startDateForLease, list[hour.floor()]) ??
+                      '0',
+                  rent: widget.rentListEntity.id,
+                ),
                 receivingAddress: 'receiving address',
                 returningAddress: 'returning address',
                 rentListEntity: widget.rentListEntity,
@@ -276,6 +288,14 @@ class _RentPeriodScreenState extends State<RentPeriodScreen> {
         ),
       );
 
+  String? dateToApi(String? d, String? h) {
+    if (d == null || h == null) return null;
+    final l = h.split(':');
+    final hh = int.tryParse(l[0]) ?? 0;
+
+    return '${d}T$hh:${l[1].trim()}:00.000Z';
+  }
+
   void getLengthOfSlider() {
     subtraction = (maxValue - minValue).floor();
     sliderLength =
@@ -286,17 +306,29 @@ class _RentPeriodScreenState extends State<RentPeriodScreen> {
   late int subtraction;
   late int sliderLength;
   late int currentPosition;
+  late String startDateForLease;
+  String? endDateForLease;
 
-  void _onSelectionChanged(
-      DateRangePickerSelectionChangedArgs dateRangePickerSelectionChangedArgs) {
+  void _onSelectionChanged(DateRangePickerSelectionChangedArgs dRPSChArgs) {
+    print("======== > > > ${DateTime.now()}");
+
     setState(() {
-      _startDate = DateFormat('d.MM.y')
-          .format(dateRangePickerSelectionChangedArgs.value.startDate)
-          .toString();
+      print(
+          "=====  startFor lease: $startDateForLease == hour start: ${list[hour.floor()]}");
+      print("=====  now: ${DateTime.now()} == $hour");
+      _startDate =
+          DateFormat('d.MM.y').format(dRPSChArgs.value.startDate).toString();
       _endDate = DateFormat('d.MM.y')
-          .format(dateRangePickerSelectionChangedArgs.value.endDate ??
-              dateRangePickerSelectionChangedArgs.value.startDate)
+          .format(dRPSChArgs.value.endDate ?? dRPSChArgs.value.startDate)
           .toString();
+      startDateForLease = DateFormat('yyyy-MM-dd')
+          .format(dRPSChArgs.value.startDate)
+          .toString();
+      endDateForLease = DateFormat('yyyy-MM-dd')
+          .format(dRPSChArgs.value.endDate ?? dRPSChArgs.value.startDate)
+          .toString();
+      print(
+          "=====  startFor lease: $startDateForLease == endFor lease: $endDateForLease");
     });
   }
 

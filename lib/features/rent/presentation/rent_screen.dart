@@ -47,16 +47,20 @@ class _RentScreenState extends State<RentScreen>
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               WAppBar(
-                
                 boxShadow: const [],
                 title: LocaleKeys.auto_rent.tr(),
                 extraActions: [
                   Padding(
                     padding: const EdgeInsets.only(right: 12),
                     child: WScaleAnimation(
-                        onTap: () => Navigator.push(
-                            context, fade(page: const RentFilterScreen())),
-                        child: SvgPicture.asset(AppIcons.rentFilter)),
+                      onTap: () => Navigator.push(
+                        context,
+                        fade(
+                          page: const RentFilterScreen(),
+                        ),
+                      ),
+                      child: SvgPicture.asset(AppIcons.rentFilter),
+                    ),
                   )
                 ],
               ),
@@ -132,8 +136,7 @@ class _RentScreenState extends State<RentScreen>
             ),
           ],
           child: TabBarView(
-
-            physics:const  BouncingScrollPhysics(),
+            physics: const BouncingScrollPhysics(),
             controller: tabController,
             children: [
               CarsScreen(id: rentBloc.id),
