@@ -1,6 +1,7 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/comparison/presentation/widgets/add_new_car.dart';
+import 'package:auto/features/comparison/presentation/widgets/list_of_added_cars.dart';
 import 'package:auto/features/comparison/presentation/widgets/added_car_sticky.dart';
 import 'package:auto/features/comparison/presentation/widgets/added_car_widget.dart';
 import 'package:auto/generated/locale_keys.g.dart';
@@ -27,7 +28,7 @@ class SliverWidget extends SliverPersistentHeaderDelegate {
 
   List<AddedCar> items(BuildContext context) {
     var itemsss = <AddedCar>[];
-    for (var i = 0; i < 4; i++) {
+    for (var i = 0; i < numberOfAddedCars; i++) {
       itemsss.add(
         AddedCar(
           key: Key('$i'),
@@ -57,7 +58,7 @@ class SliverWidget extends SliverPersistentHeaderDelegate {
                 scrollDirection: Axis.horizontal,
                 children: [
                   ...List.generate(
-                    4,
+                    numberOfAddedCars,
                     (index) => const StickyAdderCar(),
                   )
                 ],
@@ -129,47 +130,9 @@ class SliverWidget extends SliverPersistentHeaderDelegate {
   double get maxExtent => 310;
 
   @override
-  // TODO: implement minExtent
   double get minExtent => 68;
 
   @override
   bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) =>
       true;
-}
-
-class ListOfAddedCars extends StatefulWidget {
-  final List list;
-  const ListOfAddedCars({Key? key, required this.list}) : super(key: key);
-
-  @override
-  State<ListOfAddedCars> createState() => _ListOfAddedCarsState();
-}
-
-class _ListOfAddedCarsState extends State<ListOfAddedCars> {
-  @override
-  Widget build(BuildContext context) {
-    print(widget.list.length);
-    return SizedBox(
-      width:
-          ((MediaQuery.of(context).size.width - 28) / 2) * widget.list.length +
-              20,
-      child: ReorderableListView(
-        padding: const EdgeInsets.only(left: 6),
-        physics: const NeverScrollableScrollPhysics(),
-        scrollDirection: Axis.horizontal,
-        onReorder: (oldIndex, newIndex) {
-          setState(() {
-            if (oldIndex < newIndex) {
-              newIndex -= 1;
-            }
-            final AddedCar item = widget.list.removeAt(oldIndex);
-            widget.list.insert(newIndex, item);
-          });
-        },
-        children: [
-          ...List.generate(widget.list.length, (index) => widget.list[index]),
-        ],
-      ),
-    );
-  }
 }

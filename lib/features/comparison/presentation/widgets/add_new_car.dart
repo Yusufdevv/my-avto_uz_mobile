@@ -12,7 +12,7 @@ class AddNewCar extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => GestureDetector(
+  Widget build(BuildContext context) => InkWell(
         onTap: onTap,
         child: Container(
           margin: const EdgeInsets.only(bottom: 18, left: 12),

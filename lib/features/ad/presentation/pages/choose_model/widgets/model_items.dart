@@ -34,7 +34,7 @@ class ModelItems extends StatelessWidget {
             padding: const EdgeInsets.only(right: 16, top: 10, bottom: 10),
             decoration: BoxDecoration(
               border: Border(
-                top: BorderSide(
+                bottom: BorderSide(
                   width: 1,
                   color: Theme.of(context).dividerColor,
                 ),

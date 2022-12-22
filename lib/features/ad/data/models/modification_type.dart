@@ -3,7 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'modification_type.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(fieldRename: FieldRename.snake)
 class ModificationTypeModel extends ModificationTypeEntity {
   const ModificationTypeModel({
     required super.id,

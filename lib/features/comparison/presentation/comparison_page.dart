@@ -2,7 +2,6 @@ import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/comparison/data/repositories/comparison_cars_repo_impl.dart';
-import 'package:auto/features/comparison/domain/entities/car_params_entity.dart';
 import 'package:auto/features/comparison/domain/usecases/comparison_cars_use_case.dart';
 import 'package:auto/features/comparison/presentation/bloc/comparison-bloc/comparison_bloc.dart';
 import 'package:auto/features/comparison/presentation/pages/choose_car_brand.dart';
@@ -24,12 +23,20 @@ class ComparisonPage extends StatefulWidget {
 }
 
 class _ComparisonPageState extends State<ComparisonPage> {
+  late ComparisonBloc bloc;
+
   @override
-  Widget build(BuildContext context) => BlocProvider(
-        create: (context) => ComparisonBloc(
-            comparisonCarsUseCase: ComparisonCarsUseCase(
-                comparisonCarsRepo: serviceLocator<ComparisonCarsRepoImpl>()))
-          ..add(GetComparableCars()),
+  void initState() {
+    bloc = ComparisonBloc(
+        comparisonCarsUseCase: ComparisonCarsUseCase(
+            comparisonCarsRepo: serviceLocator<ComparisonCarsRepoImpl>()))
+      ..add(GetComparableCars());
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) => BlocProvider.value(
+        value: bloc,
         child: Scaffold(
           appBar: WAppBar(
             title: LocaleKeys.car_comparison.tr(),
@@ -42,54 +49,32 @@ class _ComparisonPageState extends State<ComparisonPage> {
             builder: (context, state) {
               print('Bu token  ${StorageRepository.getString('token')}');
               if (state.cars.isEmpty) {
-                return EmptyComparison(onTap: () {
-                  Navigator.push(
-                    context,
-                    fade(
-                      page: ChooseCarBrandComparison(
-                        onTap: () => Navigator.of(context).push(
-                          fade(
-                            page: ChooseCarModelComparison(
-                              onTap: () {
-                                Navigator.of(context).push(
-                                  fade(
-                                    page: ChooseGenerationComparison(
-                                      onTap: () {
-                                        Navigator.of(context).push(
-                                          fade(
-                                            page: Comparison(
-                                              isSticky: false,
-                                              cars: [
-                                                CarParamsEntity(
-                                                  mark: 'valeu',
-                                                  model: 'ana',
-                                                  price: 230030303,
-                                                  generation: "dg",
-                                                  year: 2002,
-                                                  numberOfOwners: 2992,
-                                                  probeg: "sdg",
-                                                  state: "dgs",
-                                                  color: "White",
-                                                  razgon: "20202",
-                                                  volume: "23u",
-                                                  type: "gadg",
-                                                )
-                                              ],
-                                            ),
-                                          ),
-                                        );
-                                      },
+                return EmptyComparison(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      fade(
+                        page: ChooseCarBrandComparison(
+                          onTap: () => Navigator.of(context).push(
+                            fade(
+                              page: ChooseCarModelComparison(
+                                onTap: () {
+                                  Navigator.of(context).push(
+                                    fade(
+                                      page: ChooseGenerationComparison(
+                                        onTap: () {},
+                                      ),
                                     ),
-                                  ),
-                                );
-                              },
+                                  );
+                                },
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    ),
-                  );
-                });
+                    );
+                  },
+                );
               } else {
                 return Comparison(
                   cars: state.cars,

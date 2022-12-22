@@ -1,14 +1,19 @@
 import 'package:auto/assets/colors/color.dart';
+import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
-import 'package:auto/features/common/domain/entity/car_brand_entity.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class CarBrandContainer extends StatelessWidget {
-  final CarBrandEntity carBrandEntity;
+  final String title;
+  final String imageUrl;
   final bool hasShadow;
 
   const CarBrandContainer(
-      {required this.carBrandEntity, this.hasShadow = false, Key? key})
+      {this.hasShadow = false,
+      Key? key,
+      required this.title,
+      required this.imageUrl})
       : super(key: key);
 
   @override
@@ -18,33 +23,42 @@ class CarBrandContainer extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 8),
         margin: const EdgeInsets.only(left: 12, top: 16, bottom: 16),
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12),
-            color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
-            border: Border.all(
-                width: 1,
-                color: Theme.of(context)
-                    .extension<ThemedColors>()!
-                    .solitudeToDarkRider),
-            boxShadow: [
-              if (hasShadow)
-                BoxShadow(
-                    offset: const Offset(0, 8),
-                    blurRadius: 19,
-                    color: dark.withOpacity(0.07))
-              else
-                const BoxShadow()
-            ]),
+          borderRadius: BorderRadius.circular(12),
+          color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
+          border: Border.all(
+              width: 1,
+              color: Theme.of(context)
+                  .extension<ThemedColors>()!
+                  .solitudeToDarkRider),
+          boxShadow: [
+            if (hasShadow)
+              BoxShadow(
+                offset: const Offset(0, 8),
+                blurRadius: 19,
+                color: dark.withOpacity(0.07),
+              )
+            else
+              const BoxShadow()
+          ],
+        ),
         child: Column(
           children: [
             const SizedBox(height: 16),
-            Image.asset(
-              carBrandEntity.icon,
-              width: 40,
-              height: 40,
-            ),
+            if (imageUrl.isEmpty)
+              SvgPicture.asset(
+                AppImages.carImage,
+                height: 40,
+                fit: BoxFit.cover,
+              )
+            else
+              Image.network(
+                imageUrl,
+                height: 40,
+                fit: BoxFit.cover,
+              ),
             const SizedBox(height: 8),
             Text(
-              carBrandEntity.title,
+              title,
               textAlign: TextAlign.center,
               maxLines: 2,
               style: Theme.of(context)

@@ -10,6 +10,7 @@ import 'package:auto/features/ad/presentation/bloc/choose_model/model_selectro_b
 import 'package:auto/features/ad/presentation/pages/choose_model/widgets/car_type_item.dart';
 import 'package:auto/features/ad/presentation/pages/choose_model/widgets/model_items.dart';
 import 'package:auto/features/ad/presentation/pages/choose_model/widgets/persistant_header.dart';
+import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_textfield.dart';
 import 'package:auto/features/comparison/presentation/comparison_page.dart';
@@ -55,24 +56,18 @@ class _ChooseCarModelComparison extends State<ChooseCarModelComparison> {
     ModelItemEntity(title: 'm90'),
     ModelItemEntity(title: 'm90'),
     ModelItemEntity(title: 'm90'),
-  ];
-  final List<CarTypeEntity> carTypes = [
-    const CarTypeEntity(title: '02 (E10)'),
-    const CarTypeEntity(title: '1 серия'),
-    const CarTypeEntity(title: '1M'),
-    const CarTypeEntity(title: '2 серия'),
-    const CarTypeEntity(title: '2 серия Active Tourer'),
-    const CarTypeEntity(title: '2 серия Coupe'),
-    const CarTypeEntity(title: '2 серия Coupe'),
-    const CarTypeEntity(title: '2 серия Coupe'),
-    const CarTypeEntity(title: '2 серия Coupe'),
-    const CarTypeEntity(title: '2 серия Coupe'),
-    const CarTypeEntity(title: '2 серия Coupe'),
-    const CarTypeEntity(title: '2 серия Coupe'),
-    const CarTypeEntity(title: '2 серия Coupe'),
-    const CarTypeEntity(title: '2 серия Coupe'),
-    const CarTypeEntity(title: '2 серия Coupe'),
-    const CarTypeEntity(title: '2 серия Coupe'),
+    ModelItemEntity(title: 'm90'),
+    ModelItemEntity(title: 'm90'),
+    ModelItemEntity(title: 'm90'),
+    ModelItemEntity(title: 'm90'),
+    ModelItemEntity(title: 'm90'),
+    ModelItemEntity(title: 'm90'),
+    ModelItemEntity(title: 'm90'),
+    ModelItemEntity(title: 'm90'),
+    ModelItemEntity(title: 'm90'),
+    ModelItemEntity(title: 'm90'),
+    ModelItemEntity(title: 'm90'),
+    ModelItemEntity(title: 'm90'),
   ];
 
   @override
@@ -87,58 +82,41 @@ class _ChooseCarModelComparison extends State<ChooseCarModelComparison> {
             ),
           ],
           child: Scaffold(
+            appBar: WAppBar(
+              title: 'Марка автомобиля',
+              titleStyle: const TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w600,
+                color: grey,
+              ),
+              centerTitle: false,
+              extraActions: [
+                InkWell(
+                  onTap: () {
+                    Navigator.of(context).pop();
+                    Navigator.of(context).pop();
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 16),
+                    child: SvgPicture.asset(AppIcons.close),
+                  ),
+                ),
+              ],
+            ),
             body: Stack(
               children: [
                 CustomScrollView(
                   slivers: [
-                    SliverAppBar(
-                      automaticallyImplyLeading: false,
-                      elevation: 0,
-                      pinned: true,
-                      title: GestureDetector(
-                        onTap: () => Navigator.pop(context),
-                        behavior: HitTestBehavior.opaque,
-                        child: SizedBox(
-                          width: 160,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                    top: 16, bottom: 16, right: 4),
-                                child: SvgPicture.asset(AppIcons.chevronLeft),
-                              ),
-                              Text(
-                                'Марка автомобиля',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headline2!
-                                    .copyWith(fontWeight: FontWeight.w600),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      actions: [
-                        Padding(
-                          padding: const EdgeInsets.only(right: 16),
-                          child: InkWell(
-                            onTap: () {
-                              Navigator.of(context).pop();
-                              Navigator.of(context).pop();
-                            },
-                            child: SvgPicture.asset(AppIcons.close),
-                          ),
-                        ),
-                      ],
-                    ),
                     SliverToBoxAdapter(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Padding(
                             padding: const EdgeInsets.only(
-                                top: 20, left: 16, bottom: 12),
+                              top: 20,
+                              left: 16,
+                              bottom: 12,
+                            ),
                             child: Text(
                               'Выберите модель',
                               style: Theme.of(context)
@@ -154,7 +132,10 @@ class _ChooseCarModelComparison extends State<ChooseCarModelComparison> {
                                 .extension<ThemedColors>()!
                                 .whiteToNightRider,
                             margin: const EdgeInsets.only(
-                                left: 16, right: 16, bottom: 16),
+                              left: 16,
+                              right: 16,
+                              bottom: 12,
+                            ),
                             onChanged: (value) {},
                             borderRadius: 12,
                             hasSearch: true,
@@ -163,7 +144,7 @@ class _ChooseCarModelComparison extends State<ChooseCarModelComparison> {
                             controller: searchController,
                             hasClearButton: true,
                           ),
-                          const SizedBox(height: 16),
+                          const SizedBox(height: 12),
                         ],
                       ),
                     ),
@@ -231,46 +212,6 @@ class _ChooseCarModelComparison extends State<ChooseCarModelComparison> {
                         childCount: modelItems.length,
                       ),
                     ),
-                    SliverToBoxAdapter(
-                      child: Container(
-                        height: 10,
-                        width: double.infinity,
-                        color: Theme.of(context)
-                            .extension<ThemedColors>()!
-                            .whiteToDark,
-                      ),
-                    ),
-                    SliverSafeArea(
-                      top: false,
-                      bottom: false,
-                      sliver: SliverPersistentHeader(
-                        delegate: ModelHeader(),
-                        pinned: true,
-                      ),
-                    ),
-                    SliverList(
-                      delegate: SliverChildBuilderDelegate(
-                        (context, index) => Container(
-                          color: Theme.of(context)
-                              .extension<ThemedColors>()!
-                              .whiteToDark,
-                          child: BlocBuilder<CarTypeSelectorBloc,
-                              CarTypeSelectorState>(
-                            builder: (context, state) => Container(
-                              color: Theme.of(context)
-                                  .extension<ThemedColors>()!
-                                  .whiteToDark,
-                              child: CarTypeItem(
-                                entity: carTypes[index],
-                                selectedId: state.selectedId,
-                                id: index,
-                              ),
-                            ),
-                          ),
-                        ),
-                        childCount: carTypes.length,
-                      ),
-                    ),
                     const SliverToBoxAdapter(child: SizedBox(height: 60)),
                   ],
                 ),
@@ -278,7 +219,7 @@ class _ChooseCarModelComparison extends State<ChooseCarModelComparison> {
                   bottom: 16,
                   right: 16,
                   left: 16,
-                  child: BlocBuilder<CarTypeSelectorBloc, CarTypeSelectorState>(
+                  child: BlocBuilder<ModelSelectorBloc, ModelSelectorState>(
                     builder: (context, state) => WButton(
                       onTap: state.selectedId == -1 ? () {} : widget.onTap,
                       // onTap: widget.onTap,

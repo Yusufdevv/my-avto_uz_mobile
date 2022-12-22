@@ -1,10 +1,13 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/features/ad/domain/entities/choose_model/model_item_entity.dart';
+import 'package:auto/features/ad/presentation/bloc/choose_model/model_selectro_bloc.dart';
+import 'package:auto/features/ad/presentation/pages/choose_model/widgets/model_items.dart';
+import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
-import 'package:auto/features/common/widgets/w_textfield.dart';
-import 'package:auto/features/comparison/presentation/comparison_page.dart';
-import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
@@ -20,101 +23,125 @@ class ChooseGenerationComparison extends StatefulWidget {
 
 class _ChooseGenerationComparisonState
     extends State<ChooseGenerationComparison> {
+  final List<ModelItemEntity> modelItems = [
+    ModelItemEntity(title: 'm90'),
+    ModelItemEntity(title: 'm90'),
+    ModelItemEntity(title: 'm90'),
+    ModelItemEntity(title: 'm90'),
+    ModelItemEntity(title: 'm90'),
+    ModelItemEntity(title: 'm90'),
+    ModelItemEntity(title: 'm90'),
+    ModelItemEntity(title: 'm90'),
+    ModelItemEntity(title: 'm90'),
+    ModelItemEntity(title: 'm90'),
+    ModelItemEntity(title: 'm90'),
+    ModelItemEntity(title: 'm90'),
+    ModelItemEntity(title: 'm90'),
+    ModelItemEntity(title: 'm90'),
+    ModelItemEntity(title: 'm90'),
+    ModelItemEntity(title: 'm90'),
+    ModelItemEntity(title: 'm90'),
+    ModelItemEntity(title: 'm90'),
+  ];
+
+  late ModelSelectorBloc modelBloc;
+
   @override
-  Widget build(BuildContext context) => KeyboardDismisser(
-        child: Scaffold(
-          body: Stack(
-            children: [
-              NestedScrollView(
-                headerSliverBuilder: (context, innerBoxIsScrolled) => [
-                  SliverAppBar(
-                    automaticallyImplyLeading: false,
-                    elevation: 0,
-                    pinned: true,
-                    title: GestureDetector(
-                      onTap: () => Navigator.pop(context),
-                      behavior: HitTestBehavior.opaque,
-                      child: SizedBox(
-                        width: 160,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                  top: 16, bottom: 16, right: 4),
-                              child: SvgPicture.asset(AppIcons.chevronLeft),
-                            ),
-                            Text(
-                              'Модель автомобиля',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline2!
-                                  .copyWith(fontWeight: FontWeight.w600),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    actions: [
-                      Padding(
-                        padding: const EdgeInsets.only(right: 16),
-                        child: InkWell(
-                          onTap: () {
-                            Navigator.of(context).pop();
-                            Navigator.of(context).pop();
-                            Navigator.of(context).pop();
-                          },
-                          child: SvgPicture.asset(AppIcons.close),
-                        ),
-                      ),
-                    ],
+  void initState() {
+    modelBloc = ModelSelectorBloc();
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) => BlocProvider.value(
+        value: modelBloc,
+        child: KeyboardDismisser(
+          child: Scaffold(
+            extendBody: true,
+            appBar: WAppBar(
+              title: 'Модель автомобиля',
+              titleStyle: const TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w600,
+                color: grey,
+              ),
+              centerTitle: false,
+              extraActions: [
+                Padding(
+                  padding: const EdgeInsets.only(right: 16),
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.of(context).pop();
+                      Navigator.of(context).pop();
+                      Navigator.of(context).pop();
+                    },
+                    child: SvgPicture.asset(AppIcons.close),
                   ),
-                  const SliverToBoxAdapter(
-                    child: Padding(
-                      padding: EdgeInsets.only(top: 20, left: 16),
-                      child: Text(
-                        'Выберите поколение',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w700,
-                          color: dark,
-                        ),
+                ),
+              ],
+            ),
+            body: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.only(top: 20, left: 16, bottom: 12),
+                    child: Text(
+                      'Выберите поколение',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w700,
+                        color: dark,
                       ),
                     ),
                   ),
-                  SliverToBoxAdapter(
-                    child: WTextField(
-                      disabledColor: white,
-                      focusColor: white,
-                      margin: const EdgeInsets.all(16),
-                      onChanged: (value) {},
-                      borderRadius: 12,
-                      hasSearch: true,
-                      hintText: 'Поиск',
-                      height: 40,
-                      hasClearButton: true,
+                  Transform.translate(
+                    offset: const Offset(0, 1),
+                    child: Container(
+                      height: 2,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        color: Theme.of(context)
+                            .extension<ThemedColors>()!
+                            .whiteToDark,
+                        borderRadius: const BorderRadius.vertical(
+                          top: Radius.circular(20),
+                        ),
+                      ),
                     ),
+                  ),
+                  ...List.generate(
+                    modelItems.length,
+                    (index) => Container(
+                      color: Theme.of(context)
+                          .extension<ThemedColors>()!
+                          .whiteToDark,
+                      child: BlocBuilder<ModelSelectorBloc, ModelSelectorState>(
+                        builder: (context, state) => ModelItems(
+                          entity: modelItems[index],
+                          selectedId: state.selectedId,
+                          id: index,
+                        ),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+            bottomNavigationBar: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: WButton(
+                onTap: widget.onTap,
+                text: 'Далее',
+                shadow: [
+                  BoxShadow(
+                    offset: const Offset(0, 4),
+                    blurRadius: 20,
+                    color: orange.withOpacity(0.2),
                   ),
                 ],
-                body: Container(),
               ),
-              Positioned(
-                bottom: 16,
-                right: 16,
-                left: 16,
-                child: WButton(
-                  onTap: widget.onTap,
-                  text: 'Далее',
-                  shadow: [
-                    BoxShadow(
-                      offset: const Offset(0, 4),
-                      blurRadius: 20,
-                      color: orange.withOpacity(0.2),
-                    ),
-                  ],
-                ),
-              ),
-            ],
+            ),
           ),
         ),
       );

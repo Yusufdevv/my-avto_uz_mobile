@@ -1,34 +1,34 @@
 import 'package:auto/core/exceptions/exceptions.dart';
 import 'package:auto/core/singletons/storage.dart';
-import 'package:auto/features/comparison/data/models/car_params_model.dart';
+import 'package:auto/features/comparison/data/models/comparison_model.dart';
 import 'package:dio/dio.dart';
 
 abstract class ComparisonCarsDataSource {
-  Future<List<CarParamsModel>> getComparisonCars();
+  Future getComparisonCars();
 }
 
 class ComparisonDataSourceImpl extends ComparisonCarsDataSource {
   final Dio _dio;
   ComparisonDataSourceImpl(this._dio);
   @override
-  Future<List<CarParamsModel>> getComparisonCars() async {
+  Future getComparisonCars() async {
     try {
-      final results = await _dio.get('',
+       final response = await _dio.get('car/comparison/',
           options: StorageRepository.getString('token').isNotEmpty
               ? Options(headers: {
                   'Authorization':
                       'Bearer ${StorageRepository.getString('token')}'
                 })
               : null);
-      if (results.statusCode! >= 200 && results.statusCode! < 300) {
-        final response = (results.data as List)
-            .map((e) => CarParamsModel.fromJson(e))
+      print('Results: $response');
+      if (response.statusCode! >= 200 && response.statusCode! < 300) {
+        return (response.data as List)
+            .map((e) => ComparisonModel.fromJson(e))
             .toList();
-        return response;
       } else {
         throw ServerException(
-            errorMessage: results.data.toString(),
-            statusCode: results.statusCode ?? 0);
+            errorMessage: response.data.toString(),
+            statusCode: response.statusCode ?? 0);
       }
     } on ServerException {
       rethrow;

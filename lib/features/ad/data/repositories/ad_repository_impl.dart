@@ -15,16 +15,18 @@ import 'package:auto/features/ad/domain/entities/types/make.dart';
 import 'package:auto/features/ad/domain/entities/types/modification_type.dart';
 import 'package:auto/features/ad/domain/entities/years/years.dart';
 import 'package:auto/features/ad/domain/repositories/ad_repository.dart';
+import 'package:auto/features/common/entities/makes_entity.dart';
 import 'package:auto/features/pagination/models/generic_pagination.dart';
 import 'package:dio/dio.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AdRepositoryImpl extends AdRepository {
   final AdRemoteDataSource remoteDataSource;
-  final AdLocalDataSource localDataSource;
+  // final AdLocalDataSource localDataSource;
 
   AdRepositoryImpl({
     required this.remoteDataSource,
-    required this.localDataSource,
+    // required this.localDataSource,
   });
 
   @override
@@ -189,10 +191,9 @@ class AdRepositoryImpl extends AdRepository {
   }
 
   @override
-  Future<Either<Failure, GenericPagination<MakeEntity>>> getMake(
-      {String? next}) async {
+  Future<Either<Failure, GetMakeEntity>> getMake() async {
     try {
-      final result = await remoteDataSource.getMake(next: next);
+      final result = await remoteDataSource.getMake();
       return Right(result);
     } on DioException {
       return Left(DioFailure());
@@ -285,26 +286,28 @@ class AdRepositoryImpl extends AdRepository {
 // ║╚═╝║╚╝║╚═╣╔╗║╚╗╔╝╚╝║╔╗║╚╣╔╗║
 // ╚═══╩══╩══╩╝╚╩═╝╚═══╩╝╚╩═╩╝╚╝
 
-  @override
-  Future<Either<Failure, void>> cacheDraftAnnouncement({
-    required AnnouncementEntity announcementEntity,
-  }) async {
-    try {
-      final result = await localDataSource.cacheDraftAnnouncement(
-          announcementModel: announcementEntity as AnnouncementModel);
-      return Right(result);
-    } on ParsingException catch (e) {
-      return Left(ParsingFailure(errorMessage: e.errorMessage));
-    }
-  }
+  // @override
+  // Future<Either<Failure, void>> cacheDraftAnnouncement({
+  //   required AnnouncementEntity announcementEntity,
+  // }) async {
+  //   try {
+  //     final result = await localDataSource.cacheDraftAnnouncement(
+  //         announcementModel: announcementEntity as AnnouncementModel);
+  //     return Right(result);
+  //     return Right('');
+  //   } on ParsingException catch (e) {
+  //     return Left(ParsingFailure(errorMessage: e.errorMessage));
+  //   }
+  // }
 
-  @override
-  Future<Either<Failure, AnnouncementEntity>> getDraftAnnouncement() async {
-    try {
-      final result = await localDataSource.getDraftAnnouncement();
-      return Right(result);
-    } on ParsingException catch (e) {
-      return Left(ParsingFailure(errorMessage: e.errorMessage));
-    }
-  }
+  // @override
+  // Future<Either<Failure, AnnouncementEntity>> getDraftAnnouncement() async {
+  //   try {
+  //     final result = await localDataSource.getDraftAnnouncement();
+  //     return Right(result);
+      
+  //   } on ParsingException catch (e) {
+  //     return Left(ParsingFailure(errorMessage: e.errorMessage));
+  //   }
+  // }
 }

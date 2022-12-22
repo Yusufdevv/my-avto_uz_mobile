@@ -10,6 +10,7 @@ import 'package:auto/features/ad/domain/entities/types/gearbox_type.dart';
 import 'package:auto/features/ad/domain/entities/types/make.dart';
 import 'package:auto/features/ad/domain/entities/types/modification_type.dart';
 import 'package:auto/features/ad/domain/entities/years/years.dart';
+import 'package:auto/features/common/entities/makes_entity.dart';
 import 'package:auto/features/pagination/models/generic_pagination.dart';
 import 'package:dio/dio.dart';
 
@@ -17,8 +18,7 @@ abstract class AdRepository {
   Future<Either<Failure, GenericPagination<MakeEntity>>> getTopMakes(
       {String? next});
 
-  Future<Either<Failure, GenericPagination<MakeEntity>>> getMake(
-      {String? next});
+  Future<Either<Failure, GetMakeEntity>> getMake();
 
   Future<Either<Failure, GenericPagination<CarModelEntity>>> getCarModel({
     required int makeId,
@@ -83,9 +83,9 @@ abstract class AdRepository {
   // ║╚═╝║╚╝║╚═╣╔╗║╚╗╔╝╚╝║╔╗║╚╣╔╗║
   // ╚═══╩══╩══╩╝╚╩═╝╚═══╩╝╚╩═╩╝╚╝
 
-  Future<Either<Failure, AnnouncementEntity>> getDraftAnnouncement();
+  // Future<Either<Failure, AnnouncementEntity>> getDraftAnnouncement();
 
-  Future<Either<Failure, void>> cacheDraftAnnouncement({
-    required AnnouncementEntity announcementEntity,
-  });
+  // Future<Either<Failure, void>> cacheDraftAnnouncement({
+  //   required AnnouncementEntity announcementEntity,
+  // });
 }

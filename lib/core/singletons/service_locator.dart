@@ -1,4 +1,7 @@
 import 'package:auto/core/singletons/dio_settings.dart';
+import 'package:auto/features/ad/data/datasources/ad_local_datasource.dart';
+import 'package:auto/features/ad/data/datasources/ad_remote_datasource.dart';
+import 'package:auto/features/ad/data/repositories/ad_repository_impl.dart';
 import 'package:auto/features/car_single/data/datasource/car_single_datasource.dart';
 import 'package:auto/features/car_single/data/repository/car_single_repository_impl.dart';
 import 'package:auto/features/profile/data/datasources/profile_datasource.dart';
@@ -12,6 +15,10 @@ void setupLocator() {
     ..registerLazySingleton(DioSettings.new)
     ..registerLazySingleton(
         () => ProfileRepositoryImpl(dataSource: ProfileDataSourceImpl()))
+    ..registerLazySingleton(
+        () => AdRemoteDataSourceImpl(serviceLocator<DioSettings>().dio))
+    ..registerLazySingleton(() => AdRepositoryImpl(
+        remoteDataSource: serviceLocator<AdRemoteDataSourceImpl>()))
     ..registerLazySingleton(
         () => CarSingleRepositoryImpl(dataSource: CarSinglenDataSourceImpl()));
 }

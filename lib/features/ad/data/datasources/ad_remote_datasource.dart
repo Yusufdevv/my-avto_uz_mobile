@@ -9,13 +9,15 @@ import 'package:auto/features/ad/data/models/generation.dart';
 import 'package:auto/features/ad/data/models/make.dart';
 import 'package:auto/features/ad/data/models/modification_type.dart';
 import 'package:auto/features/ad/data/models/years.dart';
+import 'package:auto/features/common/entities/makes_entity.dart';
+import 'package:auto/features/common/models/get_make_model.dart';
 import 'package:auto/features/pagination/models/generic_pagination.dart';
 import 'package:dio/dio.dart';
 
 abstract class AdRemoteDataSource {
   Future<GenericPagination<MakeModel>> getTopMakes({String? next});
 
-  Future<GenericPagination<MakeModel>> getMake({String? next});
+  Future<GetMakeEntity> getMake();
 
   Future<GenericPagination<CarModel>> getCarModel({
     required int makeId,
@@ -100,9 +102,7 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
   }
 
   @override
-  Future<GenericPagination<MakeModel>> getMake({
-    String? next,
-  }) async {
+  Future<GetMakeEntity> getMake() async {
     final response = await _dio.get(
       '/car/makes/',
       options: Options(
@@ -112,8 +112,8 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
       ),
     );
     if (response.statusCode! >= 200 && response.statusCode! < 300) {
-      return GenericPagination.fromJson(response.data,
-          (p0) => MakeModel.fromJson(p0 as Map<String, dynamic>));
+      print('Bu Bizdaa Response ${response.data}');
+      return GetMakeModel.fromJson(response.data);
     } else {
       throw ServerException(
           statusCode: response.statusCode!, errorMessage: response.data);

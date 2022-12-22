@@ -1,26 +1,22 @@
-import 'package:auto/features/ad/data/models/body_type.dart';
 import 'package:auto/features/ad/data/models/make.dart';
 import 'package:equatable/equatable.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 class MakeEntity extends Equatable {
-  @JsonKey(name: 'id', defaultValue: 0)
   final int id;
-  @JsonKey(name: 'type', defaultValue: '')
-  final String type;
-  @JsonKey(name: 'logo', defaultValue: '')
+  final String name;
   final String logo;
 
   const MakeEntity({
-    required this.id,
-    required this.type,
-    required this.logo,
+     this.id = 0,
+     this.name = '',
+     this.logo = '',
   });
 
   @override
   List<Object?> get props => [
         id,
-        type,
+        name,
         logo,
       ];
 }
