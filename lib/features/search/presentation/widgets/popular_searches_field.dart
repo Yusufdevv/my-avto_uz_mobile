@@ -11,6 +11,7 @@ class PopularSearchesField extends StatefulWidget {
     required this.title,
     required this.elements,
     required this.textController,
+    required this.hasFocus,
     this.titlePadding = const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
     this.hasClearButtonInTitle = false,
     this.hasClearTrailing = false,
@@ -18,6 +19,7 @@ class PopularSearchesField extends StatefulWidget {
   }) : super(key: key);
   final bool hasClearButtonInTitle;
   final String title;
+  bool hasFocus;
   final EdgeInsets titlePadding;
   final bool hasClearTrailing;
   List<String> elements;
@@ -75,6 +77,7 @@ class _PopularSearchesFieldState extends State<PopularSearchesField> {
                   widget.textController.text = widget.elements[index];
                   widget.textController.selection = TextSelection.fromPosition(
                       TextPosition(offset: widget.textController.text.length));
+                  widget.hasFocus = false;
                   setState(() {});
                 },
                 color: white,
@@ -83,9 +86,13 @@ class _PopularSearchesFieldState extends State<PopularSearchesField> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      widget.elements[index],
-                      style: Theme.of(context).textTheme.subtitle1,
+                    Expanded(
+                      child: Text(
+                        widget.elements[index],
+                        style: Theme.of(context).textTheme.subtitle1,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
                     if (widget.hasClearTrailing)
                       GestureDetector(
@@ -101,7 +108,7 @@ class _PopularSearchesFieldState extends State<PopularSearchesField> {
                 ),
               ),
               separatorBuilder: (context, index) =>
-                  const Divider(color: transparentButton, height: 1),
+                  const Divider(color: transparentButton, height: 1,thickness: 1),
               itemCount: widget.elements.length,
             ),
           ],

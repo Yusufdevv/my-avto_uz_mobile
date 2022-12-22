@@ -4,9 +4,15 @@ import 'package:flutter_svg/svg.dart';
 
 class WLike extends StatefulWidget {
   final bool? initialLike;
-  final String? activeIcon;
-  final String? inActiveIcon;
-  const WLike({this.initialLike, this.activeIcon, this.inActiveIcon, Key? key})
+  final Widget? activeIcon;
+  final Widget? inActiveIcon;
+  final BoxFit? fit;
+  const WLike(
+      {this.initialLike,
+      this.activeIcon,
+      this.inActiveIcon,
+      this.fit,
+      Key? key})
       : super(key: key);
 
   @override
@@ -38,14 +44,16 @@ class _WLikeState extends State<WLike> {
             child: child,
           ),
           child: isLiked
-              ? SvgPicture.asset(
-                  widget.activeIcon ?? AppIcons.enabledHeart,
-                  key: const ValueKey<int>(1),
-                )
-              : SvgPicture.asset(
-                  widget.inActiveIcon ?? AppIcons.heart,
-                  key: const ValueKey<int>(2),
-                ),
+              ? widget.activeIcon ??
+                  SvgPicture.asset(
+                    AppIcons.enabledHeart,
+                    key: const ValueKey<int>(1),
+                  )
+              : widget.inActiveIcon ??
+                  SvgPicture.asset(
+                    AppIcons.heart,
+                    key: const ValueKey<int>(2),
+                  ),
         ),
       );
 }

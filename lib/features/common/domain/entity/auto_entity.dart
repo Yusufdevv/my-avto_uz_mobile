@@ -42,8 +42,9 @@ class AutoEntity extends Equatable {
     this.ownership = '',
     this.publishedAt = '',
     this.region = const CarDistrictEntity(),
-    this.carUser = const CarUserEntity(),
+    this.user = const CarUserEntity(),
     this.viewsCount = 0,
+    this.isComparison = false,
   });
 
   final int id;
@@ -69,7 +70,7 @@ class AutoEntity extends Equatable {
   @CarDistrictConverter()
   final CarDistrictEntity district;
   @CarUserConverter()
-  final CarUserEntity carUser;
+  final CarUserEntity user;
   final dynamic dealer;
   final String licenceType;
   final String ownership;
@@ -90,6 +91,7 @@ class AutoEntity extends Equatable {
   final String publishedAt;
   final int viewsCount;
   final bool isWishlisted;
+  final bool isComparison;
   @override
   List<Object?> get props => [
         id,
@@ -104,7 +106,7 @@ class AutoEntity extends Equatable {
         carModificationType,
         region,
         district,
-        carUser,
+        user,
         dealer,
         licenceType,
         ownership,
@@ -125,6 +127,7 @@ class AutoEntity extends Equatable {
         publishedAt,
         viewsCount,
         isWishlisted,
+        isComparison,
       ];
 }
 
@@ -167,8 +170,9 @@ class AutoConverter
         publishedAt: object.publishedAt,
         region: object.region,
         registeredInUzbekistan: object.registeredInUzbekistan,
-        carUser: object.carUser,
+        user: object.user,
         userType: object.userType,
         viewsCount: object.viewsCount,
+        isComparison: object.isComparison,
       ).toJson();
 }

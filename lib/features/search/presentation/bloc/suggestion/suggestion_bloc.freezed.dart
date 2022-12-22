@@ -1078,10 +1078,10 @@ abstract class _ChangeStatus implements SuggestionEvent {
 mixin _$SuggestionState {
   FormzStatus get status => throw _privateConstructorUsedError;
   List<CarMakeModel> get suggestions => throw _privateConstructorUsedError;
-  bool get hasMoreFetch => throw _privateConstructorUsedError;
   String? get next => throw _privateConstructorUsedError;
   String? get previous => throw _privateConstructorUsedError;
   int get count => throw _privateConstructorUsedError;
+  bool? get fetchMore => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $SuggestionStateCopyWith<SuggestionState> get copyWith =>
@@ -1096,10 +1096,10 @@ abstract class $SuggestionStateCopyWith<$Res> {
   $Res call(
       {FormzStatus status,
       List<CarMakeModel> suggestions,
-      bool hasMoreFetch,
       String? next,
       String? previous,
-      int count});
+      int count,
+      bool? fetchMore});
 }
 
 /// @nodoc
@@ -1115,10 +1115,10 @@ class _$SuggestionStateCopyWithImpl<$Res>
   $Res call({
     Object? status = freezed,
     Object? suggestions = freezed,
-    Object? hasMoreFetch = freezed,
     Object? next = freezed,
     Object? previous = freezed,
     Object? count = freezed,
+    Object? fetchMore = freezed,
   }) {
     return _then(_value.copyWith(
       status: status == freezed
@@ -1129,10 +1129,6 @@ class _$SuggestionStateCopyWithImpl<$Res>
           ? _value.suggestions
           : suggestions // ignore: cast_nullable_to_non_nullable
               as List<CarMakeModel>,
-      hasMoreFetch: hasMoreFetch == freezed
-          ? _value.hasMoreFetch
-          : hasMoreFetch // ignore: cast_nullable_to_non_nullable
-              as bool,
       next: next == freezed
           ? _value.next
           : next // ignore: cast_nullable_to_non_nullable
@@ -1145,6 +1141,10 @@ class _$SuggestionStateCopyWithImpl<$Res>
           ? _value.count
           : count // ignore: cast_nullable_to_non_nullable
               as int,
+      fetchMore: fetchMore == freezed
+          ? _value.fetchMore
+          : fetchMore // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ));
   }
 }
@@ -1159,10 +1159,10 @@ abstract class _$$_SuggestionStateCopyWith<$Res>
   $Res call(
       {FormzStatus status,
       List<CarMakeModel> suggestions,
-      bool hasMoreFetch,
       String? next,
       String? previous,
-      int count});
+      int count,
+      bool? fetchMore});
 }
 
 /// @nodoc
@@ -1180,10 +1180,10 @@ class __$$_SuggestionStateCopyWithImpl<$Res>
   $Res call({
     Object? status = freezed,
     Object? suggestions = freezed,
-    Object? hasMoreFetch = freezed,
     Object? next = freezed,
     Object? previous = freezed,
     Object? count = freezed,
+    Object? fetchMore = freezed,
   }) {
     return _then(_$_SuggestionState(
       status: status == freezed
@@ -1194,10 +1194,6 @@ class __$$_SuggestionStateCopyWithImpl<$Res>
           ? _value._suggestions
           : suggestions // ignore: cast_nullable_to_non_nullable
               as List<CarMakeModel>,
-      hasMoreFetch: hasMoreFetch == freezed
-          ? _value.hasMoreFetch
-          : hasMoreFetch // ignore: cast_nullable_to_non_nullable
-              as bool,
       next: next == freezed
           ? _value.next
           : next // ignore: cast_nullable_to_non_nullable
@@ -1210,6 +1206,10 @@ class __$$_SuggestionStateCopyWithImpl<$Res>
           ? _value.count
           : count // ignore: cast_nullable_to_non_nullable
               as int,
+      fetchMore: fetchMore == freezed
+          ? _value.fetchMore
+          : fetchMore // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ));
   }
 }
@@ -1220,10 +1220,10 @@ class _$_SuggestionState implements _SuggestionState {
   _$_SuggestionState(
       {this.status = FormzStatus.pure,
       final List<CarMakeModel> suggestions = const [],
-      this.hasMoreFetch = false,
       this.next = '',
       this.previous = '',
-      this.count = 0})
+      this.count = 0,
+      this.fetchMore = false})
       : _suggestions = suggestions;
 
   @override
@@ -1239,9 +1239,6 @@ class _$_SuggestionState implements _SuggestionState {
 
   @override
   @JsonKey()
-  final bool hasMoreFetch;
-  @override
-  @JsonKey()
   final String? next;
   @override
   @JsonKey()
@@ -1249,10 +1246,13 @@ class _$_SuggestionState implements _SuggestionState {
   @override
   @JsonKey()
   final int count;
+  @override
+  @JsonKey()
+  final bool? fetchMore;
 
   @override
   String toString() {
-    return 'SuggestionState(status: $status, suggestions: $suggestions, hasMoreFetch: $hasMoreFetch, next: $next, previous: $previous, count: $count)';
+    return 'SuggestionState(status: $status, suggestions: $suggestions, next: $next, previous: $previous, count: $count, fetchMore: $fetchMore)';
   }
 
   @override
@@ -1263,11 +1263,10 @@ class _$_SuggestionState implements _SuggestionState {
             const DeepCollectionEquality().equals(other.status, status) &&
             const DeepCollectionEquality()
                 .equals(other._suggestions, _suggestions) &&
-            const DeepCollectionEquality()
-                .equals(other.hasMoreFetch, hasMoreFetch) &&
             const DeepCollectionEquality().equals(other.next, next) &&
             const DeepCollectionEquality().equals(other.previous, previous) &&
-            const DeepCollectionEquality().equals(other.count, count));
+            const DeepCollectionEquality().equals(other.count, count) &&
+            const DeepCollectionEquality().equals(other.fetchMore, fetchMore));
   }
 
   @override
@@ -1275,10 +1274,10 @@ class _$_SuggestionState implements _SuggestionState {
       runtimeType,
       const DeepCollectionEquality().hash(status),
       const DeepCollectionEquality().hash(_suggestions),
-      const DeepCollectionEquality().hash(hasMoreFetch),
       const DeepCollectionEquality().hash(next),
       const DeepCollectionEquality().hash(previous),
-      const DeepCollectionEquality().hash(count));
+      const DeepCollectionEquality().hash(count),
+      const DeepCollectionEquality().hash(fetchMore));
 
   @JsonKey(ignore: true)
   @override
@@ -1290,23 +1289,23 @@ abstract class _SuggestionState implements SuggestionState {
   factory _SuggestionState(
       {final FormzStatus status,
       final List<CarMakeModel> suggestions,
-      final bool hasMoreFetch,
       final String? next,
       final String? previous,
-      final int count}) = _$_SuggestionState;
+      final int count,
+      final bool? fetchMore}) = _$_SuggestionState;
 
   @override
   FormzStatus get status;
   @override
   List<CarMakeModel> get suggestions;
   @override
-  bool get hasMoreFetch;
-  @override
   String? get next;
   @override
   String? get previous;
   @override
   int get count;
+  @override
+  bool? get fetchMore;
   @override
   @JsonKey(ignore: true)
   _$$_SuggestionStateCopyWith<_$_SuggestionState> get copyWith =>

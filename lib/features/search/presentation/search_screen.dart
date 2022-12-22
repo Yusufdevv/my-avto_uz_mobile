@@ -1,12 +1,11 @@
 import 'package:auto/assets/colors/color.dart';
+import 'package:auto/assets/colors/light.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/core/singletons/dio_settings.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_textfield.dart';
-import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/pagination/presentation/paginator.dart';
-import 'package:auto/features/reviews/presentation/reviews_screen.dart';
 import 'package:auto/features/search/data/datasources/popular_searches_datasource.dart';
 import 'package:auto/features/search/data/datasources/search_results_datasource.dart';
 import 'package:auto/features/search/data/datasources/suggestion_datasource.dart';
@@ -23,19 +22,18 @@ import 'package:auto/features/search/presentation/bloc/search_results/search_res
 import 'package:auto/features/search/presentation/bloc/suggestion/suggestion_bloc.dart';
 import 'package:auto/features/search/presentation/bloc/user_searches_bloc/user_searches_bloc.dart';
 import 'package:auto/features/search/presentation/pages/last_popular_searches_screen.dart';
+import 'package:auto/features/search/presentation/pages/loading_screen.dart';
 import 'package:auto/features/search/presentation/pages/nothing_found_screen.dart';
-import 'package:auto/features/search/presentation/widgets/popular_searches_field.dart';
-import 'package:auto/features/search/presentation/part/sort_modal_bottom_sheet.dart';
 import 'package:auto/features/search/presentation/widgets/info_result_container.dart';
 import 'package:auto/features/search/presentation/widgets/search_item_shimmer.dart';
 import 'package:auto/features/search/presentation/widgets/searched_models_item.dart';
-import 'package:auto/generated/locale_keys.g.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:formz/formz.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
+
+import 'widgets/sort_bottom_sheet.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({Key? key}) : super(key: key);
@@ -56,6 +54,7 @@ class _SearchScreenState extends State<SearchScreen> {
   final List<String> publishTime = ['Сегодня', '27 февраля'];
   final List<String> sellType = ['Продажа Автомобиля', 'Аренда c выкупом'];
   bool isFocused = false;
+  String? sortingValue = 'cheapest';
 
   @override
   void initState() {
@@ -78,20 +77,6 @@ class _SearchScreenState extends State<SearchScreen> {
       ..add(UserSearchesEvent.getPopularSearches());
     super.initState();
   }
-
-  @override
-  void dispose() {
-    searchController
-      ..dispose()
-      ..clear();
-    searchResultBloc.close();
-    suggestionBloc.close();
-    userSearchesBloc.close();
-    super.dispose();
-  }
-
-  int summ = 0;
-  int date = 1;
 
   @override
   Widget build(BuildContext context) => KeyboardDismisser(
@@ -136,9 +121,9 @@ class _SearchScreenState extends State<SearchScreen> {
                                 search: searchController.text));
                             setState(() {});
                           },
-                          onEditCompleted: () {
-                            searchResultBloc.add(SearchResultEvent.getResults(
-                                searchText: searchController.text));
+                          onFieldSubmitted: (v) {
+                            searchResultBloc.add(
+                                SearchResultEvent.getResults(searchText: v));
                             setState(() {});
                           },
                           focusNode: focusNode,
@@ -161,7 +146,7 @@ class _SearchScreenState extends State<SearchScreen> {
                           borderRadius: 12,
                           controller: searchController,
                           hasSearch: true,
-                          hintText: LocaleKeys.model_brand.tr(),
+                          hintText: 'Марка, Модель',
                           hasClearButton: true,
                         ),
                       ),
@@ -175,21 +160,39 @@ class _SearchScreenState extends State<SearchScreen> {
                           }
                         },
                         child: WButton(
-                          onTap: () =>
-                              sortModalBottomSheet(context, summ, date),
+                          onTap: () => showModalBottomSheet(
+                            context: context,
+                            useRootNavigator: true,
+                            backgroundColor: LightThemeColors.appBarColor,
+                            shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.vertical(
+                                  top: Radius.circular(20)),
+                            ),
+                            clipBehavior: Clip.hardEdge,
+                            builder: (context) => SortBottomSheet(
+                              title: 'Сортировка',
+                              values: const [
+                                'cheapest',
+                                'most expensive',
+                                'oldest',
+                                'newest'
+                              ],
+                              onChanged: (value) =>
+                                  setState(() => sortingValue = value),
+                              defaultValue: sortingValue,
+                            ),
+                          ),
                           width: 44,
                           height: 44,
                           borderRadius: 12,
                           margin: const EdgeInsets.only(left: 10, right: 16),
-                          color: Theme.of(context)
-                              .extension<ThemedColors>()!
-                              .whiteSmoke2ToNightRider,
+                          color: lavender,
                           child: SvgPicture.asset(
                             AppIcons.arrowsSort,
-                            color: searchController.text.isEmpty ||
-                                    focusNode.hasFocus
-                                ? greyText
-                                : purple,
+                            height: 24,
+                            width: 24,
+                            fit: BoxFit.cover,
+                            color: sortingValue == null ? greyText : purple,
                           ),
                         ),
                       ),
@@ -197,128 +200,115 @@ class _SearchScreenState extends State<SearchScreen> {
                   ),
                 ),
               ),
-              // body: searchController.text.isNotEmpty
-              //     ? isFocused
-              //         ? BlocBuilder<SuggestionBloc, SuggestionState>(
-              //             builder: (context, state) => state.status !=
-              //                         FormzStatus.submissionSuccess ||
-              //                     state.suggestions.isEmpty
-              //                 ? const SizedBox()
-              //                 : Expanded(
-              //                     child: Paginator(
-              //                       fetchMoreFunction: () {},
-              //                       hasMoreToFetch: state.hasMoreFetch,
-              //                       paginatorStatus: state.status,
-              //                       separatorBuilder: (context, index) =>
-              //                           SizedBox(),
-              //                       errorWidget: SizedBox(),
-              //                       padding: EdgeInsets.zero,
-              //                       itemCount: state.suggestions.length,
-              //                       itemBuilder: (context, index) =>
-              //                           SearchedModelsItem(
-              //                         imageUrl: state.suggestions[index].logo,
-              //                         fullText: state.suggestions[index].name,
-              //                         searchText: searchController.text,
-              //                         onTap: () {
-              //                           focusNode.unfocus();
-              //                         },
-              //                       ),
-              //                     ),
-              //                   ),
-              //           )
-              //         : Column(
-              //             children: [
-              //               BlocBuilder<SearchResultBloc, SearchResultState>(
-              //                 builder: (context, state) {
-              //                   if (state.status !=
-              //                       FormzStatus.submissionSuccess) {
-              //                     return SizedBox();
-              //                   } else {
-              //                     if (state.list.isEmpty) {
-              //                       return const Expanded(
-              //                         child:
-              //                             Center(child: NothingFoundScreen()),
-              //                       );
-              //                     } else {
-              //                       return Expanded(
-              //                         child: Paginator(
-              //                           hasMoreToFetch: state.moreFetch,
-              //                           fetchMoreFunction: () {},
-              //                           itemCount: state.list.length,
-              //                           paginatorStatus: state.status,
-              //                           errorWidget: const SearchItemShimmer(
-              //                               slideImageCount: 2),
-              //                           separatorBuilder: (context, index) =>
-              //                               Divider(
-              //                             height: 12,
-              //                             thickness: 0,
-              //                             color: Theme.of(context)
-              //                                 .extension<ThemedColors>()!
-              //                                 .borderGreyToDark,
-              //                           ),
-              //                           itemBuilder: (context, index) =>
-              //                               InfoResultContainer(
-              //                             gallery: state.list[index].gallery,
-              //                             carModelName:
-              //                                 state.list[index].carModel.name,
-              //                             carYear: state.list[index].carYear,
-              //                             contactPhone:
-              //                                 state.list[index].contactPhone,
-              //                             description:
-              //                                 state.list[index].description,
-              //                             districtTitle:
-              //                                 state.list[index].district.title,
-              //                             isNew: state.list[index].isNew,
-              //                             isWishlisted:
-              //                                 state.list[index].isWishlisted,
-              //                             price: state.list[index].price,
-              //                             publishedAt:
-              //                                 state.list[index].publishedAt,
-              //                             userFullName: state
-              //                                 .list[index].carUser.fullName,
-              //                             userImage:
-              //                                 state.list[index].carUser.image,
-              //                             userType: state.list[index].userType,
-              //                             hasComparison: false,
-              //                           ),
-              //                         ),
-              //                       );
-              //                     }
-              //                   }
-              //                 },
-              //               ),
-              //             ],
-              //           )
-              //     : LastPopularSearchesScreen(
-              //         searchController: searchController),
-              body: SizedBox(
-                height: 400,
-                child: BlocBuilder<SuggestionBloc, SuggestionState>(
-                  builder: (context, state) => state.status !=
-                              FormzStatus.submissionSuccess ||
-                          state.suggestions.isEmpty
-                      ? const SizedBox()
-                      : Expanded(
-                          child: Paginator(
-                            fetchMoreFunction: () {},
-                            hasMoreToFetch: state.hasMoreFetch,
-                            paginatorStatus: state.status,
-                            separatorBuilder: (context, index) => SizedBox(),
-                            errorWidget: SizedBox(),
-                            padding: EdgeInsets.zero,
-                            itemCount: state.suggestions.length,
-                            itemBuilder: (context, index) => SearchedModelsItem(
-                              imageUrl: state.suggestions[index].logo,
-                              fullText: state.suggestions[index].name,
-                              searchText: searchController.text,
-                              onTap: () {
-                                focusNode.unfocus();
-                              },
+              body: searchController.text.isNotEmpty
+                  ? isFocused
+                      ? BlocBuilder<SuggestionBloc, SuggestionState>(
+                          builder: (context, state) => Visibility(
+                            visible:
+                                state.status == FormzStatus.submissionSuccess ||
+                                    state.suggestions.isNotEmpty ||
+                                    isFocused,
+                            child: Paginator(
+                              fetchMoreFunction: () {},
+                              hasMoreToFetch: state.fetchMore ?? false,
+                              paginatorStatus: state.status,
+                              separatorBuilder: (context, index) => SizedBox(),
+                              errorWidget: SizedBox(),
+                              padding: EdgeInsets.zero,
+                              itemCount: state.suggestions.length,
+                              itemBuilder: (context, index) =>
+                                  SearchedModelsItem(
+                                imageUrl: state.suggestions[index].logo,
+                                fullText: state.suggestions[index].name,
+                                searchText: searchController.text,
+                                onTap: () {
+                                  searchController
+                                    ..text = state.suggestions[index].name
+                                    ..selection = TextSelection.fromPosition(
+                                        TextPosition(
+                                            offset:
+                                                searchController.text.length));
+                                  // focusNode.unfocus();
+                                  searchResultBloc.add(
+                                    SearchResultEvent.getResults(
+                                        searchText: searchController.text),
+                                  );
+                                  setState(() {});
+                                },
+                              ),
                             ),
                           ),
-                        ),
-                ),
-              ),
+                        )
+                      : Column(
+                          children: [
+                            Expanded(
+                              child: BlocBuilder<SearchResultBloc,
+                                  SearchResultState>(
+                                builder: (context, state) {
+                                  if (state.status !=
+                                      FormzStatus.submissionSuccess) {
+                                    return const LoadingScreen();
+                                  } else {
+                                    if (state.list.isEmpty) {
+                                      return const Center(
+                                        child: NothingFoundScreen(),
+                                      );
+                                    } else {
+                                      return Paginator(
+                                        hasMoreToFetch: state.moreFetch,
+                                        fetchMoreFunction: () {},
+                                        itemCount: state.list.length,
+                                        paginatorStatus: state.status,
+                                        errorWidget: const SearchItemShimmer(
+                                            slideImageCount: 2),
+                                        separatorBuilder: (context, index) =>
+                                            Divider(
+                                          height: 12,
+                                          thickness: 0,
+                                          color: Theme.of(context)
+                                              .extension<ThemedColors>()!
+                                              .borderGreyToDark,
+                                        ),
+                                        itemBuilder: (context, index) =>
+                                            InfoResultContainer(
+                                          callFrom: '',
+                                          callTo: '',
+                                          gallery: state.list[index].gallery,
+                                          carModelName:
+                                              state.list[index].carModel.name,
+                                          carYear: state.list[index].carYear,
+                                          contactPhone:
+                                              state.list[index].contactPhone,
+                                          description:
+                                              state.list[index].description,
+                                          districtTitle:
+                                              state.list[index].district.title,
+                                          isNew: state.list[index].isNew,
+                                          isWishlisted:
+                                              state.list[index].isWishlisted,
+                                          price: state.list[index].price,
+                                          publishedAt:
+                                              state.list[index].publishedAt,
+                                          userFullName:
+                                              state.list[index].user.fullName,
+                                          userImage:
+                                              state.list[index].user.image,
+                                          userType: state.list[index].userType,
+                                          hasComparison:
+                                              state.list[index].isComparison,
+                                        ),
+                                      );
+                                    }
+                                  }
+                                },
+                              ),
+                            ),
+                          ],
+                        )
+                  : LastPopularSearchesScreen(
+                      searchController: searchController,
+                      hasFocus: isFocused,
+                    ),
             ),
           ),
         ),

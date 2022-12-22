@@ -76,4 +76,56 @@ class MyFunctions {
     return buffer.toString();
   }
 
+  static String getMonthByIndex(int index) {
+    switch (index) {
+      case 1:
+        return 'Январь';
+      case 2:
+        return 'Февраль';
+      case 3:
+        return 'Март';
+      case 4:
+        return 'Апрель';
+      case 5:
+        return 'Май';
+      case 6:
+        return 'Июнь';
+      case 7:
+        return 'Июль';
+      case 8:
+        return 'Август';
+      case 9:
+        return 'Сентябрь';
+      case 10:
+        return 'Октябрь';
+      case 11:
+        return 'Ноябрь';
+      case 12:
+        return 'Декабрь';
+      default:
+        return '';
+    }
+  }
+
+  static String getDateNamedMonth(String data) {
+    final list = data.substring(0, 10).split('-');
+
+    return '${list[2]} ${getMonthByIndex(int.tryParse(list[1]) ?? -1)}, ${list[0]} г.';
+  }
+
+  static String getAutoPublishDate(String data) {
+    final dateNow = DateTime.now();
+    final date = getDateNamedMonth(data).split(',');
+    final dateDay = int.parse(date[0].split(' ')[0]);
+    final dateYear = int.parse(date[1].trim().split(' ')[0]);
+    if (dateDay == dateNow.day) {
+      return 'Сегодня';
+    } else if (dateDay == (dateNow.day - 1)) {
+      return 'Вчера';
+    } else if (dateYear == dateNow.year) {
+      return date[0];
+    } else {
+      return getDateNamedMonth(data);
+    }
+  }
 }

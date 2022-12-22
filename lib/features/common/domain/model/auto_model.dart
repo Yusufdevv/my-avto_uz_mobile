@@ -42,9 +42,10 @@ class AutoModel extends AutoEntity {
     required super.publishedAt,
     required super.region,
     required super.registeredInUzbekistan,
-    required super.carUser,
+    required super.user,
     required super.userType,
     required super.viewsCount,
+    required super.isComparison,
   });
 
   factory AutoModel.fromJson(Map<String, dynamic> json) =>

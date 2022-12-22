@@ -15,12 +15,15 @@ class SearchResultsDatasourceImpl extends SearchResultsDatasource {
   SearchResultsDatasourceImpl(this._dio);
 
   @override
-  Future<GenericPagination<AutoModel>> getSearchResults(String? searchedText) async {
+  Future<GenericPagination<AutoModel>> getSearchResults(
+      String? searchedText) async {
     try {
-      final response = await _dio.get('es/AnnouncementElasticSearch/',queryParameters: {'absolute_car_name__completion': searchedText});
+      final response = await _dio.get('es/AnnouncementElasticSearch/',
+          queryParameters: {'search': searchedText});
       if (response.statusCode != null &&
           response.statusCode! >= 200 &&
           response.statusCode! < 300) {
+        print(response.realUri);
         return GenericPagination.fromJson(response.data,
             (p0) => AutoModel.fromJson(p0 as Map<String, dynamic>));
       } else {

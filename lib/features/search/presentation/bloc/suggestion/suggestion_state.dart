@@ -8,5 +8,6 @@ class SuggestionState with _$SuggestionState {
     @Default('') String? next,
     @Default('') String? previous,
     @Default(0) int count,
+    @Default(false) bool? fetchMore,
   }) = _SuggestionState;
 }

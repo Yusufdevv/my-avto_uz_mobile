@@ -127,106 +127,106 @@ class _ReviewsScreenState extends State<ReviewsScreen>
                   );
                 },
               ),
-              floatingActionButton: WButton(
-                margin: const EdgeInsets.only(bottom: 25),
-                onTap: () => showModalBottomSheet(
-                  context: context,
-                  isScrollControlled: true,
-                  useRootNavigator: true,
-                  backgroundColor: white,
-                  builder: (context) => SortBottomSheet(
-                    height: MediaQuery.of(context).size.height * 0.3,
-                    hasDivider: false,
-                    title: 'Категория',
-                    children: [
-                      ReviewBottomSheetItem(
-                        icon: AppIcons.lightweightCar,
-                        title: 'Легковые',
-                        onTap: () => Navigator.push(
-                          context,
-                          fade(
-                            page: const PlusMinusScreen(
-                              titles: [
-                                'Вместительность салона',
-                                'Обзорность',
-                                'Дизайн',
-                                'Шумоизоляция',
-                                'Безопасность',
-                                'Качество сборки',
-                                'Коробка передач',
-                              ],
-                              negativesCount: [
-                                0,
-                                2,
-                                2,
-                                12,
-                                6,
-                                5,
-                                8,
-                              ],
-                              positivesCount: [
-                                7,
-                                5,
-                                5,
-                                10,
-                                5,
-                                0,
-                                1,
-                              ],
-                            ),
-                          ),
-                        ),
-                        // Navigator.push(
-                        //   context,
-                        //   fade(
-                        //     page: const AddReviewScreen(category: 'Легковые'),
-                        //   ),
-                        // ),
-                      ),
-                      ReviewBottomSheetItem(
-                        icon: AppIcons.truck,
-                        title: 'Коммерческие',
-                        onTap: () => Navigator.push(
-                          context,
-                          fade(
-                              page: const AddReviewScreen(
-                                  category: 'Коммерческие')),
-                        ),
-                      ),
-                      ReviewBottomSheetItem(
-                        icon: AppIcons.motorcycle,
-                        title: 'Мото',
-                        hasDivider: false,
-                        onTap: () => Navigator.push(
-                          context,
-                          fade(page: const AddReviewScreen(category: 'Мото')),
-                        ),
-                      ),
-                    ],
-                  ),
-                  shape: const RoundedRectangleBorder(
-                    borderRadius:
-                        BorderRadius.vertical(top: Radius.circular(20)),
-                  ),
-                ),
-                height: 64,
-                width: 64,
-                borderRadius: 200,
-                shadow: [
-                  BoxShadow(
-                    color: orange.withOpacity(0.6),
-                    offset: const Offset(0, 4),
-                    blurRadius: 20,
-                  )
-                ],
-                child: SvgPicture.asset(
-                  AppIcons.plus,
-                  color: white,
-                  height: 16,
-                  width: 16,
-                  fit: BoxFit.cover,
-                ),
-              ),
+              // floatingActionButton: WButton(
+              //   margin: const EdgeInsets.only(bottom: 25),
+              //   onTap: () => showModalBottomSheet(
+              //     context: context,
+              //     isScrollControlled: true,
+              //     useRootNavigator: true,
+              //     backgroundColor: white,
+              //     builder: (context) => SortBottomSheet(
+              //       height: MediaQuery.of(context).size.height * 0.3,
+              //       hasDivider: false,
+              //       title: 'Категория',
+              //       children: [
+              //         ReviewBottomSheetItem(
+              //           icon: AppIcons.lightweightCar,
+              //           title: 'Легковые',
+              //           onTap: () => Navigator.push(
+              //             context,
+              //             fade(
+              //               page: const PlusMinusScreen(
+              //                 titles: [
+              //                   'Вместительность салона',
+              //                   'Обзорность',
+              //                   'Дизайн',
+              //                   'Шумоизоляция',
+              //                   'Безопасность',
+              //                   'Качество сборки',
+              //                   'Коробка передач',
+              //                 ],
+              //                 negativesCount: [
+              //                   0,
+              //                   2,
+              //                   2,
+              //                   12,
+              //                   6,
+              //                   5,
+              //                   8,
+              //                 ],
+              //                 positivesCount: [
+              //                   7,
+              //                   5,
+              //                   5,
+              //                   10,
+              //                   5,
+              //                   0,
+              //                   1,
+              //                 ],
+              //               ),
+              //             ),
+              //           ),
+              //           // Navigator.push(
+              //           //   context,
+              //           //   fade(
+              //           //     page: const AddReviewScreen(category: 'Легковые'),
+              //           //   ),
+              //           // ),
+              //         ),
+              //         ReviewBottomSheetItem(
+              //           icon: AppIcons.truck,
+              //           title: 'Коммерческие',
+              //           onTap: () => Navigator.push(
+              //             context,
+              //             fade(
+              //                 page: const AddReviewScreen(
+              //                     category: 'Коммерческие')),
+              //           ),
+              //         ),
+              //         ReviewBottomSheetItem(
+              //           icon: AppIcons.motorcycle,
+              //           title: 'Мото',
+              //           hasDivider: false,
+              //           onTap: () => Navigator.push(
+              //             context,
+              //             fade(page: const AddReviewScreen(category: 'Мото')),
+              //           ),
+              //         ),
+              //       ],
+              //     ),
+              //     shape: const RoundedRectangleBorder(
+              //       borderRadius:
+              //           BorderRadius.vertical(top: Radius.circular(20)),
+              //     ),
+              //   ),
+              //   height: 64,
+              //   width: 64,
+              //   borderRadius: 200,
+              //   shadow: [
+              //     BoxShadow(
+              //       color: orange.withOpacity(0.6),
+              //       offset: const Offset(0, 4),
+              //       blurRadius: 20,
+              //     )
+              //   ],
+              //   child: SvgPicture.asset(
+              //     AppIcons.plus,
+              //     color: white,
+              //     height: 16,
+              //     width: 16,
+              //     fit: BoxFit.cover,
+              //   ),
+              // ),
               floatingActionButtonLocation:
                   FloatingActionButtonLocation.centerDocked,
             ),

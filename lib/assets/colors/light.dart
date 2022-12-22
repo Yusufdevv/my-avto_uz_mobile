@@ -37,7 +37,8 @@ class LightThemeColors {
   static const warmerGreyToDarkGrey = _ghost;
   static const whiteToWhiteOpacity20 = _white;
   static const solitudeToGhost = _solitude;
-
+  static const smoky = _smoky;
+  static const greyTextColor = _mischka;
   static const whiteToSmoky = _white;
   static const whiteSmokeToNightRider = _whiteSmoke;
   static const whiteToNero = _white;
@@ -152,7 +153,7 @@ const _nero = Color(0xff2B2B2B);
 const _dolphin = Color(0xff696974);
 const _solitude = Color(0xffE2E2EA);
 const _solitude2 = Color(0xffF1F1F5);
-const _solitude3= Color(0xffFAFAFB);
+const _solitude3 = Color(0xffFAFAFB);
 const _white = Color(0xffffffff);
 const _whiteWithOpacity90ToNero = Color.fromRGBO(255, 255, 255, 9);
 const _ghost = Color(0xffB5B5BE);
@@ -198,3 +199,5 @@ const _ghostWhite1 = Color(0xffF2F1FF);
 const _silver50 = Color(0x80B6B6B6);
 const _silver = Color(0xffc4c4c4);
 const _seashell = Color(0xffFFF8F5);
+const _smoky = Color(0xff5D5D67);
+const _mischka = Color(0xffA5AAB4);

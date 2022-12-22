@@ -71,12 +71,13 @@ AutoModel _$AutoModelFromJson(Map<String, dynamic> json) => AutoModel(
               .fromJson(json['region'] as Map<String, dynamic>?),
       registeredInUzbekistan:
           json['registered_in_uzbekistan'] as bool? ?? false,
-      carUser: json['car_user'] == null
+      user: json['user'] == null
           ? const CarUserEntity()
           : const CarUserConverter()
-              .fromJson(json['car_user'] as Map<String, dynamic>?),
+              .fromJson(json['user'] as Map<String, dynamic>?),
       userType: json['user_type'] as String? ?? '',
       viewsCount: json['views_count'] as int? ?? 0,
+      isComparison: json['is_comparison'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$AutoModelToJson(AutoModel instance) => <String, dynamic>{
@@ -94,7 +95,7 @@ Map<String, dynamic> _$AutoModelToJson(AutoModel instance) => <String, dynamic>{
           .toJson(instance.carModificationType),
       'region': const CarDistrictConverter().toJson(instance.region),
       'district': const CarDistrictConverter().toJson(instance.district),
-      'car_user': const CarUserConverter().toJson(instance.carUser),
+      'user': const CarUserConverter().toJson(instance.user),
       'dealer': instance.dealer,
       'licence_type': instance.licenceType,
       'ownership': instance.ownership,
@@ -115,4 +116,5 @@ Map<String, dynamic> _$AutoModelToJson(AutoModel instance) => <String, dynamic>{
       'published_at': instance.publishedAt,
       'views_count': instance.viewsCount,
       'is_wishlisted': instance.isWishlisted,
+      'is_comparison': instance.isComparison,
     };

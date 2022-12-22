@@ -29,6 +29,8 @@ class InfoResultContainer extends StatelessWidget {
       required this.userImage,
       required this.userType,
       required this.hasComparison,
+      required this.callFrom,
+      required this.callTo,
       this.discountPrice,
       this.sellType,
       super.key});
@@ -46,9 +48,15 @@ class InfoResultContainer extends StatelessWidget {
   final String publishedAt;
   final bool isWishlisted;
   final bool hasComparison;
+  final String callFrom;
+  final String callTo;
 
   final String? discountPrice;
   final String? sellType;
+  bool enableForCalling() {
+    return false;
+  }
+
   @override
   Widget build(BuildContext context) => Container(
         width: MediaQuery.of(context).size.width,
@@ -67,61 +75,103 @@ class InfoResultContainer extends StatelessWidget {
           children: [
             SizedBox(
               height: 201,
-              child: PageView.builder(
+              child: PageView(
                 pageSnapping: false,
-                itemCount: gallery.isEmpty ? 1 : gallery.length,
                 padEnds: false,
                 clipBehavior: Clip.antiAlias,
                 controller: PageController(viewportFraction: 0.65),
                 physics: const BouncingScrollPhysics(),
-                itemBuilder: (context, index) => Stack(
-                  children: [
-                    if (index == gallery.length - 1 || gallery.isEmpty)
-                      WScaleAnimation(
-                        onTap: () {
-                          bottomSheetForCalling(context, contactPhone);
-                        },
-                        child: Container(
-                          height: 201,
-                          color: green,
-                          margin: const EdgeInsets.only(left: 2, right: 16),
-                          width: 264,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              SvgPicture.asset(AppIcons.phone, color: white),
-                              Text(
-                                'Позвонить',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headline4!
-                                    .copyWith(fontSize: 24),
-                              )
-                            ],
-                          ),
-                        ),
-                      )
-                    else
-                      SizedBox(
-                        height: 201,
-                        width: 264,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 2),
-                          child: CachedNetworkImage(
-                            placeholder: (context, url) => Image.asset(
-                              AppImages.carPlaceHolder,
-                              fit: BoxFit.cover,
-                            ),
-                            imageUrl: gallery[index],
+                children: [
+                  for (int index = 0; index < gallery.length; index++)
+                    SizedBox(
+                      height: 201,
+                      width: 264,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 2),
+                        child: CachedNetworkImage(
+                          errorWidget: (context, url, error) => Image.asset(
+                            AppImages.carPlaceHolder,
                             fit: BoxFit.cover,
-                            height: 201,
-                            width: 264,
                           ),
+                          imageUrl: gallery[index],
+                          fit: BoxFit.cover,
+                          height: 201,
+                          width: 264,
                         ),
                       ),
-                  ],
-                ),
+                    ),
+                  if (enableForCalling())
+                    WButton(
+                      onTap: () {
+                        bottomSheetForCalling(context, contactPhone);
+                      },
+                      height: 201,
+                      color: emerald,
+                      margin: const EdgeInsets.only(left: 2, right: 16),
+                      width: 264,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SvgPicture.asset(AppIcons.phoneCall),
+                          Text(
+                            'Позвонить',
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline4!
+                                .copyWith(fontSize: 24),
+                          )
+                        ],
+                      ),
+                    )
+                  else
+                    WButton(
+                      disabledColor: border,
+                      isDisabled: true,
+                      onTap: () {},
+                      height: 201,
+                      color: border,
+                      margin: const EdgeInsets.only(left: 2, right: 16),
+                      width: 264,
+                      borderRadius: 0,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image.asset(AppIcons.phoneWithClock,
+                              width: 50, height: 50),
+                          Text.rich(
+                            TextSpan(
+                              children: [
+                                TextSpan(
+                                  text: 'Звонок не доступен\n',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headline1!
+                                      .copyWith(fontWeight: FontWeight.w600),
+                                ),
+                                TextSpan(
+                                  text: 'Просим вас звонить в течении:\n',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headline2!
+                                      .copyWith(color: greyText),
+                                ),
+                                TextSpan(
+                                  text: '09:00 - 18:00',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headline2!
+                                      .copyWith(color: secondary),
+                                ),
+                              ],
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
+                      ),
+                    )
+                ],
               ),
             ),
             CustomChip(
@@ -225,14 +275,16 @@ class InfoResultContainer extends StatelessWidget {
                 SizedBox(
                   height: 36,
                   width: 36,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(150),
-                    child: CachedNetworkImage(
-                      errorWidget: (context, url, error) =>
-                          SvgPicture.asset(AppIcons.car),
-                      imageUrl: userImage,
-                      fit: BoxFit.cover,
+                  child: CachedNetworkImage(
+                    imageBuilder: (context, imageProvider) => Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(150),
+                      ),
                     ),
+                    errorWidget: (context, url, error) =>
+                        SvgPicture.asset(AppIcons.car),
+                    imageUrl: userImage,
+                    fit: BoxFit.cover,
                   ),
                 ),
                 const SizedBox(width: 8),
@@ -267,37 +319,40 @@ class InfoResultContainer extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(right: 16),
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  FittedBox(
-                    child: SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.3,
-                      child: Text('$districtTitle • $publishedAt',
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyText1!
-                              .copyWith(color: grey)),
+                  Expanded(
+                    child: Text(
+                      '$districtTitle • ${MyFunctions.getAutoPublishDate(publishedAt)}',
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyText1!
+                          .copyWith(color: grey),
                     ),
                   ),
-                  const Spacer(),
-                  WButton(
-                    onTap: () {},
+                  Padding(
+                    padding: const EdgeInsets.only(top: 7),
+                    child: SizedBox(
+                      height: 28,
+                      width: 28,
+                      child: WLike(
+                        initialLike: hasComparison,
+                        activeIcon: SvgPicture.asset(AppIcons.scalesRed),
+                        inActiveIcon: SvgPicture.asset(
+                          AppIcons.scale,
+                          width: 24,
+                          height: 24,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  SizedBox(
                     height: 28,
                     width: 28,
-                    isDisabled: true,
-                    disabledColor: transparentButton,
-                    color: transparentButton,
-                    child: SvgPicture.asset(
-                      AppIcons.scales,
-                      color: warmerGrey,
-                      fit: BoxFit.cover,
-                    ),
+                    child: WLike(initialLike: isWishlisted),
                   ),
-                  WLike(
-                    initialLike: hasComparison,
-                    activeIcon: AppIcons.scalesRed,
-                    inActiveIcon: AppIcons.scale,
-                  ),
-                  WLike(initialLike: isWishlisted),
                 ],
               ),
             )

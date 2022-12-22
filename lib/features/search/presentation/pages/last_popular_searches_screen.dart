@@ -5,7 +5,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LastPopularSearchesScreen extends StatefulWidget {
   final TextEditingController searchController;
-  const LastPopularSearchesScreen({required this.searchController, super.key});
+  final bool hasFocus;
+  const LastPopularSearchesScreen(
+      {required this.searchController, required this.hasFocus, super.key});
 
   @override
   State<LastPopularSearchesScreen> createState() =>
@@ -15,11 +17,12 @@ class LastPopularSearchesScreen extends StatefulWidget {
 class _LastPopularSearchesScreenState extends State<LastPopularSearchesScreen> {
   @override
   Widget build(BuildContext context) => ListView(
-    physics: const BouncingScrollPhysics(),
+        physics: const BouncingScrollPhysics(),
         children: [
           BlocBuilder<UserSearchesBloc, UserSearchesState>(
             builder: (context, state) => PopularSearchesField(
               textController: widget.searchController,
+              hasFocus: widget.hasFocus,
               title: 'Последние запросы',
               elements: state.userSearches.map((e) => e.searchText).toList(),
               hasClearTrailing: true,
@@ -29,6 +32,7 @@ class _LastPopularSearchesScreenState extends State<LastPopularSearchesScreen> {
           BlocBuilder<UserSearchesBloc, UserSearchesState>(
             builder: (context, state) => PopularSearchesField(
               textController: widget.searchController,
+              hasFocus: widget.hasFocus,
               title: 'Популярные запросы',
               elements: state.popularSearches.map((e) => e.searchText).toList(),
             ),
