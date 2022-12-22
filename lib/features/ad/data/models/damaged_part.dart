@@ -3,7 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'damaged_part.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(fieldRename: FieldRename.snake)
 class DamagedPartModel extends DamagedPartEntity {
   const DamagedPartModel({
     required super.part,

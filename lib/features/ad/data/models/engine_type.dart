@@ -4,7 +4,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'engine_type.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(fieldRename: FieldRename.snake)
 class EngineTypeModel extends EngineTypeEntity {
   const EngineTypeModel({
     required super.id,

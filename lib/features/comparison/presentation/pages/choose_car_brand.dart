@@ -2,17 +2,20 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/core/singletons/service_locator.dart';
+import 'package:auto/features/ad/data/repositories/ad_repository_impl.dart';
 import 'package:auto/features/ad/domain/entities/choose_car_brand/change_car_entity.dart';
+import 'package:auto/features/ad/domain/repositories/ad_repository.dart';
+import 'package:auto/features/ad/domain/usecases/get_makes.dart';
 import 'package:auto/features/ad/presentation/bloc/car_selector/car_selector_bloc.dart';
 import 'package:auto/features/ad/presentation/pages/choose_car_brand/widget/car_items.dart';
+import 'package:auto/features/common/bloc/get_makes_bloc/get_makes_bloc_bloc.dart';
 import 'package:auto/features/common/domain/entity/car_brand_entity.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_textfield.dart';
 import 'package:auto/features/comparison/presentation/bloc/scroll-bloc/scrolling_bloc.dart';
-import 'package:auto/features/comparison/presentation/comparison_page.dart';
 import 'package:auto/features/comparison/presentation/widgets/alphabetic_header.dart';
 import 'package:auto/features/comparison/presentation/widgets/card_brend_container.dart';
-import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -32,6 +35,7 @@ class ChooseCarBrandComparison extends StatefulWidget {
 class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
   late TextEditingController searchController;
   late CarSelectorBloc carSelectorBloc;
+  late GetMakesBloc bloc;
   late ScrollController scrollController;
   late ScrollingBloc scrollingBloc;
   Color color = Colors.transparent;
@@ -41,6 +45,11 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
     scrollingBloc = ScrollingBloc();
     carSelectorBloc = CarSelectorBloc();
     scrollController = ScrollController();
+    bloc = GetMakesBloc(
+      useCase: GetMakesUseCase(
+        repository: serviceLocator<AdRepositoryImpl>(),
+      ),
+    )..add(const GetMakesBlocEvent.getMakes());
     scrollController.addListener(() {
       print(scrollController.offset);
       scrollingBloc.add(ChangeColorEvent(offset: scrollController.offset));
@@ -141,8 +150,15 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
 
   @override
   Widget build(BuildContext context) => KeyboardDismisser(
-        child: BlocProvider.value(
-          value: carSelectorBloc,
+        child: MultiBlocProvider(
+          providers: [
+            BlocProvider.value(
+              value: carSelectorBloc,
+            ),
+            BlocProvider.value(
+              value: bloc,
+            ),
+          ],
           child: Scaffold(
             body: Stack(
               children: [
@@ -222,15 +238,19 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
                       ),
                     ),
                     SliverToBoxAdapter(
-                      child: SizedBox(
-                        height: 132,
-                        child: ListView.builder(
-                          physics: const BouncingScrollPhysics(),
-                          scrollDirection: Axis.horizontal,
-                          itemBuilder: (context, index) => CarBrandContainer(
-                            carBrandEntity: carBrandEntity[index],
+                      child: BlocBuilder<GetMakesBloc, GetMakesState>(
+                        bloc: bloc,
+                        builder: (context, state) => SizedBox(
+                          height: 132,
+                          child: ListView.builder(
+                            physics: const BouncingScrollPhysics(),
+                            scrollDirection: Axis.horizontal,
+                            itemBuilder: (context, index) => CarBrandContainer(
+                              imageUrl: state.makes.results[index].logo,
+                              title: state.makes.results[index].name,
+                            ),
+                            itemCount: state.makes.results.length,
                           ),
-                          itemCount: carBrandEntity.length,
                         ),
                       ),
                     ),
@@ -260,22 +280,26 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
                       ),
                     ),
                   ],
-                  body: ListView.builder(
-                    padding: const EdgeInsets.only(bottom: 60),
-                    itemBuilder: (context, index) =>
-                        BlocBuilder<CarSelectorBloc, SelectedCarItems>(
-                      builder: (context, state) => Container(
-                        color: Theme.of(context)
-                            .extension<ThemedColors>()!
-                            .whiteToDark,
-                        child: ChangeCarItems(
-                          entity: carList[index],
-                          selectedId: state.selectedId,
-                          id: index,
+                  body: BlocBuilder<GetMakesBloc, GetMakesState>(
+                    bloc: bloc,
+                    builder: (context, stateMake) => ListView.builder(
+                      padding: const EdgeInsets.only(bottom: 60),
+                      itemBuilder: (context, index) =>
+                          BlocBuilder<CarSelectorBloc, SelectedCarItems>(
+                        builder: (context, state) => Container(
+                          color: Theme.of(context)
+                              .extension<ThemedColors>()!
+                              .whiteToDark,
+                          child: ChangeCarItems(
+                            selectedId: state.selectedId,
+                            id: index,
+                            imageUrl: stateMake.makes.results[index].logo,
+                            name: stateMake.makes.results[index].name,
+                          ),
                         ),
                       ),
+                      itemCount: stateMake.makes.results.length,
                     ),
-                    itemCount: carList.length,
                   ),
                 ),
                 Positioned(
