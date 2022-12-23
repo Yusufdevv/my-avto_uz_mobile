@@ -418,7 +418,7 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
         solitudeContainerToBlack: solitudeContainerToBlack ?? this.solitudeContainerToBlack,
         solitudeContainerToNero1: solitudeContainerToNero1 ?? this.solitudeContainerToNero1,
         whiteToNero2: whiteToNero2 ?? this.whiteToNero2,
-        dividerColor: dividerColor?? this.dividerColor,
+        dividerColor: dividerColor,
       );
 
   @override
@@ -427,6 +427,7 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
       return this;
     }
     return ThemedColors(
+      dividerColor: Color.lerp(dividerColor, other.dividerColor, t)?? dividerColor,
       whiteToBlack: Color.lerp(whiteToBlack, other.whiteToBlack, t) ?? whiteToBlack,
       seashellToCinnabar15: Color.lerp(seashellToCinnabar15, other.seashellToCinnabar15, t) ?? seashellToCinnabar15,
       ghostToGondola: Color.lerp(ghostToGondola, other.ghostToGondola, t) ?? ghostToGondola,

@@ -39,34 +39,34 @@ class _SellerState extends State<Seller> {
   ];
 
   final List<AdsEntity> adsEntity = [
-    const AdsEntity(
-        imageUrl:
-            'https://cdn.motor1.com/images/mgl/LBl63/s1/2021-genesis-g80.jpg',
-        place: 'г. Ташкент',
-        price: 13442343,
-        aboutCar: 'Land Cruiser, 145 894 км,\nВнедорожник 5дв, АКПП, Дизел...',
-        carName: 'Hyundai Genesis G90 long'),
-    const AdsEntity(
-        imageUrl:
-            'https://cdn.motor1.com/images/mgl/LBl63/s1/2021-genesis-g80.jpg',
-        place: 'г. Ташкент',
-        price: 13442343,
-        aboutCar: 'Land Cruiser, 145 894 км,\nВнедорожник 5дв, АКПП, Дизел...',
-        carName: 'Hyundai Genesis G90 long'),
-    const AdsEntity(
-        imageUrl:
-            'https://cdn.motor1.com/images/mgl/LBl63/s1/2021-genesis-g80.jpg',
-        place: 'г. Ташкент',
-        price: 13442343,
-        aboutCar: 'Land Cruiser, 145 894 км,\nВнедорожник 5дв, АКПП, Дизел...',
-        carName: 'Hyundai Genesis G90 long'),
-    const AdsEntity(
-        imageUrl:
-            'https://cdn.motor1.com/images/mgl/LBl63/s1/2021-genesis-g80.jpg',
-        place: 'г. Ташкент',
-        price: 13442343,
-        aboutCar: 'Land Cruiser, 145 894 км,\nВнедорожник 5дв, АКПП, Дизел...',
-        carName: 'Hyundai Genesis G90 long'),
+    // const AdsEntity(
+    //     imageUrl:
+    //         'https://cdn.motor1.com/images/mgl/LBl63/s1/2021-genesis-g80.jpg',
+    //     place: 'г. Ташкент',
+    //     price: 13442343,
+    //     aboutCar: 'Land Cruiser, 145 894 км,\nВнедорожник 5дв, АКПП, Дизел...',
+    //     carName: 'Hyundai Genesis G90 long'),
+    // const AdsEntity(
+    //     imageUrl:
+    //         'https://cdn.motor1.com/images/mgl/LBl63/s1/2021-genesis-g80.jpg',
+    //     place: 'г. Ташкент',
+    //     price: 13442343,
+    //     aboutCar: 'Land Cruiser, 145 894 км,\nВнедорожник 5дв, АКПП, Дизел...',
+    //     carName: 'Hyundai Genesis G90 long'),
+    // const AdsEntity(
+    //     imageUrl:
+    //         'https://cdn.motor1.com/images/mgl/LBl63/s1/2021-genesis-g80.jpg',
+    //     place: 'г. Ташкент',
+    //     price: 13442343,
+    //     aboutCar: 'Land Cruiser, 145 894 км,\nВнедорожник 5дв, АКПП, Дизел...',
+    //     carName: 'Hyundai Genesis G90 long'),
+    // const AdsEntity(
+    //     imageUrl:
+    //         'https://cdn.motor1.com/images/mgl/LBl63/s1/2021-genesis-g80.jpg',
+    //     place: 'г. Ташкент',
+    //     price: 13442343,
+    //     aboutCar: 'Land Cruiser, 145 894 км,\nВнедорожник 5дв, АКПП, Дизел...',
+    //     carName: 'Hyundai Genesis G90 long'),
   ];
   @override
   void initState() {

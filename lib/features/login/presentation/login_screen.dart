@@ -8,10 +8,8 @@ import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
 import 'package:auto/features/common/widgets/custom_screen.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
-import 'package:auto/features/login/presentation/pages/password_recovery_screen1.dart';
 import 'package:auto/features/common/widgets/w_divider.dart';
 import 'package:auto/features/login/presentation/pages/register_screen.dart';
-import 'package:auto/features/login/presentation/widgets/SignIn_with_socials.dart';
 import 'package:auto/features/login/presentation/pages/reset_password.dart';
 import 'package:auto/features/login/presentation/widgets/z_text_form_field.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
@@ -203,7 +201,7 @@ class _LoginScreenState extends State<LoginScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Expanded(
+                   const Expanded(
                       child: WDivider(
                     margin: EdgeInsets.only(left: 32),
                   )),
@@ -228,13 +226,13 @@ class _LoginScreenState extends State<LoginScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SocialMediaItem(
-                    onTap: () {},
+                    // onTap: () {},
                     icon: SvgPicture.asset(
                         Theme.of(context).extension<ThemedIcons>()!.google),
                   ),
                   const SizedBox(width: 24),
                   SocialMediaItem(
-                      onTap: () {},
+                      // onTap: () {},
                       icon: SvgPicture.asset(
                         AppIcons.apple,
                         color: Theme.of(context)
@@ -243,7 +241,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       )),
                   const SizedBox(width: 24),
                   SocialMediaItem(
-                    onTap: () {},
+                    // onTap: () {},
                     icon: SvgPicture.asset(
                       AppIcons.imkon,
                       color: Theme.of(context)

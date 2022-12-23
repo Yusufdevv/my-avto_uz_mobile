@@ -7,6 +7,7 @@ import 'package:auto/features/onboarding/presentation/widgets/social_media_item.
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class BaseOnBoarding extends StatelessWidget {
   final Color color;
@@ -73,7 +74,7 @@ class BaseOnBoarding extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SocialMediaItem(
-                    onTap: () {},
+                    // onTap: () {},
                     icon: SvgPicture.asset(
                       AppIcons.facebook,
                       color: Theme.of(context)
@@ -82,13 +83,13 @@ class BaseOnBoarding extends StatelessWidget {
                     )),
                 const SizedBox(width: 24),
                 SocialMediaItem(
-                  onTap: () {},
+                  // onTap: () {},
                   icon: SvgPicture.asset(
                       Theme.of(context).extension<ThemedIcons>()!.google),
                 ),
                 const SizedBox(width: 24),
                 SocialMediaItem(
-                    onTap: () {},
+                    // onTap: () {},
                     icon: SvgPicture.asset(
                       AppIcons.apple,
                       color: Theme.of(context)
@@ -97,7 +98,7 @@ class BaseOnBoarding extends StatelessWidget {
                     )),
                 const SizedBox(width: 24),
                 SocialMediaItem(
-                    onTap: () {},
+                    // onTap: () {},
                     icon: SvgPicture.asset(
                       AppIcons.imkon,
                       color: Theme.of(context)

@@ -22,8 +22,8 @@ class _BottomSheetContentState extends State<BottomSheetContent> {
     BottomSheetVariantsEntity(title: 'BMW', imageUrl: AppIcons.facebook, id: 1),
     BottomSheetVariantsEntity(
         imageUrl: AppIcons.facebook, title: 'Acura', id: 2),
-    BottomSheetVariantsModel(
-        imageUrl: AppIcons.facebook, title: 'Sacura', id: 3),
+    // BottomSheetVariantsModel(
+    //     imageUrl: AppIcons.facebook, title: 'Sacura', id: 3),
   ];
 
   @override

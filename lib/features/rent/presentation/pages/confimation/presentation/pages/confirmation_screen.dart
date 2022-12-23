@@ -1,5 +1,4 @@
 import 'package:auto/assets/colors/color.dart';
-import 'package:auto/features/common/widgets/custom_screen.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
@@ -24,6 +23,7 @@ class ConfirmationScreen extends StatefulWidget {
   final String toDate;
   final String receivingAddress;
   final String returningAddress;
+
   const ConfirmationScreen({
     required this.lease,
     required this.receivingAddress,
@@ -40,42 +40,8 @@ class ConfirmationScreen extends StatefulWidget {
 
 class _ConfirmationScreenState extends State<ConfirmationScreen> {
   late AdditionalServicesBloc additionalServicesBloc;
+
   @override
-  Widget build(BuildContext context) => Scaffold(
-        appBar: WAppBar(
-          title: LocaleKeys.confirmation.tr(),
-          centerTitle: false,
-        ),
-        body: SingleChildScrollView(
-          child: Column(
-            children: const [
-              CarSinglePreview(
-                rentEntity: RentListEntity(),
-                hasCarInfo: false,
-              ),
-              RequirementItem(
-                age: '16',
-                experience: '2',
-              ),
-              DetailsItem(),
-              MileagePriceItem(),
-              //PlaceItem(),
-            ],
-          ),
-        ),
-        bottomNavigationBar: WButton(
-          height: 44,
-          onTap: () => Navigator.push(
-              context, fade(page: const RegistrationLeaseScreen())),
-          margin: EdgeInsets.fromLTRB(
-              16, 0, 16, MediaQuery.of(context).padding.bottom + 16),
-          text: LocaleKeys.form_order.tr(),
-          shadow: [
-            BoxShadow(
-                offset: const Offset(0, 4),
-                blurRadius: 20,
-                color: orange.withOpacity(0.2)),
-          ],
   void initState() {
     additionalServicesBloc =
         AdditionalServicesBloc(useCase: AdditionalServiceUseCase())
@@ -93,7 +59,7 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
               centerTitle: false,
             ),
             body: SingleChildScrollView(
-              physics:const  BouncingScrollPhysics(),
+              physics: const BouncingScrollPhysics(),
               child: Column(
                 children: [
                   CarSinglePreview(

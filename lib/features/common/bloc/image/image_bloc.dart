@@ -1,11 +1,7 @@
-import 'dart:async';
 import 'dart:io';
 
-import 'package:auto/features/car_single/presentation/parts/descriptions/equipment.dart';
-import 'package:auto/features/posting_ad/add_photo/presentation/blocs/image_bloc.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:formz/formz.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:meta/meta.dart';
 

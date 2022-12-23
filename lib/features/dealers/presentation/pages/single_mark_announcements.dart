@@ -6,23 +6,23 @@ import 'package:flutter/material.dart';
 class SingleMarkAnnouncements extends StatelessWidget {
   SingleMarkAnnouncements({Key? key}) : super(key: key);
   final List<CommercialItemEntity> commercialItemEntity = [
-    const CommercialItemEntity(
-      autoName: 'Genesis',
-      autoYear: 2020,
-      clientName: 'Анвар Гулямов',
-      title:
-          'Mercedes-Benz Sprinter — семейство малотоннажных автомобилей компании Mercedes-Benz. Существует...',
-      priceAuto: '227 000 000 UZS',
-      oldPriceAuto: '',
-      clientAvatar:
-          'https://images.unsplash.com/photo-1659880233848-1f4eaf4f753c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyOHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60',
-      isSalon: true,
-      isLike: true,
-      model: '',
-      images: [
-        'https://images.unsplash.com/photo-1658856226250-5b236fa6137d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxMDR8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60'
-      ],
-    ),
+    // const CommercialItemEntity(
+    //   autoName: 'Genesis',
+    //   autoYear: 2020,
+    //   clientName: 'Анвар Гулямов',
+    //   title:
+    //       'Mercedes-Benz Sprinter — семейство малотоннажных автомобилей компании Mercedes-Benz. Существует...',
+    //   priceAuto: '227 000 000 UZS',
+    //   oldPriceAuto: '',
+    //   clientAvatar:
+    //       'https://images.unsplash.com/photo-1659880233848-1f4eaf4f753c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyOHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60',
+    //   isSalon: true,
+    //   isLike: true,
+    //   model: '',
+    //   images: [
+    //     'https://images.unsplash.com/photo-1658856226250-5b236fa6137d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxMDR8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60'
+    //   ],
+    // ),
   ];
 
   @override
@@ -46,7 +46,6 @@ class SingleMarkAnnouncements extends StatelessWidget {
             itemCount: 1,
             itemBuilder: (context, index) => AllCommercialItem(
               commercialItemEntity: commercialItemEntity[index],
-              hasMilage: false,
             ),
           ),
           ListView.builder(
@@ -55,7 +54,6 @@ class SingleMarkAnnouncements extends StatelessWidget {
             itemCount: 1,
             itemBuilder: (context, index) => AllCommercialItem(
               commercialItemEntity: commercialItemEntity[index],
-              hasMilage: false,
             ),
           ),
 
