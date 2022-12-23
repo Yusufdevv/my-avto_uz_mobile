@@ -21,6 +21,7 @@ const dodgeBlue = _dodgerBlue;
 const greenText = _pigmentGreen;
 const yellow = _gorse;
 const black = _darkGreen;
+const darkBlack = _black;
 const neonCarrot = _neonCarrot;
 const greyText = _dolphin;
 const activeSwitcher = _limeGreen;
@@ -63,13 +64,19 @@ const secondary = Color(0xff373737);
 const stormGrey12 = _stormGrey12;
 const lavanda = _lavender;
 const tutu = _tutu;
+const secondBackground = _gainsboro2;
+const nero = _nero3;
+
 
 // Main palette (http://www.color-blindness.com/color-name-hue/).
+
+const _gainsboro2 = Color(0xFFE5E5E5);
 const _bittersweet = Color(0xFFFF7474);
 const _whiteSmoke = Color(0xFFF4F4F4);
 const _solitude3 = Color(0xFFFAFAFB);
 const _solitude2 = Color(0xFFF1F1F5);
 const _darkGray = Color(0xffA4A4A4);
+const _nero3 = Color(0xff1D1D1D);
 const _cinnabar = Color(0xffEA5930);
 const _mediumSlateBlue = Color(0xff695CEA);
 const _havelockBlue = Color(0xff4D88C8);
@@ -89,6 +96,7 @@ const _dodgerBlue = Color(0xff0A84FF);
 const _pigmentGreen = Color(0xff00954D);
 const _gorse = Color(0xffFFE143);
 const _darkGreen = Color(0xff00080D);
+const _black = Color(0xff000000);
 const _neonCarrot = Color(0xffFF9B3F);
 const _dolphin = Color(0xff696974);
 const _limeGreen = Color(0xff34C759);

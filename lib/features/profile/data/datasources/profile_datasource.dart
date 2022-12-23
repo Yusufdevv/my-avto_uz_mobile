@@ -15,6 +15,10 @@ abstract class ProfileDataSource {
 
   Future<String> changePassword(
       {required String oldPassword, required String newPassword});
+  Future<String> changePhoneNumber(
+      {required String phoneNumber});
+
+
   Future<List<FavoriteModel>> getProfileFavorites();
 }
 
@@ -138,6 +142,33 @@ class ProfileDataSourceImpl extends ProfileDataSource {
             // ignore: unnecessary_lambdas
             .map((e) => FavoriteModel.fromJson(e))
             .toList();
+      }
+      throw ServerException(
+          statusCode: response.statusCode ?? 0,
+          errorMessage: response.statusMessage ?? '');
+    } on ServerException {
+      rethrow;
+    } on DioError {
+      throw DioException();
+    } on Exception catch (e) {
+      throw ParsingException(errorMessage: e.toString());
+    }
+  }
+  
+  @override
+  Future<String> changePhoneNumber({required String phoneNumber}) async {
+    try {
+      final response = await dio.post(
+        '/users/change-phone/sms-verification/entrypoint/',
+        data: {'phone_number': phoneNumber},
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer ${StorageRepository.getString('token')}'
+          },
+        ),
+      );
+      if (response.statusCode! >= 200 && response.statusCode! < 300) {
+        return response.data;
       }
       throw ServerException(
           statusCode: response.statusCode ?? 0,

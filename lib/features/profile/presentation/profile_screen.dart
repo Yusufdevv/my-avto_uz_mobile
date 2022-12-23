@@ -15,8 +15,10 @@ import 'package:auto/features/profile/domain/usecases/profile_usecase.dart';
 import 'package:auto/features/profile/presentation/bloc/profile/profile_bloc.dart';
 import 'package:auto/features/profile/presentation/pages/about_app_screen.dart';
 import 'package:auto/features/profile/presentation/pages/chat.dart';
+import 'package:auto/features/profile/presentation/pages/directory_page.dart';
 import 'package:auto/features/profile/presentation/pages/favourite_page.dart';
 import 'package:auto/features/profile/presentation/pages/my_ad_screen.dart';
+import 'package:auto/features/profile/presentation/pages/my_searches_page.dart';
 import 'package:auto/features/profile/presentation/pages/see_profile_screen.dart';
 import 'package:auto/features/profile/presentation/pages/settings_screen.dart';
 import 'package:auto/features/profile/presentation/widgets/profil_items_box.dart';
@@ -49,10 +51,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
             repository: serviceLocator<ProfileRepositoryImpl>()),
         profileUseCase:
             ProfileUseCase(repository: serviceLocator<ProfileRepositoryImpl>()),
-        profileFavoritesUseCase:
-            ProfileFavoritesUseCase(repository: serviceLocator<ProfileRepositoryImpl>())
-            )
-      ..add(GetProfileEvent())..add(GetProfileFavoritesEvent());
+        profileFavoritesUseCase: ProfileFavoritesUseCase(
+            repository: serviceLocator<ProfileRepositoryImpl>()))
+      ..add(GetProfileEvent())
+      ..add(GetProfileFavoritesEvent());
     imageBloc = ImageBloc();
     super.initState();
   }
@@ -130,7 +132,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           name: LocaleKeys.favorites.tr(),
                           onTap: () {
                             Navigator.push(
-                                context, fade(page: FavouritePage(favoriteEntity: state.favoriteEntity,)));
+                                context,
+                                fade(
+                                    page: FavouritePage(
+                                        favoriteEntity: state.favoriteEntity)));
                           },
                           iconPath: AppIcons.heartBlue,
                           count: 37),
@@ -158,7 +163,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       const ProfileDivider(),
                       ProfileMenuTile(
                           name: 'Мои поиски',
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.push(
+                                context, fade(page: const MySearchesPage()));
+                          },
                           iconPath: AppIcons.mySearch,
                           count: 23),
                       const ProfileDivider(),
@@ -185,7 +193,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       const ProfileDivider(),
                       ProfileMenuTile(
                           name: 'Справочник',
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.of(context)
+                                .push(fade(page: const DirectoryPage()));
+                          },
                           iconPath: AppIcons.direct),
                       const ProfileDivider(),
                       ProfileMenuTile(

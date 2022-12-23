@@ -34,10 +34,13 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
             status: FormzStatus.pure,
             profileEntity: ProfileModel.fromJson(const {}),
             favoriteEntity: const <FavoriteEntity>[],
+            phoneNumber: '',
+            session: ''
           ),
         ) { 
           
     on<GetProfileEvent>(_onGetProfile);
+    on<ChangePasswordEvent>(_onChangePassword);
     on<ChangePasswordEvent>(_onChangePassword);
     on<EditProfileEvent>(_onEditProfile);
     on<GetProfileFavoritesEvent>(_onGetProfileFavorites);

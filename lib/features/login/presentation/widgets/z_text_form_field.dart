@@ -49,8 +49,8 @@ class ZTextFormField extends StatefulWidget {
   final Widget? suffixTitleWidget;
 
   const ZTextFormField({
-    this.controller,
     required this.onChanged,
+    this.controller,
     this.hasBorderColor,
     this.readOnly = false,
     this.hasSearch,
