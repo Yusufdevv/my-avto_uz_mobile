@@ -49,7 +49,8 @@ class ProfileRepositoryImpl extends ProfileRepository {
   }
 
   @override
-  Future<Either<ServerFailure, List<FavoriteEntity>>> getProfileFavorites() async {
+  Future<Either<ServerFailure, List<FavoriteEntity>>>
+      getProfileFavorites() async {
     try {
       final result = await dataSource.getProfileFavorites();
       return Right(result);
@@ -58,13 +59,12 @@ class ProfileRepositoryImpl extends ProfileRepository {
           ServerFailure(statusCode: 141, errorMessage: error.errorMessage));
     }
   }
-  
+
   @override
-  Future<Either<ServerFailure, String>> changePhoneNumber({required String phoneNumber}) async {
-  
+  Future<Either<ServerFailure, String>> sendPhoneNumber(
+      {required String phoneNumber}) async {
     try {
-      final result = await dataSource.changePhoneNumber(phoneNumber: phoneNumber
-          );
+      final result = await dataSource.sendPhoneNumber(phoneNumber: phoneNumber);
       return Right(result);
     } on ServerException catch (error) {
       return Left(
@@ -72,4 +72,14 @@ class ProfileRepositoryImpl extends ProfileRepository {
     }
   }
   
+  @override
+  Future<Either<ServerFailure, String>> sendVerificationCode({required String phoneNumber, required String code, required String session}) async {
+    try {
+      final result = await dataSource.sendVerificationCode(phoneNumber: phoneNumber, code: code, session: session);
+      return Right(result);
+    } on ServerException catch (error) {
+      return Left(
+          ServerFailure(statusCode: 141, errorMessage: error.errorMessage));
+    }
+  }
 }

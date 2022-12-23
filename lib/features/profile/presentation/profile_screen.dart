@@ -9,7 +9,6 @@ import 'package:auto/features/dealers/presentation/dealers_main.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/profile/data/repositories/profile_repository_impl.dart';
 import 'package:auto/features/profile/domain/usecases/change_password_usecase.dart';
-import 'package:auto/features/profile/domain/usecases/change_phone_number_usecase.dart';
 import 'package:auto/features/profile/domain/usecases/edit_profile_usecase.dart';
 import 'package:auto/features/profile/domain/usecases/profil_favorites_usecase.dart';
 import 'package:auto/features/profile/domain/usecases/profile_usecase.dart';
@@ -45,17 +44,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   void initState() {
+    final repo = serviceLocator<ProfileRepositoryImpl>();
     profileBloc = ProfileBloc(
         changePasswordUseCase: ChangePasswordUseCase(
-            repository: serviceLocator<ProfileRepositoryImpl>()),
+            repository: repo),
         editProfileUseCase: EditProfileUseCase(
-            repository: serviceLocator<ProfileRepositoryImpl>()),
+            repository: repo),
         profileUseCase:
-            ProfileUseCase(repository: serviceLocator<ProfileRepositoryImpl>()),
+            ProfileUseCase(repository: repo),
         profileFavoritesUseCase: ProfileFavoritesUseCase(
-            repository: serviceLocator<ProfileRepositoryImpl>()),
-        changePhoneNumberUseCase: ChangePhoneNumberUseCase(
-            repository: serviceLocator<ProfileRepositoryImpl>()),    
+            repository: repo),
             )
       ..add(GetProfileEvent())
       ..add(GetProfileFavoritesEvent());

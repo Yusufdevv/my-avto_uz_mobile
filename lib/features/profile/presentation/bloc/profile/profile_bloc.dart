@@ -1,10 +1,8 @@
 import 'package:auto/core/usecases/usecase.dart';
-import 'package:auto/features/profile/data/models/favorite_model.dart';
 import 'package:auto/features/profile/data/models/profile.dart';
 import 'package:auto/features/profile/domain/entities/favourite_entity.dart';
 import 'package:auto/features/profile/domain/entities/profile_entity.dart';
 import 'package:auto/features/profile/domain/usecases/change_password_usecase.dart';
-import 'package:auto/features/profile/domain/usecases/change_phone_number_usecase.dart';
 import 'package:auto/features/profile/domain/usecases/edit_profile_usecase.dart';
 import 'package:auto/features/profile/domain/usecases/profil_favorites_usecase.dart';
 import 'package:auto/features/profile/domain/usecases/profile_usecase.dart';
@@ -22,14 +20,13 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   final ProfileFavoritesUseCase profileFavoritesUseCase;
   final EditProfileUseCase editProfileUseCase;
   final ChangePasswordUseCase changePasswordUseCase;
-  final ChangePhoneNumberUseCase changePhoneNumberUseCase;
 
   ProfileBloc({
     required this.profileUseCase,
     required this.profileFavoritesUseCase,
     required this.editProfileUseCase,
     required this.changePasswordUseCase,
-    required this.changePhoneNumberUseCase,
+    
   }) : super(
           ProfileState(
             changeStatus: FormzStatus.pure,
@@ -37,14 +34,11 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
             status: FormzStatus.pure,
             profileEntity: ProfileModel.fromJson(const {}),
             favoriteEntity: const <FavoriteEntity>[],
-            phoneNumber: '',
-            session: ''
           ),
         ) { 
           
     on<GetProfileEvent>(_onGetProfile);
     on<ChangePasswordEvent>(_onChangePassword);
-    on<ChangePhoneNumberEvent>(_onChangePhoneNumber);
     on<EditProfileEvent>(_onEditProfile);
     on<GetProfileFavoritesEvent>(_onGetProfileFavorites);
   }
@@ -81,28 +75,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     }
   }
 
-  Future<void> _onChangePhoneNumber(
-      ChangePhoneNumberEvent event, Emitter<ProfileState> emit) async {
-    emit(state.copyWith(changeStatus: FormzStatus.submissionInProgress));
-    if (event.newPhoneNumber.isNotEmpty) {
-     
-        final result = await changePhoneNumberUseCase.call(ChangePhoneNumberParams(
-          phoneNumber: event.newPhoneNumber
-        ));
-
-        if (result.isRight) {
-          event.onSuccess();
-          emit(state.copyWith(changeStatus: FormzStatus.submissionSuccess));
-        } else {
-          event.onError(result.left.toString());
-          emit(state.copyWith(changeStatus: FormzStatus.submissionFailure));
-        }
-      
-    } else {
-      event.onError("Ma'lumotlarni to'ldiring");
-      emit(state.copyWith(changeStatus: FormzStatus.submissionFailure));
-    }
-  }
+  
 
   Future<void> _onChangePassword(
       ChangePasswordEvent event, Emitter<ProfileState> emit) async {
