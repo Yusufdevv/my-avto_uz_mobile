@@ -1,7 +1,7 @@
-class BottomSheetVariantsModel {
+class BottomSheetVariantsEntity {
   final String title;
   final String imageUrl;
   final int id;
-  BottomSheetVariantsModel(
+  BottomSheetVariantsEntity(
       {required this.imageUrl, required this.title, required this.id});
 }

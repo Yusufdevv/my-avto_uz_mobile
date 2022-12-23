@@ -16,6 +16,8 @@ import 'package:auto/features/login/presentation/login_screen.dart';
 import 'package:auto/features/navigation/presentation/home.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/onboarding/presentation/first_onboarding.dart';
+import 'package:auto/features/onboarding/presentation/first_onboarding.dart';
+import 'package:auto/features/onboarding/presentation/pages/on_boarding_screen.dart';
 import 'package:auto/features/splash/presentation/pages/splash_sc.dart';
 import 'package:auto/generated/codegen_loader.g.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -93,14 +95,16 @@ class _AppState extends State<App> {
               switch (state.status) {
                 case AuthenticationStatus.unauthenticated:
                   navigator.pushAndRemoveUntil(
-                      fade(
-                          page: BlocProvider(
-                              create: (c) => RegisterBloc(
-                                  sendCodeUseCase: SendCodeUseCase(),
-                                  registerUseCase: RegisterUseCase(),
-                                  verifyCodeUseCase: VerifyCodeUseCase()),
-                              child: const LoginScreen())),
-                      (route) => false);
+                      fade(page: const FirstOnBoarding()), (route) => false);
+                  // navigator.pushAndRemoveUntil(
+                  //     fade(
+                  //         page: BlocProvider(
+                  //             create: (c) => RegisterBloc(
+                  //                 sendCodeUseCase: SendCodeUseCase(),
+                  //                 registerUseCase: RegisterUseCase(),
+                  //                 verifyCodeUseCase: VerifyCodeUseCase()),
+                  //             child: const LoginScreen())),
+                  //     (route) => false);
                   break;
                 case AuthenticationStatus.authenticated:
                   navigator.pushAndRemoveUntil(

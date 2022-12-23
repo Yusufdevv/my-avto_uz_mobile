@@ -1,9 +1,13 @@
+import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_icons.dart';
 import 'package:auto/features/car_single/domain/entities/car_user_entity.dart';
 import 'package:auto/features/commercial/presentation/commercial_screen.dart';
+import 'package:auto/features/car_single/presentation/parts/descriptions/seller_comment.dart';
 import 'package:auto/features/common/domain/entity/car_brand_entity.dart';
+import 'package:auto/features/common/widgets/w_button.dart';
+import 'package:auto/features/dealers/presentation/dealers_main.dart';
 import 'package:auto/features/dealers/presentation/dealers_main.dart';
 import 'package:auto/features/main/domain/entities/ads_entity.dart';
 import 'package:auto/features/main/domain/entities/service_entity.dart';
@@ -27,6 +31,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:yandex_mapkit/yandex_mapkit.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -262,7 +267,50 @@ class _MainScreenState extends State<MainScreen> {
                   ),
                 ),
                 const FavouriteItem(),
-                const YandexMapItem(),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: SizedBox(
+                    height: 191,
+                    child: Stack(
+                      alignment: AlignmentDirectional.bottomStart,
+                      children: [
+                        const YandexMap(),
+                        WButton(
+                          onTap: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const DealerScreen(),
+                              )),
+                          margin: const EdgeInsets.symmetric(
+                              horizontal: 16, vertical: 15),
+                          padding: const EdgeInsets.symmetric(horizontal: 15),
+                          height: 44,
+                          color: white,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              SvgPicture.asset(
+                                AppIcons.mapPin,
+                                color: purple,
+                                height: 15,
+                                width: 13,
+                              ),
+                              const SizedBox(width: 12),
+                              const Text(
+                                'Показать всех дилеров',
+                                style: TextStyle(
+                                  color: black,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
               ],
             ),
           ),

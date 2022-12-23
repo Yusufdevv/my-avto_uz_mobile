@@ -145,6 +145,7 @@ class LightThemeColors {
   static const whiteSmokeToBlack = _whiteSmoke1;
   static const silverToNightRider = _silver;
   static const textBlue = _blueText;
+  static const dividerColor=_solitude;
 }
 
 // Main palette (http://www.color-blindness.com/color-name-hue/).

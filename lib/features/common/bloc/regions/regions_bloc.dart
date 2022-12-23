@@ -17,12 +17,13 @@ class RegionsBloc extends Bloc<RegionsEvent, RegionsState> {
     on<_GetRegions>((event, emit) async {
       emit(state.copyWith(status: FormzStatus.submissionInProgress));
       final result = await getRegions('');
+
       if (result.isRight) {
         emit(state.copyWith(
             status: FormzStatus.submissionSuccess,
             regions: result.right.results));
       } else {
-        print('isRight142');
+        print('isLeft142');
         emit(state.copyWith(status: FormzStatus.submissionFailure));
       }
     });

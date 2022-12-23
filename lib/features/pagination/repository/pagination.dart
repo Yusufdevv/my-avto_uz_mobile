@@ -13,6 +13,7 @@ class PaginationRepository {
   Future<Either<Failure, GenericPagination<T>>> fetchMore<T>(
       {required String url,
       String? next,
+      bool sendToken = true,
       required T Function(Map<String, dynamic>) fromJson,
       Map<String, dynamic>? query}) async {
     print('query --- query --- query --- ${query.toString()}');
@@ -24,10 +25,13 @@ class PaginationRepository {
 
       final result = await dio.get(
         next != null && next.isNotEmpty ? next : url,
-        options: Options(headers: {
-          'Authorization':
-              "Bearer ${StorageRepository.getString('token', defValue: '')}"
-        }),
+        options: Options(
+            headers: sendToken
+                ? {
+                    'Authorization':
+                        "Bearer ${StorageRepository.getString('token', defValue: '')}"
+                  }
+                : {}),
         queryParameters: queryParams,
       );
       print(queryParams);

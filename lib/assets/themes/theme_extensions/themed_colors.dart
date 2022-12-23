@@ -103,6 +103,7 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
   final Color whiteToNero2;
   final Color whiteToBlack;
   final Color seashellToCinnabar15;
+  final Color dividerColor;
 
   const ThemedColors({
     required this.ghostToGondola,
@@ -207,6 +208,7 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
     required this.whiteToNero2,
     required this.whiteToBlack,
     required this.seashellToCinnabar15,
+    required this.dividerColor,
   });
 
   @override
@@ -416,6 +418,7 @@ class ThemedColors extends ThemeExtension<ThemedColors> {
         solitudeContainerToBlack: solitudeContainerToBlack ?? this.solitudeContainerToBlack,
         solitudeContainerToNero1: solitudeContainerToNero1 ?? this.solitudeContainerToNero1,
         whiteToNero2: whiteToNero2 ?? this.whiteToNero2,
+        dividerColor: dividerColor?? this.dividerColor,
       );
 
   @override

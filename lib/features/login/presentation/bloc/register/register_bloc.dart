@@ -1,3 +1,4 @@
+import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/features/login/data/models/register.dart';
 import 'package:auto/features/login/domain/usecases/register_user.dart';
 import 'package:auto/features/login/domain/usecases/send_code.dart';
@@ -37,6 +38,9 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
           event.onSuccess!();
         }
       } else {
+        if (event.onError != null) {
+          event.onError!(result.left.toString());
+        }
         emit(state.copyWith(verifyStatus: FormzStatus.submissionInProgress));
       }
     });
@@ -44,6 +48,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
       emit(state.copyWith(sendCodeStatus: FormzStatus.submissionInProgress));
       final result = await sendCodeUseCase(event.phone);
       if (result.isRight) {
+        print('right');
         emit(state.copyWith(
           sendCodeStatus: FormzStatus.submissionSuccess,
         ));
@@ -51,6 +56,13 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
           event.onSuccess!(result.right);
         }
       } else {
+        print('left');
+        if (event.onError != null) {
+          print('null');
+          print(result.left);
+          print((result.left as ServerFailure).errorMessage);
+          event.onError!((result.left as ServerFailure).errorMessage);
+        } else {}
         emit(state.copyWith(sendCodeStatus: FormzStatus.submissionInProgress));
       }
     });
@@ -75,6 +87,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
           event.onSuccess!();
         }
       } else {
+        event.onError((result.left as ServerFailure).errorMessage);
         emit(state.copyWith(registerStatus: FormzStatus.submissionInProgress));
       }
     });

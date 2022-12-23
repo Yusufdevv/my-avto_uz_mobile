@@ -1,4 +1,8 @@
 class AppIcons {
+  //Auth
+  static const icCamera = 'assets/icons/auth/camera.svg';
+  static const gallery = 'assets/icons/auth/gallery.svg';
+
   //NavBar
   static const navBarMain = 'assets/icons/navbar/main.svg';
   static const navBarMainOutline = 'assets/icons/navbar/main_outline.svg';
@@ -62,6 +66,9 @@ class AppIcons {
   static const uzbekistan = 'assets/icons/global/uzbekistan.svg';
   static const chevronDownGrey = 'assets/icons/global/chevron_down_grey.svg';
   static const chevronRight = 'assets/icons/global/chevron_right.svg';
+  static const mapPin = 'assets/icons/global/map_pin.svg';
+  static const filterIcon = 'assets/icons/global/filter_icon.svg';
+  static const cancel = 'assets/icons/global/cancel.svg';
 
   // PROFILE
   static const alert = 'assets/icons/profile/alert.svg';
@@ -134,6 +141,7 @@ class AppIcons {
   static const chevronRight2 = 'assets/icons/global/chevron_right.svg';
   static const commercialCar = 'assets/icons/global/commercial_car.svg';
   static const checkGreen = 'assets/icons/global/check_green.svg';
+
 
   // REVIEW
   static const messageRectangle = 'assets/icons/review/message_rectangle.svg';
