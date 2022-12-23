@@ -22,6 +22,23 @@ class ChangePasswordEvent extends ProfileEvent {
   });
 }
 
+class ChangePhoneNumberEvent extends ProfileEvent{
+  final String newPhoneNumber;
+  final Function onSuccess;
+  final Function(String text) onError;
+
+  ChangePhoneNumberEvent({required this.newPhoneNumber, required this.onSuccess, required this.onError });
+}
+class SendSmsVerifiactionCodeEvent extends ProfileEvent{
+  final String newPhoneNumber;
+  final String code;
+  final String session;
+  final Function onSuccess;
+  final Function(String text) onError;
+
+  SendSmsVerifiactionCodeEvent({required this.newPhoneNumber,required this.code,required this.session,required this.onSuccess, required this.onError});
+}
+
 class EditProfileEvent extends ProfileEvent {
   final String? name;
   final String? surName;

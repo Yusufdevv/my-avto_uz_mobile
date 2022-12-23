@@ -15,7 +15,7 @@ abstract class ProfileRepository {
       {required String oldPassword, required String newPassword});
 
   Future<Either<ServerFailure, String>> changePhoneNumber(
-      {required String phoneNumber, });
+      {required String phoneNumber});
 
   Future<Either<ServerFailure, List<FavoriteEntity>>> getProfileFavorites();
 
