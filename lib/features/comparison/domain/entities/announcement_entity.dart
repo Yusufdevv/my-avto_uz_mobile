@@ -1,29 +1,34 @@
 import 'package:auto/features/comparison/data/models/announcement_model.dart';
+import 'package:auto/features/comparison/domain/entities/engine_data_entity.dart';
+import 'package:auto/features/comparison/domain/entities/main_data_entity.dart';
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 class AnnouncementsEntity extends Equatable {
   const AnnouncementsEntity({
-    this.id = 0,
+    this.mainData = const MainDataEntity(),
+    this.engineData = const EngineDataEntity(),
+    this.dimensions,
+    this.volumeAndMass,
+    this.suspensionsAndBrakes,
+    this.other,
+    this.id = -1,
     this.licenceType = '',
     this.ownership = '',
-    this.isRegisteredLocally = true,
-    this.isNew = true,
+    this.isRegisteredLocally = false,
+    this.isNew = false,
     this.price = '',
     this.currency = '',
-    this.make = '',
-    this.model = '',
-    this.generation = '',
-    this.bodyType = '',
-    this.driveType = '',
-    this.engineType = '',
-    this.gearboxType = '',
-    this.year = 2002,
-    this.color = '',
-    this.power = '',
-    this.volume = '',
   });
 
+  @MainDataConverter()
+  final MainDataEntity mainData;
+  @EngineDataConverter()
+  final EngineDataEntity engineData;
+  final dynamic dimensions;
+  final dynamic volumeAndMass;
+  final dynamic suspensionsAndBrakes;
+  final dynamic other;
   final int id;
   final String licenceType;
   final String ownership;
@@ -31,39 +36,23 @@ class AnnouncementsEntity extends Equatable {
   final bool isNew;
   final String price;
   final String currency;
-  final String make;
-  final String model;
-  final String generation;
-  final String bodyType;
-  final String driveType;
-  final String engineType;
-  final String gearboxType;
-  final int year;
-  final String color;
-  final String power;
-  final String volume;
 
   @override
   List<Object?> get props => [
-    id,
-    licenceType,
-    ownership,
-    isRegisteredLocally,
-    isNew,
-    price,
-    currency,
-    make,
-    model,
-    generation,
-    bodyType,
-    driveType,
-    engineType,
-    gearboxType,
-    year,
-    color,
-    power,
-    volume,
-  ];
+        mainData,
+        engineData,
+        dimensions,
+        volumeAndMass,
+        suspensionsAndBrakes,
+        other,
+        id,
+        licenceType,
+        ownership,
+        isRegisteredLocally,
+        isNew,
+        price,
+        currency,
+      ];
 }
 
 class AnnouncementsConverter

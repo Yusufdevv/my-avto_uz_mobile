@@ -126,6 +126,7 @@ class CharacteristicsParametersWidget extends StatelessWidget {
                                         child: Text(
                                           numberOfAddedCars[index]
                                               .announcement
+                                              .mainData
                                               .bodyType,
                                           style: Theme.of(context)
                                               .textTheme
@@ -221,6 +222,7 @@ class CharacteristicsParametersWidget extends StatelessWidget {
                                         child: Text(
                                           numberOfAddedCars[index]
                                               .announcement
+                                              .mainData
                                               .make,
                                           style: Theme.of(context)
                                               .textTheme
