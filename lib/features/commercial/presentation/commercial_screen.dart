@@ -5,7 +5,6 @@ import 'package:auto/features/commercial/presentation/widgets/commercial_tab.dar
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
-import 'package:auto/features/search/presentation/pages/select_car.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -18,8 +17,7 @@ class CommercialScreen extends StatefulWidget {
   State<CommercialScreen> createState() => _CommercialScreenState();
 }
 
-class _CommercialScreenState extends State<CommercialScreen>
-    with SingleTickerProviderStateMixin {
+class _CommercialScreenState extends State<CommercialScreen> with SingleTickerProviderStateMixin {
   late TabController tabController;
 
   @override
@@ -34,8 +32,7 @@ class _CommercialScreenState extends State<CommercialScreen>
   Widget build(BuildContext context) => KeyboardDismisser(
         child: AnnotatedRegion(
           value: SystemUiOverlayStyle(
-            statusBarColor:
-                Theme.of(context).extension<ThemedColors>()!.whiteToDark,
+            statusBarColor: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
             statusBarBrightness: Brightness.light,
             statusBarIconBrightness: Brightness.dark,
           ),
@@ -51,10 +48,8 @@ class _CommercialScreenState extends State<CommercialScreen>
                       Padding(
                         padding: const EdgeInsets.only(right: 12),
                         child: WScaleAnimation(
-                          onTap: () => Navigator.push(
-                              context, fade(page: const SelectCarScreen())),
-                          child: SvgPicture.asset(AppIcons.searchWithHeart,
-                              width: 20, height: 20),
+                          onTap: () {}/* => Navigator.push(context, fade(page: const SelectCarScreen()))*/,
+                          child: SvgPicture.asset(AppIcons.searchWithHeart, width: 20, height: 20),
                         ),
                       ),
                     ],

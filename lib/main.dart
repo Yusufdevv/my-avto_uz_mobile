@@ -2,6 +2,7 @@ import 'package:auto/assets/themes/dark.dart';
 import 'package:auto/assets/themes/light.dart';
 import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/core/singletons/storage.dart';
+import 'package:auto/core/utils/size_config.dart';
 import 'package:auto/features/common/bloc/auth/authentication_bloc.dart';
 import 'package:auto/features/common/bloc/regions/regions_bloc.dart';
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
@@ -15,6 +16,8 @@ import 'package:auto/features/login/presentation/login_screen.dart';
 import 'package:auto/features/navigation/presentation/home.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/onboarding/presentation/first_onboarding.dart';
+import 'package:auto/features/onboarding/presentation/first_onboarding.dart';
+import 'package:auto/features/onboarding/presentation/pages/on_boarding_screen.dart';
 import 'package:auto/features/splash/presentation/pages/splash_sc.dart';
 import 'package:auto/generated/codegen_loader.g.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -85,20 +88,23 @@ class _AppState extends State<App> {
           themeMode: ThemeMode.light,
           navigatorKey: _navigatorKey,
           onGenerateRoute: (settings) => SplashSc.route(),
-          builder: (context, child) =>
-              BlocListener<AuthenticationBloc, AuthenticationState>(
+          builder: (context, child) {
+            SizeConfig().init(context);
+                       return   BlocListener<AuthenticationBloc, AuthenticationState>(
             listener: (context, state) {
               switch (state.status) {
                 case AuthenticationStatus.unauthenticated:
                   navigator.pushAndRemoveUntil(
-                      fade(
-                          page: BlocProvider(
-                              create: (c) => RegisterBloc(
-                                  sendCodeUseCase: SendCodeUseCase(),
-                                  registerUseCase: RegisterUseCase(),
-                                  verifyCodeUseCase: VerifyCodeUseCase()),
-                              child: const LoginScreen())),
-                      (route) => false);
+                      fade(page: const FirstOnBoarding()), (route) => false);
+                  // navigator.pushAndRemoveUntil(
+                  //     fade(
+                  //         page: BlocProvider(
+                  //             create: (c) => RegisterBloc(
+                  //                 sendCodeUseCase: SendCodeUseCase(),
+                  //                 registerUseCase: RegisterUseCase(),
+                  //                 verifyCodeUseCase: VerifyCodeUseCase()),
+                  //             child: const LoginScreen())),
+                  //     (route) => false);
                   break;
                 case AuthenticationStatus.authenticated:
                   navigator.pushAndRemoveUntil(
@@ -110,23 +116,28 @@ class _AppState extends State<App> {
                   if (!StorageRepository.getBool('onboarding',
                       defValue: false)) {
                     navigator.pushAndRemoveUntil(
-                        fade(page: const HomeScreen()), (route) => false);
+                      fade(page: const HomeScreen()),
+                      (route) => false,
+                    );
                   } else {
                     navigator.pushAndRemoveUntil(
                         fade(
-                            page: BlocProvider(
-                                create: (c) => RegisterBloc(
-                                    sendCodeUseCase: SendCodeUseCase(),
-                                    registerUseCase: RegisterUseCase(),
-                                    verifyCodeUseCase: VerifyCodeUseCase()),
-                                child: const LoginScreen())),
+                          page: BlocProvider(
+                            create: (c) => RegisterBloc(
+                              sendCodeUseCase: SendCodeUseCase(),
+                              registerUseCase: RegisterUseCase(),
+                              verifyCodeUseCase: VerifyCodeUseCase(),
+                            ),
+                            child: const LoginScreen(),
+                          ),
+                        ),
                         (route) => false);
                   }
                   break;
               }
             },
             child: child,
-          ),
+          );}
         ),
       );
 }

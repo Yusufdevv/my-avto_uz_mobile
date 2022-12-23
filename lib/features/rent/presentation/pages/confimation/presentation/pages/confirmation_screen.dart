@@ -1,5 +1,4 @@
 import 'package:auto/assets/colors/color.dart';
-import 'package:auto/features/common/widgets/custom_screen.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
@@ -24,6 +23,7 @@ class ConfirmationScreen extends StatefulWidget {
   final String toDate;
   final String receivingAddress;
   final String returningAddress;
+
   const ConfirmationScreen({
     required this.lease,
     required this.receivingAddress,
@@ -40,6 +40,7 @@ class ConfirmationScreen extends StatefulWidget {
 
 class _ConfirmationScreenState extends State<ConfirmationScreen> {
   late AdditionalServicesBloc additionalServicesBloc;
+
   @override
   void initState() {
     additionalServicesBloc =
@@ -58,7 +59,7 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
               centerTitle: false,
             ),
             body: SingleChildScrollView(
-              physics:const  BouncingScrollPhysics(),
+              physics: const BouncingScrollPhysics(),
               child: Column(
                 children: [
                   CarSinglePreview(

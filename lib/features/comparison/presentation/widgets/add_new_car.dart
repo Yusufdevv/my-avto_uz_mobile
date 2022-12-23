@@ -12,10 +12,10 @@ class AddNewCar extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => GestureDetector(
+  Widget build(BuildContext context) => InkWell(
         onTap: onTap,
         child: Container(
-          margin: const EdgeInsets.only(bottom: 34, left: 12),
+          margin: const EdgeInsets.only(bottom: 18, left: 12),
           width: (MediaQuery.of(context).size.width - 46) / 2,
           decoration: BoxDecoration(
             color: Theme.of(context).extension<ThemedColors>()!.whiteToNero1,
@@ -48,14 +48,16 @@ class AddNewCar extends StatelessWidget {
                   width: 36,
                   height: 36,
                   decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: purple,
-                      boxShadow: [
-                        BoxShadow(
-                            blurRadius: 26,
-                            offset: const Offset(0, 4),
-                            color: purple.withOpacity(0.4))
-                      ]),
+                    shape: BoxShape.circle,
+                    color: purple,
+                    boxShadow: [
+                      BoxShadow(
+                        blurRadius: 26,
+                        offset: const Offset(0, 4),
+                        color: purple.withOpacity(0.4),
+                      )
+                    ],
+                  ),
                   child: SvgPicture.asset(
                     AppIcons.addCarIcon,
                   ),

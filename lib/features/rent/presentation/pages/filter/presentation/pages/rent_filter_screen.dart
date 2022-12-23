@@ -1,13 +1,10 @@
 import 'package:auto/assets/colors/color.dart';
-import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/bloc/regions/regions_bloc.dart';
 import 'package:auto/features/common/widgets/range_slider.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
-import 'package:auto/features/dealers/presentation/widgets/bottom_sheet.dart';
 import 'package:auto/features/dealers/presentation/widgets/filter_region_mark_container.dart';
 import 'package:auto/features/login/presentation/bloc/register/register_bloc.dart';
-import 'package:auto/features/login/presentation/widgets/region_button.dart';
 import 'package:auto/features/login/presentation/widgets/regions_bottomsheet.dart';
 import 'package:auto/features/search/presentation/widgets/selector_item.dart';
 import 'package:auto/generated/locale_keys.g.dart';

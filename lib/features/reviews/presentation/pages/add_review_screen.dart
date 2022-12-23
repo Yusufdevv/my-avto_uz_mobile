@@ -1,184 +1,150 @@
-import 'package:auto/assets/colors/light.dart';
+import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
-import 'package:auto/features/reviews/presentation/pages/publish_screen.dart';
-import 'package:auto/features/reviews/presentation/widgets/car_features.dart';
-import 'package:auto/features/reviews/presentation/widgets/model_bottomsheet.dart';
-import 'package:auto/features/reviews/presentation/widgets/next_container.dart';
-import 'package:auto/features/reviews/presentation/widgets/rating_bottomsheet.dart';
-import 'package:auto/generated/locale_keys.g.dart';
-import 'package:easy_localization/easy_localization.dart';
+import 'package:auto/core/singletons/dio_settings.dart';
+import 'package:auto/features/common/widgets/w_app_bar.dart';
+import 'package:auto/features/common/widgets/w_button.dart';
+import 'package:auto/features/navigation/presentation/navigator.dart';
+import 'package:auto/features/reviews/data/datasources/create_review_datasource.dart';
+import 'package:auto/features/reviews/data/repositories/create_review_repository_impl.dart';
+import 'package:auto/features/reviews/domain/usecases/create_review_usecase.dart';
+import 'package:auto/features/reviews/presentation/blocs/create_review_bloc/create_review_bloc.dart';
+import 'package:auto/features/reviews/presentation/pages/publication_my_review.dart';
+import 'package:auto/features/reviews/presentation/widgets/select_car_character_item.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:keyboard_dismisser/keyboard_dismisser.dart';
+import 'package:percent_indicator/circular_percent_indicator.dart';
 
 class AddReviewScreen extends StatefulWidget {
-  const AddReviewScreen({super.key});
+  final String category;
+  const AddReviewScreen({required this.category, super.key});
 
   @override
   State<AddReviewScreen> createState() => _AddReviewScreenState();
 }
 
 class _AddReviewScreenState extends State<AddReviewScreen> {
-  List strings = [
-    LocaleKeys.brand.tr(),
-    LocaleKeys.model.tr(),
-    LocaleKeys.year_of_issue.tr(),
-    LocaleKeys.generation.tr(),
-    LocaleKeys.body_type.tr(),
-    LocaleKeys.motor.tr(),
-    LocaleKeys.choose_drive_type.tr(),
-    LocaleKeys.choose_box_type.tr(),
-    LocaleKeys.modification.tr(),
-    LocaleKeys.ownership_term.tr(),
-    LocaleKeys.plus.tr(),
-    LocaleKeys.minus.tr(),
-    LocaleKeys.rate.tr(),
+  late CreateReviewBloc createReviewBloc;
+  int completed = 1;
+  final List<String> titles = [
+    'Категория',
+    'Марка',
+    'Модель',
+    'Год выпуска',
+    'Покаление',
+    'Тип кузова',
+    'Двигатель',
+    'Тип привода',
+    'Тип коробки передач',
+    'Модификация',
+    'Срок владения',
+    'Плюсы',
+    'Минусы',
+    'Оценки'
   ];
-
-  List bottomsheets = [
-    const OwnershipBottomsheet(),
-    const OwnershipBottomsheet(),
-    const OwnershipBottomsheet(),
-    const OwnershipBottomsheet(),
-    const OwnershipBottomsheet(),
-    const OwnershipBottomsheet(),
-    const OwnershipBottomsheet(),
-    const OwnershipBottomsheet(),
-    const OwnershipBottomsheet(),
-    const OwnershipBottomsheet(),
-    const OwnershipBottomsheet(),
-    const OwnershipBottomsheet(),
-    const RatingBottomsheet(),
-  ];
+  bool isButtonActive = true;
   @override
-  Widget build(BuildContext context) => AnnotatedRegion(
-        value: const SystemUiOverlayStyle(
-          statusBarColor: Colors.transparent,
+  void initState() {
+    super.initState();
+    createReviewBloc = CreateReviewBloc(
+      useCase: CreateReviewUseCase(
+        repository: CreateReviewRepositoryImpl(
+          dataSource: CreateReviewDatasourceImpl(DioSettings().dio),
         ),
-        child: Scaffold(
-          appBar: PreferredSize(
-            preferredSize: const Size.fromHeight(kToolbarHeight),
-            child: Container(
-              decoration: const BoxDecoration(boxShadow: [
-                BoxShadow(
-                  color: Color.fromRGBO(23, 23, 37, 0.08),
-                  offset: Offset(0, 8),
-                  blurRadius: 24,
-                )
-              ]),
-              child: AppBar(
-                automaticallyImplyLeading: false,
-                elevation: 0,
-                titleSpacing: 24,
-                title: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: <Widget>[
-                    IconButton(
-                      onPressed: () => Navigator.pop(context),
-                      icon: SvgPicture.asset(AppIcons.appbar_back),
-                    ),
-                    const SizedBox(width: 16),
-                    Text(
-                      LocaleKeys.add_review.tr(),
-                      style: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) => KeyboardDismisser(
+        child: MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (context) => createReviewBloc,
+            )
+          ],
+          child: Scaffold(
+            appBar: const WAppBar(
+              hasBackButton: true,
+              title: 'Добавить отзыв',
+              centerTitle: false,
             ),
-          ),
-          body: Container(
-            height: double.maxFinite,
-            width: double.maxFinite,
-            margin: const EdgeInsets.only(top: 16),
-            decoration: const BoxDecoration(
-              color: LightThemeColors.appBarColor,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(20),
-                topRight: Radius.circular(20),
-              ),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 16, top: 16, bottom: 2),
-                  child: Row(
-                    children: [
-                      const CircleAvatar(
-                        radius: 13,
-                        backgroundColor: Color.fromRGBO(241, 241, 245, 1),
-                        child: CircleAvatar(
-                          radius: 12,
-                          backgroundColor: Colors.white,
+            body: SingleChildScrollView(
+              physics: const ClampingScrollPhysics(),
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        CircularPercentIndicator(
+                          radius: 15,
+                          lineWidth: 3,
+                          percent: completed / titles.length,
+                          backgroundColor: border,
+                          progressColor: hoursGreen,
                         ),
-                      ),
-                      const SizedBox(width: 12),
-                      Text(
-                        LocaleKeys.auto.tr(),
-                        style: const TextStyle(
-                          color: Colors.black,
-                          fontSize: 20,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 52, bottom: 30),
-                  child: Text(
-                    '${LocaleKeys.filled.tr()} 1 из 13',
-                    style: const TextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.w400,
-                      color: Color(0xff696974),
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: ListView.separated(
-                    physics: const BouncingScrollPhysics(),
-                    itemBuilder: (context, index) => GestureDetector(
-                      behavior: HitTestBehavior.opaque,
-                      onTap: () {
-                        showModalBottomSheet(
-                          shape: const RoundedRectangleBorder(
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(20),
-                              topRight: Radius.circular(20),
-                            ),
+                        const SizedBox(width: 12),
+                        RichText(
+                          text: TextSpan(
+                            children: [
+                              TextSpan(
+                                text: 'Автомобиль\n',
+                                style: Theme.of(context).textTheme.headline1,
+                              ),
+                              TextSpan(
+                                text: 'Заполнено $completed из 13',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline2!
+                                    .copyWith(fontSize: 13),
+                              ),
+                            ],
                           ),
-                          backgroundColor: Colors.white,
-                          context: context,
-                          builder: (context) => bottomsheets[index],
-                        );
-                      },
-                      child: features(strings[index]),
+                        ),
+                      ],
+                    ),
+                  ),
+                  ListView.separated(
+                    itemCount: titles.length,
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemBuilder: (context, index) => SelectCarCharactersItem(
+                      title: titles[index],
+                      onTap: () {},
+                      subtitle: widget.category,
                     ),
                     separatorBuilder: (context, index) => const Divider(
-                      thickness: 1,
-                      indent: 16,
-                      height: 32,
-                    ),
-                    itemCount: 13,
+                        height: 17, thickness: 1, color: border, indent: 16),
                   ),
-                ),
-                GestureDetector(
-                  onTap: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const PublishScreen()),
+                  WButton(
+                    onTap: () {
+                      Navigator.of(context)
+                          .push(fade(page: const PublicationMyReview()));
+                    },
+                    text: 'Далее',
+                    textStyle: Theme.of(context).textTheme.bodyText1!.copyWith(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                        color: isButtonActive ? white : dividerColor),
+                    color: orange,
+                    borderRadius: 8,
+                    disabledColor: warmerGrey,
+                    isDisabled: !isButtonActive,
+                    margin: const EdgeInsets.only(
+                        left: 16, right: 16, top: 44, bottom: 33),
+                    shadow: const [
+                      BoxShadow(
+                        color: warmerGrey,
+                        offset: Offset(0, 4),
+                        blurRadius: 20,
+                      )
+                    ],
+                    height: 44,
                   ),
-                  child: nexContainer(
-                    LightThemeColors.headline5,
-                    LocaleKeys.further.tr(),
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

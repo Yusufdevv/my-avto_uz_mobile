@@ -1,6 +1,7 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/comparison/presentation/widgets/add_new_car.dart';
+import 'package:auto/features/comparison/presentation/widgets/list_of_added_cars.dart';
 import 'package:auto/features/comparison/presentation/widgets/added_car_sticky.dart';
 import 'package:auto/features/comparison/presentation/widgets/added_car_widget.dart';
 import 'package:auto/generated/locale_keys.g.dart';
@@ -57,7 +58,9 @@ class SliverWidget extends SliverPersistentHeaderDelegate {
                 scrollDirection: Axis.horizontal,
                 children: [
                   ...List.generate(
-                      numberOfAddedCars, (index) => const StickyAdderCar())
+                    numberOfAddedCars,
+                    (index) => const StickyAdderCar(),
+                  )
                 ],
               ),
             )
@@ -74,19 +77,22 @@ class SliverWidget extends SliverPersistentHeaderDelegate {
                     SizedBox(
                       height: 234,
                       child: SingleChildScrollView(
-                        padding: EdgeInsets.only(right: 16),
+                        padding: const EdgeInsets.only(right: 16),
                         controller: scrollController,
                         scrollDirection: Axis.horizontal,
-                        child: Row(children: [
-                          ListOfAddedCars(
-                            list: items(context),
-                          ),
-                          AddNewCar(
-                            onTap: onAddCar,
-                          )
-                        ]),
+                        child: Row(
+                          children: [
+                            ListOfAddedCars(
+                              list: items(context),
+                            ),
+                            AddNewCar(
+                              onTap: onAddCar,
+                            )
+                          ],
+                        ),
                       ),
                     ),
+                    const SizedBox(height: 8),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16),
                       child: Row(
@@ -121,50 +127,12 @@ class SliverWidget extends SliverPersistentHeaderDelegate {
   }
 
   @override
-  double get maxExtent => 315;
+  double get maxExtent => 310;
 
   @override
-  // TODO: implement minExtent
   double get minExtent => 68;
 
   @override
   bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) =>
       true;
-}
-
-class ListOfAddedCars extends StatefulWidget {
-  final List list;
-  const ListOfAddedCars({Key? key, required this.list}) : super(key: key);
-
-  @override
-  State<ListOfAddedCars> createState() => _ListOfAddedCarsState();
-}
-
-class _ListOfAddedCarsState extends State<ListOfAddedCars> {
-  @override
-  Widget build(BuildContext context) {
-    print(widget.list.length);
-    return SizedBox(
-      width:
-          ((MediaQuery.of(context).size.width - 40) / 2) * widget.list.length +
-              20,
-      child: ReorderableListView(
-        padding: const EdgeInsets.only(left: 14),
-        physics: const NeverScrollableScrollPhysics(),
-        scrollDirection: Axis.horizontal,
-        onReorder: (oldIndex, newIndex) {
-          setState(() {
-            if (oldIndex < newIndex) {
-              newIndex -= 1;
-            }
-            final AddedCar item = widget.list.removeAt(oldIndex);
-            widget.list.insert(newIndex, item);
-          });
-        },
-        children: [
-          ...List.generate(widget.list.length, (index) => widget.list[index]),
-        ],
-      ),
-    );
-  }
 }

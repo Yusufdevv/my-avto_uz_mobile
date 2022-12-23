@@ -1,7 +1,7 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
-import 'package:auto/features/ad/domain/entities/choose_car_brand/change_car_entity.dart';
 import 'package:auto/features/ad/presentation/bloc/car_selector/car_selector_bloc.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -9,14 +9,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
 class ChangeCarItems extends StatelessWidget {
-  final ChangeCarEntity entity;
+  final String name;
+  final String imageUrl;
   final int id;
   final int selectedId;
   const ChangeCarItems(
-      {required this.entity,
-      required this.selectedId,
+      {required this.selectedId,
       required this.id,
-      Key? key})
+      Key? key,
+      required this.name,
+      required this.imageUrl})
       : super(key: key);
 
   @override
@@ -32,9 +34,13 @@ class ChangeCarItems extends StatelessWidget {
           child: Container(
             padding: const EdgeInsets.only(right: 16, top: 5, bottom: 5),
             decoration: BoxDecoration(
+              color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
               border: Border(
-                  bottom: BorderSide(
-                      width: 1, color: Theme.of(context).dividerColor)),
+                bottom: BorderSide(
+                  width: 1,
+                  color: Theme.of(context).dividerColor,
+                ),
+              ),
             ),
             child: SizedBox(
               height: 50,
@@ -44,18 +50,29 @@ class ChangeCarItems extends StatelessWidget {
                   Row(
                     children: [
                       SizedBox(
-                          height: 36,
-                          width: 36,
-                          child: CachedNetworkImage(imageUrl: entity.icon)),
+                        height: 36,
+                        width: 36,
+                        child: imageUrl.isEmpty
+                            ? SvgPicture.asset(
+                                AppImages.carImage,
+                                height: 40,
+                                fit: BoxFit.cover,
+                              )
+                            : CachedNetworkImage(
+                                imageUrl: imageUrl,
+                                fit: BoxFit.cover,
+                              ),
+                      ),
                       const SizedBox(
                         width: 12,
                       ),
-                      Text(entity.title,
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline1!
-                              .copyWith(
-                                  fontSize: 16, fontWeight: FontWeight.w400)),
+                      Text(
+                        name,
+                        style: Theme.of(context).textTheme.headline1!.copyWith(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w400,
+                            ),
+                      ),
                     ],
                   ),
                   if (id == selectedId)

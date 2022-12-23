@@ -1066,12 +1066,12 @@ abstract class _ChangeStatus implements SuggestionEvent {
 
 /// @nodoc
 mixin _$SuggestionState {
-  bool get isLocaleSuggestion => throw _privateConstructorUsedError;
-  bool get isResultPage => throw _privateConstructorUsedError;
   FormzStatus get status => throw _privateConstructorUsedError;
-  List<String> get suggestions => throw _privateConstructorUsedError;
-  List<String> get popularSuggestions => throw _privateConstructorUsedError;
-  List<String> get localeSuggestions => throw _privateConstructorUsedError;
+  List<CarMakeModel> get suggestions => throw _privateConstructorUsedError;
+  String? get next => throw _privateConstructorUsedError;
+  String? get previous => throw _privateConstructorUsedError;
+  int get count => throw _privateConstructorUsedError;
+  bool? get fetchMore => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $SuggestionStateCopyWith<SuggestionState> get copyWith =>
@@ -1085,12 +1085,12 @@ abstract class $SuggestionStateCopyWith<$Res> {
       _$SuggestionStateCopyWithImpl<$Res, SuggestionState>;
   @useResult
   $Res call(
-      {bool isLocaleSuggestion,
-      bool isResultPage,
-      FormzStatus status,
-      List<String> suggestions,
-      List<String> popularSuggestions,
-      List<String> localeSuggestions});
+      {FormzStatus status,
+      List<CarMakeModel> suggestions,
+      String? next,
+      String? previous,
+      int count,
+      bool? fetchMore});
 }
 
 /// @nodoc
@@ -1106,22 +1106,14 @@ class _$SuggestionStateCopyWithImpl<$Res, $Val extends SuggestionState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? isLocaleSuggestion = null,
-    Object? isResultPage = null,
     Object? status = null,
     Object? suggestions = null,
-    Object? popularSuggestions = null,
-    Object? localeSuggestions = null,
+    Object? next = freezed,
+    Object? previous = freezed,
+    Object? count = null,
+    Object? fetchMore = freezed,
   }) {
     return _then(_value.copyWith(
-      isLocaleSuggestion: null == isLocaleSuggestion
-          ? _value.isLocaleSuggestion
-          : isLocaleSuggestion // ignore: cast_nullable_to_non_nullable
-              as bool,
-      isResultPage: null == isResultPage
-          ? _value.isResultPage
-          : isResultPage // ignore: cast_nullable_to_non_nullable
-              as bool,
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -1129,15 +1121,23 @@ class _$SuggestionStateCopyWithImpl<$Res, $Val extends SuggestionState>
       suggestions: null == suggestions
           ? _value.suggestions
           : suggestions // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      popularSuggestions: null == popularSuggestions
-          ? _value.popularSuggestions
-          : popularSuggestions // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      localeSuggestions: null == localeSuggestions
-          ? _value.localeSuggestions
-          : localeSuggestions // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+              as List<CarMakeModel>,
+      next: freezed == next
+          ? _value.next
+          : next // ignore: cast_nullable_to_non_nullable
+              as String?,
+      previous: freezed == previous
+          ? _value.previous
+          : previous // ignore: cast_nullable_to_non_nullable
+              as String?,
+      count: null == count
+          ? _value.count
+          : count // ignore: cast_nullable_to_non_nullable
+              as int,
+      fetchMore: freezed == fetchMore
+          ? _value.fetchMore
+          : fetchMore // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ) as $Val);
   }
 }
@@ -1151,12 +1151,12 @@ abstract class _$$_SuggestionStateCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {bool isLocaleSuggestion,
-      bool isResultPage,
-      FormzStatus status,
-      List<String> suggestions,
-      List<String> popularSuggestions,
-      List<String> localeSuggestions});
+      {FormzStatus status,
+      List<CarMakeModel> suggestions,
+      String? next,
+      String? previous,
+      int count,
+      bool? fetchMore});
 }
 
 /// @nodoc
@@ -1170,22 +1170,14 @@ class __$$_SuggestionStateCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? isLocaleSuggestion = null,
-    Object? isResultPage = null,
     Object? status = null,
     Object? suggestions = null,
-    Object? popularSuggestions = null,
-    Object? localeSuggestions = null,
+    Object? next = freezed,
+    Object? previous = freezed,
+    Object? count = null,
+    Object? fetchMore = freezed,
   }) {
     return _then(_$_SuggestionState(
-      isLocaleSuggestion: null == isLocaleSuggestion
-          ? _value.isLocaleSuggestion
-          : isLocaleSuggestion // ignore: cast_nullable_to_non_nullable
-              as bool,
-      isResultPage: null == isResultPage
-          ? _value.isResultPage
-          : isResultPage // ignore: cast_nullable_to_non_nullable
-              as bool,
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -1193,15 +1185,23 @@ class __$$_SuggestionStateCopyWithImpl<$Res>
       suggestions: null == suggestions
           ? _value._suggestions
           : suggestions // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      popularSuggestions: null == popularSuggestions
-          ? _value._popularSuggestions
-          : popularSuggestions // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      localeSuggestions: null == localeSuggestions
-          ? _value._localeSuggestions
-          : localeSuggestions // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+              as List<CarMakeModel>,
+      next: freezed == next
+          ? _value.next
+          : next // ignore: cast_nullable_to_non_nullable
+              as String?,
+      previous: freezed == previous
+          ? _value.previous
+          : previous // ignore: cast_nullable_to_non_nullable
+              as String?,
+      count: null == count
+          ? _value.count
+          : count // ignore: cast_nullable_to_non_nullable
+              as int,
+      fetchMore: freezed == fetchMore
+          ? _value.fetchMore
+          : fetchMore // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ));
   }
 }
@@ -1210,57 +1210,42 @@ class __$$_SuggestionStateCopyWithImpl<$Res>
 
 class _$_SuggestionState implements _SuggestionState {
   _$_SuggestionState(
-      {this.isLocaleSuggestion = false,
-      this.isResultPage = false,
-      this.status = FormzStatus.pure,
-      final List<String> suggestions = const [],
-      final List<String> popularSuggestions = const [],
-      final List<String> localeSuggestions = const []})
-      : _suggestions = suggestions,
-        _popularSuggestions = popularSuggestions,
-        _localeSuggestions = localeSuggestions;
+      {this.status = FormzStatus.pure,
+      final List<CarMakeModel> suggestions = const [],
+      this.next = '',
+      this.previous = '',
+      this.count = 0,
+      this.fetchMore = false})
+      : _suggestions = suggestions;
 
   @override
   @JsonKey()
-  final bool isLocaleSuggestion;
-  @override
-  @JsonKey()
-  final bool isResultPage;
-  @override
-  @JsonKey()
   final FormzStatus status;
-  final List<String> _suggestions;
+  final List<CarMakeModel> _suggestions;
   @override
   @JsonKey()
-  List<String> get suggestions {
+  List<CarMakeModel> get suggestions {
     if (_suggestions is EqualUnmodifiableListView) return _suggestions;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_suggestions);
   }
 
-  final List<String> _popularSuggestions;
   @override
   @JsonKey()
-  List<String> get popularSuggestions {
-    if (_popularSuggestions is EqualUnmodifiableListView)
-      return _popularSuggestions;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_popularSuggestions);
-  }
-
-  final List<String> _localeSuggestions;
+  final String? next;
   @override
   @JsonKey()
-  List<String> get localeSuggestions {
-    if (_localeSuggestions is EqualUnmodifiableListView)
-      return _localeSuggestions;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_localeSuggestions);
-  }
+  final String? previous;
+  @override
+  @JsonKey()
+  final int count;
+  @override
+  @JsonKey()
+  final bool? fetchMore;
 
   @override
   String toString() {
-    return 'SuggestionState(isLocaleSuggestion: $isLocaleSuggestion, isResultPage: $isResultPage, status: $status, suggestions: $suggestions, popularSuggestions: $popularSuggestions, localeSuggestions: $localeSuggestions)';
+    return 'SuggestionState(status: $status, suggestions: $suggestions, next: $next, previous: $previous, count: $count, fetchMore: $fetchMore)';
   }
 
   @override
@@ -1268,28 +1253,26 @@ class _$_SuggestionState implements _SuggestionState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_SuggestionState &&
-            (identical(other.isLocaleSuggestion, isLocaleSuggestion) ||
-                other.isLocaleSuggestion == isLocaleSuggestion) &&
-            (identical(other.isResultPage, isResultPage) ||
-                other.isResultPage == isResultPage) &&
             (identical(other.status, status) || other.status == status) &&
             const DeepCollectionEquality()
                 .equals(other._suggestions, _suggestions) &&
-            const DeepCollectionEquality()
-                .equals(other._popularSuggestions, _popularSuggestions) &&
-            const DeepCollectionEquality()
-                .equals(other._localeSuggestions, _localeSuggestions));
+            (identical(other.next, next) || other.next == next) &&
+            (identical(other.previous, previous) ||
+                other.previous == previous) &&
+            (identical(other.count, count) || other.count == count) &&
+            (identical(other.fetchMore, fetchMore) ||
+                other.fetchMore == fetchMore));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      isLocaleSuggestion,
-      isResultPage,
       status,
       const DeepCollectionEquality().hash(_suggestions),
-      const DeepCollectionEquality().hash(_popularSuggestions),
-      const DeepCollectionEquality().hash(_localeSuggestions));
+      next,
+      previous,
+      count,
+      fetchMore);
 
   @JsonKey(ignore: true)
   @override
@@ -1300,25 +1283,25 @@ class _$_SuggestionState implements _SuggestionState {
 
 abstract class _SuggestionState implements SuggestionState {
   factory _SuggestionState(
-      {final bool isLocaleSuggestion,
-      final bool isResultPage,
-      final FormzStatus status,
-      final List<String> suggestions,
-      final List<String> popularSuggestions,
-      final List<String> localeSuggestions}) = _$_SuggestionState;
+      {final FormzStatus status,
+      final List<CarMakeModel> suggestions,
+      final String? next,
+      final String? previous,
+      final int count,
+      final bool? fetchMore}) = _$_SuggestionState;
 
-  @override
-  bool get isLocaleSuggestion;
-  @override
-  bool get isResultPage;
   @override
   FormzStatus get status;
   @override
-  List<String> get suggestions;
+  List<CarMakeModel> get suggestions;
   @override
-  List<String> get popularSuggestions;
+  String? get next;
   @override
-  List<String> get localeSuggestions;
+  String? get previous;
+  @override
+  int get count;
+  @override
+  bool? get fetchMore;
   @override
   @JsonKey(ignore: true)
   _$$_SuggestionStateCopyWith<_$_SuggestionState> get copyWith =>

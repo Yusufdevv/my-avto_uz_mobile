@@ -21,11 +21,13 @@ class RegionEntity extends Equatable {
       ];
 }
 
-class RegionConverter implements JsonConverter<RegionEntity, Map<String, dynamic>?> {
+class RegionConverter
+    implements JsonConverter<RegionEntity, Map<String, dynamic>?> {
   const RegionConverter();
 
   @override
-  RegionEntity fromJson(Map<String, dynamic>? json) => RegionModel.fromJson(json ?? {});
+  RegionEntity fromJson(Map<String, dynamic>? json) =>
+      RegionModel.fromJson(json ?? {});
 
   @override
   Map<String, dynamic> toJson(RegionEntity object) => {};

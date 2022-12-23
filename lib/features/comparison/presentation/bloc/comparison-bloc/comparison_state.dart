@@ -1,7 +1,7 @@
 part of 'comparison_bloc.dart';
 
 class ComparisonState extends Equatable {
-  final List<CarParamsEntity> cars;
+  final List<ComparisonEntity> cars;
   final bool onlyDifferences;
   final bool isSticky;
   const ComparisonState(
@@ -9,7 +9,7 @@ class ComparisonState extends Equatable {
       required this.onlyDifferences,
       required this.isSticky});
   ComparisonState copyWith(
-          {List<CarParamsEntity>? cars,
+          {List<ComparisonEntity>? cars,
           bool? onlyDifferences,
           bool? isSticky}) =>
       ComparisonState(

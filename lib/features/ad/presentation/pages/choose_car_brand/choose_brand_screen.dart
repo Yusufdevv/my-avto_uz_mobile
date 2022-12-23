@@ -172,9 +172,10 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
                       itemBuilder: (context, index) =>
                           BlocBuilder<CarSelectorBloc, SelectedCarItems>(
                         builder: (context, state) => ChangeCarItems(
-                          entity: carList[index],
                           selectedId: state.selectedId,
                           id: index,
+                          imageUrl: carList[index].icon,
+                          name: carList[index].title,
                         ),
                       ),
                       itemCount: carList.length,

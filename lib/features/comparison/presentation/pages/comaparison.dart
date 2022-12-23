@@ -1,12 +1,18 @@
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
-import 'package:auto/features/comparison/domain/entities/car_params_entity.dart';
+import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/comparison/domain/entities/characteristics_entity.dart';
 import 'package:auto/features/comparison/domain/entities/chracteristics_parameters_entity.dart';
+import 'package:auto/features/comparison/domain/entities/comparison_entity.dart';
 import 'package:auto/features/comparison/domain/entities/complectation_entity.dart';
 import 'package:auto/features/comparison/domain/entities/complectation_parameters_entity.dart';
 import 'package:auto/features/comparison/presentation/bloc/comparison-bloc/comparison_bloc.dart';
+import 'package:auto/features/comparison/presentation/pages/choose_car_brand.dart';
+import 'package:auto/features/comparison/presentation/pages/choose_generation.dart';
+import 'package:auto/features/comparison/presentation/pages/choose_model.dart';
+import 'package:auto/features/comparison/presentation/widgets/empty_widget.dart';
 import 'package:auto/features/comparison/presentation/widgets/main_parameters_widget.dart';
 import 'package:auto/features/comparison/presentation/widgets/sliver_delegate.dart';
+import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +21,7 @@ import 'package:linked_scroll_controller/linked_scroll_controller.dart';
 
 class Comparison extends StatefulWidget {
   final bool isSticky;
-  final List<CarParamsEntity> cars;
+  final List<ComparisonEntity> cars;
 
   const Comparison({
     required this.cars,
@@ -166,12 +172,27 @@ class _ComparisonState extends State<Comparison> {
                   onChanged: (showDifferences1) =>
                       setState(() => showDifferences = showDifferences1),
                   scrollController: sliverWidgetScrollController,
-                  onAddCar: () {
-                    context.read<ComparisonBloc>().add(AddCarEvent(
-                        carMark: 'carMark',
-                        carModel: 'carModel',
-                        generation: 'generation'));
-                  },
+                  onAddCar: () => Navigator.of(context).push(
+                    fade(
+                      page: ChooseCarBrandComparison(
+                        onTap: () => Navigator.of(context).push(
+                          fade(
+                            page: ChooseCarModelComparison(
+                              onTap: () {
+                                Navigator.of(context).push(
+                                  fade(
+                                    page: ChooseGenerationComparison(
+                                      onTap: () {},
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
                   setSticky: (val) {
                     context
                         .read<ComparisonBloc>()
@@ -187,46 +208,46 @@ class _ComparisonState extends State<Comparison> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                color: Theme.of(context).extension<ThemedColors>()!.whiteToNero,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(top: 12, left: 16),
-                      child: Text(
-                        LocaleKeys.characteristic.tr(),
-                        style: Theme.of(context)
-                            .textTheme
-                            .headline1!
-                            .copyWith(fontSize: 18),
-                      ),
-                    ),
-                    ...List.generate(
-                      characteristicsParameters.length,
-                      (index) => CharacteristicsParametersWidget(
-                        onChanged: (integer) {
-                          setState(() {
-                            currentValueOfCharacteristics = integer;
-                          });
-                        },
-                        parameterName:
-                            characteristicsParameters[index].parameterName,
-                        selectedValue: currentValueOfCharacteristics,
-                        parameterId: characteristicsParameters[index].id,
-                        listOfComparisonParameters:
-                            characteristicsParameters[index]
-                                .comparisonParameters,
-                        characteristicsOrComplectation: 'characteristics',
-                        numberOfAddedCars: widget.cars,
-                        controller: scrollControllers[index],
-                        isSticky: widget.isSticky,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 8),
+              // Container(
+              //   color: Theme.of(context).extension<ThemedColors>()!.whiteToNero,
+              //   child: Column(
+              //     crossAxisAlignment: CrossAxisAlignment.start,
+              //     children: [
+              //       Padding(
+              //         padding: const EdgeInsets.only(top: 12, left: 16),
+              //         child: Text(
+              //           LocaleKeys.characteristic.tr(),
+              //           style: Theme.of(context)
+              //               .textTheme
+              //               .headline1!
+              //               .copyWith(fontSize: 18),
+              //         ),
+              //       ),
+              //       ...List.generate(
+              //         1,
+              //         (index) => CharacteristicsParametersWidget(
+              //           onChanged: (integer) {
+              //             setState(() {
+              //               currentValueOfCharacteristics = integer;
+              //             });
+              //           },
+              //           parameterName:
+              //               characteristicsParameters[index].parameterName,
+              //           selectedValue: currentValueOfCharacteristics,
+              //           parameterId: characteristicsParameters[index].id,
+              //           listOfComparisonParameters:
+              //               characteristicsParameters[index]
+              //                   .comparisonParameters,
+              //           characteristicsOrComplectation: 'characteristics',
+              //           numberOfAddedCars: widget.cars,
+              //           controller: scrollControllers[index],
+              //           isSticky: widget.isSticky,
+              //         ),
+              //       ),
+              //     ],
+              //   ),
+              // ),
+              // const SizedBox(height: 8),
               Container(
                 color: Theme.of(context).extension<ThemedColors>()!.whiteToNero,
                 child: Column(

@@ -5,6 +5,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
 part 'show_pop_up_event.dart';
+
 part 'show_pop_up_state.dart';
 
 class ShowPopUpBloc extends Bloc<ShowPopUpEvent, ShowPopUpState> {

@@ -62,6 +62,7 @@ abstract class LightTheme {
             unselectedBackgroundColor1: LightThemeColors.whiteToEclipse,
           ),
           ThemedColors(
+            seashellToCinnabar15: LightThemeColors.seashellToCinnabar15,
             whiteToBlack: LightThemeColors.whiteToBlack,
             dividerColorToGrey: LightThemeColors.dividerColorToGrey,
             darkToWhite: LightThemeColors.darkToWhite,
@@ -163,7 +164,7 @@ abstract class LightTheme {
             solitudeContainerToNero1: LightThemeColors.solitudeContainerToNero1,
             solitudeToNightRider: LightThemeColors.solitudeToNightRider,
             whiteToNero2: LightThemeColors.whiteToNero2,
-            seashellToCinnabar15: LightThemeColors.seashellToCinnabar15,
+            dividerColor: LightThemeColors.dividerColor,
           ),
           WTextFieldStyle(
             fillColor: LightThemeColors.solitudeToNero,

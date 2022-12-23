@@ -71,7 +71,7 @@ class _ModalBottomSheetState extends State<ModalBottomSheet> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const AddReviewScreen(),
+                        builder: (context) => const AddReviewScreen(category: '',),
                       ),
                     );
                   },

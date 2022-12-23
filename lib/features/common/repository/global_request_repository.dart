@@ -89,6 +89,7 @@ class GlobalRequestRepository {
       FormData? formData,
       String? responseDataKey,
       Map<String, dynamic>? data,
+      String? errorKey,
       bool sendToken = true}) async {
     try {
       final result = await dio.post(endpoint,
@@ -111,7 +112,9 @@ class GlobalRequestRepository {
           return Right(fromJson(result.data));
         }
       } else {
-        return Left(ServerFailure(errorMessage: '', statusCode: 141));
+        final data = result.data[errorKey ?? 'detail'] ?? '';
+
+        return Left(ServerFailure(errorMessage: data, statusCode: 141));
       }
     } catch (e) {
       return Left(ServerFailure(statusCode: 141, errorMessage: ''));

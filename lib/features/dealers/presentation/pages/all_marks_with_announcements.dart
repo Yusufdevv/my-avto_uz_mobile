@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class AllMarksWithAnnouncements extends StatelessWidget {
-  final List<MarksWithAnnouncementModel> marks;
+  final List<MarksWithAnnouncementEntity> marks;
 
   const AllMarksWithAnnouncements({Key? key, required this.marks})
       : super(key: key);
@@ -41,7 +41,7 @@ class AllMarksWithAnnouncements extends StatelessWidget {
                   GestureDetector(
                     onTap: () {
                       Navigator.push(
-                          context, fade(page: const SingleMarkAnnouncements()));
+                          context, fade(page: SingleMarkAnnouncements()));
                     },
                     child: Container(
                       height: 91,

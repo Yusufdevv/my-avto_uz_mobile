@@ -1,12 +1,14 @@
 import 'dart:async';
 
+import 'package:auto/core/exceptions/exceptions.dart';
 import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/core/singletons/storage.dart';
+import 'package:auto/core/utils/either.dart';
 import 'package:auto/features/common/bloc/auth/authentication_bloc.dart';
 import 'package:auto/features/common/domain/model/token_model.dart';
 import 'package:auto/features/common/domain/model/user.dart';
 import 'package:auto/features/common/repository/global_request_repository.dart';
-import 'package:auto/core/utils/either.dart';
+import 'package:dio/dio.dart';
 
 class AuthRepository {
   final GlobalRequestRepository repo = GlobalRequestRepository();
@@ -26,30 +28,33 @@ class AuthRepository {
       {required String login, required String password}) async {
     print('$login\n');
     print(password);
-    final result = await repo.postAndSingle<TokenModel>(
-      endpoint: '/users/login/',
-      fromJson: TokenModel.fromJson,
-      sendToken: false,
-      data: {
-        'phone_number': '+998${login.replaceAll(' ', '')}',
-        'password': password,
-      },
-    );
-
-    if (result.isRight) {
-      print('tokenize ${result.right.access}');
-      await StorageRepository.putString('token', result.right.access);
-      await StorageRepository.putString('refresh', result.right.refresh);
-      return Right(result.right);
-
-
-
-
-    } else {
-      print('errorize');
-      print("=====  ${result.left.toString()} =====");
-      return Left(result.left);
+    try {
+      final result = await repo.postAndSingle<TokenModel>(
+        endpoint: '/users/login/',
+        fromJson: TokenModel.fromJson,
+        sendToken: false,
+        data: {
+          'phone_number': '+998${login.replaceAll(' ', '')}',
+          'password': password,
+        },
+      );
+      if (result.isRight) {
+        print('tokenize ${result.right.access}');
+        await StorageRepository.putString('token', result.right.access);
+        await StorageRepository.putString('refresh', result.right.refresh);
+        return Right(result.right);
+      } else {
+        print('errorize');
+        return Left(result.left);
+      }
+    } on ServerException {
+      rethrow;
+    } on DioError {
+      throw DioException();
+    } on Exception catch (e) {
+      throw ParsingException(errorMessage: '$e catch error');
     }
+
   }
 
   Future<Either<Failure, TokenModel>> refreshToken() async {

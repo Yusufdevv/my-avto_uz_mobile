@@ -1,25 +1,29 @@
-// import 'package:auto/core/error/failures.dart';
-// import 'package:auto/core/singletons/dio_settings.dart';
-// import 'package:auto/core/singletons/service_locator.dart';
-// import 'package:auto/features/search/data/models/search_item.dart';
-// import 'package:auto/core/utils/either.dart';
-//
-// class SearchRepository {
-//   final client = serviceLocator<DioSettings>().dio;
-//
-//   Future<Either<Failure, List<SearchItemModel>>> getSearchAds() async {
-//     try {
-//       final result = await client.get('es/Announcements/');
-//
-//       if (result.statusCode! >= 200 && result.statusCode! < 300) {
-//         var data = (result.data as List<dynamic>)
-//             .map((e) => SearchItemModel.fromJson(e))
-//             .toList();
-//         return Right(data);
-//       }
-//     } catch (e) {
-//       print(e.toString());
-//       return Left(ServerFailure());
-//     }
-//   }
-// }
+import 'package:auto/core/exceptions/exceptions.dart';
+import 'package:auto/core/exceptions/failures.dart';
+import 'package:auto/core/utils/either.dart';
+import 'package:auto/features/common/domain/model/auto_model.dart';
+import 'package:auto/features/pagination/models/generic_pagination.dart';
+import 'package:auto/features/search/data/datasources/search_results_datasource.dart';
+import 'package:auto/features/search/domain/repositories/search_repository_repository.dart';
+
+class SearchRepositoryImpl extends SearchRepository {
+  final SearchResultsDatasource dataSource;
+
+  SearchRepositoryImpl({required this.dataSource});
+
+  @override
+  Future<Either<Failure, GenericPagination<AutoModel>>>
+      getSearchResults(String? searchedText) async {
+    try {
+      final result = await dataSource.getSearchResults(searchedText);
+      return Right(result);
+    } on DioException {
+      return Left(DioFailure());
+    } on ParsingException catch (e) {
+      return Left(ParsingFailure(errorMessage: e.errorMessage));
+    } on ServerException catch (e) {
+      return Left(ServerFailure(
+          errorMessage: e.errorMessage, statusCode: e.statusCode));
+    }
+  }
+}

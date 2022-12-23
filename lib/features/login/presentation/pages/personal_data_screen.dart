@@ -1,6 +1,8 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/bloc/auth/authentication_bloc.dart';
+import 'package:auto/features/common/bloc/image/image_bloc.dart';
+import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/login/presentation/bloc/register/register_bloc.dart';
@@ -14,6 +16,7 @@ import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 class PersonalDataScreen extends StatefulWidget {
@@ -26,11 +29,13 @@ class PersonalDataScreen extends StatefulWidget {
 class _PersonalDataScreenState extends State<PersonalDataScreen> {
   late TextEditingController nameController;
   late TextEditingController emailController;
+  late ImageBloc imageBloc;
 
   @override
   void initState() {
     nameController = TextEditingController();
     emailController = TextEditingController();
+    imageBloc = ImageBloc(ImagePicker());
     super.initState();
   }
 
@@ -38,52 +43,57 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
   void dispose() {
     nameController.dispose();
     emailController.dispose();
+    imageBloc.close();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) => KeyboardDismisser(
-        child: Scaffold(
-          appBar: WAppBar(
-            title: LocaleKeys.register.tr(),
-          ),
-          body: Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                LoginHeader(
-                  title: LocaleKeys.personal_data.tr(),
-                  description: LocaleKeys.complete_registration.tr(),
-                  hasSizedBox: false,
-                ),
-                const SizedBox(
-                  height: 36,
-                ),
-                const AddPhotoItem(),
-                PersonalDataItem(
-                  title: LocaleKeys.name.tr(),
-                  controller: nameController,
-                  hintText: LocaleKeys.password.tr(),
-                  onChanged: (value) {
-                    setState(() {});
-                  },
-                ),
-                const RegionButton(
-                  title: '',
-                ),
-                PersonalDataItem(
-                  title: 'Email',
-                  controller: emailController,
-                  hintText: LocaleKeys.email_example.tr(),
-                  onChanged: (value) {
-                    setState(() {});
-                  },
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 24),
-                  child: WButton(
+        child: BlocProvider.value(
+          value: imageBloc,
+          child: Scaffold(
+            appBar: WAppBar(
+              title: LocaleKeys.register.tr(),
+            ),
+            body: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: ListView(
+                      children: [
+                        LoginHeader(
+                          title: LocaleKeys.personal_data.tr(),
+                          description: LocaleKeys.create_password.tr(),
+                          hasSizedBox: false,
+                        ),
+                        const SizedBox(height: 36),
+                        const AddPhotoItem(),
+                        PersonalDataItem(
+                          title: LocaleKeys.name.tr(),
+                          controller: nameController,
+                          hintText: 'Имя и фамилия',
+                          onChanged: (value) {
+                            setState(() {});
+                          },
+                        ),
+                        const RegionButton(
+                          title: '',
+                        ),
+                        PersonalDataItem(
+                          title: 'Email',
+                          controller: emailController,
+                          hintText: 'example@auto.uz',
+                          onChanged: (value) {
+                            setState(() {});
+                          },
+                        ),
+                        const SizedBox(height: 10)
+                      ],
+                    ),
+                  ),
+                  WButton(
                     onTap: () {
                       if (nameController.text.isNotEmpty &&
                           emailController.text.isNotEmpty) {
@@ -103,6 +113,15 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
                                             context.read<RegisterBloc>().add(
                                                   RegisterEvent.register(
                                                     validPassword: password,
+                                                    onError: (text) {
+                                                      if (text.isNotEmpty) {
+                                                        context
+                                                            .read<
+                                                                ShowPopUpBloc>()
+                                                            .add(ShowPopUp(
+                                                                message: text));
+                                                      } else {}
+                                                    },
                                                     onSuccess: () {
                                                       context
                                                           .read<
@@ -129,6 +148,8 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
                           blurRadius: 20,
                           color: solitude.withOpacity(.12)),
                     ],
+                    margin: EdgeInsets.only(
+                        bottom: 4 + MediaQuery.of(context).padding.bottom),
                     color: (nameController.text.isNotEmpty &&
                             emailController.text.isNotEmpty)
                         ? orange
@@ -143,8 +164,8 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
                           .whiteToDolphin,
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

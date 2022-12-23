@@ -3,11 +3,11 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'make.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(fieldRename: FieldRename.snake)
 class MakeModel extends MakeEntity {
   const MakeModel({
     required super.id,
-    required super.type,
+    required super.name,
     required super.logo,
   });
 

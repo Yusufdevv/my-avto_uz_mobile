@@ -1,5 +1,4 @@
 import 'package:auto/assets/colors/color.dart';
-import 'package:auto/features/car_single/presentation/widgets/w_container_style.dart';
 import 'package:auto/features/car_single/presentation/widgets/w_radio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -34,7 +33,7 @@ class SelectPaymentItem extends StatelessWidget {
             color: color,
             borderRadius: BorderRadius.circular(8),
             border:
-                Border.all(width: 1, color: borderColor ?? Theme.of(context).extension<WContainerStyle>()!.borderColor),
+                Border.all(width: 1, color: borderColor),
           ),
           child: Row(
             children: [

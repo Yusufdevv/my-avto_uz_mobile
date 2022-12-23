@@ -18,19 +18,19 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$SearchResultEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(bool isRefresh) getResults,
+    required TResult Function(String searchText) getResults,
     required TResult Function() getMoreResults,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(bool isRefresh)? getResults,
+    TResult? Function(String searchText)? getResults,
     TResult? Function()? getMoreResults,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(bool isRefresh)? getResults,
+    TResult Function(String searchText)? getResults,
     TResult Function()? getMoreResults,
     required TResult orElse(),
   }) =>
@@ -80,7 +80,7 @@ abstract class _$$_GetResultsCopyWith<$Res> {
           _$_GetResults value, $Res Function(_$_GetResults) then) =
       __$$_GetResultsCopyWithImpl<$Res>;
   @useResult
-  $Res call({bool isRefresh});
+  $Res call({String searchText});
 }
 
 /// @nodoc
@@ -94,13 +94,13 @@ class __$$_GetResultsCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? isRefresh = null,
+    Object? searchText = null,
   }) {
     return _then(_$_GetResults(
-      isRefresh: null == isRefresh
-          ? _value.isRefresh
-          : isRefresh // ignore: cast_nullable_to_non_nullable
-              as bool,
+      searchText: null == searchText
+          ? _value.searchText
+          : searchText // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -108,14 +108,14 @@ class __$$_GetResultsCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_GetResults implements _GetResults {
-  _$_GetResults({required this.isRefresh});
+  _$_GetResults({required this.searchText});
 
   @override
-  final bool isRefresh;
+  final String searchText;
 
   @override
   String toString() {
-    return 'SearchResultEvent.getResults(isRefresh: $isRefresh)';
+    return 'SearchResultEvent.getResults(searchText: $searchText)';
   }
 
   @override
@@ -123,12 +123,12 @@ class _$_GetResults implements _GetResults {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_GetResults &&
-            (identical(other.isRefresh, isRefresh) ||
-                other.isRefresh == isRefresh));
+            (identical(other.searchText, searchText) ||
+                other.searchText == searchText));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, isRefresh);
+  int get hashCode => Object.hash(runtimeType, searchText);
 
   @JsonKey(ignore: true)
   @override
@@ -139,30 +139,30 @@ class _$_GetResults implements _GetResults {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(bool isRefresh) getResults,
+    required TResult Function(String searchText) getResults,
     required TResult Function() getMoreResults,
   }) {
-    return getResults(isRefresh);
+    return getResults(searchText);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(bool isRefresh)? getResults,
+    TResult? Function(String searchText)? getResults,
     TResult? Function()? getMoreResults,
   }) {
-    return getResults?.call(isRefresh);
+    return getResults?.call(searchText);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(bool isRefresh)? getResults,
+    TResult Function(String searchText)? getResults,
     TResult Function()? getMoreResults,
     required TResult orElse(),
   }) {
     if (getResults != null) {
-      return getResults(isRefresh);
+      return getResults(searchText);
     }
     return orElse();
   }
@@ -200,9 +200,9 @@ class _$_GetResults implements _GetResults {
 }
 
 abstract class _GetResults implements SearchResultEvent {
-  factory _GetResults({required final bool isRefresh}) = _$_GetResults;
+  factory _GetResults({required final String searchText}) = _$_GetResults;
 
-  bool get isRefresh;
+  String get searchText;
   @JsonKey(ignore: true)
   _$$_GetResultsCopyWith<_$_GetResults> get copyWith =>
       throw _privateConstructorUsedError;
@@ -246,7 +246,7 @@ class _$_GetMoreResults implements _GetMoreResults {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(bool isRefresh) getResults,
+    required TResult Function(String searchText) getResults,
     required TResult Function() getMoreResults,
   }) {
     return getMoreResults();
@@ -255,7 +255,7 @@ class _$_GetMoreResults implements _GetMoreResults {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(bool isRefresh)? getResults,
+    TResult? Function(String searchText)? getResults,
     TResult? Function()? getMoreResults,
   }) {
     return getMoreResults?.call();
@@ -264,7 +264,7 @@ class _$_GetMoreResults implements _GetMoreResults {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(bool isRefresh)? getResults,
+    TResult Function(String searchText)? getResults,
     TResult Function()? getMoreResults,
     required TResult orElse(),
   }) {
@@ -312,11 +312,12 @@ abstract class _GetMoreResults implements SearchResultEvent {
 
 /// @nodoc
 mixin _$SearchResultState {
-  List<CommercialItemEntity> get list => throw _privateConstructorUsedError;
+  List<AutoEntity> get list => throw _privateConstructorUsedError;
   FormzStatus get status => throw _privateConstructorUsedError;
   FormzStatus get paginationStatus => throw _privateConstructorUsedError;
   String? get next => throw _privateConstructorUsedError;
   int get count => throw _privateConstructorUsedError;
+  dynamic get moreFetch => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $SearchResultStateCopyWith<SearchResultState> get copyWith =>
@@ -330,11 +331,12 @@ abstract class $SearchResultStateCopyWith<$Res> {
       _$SearchResultStateCopyWithImpl<$Res, SearchResultState>;
   @useResult
   $Res call(
-      {List<CommercialItemEntity> list,
+      {List<AutoEntity> list,
       FormzStatus status,
       FormzStatus paginationStatus,
       String? next,
-      int count});
+      int count,
+      dynamic moreFetch});
 }
 
 /// @nodoc
@@ -355,12 +357,13 @@ class _$SearchResultStateCopyWithImpl<$Res, $Val extends SearchResultState>
     Object? paginationStatus = null,
     Object? next = freezed,
     Object? count = null,
+    Object? moreFetch = freezed,
   }) {
     return _then(_value.copyWith(
       list: null == list
           ? _value.list
           : list // ignore: cast_nullable_to_non_nullable
-              as List<CommercialItemEntity>,
+              as List<AutoEntity>,
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -377,6 +380,10 @@ class _$SearchResultStateCopyWithImpl<$Res, $Val extends SearchResultState>
           ? _value.count
           : count // ignore: cast_nullable_to_non_nullable
               as int,
+      moreFetch: freezed == moreFetch
+          ? _value.moreFetch
+          : moreFetch // ignore: cast_nullable_to_non_nullable
+              as dynamic,
     ) as $Val);
   }
 }
@@ -390,11 +397,12 @@ abstract class _$$_SearchResultStateCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {List<CommercialItemEntity> list,
+      {List<AutoEntity> list,
       FormzStatus status,
       FormzStatus paginationStatus,
       String? next,
-      int count});
+      int count,
+      dynamic moreFetch});
 }
 
 /// @nodoc
@@ -413,12 +421,13 @@ class __$$_SearchResultStateCopyWithImpl<$Res>
     Object? paginationStatus = null,
     Object? next = freezed,
     Object? count = null,
+    Object? moreFetch = freezed,
   }) {
     return _then(_$_SearchResultState(
       list: null == list
           ? _value._list
           : list // ignore: cast_nullable_to_non_nullable
-              as List<CommercialItemEntity>,
+              as List<AutoEntity>,
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -435,6 +444,7 @@ class __$$_SearchResultStateCopyWithImpl<$Res>
           ? _value.count
           : count // ignore: cast_nullable_to_non_nullable
               as int,
+      moreFetch: freezed == moreFetch ? _value.moreFetch! : moreFetch,
     ));
   }
 }
@@ -443,17 +453,18 @@ class __$$_SearchResultStateCopyWithImpl<$Res>
 
 class _$_SearchResultState implements _SearchResultState {
   _$_SearchResultState(
-      {final List<CommercialItemEntity> list = const [],
+      {final List<AutoEntity> list = const [],
       this.status = FormzStatus.pure,
       this.paginationStatus = FormzStatus.pure,
       this.next,
-      this.count = 0})
+      this.count = 0,
+      this.moreFetch = false})
       : _list = list;
 
-  final List<CommercialItemEntity> _list;
+  final List<AutoEntity> _list;
   @override
   @JsonKey()
-  List<CommercialItemEntity> get list {
+  List<AutoEntity> get list {
     if (_list is EqualUnmodifiableListView) return _list;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_list);
@@ -470,10 +481,13 @@ class _$_SearchResultState implements _SearchResultState {
   @override
   @JsonKey()
   final int count;
+  @override
+  @JsonKey()
+  final dynamic moreFetch;
 
   @override
   String toString() {
-    return 'SearchResultState(list: $list, status: $status, paginationStatus: $paginationStatus, next: $next, count: $count)';
+    return 'SearchResultState(list: $list, status: $status, paginationStatus: $paginationStatus, next: $next, count: $count, moreFetch: $moreFetch)';
   }
 
   @override
@@ -486,7 +500,8 @@ class _$_SearchResultState implements _SearchResultState {
             (identical(other.paginationStatus, paginationStatus) ||
                 other.paginationStatus == paginationStatus) &&
             (identical(other.next, next) || other.next == next) &&
-            (identical(other.count, count) || other.count == count));
+            (identical(other.count, count) || other.count == count) &&
+            const DeepCollectionEquality().equals(other.moreFetch, moreFetch));
   }
 
   @override
@@ -496,7 +511,8 @@ class _$_SearchResultState implements _SearchResultState {
       status,
       paginationStatus,
       next,
-      count);
+      count,
+      const DeepCollectionEquality().hash(moreFetch));
 
   @JsonKey(ignore: true)
   @override
@@ -508,14 +524,15 @@ class _$_SearchResultState implements _SearchResultState {
 
 abstract class _SearchResultState implements SearchResultState {
   factory _SearchResultState(
-      {final List<CommercialItemEntity> list,
+      {final List<AutoEntity> list,
       final FormzStatus status,
       final FormzStatus paginationStatus,
       final String? next,
-      final int count}) = _$_SearchResultState;
+      final int count,
+      final dynamic moreFetch}) = _$_SearchResultState;
 
   @override
-  List<CommercialItemEntity> get list;
+  List<AutoEntity> get list;
   @override
   FormzStatus get status;
   @override
@@ -524,6 +541,8 @@ abstract class _SearchResultState implements SearchResultState {
   String? get next;
   @override
   int get count;
+  @override
+  dynamic get moreFetch;
   @override
   @JsonKey(ignore: true)
   _$$_SearchResultStateCopyWith<_$_SearchResultState> get copyWith =>
