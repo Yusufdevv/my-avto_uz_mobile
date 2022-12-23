@@ -3,7 +3,7 @@ import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
-import 'package:auto/features/profile/domain/entities/profile_item.dart';
+import 'package:auto/features/profile/domain/entities/profile_item_entity.dart';
 import 'package:auto/features/profile/presentation/widgets/profile_tab_bar.dart';
 import 'package:auto/features/reviews/presentation/pages/select_brand_screen.dart';
 import 'package:auto/features/search/domain/entities/commercial_item_entity.dart';

@@ -13,8 +13,8 @@ class Rate extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Container(
-        margin: EdgeInsets.symmetric(horizontal: 16),
-        padding: EdgeInsets.only(left: 16),
+        margin: const EdgeInsets.symmetric(horizontal: 16),
+        padding: const EdgeInsets.only(left: 16),
         decoration: BoxDecoration(
           border: Border.all(color: orange),
           borderRadius: BorderRadius.circular(12),
@@ -23,29 +23,29 @@ class Rate extends StatelessWidget {
         child: Row(
           children: [
             Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                RichText(
-                  text: TextSpan(
-                    text: LocaleKeys.rate.tr(),
+                Text(
+                  LocaleKeys.rate.tr(),
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline5!
+                      .copyWith(fontSize: 20, fontWeight: FontWeight.w600),
+                ),
+                if (Platform.isIOS)
+                  Text(
+                    'нас в App Store',
                     style: Theme.of(context)
                         .textTheme
-                        .headline5!
-                        .copyWith(fontSize: 20, fontWeight: FontWeight.w600),
-                    children: [
-                      if (Platform.isIOS) TextSpan(
-                              text: 'Оцените нас в App Store',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline1!
-                                  .copyWith(fontWeight: FontWeight.w600)) else TextSpan(
-                              text: 'Оцените нас в Play Market',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline1!
-                                  .copyWith(fontWeight: FontWeight.w600)),
-                    ],
-                  ),
-                ),
+                        .headline1!
+                        .copyWith(fontWeight: FontWeight.w600),
+                  )
+                else
+                  Text('нас в Play Market',
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline1!
+                          .copyWith(fontWeight: FontWeight.w600)),
                 WButton(
                   margin: const EdgeInsets.only(top: 12),
                   padding:

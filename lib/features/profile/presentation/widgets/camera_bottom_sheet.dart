@@ -60,7 +60,7 @@ class CameraBottomSheetState extends State<CameraBottomSheet> {
                     child: SvgPicture.asset(
                       AppIcons.close,
                       width: 32,
-                      height: 32,
+                      height: 32
                     ),
                     onTap: () {
                       Navigator.of(context).pop();

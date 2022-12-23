@@ -1,4 +1,5 @@
 import 'package:auto/assets/colors/color.dart';
+import 'package:auto/core/utils/size_config.dart';
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
 import 'package:auto/features/common/widgets/custom_screen.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
@@ -35,7 +36,10 @@ class NewPasswordsPage extends StatelessWidget {
               body: SingleChildScrollView(
                 physics: const ClampingScrollPhysics(),
                 child: Container(
-                  padding: const EdgeInsets.only(left: 16, right: 16, top: 24),
+                  padding: EdgeInsets.only(
+                      left: SizeConfig.h(16),
+                      right: SizeConfig.h(16),
+                      top: SizeConfig.v(24)),
                   child: Column(
                     children: [
                       Text(
@@ -43,12 +47,13 @@ class NewPasswordsPage extends StatelessWidget {
                         style: Theme.of(context)
                             .textTheme
                             .headline1!
-                            .copyWith(fontSize: 32),
+                            .copyWith(fontSize: SizeConfig.h(32)),
                       ),
-                      const SizedBox(height: 6),
+                      SizedBox(height: SizeConfig.v(6)),
                       Text(LocaleKeys.create_unfoget.tr(),
+                          textAlign: TextAlign.center,
                           style: Theme.of(context).textTheme.headline2),
-                      const SizedBox(height: 36),
+                      SizedBox(height: SizeConfig.v(36)),
                       Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
@@ -56,12 +61,12 @@ class NewPasswordsPage extends StatelessWidget {
                           style: Theme.of(context).textTheme.headline2,
                         ),
                       ),
-                      const SizedBox(height: 8),
+                      SizedBox(height: SizeConfig.v(8)),
                       PasswordTextField(
                         controller: _oldPasswordController,
                         hintText: LocaleKeys.write_old_password.tr(),
                       ),
-                      const SizedBox(height: 20),
+                      SizedBox(height: SizeConfig.v(20)),
                       Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
@@ -69,12 +74,12 @@ class NewPasswordsPage extends StatelessWidget {
                           style: Theme.of(context).textTheme.headline2,
                         ),
                       ),
-                      const SizedBox(height: 8),
+                      SizedBox(height: SizeConfig.v(8)),
                       PasswordTextField(
                         controller: _newPassword1Controller,
                         hintText: LocaleKeys.enter_Passowrd.tr(),
                       ),
-                      const SizedBox(height: 20),
+                      SizedBox(height: SizeConfig.v(20)),
                       Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
@@ -82,7 +87,7 @@ class NewPasswordsPage extends StatelessWidget {
                           style: Theme.of(context).textTheme.headline2,
                         ),
                       ),
-                      const SizedBox(height: 8),
+                      SizedBox(height: SizeConfig.v(8)),
                       PasswordTextField(
                         controller: _newPassword2Controller,
                         hintText: LocaleKeys.write_again.tr(),
@@ -96,13 +101,17 @@ class NewPasswordsPage extends StatelessWidget {
                   shadow: [
                     BoxShadow(
                       blurRadius: 20,
-                      offset: Offset(0, 4),
+                      offset: const Offset(0, 4),
                       color: orange.withOpacity(0.2),
                     ),
                   ],
                   isLoading: state.changeStatus.isSubmissionInProgress,
-                  margin: EdgeInsets.fromLTRB(16, 24, 16,
-                      24 + MediaQuery.of(context).viewInsets.bottom),
+                  margin: EdgeInsets.fromLTRB(
+                      SizeConfig.h(16),
+                      SizeConfig.v(24),
+                      SizeConfig.h(16),
+                      SizeConfig.v(24) +
+                          MediaQuery.of(context).viewInsets.bottom),
                   onTap: () {
                     context.read<ProfileBloc>().add(
                           ChangePasswordEvent(
@@ -110,12 +119,13 @@ class NewPasswordsPage extends StatelessWidget {
                             oldPassword: _oldPasswordController.text,
                             newPasswordConfirm: _newPassword2Controller.text,
                             onSuccess: () {
-                              Navigator.of(context, rootNavigator: true).push(
-                                fade(
-                                  page: const SmsCodePage(
-                                      phone: '+998 88 033 18 05'),
-                                ),
-                              );
+                              // Navigator.of(context, rootNavigator: true).push(
+                              //   fade(
+                              //     page: const SmsCodePage(
+                              //         phone: '+998 88 033 18 05'),
+                              //   ),
+                              // );
+                              Navigator.of(context).pop();
                             },
                             onError: (message) {
                               context

@@ -62,7 +62,8 @@ const background = Color(0xff121212);
 const secondary = Color(0xff373737);
 const stormGrey12 = _stormGrey12;
 const lavanda = _lavender;
-const tutu = Color(0xffFAEEEE);
+const tutu = _tutu;
+
 // Main palette (http://www.color-blindness.com/color-name-hue/).
 const _bittersweet = Color(0xFFFF7474);
 const _whiteSmoke = Color(0xFFF4F4F4);
@@ -126,3 +127,4 @@ const _strokeDark = Color(0xff181818);
 const dark1 = Color(0xff1E1E1E);
 const _lavender = Color(0xffF0EFFD);
 
+const _tutu = Color(0xFFFAEEEE);

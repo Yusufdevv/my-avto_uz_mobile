@@ -1,4 +1,4 @@
-import 'package:auto/features/profile/domain/entities/user_count.dart';
+import 'package:auto/features/profile/domain/entities/user_count_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'user_count.g.dart';

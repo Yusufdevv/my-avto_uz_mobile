@@ -47,7 +47,7 @@ class PreviewScreen extends StatelessWidget {
                   Navigator.pop(context);
                   HomeTabControllerProvider.of(context).controller.animateTo(4);
 
-                  Navigator.push(context, fade(page: const MyAdScreen()));
+                  await Navigator.push(context, fade(page: const MyAdScreen()));
                 },
                 text: 'Разместить бесплатно на 7 дней....',
                 shadow: [

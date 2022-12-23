@@ -1,9 +1,12 @@
-import 'package:auto/features/profile/domain/entities/profile_item.dart';
+import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/features/common/widgets/w_app_bar.dart';
+import 'package:auto/features/profile/domain/entities/profile_item_entity.dart';
 import 'package:auto/features/profile/presentation/widgets/all_tabs.dart';
 import 'package:auto/features/profile/presentation/widgets/profile_tab_bar.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class MyAdScreen extends StatefulWidget {
   const MyAdScreen({Key? key}) : super(key: key);
@@ -30,10 +33,26 @@ class _MyAdScreenState extends State<MyAdScreen> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) => Scaffold(
+        // appBar: WAppBar(
+        //   title: LocaleKeys.my_ads.tr(),
+        //   centerTitle: false,
+        //   hasBackButton: true,
+        // ),
         body: NestedScrollView(
           headerSliverBuilder: (context, item) => [
-             SliverAppBar(
+            SliverAppBar(
               pinned: true,
+              leading: GestureDetector(
+                onTap: () => Navigator.pop(context),
+                child: SizedBox(
+                    height: 20,
+                    width: 20,
+                    child: SvgPicture.asset(
+                      AppIcons.chevronLeft,
+                      height: 20,
+                      width: 20,
+                    )),
+              ),
               title: Text(LocaleKeys.my_ads.tr()),
             ),
             SliverPersistentHeader(

@@ -1,4 +1,4 @@
-import 'package:auto/features/profile/domain/entities/profile.dart';
+import 'package:auto/features/profile/domain/entities/profile_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'profile.g.dart';
@@ -10,7 +10,7 @@ class ProfileModel extends ProfileEntity {
     required super.lastName,
     required super.firstName,
     required super.image,
-    required super.region,
+    // required super.region,
     required super.email,
     required super.phoneNumber,
     required super.fullName,
@@ -26,17 +26,7 @@ class ProfileModel extends ProfileEntity {
   factory ProfileModel.fromJson(Map<String, dynamic> json) =>
       _$ProfileModelFromJson(json);
 
-  Map<String, dynamic> toJson() => _$ProfileModelToJson(this);
+
 }
 
-class DistrictConverter
-    implements JsonConverter<ProfileEntity, Map<String, dynamic>?> {
-  const DistrictConverter();
 
-  @override
-  ProfileEntity fromJson(Map<String, dynamic>? json) =>
-      ProfileModel.fromJson(json ?? {});
-
-  @override
-  Map<String, dynamic> toJson(ProfileEntity object) => {};
-}

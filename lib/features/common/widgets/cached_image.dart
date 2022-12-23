@@ -1,3 +1,4 @@
+import 'package:auto/core/utils/size_config.dart';
 import 'package:auto/features/common/widgets/image_preload_shimmer.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -28,30 +29,30 @@ class CachedImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Container(
+        height: height,
+        width: width,
         clipBehavior: Clip.hardEdge,
         decoration: BoxDecoration(
           borderRadius: borderRadius ?? BorderRadius.circular(0),
           border: border,
         ),
-        child: imageUrl.isEmpty
-            ? null
-            : ClipRRect(
-                borderRadius: borderRadius ?? BorderRadius.circular(0),
-                child: CachedNetworkImage(
-                  imageUrl: imageUrl,
-                  width: width,
-                  height: height,
-                  color: color,
-                  fit: fit,
-                  placeholder: (context, url) => ImagePreloadShimmer(
-                    height: preloadHeight,
-                    width: preloadWidth,
-                  ),
-                  errorWidget: (context, url, error) => ImagePreloadShimmer(
-                    height: preloadHeight,
-                    width: preloadWidth,
-                  ),
-                ),
-              ),
+        child: ClipRRect(
+          borderRadius: borderRadius ?? BorderRadius.circular(0),
+          child: CachedNetworkImage(
+            imageUrl: imageUrl,
+            width: width,
+            height: height,
+            color: color,
+            fit: fit,
+            placeholder: (context, url) => ImagePreloadShimmer(
+              height: preloadHeight,
+              width: preloadWidth,
+            ),
+            errorWidget: (context, url, error) => ImagePreloadShimmer(
+              height: preloadHeight,
+              width: preloadWidth,
+            ),
+          ),
+        ),
       );
 }
