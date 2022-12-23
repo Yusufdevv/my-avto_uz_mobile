@@ -15,7 +15,6 @@ class PaginationRepository {
       String? next,
       required T Function(Map<String, dynamic>) fromJson,
       Map<String, dynamic>? query}) async {
-    print('query --- query --- query --- ${query.toString()}');
     try {
       var queryParams = <String, dynamic>{};
       if (query != null) {

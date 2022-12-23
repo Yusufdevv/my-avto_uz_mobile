@@ -33,7 +33,7 @@ class _RentScreenState extends State<RentScreen>
   void initState() {
     tabController = TabController(length: 2, vsync: this);
     rentBloc = RentBloc(RentUseCase(), 5)
-      ..add(RentEvent.getResults(isRefresh: false));
+      ..add(RentGetResultsEvent(isRefresh: false));
     commercialBloc = CommercialBloc(RentUseCase(), 6)
       ..add(CommercialEvent.getResults(isRefresh: false));
     super.initState();
