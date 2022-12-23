@@ -17,7 +17,11 @@ class CarsScreen extends StatefulWidget {
 }
 
 class _CarsScreenState extends State<CarsScreen> {
-  final List<String> titles = [LocaleKeys.conditioner.tr(), LocaleKeys.full_tank.tr(), LocaleKeys.automatic_box.tr(),];
+  final List<String> titles = [
+    LocaleKeys.conditioner.tr(),
+    LocaleKeys.full_tank.tr(),
+    LocaleKeys.automatic_box.tr(),
+  ];
   final List<String> icons = [
     AppIcons.wind,
     AppIcons.gas,

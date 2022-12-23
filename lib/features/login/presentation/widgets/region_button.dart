@@ -42,13 +42,11 @@ class _RegionButtonState extends State<RegionButton> {
             child: Row(
               children: [
                 Expanded(
-                  child: Text(
-                    LocaleKeys.region.tr(),
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline1!
-                        .copyWith(fontSize: 14, fontWeight: FontWeight.w400),
-                  ),
+                  child: Text(LocaleKeys.region.tr(),
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline1!
+                          .copyWith(fontSize: 14, fontWeight: FontWeight.w400)),
                 ),
                 Expanded(
                   flex: 3,
@@ -84,13 +82,8 @@ class _RegionButtonState extends State<RegionButton> {
                           )
                         ],
                       ),
-                      const SizedBox(
-                        height: 12,
-                      ),
-                      const Divider(
-                        height: 1,
-                        color: dividerColor,
-                      ),
+                      const SizedBox(height: 12),
+                      const Divider(height: 1, color: dividerColor),
                     ],
                   ),
                 ),

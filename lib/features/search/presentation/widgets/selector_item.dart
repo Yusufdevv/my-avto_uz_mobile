@@ -2,7 +2,6 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/colors/light.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
-import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -55,9 +54,11 @@ class SelectorItem extends StatelessWidget {
                         .copyWith(color: dark),
                   ),
                   const Spacer(),
-                  SvgPicture.asset(hasArrowDown
-                      ? AppIcons.chevronDownGrey
-                      : AppIcons.chevronRightBlack)
+                  SvgPicture.asset(
+                    hasArrowDown
+                        ? AppIcons.chevronDownGrey
+                        : AppIcons.chevronRightBlack,
+                  )
                 ],
               ),
             ),

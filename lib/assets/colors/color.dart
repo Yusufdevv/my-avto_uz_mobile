@@ -105,6 +105,7 @@ const _cornSilk = Color(0xffFFF6E1);
 const _hummingBird = Color(0xffF0FAF6);
 const _mistyRose = Color(0xffFFECE7);
 const _darkCinnabar = Color(0x1aea5930);
+                      
 const _nero = Color(0xff171725);
 const _jade = Color(0xff05C46B);
 const _kellyGreen = Color(0xFF55BB00);

@@ -37,8 +37,8 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
             phoneNumber: '',
             session: ''
           ),
-        ) { 
-          
+        ) {
+
     on<GetProfileEvent>(_onGetProfile);
     on<ChangePasswordEvent>(_onChangePassword);
     on<ChangePasswordEvent>(_onChangePassword);
@@ -90,21 +90,22 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
           newPassword: event.newPassword,
         ));
 
-        if (result.isRight) {
-          event.onSuccess();
-          emit(state.copyWith(changeStatus: FormzStatus.submissionSuccess));
+          if (result.isRight) {
+            event.onSuccess();
+            emit(state.copyWith(changeStatus: FormzStatus.submissionInProgress));
+          } else {
+            event.onError(result.left.toString());
+            emit(state.copyWith(changeStatus: FormzStatus.submissionFailure));
+          }
         } else {
-          event.onError(result.left.toString());
+          event.onError('Parol xato');
           emit(state.copyWith(changeStatus: FormzStatus.submissionFailure));
         }
       } else {
-        event.onError('Parol xato');
+        event.onError("Ma'lumotlarni Требованияto'ldiring");
         emit(state.copyWith(changeStatus: FormzStatus.submissionFailure));
       }
-    } else {
-      event.onError("Ma'lumotlarni to'ldiring");
-      emit(state.copyWith(changeStatus: FormzStatus.submissionFailure));
-    }
+    });
   }
 
   Future<void> _onGetProfileFavorites(

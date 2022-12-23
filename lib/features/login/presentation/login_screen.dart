@@ -31,8 +31,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   void initState() {
-    phoneController = TextEditingController();
-    passwordController = TextEditingController();
+    phoneController = TextEditingController(text: '90 773 73 33');
+    passwordController = TextEditingController(text: '123456');
     super.initState();
   }
 
@@ -159,7 +159,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                         userName: phoneController.text
                                             .replaceAll('+998', '')));
                               }
-                            : () {},
+                            : () {
+                              setState(() {
+                                
+                              });
+                            },
                         shadow: [
                           BoxShadow(
                               offset: const Offset(0, 4),

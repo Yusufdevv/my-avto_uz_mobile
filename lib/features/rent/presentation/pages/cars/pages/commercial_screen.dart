@@ -38,6 +38,7 @@ class _CommercialScreenState extends State<CommercialScreen> {
 
   @override
   Widget build(BuildContext context) => ListView(
+        padding: const EdgeInsets.only(top: 20),
         children: [
           SizedBox(
             height: 46,
@@ -47,7 +48,7 @@ class _CommercialScreenState extends State<CommercialScreen> {
                 ...List.generate(
                     titles.length,
                     (index) => ServiceTypeItem(
-                      isSelect: isSelected[index],
+                          isSelect: isSelected[index],
                           icon: icons[index],
                           title: titles[index],
                           onTap: () {},
@@ -68,7 +69,7 @@ class _CommercialScreenState extends State<CommercialScreen> {
                 return Paginator(
                   hasMoreToFetch: state.count > state.list.length,
                   itemBuilder: (context, index) => CategoryTypeItem(
-                    onTap: () => Navigator.push(
+                    onAllTap: () => Navigator.push(
                         context,
                         fade(
                             page: SingleCategoryScreen(

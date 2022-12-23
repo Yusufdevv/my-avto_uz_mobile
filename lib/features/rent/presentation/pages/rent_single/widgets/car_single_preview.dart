@@ -77,7 +77,7 @@ class CarSinglePreview extends StatelessWidget {
             else
               const SizedBox(),
             if (hasCarInfo)
-              SingleCarInfoItem(rentCarEntity: rentEntity.rentCar)
+              SingleCarInfoItemm(rentCarEntity: rentEntity.rentCar)
             else
               const SizedBox(),
           ],

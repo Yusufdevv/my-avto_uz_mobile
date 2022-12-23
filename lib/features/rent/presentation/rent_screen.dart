@@ -47,14 +47,20 @@ class _RentScreenState extends State<RentScreen>
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               WAppBar(
+                boxShadow: const [],
                 title: LocaleKeys.auto_rent.tr(),
                 extraActions: [
                   Padding(
                     padding: const EdgeInsets.only(right: 12),
                     child: WScaleAnimation(
-                        onTap: () => Navigator.push(
-                            context, fade(page: const RentFilterScreen())),
-                        child: SvgPicture.asset(AppIcons.rentFilter)),
+                      onTap: () => Navigator.push(
+                        context,
+                        fade(
+                          page: const RentFilterScreen(),
+                        ),
+                      ),
+                      child: SvgPicture.asset(AppIcons.rentFilter),
+                    ),
                   )
                 ],
               ),
@@ -63,14 +69,10 @@ class _RentScreenState extends State<RentScreen>
                     color: Theme.of(context).appBarTheme.backgroundColor,
                     boxShadow: [
                       BoxShadow(
-                        offset: const Offset(0, 8),
-                        blurRadius: 24,
-                        color: dark.withOpacity(.08),
-                      ),
-                      BoxShadow(
-                        offset: const Offset(0, -1),
-                        color: dark.withOpacity(.08),
-                      ),
+                          offset: const Offset(0, 8),
+                          blurRadius: 24,
+                          color: dark.withOpacity(.08),
+                          spreadRadius: 0),
                     ]),
                 child: Container(
                   height: 32,
@@ -84,20 +86,22 @@ class _RentScreenState extends State<RentScreen>
                   child: TabBar(
                     controller: tabController,
                     indicator: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        color: Theme.of(context)
-                            .extension<ThemedColors>()!
-                            .whiteToDolphin,
-                        boxShadow: [
-                          BoxShadow(
-                              color: black.withOpacity(0.04),
-                              blurRadius: 1,
-                              offset: const Offset(0, 3)),
-                          BoxShadow(
-                              color: black.withOpacity(0.12),
-                              blurRadius: 8,
-                              offset: const Offset(0, 3)),
-                        ]),
+                      borderRadius: BorderRadius.circular(8),
+                      color: Theme.of(context)
+                          .extension<ThemedColors>()!
+                          .whiteToDolphin,
+                      boxShadow: [
+                        BoxShadow(
+                            color: black.withOpacity(0.04),
+                            blurRadius: 1,
+                            offset: const Offset(0, 3)),
+                        BoxShadow(
+                          color: black.withOpacity(0.12),
+                          blurRadius: 8,
+                          offset: const Offset(0, 3),
+                        ),
+                      ],
+                    ),
                     labelColor: Theme.of(context)
                         .extension<ThemedColors>()!
                         .blackToWhite,
@@ -132,6 +136,7 @@ class _RentScreenState extends State<RentScreen>
             ),
           ],
           child: TabBarView(
+            physics: const BouncingScrollPhysics(),
             controller: tabController,
             children: [
               CarsScreen(id: rentBloc.id),

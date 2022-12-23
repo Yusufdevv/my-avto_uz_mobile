@@ -15,7 +15,7 @@ class DioSettings {
 
   void setBaseOptions({String? lang}) {
     _dioBaseOptions = BaseOptions(
-      baseUrl: 'https://panel.avto.uz/api/v1',
+      baseUrl: 'https://panel.avto.uz/api/v1/',
       connectTimeout: 35000,
       receiveTimeout: 33000,
       headers: <String, dynamic>{'Accept-Language': lang},
