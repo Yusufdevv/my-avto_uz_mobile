@@ -16,7 +16,6 @@ import 'package:auto/features/profile/presentation/bloc/profile/profile_bloc.dar
 import 'package:auto/features/profile/presentation/pages/about_app_screen.dart';
 import 'package:auto/features/profile/presentation/pages/chat.dart';
 import 'package:auto/features/profile/presentation/pages/directory_page.dart';
-import 'package:auto/features/profile/presentation/pages/favourite_page.dart';
 import 'package:auto/features/profile/presentation/pages/my_ad_screen.dart';
 import 'package:auto/features/profile/presentation/pages/my_searches_page.dart';
 import 'package:auto/features/profile/presentation/pages/see_profile_screen.dart';
@@ -131,11 +130,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ProfileMenuTile(
                           name: LocaleKeys.favorites.tr(),
                           onTap: () {
-                            Navigator.push(
-                                context,
-                                fade(
-                                    page: FavouritePage(
-                                        favoriteEntity: state.favoriteEntity)));
+                            // Navigator.push(
+                            //     context,
+                            //     fade(
+                            //         page: FavouritePage(
+                            //             favoriteEntity: state.favoriteEntity)));
                           },
                           iconPath: AppIcons.heartBlue,
                           count: 37),
