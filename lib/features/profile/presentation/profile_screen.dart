@@ -9,6 +9,7 @@ import 'package:auto/features/dealers/presentation/dealers_main.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/profile/data/repositories/profile_repository_impl.dart';
 import 'package:auto/features/profile/domain/usecases/change_password_usecase.dart';
+import 'package:auto/features/profile/domain/usecases/change_phone_number_usecase.dart';
 import 'package:auto/features/profile/domain/usecases/edit_profile_usecase.dart';
 import 'package:auto/features/profile/domain/usecases/profil_favorites_usecase.dart';
 import 'package:auto/features/profile/domain/usecases/profile_usecase.dart';
@@ -52,7 +53,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
         profileUseCase:
             ProfileUseCase(repository: serviceLocator<ProfileRepositoryImpl>()),
         profileFavoritesUseCase: ProfileFavoritesUseCase(
-            repository: serviceLocator<ProfileRepositoryImpl>()))
+            repository: serviceLocator<ProfileRepositoryImpl>()),
+        changePhoneNumberUseCase: ChangePhoneNumberUseCase(
+            repository: serviceLocator<ProfileRepositoryImpl>()),    
+            )
       ..add(GetProfileEvent())
       ..add(GetProfileFavoritesEvent());
     imageBloc = ImageBloc();
