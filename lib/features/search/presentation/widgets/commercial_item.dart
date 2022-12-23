@@ -5,10 +5,10 @@ import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/profile/domain/entities/profile_item_entity.dart';
 import 'package:auto/features/profile/presentation/widgets/profile_tab_bar.dart';
+import 'package:auto/features/reviews/presentation/pages/select_brand_screen.dart';
 import 'package:auto/features/search/domain/entities/commercial_item_entity.dart';
 import 'package:auto/features/search/presentation/pages/parameter_screen.dart';
-import 'package:auto/features/search/presentation/pages/select_car.dart';
-import 'package:auto/features/search/presentation/widgets/all_commertial_item.dart';
+import 'package:auto/features/search/presentation/widgets/info_result_container.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -40,26 +40,6 @@ class _CommercialItemState extends State<CommercialItem>
     super.dispose();
   }
 
-  final List<CommercialItemEntity> commercialItemEntity = [
-    CommercialItemEntity(
-      autoName: 'Mercedes-Benz Sprinter',
-      autoYear: 2020,
-      clientName: 'Анвар Гулямов',
-      title:
-          'Mercedes-Benz Sprinter — семейство малотоннажных автомобилей компании Mercedes-Benz. Существует...',
-      priceAuto: '227 000 000 UZS',
-      oldPriceAuto: '270 000 000 UZS',
-      clientAvatar:
-          'https://images.unsplash.com/photo-1659880233848-1f4eaf4f753c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyOHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60',
-      images: [
-        'https://images.unsplash.com/photo-1658856226250-5b236fa6137d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxMDR8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60'
-      ],
-      isSalon: false,
-      isLike: true,
-      model: 'Sprinteing',
-    ),
-  ];
-
   @override
   Widget build(BuildContext context) => Scaffold(
         body: NestedScrollView(
@@ -89,7 +69,7 @@ class _CommercialItemState extends State<CommercialItem>
               actions: [
                 WScaleAnimation(
                   onTap: () => Navigator.push(
-                      context, fade(page: const SelectCarScreen())),
+                      context, fade(page: const SelectBrandScreen())),
                   child: SvgPicture.asset(AppIcons.searchWithHeart),
                 ),
                 const SizedBox(width: 16),
@@ -179,18 +159,20 @@ class _CommercialItemState extends State<CommercialItem>
                                     const Spacer(),
                                     WScaleAnimation(
                                       child: Container(
-                                          height: 14,
-                                          width: 14,
-                                          decoration: BoxDecoration(
-                                              shape: BoxShape.circle,
-                                              color: Theme.of(context)
-                                                  .extension<ThemedColors>()!
-                                                  .ghostToGondola),
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(2),
-                                            child: SvgPicture.asset(
-                                                AppIcons.closeWhite),
-                                          )),
+                                        height: 14,
+                                        width: 14,
+                                        decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            color: Theme.of(context)
+                                                .extension<ThemedColors>()!
+                                                .ghostToGondola),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(2),
+                                          child: SvgPicture.asset(
+                                            AppIcons.closeWhite,
+                                          ),
+                                        ),
+                                      ),
                                       onTap: () {},
                                     )
                                   ],
@@ -215,25 +197,27 @@ class _CommercialItemState extends State<CommercialItem>
                                       width: 16, height: 16),
                                   const SizedBox(width: 8),
                                   Text(
-                                    'г. Ташкент',
+                                    widget.entity.district.title,
                                     style:
                                         Theme.of(context).textTheme.subtitle1,
                                   ),
                                   const Spacer(),
                                   WScaleAnimation(
                                     child: Container(
-                                        height: 14,
-                                        width: 14,
-                                        decoration: BoxDecoration(
-                                            shape: BoxShape.circle,
-                                            color: Theme.of(context)
-                                                .extension<ThemedColors>()!
-                                                .ghostToGondola),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(2),
-                                          child: SvgPicture.asset(
-                                              AppIcons.closeWhite),
-                                        )),
+                                      height: 14,
+                                      width: 14,
+                                      decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: Theme.of(context)
+                                              .extension<ThemedColors>()!
+                                              .ghostToGondola),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(2),
+                                        child: SvgPicture.asset(
+                                          AppIcons.closeWhite,
+                                        ),
+                                      ),
+                                    ),
                                     onTap: () {},
                                   )
                                 ],
@@ -244,10 +228,8 @@ class _CommercialItemState extends State<CommercialItem>
                       ),
                     ),
                     ...List.generate(
-                      commercialItemEntity.length,
-                      (index) => AllCommercialItem(
-                        commercialItemEntity: commercialItemEntity[index],
-                      ),
+                      10,
+                      (index) => InfoResultContainer(commercialItemEntity: widget.entity)
                     ),
                     const SizedBox(height: 16),
                     WScaleAnimation(
@@ -261,21 +243,20 @@ class _CommercialItemState extends State<CommercialItem>
                         ),
                         padding: const EdgeInsets.symmetric(
                             horizontal: 32, vertical: 11),
-                        child: Text(LocaleKeys.load_more.tr(),
-                            style: Theme.of(context)
-                                .textTheme
-                                .subtitle1!
-                                .copyWith(
+                        child: Text(
+                          LocaleKeys.load_more.tr(),
+                          style:
+                              Theme.of(context).textTheme.subtitle1!.copyWith(
                                     color: Theme.of(context)
                                         .extension<ThemedColors>()!
-                                        .midnightExpressToDolphin)),
+                                        .midnightExpressToDolphin,
+                                  ),
+                        ),
                       ),
                     )
                   ],
                 ),
               ),
-              Column(),
-              Column(),
             ],
           ),
         ),

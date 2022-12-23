@@ -1,4 +1,5 @@
 import 'package:auto/assets/colors/color.dart';
+import 'package:auto/assets/colors/light.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
@@ -27,26 +28,23 @@ class SelectorItem extends StatelessWidget {
             style: Theme.of(context)
                 .textTheme
                 .headline2!
-                .copyWith(fontWeight: FontWeight.w600),
+                .copyWith(fontWeight: FontWeight.w400),
           ),
-          const SizedBox(
-            height: 8,
-          ),
-          GestureDetector(
+          const SizedBox(height: 8),
+          WScaleAnimation(
             onTap: onTap,
             child: Container(
               margin: const EdgeInsets.only(bottom: 16),
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 13),
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border.all(
-                      width: 1,
-                      color: Theme.of(context)
-                          .extension<ThemedColors>()!
-                          .solitudeToDarkRider),
-                  color: Theme.of(context)
-                      .extension<ThemedColors>()!
-                      .solitudeToNero),
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(
+                    width: 1,
+                    color: Theme.of(context)
+                        .extension<ThemedColors>()!
+                        .solitudeToDarkRider),
+                color: LightThemeColors.scaffoldBackground,
+              ),
               child: Row(
                 children: [
                   Text(
@@ -54,7 +52,7 @@ class SelectorItem extends StatelessWidget {
                     style: Theme.of(context)
                         .textTheme
                         .subtitle1!
-                        .copyWith(color: grey),
+                        .copyWith(color: dark),
                   ),
                   const Spacer(),
                   SvgPicture.asset(hasArrowDown
