@@ -129,8 +129,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ProfileMenuTile(
                           name: LocaleKeys.favorites.tr(),
                           onTap: () {
-                            Navigator.push(
-                                context, fade(page: FavouritePage(favoriteEntity: state.favoriteEntity,)));
+                            // Navigator.push(
+                            //     context, fade(page: FavouritePage(favoriteEntity: state.favoriteEntity,)));
                           },
                           iconPath: AppIcons.heartBlue,
                           count: 37),
