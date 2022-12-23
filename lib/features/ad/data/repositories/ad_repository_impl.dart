@@ -68,7 +68,7 @@ class AdRepositoryImpl extends AdRepository {
   }
 
   @override
-  Future<Either<Failure, GenericPagination<CarModelEntity>>> getCarModel({
+  Future<Either<Failure, GetMakeEntity>> getCarModel({
     required int makeId,
     String? next,
   }) async {
@@ -191,9 +191,9 @@ class AdRepositoryImpl extends AdRepository {
   }
 
   @override
-  Future<Either<Failure, GetMakeEntity>> getMake() async {
+  Future<Either<Failure, GetMakeEntity>> getMake({String? name}) async {
     try {
-      final result = await remoteDataSource.getMake();
+      final result = await remoteDataSource.getMake(name: name!);
       return Right(result);
     } on DioException {
       return Left(DioFailure());

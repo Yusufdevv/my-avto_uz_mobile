@@ -17,9 +17,9 @@ import 'package:dio/dio.dart';
 abstract class AdRemoteDataSource {
   Future<GenericPagination<MakeModel>> getTopMakes({String? next});
 
-  Future<GetMakeEntity> getMake();
+  Future<GetMakeEntity> getMake({String? name});
 
-  Future<GenericPagination<CarModel>> getCarModel({
+  Future<GetMakeEntity> getCarModel({
     required int makeId,
     String? next,
   });
@@ -102,15 +102,19 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
   }
 
   @override
-  Future<GetMakeEntity> getMake() async {
-    final response = await _dio.get(
-      '/car/makes/',
-      options: Options(
-        headers: StorageRepository.getString('token').isNotEmpty
-            ? {'Authorization': 'Token ${StorageRepository.getString('token')}'}
-            : {},
-      ),
-    );
+  Future<GetMakeEntity> getMake({String? name}) async {
+    final response = await _dio.get('/car/makes/',
+        options: Options(
+          headers: StorageRepository.getString('token').isNotEmpty
+              ? {
+                  'Authorization':
+                      'Token ${StorageRepository.getString('token')}'
+                }
+              : {},
+        ),
+        queryParameters: {
+          'search': name,
+        });
     if (response.statusCode! >= 200 && response.statusCode! < 300) {
       print('Bu Bizdaa Response ${response.data}');
       return GetMakeModel.fromJson(response.data);
@@ -121,7 +125,7 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
   }
 
   @override
-  Future<GenericPagination<CarModel>> getCarModel({
+  Future<GetMakeEntity> getCarModel({
     required int makeId,
     String? next,
   }) async {
@@ -134,8 +138,7 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
       ),
     );
     if (response.statusCode! >= 200 && response.statusCode! < 300) {
-      return GenericPagination.fromJson(
-          response.data, (p0) => CarModel.fromJson(p0 as Map<String, dynamic>));
+      return GetMakeModel.fromJson(response.data);
     } else {
       throw ServerException(
           statusCode: response.statusCode!, errorMessage: response.data);

@@ -1,5 +1,9 @@
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
-import 'package:auto/features/common/widgets/w_app_bar.dart';
+import 'package:auto/features/ad/presentation/bloc/car_selector/car_selector_bloc.dart';
+import 'package:auto/features/ad/presentation/bloc/choose_model/car_type_selector_bloc.dart';
+import 'package:auto/features/ad/presentation/bloc/choose_model/model_selectro_bloc.dart';
+import 'package:auto/features/common/bloc/get_car_model/get_car_model_bloc.dart';
+import 'package:auto/features/common/bloc/get_makes_bloc/get_makes_bloc_bloc.dart';
 import 'package:auto/features/comparison/domain/entities/characteristics_entity.dart';
 import 'package:auto/features/comparison/domain/entities/chracteristics_parameters_entity.dart';
 import 'package:auto/features/comparison/domain/entities/comparison_entity.dart';
@@ -9,7 +13,6 @@ import 'package:auto/features/comparison/presentation/bloc/comparison-bloc/compa
 import 'package:auto/features/comparison/presentation/pages/choose_car_brand.dart';
 import 'package:auto/features/comparison/presentation/pages/choose_generation.dart';
 import 'package:auto/features/comparison/presentation/pages/choose_model.dart';
-import 'package:auto/features/comparison/presentation/widgets/empty_widget.dart';
 import 'package:auto/features/comparison/presentation/widgets/main_parameters_widget.dart';
 import 'package:auto/features/comparison/presentation/widgets/sliver_delegate.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
@@ -43,6 +46,12 @@ class _ComparisonState extends State<Comparison> {
   late ScrollController sliverWidgetScrollController;
   late LinkedScrollControllerGroup linkedScrollControllerGroup;
   late List<ScrollController> scrollControllers;
+  late TextEditingController searchController;
+  late ModelSelectorBloc modelBloc;
+  late CarTypeSelectorBloc carTypeSelectorBloc;
+  late GetCarModelBloc carModelBloc;
+  late CarSelectorBloc carSelectorBloc;
+  late GetMakesBloc getMakesBloc;
   List<Characteristics> characteristicsParameters = [
     Characteristics(
       parameterName: LocaleKeys.mains.tr(),
@@ -187,9 +196,15 @@ class _ComparisonState extends State<Comparison> {
                                   ),
                                 );
                               },
+                              bloc: carModelBloc,
+                              carTypeSelectorBloc: carTypeSelectorBloc,
+                              modelBloc: modelBloc,
+                              carSelectorBloc: carSelectorBloc,
+                              getMakesBloc: getMakesBloc,
                             ),
                           ),
                         ),
+                        carSelectorBloc: carSelectorBloc,
                       ),
                     ),
                   ),

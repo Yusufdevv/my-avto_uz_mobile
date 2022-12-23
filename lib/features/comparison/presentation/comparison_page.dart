@@ -1,5 +1,10 @@
 import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/core/singletons/storage.dart';
+import 'package:auto/features/ad/presentation/bloc/car_selector/car_selector_bloc.dart';
+import 'package:auto/features/ad/presentation/bloc/choose_model/car_type_selector_bloc.dart';
+import 'package:auto/features/ad/presentation/bloc/choose_model/model_selectro_bloc.dart';
+import 'package:auto/features/common/bloc/get_car_model/get_car_model_bloc.dart';
+import 'package:auto/features/common/bloc/get_makes_bloc/get_makes_bloc_bloc.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/comparison/data/repositories/comparison_cars_repo_impl.dart';
 import 'package:auto/features/comparison/domain/usecases/comparison_cars_use_case.dart';
@@ -24,9 +29,17 @@ class ComparisonPage extends StatefulWidget {
 
 class _ComparisonPageState extends State<ComparisonPage> {
   late ComparisonBloc bloc;
+  late ModelSelectorBloc modelBloc;
+  late CarTypeSelectorBloc carTypeSelectorBloc;
+  late GetCarModelBloc carModelBloc;
+  late GetMakesBloc getMakesBloc;
+  late CarSelectorBloc carSelectorBloc;
 
   @override
   void initState() {
+    carTypeSelectorBloc = CarTypeSelectorBloc();
+    modelBloc = ModelSelectorBloc();
+    carSelectorBloc = CarSelectorBloc();
     bloc = ComparisonBloc(
         comparisonCarsUseCase: ComparisonCarsUseCase(
             comparisonCarsRepo: serviceLocator<ComparisonCarsRepoImpl>()))
@@ -67,9 +80,15 @@ class _ComparisonPageState extends State<ComparisonPage> {
                                     ),
                                   );
                                 },
+                                bloc: carModelBloc,
+                                carTypeSelectorBloc: carTypeSelectorBloc,
+                                modelBloc: modelBloc,
+                                carSelectorBloc: carSelectorBloc,
+                                getMakesBloc: getMakesBloc,
                               ),
                             ),
                           ),
+                          carSelectorBloc: carSelectorBloc,
                         ),
                       ),
                     );

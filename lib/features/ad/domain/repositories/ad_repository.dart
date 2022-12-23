@@ -18,9 +18,9 @@ abstract class AdRepository {
   Future<Either<Failure, GenericPagination<MakeEntity>>> getTopMakes(
       {String? next});
 
-  Future<Either<Failure, GetMakeEntity>> getMake();
+  Future<Either<Failure, GetMakeEntity>> getMake({String? name});
 
-  Future<Either<Failure, GenericPagination<CarModelEntity>>> getCarModel({
+  Future<Either<Failure, GetMakeEntity>> getCarModel({
     required int makeId,
     String? next,
   });

@@ -1,14 +1,13 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
-import 'package:auto/features/ad/domain/entities/choose_model/model_item_entity.dart';
 import 'package:auto/features/ad/presentation/bloc/choose_model/model_selectro_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
 class ModelItems extends StatelessWidget {
-  final ModelItemEntity entity;
+  final String entity;
   final int id;
   final int selectedId;
 
@@ -48,7 +47,7 @@ class ModelItems extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        entity.title,
+                        entity,
                         style: Theme.of(context).textTheme.headline1!.copyWith(
                               fontSize: 16,
                               fontWeight: FontWeight.w400,
