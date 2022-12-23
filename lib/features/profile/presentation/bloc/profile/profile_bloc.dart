@@ -1,5 +1,4 @@
 import 'package:auto/core/usecases/usecase.dart';
-import 'package:auto/features/profile/data/models/favorite_model.dart';
 import 'package:auto/features/profile/data/models/profile.dart';
 import 'package:auto/features/profile/domain/entities/favourite_entity.dart';
 import 'package:auto/features/profile/domain/entities/profile_entity.dart';
@@ -29,16 +28,14 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     required this.changePasswordUseCase,
   }) : super(
           ProfileState(
-            changeStatus: FormzStatus.pure,
-            editStatus: FormzStatus.pure,
-            status: FormzStatus.pure,
-            profileEntity: ProfileModel.fromJson(const {}),
-            favoriteEntity: const <FavoriteEntity>[],
-            phoneNumber: '',
-            session: ''
-          ),
+              changeStatus: FormzStatus.pure,
+              editStatus: FormzStatus.pure,
+              status: FormzStatus.pure,
+              profileEntity: ProfileModel.fromJson(const {}),
+              favoriteEntity: const <FavoriteEntity>[],
+              phoneNumber: '',
+              session: ''),
         ) {
-
     on<GetProfileEvent>(_onGetProfile);
     on<ChangePasswordEvent>(_onChangePassword);
     on<ChangePasswordEvent>(_onChangePassword);
@@ -90,22 +87,21 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
           newPassword: event.newPassword,
         ));
 
-          if (result.isRight) {
-            event.onSuccess();
-            emit(state.copyWith(changeStatus: FormzStatus.submissionInProgress));
-          } else {
-            event.onError(result.left.toString());
-            emit(state.copyWith(changeStatus: FormzStatus.submissionFailure));
-          }
+        if (result.isRight) {
+          event.onSuccess();
+          emit(state.copyWith(changeStatus: FormzStatus.submissionInProgress));
         } else {
-          event.onError('Parol xato');
+          event.onError(result.left.toString());
           emit(state.copyWith(changeStatus: FormzStatus.submissionFailure));
         }
       } else {
-        event.onError("Ma'lumotlarni Требованияto'ldiring");
+        event.onError('Parol xato');
         emit(state.copyWith(changeStatus: FormzStatus.submissionFailure));
       }
-    });
+    } else {
+      event.onError("Ma'lumotlarni Требованияto'ldiring");
+      emit(state.copyWith(changeStatus: FormzStatus.submissionFailure));
+    }
   }
 
   Future<void> _onGetProfileFavorites(

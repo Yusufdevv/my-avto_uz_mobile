@@ -28,8 +28,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../rent/presentation/pages/cars/pages/commercial_screen.dart';
-
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
 
