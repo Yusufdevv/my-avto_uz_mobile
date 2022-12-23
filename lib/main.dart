@@ -116,16 +116,21 @@ class _AppState extends State<App> {
                   if (!StorageRepository.getBool('onboarding',
                       defValue: false)) {
                     navigator.pushAndRemoveUntil(
-                        fade(page: const HomeScreen()), (route) => false);
+                      fade(page: const HomeScreen()),
+                      (route) => false,
+                    );
                   } else {
                     navigator.pushAndRemoveUntil(
                         fade(
-                            page: BlocProvider(
-                                create: (c) => RegisterBloc(
-                                    sendCodeUseCase: SendCodeUseCase(),
-                                    registerUseCase: RegisterUseCase(),
-                                    verifyCodeUseCase: VerifyCodeUseCase()),
-                                child: const LoginScreen())),
+                          page: BlocProvider(
+                            create: (c) => RegisterBloc(
+                              sendCodeUseCase: SendCodeUseCase(),
+                              registerUseCase: RegisterUseCase(),
+                              verifyCodeUseCase: VerifyCodeUseCase(),
+                            ),
+                            child: const LoginScreen(),
+                          ),
+                        ),
                         (route) => false);
                   }
                   break;

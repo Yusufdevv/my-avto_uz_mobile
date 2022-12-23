@@ -2,9 +2,14 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/core/singletons/service_locator.dart';
+import 'package:auto/features/ad/data/repositories/ad_repository_impl.dart';
 import 'package:auto/features/ad/domain/entities/choose_car_brand/change_car_entity.dart';
+import 'package:auto/features/ad/domain/repositories/ad_repository.dart';
+import 'package:auto/features/ad/domain/usecases/get_makes.dart';
 import 'package:auto/features/ad/presentation/bloc/car_selector/car_selector_bloc.dart';
 import 'package:auto/features/ad/presentation/pages/choose_car_brand/widget/car_items.dart';
+import 'package:auto/features/common/bloc/get_makes_bloc/get_makes_bloc_bloc.dart';
 import 'package:auto/features/common/domain/entity/car_brand_entity.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_textfield.dart';
@@ -30,6 +35,7 @@ class ChooseCarBrandComparison extends StatefulWidget {
 class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
   late TextEditingController searchController;
   late CarSelectorBloc carSelectorBloc;
+  late GetMakesBloc bloc;
   late ScrollController scrollController;
   late ScrollingBloc scrollingBloc;
   Color color = Colors.transparent;
@@ -39,6 +45,11 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
     scrollingBloc = ScrollingBloc();
     carSelectorBloc = CarSelectorBloc();
     scrollController = ScrollController();
+    bloc = GetMakesBloc(
+      useCase: GetMakesUseCase(
+        repository: serviceLocator<AdRepositoryImpl>(),
+      ),
+    )..add(const GetMakesBlocEvent.getMakes());
     scrollController.addListener(() {
       print(scrollController.offset);
       scrollingBloc.add(ChangeColorEvent(offset: scrollController.offset));
@@ -101,6 +112,30 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
         title: 'Volkswagen',
         icon:
             'https://seeklogo.com/images/V/Volkswagen-logo-FAE94F013E-seeklogo.com.png'),
+    ChangeCarEntity(
+        title: 'Volkswagen',
+        icon:
+            'https://seeklogo.com/images/V/Volkswagen-logo-FAE94F013E-seeklogo.com.png'),
+    ChangeCarEntity(
+        title: 'Volkswagen',
+        icon:
+            'https://seeklogo.com/images/V/Volkswagen-logo-FAE94F013E-seeklogo.com.png'),
+    ChangeCarEntity(
+        title: 'Volkswagen',
+        icon:
+            'https://seeklogo.com/images/V/Volkswagen-logo-FAE94F013E-seeklogo.com.png'),
+    ChangeCarEntity(
+        title: 'Volkswagen',
+        icon:
+            'https://seeklogo.com/images/V/Volkswagen-logo-FAE94F013E-seeklogo.com.png'),
+    ChangeCarEntity(
+        title: 'Volkswagen',
+        icon:
+            'https://seeklogo.com/images/V/Volkswagen-logo-FAE94F013E-seeklogo.com.png'),
+    ChangeCarEntity(
+        title: 'Volkswagen',
+        icon:
+            'https://seeklogo.com/images/V/Volkswagen-logo-FAE94F013E-seeklogo.com.png'),
   ];
   final List<CarBrandEntity> carBrandEntity = [
     const CarBrandEntity(title: 'Chevrolet', icon: AppImages.chevrolet),
@@ -115,8 +150,15 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
 
   @override
   Widget build(BuildContext context) => KeyboardDismisser(
-        child: BlocProvider.value(
-          value: carSelectorBloc,
+        child: MultiBlocProvider(
+          providers: [
+            BlocProvider.value(
+              value: carSelectorBloc,
+            ),
+            BlocProvider.value(
+              value: bloc,
+            ),
+          ],
           child: Scaffold(
             body: Stack(
               children: [
@@ -124,10 +166,10 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
                   controller: scrollController,
                   headerSliverBuilder: (context, innerBoxIsScrolled) => [
                     SliverAppBar(
-                      automaticallyImplyLeading: false,
                       elevation: 0,
                       pinned: true,
-                      title: GestureDetector(
+                      leadingWidth: 85,
+                      leading: GestureDetector(
                         onTap: () => Navigator.pop(context),
                         behavior: HitTestBehavior.opaque,
                         child: Row(
@@ -135,7 +177,7 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
                           children: [
                             Padding(
                               padding: const EdgeInsets.only(
-                                  top: 16, bottom: 16, right: 4),
+                                  top: 16, bottom: 16, right: 4, left: 16),
                               child: SvgPicture.asset(AppIcons.chevronLeft),
                             ),
                             Text(
@@ -148,6 +190,17 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
                           ],
                         ),
                       ),
+                      actions: [
+                        Padding(
+                          padding: const EdgeInsets.only(right: 16),
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: SvgPicture.asset(AppIcons.close),
+                          ),
+                        ),
+                      ],
                     ),
                     SliverToBoxAdapter(
                       child: Column(
@@ -162,8 +215,9 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
                                   .textTheme
                                   .headline1!
                                   .copyWith(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w700),
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w700,
+                                  ),
                             ),
                           ),
                           WTextField(
@@ -184,14 +238,19 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
                       ),
                     ),
                     SliverToBoxAdapter(
-                      child: SizedBox(
-                        height: 132,
-                        child: ListView.builder(
-                          physics: const BouncingScrollPhysics(),
-                          scrollDirection: Axis.horizontal,
-                          itemBuilder: (context, index) => CarBrandContainer(
-                              carBrandEntity: carBrandEntity[index]),
-                          itemCount: carBrandEntity.length,
+                      child: BlocBuilder<GetMakesBloc, GetMakesState>(
+                        bloc: bloc,
+                        builder: (context, state) => SizedBox(
+                          height: 132,
+                          child: ListView.builder(
+                            physics: const BouncingScrollPhysics(),
+                            scrollDirection: Axis.horizontal,
+                            itemBuilder: (context, index) => CarBrandContainer(
+                              imageUrl: state.makes.results[index].logo,
+                              title: state.makes.results[index].name,
+                            ),
+                            itemCount: state.makes.results.length,
+                          ),
                         ),
                       ),
                     ),
@@ -202,12 +261,13 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
                           height: 20,
                           width: double.infinity,
                           decoration: BoxDecoration(
-                              color: Theme.of(context)
-                                  .extension<ThemedColors>()!
-                                  .whiteToDark,
-                              borderRadius: const BorderRadius.vertical(
-                                top: Radius.circular(20),
-                              )),
+                            color: Theme.of(context)
+                                .extension<ThemedColors>()!
+                                .whiteToDark,
+                            borderRadius: const BorderRadius.vertical(
+                              top: Radius.circular(20),
+                            ),
+                          ),
                         ),
                       ),
                     ),
@@ -220,38 +280,46 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
                       ),
                     ),
                   ],
-                  body: ListView.builder(
-                    padding: const EdgeInsets.only(bottom: 50),
-                    itemBuilder: (context, index) =>
-                        BlocBuilder<CarSelectorBloc, SelectedCarItems>(
-                      builder: (context, state) => Container(
-                        color: white,
-                        child: ChangeCarItems(
-                          entity: carList[index],
-                          selectedId: state.selectedId,
-                          id: index,
+                  body: BlocBuilder<GetMakesBloc, GetMakesState>(
+                    bloc: bloc,
+                    builder: (context, stateMake) => ListView.builder(
+                      padding: const EdgeInsets.only(bottom: 60),
+                      itemBuilder: (context, index) =>
+                          BlocBuilder<CarSelectorBloc, SelectedCarItems>(
+                        builder: (context, state) => Container(
+                          color: Theme.of(context)
+                              .extension<ThemedColors>()!
+                              .whiteToDark,
+                          child: ChangeCarItems(
+                            selectedId: state.selectedId,
+                            id: index,
+                            imageUrl: stateMake.makes.results[index].logo,
+                            name: stateMake.makes.results[index].name,
+                          ),
                         ),
                       ),
+                      itemCount: stateMake.makes.results.length,
                     ),
-                    itemCount: carList.length,
                   ),
                 ),
                 Positioned(
-                    bottom: 16,
-                    right: 16,
-                    left: 16,
-                    child: BlocBuilder<CarSelectorBloc, SelectedCarItems>(
-                      builder: (context, state) => WButton(
-                        onTap: state.selectedId == -1 ? () {} : widget.onTap,
-                        text: 'Далее',
-                        shadow: [
-                          BoxShadow(
-                              offset: const Offset(0, 4),
-                              blurRadius: 20,
-                              color: orange.withOpacity(0.2)),
-                        ],
-                      ),
-                    )),
+                  bottom: 16,
+                  right: 16,
+                  left: 16,
+                  child: BlocBuilder<CarSelectorBloc, SelectedCarItems>(
+                    builder: (context, state) => WButton(
+                      onTap: state.selectedId == -1 ? () {} : widget.onTap,
+                      text: 'Далее',
+                      shadow: [
+                        BoxShadow(
+                          offset: const Offset(0, 4),
+                          blurRadius: 20,
+                          color: orange.withOpacity(0.2),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
               ],
             ),
           ),

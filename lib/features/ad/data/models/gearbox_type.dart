@@ -3,7 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'gearbox_type.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(fieldRename: FieldRename.snake)
 class GearboxTypeModel extends GearboxTypeEntity {
   const GearboxTypeModel({
     required super.id,

@@ -3,7 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'drive_type.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(fieldRename: FieldRename.snake)
 class DriveTypeModel extends DriveTypeEntity {
   const DriveTypeModel({
     required super.id,

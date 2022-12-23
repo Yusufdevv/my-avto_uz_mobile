@@ -3,7 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'body_type.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(fieldRename: FieldRename.snake)
 class BodyTypeModel extends BodyTypeEntity {
   const BodyTypeModel({
     required super.id,

@@ -3,13 +3,13 @@ import 'dart:math';
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
-import 'package:auto/features/comparison/domain/entities/car_params_entity.dart';
+import 'package:auto/features/comparison/domain/entities/comparison_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class CharacteristicsParametersWidget extends StatelessWidget {
   final ScrollController controller;
-  final List<CarParamsEntity> numberOfAddedCars;
+  final List<ComparisonEntity> numberOfAddedCars;
   final String characteristicsOrComplectation;
   final List listOfComparisonParameters;
   final int selectedValue;
@@ -124,7 +124,10 @@ class CharacteristicsParametersWidget extends StatelessWidget {
                                             left: 16, top: 28),
                                         height: 54,
                                         child: Text(
-                                          numberOfAddedCars[index].type,
+                                          numberOfAddedCars[index]
+                                              .announcement
+                                              .mainData
+                                              .bodyType,
                                           style: Theme.of(context)
                                               .textTheme
                                               .headline1!
@@ -196,7 +199,7 @@ class CharacteristicsParametersWidget extends StatelessWidget {
                           scrollDirection: Axis.horizontal,
                           children: [
                             ...List.generate(
-                              4,
+                              numberOfAddedCars.length,
                               (index) => Column(
                                 children: List.generate(
                                   listOfComparisonParameters.length,
@@ -216,14 +219,19 @@ class CharacteristicsParametersWidget extends StatelessWidget {
                                             MediaQuery.of(context).size.width *
                                                 0.5,
                                         height: 54,
-                                        child: Text('data',
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .headline1!
-                                                .copyWith(
-                                                    fontSize: 14,
-                                                    fontWeight:
-                                                        FontWeight.w600)),
+                                        child: Text(
+                                          numberOfAddedCars[index]
+                                              .announcement
+                                              .mainData
+                                              .make,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headline1!
+                                              .copyWith(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w600,
+                                              ),
+                                        ),
                                       ),
                                     ],
                                   ),
@@ -276,39 +284,3 @@ class CharacteristicsParametersWidget extends StatelessWidget {
         ],
       );
 }
-
-/*Column(
-                children: List.generate(
-                    listOfComparisonParameters.length,
-                    (index) => Column(
-                          children: [
-                            if (characteristicsOrComplectation ==
-                                'characteristics')
-                              CharacteristicsComparisonWidget(
-                                parameterName: listOfComparisonParameters[index]
-                                    .comparisonParameters,
-                                color: index % 2 == 0
-                                    ? Theme.of(context)
-                                        .extension<ThemedColors>()!
-                                        .solitudeContainerToNero1
-                                    : Theme.of(context)
-                                        .extension<ThemedColors>()!
-                                        .whiteToNightRider,
-                                numberOfAddedCars: 1,
-                              )
-                            else
-                              ComplectationComparisonWidget(
-                                color: index % 2 == 0
-                                    ? Theme.of(context)
-                                        .extension<ThemedColors>()!
-                                        .solitude1ToNero
-                                    : Theme.of(context)
-                                        .extension<ThemedColors>()!
-                                        .whiteLilacToNightRider,
-                                parameterName: listOfComparisonParameters[index]
-                                    .comparisonParameters,
-                                status: index % 2 == 0 ? 'good' : 'notGood',
-                                numberOfCars: numberOfAddedCars,
-                              ),
-                          ],
-                        )))*/
