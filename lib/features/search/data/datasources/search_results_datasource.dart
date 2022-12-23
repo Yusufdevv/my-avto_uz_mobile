@@ -1,26 +1,31 @@
 import 'package:auto/core/exceptions/exceptions.dart';
-import 'package:auto/features/search/data/models/popular_searches_model.dart';
-import 'package:auto/features/search/data/models/search_item_model.dart';
+import 'package:auto/features/common/domain/model/auto_model.dart';
+import 'package:auto/features/pagination/models/generic_pagination.dart';
 
 import 'package:dio/dio.dart';
 
 abstract class SearchResultsDatasource {
-  Future<SearchItemModel> getSearchResults();
+  Future<GenericPagination<AutoModel>> getSearchResults(String? searchedText);
+  // Future<>
 }
 
-class PopularSearchesSourceImpl extends SearchResultsDatasource {
+class SearchResultsDatasourceImpl extends SearchResultsDatasource {
   final Dio _dio;
 
-  PopularSearchesSourceImpl(this._dio);
+  SearchResultsDatasourceImpl(this._dio);
 
   @override
-  Future<SearchItemModel> getSearchResults() async {
+  Future<GenericPagination<AutoModel>> getSearchResults(
+      String? searchedText) async {
     try {
-      final response = await _dio.get('es/Announcements/');
+      final response = await _dio.get('es/AnnouncementElasticSearch/',
+          queryParameters: {'search': searchedText});
       if (response.statusCode != null &&
           response.statusCode! >= 200 &&
           response.statusCode! < 300) {
-        return SearchItemModel.fromJson(response.data);
+        print(response.realUri);
+        return GenericPagination.fromJson(response.data,
+            (p0) => AutoModel.fromJson(p0 as Map<String, dynamic>));
       } else {
         throw ServerException(
           statusCode: response.statusCode!,

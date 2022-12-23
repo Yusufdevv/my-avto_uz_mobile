@@ -1,35 +1,20 @@
 import 'package:auto/assets/colors/color.dart';
+import 'package:auto/assets/colors/light.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class SortBottomSheet extends StatefulWidget {
-  final double? height;
-  final bool hasBackbutton;
-  final Widget? leading;
   final String title;
-  final List<Widget> actions;
-  final List<Widget> children;
-  final double verticalPadding;
-  final double horizontalPadding;
-  final bool hasDivider;
-  final EdgeInsets actionsPadding;
-  final EdgeInsets leadingPadding;
-  final bool centerTitle;
+  final ValueChanged<String> onChanged;
+  final List<String> values;
+  final String? defaultValue;
   const SortBottomSheet(
       {required this.title,
-      required this.children,
-      this.height,
-      this.leading,
-      this.actions = const [],
-      this.hasBackbutton = false,
-      this.hasDivider = true,
-      this.verticalPadding = 20,
-      this.horizontalPadding = 16,
-      this.actionsPadding = const EdgeInsets.symmetric(horizontal: 16),
-      this.leadingPadding = const EdgeInsets.symmetric(horizontal: 16),
-      this.centerTitle = false,
+      required this.values,
+      required this.onChanged,
+      required this.defaultValue,
       super.key});
 
   @override
@@ -37,66 +22,130 @@ class SortBottomSheet extends StatefulWidget {
 }
 
 class _SortBottomSheetState extends State<SortBottomSheet> {
+  String? groupValue;
+
   @override
-  Widget build(BuildContext context) => Container(
-        height: widget.height ?? MediaQuery.of(context).size.height * 0.5,
-        decoration: const BoxDecoration(
-            borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
-        padding: EdgeInsets.only(
-          top: widget.verticalPadding,
-          left: widget.horizontalPadding,
-          bottom: widget.verticalPadding,
-        ),
-        child: Column(
-          children: [
-            Row(
+  void initState() {
+    groupValue = widget.defaultValue;
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) => Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
+            child: Row(
               children: [
-                widget.leading ??
-                    (widget.hasBackbutton
-                        ? WButton(
-                            padding: widget.leadingPadding,
-                            onTap: () {
-                              Navigator.pop(context);
-                            },
-                            color: transparentButton,
-                            child: SvgPicture.asset(
-                              AppIcons.chevronLeft,
-                              height: 24,
-                              width: 24,
-                              fit: BoxFit.cover,
-                            ),
-                          )
-                        : const SizedBox()),
-                const SizedBox(width: 4),
-                if (widget.centerTitle) const Spacer() else const SizedBox(),
-                Text(
-                  widget.title,
-                  style: Theme.of(context).textTheme.headline1,
+                Expanded(
+                  child: Text(
+                    widget.title,
+                    style: Theme.of(context).textTheme.headline1,
+                  ),
                 ),
-                const Spacer(),
-                if (widget.actions.isEmpty)
-                  WButton(
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                    padding: widget.actionsPadding,
-                    color: transparentButton,
-                    child: SvgPicture.asset(
-                      AppIcons.close,
-                      height: 24,
-                      width: 24,
-                      fit: BoxFit.cover,
-                    ),
-                  )
-                else
-                  ...widget.actions,
+                GestureDetector(
+                  onTap: () => Navigator.pop(context),
+                  child: SvgPicture.asset(
+                    AppIcons.close,
+                    height: 24,
+                    width: 24,
+                    fit: BoxFit.cover,
+                  ),
+                ),
               ],
             ),
-            if (widget.hasDivider) const Divider() else const SizedBox(),
-            Column(
-              children: widget.children,
+          ),
+          const Divider(color: border, thickness: 1, height: 1),
+          Container(
+            padding: const EdgeInsets.only(top: 16),
+            color: white,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                ...List.generate(
+                    widget.values.length,
+                    (index) => GestureDetector(
+                          behavior: HitTestBehavior.opaque,
+                          onTap: () =>
+                              setState(() => groupValue = widget.values[index]),
+                          child: Container(
+                            padding: const EdgeInsets.all(12),
+                            margin: const EdgeInsets.only(
+                                left: 16, bottom: 10, right: 16),
+                            decoration: BoxDecoration(
+                              color: widget.values[index] == groupValue
+                                  ? purple.withOpacity(.1)
+                                  : null,
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: Row(
+                              children: [
+                                Transform.scale(
+                                  scale: 1.3,
+                                  child: SizedBox(
+                                    height: 24,
+                                    width: 24,
+                                    child: Radio<String>(
+                                      activeColor: purple,
+                                      focusColor: red,
+                                      visualDensity: const VisualDensity(
+                                        horizontal:
+                                            VisualDensity.minimumDensity,
+                                        vertical: VisualDensity.minimumDensity,
+                                      ),
+                                      materialTapTargetSize:
+                                          MaterialTapTargetSize.shrinkWrap,
+                                      value: widget.values[index],
+                                      groupValue: groupValue,
+                                      onChanged: (val) =>
+                                          setState(() => groupValue = val),
+                                      splashRadius: 0,
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(width: 8),
+                                Text(
+                                  widget.values[index],
+                                  style: widget.values[index] == groupValue
+                                      ? Theme.of(context)
+                                          .textTheme
+                                          .subtitle1!
+                                          .copyWith(fontSize: 16)
+                                      : Theme.of(context)
+                                          .textTheme
+                                          .headline6!
+                                          .copyWith(
+                                              color: LightThemeColors.smoky),
+                                ),
+                              ],
+                            ),
+                          ),
+                        )),
+                WButton(
+                  onTap: () {
+                    if (groupValue != null) {
+                      widget.onChanged(groupValue!);
+                    }
+                    Navigator.pop(context);
+                  },
+                  color: orange,
+                  text: 'Применить',
+                  textStyle: Theme.of(context)
+                      .textTheme
+                      .subtitle1!
+                      .copyWith(color: white),
+                      
+                  margin: EdgeInsets.only(
+                    bottom: MediaQuery.of(context).padding.bottom + 20,
+                    top: 20,
+                    left: 16,
+                    right: 16,
+                  ),
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       );
 }

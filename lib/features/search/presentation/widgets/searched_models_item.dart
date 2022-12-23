@@ -3,7 +3,7 @@ import 'package:auto/assets/colors/light.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
-import 'package:auto/features/search/presentation/widgets/highlighted_text.dart';
+import 'package:auto/features/common/widgets/w_highlighted_text.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -13,11 +13,14 @@ import 'package:flutter_svg/flutter_svg.dart';
 class SearchedModelsItem extends StatelessWidget {
   final String fullText;
   final String searchText;
+  final String imageUrl;
+
   final VoidCallback onTap;
   const SearchedModelsItem(
       {required this.fullText,
       required this.searchText,
       required this.onTap,
+      required this.imageUrl,
       Key? key})
       : super(key: key);
 
@@ -32,29 +35,32 @@ class SearchedModelsItem extends StatelessWidget {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(150),
-                child: CachedNetworkImage(
-                  imageUrl: 'https://source.unsplash.com/random/6151',
-                  placeholder: (context, url) => Container(
-                    height: 24,
-                    width: 24,
-                    decoration: BoxDecoration(
-                      border: Border.all(color: dividerColor),
-                      borderRadius: BorderRadius.circular(150),
-                    ),
-                    child: SvgPicture.asset(AppIcons.car),
+              CachedNetworkImage(
+                imageUrl: imageUrl,
+                imageBuilder: (context, imageProvider) => Container(
+                  decoration: BoxDecoration(
+                    image: DecorationImage(image: imageProvider),
                   ),
-                  height: 24,
-                  width: 24,
-                  fit: BoxFit.cover,
+                  height: 32,
+                  width: 32,
+                  padding: const EdgeInsets.all(4),
+                ),
+                errorWidget: (context, url, error) => Container(
+                  height: 32,
+                  padding: const EdgeInsets.all(4),
+                  width: 32,
+                  decoration: BoxDecoration(
+                    border: Border.all(color: dividerColor),
+                    borderRadius: BorderRadius.circular(150),
+                  ),
+                  child: SvgPicture.asset(AppIcons.car),
                 ),
               ),
               const SizedBox(width: 12),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  HighlightedText(
+                  WHighlightedText(
                     allText: fullText,
                     highlightedText: searchText,
                     highlightColor:

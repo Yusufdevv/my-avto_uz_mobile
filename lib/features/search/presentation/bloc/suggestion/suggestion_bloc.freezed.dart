@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'suggestion_bloc.dart';
 
@@ -29,12 +29,12 @@ mixin _$SuggestionEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String search)? getSuggestions,
-    TResult? Function()? setSuggestions,
-    TResult? Function(String text)? saveLocaleSuggestion,
-    TResult? Function(String text)? deleteLocaleSuggestion,
-    TResult? Function(String text)? selectSearchSuggestion,
-    TResult? Function(bool? isResultPage, bool? isLocaleSuggestion)?
+    TResult Function(String search)? getSuggestions,
+    TResult Function()? setSuggestions,
+    TResult Function(String text)? saveLocaleSuggestion,
+    TResult Function(String text)? deleteLocaleSuggestion,
+    TResult Function(String text)? selectSearchSuggestion,
+    TResult Function(bool? isResultPage, bool? isLocaleSuggestion)?
         changeStatus,
   }) =>
       throw _privateConstructorUsedError;
@@ -64,12 +64,12 @@ mixin _$SuggestionEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_GetSuggestions value)? getSuggestions,
-    TResult? Function(_SetSuggestions value)? setSuggestions,
-    TResult? Function(_SaveLocaleSuggestion value)? saveLocaleSuggestion,
-    TResult? Function(_DeleteLocaleSuggestion value)? deleteLocaleSuggestion,
-    TResult? Function(_SelectLocaleSuggestion value)? selectSearchSuggestion,
-    TResult? Function(_ChangeStatus value)? changeStatus,
+    TResult Function(_GetSuggestions value)? getSuggestions,
+    TResult Function(_SetSuggestions value)? setSuggestions,
+    TResult Function(_SaveLocaleSuggestion value)? saveLocaleSuggestion,
+    TResult Function(_DeleteLocaleSuggestion value)? deleteLocaleSuggestion,
+    TResult Function(_SelectLocaleSuggestion value)? selectSearchSuggestion,
+    TResult Function(_ChangeStatus value)? changeStatus,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -89,18 +89,17 @@ mixin _$SuggestionEvent {
 abstract class $SuggestionEventCopyWith<$Res> {
   factory $SuggestionEventCopyWith(
           SuggestionEvent value, $Res Function(SuggestionEvent) then) =
-      _$SuggestionEventCopyWithImpl<$Res, SuggestionEvent>;
+      _$SuggestionEventCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$SuggestionEventCopyWithImpl<$Res, $Val extends SuggestionEvent>
+class _$SuggestionEventCopyWithImpl<$Res>
     implements $SuggestionEventCopyWith<$Res> {
   _$SuggestionEventCopyWithImpl(this._value, this._then);
 
+  final SuggestionEvent _value;
   // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final $Res Function(SuggestionEvent) _then;
 }
 
 /// @nodoc
@@ -108,25 +107,26 @@ abstract class _$$_GetSuggestionsCopyWith<$Res> {
   factory _$$_GetSuggestionsCopyWith(
           _$_GetSuggestions value, $Res Function(_$_GetSuggestions) then) =
       __$$_GetSuggestionsCopyWithImpl<$Res>;
-  @useResult
   $Res call({String search});
 }
 
 /// @nodoc
 class __$$_GetSuggestionsCopyWithImpl<$Res>
-    extends _$SuggestionEventCopyWithImpl<$Res, _$_GetSuggestions>
+    extends _$SuggestionEventCopyWithImpl<$Res>
     implements _$$_GetSuggestionsCopyWith<$Res> {
   __$$_GetSuggestionsCopyWithImpl(
       _$_GetSuggestions _value, $Res Function(_$_GetSuggestions) _then)
-      : super(_value, _then);
+      : super(_value, (v) => _then(v as _$_GetSuggestions));
 
-  @pragma('vm:prefer-inline')
+  @override
+  _$_GetSuggestions get _value => super._value as _$_GetSuggestions;
+
   @override
   $Res call({
-    Object? search = null,
+    Object? search = freezed,
   }) {
     return _then(_$_GetSuggestions(
-      search: null == search
+      search: search == freezed
           ? _value.search
           : search // ignore: cast_nullable_to_non_nullable
               as String,
@@ -152,15 +152,15 @@ class _$_GetSuggestions implements _GetSuggestions {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_GetSuggestions &&
-            (identical(other.search, search) || other.search == search));
+            const DeepCollectionEquality().equals(other.search, search));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, search);
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(search));
 
   @JsonKey(ignore: true)
   @override
-  @pragma('vm:prefer-inline')
   _$$_GetSuggestionsCopyWith<_$_GetSuggestions> get copyWith =>
       __$$_GetSuggestionsCopyWithImpl<_$_GetSuggestions>(this, _$identity);
 
@@ -181,12 +181,12 @@ class _$_GetSuggestions implements _GetSuggestions {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String search)? getSuggestions,
-    TResult? Function()? setSuggestions,
-    TResult? Function(String text)? saveLocaleSuggestion,
-    TResult? Function(String text)? deleteLocaleSuggestion,
-    TResult? Function(String text)? selectSearchSuggestion,
-    TResult? Function(bool? isResultPage, bool? isLocaleSuggestion)?
+    TResult Function(String search)? getSuggestions,
+    TResult Function()? setSuggestions,
+    TResult Function(String text)? saveLocaleSuggestion,
+    TResult Function(String text)? deleteLocaleSuggestion,
+    TResult Function(String text)? selectSearchSuggestion,
+    TResult Function(bool? isResultPage, bool? isLocaleSuggestion)?
         changeStatus,
   }) {
     return getSuggestions?.call(search);
@@ -228,12 +228,12 @@ class _$_GetSuggestions implements _GetSuggestions {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_GetSuggestions value)? getSuggestions,
-    TResult? Function(_SetSuggestions value)? setSuggestions,
-    TResult? Function(_SaveLocaleSuggestion value)? saveLocaleSuggestion,
-    TResult? Function(_DeleteLocaleSuggestion value)? deleteLocaleSuggestion,
-    TResult? Function(_SelectLocaleSuggestion value)? selectSearchSuggestion,
-    TResult? Function(_ChangeStatus value)? changeStatus,
+    TResult Function(_GetSuggestions value)? getSuggestions,
+    TResult Function(_SetSuggestions value)? setSuggestions,
+    TResult Function(_SaveLocaleSuggestion value)? saveLocaleSuggestion,
+    TResult Function(_DeleteLocaleSuggestion value)? deleteLocaleSuggestion,
+    TResult Function(_SelectLocaleSuggestion value)? selectSearchSuggestion,
+    TResult Function(_ChangeStatus value)? changeStatus,
   }) {
     return getSuggestions?.call(this);
   }
@@ -274,11 +274,14 @@ abstract class _$$_SetSuggestionsCopyWith<$Res> {
 
 /// @nodoc
 class __$$_SetSuggestionsCopyWithImpl<$Res>
-    extends _$SuggestionEventCopyWithImpl<$Res, _$_SetSuggestions>
+    extends _$SuggestionEventCopyWithImpl<$Res>
     implements _$$_SetSuggestionsCopyWith<$Res> {
   __$$_SetSuggestionsCopyWithImpl(
       _$_SetSuggestions _value, $Res Function(_$_SetSuggestions) _then)
-      : super(_value, _then);
+      : super(_value, (v) => _then(v as _$_SetSuggestions));
+
+  @override
+  _$_SetSuggestions get _value => super._value as _$_SetSuggestions;
 }
 
 /// @nodoc
@@ -317,12 +320,12 @@ class _$_SetSuggestions implements _SetSuggestions {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String search)? getSuggestions,
-    TResult? Function()? setSuggestions,
-    TResult? Function(String text)? saveLocaleSuggestion,
-    TResult? Function(String text)? deleteLocaleSuggestion,
-    TResult? Function(String text)? selectSearchSuggestion,
-    TResult? Function(bool? isResultPage, bool? isLocaleSuggestion)?
+    TResult Function(String search)? getSuggestions,
+    TResult Function()? setSuggestions,
+    TResult Function(String text)? saveLocaleSuggestion,
+    TResult Function(String text)? deleteLocaleSuggestion,
+    TResult Function(String text)? selectSearchSuggestion,
+    TResult Function(bool? isResultPage, bool? isLocaleSuggestion)?
         changeStatus,
   }) {
     return setSuggestions?.call();
@@ -364,12 +367,12 @@ class _$_SetSuggestions implements _SetSuggestions {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_GetSuggestions value)? getSuggestions,
-    TResult? Function(_SetSuggestions value)? setSuggestions,
-    TResult? Function(_SaveLocaleSuggestion value)? saveLocaleSuggestion,
-    TResult? Function(_DeleteLocaleSuggestion value)? deleteLocaleSuggestion,
-    TResult? Function(_SelectLocaleSuggestion value)? selectSearchSuggestion,
-    TResult? Function(_ChangeStatus value)? changeStatus,
+    TResult Function(_GetSuggestions value)? getSuggestions,
+    TResult Function(_SetSuggestions value)? setSuggestions,
+    TResult Function(_SaveLocaleSuggestion value)? saveLocaleSuggestion,
+    TResult Function(_DeleteLocaleSuggestion value)? deleteLocaleSuggestion,
+    TResult Function(_SelectLocaleSuggestion value)? selectSearchSuggestion,
+    TResult Function(_ChangeStatus value)? changeStatus,
   }) {
     return setSuggestions?.call(this);
   }
@@ -401,25 +404,26 @@ abstract class _$$_SaveLocaleSuggestionCopyWith<$Res> {
   factory _$$_SaveLocaleSuggestionCopyWith(_$_SaveLocaleSuggestion value,
           $Res Function(_$_SaveLocaleSuggestion) then) =
       __$$_SaveLocaleSuggestionCopyWithImpl<$Res>;
-  @useResult
   $Res call({String text});
 }
 
 /// @nodoc
 class __$$_SaveLocaleSuggestionCopyWithImpl<$Res>
-    extends _$SuggestionEventCopyWithImpl<$Res, _$_SaveLocaleSuggestion>
+    extends _$SuggestionEventCopyWithImpl<$Res>
     implements _$$_SaveLocaleSuggestionCopyWith<$Res> {
   __$$_SaveLocaleSuggestionCopyWithImpl(_$_SaveLocaleSuggestion _value,
       $Res Function(_$_SaveLocaleSuggestion) _then)
-      : super(_value, _then);
+      : super(_value, (v) => _then(v as _$_SaveLocaleSuggestion));
 
-  @pragma('vm:prefer-inline')
+  @override
+  _$_SaveLocaleSuggestion get _value => super._value as _$_SaveLocaleSuggestion;
+
   @override
   $Res call({
-    Object? text = null,
+    Object? text = freezed,
   }) {
     return _then(_$_SaveLocaleSuggestion(
-      text: null == text
+      text: text == freezed
           ? _value.text
           : text // ignore: cast_nullable_to_non_nullable
               as String,
@@ -445,15 +449,15 @@ class _$_SaveLocaleSuggestion implements _SaveLocaleSuggestion {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_SaveLocaleSuggestion &&
-            (identical(other.text, text) || other.text == text));
+            const DeepCollectionEquality().equals(other.text, text));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, text);
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(text));
 
   @JsonKey(ignore: true)
   @override
-  @pragma('vm:prefer-inline')
   _$$_SaveLocaleSuggestionCopyWith<_$_SaveLocaleSuggestion> get copyWith =>
       __$$_SaveLocaleSuggestionCopyWithImpl<_$_SaveLocaleSuggestion>(
           this, _$identity);
@@ -475,12 +479,12 @@ class _$_SaveLocaleSuggestion implements _SaveLocaleSuggestion {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String search)? getSuggestions,
-    TResult? Function()? setSuggestions,
-    TResult? Function(String text)? saveLocaleSuggestion,
-    TResult? Function(String text)? deleteLocaleSuggestion,
-    TResult? Function(String text)? selectSearchSuggestion,
-    TResult? Function(bool? isResultPage, bool? isLocaleSuggestion)?
+    TResult Function(String search)? getSuggestions,
+    TResult Function()? setSuggestions,
+    TResult Function(String text)? saveLocaleSuggestion,
+    TResult Function(String text)? deleteLocaleSuggestion,
+    TResult Function(String text)? selectSearchSuggestion,
+    TResult Function(bool? isResultPage, bool? isLocaleSuggestion)?
         changeStatus,
   }) {
     return saveLocaleSuggestion?.call(text);
@@ -522,12 +526,12 @@ class _$_SaveLocaleSuggestion implements _SaveLocaleSuggestion {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_GetSuggestions value)? getSuggestions,
-    TResult? Function(_SetSuggestions value)? setSuggestions,
-    TResult? Function(_SaveLocaleSuggestion value)? saveLocaleSuggestion,
-    TResult? Function(_DeleteLocaleSuggestion value)? deleteLocaleSuggestion,
-    TResult? Function(_SelectLocaleSuggestion value)? selectSearchSuggestion,
-    TResult? Function(_ChangeStatus value)? changeStatus,
+    TResult Function(_GetSuggestions value)? getSuggestions,
+    TResult Function(_SetSuggestions value)? setSuggestions,
+    TResult Function(_SaveLocaleSuggestion value)? saveLocaleSuggestion,
+    TResult Function(_DeleteLocaleSuggestion value)? deleteLocaleSuggestion,
+    TResult Function(_SelectLocaleSuggestion value)? selectSearchSuggestion,
+    TResult Function(_ChangeStatus value)? changeStatus,
   }) {
     return saveLocaleSuggestion?.call(this);
   }
@@ -565,25 +569,27 @@ abstract class _$$_DeleteLocaleSuggestionCopyWith<$Res> {
   factory _$$_DeleteLocaleSuggestionCopyWith(_$_DeleteLocaleSuggestion value,
           $Res Function(_$_DeleteLocaleSuggestion) then) =
       __$$_DeleteLocaleSuggestionCopyWithImpl<$Res>;
-  @useResult
   $Res call({String text});
 }
 
 /// @nodoc
 class __$$_DeleteLocaleSuggestionCopyWithImpl<$Res>
-    extends _$SuggestionEventCopyWithImpl<$Res, _$_DeleteLocaleSuggestion>
+    extends _$SuggestionEventCopyWithImpl<$Res>
     implements _$$_DeleteLocaleSuggestionCopyWith<$Res> {
   __$$_DeleteLocaleSuggestionCopyWithImpl(_$_DeleteLocaleSuggestion _value,
       $Res Function(_$_DeleteLocaleSuggestion) _then)
-      : super(_value, _then);
+      : super(_value, (v) => _then(v as _$_DeleteLocaleSuggestion));
 
-  @pragma('vm:prefer-inline')
+  @override
+  _$_DeleteLocaleSuggestion get _value =>
+      super._value as _$_DeleteLocaleSuggestion;
+
   @override
   $Res call({
-    Object? text = null,
+    Object? text = freezed,
   }) {
     return _then(_$_DeleteLocaleSuggestion(
-      text: null == text
+      text: text == freezed
           ? _value.text
           : text // ignore: cast_nullable_to_non_nullable
               as String,
@@ -609,15 +615,15 @@ class _$_DeleteLocaleSuggestion implements _DeleteLocaleSuggestion {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_DeleteLocaleSuggestion &&
-            (identical(other.text, text) || other.text == text));
+            const DeepCollectionEquality().equals(other.text, text));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, text);
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(text));
 
   @JsonKey(ignore: true)
   @override
-  @pragma('vm:prefer-inline')
   _$$_DeleteLocaleSuggestionCopyWith<_$_DeleteLocaleSuggestion> get copyWith =>
       __$$_DeleteLocaleSuggestionCopyWithImpl<_$_DeleteLocaleSuggestion>(
           this, _$identity);
@@ -639,12 +645,12 @@ class _$_DeleteLocaleSuggestion implements _DeleteLocaleSuggestion {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String search)? getSuggestions,
-    TResult? Function()? setSuggestions,
-    TResult? Function(String text)? saveLocaleSuggestion,
-    TResult? Function(String text)? deleteLocaleSuggestion,
-    TResult? Function(String text)? selectSearchSuggestion,
-    TResult? Function(bool? isResultPage, bool? isLocaleSuggestion)?
+    TResult Function(String search)? getSuggestions,
+    TResult Function()? setSuggestions,
+    TResult Function(String text)? saveLocaleSuggestion,
+    TResult Function(String text)? deleteLocaleSuggestion,
+    TResult Function(String text)? selectSearchSuggestion,
+    TResult Function(bool? isResultPage, bool? isLocaleSuggestion)?
         changeStatus,
   }) {
     return deleteLocaleSuggestion?.call(text);
@@ -686,12 +692,12 @@ class _$_DeleteLocaleSuggestion implements _DeleteLocaleSuggestion {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_GetSuggestions value)? getSuggestions,
-    TResult? Function(_SetSuggestions value)? setSuggestions,
-    TResult? Function(_SaveLocaleSuggestion value)? saveLocaleSuggestion,
-    TResult? Function(_DeleteLocaleSuggestion value)? deleteLocaleSuggestion,
-    TResult? Function(_SelectLocaleSuggestion value)? selectSearchSuggestion,
-    TResult? Function(_ChangeStatus value)? changeStatus,
+    TResult Function(_GetSuggestions value)? getSuggestions,
+    TResult Function(_SetSuggestions value)? setSuggestions,
+    TResult Function(_SaveLocaleSuggestion value)? saveLocaleSuggestion,
+    TResult Function(_DeleteLocaleSuggestion value)? deleteLocaleSuggestion,
+    TResult Function(_SelectLocaleSuggestion value)? selectSearchSuggestion,
+    TResult Function(_ChangeStatus value)? changeStatus,
   }) {
     return deleteLocaleSuggestion?.call(this);
   }
@@ -729,25 +735,27 @@ abstract class _$$_SelectLocaleSuggestionCopyWith<$Res> {
   factory _$$_SelectLocaleSuggestionCopyWith(_$_SelectLocaleSuggestion value,
           $Res Function(_$_SelectLocaleSuggestion) then) =
       __$$_SelectLocaleSuggestionCopyWithImpl<$Res>;
-  @useResult
   $Res call({String text});
 }
 
 /// @nodoc
 class __$$_SelectLocaleSuggestionCopyWithImpl<$Res>
-    extends _$SuggestionEventCopyWithImpl<$Res, _$_SelectLocaleSuggestion>
+    extends _$SuggestionEventCopyWithImpl<$Res>
     implements _$$_SelectLocaleSuggestionCopyWith<$Res> {
   __$$_SelectLocaleSuggestionCopyWithImpl(_$_SelectLocaleSuggestion _value,
       $Res Function(_$_SelectLocaleSuggestion) _then)
-      : super(_value, _then);
+      : super(_value, (v) => _then(v as _$_SelectLocaleSuggestion));
 
-  @pragma('vm:prefer-inline')
+  @override
+  _$_SelectLocaleSuggestion get _value =>
+      super._value as _$_SelectLocaleSuggestion;
+
   @override
   $Res call({
-    Object? text = null,
+    Object? text = freezed,
   }) {
     return _then(_$_SelectLocaleSuggestion(
-      text: null == text
+      text: text == freezed
           ? _value.text
           : text // ignore: cast_nullable_to_non_nullable
               as String,
@@ -773,15 +781,15 @@ class _$_SelectLocaleSuggestion implements _SelectLocaleSuggestion {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_SelectLocaleSuggestion &&
-            (identical(other.text, text) || other.text == text));
+            const DeepCollectionEquality().equals(other.text, text));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, text);
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(text));
 
   @JsonKey(ignore: true)
   @override
-  @pragma('vm:prefer-inline')
   _$$_SelectLocaleSuggestionCopyWith<_$_SelectLocaleSuggestion> get copyWith =>
       __$$_SelectLocaleSuggestionCopyWithImpl<_$_SelectLocaleSuggestion>(
           this, _$identity);
@@ -803,12 +811,12 @@ class _$_SelectLocaleSuggestion implements _SelectLocaleSuggestion {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String search)? getSuggestions,
-    TResult? Function()? setSuggestions,
-    TResult? Function(String text)? saveLocaleSuggestion,
-    TResult? Function(String text)? deleteLocaleSuggestion,
-    TResult? Function(String text)? selectSearchSuggestion,
-    TResult? Function(bool? isResultPage, bool? isLocaleSuggestion)?
+    TResult Function(String search)? getSuggestions,
+    TResult Function()? setSuggestions,
+    TResult Function(String text)? saveLocaleSuggestion,
+    TResult Function(String text)? deleteLocaleSuggestion,
+    TResult Function(String text)? selectSearchSuggestion,
+    TResult Function(bool? isResultPage, bool? isLocaleSuggestion)?
         changeStatus,
   }) {
     return selectSearchSuggestion?.call(text);
@@ -850,12 +858,12 @@ class _$_SelectLocaleSuggestion implements _SelectLocaleSuggestion {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_GetSuggestions value)? getSuggestions,
-    TResult? Function(_SetSuggestions value)? setSuggestions,
-    TResult? Function(_SaveLocaleSuggestion value)? saveLocaleSuggestion,
-    TResult? Function(_DeleteLocaleSuggestion value)? deleteLocaleSuggestion,
-    TResult? Function(_SelectLocaleSuggestion value)? selectSearchSuggestion,
-    TResult? Function(_ChangeStatus value)? changeStatus,
+    TResult Function(_GetSuggestions value)? getSuggestions,
+    TResult Function(_SetSuggestions value)? setSuggestions,
+    TResult Function(_SaveLocaleSuggestion value)? saveLocaleSuggestion,
+    TResult Function(_DeleteLocaleSuggestion value)? deleteLocaleSuggestion,
+    TResult Function(_SelectLocaleSuggestion value)? selectSearchSuggestion,
+    TResult Function(_ChangeStatus value)? changeStatus,
   }) {
     return selectSearchSuggestion?.call(this);
   }
@@ -893,30 +901,31 @@ abstract class _$$_ChangeStatusCopyWith<$Res> {
   factory _$$_ChangeStatusCopyWith(
           _$_ChangeStatus value, $Res Function(_$_ChangeStatus) then) =
       __$$_ChangeStatusCopyWithImpl<$Res>;
-  @useResult
   $Res call({bool? isResultPage, bool? isLocaleSuggestion});
 }
 
 /// @nodoc
 class __$$_ChangeStatusCopyWithImpl<$Res>
-    extends _$SuggestionEventCopyWithImpl<$Res, _$_ChangeStatus>
+    extends _$SuggestionEventCopyWithImpl<$Res>
     implements _$$_ChangeStatusCopyWith<$Res> {
   __$$_ChangeStatusCopyWithImpl(
       _$_ChangeStatus _value, $Res Function(_$_ChangeStatus) _then)
-      : super(_value, _then);
+      : super(_value, (v) => _then(v as _$_ChangeStatus));
 
-  @pragma('vm:prefer-inline')
+  @override
+  _$_ChangeStatus get _value => super._value as _$_ChangeStatus;
+
   @override
   $Res call({
     Object? isResultPage = freezed,
     Object? isLocaleSuggestion = freezed,
   }) {
     return _then(_$_ChangeStatus(
-      isResultPage: freezed == isResultPage
+      isResultPage: isResultPage == freezed
           ? _value.isResultPage
           : isResultPage // ignore: cast_nullable_to_non_nullable
               as bool?,
-      isLocaleSuggestion: freezed == isLocaleSuggestion
+      isLocaleSuggestion: isLocaleSuggestion == freezed
           ? _value.isLocaleSuggestion
           : isLocaleSuggestion // ignore: cast_nullable_to_non_nullable
               as bool?,
@@ -944,19 +953,20 @@ class _$_ChangeStatus implements _ChangeStatus {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_ChangeStatus &&
-            (identical(other.isResultPage, isResultPage) ||
-                other.isResultPage == isResultPage) &&
-            (identical(other.isLocaleSuggestion, isLocaleSuggestion) ||
-                other.isLocaleSuggestion == isLocaleSuggestion));
+            const DeepCollectionEquality()
+                .equals(other.isResultPage, isResultPage) &&
+            const DeepCollectionEquality()
+                .equals(other.isLocaleSuggestion, isLocaleSuggestion));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, isResultPage, isLocaleSuggestion);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(isResultPage),
+      const DeepCollectionEquality().hash(isLocaleSuggestion));
 
   @JsonKey(ignore: true)
   @override
-  @pragma('vm:prefer-inline')
   _$$_ChangeStatusCopyWith<_$_ChangeStatus> get copyWith =>
       __$$_ChangeStatusCopyWithImpl<_$_ChangeStatus>(this, _$identity);
 
@@ -977,12 +987,12 @@ class _$_ChangeStatus implements _ChangeStatus {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String search)? getSuggestions,
-    TResult? Function()? setSuggestions,
-    TResult? Function(String text)? saveLocaleSuggestion,
-    TResult? Function(String text)? deleteLocaleSuggestion,
-    TResult? Function(String text)? selectSearchSuggestion,
-    TResult? Function(bool? isResultPage, bool? isLocaleSuggestion)?
+    TResult Function(String search)? getSuggestions,
+    TResult Function()? setSuggestions,
+    TResult Function(String text)? saveLocaleSuggestion,
+    TResult Function(String text)? deleteLocaleSuggestion,
+    TResult Function(String text)? selectSearchSuggestion,
+    TResult Function(bool? isResultPage, bool? isLocaleSuggestion)?
         changeStatus,
   }) {
     return changeStatus?.call(isResultPage, isLocaleSuggestion);
@@ -1024,12 +1034,12 @@ class _$_ChangeStatus implements _ChangeStatus {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_GetSuggestions value)? getSuggestions,
-    TResult? Function(_SetSuggestions value)? setSuggestions,
-    TResult? Function(_SaveLocaleSuggestion value)? saveLocaleSuggestion,
-    TResult? Function(_DeleteLocaleSuggestion value)? deleteLocaleSuggestion,
-    TResult? Function(_SelectLocaleSuggestion value)? selectSearchSuggestion,
-    TResult? Function(_ChangeStatus value)? changeStatus,
+    TResult Function(_GetSuggestions value)? getSuggestions,
+    TResult Function(_SetSuggestions value)? setSuggestions,
+    TResult Function(_SaveLocaleSuggestion value)? saveLocaleSuggestion,
+    TResult Function(_DeleteLocaleSuggestion value)? deleteLocaleSuggestion,
+    TResult Function(_SelectLocaleSuggestion value)? selectSearchSuggestion,
+    TResult Function(_ChangeStatus value)? changeStatus,
   }) {
     return changeStatus?.call(this);
   }
@@ -1066,12 +1076,12 @@ abstract class _ChangeStatus implements SuggestionEvent {
 
 /// @nodoc
 mixin _$SuggestionState {
-  bool get isLocaleSuggestion => throw _privateConstructorUsedError;
-  bool get isResultPage => throw _privateConstructorUsedError;
   FormzStatus get status => throw _privateConstructorUsedError;
-  List<String> get suggestions => throw _privateConstructorUsedError;
-  List<String> get popularSuggestions => throw _privateConstructorUsedError;
-  List<String> get localeSuggestions => throw _privateConstructorUsedError;
+  List<CarMakeModel> get suggestions => throw _privateConstructorUsedError;
+  String? get next => throw _privateConstructorUsedError;
+  String? get previous => throw _privateConstructorUsedError;
+  int get count => throw _privateConstructorUsedError;
+  bool? get fetchMore => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $SuggestionStateCopyWith<SuggestionState> get copyWith =>
@@ -1082,63 +1092,60 @@ mixin _$SuggestionState {
 abstract class $SuggestionStateCopyWith<$Res> {
   factory $SuggestionStateCopyWith(
           SuggestionState value, $Res Function(SuggestionState) then) =
-      _$SuggestionStateCopyWithImpl<$Res, SuggestionState>;
-  @useResult
+      _$SuggestionStateCopyWithImpl<$Res>;
   $Res call(
-      {bool isLocaleSuggestion,
-      bool isResultPage,
-      FormzStatus status,
-      List<String> suggestions,
-      List<String> popularSuggestions,
-      List<String> localeSuggestions});
+      {FormzStatus status,
+      List<CarMakeModel> suggestions,
+      String? next,
+      String? previous,
+      int count,
+      bool? fetchMore});
 }
 
 /// @nodoc
-class _$SuggestionStateCopyWithImpl<$Res, $Val extends SuggestionState>
+class _$SuggestionStateCopyWithImpl<$Res>
     implements $SuggestionStateCopyWith<$Res> {
   _$SuggestionStateCopyWithImpl(this._value, this._then);
 
+  final SuggestionState _value;
   // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final $Res Function(SuggestionState) _then;
 
-  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? isLocaleSuggestion = null,
-    Object? isResultPage = null,
-    Object? status = null,
-    Object? suggestions = null,
-    Object? popularSuggestions = null,
-    Object? localeSuggestions = null,
+    Object? status = freezed,
+    Object? suggestions = freezed,
+    Object? next = freezed,
+    Object? previous = freezed,
+    Object? count = freezed,
+    Object? fetchMore = freezed,
   }) {
     return _then(_value.copyWith(
-      isLocaleSuggestion: null == isLocaleSuggestion
-          ? _value.isLocaleSuggestion
-          : isLocaleSuggestion // ignore: cast_nullable_to_non_nullable
-              as bool,
-      isResultPage: null == isResultPage
-          ? _value.isResultPage
-          : isResultPage // ignore: cast_nullable_to_non_nullable
-              as bool,
-      status: null == status
+      status: status == freezed
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as FormzStatus,
-      suggestions: null == suggestions
+      suggestions: suggestions == freezed
           ? _value.suggestions
           : suggestions // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      popularSuggestions: null == popularSuggestions
-          ? _value.popularSuggestions
-          : popularSuggestions // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      localeSuggestions: null == localeSuggestions
-          ? _value.localeSuggestions
-          : localeSuggestions // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-    ) as $Val);
+              as List<CarMakeModel>,
+      next: next == freezed
+          ? _value.next
+          : next // ignore: cast_nullable_to_non_nullable
+              as String?,
+      previous: previous == freezed
+          ? _value.previous
+          : previous // ignore: cast_nullable_to_non_nullable
+              as String?,
+      count: count == freezed
+          ? _value.count
+          : count // ignore: cast_nullable_to_non_nullable
+              as int,
+      fetchMore: fetchMore == freezed
+          ? _value.fetchMore
+          : fetchMore // ignore: cast_nullable_to_non_nullable
+              as bool?,
+    ));
   }
 }
 
@@ -1149,59 +1156,60 @@ abstract class _$$_SuggestionStateCopyWith<$Res>
           _$_SuggestionState value, $Res Function(_$_SuggestionState) then) =
       __$$_SuggestionStateCopyWithImpl<$Res>;
   @override
-  @useResult
   $Res call(
-      {bool isLocaleSuggestion,
-      bool isResultPage,
-      FormzStatus status,
-      List<String> suggestions,
-      List<String> popularSuggestions,
-      List<String> localeSuggestions});
+      {FormzStatus status,
+      List<CarMakeModel> suggestions,
+      String? next,
+      String? previous,
+      int count,
+      bool? fetchMore});
 }
 
 /// @nodoc
 class __$$_SuggestionStateCopyWithImpl<$Res>
-    extends _$SuggestionStateCopyWithImpl<$Res, _$_SuggestionState>
+    extends _$SuggestionStateCopyWithImpl<$Res>
     implements _$$_SuggestionStateCopyWith<$Res> {
   __$$_SuggestionStateCopyWithImpl(
       _$_SuggestionState _value, $Res Function(_$_SuggestionState) _then)
-      : super(_value, _then);
+      : super(_value, (v) => _then(v as _$_SuggestionState));
 
-  @pragma('vm:prefer-inline')
+  @override
+  _$_SuggestionState get _value => super._value as _$_SuggestionState;
+
   @override
   $Res call({
-    Object? isLocaleSuggestion = null,
-    Object? isResultPage = null,
-    Object? status = null,
-    Object? suggestions = null,
-    Object? popularSuggestions = null,
-    Object? localeSuggestions = null,
+    Object? status = freezed,
+    Object? suggestions = freezed,
+    Object? next = freezed,
+    Object? previous = freezed,
+    Object? count = freezed,
+    Object? fetchMore = freezed,
   }) {
     return _then(_$_SuggestionState(
-      isLocaleSuggestion: null == isLocaleSuggestion
-          ? _value.isLocaleSuggestion
-          : isLocaleSuggestion // ignore: cast_nullable_to_non_nullable
-              as bool,
-      isResultPage: null == isResultPage
-          ? _value.isResultPage
-          : isResultPage // ignore: cast_nullable_to_non_nullable
-              as bool,
-      status: null == status
+      status: status == freezed
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as FormzStatus,
-      suggestions: null == suggestions
+      suggestions: suggestions == freezed
           ? _value._suggestions
           : suggestions // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      popularSuggestions: null == popularSuggestions
-          ? _value._popularSuggestions
-          : popularSuggestions // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      localeSuggestions: null == localeSuggestions
-          ? _value._localeSuggestions
-          : localeSuggestions // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+              as List<CarMakeModel>,
+      next: next == freezed
+          ? _value.next
+          : next // ignore: cast_nullable_to_non_nullable
+              as String?,
+      previous: previous == freezed
+          ? _value.previous
+          : previous // ignore: cast_nullable_to_non_nullable
+              as String?,
+      count: count == freezed
+          ? _value.count
+          : count // ignore: cast_nullable_to_non_nullable
+              as int,
+      fetchMore: fetchMore == freezed
+          ? _value.fetchMore
+          : fetchMore // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ));
   }
 }
@@ -1210,57 +1218,41 @@ class __$$_SuggestionStateCopyWithImpl<$Res>
 
 class _$_SuggestionState implements _SuggestionState {
   _$_SuggestionState(
-      {this.isLocaleSuggestion = false,
-      this.isResultPage = false,
-      this.status = FormzStatus.pure,
-      final List<String> suggestions = const [],
-      final List<String> popularSuggestions = const [],
-      final List<String> localeSuggestions = const []})
-      : _suggestions = suggestions,
-        _popularSuggestions = popularSuggestions,
-        _localeSuggestions = localeSuggestions;
+      {this.status = FormzStatus.pure,
+      final List<CarMakeModel> suggestions = const [],
+      this.next = '',
+      this.previous = '',
+      this.count = 0,
+      this.fetchMore = false})
+      : _suggestions = suggestions;
 
   @override
   @JsonKey()
-  final bool isLocaleSuggestion;
-  @override
-  @JsonKey()
-  final bool isResultPage;
-  @override
-  @JsonKey()
   final FormzStatus status;
-  final List<String> _suggestions;
+  final List<CarMakeModel> _suggestions;
   @override
   @JsonKey()
-  List<String> get suggestions {
-    if (_suggestions is EqualUnmodifiableListView) return _suggestions;
+  List<CarMakeModel> get suggestions {
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_suggestions);
   }
 
-  final List<String> _popularSuggestions;
   @override
   @JsonKey()
-  List<String> get popularSuggestions {
-    if (_popularSuggestions is EqualUnmodifiableListView)
-      return _popularSuggestions;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_popularSuggestions);
-  }
-
-  final List<String> _localeSuggestions;
+  final String? next;
   @override
   @JsonKey()
-  List<String> get localeSuggestions {
-    if (_localeSuggestions is EqualUnmodifiableListView)
-      return _localeSuggestions;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_localeSuggestions);
-  }
+  final String? previous;
+  @override
+  @JsonKey()
+  final int count;
+  @override
+  @JsonKey()
+  final bool? fetchMore;
 
   @override
   String toString() {
-    return 'SuggestionState(isLocaleSuggestion: $isLocaleSuggestion, isResultPage: $isResultPage, status: $status, suggestions: $suggestions, popularSuggestions: $popularSuggestions, localeSuggestions: $localeSuggestions)';
+    return 'SuggestionState(status: $status, suggestions: $suggestions, next: $next, previous: $previous, count: $count, fetchMore: $fetchMore)';
   }
 
   @override
@@ -1268,57 +1260,52 @@ class _$_SuggestionState implements _SuggestionState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_SuggestionState &&
-            (identical(other.isLocaleSuggestion, isLocaleSuggestion) ||
-                other.isLocaleSuggestion == isLocaleSuggestion) &&
-            (identical(other.isResultPage, isResultPage) ||
-                other.isResultPage == isResultPage) &&
-            (identical(other.status, status) || other.status == status) &&
+            const DeepCollectionEquality().equals(other.status, status) &&
             const DeepCollectionEquality()
                 .equals(other._suggestions, _suggestions) &&
-            const DeepCollectionEquality()
-                .equals(other._popularSuggestions, _popularSuggestions) &&
-            const DeepCollectionEquality()
-                .equals(other._localeSuggestions, _localeSuggestions));
+            const DeepCollectionEquality().equals(other.next, next) &&
+            const DeepCollectionEquality().equals(other.previous, previous) &&
+            const DeepCollectionEquality().equals(other.count, count) &&
+            const DeepCollectionEquality().equals(other.fetchMore, fetchMore));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      isLocaleSuggestion,
-      isResultPage,
-      status,
+      const DeepCollectionEquality().hash(status),
       const DeepCollectionEquality().hash(_suggestions),
-      const DeepCollectionEquality().hash(_popularSuggestions),
-      const DeepCollectionEquality().hash(_localeSuggestions));
+      const DeepCollectionEquality().hash(next),
+      const DeepCollectionEquality().hash(previous),
+      const DeepCollectionEquality().hash(count),
+      const DeepCollectionEquality().hash(fetchMore));
 
   @JsonKey(ignore: true)
   @override
-  @pragma('vm:prefer-inline')
   _$$_SuggestionStateCopyWith<_$_SuggestionState> get copyWith =>
       __$$_SuggestionStateCopyWithImpl<_$_SuggestionState>(this, _$identity);
 }
 
 abstract class _SuggestionState implements SuggestionState {
   factory _SuggestionState(
-      {final bool isLocaleSuggestion,
-      final bool isResultPage,
-      final FormzStatus status,
-      final List<String> suggestions,
-      final List<String> popularSuggestions,
-      final List<String> localeSuggestions}) = _$_SuggestionState;
+      {final FormzStatus status,
+      final List<CarMakeModel> suggestions,
+      final String? next,
+      final String? previous,
+      final int count,
+      final bool? fetchMore}) = _$_SuggestionState;
 
-  @override
-  bool get isLocaleSuggestion;
-  @override
-  bool get isResultPage;
   @override
   FormzStatus get status;
   @override
-  List<String> get suggestions;
+  List<CarMakeModel> get suggestions;
   @override
-  List<String> get popularSuggestions;
+  String? get next;
   @override
-  List<String> get localeSuggestions;
+  String? get previous;
+  @override
+  int get count;
+  @override
+  bool? get fetchMore;
   @override
   @JsonKey(ignore: true)
   _$$_SuggestionStateCopyWith<_$_SuggestionState> get copyWith =>

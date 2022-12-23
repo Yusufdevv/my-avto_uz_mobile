@@ -1,26 +1,38 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/images.dart';
+import 'package:auto/features/common/widgets/rating_infos.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/reviews/presentation/pages/plus_minus_screen.dart';
+import 'package:auto/features/reviews/presentation/parts/car_show_rating_field.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class SelectedCarInfo extends StatefulWidget {
   const SelectedCarInfo(
-      {required this.overallRating,
+      {required this.avgRating,
       required this.pluses,
       required this.minuses,
       required this.reviewCount,
+      required this.appearanceRating,
+      required this.comfortRating,
+      required this.drivingRating,
+      required this.reliabilityRating,
+      required this.securityRating,
       this.image = '',
       super.key});
   final String image;
-  final double overallRating;
+  final double avgRating;
   final int reviewCount;
   final List<String> pluses;
   final List<String> minuses;
+  final double appearanceRating;
+  final double comfortRating;
+  final double securityRating;
+  final double drivingRating;
+  final double reliabilityRating;
 
   @override
   State<SelectedCarInfo> createState() => _SelectedCarInfoState();
@@ -79,7 +91,7 @@ class _SelectedCarInfoState extends State<SelectedCarInfo> {
                   SvgPicture.asset(AppIcons.star),
                   const SizedBox(width: 8),
                   Text(
-                    '${widget.overallRating}',
+                    '${widget.avgRating}',
                     style: Theme.of(context)
                         .textTheme
                         .headline1!
@@ -95,7 +107,17 @@ class _SelectedCarInfoState extends State<SelectedCarInfo> {
                       color: grey,
                     ),
               ),
-              children: const [Text('Children')],
+              childrenPadding:
+                  const EdgeInsets.only(bottom: 12, left: 12, right: 12),
+              children: [
+                RatingInfos(
+                  appearanceRating: widget.appearanceRating,
+                  comfortRating: widget.comfortRating,
+                  securityRating: widget.securityRating,
+                  drivingRating: widget.drivingRating,
+                  reliabilityRating: widget.reliabilityRating,
+                ),
+              ],
             ),
             const Divider(
                 indent: 12, color: dividerColor, thickness: 1, height: 1),
@@ -103,7 +125,37 @@ class _SelectedCarInfoState extends State<SelectedCarInfo> {
               onTap: () {
                 Navigator.push(
                   context,
-                  fade(page: const PlusMinusScreen()),
+                  fade(
+                    page: const PlusMinusScreen(
+                      titles: [
+                        'Вместительность салона',
+                        'Обзорность',
+                        'Дизайн',
+                        'Шумоизоляция',
+                        'Безопасность',
+                        'Качество сборки',
+                        'Коробка передач',
+                      ],
+                      negativesCount: [
+                        0,
+                        2,
+                        2,
+                        12,
+                        6,
+                        5,
+                        8,
+                      ],
+                      positivesCount: [
+                        7,
+                        5,
+                        5,
+                        10,
+                        5,
+                        0,
+                        1,
+                      ],
+                    ),
+                  ),
                 );
               },
               child: Container(

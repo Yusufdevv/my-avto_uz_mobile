@@ -39,6 +39,8 @@ class LightThemeColors {
   static const solitudeToGhost = _solitude;
   static const seashellToCinnabar15 = _seashell;
 
+  static const smoky = _smoky;
+  static const greyTextColor = _mischka;
   static const whiteToSmoky = _white;
   static const whiteSmokeToNightRider = _whiteSmoke;
   static const whiteToNero = _white;
@@ -201,3 +203,5 @@ const _silver50 = Color(0x80B6B6B6);
 const _silver = Color(0xffc4c4c4);
 const _blueText = Color(0xff4D88C8);
 const _seashell = Color(0xffFFF8F5);
+const _smoky = Color(0xff5D5D67);
+const _mischka = Color(0xffA5AAB4);

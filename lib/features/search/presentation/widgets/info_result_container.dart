@@ -6,7 +6,6 @@ import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_like.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
-import 'package:auto/features/search/domain/entities/commercial_item_entity.dart';
 import 'package:auto/features/search/presentation/part/bottom_sheet_for_calling.dart';
 import 'package:auto/features/search/presentation/widgets/custom_chip.dart';
 import 'package:auto/utils/my_functions.dart';
@@ -16,14 +15,48 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 class InfoResultContainer extends StatelessWidget {
   const InfoResultContainer(
-      {
-      required this.commercialItemEntity,
+      {required this.gallery,
+      required this.carModelName,
+      required this.carYear,
+      required this.contactPhone,
+      required this.description,
+      required this.districtTitle,
+      required this.isNew,
+      required this.isWishlisted,
+      required this.price,
+      required this.publishedAt,
+      required this.userFullName,
+      required this.userImage,
+      required this.userType,
+      required this.hasComparison,
+      required this.callFrom,
+      required this.callTo,
       this.discountPrice,
       this.sellType,
       super.key});
-  final CommercialItemEntity commercialItemEntity;
+  final List<String> gallery;
+  final String contactPhone;
+  final String carModelName;
+  final int carYear;
+  final double price;
+  final bool isNew;
+  final String description;
+  final String userImage;
+  final String userFullName;
+  final String userType;
+  final String districtTitle;
+  final String publishedAt;
+  final bool isWishlisted;
+  final bool hasComparison;
+  final String callFrom;
+  final String callTo;
+
   final String? discountPrice;
   final String? sellType;
+  bool enableForCalling() {
+    return false;
+  }
+
   @override
   Widget build(BuildContext context) => Container(
         width: MediaQuery.of(context).size.width,
@@ -42,65 +75,103 @@ class InfoResultContainer extends StatelessWidget {
           children: [
             SizedBox(
               height: 201,
-              child: PageView.builder(
+              child: PageView(
                 pageSnapping: false,
-                itemCount: commercialItemEntity.gallery.isEmpty
-                    ? 1
-                    : commercialItemEntity.gallery.length,
                 padEnds: false,
                 clipBehavior: Clip.antiAlias,
                 controller: PageController(viewportFraction: 0.65),
                 physics: const BouncingScrollPhysics(),
-                itemBuilder: (context, index) => Stack(
-                  children: [
-                    if (index == commercialItemEntity.gallery.length - 1 ||
-                        commercialItemEntity.gallery.isEmpty)
-                      WScaleAnimation(
-                        onTap: () {
-                          bottomSheetForCalling(
-                              context, commercialItemEntity.contactPhone);
-                        },
-                        child: Container(
-                          height: 201,
-                          color: green,
-                          margin: const EdgeInsets.only(left: 2, right: 16),
-                          width: 264,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              SvgPicture.asset(AppIcons.phone, color: white),
-                              Text(
-                                'Позвонить',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headline4!
-                                    .copyWith(fontSize: 24),
-                              )
-                            ],
-                          ),
-                        ),
-                      )
-                    else
-                      SizedBox(
-                        height: 201,
-                        width: 264,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 2),
-                          child: CachedNetworkImage(
-                            placeholder: (context, url) => Image.asset(
-                              AppImages.carPlaceHolder,
-                              fit: BoxFit.cover,
-                            ),
-                            imageUrl: commercialItemEntity.gallery[index],
+                children: [
+                  for (int index = 0; index < gallery.length; index++)
+                    SizedBox(
+                      height: 201,
+                      width: 264,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 2),
+                        child: CachedNetworkImage(
+                          errorWidget: (context, url, error) => Image.asset(
+                            AppImages.carPlaceHolder,
                             fit: BoxFit.cover,
-                            height: 201,
-                            width: 264,
                           ),
+                          imageUrl: gallery[index],
+                          fit: BoxFit.cover,
+                          height: 201,
+                          width: 264,
                         ),
                       ),
-                  ],
-                ),
+                    ),
+                  if (enableForCalling())
+                    WButton(
+                      onTap: () {
+                        bottomSheetForCalling(context, contactPhone);
+                      },
+                      height: 201,
+                      color: emerald,
+                      margin: const EdgeInsets.only(left: 2, right: 16),
+                      width: 264,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SvgPicture.asset(AppIcons.phoneCall),
+                          Text(
+                            'Позвонить',
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline4!
+                                .copyWith(fontSize: 24),
+                          )
+                        ],
+                      ),
+                    )
+                  else
+                    WButton(
+                      disabledColor: border,
+                      isDisabled: true,
+                      onTap: () {},
+                      height: 201,
+                      color: border,
+                      margin: const EdgeInsets.only(left: 2, right: 16),
+                      width: 264,
+                      borderRadius: 0,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image.asset(AppIcons.phoneWithClock,
+                              width: 50, height: 50),
+                          Text.rich(
+                            TextSpan(
+                              children: [
+                                TextSpan(
+                                  text: 'Звонок не доступен\n',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headline1!
+                                      .copyWith(fontWeight: FontWeight.w600),
+                                ),
+                                TextSpan(
+                                  text: 'Просим вас звонить в течении:\n',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headline2!
+                                      .copyWith(color: greyText),
+                                ),
+                                TextSpan(
+                                  text: '09:00 - 18:00',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headline2!
+                                      .copyWith(color: secondary),
+                                ),
+                              ],
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
+                      ),
+                    )
+                ],
               ),
             ),
             CustomChip(
@@ -119,7 +190,7 @@ class InfoResultContainer extends StatelessWidget {
             Row(
               children: [
                 Text(
-                  commercialItemEntity.carModel.name,
+                  carModelName,
                   style: Theme.of(context)
                       .textTheme
                       .headline2!
@@ -127,7 +198,7 @@ class InfoResultContainer extends StatelessWidget {
                 ),
                 const SizedBox(width: 4),
                 CustomChip(
-                  label: '${commercialItemEntity.carYear}',
+                  label: '$carYear',
                   backgroundColor:
                       LightThemeColors.navBarIndicator.withOpacity(0.1),
                   borderRadius: 4,
@@ -138,7 +209,7 @@ class InfoResultContainer extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(width: 4),
-                if (commercialItemEntity.isNew)
+                if (isNew)
                   CustomChip(
                     leading: SvgPicture.asset(AppIcons.checkCurly),
                     label: 'Новый',
@@ -157,8 +228,7 @@ class InfoResultContainer extends StatelessWidget {
             if (discountPrice == null)
               RichText(
                 text: TextSpan(
-                  text: MyFunctions.getFormatCost(
-                      '${commercialItemEntity.price}'),
+                  text: MyFunctions.getFormatCost('$price'),
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w600,
@@ -182,8 +252,7 @@ class InfoResultContainer extends StatelessWidget {
                     ),
                     const WidgetSpan(child: SizedBox(width: 4)),
                     TextSpan(
-                      text: MyFunctions.getFormatCost(
-                          '${commercialItemEntity.price}'),
+                      text: MyFunctions.getFormatCost('$price'),
                       style: Theme.of(context).textTheme.headline2!.copyWith(
                             decoration: TextDecoration.lineThrough,
                             color: grey,
@@ -194,7 +263,7 @@ class InfoResultContainer extends StatelessWidget {
               ),
             const SizedBox(height: 8),
             Text(
-              commercialItemEntity.description,
+              description,
               style: Theme.of(context).textTheme.headline2!.copyWith(
                     fontSize: 13,
                     color: grey,
@@ -206,14 +275,16 @@ class InfoResultContainer extends StatelessWidget {
                 SizedBox(
                   height: 36,
                   width: 36,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(150),
-                    child: CachedNetworkImage(
-                      placeholder: (context, url) =>
-                          SvgPicture.asset(AppIcons.car),
-                      imageUrl: commercialItemEntity.user.image,
-                      fit: BoxFit.cover,
+                  child: CachedNetworkImage(
+                    imageBuilder: (context, imageProvider) => Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(150),
+                      ),
                     ),
+                    errorWidget: (context, url, error) =>
+                        SvgPicture.asset(AppIcons.car),
+                    imageUrl: userImage,
+                    fit: BoxFit.cover,
                   ),
                 ),
                 const SizedBox(width: 8),
@@ -221,14 +292,14 @@ class InfoResultContainer extends StatelessWidget {
                   text: TextSpan(
                     children: [
                       TextSpan(
-                        text: '${commercialItemEntity.user.fullName}\n',
+                        text: '$userFullName\n',
                         style: Theme.of(context)
                             .textTheme
                             .headline2!
                             .copyWith(fontSize: 14),
                       ),
                       TextSpan(
-                        text: commercialItemEntity.userType,
+                        text: userType,
                         style: Theme.of(context)
                             .textTheme
                             .bodyText1!
@@ -248,33 +319,40 @@ class InfoResultContainer extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(right: 16),
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  FittedBox(
-                    child: SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.3,
-                      child: Text(
-                          '${commercialItemEntity.district.title} • ${commercialItemEntity.publishedAt}',
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyText1!
-                              .copyWith(color: grey)),
+                  Expanded(
+                    child: Text(
+                      '$districtTitle • ${MyFunctions.getAutoPublishDate(publishedAt)}',
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyText1!
+                          .copyWith(color: grey),
                     ),
                   ),
-                  const Spacer(),
-                  WButton(
-                    onTap: () {},
+                  Padding(
+                    padding: const EdgeInsets.only(top: 7),
+                    child: SizedBox(
+                      height: 28,
+                      width: 28,
+                      child: WLike(
+                        initialLike: hasComparison,
+                        activeIcon: SvgPicture.asset(AppIcons.scalesRed),
+                        inActiveIcon: SvgPicture.asset(
+                          AppIcons.scale,
+                          width: 24,
+                          height: 24,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  SizedBox(
                     height: 28,
                     width: 28,
-                    isDisabled: true,
-                    disabledColor: transparentButton,
-                    color: transparentButton,
-                    child: SvgPicture.asset(
-                      AppIcons.scales,
-                      color: warmerGrey,
-                      fit: BoxFit.cover,
-                    ),
+                    child: WLike(initialLike: isWishlisted),
                   ),
-                  WLike(initialLike: commercialItemEntity.isWishlisted),
                 ],
               ),
             )

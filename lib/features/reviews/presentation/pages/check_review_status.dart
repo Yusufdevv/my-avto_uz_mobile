@@ -19,125 +19,125 @@ class _CheckReviewStatusState extends State<CheckReviewStatus> {
   Widget build(BuildContext context) => ReviewSingleCarScreen(
         shareFunction: () {},
         moreVertFunction: () {
-          showModalBottomSheet(
-            context: context,
-            isScrollControlled: true,
-            useRootNavigator: true,
-            isDismissible: false,
-            backgroundColor: white,
-            builder: (context) => SortBottomSheet(
-              height: MediaQuery.of(context).size.height * 0.23,
-              hasDivider: false,
-              title: 'Действия',
-              children: [
-                ReviewBottomSheetItem(
-                  icon: AppIcons.edit,
-                  iconHeight: 24,
-                  iconWidth: 24,
-                  title: 'Редактировать',
-                  onTap: () {},
-                ),
-                ReviewBottomSheetItem(
-                  icon: AppIcons.trash,
-                  title: 'Удалить',
-                  onTap: () {
-                    Navigator.pop(context);
-                    showModalBottomSheet(
-                      context: context,
-                      useRootNavigator: true,
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.vertical(
-                          top: Radius.circular(20),
-                        ),
-                      ),
-                      isScrollControlled: true,
-                      isDismissible: false,
-                      builder: (context) => Container(
-                        decoration: const BoxDecoration(
-                          borderRadius: BorderRadius.vertical(
-                            top: Radius.circular(20),
-                          ),
-                          color: white,
-                        ),
-                        height: MediaQuery.of(context).size.height * 0.375,
-                        alignment: Alignment.center,
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 16, vertical: 20),
-                        child: Column(
-                          children: [
-                            Container(
-                              alignment: Alignment.centerRight,
-                              padding: const EdgeInsets.all(4),
-                              width: double.maxFinite,
-                              child: WButton(
-                                height: 32,
-                                width: 32,
-                                color: transparentButton,
-                                onTap: () {
-                                  Navigator.pop(context);
-                                },
-                                child: SvgPicture.asset(AppIcons.close),
-                              ),
-                            ),
-                            Text(
-                              'Вы действительно\nхотите удалить отзыв?',
-                              style: Theme.of(context).textTheme.headline1,
-                              textAlign: TextAlign.center,
-                            ),
-                            const SizedBox(height: 8),
-                            Text(
-                              'Удаление будет безворзвратным и\nвосстановление отзыва будет\nневозможным.',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline2!
-                                  .copyWith(fontSize: 16),
-                              textAlign: TextAlign.center,
-                            ),
-                            const SizedBox(height: 32),
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: WButton(
-                                    onTap: () {
-                                      Navigator.pop(context);
-                                    },
-                                    text: 'Нет',
-                                    textStyle: Theme.of(context)
-                                        .textTheme
-                                        .subtitle1!
-                                        .copyWith(color: darkGray),
-                                    color: border,
-                                    height: 44,
-                                  ),
-                                ),
-                                const SizedBox(width: 13),
-                                Expanded(
-                                  child: WButton(
-                                    onTap: () {},
-                                    text: 'Да',
-                                    color: tutu,
-                                    height: 44,
-                                    textStyle: Theme.of(context)
-                                        .textTheme
-                                        .subtitle1!
-                                        .copyWith(color: red),
-                                  ),
-                                ),
-                              ],
-                            )
-                          ],
-                        ),
-                      ),
-                    );
-                  },
-                  hasDivider: false,
-                ),
-              ],
-            ),
-            shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-            ),
-          );
+          // showModalBottomSheet(
+          //   context: context,
+          //   isScrollControlled: true,
+          //   useRootNavigator: true,
+          //   isDismissible: false,
+          //   backgroundColor: white,
+          //   builder: (context) => SortBottomSheet(
+          //     height: MediaQuery.of(context).size.height * 0.23,
+          //     hasDivider: false,
+          //     title: 'Действия',
+          //     children: [
+          //       ReviewBottomSheetItem(
+          //         icon: AppIcons.edit,
+          //         iconHeight: 24,
+          //         iconWidth: 24,
+          //         title: 'Редактировать',
+          //         onTap: () {},
+          //       ),
+          //       ReviewBottomSheetItem(
+          //         icon: AppIcons.trash,
+          //         title: 'Удалить',
+          //         onTap: () {
+          //           Navigator.pop(context);
+          //           showModalBottomSheet(
+          //             context: context,
+          //             useRootNavigator: true,
+          //             shape: const RoundedRectangleBorder(
+          //               borderRadius: BorderRadius.vertical(
+          //                 top: Radius.circular(20),
+          //               ),
+          //             ),
+          //             isScrollControlled: true,
+          //             isDismissible: false,
+          //             builder: (context) => Container(
+          //               decoration: const BoxDecoration(
+          //                 borderRadius: BorderRadius.vertical(
+          //                   top: Radius.circular(20),
+          //                 ),
+          //                 color: white,
+          //               ),
+          //               height: MediaQuery.of(context).size.height * 0.375,
+          //               alignment: Alignment.center,
+          //               padding: const EdgeInsets.symmetric(
+          //                   horizontal: 16, vertical: 20),
+          //               child: Column(
+          //                 children: [
+          //                   Container(
+          //                     alignment: Alignment.centerRight,
+          //                     padding: const EdgeInsets.all(4),
+          //                     width: double.maxFinite,
+          //                     child: WButton(
+          //                       height: 32,
+          //                       width: 32,
+          //                       color: transparentButton,
+          //                       onTap: () {
+          //                         Navigator.pop(context);
+          //                       },
+          //                       child: SvgPicture.asset(AppIcons.close),
+          //                     ),
+          //                   ),
+          //                   Text(
+          //                     'Вы действительно\nхотите удалить отзыв?',
+          //                     style: Theme.of(context).textTheme.headline1,
+          //                     textAlign: TextAlign.center,
+          //                   ),
+          //                   const SizedBox(height: 8),
+          //                   Text(
+          //                     'Удаление будет безворзвратным и\nвосстановление отзыва будет\nневозможным.',
+          //                     style: Theme.of(context)
+          //                         .textTheme
+          //                         .headline2!
+          //                         .copyWith(fontSize: 16),
+          //                     textAlign: TextAlign.center,
+          //                   ),
+          //                   const SizedBox(height: 32),
+          //                   Row(
+          //                     children: [
+          //                       Expanded(
+          //                         child: WButton(
+          //                           onTap: () {
+          //                             Navigator.pop(context);
+          //                           },
+          //                           text: 'Нет',
+          //                           textStyle: Theme.of(context)
+          //                               .textTheme
+          //                               .subtitle1!
+          //                               .copyWith(color: darkGray),
+          //                           color: border,
+          //                           height: 44,
+          //                         ),
+          //                       ),
+          //                       const SizedBox(width: 13),
+          //                       Expanded(
+          //                         child: WButton(
+          //                           onTap: () {},
+          //                           text: 'Да',
+          //                           color: tutu,
+          //                           height: 44,
+          //                           textStyle: Theme.of(context)
+          //                               .textTheme
+          //                               .subtitle1!
+          //                               .copyWith(color: red),
+          //                         ),
+          //                       ),
+          //                     ],
+          //                   )
+          //                 ],
+          //               ),
+          //             ),
+          //           );
+          //         },
+          //         hasDivider: false,
+          //       ),
+          //     ],
+          //   ),
+          //   shape: const RoundedRectangleBorder(
+          //     borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+          //   ),
+          // );
         },
         hasMoreVert: true,
         images: List.generate(

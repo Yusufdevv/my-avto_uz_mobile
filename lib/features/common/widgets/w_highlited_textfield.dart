@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-class WHighlightedText extends StatelessWidget {
+class WHighlightedTextField extends StatelessWidget {
   final String allText;
   final String highlightedText;
   final Color highlightColor;
@@ -8,7 +8,7 @@ class WHighlightedText extends StatelessWidget {
   final int? maxLines;
   final TextAlign? textAlign;
   final TextOverflow? textOverflow;
-  const WHighlightedText({
+  const WHighlightedTextField({
     required this.allText,
     required this.highlightedText,
     required this.highlightColor,

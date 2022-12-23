@@ -28,6 +28,7 @@ const activeSwitcher = _limeGreen;
 const suvaGray = _suvaGray;
 const accentYellow = _cornSilk;
 const accentGreen = _hummingBird;
+const emerald = _emerald;
 const accentRed = _mistyRose;
 const timerBackground = _darkCinnabar;
 const solitude = _solitude1;
@@ -62,6 +63,8 @@ const strokeDark = _strokeDark;
 const background = Color(0xff121212);
 const secondary = Color(0xff373737);
 const stormGrey12 = _stormGrey12;
+const tutu = Color(0xffFAEEEE);
+const lavender = _lavender;
 const lavanda = _lavender;
 const tutu = _tutu;
 const secondBackground = _gainsboro2;
@@ -105,7 +108,7 @@ const _cornSilk = Color(0xffFFF6E1);
 const _hummingBird = Color(0xffF0FAF6);
 const _mistyRose = Color(0xffFFECE7);
 const _darkCinnabar = Color(0x1aea5930);
-                      
+
 const _nero = Color(0xff171725);
 const _jade = Color(0xff05C46B);
 const _kellyGreen = Color(0xFF55BB00);
@@ -134,6 +137,7 @@ const _stormGrey12 = Color(0x1f767680);
 const _silver = Color(0xFFC4C4C4);
 const _strokeDark = Color(0xff181818);
 const dark1 = Color(0xff1E1E1E);
+const _emerald = Color(0xff5ECC81);
 const _lavender = Color(0xffF0EFFD);
 
 const _tutu = Color(0xFFFAEEEE);
