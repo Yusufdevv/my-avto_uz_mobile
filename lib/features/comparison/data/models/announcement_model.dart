@@ -1,4 +1,6 @@
 import 'package:auto/features/comparison/domain/entities/announcement_entity.dart';
+import 'package:auto/features/comparison/domain/entities/engine_data_entity.dart';
+import 'package:auto/features/comparison/domain/entities/main_data_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'announcement_model.g.dart';
@@ -13,17 +15,12 @@ class AnnouncementsModel extends  AnnouncementsEntity{
     required super.isNew,
     required super.price,
     required super.currency,
-    required super.make,
-    required super.model,
-    required super.generation,
-    required super.bodyType,
-    required super.driveType,
-    required super.engineType,
-    required super.gearboxType,
-    required super.year,
-    required super.color,
-    required super.power,
-    required super.volume,
+    required super.dimensions,
+    required super.engineData,
+    required super.mainData,
+    required super.other,
+    required super.suspensionsAndBrakes,
+    required super.volumeAndMass,
   });
 
   factory AnnouncementsModel.fromJson(Map<String, dynamic> json) =>

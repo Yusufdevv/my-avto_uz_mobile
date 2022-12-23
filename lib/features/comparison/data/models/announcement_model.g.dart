@@ -8,28 +8,35 @@ part of 'announcement_model.dart';
 
 AnnouncementsModel _$AnnouncementsModelFromJson(Map<String, dynamic> json) =>
     AnnouncementsModel(
-      id: json['id'] as int? ?? 0,
+      id: json['id'] as int? ?? -1,
       licenceType: json['licence_type'] as String? ?? '',
       ownership: json['ownership'] as String? ?? '',
-      isRegisteredLocally: json['is_registered_locally'] as bool? ?? true,
-      isNew: json['is_new'] as bool? ?? true,
+      isRegisteredLocally: json['is_registered_locally'] as bool? ?? false,
+      isNew: json['is_new'] as bool? ?? false,
       price: json['price'] as String? ?? '',
       currency: json['currency'] as String? ?? '',
-      make: json['make'] as String? ?? '',
-      model: json['model'] as String? ?? '',
-      generation: json['generation'] as String? ?? '',
-      bodyType: json['body_type'] as String? ?? '',
-      driveType: json['drive_type'] as String? ?? '',
-      engineType: json['engine_type'] as String? ?? '',
-      gearboxType: json['gearbox_type'] as String? ?? '',
-      year: json['year'] as int? ?? 2002,
-      color: json['color'] as String? ?? '',
-      power: json['power'] as String? ?? '',
-      volume: json['volume'] as String? ?? '',
+      dimensions: json['dimensions'],
+      engineData: json['engine_data'] == null
+          ? const EngineDataEntity()
+          : const EngineDataConverter()
+              .fromJson(json['engine_data'] as Map<String, dynamic>?),
+      mainData: json['main_data'] == null
+          ? const MainDataEntity()
+          : const MainDataConverter()
+              .fromJson(json['main_data'] as Map<String, dynamic>?),
+      other: json['other'],
+      suspensionsAndBrakes: json['suspensions_and_brakes'],
+      volumeAndMass: json['volume_and_mass'],
     );
 
 Map<String, dynamic> _$AnnouncementsModelToJson(AnnouncementsModel instance) =>
     <String, dynamic>{
+      'main_data': const MainDataConverter().toJson(instance.mainData),
+      'engine_data': const EngineDataConverter().toJson(instance.engineData),
+      'dimensions': instance.dimensions,
+      'volume_and_mass': instance.volumeAndMass,
+      'suspensions_and_brakes': instance.suspensionsAndBrakes,
+      'other': instance.other,
       'id': instance.id,
       'licence_type': instance.licenceType,
       'ownership': instance.ownership,
@@ -37,15 +44,4 @@ Map<String, dynamic> _$AnnouncementsModelToJson(AnnouncementsModel instance) =>
       'is_new': instance.isNew,
       'price': instance.price,
       'currency': instance.currency,
-      'make': instance.make,
-      'model': instance.model,
-      'generation': instance.generation,
-      'body_type': instance.bodyType,
-      'drive_type': instance.driveType,
-      'engine_type': instance.engineType,
-      'gearbox_type': instance.gearboxType,
-      'year': instance.year,
-      'color': instance.color,
-      'power': instance.power,
-      'volume': instance.volume,
     };
