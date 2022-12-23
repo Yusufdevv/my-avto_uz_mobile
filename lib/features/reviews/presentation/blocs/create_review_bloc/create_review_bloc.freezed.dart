@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'create_review_bloc.dart';
 
@@ -24,7 +24,7 @@ mixin _$CreateReviewEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(AutoReviewModel model)? createReview,
+    TResult? Function(AutoReviewModel model)? createReview,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -40,7 +40,7 @@ mixin _$CreateReviewEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_CreateReview value)? createReview,
+    TResult? Function(_CreateReview value)? createReview,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -59,29 +59,32 @@ mixin _$CreateReviewEvent {
 abstract class $CreateReviewEventCopyWith<$Res> {
   factory $CreateReviewEventCopyWith(
           CreateReviewEvent value, $Res Function(CreateReviewEvent) then) =
-      _$CreateReviewEventCopyWithImpl<$Res>;
+      _$CreateReviewEventCopyWithImpl<$Res, CreateReviewEvent>;
+  @useResult
   $Res call({AutoReviewModel model});
 }
 
 /// @nodoc
-class _$CreateReviewEventCopyWithImpl<$Res>
+class _$CreateReviewEventCopyWithImpl<$Res, $Val extends CreateReviewEvent>
     implements $CreateReviewEventCopyWith<$Res> {
   _$CreateReviewEventCopyWithImpl(this._value, this._then);
 
-  final CreateReviewEvent _value;
   // ignore: unused_field
-  final $Res Function(CreateReviewEvent) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? model = freezed,
+    Object? model = null,
   }) {
     return _then(_value.copyWith(
-      model: model == freezed
+      model: null == model
           ? _value.model
           : model // ignore: cast_nullable_to_non_nullable
               as AutoReviewModel,
-    ));
+    ) as $Val);
   }
 }
 
@@ -92,26 +95,25 @@ abstract class _$$_CreateReviewCopyWith<$Res>
           _$_CreateReview value, $Res Function(_$_CreateReview) then) =
       __$$_CreateReviewCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({AutoReviewModel model});
 }
 
 /// @nodoc
 class __$$_CreateReviewCopyWithImpl<$Res>
-    extends _$CreateReviewEventCopyWithImpl<$Res>
+    extends _$CreateReviewEventCopyWithImpl<$Res, _$_CreateReview>
     implements _$$_CreateReviewCopyWith<$Res> {
   __$$_CreateReviewCopyWithImpl(
       _$_CreateReview _value, $Res Function(_$_CreateReview) _then)
-      : super(_value, (v) => _then(v as _$_CreateReview));
+      : super(_value, _then);
 
-  @override
-  _$_CreateReview get _value => super._value as _$_CreateReview;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? model = freezed,
+    Object? model = null,
   }) {
     return _then(_$_CreateReview(
-      model: model == freezed
+      model: null == model
           ? _value.model
           : model // ignore: cast_nullable_to_non_nullable
               as AutoReviewModel,
@@ -137,15 +139,15 @@ class _$_CreateReview implements _CreateReview {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_CreateReview &&
-            const DeepCollectionEquality().equals(other.model, model));
+            (identical(other.model, model) || other.model == model));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(model));
+  int get hashCode => Object.hash(runtimeType, model);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_CreateReviewCopyWith<_$_CreateReview> get copyWith =>
       __$$_CreateReviewCopyWithImpl<_$_CreateReview>(this, _$identity);
 
@@ -160,7 +162,7 @@ class _$_CreateReview implements _CreateReview {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(AutoReviewModel model)? createReview,
+    TResult? Function(AutoReviewModel model)? createReview,
   }) {
     return createReview?.call(model);
   }
@@ -188,7 +190,7 @@ class _$_CreateReview implements _CreateReview {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_CreateReview value)? createReview,
+    TResult? Function(_CreateReview value)? createReview,
   }) {
     return createReview?.call(this);
   }
@@ -236,7 +238,8 @@ mixin _$CreateReviewState {
 abstract class $CreateReviewStateCopyWith<$Res> {
   factory $CreateReviewStateCopyWith(
           CreateReviewState value, $Res Function(CreateReviewState) then) =
-      _$CreateReviewStateCopyWithImpl<$Res>;
+      _$CreateReviewStateCopyWithImpl<$Res, CreateReviewState>;
+  @useResult
   $Res call(
       {FormzStatus status,
       List<AutoReviewModel> entity,
@@ -247,49 +250,51 @@ abstract class $CreateReviewStateCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$CreateReviewStateCopyWithImpl<$Res>
+class _$CreateReviewStateCopyWithImpl<$Res, $Val extends CreateReviewState>
     implements $CreateReviewStateCopyWith<$Res> {
   _$CreateReviewStateCopyWithImpl(this._value, this._then);
 
-  final CreateReviewState _value;
   // ignore: unused_field
-  final $Res Function(CreateReviewState) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? status = freezed,
-    Object? entity = freezed,
-    Object? previous = freezed,
-    Object? next = freezed,
-    Object? fetchMore = freezed,
-    Object? count = freezed,
+    Object? status = null,
+    Object? entity = null,
+    Object? previous = null,
+    Object? next = null,
+    Object? fetchMore = null,
+    Object? count = null,
   }) {
     return _then(_value.copyWith(
-      status: status == freezed
+      status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as FormzStatus,
-      entity: entity == freezed
+      entity: null == entity
           ? _value.entity
           : entity // ignore: cast_nullable_to_non_nullable
               as List<AutoReviewModel>,
-      previous: previous == freezed
+      previous: null == previous
           ? _value.previous
           : previous // ignore: cast_nullable_to_non_nullable
               as String,
-      next: next == freezed
+      next: null == next
           ? _value.next
           : next // ignore: cast_nullable_to_non_nullable
               as String,
-      fetchMore: fetchMore == freezed
+      fetchMore: null == fetchMore
           ? _value.fetchMore
           : fetchMore // ignore: cast_nullable_to_non_nullable
               as bool,
-      count: count == freezed
+      count: null == count
           ? _value.count
           : count // ignore: cast_nullable_to_non_nullable
               as int,
-    ));
+    ) as $Val);
   }
 }
 
@@ -300,6 +305,7 @@ abstract class _$$_CreateReviewStateCopyWith<$Res>
           $Res Function(_$_CreateReviewState) then) =
       __$$_CreateReviewStateCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {FormzStatus status,
       List<AutoReviewModel> entity,
@@ -311,46 +317,44 @@ abstract class _$$_CreateReviewStateCopyWith<$Res>
 
 /// @nodoc
 class __$$_CreateReviewStateCopyWithImpl<$Res>
-    extends _$CreateReviewStateCopyWithImpl<$Res>
+    extends _$CreateReviewStateCopyWithImpl<$Res, _$_CreateReviewState>
     implements _$$_CreateReviewStateCopyWith<$Res> {
   __$$_CreateReviewStateCopyWithImpl(
       _$_CreateReviewState _value, $Res Function(_$_CreateReviewState) _then)
-      : super(_value, (v) => _then(v as _$_CreateReviewState));
+      : super(_value, _then);
 
-  @override
-  _$_CreateReviewState get _value => super._value as _$_CreateReviewState;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? status = freezed,
-    Object? entity = freezed,
-    Object? previous = freezed,
-    Object? next = freezed,
-    Object? fetchMore = freezed,
-    Object? count = freezed,
+    Object? status = null,
+    Object? entity = null,
+    Object? previous = null,
+    Object? next = null,
+    Object? fetchMore = null,
+    Object? count = null,
   }) {
     return _then(_$_CreateReviewState(
-      status: status == freezed
+      status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as FormzStatus,
-      entity: entity == freezed
+      entity: null == entity
           ? _value._entity
           : entity // ignore: cast_nullable_to_non_nullable
               as List<AutoReviewModel>,
-      previous: previous == freezed
+      previous: null == previous
           ? _value.previous
           : previous // ignore: cast_nullable_to_non_nullable
               as String,
-      next: next == freezed
+      next: null == next
           ? _value.next
           : next // ignore: cast_nullable_to_non_nullable
               as String,
-      fetchMore: fetchMore == freezed
+      fetchMore: null == fetchMore
           ? _value.fetchMore
           : fetchMore // ignore: cast_nullable_to_non_nullable
               as bool,
-      count: count == freezed
+      count: null == count
           ? _value.count
           : count // ignore: cast_nullable_to_non_nullable
               as int,
@@ -377,6 +381,7 @@ class _$_CreateReviewState implements _CreateReviewState {
   @override
   @JsonKey()
   List<AutoReviewModel> get entity {
+    if (_entity is EqualUnmodifiableListView) return _entity;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_entity);
   }
@@ -404,26 +409,29 @@ class _$_CreateReviewState implements _CreateReviewState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_CreateReviewState &&
-            const DeepCollectionEquality().equals(other.status, status) &&
+            (identical(other.status, status) || other.status == status) &&
             const DeepCollectionEquality().equals(other._entity, _entity) &&
-            const DeepCollectionEquality().equals(other.previous, previous) &&
-            const DeepCollectionEquality().equals(other.next, next) &&
-            const DeepCollectionEquality().equals(other.fetchMore, fetchMore) &&
-            const DeepCollectionEquality().equals(other.count, count));
+            (identical(other.previous, previous) ||
+                other.previous == previous) &&
+            (identical(other.next, next) || other.next == next) &&
+            (identical(other.fetchMore, fetchMore) ||
+                other.fetchMore == fetchMore) &&
+            (identical(other.count, count) || other.count == count));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(status),
+      status,
       const DeepCollectionEquality().hash(_entity),
-      const DeepCollectionEquality().hash(previous),
-      const DeepCollectionEquality().hash(next),
-      const DeepCollectionEquality().hash(fetchMore),
-      const DeepCollectionEquality().hash(count));
+      previous,
+      next,
+      fetchMore,
+      count);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_CreateReviewStateCopyWith<_$_CreateReviewState> get copyWith =>
       __$$_CreateReviewStateCopyWithImpl<_$_CreateReviewState>(
           this, _$identity);

@@ -63,10 +63,9 @@ const strokeDark = _strokeDark;
 const background = Color(0xff121212);
 const secondary = Color(0xff373737);
 const stormGrey12 = _stormGrey12;
-const tutu = Color(0xffFAEEEE);
+const tutu = _tutu;
 const lavender = _lavender;
 const lavanda = _lavender;
-const tutu = _tutu;
 const secondBackground = _gainsboro2;
 const nero = _nero3;
 

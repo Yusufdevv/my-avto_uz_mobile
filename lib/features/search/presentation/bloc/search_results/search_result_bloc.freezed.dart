@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'search_result_bloc.dart';
 
@@ -24,8 +24,8 @@ mixin _$SearchResultEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String searchText)? getResults,
-    TResult Function()? getMoreResults,
+    TResult? Function(String searchText)? getResults,
+    TResult? Function()? getMoreResults,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -43,8 +43,8 @@ mixin _$SearchResultEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_GetResults value)? getResults,
-    TResult Function(_GetMoreResults value)? getMoreResults,
+    TResult? Function(_GetResults value)? getResults,
+    TResult? Function(_GetMoreResults value)? getMoreResults,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -60,17 +60,18 @@ mixin _$SearchResultEvent {
 abstract class $SearchResultEventCopyWith<$Res> {
   factory $SearchResultEventCopyWith(
           SearchResultEvent value, $Res Function(SearchResultEvent) then) =
-      _$SearchResultEventCopyWithImpl<$Res>;
+      _$SearchResultEventCopyWithImpl<$Res, SearchResultEvent>;
 }
 
 /// @nodoc
-class _$SearchResultEventCopyWithImpl<$Res>
+class _$SearchResultEventCopyWithImpl<$Res, $Val extends SearchResultEvent>
     implements $SearchResultEventCopyWith<$Res> {
   _$SearchResultEventCopyWithImpl(this._value, this._then);
 
-  final SearchResultEvent _value;
   // ignore: unused_field
-  final $Res Function(SearchResultEvent) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 }
 
 /// @nodoc
@@ -78,26 +79,25 @@ abstract class _$$_GetResultsCopyWith<$Res> {
   factory _$$_GetResultsCopyWith(
           _$_GetResults value, $Res Function(_$_GetResults) then) =
       __$$_GetResultsCopyWithImpl<$Res>;
+  @useResult
   $Res call({String searchText});
 }
 
 /// @nodoc
 class __$$_GetResultsCopyWithImpl<$Res>
-    extends _$SearchResultEventCopyWithImpl<$Res>
+    extends _$SearchResultEventCopyWithImpl<$Res, _$_GetResults>
     implements _$$_GetResultsCopyWith<$Res> {
   __$$_GetResultsCopyWithImpl(
       _$_GetResults _value, $Res Function(_$_GetResults) _then)
-      : super(_value, (v) => _then(v as _$_GetResults));
+      : super(_value, _then);
 
-  @override
-  _$_GetResults get _value => super._value as _$_GetResults;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? searchText = freezed,
+    Object? searchText = null,
   }) {
     return _then(_$_GetResults(
-      searchText: searchText == freezed
+      searchText: null == searchText
           ? _value.searchText
           : searchText // ignore: cast_nullable_to_non_nullable
               as String,
@@ -123,16 +123,16 @@ class _$_GetResults implements _GetResults {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_GetResults &&
-            const DeepCollectionEquality()
-                .equals(other.searchText, searchText));
+            (identical(other.searchText, searchText) ||
+                other.searchText == searchText));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(searchText));
+  int get hashCode => Object.hash(runtimeType, searchText);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_GetResultsCopyWith<_$_GetResults> get copyWith =>
       __$$_GetResultsCopyWithImpl<_$_GetResults>(this, _$identity);
 
@@ -148,8 +148,8 @@ class _$_GetResults implements _GetResults {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String searchText)? getResults,
-    TResult Function()? getMoreResults,
+    TResult? Function(String searchText)? getResults,
+    TResult? Function()? getMoreResults,
   }) {
     return getResults?.call(searchText);
   }
@@ -179,8 +179,8 @@ class _$_GetResults implements _GetResults {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_GetResults value)? getResults,
-    TResult Function(_GetMoreResults value)? getMoreResults,
+    TResult? Function(_GetResults value)? getResults,
+    TResult? Function(_GetMoreResults value)? getMoreResults,
   }) {
     return getResults?.call(this);
   }
@@ -217,14 +217,11 @@ abstract class _$$_GetMoreResultsCopyWith<$Res> {
 
 /// @nodoc
 class __$$_GetMoreResultsCopyWithImpl<$Res>
-    extends _$SearchResultEventCopyWithImpl<$Res>
+    extends _$SearchResultEventCopyWithImpl<$Res, _$_GetMoreResults>
     implements _$$_GetMoreResultsCopyWith<$Res> {
   __$$_GetMoreResultsCopyWithImpl(
       _$_GetMoreResults _value, $Res Function(_$_GetMoreResults) _then)
-      : super(_value, (v) => _then(v as _$_GetMoreResults));
-
-  @override
-  _$_GetMoreResults get _value => super._value as _$_GetMoreResults;
+      : super(_value, _then);
 }
 
 /// @nodoc
@@ -258,8 +255,8 @@ class _$_GetMoreResults implements _GetMoreResults {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String searchText)? getResults,
-    TResult Function()? getMoreResults,
+    TResult? Function(String searchText)? getResults,
+    TResult? Function()? getMoreResults,
   }) {
     return getMoreResults?.call();
   }
@@ -289,8 +286,8 @@ class _$_GetMoreResults implements _GetMoreResults {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_GetResults value)? getResults,
-    TResult Function(_GetMoreResults value)? getMoreResults,
+    TResult? Function(_GetResults value)? getResults,
+    TResult? Function(_GetMoreResults value)? getMoreResults,
   }) {
     return getMoreResults?.call(this);
   }
@@ -331,7 +328,8 @@ mixin _$SearchResultState {
 abstract class $SearchResultStateCopyWith<$Res> {
   factory $SearchResultStateCopyWith(
           SearchResultState value, $Res Function(SearchResultState) then) =
-      _$SearchResultStateCopyWithImpl<$Res>;
+      _$SearchResultStateCopyWithImpl<$Res, SearchResultState>;
+  @useResult
   $Res call(
       {List<AutoEntity> list,
       FormzStatus status,
@@ -342,49 +340,51 @@ abstract class $SearchResultStateCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$SearchResultStateCopyWithImpl<$Res>
+class _$SearchResultStateCopyWithImpl<$Res, $Val extends SearchResultState>
     implements $SearchResultStateCopyWith<$Res> {
   _$SearchResultStateCopyWithImpl(this._value, this._then);
 
-  final SearchResultState _value;
   // ignore: unused_field
-  final $Res Function(SearchResultState) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? list = freezed,
-    Object? status = freezed,
-    Object? paginationStatus = freezed,
+    Object? list = null,
+    Object? status = null,
+    Object? paginationStatus = null,
     Object? next = freezed,
-    Object? count = freezed,
+    Object? count = null,
     Object? moreFetch = freezed,
   }) {
     return _then(_value.copyWith(
-      list: list == freezed
+      list: null == list
           ? _value.list
           : list // ignore: cast_nullable_to_non_nullable
               as List<AutoEntity>,
-      status: status == freezed
+      status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as FormzStatus,
-      paginationStatus: paginationStatus == freezed
+      paginationStatus: null == paginationStatus
           ? _value.paginationStatus
           : paginationStatus // ignore: cast_nullable_to_non_nullable
               as FormzStatus,
-      next: next == freezed
+      next: freezed == next
           ? _value.next
           : next // ignore: cast_nullable_to_non_nullable
               as String?,
-      count: count == freezed
+      count: null == count
           ? _value.count
           : count // ignore: cast_nullable_to_non_nullable
               as int,
-      moreFetch: moreFetch == freezed
+      moreFetch: freezed == moreFetch
           ? _value.moreFetch
           : moreFetch // ignore: cast_nullable_to_non_nullable
               as dynamic,
-    ));
+    ) as $Val);
   }
 }
 
@@ -395,6 +395,7 @@ abstract class _$$_SearchResultStateCopyWith<$Res>
           $Res Function(_$_SearchResultState) then) =
       __$$_SearchResultStateCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {List<AutoEntity> list,
       FormzStatus status,
@@ -406,46 +407,44 @@ abstract class _$$_SearchResultStateCopyWith<$Res>
 
 /// @nodoc
 class __$$_SearchResultStateCopyWithImpl<$Res>
-    extends _$SearchResultStateCopyWithImpl<$Res>
+    extends _$SearchResultStateCopyWithImpl<$Res, _$_SearchResultState>
     implements _$$_SearchResultStateCopyWith<$Res> {
   __$$_SearchResultStateCopyWithImpl(
       _$_SearchResultState _value, $Res Function(_$_SearchResultState) _then)
-      : super(_value, (v) => _then(v as _$_SearchResultState));
+      : super(_value, _then);
 
-  @override
-  _$_SearchResultState get _value => super._value as _$_SearchResultState;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? list = freezed,
-    Object? status = freezed,
-    Object? paginationStatus = freezed,
+    Object? list = null,
+    Object? status = null,
+    Object? paginationStatus = null,
     Object? next = freezed,
-    Object? count = freezed,
+    Object? count = null,
     Object? moreFetch = freezed,
   }) {
     return _then(_$_SearchResultState(
-      list: list == freezed
+      list: null == list
           ? _value._list
           : list // ignore: cast_nullable_to_non_nullable
               as List<AutoEntity>,
-      status: status == freezed
+      status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as FormzStatus,
-      paginationStatus: paginationStatus == freezed
+      paginationStatus: null == paginationStatus
           ? _value.paginationStatus
           : paginationStatus // ignore: cast_nullable_to_non_nullable
               as FormzStatus,
-      next: next == freezed
+      next: freezed == next
           ? _value.next
           : next // ignore: cast_nullable_to_non_nullable
               as String?,
-      count: count == freezed
+      count: null == count
           ? _value.count
           : count // ignore: cast_nullable_to_non_nullable
               as int,
-      moreFetch: moreFetch == freezed ? _value.moreFetch : moreFetch,
+      moreFetch: freezed == moreFetch ? _value.moreFetch! : moreFetch,
     ));
   }
 }
@@ -466,6 +465,7 @@ class _$_SearchResultState implements _SearchResultState {
   @override
   @JsonKey()
   List<AutoEntity> get list {
+    if (_list is EqualUnmodifiableListView) return _list;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_list);
   }
@@ -496,11 +496,11 @@ class _$_SearchResultState implements _SearchResultState {
         (other.runtimeType == runtimeType &&
             other is _$_SearchResultState &&
             const DeepCollectionEquality().equals(other._list, _list) &&
-            const DeepCollectionEquality().equals(other.status, status) &&
-            const DeepCollectionEquality()
-                .equals(other.paginationStatus, paginationStatus) &&
-            const DeepCollectionEquality().equals(other.next, next) &&
-            const DeepCollectionEquality().equals(other.count, count) &&
+            (identical(other.status, status) || other.status == status) &&
+            (identical(other.paginationStatus, paginationStatus) ||
+                other.paginationStatus == paginationStatus) &&
+            (identical(other.next, next) || other.next == next) &&
+            (identical(other.count, count) || other.count == count) &&
             const DeepCollectionEquality().equals(other.moreFetch, moreFetch));
   }
 
@@ -508,14 +508,15 @@ class _$_SearchResultState implements _SearchResultState {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(_list),
-      const DeepCollectionEquality().hash(status),
-      const DeepCollectionEquality().hash(paginationStatus),
-      const DeepCollectionEquality().hash(next),
-      const DeepCollectionEquality().hash(count),
+      status,
+      paginationStatus,
+      next,
+      count,
       const DeepCollectionEquality().hash(moreFetch));
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_SearchResultStateCopyWith<_$_SearchResultState> get copyWith =>
       __$$_SearchResultStateCopyWithImpl<_$_SearchResultState>(
           this, _$identity);
