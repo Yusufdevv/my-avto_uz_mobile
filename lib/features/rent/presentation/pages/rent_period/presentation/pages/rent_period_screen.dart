@@ -310,12 +310,7 @@ class _RentPeriodScreenState extends State<RentPeriodScreen> {
   String? endDateForLease;
 
   void _onSelectionChanged(DateRangePickerSelectionChangedArgs dRPSChArgs) {
-    print("======== > > > ${DateTime.now()}");
-
     setState(() {
-      print(
-          "=====  startFor lease: $startDateForLease == hour start: ${list[hour.floor()]}");
-      print("=====  now: ${DateTime.now()} == $hour");
       _startDate =
           DateFormat('d.MM.y').format(dRPSChArgs.value.startDate).toString();
       _endDate = DateFormat('d.MM.y')
@@ -327,8 +322,6 @@ class _RentPeriodScreenState extends State<RentPeriodScreen> {
       endDateForLease = DateFormat('yyyy-MM-dd')
           .format(dRPSChArgs.value.endDate ?? dRPSChArgs.value.startDate)
           .toString();
-      print(
-          "=====  startFor lease: $startDateForLease == endFor lease: $endDateForLease");
     });
   }
 

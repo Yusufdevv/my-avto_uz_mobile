@@ -37,9 +37,7 @@ class _CarsScreenState extends State<CarsScreen> {
         child: BlocBuilder<RentBloc, RentState>(
           builder: (context, state) {
             if (state.status.isSubmissionInProgress) {
-              return const Center(
-                child: CupertinoActivityIndicator(),
-              );
+              return const Center(child: CupertinoActivityIndicator());
             } else if (state.status.isSubmissionSuccess) {
               return Column(
                 children: [

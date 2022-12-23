@@ -16,11 +16,9 @@ class RentBloc extends Bloc<RentEvent, RentState> {
 
   RentBloc(this.rentUseCase, this.id) : super(RentState()) {
     on<_GetResults>((event, emit) async {
-      print('${state.hasAirConditioners}get start');
       if (!event.isRefresh) {
         emit(state.copyWith(status: FormzStatus.submissionInProgress));
       }
-      print("=== id ====   $id  =========");
       final result = await rentUseCase(Param(
         next: '',
         id: id,
@@ -30,7 +28,6 @@ class RentBloc extends Bloc<RentEvent, RentState> {
         rentCarIsFullFuel: state.rentCarIsFullFuel,
       ));
       if (result.isRight) {
-        print(' ==== ${result.right.toString()} ===== the get result right');
         emit(
           state.copyWith(
             status: FormzStatus.submissionSuccess,
@@ -42,7 +39,6 @@ class RentBloc extends Bloc<RentEvent, RentState> {
       } else {
         emit(state.copyWith(status: FormzStatus.submissionFailure));
       }
-      print('${state.hasAirConditioners}get end');
     });
     on<_GetMoreResults>((event, emit) async {
       emit(state.copyWith(status: FormzStatus.submissionInProgress));
@@ -58,7 +54,6 @@ class RentBloc extends Bloc<RentEvent, RentState> {
       }
     });
     on<_SetId>((event, emit) async {
-      print('${state.hasAirConditioners}set start');
       emit(state.copyWith(
         categoryId: id,
         hasBabySeat: event.hasBabySeat ?? state.hasBabySeat,
@@ -68,7 +63,6 @@ class RentBloc extends Bloc<RentEvent, RentState> {
       ));
       add(RentEvent.getResults(isRefresh: true));
 
-      print('${state.hasAirConditioners}set end');
     });
   }
 }

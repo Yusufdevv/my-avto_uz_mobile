@@ -27,7 +27,6 @@ class RentUseCase extends UseCase<GenericPagination<RentMainModel>, Param> {
     if (params.id != null) {
       map['rent_car_type_id'] = params.id;
     }
-    print('map ---- map ---- map ---- ${map.toString()}');
     final v = await repo.fetchMore(
       url: 'rent/main_page/${params.id}/',
       fromJson: RentMainModel.fromJson,
