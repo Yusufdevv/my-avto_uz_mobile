@@ -1,15 +1,14 @@
 import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/core/usecases/usecase.dart';
-import 'package:auto/features/common/domain/model/car_make_model.dart';
-import 'package:auto/features/pagination/models/generic_pagination.dart';
+import 'package:auto/features/search/data/models/search_suggest_model.dart';
 import 'package:auto/features/search/domain/repositories/suggestion_repository.dart';
 import 'package:auto/utils/either.dart';
 
-class SuggestionUseCase extends UseCase<GenericPagination<CarMakeModel>, String> {
+class SuggestionUseCase extends UseCase<SearchSuggestModel, String> {
   final SuggestionRepository repo;
   SuggestionUseCase({required this.repo});
 
   @override
-  Future<Either<Failure, GenericPagination<CarMakeModel>>> call(String params) async =>
+  Future<Either<Failure, SearchSuggestModel>> call(String params) async =>
       await repo.getSuggestions(params);
 }

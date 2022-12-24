@@ -1,12 +1,10 @@
 import 'package:auto/core/exceptions/exceptions.dart';
-import 'package:auto/features/common/domain/model/car_make_model.dart';
-import 'package:auto/features/pagination/models/generic_pagination.dart';
+import 'package:auto/features/search/data/models/search_suggest_model.dart';
 
 import 'package:dio/dio.dart';
 
 abstract class SuggestionDatasource {
-  Future<GenericPagination<CarMakeModel>> getSuggestions(String text);
-  // Future<>
+  Future<SearchSuggestModel> getSuggestions(String text);
 }
 
 class SuggestionDatasourceImpl extends SuggestionDatasource {
@@ -15,19 +13,16 @@ class SuggestionDatasourceImpl extends SuggestionDatasource {
   SuggestionDatasourceImpl(this._dio);
 
   @override
-  Future<GenericPagination<CarMakeModel>> getSuggestions(String text) async {
+  Future<SearchSuggestModel> getSuggestions(String text) async {
     try {
       final response = await _dio.get(
-        'car/makes/',
-        queryParameters: {'ordering': text},
+        'es/AnnouncementElasticSearch/suggest/',
+        queryParameters: {'absolute_car_name_suggest__completion': text},
       );
-      print(response.realUri);
-      print(response.data);
       if (response.statusCode != null &&
           response.statusCode! >= 200 &&
           response.statusCode! < 300) {
-        return GenericPagination.fromJson(response.data,
-            (p0) => CarMakeModel.fromJson(p0 as Map<String, dynamic>));
+        return SearchSuggestModel.fromJson(response.data);
       } else {
         throw ServerException(
           statusCode: response.statusCode!,

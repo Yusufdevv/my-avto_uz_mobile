@@ -1,21 +1,23 @@
 import 'package:auto/features/common/domain/entity/auto_entity.dart';
-import 'package:auto/features/common/domain/entity/auto_review_entity.dart';
-import 'package:auto/features/search/domain/entities/commercial_item_entity.dart';
+import 'package:auto/features/search/domain/entities/search_suggest_entity.dart';
 import 'package:auto/features/search/domain/usecases/get_search_result_usecase.dart';
+import 'package:auto/features/search/domain/usecases/suggestion_usecase.dart';
 import 'package:bloc/bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'search_result_event.dart';
+part 'search_event.dart';
 
-part 'search_result_state.dart';
+part 'search_state.dart';
 
-part 'search_result_bloc.freezed.dart';
+part 'search_bloc.freezed.dart';
 
-class SearchResultBloc extends Bloc<SearchResultEvent, SearchResultState> {
+class SearchBloc extends Bloc<SearchEvent, SearchState> {
   final GetSearchResultsUseCase useCase;
+  final SuggestionUseCase suggestionUseCase;
 
-  SearchResultBloc(this.useCase) : super(SearchResultState()) {
+  SearchBloc(this.useCase, {required this.suggestionUseCase})
+      : super(SearchState()) {
     on<_GetResults>((event, emit) async {
       emit(state.copyWith(status: FormzStatus.submissionInProgress));
 
@@ -24,10 +26,9 @@ class SearchResultBloc extends Bloc<SearchResultEvent, SearchResultState> {
         emit(
           state.copyWith(
             status: FormzStatus.submissionSuccess,
-            list: result.right.results,
+            searchResults: result.right.results,
             count: result.right.count,
             next: result.right.next,
-            
           ),
         );
       } else {
@@ -42,13 +43,30 @@ class SearchResultBloc extends Bloc<SearchResultEvent, SearchResultState> {
         emit(
           state.copyWith(
             status: FormzStatus.submissionSuccess,
-            list: [...state.list, ...result.right.results],
+            searchResults: [...state.searchResults, ...result.right.results],
             count: result.right.count,
             next: result.right.next,
           ),
         );
       } else {
         emit(state.copyWith(status: FormzStatus.submissionSuccess));
+      }
+    });
+
+    on<_GetSuggestions>((event, emit) async {
+      emit(state.copyWith(suggestionsStatus: FormzStatus.submissionInProgress));
+      final result = await suggestionUseCase.call(event.search);
+      if (result.isRight) {
+        print('suggest => ${result.right.absoluteCarNameSuggestCompletion}');
+        print(result.right.absoluteCarNameSuggestCompletion[0].options.length);
+        emit(
+          state.copyWith(
+            suggestions: result.right.absoluteCarNameSuggestCompletion[0].options,
+            suggestionsStatus: FormzStatus.submissionSuccess,
+            suggestionsCount:
+                result.right.absoluteCarNameSuggestCompletion[0].options.length,
+          ),
+        );
       }
     });
   }

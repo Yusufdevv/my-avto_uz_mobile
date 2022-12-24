@@ -49,6 +49,7 @@ dependencies:
       ref: flutter-beta
   linked_scroll_controller: ^0.2.0
   percent_indicator: ^4.2.2
+  sqflite: ^2.2.2
 
 dev_dependencies:
   flutter_test:

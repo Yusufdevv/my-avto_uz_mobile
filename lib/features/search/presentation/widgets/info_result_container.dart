@@ -5,7 +5,6 @@ import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_like.dart';
-import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/search/presentation/part/bottom_sheet_for_calling.dart';
 import 'package:auto/features/search/presentation/widgets/custom_chip.dart';
 import 'package:auto/utils/my_functions.dart';
@@ -31,7 +30,7 @@ class InfoResultContainer extends StatelessWidget {
       required this.hasComparison,
       required this.callFrom,
       required this.callTo,
-      this.discountPrice,
+      required this.discount,
       this.sellType,
       super.key});
   final List<String> gallery;
@@ -48,14 +47,11 @@ class InfoResultContainer extends StatelessWidget {
   final String publishedAt;
   final bool isWishlisted;
   final bool hasComparison;
+  final double discount;
   final String callFrom;
   final String callTo;
 
-  final String? discountPrice;
   final String? sellType;
-  bool enableForCalling() {
-    return false;
-  }
 
   @override
   Widget build(BuildContext context) => Container(
@@ -100,7 +96,8 @@ class InfoResultContainer extends StatelessWidget {
                         ),
                       ),
                     ),
-                  if (enableForCalling())
+                  if (MyFunctions.enableForCalling(
+                      callFrom: callFrom, callTo: callTo))
                     WButton(
                       onTap: () {
                         bottomSheetForCalling(context, contactPhone);
@@ -158,7 +155,7 @@ class InfoResultContainer extends StatelessWidget {
                                       .copyWith(color: greyText),
                                 ),
                                 TextSpan(
-                                  text: '09:00 - 18:00',
+                                  text: '$callFrom - $callTo',
                                   style: Theme.of(context)
                                       .textTheme
                                       .headline2!
@@ -225,7 +222,7 @@ class InfoResultContainer extends StatelessWidget {
                   const SizedBox(),
               ],
             ),
-            if (discountPrice == null)
+            if (discount == -1)
               RichText(
                 text: TextSpan(
                   text: MyFunctions.getFormatCost('$price'),
@@ -243,7 +240,7 @@ class InfoResultContainer extends StatelessWidget {
                 text: TextSpan(
                   children: [
                     TextSpan(
-                      text: MyFunctions.getFormatCost(discountPrice!),
+                      text: MyFunctions.getFormatCost(discount.toString()),
                       style: const TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.w600,

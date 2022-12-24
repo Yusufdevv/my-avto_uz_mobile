@@ -36,15 +36,18 @@ class AutoEntity extends Equatable {
     this.isNew = false,
     this.isRegisteredLocally = false,
     this.isWishlisted = false,
-    this.latitude = '',
+    this.latitude = 0,
     this.licenceType = '',
-    this.longitude = '',
+    this.longitude = 0,
     this.ownership = '',
     this.publishedAt = '',
     this.region = const CarDistrictEntity(),
     this.user = const CarUserEntity(),
     this.viewsCount = 0,
     this.isComparison = false,
+    this.discount = -1,
+    this.contactAvailableFrom = '',
+    this.contactAvailableTo = '',
   });
 
   final int id;
@@ -79,8 +82,8 @@ class AutoEntity extends Equatable {
   final String contactName;
   final String contactEmail;
   final String contactPhone;
-  final String longitude;
-  final String latitude;
+  final double longitude;
+  final double latitude;
   final int distanceTraveled;
   final bool registeredInUzbekistan;
   final String userType;
@@ -92,6 +95,10 @@ class AutoEntity extends Equatable {
   final int viewsCount;
   final bool isWishlisted;
   final bool isComparison;
+  final double discount;
+  final String contactAvailableFrom;
+  final String contactAvailableTo;
+
   @override
   List<Object?> get props => [
         id,
@@ -174,5 +181,8 @@ class AutoConverter
         userType: object.userType,
         viewsCount: object.viewsCount,
         isComparison: object.isComparison,
+        contactAvailableFrom: object.contactAvailableFrom,
+        contactAvailableTo: object.contactAvailableTo,
+        discount: object.discount,
       ).toJson();
 }

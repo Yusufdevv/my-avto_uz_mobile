@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
-part of 'suggestion_bloc.dart';
+part of 'search_bloc.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,43 +15,48 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-mixin _$SuggestionEvent {
+mixin _$SearchEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(String searchText) getResults,
+    required TResult Function() getMoreResults,
     required TResult Function(String search) getSuggestions,
     required TResult Function() setSuggestions,
     required TResult Function(String text) saveLocaleSuggestion,
     required TResult Function(String text) deleteLocaleSuggestion,
     required TResult Function(String text) selectSearchSuggestion,
-    required TResult Function(bool? isResultPage, bool? isLocaleSuggestion)
-        changeStatus,
+    required TResult Function() changeStatus,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(String searchText)? getResults,
+    TResult Function()? getMoreResults,
     TResult Function(String search)? getSuggestions,
     TResult Function()? setSuggestions,
     TResult Function(String text)? saveLocaleSuggestion,
     TResult Function(String text)? deleteLocaleSuggestion,
     TResult Function(String text)? selectSearchSuggestion,
-    TResult Function(bool? isResultPage, bool? isLocaleSuggestion)?
-        changeStatus,
+    TResult Function()? changeStatus,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String searchText)? getResults,
+    TResult Function()? getMoreResults,
     TResult Function(String search)? getSuggestions,
     TResult Function()? setSuggestions,
     TResult Function(String text)? saveLocaleSuggestion,
     TResult Function(String text)? deleteLocaleSuggestion,
     TResult Function(String text)? selectSearchSuggestion,
-    TResult Function(bool? isResultPage, bool? isLocaleSuggestion)?
-        changeStatus,
+    TResult Function()? changeStatus,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(_GetResults value) getResults,
+    required TResult Function(_GetMoreResults value) getMoreResults,
     required TResult Function(_GetSuggestions value) getSuggestions,
     required TResult Function(_SetSuggestions value) setSuggestions,
     required TResult Function(_SaveLocaleSuggestion value) saveLocaleSuggestion,
@@ -64,6 +69,8 @@ mixin _$SuggestionEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_GetResults value)? getResults,
+    TResult Function(_GetMoreResults value)? getMoreResults,
     TResult Function(_GetSuggestions value)? getSuggestions,
     TResult Function(_SetSuggestions value)? setSuggestions,
     TResult Function(_SaveLocaleSuggestion value)? saveLocaleSuggestion,
@@ -74,6 +81,8 @@ mixin _$SuggestionEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetResults value)? getResults,
+    TResult Function(_GetMoreResults value)? getMoreResults,
     TResult Function(_GetSuggestions value)? getSuggestions,
     TResult Function(_SetSuggestions value)? setSuggestions,
     TResult Function(_SaveLocaleSuggestion value)? saveLocaleSuggestion,
@@ -86,20 +95,334 @@ mixin _$SuggestionEvent {
 }
 
 /// @nodoc
-abstract class $SuggestionEventCopyWith<$Res> {
-  factory $SuggestionEventCopyWith(
-          SuggestionEvent value, $Res Function(SuggestionEvent) then) =
-      _$SuggestionEventCopyWithImpl<$Res>;
+abstract class $SearchEventCopyWith<$Res> {
+  factory $SearchEventCopyWith(
+          SearchEvent value, $Res Function(SearchEvent) then) =
+      _$SearchEventCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$SuggestionEventCopyWithImpl<$Res>
-    implements $SuggestionEventCopyWith<$Res> {
-  _$SuggestionEventCopyWithImpl(this._value, this._then);
+class _$SearchEventCopyWithImpl<$Res> implements $SearchEventCopyWith<$Res> {
+  _$SearchEventCopyWithImpl(this._value, this._then);
 
-  final SuggestionEvent _value;
+  final SearchEvent _value;
   // ignore: unused_field
-  final $Res Function(SuggestionEvent) _then;
+  final $Res Function(SearchEvent) _then;
+}
+
+/// @nodoc
+abstract class _$$_GetResultsCopyWith<$Res> {
+  factory _$$_GetResultsCopyWith(
+          _$_GetResults value, $Res Function(_$_GetResults) then) =
+      __$$_GetResultsCopyWithImpl<$Res>;
+  $Res call({String searchText});
+}
+
+/// @nodoc
+class __$$_GetResultsCopyWithImpl<$Res> extends _$SearchEventCopyWithImpl<$Res>
+    implements _$$_GetResultsCopyWith<$Res> {
+  __$$_GetResultsCopyWithImpl(
+      _$_GetResults _value, $Res Function(_$_GetResults) _then)
+      : super(_value, (v) => _then(v as _$_GetResults));
+
+  @override
+  _$_GetResults get _value => super._value as _$_GetResults;
+
+  @override
+  $Res call({
+    Object? searchText = freezed,
+  }) {
+    return _then(_$_GetResults(
+      searchText: searchText == freezed
+          ? _value.searchText
+          : searchText // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_GetResults implements _GetResults {
+  _$_GetResults({required this.searchText});
+
+  @override
+  final String searchText;
+
+  @override
+  String toString() {
+    return 'SearchEvent.getResults(searchText: $searchText)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_GetResults &&
+            const DeepCollectionEquality()
+                .equals(other.searchText, searchText));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(searchText));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$_GetResultsCopyWith<_$_GetResults> get copyWith =>
+      __$$_GetResultsCopyWithImpl<_$_GetResults>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String searchText) getResults,
+    required TResult Function() getMoreResults,
+    required TResult Function(String search) getSuggestions,
+    required TResult Function() setSuggestions,
+    required TResult Function(String text) saveLocaleSuggestion,
+    required TResult Function(String text) deleteLocaleSuggestion,
+    required TResult Function(String text) selectSearchSuggestion,
+    required TResult Function() changeStatus,
+  }) {
+    return getResults(searchText);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(String searchText)? getResults,
+    TResult Function()? getMoreResults,
+    TResult Function(String search)? getSuggestions,
+    TResult Function()? setSuggestions,
+    TResult Function(String text)? saveLocaleSuggestion,
+    TResult Function(String text)? deleteLocaleSuggestion,
+    TResult Function(String text)? selectSearchSuggestion,
+    TResult Function()? changeStatus,
+  }) {
+    return getResults?.call(searchText);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String searchText)? getResults,
+    TResult Function()? getMoreResults,
+    TResult Function(String search)? getSuggestions,
+    TResult Function()? setSuggestions,
+    TResult Function(String text)? saveLocaleSuggestion,
+    TResult Function(String text)? deleteLocaleSuggestion,
+    TResult Function(String text)? selectSearchSuggestion,
+    TResult Function()? changeStatus,
+    required TResult orElse(),
+  }) {
+    if (getResults != null) {
+      return getResults(searchText);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_GetResults value) getResults,
+    required TResult Function(_GetMoreResults value) getMoreResults,
+    required TResult Function(_GetSuggestions value) getSuggestions,
+    required TResult Function(_SetSuggestions value) setSuggestions,
+    required TResult Function(_SaveLocaleSuggestion value) saveLocaleSuggestion,
+    required TResult Function(_DeleteLocaleSuggestion value)
+        deleteLocaleSuggestion,
+    required TResult Function(_SelectLocaleSuggestion value)
+        selectSearchSuggestion,
+    required TResult Function(_ChangeStatus value) changeStatus,
+  }) {
+    return getResults(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_GetResults value)? getResults,
+    TResult Function(_GetMoreResults value)? getMoreResults,
+    TResult Function(_GetSuggestions value)? getSuggestions,
+    TResult Function(_SetSuggestions value)? setSuggestions,
+    TResult Function(_SaveLocaleSuggestion value)? saveLocaleSuggestion,
+    TResult Function(_DeleteLocaleSuggestion value)? deleteLocaleSuggestion,
+    TResult Function(_SelectLocaleSuggestion value)? selectSearchSuggestion,
+    TResult Function(_ChangeStatus value)? changeStatus,
+  }) {
+    return getResults?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetResults value)? getResults,
+    TResult Function(_GetMoreResults value)? getMoreResults,
+    TResult Function(_GetSuggestions value)? getSuggestions,
+    TResult Function(_SetSuggestions value)? setSuggestions,
+    TResult Function(_SaveLocaleSuggestion value)? saveLocaleSuggestion,
+    TResult Function(_DeleteLocaleSuggestion value)? deleteLocaleSuggestion,
+    TResult Function(_SelectLocaleSuggestion value)? selectSearchSuggestion,
+    TResult Function(_ChangeStatus value)? changeStatus,
+    required TResult orElse(),
+  }) {
+    if (getResults != null) {
+      return getResults(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _GetResults implements SearchEvent {
+  factory _GetResults({required final String searchText}) = _$_GetResults;
+
+  String get searchText;
+  @JsonKey(ignore: true)
+  _$$_GetResultsCopyWith<_$_GetResults> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_GetMoreResultsCopyWith<$Res> {
+  factory _$$_GetMoreResultsCopyWith(
+          _$_GetMoreResults value, $Res Function(_$_GetMoreResults) then) =
+      __$$_GetMoreResultsCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$_GetMoreResultsCopyWithImpl<$Res>
+    extends _$SearchEventCopyWithImpl<$Res>
+    implements _$$_GetMoreResultsCopyWith<$Res> {
+  __$$_GetMoreResultsCopyWithImpl(
+      _$_GetMoreResults _value, $Res Function(_$_GetMoreResults) _then)
+      : super(_value, (v) => _then(v as _$_GetMoreResults));
+
+  @override
+  _$_GetMoreResults get _value => super._value as _$_GetMoreResults;
+}
+
+/// @nodoc
+
+class _$_GetMoreResults implements _GetMoreResults {
+  _$_GetMoreResults();
+
+  @override
+  String toString() {
+    return 'SearchEvent.getMoreResults()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$_GetMoreResults);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String searchText) getResults,
+    required TResult Function() getMoreResults,
+    required TResult Function(String search) getSuggestions,
+    required TResult Function() setSuggestions,
+    required TResult Function(String text) saveLocaleSuggestion,
+    required TResult Function(String text) deleteLocaleSuggestion,
+    required TResult Function(String text) selectSearchSuggestion,
+    required TResult Function() changeStatus,
+  }) {
+    return getMoreResults();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(String searchText)? getResults,
+    TResult Function()? getMoreResults,
+    TResult Function(String search)? getSuggestions,
+    TResult Function()? setSuggestions,
+    TResult Function(String text)? saveLocaleSuggestion,
+    TResult Function(String text)? deleteLocaleSuggestion,
+    TResult Function(String text)? selectSearchSuggestion,
+    TResult Function()? changeStatus,
+  }) {
+    return getMoreResults?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String searchText)? getResults,
+    TResult Function()? getMoreResults,
+    TResult Function(String search)? getSuggestions,
+    TResult Function()? setSuggestions,
+    TResult Function(String text)? saveLocaleSuggestion,
+    TResult Function(String text)? deleteLocaleSuggestion,
+    TResult Function(String text)? selectSearchSuggestion,
+    TResult Function()? changeStatus,
+    required TResult orElse(),
+  }) {
+    if (getMoreResults != null) {
+      return getMoreResults();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_GetResults value) getResults,
+    required TResult Function(_GetMoreResults value) getMoreResults,
+    required TResult Function(_GetSuggestions value) getSuggestions,
+    required TResult Function(_SetSuggestions value) setSuggestions,
+    required TResult Function(_SaveLocaleSuggestion value) saveLocaleSuggestion,
+    required TResult Function(_DeleteLocaleSuggestion value)
+        deleteLocaleSuggestion,
+    required TResult Function(_SelectLocaleSuggestion value)
+        selectSearchSuggestion,
+    required TResult Function(_ChangeStatus value) changeStatus,
+  }) {
+    return getMoreResults(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_GetResults value)? getResults,
+    TResult Function(_GetMoreResults value)? getMoreResults,
+    TResult Function(_GetSuggestions value)? getSuggestions,
+    TResult Function(_SetSuggestions value)? setSuggestions,
+    TResult Function(_SaveLocaleSuggestion value)? saveLocaleSuggestion,
+    TResult Function(_DeleteLocaleSuggestion value)? deleteLocaleSuggestion,
+    TResult Function(_SelectLocaleSuggestion value)? selectSearchSuggestion,
+    TResult Function(_ChangeStatus value)? changeStatus,
+  }) {
+    return getMoreResults?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetResults value)? getResults,
+    TResult Function(_GetMoreResults value)? getMoreResults,
+    TResult Function(_GetSuggestions value)? getSuggestions,
+    TResult Function(_SetSuggestions value)? setSuggestions,
+    TResult Function(_SaveLocaleSuggestion value)? saveLocaleSuggestion,
+    TResult Function(_DeleteLocaleSuggestion value)? deleteLocaleSuggestion,
+    TResult Function(_SelectLocaleSuggestion value)? selectSearchSuggestion,
+    TResult Function(_ChangeStatus value)? changeStatus,
+    required TResult orElse(),
+  }) {
+    if (getMoreResults != null) {
+      return getMoreResults(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _GetMoreResults implements SearchEvent {
+  factory _GetMoreResults() = _$_GetMoreResults;
 }
 
 /// @nodoc
@@ -112,7 +435,7 @@ abstract class _$$_GetSuggestionsCopyWith<$Res> {
 
 /// @nodoc
 class __$$_GetSuggestionsCopyWithImpl<$Res>
-    extends _$SuggestionEventCopyWithImpl<$Res>
+    extends _$SearchEventCopyWithImpl<$Res>
     implements _$$_GetSuggestionsCopyWith<$Res> {
   __$$_GetSuggestionsCopyWithImpl(
       _$_GetSuggestions _value, $Res Function(_$_GetSuggestions) _then)
@@ -144,7 +467,7 @@ class _$_GetSuggestions implements _GetSuggestions {
 
   @override
   String toString() {
-    return 'SuggestionEvent.getSuggestions(search: $search)';
+    return 'SearchEvent.getSuggestions(search: $search)';
   }
 
   @override
@@ -167,13 +490,14 @@ class _$_GetSuggestions implements _GetSuggestions {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(String searchText) getResults,
+    required TResult Function() getMoreResults,
     required TResult Function(String search) getSuggestions,
     required TResult Function() setSuggestions,
     required TResult Function(String text) saveLocaleSuggestion,
     required TResult Function(String text) deleteLocaleSuggestion,
     required TResult Function(String text) selectSearchSuggestion,
-    required TResult Function(bool? isResultPage, bool? isLocaleSuggestion)
-        changeStatus,
+    required TResult Function() changeStatus,
   }) {
     return getSuggestions(search);
   }
@@ -181,13 +505,14 @@ class _$_GetSuggestions implements _GetSuggestions {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(String searchText)? getResults,
+    TResult Function()? getMoreResults,
     TResult Function(String search)? getSuggestions,
     TResult Function()? setSuggestions,
     TResult Function(String text)? saveLocaleSuggestion,
     TResult Function(String text)? deleteLocaleSuggestion,
     TResult Function(String text)? selectSearchSuggestion,
-    TResult Function(bool? isResultPage, bool? isLocaleSuggestion)?
-        changeStatus,
+    TResult Function()? changeStatus,
   }) {
     return getSuggestions?.call(search);
   }
@@ -195,13 +520,14 @@ class _$_GetSuggestions implements _GetSuggestions {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String searchText)? getResults,
+    TResult Function()? getMoreResults,
     TResult Function(String search)? getSuggestions,
     TResult Function()? setSuggestions,
     TResult Function(String text)? saveLocaleSuggestion,
     TResult Function(String text)? deleteLocaleSuggestion,
     TResult Function(String text)? selectSearchSuggestion,
-    TResult Function(bool? isResultPage, bool? isLocaleSuggestion)?
-        changeStatus,
+    TResult Function()? changeStatus,
     required TResult orElse(),
   }) {
     if (getSuggestions != null) {
@@ -213,6 +539,8 @@ class _$_GetSuggestions implements _GetSuggestions {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(_GetResults value) getResults,
+    required TResult Function(_GetMoreResults value) getMoreResults,
     required TResult Function(_GetSuggestions value) getSuggestions,
     required TResult Function(_SetSuggestions value) setSuggestions,
     required TResult Function(_SaveLocaleSuggestion value) saveLocaleSuggestion,
@@ -228,6 +556,8 @@ class _$_GetSuggestions implements _GetSuggestions {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_GetResults value)? getResults,
+    TResult Function(_GetMoreResults value)? getMoreResults,
     TResult Function(_GetSuggestions value)? getSuggestions,
     TResult Function(_SetSuggestions value)? setSuggestions,
     TResult Function(_SaveLocaleSuggestion value)? saveLocaleSuggestion,
@@ -241,6 +571,8 @@ class _$_GetSuggestions implements _GetSuggestions {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetResults value)? getResults,
+    TResult Function(_GetMoreResults value)? getMoreResults,
     TResult Function(_GetSuggestions value)? getSuggestions,
     TResult Function(_SetSuggestions value)? setSuggestions,
     TResult Function(_SaveLocaleSuggestion value)? saveLocaleSuggestion,
@@ -256,7 +588,7 @@ class _$_GetSuggestions implements _GetSuggestions {
   }
 }
 
-abstract class _GetSuggestions implements SuggestionEvent {
+abstract class _GetSuggestions implements SearchEvent {
   factory _GetSuggestions({required final String search}) = _$_GetSuggestions;
 
   String get search;
@@ -274,7 +606,7 @@ abstract class _$$_SetSuggestionsCopyWith<$Res> {
 
 /// @nodoc
 class __$$_SetSuggestionsCopyWithImpl<$Res>
-    extends _$SuggestionEventCopyWithImpl<$Res>
+    extends _$SearchEventCopyWithImpl<$Res>
     implements _$$_SetSuggestionsCopyWith<$Res> {
   __$$_SetSuggestionsCopyWithImpl(
       _$_SetSuggestions _value, $Res Function(_$_SetSuggestions) _then)
@@ -291,7 +623,7 @@ class _$_SetSuggestions implements _SetSuggestions {
 
   @override
   String toString() {
-    return 'SuggestionEvent.setSuggestions()';
+    return 'SearchEvent.setSuggestions()';
   }
 
   @override
@@ -306,13 +638,14 @@ class _$_SetSuggestions implements _SetSuggestions {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(String searchText) getResults,
+    required TResult Function() getMoreResults,
     required TResult Function(String search) getSuggestions,
     required TResult Function() setSuggestions,
     required TResult Function(String text) saveLocaleSuggestion,
     required TResult Function(String text) deleteLocaleSuggestion,
     required TResult Function(String text) selectSearchSuggestion,
-    required TResult Function(bool? isResultPage, bool? isLocaleSuggestion)
-        changeStatus,
+    required TResult Function() changeStatus,
   }) {
     return setSuggestions();
   }
@@ -320,13 +653,14 @@ class _$_SetSuggestions implements _SetSuggestions {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(String searchText)? getResults,
+    TResult Function()? getMoreResults,
     TResult Function(String search)? getSuggestions,
     TResult Function()? setSuggestions,
     TResult Function(String text)? saveLocaleSuggestion,
     TResult Function(String text)? deleteLocaleSuggestion,
     TResult Function(String text)? selectSearchSuggestion,
-    TResult Function(bool? isResultPage, bool? isLocaleSuggestion)?
-        changeStatus,
+    TResult Function()? changeStatus,
   }) {
     return setSuggestions?.call();
   }
@@ -334,13 +668,14 @@ class _$_SetSuggestions implements _SetSuggestions {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String searchText)? getResults,
+    TResult Function()? getMoreResults,
     TResult Function(String search)? getSuggestions,
     TResult Function()? setSuggestions,
     TResult Function(String text)? saveLocaleSuggestion,
     TResult Function(String text)? deleteLocaleSuggestion,
     TResult Function(String text)? selectSearchSuggestion,
-    TResult Function(bool? isResultPage, bool? isLocaleSuggestion)?
-        changeStatus,
+    TResult Function()? changeStatus,
     required TResult orElse(),
   }) {
     if (setSuggestions != null) {
@@ -352,6 +687,8 @@ class _$_SetSuggestions implements _SetSuggestions {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(_GetResults value) getResults,
+    required TResult Function(_GetMoreResults value) getMoreResults,
     required TResult Function(_GetSuggestions value) getSuggestions,
     required TResult Function(_SetSuggestions value) setSuggestions,
     required TResult Function(_SaveLocaleSuggestion value) saveLocaleSuggestion,
@@ -367,6 +704,8 @@ class _$_SetSuggestions implements _SetSuggestions {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_GetResults value)? getResults,
+    TResult Function(_GetMoreResults value)? getMoreResults,
     TResult Function(_GetSuggestions value)? getSuggestions,
     TResult Function(_SetSuggestions value)? setSuggestions,
     TResult Function(_SaveLocaleSuggestion value)? saveLocaleSuggestion,
@@ -380,6 +719,8 @@ class _$_SetSuggestions implements _SetSuggestions {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetResults value)? getResults,
+    TResult Function(_GetMoreResults value)? getMoreResults,
     TResult Function(_GetSuggestions value)? getSuggestions,
     TResult Function(_SetSuggestions value)? setSuggestions,
     TResult Function(_SaveLocaleSuggestion value)? saveLocaleSuggestion,
@@ -395,7 +736,7 @@ class _$_SetSuggestions implements _SetSuggestions {
   }
 }
 
-abstract class _SetSuggestions implements SuggestionEvent {
+abstract class _SetSuggestions implements SearchEvent {
   factory _SetSuggestions() = _$_SetSuggestions;
 }
 
@@ -409,7 +750,7 @@ abstract class _$$_SaveLocaleSuggestionCopyWith<$Res> {
 
 /// @nodoc
 class __$$_SaveLocaleSuggestionCopyWithImpl<$Res>
-    extends _$SuggestionEventCopyWithImpl<$Res>
+    extends _$SearchEventCopyWithImpl<$Res>
     implements _$$_SaveLocaleSuggestionCopyWith<$Res> {
   __$$_SaveLocaleSuggestionCopyWithImpl(_$_SaveLocaleSuggestion _value,
       $Res Function(_$_SaveLocaleSuggestion) _then)
@@ -441,7 +782,7 @@ class _$_SaveLocaleSuggestion implements _SaveLocaleSuggestion {
 
   @override
   String toString() {
-    return 'SuggestionEvent.saveLocaleSuggestion(text: $text)';
+    return 'SearchEvent.saveLocaleSuggestion(text: $text)';
   }
 
   @override
@@ -465,13 +806,14 @@ class _$_SaveLocaleSuggestion implements _SaveLocaleSuggestion {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(String searchText) getResults,
+    required TResult Function() getMoreResults,
     required TResult Function(String search) getSuggestions,
     required TResult Function() setSuggestions,
     required TResult Function(String text) saveLocaleSuggestion,
     required TResult Function(String text) deleteLocaleSuggestion,
     required TResult Function(String text) selectSearchSuggestion,
-    required TResult Function(bool? isResultPage, bool? isLocaleSuggestion)
-        changeStatus,
+    required TResult Function() changeStatus,
   }) {
     return saveLocaleSuggestion(text);
   }
@@ -479,13 +821,14 @@ class _$_SaveLocaleSuggestion implements _SaveLocaleSuggestion {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(String searchText)? getResults,
+    TResult Function()? getMoreResults,
     TResult Function(String search)? getSuggestions,
     TResult Function()? setSuggestions,
     TResult Function(String text)? saveLocaleSuggestion,
     TResult Function(String text)? deleteLocaleSuggestion,
     TResult Function(String text)? selectSearchSuggestion,
-    TResult Function(bool? isResultPage, bool? isLocaleSuggestion)?
-        changeStatus,
+    TResult Function()? changeStatus,
   }) {
     return saveLocaleSuggestion?.call(text);
   }
@@ -493,13 +836,14 @@ class _$_SaveLocaleSuggestion implements _SaveLocaleSuggestion {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String searchText)? getResults,
+    TResult Function()? getMoreResults,
     TResult Function(String search)? getSuggestions,
     TResult Function()? setSuggestions,
     TResult Function(String text)? saveLocaleSuggestion,
     TResult Function(String text)? deleteLocaleSuggestion,
     TResult Function(String text)? selectSearchSuggestion,
-    TResult Function(bool? isResultPage, bool? isLocaleSuggestion)?
-        changeStatus,
+    TResult Function()? changeStatus,
     required TResult orElse(),
   }) {
     if (saveLocaleSuggestion != null) {
@@ -511,6 +855,8 @@ class _$_SaveLocaleSuggestion implements _SaveLocaleSuggestion {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(_GetResults value) getResults,
+    required TResult Function(_GetMoreResults value) getMoreResults,
     required TResult Function(_GetSuggestions value) getSuggestions,
     required TResult Function(_SetSuggestions value) setSuggestions,
     required TResult Function(_SaveLocaleSuggestion value) saveLocaleSuggestion,
@@ -526,6 +872,8 @@ class _$_SaveLocaleSuggestion implements _SaveLocaleSuggestion {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_GetResults value)? getResults,
+    TResult Function(_GetMoreResults value)? getMoreResults,
     TResult Function(_GetSuggestions value)? getSuggestions,
     TResult Function(_SetSuggestions value)? setSuggestions,
     TResult Function(_SaveLocaleSuggestion value)? saveLocaleSuggestion,
@@ -539,6 +887,8 @@ class _$_SaveLocaleSuggestion implements _SaveLocaleSuggestion {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetResults value)? getResults,
+    TResult Function(_GetMoreResults value)? getMoreResults,
     TResult Function(_GetSuggestions value)? getSuggestions,
     TResult Function(_SetSuggestions value)? setSuggestions,
     TResult Function(_SaveLocaleSuggestion value)? saveLocaleSuggestion,
@@ -554,7 +904,7 @@ class _$_SaveLocaleSuggestion implements _SaveLocaleSuggestion {
   }
 }
 
-abstract class _SaveLocaleSuggestion implements SuggestionEvent {
+abstract class _SaveLocaleSuggestion implements SearchEvent {
   factory _SaveLocaleSuggestion({required final String text}) =
       _$_SaveLocaleSuggestion;
 
@@ -574,7 +924,7 @@ abstract class _$$_DeleteLocaleSuggestionCopyWith<$Res> {
 
 /// @nodoc
 class __$$_DeleteLocaleSuggestionCopyWithImpl<$Res>
-    extends _$SuggestionEventCopyWithImpl<$Res>
+    extends _$SearchEventCopyWithImpl<$Res>
     implements _$$_DeleteLocaleSuggestionCopyWith<$Res> {
   __$$_DeleteLocaleSuggestionCopyWithImpl(_$_DeleteLocaleSuggestion _value,
       $Res Function(_$_DeleteLocaleSuggestion) _then)
@@ -607,7 +957,7 @@ class _$_DeleteLocaleSuggestion implements _DeleteLocaleSuggestion {
 
   @override
   String toString() {
-    return 'SuggestionEvent.deleteLocaleSuggestion(text: $text)';
+    return 'SearchEvent.deleteLocaleSuggestion(text: $text)';
   }
 
   @override
@@ -631,13 +981,14 @@ class _$_DeleteLocaleSuggestion implements _DeleteLocaleSuggestion {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(String searchText) getResults,
+    required TResult Function() getMoreResults,
     required TResult Function(String search) getSuggestions,
     required TResult Function() setSuggestions,
     required TResult Function(String text) saveLocaleSuggestion,
     required TResult Function(String text) deleteLocaleSuggestion,
     required TResult Function(String text) selectSearchSuggestion,
-    required TResult Function(bool? isResultPage, bool? isLocaleSuggestion)
-        changeStatus,
+    required TResult Function() changeStatus,
   }) {
     return deleteLocaleSuggestion(text);
   }
@@ -645,13 +996,14 @@ class _$_DeleteLocaleSuggestion implements _DeleteLocaleSuggestion {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(String searchText)? getResults,
+    TResult Function()? getMoreResults,
     TResult Function(String search)? getSuggestions,
     TResult Function()? setSuggestions,
     TResult Function(String text)? saveLocaleSuggestion,
     TResult Function(String text)? deleteLocaleSuggestion,
     TResult Function(String text)? selectSearchSuggestion,
-    TResult Function(bool? isResultPage, bool? isLocaleSuggestion)?
-        changeStatus,
+    TResult Function()? changeStatus,
   }) {
     return deleteLocaleSuggestion?.call(text);
   }
@@ -659,13 +1011,14 @@ class _$_DeleteLocaleSuggestion implements _DeleteLocaleSuggestion {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String searchText)? getResults,
+    TResult Function()? getMoreResults,
     TResult Function(String search)? getSuggestions,
     TResult Function()? setSuggestions,
     TResult Function(String text)? saveLocaleSuggestion,
     TResult Function(String text)? deleteLocaleSuggestion,
     TResult Function(String text)? selectSearchSuggestion,
-    TResult Function(bool? isResultPage, bool? isLocaleSuggestion)?
-        changeStatus,
+    TResult Function()? changeStatus,
     required TResult orElse(),
   }) {
     if (deleteLocaleSuggestion != null) {
@@ -677,6 +1030,8 @@ class _$_DeleteLocaleSuggestion implements _DeleteLocaleSuggestion {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(_GetResults value) getResults,
+    required TResult Function(_GetMoreResults value) getMoreResults,
     required TResult Function(_GetSuggestions value) getSuggestions,
     required TResult Function(_SetSuggestions value) setSuggestions,
     required TResult Function(_SaveLocaleSuggestion value) saveLocaleSuggestion,
@@ -692,6 +1047,8 @@ class _$_DeleteLocaleSuggestion implements _DeleteLocaleSuggestion {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_GetResults value)? getResults,
+    TResult Function(_GetMoreResults value)? getMoreResults,
     TResult Function(_GetSuggestions value)? getSuggestions,
     TResult Function(_SetSuggestions value)? setSuggestions,
     TResult Function(_SaveLocaleSuggestion value)? saveLocaleSuggestion,
@@ -705,6 +1062,8 @@ class _$_DeleteLocaleSuggestion implements _DeleteLocaleSuggestion {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetResults value)? getResults,
+    TResult Function(_GetMoreResults value)? getMoreResults,
     TResult Function(_GetSuggestions value)? getSuggestions,
     TResult Function(_SetSuggestions value)? setSuggestions,
     TResult Function(_SaveLocaleSuggestion value)? saveLocaleSuggestion,
@@ -720,7 +1079,7 @@ class _$_DeleteLocaleSuggestion implements _DeleteLocaleSuggestion {
   }
 }
 
-abstract class _DeleteLocaleSuggestion implements SuggestionEvent {
+abstract class _DeleteLocaleSuggestion implements SearchEvent {
   factory _DeleteLocaleSuggestion({required final String text}) =
       _$_DeleteLocaleSuggestion;
 
@@ -740,7 +1099,7 @@ abstract class _$$_SelectLocaleSuggestionCopyWith<$Res> {
 
 /// @nodoc
 class __$$_SelectLocaleSuggestionCopyWithImpl<$Res>
-    extends _$SuggestionEventCopyWithImpl<$Res>
+    extends _$SearchEventCopyWithImpl<$Res>
     implements _$$_SelectLocaleSuggestionCopyWith<$Res> {
   __$$_SelectLocaleSuggestionCopyWithImpl(_$_SelectLocaleSuggestion _value,
       $Res Function(_$_SelectLocaleSuggestion) _then)
@@ -773,7 +1132,7 @@ class _$_SelectLocaleSuggestion implements _SelectLocaleSuggestion {
 
   @override
   String toString() {
-    return 'SuggestionEvent.selectSearchSuggestion(text: $text)';
+    return 'SearchEvent.selectSearchSuggestion(text: $text)';
   }
 
   @override
@@ -797,13 +1156,14 @@ class _$_SelectLocaleSuggestion implements _SelectLocaleSuggestion {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(String searchText) getResults,
+    required TResult Function() getMoreResults,
     required TResult Function(String search) getSuggestions,
     required TResult Function() setSuggestions,
     required TResult Function(String text) saveLocaleSuggestion,
     required TResult Function(String text) deleteLocaleSuggestion,
     required TResult Function(String text) selectSearchSuggestion,
-    required TResult Function(bool? isResultPage, bool? isLocaleSuggestion)
-        changeStatus,
+    required TResult Function() changeStatus,
   }) {
     return selectSearchSuggestion(text);
   }
@@ -811,13 +1171,14 @@ class _$_SelectLocaleSuggestion implements _SelectLocaleSuggestion {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(String searchText)? getResults,
+    TResult Function()? getMoreResults,
     TResult Function(String search)? getSuggestions,
     TResult Function()? setSuggestions,
     TResult Function(String text)? saveLocaleSuggestion,
     TResult Function(String text)? deleteLocaleSuggestion,
     TResult Function(String text)? selectSearchSuggestion,
-    TResult Function(bool? isResultPage, bool? isLocaleSuggestion)?
-        changeStatus,
+    TResult Function()? changeStatus,
   }) {
     return selectSearchSuggestion?.call(text);
   }
@@ -825,13 +1186,14 @@ class _$_SelectLocaleSuggestion implements _SelectLocaleSuggestion {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String searchText)? getResults,
+    TResult Function()? getMoreResults,
     TResult Function(String search)? getSuggestions,
     TResult Function()? setSuggestions,
     TResult Function(String text)? saveLocaleSuggestion,
     TResult Function(String text)? deleteLocaleSuggestion,
     TResult Function(String text)? selectSearchSuggestion,
-    TResult Function(bool? isResultPage, bool? isLocaleSuggestion)?
-        changeStatus,
+    TResult Function()? changeStatus,
     required TResult orElse(),
   }) {
     if (selectSearchSuggestion != null) {
@@ -843,6 +1205,8 @@ class _$_SelectLocaleSuggestion implements _SelectLocaleSuggestion {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(_GetResults value) getResults,
+    required TResult Function(_GetMoreResults value) getMoreResults,
     required TResult Function(_GetSuggestions value) getSuggestions,
     required TResult Function(_SetSuggestions value) setSuggestions,
     required TResult Function(_SaveLocaleSuggestion value) saveLocaleSuggestion,
@@ -858,6 +1222,8 @@ class _$_SelectLocaleSuggestion implements _SelectLocaleSuggestion {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_GetResults value)? getResults,
+    TResult Function(_GetMoreResults value)? getMoreResults,
     TResult Function(_GetSuggestions value)? getSuggestions,
     TResult Function(_SetSuggestions value)? setSuggestions,
     TResult Function(_SaveLocaleSuggestion value)? saveLocaleSuggestion,
@@ -871,6 +1237,8 @@ class _$_SelectLocaleSuggestion implements _SelectLocaleSuggestion {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetResults value)? getResults,
+    TResult Function(_GetMoreResults value)? getMoreResults,
     TResult Function(_GetSuggestions value)? getSuggestions,
     TResult Function(_SetSuggestions value)? setSuggestions,
     TResult Function(_SaveLocaleSuggestion value)? saveLocaleSuggestion,
@@ -886,7 +1254,7 @@ class _$_SelectLocaleSuggestion implements _SelectLocaleSuggestion {
   }
 }
 
-abstract class _SelectLocaleSuggestion implements SuggestionEvent {
+abstract class _SelectLocaleSuggestion implements SearchEvent {
   factory _SelectLocaleSuggestion({required final String text}) =
       _$_SelectLocaleSuggestion;
 
@@ -901,12 +1269,11 @@ abstract class _$$_ChangeStatusCopyWith<$Res> {
   factory _$$_ChangeStatusCopyWith(
           _$_ChangeStatus value, $Res Function(_$_ChangeStatus) then) =
       __$$_ChangeStatusCopyWithImpl<$Res>;
-  $Res call({bool? isResultPage, bool? isLocaleSuggestion});
 }
 
 /// @nodoc
 class __$$_ChangeStatusCopyWithImpl<$Res>
-    extends _$SuggestionEventCopyWithImpl<$Res>
+    extends _$SearchEventCopyWithImpl<$Res>
     implements _$$_ChangeStatusCopyWith<$Res> {
   __$$_ChangeStatusCopyWithImpl(
       _$_ChangeStatus _value, $Res Function(_$_ChangeStatus) _then)
@@ -914,104 +1281,72 @@ class __$$_ChangeStatusCopyWithImpl<$Res>
 
   @override
   _$_ChangeStatus get _value => super._value as _$_ChangeStatus;
-
-  @override
-  $Res call({
-    Object? isResultPage = freezed,
-    Object? isLocaleSuggestion = freezed,
-  }) {
-    return _then(_$_ChangeStatus(
-      isResultPage: isResultPage == freezed
-          ? _value.isResultPage
-          : isResultPage // ignore: cast_nullable_to_non_nullable
-              as bool?,
-      isLocaleSuggestion: isLocaleSuggestion == freezed
-          ? _value.isLocaleSuggestion
-          : isLocaleSuggestion // ignore: cast_nullable_to_non_nullable
-              as bool?,
-    ));
-  }
 }
 
 /// @nodoc
 
 class _$_ChangeStatus implements _ChangeStatus {
-  _$_ChangeStatus({this.isResultPage, this.isLocaleSuggestion});
-
-  @override
-  final bool? isResultPage;
-  @override
-  final bool? isLocaleSuggestion;
+  _$_ChangeStatus();
 
   @override
   String toString() {
-    return 'SuggestionEvent.changeStatus(isResultPage: $isResultPage, isLocaleSuggestion: $isLocaleSuggestion)';
+    return 'SearchEvent.changeStatus()';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_ChangeStatus &&
-            const DeepCollectionEquality()
-                .equals(other.isResultPage, isResultPage) &&
-            const DeepCollectionEquality()
-                .equals(other.isLocaleSuggestion, isLocaleSuggestion));
+        (other.runtimeType == runtimeType && other is _$_ChangeStatus);
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(isResultPage),
-      const DeepCollectionEquality().hash(isLocaleSuggestion));
-
-  @JsonKey(ignore: true)
-  @override
-  _$$_ChangeStatusCopyWith<_$_ChangeStatus> get copyWith =>
-      __$$_ChangeStatusCopyWithImpl<_$_ChangeStatus>(this, _$identity);
+  int get hashCode => runtimeType.hashCode;
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(String searchText) getResults,
+    required TResult Function() getMoreResults,
     required TResult Function(String search) getSuggestions,
     required TResult Function() setSuggestions,
     required TResult Function(String text) saveLocaleSuggestion,
     required TResult Function(String text) deleteLocaleSuggestion,
     required TResult Function(String text) selectSearchSuggestion,
-    required TResult Function(bool? isResultPage, bool? isLocaleSuggestion)
-        changeStatus,
+    required TResult Function() changeStatus,
   }) {
-    return changeStatus(isResultPage, isLocaleSuggestion);
+    return changeStatus();
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(String searchText)? getResults,
+    TResult Function()? getMoreResults,
     TResult Function(String search)? getSuggestions,
     TResult Function()? setSuggestions,
     TResult Function(String text)? saveLocaleSuggestion,
     TResult Function(String text)? deleteLocaleSuggestion,
     TResult Function(String text)? selectSearchSuggestion,
-    TResult Function(bool? isResultPage, bool? isLocaleSuggestion)?
-        changeStatus,
+    TResult Function()? changeStatus,
   }) {
-    return changeStatus?.call(isResultPage, isLocaleSuggestion);
+    return changeStatus?.call();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String searchText)? getResults,
+    TResult Function()? getMoreResults,
     TResult Function(String search)? getSuggestions,
     TResult Function()? setSuggestions,
     TResult Function(String text)? saveLocaleSuggestion,
     TResult Function(String text)? deleteLocaleSuggestion,
     TResult Function(String text)? selectSearchSuggestion,
-    TResult Function(bool? isResultPage, bool? isLocaleSuggestion)?
-        changeStatus,
+    TResult Function()? changeStatus,
     required TResult orElse(),
   }) {
     if (changeStatus != null) {
-      return changeStatus(isResultPage, isLocaleSuggestion);
+      return changeStatus();
     }
     return orElse();
   }
@@ -1019,6 +1354,8 @@ class _$_ChangeStatus implements _ChangeStatus {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(_GetResults value) getResults,
+    required TResult Function(_GetMoreResults value) getMoreResults,
     required TResult Function(_GetSuggestions value) getSuggestions,
     required TResult Function(_SetSuggestions value) setSuggestions,
     required TResult Function(_SaveLocaleSuggestion value) saveLocaleSuggestion,
@@ -1034,6 +1371,8 @@ class _$_ChangeStatus implements _ChangeStatus {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_GetResults value)? getResults,
+    TResult Function(_GetMoreResults value)? getMoreResults,
     TResult Function(_GetSuggestions value)? getSuggestions,
     TResult Function(_SetSuggestions value)? setSuggestions,
     TResult Function(_SaveLocaleSuggestion value)? saveLocaleSuggestion,
@@ -1047,6 +1386,8 @@ class _$_ChangeStatus implements _ChangeStatus {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetResults value)? getResults,
+    TResult Function(_GetMoreResults value)? getMoreResults,
     TResult Function(_GetSuggestions value)? getSuggestions,
     TResult Function(_SetSuggestions value)? setSuggestions,
     TResult Function(_SaveLocaleSuggestion value)? saveLocaleSuggestion,
@@ -1062,252 +1403,338 @@ class _$_ChangeStatus implements _ChangeStatus {
   }
 }
 
-abstract class _ChangeStatus implements SuggestionEvent {
-  factory _ChangeStatus(
-      {final bool? isResultPage,
-      final bool? isLocaleSuggestion}) = _$_ChangeStatus;
-
-  bool? get isResultPage;
-  bool? get isLocaleSuggestion;
-  @JsonKey(ignore: true)
-  _$$_ChangeStatusCopyWith<_$_ChangeStatus> get copyWith =>
-      throw _privateConstructorUsedError;
+abstract class _ChangeStatus implements SearchEvent {
+  factory _ChangeStatus() = _$_ChangeStatus;
 }
 
 /// @nodoc
-mixin _$SuggestionState {
+mixin _$SearchState {
+  List<AutoEntity> get searchResults => throw _privateConstructorUsedError;
   FormzStatus get status => throw _privateConstructorUsedError;
-  List<CarMakeModel> get suggestions => throw _privateConstructorUsedError;
+  FormzStatus get paginationStatus => throw _privateConstructorUsedError;
   String? get next => throw _privateConstructorUsedError;
-  String? get previous => throw _privateConstructorUsedError;
   int get count => throw _privateConstructorUsedError;
-  bool? get fetchMore => throw _privateConstructorUsedError;
+  dynamic get moreFetch => throw _privateConstructorUsedError;
+  List<OptionsEntity> get suggestions => throw _privateConstructorUsedError;
+  int get suggestionsCount => throw _privateConstructorUsedError;
+  bool? get suggestionsFetchMore => throw _privateConstructorUsedError;
+  FormzStatus get suggestionsStatus => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $SuggestionStateCopyWith<SuggestionState> get copyWith =>
+  $SearchStateCopyWith<SearchState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $SuggestionStateCopyWith<$Res> {
-  factory $SuggestionStateCopyWith(
-          SuggestionState value, $Res Function(SuggestionState) then) =
-      _$SuggestionStateCopyWithImpl<$Res>;
+abstract class $SearchStateCopyWith<$Res> {
+  factory $SearchStateCopyWith(
+          SearchState value, $Res Function(SearchState) then) =
+      _$SearchStateCopyWithImpl<$Res>;
   $Res call(
-      {FormzStatus status,
-      List<CarMakeModel> suggestions,
+      {List<AutoEntity> searchResults,
+      FormzStatus status,
+      FormzStatus paginationStatus,
       String? next,
-      String? previous,
       int count,
-      bool? fetchMore});
+      dynamic moreFetch,
+      List<OptionsEntity> suggestions,
+      int suggestionsCount,
+      bool? suggestionsFetchMore,
+      FormzStatus suggestionsStatus});
 }
 
 /// @nodoc
-class _$SuggestionStateCopyWithImpl<$Res>
-    implements $SuggestionStateCopyWith<$Res> {
-  _$SuggestionStateCopyWithImpl(this._value, this._then);
+class _$SearchStateCopyWithImpl<$Res> implements $SearchStateCopyWith<$Res> {
+  _$SearchStateCopyWithImpl(this._value, this._then);
 
-  final SuggestionState _value;
+  final SearchState _value;
   // ignore: unused_field
-  final $Res Function(SuggestionState) _then;
+  final $Res Function(SearchState) _then;
 
   @override
   $Res call({
+    Object? searchResults = freezed,
     Object? status = freezed,
-    Object? suggestions = freezed,
+    Object? paginationStatus = freezed,
     Object? next = freezed,
-    Object? previous = freezed,
     Object? count = freezed,
-    Object? fetchMore = freezed,
+    Object? moreFetch = freezed,
+    Object? suggestions = freezed,
+    Object? suggestionsCount = freezed,
+    Object? suggestionsFetchMore = freezed,
+    Object? suggestionsStatus = freezed,
   }) {
     return _then(_value.copyWith(
+      searchResults: searchResults == freezed
+          ? _value.searchResults
+          : searchResults // ignore: cast_nullable_to_non_nullable
+              as List<AutoEntity>,
       status: status == freezed
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as FormzStatus,
+      paginationStatus: paginationStatus == freezed
+          ? _value.paginationStatus
+          : paginationStatus // ignore: cast_nullable_to_non_nullable
+              as FormzStatus,
+      next: next == freezed
+          ? _value.next
+          : next // ignore: cast_nullable_to_non_nullable
+              as String?,
+      count: count == freezed
+          ? _value.count
+          : count // ignore: cast_nullable_to_non_nullable
+              as int,
+      moreFetch: moreFetch == freezed
+          ? _value.moreFetch
+          : moreFetch // ignore: cast_nullable_to_non_nullable
+              as dynamic,
       suggestions: suggestions == freezed
           ? _value.suggestions
           : suggestions // ignore: cast_nullable_to_non_nullable
-              as List<CarMakeModel>,
-      next: next == freezed
-          ? _value.next
-          : next // ignore: cast_nullable_to_non_nullable
-              as String?,
-      previous: previous == freezed
-          ? _value.previous
-          : previous // ignore: cast_nullable_to_non_nullable
-              as String?,
-      count: count == freezed
-          ? _value.count
-          : count // ignore: cast_nullable_to_non_nullable
+              as List<OptionsEntity>,
+      suggestionsCount: suggestionsCount == freezed
+          ? _value.suggestionsCount
+          : suggestionsCount // ignore: cast_nullable_to_non_nullable
               as int,
-      fetchMore: fetchMore == freezed
-          ? _value.fetchMore
-          : fetchMore // ignore: cast_nullable_to_non_nullable
+      suggestionsFetchMore: suggestionsFetchMore == freezed
+          ? _value.suggestionsFetchMore
+          : suggestionsFetchMore // ignore: cast_nullable_to_non_nullable
               as bool?,
+      suggestionsStatus: suggestionsStatus == freezed
+          ? _value.suggestionsStatus
+          : suggestionsStatus // ignore: cast_nullable_to_non_nullable
+              as FormzStatus,
     ));
   }
 }
 
 /// @nodoc
-abstract class _$$_SuggestionStateCopyWith<$Res>
-    implements $SuggestionStateCopyWith<$Res> {
-  factory _$$_SuggestionStateCopyWith(
-          _$_SuggestionState value, $Res Function(_$_SuggestionState) then) =
-      __$$_SuggestionStateCopyWithImpl<$Res>;
+abstract class _$$_SearchStateCopyWith<$Res>
+    implements $SearchStateCopyWith<$Res> {
+  factory _$$_SearchStateCopyWith(
+          _$_SearchState value, $Res Function(_$_SearchState) then) =
+      __$$_SearchStateCopyWithImpl<$Res>;
   @override
   $Res call(
-      {FormzStatus status,
-      List<CarMakeModel> suggestions,
+      {List<AutoEntity> searchResults,
+      FormzStatus status,
+      FormzStatus paginationStatus,
       String? next,
-      String? previous,
       int count,
-      bool? fetchMore});
+      dynamic moreFetch,
+      List<OptionsEntity> suggestions,
+      int suggestionsCount,
+      bool? suggestionsFetchMore,
+      FormzStatus suggestionsStatus});
 }
 
 /// @nodoc
-class __$$_SuggestionStateCopyWithImpl<$Res>
-    extends _$SuggestionStateCopyWithImpl<$Res>
-    implements _$$_SuggestionStateCopyWith<$Res> {
-  __$$_SuggestionStateCopyWithImpl(
-      _$_SuggestionState _value, $Res Function(_$_SuggestionState) _then)
-      : super(_value, (v) => _then(v as _$_SuggestionState));
+class __$$_SearchStateCopyWithImpl<$Res> extends _$SearchStateCopyWithImpl<$Res>
+    implements _$$_SearchStateCopyWith<$Res> {
+  __$$_SearchStateCopyWithImpl(
+      _$_SearchState _value, $Res Function(_$_SearchState) _then)
+      : super(_value, (v) => _then(v as _$_SearchState));
 
   @override
-  _$_SuggestionState get _value => super._value as _$_SuggestionState;
+  _$_SearchState get _value => super._value as _$_SearchState;
 
   @override
   $Res call({
+    Object? searchResults = freezed,
     Object? status = freezed,
-    Object? suggestions = freezed,
+    Object? paginationStatus = freezed,
     Object? next = freezed,
-    Object? previous = freezed,
     Object? count = freezed,
-    Object? fetchMore = freezed,
+    Object? moreFetch = freezed,
+    Object? suggestions = freezed,
+    Object? suggestionsCount = freezed,
+    Object? suggestionsFetchMore = freezed,
+    Object? suggestionsStatus = freezed,
   }) {
-    return _then(_$_SuggestionState(
+    return _then(_$_SearchState(
+      searchResults: searchResults == freezed
+          ? _value._searchResults
+          : searchResults // ignore: cast_nullable_to_non_nullable
+              as List<AutoEntity>,
       status: status == freezed
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as FormzStatus,
-      suggestions: suggestions == freezed
-          ? _value._suggestions
-          : suggestions // ignore: cast_nullable_to_non_nullable
-              as List<CarMakeModel>,
+      paginationStatus: paginationStatus == freezed
+          ? _value.paginationStatus
+          : paginationStatus // ignore: cast_nullable_to_non_nullable
+              as FormzStatus,
       next: next == freezed
           ? _value.next
           : next // ignore: cast_nullable_to_non_nullable
-              as String?,
-      previous: previous == freezed
-          ? _value.previous
-          : previous // ignore: cast_nullable_to_non_nullable
               as String?,
       count: count == freezed
           ? _value.count
           : count // ignore: cast_nullable_to_non_nullable
               as int,
-      fetchMore: fetchMore == freezed
-          ? _value.fetchMore
-          : fetchMore // ignore: cast_nullable_to_non_nullable
+      moreFetch: moreFetch == freezed ? _value.moreFetch : moreFetch,
+      suggestions: suggestions == freezed
+          ? _value._suggestions
+          : suggestions // ignore: cast_nullable_to_non_nullable
+              as List<OptionsEntity>,
+      suggestionsCount: suggestionsCount == freezed
+          ? _value.suggestionsCount
+          : suggestionsCount // ignore: cast_nullable_to_non_nullable
+              as int,
+      suggestionsFetchMore: suggestionsFetchMore == freezed
+          ? _value.suggestionsFetchMore
+          : suggestionsFetchMore // ignore: cast_nullable_to_non_nullable
               as bool?,
+      suggestionsStatus: suggestionsStatus == freezed
+          ? _value.suggestionsStatus
+          : suggestionsStatus // ignore: cast_nullable_to_non_nullable
+              as FormzStatus,
     ));
   }
 }
 
 /// @nodoc
 
-class _$_SuggestionState implements _SuggestionState {
-  _$_SuggestionState(
-      {this.status = FormzStatus.pure,
-      final List<CarMakeModel> suggestions = const [],
+class _$_SearchState implements _SearchState {
+  _$_SearchState(
+      {final List<AutoEntity> searchResults = const [],
+      this.status = FormzStatus.pure,
+      this.paginationStatus = FormzStatus.pure,
       this.next = '',
-      this.previous = '',
       this.count = 0,
-      this.fetchMore = false})
-      : _suggestions = suggestions;
+      this.moreFetch = false,
+      final List<OptionsEntity> suggestions = const [],
+      this.suggestionsCount = 0,
+      this.suggestionsFetchMore = false,
+      this.suggestionsStatus = FormzStatus.pure})
+      : _searchResults = searchResults,
+        _suggestions = suggestions;
+
+  final List<AutoEntity> _searchResults;
+  @override
+  @JsonKey()
+  List<AutoEntity> get searchResults {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_searchResults);
+  }
 
   @override
   @JsonKey()
   final FormzStatus status;
-  final List<CarMakeModel> _suggestions;
   @override
   @JsonKey()
-  List<CarMakeModel> get suggestions {
+  final FormzStatus paginationStatus;
+  @override
+  @JsonKey()
+  final String? next;
+  @override
+  @JsonKey()
+  final int count;
+  @override
+  @JsonKey()
+  final dynamic moreFetch;
+  final List<OptionsEntity> _suggestions;
+  @override
+  @JsonKey()
+  List<OptionsEntity> get suggestions {
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_suggestions);
   }
 
   @override
   @JsonKey()
-  final String? next;
+  final int suggestionsCount;
   @override
   @JsonKey()
-  final String? previous;
+  final bool? suggestionsFetchMore;
   @override
   @JsonKey()
-  final int count;
-  @override
-  @JsonKey()
-  final bool? fetchMore;
+  final FormzStatus suggestionsStatus;
 
   @override
   String toString() {
-    return 'SuggestionState(status: $status, suggestions: $suggestions, next: $next, previous: $previous, count: $count, fetchMore: $fetchMore)';
+    return 'SearchState(searchResults: $searchResults, status: $status, paginationStatus: $paginationStatus, next: $next, count: $count, moreFetch: $moreFetch, suggestions: $suggestions, suggestionsCount: $suggestionsCount, suggestionsFetchMore: $suggestionsFetchMore, suggestionsStatus: $suggestionsStatus)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_SuggestionState &&
+            other is _$_SearchState &&
+            const DeepCollectionEquality()
+                .equals(other._searchResults, _searchResults) &&
             const DeepCollectionEquality().equals(other.status, status) &&
             const DeepCollectionEquality()
-                .equals(other._suggestions, _suggestions) &&
+                .equals(other.paginationStatus, paginationStatus) &&
             const DeepCollectionEquality().equals(other.next, next) &&
-            const DeepCollectionEquality().equals(other.previous, previous) &&
             const DeepCollectionEquality().equals(other.count, count) &&
-            const DeepCollectionEquality().equals(other.fetchMore, fetchMore));
+            const DeepCollectionEquality().equals(other.moreFetch, moreFetch) &&
+            const DeepCollectionEquality()
+                .equals(other._suggestions, _suggestions) &&
+            const DeepCollectionEquality()
+                .equals(other.suggestionsCount, suggestionsCount) &&
+            const DeepCollectionEquality()
+                .equals(other.suggestionsFetchMore, suggestionsFetchMore) &&
+            const DeepCollectionEquality()
+                .equals(other.suggestionsStatus, suggestionsStatus));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
+      const DeepCollectionEquality().hash(_searchResults),
       const DeepCollectionEquality().hash(status),
-      const DeepCollectionEquality().hash(_suggestions),
+      const DeepCollectionEquality().hash(paginationStatus),
       const DeepCollectionEquality().hash(next),
-      const DeepCollectionEquality().hash(previous),
       const DeepCollectionEquality().hash(count),
-      const DeepCollectionEquality().hash(fetchMore));
+      const DeepCollectionEquality().hash(moreFetch),
+      const DeepCollectionEquality().hash(_suggestions),
+      const DeepCollectionEquality().hash(suggestionsCount),
+      const DeepCollectionEquality().hash(suggestionsFetchMore),
+      const DeepCollectionEquality().hash(suggestionsStatus));
 
   @JsonKey(ignore: true)
   @override
-  _$$_SuggestionStateCopyWith<_$_SuggestionState> get copyWith =>
-      __$$_SuggestionStateCopyWithImpl<_$_SuggestionState>(this, _$identity);
+  _$$_SearchStateCopyWith<_$_SearchState> get copyWith =>
+      __$$_SearchStateCopyWithImpl<_$_SearchState>(this, _$identity);
 }
 
-abstract class _SuggestionState implements SuggestionState {
-  factory _SuggestionState(
-      {final FormzStatus status,
-      final List<CarMakeModel> suggestions,
+abstract class _SearchState implements SearchState {
+  factory _SearchState(
+      {final List<AutoEntity> searchResults,
+      final FormzStatus status,
+      final FormzStatus paginationStatus,
       final String? next,
-      final String? previous,
       final int count,
-      final bool? fetchMore}) = _$_SuggestionState;
+      final dynamic moreFetch,
+      final List<OptionsEntity> suggestions,
+      final int suggestionsCount,
+      final bool? suggestionsFetchMore,
+      final FormzStatus suggestionsStatus}) = _$_SearchState;
 
+  @override
+  List<AutoEntity> get searchResults;
   @override
   FormzStatus get status;
   @override
-  List<CarMakeModel> get suggestions;
+  FormzStatus get paginationStatus;
   @override
   String? get next;
   @override
-  String? get previous;
-  @override
   int get count;
   @override
-  bool? get fetchMore;
+  dynamic get moreFetch;
+  @override
+  List<OptionsEntity> get suggestions;
+  @override
+  int get suggestionsCount;
+  @override
+  bool? get suggestionsFetchMore;
+  @override
+  FormzStatus get suggestionsStatus;
   @override
   @JsonKey(ignore: true)
-  _$$_SuggestionStateCopyWith<_$_SuggestionState> get copyWith =>
+  _$$_SearchStateCopyWith<_$_SearchState> get copyWith =>
       throw _privateConstructorUsedError;
 }
