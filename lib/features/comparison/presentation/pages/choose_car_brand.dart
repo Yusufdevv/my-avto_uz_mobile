@@ -183,7 +183,7 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
                               .whiteToDark,
                           child: ChangeCarItems(
                             selectedId: stateSel.selectedId,
-                            id: index,
+                            id: state.makes.results[index].id,
                             imageUrl: state.makes.results[index].logo,
                             name: state.makes.results[index].name,
                             text: state.search,
