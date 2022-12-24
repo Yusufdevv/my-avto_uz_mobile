@@ -28,7 +28,7 @@ class TopAds extends StatelessWidget {
                 itemBuilder: (context, index) => AdsItem(
                   adsEntity: state.topAds[index],
                 ),
-                itemCount: 2,
+                itemCount: state.topAds.length,
               ),
             ),
           ),
