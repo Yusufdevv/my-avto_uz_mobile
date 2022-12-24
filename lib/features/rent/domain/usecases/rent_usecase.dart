@@ -24,16 +24,12 @@ class RentUseCase extends UseCase<GenericPagination<RentMainModel>, Param> {
     if (params.rentCarIsFullFuel != null && params.rentCarIsFullFuel! > 0) {
       map['rent_car__is_full_fuel'] = params.rentCarIsFullFuel;
     }
-    if (params.id != null) {
-      map['rent_car_type_id'] = params.id;
-    }
     final v = await repo.fetchMore(
-      url: 'rent/main_page/${params.id}/',
+      url: '/rent/main_page/${params.id}/',
       fromJson: RentMainModel.fromJson,
       next: params.next,
       query: map,
     );
-
     return v;
   }
 }

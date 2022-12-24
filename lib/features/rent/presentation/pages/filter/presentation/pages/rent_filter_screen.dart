@@ -49,9 +49,7 @@ class _RentFilterScreenState extends State<RentFilterScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const ContainerRegionMark(markOrRegion: 'Маркаb'),
-              // const RegionButton(title: 'region button'),
-              SelectorItem(
+             SelectorItem(
                 onTap: () {
                   showRegionsBottomSheet(
                           context, context.read<RegionsBloc>().state.regions)

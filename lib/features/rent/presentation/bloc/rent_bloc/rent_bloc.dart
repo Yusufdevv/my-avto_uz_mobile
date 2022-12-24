@@ -1,27 +1,34 @@
 import 'package:auto/features/rent/domain/entities/rent_main_entity.dart';
 import 'package:auto/features/rent/domain/usecases/rent_usecase.dart';
 import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
 import 'package:formz/formz.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
-
 part 'rent_event.dart';
-
 part 'rent_state.dart';
-
-part 'rent_bloc.freezed.dart';
 
 class RentBloc extends Bloc<RentEvent, RentState> {
   final RentUseCase rentUseCase;
-  final int id;
 
-  RentBloc(this.rentUseCase, this.id) : super(RentState()) {
-    on<_GetResults>((event, emit) async {
+  RentBloc({required this.rentUseCase, required int id})
+      : super(RentState(
+          categoryId: id,
+          count: 5,
+          hasAirConditioners: 0,
+          hasBabySeat: 0,
+          list: const [],
+          next: '',
+          paginationStatus: FormzStatus.pure,
+          rentCarIsClean: 0,
+          rentCarIsFullFuel: 0,
+          status: FormzStatus.pure,
+        )) {
+    on<RentGetResultsEvent>((event, emit) async {
       if (!event.isRefresh) {
         emit(state.copyWith(status: FormzStatus.submissionInProgress));
       }
       final result = await rentUseCase(Param(
         next: '',
-        id: id,
+        id: state.categoryId,
         hasAirConditioner: state.hasAirConditioners,
         hasBabySeat: state.hasBabySeat,
         rentCarIsClean: state.rentCarIsClean,
@@ -40,9 +47,10 @@ class RentBloc extends Bloc<RentEvent, RentState> {
         emit(state.copyWith(status: FormzStatus.submissionFailure));
       }
     });
-    on<_GetMoreResults>((event, emit) async {
+    on<RentGetMoreEvent>((event, emit) async {
       emit(state.copyWith(status: FormzStatus.submissionInProgress));
-      final result = await rentUseCase(Param(next: state.next!, id: id));
+      final result =
+          await rentUseCase(Param(next: state.next!, id: state.categoryId));
       if (result.isRight) {
         emit(state.copyWith(
             status: FormzStatus.submissionSuccess,
@@ -53,16 +61,15 @@ class RentBloc extends Bloc<RentEvent, RentState> {
         emit(state.copyWith(status: FormzStatus.submissionFailure));
       }
     });
-    on<_SetId>((event, emit) async {
+    on<RentSetIdEvent>((event, emit) async {
       emit(state.copyWith(
-        categoryId: id,
+        categoryId: event.categoryId,
         hasBabySeat: event.hasBabySeat ?? state.hasBabySeat,
         hasAirConditioners: event.hasAirConditioner ?? state.hasAirConditioners,
         rentCarIsFullFuel: event.rentCarIsFullFuel ?? state.rentCarIsFullFuel,
         rentCarIsClean: event.rentCarIsClean ?? state.rentCarIsClean,
       ));
-      add(RentEvent.getResults(isRefresh: true));
-
+      add(RentGetResultsEvent(isRefresh: true));
     });
   }
 }
