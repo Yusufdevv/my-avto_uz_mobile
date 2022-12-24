@@ -1,7 +1,6 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/images.dart';
-import 'package:auto/assets/themes/theme_extensions/themed_icons.dart';
 import 'package:auto/features/car_single/domain/entities/car_user_entity.dart';
 import 'package:auto/features/commercial/presentation/commercial_screen.dart';
 import 'package:auto/features/common/domain/entity/car_brand_entity.dart';
@@ -18,6 +17,7 @@ import 'package:auto/features/main/presentation/parts/top_brands.dart';
 import 'package:auto/features/main/presentation/widgets/car_model_item.dart';
 import 'package:auto/features/main/presentation/widgets/deal_button.dart';
 import 'package:auto/features/main/presentation/widgets/favourite_item.dart';
+import 'package:auto/features/main/presentation/widgets/main_app_bar.dart';
 import 'package:auto/features/main/presentation/widgets/service_item.dart';
 import 'package:auto/features/main/presentation/widgets/story_data.dart';
 import 'package:auto/features/main/presentation/widgets/story_item.dart';
@@ -202,19 +202,7 @@ class _MainScreenState extends State<MainScreen> {
         ],
         child: Scaffold(
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-          appBar: AppBar(
-            elevation: 0,
-            title: SvgPicture.asset(
-              Theme.of(context).extension<ThemedIcons>()!.imageUrl,
-            ),
-            actions: [
-              Padding(
-                padding: const EdgeInsets.only(right: 16),
-                child: GestureDetector(
-                    onTap: () {}, child: SvgPicture.asset(AppIcons.bell)),
-              )
-            ],
-          ),
+          appBar: const MainAppBar(),
           body: SingleChildScrollView(
             padding: const EdgeInsets.symmetric(vertical: 20),
             child: Column(
@@ -247,7 +235,7 @@ class _MainScreenState extends State<MainScreen> {
                   ),
                 ),
                 const TopBrands(),
-                TopAds(),
+                const TopAds(),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: Text(
