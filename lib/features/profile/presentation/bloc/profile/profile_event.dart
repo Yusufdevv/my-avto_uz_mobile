@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 part of 'profile_bloc.dart';
 
 @immutable
@@ -5,6 +6,13 @@ abstract class ProfileEvent {}
 
 class GetProfileEvent extends ProfileEvent {}
 class GetProfileFavoritesEvent extends ProfileEvent {}
+class ChangePhoneDataEvent extends ProfileEvent {
+  final String phone;
+  ChangePhoneDataEvent({
+    required this.phone,
+  });
+  
+}
 
 class ChangePasswordEvent extends ProfileEvent {
   final String oldPassword;

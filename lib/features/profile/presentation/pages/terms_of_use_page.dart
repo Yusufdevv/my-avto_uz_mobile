@@ -5,7 +5,7 @@ class TermsOfUsePage extends StatelessWidget {
   const TermsOfUsePage({super.key});
 
   @override
-  Widget build(BuildContext context) => Scaffold(
+  Widget build(BuildContext context) => const Scaffold(
         appBar: WAppBar(textWithButton: 'Правила пользования'),
       );
 }

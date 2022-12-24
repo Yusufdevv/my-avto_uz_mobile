@@ -43,15 +43,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   void initState() {
+    final repo = serviceLocator<ProfileRepositoryImpl>();
     profileBloc = ProfileBloc(
         changePasswordUseCase: ChangePasswordUseCase(
-            repository: serviceLocator<ProfileRepositoryImpl>()),
+            repository: repo),
         editProfileUseCase: EditProfileUseCase(
-            repository: serviceLocator<ProfileRepositoryImpl>()),
+            repository: repo),
         profileUseCase:
-            ProfileUseCase(repository: serviceLocator<ProfileRepositoryImpl>()),
+            ProfileUseCase(repository: repo),
         profileFavoritesUseCase: ProfileFavoritesUseCase(
-            repository: serviceLocator<ProfileRepositoryImpl>()))
+            repository: repo),
+            )
       ..add(GetProfileEvent())
       ..add(GetProfileFavoritesEvent());
     imageBloc = ImageBloc();

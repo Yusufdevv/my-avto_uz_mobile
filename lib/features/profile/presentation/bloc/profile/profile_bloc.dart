@@ -26,21 +26,28 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     required this.profileFavoritesUseCase,
     required this.editProfileUseCase,
     required this.changePasswordUseCase,
+    
   }) : super(
           ProfileState(
-              changeStatus: FormzStatus.pure,
-              editStatus: FormzStatus.pure,
-              status: FormzStatus.pure,
-              profileEntity: ProfileModel.fromJson(const {}),
-              favoriteEntity: const <FavoriteEntity>[],
-              phoneNumber: '',
-              session: ''),
-        ) {
+            changeStatus: FormzStatus.pure,
+            editStatus: FormzStatus.pure,
+            status: FormzStatus.pure,
+            phoneNumber: '',
+            profileEntity: ProfileModel.fromJson(const {}),
+            favoriteEntity: const <FavoriteEntity>[],
+          ),
+        ) { 
+          
     on<GetProfileEvent>(_onGetProfile);
-    on<ChangePasswordEvent>(_onChangePassword);
     on<ChangePasswordEvent>(_onChangePassword);
     on<EditProfileEvent>(_onEditProfile);
     on<GetProfileFavoritesEvent>(_onGetProfileFavorites);
+    on<ChangePhoneDataEvent>(_onChangePhoneData);
+    
+  }
+
+  void _onChangePhoneData(ChangePhoneDataEvent event, Emitter<ProfileState> emit) {
+    emit(state.copyWith(phoneNumber: event.phone));
   }
 
   Future<void> _onGetProfile(
@@ -75,6 +82,8 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     }
   }
 
+  
+
   Future<void> _onChangePassword(
       ChangePasswordEvent event, Emitter<ProfileState> emit) async {
     emit(state.copyWith(changeStatus: FormzStatus.submissionInProgress));
@@ -89,7 +98,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
 
         if (result.isRight) {
           event.onSuccess();
-          emit(state.copyWith(changeStatus: FormzStatus.submissionInProgress));
+          emit(state.copyWith(changeStatus: FormzStatus.submissionSuccess));
         } else {
           event.onError(result.left.toString());
           emit(state.copyWith(changeStatus: FormzStatus.submissionFailure));
@@ -99,10 +108,11 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
         emit(state.copyWith(changeStatus: FormzStatus.submissionFailure));
       }
     } else {
-      event.onError("Ma'lumotlarni Требованияto'ldiring");
+      event.onError("Ma'lumotlarni to'ldiring");
       emit(state.copyWith(changeStatus: FormzStatus.submissionFailure));
     }
   }
+
 
   Future<void> _onGetProfileFavorites(
       GetProfileFavoritesEvent event, Emitter<ProfileState> emit) async {

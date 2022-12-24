@@ -12,7 +12,7 @@ class ChangePhoneNumberUseCase
 
   @override
   Future<Either<Failure, String>> call(ChangePhoneNumberParams params) async =>
-      await repository.changePhoneNumber(phoneNumber: params.phoneNumber);
+      await repository.sendPhoneNumber(phoneNumber: params.phoneNumber);
 }
 
 class ChangePhoneNumberParams extends Equatable {
