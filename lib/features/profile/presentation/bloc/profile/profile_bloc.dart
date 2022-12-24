@@ -32,6 +32,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
             changeStatus: FormzStatus.pure,
             editStatus: FormzStatus.pure,
             status: FormzStatus.pure,
+            phoneNumber: '',
             profileEntity: ProfileModel.fromJson(const {}),
             favoriteEntity: const <FavoriteEntity>[],
           ),
@@ -41,6 +42,12 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     on<ChangePasswordEvent>(_onChangePassword);
     on<EditProfileEvent>(_onEditProfile);
     on<GetProfileFavoritesEvent>(_onGetProfileFavorites);
+    on<ChangePhoneDataEvent>(_onChangePhoneData);
+    
+  }
+
+  void _onChangePhoneData(ChangePhoneDataEvent event, Emitter<ProfileState> emit) {
+    emit(state.copyWith(phoneNumber: event.phone));
   }
 
   Future<void> _onGetProfile(

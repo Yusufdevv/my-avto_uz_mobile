@@ -146,6 +146,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   page: BlocProvider.value(
                                 value: registerBloc,
                                 child: VerificationScreen(
+                                  ischangePhoneNumber: true,
                                     session: session,
                                     phone: phoneController.text
                                         .replaceAll('+998', '')),

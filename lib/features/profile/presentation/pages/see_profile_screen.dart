@@ -82,7 +82,7 @@ class SeeProfileScreen extends StatelessWidget {
                     onTap: () {
                       Navigator.of(context).push(
                         fade(
-                          page: EditProfileScreen(
+                          page: ProfileEditScreen(
                               profileBloc: profileBloc, imageBloc: imageBloc),
                         ),
                       );
@@ -109,7 +109,9 @@ class SeeProfileScreen extends StatelessWidget {
                       .copyWith(fontWeight: FontWeight.w600, color: grey)),
               TextSpacer(
                 title: LocaleKeys.tel_number.tr(),
-                value: profileEntity.phoneNumber,
+                value: profileBloc.state.phoneNumber.isNotEmpty
+                    ? profileBloc.state.phoneNumber
+                    : profileEntity.phoneNumber,
                 padding: EdgeInsets.only(
                     top: SizeConfig.v(36), bottom: SizeConfig.v(16)),
               ),

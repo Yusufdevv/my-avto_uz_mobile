@@ -8,6 +8,8 @@ import 'package:auto/features/login/presentation/bloc/register/register_bloc.dar
 import 'package:auto/features/login/presentation/pages/personal_data_screen.dart';
 import 'package:auto/features/login/presentation/widgets/login_header_widget.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
+import 'package:auto/features/profile/presentation/bloc/change_phone_number/change_phone_number_bloc.dart';
+import 'package:auto/features/profile/presentation/bloc/profile/profile_bloc.dart';
 import 'package:auto/features/profile/presentation/widgets/refresh_button.dart';
 import 'package:auto/features/profile/presentation/widgets/time_counter.dart';
 import 'package:auto/generated/locale_keys.g.dart';
@@ -21,9 +23,13 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 class VerificationScreen extends StatefulWidget {
   final String phone;
   final String session;
+  final bool ischangePhoneNumber;
 
   const VerificationScreen(
-      {required this.phone, required this.session, Key? key})
+      {required this.phone,
+      required this.session,
+      this.ischangePhoneNumber = false,
+      Key? key})
       : super(key: key);
 
   @override
@@ -183,7 +189,8 @@ class _VerificationScreenState extends State<VerificationScreen> {
                   padding: const EdgeInsets.only(top: 24),
                   child: WButton(
                     onTap: () => verificationController.text.isNotEmpty &&
-                            verificationController.text.length == 6
+                            verificationController.text.length == 6 &&
+                            !widget.ischangePhoneNumber
                         ? context
                             .read<RegisterBloc>()
                             .add(RegisterEvent.verifyCode(
@@ -198,7 +205,23 @@ class _VerificationScreenState extends State<VerificationScreen> {
                                           value: context.read<RegisterBloc>(),
                                           child: const PersonalDataScreen())));
                             }))
-                        : {},
+                        : context
+                            .read<ChangePhoneNumberBloc>()
+                            .add(VerifyCodeEvent(
+                                newPhoneNumber: '+998${widget.phone}',
+                                code: verificationController.text,
+                                session: widget.session,
+                                onSuccess: () {
+                                  context.read<ProfileBloc>().add(
+                                      ChangePhoneDataEvent(
+                                          phone: '+998${widget.phone}'));
+                                  Navigator.pop(context);
+                                  Navigator.pop(context);
+                                },
+                                onError: (e) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(content: Text(e.toString())));
+                                })),
                     margin: EdgeInsets.only(
                         bottom: MediaQuery.of(context).padding.bottom + 4),
                     color: (verificationController.text.isNotEmpty &&

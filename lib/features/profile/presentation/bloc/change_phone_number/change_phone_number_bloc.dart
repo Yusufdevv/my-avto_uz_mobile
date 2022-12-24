@@ -13,59 +13,67 @@ class ChangePhoneNumberBloc
   final ChangePhoneNumberUseCase changePhoneNumberUseCase;
   final SendSmsVerificationUseCase sendSmsVerificationUseCase;
 
-  ChangePhoneNumberBloc(
-    {required this.changePhoneNumberUseCase,
-    required this.sendSmsVerificationUseCase,}
-  ) : super(const ChangePhoneNumberState(
-    status: FormzStatus.pure,
-    phoneNumber: '',
-    session: ''
-  )) {
+  ChangePhoneNumberBloc({
+    required this.changePhoneNumberUseCase,
+    required this.sendSmsVerificationUseCase,
+  }) : super(const ChangePhoneNumberState(
+            status: FormzStatus.pure, phoneNumber: '', session: '')) {
     on<SendPhoneNumberEvent>(_onSendPhoneNumber);
 
-    on<SendSmsVerifiactionCodeEvent>(_onSendSmsVerificationCode);
+    on<VerifyCodeEvent>(_onSendSmsVerificationCode);
   }
 
   Future<void> _onSendPhoneNumber(
       SendPhoneNumberEvent event, Emitter<ChangePhoneNumberState> emit) async {
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
     if (event.newPhoneNumber.isNotEmpty) {
-     
-        final result = await changePhoneNumberUseCase.call(ChangePhoneNumberParams(
-          phoneNumber: event.newPhoneNumber
+      final result = await changePhoneNumberUseCase
+          .call(ChangePhoneNumberParams(phoneNumber: event.newPhoneNumber));
+      if (result.isRight) {
+        emit(state.copyWith(
+          status: FormzStatus.submissionSuccess,
         ));
-
-        if (result.isRight) {
-          emit(state.copyWith(session: result.right));
-          emit(state.copyWith(status: FormzStatus.submissionSuccess));
-          event.onSuccess();
-        } else {
-          emit(state.copyWith(status: FormzStatus.submissionFailure));
-          event.onError(result.left.toString());
+        if (event.onSuccess != null) {
+          event.onSuccess!(result.right);
         }
-      
+      } else {
+        emit(state.copyWith(status: FormzStatus.submissionInProgress));
+      }
+
+      // if (result.isRight) {
+      //   emit(state.copyWith(session: result.right));
+      //   emit(state.copyWith(status: FormzStatus.submissionSuccess));
+      //   event.onSuccess!(result.right);
+      // } else {
+      //   emit(state.copyWith(status: FormzStatus.submissionFailure));
+      //   event.onError(result.left.toString());
+      // }
+
     } else {
       emit(state.copyWith(status: FormzStatus.submissionFailure));
       event.onError('Telefon nomeringizni kiriting');
     }
   }
 
-
-  Future<void> _onSendSmsVerificationCode (
-      SendSmsVerifiactionCodeEvent event, Emitter<ChangePhoneNumberState> emit) async {
+  Future<void> _onSendSmsVerificationCode(
+      VerifyCodeEvent event, Emitter<ChangePhoneNumberState> emit) async {
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
-    if (event.newPhoneNumber.isNotEmpty && event.code.isNotEmpty && event.session.isNotEmpty) {
-     
-        final result = await sendSmsVerificationUseCase.call(SmsVerificationParams(phoneNumber: event.newPhoneNumber, code: event.code, session: event.session));
+    if (event.newPhoneNumber.isNotEmpty &&
+        event.code.isNotEmpty &&
+        event.session.isNotEmpty) {
+      final result = await sendSmsVerificationUseCase.call(
+          SmsVerificationParams(
+              phoneNumber: event.newPhoneNumber,
+              code: event.code,
+              session: event.session));
 
-        if (result.isRight) {
-          event.onSuccess();
-          emit(state.copyWith(status: FormzStatus.submissionSuccess));
-        } else {
-          event.onError(result.left.toString());
-          emit(state.copyWith(status: FormzStatus.submissionFailure));
-        }
-      
+      if (result.isRight) {
+        event.onSuccess();
+        emit(state.copyWith(status: FormzStatus.submissionSuccess));
+      } else {
+        event.onError(result.left.toString());
+        emit(state.copyWith(status: FormzStatus.submissionFailure));
+      }
     } else {
       event.onError('Telefon nomeringizni kiriting');
       emit(state.copyWith(status: FormzStatus.submissionFailure));

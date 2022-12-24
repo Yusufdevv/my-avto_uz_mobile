@@ -23,21 +23,21 @@ import 'package:flutter_svg/svg.dart';
 import 'package:formz/formz.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
-class EditProfileScreen extends StatefulWidget {
+class ProfileEditScreen extends StatefulWidget {
   final ProfileBloc profileBloc;
   final ImageBloc imageBloc;
 
-  const EditProfileScreen({
+  const ProfileEditScreen({
     required this.profileBloc,
     required this.imageBloc,
     Key? key,
   }) : super(key: key);
 
   @override
-  _EditProfileScreenState createState() => _EditProfileScreenState();
+  _ProfileEditScreenState createState() => _ProfileEditScreenState();
 }
 
-class _EditProfileScreenState extends State<EditProfileScreen> {
+class _ProfileEditScreenState extends State<ProfileEditScreen> {
   late TextEditingController nameController;
   late TextEditingController surNameController;
   late TextEditingController emailController;
@@ -211,12 +211,17 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       ),
                       WScaleAnimation(
                           onTap: () {
-                            Navigator.push(context,
-                                fade(page: const PhoneNumberEditPage()));
+                            Navigator.push(
+                                context,
+                                fade(
+                                    page: PhoneNumberEditPage(
+                                        profileBloc: widget.profileBloc)));
                           },
                           child: PhoneContainer(
-                              phoneNumber: widget.profileBloc.state
-                                  .profileEntity.phoneNumber)),
+                              phoneNumber: state.phoneNumber.isEmpty
+                                  ? widget.profileBloc.state.profileEntity
+                                      .phoneNumber
+                                  : state.phoneNumber)),
                       //
                       const TitleTextFieldTop(title: 'Email'),
                       ProfilTextField(

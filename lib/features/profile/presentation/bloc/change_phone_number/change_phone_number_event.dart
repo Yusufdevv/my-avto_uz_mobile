@@ -4,7 +4,7 @@ abstract class ChangePhoneNumberEvent {}
 
 class SendPhoneNumberEvent extends ChangePhoneNumberEvent {
   final String newPhoneNumber;
-  final Function onSuccess;
+  final Function(String)? onSuccess;
   final Function(String text) onError;
 
   SendPhoneNumberEvent(
@@ -13,14 +13,14 @@ class SendPhoneNumberEvent extends ChangePhoneNumberEvent {
       required this.onError});
 }
 
-class SendSmsVerifiactionCodeEvent extends ChangePhoneNumberEvent {
+class VerifyCodeEvent extends ChangePhoneNumberEvent {
   final String newPhoneNumber;
   final String code;
   final String session;
   final Function onSuccess;
   final Function(String text) onError;
 
-  SendSmsVerifiactionCodeEvent(
+  VerifyCodeEvent(
       {required this.newPhoneNumber,
       required this.code,
       required this.session,
