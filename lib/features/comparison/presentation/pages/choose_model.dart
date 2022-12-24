@@ -13,6 +13,7 @@ import 'package:auto/features/common/bloc/get_makes_bloc/get_makes_bloc_bloc.dar
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_textfield.dart';
+import 'package:auto/features/comparison/presentation/widgets/search_bar_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -41,16 +42,14 @@ class ChooseCarModelComparison extends StatefulWidget {
 
 class _ChooseCarModelComparison extends State<ChooseCarModelComparison> {
   late TextEditingController searchController;
+  late int id;
   @override
   void initState() {
+    id = widget.getMakesBloc.state.makes
+        .results[widget.carSelectorBloc.state.selectedId].id;
     searchController = TextEditingController();
     widget.bloc.add(
-      GetCarModelEvent.getCarModel(
-        CarModelParams(
-          makeId: widget.getMakesBloc.state.makes
-              .results[widget.carSelectorBloc.state.confirmId].id,
-        ),
-      ),
+      GetCarModelEvent.getCarModel(id),
     );
     super.initState();
   }
@@ -76,6 +75,7 @@ class _ChooseCarModelComparison extends State<ChooseCarModelComparison> {
             ),
           ],
           child: Scaffold(
+            resizeToAvoidBottomInset: false,
             appBar: WAppBar(
               title: 'Марка автомобиля',
               titleStyle: const TextStyle(
@@ -103,44 +103,17 @@ class _ChooseCarModelComparison extends State<ChooseCarModelComparison> {
                   CustomScrollView(
                     slivers: [
                       SliverToBoxAdapter(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                top: 20,
-                                left: 16,
-                                bottom: 12,
+                        child: SearchBarWidget(
+                          searchController: searchController,
+                          title: 'Выберите марку автомобиля',
+                          onChanged: () {
+                            widget.bloc.add(
+                              GetCarModelEvent.getSerched(
+                                searchController.text,
                               ),
-                              child: Text(
-                                'Выберите модель',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headline1!
-                                    .copyWith(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.w700),
-                              ),
-                            ),
-                            WTextField(
-                              fillColor: Theme.of(context)
-                                  .extension<ThemedColors>()!
-                                  .whiteToNightRider,
-                              margin: const EdgeInsets.only(
-                                left: 16,
-                                right: 16,
-                                bottom: 12,
-                              ),
-                              onChanged: (value) {},
-                              borderRadius: 12,
-                              hasSearch: true,
-                              hintText: 'Поиск',
-                              height: 40,
-                              controller: searchController,
-                              hasClearButton: true,
-                            ),
-                            const SizedBox(height: 12),
-                          ],
+                            );
+                            // widget.bloc.add(GetCarModelEvent.);
+                          },
                         ),
                       ),
                       SliverToBoxAdapter(
@@ -201,6 +174,7 @@ class _ChooseCarModelComparison extends State<ChooseCarModelComparison> {
                                 entity: statemodel.model.results[index].name,
                                 selectedId: state.selectedId,
                                 id: index,
+                                text: statemodel.search,
                               ),
                             ),
                           ),

@@ -11,9 +11,9 @@ part 'get_car_model_bloc.freezed.dart';
 class GetCarModelBloc extends Bloc<GetCarModelEvent, GetCarModelState> {
   final GetCarModelUseCase useCase;
   GetCarModelBloc({required this.useCase}) : super(GetCarModelState()) {
-    on<_GetCarModel>((event, emit) async{
+    on<_GetCarModel>((event, emit) async {
       emit(state.copyWith(status: FormzStatus.submissionInProgress));
-      final result = await useCase.call(state.getModel);
+      final result = await useCase.call(event.getId);
       if (result.isRight) {
         emit(
           state.copyWith(
@@ -25,5 +25,7 @@ class GetCarModelBloc extends Bloc<GetCarModelEvent, GetCarModelState> {
         );
       }
     });
+    on<_GetMakeId>((event, emit) => emit(state.copyWith(getId: event.id)));
+    on<_GetSerched>((event, emit) => emit(state.copyWith(search: event.naem)));
   }
 }

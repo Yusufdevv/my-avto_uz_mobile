@@ -16,42 +16,49 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$GetCarModelEvent {
-  CarModelParams? get getModel => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(CarModelParams? getModel) getCarModel,
+    required TResult Function(int getId) getCarModel,
+    required TResult Function(int id) getMakeId,
+    required TResult Function(String naem) getSerched,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(CarModelParams? getModel)? getCarModel,
+    TResult? Function(int getId)? getCarModel,
+    TResult? Function(int id)? getMakeId,
+    TResult? Function(String naem)? getSerched,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(CarModelParams? getModel)? getCarModel,
+    TResult Function(int getId)? getCarModel,
+    TResult Function(int id)? getMakeId,
+    TResult Function(String naem)? getSerched,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_GetCarModel value) getCarModel,
+    required TResult Function(_GetMakeId value) getMakeId,
+    required TResult Function(_GetSerched value) getSerched,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetCarModel value)? getCarModel,
+    TResult? Function(_GetMakeId value)? getMakeId,
+    TResult? Function(_GetSerched value)? getSerched,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetCarModel value)? getCarModel,
+    TResult Function(_GetMakeId value)? getMakeId,
+    TResult Function(_GetSerched value)? getSerched,
     required TResult orElse(),
   }) =>
-      throw _privateConstructorUsedError;
-
-  @JsonKey(ignore: true)
-  $GetCarModelEventCopyWith<GetCarModelEvent> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -60,8 +67,6 @@ abstract class $GetCarModelEventCopyWith<$Res> {
   factory $GetCarModelEventCopyWith(
           GetCarModelEvent value, $Res Function(GetCarModelEvent) then) =
       _$GetCarModelEventCopyWithImpl<$Res, GetCarModelEvent>;
-  @useResult
-  $Res call({CarModelParams? getModel});
 }
 
 /// @nodoc
@@ -73,30 +78,15 @@ class _$GetCarModelEventCopyWithImpl<$Res, $Val extends GetCarModelEvent>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? getModel = freezed,
-  }) {
-    return _then(_value.copyWith(
-      getModel: freezed == getModel
-          ? _value.getModel
-          : getModel // ignore: cast_nullable_to_non_nullable
-              as CarModelParams?,
-    ) as $Val);
-  }
 }
 
 /// @nodoc
-abstract class _$$_GetCarModelCopyWith<$Res>
-    implements $GetCarModelEventCopyWith<$Res> {
+abstract class _$$_GetCarModelCopyWith<$Res> {
   factory _$$_GetCarModelCopyWith(
           _$_GetCarModel value, $Res Function(_$_GetCarModel) then) =
       __$$_GetCarModelCopyWithImpl<$Res>;
-  @override
   @useResult
-  $Res call({CarModelParams? getModel});
+  $Res call({int getId});
 }
 
 /// @nodoc
@@ -110,13 +100,13 @@ class __$$_GetCarModelCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? getModel = freezed,
+    Object? getId = null,
   }) {
     return _then(_$_GetCarModel(
-      freezed == getModel
-          ? _value.getModel
-          : getModel // ignore: cast_nullable_to_non_nullable
-              as CarModelParams?,
+      null == getId
+          ? _value.getId
+          : getId // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -124,14 +114,14 @@ class __$$_GetCarModelCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_GetCarModel implements _GetCarModel {
-  const _$_GetCarModel(this.getModel);
+  _$_GetCarModel(this.getId);
 
   @override
-  final CarModelParams? getModel;
+  final int getId;
 
   @override
   String toString() {
-    return 'GetCarModelEvent.getCarModel(getModel: $getModel)';
+    return 'GetCarModelEvent.getCarModel(getId: $getId)';
   }
 
   @override
@@ -139,12 +129,11 @@ class _$_GetCarModel implements _GetCarModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_GetCarModel &&
-            (identical(other.getModel, getModel) ||
-                other.getModel == getModel));
+            (identical(other.getId, getId) || other.getId == getId));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, getModel);
+  int get hashCode => Object.hash(runtimeType, getId);
 
   @JsonKey(ignore: true)
   @override
@@ -155,27 +144,33 @@ class _$_GetCarModel implements _GetCarModel {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(CarModelParams? getModel) getCarModel,
+    required TResult Function(int getId) getCarModel,
+    required TResult Function(int id) getMakeId,
+    required TResult Function(String naem) getSerched,
   }) {
-    return getCarModel(getModel);
+    return getCarModel(getId);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(CarModelParams? getModel)? getCarModel,
+    TResult? Function(int getId)? getCarModel,
+    TResult? Function(int id)? getMakeId,
+    TResult? Function(String naem)? getSerched,
   }) {
-    return getCarModel?.call(getModel);
+    return getCarModel?.call(getId);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(CarModelParams? getModel)? getCarModel,
+    TResult Function(int getId)? getCarModel,
+    TResult Function(int id)? getMakeId,
+    TResult Function(String naem)? getSerched,
     required TResult orElse(),
   }) {
     if (getCarModel != null) {
-      return getCarModel(getModel);
+      return getCarModel(getId);
     }
     return orElse();
   }
@@ -184,6 +179,8 @@ class _$_GetCarModel implements _GetCarModel {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_GetCarModel value) getCarModel,
+    required TResult Function(_GetMakeId value) getMakeId,
+    required TResult Function(_GetSerched value) getSerched,
   }) {
     return getCarModel(this);
   }
@@ -192,6 +189,8 @@ class _$_GetCarModel implements _GetCarModel {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetCarModel value)? getCarModel,
+    TResult? Function(_GetMakeId value)? getMakeId,
+    TResult? Function(_GetSerched value)? getSerched,
   }) {
     return getCarModel?.call(this);
   }
@@ -200,6 +199,8 @@ class _$_GetCarModel implements _GetCarModel {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetCarModel value)? getCarModel,
+    TResult Function(_GetMakeId value)? getMakeId,
+    TResult Function(_GetSerched value)? getSerched,
     required TResult orElse(),
   }) {
     if (getCarModel != null) {
@@ -210,13 +211,289 @@ class _$_GetCarModel implements _GetCarModel {
 }
 
 abstract class _GetCarModel implements GetCarModelEvent {
-  const factory _GetCarModel(final CarModelParams? getModel) = _$_GetCarModel;
+  factory _GetCarModel(final int getId) = _$_GetCarModel;
 
-  @override
-  CarModelParams? get getModel;
-  @override
+  int get getId;
   @JsonKey(ignore: true)
   _$$_GetCarModelCopyWith<_$_GetCarModel> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_GetMakeIdCopyWith<$Res> {
+  factory _$$_GetMakeIdCopyWith(
+          _$_GetMakeId value, $Res Function(_$_GetMakeId) then) =
+      __$$_GetMakeIdCopyWithImpl<$Res>;
+  @useResult
+  $Res call({int id});
+}
+
+/// @nodoc
+class __$$_GetMakeIdCopyWithImpl<$Res>
+    extends _$GetCarModelEventCopyWithImpl<$Res, _$_GetMakeId>
+    implements _$$_GetMakeIdCopyWith<$Res> {
+  __$$_GetMakeIdCopyWithImpl(
+      _$_GetMakeId _value, $Res Function(_$_GetMakeId) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+  }) {
+    return _then(_$_GetMakeId(
+      null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_GetMakeId implements _GetMakeId {
+  _$_GetMakeId(this.id);
+
+  @override
+  final int id;
+
+  @override
+  String toString() {
+    return 'GetCarModelEvent.getMakeId(id: $id)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_GetMakeId &&
+            (identical(other.id, id) || other.id == id));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, id);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_GetMakeIdCopyWith<_$_GetMakeId> get copyWith =>
+      __$$_GetMakeIdCopyWithImpl<_$_GetMakeId>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(int getId) getCarModel,
+    required TResult Function(int id) getMakeId,
+    required TResult Function(String naem) getSerched,
+  }) {
+    return getMakeId(id);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(int getId)? getCarModel,
+    TResult? Function(int id)? getMakeId,
+    TResult? Function(String naem)? getSerched,
+  }) {
+    return getMakeId?.call(id);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(int getId)? getCarModel,
+    TResult Function(int id)? getMakeId,
+    TResult Function(String naem)? getSerched,
+    required TResult orElse(),
+  }) {
+    if (getMakeId != null) {
+      return getMakeId(id);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_GetCarModel value) getCarModel,
+    required TResult Function(_GetMakeId value) getMakeId,
+    required TResult Function(_GetSerched value) getSerched,
+  }) {
+    return getMakeId(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetCarModel value)? getCarModel,
+    TResult? Function(_GetMakeId value)? getMakeId,
+    TResult? Function(_GetSerched value)? getSerched,
+  }) {
+    return getMakeId?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetCarModel value)? getCarModel,
+    TResult Function(_GetMakeId value)? getMakeId,
+    TResult Function(_GetSerched value)? getSerched,
+    required TResult orElse(),
+  }) {
+    if (getMakeId != null) {
+      return getMakeId(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _GetMakeId implements GetCarModelEvent {
+  factory _GetMakeId(final int id) = _$_GetMakeId;
+
+  int get id;
+  @JsonKey(ignore: true)
+  _$$_GetMakeIdCopyWith<_$_GetMakeId> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_GetSerchedCopyWith<$Res> {
+  factory _$$_GetSerchedCopyWith(
+          _$_GetSerched value, $Res Function(_$_GetSerched) then) =
+      __$$_GetSerchedCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String naem});
+}
+
+/// @nodoc
+class __$$_GetSerchedCopyWithImpl<$Res>
+    extends _$GetCarModelEventCopyWithImpl<$Res, _$_GetSerched>
+    implements _$$_GetSerchedCopyWith<$Res> {
+  __$$_GetSerchedCopyWithImpl(
+      _$_GetSerched _value, $Res Function(_$_GetSerched) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? naem = null,
+  }) {
+    return _then(_$_GetSerched(
+      null == naem
+          ? _value.naem
+          : naem // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_GetSerched implements _GetSerched {
+  _$_GetSerched(this.naem);
+
+  @override
+  final String naem;
+
+  @override
+  String toString() {
+    return 'GetCarModelEvent.getSerched(naem: $naem)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_GetSerched &&
+            (identical(other.naem, naem) || other.naem == naem));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, naem);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_GetSerchedCopyWith<_$_GetSerched> get copyWith =>
+      __$$_GetSerchedCopyWithImpl<_$_GetSerched>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(int getId) getCarModel,
+    required TResult Function(int id) getMakeId,
+    required TResult Function(String naem) getSerched,
+  }) {
+    return getSerched(naem);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(int getId)? getCarModel,
+    TResult? Function(int id)? getMakeId,
+    TResult? Function(String naem)? getSerched,
+  }) {
+    return getSerched?.call(naem);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(int getId)? getCarModel,
+    TResult Function(int id)? getMakeId,
+    TResult Function(String naem)? getSerched,
+    required TResult orElse(),
+  }) {
+    if (getSerched != null) {
+      return getSerched(naem);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_GetCarModel value) getCarModel,
+    required TResult Function(_GetMakeId value) getMakeId,
+    required TResult Function(_GetSerched value) getSerched,
+  }) {
+    return getSerched(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetCarModel value)? getCarModel,
+    TResult? Function(_GetMakeId value)? getMakeId,
+    TResult? Function(_GetSerched value)? getSerched,
+  }) {
+    return getSerched?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetCarModel value)? getCarModel,
+    TResult Function(_GetMakeId value)? getMakeId,
+    TResult Function(_GetSerched value)? getSerched,
+    required TResult orElse(),
+  }) {
+    if (getSerched != null) {
+      return getSerched(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _GetSerched implements GetCarModelEvent {
+  factory _GetSerched(final String naem) = _$_GetSerched;
+
+  String get naem;
+  @JsonKey(ignore: true)
+  _$$_GetSerchedCopyWith<_$_GetSerched> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -225,7 +502,8 @@ mixin _$GetCarModelState {
   FormzStatus get status => throw _privateConstructorUsedError;
   GetMakeEntity get model => throw _privateConstructorUsedError;
   dynamic get next => throw _privateConstructorUsedError;
-  CarModelParams get getModel => throw _privateConstructorUsedError;
+  dynamic get search => throw _privateConstructorUsedError;
+  int get getId => throw _privateConstructorUsedError;
   dynamic get count => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -243,7 +521,8 @@ abstract class $GetCarModelStateCopyWith<$Res> {
       {FormzStatus status,
       GetMakeEntity model,
       dynamic next,
-      CarModelParams getModel,
+      dynamic search,
+      int getId,
       dynamic count});
 }
 
@@ -263,7 +542,8 @@ class _$GetCarModelStateCopyWithImpl<$Res, $Val extends GetCarModelState>
     Object? status = null,
     Object? model = null,
     Object? next = freezed,
-    Object? getModel = null,
+    Object? search = freezed,
+    Object? getId = null,
     Object? count = freezed,
   }) {
     return _then(_value.copyWith(
@@ -279,10 +559,14 @@ class _$GetCarModelStateCopyWithImpl<$Res, $Val extends GetCarModelState>
           ? _value.next
           : next // ignore: cast_nullable_to_non_nullable
               as dynamic,
-      getModel: null == getModel
-          ? _value.getModel
-          : getModel // ignore: cast_nullable_to_non_nullable
-              as CarModelParams,
+      search: freezed == search
+          ? _value.search
+          : search // ignore: cast_nullable_to_non_nullable
+              as dynamic,
+      getId: null == getId
+          ? _value.getId
+          : getId // ignore: cast_nullable_to_non_nullable
+              as int,
       count: freezed == count
           ? _value.count
           : count // ignore: cast_nullable_to_non_nullable
@@ -303,7 +587,8 @@ abstract class _$$_GetCarModelStateCopyWith<$Res>
       {FormzStatus status,
       GetMakeEntity model,
       dynamic next,
-      CarModelParams getModel,
+      dynamic search,
+      int getId,
       dynamic count});
 }
 
@@ -321,7 +606,8 @@ class __$$_GetCarModelStateCopyWithImpl<$Res>
     Object? status = null,
     Object? model = null,
     Object? next = freezed,
-    Object? getModel = null,
+    Object? search = freezed,
+    Object? getId = null,
     Object? count = freezed,
   }) {
     return _then(_$_GetCarModelState(
@@ -334,10 +620,11 @@ class __$$_GetCarModelStateCopyWithImpl<$Res>
           : model // ignore: cast_nullable_to_non_nullable
               as GetMakeEntity,
       next: freezed == next ? _value.next! : next,
-      getModel: null == getModel
-          ? _value.getModel
-          : getModel // ignore: cast_nullable_to_non_nullable
-              as CarModelParams,
+      search: freezed == search ? _value.search! : search,
+      getId: null == getId
+          ? _value.getId
+          : getId // ignore: cast_nullable_to_non_nullable
+              as int,
       count: freezed == count ? _value.count! : count,
     ));
   }
@@ -350,7 +637,8 @@ class _$_GetCarModelState implements _GetCarModelState {
       {this.status = FormzStatus.pure,
       this.model = const GetMakeEntity(),
       this.next = '',
-      this.getModel = const CarModelParams(),
+      this.search = '',
+      this.getId = 0,
       this.count = 0});
 
   @override
@@ -364,14 +652,17 @@ class _$_GetCarModelState implements _GetCarModelState {
   final dynamic next;
   @override
   @JsonKey()
-  final CarModelParams getModel;
+  final dynamic search;
+  @override
+  @JsonKey()
+  final int getId;
   @override
   @JsonKey()
   final dynamic count;
 
   @override
   String toString() {
-    return 'GetCarModelState(status: $status, model: $model, next: $next, getModel: $getModel, count: $count)';
+    return 'GetCarModelState(status: $status, model: $model, next: $next, search: $search, getId: $getId, count: $count)';
   }
 
   @override
@@ -382,8 +673,8 @@ class _$_GetCarModelState implements _GetCarModelState {
             (identical(other.status, status) || other.status == status) &&
             (identical(other.model, model) || other.model == model) &&
             const DeepCollectionEquality().equals(other.next, next) &&
-            (identical(other.getModel, getModel) ||
-                other.getModel == getModel) &&
+            const DeepCollectionEquality().equals(other.search, search) &&
+            (identical(other.getId, getId) || other.getId == getId) &&
             const DeepCollectionEquality().equals(other.count, count));
   }
 
@@ -393,7 +684,8 @@ class _$_GetCarModelState implements _GetCarModelState {
       status,
       model,
       const DeepCollectionEquality().hash(next),
-      getModel,
+      const DeepCollectionEquality().hash(search),
+      getId,
       const DeepCollectionEquality().hash(count));
 
   @JsonKey(ignore: true)
@@ -408,7 +700,8 @@ abstract class _GetCarModelState implements GetCarModelState {
       {final FormzStatus status,
       final GetMakeEntity model,
       final dynamic next,
-      final CarModelParams getModel,
+      final dynamic search,
+      final int getId,
       final dynamic count}) = _$_GetCarModelState;
 
   @override
@@ -418,7 +711,9 @@ abstract class _GetCarModelState implements GetCarModelState {
   @override
   dynamic get next;
   @override
-  CarModelParams get getModel;
+  dynamic get search;
+  @override
+  int get getId;
   @override
   dynamic get count;
   @override

@@ -1,11 +1,13 @@
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/core/singletons/service_locator.dart';
+import 'package:auto/features/ad/data/repositories/ad_repository_impl.dart';
+import 'package:auto/features/ad/domain/usecases/get_car_model.dart';
+import 'package:auto/features/ad/domain/usecases/get_makes.dart';
 import 'package:auto/features/ad/presentation/bloc/car_selector/car_selector_bloc.dart';
 import 'package:auto/features/ad/presentation/bloc/choose_model/car_type_selector_bloc.dart';
 import 'package:auto/features/ad/presentation/bloc/choose_model/model_selectro_bloc.dart';
 import 'package:auto/features/common/bloc/get_car_model/get_car_model_bloc.dart';
 import 'package:auto/features/common/bloc/get_makes_bloc/get_makes_bloc_bloc.dart';
-import 'package:auto/features/comparison/domain/entities/characteristics_entity.dart';
-import 'package:auto/features/comparison/domain/entities/chracteristics_parameters_entity.dart';
 import 'package:auto/features/comparison/domain/entities/comparison_entity.dart';
 import 'package:auto/features/comparison/domain/entities/complectation_entity.dart';
 import 'package:auto/features/comparison/domain/entities/complectation_parameters_entity.dart';
@@ -25,11 +27,20 @@ import 'package:linked_scroll_controller/linked_scroll_controller.dart';
 class Comparison extends StatefulWidget {
   final bool isSticky;
   final List<ComparisonEntity> cars;
-
+  final ModelSelectorBloc modelBloc;
+  final CarTypeSelectorBloc carTypeSelectorBloc;
+  final GetCarModelBloc carModelBloc;
+  final CarSelectorBloc carSelectorBloc;
+  final GetMakesBloc getMakesBloc;
   const Comparison({
     required this.cars,
     Key? key,
     required this.isSticky,
+    required this.modelBloc,
+    required this.carTypeSelectorBloc,
+    required this.carModelBloc,
+    required this.carSelectorBloc,
+    required this.getMakesBloc,
   }) : super(key: key);
 
   @override
@@ -47,72 +58,7 @@ class _ComparisonState extends State<Comparison> {
   late LinkedScrollControllerGroup linkedScrollControllerGroup;
   late List<ScrollController> scrollControllers;
   late TextEditingController searchController;
-  late ModelSelectorBloc modelBloc;
-  late CarTypeSelectorBloc carTypeSelectorBloc;
-  late GetCarModelBloc carModelBloc;
-  late CarSelectorBloc carSelectorBloc;
-  late GetMakesBloc getMakesBloc;
-  List<Characteristics> characteristicsParameters = [
-    Characteristics(
-      parameterName: LocaleKeys.mains.tr(),
-      id: 0,
-      comparisonParameters: [
-        CharacteristicsParameters(
-          comparisonParameters: LocaleKeys.year_of_issue.tr(),
-        ),
-        CharacteristicsParameters(
-          comparisonParameters: LocaleKeys.Mileage.tr(),
-        ),
-        CharacteristicsParameters(
-          comparisonParameters: LocaleKeys.How_many_owners.tr(),
-        ),
-        CharacteristicsParameters(
-          comparisonParameters: LocaleKeys.state.tr(),
-        ),
-        CharacteristicsParameters(
-          comparisonParameters: LocaleKeys.color.tr(),
-        ),
-        CharacteristicsParameters(
-          comparisonParameters: LocaleKeys.Acceleration_to_100_kmh.tr(),
-        ),
-        CharacteristicsParameters(
-          comparisonParameters: LocaleKeys.trunk_volume.tr(),
-        ),
-        CharacteristicsParameters(
-          comparisonParameters: LocaleKeys.auto_class.tr(),
-        ),
-        CharacteristicsParameters(
-          comparisonParameters: LocaleKeys.body_type.tr(),
-        )
-      ],
-    ),
-    Characteristics(
-        parameterName: LocaleKeys.size.tr(),
-        id: 1,
-        comparisonParameters: [
-          CharacteristicsParameters(
-            comparisonParameters: LocaleKeys.year_of_issue.tr(),
-          ),
-          CharacteristicsParameters(
-            comparisonParameters: LocaleKeys.Mileage.tr(),
-          ),
-          CharacteristicsParameters(
-            comparisonParameters: LocaleKeys.How_many_owners.tr(),
-          ),
-        ]),
-    Characteristics(
-        parameterName: LocaleKeys.volume_and_masses.tr(),
-        id: 2,
-        comparisonParameters: []),
-    Characteristics(
-        parameterName: LocaleKeys.motor.tr(), id: 3, comparisonParameters: []),
-    Characteristics(
-        parameterName: LocaleKeys.suspensions_and_brakes.tr(),
-        id: 4,
-        comparisonParameters: []),
-    Characteristics(
-        parameterName: LocaleKeys.others.tr(), id: 5, comparisonParameters: []),
-  ];
+
   List<Complectation> complectationParameters = [
     Complectation(
         parameterName: LocaleKeys.exterier_elements.tr(),
@@ -145,14 +91,12 @@ class _ComparisonState extends State<Comparison> {
 
   @override
   void initState() {
-    totalNUmberOfParameters =
-        characteristicsParameters.length + complectationParameters.length;
+    totalNUmberOfParameters = complectationParameters.length;
     sliverWidgetScrollController = ScrollController();
     linkedScrollControllerGroup = LinkedScrollControllerGroup();
     scrollControllers = [
       ...List.generate(
-          characteristicsParameters.length + complectationParameters.length + 1,
-          (index) => ScrollController())
+          complectationParameters.length + 1, (index) => ScrollController())
     ];
     for (var i = 0; i < totalNUmberOfParameters; i++) {
       scrollControllers[i] = linkedScrollControllerGroup.addAndGet();
@@ -192,19 +136,21 @@ class _ComparisonState extends State<Comparison> {
                                   fade(
                                     page: ChooseGenerationComparison(
                                       onTap: () {},
+                                      modelBloc: widget.modelBloc,
                                     ),
                                   ),
                                 );
                               },
-                              bloc: carModelBloc,
-                              carTypeSelectorBloc: carTypeSelectorBloc,
-                              modelBloc: modelBloc,
-                              carSelectorBloc: carSelectorBloc,
-                              getMakesBloc: getMakesBloc,
+                              bloc: widget.carModelBloc,
+                              carTypeSelectorBloc: widget.carTypeSelectorBloc,
+                              modelBloc: widget.modelBloc,
+                              carSelectorBloc: widget.carSelectorBloc,
+                              getMakesBloc: widget.getMakesBloc,
                             ),
                           ),
                         ),
-                        carSelectorBloc: carSelectorBloc,
+                        carSelectorBloc: widget.carSelectorBloc,
+                        bloc: widget.getMakesBloc,
                       ),
                     ),
                   ),
@@ -223,46 +169,6 @@ class _ComparisonState extends State<Comparison> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Container(
-              //   color: Theme.of(context).extension<ThemedColors>()!.whiteToNero,
-              //   child: Column(
-              //     crossAxisAlignment: CrossAxisAlignment.start,
-              //     children: [
-              //       Padding(
-              //         padding: const EdgeInsets.only(top: 12, left: 16),
-              //         child: Text(
-              //           LocaleKeys.characteristic.tr(),
-              //           style: Theme.of(context)
-              //               .textTheme
-              //               .headline1!
-              //               .copyWith(fontSize: 18),
-              //         ),
-              //       ),
-              //       ...List.generate(
-              //         1,
-              //         (index) => CharacteristicsParametersWidget(
-              //           onChanged: (integer) {
-              //             setState(() {
-              //               currentValueOfCharacteristics = integer;
-              //             });
-              //           },
-              //           parameterName:
-              //               characteristicsParameters[index].parameterName,
-              //           selectedValue: currentValueOfCharacteristics,
-              //           parameterId: characteristicsParameters[index].id,
-              //           listOfComparisonParameters:
-              //               characteristicsParameters[index]
-              //                   .comparisonParameters,
-              //           characteristicsOrComplectation: 'characteristics',
-              //           numberOfAddedCars: widget.cars,
-              //           controller: scrollControllers[index],
-              //           isSticky: widget.isSticky,
-              //         ),
-              //       ),
-              //     ],
-              //   ),
-              // ),
-              // const SizedBox(height: 8),
               Container(
                 color: Theme.of(context).extension<ThemedColors>()!.whiteToNero,
                 child: Column(
@@ -295,8 +201,7 @@ class _ComparisonState extends State<Comparison> {
                                 .complectationParameters,
                         characteristicsOrComplectation: 'complectation',
                         numberOfAddedCars: widget.cars,
-                        controller: scrollControllers[
-                            index + characteristicsParameters.length],
+                        controller: scrollControllers[index],
                         isSticky: widget.isSticky,
                       ),
                     ),

@@ -193,7 +193,7 @@ class _SelectModelScreenState extends State<SelectModelScreen> {
                                               ModelItems(
                                             entity: modelItems[index].title,
                                             selectedId: state.selectedId,
-                                            id: index,
+                                            id: index, text: '',
                                           ),
                                         ),
                                       ),

@@ -18,19 +18,19 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$GetMakesBlocEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String? name) getMakes,
+    required TResult Function() getMakes,
     required TResult Function(String naem) getSerched,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String? name)? getMakes,
+    TResult? Function()? getMakes,
     TResult? Function(String naem)? getSerched,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String? name)? getMakes,
+    TResult Function()? getMakes,
     TResult Function(String naem)? getSerched,
     required TResult orElse(),
   }) =>
@@ -79,8 +79,6 @@ abstract class _$$_GetMakesCopyWith<$Res> {
   factory _$$_GetMakesCopyWith(
           _$_GetMakes value, $Res Function(_$_GetMakes) then) =
       __$$_GetMakesCopyWithImpl<$Res>;
-  @useResult
-  $Res call({String? name});
 }
 
 /// @nodoc
@@ -90,86 +88,60 @@ class __$$_GetMakesCopyWithImpl<$Res>
   __$$_GetMakesCopyWithImpl(
       _$_GetMakes _value, $Res Function(_$_GetMakes) _then)
       : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? name = freezed,
-  }) {
-    return _then(_$_GetMakes(
-      name: freezed == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ));
-  }
 }
 
 /// @nodoc
 
 class _$_GetMakes with DiagnosticableTreeMixin implements _GetMakes {
-  const _$_GetMakes({this.name});
-
-  @override
-  final String? name;
+  _$_GetMakes();
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'GetMakesBlocEvent.getMakes(name: $name)';
+    return 'GetMakesBlocEvent.getMakes()';
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'GetMakesBlocEvent.getMakes'))
-      ..add(DiagnosticsProperty('name', name));
+    properties.add(DiagnosticsProperty('type', 'GetMakesBlocEvent.getMakes'));
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_GetMakes &&
-            (identical(other.name, name) || other.name == name));
+        (other.runtimeType == runtimeType && other is _$_GetMakes);
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, name);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$_GetMakesCopyWith<_$_GetMakes> get copyWith =>
-      __$$_GetMakesCopyWithImpl<_$_GetMakes>(this, _$identity);
+  int get hashCode => runtimeType.hashCode;
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String? name) getMakes,
+    required TResult Function() getMakes,
     required TResult Function(String naem) getSerched,
   }) {
-    return getMakes(name);
+    return getMakes();
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String? name)? getMakes,
+    TResult? Function()? getMakes,
     TResult? Function(String naem)? getSerched,
   }) {
-    return getMakes?.call(name);
+    return getMakes?.call();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String? name)? getMakes,
+    TResult Function()? getMakes,
     TResult Function(String naem)? getSerched,
     required TResult orElse(),
   }) {
     if (getMakes != null) {
-      return getMakes(name);
+      return getMakes();
     }
     return orElse();
   }
@@ -207,12 +179,7 @@ class _$_GetMakes with DiagnosticableTreeMixin implements _GetMakes {
 }
 
 abstract class _GetMakes implements GetMakesBlocEvent {
-  const factory _GetMakes({final String? name}) = _$_GetMakes;
-
-  String? get name;
-  @JsonKey(ignore: true)
-  _$$_GetMakesCopyWith<_$_GetMakes> get copyWith =>
-      throw _privateConstructorUsedError;
+  factory _GetMakes() = _$_GetMakes;
 }
 
 /// @nodoc
@@ -249,7 +216,7 @@ class __$$_GetSerchedCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_GetSerched with DiagnosticableTreeMixin implements _GetSerched {
-  const _$_GetSerched(this.naem);
+  _$_GetSerched(this.naem);
 
   @override
   final String naem;
@@ -287,7 +254,7 @@ class _$_GetSerched with DiagnosticableTreeMixin implements _GetSerched {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String? name) getMakes,
+    required TResult Function() getMakes,
     required TResult Function(String naem) getSerched,
   }) {
     return getSerched(naem);
@@ -296,7 +263,7 @@ class _$_GetSerched with DiagnosticableTreeMixin implements _GetSerched {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String? name)? getMakes,
+    TResult? Function()? getMakes,
     TResult? Function(String naem)? getSerched,
   }) {
     return getSerched?.call(naem);
@@ -305,7 +272,7 @@ class _$_GetSerched with DiagnosticableTreeMixin implements _GetSerched {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String? name)? getMakes,
+    TResult Function()? getMakes,
     TResult Function(String naem)? getSerched,
     required TResult orElse(),
   }) {
@@ -348,7 +315,7 @@ class _$_GetSerched with DiagnosticableTreeMixin implements _GetSerched {
 }
 
 abstract class _GetSerched implements GetMakesBlocEvent {
-  const factory _GetSerched(final String naem) = _$_GetSerched;
+  factory _GetSerched(final String naem) = _$_GetSerched;
 
   String get naem;
   @JsonKey(ignore: true)

@@ -103,12 +103,13 @@ class _ChooseCarModelScreenState extends State<ChooseCarModelScreen> {
                           height: 20,
                           width: double.infinity,
                           decoration: BoxDecoration(
-                              color: Theme.of(context)
-                                  .extension<ThemedColors>()!
-                                  .whiteToDark,
-                              borderRadius: const BorderRadius.vertical(
-                                top: Radius.circular(20),
-                              )),
+                            color: Theme.of(context)
+                                .extension<ThemedColors>()!
+                                .whiteToDark,
+                            borderRadius: const BorderRadius.vertical(
+                              top: Radius.circular(20),
+                            ),
+                          ),
                         ),
                       ),
                     ),
@@ -147,21 +148,23 @@ class _ChooseCarModelScreenState extends State<ChooseCarModelScreen> {
                       ),
                     ),
                     SliverList(
-                        delegate: SliverChildBuilderDelegate(
-                            (context, index) => Container(
-                                  color: Theme.of(context)
-                                      .extension<ThemedColors>()!
-                                      .whiteToDark,
-                                  child: BlocBuilder<ModelSelectorBloc,
-                                      ModelSelectorState>(
-                                    builder: (context, state) => ModelItems(
-                                      entity: modelItems[index].title,
-                                      selectedId: state.selectedId,
-                                      id: index,
-                                    ),
-                                  ),
-                                ),
-                            childCount: modelItems.length)),
+                      delegate: SliverChildBuilderDelegate(
+                        (context, index) => Container(
+                          color: Theme.of(context)
+                              .extension<ThemedColors>()!
+                              .whiteToDark,
+                          child: BlocBuilder<ModelSelectorBloc,
+                              ModelSelectorState>(
+                            builder: (context, state) => ModelItems(
+                              entity: modelItems[index].title,
+                              selectedId: state.selectedId,
+                              id: index, text: '',
+                            ),
+                          ),
+                        ),
+                        childCount: modelItems.length,
+                      ),
+                    ),
                     SliverToBoxAdapter(
                       child: Container(
                         height: 10,

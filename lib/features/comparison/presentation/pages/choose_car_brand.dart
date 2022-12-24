@@ -1,13 +1,9 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
-import 'package:auto/core/singletons/service_locator.dart';
-import 'package:auto/features/ad/data/repositories/ad_repository_impl.dart';
-import 'package:auto/features/ad/domain/usecases/get_makes.dart';
 import 'package:auto/features/ad/presentation/bloc/car_selector/car_selector_bloc.dart';
 import 'package:auto/features/ad/presentation/pages/choose_car_brand/widget/car_items.dart';
 import 'package:auto/features/common/bloc/get_makes_bloc/get_makes_bloc_bloc.dart';
-import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/comparison/presentation/bloc/scroll-bloc/scrolling_bloc.dart';
 import 'package:auto/features/comparison/presentation/widgets/alphabetic_header.dart';
@@ -21,7 +17,12 @@ import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 class ChooseCarBrandComparison extends StatefulWidget {
   final VoidCallback onTap;
   final CarSelectorBloc carSelectorBloc;
-  const ChooseCarBrandComparison({required this.onTap, Key? key, required this.carSelectorBloc})
+  final GetMakesBloc bloc;
+  const ChooseCarBrandComparison(
+      {required this.onTap,
+      Key? key,
+      required this.carSelectorBloc,
+      required this.bloc})
       : super(key: key);
 
   @override
@@ -31,7 +32,7 @@ class ChooseCarBrandComparison extends StatefulWidget {
 
 class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
   late TextEditingController searchController;
-  late GetMakesBloc bloc;
+
   late ScrollController scrollController;
   late ScrollingBloc scrollingBloc;
   Color color = Colors.transparent;
@@ -41,11 +42,6 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
     searchController = TextEditingController();
     scrollingBloc = ScrollingBloc();
     scrollController = ScrollController();
-    bloc = GetMakesBloc(
-      useCase: GetMakesUseCase(
-        repository: serviceLocator<AdRepositoryImpl>(),
-      ),
-    )..add(const GetMakesBlocEvent.getMakes());
     scrollController.addListener(() {
       scrollingBloc.add(ChangeColorEvent(offset: scrollController.offset));
     });
@@ -66,11 +62,11 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
               value: widget.carSelectorBloc,
             ),
             BlocProvider.value(
-              value: bloc,
+              value: widget.bloc,
             ),
           ],
           child: BlocBuilder<GetMakesBloc, GetMakesState>(
-            bloc: bloc,
+            bloc: widget.bloc,
             builder: (context, state) => Scaffold(
               resizeToAvoidBottomInset: false,
               body: Stack(
@@ -120,24 +116,19 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
                           searchController: searchController,
                           title: 'Выберите марку автомобиля',
                           onChanged: () {
-                            bloc
-                              .add(
-                                GetMakesBlocEvent.getSerched(
-                                  searchController.text,
-                                ),
-                              );
-                            // ..add(
-                            //   GetMakesBlocEvent.getMakes(
-                            //     name: 'chevrolet',
-                            //   ),
-                            // );
+                            widget.bloc.add(
+                              GetMakesBlocEvent.getSerched(
+                                searchController.text,
+                              ),
+                            );
+                            widget.bloc.add(GetMakesBlocEvent.getMakes());
                           },
                         ),
                       ),
                       if (state.search.isEmpty)
                         SliverToBoxAdapter(
                           child: BlocBuilder<GetMakesBloc, GetMakesState>(
-                            bloc: bloc,
+                            bloc: widget.bloc,
                             builder: (context, state) => SizedBox(
                               height: 132,
                               child: ListView.builder(

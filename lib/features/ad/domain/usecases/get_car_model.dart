@@ -4,22 +4,13 @@ import 'package:auto/core/utils/either.dart';
 import 'package:auto/features/ad/domain/repositories/ad_repository.dart';
 import 'package:auto/features/common/entities/makes_entity.dart';
 
-class GetCarModelUseCase extends UseCase<GetMakeEntity, CarModelParams> {
+class GetCarModelUseCase extends UseCase<GetMakeEntity, int> {
   final AdRepository repository;
 
   GetCarModelUseCase({required this.repository});
 
   @override
-  Future<Either<Failure, GetMakeEntity>> call(CarModelParams params) =>
-      repository.getCarModel(makeId: params.makeId, next: params.next);
+  Future<Either<Failure, GetMakeEntity>> call(int params) =>
+      repository.getCarModel(params);
 }
 
-class CarModelParams {
-  final String? next;
-  final int makeId;
-
-  const CarModelParams({
-    this.makeId = 1,
-    this.next = '',
-  });
-}

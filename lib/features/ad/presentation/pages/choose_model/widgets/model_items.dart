@@ -2,6 +2,7 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/presentation/bloc/choose_model/model_selectro_bloc.dart';
+import 'package:auto/features/common/widgets/hight_light.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -10,12 +11,13 @@ class ModelItems extends StatelessWidget {
   final String entity;
   final int id;
   final int selectedId;
-
+  final String text;
   const ModelItems(
       {required this.entity,
       required this.selectedId,
       required this.id,
-      Key? key})
+      Key? key,
+      required this.text})
       : super(key: key);
 
   @override
@@ -46,12 +48,22 @@ class ModelItems extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        entity,
-                        style: Theme.of(context).textTheme.headline1!.copyWith(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w400,
-                            ),
+                      HighlightedText(
+                        allText: entity,
+                        highlightedText: '',
+                        terms: text.split(' '),
+                        highlightColor:
+                            const Color.fromARGB(255, 249, 228, 145),
+                        textStyle: Theme.of(context)
+                            .textTheme
+                            .headline1!
+                            .copyWith(
+                                fontSize: 16, fontWeight: FontWeight.w600),
+                        textStyleHighlight:
+                            Theme.of(context).textTheme.headline1!.copyWith(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                ),
                       ),
                       if (id == selectedId)
                         SvgPicture.asset(

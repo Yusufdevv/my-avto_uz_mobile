@@ -4,6 +4,8 @@ import 'package:auto/features/ad/data/datasources/ad_remote_datasource.dart';
 import 'package:auto/features/ad/data/repositories/ad_repository_impl.dart';
 import 'package:auto/features/car_single/data/datasource/car_single_datasource.dart';
 import 'package:auto/features/car_single/data/repository/car_single_repository_impl.dart';
+import 'package:auto/features/comparison/data/datasources/comparison_cars_datasource.dart';
+import 'package:auto/features/comparison/data/repositories/comparison_cars_repo_impl.dart';
 import 'package:auto/features/profile/data/datasources/profile_datasource.dart';
 import 'package:auto/features/profile/data/repositories/profile_repository_impl.dart';
 import 'package:get_it/get_it.dart';
@@ -15,6 +17,10 @@ void setupLocator() {
     ..registerLazySingleton(DioSettings.new)
     ..registerLazySingleton(
         () => ProfileRepositoryImpl(dataSource: ProfileDataSourceImpl()))
+    ..registerLazySingleton(
+        () => ComparisonDataSourceImpl(serviceLocator<DioSettings>().dio))
+    ..registerLazySingleton(() => ComparisonCarsRepoImpl(
+        comparisonCarsDataSource: serviceLocator<ComparisonDataSourceImpl>()))
     ..registerLazySingleton(
         () => AdRemoteDataSourceImpl(serviceLocator<DioSettings>().dio))
     ..registerLazySingleton(() => AdRepositoryImpl(

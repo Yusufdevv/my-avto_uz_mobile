@@ -3,7 +3,7 @@ import 'package:dio/dio.dart';
 
 class DioSettings {
   BaseOptions _dioBaseOptions = BaseOptions(
-    baseUrl: 'https://panel.avto.uz/api/v1',
+    baseUrl: 'https://panel.avto.uz/api/v1/',
     connectTimeout: 35000,
     receiveTimeout: 33000,
     followRedirects: false,
@@ -15,7 +15,7 @@ class DioSettings {
 
   void setBaseOptions({String? lang}) {
     _dioBaseOptions = BaseOptions(
-      baseUrl: 'https://panel.avto.uz/api/v1',
+      baseUrl: 'https://panel.avto.uz/api/v1/',
       connectTimeout: 35000,
       receiveTimeout: 33000,
       headers: <String, dynamic>{'Accept-Language': lang},
@@ -26,5 +26,12 @@ class DioSettings {
 // final _dio = serviceLocator<DioSettings>().dio; ///sample
   BaseOptions get dioBaseOptions => _dioBaseOptions;
 
-  Dio get dio => Dio(_dioBaseOptions);
+  Dio get dio => Dio(_dioBaseOptions)
+    ..interceptors.add(LogInterceptor(
+      requestBody: true,
+      request: true,
+      requestHeader: true,
+      responseBody: true,
+    ));
+
 }
