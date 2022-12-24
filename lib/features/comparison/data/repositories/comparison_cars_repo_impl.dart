@@ -1,9 +1,9 @@
 import 'package:auto/core/exceptions/exceptions.dart';
 import 'package:auto/core/exceptions/failures.dart';
+import 'package:auto/core/utils/either.dart';
 import 'package:auto/features/comparison/data/datasources/comparison_cars_datasource.dart';
 import 'package:auto/features/comparison/domain/entities/comparison_entity.dart';
 import 'package:auto/features/comparison/domain/repositories/comparison_cars_repo.dart';
-import 'package:auto/core/utils/either.dart';
 
 class ComparisonCarsRepoImpl extends ComparisonCarsRepo {
   final ComparisonDataSourceImpl comparisonCarsDataSource;

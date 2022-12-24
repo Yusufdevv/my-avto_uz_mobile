@@ -3,6 +3,7 @@ import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/presentation/bloc/car_selector/car_selector_bloc.dart';
+import 'package:auto/features/common/widgets/hight_light.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,13 +14,15 @@ class ChangeCarItems extends StatelessWidget {
   final String imageUrl;
   final int id;
   final int selectedId;
-  const ChangeCarItems(
-      {required this.selectedId,
-      required this.id,
-      Key? key,
-      required this.name,
-      required this.imageUrl})
-      : super(key: key);
+  final String text;
+  const ChangeCarItems({
+    required this.selectedId,
+    required this.id,
+    Key? key,
+    required this.name,
+    required this.imageUrl,
+    required this.text,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) => GestureDetector(
@@ -66,12 +69,22 @@ class ChangeCarItems extends StatelessWidget {
                       const SizedBox(
                         width: 12,
                       ),
-                      Text(
-                        name,
-                        style: Theme.of(context).textTheme.headline1!.copyWith(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w400,
-                            ),
+                      HighlightedText(
+                        allText: name,
+                        highlightedText: '',
+                        terms: text.split(' '),
+                        highlightColor:
+                            const Color.fromARGB(255, 249, 228, 145),
+                        textStyle: Theme.of(context)
+                            .textTheme
+                            .headline1!
+                            .copyWith(
+                                fontSize: 16, fontWeight: FontWeight.w600),
+                        textStyleHighlight:
+                            Theme.of(context).textTheme.headline1!.copyWith(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                ),
                       ),
                     ],
                   ),

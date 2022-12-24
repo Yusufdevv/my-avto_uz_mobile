@@ -15,15 +15,12 @@ import 'package:auto/features/pagination/models/generic_pagination.dart';
 import 'package:dio/dio.dart';
 
 abstract class AdRepository {
-  Future<Either<Failure, GenericPagination<MakeEntity>>> getTopMakes(
-      {String? next});
+  // Future<Either<Failure, GenericPagination<MakeEntity>>> getTopMakes(
+  //     {String? next});
 
-  Future<Either<Failure, GetMakeEntity>> getMake();
+  Future<Either<Failure, GetMakeEntity>> getMake({String? name});
 
-  Future<Either<Failure, GenericPagination<CarModelEntity>>> getCarModel({
-    required int makeId,
-    String? next,
-  });
+  Future<Either<Failure, GetMakeEntity>> getCarModel(int makeId);
 
   Future<Either<Failure, GenericPagination<YearsEntity>>> getYears({
     required int modelId,

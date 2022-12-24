@@ -4,6 +4,7 @@ import 'package:auto/features/comparison/presentation/widgets/add_new_car.dart';
 import 'package:auto/features/comparison/presentation/widgets/list_of_added_cars.dart';
 import 'package:auto/features/comparison/presentation/widgets/added_car_sticky.dart';
 import 'package:auto/features/comparison/presentation/widgets/added_car_widget.dart';
+import 'package:auto/features/comparison/presentation/widgets/list_of_added_cars.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
