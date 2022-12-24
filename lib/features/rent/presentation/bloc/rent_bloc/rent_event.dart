@@ -10,27 +10,19 @@ class RentGetResultsEvent extends RentEvent {
 }
 
 class RentSetIdEvent extends RentEvent {
-  final int id;
+  final int categoryId;
   int? hasAirConditioner;
   int? hasBabySeat;
   int? rentCarIsClean;
   int? rentCarIsFullFuel;
   RentSetIdEvent({
-    required this.id,
+    required this.categoryId,
     required bool isRefresh,
     this.hasAirConditioner,
     this.hasBabySeat,
     this.rentCarIsClean,
     this.rentCarIsFullFuel,
   }) : super(isRefresh: isRefresh);
-}
-
-class RentChangeSearchParamEvent extends RentEvent {
-  final ParamKey paramKey;
-  final bool value;
-  RentChangeSearchParamEvent(
-      {required this.paramKey, required this.value, required bool isRefresh})
-      : super(isRefresh: isRefresh);
 }
 
 class RentGetMoreEvent extends RentEvent {

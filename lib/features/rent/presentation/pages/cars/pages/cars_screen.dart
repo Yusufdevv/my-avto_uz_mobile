@@ -30,26 +30,6 @@ class _CarsScreenState extends State<CarsScreen> {
                 children: [
                   const SizedBox(height: 20),
                   SizedBox(
-                      height: 46,
-                      child: ListView(
-                        physics: const BouncingScrollPhysics(),
-                        scrollDirection: Axis.horizontal,
-                        children: state.searchParams.entries
-                            .map(
-                              (param) => ServiceTypeItem(
-                                isSelect: param.value.isSelected,
-                                icon: param.value.icon,
-                                title: param.value.title,
-                                onTap: () => context.read<RentBloc>().add(
-                                    RentChangeSearchParamEvent(
-                                        paramKey: param.key,
-                                        value: true,
-                                        isRefresh: true)),
-                              ),
-                            )
-                            .toList(),
-                      )),
-                  SizedBox(
                     height: 46,
                     child: SingleChildScrollView(
                       physics: const BouncingScrollPhysics(),
@@ -64,7 +44,7 @@ class _CarsScreenState extends State<CarsScreen> {
                               if (state.hasAirConditioners == 0) {
                                 context.read<RentBloc>().add(
                                       RentSetIdEvent(
-                                        id: widget.id,
+                                        categoryId: widget.id,
                                         hasAirConditioner: 1,
                                         isRefresh: false,
                                       ),
@@ -72,7 +52,7 @@ class _CarsScreenState extends State<CarsScreen> {
                               } else {
                                 context.read<RentBloc>().add(
                                       RentSetIdEvent(
-                                        id: widget.id,
+                                        categoryId: widget.id,
                                         hasAirConditioner: 0,
                                         isRefresh: false,
                                       ),
@@ -88,7 +68,7 @@ class _CarsScreenState extends State<CarsScreen> {
                               if (state.hasBabySeat == 0) {
                                 context.read<RentBloc>().add(
                                       RentSetIdEvent(
-                                        id: widget.id,
+                                        categoryId: widget.id,
                                         hasBabySeat: 1,
                                         isRefresh: false,
                                       ),
@@ -96,7 +76,7 @@ class _CarsScreenState extends State<CarsScreen> {
                               } else {
                                 context.read<RentBloc>().add(
                                       RentSetIdEvent(
-                                          id: widget.id,
+                                          categoryId: widget.id,
                                           hasBabySeat: 0,
                                           isRefresh: false),
                                     );
@@ -112,7 +92,7 @@ class _CarsScreenState extends State<CarsScreen> {
                                 context.read<RentBloc>().add(
                                       RentSetIdEvent(
                                         isRefresh: false,
-                                        id: widget.id,
+                                        categoryId: widget.id,
                                         rentCarIsFullFuel: 1,
                                       ),
                                     );
@@ -120,7 +100,7 @@ class _CarsScreenState extends State<CarsScreen> {
                                 context.read<RentBloc>().add(
                                       RentSetIdEvent(
                                         isRefresh: false,
-                                        id: widget.id,
+                                        categoryId: widget.id,
                                         rentCarIsFullFuel: 0,
                                       ),
                                     );
@@ -136,7 +116,7 @@ class _CarsScreenState extends State<CarsScreen> {
                                 context.read<RentBloc>().add(
                                       RentSetIdEvent(
                                         isRefresh: false,
-                                        id: widget.id,
+                                        categoryId: widget.id,
                                         rentCarIsClean: 1,
                                       ),
                                     );
@@ -144,7 +124,7 @@ class _CarsScreenState extends State<CarsScreen> {
                                 context.read<RentBloc>().add(
                                       RentSetIdEvent(
                                         isRefresh: false,
-                                        id: widget.id,
+                                        categoryId: widget.id,
                                         rentCarIsClean: 0,
                                       ),
                                     );

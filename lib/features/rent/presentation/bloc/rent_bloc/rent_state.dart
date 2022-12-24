@@ -11,7 +11,6 @@ class RentState extends Equatable {
   final int hasBabySeat;
   final int rentCarIsClean;
   final int rentCarIsFullFuel;
-  final Map<ParamKey, SearchParam> searchParams;
   const RentState({
     required this.list,
     required this.status,
@@ -23,7 +22,6 @@ class RentState extends Equatable {
     required this.hasBabySeat,
     required this.rentCarIsClean,
     required this.rentCarIsFullFuel,
-    required this.searchParams,
   });
 
   RentState copyWith({
@@ -37,20 +35,19 @@ class RentState extends Equatable {
     int? hasBabySeat,
     int? rentCarIsClean,
     int? rentCarIsFullFuel,
-    Map<ParamKey, SearchParam>? searchParams,
   }) =>
       RentState(
-          list: list ?? this.list,
-          status: status ?? this.status,
-          paginationStatus: paginationStatus ?? this.paginationStatus,
-          next: next ?? this.next,
-          count: count ?? this.count,
-          categoryId: categoryId ?? this.categoryId,
-          hasAirConditioners: hasAirConditioners ?? this.hasAirConditioners,
-          hasBabySeat: hasBabySeat ?? this.hasBabySeat,
-          rentCarIsClean: rentCarIsClean ?? this.rentCarIsClean,
-          rentCarIsFullFuel: rentCarIsFullFuel ?? this.rentCarIsFullFuel,
-          searchParams: searchParams ?? this.searchParams);
+        list: list ?? this.list,
+        status: status ?? this.status,
+        paginationStatus: paginationStatus ?? this.paginationStatus,
+        next: next ?? this.next,
+        count: count ?? this.count,
+        categoryId: categoryId ?? this.categoryId,
+        hasAirConditioners: hasAirConditioners ?? this.hasAirConditioners,
+        hasBabySeat: hasBabySeat ?? this.hasBabySeat,
+        rentCarIsClean: rentCarIsClean ?? this.rentCarIsClean,
+        rentCarIsFullFuel: rentCarIsFullFuel ?? this.rentCarIsFullFuel,
+      );
 
   @override
   List<Object?> get props => [
@@ -64,6 +61,5 @@ class RentState extends Equatable {
         hasBabySeat,
         rentCarIsClean,
         rentCarIsFullFuel,
-        searchParams,
       ];
 }
