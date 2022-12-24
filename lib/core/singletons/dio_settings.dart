@@ -3,7 +3,7 @@ import 'package:dio/dio.dart';
 
 class DioSettings {
   BaseOptions _dioBaseOptions = BaseOptions(
-    baseUrl: 'https://panel.avto.uz/api/v1',
+    baseUrl: 'https://panel.avto.uz/api/v1/',
     connectTimeout: 35000,
     receiveTimeout: 33000,
     followRedirects: false,

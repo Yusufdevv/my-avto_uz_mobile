@@ -3,13 +3,13 @@ import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 class CategoryEntity extends Equatable {
-  final int id;
-  final String name;
-
   const CategoryEntity({
     this.id = -1,
     this.name = '',
   });
+
+  final int id;
+  final String name;
 
   @override
   List<Object?> get props => [id, name];

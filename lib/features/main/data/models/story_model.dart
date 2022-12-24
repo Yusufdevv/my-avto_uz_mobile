@@ -1,4 +1,5 @@
-import 'package:auto/features/main/domain/entities/story_enrtity.dart';
+import 'package:auto/features/main/domain/entities/category_entity.dart';
+import 'package:auto/features/main/domain/entities/story_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'story_model.g.dart';

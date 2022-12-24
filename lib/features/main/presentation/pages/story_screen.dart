@@ -2,7 +2,7 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
-import 'package:auto/features/main/domain/entities/story_enrtity.dart';
+import 'package:auto/features/main/domain/entities/story_entity.dart';
 import 'package:auto/features/main/presentation/widgets/animated_bar.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -11,9 +11,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class StoryScreen extends StatefulWidget {
-  final List<StoryEntity> story;
+  final List<StoryEntity> stories;
 
-  const StoryScreen({required this.story, Key? key}) : super(key: key);
+  const StoryScreen({required this.stories, Key? key}) : super(key: key);
 
   @override
   State<StoryScreen> createState() => _StoryScreenState();
@@ -32,7 +32,7 @@ class _StoryScreenState extends State<StoryScreen>
     pageController = PageController();
     animationController = AnimationController(vsync: this);
 
-    final firstStory = widget.story.first;
+    final firstStory = widget.stories.first;
     _loadStory(story: firstStory, animateToPage: false);
     animationController.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
@@ -40,14 +40,14 @@ class _StoryScreenState extends State<StoryScreen>
           ..stop()
           ..reset();
         setState(() {
-          if (currentIndex + 1 < widget.story.length) {
+          if (currentIndex + 1 < widget.stories.length) {
             currentIndex += 1;
-            _loadStory(story: widget.story[currentIndex]);
-          } else if (currentIndex == widget.story.length - 1) {
+            _loadStory(story: widget.stories[currentIndex]);
+          } else if (currentIndex == widget.stories.length - 1) {
             Navigator.pop(context);
           } else {
             currentIndex = 0;
-            _loadStory(story: widget.story[currentIndex]);
+            _loadStory(story: widget.stories[currentIndex]);
           }
         });
       }
@@ -63,7 +63,7 @@ class _StoryScreenState extends State<StoryScreen>
 
   @override
   Widget build(BuildContext context) {
-    final story = widget.story[currentIndex];
+    final story = widget.stories[currentIndex];
     return Scaffold(
       body: GestureDetector(
         onLongPress: _onLongPress,
@@ -75,7 +75,7 @@ class _StoryScreenState extends State<StoryScreen>
               controller: pageController,
               physics: const NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) {
-                final storyEntity = widget.story[index];
+                final storyEntity = widget.stories[index];
                 return CachedNetworkImage(
                   imageUrl: storyEntity.url,
                   fit: BoxFit.cover,
@@ -87,7 +87,7 @@ class _StoryScreenState extends State<StoryScreen>
               left: 16,
               right: 10,
               child: Row(
-                children: widget.story
+                children: widget.stories
                     .asMap()
                     .map(
                       (i, e) => MapEntry(
@@ -120,7 +120,7 @@ class _StoryScreenState extends State<StoryScreen>
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 4),
                     child: Text(
-                      story.storyItemEntity.descriptionTitle,
+                      'descriptionTitle',
                       style: Theme.of(context)
                           .textTheme
                           .headline4!
@@ -131,7 +131,7 @@ class _StoryScreenState extends State<StoryScreen>
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 4),
                     child: Text(
-                      story.storyItemEntity.description,
+                      'description',
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: Theme.of(context).textTheme.subtitle2!.copyWith(
@@ -169,7 +169,7 @@ class _StoryScreenState extends State<StoryScreen>
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(40),
                         child: CachedNetworkImage(
-                          imageUrl: story.storyItemEntity.image,
+                          imageUrl: 'image',
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -179,7 +179,7 @@ class _StoryScreenState extends State<StoryScreen>
                   Padding(
                     padding: const EdgeInsets.only(top: 10),
                     child: Text(
-                      story.storyItemEntity.title,
+                      'title',
                       style: Theme.of(context)
                           .textTheme
                           .headline4!
@@ -206,20 +206,20 @@ class _StoryScreenState extends State<StoryScreen>
       setState(() {
         if (currentIndex - 1 >= 0) {
           currentIndex -= 1;
-          _loadStory(story: widget.story[currentIndex]);
+          _loadStory(story: widget.stories[currentIndex]);
         }
       });
     } else if (dx > 2 * screenWidth / 3) {
       setState(() {
-        if (currentIndex + 1 < widget.story.length + 1) {
+        if (currentIndex + 1 < widget.stories.length + 1) {
           currentIndex += 1;
-          if(currentIndex == widget.story.length){
+          if(currentIndex == widget.stories.length){
             Navigator.pop(context);
           }
-          _loadStory(story: widget.story[currentIndex]);
+          _loadStory(story: widget.stories[currentIndex]);
         }else {
           currentIndex = 0;
-          _loadStory(story: widget.story[currentIndex]);
+          _loadStory(story: widget.stories[currentIndex]);
         }
 
       });
@@ -230,7 +230,7 @@ class _StoryScreenState extends State<StoryScreen>
     animationController
       ..stop()
       ..reset()
-      ..duration = story.duration
+      ..duration = const Duration(seconds: 5)
       ..forward();
     if (animateToPage) {
       pageController.animateToPage(currentIndex,

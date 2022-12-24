@@ -1,20 +1,9 @@
+import 'package:auto/features/main/data/models/story_model.dart';
 import 'package:auto/features/main/domain/entities/category_entity.dart';
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 class StoryEntity extends Equatable {
-  final int id;
-  final String title;
-  final String description;
-  @StoryConverter()
-  final CategoryEntity category;
-  final String content;
-  final String icon;
-  final String url;
-  final bool expired;
-  final String redirectTo;
-  final String redirectData;
-
   const StoryEntity({
     this.id = -1,
     this.title = '',
@@ -28,8 +17,31 @@ class StoryEntity extends Equatable {
     this.redirectData = '',
   });
 
+  final int id;
+  final String title;
+  final String description;
+  @CategoryConverter()
+  final CategoryEntity category;
+  final String content;
+  final String icon;
+  final String url;
+  final bool expired;
+  final String redirectTo;
+  final String redirectData;
+
   @override
-  List<Object?> get props => [id, title, description];
+  List<Object?> get props => [
+        id,
+        title,
+        description,
+        category,
+        content,
+        icon,
+        url,
+        expired,
+        redirectTo,
+        redirectData,
+      ];
 }
 
 class StoryConverter

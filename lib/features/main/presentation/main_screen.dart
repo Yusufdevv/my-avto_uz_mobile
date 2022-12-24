@@ -4,14 +4,17 @@ import 'package:auto/assets/constants/images.dart';
 import 'package:auto/features/car_single/domain/entities/car_user_entity.dart';
 import 'package:auto/features/commercial/presentation/commercial_screen.dart';
 import 'package:auto/features/common/domain/entity/car_brand_entity.dart';
+import 'package:auto/features/common/widgets/image_preload_shimmer.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/dealers/presentation/dealers_main.dart';
 import 'package:auto/features/main/domain/entities/ads_entity.dart';
 import 'package:auto/features/main/domain/entities/service_entity.dart';
 import 'package:auto/features/main/domain/usecases/get_top_ads.dart';
 import 'package:auto/features/main/domain/usecases/get_top_brand.dart';
+import 'package:auto/features/main/presentation/bloc/main_bloc.dart';
 import 'package:auto/features/main/presentation/bloc/top_ad/top_ad_bloc.dart';
 import 'package:auto/features/main/presentation/bloc/top_brand/top_brand_bloc.dart';
+import 'package:auto/features/main/presentation/pages/story_screen.dart';
 import 'package:auto/features/main/presentation/parts/top_ads.dart';
 import 'package:auto/features/main/presentation/parts/top_brands.dart';
 import 'package:auto/features/main/presentation/widgets/car_model_item.dart';
@@ -19,9 +22,9 @@ import 'package:auto/features/main/presentation/widgets/deal_button.dart';
 import 'package:auto/features/main/presentation/widgets/favourite_item.dart';
 import 'package:auto/features/main/presentation/widgets/main_app_bar.dart';
 import 'package:auto/features/main/presentation/widgets/service_item.dart';
-import 'package:auto/features/main/presentation/widgets/story_data.dart';
 import 'package:auto/features/main/presentation/widgets/story_item.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
+import 'package:auto/features/reels/presentation/pages/reels_screen.dart';
 import 'package:auto/features/rent/presentation/rent_screen.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -38,6 +41,7 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
+  late MainBloc mainBloc;
   late TopBrandBloc topBrandBloc;
   late TopAdBloc topAdBloc;
   final List<CarBrandEntity> carBrandEntity = [
@@ -77,6 +81,7 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   void initState() {
+    mainBloc = MainBloc()..add(InitialEvent());
     topAdBloc = TopAdBloc(GetTopAdsUseCase())..add(TopAdEvent.getTopAds());
     topBrandBloc = TopBrandBloc(GetTopBrandUseCase())
       ..add(TopBrandEvent.getBrand());
@@ -194,109 +199,128 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) => MultiBlocProvider(
         providers: [
           BlocProvider.value(
+            value: mainBloc,
+          ),
+          BlocProvider.value(
             value: topBrandBloc,
           ),
           BlocProvider.value(
             value: topAdBloc,
           ),
         ],
-        child: Scaffold(
-          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-          appBar: const MainAppBar(),
-          body: SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(vertical: 20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  height: 96,
-                  child: ListView.builder(
-                    itemBuilder: (context, index) => StoryItem(
-                      storyItemEntity: storyItemsEntity[index],
+        child: BlocBuilder<MainBloc, MainState>(
+          builder: (context, state) => Scaffold(
+            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+            appBar: const MainAppBar(),
+            body: SingleChildScrollView(
+              padding: const EdgeInsets.symmetric(vertical: 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    height: 96,
+                    child: ListView.builder(
+                      itemBuilder: (context, index) => state.stories.isEmpty
+                          ? const ImagePreloadShimmer(
+                              height: 96,
+                              width: 80,
+                            )
+                          : StoryItem(
+                              title: state.stories[index].title,
+                              image: state.stories[index].content,
+                              onTap: () {
+                                Navigator.of(context, rootNavigator: true).push(
+                                    fade(
+                                        page: StoryScreen(
+                                            stories: state.stories)));
+                              },
+                              shimmer: false,
+                            ),
+                      itemCount:
+                          state.stories.isEmpty ? 5 : state.stories.length,
+                      scrollDirection: Axis.horizontal,
                     ),
-                    itemCount: storyItemsEntity.length,
-                    scrollDirection: Axis.horizontal,
                   ),
-                ),
-                const SizedBox(height: 16),
-                const DealButton(),
-                const CarModelItem(),
-                SizedBox(
-                  height: 48,
-                  child: ListView.builder(
-                    physics: const BouncingScrollPhysics(),
-                    padding: const EdgeInsets.only(right: 12),
-                    itemBuilder: (context, index) => ServiceItem(
-                      serviceEntity: serviceEntity[index],
-                      onTap: serviceTaps[index],
+                  const SizedBox(height: 16),
+                  DealButton(
+                    onTap: () {
+                      Navigator.of(context, rootNavigator: true)
+                          .push(fade(page: const ReelsScreen()));
+                    },
+                  ),
+                  const CarModelItem(),
+                  SizedBox(
+                    height: 48,
+                    child: ListView.builder(
+                      physics: const BouncingScrollPhysics(),
+                      padding: const EdgeInsets.only(right: 12),
+                      itemBuilder: (context, index) => ServiceItem(
+                        serviceEntity: serviceEntity[index],
+                        onTap: serviceTaps[index],
+                      ),
+                      itemCount: serviceEntity.length,
+                      scrollDirection: Axis.horizontal,
                     ),
-                    itemCount: serviceEntity.length,
-                    scrollDirection: Axis.horizontal,
                   ),
-                ),
-                const TopBrands(),
-                const TopAds(),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: Text(
-                    LocaleKeys.favorites.tr(),
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline1!
-                        .copyWith(fontSize: 18),
-                    // () => Navigator.pushReplacement(context, fade(page: const CommercialScreen())),
-                    // () => Navigator.of(context, rootNavigator: true).push(fade(page: const RentScreen())),
-
-                    // child: GestureDetector(onTap: () {}, child: SvgPicture.asset(AppIcons.bell)),
-                    // const TopAds(),
+                  const TopBrands(),
+                  const TopAds(),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: Text(
+                      LocaleKeys.favorites.tr(),
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline1!
+                          .copyWith(fontSize: 18),
+                    ),
                   ),
-                ),
-                const FavouriteItem(),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: SizedBox(
-                    height: 191,
-                    child: Stack(
-                      alignment: AlignmentDirectional.bottomStart,
-                      children: [
-                        const YandexMap(),
-                        WButton(
-                          onTap: () => Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const DealerScreen(),
-                              )),
-                          margin: const EdgeInsets.symmetric(
-                              horizontal: 16, vertical: 15),
-                          padding: const EdgeInsets.symmetric(horizontal: 15),
-                          height: 44,
-                          color: white,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              SvgPicture.asset(
-                                AppIcons.mapPin,
-                                color: purple,
-                                height: 15,
-                                width: 13,
-                              ),
-                              const SizedBox(width: 12),
-                              const Text(
-                                'Показать всех дилеров',
-                                style: TextStyle(
-                                  color: black,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w600,
+                  const FavouriteItem(),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: SizedBox(
+                      height: 191,
+                      child: Stack(
+                        alignment: AlignmentDirectional.bottomStart,
+                        children: [
+                          const YandexMap(),
+                          WButton(
+                            onTap: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const DealerScreen(),
+                                )),
+                            margin: const EdgeInsets.symmetric(
+                                horizontal: 16, vertical: 15),
+                            padding: const EdgeInsets.symmetric(horizontal: 15),
+                            height: 44,
+                            color: white,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                SvgPicture.asset(
+                                  AppIcons.mapPin,
+                                  color: purple,
+                                  height: 15,
+                                  width: 13,
                                 ),
-                              ),
-                            ],
+                                const SizedBox(width: 12),
+                                const Text(
+                                  'Показать всех дилеров',
+                                  style: TextStyle(
+                                    color: black,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
