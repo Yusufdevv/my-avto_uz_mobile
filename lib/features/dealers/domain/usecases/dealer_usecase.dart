@@ -1,19 +1,29 @@
 import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/core/usecases/usecase.dart';
 import 'package:auto/features/dealers/data/models/dealer_card_model.dart';
-import 'package:auto/features/dealers/data/repositories/dealer_repository.dart';
-import 'package:auto/utils/either.dart';
+import 'package:auto/features/pagination/models/generic_pagination.dart';
+import 'package:auto/features/pagination/repository/pagination.dart';
+import 'package:auto/core/utils/either.dart';
 
-class DealerUseCase extends UseCase<List<DealerCardModel>, NoParams> {
-  final DealerRepository dealerRepository = DealerRepository();
+class DealerUseCase
+    extends UseCase<GenericPagination<DealerCardModel>, DealerParams> {
+  final PaginationRepository repo = PaginationRepository();
 
   @override
-  Future<Either<Failure, List<DealerCardModel>>> call(NoParams params) async {
-    var result = await dealerRepository.getDealersList();
-    if (result.isRight) {
-      return Right(result.right);
-    } else {
-      return Left(ServerFailure(statusCode: 0, errorMessage: ''));
-    }
+  Future<Either<Failure, GenericPagination<DealerCardModel>>> call(
+      DealerParams params) async {
+    final map = <String, dynamic>{'search': params.search};
+    return await repo.fetchMore(
+        url: 'users/dealers/',
+        fromJson: DealerCardModel.fromJson,
+        next: params.next,
+        query: map);
   }
+}
+
+class DealerParams {
+  final String? next;
+  final String? search;
+
+  DealerParams({this.next, this.search});
 }

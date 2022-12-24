@@ -23,8 +23,15 @@ class DioSettings {
       validateStatus: (status) => status != null && status <= 500,
     );
   }
+
 // final _dio = serviceLocator<DioSettings>().dio; ///sample
   BaseOptions get dioBaseOptions => _dioBaseOptions;
 
-  Dio get dio => Dio(_dioBaseOptions);
+  Dio get dio => Dio(_dioBaseOptions)
+    ..interceptors.add(LogInterceptor(
+      requestBody: true,
+      request: true,
+      requestHeader: true,
+      responseBody: true,
+    ));
 }

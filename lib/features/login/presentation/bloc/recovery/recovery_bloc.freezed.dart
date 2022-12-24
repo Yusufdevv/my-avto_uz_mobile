@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'recovery_bloc.dart';
 
@@ -16,6 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$RecoveryEvent {
+  Function get onSuccess => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String phone, dynamic Function(String) onSuccess)
@@ -28,10 +29,10 @@ mixin _$RecoveryEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String phone, dynamic Function(String) onSuccess)?
+    TResult? Function(String phone, dynamic Function(String) onSuccess)?
         sendCode,
-    TResult Function(String password, VoidCallback onSuccess)? changePassword,
-    TResult Function(VerifyParam param, VoidCallback onSuccess)? verifyCode,
+    TResult? Function(String password, VoidCallback onSuccess)? changePassword,
+    TResult? Function(VerifyParam param, VoidCallback onSuccess)? verifyCode,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -52,9 +53,9 @@ mixin _$RecoveryEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_SendCode value)? sendCode,
-    TResult Function(_ChangePassword value)? changePassword,
-    TResult Function(_VerifyCode value)? verifyCode,
+    TResult? Function(_SendCode value)? sendCode,
+    TResult? Function(_ChangePassword value)? changePassword,
+    TResult? Function(_VerifyCode value)? verifyCode,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -71,17 +72,18 @@ mixin _$RecoveryEvent {
 abstract class $RecoveryEventCopyWith<$Res> {
   factory $RecoveryEventCopyWith(
           RecoveryEvent value, $Res Function(RecoveryEvent) then) =
-      _$RecoveryEventCopyWithImpl<$Res>;
+      _$RecoveryEventCopyWithImpl<$Res, RecoveryEvent>;
 }
 
 /// @nodoc
-class _$RecoveryEventCopyWithImpl<$Res>
+class _$RecoveryEventCopyWithImpl<$Res, $Val extends RecoveryEvent>
     implements $RecoveryEventCopyWith<$Res> {
   _$RecoveryEventCopyWithImpl(this._value, this._then);
 
-  final RecoveryEvent _value;
   // ignore: unused_field
-  final $Res Function(RecoveryEvent) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 }
 
 /// @nodoc
@@ -89,30 +91,30 @@ abstract class _$$_SendCodeCopyWith<$Res> {
   factory _$$_SendCodeCopyWith(
           _$_SendCode value, $Res Function(_$_SendCode) then) =
       __$$_SendCodeCopyWithImpl<$Res>;
+  @useResult
   $Res call({String phone, dynamic Function(String) onSuccess});
 }
 
 /// @nodoc
-class __$$_SendCodeCopyWithImpl<$Res> extends _$RecoveryEventCopyWithImpl<$Res>
+class __$$_SendCodeCopyWithImpl<$Res>
+    extends _$RecoveryEventCopyWithImpl<$Res, _$_SendCode>
     implements _$$_SendCodeCopyWith<$Res> {
   __$$_SendCodeCopyWithImpl(
       _$_SendCode _value, $Res Function(_$_SendCode) _then)
-      : super(_value, (v) => _then(v as _$_SendCode));
+      : super(_value, _then);
 
-  @override
-  _$_SendCode get _value => super._value as _$_SendCode;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? phone = freezed,
-    Object? onSuccess = freezed,
+    Object? phone = null,
+    Object? onSuccess = null,
   }) {
     return _then(_$_SendCode(
-      phone == freezed
+      null == phone
           ? _value.phone
           : phone // ignore: cast_nullable_to_non_nullable
               as String,
-      onSuccess: onSuccess == freezed
+      onSuccess: null == onSuccess
           ? _value.onSuccess
           : onSuccess // ignore: cast_nullable_to_non_nullable
               as dynamic Function(String),
@@ -122,7 +124,7 @@ class __$$_SendCodeCopyWithImpl<$Res> extends _$RecoveryEventCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_SendCode implements _SendCode {
+class _$_SendCode with DiagnosticableTreeMixin implements _SendCode {
   _$_SendCode(this.phone, {required this.onSuccess});
 
   @override
@@ -131,8 +133,17 @@ class _$_SendCode implements _SendCode {
   final dynamic Function(String) onSuccess;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'RecoveryEvent.sendCode(phone: $phone, onSuccess: $onSuccess)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'RecoveryEvent.sendCode'))
+      ..add(DiagnosticsProperty('phone', phone))
+      ..add(DiagnosticsProperty('onSuccess', onSuccess));
   }
 
   @override
@@ -140,17 +151,17 @@ class _$_SendCode implements _SendCode {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_SendCode &&
-            const DeepCollectionEquality().equals(other.phone, phone) &&
+            (identical(other.phone, phone) || other.phone == phone) &&
             (identical(other.onSuccess, onSuccess) ||
                 other.onSuccess == onSuccess));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(phone), onSuccess);
+  int get hashCode => Object.hash(runtimeType, phone, onSuccess);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_SendCodeCopyWith<_$_SendCode> get copyWith =>
       __$$_SendCodeCopyWithImpl<_$_SendCode>(this, _$identity);
 
@@ -170,10 +181,10 @@ class _$_SendCode implements _SendCode {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String phone, dynamic Function(String) onSuccess)?
+    TResult? Function(String phone, dynamic Function(String) onSuccess)?
         sendCode,
-    TResult Function(String password, VoidCallback onSuccess)? changePassword,
-    TResult Function(VerifyParam param, VoidCallback onSuccess)? verifyCode,
+    TResult? Function(String password, VoidCallback onSuccess)? changePassword,
+    TResult? Function(VerifyParam param, VoidCallback onSuccess)? verifyCode,
   }) {
     return sendCode?.call(phone, onSuccess);
   }
@@ -206,9 +217,9 @@ class _$_SendCode implements _SendCode {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_SendCode value)? sendCode,
-    TResult Function(_ChangePassword value)? changePassword,
-    TResult Function(_VerifyCode value)? verifyCode,
+    TResult? Function(_SendCode value)? sendCode,
+    TResult? Function(_ChangePassword value)? changePassword,
+    TResult? Function(_VerifyCode value)? verifyCode,
   }) {
     return sendCode?.call(this);
   }
@@ -233,6 +244,7 @@ abstract class _SendCode implements RecoveryEvent {
       {required final dynamic Function(String) onSuccess}) = _$_SendCode;
 
   String get phone;
+  @override
   dynamic Function(String) get onSuccess;
   @JsonKey(ignore: true)
   _$$_SendCodeCopyWith<_$_SendCode> get copyWith =>
@@ -244,31 +256,30 @@ abstract class _$$_ChangePasswordCopyWith<$Res> {
   factory _$$_ChangePasswordCopyWith(
           _$_ChangePassword value, $Res Function(_$_ChangePassword) then) =
       __$$_ChangePasswordCopyWithImpl<$Res>;
+  @useResult
   $Res call({String password, VoidCallback onSuccess});
 }
 
 /// @nodoc
 class __$$_ChangePasswordCopyWithImpl<$Res>
-    extends _$RecoveryEventCopyWithImpl<$Res>
+    extends _$RecoveryEventCopyWithImpl<$Res, _$_ChangePassword>
     implements _$$_ChangePasswordCopyWith<$Res> {
   __$$_ChangePasswordCopyWithImpl(
       _$_ChangePassword _value, $Res Function(_$_ChangePassword) _then)
-      : super(_value, (v) => _then(v as _$_ChangePassword));
+      : super(_value, _then);
 
-  @override
-  _$_ChangePassword get _value => super._value as _$_ChangePassword;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? password = freezed,
-    Object? onSuccess = freezed,
+    Object? password = null,
+    Object? onSuccess = null,
   }) {
     return _then(_$_ChangePassword(
-      password: password == freezed
+      password: null == password
           ? _value.password
           : password // ignore: cast_nullable_to_non_nullable
               as String,
-      onSuccess: onSuccess == freezed
+      onSuccess: null == onSuccess
           ? _value.onSuccess
           : onSuccess // ignore: cast_nullable_to_non_nullable
               as VoidCallback,
@@ -278,7 +289,9 @@ class __$$_ChangePasswordCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_ChangePassword implements _ChangePassword {
+class _$_ChangePassword
+    with DiagnosticableTreeMixin
+    implements _ChangePassword {
   _$_ChangePassword({required this.password, required this.onSuccess});
 
   @override
@@ -287,8 +300,17 @@ class _$_ChangePassword implements _ChangePassword {
   final VoidCallback onSuccess;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'RecoveryEvent.changePassword(password: $password, onSuccess: $onSuccess)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'RecoveryEvent.changePassword'))
+      ..add(DiagnosticsProperty('password', password))
+      ..add(DiagnosticsProperty('onSuccess', onSuccess));
   }
 
   @override
@@ -296,17 +318,18 @@ class _$_ChangePassword implements _ChangePassword {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_ChangePassword &&
-            const DeepCollectionEquality().equals(other.password, password) &&
+            (identical(other.password, password) ||
+                other.password == password) &&
             (identical(other.onSuccess, onSuccess) ||
                 other.onSuccess == onSuccess));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(password), onSuccess);
+  int get hashCode => Object.hash(runtimeType, password, onSuccess);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_ChangePasswordCopyWith<_$_ChangePassword> get copyWith =>
       __$$_ChangePasswordCopyWithImpl<_$_ChangePassword>(this, _$identity);
 
@@ -326,10 +349,10 @@ class _$_ChangePassword implements _ChangePassword {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String phone, dynamic Function(String) onSuccess)?
+    TResult? Function(String phone, dynamic Function(String) onSuccess)?
         sendCode,
-    TResult Function(String password, VoidCallback onSuccess)? changePassword,
-    TResult Function(VerifyParam param, VoidCallback onSuccess)? verifyCode,
+    TResult? Function(String password, VoidCallback onSuccess)? changePassword,
+    TResult? Function(VerifyParam param, VoidCallback onSuccess)? verifyCode,
   }) {
     return changePassword?.call(password, onSuccess);
   }
@@ -362,9 +385,9 @@ class _$_ChangePassword implements _ChangePassword {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_SendCode value)? sendCode,
-    TResult Function(_ChangePassword value)? changePassword,
-    TResult Function(_VerifyCode value)? verifyCode,
+    TResult? Function(_SendCode value)? sendCode,
+    TResult? Function(_ChangePassword value)? changePassword,
+    TResult? Function(_VerifyCode value)? verifyCode,
   }) {
     return changePassword?.call(this);
   }
@@ -390,6 +413,7 @@ abstract class _ChangePassword implements RecoveryEvent {
       required final VoidCallback onSuccess}) = _$_ChangePassword;
 
   String get password;
+  @override
   VoidCallback get onSuccess;
   @JsonKey(ignore: true)
   _$$_ChangePasswordCopyWith<_$_ChangePassword> get copyWith =>
@@ -401,31 +425,30 @@ abstract class _$$_VerifyCodeCopyWith<$Res> {
   factory _$$_VerifyCodeCopyWith(
           _$_VerifyCode value, $Res Function(_$_VerifyCode) then) =
       __$$_VerifyCodeCopyWithImpl<$Res>;
+  @useResult
   $Res call({VerifyParam param, VoidCallback onSuccess});
 }
 
 /// @nodoc
 class __$$_VerifyCodeCopyWithImpl<$Res>
-    extends _$RecoveryEventCopyWithImpl<$Res>
+    extends _$RecoveryEventCopyWithImpl<$Res, _$_VerifyCode>
     implements _$$_VerifyCodeCopyWith<$Res> {
   __$$_VerifyCodeCopyWithImpl(
       _$_VerifyCode _value, $Res Function(_$_VerifyCode) _then)
-      : super(_value, (v) => _then(v as _$_VerifyCode));
+      : super(_value, _then);
 
-  @override
-  _$_VerifyCode get _value => super._value as _$_VerifyCode;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? param = freezed,
-    Object? onSuccess = freezed,
+    Object? param = null,
+    Object? onSuccess = null,
   }) {
     return _then(_$_VerifyCode(
-      param == freezed
+      null == param
           ? _value.param
           : param // ignore: cast_nullable_to_non_nullable
               as VerifyParam,
-      onSuccess: onSuccess == freezed
+      onSuccess: null == onSuccess
           ? _value.onSuccess
           : onSuccess // ignore: cast_nullable_to_non_nullable
               as VoidCallback,
@@ -435,7 +458,7 @@ class __$$_VerifyCodeCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_VerifyCode implements _VerifyCode {
+class _$_VerifyCode with DiagnosticableTreeMixin implements _VerifyCode {
   _$_VerifyCode(this.param, {required this.onSuccess});
 
   @override
@@ -444,8 +467,17 @@ class _$_VerifyCode implements _VerifyCode {
   final VoidCallback onSuccess;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'RecoveryEvent.verifyCode(param: $param, onSuccess: $onSuccess)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'RecoveryEvent.verifyCode'))
+      ..add(DiagnosticsProperty('param', param))
+      ..add(DiagnosticsProperty('onSuccess', onSuccess));
   }
 
   @override
@@ -453,17 +485,17 @@ class _$_VerifyCode implements _VerifyCode {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_VerifyCode &&
-            const DeepCollectionEquality().equals(other.param, param) &&
+            (identical(other.param, param) || other.param == param) &&
             (identical(other.onSuccess, onSuccess) ||
                 other.onSuccess == onSuccess));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(param), onSuccess);
+  int get hashCode => Object.hash(runtimeType, param, onSuccess);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_VerifyCodeCopyWith<_$_VerifyCode> get copyWith =>
       __$$_VerifyCodeCopyWithImpl<_$_VerifyCode>(this, _$identity);
 
@@ -483,10 +515,10 @@ class _$_VerifyCode implements _VerifyCode {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String phone, dynamic Function(String) onSuccess)?
+    TResult? Function(String phone, dynamic Function(String) onSuccess)?
         sendCode,
-    TResult Function(String password, VoidCallback onSuccess)? changePassword,
-    TResult Function(VerifyParam param, VoidCallback onSuccess)? verifyCode,
+    TResult? Function(String password, VoidCallback onSuccess)? changePassword,
+    TResult? Function(VerifyParam param, VoidCallback onSuccess)? verifyCode,
   }) {
     return verifyCode?.call(param, onSuccess);
   }
@@ -519,9 +551,9 @@ class _$_VerifyCode implements _VerifyCode {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_SendCode value)? sendCode,
-    TResult Function(_ChangePassword value)? changePassword,
-    TResult Function(_VerifyCode value)? verifyCode,
+    TResult? Function(_SendCode value)? sendCode,
+    TResult? Function(_ChangePassword value)? changePassword,
+    TResult? Function(_VerifyCode value)? verifyCode,
   }) {
     return verifyCode?.call(this);
   }
@@ -546,6 +578,7 @@ abstract class _VerifyCode implements RecoveryEvent {
       {required final VoidCallback onSuccess}) = _$_VerifyCode;
 
   VerifyParam get param;
+  @override
   VoidCallback get onSuccess;
   @JsonKey(ignore: true)
   _$$_VerifyCodeCopyWith<_$_VerifyCode> get copyWith =>
@@ -568,7 +601,8 @@ mixin _$RecoveryState {
 abstract class $RecoveryStateCopyWith<$Res> {
   factory $RecoveryStateCopyWith(
           RecoveryState value, $Res Function(RecoveryState) then) =
-      _$RecoveryStateCopyWithImpl<$Res>;
+      _$RecoveryStateCopyWithImpl<$Res, RecoveryState>;
+  @useResult
   $Res call(
       {FormzStatus registerStatus,
       FormzStatus verifyStatus,
@@ -577,39 +611,41 @@ abstract class $RecoveryStateCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$RecoveryStateCopyWithImpl<$Res>
+class _$RecoveryStateCopyWithImpl<$Res, $Val extends RecoveryState>
     implements $RecoveryStateCopyWith<$Res> {
   _$RecoveryStateCopyWithImpl(this._value, this._then);
 
-  final RecoveryState _value;
   // ignore: unused_field
-  final $Res Function(RecoveryState) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? registerStatus = freezed,
-    Object? verifyStatus = freezed,
-    Object? sendCodeStatus = freezed,
-    Object? phone = freezed,
+    Object? registerStatus = null,
+    Object? verifyStatus = null,
+    Object? sendCodeStatus = null,
+    Object? phone = null,
   }) {
     return _then(_value.copyWith(
-      registerStatus: registerStatus == freezed
+      registerStatus: null == registerStatus
           ? _value.registerStatus
           : registerStatus // ignore: cast_nullable_to_non_nullable
               as FormzStatus,
-      verifyStatus: verifyStatus == freezed
+      verifyStatus: null == verifyStatus
           ? _value.verifyStatus
           : verifyStatus // ignore: cast_nullable_to_non_nullable
               as FormzStatus,
-      sendCodeStatus: sendCodeStatus == freezed
+      sendCodeStatus: null == sendCodeStatus
           ? _value.sendCodeStatus
           : sendCodeStatus // ignore: cast_nullable_to_non_nullable
               as FormzStatus,
-      phone: phone == freezed
+      phone: null == phone
           ? _value.phone
           : phone // ignore: cast_nullable_to_non_nullable
               as String,
-    ));
+    ) as $Val);
   }
 }
 
@@ -620,6 +656,7 @@ abstract class _$$_RecoveryStateCopyWith<$Res>
           _$_RecoveryState value, $Res Function(_$_RecoveryState) then) =
       __$$_RecoveryStateCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {FormzStatus registerStatus,
       FormzStatus verifyStatus,
@@ -629,36 +666,34 @@ abstract class _$$_RecoveryStateCopyWith<$Res>
 
 /// @nodoc
 class __$$_RecoveryStateCopyWithImpl<$Res>
-    extends _$RecoveryStateCopyWithImpl<$Res>
+    extends _$RecoveryStateCopyWithImpl<$Res, _$_RecoveryState>
     implements _$$_RecoveryStateCopyWith<$Res> {
   __$$_RecoveryStateCopyWithImpl(
       _$_RecoveryState _value, $Res Function(_$_RecoveryState) _then)
-      : super(_value, (v) => _then(v as _$_RecoveryState));
+      : super(_value, _then);
 
-  @override
-  _$_RecoveryState get _value => super._value as _$_RecoveryState;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? registerStatus = freezed,
-    Object? verifyStatus = freezed,
-    Object? sendCodeStatus = freezed,
-    Object? phone = freezed,
+    Object? registerStatus = null,
+    Object? verifyStatus = null,
+    Object? sendCodeStatus = null,
+    Object? phone = null,
   }) {
     return _then(_$_RecoveryState(
-      registerStatus: registerStatus == freezed
+      registerStatus: null == registerStatus
           ? _value.registerStatus
           : registerStatus // ignore: cast_nullable_to_non_nullable
               as FormzStatus,
-      verifyStatus: verifyStatus == freezed
+      verifyStatus: null == verifyStatus
           ? _value.verifyStatus
           : verifyStatus // ignore: cast_nullable_to_non_nullable
               as FormzStatus,
-      sendCodeStatus: sendCodeStatus == freezed
+      sendCodeStatus: null == sendCodeStatus
           ? _value.sendCodeStatus
           : sendCodeStatus // ignore: cast_nullable_to_non_nullable
               as FormzStatus,
-      phone: phone == freezed
+      phone: null == phone
           ? _value.phone
           : phone // ignore: cast_nullable_to_non_nullable
               as String,
@@ -668,7 +703,7 @@ class __$$_RecoveryStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_RecoveryState implements _RecoveryState {
+class _$_RecoveryState with DiagnosticableTreeMixin implements _RecoveryState {
   _$_RecoveryState(
       {this.registerStatus = FormzStatus.pure,
       this.verifyStatus = FormzStatus.pure,
@@ -689,8 +724,19 @@ class _$_RecoveryState implements _RecoveryState {
   final String phone;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'RecoveryState(registerStatus: $registerStatus, verifyStatus: $verifyStatus, sendCodeStatus: $sendCodeStatus, phone: $phone)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'RecoveryState'))
+      ..add(DiagnosticsProperty('registerStatus', registerStatus))
+      ..add(DiagnosticsProperty('verifyStatus', verifyStatus))
+      ..add(DiagnosticsProperty('sendCodeStatus', sendCodeStatus))
+      ..add(DiagnosticsProperty('phone', phone));
   }
 
   @override
@@ -698,25 +744,22 @@ class _$_RecoveryState implements _RecoveryState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_RecoveryState &&
-            const DeepCollectionEquality()
-                .equals(other.registerStatus, registerStatus) &&
-            const DeepCollectionEquality()
-                .equals(other.verifyStatus, verifyStatus) &&
-            const DeepCollectionEquality()
-                .equals(other.sendCodeStatus, sendCodeStatus) &&
-            const DeepCollectionEquality().equals(other.phone, phone));
+            (identical(other.registerStatus, registerStatus) ||
+                other.registerStatus == registerStatus) &&
+            (identical(other.verifyStatus, verifyStatus) ||
+                other.verifyStatus == verifyStatus) &&
+            (identical(other.sendCodeStatus, sendCodeStatus) ||
+                other.sendCodeStatus == sendCodeStatus) &&
+            (identical(other.phone, phone) || other.phone == phone));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(registerStatus),
-      const DeepCollectionEquality().hash(verifyStatus),
-      const DeepCollectionEquality().hash(sendCodeStatus),
-      const DeepCollectionEquality().hash(phone));
+      runtimeType, registerStatus, verifyStatus, sendCodeStatus, phone);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_RecoveryStateCopyWith<_$_RecoveryState> get copyWith =>
       __$$_RecoveryStateCopyWithImpl<_$_RecoveryState>(this, _$identity);
 }

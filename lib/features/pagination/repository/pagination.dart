@@ -1,10 +1,9 @@
-import 'package:auto/core/exceptions/exceptions.dart';
 import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/core/singletons/dio_settings.dart';
 import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/core/singletons/storage.dart';
+import 'package:auto/core/utils/either.dart';
 import 'package:auto/features/pagination/models/generic_pagination.dart';
-import 'package:auto/utils/either.dart';
 import 'package:dio/dio.dart';
 
 class PaginationRepository {
@@ -14,6 +13,7 @@ class PaginationRepository {
   Future<Either<Failure, GenericPagination<T>>> fetchMore<T>(
       {required String url,
       String? next,
+      bool sendToken = true,
       required T Function(Map<String, dynamic>) fromJson,
       Map<String, dynamic>? query}) async {
     try {
@@ -24,10 +24,13 @@ class PaginationRepository {
 
       final result = await dio.get(
         next != null && next.isNotEmpty ? next : url,
-        options: Options(headers: {
-          'Authorization':
-              "Bearer ${StorageRepository.getString('token', defValue: '')}"
-        }),
+        options: Options(
+            headers: sendToken
+                ? {
+                    'Authorization':
+                        "Bearer ${StorageRepository.getString('token', defValue: '')}"
+                  }
+                : {}),
         queryParameters: queryParams,
       );
       print(queryParams);

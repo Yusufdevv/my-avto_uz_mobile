@@ -38,6 +38,7 @@ class _DealerScreenState extends State<DealerScreen>
             physics: const NeverScrollableScrollPhysics(),
             slivers: [
               SliverAppBar(
+                automaticallyImplyLeading: false,
                 pinned: true,
                 backgroundColor:
                     Theme.of(context).extension<ThemedColors>()!.whiteToNero,
@@ -73,8 +74,8 @@ class _DealerScreenState extends State<DealerScreen>
                     const SizedBox(width: 11),
                     GestureDetector(
                       onTap: () {
-                        Navigator.push(
-                            context, fade(page: const DealersFilter()));
+                        Navigator.of(context, rootNavigator: true)
+                            .push(fade(page: const DealersFilter()));
                       },
                       child: Container(
                           decoration: BoxDecoration(
@@ -94,12 +95,12 @@ class _DealerScreenState extends State<DealerScreen>
                 pinned: true,
                 delegate: SegmentedControl(maxHeight: 64, minHeight: 64),
               ),
-              SliverFillRemaining(
+              const SliverFillRemaining(
                 child: TabBarView(
-                  physics: const NeverScrollableScrollPhysics(),
+                  physics: NeverScrollableScrollPhysics(),
                   children: [
                     DealersList(),
-                    const YandexKarta(),
+                    YandexKarta(),
                   ],
                 ),
               ),

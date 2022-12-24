@@ -39,5 +39,14 @@ class AppImages {
   static const carPlaceHolder = 'assets/images/global/auto_no_photo.png';
   static const priceConditions =
       'assets/images/car_single/price_conditions.png';
+  static const optimal = 'assets/images/car_single/optimal.png';
+  static const nice = 'assets/images/car_single/nice.png';
+  static const bad = 'assets/images/car_single/bad.png';
+  static const defaultPhoto = 'assets/images/car_single/default.png';
+  static const mercLogo = 'assets/images/car_single/merc.png';
+  static const apels = 'assets/images/car_single/apelsin.png';
+  static const clickpng = 'assets/images/car_single/click.png';
+  static const paymepng = 'assets/images/car_single/payme.png';
+  static const upaypng = 'assets/images/car_single/upay.png';
   static const noItemFoundCar = 'assets/images/global/no_item_found_car.png';
 }

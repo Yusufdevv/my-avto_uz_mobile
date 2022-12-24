@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:auto/assets/themes/theme_extensions/themed_icons.dart';
+import 'package:auto/features/onboarding/presentation/first_onboarding.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lottie/lottie.dart';
@@ -11,14 +14,30 @@ class SplashSc extends StatefulWidget {
 }
 
 class _SplashScState extends State<SplashSc> {
+  Timer? _timer;
   @override
   void initState() {
+    print('intstatega krdi');
+    if(mounted) {
+      _timer =  Timer(const Duration(seconds: 5), () async {
+        await Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) => const FirstOnBoarding()));
+      });
+    }
+
     super.initState();
-    // Timer(
-    //     const Duration(seconds: 3),
-    //     () => Navigator.pushReplacement(context,
-    //         MaterialPageRoute(builder: (context) => const FirstOnBoarding())));
+
+    // if(mounted) { Future.delayed(const Duration(seconds: 3)).then((value) =>
+    //      Navigator.pushReplacement(context,
+    //          MaterialPageRoute(builder: (context) => const FirstOnBoarding())));}
   }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
+  }
+
 
   @override
   Widget build(BuildContext context) => Scaffold(

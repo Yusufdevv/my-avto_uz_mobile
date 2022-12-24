@@ -8,8 +8,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-
-
 class AddedCar extends StatelessWidget {
   const AddedCar({
     Key? key,
@@ -17,19 +15,26 @@ class AddedCar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Container(
-        color: Theme.of(context)
-            .extension<ThemedColors>()!
-            .solitudeContainerToBlack,
-        padding: const EdgeInsets.only(bottom: 18, right: 6, left: 6),
+        margin: const EdgeInsets.symmetric(horizontal: 6),
+        decoration: BoxDecoration(
+          color: Theme.of(context)
+              .extension<ThemedColors>()!
+              .solitudeContainerToBlack,
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(12),
+            topRight: Radius.circular(12),
+          ),
+        ),
         child: Stack(
           children: [
             Container(
-              width: MediaQuery.of(context).size.width / 2 - 22,
+              width: (MediaQuery.of(context).size.width - 46) / 2,
               padding: const EdgeInsets.only(bottom: 18),
               decoration: BoxDecoration(
                 color: Theme.of(context)
                     .extension<ThemedColors>()!
                     .solitudeContainerToBlack,
+                borderRadius: BorderRadius.circular(12),
               ),
               child: Container(
                 decoration: BoxDecoration(
@@ -37,22 +42,25 @@ class AddedCar extends StatelessWidget {
                       Theme.of(context).extension<ThemedColors>()!.whiteToNero1,
                   borderRadius: BorderRadius.circular(12),
                   border: Border.all(
-                      color: Theme.of(context)
-                          .extension<ThemedColors>()!
-                          .solitude2ToNightRider),
+                    color: Theme.of(context)
+                        .extension<ThemedColors>()!
+                        .solitude2ToNightRider,
+                  ),
                 ),
                 child: Column(
                   children: [
                     SizedBox(
-                      width: MediaQuery.of(context).size.width / 2 - 22,
                       height: 112,
                       child: ClipRRect(
                         borderRadius: const BorderRadius.only(
                           topLeft: Radius.circular(12),
                           topRight: Radius.circular(12),
                         ),
-                        child: SvgPicture.asset(AppImages.placeHolder,
-                            fit: BoxFit.fill),
+                        child: SvgPicture.asset(
+                          AppImages.placeHolder,
+                          fit: BoxFit.fill,
+                          height: 112,
+                        ),
                       ),
                     ),
                     const SizedBox(height: 12),
@@ -69,7 +77,7 @@ class AddedCar extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16),
                       child: Text(
-                        'Lexus LX 600 2022',
+                        'Lexus LX 600 2022 Lexus LX 600 2022',
                         style: Theme.of(context).textTheme.headline1!.copyWith(
                             fontSize: 12, fontWeight: FontWeight.w400),
                       ),
@@ -108,7 +116,7 @@ class AddedCar extends StatelessWidget {
                     children: [
                       SvgPicture.asset(AppIcons.tablerPhone, color: white),
                       const SizedBox(width: 4),
-                       Text(
+                      Text(
                         LocaleKeys.call.tr(),
                         style: const TextStyle(
                           fontWeight: FontWeight.w600,

@@ -1,11 +1,11 @@
 import 'dart:async';
 
+import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/common/domain/model/user.dart';
 import 'package:auto/features/common/repository/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 
 part 'authentication_event.dart';
 
@@ -51,12 +51,13 @@ class AuthenticationBloc
             status: AuthenticationStatus.authenticated));
       } else {
         if (event.onError != null) {
-          event.onError!('error');
+          event.onError!((result.left as ServerFailure).errorMessage);
         }
       }
     });
 
     on<CheckUser>((event, emit) async {
+      await Future.delayed(Duration(seconds: 2));
       final hasToken =
           StorageRepository.getString('token', defValue: '').isNotEmpty;
       if (hasToken) {

@@ -3,56 +3,26 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'dealer_card_model.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(fieldRename: FieldRename.snake)
 class DealerCardModel extends DealerCardEntity {
-  const DealerCardModel(
-      {required int id,
-      required String name,
-      required String slug,
-      required String description,
-      required String phone,
-      required String contactFrom,
-      required String contactTo,
-      required double longitude,
-      required double latitude,
-      required String type,
-      required int carCount,
-      required String avatar,
-      required int district})
-      : super(
-            id: id,
-            name: name,
-            slug: slug,
-            description: description,
-            phone: phone,
-            contactTo: contactTo,
-            contactFrom: contactFrom,
-            longitude: longitude,
-            latitude: latitude,
-            type: type,
-            carCount: carCount,
-            avatar: avatar,
-            district: district);
-
-  factory DealerCardModel.empty() => const DealerCardModel(
-        id: 0,
-        name: '',
-        slug: '',
-        description: '',
-        phone: '',
-        contactFrom: '',
-        contactTo: '',
-        longitude: 0,
-        latitude: 0,
-        type: '',
-        carCount: 0,
-        avatar: '',
-        district: 0,
-      );
-
-  @override
-  String toString() => 'DealerCardModel(id: $id, name: $name, slug: $slug, description: $description, contactFrom: $contactFrom,contactTo: $contactTo, longitude: $longitude,latitude: $latitude, type: $type, carCount: $carCount,avatar: $avatar,district: $district,)';
+  const DealerCardModel({
+    required super.id,
+    required super.name,
+    required super.slug,
+    required super.description,
+    required super.phoneNumber,
+    required super.avatar,
+    required super.contactFrom,
+    required super.contactTo,
+    required super.locationUrl,
+    required super.longitude,
+    required super.latitude,
+    required super.carCount,
+    required super.district,
+  });
 
   factory DealerCardModel.fromJson(Map<String, dynamic> json) =>
       _$DealerCardModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$DealerCardModelToJson(this);
 }

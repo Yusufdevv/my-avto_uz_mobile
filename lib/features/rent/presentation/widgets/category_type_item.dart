@@ -1,7 +1,6 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
-import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/rent/domain/entities/rent_main_entity.dart';
 
 import 'package:auto/features/rent/presentation/pages/rent_single/pages/cars_single_screen.dart';
@@ -13,10 +12,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 class CategoryTypeItem extends StatelessWidget {
   final RentMainEntity rentMainEntity;
-  final VoidCallback onTap;
+  final VoidCallback onAllTap;
 
   const CategoryTypeItem(
-      {required this.onTap, required this.rentMainEntity, Key? key})
+      {required this.onAllTap, required this.rentMainEntity, Key? key})
       : super(key: key);
 
   @override
@@ -36,11 +35,11 @@ class CategoryTypeItem extends StatelessWidget {
                         .copyWith(fontSize: 16, fontWeight: FontWeight.w600),
                   ),
                   GestureDetector(
-                    onTap: onTap,
+                    onTap: onAllTap,
                     child: Row(
                       children: [
                         Text(
-                          LocaleKeys.all.tr(),
+                          LocaleKeys.all.tr().toLowerCase(),
                           style: Theme.of(context)
                               .textTheme
                               .bodyText1!
@@ -59,6 +58,9 @@ class CategoryTypeItem extends StatelessWidget {
             SizedBox(
               height: 158,
               child: ListView.builder(
+                padding: const EdgeInsets.only(right: 12),
+                key: UniqueKey(),
+                physics: const BouncingScrollPhysics(),
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) => RentCarItems(
                   rentEntity: rentMainEntity.rentList[index],
@@ -66,8 +68,7 @@ class CategoryTypeItem extends StatelessWidget {
                     context,
                     fade(
                       page: CarsSingleScreen(
-                        rentListEntity: rentMainEntity.rentList[index],
-                      ),
+                          rentListEntity: rentMainEntity.rentList[index]),
                     ),
                   ),
                 ),

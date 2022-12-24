@@ -8,9 +8,6 @@ import 'package:auto/features/rent/domain/entities/rent_car_modification_entity.
 import 'package:auto/features/rent/domain/entities/rent_car_type_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-
-
-
 part 'rent_car_model.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake)

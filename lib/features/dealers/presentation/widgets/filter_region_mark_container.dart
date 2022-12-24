@@ -23,7 +23,7 @@ class ContainerRegionMark extends StatelessWidget {
                   Theme.of(context).extension<ThemedColors>()!.whiteToNero,
               context: context,
               constraints: BoxConstraints(
-                maxHeight: MediaQuery.of(context).size.height * 0.97,
+                maxHeight: MediaQuery.of(context).size.height * 0.95,
               ),
               isDismissible: true,
               isScrollControlled: true,

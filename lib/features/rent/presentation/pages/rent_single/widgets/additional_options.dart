@@ -19,7 +19,7 @@ class _AdditionalOptionsState extends State<AdditionalOptions> {
   Widget build(BuildContext context) => Container(
         width: double.infinity,
         padding: const EdgeInsets.all(16),
-        margin: const EdgeInsets.symmetric(vertical: 16),
+        margin: const EdgeInsets.only(top: 16),
         decoration: BoxDecoration(
           color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
           border: Border.all(

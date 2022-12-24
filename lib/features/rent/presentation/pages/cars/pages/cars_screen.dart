@@ -5,9 +5,6 @@ import 'package:auto/features/rent/presentation/bloc/rent_bloc/rent_bloc.dart';
 import 'package:auto/features/rent/presentation/pages/category_single/pages/single_category_screen.dart';
 import 'package:auto/features/rent/presentation/widgets/category_type_item.dart';
 import 'package:auto/features/rent/presentation/widgets/service_type_item.dart';
-import 'package:auto/generated/locale_keys.g.dart';
-import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
@@ -22,27 +19,12 @@ class CarsScreen extends StatefulWidget {
 }
 
 class _CarsScreenState extends State<CarsScreen> {
-  final List<String> titles = [
-    LocaleKeys.conditioner.tr(),
-    LocaleKeys.baby_chair.tr(),
-    LocaleKeys.full_tank.tr(),
-    LocaleKeys.automatic_box.tr(),
-  ];
-  final List<String> icons = [
-    AppIcons.wind,
-    AppIcons.child,
-    AppIcons.gas,
-    AppIcons.gearBox,
-  ];
-
   @override
   Widget build(BuildContext context) => SingleChildScrollView(
         child: BlocBuilder<RentBloc, RentState>(
           builder: (context, state) {
             if (state.status.isSubmissionInProgress) {
-              return const Center(
-                child: CupertinoActivityIndicator(),
-              );
+              return const Center(child: CupertinoActivityIndicator());
             } else if (state.status.isSubmissionSuccess) {
               return Column(
                 children: [
@@ -50,6 +32,7 @@ class _CarsScreenState extends State<CarsScreen> {
                   SizedBox(
                     height: 46,
                     child: SingleChildScrollView(
+                      physics: const BouncingScrollPhysics(),
                       scrollDirection: Axis.horizontal,
                       child: Row(
                         children: [
@@ -60,16 +43,18 @@ class _CarsScreenState extends State<CarsScreen> {
                             onTap: () {
                               if (state.hasAirConditioners == 0) {
                                 context.read<RentBloc>().add(
-                                      RentEvent.setId(
-                                        id: widget.id,
+                                      RentSetIdEvent(
+                                        categoryId: widget.id,
                                         hasAirConditioner: 1,
+                                        isRefresh: false,
                                       ),
                                     );
                               } else {
                                 context.read<RentBloc>().add(
-                                      RentEvent.setId(
-                                        id: widget.id,
+                                      RentSetIdEvent(
+                                        categoryId: widget.id,
                                         hasAirConditioner: 0,
+                                        isRefresh: false,
                                       ),
                                     );
                               }
@@ -82,17 +67,18 @@ class _CarsScreenState extends State<CarsScreen> {
                             onTap: () {
                               if (state.hasBabySeat == 0) {
                                 context.read<RentBloc>().add(
-                                      RentEvent.setId(
-                                        id: widget.id,
+                                      RentSetIdEvent(
+                                        categoryId: widget.id,
                                         hasBabySeat: 1,
+                                        isRefresh: false,
                                       ),
                                     );
                               } else {
                                 context.read<RentBloc>().add(
-                                      RentEvent.setId(
-                                        id: widget.id,
-                                        hasBabySeat: 0,
-                                      ),
+                                      RentSetIdEvent(
+                                          categoryId: widget.id,
+                                          hasBabySeat: 0,
+                                          isRefresh: false),
                                     );
                               }
                             },
@@ -104,15 +90,17 @@ class _CarsScreenState extends State<CarsScreen> {
                             onTap: () {
                               if (state.rentCarIsFullFuel == 0) {
                                 context.read<RentBloc>().add(
-                                      RentEvent.setId(
-                                        id: widget.id,
+                                      RentSetIdEvent(
+                                        isRefresh: false,
+                                        categoryId: widget.id,
                                         rentCarIsFullFuel: 1,
                                       ),
                                     );
                               } else {
                                 context.read<RentBloc>().add(
-                                      RentEvent.setId(
-                                        id: widget.id,
+                                      RentSetIdEvent(
+                                        isRefresh: false,
+                                        categoryId: widget.id,
                                         rentCarIsFullFuel: 0,
                                       ),
                                     );
@@ -126,15 +114,17 @@ class _CarsScreenState extends State<CarsScreen> {
                             onTap: () {
                               if (state.rentCarIsClean == 0) {
                                 context.read<RentBloc>().add(
-                                      RentEvent.setId(
-                                        id: widget.id,
+                                      RentSetIdEvent(
+                                        isRefresh: false,
+                                        categoryId: widget.id,
                                         rentCarIsClean: 1,
                                       ),
                                     );
                               } else {
                                 context.read<RentBloc>().add(
-                                      RentEvent.setId(
-                                        id: widget.id,
+                                      RentSetIdEvent(
+                                        isRefresh: false,
+                                        categoryId: widget.id,
                                         rentCarIsClean: 0,
                                       ),
                                     );
@@ -149,7 +139,7 @@ class _CarsScreenState extends State<CarsScreen> {
                   Paginator(
                     hasMoreToFetch: state.count > state.list.length,
                     itemBuilder: (context, index) => CategoryTypeItem(
-                      onTap: () => Navigator.push(
+                      onAllTap: () => Navigator.push(
                         context,
                         fade(
                           page: SingleCategoryScreen(
@@ -164,7 +154,9 @@ class _CarsScreenState extends State<CarsScreen> {
                     paginatorStatus: FormzStatus.submissionSuccess,
                     errorWidget: const SizedBox(),
                     fetchMoreFunction: () {
-                      context.read<RentBloc>().add(RentEvent.getMoreResults());
+                      context
+                          .read<RentBloc>()
+                          .add(RentGetMoreEvent(isRefresh: true));
                     },
                   ),
                   const SizedBox(height: 10),

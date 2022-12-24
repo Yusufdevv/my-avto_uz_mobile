@@ -155,6 +155,7 @@ class _WTextFieldState extends State<WTextField>
 
     focusNode.addListener(
       () => setState(() {
+        print('== focused ==');
         focused = !focused;
       }),
     );
@@ -383,8 +384,8 @@ class _WTextFieldState extends State<WTextField>
                                 widget.controller!.text.isNotEmpty
                             ? GestureDetector(
                                 onTap: () {
-                                  setState(() {});
                                   widget.controller!.clear();
+                                  setState(() {});
                                 },
                                 child: Padding(
                                   padding:

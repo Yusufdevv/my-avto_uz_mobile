@@ -2,12 +2,11 @@ import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/core/singletons/dio_settings.dart';
 import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/core/singletons/storage.dart';
-import 'package:auto/utils/either.dart';
+import 'package:auto/core/utils/either.dart';
 import 'package:dio/dio.dart';
 
 class GlobalRequestRepository {
   final dio = serviceLocator<DioSettings>().dio;
-
 
   Future<Either<Failure, S>> getSingle<S>(
       {required String endpoint,
@@ -26,7 +25,7 @@ class GlobalRequestRepository {
                     }
                   : {}));
       print(result.realUri);
-      print(result.data);
+      print("====  ${result.data}  =====");
       if (result.statusCode! >= 200 && result.statusCode! < 300) {
         return Right(fromJson(result.data));
       } else {
@@ -90,6 +89,7 @@ class GlobalRequestRepository {
       FormData? formData,
       String? responseDataKey,
       Map<String, dynamic>? data,
+      String? errorKey,
       bool sendToken = true}) async {
     try {
       final result = await dio.post(endpoint,
@@ -112,7 +112,9 @@ class GlobalRequestRepository {
           return Right(fromJson(result.data));
         }
       } else {
-        return Left(ServerFailure(errorMessage: '', statusCode: 141));
+        final data = result.data[errorKey ?? 'detail'] ?? '';
+
+        return Left(ServerFailure(errorMessage: data, statusCode: 141));
       }
     } catch (e) {
       return Left(ServerFailure(statusCode: 141, errorMessage: ''));

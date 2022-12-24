@@ -4,7 +4,7 @@ import 'package:auto/core/usecases/usecase.dart';
 import 'package:auto/features/common/domain/model/token_model.dart';
 import 'package:auto/features/common/repository/global_request_repository.dart';
 import 'package:auto/features/login/data/models/register.dart';
-import 'package:auto/utils/either.dart';
+import 'package:auto/core/utils/either.dart';
 import 'package:dio/dio.dart';
 
 class RegisterUseCase extends UseCase<TokenModel, RegisterModel> {

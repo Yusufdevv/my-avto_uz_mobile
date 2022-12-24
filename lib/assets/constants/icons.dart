@@ -1,4 +1,8 @@
 class AppIcons {
+  //Auth
+  static const icCamera = 'assets/icons/auth/camera.svg';
+  static const gallery = 'assets/icons/auth/gallery.svg';
+
   //NavBar
   static const navBarMain = 'assets/icons/navbar/main.svg';
   static const navBarMainOutline = 'assets/icons/navbar/main_outline.svg';
@@ -64,9 +68,17 @@ class AppIcons {
   static const uzbekistan = 'assets/icons/global/uzbekistan.svg';
   static const chevronDownGrey = 'assets/icons/global/chevron_down_grey.svg';
   static const chevronRight = 'assets/icons/global/chevron_right.svg';
+  static const mapPin = 'assets/icons/global/map_pin.svg';
+  static const filterIcon = 'assets/icons/global/filter_icon.svg';
+  static const cancel = 'assets/icons/global/cancel.svg';
 
   // PROFILE
   static const alert = 'assets/icons/profile/alert.svg';
+  static const logout = 'assets/icons/profile/logout.svg';
+  static const dealers = 'assets/icons/profile/dealer.svg';
+  static const direct = 'assets/icons/profile/tabler_news.svg';
+  static const mySearch = 'assets/icons/profile/my_search.svg';
+  static const statistic = 'assets/icons/car_single/statistic.svg';
   static const heartBlue = 'assets/icons/profile/heart.svg';
   static const refresh = 'assets/icons/profile/refresh.svg';
   static const share = 'assets/icons/profile/share.svg';
@@ -132,6 +144,7 @@ class AppIcons {
   static const commercialCar = 'assets/icons/global/commercial_car.svg';
   static const checkGreen = 'assets/icons/global/check_green.svg';
 
+
   // REVIEW
   static const messageRectangle = 'assets/icons/review/message_rectangle.svg';
   static const motorcycle = 'assets/icons/review/motorcycle.svg';
@@ -146,6 +159,7 @@ class AppIcons {
   static const alertTriangle = 'assets/icons/review/alert_triangle.svg';
   static const trash = 'assets/icons/review/trash.svg';
 
+
   // SEARCH
   static const parameter = 'assets/icons/search/parameter.svg';
   static const searchWithHeart = 'assets/icons/search/search_with_heart.svg';
@@ -158,25 +172,26 @@ class AppIcons {
   static const checkCurly = 'assets/icons/search/check_curly.svg';
   static const chevronRightGrey = 'assets/icons/global/chevron_right_grey.svg';
   static const wind = 'assets/icons/global/wind.svg';
-  static const chevronRightBlack =
-      'assets/icons/global/chevron_right_black.svg';
+  static const chevronRightBlack = 'assets/icons/global/chevron_right_black.svg';
   static const chevronRight1 = 'assets/icons/profile/chevron_right.svg';
   static const enabledHeart = 'assets/icons/search/enabled_heart.svg';
   static const disabledHeart = 'assets/icons/search/disabled_heart.svg';
   static const scalesRed = 'assets/icons/search/scales_red.svg';
   static const crown = 'assets/icons/car_single/crown.svg';
+
   // static const calendar = 'assets/icons/car_single/calendar.svg';
   static const doubleCheck = 'assets/icons/car_single/double_check.svg';
   static const equals = 'assets/icons/car_single/equals.svg';
   static const lockVin = 'assets/icons/car_single/lock.svg';
+
   // static const eye = 'assets/icons/car_single/eye.svg';
   static const fire = 'assets/icons/car_single/fire.svg';
+
   // static const id = 'assets/icons/car_single/id.svg';
   static const refresher = 'assets/icons/car_single/refreshers.svg';
   static const rocket = 'assets/icons/car_single/rocket.svg';
   static const safe = 'assets/icons/car_single/safety.svg';
-  static const shieldCheckOutlined =
-      'assets/icons/car_single/shield_check_outlined.svg';
+  static const shieldCheckOutlined = 'assets/icons/car_single/shield_check_outlined.svg';
 
   static const moreVertical = 'assets/icons/car_single/more.svg';
   static const note = 'assets/icons/car_single/note.svg';
@@ -188,4 +203,29 @@ class AppIcons {
   static const greyPhoneCall = 'assets/icons/global/grey_phone_call.svg';
   static const flashOff = 'assets/icons/global/flash_off.svg';
   static const flashOn = 'assets/icons/global/flash_on.svg';
+  static const chevronRound = 'assets/icons/car_single/chevron_right_round.svg';
+  static const shieldRound = 'assets/icons/car_single/shield_round.svg';
+  static const lockRound = 'assets/icons/car_single/lock_round.svg';
+  //REVIEWS
+  static const comment = 'assets/icons/reviews/comment.svg';
+  static const passenger_car = 'assets/icons/reviews/passanger_car.svg';
+  static const commercial_car = 'assets/icons/reviews/commercial_car.svg';
+  static const moto = 'assets/icons/reviews/motorcycle.svg';
+  static const appbar_back = 'assets/icons/reviews/appbar_back.svg';
+  static const chevron_up = 'assets/icons/reviews/chevron_up.svg';
+  static const starr = 'assets/icons/global/star.svg';
+  static const draft = 'assets/icons/reviews/draft.svg';
+  static const draftIcon = 'assets/icons/reviews/drat_icon.svg';
+  static const delete = 'assets/icons/reviews/delete.svg';
+
+  static const payme = 'assets/images/car_single/payme.svg';
+  static const apelsin = 'assets/images/car_single/apelsin.svg';
+  static const click = 'assets/images/car_single/click.svg';
+  static const upay = 'assets/images/car_single/upay.svg';
+
+  static const succes = 'assets/images/car_single/succes.svg';
+  static const unsucc = 'assets/images/car_single/unsucc.svg';
+  static const wait = 'assets/images/car_single/waiting.svg';
+  static const mercedes = 'assets/icons/car_single/benz.svg';
+  static const eye2 = 'assets/icons/car_single/eye2.svg';
 }

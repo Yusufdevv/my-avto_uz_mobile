@@ -1,4 +1,4 @@
-import 'package:auto/features/profile/domain/entities/profile_item.dart';
+import 'package:auto/features/profile/domain/entities/profile_item_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'profile_item.g.dart';
@@ -14,6 +14,7 @@ class ProfileItemModel extends ProfileItemEntity {
     required String avatarUrl,
     required int count,
   }) : super(id: id, count: count, avatarUrl: avatarUrl, name: name);
+
   factory ProfileItemModel.empty() =>
       const ProfileItemModel(id: 0, name: '', avatarUrl: '', count: 0);
 

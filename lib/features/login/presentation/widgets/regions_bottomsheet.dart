@@ -8,6 +8,7 @@ Future<Region> showRegionsBottomSheet(
     await showModalBottomSheet<Region>(
       context: context,
       isScrollControlled: false,
+      backgroundColor: Colors.transparent,
       builder: (c) => WBottomSheet(
         children: [
           Column(
@@ -21,7 +22,7 @@ Future<Region> showRegionsBottomSheet(
                   padding:
                       const EdgeInsets.symmetric(vertical: 15, horizontal: 16),
                   decoration: const BoxDecoration(
-                      border: Border(top: BorderSide(color: border))),
+                      border: Border(bottom: BorderSide(color: border))),
                   child: Row(
                     children: [
                       Text(

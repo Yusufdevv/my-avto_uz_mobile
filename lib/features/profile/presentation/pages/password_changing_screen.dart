@@ -1,4 +1,6 @@
+import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/images.dart';
+import 'package:auto/core/utils/size_config.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
@@ -11,7 +13,8 @@ import 'package:flutter/material.dart';
 class PasswordChangingScreen extends StatelessWidget {
   final ProfileBloc profileBloc;
 
-  const PasswordChangingScreen({required this.profileBloc, Key? key}) : super(key: key);
+  const PasswordChangingScreen({required this.profileBloc, Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -19,31 +22,43 @@ class PasswordChangingScreen extends StatelessWidget {
           textWithButton: LocaleKeys.settings.tr(),
         ),
         body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 36),
+          padding:   EdgeInsets.symmetric(horizontal: SizeConfig.h(16), vertical: SizeConfig.v(36)),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 LocaleKeys.change_password.tr(),
-                style: Theme.of(context).textTheme.headline1!.copyWith(fontSize: 24),
+                style: Theme.of(context)
+                    .textTheme
+                    .headline1!
+                    .copyWith(fontSize: 24),
               ),
-              const SizedBox(height: 4),
+                SizedBox(height: SizeConfig.v(4)),
               Text(
                 LocaleKeys.need_code_from_sms.tr(),
                 style: Theme.of(context).textTheme.headline2,
               ),
               Container(
-                  margin: const EdgeInsets.only(top: 64),
+                  margin:   EdgeInsets.only(top: SizeConfig.v(64)),
                   alignment: Alignment.center,
-                  height: 249,
+                  height: SizeConfig.v(249),
                   child: Image.asset(AppImages.editPassword)),
             ],
           ),
         ),
         bottomNavigationBar: WButton(
-          margin: EdgeInsets.fromLTRB(16, 20, 16, 15 + MediaQuery.of(context).padding.bottom),
+          shadow: [
+            BoxShadow(
+              blurRadius: 20,
+              offset:const Offset(0, 4),
+              color: orange.withOpacity(0.2),
+            ),
+          ],
+          margin: EdgeInsets.fromLTRB(
+              SizeConfig.h(16), SizeConfig.v(20), SizeConfig.h(16), SizeConfig.v(15) + MediaQuery.of(context).padding.bottom),
           onTap: () {
-            Navigator.of(context).push(fade(page: NewPasswordsPage(profileBloc: profileBloc)));
+            Navigator.of(context)
+                .push(fade(page: NewPasswordsPage(profileBloc: profileBloc)));
           },
           child: Text(
             LocaleKeys.change_password.tr(),

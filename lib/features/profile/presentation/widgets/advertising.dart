@@ -11,11 +11,13 @@ import 'package:flutter_svg/svg.dart';
 class Advertising extends StatefulWidget {
   final List<String> images;
   final bool isSalon;
+  final bool hasMilage;
 
   const Advertising({
     required this.images,
     required this.isSalon,
     Key? key,
+    this.hasMilage = true,
   }) : super(key: key);
 
   @override
@@ -37,34 +39,33 @@ class _AdvertisingState extends State<Advertising> {
                           CachedImage(
                             height: 201,
                             width: 264,
-                            borderRadius: const BorderRadius.only(
-                              topLeft: Radius.circular(8),
-                              bottomLeft: Radius.circular(8),
-                            ),
                             imageUrl: widget.images[index],
                           ),
-                          Positioned(
-                              top: 4,
-                              left: 4,
-                              child: Container(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 16, vertical: 4),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(4),
-                                  color: white,
-                                ),
-                                child: Row(
-                                  children: [
-                                    SvgPicture.asset(AppIcons.shieldCheck),
-                                    const SizedBox(width: 4),
-                                    Text(LocaleKeys.with_Mileage.tr(),
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyText1!
-                                            .copyWith(color: green)),
-                                  ],
-                                ),
-                              ))
+                          if (widget.hasMilage)
+                            Positioned(
+                                top: 4,
+                                left: 4,
+                                child: Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 16, vertical: 4),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(4),
+                                    color: white,
+                                  ),
+                                  child: Row(
+                                    children: [
+                                      SvgPicture.asset(AppIcons.shieldCheck),
+                                      const SizedBox(width: 4),
+                                      Text(LocaleKeys.with_Mileage.tr(),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyText1!
+                                              .copyWith(color: green)),
+                                    ],
+                                  ),
+                                ))
+                          else
+                            const SizedBox(),
                         ],
                       )),
               const SizedBox(width: 4),

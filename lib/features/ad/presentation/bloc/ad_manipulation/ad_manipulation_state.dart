@@ -1,0 +1,41 @@
+part of 'ad_manipulation_bloc.dart';
+
+@freezed
+class AdManipulationState with _$AdManipulationState {
+  factory AdManipulationState({
+    @Default(0) int make,
+    @Default(0) int model,
+    @Default(0) int bodyType,
+    @Default(0) int generation,
+    @Default(0) int driveType,
+    @Default(0) int engineType,
+    @Default(0) int gearboxType,
+    @Default(0) int year,
+    @Default(0) int modificationType,
+    @Default('') String color,
+    @Default('') String licenceType,
+    @Default('') String ownership,
+    @Default('') String purchaseDate,
+    @Default('') String description,
+    @Default(false) bool isRegisteredLocally,
+    @Default('') String contactName,
+    @Default('') String contactEmail,
+    @Default('') String contactPhone,
+    @Default('') String contactAvailableFrom,
+    @Default('') String contactAvailableTo,
+    @Default(0) int region,
+    @Default(0) int district,
+    @Default('') String locationUrl,
+    @Default('') String price,
+    @Default('') String currency,
+    @Default(0) int distanceTraveled,
+    @Default('') String registrationVin,
+    @Default('') String registrationPlate,
+    @Default('') String registrationCertificate,
+    @Default('') String registrationSerialNumber,
+    @Default(false) registeredInUzbekistan,
+    @Default(false) isNew,
+    @Default([]) List<String> gallery,
+    @Default([]) List<DamagedPartsModel> damagedParts,
+  }) = _ArticleSingleState;
+}

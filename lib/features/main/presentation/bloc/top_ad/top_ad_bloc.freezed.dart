@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'top_ad_bloc.dart';
 
@@ -24,8 +24,8 @@ mixin _$TopAdEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? getTopAds,
-    TResult Function()? getMoreTopAds,
+    TResult? Function()? getTopAds,
+    TResult? Function()? getMoreTopAds,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -43,8 +43,8 @@ mixin _$TopAdEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_GetTopAds value)? getTopAds,
-    TResult Function(_GetMoreTopAds value)? getMoreTopAds,
+    TResult? Function(_GetTopAds value)? getTopAds,
+    TResult? Function(_GetMoreTopAds value)? getMoreTopAds,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -60,16 +60,18 @@ mixin _$TopAdEvent {
 abstract class $TopAdEventCopyWith<$Res> {
   factory $TopAdEventCopyWith(
           TopAdEvent value, $Res Function(TopAdEvent) then) =
-      _$TopAdEventCopyWithImpl<$Res>;
+      _$TopAdEventCopyWithImpl<$Res, TopAdEvent>;
 }
 
 /// @nodoc
-class _$TopAdEventCopyWithImpl<$Res> implements $TopAdEventCopyWith<$Res> {
+class _$TopAdEventCopyWithImpl<$Res, $Val extends TopAdEvent>
+    implements $TopAdEventCopyWith<$Res> {
   _$TopAdEventCopyWithImpl(this._value, this._then);
 
-  final TopAdEvent _value;
   // ignore: unused_field
-  final $Res Function(TopAdEvent) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 }
 
 /// @nodoc
@@ -80,14 +82,12 @@ abstract class _$$_GetTopAdsCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_GetTopAdsCopyWithImpl<$Res> extends _$TopAdEventCopyWithImpl<$Res>
+class __$$_GetTopAdsCopyWithImpl<$Res>
+    extends _$TopAdEventCopyWithImpl<$Res, _$_GetTopAds>
     implements _$$_GetTopAdsCopyWith<$Res> {
   __$$_GetTopAdsCopyWithImpl(
       _$_GetTopAds _value, $Res Function(_$_GetTopAds) _then)
-      : super(_value, (v) => _then(v as _$_GetTopAds));
-
-  @override
-  _$_GetTopAds get _value => super._value as _$_GetTopAds;
+      : super(_value, _then);
 }
 
 /// @nodoc
@@ -121,8 +121,8 @@ class _$_GetTopAds implements _GetTopAds {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? getTopAds,
-    TResult Function()? getMoreTopAds,
+    TResult? Function()? getTopAds,
+    TResult? Function()? getMoreTopAds,
   }) {
     return getTopAds?.call();
   }
@@ -152,8 +152,8 @@ class _$_GetTopAds implements _GetTopAds {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_GetTopAds value)? getTopAds,
-    TResult Function(_GetMoreTopAds value)? getMoreTopAds,
+    TResult? Function(_GetTopAds value)? getTopAds,
+    TResult? Function(_GetMoreTopAds value)? getMoreTopAds,
   }) {
     return getTopAds?.call(this);
   }
@@ -185,14 +185,11 @@ abstract class _$$_GetMoreTopAdsCopyWith<$Res> {
 
 /// @nodoc
 class __$$_GetMoreTopAdsCopyWithImpl<$Res>
-    extends _$TopAdEventCopyWithImpl<$Res>
+    extends _$TopAdEventCopyWithImpl<$Res, _$_GetMoreTopAds>
     implements _$$_GetMoreTopAdsCopyWith<$Res> {
   __$$_GetMoreTopAdsCopyWithImpl(
       _$_GetMoreTopAds _value, $Res Function(_$_GetMoreTopAds) _then)
-      : super(_value, (v) => _then(v as _$_GetMoreTopAds));
-
-  @override
-  _$_GetMoreTopAds get _value => super._value as _$_GetMoreTopAds;
+      : super(_value, _then);
 }
 
 /// @nodoc
@@ -226,8 +223,8 @@ class _$_GetMoreTopAds implements _GetMoreTopAds {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? getTopAds,
-    TResult Function()? getMoreTopAds,
+    TResult? Function()? getTopAds,
+    TResult? Function()? getMoreTopAds,
   }) {
     return getMoreTopAds?.call();
   }
@@ -257,8 +254,8 @@ class _$_GetMoreTopAds implements _GetMoreTopAds {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_GetTopAds value)? getTopAds,
-    TResult Function(_GetMoreTopAds value)? getMoreTopAds,
+    TResult? Function(_GetTopAds value)? getTopAds,
+    TResult? Function(_GetMoreTopAds value)? getMoreTopAds,
   }) {
     return getMoreTopAds?.call(this);
   }
@@ -297,43 +294,47 @@ mixin _$TopAdState {
 abstract class $TopAdStateCopyWith<$Res> {
   factory $TopAdStateCopyWith(
           TopAdState value, $Res Function(TopAdState) then) =
-      _$TopAdStateCopyWithImpl<$Res>;
+      _$TopAdStateCopyWithImpl<$Res, TopAdState>;
+  @useResult
   $Res call({FormzStatus status, List<AdModel> topAds, String next, int count});
 }
 
 /// @nodoc
-class _$TopAdStateCopyWithImpl<$Res> implements $TopAdStateCopyWith<$Res> {
+class _$TopAdStateCopyWithImpl<$Res, $Val extends TopAdState>
+    implements $TopAdStateCopyWith<$Res> {
   _$TopAdStateCopyWithImpl(this._value, this._then);
 
-  final TopAdState _value;
   // ignore: unused_field
-  final $Res Function(TopAdState) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? status = freezed,
-    Object? topAds = freezed,
-    Object? next = freezed,
-    Object? count = freezed,
+    Object? status = null,
+    Object? topAds = null,
+    Object? next = null,
+    Object? count = null,
   }) {
     return _then(_value.copyWith(
-      status: status == freezed
+      status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as FormzStatus,
-      topAds: topAds == freezed
+      topAds: null == topAds
           ? _value.topAds
           : topAds // ignore: cast_nullable_to_non_nullable
               as List<AdModel>,
-      next: next == freezed
+      next: null == next
           ? _value.next
           : next // ignore: cast_nullable_to_non_nullable
               as String,
-      count: count == freezed
+      count: null == count
           ? _value.count
           : count // ignore: cast_nullable_to_non_nullable
               as int,
-    ));
+    ) as $Val);
   }
 }
 
@@ -344,40 +345,40 @@ abstract class _$$_TopAdStateCopyWith<$Res>
           _$_TopAdState value, $Res Function(_$_TopAdState) then) =
       __$$_TopAdStateCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({FormzStatus status, List<AdModel> topAds, String next, int count});
 }
 
 /// @nodoc
-class __$$_TopAdStateCopyWithImpl<$Res> extends _$TopAdStateCopyWithImpl<$Res>
+class __$$_TopAdStateCopyWithImpl<$Res>
+    extends _$TopAdStateCopyWithImpl<$Res, _$_TopAdState>
     implements _$$_TopAdStateCopyWith<$Res> {
   __$$_TopAdStateCopyWithImpl(
       _$_TopAdState _value, $Res Function(_$_TopAdState) _then)
-      : super(_value, (v) => _then(v as _$_TopAdState));
+      : super(_value, _then);
 
-  @override
-  _$_TopAdState get _value => super._value as _$_TopAdState;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? status = freezed,
-    Object? topAds = freezed,
-    Object? next = freezed,
-    Object? count = freezed,
+    Object? status = null,
+    Object? topAds = null,
+    Object? next = null,
+    Object? count = null,
   }) {
     return _then(_$_TopAdState(
-      status: status == freezed
+      status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as FormzStatus,
-      topAds: topAds == freezed
+      topAds: null == topAds
           ? _value._topAds
           : topAds // ignore: cast_nullable_to_non_nullable
               as List<AdModel>,
-      next: next == freezed
+      next: null == next
           ? _value.next
           : next // ignore: cast_nullable_to_non_nullable
               as String,
-      count: count == freezed
+      count: null == count
           ? _value.count
           : count // ignore: cast_nullable_to_non_nullable
               as int,
@@ -402,6 +403,7 @@ class _$_TopAdState implements _TopAdState {
   @override
   @JsonKey()
   List<AdModel> get topAds {
+    if (_topAds is EqualUnmodifiableListView) return _topAds;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_topAds);
   }
@@ -423,22 +425,19 @@ class _$_TopAdState implements _TopAdState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_TopAdState &&
-            const DeepCollectionEquality().equals(other.status, status) &&
+            (identical(other.status, status) || other.status == status) &&
             const DeepCollectionEquality().equals(other._topAds, _topAds) &&
-            const DeepCollectionEquality().equals(other.next, next) &&
-            const DeepCollectionEquality().equals(other.count, count));
+            (identical(other.next, next) || other.next == next) &&
+            (identical(other.count, count) || other.count == count));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(status),
-      const DeepCollectionEquality().hash(_topAds),
-      const DeepCollectionEquality().hash(next),
-      const DeepCollectionEquality().hash(count));
+  int get hashCode => Object.hash(runtimeType, status,
+      const DeepCollectionEquality().hash(_topAds), next, count);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_TopAdStateCopyWith<_$_TopAdState> get copyWith =>
       __$$_TopAdStateCopyWithImpl<_$_TopAdState>(this, _$identity);
 }

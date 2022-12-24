@@ -55,7 +55,10 @@ class AllRationItem extends StatelessWidget {
                   width: 12,
                 ),
                 Text(
-                  '57 ' + LocaleKeys.models.tr()+  '9' + LocaleKeys.reviews.tr(),
+                  '57 ' +
+                      LocaleKeys.models.tr() +
+                      '9' +
+                      LocaleKeys.reviews.tr(),
                   style: Theme.of(context)
                       .textTheme
                       .subtitle1!

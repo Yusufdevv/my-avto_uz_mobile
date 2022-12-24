@@ -156,16 +156,13 @@ color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
       );
 
   @override
-  // TODO: implement maxExtent
   double get maxExtent => 48;
 
   @override
-  // TODO: implement minExtent
   double get minExtent => 0;
 
   @override
   bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) {
-    // TODO: implement shouldRebuild
     throw UnimplementedError();
   }
 }

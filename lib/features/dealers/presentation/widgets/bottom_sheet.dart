@@ -1,9 +1,8 @@
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
-import 'package:auto/features/dealers/domain/entities/bottom_sheet_variants.dart';
+import 'package:auto/features/dealers/domain/entities/bottom_sheet_variants_entity.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -19,10 +18,12 @@ class BottomSheetContent extends StatefulWidget {
 
 class _BottomSheetContentState extends State<BottomSheetContent> {
   int currentValue = 0;
-  List<BottomSheetVariantsModel> marks = [
-    BottomSheetVariantsModel(title: 'BMW', imageUrl: AppIcons.facebook, id: 1),
-    BottomSheetVariantsModel(
+  List<BottomSheetVariantsEntity> marks = [
+    BottomSheetVariantsEntity(title: 'BMW', imageUrl: AppIcons.facebook, id: 1),
+    BottomSheetVariantsEntity(
         imageUrl: AppIcons.facebook, title: 'Acura', id: 2),
+    // BottomSheetVariantsModel(
+    //     imageUrl: AppIcons.facebook, title: 'Sacura', id: 3),
   ];
 
   @override
@@ -42,9 +43,7 @@ class _BottomSheetContentState extends State<BottomSheetContent> {
                   onTap: () {
                     Navigator.pop(context);
                   },
-                  child: SvgPicture.asset(
-                    AppIcons.close,
-                  ),
+                  child: SvgPicture.asset(AppIcons.close),
                 ),
               ],
             ),
@@ -56,7 +55,7 @@ class _BottomSheetContentState extends State<BottomSheetContent> {
                 .solitude2ToNightRider,
           ),
           Padding(
-            padding: EdgeInsets.all(16),
+            padding: const EdgeInsets.all(16),
             child: Text(
               LocaleKeys.all_marks.tr(),
               style: Theme.of(context)
@@ -105,7 +104,7 @@ class _BottomSheetContentState extends State<BottomSheetContent> {
                                   .subtitle1
                                   ?.copyWith(fontSize: 16),
                             )),
-                            if (currentValue == marks[index].id) ...{
+                            if (currentValue != marks[index].id) ...{
                               SvgPicture.asset(AppIcons.ticked)
                             } else ...{
                               const SizedBox()

@@ -2,8 +2,11 @@ import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_icons.dart';
 import 'package:auto/assets/themes/theme_extensions/w_textfield_style.dart';
+import 'package:auto/core/utils/size_config.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
+import 'package:auto/features/navigation/presentation/navigator.dart';
+import 'package:auto/features/profile/presentation/pages/terms_of_use_page.dart';
 import 'package:auto/features/profile/presentation/widgets/rate.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -15,23 +18,26 @@ class AboutAppScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        appBar:  WAppBar(
-          textWithButton: LocaleKeys.about_app.tr(),
+        appBar: const WAppBar(
+          textWithButton: 'Правила пользования',
         ),
         body: Column(
           children: [
             WScaleAnimation(
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context).push(fade(page: const TermsOfUsePage()));
+              },
               child: Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                margin: const EdgeInsets.fromLTRB(16, 20, 16, 12),
+                padding: EdgeInsets.symmetric(
+                    horizontal: SizeConfig.h(16), vertical: SizeConfig.v(12)),
+                margin: EdgeInsets.fromLTRB(SizeConfig.h(16), SizeConfig.v(20),
+                    SizeConfig.h(16), SizeConfig.v(12)),
                 decoration: BoxDecoration(
                   border: Border.all(
                       color: Theme.of(context)
                           .extension<WTextFieldStyle>()!
                           .borderColor),
-                  borderRadius: BorderRadius.circular(12),
+                  borderRadius: BorderRadius.circular(SizeConfig.h(12)),
                   color:
                       Theme.of(context).extension<ThemedColors>()!.whiteToNero1,
                 ),
@@ -43,7 +49,7 @@ class AboutAppScreen extends StatelessWidget {
                           .extension<ThemedColors>()!
                           .darkToGrey,
                     ),
-                    const SizedBox(width: 8),
+                    SizedBox(width: SizeConfig.h(8)),
                     Text(
                       LocaleKeys.terms_use.tr(),
                       style: Theme.of(context)
@@ -60,10 +66,17 @@ class AboutAppScreen extends StatelessWidget {
             SvgPicture.asset(
               Theme.of(context).extension<ThemedIcons>()!.autoUzLightDark,
             ),
+            SizedBox(height: SizeConfig.v(12)),
+            Text(
+              'Версия 1.1',
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.headline2,
+            ),
             Padding(
-              padding: const EdgeInsets.only(top: 12, bottom: 36),
+              padding: EdgeInsets.only(
+                  top: SizeConfig.v(2), bottom: SizeConfig.v(36)),
               child: Text(
-                'Версия 1.1\nот 1 апреля 2022 г.',
+                'от 1 апреля 2022 г.',
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.headline2,
               ),

@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'user_searches_bloc.dart';
 
@@ -25,8 +25,8 @@ mixin _$UserSearchesEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String? search)? getUserSearches,
-    TResult Function(String? search)? getPopularSearches,
+    TResult? Function(String? search)? getUserSearches,
+    TResult? Function(String? search)? getPopularSearches,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -44,8 +44,8 @@ mixin _$UserSearchesEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_GetUserSearches value)? getUserSearches,
-    TResult Function(_GetPopularSearches value)? getPopularSearches,
+    TResult? Function(_GetUserSearches value)? getUserSearches,
+    TResult? Function(_GetPopularSearches value)? getPopularSearches,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -65,29 +65,32 @@ mixin _$UserSearchesEvent {
 abstract class $UserSearchesEventCopyWith<$Res> {
   factory $UserSearchesEventCopyWith(
           UserSearchesEvent value, $Res Function(UserSearchesEvent) then) =
-      _$UserSearchesEventCopyWithImpl<$Res>;
+      _$UserSearchesEventCopyWithImpl<$Res, UserSearchesEvent>;
+  @useResult
   $Res call({String? search});
 }
 
 /// @nodoc
-class _$UserSearchesEventCopyWithImpl<$Res>
+class _$UserSearchesEventCopyWithImpl<$Res, $Val extends UserSearchesEvent>
     implements $UserSearchesEventCopyWith<$Res> {
   _$UserSearchesEventCopyWithImpl(this._value, this._then);
 
-  final UserSearchesEvent _value;
   // ignore: unused_field
-  final $Res Function(UserSearchesEvent) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? search = freezed,
   }) {
     return _then(_value.copyWith(
-      search: search == freezed
+      search: freezed == search
           ? _value.search
           : search // ignore: cast_nullable_to_non_nullable
               as String?,
-    ));
+    ) as $Val);
   }
 }
 
@@ -98,26 +101,25 @@ abstract class _$$_GetUserSearchesCopyWith<$Res>
           _$_GetUserSearches value, $Res Function(_$_GetUserSearches) then) =
       __$$_GetUserSearchesCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({String? search});
 }
 
 /// @nodoc
 class __$$_GetUserSearchesCopyWithImpl<$Res>
-    extends _$UserSearchesEventCopyWithImpl<$Res>
+    extends _$UserSearchesEventCopyWithImpl<$Res, _$_GetUserSearches>
     implements _$$_GetUserSearchesCopyWith<$Res> {
   __$$_GetUserSearchesCopyWithImpl(
       _$_GetUserSearches _value, $Res Function(_$_GetUserSearches) _then)
-      : super(_value, (v) => _then(v as _$_GetUserSearches));
+      : super(_value, _then);
 
-  @override
-  _$_GetUserSearches get _value => super._value as _$_GetUserSearches;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? search = freezed,
   }) {
     return _then(_$_GetUserSearches(
-      search: search == freezed
+      search: freezed == search
           ? _value.search
           : search // ignore: cast_nullable_to_non_nullable
               as String?,
@@ -143,15 +145,15 @@ class _$_GetUserSearches implements _GetUserSearches {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_GetUserSearches &&
-            const DeepCollectionEquality().equals(other.search, search));
+            (identical(other.search, search) || other.search == search));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(search));
+  int get hashCode => Object.hash(runtimeType, search);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_GetUserSearchesCopyWith<_$_GetUserSearches> get copyWith =>
       __$$_GetUserSearchesCopyWithImpl<_$_GetUserSearches>(this, _$identity);
 
@@ -167,8 +169,8 @@ class _$_GetUserSearches implements _GetUserSearches {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String? search)? getUserSearches,
-    TResult Function(String? search)? getPopularSearches,
+    TResult? Function(String? search)? getUserSearches,
+    TResult? Function(String? search)? getPopularSearches,
   }) {
     return getUserSearches?.call(search);
   }
@@ -198,8 +200,8 @@ class _$_GetUserSearches implements _GetUserSearches {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_GetUserSearches value)? getUserSearches,
-    TResult Function(_GetPopularSearches value)? getPopularSearches,
+    TResult? Function(_GetUserSearches value)? getUserSearches,
+    TResult? Function(_GetPopularSearches value)? getPopularSearches,
   }) {
     return getUserSearches?.call(this);
   }
@@ -236,26 +238,25 @@ abstract class _$$_GetPopularSearchesCopyWith<$Res>
           $Res Function(_$_GetPopularSearches) then) =
       __$$_GetPopularSearchesCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({String? search});
 }
 
 /// @nodoc
 class __$$_GetPopularSearchesCopyWithImpl<$Res>
-    extends _$UserSearchesEventCopyWithImpl<$Res>
+    extends _$UserSearchesEventCopyWithImpl<$Res, _$_GetPopularSearches>
     implements _$$_GetPopularSearchesCopyWith<$Res> {
   __$$_GetPopularSearchesCopyWithImpl(
       _$_GetPopularSearches _value, $Res Function(_$_GetPopularSearches) _then)
-      : super(_value, (v) => _then(v as _$_GetPopularSearches));
+      : super(_value, _then);
 
-  @override
-  _$_GetPopularSearches get _value => super._value as _$_GetPopularSearches;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? search = freezed,
   }) {
     return _then(_$_GetPopularSearches(
-      search: search == freezed
+      search: freezed == search
           ? _value.search
           : search // ignore: cast_nullable_to_non_nullable
               as String?,
@@ -281,15 +282,15 @@ class _$_GetPopularSearches implements _GetPopularSearches {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_GetPopularSearches &&
-            const DeepCollectionEquality().equals(other.search, search));
+            (identical(other.search, search) || other.search == search));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(search));
+  int get hashCode => Object.hash(runtimeType, search);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_GetPopularSearchesCopyWith<_$_GetPopularSearches> get copyWith =>
       __$$_GetPopularSearchesCopyWithImpl<_$_GetPopularSearches>(
           this, _$identity);
@@ -306,8 +307,8 @@ class _$_GetPopularSearches implements _GetPopularSearches {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String? search)? getUserSearches,
-    TResult Function(String? search)? getPopularSearches,
+    TResult? Function(String? search)? getUserSearches,
+    TResult? Function(String? search)? getPopularSearches,
   }) {
     return getPopularSearches?.call(search);
   }
@@ -337,8 +338,8 @@ class _$_GetPopularSearches implements _GetPopularSearches {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_GetUserSearches value)? getUserSearches,
-    TResult Function(_GetPopularSearches value)? getPopularSearches,
+    TResult? Function(_GetUserSearches value)? getUserSearches,
+    TResult? Function(_GetPopularSearches value)? getPopularSearches,
   }) {
     return getPopularSearches?.call(this);
   }
@@ -388,7 +389,8 @@ mixin _$UserSearchesState {
 abstract class $UserSearchesStateCopyWith<$Res> {
   factory $UserSearchesStateCopyWith(
           UserSearchesState value, $Res Function(UserSearchesState) then) =
-      _$UserSearchesStateCopyWithImpl<$Res>;
+      _$UserSearchesStateCopyWithImpl<$Res, UserSearchesState>;
+  @useResult
   $Res call(
       {FormzStatus status,
       List<UserSearchesEntity> userSearches,
@@ -399,49 +401,51 @@ abstract class $UserSearchesStateCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$UserSearchesStateCopyWithImpl<$Res>
+class _$UserSearchesStateCopyWithImpl<$Res, $Val extends UserSearchesState>
     implements $UserSearchesStateCopyWith<$Res> {
   _$UserSearchesStateCopyWithImpl(this._value, this._then);
 
-  final UserSearchesState _value;
   // ignore: unused_field
-  final $Res Function(UserSearchesState) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? status = freezed,
-    Object? userSearches = freezed,
-    Object? popularSearches = freezed,
+    Object? status = null,
+    Object? userSearches = null,
+    Object? popularSearches = null,
     Object? next = freezed,
     Object? previous = freezed,
-    Object? count = freezed,
+    Object? count = null,
   }) {
     return _then(_value.copyWith(
-      status: status == freezed
+      status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as FormzStatus,
-      userSearches: userSearches == freezed
+      userSearches: null == userSearches
           ? _value.userSearches
           : userSearches // ignore: cast_nullable_to_non_nullable
               as List<UserSearchesEntity>,
-      popularSearches: popularSearches == freezed
+      popularSearches: null == popularSearches
           ? _value.popularSearches
           : popularSearches // ignore: cast_nullable_to_non_nullable
               as List<PopularSearchEntity>,
-      next: next == freezed
+      next: freezed == next
           ? _value.next
           : next // ignore: cast_nullable_to_non_nullable
               as String?,
-      previous: previous == freezed
+      previous: freezed == previous
           ? _value.previous
           : previous // ignore: cast_nullable_to_non_nullable
               as String?,
-      count: count == freezed
+      count: null == count
           ? _value.count
           : count // ignore: cast_nullable_to_non_nullable
               as int,
-    ));
+    ) as $Val);
   }
 }
 
@@ -452,6 +456,7 @@ abstract class _$$_UserSearchesStateCopyWith<$Res>
           $Res Function(_$_UserSearchesState) then) =
       __$$_UserSearchesStateCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {FormzStatus status,
       List<UserSearchesEntity> userSearches,
@@ -463,46 +468,44 @@ abstract class _$$_UserSearchesStateCopyWith<$Res>
 
 /// @nodoc
 class __$$_UserSearchesStateCopyWithImpl<$Res>
-    extends _$UserSearchesStateCopyWithImpl<$Res>
+    extends _$UserSearchesStateCopyWithImpl<$Res, _$_UserSearchesState>
     implements _$$_UserSearchesStateCopyWith<$Res> {
   __$$_UserSearchesStateCopyWithImpl(
       _$_UserSearchesState _value, $Res Function(_$_UserSearchesState) _then)
-      : super(_value, (v) => _then(v as _$_UserSearchesState));
+      : super(_value, _then);
 
-  @override
-  _$_UserSearchesState get _value => super._value as _$_UserSearchesState;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? status = freezed,
-    Object? userSearches = freezed,
-    Object? popularSearches = freezed,
+    Object? status = null,
+    Object? userSearches = null,
+    Object? popularSearches = null,
     Object? next = freezed,
     Object? previous = freezed,
-    Object? count = freezed,
+    Object? count = null,
   }) {
     return _then(_$_UserSearchesState(
-      status: status == freezed
+      status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as FormzStatus,
-      userSearches: userSearches == freezed
+      userSearches: null == userSearches
           ? _value._userSearches
           : userSearches // ignore: cast_nullable_to_non_nullable
               as List<UserSearchesEntity>,
-      popularSearches: popularSearches == freezed
+      popularSearches: null == popularSearches
           ? _value._popularSearches
           : popularSearches // ignore: cast_nullable_to_non_nullable
               as List<PopularSearchEntity>,
-      next: next == freezed
+      next: freezed == next
           ? _value.next
           : next // ignore: cast_nullable_to_non_nullable
               as String?,
-      previous: previous == freezed
+      previous: freezed == previous
           ? _value.previous
           : previous // ignore: cast_nullable_to_non_nullable
               as String?,
-      count: count == freezed
+      count: null == count
           ? _value.count
           : count // ignore: cast_nullable_to_non_nullable
               as int,
@@ -530,6 +533,7 @@ class _$_UserSearchesState implements _UserSearchesState {
   @override
   @JsonKey()
   List<UserSearchesEntity> get userSearches {
+    if (_userSearches is EqualUnmodifiableListView) return _userSearches;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_userSearches);
   }
@@ -538,6 +542,7 @@ class _$_UserSearchesState implements _UserSearchesState {
   @override
   @JsonKey()
   List<PopularSearchEntity> get popularSearches {
+    if (_popularSearches is EqualUnmodifiableListView) return _popularSearches;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_popularSearches);
   }
@@ -562,28 +567,30 @@ class _$_UserSearchesState implements _UserSearchesState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_UserSearchesState &&
-            const DeepCollectionEquality().equals(other.status, status) &&
+            (identical(other.status, status) || other.status == status) &&
             const DeepCollectionEquality()
                 .equals(other._userSearches, _userSearches) &&
             const DeepCollectionEquality()
                 .equals(other._popularSearches, _popularSearches) &&
-            const DeepCollectionEquality().equals(other.next, next) &&
-            const DeepCollectionEquality().equals(other.previous, previous) &&
-            const DeepCollectionEquality().equals(other.count, count));
+            (identical(other.next, next) || other.next == next) &&
+            (identical(other.previous, previous) ||
+                other.previous == previous) &&
+            (identical(other.count, count) || other.count == count));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(status),
+      status,
       const DeepCollectionEquality().hash(_userSearches),
       const DeepCollectionEquality().hash(_popularSearches),
-      const DeepCollectionEquality().hash(next),
-      const DeepCollectionEquality().hash(previous),
-      const DeepCollectionEquality().hash(count));
+      next,
+      previous,
+      count);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_UserSearchesStateCopyWith<_$_UserSearchesState> get copyWith =>
       __$$_UserSearchesStateCopyWithImpl<_$_UserSearchesState>(
           this, _$identity);

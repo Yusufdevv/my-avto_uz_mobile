@@ -23,10 +23,8 @@ class ServiceTypeItem extends StatefulWidget {
 }
 
 class _ServiceTypeItemState extends State<ServiceTypeItem> {
-
   @override
   void initState() {
-
     super.initState();
   }
 
@@ -42,11 +40,7 @@ class _ServiceTypeItemState extends State<ServiceTypeItem> {
             borderRadius: BorderRadius.circular(8),
             border: Border.all(
               width: 1,
-              color: widget.isSelect
-                  ? orange
-                  : Theme.of(context)
-                      .extension<ThemedColors>()!
-                      .solitudeContainerToDark,
+              color: widget.isSelect ? orange : dividerColor,
             ),
             color: widget.isSelect
                 ? Theme.of(context).extension<ThemedColors>()!.snow1ToCocoaBrown
@@ -56,11 +50,9 @@ class _ServiceTypeItemState extends State<ServiceTypeItem> {
             children: [
               SvgPicture.asset(
                 widget.icon,
-                color:widget.isSelect ? orange : grey,
+                color: widget.isSelect ? orange : grey,
               ),
-              const SizedBox(
-                width: 8,
-              ),
+              const SizedBox(width: 8),
               Text(
                 widget.title,
                 style: widget.isSelect

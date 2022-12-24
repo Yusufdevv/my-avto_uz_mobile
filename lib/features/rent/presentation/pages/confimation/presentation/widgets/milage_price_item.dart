@@ -1,5 +1,4 @@
 import 'package:auto/assets/colors/color.dart';
-import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_icons.dart';
 import 'package:auto/generated/locale_keys.g.dart';
@@ -27,7 +26,7 @@ class MileagePriceItem extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              LocaleKeys.dayly_milleage.tr(),
+              'Дополнительные услуги',
               style:
                   Theme.of(context).textTheme.headline1!.copyWith(fontSize: 14),
             ),
@@ -37,24 +36,28 @@ class MileagePriceItem extends StatelessWidget {
             Row(
               children: [
                 Text(
-                  '200 км.',
+                  'Детское кресло',
                   style: Theme.of(context)
                       .textTheme
                       .headline6!
                       .copyWith(color: greyText, fontSize: 12),
                 ),
+                const SizedBox(width: 8),
                 Text(
-                  LocaleKeys.free.tr(),
+                  '50 тыс.' + LocaleKeys.per_day.tr(),
                   style: Theme.of(context)
                       .textTheme
                       .bodyText1!
                       .copyWith(color: grey),
                 ),
                 const Spacer(),
-                SvgPicture.asset(Theme.of(context).extension<ThemedIcons>()!.check),
+                SvgPicture.asset(
+                    Theme.of(context).extension<ThemedIcons>()!.check),
               ],
             ),
-            const SizedBox(height: 8,),
+            const SizedBox(
+              height: 8,
+            ),
             Divider(
               thickness: 1,
               color: Theme.of(context).dividerColor,
@@ -62,47 +65,23 @@ class MileagePriceItem extends StatelessWidget {
             Row(
               children: [
                 Text(
-                  '200 км.',
+                  'Крепление для лыж',
                   style: Theme.of(context)
                       .textTheme
                       .headline6!
                       .copyWith(color: greyText, fontSize: 12),
                 ),
+                const SizedBox(width: 8),
                 Text(
-                  '130 тыс.'+ LocaleKeys.per_day.tr(),
+                  '100 тыс.' + LocaleKeys.per_day.tr(),
                   style: Theme.of(context)
                       .textTheme
                       .bodyText1!
                       .copyWith(color: grey),
                 ),
                 const Spacer(),
-                SvgPicture.asset(Theme.of(context).extension<ThemedIcons>()!.check),
-              ],
-            ),
-
-            const SizedBox(height: 8,),
-            Divider(
-              thickness: 1,
-              color: Theme.of(context).dividerColor,
-            ),
-            Row(
-              children: [
-                Text(
-                  '200 км.',
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline6!
-                      .copyWith(color: greyText, fontSize: 12),
-                ),
-                Text(
-                  '200 тыс.' + LocaleKeys.per_day.tr(),
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyText1!
-                      .copyWith(color: grey),
-                ),
-                const Spacer(),
-                SvgPicture.asset(Theme.of(context).extension<ThemedIcons>()!.check),
+                SvgPicture.asset(
+                    Theme.of(context).extension<ThemedIcons>()!.check),
               ],
             ),
           ],

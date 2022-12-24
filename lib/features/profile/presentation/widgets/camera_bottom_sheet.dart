@@ -1,8 +1,8 @@
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/features/ad/presentation/bloc/add_photo/image_bloc.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
-import 'package:auto/features/posting_ad/add_photo/presentation/blocs/image_bloc.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -39,7 +39,8 @@ class CameraBottomSheetState extends State<CameraBottomSheet> {
   Widget build(BuildContext context) => BlocProvider.value(
         value: widget.imageBloc,
         child: Container(
-          padding: const EdgeInsets.only(left: 16, right: 16, top: 20, bottom: 12),
+          padding:
+              const EdgeInsets.only(left: 16, right: 16, top: 20, bottom: 12),
           decoration: BoxDecoration(
             borderRadius: const BorderRadius.only(
               topRight: Radius.circular(20),
@@ -59,7 +60,7 @@ class CameraBottomSheetState extends State<CameraBottomSheet> {
                     child: SvgPicture.asset(
                       AppIcons.close,
                       width: 32,
-                      height: 32,
+                      height: 32
                     ),
                     onTap: () {
                       Navigator.of(context).pop();
@@ -70,7 +71,9 @@ class CameraBottomSheetState extends State<CameraBottomSheet> {
             ListView.separated(
               separatorBuilder: (context, index) => Container(
                 height: 1,
-                color: Theme.of(context).extension<ThemedColors>()!.greyToDarkRider,
+                color: Theme.of(context)
+                    .extension<ThemedColors>()!
+                    .greyToDarkRider,
               ),
               itemCount: titleList.length,
               shrinkWrap: true,
@@ -81,9 +84,11 @@ class CameraBottomSheetState extends State<CameraBottomSheet> {
                 imageType: ImageSource.gallery,
                 onTapImageType: (_imageType) {
                   if (index == 0) {
-                    widget.imageBloc.add(const GetImage(source: ImageSource.camera));
+                    widget.imageBloc
+                        .add(const GetImage(source: ImageSource.camera));
                   } else {
-                    widget.imageBloc.add(const GetImage(source: ImageSource.gallery));
+                    widget.imageBloc
+                        .add(const GetImage(source: ImageSource.gallery));
                   }
                   Navigator.of(context).pop();
                 },

@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'reviews_bloc.dart';
 
@@ -24,7 +24,7 @@ mixin _$ReviewsEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(ReviewsModel model)? getReviews,
+    TResult? Function(ReviewsModel model)? getReviews,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -40,7 +40,7 @@ mixin _$ReviewsEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_GetReviews value)? getReviews,
+    TResult? Function(_GetReviews value)? getReviews,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -59,28 +59,32 @@ mixin _$ReviewsEvent {
 abstract class $ReviewsEventCopyWith<$Res> {
   factory $ReviewsEventCopyWith(
           ReviewsEvent value, $Res Function(ReviewsEvent) then) =
-      _$ReviewsEventCopyWithImpl<$Res>;
+      _$ReviewsEventCopyWithImpl<$Res, ReviewsEvent>;
+  @useResult
   $Res call({ReviewsModel model});
 }
 
 /// @nodoc
-class _$ReviewsEventCopyWithImpl<$Res> implements $ReviewsEventCopyWith<$Res> {
+class _$ReviewsEventCopyWithImpl<$Res, $Val extends ReviewsEvent>
+    implements $ReviewsEventCopyWith<$Res> {
   _$ReviewsEventCopyWithImpl(this._value, this._then);
 
-  final ReviewsEvent _value;
   // ignore: unused_field
-  final $Res Function(ReviewsEvent) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? model = freezed,
+    Object? model = null,
   }) {
     return _then(_value.copyWith(
-      model: model == freezed
+      model: null == model
           ? _value.model
           : model // ignore: cast_nullable_to_non_nullable
               as ReviewsModel,
-    ));
+    ) as $Val);
   }
 }
 
@@ -91,25 +95,25 @@ abstract class _$$_GetReviewsCopyWith<$Res>
           _$_GetReviews value, $Res Function(_$_GetReviews) then) =
       __$$_GetReviewsCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({ReviewsModel model});
 }
 
 /// @nodoc
-class __$$_GetReviewsCopyWithImpl<$Res> extends _$ReviewsEventCopyWithImpl<$Res>
+class __$$_GetReviewsCopyWithImpl<$Res>
+    extends _$ReviewsEventCopyWithImpl<$Res, _$_GetReviews>
     implements _$$_GetReviewsCopyWith<$Res> {
   __$$_GetReviewsCopyWithImpl(
       _$_GetReviews _value, $Res Function(_$_GetReviews) _then)
-      : super(_value, (v) => _then(v as _$_GetReviews));
+      : super(_value, _then);
 
-  @override
-  _$_GetReviews get _value => super._value as _$_GetReviews;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? model = freezed,
+    Object? model = null,
   }) {
     return _then(_$_GetReviews(
-      model == freezed
+      null == model
           ? _value.model
           : model // ignore: cast_nullable_to_non_nullable
               as ReviewsModel,
@@ -135,15 +139,15 @@ class _$_GetReviews implements _GetReviews {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_GetReviews &&
-            const DeepCollectionEquality().equals(other.model, model));
+            (identical(other.model, model) || other.model == model));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(model));
+  int get hashCode => Object.hash(runtimeType, model);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_GetReviewsCopyWith<_$_GetReviews> get copyWith =>
       __$$_GetReviewsCopyWithImpl<_$_GetReviews>(this, _$identity);
 
@@ -158,7 +162,7 @@ class _$_GetReviews implements _GetReviews {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(ReviewsModel model)? getReviews,
+    TResult? Function(ReviewsModel model)? getReviews,
   }) {
     return getReviews?.call(model);
   }
@@ -186,7 +190,7 @@ class _$_GetReviews implements _GetReviews {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_GetReviews value)? getReviews,
+    TResult? Function(_GetReviews value)? getReviews,
   }) {
     return getReviews?.call(this);
   }
@@ -233,7 +237,8 @@ mixin _$ReviewsState {
 abstract class $ReviewsStateCopyWith<$Res> {
   factory $ReviewsStateCopyWith(
           ReviewsState value, $Res Function(ReviewsState) then) =
-      _$ReviewsStateCopyWithImpl<$Res>;
+      _$ReviewsStateCopyWithImpl<$Res, ReviewsState>;
+  @useResult
   $Res call(
       {FormzStatus status,
       List<AutoReviewModel> entity,
@@ -244,48 +249,51 @@ abstract class $ReviewsStateCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$ReviewsStateCopyWithImpl<$Res> implements $ReviewsStateCopyWith<$Res> {
+class _$ReviewsStateCopyWithImpl<$Res, $Val extends ReviewsState>
+    implements $ReviewsStateCopyWith<$Res> {
   _$ReviewsStateCopyWithImpl(this._value, this._then);
 
-  final ReviewsState _value;
   // ignore: unused_field
-  final $Res Function(ReviewsState) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? status = freezed,
-    Object? entity = freezed,
-    Object? next = freezed,
-    Object? previous = freezed,
-    Object? fetchMore = freezed,
+    Object? status = null,
+    Object? entity = null,
+    Object? next = null,
+    Object? previous = null,
+    Object? fetchMore = null,
     Object? count = freezed,
   }) {
     return _then(_value.copyWith(
-      status: status == freezed
+      status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as FormzStatus,
-      entity: entity == freezed
+      entity: null == entity
           ? _value.entity
           : entity // ignore: cast_nullable_to_non_nullable
               as List<AutoReviewModel>,
-      next: next == freezed
+      next: null == next
           ? _value.next
           : next // ignore: cast_nullable_to_non_nullable
               as String,
-      previous: previous == freezed
+      previous: null == previous
           ? _value.previous
           : previous // ignore: cast_nullable_to_non_nullable
               as String,
-      fetchMore: fetchMore == freezed
+      fetchMore: null == fetchMore
           ? _value.fetchMore
           : fetchMore // ignore: cast_nullable_to_non_nullable
               as bool,
-      count: count == freezed
+      count: freezed == count
           ? _value.count
           : count // ignore: cast_nullable_to_non_nullable
               as dynamic,
-    ));
+    ) as $Val);
   }
 }
 
@@ -296,6 +304,7 @@ abstract class _$$_ReviewsStateCopyWith<$Res>
           _$_ReviewsState value, $Res Function(_$_ReviewsState) then) =
       __$$_ReviewsStateCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {FormzStatus status,
       List<AutoReviewModel> entity,
@@ -307,46 +316,44 @@ abstract class _$$_ReviewsStateCopyWith<$Res>
 
 /// @nodoc
 class __$$_ReviewsStateCopyWithImpl<$Res>
-    extends _$ReviewsStateCopyWithImpl<$Res>
+    extends _$ReviewsStateCopyWithImpl<$Res, _$_ReviewsState>
     implements _$$_ReviewsStateCopyWith<$Res> {
   __$$_ReviewsStateCopyWithImpl(
       _$_ReviewsState _value, $Res Function(_$_ReviewsState) _then)
-      : super(_value, (v) => _then(v as _$_ReviewsState));
+      : super(_value, _then);
 
-  @override
-  _$_ReviewsState get _value => super._value as _$_ReviewsState;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? status = freezed,
-    Object? entity = freezed,
-    Object? next = freezed,
-    Object? previous = freezed,
-    Object? fetchMore = freezed,
+    Object? status = null,
+    Object? entity = null,
+    Object? next = null,
+    Object? previous = null,
+    Object? fetchMore = null,
     Object? count = freezed,
   }) {
     return _then(_$_ReviewsState(
-      status: status == freezed
+      status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as FormzStatus,
-      entity: entity == freezed
+      entity: null == entity
           ? _value._entity
           : entity // ignore: cast_nullable_to_non_nullable
               as List<AutoReviewModel>,
-      next: next == freezed
+      next: null == next
           ? _value.next
           : next // ignore: cast_nullable_to_non_nullable
               as String,
-      previous: previous == freezed
+      previous: null == previous
           ? _value.previous
           : previous // ignore: cast_nullable_to_non_nullable
               as String,
-      fetchMore: fetchMore == freezed
+      fetchMore: null == fetchMore
           ? _value.fetchMore
           : fetchMore // ignore: cast_nullable_to_non_nullable
               as bool,
-      count: count == freezed ? _value.count : count,
+      count: freezed == count ? _value.count! : count,
     ));
   }
 }
@@ -370,6 +377,7 @@ class _$_ReviewsState implements _ReviewsState {
   @override
   @JsonKey()
   List<AutoReviewModel> get entity {
+    if (_entity is EqualUnmodifiableListView) return _entity;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_entity);
   }
@@ -397,26 +405,29 @@ class _$_ReviewsState implements _ReviewsState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_ReviewsState &&
-            const DeepCollectionEquality().equals(other.status, status) &&
+            (identical(other.status, status) || other.status == status) &&
             const DeepCollectionEquality().equals(other._entity, _entity) &&
-            const DeepCollectionEquality().equals(other.next, next) &&
-            const DeepCollectionEquality().equals(other.previous, previous) &&
-            const DeepCollectionEquality().equals(other.fetchMore, fetchMore) &&
+            (identical(other.next, next) || other.next == next) &&
+            (identical(other.previous, previous) ||
+                other.previous == previous) &&
+            (identical(other.fetchMore, fetchMore) ||
+                other.fetchMore == fetchMore) &&
             const DeepCollectionEquality().equals(other.count, count));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(status),
+      status,
       const DeepCollectionEquality().hash(_entity),
-      const DeepCollectionEquality().hash(next),
-      const DeepCollectionEquality().hash(previous),
-      const DeepCollectionEquality().hash(fetchMore),
+      next,
+      previous,
+      fetchMore,
       const DeepCollectionEquality().hash(count));
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_ReviewsStateCopyWith<_$_ReviewsState> get copyWith =>
       __$$_ReviewsStateCopyWithImpl<_$_ReviewsState>(this, _$identity);
 }

@@ -1,16 +1,16 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/features/ad/domain/entities/choose_model/car_type_entity.dart';
+import 'package:auto/features/ad/domain/entities/choose_model/model_item_entity.dart';
+import 'package:auto/features/ad/presentation/bloc/choose_model/car_type_selector_bloc.dart';
+import 'package:auto/features/ad/presentation/bloc/choose_model/model_selectro_bloc.dart';
+import 'package:auto/features/ad/presentation/pages/choose_model/widgets/car_type_item.dart';
+import 'package:auto/features/ad/presentation/pages/choose_model/widgets/model_items.dart';
+import 'package:auto/features/ad/presentation/pages/choose_model/widgets/persistant_header.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/common/widgets/w_textfield.dart';
-import 'package:auto/features/posting_ad/choose_model/domain/entity/car_type_entity.dart';
-import 'package:auto/features/posting_ad/choose_model/domain/entity/model_item_entity.dart';
-import 'package:auto/features/posting_ad/choose_model/presentation/blocs/car_type_selector_bloc.dart';
-import 'package:auto/features/posting_ad/choose_model/presentation/blocs/model_selectro_bloc.dart';
-import 'package:auto/features/posting_ad/choose_model/presentation/widgets/car_type_item.dart';
-import 'package:auto/features/posting_ad/choose_model/presentation/widgets/model_items.dart';
-import 'package:auto/features/posting_ad/choose_model/presentation/widgets/persistant_header.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -191,9 +191,9 @@ class _SelectModelScreenState extends State<SelectModelScreen> {
                                             ModelSelectorState>(
                                           builder: (context, state) =>
                                               ModelItems(
-                                            entity: modelItems[index],
+                                            entity: modelItems[index].title,
                                             selectedId: state.selectedId,
-                                            id: index,
+                                            id: index, text: '',
                                           ),
                                         ),
                                       ),

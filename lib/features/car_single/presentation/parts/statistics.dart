@@ -15,7 +15,7 @@ class CarStatistics extends StatelessWidget {
     ),
     CarStatistic(
       valueText: '31 490 (629 сегодня)',
-      icon: AppIcons.eye,
+      icon: AppIcons.eye2,
     ),
     CarStatistic(valueText: '8323543', icon:AppIcons.id, titleText: ''),
   ];

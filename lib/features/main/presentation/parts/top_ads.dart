@@ -16,8 +16,7 @@ class TopAds extends StatelessWidget {
             padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
             child: Text(
               LocaleKeys.best_offers.tr(),
-              style:
-                  Theme.of(context).textTheme.headline1!.copyWith(fontSize: 18),
+              style: Theme.of(context).textTheme.headline1!.copyWith(fontSize: 18),
             ),
           ),
           const SizedBox(height: 8),
@@ -26,8 +25,9 @@ class TopAds extends StatelessWidget {
               height: 276,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) =>
-                    AdsItem(adsEntity: state.topAds[index]),
+                itemBuilder: (context, index) => AdsItem(
+                  adsEntity: state.topAds[index],
+                ),
                 itemCount: state.topAds.length,
               ),
             ),

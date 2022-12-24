@@ -184,11 +184,6 @@ class WAppBar extends StatelessWidget implements PreferredSizeWidget {
               ),
               child: Container(
                 height: 20,
-                child: SvgPicture.asset(
-                  AppIcons.chevronLeft,
-                  width: backButtonSize,
-                  height: backButtonSize,
-                ),
                 decoration: BoxDecoration(
                   color: roundedEndColor ??
                       Theme.of(context).scaffoldBackgroundColor,
@@ -196,6 +191,11 @@ class WAppBar extends StatelessWidget implements PreferredSizeWidget {
                     topLeft: Radius.circular(50),
                     topRight: Radius.circular(50),
                   ),
+                ),
+                child: SvgPicture.asset(
+                  AppIcons.chevronLeft,
+                  width: backButtonSize,
+                  height: backButtonSize,
                 ),
               ),
             ),

@@ -32,112 +32,116 @@ class _RentScreenState extends State<RentScreen>
   @override
   void initState() {
     tabController = TabController(length: 2, vsync: this);
-    rentBloc = RentBloc(RentUseCase(), 5)
-      ..add(RentEvent.getResults(isRefresh: false));
+    rentBloc = RentBloc(rentUseCase: RentUseCase(), id: 5)
+      ..add(RentGetResultsEvent(isRefresh: false));
     commercialBloc = CommercialBloc(RentUseCase(), 6)
       ..add(CommercialEvent.getResults(isRefresh: false));
     super.initState();
   }
 
-
   @override
-  Widget build(BuildContext context) => Scaffold(
-        appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(100),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              WAppBar(
-                title: LocaleKeys.auto_rent.tr(),
-                extraActions: [
-                  Padding(
-                    padding: const EdgeInsets.only(right: 12),
-                    child: WScaleAnimation(
-                        onTap: () => Navigator.push(
-                            context, fade(page: const RentFilterScreen())),
-                        child: SvgPicture.asset(AppIcons.rentFilter)),
-                  )
-                ],
-              ),
-              Container(
-                decoration: BoxDecoration(
-                    color: Theme.of(context).appBarTheme.backgroundColor,
-                    boxShadow: [
-                      BoxShadow(
-                        offset: const Offset(0, 8),
-                        blurRadius: 24,
-                        color: dark.withOpacity(.08),
-                      ),
-                      BoxShadow(
-                        offset: const Offset(0, -1),
-                        color: dark.withOpacity(.08),
-                      ),
-                    ]),
-                child: Container(
-                  height: 32,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(9),
-                    color: stormGrey12,
-                  ),
-                  padding: const EdgeInsets.all(2),
-                  margin:
-                      const EdgeInsets.only(left: 16, right: 16, bottom: 16),
-                  child: TabBar(
-                    controller: tabController,
-                    indicator: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        color: Theme.of(context)
-                            .extension<ThemedColors>()!
-                            .whiteToDolphin,
-                        boxShadow: [
-                          BoxShadow(
-                              color: black.withOpacity(0.04),
-                              blurRadius: 1,
-                              offset: const Offset(0, 3)),
-                          BoxShadow(
-                              color: black.withOpacity(0.12),
-                              blurRadius: 8,
-                              offset: const Offset(0, 3)),
-                        ]),
-                    labelColor: Theme.of(context)
-                        .extension<ThemedColors>()!
-                        .blackToWhite,
-                    labelStyle: const TextStyle(
-                        fontWeight: FontWeight.w600, fontSize: 15),
-                    unselectedLabelColor: Theme.of(context)
-                        .extension<ThemedColors>()!
-                        .blackToWhite,
-                    unselectedLabelStyle: const TextStyle(
-                        fontWeight: FontWeight.w500, fontSize: 15),
-                    tabs: [
-                      Tab(
-                        text: LocaleKeys.passenger_cars.tr(),
-                      ),
-                      Tab(
-                        text: LocaleKeys.commercial.tr(),
-                      ),
+  Widget build(BuildContext context) => MultiBlocProvider(
+        providers: [
+          BlocProvider.value(value: rentBloc),
+          BlocProvider.value(value: commercialBloc)
+        ],
+        child: BlocBuilder<RentBloc, RentState>(
+          builder: (context, state) => Scaffold(
+            appBar: PreferredSize(
+              preferredSize: const Size.fromHeight(100),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  WAppBar(
+                    boxShadow: const [],
+                    title: LocaleKeys.auto_rent.tr(),
+                    extraActions: [
+                      Padding(
+                        padding: const EdgeInsets.only(right: 12),
+                        child: WScaleAnimation(
+                          onTap: () => Navigator.push(
+                            context,
+                            fade(page: const RentFilterScreen()),
+                          ),
+                          child: SvgPicture.asset(AppIcons.rentFilter),
+                        ),
+                      )
                     ],
                   ),
-                ),
+                  Container(
+                    decoration: BoxDecoration(
+                        color: Theme.of(context).appBarTheme.backgroundColor,
+                        boxShadow: [
+                          BoxShadow(
+                              offset: const Offset(0, 8),
+                              blurRadius: 24,
+                              color: dark.withOpacity(.08),
+                              spreadRadius: 0),
+                        ]),
+                    child: Container(
+                      height: 32,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(9),
+                        color: stormGrey12,
+                      ),
+                      padding: const EdgeInsets.all(2),
+                      margin: const EdgeInsets.only(
+                          left: 16, right: 16, bottom: 16),
+                      child: TabBar(
+                        onTap: (v) {
+                          rentBloc.add(RentSetIdEvent(
+                              categoryId: v == 0 ? 5 : 6, isRefresh: false));
+                        },
+                        controller: tabController,
+                        indicator: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          color: Theme.of(context)
+                              .extension<ThemedColors>()!
+                              .whiteToDolphin,
+                          boxShadow: [
+                            BoxShadow(
+                                color: black.withOpacity(0.04),
+                                blurRadius: 1,
+                                offset: const Offset(0, 3)),
+                            BoxShadow(
+                              color: black.withOpacity(0.12),
+                              blurRadius: 8,
+                              offset: const Offset(0, 3),
+                            ),
+                          ],
+                        ),
+                        labelColor: Theme.of(context)
+                            .extension<ThemedColors>()!
+                            .blackToWhite,
+                        labelStyle: const TextStyle(
+                            fontWeight: FontWeight.w600, fontSize: 15),
+                        unselectedLabelColor: Theme.of(context)
+                            .extension<ThemedColors>()!
+                            .blackToWhite,
+                        unselectedLabelStyle: const TextStyle(
+                            fontWeight: FontWeight.w500, fontSize: 15),
+                        tabs: [
+                          Tab(
+                            text: LocaleKeys.passenger_cars.tr(),
+                          ),
+                          Tab(
+                            text: LocaleKeys.commercial.tr(),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ],
-          ),
-        ),
-        body: MultiBlocProvider(
-          providers: [
-            BlocProvider.value(
-              value: rentBloc,
             ),
-            BlocProvider.value(
-              value: commercialBloc,
+            body: TabBarView(
+              physics: const BouncingScrollPhysics(),
+              controller: tabController,
+              children: [
+                CarsScreen(id: state.categoryId),
+                const CommercialScreen(),
+              ],
             ),
-          ],
-          child: TabBarView(
-            controller: tabController,
-            children: [
-              CarsScreen(id: rentBloc.id,),
-              const CommercialScreen(),
-            ],
           ),
         ),
       );

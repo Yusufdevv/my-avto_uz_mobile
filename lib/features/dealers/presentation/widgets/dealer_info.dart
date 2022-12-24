@@ -45,31 +45,35 @@ class SellerInfo extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            dealerType == 'showroom' ? dealerName : LocaleKeys.about_dealer.tr(),
+            // dealerType == 'showroom'
+            dealerName,
+            // : LocaleKeys.about_dealer.tr(),
             style: const TextStyle(
                 color: orange, fontSize: 16, fontWeight: FontWeight.w600),
           ),
           const SizedBox(
             height: 16,
           ),
-          if (dealerType == 'showroom') ...{
-            Info(icon: AppIcons.vehicleCar, text: '$quantityOfCars автомобиля'),
-            const SizedBox(
-              height: 16,
-            ),
-          },
-          Info(text: LocaleKeys.every_day.tr() + ' $workingHours', icon: AppIcons.clock),
-          const SizedBox(height: 20),
-          Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(6),
-                color: warmerGrey,
-              ),
-              padding: const EdgeInsets.all(1),
-              height: 110,
-              child: ClipRRect(
-                  borderRadius: BorderRadius.circular(6),
-                  child: const YandexMap())),
+          //  if (dealerType == 'showroom') ...{
+          Info(icon: AppIcons.vehicleCar, text: '$quantityOfCars автомобиля'),
+          const SizedBox(
+            height: 16,
+          ),
+          //   },
+          Info(
+              text: '${LocaleKeys.every_day.tr()} $workingHours',
+              icon: AppIcons.clock),
+          //const SizedBox(height: 20),
+          // Container(
+          //     decoration: BoxDecoration(
+          //       borderRadius: BorderRadius.circular(6),
+          //       color: warmerGrey,
+          //     ),
+          //     padding: const EdgeInsets.all(1),
+          //     height: 110,
+          //     child: ClipRRect(
+          //         borderRadius: BorderRadius.circular(6),
+          //         child: const YandexMap())),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 20),
             child: Info(
