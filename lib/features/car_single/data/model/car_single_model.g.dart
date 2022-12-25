@@ -8,82 +8,86 @@ part of 'car_single_model.dart';
 
 CarSingleModel _$CarSingleModelFromJson(Map<String, dynamic> json) =>
     CarSingleModel(
+      description: json['description'] as String? ?? '',
+      contactAvailableFrom: json['contact_available_from'] as String? ?? '',
+      absoluteCarName: json['absolute_car_name'] as String? ?? '',
       id: json['id'] as int? ?? 0,
-      make: json['make'] == null
-          ? const RentCarMakeEntity()
-          : const RentCarMakeConverter()
-              .fromJson(json['make'] as Map<String, dynamic>?),
       model: json['model'] == null
           ? const RentCarModelsEntity()
           : const RentCarModelsConverter()
               .fromJson(json['model'] as Map<String, dynamic>?),
-      autoName: json['auto_name'] as String? ?? '',
-      price: json['price'] as String? ?? '',
       currency: json['currency'] as String? ?? '',
-      date: json['date'] as String? ?? '',
-      year: json['year'] as int? ?? 0,
-      distanceTraveled: json['distance_traveled'] as int? ?? 0,
       color: json['color'] as String? ?? '',
-      generation: json['generation'] == null
-          ? const RentCarGenerationEntity()
-          : const RentCarGenerationConverter()
-              .fromJson(json['generation'] as Map<String, dynamic>?),
-      bodyType: json['body_type'] == null
-          ? const RentCarBodyTypeEntity()
-          : const RentCarBodyTypeConverter()
-              .fromJson(json['body_type'] as Map<String, dynamic>?),
-      driveType: json['drive_type'] == null
-          ? const RentCarDriveTypeEntity()
-          : const RentCarDriveTypeConverter()
-              .fromJson(json['drive_type'] as Map<String, dynamic>?),
+      price: json['price'] as String? ?? '',
       engineType: json['engine_type'] == null
           ? const RentCarEngineTypeEntity()
           : const RentCarEngineTypeConverter()
               .fromJson(json['engine_type'] as Map<String, dynamic>?),
-      gearboxType: json['gearbox_type'] == null
-          ? const RentCarGearboxTypeEntity()
-          : const RentCarGearboxTypeConverter()
-              .fromJson(json['gearbox_type'] as Map<String, dynamic>?),
-      modificationType: json['modification_type'] == null
-          ? const RentCarModificationEntity()
-          : const RentCarModificationConverter()
-              .fromJson(json['modification_type'] as Map<String, dynamic>?),
-      licenceType: json['licence_type'] as String? ?? '',
-      ownership: json['ownership'] as String? ?? '',
-      purchaseDate: json['purchase_date'] as String? ?? '',
-      description: json['description'] as String? ?? '',
-      isRegisteredLocally: json['is_registered_locally'] as bool? ?? false,
-      registrationVin: json['registration_vin'] as String? ?? '',
-      registrationPlate: json['registration_plate'] as String? ?? '',
-      registrationCertificate:
-          json['registration_certificate'] as String? ?? '',
-      registrationSerialNumber:
-          json['registration_serial_number'] as String? ?? '',
-      registeredInUzbekistan:
-          json['registered_in_uzbekistan'] as bool? ?? false,
-      user: json['user'] == null
-          ? const CarUserEntity()
-          : const CarUserConverter()
-              .fromJson(json['user'] as Map<String, dynamic>?),
-      contactName: json['contact_name'] as String? ?? '',
-      contactEmail: json['contact_email'] as String? ?? '',
-      contactPhone: json['contact_phone'] as String? ?? '',
-      isNew: json['is_new'] as bool? ?? false,
-      gallery: (json['gallery'] as List<dynamic>?)
-              ?.map((e) => e as String)
-              .toList() ??
-          const [],
-      longitude: json['longitude'] as int? ?? 0,
-      latitude: json['latitude'] as int? ?? 0,
-      isMine: json['is_mine'] as bool? ?? false,
-      viewsCount: json['views_count'] as int? ?? 0,
       createdAt: json['created_at'] as String? ?? '',
       updatedAt: json['updated_at'] as String? ?? '',
+      bodyType: json['body_type'] == null
+          ? const RentCarBodyTypeEntity()
+          : const RentCarBodyTypeConverter()
+              .fromJson(json['body_type'] as Map<String, dynamic>?),
+      contactAvailableTo: json['contact_available_to'] as String? ?? '',
+      contactEmail: json['contact_email'] as String? ?? '',
+      contactName: json['contact_name'] as String? ?? '',
+      contactPhone: json['contact_phone'] as String? ?? '',
       damagedParts: (json['damaged_parts'] as List<dynamic>?)
               ?.map((e) => const DamagedPartsConverter()
                   .fromJson(e as Map<String, dynamic>?))
               .toList() ??
           const [],
+      distanceTraveled: json['distance_traveled'] as int? ?? 0,
+      driveType: json['drive_type'] == null
+          ? const RentCarDriveTypeEntity()
+          : const RentCarDriveTypeConverter()
+              .fromJson(json['drive_type'] as Map<String, dynamic>?),
+      gallery: (json['gallery'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList() ??
+          [],
+      gearboxType: json['gearbox_type'] == null
+          ? const RentCarGearboxTypeEntity()
+          : const RentCarGearboxTypeConverter()
+              .fromJson(json['gearbox_type'] as Map<String, dynamic>?),
+      generation: json['generation'] == null
+          ? const RentCarGenerationEntity()
+          : const RentCarGenerationConverter()
+              .fromJson(json['generation'] as Map<String, dynamic>?),
+      isMine: json['is_mine'] as bool? ?? false,
+      isNew: json['is_new'] as bool? ?? false,
+      isRegisteredLocally: json['is_registered_locally'] as bool? ?? false,
+      isWishlisted: json['is_wishlisted'] as bool? ?? false,
+      latitude: (json['latitude'] as num?)?.toDouble() ?? 0,
+      licenceType: json['licence_type'] as String? ?? '',
+      longitude: (json['longitude'] as num?)?.toDouble() ?? 0,
+      make: json['make'] == null
+          ? const RentCarMakeEntity()
+          : const RentCarMakeConverter()
+              .fromJson(json['make'] as Map<String, dynamic>?),
+      modificationType: json['modification_type'] == null
+          ? const RentCarModificationEntity()
+          : const RentCarModificationConverter()
+              .fromJson(json['modification_type'] as Map<String, dynamic>?),
+      ownership: json['ownership'] as String? ?? '',
+      publishedAt: json['published_at'] as String? ?? '',
+      purchaseDate: json['purchase_date'] as String? ?? '',
+      registeredInUzbekistan:
+          json['registered_in_uzbekistan'] as bool? ?? false,
+      registrationCertificate:
+          json['registration_certificate'] as String? ?? '',
+      registrationPlate: json['registration_plate'] as String? ?? '',
+      registrationSerialNumber:
+          json['registration_serial_number'] as String? ?? '',
+      registrationVin: json['registration_vin'] as String? ?? '',
+      user: json['user'] == null
+          ? const CarUserEntity()
+          : const CarUserConverter()
+              .fromJson(json['user'] as Map<String, dynamic>?),
+      userType: json['user_type'] as String? ?? '',
+      viewsCount: json['views_count'] as int? ?? 0,
+      year: json['year'] as int? ?? 0,
     );
 
 Map<String, dynamic> _$CarSingleModelToJson(CarSingleModel instance) =>
@@ -91,10 +95,10 @@ Map<String, dynamic> _$CarSingleModelToJson(CarSingleModel instance) =>
       'id': instance.id,
       'make': const RentCarMakeConverter().toJson(instance.make),
       'model': const RentCarModelsConverter().toJson(instance.model),
-      'auto_name': instance.autoName,
+      'absolute_car_name': instance.absoluteCarName,
       'price': instance.price,
       'currency': instance.currency,
-      'date': instance.date,
+      'published_at': instance.publishedAt,
       'year': instance.year,
       'distance_traveled': instance.distanceTraveled,
       'color': instance.color,
@@ -123,6 +127,8 @@ Map<String, dynamic> _$CarSingleModelToJson(CarSingleModel instance) =>
       'contact_name': instance.contactName,
       'contact_email': instance.contactEmail,
       'contact_phone': instance.contactPhone,
+      'contact_available_from': instance.contactAvailableFrom,
+      'contact_available_to': instance.contactAvailableTo,
       'is_new': instance.isNew,
       'gallery': instance.gallery,
       'longitude': instance.longitude,
@@ -134,4 +140,6 @@ Map<String, dynamic> _$CarSingleModelToJson(CarSingleModel instance) =>
       'damaged_parts': instance.damagedParts
           .map(const DamagedPartsConverter().toJson)
           .toList(),
+      'user_type': instance.userType,
+      'is_wishlisted': instance.isWishlisted,
     };

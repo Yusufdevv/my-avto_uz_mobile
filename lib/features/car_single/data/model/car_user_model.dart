@@ -8,8 +8,8 @@ class CarUserModel extends CarUserEntity {
   const CarUserModel({
     required super.id,
     required super.phoneNumber,
-    required super.fullName,
-    required super.image,
+    required super.name,
+    required super.avatar,
   });
   factory CarUserModel.fromJson(Map<String, dynamic> json) => _$CarUserModelFromJson(json);
 

@@ -1,14 +1,21 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
-import 'package:auto/features/car_single/presentation/parts/vin_page.dart';
+import 'package:auto/features/car_single/presentation/widgets/dealer_item.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
-import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:share_plus/share_plus.dart';
 
 class MoreActions extends StatelessWidget {
-  const MoreActions({Key? key}) : super(key: key);
+  final String name;
+  final String position;
+  final String image;
+
+  const MoreActions(
+      {Key? key,
+      required this.name,
+      required this.position,
+      required this.image})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) => Container(
@@ -36,7 +43,10 @@ class MoreActions extends StatelessWidget {
                 ),
                 Text(
                   'Действия',
-                  style: Theme.of(context).textTheme.headline1,
+                  style: Theme.of(context).textTheme.headline1!.copyWith(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w700,
+                      ),
                 ),
                 const Spacer(),
                 GestureDetector(
@@ -45,8 +55,8 @@ class MoreActions extends StatelessWidget {
                   },
                   child: SvgPicture.asset(
                     AppIcons.close,
-                    width: 32,
-                    height: 32,
+                    width: 28,
+                    height: 28,
                   ),
                 ),
                 const SizedBox(
@@ -55,97 +65,197 @@ class MoreActions extends StatelessWidget {
               ],
             ),
             const SizedBox(
-              height: 26,
+              height: 8,
             ),
             const Divider(),
-            WScaleAnimation(
-              onTap: () {
-                Navigator.of(context).push(fade(page: const VinPage()));
-              },
-              child: Row(
-                children: [
-                  const SizedBox(
-                    width: 16,
-                  ),
-                  SvgPicture.asset(
-                    AppIcons.file,
-                    width: 32,
-                    height: 32,
-                    color: orange,
-                  ),
-                  const SizedBox(
-                    width: 8,
-                  ),
-                  Text(
-                    'Отчет (VIN)',
-                    style: Theme.of(context).textTheme.subtitle1,
-                  ),
-                ],
-              ),
+            const SizedBox(
+              height: 4,
             ),
-            const Padding(
-              padding: EdgeInsets.only(left: 52),
-              child: Divider(),
+            Row(
+              children: [
+                const SizedBox(
+                  width: 16,
+                ),
+                Expanded(
+                  child: WScaleAnimation(
+                    onTap: () {},
+                    child: Container(
+                      padding: const EdgeInsets.only(
+                        top: 16,
+                        bottom: 16,
+                      ),
+                      decoration: BoxDecoration(
+                        color: const Color(0xffF0EFFD),
+                        borderRadius: BorderRadius.circular(
+                          8,
+                        ),
+                      ),
+                      child: Center(
+                        child: Column(
+                          children: [
+                            SvgPicture.asset(
+                              AppIcons.blue_vin_soon,
+                            ),
+                            Text(
+                              'Отчет (VIN)',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline1!
+                                  .copyWith(
+                                    color: const Color(
+                                      0xff171725,
+                                    ),
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 12,
+                                  ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  width: 8,
+                ),
+                Expanded(
+                  child: WScaleAnimation(
+                    onTap: () {},
+                    child: Container(
+                      padding: const EdgeInsets.only(
+                        top: 16,
+                        bottom: 16,
+                      ),
+                      decoration: BoxDecoration(
+                        color: const Color(0xffEFFAF3),
+                        borderRadius: BorderRadius.circular(
+                          8,
+                        ),
+                      ),
+                      child: Center(
+                        child: Column(
+                          children: [
+                            SvgPicture.asset(
+                              AppIcons.scale,
+                              color: green,
+                            ),
+                            Text(
+                              'Сравнить',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline1!
+                                  .copyWith(
+                                color: const Color(
+                                  0xff171725,
+                                ),
+                                fontWeight: FontWeight.w600,
+                                fontSize: 12,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  width: 8,
+                ),
+                Expanded(
+                  child: WScaleAnimation(
+                    onTap: () {},
+                    child: Container(
+                      padding: const EdgeInsets.only(
+                        top: 16,
+                        bottom: 16,
+                      ),
+                      decoration: BoxDecoration(
+                        color: const Color(0xffFDEFEB),
+                        borderRadius: BorderRadius.circular(
+                          8,
+                        ),
+                      ),
+                      child: Center(
+                        child: Column(
+                          children: [
+                            SvgPicture.asset(
+                              AppIcons.share,
+                              height: 28,
+                              color: const Color(
+                                0xffEA5930,
+                              ),
+                            ),
+                            Text(
+                              'Поделиться',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline1!
+                                  .copyWith(
+                                    color: const Color(
+                                      0xff171725,
+                                    ),
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 12,
+                                  ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  width: 16,
+                ),
+
+              ],
             ),
-            WScaleAnimation(
+            DealerItem(
+              image: image,
+              name: name,
+              position: position,
               onTap: () {},
-              child: Row(
-                children: [
-                  const SizedBox(
-                    width: 16,
-                  ),
-                  SvgPicture.asset(
-                    AppIcons.scale,
-                    width: 32,
-                    height: 32,
-                    color: orange,
-                  ),
-                  const SizedBox(
-                    width: 8,
-                  ),
-                  Text(
-                    'Сравнить',
-                    style: Theme.of(context).textTheme.subtitle1,
-                  ),
-                ],
-              ),
             ),
-            const Padding(
-              padding: EdgeInsets.only(left: 52),
-              child: Divider(),
-            ),
-            WScaleAnimation(
-              onTap: SharePressed,
-              child: Row(
-                children: [
-                  const SizedBox(
-                    width: 16,
-                  ),
-                  SvgPicture.asset(
-                    AppIcons.share,
-                    width: 32,
-                    height: 32,
-                    color: orange,
-                  ),
-                  const SizedBox(
-                    width: 8,
-                  ),
-                  Text(
-                    'Поделиться',
-                    style: Theme.of(context).textTheme.subtitle1,
-                  ),
-                ],
-              ),
-            ),
+            // MoreActionItem(
+            //   icon: AppIcons.refresh,
+            //   text: 'Продлить еще на 12 дней',
+            //   color: const Color(
+            //     0xffF0FAF6,
+            //   ),
+            //   onTap: () {},
+            // ),
+            // MoreActionItem(
+            //   icon: AppIcons.crown,
+            //   text: 'Стать VIP на 3 дня',
+            //   color: const Color(
+            //     0xffFFF6E1,
+            //   ),
+            //   onTap: () {},
+            // ),
+            // MoreActionItem(
+            //   icon: AppIcons.rocket,
+            //   text: 'Отправить в “ТОП”',
+            //   color: const Color(
+            //     0xffFFECE7,
+            //   ),
+            //   onTap: () {},
+            // ),
+            // MoreActionItem(
+            //   icon: AppIcons.blue_fire,
+            //   text: 'В горячие',
+            //   color: const Color(
+            //     0xffDFEFFF,
+            //   ),
+            //   onTap: () {},
+            // ),
             SizedBox(
-              height: MediaQuery.of(context).padding.bottom + 36,
+              height: MediaQuery.of(context).padding.bottom + 8,
             ),
           ],
         ),
       );
 }
 
-void SharePressed() {
-  String message = 'Auto uz';
-  Share.share(message);
-}
+// onTap: () {
+// Navigator.of(context).push(fade(page: const VinPage()));
+// },

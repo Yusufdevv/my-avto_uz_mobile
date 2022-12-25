@@ -1,11 +1,12 @@
 import 'package:auto/assets/colors/color.dart';
-import 'package:auto/features/car_single/domain/entities/car_detail.dart';
 import 'package:flutter/material.dart';
 
 class CarInfoTile extends StatelessWidget {
-  final CarDetailEntity entity;
+  final String text;
+  final String value;
 
-  const CarInfoTile({Key? key, required this.entity}) : super(key: key);
+  const CarInfoTile({Key? key, required this.text, required this.value})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) => Container(
@@ -18,7 +19,7 @@ class CarInfoTile extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Text(
-                    entity.title + ' ',
+                    text + ' ',
                     style: Theme.of(context).textTheme.headline1!.copyWith(
                         fontWeight: FontWeight.w400, fontSize: 14, color: grey),
                   ),
@@ -35,7 +36,7 @@ class CarInfoTile extends StatelessWidget {
             Expanded(
               flex: 2,
               child: Text(
-                ' ' + entity.value,
+                ' ' + value,
                 style: Theme.of(context).textTheme.headline1!.copyWith(
                     fontWeight: FontWeight.w600, fontSize: 14, color: grey),
               ),

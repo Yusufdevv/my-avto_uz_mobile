@@ -8,12 +8,12 @@ part of 'make.dart';
 
 MakeModel _$MakeModelFromJson(Map<String, dynamic> json) => MakeModel(
       id: json['id'] as int? ?? 0,
-      name: json['name'] as String? ?? '',
+      type: json['type'] as String? ?? '',
       logo: json['logo'] as String? ?? '',
     );
 
 Map<String, dynamic> _$MakeModelToJson(MakeModel instance) => <String, dynamic>{
       'id': instance.id,
-      'name': instance.name,
+      'type': instance.type,
       'logo': instance.logo,
     };
