@@ -30,7 +30,7 @@ class _ChooseMakerState extends State<ChooseMaker> {
       useCase: GetMakesUseCase(
         repository: serviceLocator<AdRepositoryImpl>(),
       ),
-    )..add(const GetMakesBlocEvent.getMakes());
+    )..add(GetMakesBlocEvent.getMakes());
     super.initState();
   }
 
