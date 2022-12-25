@@ -8,6 +8,7 @@ import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/rent/presentation/bloc/rent_bloc/rent_bloc.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/choose_body_type.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/choose_drive_type.dart';
+import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/choose_gearbox.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/choose_maker.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/rent_choose_bottom_sheet.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/rent_choose_region_bottom_sheet.dart';
@@ -163,17 +164,7 @@ class _RentFilterScreenState extends State<RentFilterScreen> {
                         context: context,
                         isScrollControlled: true,
                         backgroundColor: Colors.transparent,
-                        builder: (c) => RentChooseBottomSheet(
-                          title: 'Box',
-                          list: List.generate(
-                            8,
-                            (index) => ToChoose(
-                              title: 'Box $index',
-                              imagePath: AppIcons.kia,
-                              id: index,
-                            ),
-                          ),
-                        ),
+                        builder: (c) => const ChooseGearbox(),
                       ).then((value) {
                         widget.rentBloc
                             .add(RentSetParamFromFilterEvent(carMakers: value));

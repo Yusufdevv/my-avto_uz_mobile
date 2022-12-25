@@ -30,7 +30,7 @@ class _ChooseBodyTypeState extends State<ChooseBodyType> {
       getBodyTypeUseCase: GetBodyTypesUseCase(
         repository: serviceLocator<AdRepositoryImpl>(),
       ),
-    )..add(GetBodyTypesGetEvent());
+    )..add(GetBodyTypesEvent());
     super.initState();
   }
 
@@ -95,7 +95,7 @@ class _ChooseBodyTypeState extends State<ChooseBodyType> {
                                             }
                                             setState(() {});
                                           },
-                                          child: MakerSheetItem(
+                                          child: RentSheetItem(
                                             logo: state.bodyTypes[index].logo,
                                             title: state.bodyTypes[index].type,
                                             isChecked:

@@ -65,7 +65,7 @@ class _ChooseGearboxState extends State<ChooseGearbox> {
                         child: Column(
                           children: [
                             SheetSelectAllButton(
-                              title: '${LocaleKeys.all.tr()} kоробка',
+                              title: '${LocaleKeys.all.tr()} коробки',
                               isAllChecked: isAllChecked,
                               onTap: () {
                                 if (isAllChecked) {
@@ -95,9 +95,9 @@ class _ChooseGearboxState extends State<ChooseGearbox> {
                                             }
                                             setState(() {});
                                           },
-                                          child: MakerSheetItem(
+                                          child: RentSheetItem(
                                             logo: state.gearBoxes[index].logo,
-                                            title: state.gearBoxes[index].name,
+                                            title: state.gearBoxes[index].type,
                                             isChecked:
                                                 checkStatus.containsKey(index),
                                           ),

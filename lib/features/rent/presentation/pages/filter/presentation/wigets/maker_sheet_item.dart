@@ -1,14 +1,13 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/marka_checkbox.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class MakerSheetItem extends StatelessWidget {
+class RentSheetItem extends StatelessWidget {
   final bool isChecked;
   final String title;
   final String logo;
-  const MakerSheetItem(
+  const RentSheetItem(
       {required this.logo,
       required this.title,
       required this.isChecked,

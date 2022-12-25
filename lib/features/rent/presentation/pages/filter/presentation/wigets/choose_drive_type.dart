@@ -96,11 +96,9 @@ class _ChooseDriveTypeState extends State<ChooseDriveType> {
                                             }
                                             setState(() {});
                                           },
-                                          child: MakerSheetItem(
-                                            logo:
-                                                state.driveTypes[index].logo,
-                                            title:
-                                                state.driveTypes[index].type,
+                                          child: RentSheetItem(
+                                            logo: state.driveTypes[index].logo,
+                                            title: state.driveTypes[index].type,
                                             isChecked:
                                                 checkStatus.containsKey(index),
                                           ),

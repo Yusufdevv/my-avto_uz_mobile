@@ -96,7 +96,7 @@ class _ChooseMakerState extends State<ChooseMaker> {
                                             }
                                             setState(() {});
                                           },
-                                          child: MakerSheetItem(
+                                          child: RentSheetItem(
                                             logo:
                                                 state.makes.results[index].logo,
                                             title:
