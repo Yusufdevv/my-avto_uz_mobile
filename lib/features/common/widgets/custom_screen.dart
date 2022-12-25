@@ -6,6 +6,7 @@ import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:formz/formz.dart';
 
 class CustomScreen extends StatelessWidget {
   final Widget child;
@@ -29,8 +30,10 @@ class CustomScreen extends StatelessWidget {
                 child: Container(
                   padding: const EdgeInsets.all(8),
                   decoration: BoxDecoration(
-                    color: Color(0xffFAEEEE),
-                    border: Border.all(color: red),
+                    color: state.isSucces
+                        ? const Color(0xFFECF8F3)
+                        : const Color(0xffFAEEEE),
+                    border: Border.all(color: state.isSucces ? green : red),
                     borderRadius: BorderRadius.circular(16),
                   ),
                   child: Row(
@@ -38,8 +41,8 @@ class CustomScreen extends StatelessWidget {
                       Container(
                         height: 32,
                         width: 32,
-                        decoration: const BoxDecoration(
-                          color: red,
+                        decoration: BoxDecoration(
+                          color: state.isSucces ? green : red,
                           shape: BoxShape.circle,
                         ),
                         alignment: Alignment.center,

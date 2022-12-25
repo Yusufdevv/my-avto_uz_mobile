@@ -13,7 +13,7 @@ class ComparisonDataSourceImpl extends ComparisonCarsDataSource {
   @override
   Future getComparisonCars() async {
     try {
-       final response = await _dio.get('car/comparison/',
+       final response = await _dio.get('/car/comparison/',
           options: StorageRepository.getString('token').isNotEmpty
               ? Options(headers: {
                   'Authorization':

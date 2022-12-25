@@ -70,6 +70,7 @@ const secondBackground = _gainsboro2;
 const nero = _nero3;
 const snow = _snow;
 
+
 // Main palette (http://www.color-blindness.com/color-name-hue/).
 
 const _snow = Color(0xFFFFFCFB);

@@ -1,6 +1,7 @@
 part of 'get_makes_bloc_bloc.dart';
 
-@freezed
+@Freezed()
 class GetMakesBlocEvent with _$GetMakesBlocEvent {
-  const factory GetMakesBlocEvent.getMakes() = _GetMakes;
+  factory GetMakesBlocEvent.getMakes() = _GetMakes;
+  factory GetMakesBlocEvent.getSerched(String naem) = _GetSerched;
 }

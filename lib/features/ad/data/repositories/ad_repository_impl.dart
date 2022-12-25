@@ -80,15 +80,10 @@ class AdRepositoryImpl extends AdRepository {
   }
 
   @override
-  Future<Either<Failure, GenericPagination<CarModelEntity>>> getCarModel({
-    required int makeId,
-    String? next,
-  }) async {
+  Future<Either<Failure, GetMakeEntity>> getCarModel(int makeId,
+      {String? name}) async {
     try {
-      final result = await remoteDataSource.getCarModel(
-        makeId: makeId,
-        next: next,
-      );
+      final result = await remoteDataSource.getCarModel(makeId, name: name);
       return Right(result);
     } on DioException {
       return Left(DioFailure());
@@ -237,9 +232,9 @@ class AdRepositoryImpl extends AdRepository {
   }
 
   @override
-  Future<Either<Failure, GetMakeEntity>> getMake() async {
+  Future<Either<Failure, GetMakeEntity>> getMake({String? name}) async {
     try {
-      final result = await remoteDataSource.getMake();
+      final result = await remoteDataSource.getMake(name: name!);
       return Right(result);
     } on DioException {
       return Left(DioFailure());
@@ -285,24 +280,24 @@ class AdRepositoryImpl extends AdRepository {
     }
   }
 
-  @override
-  Future<Either<Failure, GenericPagination<MakeEntity>>> getTopMakes({
-    String? next,
-  }) async {
-    try {
-      final result = await remoteDataSource.getTopMakes(next: next);
-      return Right(result);
-    } on DioException {
-      return Left(DioFailure());
-    } on ParsingException catch (e) {
-      return Left(ParsingFailure(errorMessage: e.errorMessage));
-    } on ServerException catch (e) {
-      return Left(ServerFailure(
-        errorMessage: e.errorMessage,
-        statusCode: e.statusCode,
-      ));
-    }
-  }
+  // @override
+  // Future<Either<Failure, GenericPagination<MakeEntity>>> getTopMakes({
+  //   String? next,
+  // }) async {
+  //   try {
+  //     final result = await remoteDataSource.getTopMakes(next: next);
+  //     return Right(result);
+  //   } on DioException {
+  //     return Left(DioFailure());
+  //   } on ParsingException catch (e) {
+  //     return Left(ParsingFailure(errorMessage: e.errorMessage));
+  //   } on ServerException catch (e) {
+  //     return Left(ServerFailure(
+  //       errorMessage: e.errorMessage,
+  //       statusCode: e.statusCode,
+  //     ));
+  //   }
+  // }
 
   @override
   Future<Either<Failure, GenericPagination<YearsEntity>>> getYears({

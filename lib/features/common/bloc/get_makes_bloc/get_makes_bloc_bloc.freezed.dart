@@ -19,32 +19,38 @@ mixin _$GetMakesBlocEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getMakes,
+    required TResult Function(String naem) getSerched,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getMakes,
+    TResult? Function(String naem)? getSerched,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getMakes,
+    TResult Function(String naem)? getSerched,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_GetMakes value) getMakes,
+    required TResult Function(_GetSerched value) getSerched,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetMakes value)? getMakes,
+    TResult? Function(_GetSerched value)? getSerched,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetMakes value)? getMakes,
+    TResult Function(_GetSerched value)? getSerched,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -86,12 +92,18 @@ class __$$_GetMakesCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_GetMakes implements _GetMakes {
-  const _$_GetMakes();
+class _$_GetMakes with DiagnosticableTreeMixin implements _GetMakes {
+  _$_GetMakes();
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'GetMakesBlocEvent.getMakes()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty('type', 'GetMakesBlocEvent.getMakes'));
   }
 
   @override
@@ -107,6 +119,7 @@ class _$_GetMakes implements _GetMakes {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getMakes,
+    required TResult Function(String naem) getSerched,
   }) {
     return getMakes();
   }
@@ -115,6 +128,7 @@ class _$_GetMakes implements _GetMakes {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getMakes,
+    TResult? Function(String naem)? getSerched,
   }) {
     return getMakes?.call();
   }
@@ -123,6 +137,7 @@ class _$_GetMakes implements _GetMakes {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getMakes,
+    TResult Function(String naem)? getSerched,
     required TResult orElse(),
   }) {
     if (getMakes != null) {
@@ -135,6 +150,7 @@ class _$_GetMakes implements _GetMakes {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_GetMakes value) getMakes,
+    required TResult Function(_GetSerched value) getSerched,
   }) {
     return getMakes(this);
   }
@@ -143,6 +159,7 @@ class _$_GetMakes implements _GetMakes {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetMakes value)? getMakes,
+    TResult? Function(_GetSerched value)? getSerched,
   }) {
     return getMakes?.call(this);
   }
@@ -151,6 +168,7 @@ class _$_GetMakes implements _GetMakes {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetMakes value)? getMakes,
+    TResult Function(_GetSerched value)? getSerched,
     required TResult orElse(),
   }) {
     if (getMakes != null) {
@@ -161,7 +179,148 @@ class _$_GetMakes implements _GetMakes {
 }
 
 abstract class _GetMakes implements GetMakesBlocEvent {
-  const factory _GetMakes() = _$_GetMakes;
+  factory _GetMakes() = _$_GetMakes;
+}
+
+/// @nodoc
+abstract class _$$_GetSerchedCopyWith<$Res> {
+  factory _$$_GetSerchedCopyWith(
+          _$_GetSerched value, $Res Function(_$_GetSerched) then) =
+      __$$_GetSerchedCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String naem});
+}
+
+/// @nodoc
+class __$$_GetSerchedCopyWithImpl<$Res>
+    extends _$GetMakesBlocEventCopyWithImpl<$Res, _$_GetSerched>
+    implements _$$_GetSerchedCopyWith<$Res> {
+  __$$_GetSerchedCopyWithImpl(
+      _$_GetSerched _value, $Res Function(_$_GetSerched) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? naem = null,
+  }) {
+    return _then(_$_GetSerched(
+      null == naem
+          ? _value.naem
+          : naem // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_GetSerched with DiagnosticableTreeMixin implements _GetSerched {
+  _$_GetSerched(this.naem);
+
+  @override
+  final String naem;
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'GetMakesBlocEvent.getSerched(naem: $naem)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'GetMakesBlocEvent.getSerched'))
+      ..add(DiagnosticsProperty('naem', naem));
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_GetSerched &&
+            (identical(other.naem, naem) || other.naem == naem));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, naem);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_GetSerchedCopyWith<_$_GetSerched> get copyWith =>
+      __$$_GetSerchedCopyWithImpl<_$_GetSerched>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() getMakes,
+    required TResult Function(String naem) getSerched,
+  }) {
+    return getSerched(naem);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? getMakes,
+    TResult? Function(String naem)? getSerched,
+  }) {
+    return getSerched?.call(naem);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? getMakes,
+    TResult Function(String naem)? getSerched,
+    required TResult orElse(),
+  }) {
+    if (getSerched != null) {
+      return getSerched(naem);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_GetMakes value) getMakes,
+    required TResult Function(_GetSerched value) getSerched,
+  }) {
+    return getSerched(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetMakes value)? getMakes,
+    TResult? Function(_GetSerched value)? getSerched,
+  }) {
+    return getSerched?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetMakes value)? getMakes,
+    TResult Function(_GetSerched value)? getSerched,
+    required TResult orElse(),
+  }) {
+    if (getSerched != null) {
+      return getSerched(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _GetSerched implements GetMakesBlocEvent {
+  factory _GetSerched(final String naem) = _$_GetSerched;
+
+  String get naem;
+  @JsonKey(ignore: true)
+  _$$_GetSerchedCopyWith<_$_GetSerched> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -169,6 +328,7 @@ mixin _$GetMakesState {
   FormzStatus get status => throw _privateConstructorUsedError;
   GetMakeEntity get makes => throw _privateConstructorUsedError;
   dynamic get next => throw _privateConstructorUsedError;
+  dynamic get search => throw _privateConstructorUsedError;
   dynamic get count => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -183,7 +343,11 @@ abstract class $GetMakesStateCopyWith<$Res> {
       _$GetMakesStateCopyWithImpl<$Res, GetMakesState>;
   @useResult
   $Res call(
-      {FormzStatus status, GetMakeEntity makes, dynamic next, dynamic count});
+      {FormzStatus status,
+      GetMakeEntity makes,
+      dynamic next,
+      dynamic search,
+      dynamic count});
 }
 
 /// @nodoc
@@ -202,6 +366,7 @@ class _$GetMakesStateCopyWithImpl<$Res, $Val extends GetMakesState>
     Object? status = null,
     Object? makes = null,
     Object? next = freezed,
+    Object? search = freezed,
     Object? count = freezed,
   }) {
     return _then(_value.copyWith(
@@ -216,6 +381,10 @@ class _$GetMakesStateCopyWithImpl<$Res, $Val extends GetMakesState>
       next: freezed == next
           ? _value.next
           : next // ignore: cast_nullable_to_non_nullable
+              as dynamic,
+      search: freezed == search
+          ? _value.search
+          : search // ignore: cast_nullable_to_non_nullable
               as dynamic,
       count: freezed == count
           ? _value.count
@@ -234,7 +403,11 @@ abstract class _$$_GetMakesStateCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {FormzStatus status, GetMakeEntity makes, dynamic next, dynamic count});
+      {FormzStatus status,
+      GetMakeEntity makes,
+      dynamic next,
+      dynamic search,
+      dynamic count});
 }
 
 /// @nodoc
@@ -251,6 +424,7 @@ class __$$_GetMakesStateCopyWithImpl<$Res>
     Object? status = null,
     Object? makes = null,
     Object? next = freezed,
+    Object? search = freezed,
     Object? count = freezed,
   }) {
     return _then(_$_GetMakesState(
@@ -263,6 +437,7 @@ class __$$_GetMakesStateCopyWithImpl<$Res>
           : makes // ignore: cast_nullable_to_non_nullable
               as GetMakeEntity,
       next: freezed == next ? _value.next! : next,
+      search: freezed == search ? _value.search! : search,
       count: freezed == count ? _value.count! : count,
     ));
   }
@@ -270,11 +445,12 @@ class __$$_GetMakesStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_GetMakesState implements _GetMakesState {
+class _$_GetMakesState with DiagnosticableTreeMixin implements _GetMakesState {
   _$_GetMakesState(
       {this.status = FormzStatus.pure,
       this.makes = const GetMakeEntity(),
       this.next = '',
+      this.search = '',
       this.count = 0});
 
   @override
@@ -288,11 +464,26 @@ class _$_GetMakesState implements _GetMakesState {
   final dynamic next;
   @override
   @JsonKey()
+  final dynamic search;
+  @override
+  @JsonKey()
   final dynamic count;
 
   @override
-  String toString() {
-    return 'GetMakesState(status: $status, makes: $makes, next: $next, count: $count)';
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'GetMakesState(status: $status, makes: $makes, next: $next, search: $search, count: $count)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'GetMakesState'))
+      ..add(DiagnosticsProperty('status', status))
+      ..add(DiagnosticsProperty('makes', makes))
+      ..add(DiagnosticsProperty('next', next))
+      ..add(DiagnosticsProperty('search', search))
+      ..add(DiagnosticsProperty('count', count));
   }
 
   @override
@@ -303,6 +494,7 @@ class _$_GetMakesState implements _GetMakesState {
             (identical(other.status, status) || other.status == status) &&
             (identical(other.makes, makes) || other.makes == makes) &&
             const DeepCollectionEquality().equals(other.next, next) &&
+            const DeepCollectionEquality().equals(other.search, search) &&
             const DeepCollectionEquality().equals(other.count, count));
   }
 
@@ -312,6 +504,7 @@ class _$_GetMakesState implements _GetMakesState {
       status,
       makes,
       const DeepCollectionEquality().hash(next),
+      const DeepCollectionEquality().hash(search),
       const DeepCollectionEquality().hash(count));
 
   @JsonKey(ignore: true)
@@ -326,6 +519,7 @@ abstract class _GetMakesState implements GetMakesState {
       {final FormzStatus status,
       final GetMakeEntity makes,
       final dynamic next,
+      final dynamic search,
       final dynamic count}) = _$_GetMakesState;
 
   @override
@@ -334,6 +528,8 @@ abstract class _GetMakesState implements GetMakesState {
   GetMakeEntity get makes;
   @override
   dynamic get next;
+  @override
+  dynamic get search;
   @override
   dynamic get count;
   @override

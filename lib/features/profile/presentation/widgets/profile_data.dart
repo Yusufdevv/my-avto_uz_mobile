@@ -8,7 +8,7 @@ import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class ProfileData extends StatelessWidget {
+class ProfileDataWidget extends StatelessWidget {
   final EdgeInsets margin;
   final String imageUrl;
   final String title;
@@ -16,7 +16,7 @@ class ProfileData extends StatelessWidget {
   final VoidCallback onTap;
   final bool hasAlert;
 
-  const ProfileData({
+  const ProfileDataWidget({
     required this.onTap,
     required this.title,
     required this.subTitle,
@@ -75,29 +75,29 @@ class ProfileData extends StatelessWidget {
                   )
                 ],
               ),
-              //
-              if (hasAlert)
-                Container(
-                  margin: const EdgeInsets.only(
-                    bottom: 18,
-                    left: 4,
-                  ),
-                  height: 16,
-                  width: 16,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(
-                        4,
-                      ),
-                      color: iconBackground.withOpacity(.1)),
-                  child: Center(
-                    child: SvgPicture.asset(AppIcons.alert),
-                  ),
-                )
-              else
-                const SizedBox(),
-                
+              // //
+              // if (hasAlert)
+              //   Container(
+              //     margin: const EdgeInsets.only(
+              //       bottom: 18,
+              //       left: 4,
+              //     ),
+              //     height: 16,
+              //     width: 16,
+              //     decoration: BoxDecoration(
+              //         borderRadius: BorderRadius.circular(
+              //           4,
+              //         ),
+              //         color: iconBackground.withOpacity(.1)),
+              //     child: Center(
+              //       child: SvgPicture.asset(AppIcons.alert),
+              //     ),
+              //   )
+              // else
+              //   const SizedBox(),
+
               const Spacer(),
-               //
+              //
               Padding(
                 padding: EdgeInsets.only(
                   right: SizeConfig.h(16),

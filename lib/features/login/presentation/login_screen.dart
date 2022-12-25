@@ -17,6 +17,7 @@ import 'package:auto/features/onboarding/presentation/widgets/social_media_item.
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:formz/formz.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
@@ -164,7 +165,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 if (text.isNotEmpty) {
                                   context
                                       .read<ShowPopUpBloc>()
-                                      .add(ShowPopUp(message: text));
+                                      .add(ShowPopUp(message: text, isSucces: false));
                                 } else {}
                               },
                               password: passwordController.text,

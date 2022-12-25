@@ -1,6 +1,5 @@
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/search/domain/entities/commercial_item_entity.dart';
-import 'package:auto/features/search/presentation/widgets/all_commertial_item.dart';
 import 'package:flutter/material.dart';
 
 class SingleMarkAnnouncements extends StatelessWidget {
@@ -40,22 +39,22 @@ class SingleMarkAnnouncements extends StatelessWidget {
           ],
         ),
         body: ListView(shrinkWrap: true, children: [
-          ListView.builder(
-            shrinkWrap: true,
-            padding: const EdgeInsets.all(16),
-            itemCount: 1,
-            itemBuilder: (context, index) => AllCommercialItem(
-              commercialItemEntity: commercialItemEntity[index],
-            ),
-          ),
-          ListView.builder(
-            shrinkWrap: true,
-            padding: const EdgeInsets.all(16),
-            itemCount: 1,
-            itemBuilder: (context, index) => AllCommercialItem(
-              commercialItemEntity: commercialItemEntity[index],
-            ),
-          ),
+          // ListView.builder(
+          //   shrinkWrap: true,
+          //   padding: const EdgeInsets.all(16),
+          //   itemCount: 1,
+          //   itemBuilder: (context, index) => AllCommercialItem(
+          //     commercialItemEntity: commercialItemEntity[index],
+          //   ),
+          // ),
+          // ListView.builder(
+          //   shrinkWrap: true,
+          //   padding: const EdgeInsets.all(16),
+          //   itemCount: 1,
+          //   itemBuilder: (context, index) => AllCommercialItem(
+          //     commercialItemEntity: commercialItemEntity[index],
+          //   ),
+          // ),
 
           // ListView.builder(
           //   shrinkWrap: true,

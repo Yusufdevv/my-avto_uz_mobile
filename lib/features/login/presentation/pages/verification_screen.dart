@@ -17,6 +17,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:formz/formz.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
@@ -25,7 +26,9 @@ class VerificationScreen extends StatefulWidget {
   final String session;
 
   const VerificationScreen(
-      {required this.phone, required this.session, Key? key})
+      {required this.phone,
+      required this.session,
+      Key? key})
       : super(key: key);
 
   @override
@@ -200,7 +203,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
                                     session: widget.session), onError: (text) {
                               context
                                   .read<ShowPopUpBloc>()
-                                  .add(ShowPopUp(message: text));
+                                  .add(ShowPopUp(message: text, isSucces: false));
                             }, onSuccess: () {
                               Navigator.pushReplacement(
                                   context,
@@ -208,8 +211,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
                                       page: BlocProvider.value(
                                           value: context.read<RegisterBloc>(),
                                           child: const PersonalDataScreen())));
-                            }))
-                        : {},
+                            })) : {},                      
                     margin: EdgeInsets.only(
                         bottom: MediaQuery.of(context).padding.bottom + 4),
                     color: (verificationController.text.isNotEmpty &&

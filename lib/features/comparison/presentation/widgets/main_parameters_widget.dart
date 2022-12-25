@@ -4,32 +4,25 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/comparison/domain/entities/comparison_entity.dart';
+import 'package:auto/features/comparison/domain/entities/complectation_entity.dart';
+import 'package:auto/features/comparison/presentation/widgets/comparison_list_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class CharacteristicsParametersWidget extends StatelessWidget {
   final ScrollController controller;
   final List<ComparisonEntity> numberOfAddedCars;
-  final String characteristicsOrComplectation;
-  final List listOfComparisonParameters;
+  final Complectation comparisonParameters;
   final int selectedValue;
-  final int parameterId;
-  final String parameterName;
   final ValueChanged<int> onChanged;
-  final bool isSticky;
 
   const CharacteristicsParametersWidget({
     required this.onChanged,
-    required this.parameterName,
     required this.selectedValue,
-    required this.parameterId,
-    required this.listOfComparisonParameters,
-    required this.characteristicsOrComplectation,
+    required this.comparisonParameters,
     required this.numberOfAddedCars,
     required this.controller,
     Key? key,
-    required this.isSticky,
-    // required this.pii,
   }) : super(key: key);
 
   @override
@@ -40,10 +33,10 @@ class CharacteristicsParametersWidget extends StatelessWidget {
           GestureDetector(
             behavior: HitTestBehavior.opaque,
             onTap: () {
-              if (selectedValue == parameterId) {
+              if (selectedValue == comparisonParameters.id) {
                 onChanged(-1);
               } else {
-                onChanged(parameterId);
+                onChanged(comparisonParameters.id);
               }
             },
             child: Container(
@@ -53,7 +46,7 @@ class CharacteristicsParametersWidget extends StatelessWidget {
                   Expanded(
                     child: AnimatedDefaultTextStyle(
                       style: TextStyle(
-                        color: selectedValue != parameterId
+                        color: selectedValue != comparisonParameters.id
                             ? Theme.of(context)
                                 .extension<ThemedColors>()!
                                 .midnightExpressToWhite
@@ -65,19 +58,22 @@ class CharacteristicsParametersWidget extends StatelessWidget {
                         milliseconds: 100,
                       ),
                       child: Text(
-                        parameterName,
+                        comparisonParameters.parameterName,
                       ),
                     ),
                   ),
                   TweenAnimationBuilder<double>(
                     tween: Tween<double>(
-                        begin: 0, end: selectedValue == parameterId ? pi : 0),
+                        begin: 0,
+                        end: selectedValue == comparisonParameters.id ? pi : 0),
                     duration: const Duration(
                       milliseconds: 100,
                     ),
                     child: SvgPicture.asset(
                       AppIcons.chevronDown,
-                      color: selectedValue != parameterId ? warmerGrey : orange,
+                      color: selectedValue != comparisonParameters.id
+                          ? warmerGrey
+                          : orange,
                     ),
                     builder: (
                       context,
@@ -92,184 +88,106 @@ class CharacteristicsParametersWidget extends StatelessWidget {
           ),
           AnimatedCrossFade(
             firstCurve: Curves.linear,
-            firstChild: characteristicsOrComplectation == 'characteristics'
-                ? Stack(
+            firstChild: Stack(
+              children: [
+                SizedBox(
+                  height:
+                      comparisonParameters.complectationParameters.length * 54,
+                  child: ListView(
+                    controller: controller,
+                    scrollDirection: Axis.horizontal,
                     children: [
-                      SizedBox(
-                        height: listOfComparisonParameters.length * 54,
-                        child: ListView(
-                          controller: controller,
-                          scrollDirection: Axis.horizontal,
-                          children: [
-                            ...List.generate(
-                              numberOfAddedCars.length,
-                              (index) => Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: List.generate(
-                                  listOfComparisonParameters.length,
-                                  (index) => Column(
-                                    children: [
-                                      Container(
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                                0.5,
-                                        color: index.isEven
-                                            ? Theme.of(context)
-                                                .extension<ThemedColors>()!
-                                                .solitudeContainerToNero1
-                                            : Theme.of(context)
-                                                .extension<ThemedColors>()!
-                                                .whiteToNightRider,
-                                        padding: const EdgeInsets.only(
-                                            left: 16, top: 28),
-                                        height: 54,
-                                        child: Text(
-                                          numberOfAddedCars[index]
-                                              .announcement
-                                              .mainData
-                                              .bodyType,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headline1!
-                                              .copyWith(
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w600,
-                                              ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                            if (isSticky == false) ...{
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: List.generate(
-                                  listOfComparisonParameters.length,
-                                  (index) => Column(
-                                    children: [
-                                      Container(
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                                0.5,
-                                        color: index.isEven
-                                            ? Theme.of(context)
-                                                .extension<ThemedColors>()!
-                                                .solitudeContainerToNero1
-                                            : Theme.of(context)
-                                                .extension<ThemedColors>()!
-                                                .whiteToNightRider,
-                                        padding: const EdgeInsets.only(
-                                            left: 16, top: 28),
-                                        height: 54,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            }
-                          ],
-                        ),
-                      ),
                       ...List.generate(
-                        listOfComparisonParameters.length,
-                        (index) => Positioned(
-                          top: 8 + index * 54,
-                          left: 16,
-                          child: Text(
-                            listOfComparisonParameters[index]
-                                .comparisonParameters,
-                            style: const TextStyle(
-                              fontWeight: FontWeight.w400,
-                              fontSize: 12,
-                              color: grey,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  )
-                : Stack(
-                    children: [
-                      SizedBox(
-                        height: listOfComparisonParameters.length * 54,
-                        child: ListView(
-                          controller: controller,
-                          scrollDirection: Axis.horizontal,
+                        numberOfAddedCars.length,
+                        (index) => Column(
                           children: [
-                            ...List.generate(
-                              numberOfAddedCars.length,
-                              (index) => Column(
-                                children: List.generate(
-                                  listOfComparisonParameters.length,
-                                  (index) => Column(
-                                    children: [
-                                      Container(
-                                        color: index.isEven
-                                            ? Theme.of(context)
-                                                .extension<ThemedColors>()!
-                                                .solitudeContainerToNero1
-                                            : Theme.of(context)
-                                                .extension<ThemedColors>()!
-                                                .whiteToNightRider,
-                                        padding: const EdgeInsets.only(
-                                            left: 16, top: 27),
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                                0.5,
-                                        height: 54,
-                                        child: Text(
-                                          numberOfAddedCars[index]
-                                              .announcement
-                                              .mainData
-                                              .make,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headline1!
-                                              .copyWith(
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w600,
-                                              ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
+                            ComparsionList(
+                              info: numberOfAddedCars[index]
+                                  .announcement
+                                  .mainData
+                                  .make,
+                              isGrey: true,
+                            ),
+                            ComparsionList(
+                              info: numberOfAddedCars[index]
+                                  .announcement
+                                  .mainData
+                                  .generation,
+                              isGrey: false,
+                            ),
+                            ComparsionList(
+                              info: numberOfAddedCars[index]
+                                  .announcement
+                                  .mainData
+                                  .bodyType
+                                  .toUpperCase(),
+                              isGrey: true,
+                            ),
+                            ComparsionList(
+                              info: numberOfAddedCars[index]
+                                  .announcement
+                                  .mainData
+                                  .driveType
+                                  .toUpperCase(),
+                              isGrey: false,
+                            ),
+                            ComparsionList(
+                              info: numberOfAddedCars[index]
+                                  .announcement
+                                  .mainData
+                                  .gearboxType
+                                  .toUpperCase(),
+                              isGrey: true,
+                            ),
+                            ComparsionList(
+                              info: numberOfAddedCars[index]
+                                  .announcement
+                                  .mainData
+                                  .year
+                                  .toString(),
+                              isGrey: false,
+                            ),
+                            ComparsionList(
+                              info: numberOfAddedCars[index]
+                                  .announcement
+                                  .mainData
+                                  .color
+                                  .toUpperCase(),
+                              isGrey: true,
                             ),
                           ],
-                        ),
-                      ),
-                      ...List.generate(
-                        listOfComparisonParameters.length,
-                        (index) => Positioned(
-                          top: 8 + index * 54,
-                          left: 16,
-                          child: Text(
-                            listOfComparisonParameters[index]
-                                .comparisonParameters,
-                            style: const TextStyle(
-                              fontWeight: FontWeight.w400,
-                              fontSize: 12,
-                              color: grey,
-                            ),
-                          ),
                         ),
                       ),
                     ],
                   ),
+                ),
+                ...List.generate(
+                  comparisonParameters.complectationParameters.length,
+                  (index) => Positioned(
+                    top: 8 + index * 54,
+                    left: 16,
+                    child: Text(
+                      comparisonParameters
+                          .complectationParameters[index].comparisonParameters,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 12,
+                        color: grey,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
             secondChild: const SizedBox(),
-            crossFadeState: selectedValue == parameterId
+            crossFadeState: selectedValue == comparisonParameters.id
                 ? CrossFadeState.showFirst
                 : CrossFadeState.showSecond,
-            duration: const Duration(
-              milliseconds: 100,
-            ),
+            duration: const Duration(milliseconds: 100),
             alignment: Alignment.bottomLeft,
           ),
           SizedBox(
-            height: selectedValue == parameterId ? 12 : 0,
+            height: selectedValue == comparisonParameters.id ? 12 : 0,
           ),
           Container(
             margin: const EdgeInsets.only(left: 16),
@@ -284,3 +202,5 @@ class CharacteristicsParametersWidget extends StatelessWidget {
         ],
       );
 }
+
+

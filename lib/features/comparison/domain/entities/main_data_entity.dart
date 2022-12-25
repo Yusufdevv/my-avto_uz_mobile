@@ -1,4 +1,5 @@
 import 'package:auto/features/comparison/data/models/main_data_model.dart';
+import 'package:auto/features/comparison/domain/entities/user_entity.dart';
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -12,6 +13,10 @@ class MainDataEntity extends Equatable {
     this.gearboxType = '',
     this.year = 0,
     this.color = '',
+    this.gallery = const [],
+    this.user = const UserEntity(),
+    this.contactAvailableFrom = '',
+    this.contactAvailableTo = '',
   });
 
   final String make;
@@ -22,6 +27,11 @@ class MainDataEntity extends Equatable {
   final String gearboxType;
   final int year;
   final String color;
+  final List<String> gallery;
+  @UserConverter()
+  final UserEntity user;
+  final String contactAvailableFrom;
+  final String contactAvailableTo;
 
   @override
   List<Object?> get props => [
@@ -33,6 +43,10 @@ class MainDataEntity extends Equatable {
         gearboxType,
         year,
         color,
+        gallery,
+        user,
+        contactAvailableFrom,
+        contactAvailableTo,
       ];
 }
 

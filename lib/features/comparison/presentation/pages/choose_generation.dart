@@ -13,8 +13,13 @@ import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 class ChooseGenerationComparison extends StatefulWidget {
   final VoidCallback onTap;
-  const ChooseGenerationComparison({Key? key, required this.onTap})
-      : super(key: key);
+
+  final ModelSelectorBloc modelBloc;
+  const ChooseGenerationComparison({
+    Key? key,
+    required this.onTap,
+    required this.modelBloc,
+  }) : super(key: key);
 
   @override
   State<ChooseGenerationComparison> createState() =>
@@ -44,19 +49,17 @@ class _ChooseGenerationComparisonState
     ModelItemEntity(title: 'm90'),
   ];
 
-  late ModelSelectorBloc modelBloc;
-
   @override
   void initState() {
-    modelBloc = ModelSelectorBloc();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) => BlocProvider.value(
-        value: modelBloc,
+        value: widget.modelBloc,
         child: KeyboardDismisser(
           child: Scaffold(
+            resizeToAvoidBottomInset: false,
             extendBody: true,
             appBar: WAppBar(
               title: 'Модель автомобиля',
@@ -118,9 +121,10 @@ class _ChooseGenerationComparisonState
                           .whiteToDark,
                       child: BlocBuilder<ModelSelectorBloc, ModelSelectorState>(
                         builder: (context, state) => ModelItems(
-                          entity: modelItems[index],
+                          entity: modelItems[index].title,
                           selectedId: state.selectedId,
                           id: index,
+                          text: '',
                         ),
                       ),
                     ),

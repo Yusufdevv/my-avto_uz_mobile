@@ -15,14 +15,11 @@ import 'package:auto/features/pagination/models/generic_pagination.dart';
 import 'package:dio/dio.dart';
 
 abstract class AdRemoteDataSource {
-  Future<GenericPagination<MakeModel>> getTopMakes({String? next});
+  // Future<GenericPagination<MakeModel>> getTopMakes({String? next});
 
-  Future<GetMakeEntity> getMake();
+  Future<GetMakeEntity> getMake({String? name});
 
-  Future<GenericPagination<CarModel>> getCarModel({
-    required int makeId,
-    String? next,
-  });
+  Future<GetMakeEntity> getCarModel(int makeId, {String? name});
 
   Future<GenericPagination<YearsModel>> getYears({
     required int modelId,
@@ -84,39 +81,34 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
 
   AdRemoteDataSourceImpl(this._dio);
 
-  @override
-  Future<GenericPagination<MakeModel>> getTopMakes({
-    String? next,
-  }) async {
-    final response = await _dio.get(
-      '/car/makes/top/',
-      options: Options(
-        headers: StorageRepository.getString('token').isNotEmpty
-            ? {'Authorization': 'Token ${StorageRepository.getString('token')}'}
-            : {},
-      ),
-    );
-    if (response.statusCode! >= 200 && response.statusCode! < 300) {
-      return GenericPagination.fromJson(response.data,
-          (p0) => MakeModel.fromJson(p0 as Map<String, dynamic>));
-    } else {
-      throw ServerException(
-          statusCode: response.statusCode!, errorMessage: response.data);
-    }
-  }
+  // @override
+  // Future<GenericPagination<MakeModel>> getTopMakes({
+  //   String? next,
+  // }) async {
+  //   final response = await _dio.get(
+  //     '/car/makes/top/',
+  //     options: Options(
+  //       headers: StorageRepository.getString('token').isNotEmpty
+  //           ? {'Authorization': 'Token ${StorageRepository.getString('token')}'}
+  //           : {},
+  //     ),
+  //   );
+  //   if (response.statusCode! >= 200 && response.statusCode! < 300) {
+  //     return GenericPagination.fromJson(response.data,
+  //         (p0) => MakeModel.fromJson(p0 as Map<String, dynamic>));
+  //   } else {
+  //     throw ServerException(
+  //         statusCode: response.statusCode!, errorMessage: response.data);
+  //   }
+  // }
 
   @override
-  Future<GetMakeEntity> getMake() async {
+  Future<GetMakeEntity> getMake({String? name}) async {
     final response = await _dio.get(
       '/car/makes/',
-      options: Options(
-        headers: StorageRepository.getString('token').isNotEmpty
-            ? {'Authorization': 'Token ${StorageRepository.getString('token')}'}
-            : {},
-      ),
+      queryParameters: {'search': name, 'limit': 100, 'offset': 0},
     );
     if (response.statusCode! >= 200 && response.statusCode! < 300) {
-      print('Bu Bizdaa Response ${response.data}');
       return GetMakeModel.fromJson(response.data);
     } else {
       throw ServerException(
@@ -125,21 +117,21 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
   }
 
   @override
-  Future<GenericPagination<CarModel>> getCarModel({
-    required int makeId,
-    String? next,
-  }) async {
-    final response = await _dio.get(
-      '/car/$makeId/models/',
-      options: Options(
-        headers: StorageRepository.getString('token').isNotEmpty
-            ? {'Authorization': 'Token ${StorageRepository.getString('token')}'}
-            : {},
-      ),
-    );
+  Future<GetMakeEntity> getCarModel(int makeId, {String? name}) async {
+    final response = await _dio.get('/car/$makeId/models/',
+        options: Options(
+          headers: StorageRepository.getString('token').isNotEmpty
+              ? {
+                  'Authorization':
+                      'Token ${StorageRepository.getString('token')}'
+                }
+              : {},
+        ),
+        queryParameters: {
+          'search': name,
+        });
     if (response.statusCode! >= 200 && response.statusCode! < 300) {
-      return GenericPagination.fromJson(
-          response.data, (p0) => CarModel.fromJson(p0 as Map<String, dynamic>));
+      return GetMakeModel.fromJson(response.data);
     } else {
       throw ServerException(
           statusCode: response.statusCode!, errorMessage: response.data);
