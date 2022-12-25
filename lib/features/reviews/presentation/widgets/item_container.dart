@@ -1,6 +1,6 @@
 import 'package:auto/assets/colors/color.dart';
-import 'package:auto/features/reviews/presentation/widgets/model_rating.dart';
 import 'package:auto/features/reviews/presentation/widgets/comment_seen.dart';
+import 'package:auto/features/reviews/presentation/widgets/model_rating.dart';
 import 'package:flutter/material.dart';
 
 Widget itemContainer(BuildContext context) => Container(

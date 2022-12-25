@@ -24,10 +24,10 @@ import 'package:auto/features/search/presentation/bloc/user_searches_bloc/user_s
 import 'package:auto/features/search/presentation/pages/last_popular_searches_screen.dart';
 import 'package:auto/features/search/presentation/pages/loading_screen.dart';
 import 'package:auto/features/search/presentation/pages/nothing_found_screen.dart';
-import 'package:auto/features/search/presentation/widgets/info_result_container.dart';
 import 'package:auto/features/search/presentation/widgets/search_item_shimmer.dart';
 import 'package:auto/features/search/presentation/widgets/searched_models_item.dart';
 import 'package:auto/features/search/presentation/widgets/sort_bottom_sheet.dart';
+import 'package:auto/features/search/presentation/widgets/sort_results_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -47,7 +47,7 @@ class _SearchScreenState extends State<SearchScreen> {
   late UserSearchesBloc userSearchesBloc;
   FocusNode focusNode = FocusNode();
   bool isFocused = false;
-  SortSearchResultStatus? sortingValue = SortSearchResultStatus.cheapest;
+  SortSearchResultStatus sortingValue = SortSearchResultStatus.cheapest;
   SearchControllerStatus textControllerStatus = SearchControllerStatus.initial;
 
   @override
@@ -69,6 +69,24 @@ class _SearchScreenState extends State<SearchScreen> {
                 dataSource: PopularSearchesSourceImpl(DioSettings().dio))))
       ..add(UserSearchesEvent.getUserSearches())
       ..add(UserSearchesEvent.getPopularSearches());
+
+    searchController.addListener(() {
+      if (searchController.text.isNotEmpty) {
+        if (!isFocused) {
+          searchBloc
+              .add(SearchEvent.getResults(searchText: searchController.text));
+          textControllerStatus = SearchControllerStatus.completed;
+        } else {
+          textControllerStatus = SearchControllerStatus.typing;
+          searchBloc.add(
+            SearchEvent.getSuggestions(search: searchController.text),
+          );
+        }
+      } else {
+        textControllerStatus = SearchControllerStatus.initial;
+      }
+      setState(() {});
+    });
     super.initState();
   }
 
@@ -214,7 +232,7 @@ class _SearchScreenState extends State<SearchScreen> {
                           height: 24,
                           width: 24,
                           fit: BoxFit.cover,
-                          color: sortingValue == null ? greyText : purple,
+                          color: purple,
                         ),
                       ),
                     ],
@@ -254,6 +272,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                   SearchEvent.getResults(
                                       searchText: searchController.text),
                                 );
+                                addSearchToStorage(searchController.text);
                                 focusNode.unfocus();
                                 setState(() {});
                               },
@@ -287,57 +306,11 @@ class _SearchScreenState extends State<SearchScreen> {
                                                   .borderGreyToDark,
                                             ),
                                             itemBuilder: (context, index) =>
-                                                InfoResultContainer(
-                                              discount: state
-                                                  .searchResults[index]
-                                                  .discount,
-                                              callFrom: state
-                                                  .searchResults[index]
-                                                  .contactAvailableFrom,
-                                              callTo: state.searchResults[index]
-                                                  .contactAvailableTo,
-                                              gallery: state
-                                                  .searchResults[index].gallery,
-                                              carModelName: state
-                                                  .searchResults[index]
-                                                  .carModel
-                                                  .name,
-                                              carYear: state
-                                                  .searchResults[index].carYear,
-                                              contactPhone: state
-                                                  .searchResults[index]
-                                                  .contactPhone,
-                                              description: state
-                                                  .searchResults[index]
-                                                  .description,
-                                              districtTitle: state
-                                                  .searchResults[index]
-                                                  .district
-                                                  .title,
-                                              isNew: state
-                                                  .searchResults[index].isNew,
-                                              isWishlisted: state
-                                                  .searchResults[index]
-                                                  .isWishlisted,
-                                              price: state
-                                                  .searchResults[index].price,
-                                              publishedAt: state
-                                                  .searchResults[index]
-                                                  .publishedAt,
-                                              userFullName: state
-                                                  .searchResults[index]
-                                                  .user
-                                                  .fullName,
-                                              userImage: state
-                                                  .searchResults[index]
-                                                  .user
-                                                  .image,
-                                              userType: state
-                                                  .searchResults[index]
-                                                  .userType,
-                                              hasComparison: state
-                                                  .searchResults[index]
-                                                  .isComparison,
+                                                SortResultsCard(
+                                              searchResults:
+                                                  state.searchResults,
+                                              index: index,
+                                              status: sortingValue,
                                             ),
                                           ),
                               ),
@@ -345,42 +318,22 @@ class _SearchScreenState extends State<SearchScreen> {
                           )
                         : LastPopularSearchesScreen(
                             searchController: searchController,
-                            hasFocus: isFocused,
+                            focusNode: focusNode,
                           ),
               ),
             ),
           ),
         ),
       );
-
-  void addSearchToStorage(String text) {
-    if (StorageRepository.getList('last_searches').isEmpty) {
-      StorageRepository.putList('last_searches', [text]);
-    } else {
-      if (StorageRepository.getList('last_searches').length == 5) {
-        StorageRepository.putList(
-          'last_searches',
-          [...StorageRepository.getList('last_searches'), text],
-        );
-      } else {
-        StorageRepository.putList(
-          'last_searches',
-          [...StorageRepository.getList('last_searches'), text],
-        );
-      }
-    }
-  }
 }
 
 void addSearchToStorage(String text) {
   if (StorageRepository.getList('last_searches').isEmpty) {
     StorageRepository.putList('last_searches', [text]);
   } else {
-    if (StorageRepository.getList('last_searches').length == 5) {
-      StorageRepository.putList(
-        'last_searches',
-        [...StorageRepository.getList('last_searches'), text],
-      );
+    if (StorageRepository.getList('last_searches').length >= 5) {
+      final newList = StorageRepository.getList('last_searches')..removeAt(0);
+      StorageRepository.putList('last_searches', [...newList, text]);
     } else {
       StorageRepository.putList(
         'last_searches',

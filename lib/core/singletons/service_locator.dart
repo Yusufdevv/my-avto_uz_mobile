@@ -18,18 +18,12 @@ void setupLocator() {
         () => ProfileRepositoryImpl(dataSource: ProfileDataSourceImpl()))
     ..registerLazySingleton(
         () => ComparisonDataSourceImpl(serviceLocator<DioSettings>().dio))
-    ..registerLazySingleton(() => ComparisonCarsRepoImpl(
-        comparisonCarsDataSource: serviceLocator<ComparisonDataSourceImpl>()))
     ..registerLazySingleton(
         () => AdRemoteDataSourceImpl(serviceLocator<DioSettings>().dio))
     ..registerLazySingleton(() => ComparisonCarsRepoImpl(
         comparisonCarsDataSource: serviceLocator<ComparisonDataSourceImpl>()))
-    ..registerLazySingleton(
-        () => AdRemoteDataSourceImpl(serviceLocator<DioSettings>().dio))
     ..registerLazySingleton(() => AdRepositoryImpl(
         remoteDataSource: serviceLocator<AdRemoteDataSourceImpl>()))
     ..registerLazySingleton(
-        () => CarSingleRepositoryImpl(dataSource: CarSinglenDataSourceImpl()))
-    ..registerLazySingleton(
-        () => ProfileRepositoryImpl(dataSource: ProfileDataSourceImpl()));
+        () => CarSingleRepositoryImpl(dataSource: CarSinglenDataSourceImpl()));
 }

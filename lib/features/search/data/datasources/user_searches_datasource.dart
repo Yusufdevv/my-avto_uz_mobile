@@ -24,8 +24,6 @@ class UserSearchesDatasourceImpl extends UserSearchesDatasource {
           options: Options(headers: {
             'Authorization': 'Bearer ${StorageRepository.getString('token')}'
           }));
-      print(response.realUri);
-      print(response.data);
       if (response.statusCode != null &&
           response.statusCode! >= 200 &&
           response.statusCode! < 300) {

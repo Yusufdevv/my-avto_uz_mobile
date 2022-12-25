@@ -37,8 +37,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   void initState() {
-    phoneController = TextEditingController(text: '90 773 73 33');
-    passwordController = TextEditingController(text: '123456');
+    phoneController = TextEditingController(text: '94 678 60 12');
+    passwordController = TextEditingController(text: 'rW2gA6eN4hB9rQ1m');
     super.initState();
   }
 
