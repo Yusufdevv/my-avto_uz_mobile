@@ -49,7 +49,7 @@ const mediumSeaGreen = _mediumSeaGreen;
 const hoursGreen = _kellyGreen;
 const whiteSmoke = _whiteSmoke;
 const blackRock = _blackRock;
-  const profileContainers = _nero;
+const profileContainers = _nero;
 const yellowShadow = _blanchedAlmond;
 const purpleHeart1 = _purpleHeart;
 const silver = _gainsboro;
@@ -68,10 +68,11 @@ const lavender = _lavender;
 const lavanda = _lavender;
 const secondBackground = _gainsboro2;
 const nero = _nero3;
-
+const snow = _snow;
 
 // Main palette (http://www.color-blindness.com/color-name-hue/).
 
+const _snow = Color(0xFFFFFCFB);
 const _gainsboro2 = Color(0xFFE5E5E5);
 const _bittersweet = Color(0xFFFF7474);
 const _whiteSmoke = Color(0xFFF4F4F4);

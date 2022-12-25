@@ -1,4 +1,3 @@
-
 import 'package:auto/features/ad/domain/entities/types/make.dart';
 
 class GetMakeEntity {

@@ -1,12 +1,12 @@
 part of 'rent_bloc.dart';
 
 abstract class RentEvent {
-  final bool isRefresh;
-  const RentEvent({required this.isRefresh});
+  bool? isRefresh;
+  RentEvent({this.isRefresh});
 }
 
 class RentGetResultsEvent extends RentEvent {
-  RentGetResultsEvent({required bool isRefresh}) : super(isRefresh: isRefresh);
+  RentGetResultsEvent({bool? isRefresh}) : super(isRefresh: isRefresh);
 }
 
 class RentSetIdEvent extends RentEvent {
@@ -26,5 +26,21 @@ class RentSetIdEvent extends RentEvent {
 }
 
 class RentGetMoreEvent extends RentEvent {
-  RentGetMoreEvent({required bool isRefresh}) : super(isRefresh: isRefresh);
+  RentGetMoreEvent({bool? isRefresh}) : super(isRefresh: isRefresh);
+}
+
+class RentSetParamFromFilterEvent extends RentEvent {
+  List<Region>? regions;
+  List<int>? carMakers;
+  String? carBodyTypeId;
+  String? carDriveTypeId;
+  String? gearboxTypeId;
+
+  RentSetParamFromFilterEvent({
+    this.regions,
+    this.carMakers,
+    this.carBodyTypeId,
+    this.carDriveTypeId,
+    this.gearboxTypeId,
+  });
 }

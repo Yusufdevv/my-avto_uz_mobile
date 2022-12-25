@@ -24,6 +24,23 @@ class RentUseCase extends UseCase<GenericPagination<RentMainModel>, Param> {
     if (params.rentCarIsFullFuel != null && params.rentCarIsFullFuel! > 0) {
       map['rent_car__is_full_fuel'] = params.rentCarIsFullFuel;
     }
+    if (params.regions != null && params.regions!.isNotEmpty) {
+      map['region__in'] = params.regions;
+    }
+    if (params.makers != null && params.makers!.isNotEmpty) {
+      map['rent_car__make'] = params.makers;
+    }
+    if (params.carBodyTypeId != null && params.carBodyTypeId!.isNotEmpty) {
+      map['rent_car__body_type'] = params.carBodyTypeId;
+    }
+    if (params.carDriveTypeId != null && params.carDriveTypeId!.isNotEmpty) {
+      map['rent_car__drive_type'] = params.carDriveTypeId;
+    }
+    if (params.gearboxTypeId != null && params.gearboxTypeId!.isNotEmpty) {
+      map['rent_car__gearbox_type'] = params.gearboxTypeId;
+    }
+    print('=== map === map: ${map.toString()}');
+    await Future.delayed(const Duration(milliseconds: 200));
     final v = await repo.fetchMore(
       url: '/rent/main_page/${params.id}/',
       fromJson: RentMainModel.fromJson,
@@ -41,6 +58,11 @@ class Param {
   final int? hasBabySeat;
   final int? rentCarIsClean;
   final int? rentCarIsFullFuel;
+  final String? regions;
+  final List<String>? makers;
+  final String? carBodyTypeId;
+  final String? carDriveTypeId;
+  final String? gearboxTypeId;
 
   Param({
     this.hasAirConditioner,
@@ -49,5 +71,10 @@ class Param {
     this.hasBabySeat,
     this.rentCarIsClean,
     this.rentCarIsFullFuel,
+    this.regions,
+    this.makers,
+    this.carBodyTypeId,
+    this.carDriveTypeId,
+    this.gearboxTypeId,
   });
 }

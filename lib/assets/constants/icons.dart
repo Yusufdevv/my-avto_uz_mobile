@@ -43,6 +43,7 @@ class AppIcons {
   static const smallClose = 'assets/icons/global/smallClose.svg';
   static const chevrolet = 'assets/icons/global/chevrolet.svg';
   static const kia = 'assets/icons/global/kia.svg';
+  static const alfaRameo = 'assets/icons/global/alfa_rameo.svg';
   static const roundedClose = 'assets/icons/global/rounded_close.svg';
   static const addCarIcon = 'assets/icons/global/add_car_icon.svg';
   static const statusGood = 'assets/icons/global/status_good.svg';

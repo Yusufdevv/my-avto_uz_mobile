@@ -1,10 +1,7 @@
 import 'package:auto/core/exceptions/exceptions.dart';
 import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/core/utils/either.dart';
-import 'package:auto/features/ad/data/datasources/ad_local_datasource.dart';
 import 'package:auto/features/ad/data/datasources/ad_remote_datasource.dart';
-import 'package:auto/features/ad/data/models/announcement.dart';
-import 'package:auto/features/ad/domain/entities/announcement/announcement.dart';
 import 'package:auto/features/ad/domain/entities/car_model/car_model_entity.dart';
 import 'package:auto/features/ad/domain/entities/generation/generation.dart';
 import 'package:auto/features/ad/domain/entities/types/body_type.dart';
@@ -18,7 +15,6 @@ import 'package:auto/features/ad/domain/repositories/ad_repository.dart';
 import 'package:auto/features/common/entities/makes_entity.dart';
 import 'package:auto/features/pagination/models/generic_pagination.dart';
 import 'package:dio/dio.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class AdRepositoryImpl extends AdRepository {
   final AdRemoteDataSource remoteDataSource;
@@ -56,6 +52,22 @@ class AdRepositoryImpl extends AdRepository {
     try {
       final result = await remoteDataSource.getBodyType(
           generationId: generationId, next: next);
+      return Right(result);
+    } on DioException {
+      return Left(DioFailure());
+    } on ParsingException catch (e) {
+      return Left(ParsingFailure(errorMessage: e.errorMessage));
+    } on ServerException catch (e) {
+      return Left(ServerFailure(
+          errorMessage: e.errorMessage, statusCode: e.statusCode));
+    }
+  }
+
+  @override
+  Future<Either<Failure, GenericPagination<BodyTypeEntity>>>
+      getBodyTypes() async {
+    try {
+      final result = await remoteDataSource.bodyTypesGet();
       return Right(result);
     } on DioException {
       return Left(DioFailure());
@@ -114,6 +126,22 @@ class AdRepositoryImpl extends AdRepository {
   }
 
   @override
+  Future<Either<Failure, GenericPagination<DriveTypeEntity>>>
+      driveTypesGet() async {
+    try {
+      final result = await remoteDataSource.driveTypesGet();
+      return Right(result);
+    } on DioException {
+      return Left(DioFailure());
+    } on ParsingException catch (e) {
+      return Left(ParsingFailure(errorMessage: e.errorMessage));
+    } on ServerException catch (e) {
+      return Left(ServerFailure(
+          errorMessage: e.errorMessage, statusCode: e.statusCode));
+    }
+  }
+
+  @override
   Future<Either<Failure, GenericPagination<EngineTypeEntity>>> getEngineType({
     required int generationId,
     required int bodyTypeId,
@@ -152,6 +180,24 @@ class AdRepositoryImpl extends AdRepository {
         driveTypeId: driveTypeId,
         next: next,
       );
+      return Right(result);
+    } on DioException {
+      return Left(DioFailure());
+    } on ParsingException catch (e) {
+      return Left(ParsingFailure(errorMessage: e.errorMessage));
+    } on ServerException catch (e) {
+      return Left(ServerFailure(
+        errorMessage: e.errorMessage,
+        statusCode: e.statusCode,
+      ));
+    }
+  }
+
+  @override
+  Future<Either<Failure, GenericPagination<GearboxTypeEntity>>>
+      gearboxessGet() async {
+    try {
+      final result = await remoteDataSource.gearboxessGet();
       return Right(result);
     } on DioException {
       return Left(DioFailure());
@@ -305,7 +351,7 @@ class AdRepositoryImpl extends AdRepository {
   //   try {
   //     final result = await localDataSource.getDraftAnnouncement();
   //     return Right(result);
-      
+
   //   } on ParsingException catch (e) {
   //     return Left(ParsingFailure(errorMessage: e.errorMessage));
   //   }

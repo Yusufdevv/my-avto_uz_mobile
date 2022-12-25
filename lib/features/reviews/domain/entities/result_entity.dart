@@ -1,6 +1,6 @@
+import 'package:auto/features/ad/domain/entities/types/make.dart';
 import 'package:auto/features/reviews/data/models/result_model.dart';
 import 'package:auto/features/reviews/domain/entities/generate_entity.dart';
-import 'package:auto/features/reviews/domain/entities/make_entity.dart';
 import 'package:auto/features/reviews/domain/entities/model_entity.dart';
 import 'package:auto/features/reviews/domain/entities/modification_type_entity.dart';
 import 'package:auto/features/reviews/domain/entities/star_answer_entity.dart';
@@ -35,7 +35,7 @@ class ResultEntity extends Equatable {
   });
 
   final int id;
-  @MakeConverter()
+  @MakeEntityConverter()
   final MakeEntity make;
   @ModelConverter()
   final ModelEntity model;
@@ -67,7 +67,6 @@ class ResultEntity extends Equatable {
   final int commentsCount;
 
   @override
-  // TODO: implement props
   List<Object?> get props => [
         id,
         make,
