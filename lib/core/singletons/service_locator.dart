@@ -24,9 +24,7 @@ void setupLocator() {
         () => AdRemoteDataSourceImpl(serviceLocator<DioSettings>().dio))
     ..registerLazySingleton(() => AdRepositoryImpl(
         remoteDataSource: serviceLocator<AdRemoteDataSourceImpl>()))
-    ..registerLazySingleton(
-        () => CarSingleRepositoryImpl(dataSource: CarSinglenDataSourceImpl()));
-        () => ProfileRepositoryImpl(dataSource: ProfileRemoteDataSourceImpl()))
+    ..registerLazySingleton(() => ProfileRepositoryImpl(dataSource: ProfileDataSourceImpl()))
   ..registerLazySingleton(
   () => CarSingleRepositoryImpl(dataSource: CarSingleDataSourceImpl()));
 }

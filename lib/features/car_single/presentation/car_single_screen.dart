@@ -366,11 +366,9 @@ class _CarSingleScreenState extends State<CarSingleScreen> {
                                               context: context,
                                               builder: (context) => DealerTime(
                                                 timeTo: state.singleEntity
-                                                        .contactAvailableFrom ??
-                                                    '',
+                                                        .contactAvailableFrom,
                                                 timeFrom: state.singleEntity
-                                                        .contactAvailableTo ??
-                                                    '',
+                                                        .contactAvailableTo,
                                               ),
                                             );
                                       // Navigator.of(context).push(fade(page: const DealerScreen()));
