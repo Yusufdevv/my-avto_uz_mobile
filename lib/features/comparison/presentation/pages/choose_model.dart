@@ -45,8 +45,7 @@ class _ChooseCarModelComparison extends State<ChooseCarModelComparison> {
   late int id;
   @override
   void initState() {
-    id = widget.getMakesBloc.state.makes
-        .results[widget.carSelectorBloc.state.selectedId].id;
+    id = widget.carSelectorBloc.state.selectedId;
     searchController = TextEditingController();
     widget.bloc.add(
       GetCarModelEvent.getCarModel(id),
@@ -105,63 +104,66 @@ class _ChooseCarModelComparison extends State<ChooseCarModelComparison> {
                       SliverToBoxAdapter(
                         child: SearchBarWidget(
                           searchController: searchController,
-                          title: 'Выберите марку автомобиля',
+                          title: 'Выберите модель',
                           onChanged: () {
                             widget.bloc.add(
                               GetCarModelEvent.getSerched(
                                 searchController.text,
                               ),
                             );
-                            // widget.bloc.add(GetCarModelEvent.);
+                            widget.bloc.add(GetCarModelEvent.getCarModel(id));
                           },
                         ),
                       ),
-                      SliverToBoxAdapter(
-                        child: Transform.translate(
-                          offset: const Offset(0, 1),
-                          child: Container(
-                            height: 20,
-                            width: double.infinity,
-                            decoration: BoxDecoration(
+                      if (statemodel.search.isEmpty)
+                        SliverToBoxAdapter(
+                          child: Transform.translate(
+                            offset: const Offset(0, 1),
+                            child: Container(
+                              height: 20,
+                              width: double.infinity,
+                              decoration: BoxDecoration(
                                 color: Theme.of(context)
                                     .extension<ThemedColors>()!
                                     .whiteToDark,
                                 borderRadius: const BorderRadius.vertical(
                                   top: Radius.circular(20),
-                                )),
-                          ),
-                        ),
-                      ),
-                      SliverToBoxAdapter(
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: Theme.of(context)
-                                .extension<ThemedColors>()!
-                                .whiteToDark,
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 16),
-                                child: Text(
-                                  'Популярные',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headline1!
-                                      .copyWith(
-                                          fontWeight: FontWeight.w600,
-                                          color: purple),
                                 ),
                               ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                            ],
+                            ),
                           ),
                         ),
-                      ),
+                      if (statemodel.search.isEmpty)
+                        SliverToBoxAdapter(
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Theme.of(context)
+                                  .extension<ThemedColors>()!
+                                  .whiteToDark,
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 16),
+                                  child: Text(
+                                    'Популярные',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headline1!
+                                        .copyWith(
+                                            fontWeight: FontWeight.w600,
+                                            color: purple),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
                       SliverList(
                         delegate: SliverChildBuilderDelegate(
                           (context, index) => Container(
@@ -173,7 +175,7 @@ class _ChooseCarModelComparison extends State<ChooseCarModelComparison> {
                               builder: (context, state) => ModelItems(
                                 entity: statemodel.model.results[index].name,
                                 selectedId: state.selectedId,
-                                id: index,
+                                id: statemodel.model.results[index].id,
                                 text: statemodel.search,
                               ),
                             ),

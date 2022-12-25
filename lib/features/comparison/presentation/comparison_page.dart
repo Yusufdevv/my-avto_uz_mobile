@@ -72,7 +72,6 @@ class _ComparisonPageState extends State<ComparisonPage> {
           body: BlocBuilder<ComparisonBloc, ComparisonState>(
             builder: (context, state) {
               print('Bu token  ${StorageRepository.getString('token')}');
-              print('Bu car list ${state.cars}');
               if (state.cars.isEmpty) {
                 return EmptyComparison(
                   onTap: () {
