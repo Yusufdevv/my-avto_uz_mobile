@@ -5,15 +5,15 @@ import 'package:auto/core/utils/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class RegionContainer extends StatelessWidget {
-  const RegionContainer({
+class EditItemContainer extends StatelessWidget {
+  const EditItemContainer({
     required this.region,
-
+    required this.icon,
     Key? key,
   }) : super(key: key);
 
   final String region;
-
+  final String icon;
 
   @override
   Widget build(BuildContext context) => Container(
@@ -40,12 +40,10 @@ class RegionContainer extends StatelessWidget {
             ),
             const Spacer(),
             SvgPicture.asset(
-                            AppIcons.chevronRightBlack,
-                            color: Theme.of(context)
-                                .extension<ThemedColors>()!
-                                .darkGreyToWhite,
-                          ),
-           
+              icon,
+              color:
+                  Theme.of(context).extension<ThemedColors>()!.darkGreyToWhite,
+            ),
           ],
         ),
       );

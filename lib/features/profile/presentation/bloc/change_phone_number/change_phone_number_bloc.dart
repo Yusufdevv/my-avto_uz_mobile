@@ -30,14 +30,13 @@ class ChangePhoneNumberBloc
       final result = await changePhoneNumberUseCase
           .call(ChangePhoneNumberParams(phoneNumber: event.newPhoneNumber));
       if (result.isRight) {
-        emit(state.copyWith(
-          status: FormzStatus.submissionSuccess,
-        ));
+        emit(state.copyWith(status: FormzStatus.submissionSuccess));
         if (event.onSuccess != null) {
           event.onSuccess!(result.right);
         }
       } else {
-        emit(state.copyWith(status: FormzStatus.submissionInProgress));
+        event.onError(result.left.toString());
+        emit(state.copyWith(status: FormzStatus.submissionFailure));
       }
 
       // if (result.isRight) {
