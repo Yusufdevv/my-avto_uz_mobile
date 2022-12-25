@@ -14,12 +14,13 @@ class SearchedModelsItem extends StatelessWidget {
   final String fullText;
   final String searchText;
   final String imageUrl;
-
+  final String vehicleType;
   final VoidCallback onTap;
   const SearchedModelsItem(
       {required this.fullText,
       required this.searchText,
       required this.onTap,
+      required this.vehicleType,
       required this.imageUrl,
       Key? key})
       : super(key: key);
@@ -57,32 +58,35 @@ class SearchedModelsItem extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 12),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  WHighlightedText(
-                    allText: fullText,
-                    highlightedText: searchText,
-                    highlightColor:
-                        LightThemeColors.tangerineYellowToMediumSlateBlue,
-                    textStyle: Theme.of(context)
-                        .textTheme
-                        .subtitle1!
-                        .copyWith(fontSize: 13),
-                    textStyleHighlight: Theme.of(context)
-                        .textTheme
-                        .subtitle1!
-                        .copyWith(fontSize: 13),
-                    textAlign: TextAlign.center,
-                  ),
-                  Text(
-                    LocaleKeys.cars.tr(),
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline2!
-                        .copyWith(fontSize: 12),
-                  )
-                ],
+              Flexible(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    WHighlightedText(
+                      overflow: TextOverflow.ellipsis,
+                      allText: fullText,
+                      highlightedText: searchText,
+                      highlightColor:
+                          LightThemeColors.tangerineYellowToMediumSlateBlue,
+                      textStyle: Theme.of(context)
+                          .textTheme
+                          .subtitle1!
+                          .copyWith(fontSize: 13),
+                      textStyleHighlight: Theme.of(context)
+                          .textTheme
+                          .subtitle1!
+                          .copyWith(fontSize: 13),
+                      textAlign: TextAlign.start,
+                    ),
+                    Text(
+                      vehicleType,
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline2!
+                          .copyWith(fontSize: 12),
+                    )
+                  ],
+                ),
               ),
             ],
           ),

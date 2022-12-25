@@ -4,7 +4,6 @@ import 'package:auto/features/common/domain/entity/car_model_entity.dart';
 import 'package:auto/features/common/domain/entity/car_modification_type_entity.dart';
 import 'package:auto/features/common/domain/entity/star_answer_entity.dart';
 import 'package:auto/features/common/domain/entity/type_entity.dart';
-import 'package:auto/features/common/domain/model/auto_model.dart';
 import 'package:auto/features/common/domain/model/auto_review_model.dart';
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';

@@ -128,4 +128,27 @@ class MyFunctions {
       return getDateNamedMonth(data);
     }
   }
+
+  static bool enableForCalling(
+      {required String callFrom, required String callTo}) {
+    final now = DateTime.now();
+
+    final dateFrom = DateTime(
+      2022,
+      1,
+      1,
+      int.parse(callFrom.substring(0, 2)),
+      int.parse(callFrom.substring(3, 5)),
+      int.parse(callFrom.substring(6)),
+    );
+    final dateTo = DateTime(
+      2022,
+      1,
+      1,
+      int.parse(callTo.substring(0, 2)),
+      int.parse(callTo.substring(3, 5)),
+      int.parse(callTo.substring(6)),
+    );
+    return now.isAfter(dateFrom) && now.isBefore(dateTo);
+  }
 }

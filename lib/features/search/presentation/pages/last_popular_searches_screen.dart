@@ -1,3 +1,4 @@
+import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/search/presentation/bloc/user_searches_bloc/user_searches_bloc.dart';
 import 'package:auto/features/search/presentation/widgets/popular_searches_field.dart';
 import 'package:flutter/cupertino.dart';
@@ -24,7 +25,8 @@ class _LastPopularSearchesScreenState extends State<LastPopularSearchesScreen> {
               textController: widget.searchController,
               hasFocus: widget.hasFocus,
               title: 'Последние запросы',
-              elements: state.userSearches.map((e) => e.searchText).toList(),
+              elements:
+                  StorageRepository.getList('last_searches').reversed.toList(),
               hasClearTrailing: true,
               hasClearButtonInTitle: true,
             ),
