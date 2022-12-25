@@ -17,10 +17,10 @@ class PlusMinusScreen extends StatelessWidget {
         appBar:
             const WAppBar(title: 'Стоимость обслуживания', centerTitle: false),
         body: ListView.separated(
-          padding: EdgeInsets.only(left: 16, top: 28),
+          padding: const EdgeInsets.only(left: 16, top: 28),
           itemCount: titles.length,
           separatorBuilder: (context, index) => Container(
-            margin: EdgeInsets.symmetric(vertical: 16),
+            margin: const EdgeInsets.symmetric(vertical: 16),
             decoration: BoxDecoration(
               color: solitude,
               borderRadius: BorderRadius.circular(2),
@@ -29,7 +29,7 @@ class PlusMinusScreen extends StatelessWidget {
             width: double.maxFinite,
           ),
           itemBuilder: (context, index) => Padding(
-            padding: EdgeInsets.only(right: 16),
+            padding: const EdgeInsets.only(right: 16),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

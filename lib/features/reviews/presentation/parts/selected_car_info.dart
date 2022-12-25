@@ -5,7 +5,6 @@ import 'package:auto/features/common/widgets/rating_infos.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/reviews/presentation/pages/plus_minus_screen.dart';
-import 'package:auto/features/reviews/presentation/parts/car_show_rating_field.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';

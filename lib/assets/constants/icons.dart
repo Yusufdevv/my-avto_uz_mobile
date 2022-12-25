@@ -26,6 +26,7 @@ class AppIcons {
 
   //GLOBAL
   static const fluentCar = 'assets/icons/global/fluent_car.svg';
+  static const userAvatar = 'assets/icons/global/user_avatar.svg';
   static const phoneWithClock = 'assets/icons/global/phone_with_clock.png';
   static const chevronLeft = 'assets/icons/global/chevron_left.svg';
   static const chevronTop = 'assets/icons/global/chevron_top.svg';

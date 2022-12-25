@@ -348,17 +348,17 @@ class MyFunctions {
     final now = DateTime.now();
 
     final dateFrom = DateTime(
-      2022,
-      1,
-      1,
+      now.year,
+      now.month,
+      now.day,
       int.parse(callFrom.substring(0, 2)),
       int.parse(callFrom.substring(3, 5)),
       int.parse(callFrom.substring(6)),
     );
     final dateTo = DateTime(
-      2022,
-      1,
-      1,
+      now.year,
+      now.month,
+      now.day,
       int.parse(callTo.substring(0, 2)),
       int.parse(callTo.substring(3, 5)),
       int.parse(callTo.substring(6)),
