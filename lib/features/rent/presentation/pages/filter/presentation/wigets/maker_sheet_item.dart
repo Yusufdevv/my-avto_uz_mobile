@@ -1,5 +1,7 @@
 import 'package:auto/assets/colors/color.dart';
+import 'package:auto/assets/constants/images.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/marka_checkbox.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -7,11 +9,12 @@ class RentSheetItem extends StatelessWidget {
   final bool isChecked;
   final String title;
   final String logo;
-  const RentSheetItem(
-      {required this.logo,
-      required this.title,
-      required this.isChecked,
-      super.key});
+  const RentSheetItem({
+    required this.logo,
+    required this.title,
+    required this.isChecked,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) => Container(
@@ -23,19 +26,23 @@ class RentSheetItem extends StatelessWidget {
         ),
         child: Row(
           children: [
-            if (logo.isNotEmpty) ...[
-              const SizedBox(width: 2),
-              SizedBox(
-                  height: 32,
-                  child: logo.endsWith('.svg')
-                      ? SvgPicture.asset(
-                          logo,
-                        )
-                      : (logo.contains('http://') || logo.contains('https://'))
-                          ? Image.network(logo)
-                          : Image.asset(logo)),
-              const SizedBox(width: 10)
-            ],
+            const SizedBox(width: 2),
+            SizedBox(
+                height: 32,
+                width: 32,
+                child: logo.endsWith('.svg')
+                    ? SvgPicture.asset(
+                        logo,
+                      )
+                    : CachedNetworkImage(
+                        errorWidget: (context, url, error) => Image.asset(
+                          AppImages.defaultPhoto,
+                          fit: BoxFit.contain,
+                        ),
+                        imageUrl: logo,
+                        fit: BoxFit.contain,
+                      )),
+            const SizedBox(width: 10),
             Text(
               title,
               style: Theme.of(context)

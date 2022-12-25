@@ -6,10 +6,7 @@ import 'package:auto/features/common/bloc/get_makes_bloc/get_makes_bloc_bloc.dar
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/maker_sheet_item.dart';
-import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/marks_sheet_all_select_item.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/sheet_header.dart';
-import 'package:auto/generated/locale_keys.g.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -34,10 +31,7 @@ class _ChooseMakerState extends State<ChooseMaker> {
     super.initState();
   }
 
-  Map<int, int> checkStatus = {};
-  void goBack() {
-    Navigator.of(context).pop(checkStatus.entries.map((e) => e.value).toList());
-  }
+  int selected = -1;
 
   @override
   Widget build(BuildContext context) => BlocProvider.value(
@@ -46,54 +40,34 @@ class _ChooseMakerState extends State<ChooseMaker> {
           margin: EdgeInsets.only(top: MediaQuery.of(context).padding.top + 44),
           decoration: const BoxDecoration(
             color: white,
-            borderRadius: BorderRadius.vertical(
-              top: Radius.circular(20),
-            ),
+            borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
           ),
           child: BlocBuilder<GetMakesBloc, GetMakesState>(
             builder: (context, state) {
-              final isAllChecked =
-                  checkStatus.length == state.makes.results.length;
               if (state.status == FormzStatus.submissionSuccess ||
                   state.status == FormzStatus.submissionFailure) {
                 return Column(
                   children: [
-                    SheetHeader(title: 'Марка', onCancelPressed: goBack),
+                    SheetHeader(
+                        title: 'Марка',
+                        onCancelPressed: () {
+                          Navigator.of(context).pop(selected >= 0
+                              ? '${state.makes.results[selected].id}'
+                              : null);
+                        }),
                     const Divider(thickness: 1, color: border, height: 1),
                     Expanded(
                       child: SingleChildScrollView(
                         physics: const BouncingScrollPhysics(),
                         child: Column(
                           children: [
-                            SheetSelectAllButton(
-                              title: '${LocaleKeys.all.tr()} mарка',
-                              isAllChecked: isAllChecked,
-                              onTap: () {
-                                if (isAllChecked) {
-                                  checkStatus = {};
-                                } else {
-                                  for (var i = 0;
-                                      i < state.makes.results.length;
-                                      i++) {
-                                    checkStatus[i] = state.makes.results[i].id;
-                                  }
-                                }
-                                setState(() {});
-                              },
-                            ),
                             ...List.generate(
                                 state.makes.results.length,
                                 (index) => Column(
                                       children: [
                                         WScaleAnimation(
                                           onTap: () {
-                                            if (checkStatus
-                                                .containsKey(index)) {
-                                              checkStatus.remove(index);
-                                            } else {
-                                              checkStatus[index] =
-                                                  state.makes.results[index].id;
-                                            }
+                                            selected = index;
                                             setState(() {});
                                           },
                                           child: RentSheetItem(
@@ -101,8 +75,7 @@ class _ChooseMakerState extends State<ChooseMaker> {
                                                 state.makes.results[index].logo,
                                             title:
                                                 state.makes.results[index].name,
-                                            isChecked:
-                                                checkStatus.containsKey(index),
+                                            isChecked: selected == index,
                                           ),
                                         ),
                                         Visibility(
@@ -126,7 +99,13 @@ class _ChooseMakerState extends State<ChooseMaker> {
                       padding: const EdgeInsets.only(
                           left: 16, right: 16, bottom: 50),
                       child: WButton(
-                          onTap: goBack, color: orange, text: 'Применить'),
+                          onTap: () {
+                            Navigator.of(context).pop(selected >= 0
+                                ? '${state.makes.results[selected].id}'
+                                : null);
+                          },
+                          color: orange,
+                          text: 'Применить'),
                     ),
                   ],
                 );

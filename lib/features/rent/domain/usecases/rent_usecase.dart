@@ -59,7 +59,7 @@ class Param {
   final int? rentCarIsClean;
   final int? rentCarIsFullFuel;
   final String? regions;
-  final List<String>? makers;
+  final String? makers;
   final String? carBodyTypeId;
   final String? carDriveTypeId;
   final String? gearboxTypeId;

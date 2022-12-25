@@ -31,14 +31,14 @@ class RentGetMoreEvent extends RentEvent {
 
 class RentSetParamFromFilterEvent extends RentEvent {
   List<Region>? regions;
-  List<int>? carMakers;
+  String? carMakerId;
   String? carBodyTypeId;
   String? carDriveTypeId;
   String? gearboxTypeId;
 
   RentSetParamFromFilterEvent({
     this.regions,
-    this.carMakers,
+    this.carMakerId,
     this.carBodyTypeId,
     this.carDriveTypeId,
     this.gearboxTypeId,

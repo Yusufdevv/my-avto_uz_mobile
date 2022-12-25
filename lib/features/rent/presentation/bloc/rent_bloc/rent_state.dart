@@ -12,7 +12,7 @@ class RentState extends Equatable {
   final int rentCarIsClean;
   final int rentCarIsFullFuel;
   final List<Region>? regions;
-  final List<int>? carMakers;
+  final String? carMakers;
   final String? carBodyTypeId;
   final String? carDriveTypeId;
   final String? gearboxTypeId;
@@ -28,7 +28,7 @@ class RentState extends Equatable {
     required this.hasBabySeat,
     required this.rentCarIsClean,
     required this.rentCarIsFullFuel,
-    this.carMakers = const [],
+    this.carMakers,
     this.regions,
     this.carBodyTypeId,
     this.carDriveTypeId,
@@ -36,8 +36,8 @@ class RentState extends Equatable {
   });
 
   RentState copyWith({
-    List<Region>? region,
-    List<int>? carMakers,
+    List<Region>? regions,
+    String? carMakers,
     String? carBodyTypeId,
     String? carDriveTypeId,
     String? gearboxTypeId,
@@ -53,7 +53,7 @@ class RentState extends Equatable {
     int? rentCarIsFullFuel,
   }) =>
       RentState(
-        regions: region ?? this.regions,
+        regions: regions ?? this.regions,
         carMakers: carMakers ?? this.carMakers,
         carBodyTypeId: carBodyTypeId ?? this.carBodyTypeId,
         carDriveTypeId: carDriveTypeId ?? this.carDriveTypeId,
