@@ -13,7 +13,7 @@ class GetCarModelBloc extends Bloc<GetCarModelEvent, GetCarModelState> {
   GetCarModelBloc({required this.useCase}) : super(GetCarModelState()) {
     on<_GetCarModel>((event, emit) async {
       emit(state.copyWith(status: FormzStatus.submissionInProgress));
-      final result = await useCase.call(event.getId);
+      final result = await useCase.call(event.getId, name: state.search);
       if (result.isRight) {
         emit(
           state.copyWith(

@@ -14,13 +14,11 @@ class RegisterLeaseDataSource {
       {required RegisterLeaseEntity params}) async {
     final token = StorageRepository.getString('token');
     try {
-      print('=======  trying to get rent single');
       final results = await _dio.post('/rent/order/',
           data: params.toApi(),
           options: token.isNotEmpty
               ? Options(headers: {'Authorization': 'Bearer $token'})
               : null);
-      print('=======  the result of rent single ${results.data}');
 
       if (results.statusCode! >= 200 && results.statusCode! < 300) {
         return RegisterLeaseModel.fromJson(results.data);

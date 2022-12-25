@@ -27,3 +27,4 @@ void setupLocator() {
     ..registerLazySingleton(
         () => CarSingleRepositoryImpl(dataSource: CarSinglenDataSourceImpl()));
 }
+

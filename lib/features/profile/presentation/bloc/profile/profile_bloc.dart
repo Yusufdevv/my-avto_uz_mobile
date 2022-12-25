@@ -1,6 +1,7 @@
 import 'package:auto/core/usecases/usecase.dart';
 import 'package:auto/features/profile/data/models/profile.dart';
 import 'package:auto/features/profile/domain/entities/favourite_entity.dart';
+import 'package:auto/features/profile/domain/entities/profile_data_entity.dart';
 import 'package:auto/features/profile/domain/entities/profile_entity.dart';
 import 'package:auto/features/profile/domain/usecases/change_password_usecase.dart';
 import 'package:auto/features/profile/domain/usecases/edit_profile_usecase.dart';
@@ -33,7 +34,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
             editStatus: FormzStatus.pure,
             status: FormzStatus.pure,
             phoneNumber: '',
-            profileEntity: ProfileModel.fromJson(const {}),
+            profileEntity: ProfileDataEntity(),
             favoriteEntity: const <FavoriteEntity>[],
           ),
         ) { 
@@ -97,7 +98,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
         ));
 
         if (result.isRight) {
-          event.onSuccess();
+          event.onSuccess(result.right);
           emit(state.copyWith(changeStatus: FormzStatus.submissionSuccess));
         } else {
           event.onError(result.left.toString());

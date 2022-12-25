@@ -1,10 +1,10 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/features/comparison/domain/entities/comparison_entity.dart';
 import 'package:auto/features/comparison/presentation/widgets/add_new_car.dart';
-import 'package:auto/features/comparison/presentation/widgets/list_of_added_cars.dart';
 import 'package:auto/features/comparison/presentation/widgets/added_car_sticky.dart';
 import 'package:auto/features/comparison/presentation/widgets/added_car_widget.dart';
-import 'package:auto/features/comparison/presentation/widgets/list_of_added_cars.dart';
+import 'package:auto/features/search/presentation/part/bottom_sheet_for_calling.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 class SliverWidget extends SliverPersistentHeaderDelegate {
   final ScrollController scrollController;
   final int numberOfAddedCars;
+  final List<ComparisonEntity> cars;
   final bool boolean;
   final ValueChanged<bool> onChanged;
   final VoidCallback onAddCar;
@@ -25,6 +26,7 @@ class SliverWidget extends SliverPersistentHeaderDelegate {
     required this.onChanged,
     required this.scrollController,
     required this.setSticky,
+    required this.cars,
   });
 
   List<AddedCar> items(BuildContext context) {
@@ -33,6 +35,12 @@ class SliverWidget extends SliverPersistentHeaderDelegate {
       itemsss.add(
         AddedCar(
           key: Key('$i'),
+          carName: cars[i].announcement.mainData.model,
+          carSalary:
+              '${cars[i].announcement.price} ${cars[i].announcement.currency.toUpperCase()}',
+          imageUrl: cars[i].announcement.mainData.gallery,
+          onTabCall: () {},
+          onTabClose: () {},
         ),
       );
     }
@@ -54,16 +62,21 @@ class SliverWidget extends SliverPersistentHeaderDelegate {
               width: MediaQuery.of(context).size.width,
               color: Theme.of(context).extension<ThemedColors>()!.whiteToNero,
               child: ListView(
-                shrinkWrap: true,
-                controller: scrollController,
-                scrollDirection: Axis.horizontal,
-                children: [
-                  ...List.generate(
-                    numberOfAddedCars,
-                    (index) => const StickyAdderCar(),
-                  )
-                ],
-              ),
+                  shrinkWrap: true,
+                  controller: scrollController,
+                  scrollDirection: Axis.horizontal,
+                  children: List.generate(
+                    cars.length,
+                    (index) => StickyAdderCar(
+                      carImage:
+                          cars[index].announcement.mainData.gallery.isEmpty
+                              ? ''
+                              : cars[index].announcement.mainData.gallery[0],
+                      carSalary:
+                          '${cars[index].announcement.price} ${cars[index].announcement.currency}',
+                      name: cars[index].announcement.mainData.make,
+                    ),
+                  )),
             )
           : Container(
               color: Theme.of(context)
@@ -78,13 +91,32 @@ class SliverWidget extends SliverPersistentHeaderDelegate {
                     SizedBox(
                       height: 234,
                       child: SingleChildScrollView(
-                        padding: const EdgeInsets.only(right: 16),
+                        padding: const EdgeInsets.only(right: 16, left: 8),
                         controller: scrollController,
                         scrollDirection: Axis.horizontal,
                         child: Row(
                           children: [
-                            ListOfAddedCars(
-                              list: items(context),
+                            ...List.generate(
+                              cars.length,
+                              (index) => AddedCar(
+                                carName:
+                                    cars[index].announcement.mainData.model,
+                                carSalary:
+                                    '${cars[index].announcement.price} ${cars[index].announcement.currency.toUpperCase()}',
+                                imageUrl:
+                                    cars[index].announcement.mainData.gallery,
+                                onTabCall: () {
+                                  bottomSheetForCalling(
+                                    context,
+                                    cars[index]
+                                        .announcement
+                                        .mainData
+                                        .user
+                                        .phoneNumber,
+                                  );
+                                },
+                                onTabClose: () {},
+                              ),
                             ),
                             AddNewCar(
                               onTap: onAddCar,

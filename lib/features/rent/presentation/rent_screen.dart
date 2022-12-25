@@ -1,6 +1,11 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/core/singletons/service_locator.dart';
+import 'package:auto/features/ad/data/repositories/ad_repository_impl.dart';
+import 'package:auto/features/ad/domain/usecases/get_body_type.dart';
+import 'package:auto/features/ad/domain/usecases/get_makes.dart';
+import 'package:auto/features/common/bloc/regions/regions_bloc.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
@@ -16,6 +21,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
+/// GetMakesUseCase
 class RentScreen extends StatefulWidget {
   const RentScreen({Key? key}) : super(key: key);
 
@@ -28,7 +34,6 @@ class _RentScreenState extends State<RentScreen>
   late TabController tabController;
   late RentBloc rentBloc;
   late CommercialBloc commercialBloc;
-
   @override
   void initState() {
     tabController = TabController(length: 2, vsync: this);
@@ -43,7 +48,7 @@ class _RentScreenState extends State<RentScreen>
   Widget build(BuildContext context) => MultiBlocProvider(
         providers: [
           BlocProvider.value(value: rentBloc),
-          BlocProvider.value(value: commercialBloc)
+          BlocProvider.value(value: commercialBloc),
         ],
         child: BlocBuilder<RentBloc, RentState>(
           builder: (context, state) => Scaffold(
@@ -59,10 +64,18 @@ class _RentScreenState extends State<RentScreen>
                       Padding(
                         padding: const EdgeInsets.only(right: 12),
                         child: WScaleAnimation(
-                          onTap: () => Navigator.push(
-                            context,
-                            fade(page: const RentFilterScreen()),
-                          ),
+                          onTap: () {
+                            context
+                                .read<RegionsBloc>()
+                                .add(RegionsEvent.getRegions());
+                            Navigator.push(
+                                    context,
+                                    fade(
+                                        page: RentFilterScreen(
+                                            rentBloc: rentBloc)))
+                                .then((value) =>
+                                    rentBloc.add(RentGetResultsEvent()));
+                          },
                           child: SvgPicture.asset(AppIcons.rentFilter),
                         ),
                       )

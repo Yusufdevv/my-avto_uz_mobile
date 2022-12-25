@@ -25,6 +25,8 @@ class GetMakesBloc extends Bloc<GetMakesBlocEvent, GetMakesState> {
             next: result.right.next,
           ),
         );
+      } else {
+        emit(state.copyWith(status: FormzStatus.submissionFailure));
       }
     });
     on<_GetSerched>((event, emit) => emit(state.copyWith(search: event.naem)));

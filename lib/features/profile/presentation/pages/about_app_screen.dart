@@ -19,7 +19,7 @@ class AboutAppScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: const WAppBar(
-          textWithButton: 'Правила пользования',
+          textWithButton: 'О приложении',
         ),
         body: Column(
           children: [

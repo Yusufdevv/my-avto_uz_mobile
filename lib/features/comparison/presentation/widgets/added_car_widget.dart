@@ -4,14 +4,25 @@ import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/generated/locale_keys.g.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class AddedCar extends StatelessWidget {
-  const AddedCar({
-    Key? key,
-  }) : super(key: key);
+  final VoidCallback onTabClose;
+  final VoidCallback onTabCall;
+  final List<String> imageUrl;
+  final String carName;
+  final String carSalary;
+  const AddedCar(
+      {Key? key,
+      required this.onTabClose,
+      required this.onTabCall,
+      required this.imageUrl,
+      required this.carName,
+      required this.carSalary})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) => Container(
@@ -48,6 +59,7 @@ class AddedCar extends StatelessWidget {
                   ),
                 ),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
                       height: 112,
@@ -56,30 +68,40 @@ class AddedCar extends StatelessWidget {
                           topLeft: Radius.circular(12),
                           topRight: Radius.circular(12),
                         ),
-                        child: SvgPicture.asset(
-                          AppImages.placeHolder,
-                          fit: BoxFit.fill,
-                          height: 112,
-                        ),
+                        child: imageUrl.isEmpty
+                            ? SvgPicture.asset(
+                                AppImages.placeHolder,
+                                fit: BoxFit.cover,
+                                height: 112,
+                              )
+                            : CachedNetworkImage(
+                                imageUrl: imageUrl[0],
+                                fit: BoxFit.cover,
+                              ),
                       ),
                     ),
-                    const SizedBox(height: 12),
+                    const SizedBox(height: 8),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: Text(
-                        '227 000 000 UZS',
-                        style: Theme.of(context)
-                            .textTheme
-                            .headline1!
-                            .copyWith(fontSize: 13),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 4,
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
                       child: Text(
-                        'Lexus LX 600 2022 Lexus LX 600 2022',
+                        carSalary,
                         style: Theme.of(context).textTheme.headline1!.copyWith(
-                            fontSize: 12, fontWeight: FontWeight.w400),
+                              fontSize: 13,
+                              fontWeight: FontWeight.w700,
+                            ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: Text(
+                        carName,
+                        style: Theme.of(context).textTheme.headline1!.copyWith(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w400,
+                            ),
                       ),
                     ),
                   ],
@@ -90,7 +112,7 @@ class AddedCar extends StatelessWidget {
               top: 10,
               right: 0,
               child: GestureDetector(
-                onTap: () => Navigator.pop(context),
+                onTap: onTabClose,
                 child: Stack(
                   children: [
                     SvgPicture.asset(AppIcons.roundedClose),
@@ -103,7 +125,7 @@ class AddedCar extends StatelessWidget {
               right: 0,
               left: 0,
               child: WScaleAnimation(
-                onTap: () {},
+                onTap: onTabCall,
                 child: Container(
                   margin: const EdgeInsets.symmetric(horizontal: 12),
                   padding:

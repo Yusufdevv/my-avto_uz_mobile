@@ -119,7 +119,7 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
                                                             .read<
                                                                 ShowPopUpBloc>()
                                                             .add(ShowPopUp(
-                                                                message: text));
+                                                                message: text, isSucces: false));
                                                       } else {}
                                                     },
                                                     onSuccess: () {

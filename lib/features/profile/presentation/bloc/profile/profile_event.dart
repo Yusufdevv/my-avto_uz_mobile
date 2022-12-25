@@ -18,7 +18,7 @@ class ChangePasswordEvent extends ProfileEvent {
   final String oldPassword;
   final String newPassword;
   final String newPasswordConfirm;
-  final Function onSuccess;
+  final Function(String text) onSuccess;
   final Function(String text) onError;
 
   ChangePasswordEvent({

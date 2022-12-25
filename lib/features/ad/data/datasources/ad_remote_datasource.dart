@@ -19,7 +19,7 @@ abstract class AdRemoteDataSource {
 
   Future<GetMakeEntity> getMake({String? name});
 
-  Future<GetMakeEntity> getCarModel(int makeId);
+  Future<GetMakeEntity> getCarModel(int makeId, {String? name});
 
   Future<GenericPagination<YearsModel>> getYears({
     required int modelId,
@@ -36,6 +36,7 @@ abstract class AdRemoteDataSource {
     required int generationId,
     String? next,
   });
+  Future<GenericPagination<BodyTypeModel>> bodyTypesGet();
 
   Future<GenericPagination<EngineTypeModel>> getEngineType({
     required int generationId,
@@ -49,6 +50,7 @@ abstract class AdRemoteDataSource {
     required int engineTypeId,
     String? next,
   });
+  Future<GenericPagination<DriveTypeModel>> driveTypesGet();
 
   Future<GenericPagination<GearboxTypeModel>> getGearboxType({
     required int generationId,
@@ -57,6 +59,8 @@ abstract class AdRemoteDataSource {
     required int driveTypeId,
     String? next,
   });
+
+  Future<GenericPagination<GearboxTypeModel>> gearboxessGet();
 
   Future<GenericPagination<ModificationTypeModel>> getModificationType({
     required int generationId,
@@ -100,14 +104,11 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
 
   @override
   Future<GetMakeEntity> getMake({String? name}) async {
-    print('Bu searchga $name');
     final response = await _dio.get(
       '/car/makes/',
       queryParameters: {'search': name, 'limit': 100, 'offset': 0},
     );
-    print(response.data['results']);
     if (response.statusCode! >= 200 && response.statusCode! < 300) {
-      print('Bu Bizdaa Response ${response.realUri}');
       return GetMakeModel.fromJson(response.data);
     } else {
       throw ServerException(
@@ -116,18 +117,20 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
   }
 
   @override
-  Future<GetMakeEntity> getCarModel(int makeId) async {
-    print("Bu Make Id $makeId");
-    final response = await _dio.get(
-      '/car/$makeId/models/',
-      options: Options(
-        headers: StorageRepository.getString('token').isNotEmpty
-            ? {'Authorization': 'Token ${StorageRepository.getString('token')}'}
-            : {},
-      ),
-    );
+  Future<GetMakeEntity> getCarModel(int makeId, {String? name}) async {
+    final response = await _dio.get('/car/$makeId/models/',
+        options: Options(
+          headers: StorageRepository.getString('token').isNotEmpty
+              ? {
+                  'Authorization':
+                      'Token ${StorageRepository.getString('token')}'
+                }
+              : {},
+        ),
+        queryParameters: {
+          'search': name,
+        });
     if (response.statusCode! >= 200 && response.statusCode! < 300) {
-      print("Salom bu Api ${response.data}");
       return GetMakeModel.fromJson(response.data);
     } else {
       throw ServerException(
@@ -203,6 +206,27 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
   }
 
   @override
+  Future<GenericPagination<BodyTypeModel>> bodyTypesGet({
+    String? next,
+  }) async {
+    final response = await _dio.get(
+      '/car/body-types/',
+      options: Options(
+        headers: StorageRepository.getString('token').isNotEmpty
+            ? {'Authorization': 'Token ${StorageRepository.getString('token')}'}
+            : {},
+      ),
+    );
+    if (response.statusCode! >= 200 && response.statusCode! < 300) {
+      return GenericPagination.fromJson(response.data,
+          (p0) => BodyTypeModel.fromJson(p0 as Map<String, dynamic>));
+    } else {
+      throw ServerException(
+          statusCode: response.statusCode!, errorMessage: response.data);
+    }
+  }
+
+  @override
   Future<GenericPagination<EngineTypeModel>> getEngineType({
     required int generationId,
     required int bodyTypeId,
@@ -250,6 +274,25 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
   }
 
   @override
+  Future<GenericPagination<DriveTypeModel>> driveTypesGet() async {
+    final response = await _dio.get(
+      '/car/drive-types/',
+      options: Options(
+        headers: StorageRepository.getString('token').isNotEmpty
+            ? {'Authorization': 'Token ${StorageRepository.getString('token')}'}
+            : {},
+      ),
+    );
+    if (response.statusCode! >= 200 && response.statusCode! < 300) {
+      return GenericPagination.fromJson(response.data,
+          (p0) => DriveTypeModel.fromJson(p0 as Map<String, dynamic>));
+    } else {
+      throw ServerException(
+          statusCode: response.statusCode!, errorMessage: response.data);
+    }
+  }
+
+  @override
   Future<GenericPagination<GearboxTypeModel>> getGearboxType({
     required int generationId,
     required int bodyTypeId,
@@ -259,6 +302,26 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
   }) async {
     final response = await _dio.get(
       '/car/$generationId/$bodyTypeId/$engineTypeId/$driveTypeId/gearbox_type',
+      options: Options(
+        headers: StorageRepository.getString('token').isNotEmpty
+            ? {'Authorization': 'Token ${StorageRepository.getString('token')}'}
+            : {},
+      ),
+    );
+    if (response.statusCode! >= 200 && response.statusCode! < 300) {
+      return GenericPagination.fromJson(response.data,
+          (p0) => GearboxTypeModel.fromJson(p0 as Map<String, dynamic>));
+    } else {
+      throw ServerException(
+          statusCode: response.statusCode!, errorMessage: response.data);
+    }
+  }
+
+  @override
+  @override
+  Future<GenericPagination<GearboxTypeModel>> gearboxessGet() async {
+    final response = await _dio.get(
+      '/car/gearbox-types/',
       options: Options(
         headers: StorageRepository.getString('token').isNotEmpty
             ? {'Authorization': 'Token ${StorageRepository.getString('token')}'}
