@@ -1,10 +1,17 @@
 import 'package:auto/assets/constants/images.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class StickyAdderCar extends StatelessWidget {
+  final String name;
+  final String carSalary;
+  final String carImage;
   const StickyAdderCar({
     Key? key,
+    required this.name,
+    required this.carSalary,
+    required this.carImage,
   }) : super(key: key);
 
   @override
@@ -19,8 +26,12 @@ class StickyAdderCar extends StatelessWidget {
                 height: 44,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(4),
-                  child:
-                      SvgPicture.asset(AppImages.placeHolder, fit: BoxFit.fill),
+                  child: carImage.isEmpty
+                      ? SvgPicture.asset(
+                          AppImages.placeHolder,
+                          fit: BoxFit.fill,
+                        )
+                      : CachedNetworkImage(imageUrl: carImage),
                 ),
               ),
               const SizedBox(width: 8),
@@ -29,7 +40,7 @@ class StickyAdderCar extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    '227 000 000 UZS',
+                    carSalary,
                     style: Theme.of(context)
                         .textTheme
                         .headline1!
@@ -37,7 +48,7 @@ class StickyAdderCar extends StatelessWidget {
                   ),
                   const SizedBox(height: 2),
                   Text(
-                    'Lexus LX',
+                    name,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: Theme.of(context)

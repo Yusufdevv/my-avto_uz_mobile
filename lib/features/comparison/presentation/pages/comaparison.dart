@@ -1,8 +1,4 @@
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
-import 'package:auto/core/singletons/service_locator.dart';
-import 'package:auto/features/ad/data/repositories/ad_repository_impl.dart';
-import 'package:auto/features/ad/domain/usecases/get_car_model.dart';
-import 'package:auto/features/ad/domain/usecases/get_makes.dart';
 import 'package:auto/features/ad/presentation/bloc/car_selector/car_selector_bloc.dart';
 import 'package:auto/features/ad/presentation/bloc/choose_model/car_type_selector_bloc.dart';
 import 'package:auto/features/ad/presentation/bloc/choose_model/model_selectro_bloc.dart';
@@ -15,25 +11,23 @@ import 'package:auto/features/comparison/presentation/bloc/comparison-bloc/compa
 import 'package:auto/features/comparison/presentation/pages/choose_car_brand.dart';
 import 'package:auto/features/comparison/presentation/pages/choose_generation.dart';
 import 'package:auto/features/comparison/presentation/pages/choose_model.dart';
+import 'package:auto/features/comparison/presentation/widgets/engin_info_widget.dart';
 import 'package:auto/features/comparison/presentation/widgets/main_parameters_widget.dart';
 import 'package:auto/features/comparison/presentation/widgets/sliver_delegate.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
-import 'package:auto/generated/locale_keys.g.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:linked_scroll_controller/linked_scroll_controller.dart';
 
 class Comparison extends StatefulWidget {
   final bool isSticky;
-  final List<ComparisonEntity> cars;
   final ModelSelectorBloc modelBloc;
   final CarTypeSelectorBloc carTypeSelectorBloc;
   final GetCarModelBloc carModelBloc;
   final CarSelectorBloc carSelectorBloc;
   final GetMakesBloc getMakesBloc;
+  final List<ComparisonEntity> cars;
   const Comparison({
-    required this.cars,
     Key? key,
     required this.isSticky,
     required this.modelBloc,
@@ -41,6 +35,7 @@ class Comparison extends StatefulWidget {
     required this.carModelBloc,
     required this.carSelectorBloc,
     required this.getMakesBloc,
+    required this.cars,
   }) : super(key: key);
 
   @override
@@ -61,34 +56,68 @@ class _ComparisonState extends State<Comparison> {
 
   List<Complectation> complectationParameters = [
     Complectation(
-        parameterName: LocaleKeys.exterier_elements.tr(),
-        id: 0,
-        complectationParameters: [
-          ComplectationParametersEntity(
-            comparisonParameters: LocaleKeys.roof_relief.tr(),
-          ),
-          ComplectationParametersEntity(
-            comparisonParameters: LocaleKeys.aerography.tr(),
-          )
-        ]),
+      parameterName: 'Main Data',
+      id: 0,
+      complectationParameters: [
+        ComplectationParametersEntity(
+          comparisonParameters: 'Make',
+        ),
+        ComplectationParametersEntity(
+          comparisonParameters: 'Generation',
+        ),
+        ComplectationParametersEntity(
+          comparisonParameters: 'Body Type',
+        ),
+        ComplectationParametersEntity(
+          comparisonParameters: 'Drive Type',
+        ),
+        ComplectationParametersEntity(
+          comparisonParameters: 'Gearbox Type',
+        ),
+        ComplectationParametersEntity(
+          comparisonParameters: 'Year',
+        ),
+        ComplectationParametersEntity(
+          comparisonParameters: 'Color',
+        )
+      ],
+    ),
     Complectation(
-        parameterName: LocaleKeys.view.tr(),
-        id: 1,
-        complectationParameters: []),
+      parameterName: 'Engine Data',
+      id: 1,
+      complectationParameters: [
+        ComplectationParametersEntity(
+          comparisonParameters: 'Engine Type',
+        ),
+        ComplectationParametersEntity(
+          comparisonParameters: 'Power',
+        ),
+        ComplectationParametersEntity(
+          comparisonParameters: 'Volume',
+        )
+      ],
+    ),
     Complectation(
-        parameterName: LocaleKeys.security.tr(),
-        id: 2,
-        complectationParameters: []),
+      parameterName: 'Dimensions',
+      id: 2,
+      complectationParameters: [],
+    ),
     Complectation(
-        parameterName: LocaleKeys.multimedia.tr(),
-        id: 3,
-        complectationParameters: []),
+      parameterName: 'Volume And Mass',
+      id: 3,
+      complectationParameters: [],
+    ),
     Complectation(
-        parameterName: LocaleKeys.theft_protection.tr(),
-        id: 10,
-        complectationParameters: [])
+      parameterName: 'Suspensions And Brakes',
+      id: 10,
+      complectationParameters: [],
+    ),
+    Complectation(
+      parameterName: 'Other',
+      id: 10,
+      complectationParameters: [],
+    ),
   ];
-
   @override
   void initState() {
     totalNUmberOfParameters = complectationParameters.length;
@@ -159,6 +188,7 @@ class _ComparisonState extends State<Comparison> {
                         .read<ComparisonBloc>()
                         .add(SetStickyEvent(isSticky: val));
                   },
+                  cars: widget.cars,
                 ),
                 pinned: true,
               ),
@@ -177,33 +207,36 @@ class _ComparisonState extends State<Comparison> {
                     Padding(
                       padding: const EdgeInsets.only(top: 12, left: 16),
                       child: Text(
-                        LocaleKeys.complectation.tr(),
+                        'Характеристики',
                         style: Theme.of(context)
                             .textTheme
                             .headline1!
                             .copyWith(fontSize: 18),
                       ),
                     ),
-                    ...List.generate(
-                      complectationParameters.length,
-                      (index) => CharacteristicsParametersWidget(
-                        onChanged: (integer) {
-                          setState(() {
-                            currentValueOfComplectation = integer;
-                          });
-                        },
-                        parameterName:
-                            complectationParameters[index].parameterName,
-                        selectedValue: currentValueOfComplectation,
-                        parameterId: complectationParameters[index].id,
-                        listOfComparisonParameters:
-                            complectationParameters[index]
-                                .complectationParameters,
-                        characteristicsOrComplectation: 'complectation',
-                        numberOfAddedCars: widget.cars,
-                        controller: scrollControllers[index],
-                        isSticky: widget.isSticky,
-                      ),
+                    CharacteristicsParametersWidget(
+                      onChanged: (integer) {
+                        setState(() {
+                          currentValueOfComplectation = integer;
+                        });
+                      },
+                      selectedValue: currentValueOfComplectation,
+                      comparisonParameters: complectationParameters[0],
+                      numberOfAddedCars:
+                          context.read<ComparisonBloc>().state.cars,
+                      controller: scrollControllers[0],
+                    ),
+                    EngineParametersWidget(
+                      onChanged: (integer) {
+                        setState(() {
+                          currentValueOfComplectation = integer;
+                        });
+                      },
+                      selectedValue: currentValueOfComplectation,
+                      comparisonParameters: complectationParameters[1],
+                      numberOfAddedCars:
+                          context.read<ComparisonBloc>().state.cars,
+                      controller: scrollControllers[1],
                     ),
                   ],
                 ),

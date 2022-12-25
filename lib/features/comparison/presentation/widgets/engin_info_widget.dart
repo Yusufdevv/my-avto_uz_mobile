@@ -9,14 +9,14 @@ import 'package:auto/features/comparison/presentation/widgets/comparison_list_wi
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-class CharacteristicsParametersWidget extends StatelessWidget {
+class EngineParametersWidget extends StatelessWidget {
   final ScrollController controller;
   final List<ComparisonEntity> numberOfAddedCars;
   final Complectation comparisonParameters;
   final int selectedValue;
   final ValueChanged<int> onChanged;
 
-  const CharacteristicsParametersWidget({
+  const EngineParametersWidget({
     required this.onChanged,
     required this.selectedValue,
     required this.comparisonParameters,
@@ -104,55 +104,23 @@ class CharacteristicsParametersWidget extends StatelessWidget {
                             ComparsionList(
                               info: numberOfAddedCars[index]
                                   .announcement
-                                  .mainData
-                                  .make,
-                              isGrey: true,
-                            ),
-                            ComparsionList(
-                              info: numberOfAddedCars[index]
-                                  .announcement
-                                  .mainData
-                                  .generation,
-                              isGrey: false,
-                            ),
-                            ComparsionList(
-                              info: numberOfAddedCars[index]
-                                  .announcement
-                                  .mainData
-                                  .bodyType
+                                  .engineData
+                                  .engineType
                                   .toUpperCase(),
                               isGrey: true,
                             ),
                             ComparsionList(
                               info: numberOfAddedCars[index]
                                   .announcement
-                                  .mainData
-                                  .driveType
-                                  .toUpperCase(),
+                                  .engineData
+                                  .power,
                               isGrey: false,
                             ),
                             ComparsionList(
                               info: numberOfAddedCars[index]
                                   .announcement
-                                  .mainData
-                                  .gearboxType
-                                  .toUpperCase(),
-                              isGrey: true,
-                            ),
-                            ComparsionList(
-                              info: numberOfAddedCars[index]
-                                  .announcement
-                                  .mainData
-                                  .year
-                                  .toString(),
-                              isGrey: false,
-                            ),
-                            ComparsionList(
-                              info: numberOfAddedCars[index]
-                                  .announcement
-                                  .mainData
-                                  .color
-                                  .toUpperCase(),
+                                  .engineData
+                                  .volume,
                               isGrey: true,
                             ),
                           ],
@@ -202,5 +170,3 @@ class CharacteristicsParametersWidget extends StatelessWidget {
         ],
       );
 }
-
-
