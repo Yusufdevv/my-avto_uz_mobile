@@ -5,7 +5,8 @@ abstract class ShowPopUpEvent {}
 
 class ShowPopUp extends ShowPopUpEvent {
   final String message;
-  ShowPopUp({required this.message});
+  final bool isSucces;
+  ShowPopUp({required this.message, required this.isSucces});
 }
 
 class HidePopUp extends ShowPopUpEvent {}

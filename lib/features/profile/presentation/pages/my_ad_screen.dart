@@ -42,16 +42,20 @@ class _MyAdScreenState extends State<MyAdScreen> with TickerProviderStateMixin {
           headerSliverBuilder: (context, item) => [
             SliverAppBar(
               pinned: true,
+              leadingWidth: 40,
               leading: GestureDetector(
                 onTap: () => Navigator.pop(context),
-                child: SizedBox(
-                    height: 20,
-                    width: 20,
-                    child: SvgPicture.asset(
-                      AppIcons.chevronLeft,
-                      height: 20,
-                      width: 20,
-                    )),
+                child: Row(
+                  children: [
+                    SizedBox(width: 20),
+                    SizedBox(
+                        height: 20,
+                        width: 20,
+                        child: SvgPicture.asset(
+                          AppIcons.chevronLeft,
+                        )),
+                  ],
+                ),
               ),
               title: Text(LocaleKeys.my_ads.tr()),
             ),
@@ -71,8 +75,12 @@ class _MyAdScreenState extends State<MyAdScreen> with TickerProviderStateMixin {
             controller: tabController,
             children: [
               const AllTabs(),
-              Column(),
-              Column(),
+              Column(
+                children: const [Text('2 tab')],
+              ),
+              Column(
+                children: const [Text('2 tab')],
+              ),
             ],
           ),
         ),

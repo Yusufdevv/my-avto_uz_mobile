@@ -24,7 +24,7 @@ class MySearchesPage extends StatelessWidget {
             ),
             padding: EdgeInsets.only(
                 left: SizeConfig.h(16),
-                right: SizeConfig.h(10),
+                right: SizeConfig.h(12),
                 top: SizeConfig.v(16),
                 bottom: SizeConfig.v(16)),
             decoration: BoxDecoration(
@@ -66,12 +66,12 @@ class MySearchesPage extends StatelessWidget {
                     ],
                   ),
                 ),
-                Text('21',
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline6
-                        ?.copyWith(color: warmerGrey)),
-                SizedBox(width: SizeConfig.h(4)),
+                // Text('21',
+                //     style: Theme.of(context)
+                //         .textTheme
+                //         .headline6
+                //         ?.copyWith(color: warmerGrey)),
+                // SizedBox(width: SizeConfig.h(4)),
                 SvgPicture.asset(AppIcons.chevronRight1)
               ],
             ),

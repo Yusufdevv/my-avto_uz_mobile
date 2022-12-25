@@ -1,6 +1,7 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/core/utils/size_config.dart';
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
 import 'package:auto/features/common/widgets/custom_screen.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
@@ -10,6 +11,10 @@ import 'package:auto/features/login/presentation/bloc/register/register_bloc.dar
 import 'package:auto/features/login/presentation/pages/personal_data_screen.dart';
 import 'package:auto/features/login/presentation/widgets/login_header_widget.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
+import 'package:auto/features/profile/presentation/bloc/change_phone_number/change_phone_number_bloc.dart';
+import 'package:auto/features/profile/presentation/bloc/profile/profile_bloc.dart';
+import 'package:auto/features/profile/presentation/pages/phone_number_edit_page.dart';
+import 'package:auto/features/profile/presentation/pages/profile_edit_screen.dart';
 import 'package:auto/features/profile/presentation/widgets/refresh_button.dart';
 import 'package:auto/features/profile/presentation/widgets/time_counter.dart';
 import 'package:auto/generated/locale_keys.g.dart';
@@ -21,21 +26,20 @@ import 'package:formz/formz.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
-class VerificationScreen extends StatefulWidget {
+class PhoneVerifiyScreen extends StatefulWidget {
   final String phone;
   final String session;
+  final BuildContext ctx;
 
-  const VerificationScreen(
-      {required this.phone,
-      required this.session,
-      Key? key})
+  const PhoneVerifiyScreen(
+      {required this.phone, required this.session, required this.ctx, Key? key})
       : super(key: key);
 
   @override
-  State<VerificationScreen> createState() => _VerificationScreenState();
+  State<PhoneVerifiyScreen> createState() => _PhoneVerifiyScreenState();
 }
 
-class _VerificationScreenState extends State<VerificationScreen> {
+class _PhoneVerifiyScreenState extends State<PhoneVerifiyScreen> {
   late TextEditingController verificationController;
   bool timeComplete = false;
 
@@ -47,7 +51,6 @@ class _VerificationScreenState extends State<VerificationScreen> {
 
   @override
   void dispose() {
-    verificationController.dispose();
     super.dispose();
   }
 
@@ -55,11 +58,15 @@ class _VerificationScreenState extends State<VerificationScreen> {
   Widget build(BuildContext context) => KeyboardDismisser(
         child: CustomScreen(
           child: Scaffold(
-            appBar: const WAppBar(
-              title: 'Регистрация',
+            appBar: WAppBar(
+              onTapBack: () {
+                Navigator.pop(widget.ctx, '+998${widget.phone}');
+              },
+              title: 'Номер телефона',
             ),
             body: Padding(
-              padding: const EdgeInsets.all(16),
+              padding: EdgeInsets.symmetric(
+                  vertical: SizeConfig.v(16), horizontal: SizeConfig.h(16)),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -67,18 +74,16 @@ class _VerificationScreenState extends State<VerificationScreen> {
                     title: LocaleKeys.confim_number.tr(),
                     description: LocaleKeys.enter_password_sms.tr(),
                   ),
-                  const SizedBox(
-                    height: 12,
-                  ),
+                  SizedBox(height: SizeConfig.v(12)),
                   Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    padding: EdgeInsets.only(
+                        left: SizeConfig.h(8),
+                        right: SizeConfig.h(4),
+                        top: SizeConfig.v(4),
+                        bottom: SizeConfig.v(4)),
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      color: Theme.of(context)
-                          .extension<ThemedColors>()!
-                          .solitudeToBastille,
-                    ),
+                        borderRadius: BorderRadius.circular(SizeConfig.h(8)),
+                        color: border),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
@@ -90,26 +95,24 @@ class _VerificationScreenState extends State<VerificationScreen> {
                               .copyWith(
                                   fontWeight: FontWeight.w400, fontSize: 14),
                         ),
-                        const SizedBox(
-                          width: 12,
-                        ),
+                        SizedBox(width: SizeConfig.h(12)),
                         WButton(
                           onTap: () {
                             Navigator.pop(context);
                           },
-                          padding: const EdgeInsets.all(4),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: SizeConfig.h(4),
+                              vertical: SizeConfig.v(4)),
                           color: Theme.of(context)
                               .extension<ThemedColors>()!
                               .solitudeToSolitude14,
-                          height: 24,
+                          height: SizeConfig.v(24),
                           child: SvgPicture.asset(AppIcons.edit),
                         )
                       ],
                     ),
                   ),
-                  const SizedBox(
-                    height: 35,
-                  ),
+                  SizedBox(height: SizeConfig.v(35)),
                   PinCodeTextField(
                     onChanged: (value) {
                       setState(() {});
@@ -142,9 +145,6 @@ class _VerificationScreenState extends State<VerificationScreen> {
                     appContext: context,
                     showCursor: true,
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  ),
-                  const SizedBox(
-                    height: 18,
                   ),
                   Row(
                     children: [
@@ -190,28 +190,31 @@ class _VerificationScreenState extends State<VerificationScreen> {
                     ],
                   ),
                   const SizedBox(height: 24),
-                  //  const Spacer(),
+                  const Spacer(),
                   WButton(
                     onTap: () => verificationController.text.isNotEmpty &&
                             verificationController.text.length == 6
                         ? context
-                            .read<RegisterBloc>()
-                            .add(RegisterEvent.verifyCode(
-                                VerifyParam(
-                                    code: verificationController.text,
-                                    phone: widget.phone,
-                                    session: widget.session), onError: (text) {
-                              context
-                                  .read<ShowPopUpBloc>()
-                                  .add(ShowPopUp(message: text, isSucces: false));
-                            }, onSuccess: () {
-                              Navigator.pushReplacement(
-                                  context,
-                                  fade(
-                                      page: BlocProvider.value(
-                                          value: context.read<RegisterBloc>(),
-                                          child: const PersonalDataScreen())));
-                            })) : {},                      
+                            .read<ChangePhoneNumberBloc>()
+                            .add(VerifyCodeEvent(
+                                newPhoneNumber: '+998${widget.phone}',
+                                code: verificationController.text,
+                                session: widget.session,
+                                onSuccess: () {
+                                  context.read<ShowPopUpBloc>().add(ShowPopUp(
+                                      message:
+                                          'Номер телефона успешно изменен',
+                                      isSucces: true));
+                                  Navigator.pop(context);
+                                  Navigator.pop(
+                                      widget.ctx, '+998${widget.phone}');
+                                },
+                                onError: (message) {
+                                  context.read<ShowPopUpBloc>().add(ShowPopUp(
+                                      message: message,
+                                      isSucces: false));
+                                }))
+                        : {},
                     margin: EdgeInsets.only(
                         bottom: MediaQuery.of(context).padding.bottom + 4),
                     color: (verificationController.text.isNotEmpty &&

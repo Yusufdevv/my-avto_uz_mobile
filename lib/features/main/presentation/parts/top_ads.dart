@@ -20,18 +20,18 @@ class TopAds extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 8),
-          BlocBuilder<TopAdBloc, TopAdState>(
-            builder: (context, state) => SizedBox(
-              height: 276,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) => AdsItem(
-                  adsEntity: state.topAds[index],
-                ),
-                itemCount: state.topAds.length,
-              ),
-            ),
-          ),
+          // BlocBuilder<TopAdBloc, TopAdState>(
+          //   builder: (context, state) => SizedBox(
+          //     height: 276,
+          //     child: ListView.builder(
+          //       scrollDirection: Axis.horizontal,
+          //       itemBuilder: (context, index) => AdsItem(
+          //         adsEntity: state.topAds[index],
+          //       ),
+          //       itemCount: 2,
+          //     ),
+          //   ),
+          // ),
           const SizedBox(height: 16),
         ],
       );

@@ -2,14 +2,14 @@ part of 'profile_bloc.dart';
 
 @immutable
 class ProfileState extends Equatable {
-  final ProfileEntity profileEntity;
+  final ProfileDataEntity profileEntity;
   final List<FavoriteEntity> favoriteEntity;
-  final String phoneNumber;
+    String phoneNumber;
   final FormzStatus status;
   final FormzStatus editStatus;
   final FormzStatus changeStatus;
 
-  const ProfileState({
+    ProfileState({
     required this.status,
     required this.profileEntity,
     required this.favoriteEntity,
@@ -19,7 +19,7 @@ class ProfileState extends Equatable {
   });
 
   ProfileState copyWith(
-          {ProfileEntity? profileEntity,
+          {ProfileDataEntity? profileEntity,
           List<FavoriteEntity>? favoriteEntity,
           FormzStatus? status,
           String? phoneNumber,
