@@ -1,37 +1,101 @@
+import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
-import 'package:auto/features/car_single/domain/entities/car_statistic.dart';
-import 'package:auto/features/car_single/presentation/widgets/statistics_tile.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class CarStatistics extends StatelessWidget {
+  final String date;
+  final String views;
+  final String id;
+
   CarStatistics({
     Key? key,
+    required this.date,
+    required this.views,
+    required this.id,
   }) : super(key: key);
 
-  List<CarStatistic> mockList = [
-    CarStatistic(
-      valueText: '2 февраля 2021',
-      icon: AppIcons.calendar,
-    ),
-    CarStatistic(
-      valueText: '31 490 (629 сегодня)',
-      icon: AppIcons.eye2,
-    ),
-    CarStatistic(valueText: '8323543', icon:AppIcons.id, titleText: ''),
-  ];
-
   @override
-  Widget build(BuildContext context) => Container(margin: const EdgeInsets.only(right: 40),
-    child: Wrap(
-      spacing: 12,
-      direction: Axis.horizontal,
-      runSpacing: 12,
-      children: List.generate(
-        mockList.length,
-        (index) => StatisticsTile(
-          carStatistic: mockList[index],
+  Widget build(BuildContext context) => Container(
+        margin: const EdgeInsets.only(right: 40),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    SvgPicture.asset(
+                      AppIcons.calendar,
+                      color: const Color(0xffB5B5BE),
+                    ),
+                    const SizedBox(
+                      width: 8,
+                    ),
+                    Text(
+                      DateFormat('d MMMM yyyy').format(DateTime.parse(date)),
+                      style: const TextStyle(
+                        color: suvaGray,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  width: 12,
+                ),
+                Row(
+                  children: [
+                    SvgPicture.asset(
+                      AppIcons.eye2,
+                      color: const Color(0xffB5B5BE),
+                      width: 24,
+                      height: 24,
+                    ),
+                    const SizedBox(
+                      width: 8,
+                    ),
+                    Text(
+                      views,
+                      style: const TextStyle(
+                        color: suvaGray,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            const SizedBox(
+              height: 4,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                SvgPicture.asset(
+                  AppIcons.id,
+                  color: const Color(0xffB5B5BE),
+                  width: 24,
+                  height: 24,
+                ),
+                const SizedBox(
+                  width: 8,
+                ),
+                Text(
+                  id,
+                  style: const TextStyle(
+                    color: suvaGray,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ],
+            ),
+          ],
         ),
-      ),
-    ),
-  );
+      );
 }

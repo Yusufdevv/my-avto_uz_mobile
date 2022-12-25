@@ -46,6 +46,7 @@ dependencies:
   flutter_cupertino_datetime_picker: ^3.0.0
   grouped_list: ^5.1.2
   lottie: ^1.4.1
+  intl: ^0.17.0
   qr_code_scanner:
     git:
       url: https://github.com/X-SLAYER/qr_code_scanner.git

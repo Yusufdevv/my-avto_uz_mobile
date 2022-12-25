@@ -23,7 +23,6 @@ class AdsItem extends StatelessWidget {
             context,
             fade(
                 page: CarSingleScreen(
-              adsEntity: adsEntity,
             )));
       },
       child: Container(

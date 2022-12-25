@@ -3,8 +3,11 @@ import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 class RentCarMakeEntity extends Equatable {
+  @JsonKey(defaultValue: 0)
   final int id;
+  @JsonKey(defaultValue: '')
   final String name;
+  @JsonKey(defaultValue: '')
   final String? logo;
 
   const RentCarMakeEntity({
@@ -15,10 +18,10 @@ class RentCarMakeEntity extends Equatable {
 
   @override
   List<Object?> get props => [
-    id,
-    name,
-    logo,
-  ];
+        id,
+        name,
+        logo,
+      ];
 }
 
 class RentCarMakeConverter<S>

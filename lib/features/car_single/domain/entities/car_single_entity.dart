@@ -12,17 +12,25 @@ import 'package:auto/features/rent/domain/entities/rent_car_modification_entity.
 import 'package:json_annotation/json_annotation.dart';
 
 class CarSingleEntity {
+  @JsonKey(defaultValue: 0)
   final int id;
   @RentCarMakeConverter()
   final RentCarMakeEntity make;
   @RentCarModelsConverter()
   final RentCarModelsEntity model;
-  final String autoName;
+  @JsonKey(defaultValue: '')
+  final String absoluteCarName;
+  @JsonKey(defaultValue: '')
   final String price;
+  @JsonKey(defaultValue: '')
   final String currency;
-  final String date;
+  @JsonKey(defaultValue: '')
+  final String publishedAt;
+  @JsonKey(defaultValue: 0)
   final int year;
+  @JsonKey(defaultValue: 0)
   final int distanceTraveled;
+  @JsonKey(defaultValue: '')
   final String color;
   @RentCarGenerationConverter()
   final RentCarGenerationEntity generation;
@@ -36,40 +44,73 @@ class CarSingleEntity {
   final RentCarGearboxTypeEntity gearboxType;
   @RentCarModificationConverter()
   final RentCarModificationEntity modificationType;
+  @JsonKey(defaultValue: '')
   final String licenceType;
+  @JsonKey(defaultValue: '')
   final String ownership;
+  @JsonKey(defaultValue: '')
   final String purchaseDate;
+  @JsonKey(defaultValue: '')
   final String description;
+  @JsonKey(defaultValue: false)
   final bool isRegisteredLocally;
+  @JsonKey(defaultValue: '')
   final String registrationVin;
+  @JsonKey(defaultValue: '')
   final String registrationPlate;
+  @JsonKey(defaultValue: '')
   final String registrationCertificate;
+  @JsonKey(defaultValue: '')
   final String registrationSerialNumber;
+  @JsonKey(defaultValue: false)
   final bool registeredInUzbekistan;
   @CarUserConverter()
   final CarUserEntity user;
+  @JsonKey(defaultValue: '')
   final String contactName;
+  @JsonKey(defaultValue: '')
   final String contactEmail;
+  @JsonKey(defaultValue: '')
   final String contactPhone;
+  @JsonKey(defaultValue: '')
+  final String contactAvailableFrom;
+  @JsonKey(defaultValue: '')
+  final String contactAvailableTo;
+  @JsonKey(defaultValue: false)
   final bool isNew;
+  @JsonKey(defaultValue: [])
   final List<String> gallery;
-  final int longitude;
-  final int latitude;
+  @JsonKey(defaultValue: 0)
+  final double longitude;
+  @JsonKey(defaultValue: 0)
+  final double latitude;
+  @JsonKey(defaultValue: false)
   final bool isMine;
+  @JsonKey(defaultValue: 0)
   final int viewsCount;
+  @JsonKey(defaultValue: '')
   final String createdAt;
+  @JsonKey(defaultValue: '')
   final String updatedAt;
   @DamagedPartsConverter()
   final List<DamagedPartsEntity> damagedParts;
+  @JsonKey(defaultValue: '')
+  final String userType;
+  @JsonKey(defaultValue: false)
+  final bool isWishlisted;
 
   const CarSingleEntity({
+    this.absoluteCarName = '',
+    this.publishedAt = '',
+    this.contactAvailableFrom = '',
+    this.contactAvailableTo = '',
+    this.userType = '',
+    this.isWishlisted = false,
     this.id = 0,
     this.make = const RentCarMakeEntity(),
     this.model = const RentCarModelsEntity(),
-    this.autoName = '',
     this.price = '',
     this.currency = '',
-    this.date = '',
     this.year = 0,
     this.distanceTraveled = 0,
     this.color = '',
@@ -103,15 +144,20 @@ class CarSingleEntity {
     this.updatedAt = '',
     this.damagedParts = const [],
   });
+
   @override
   List<Object?> get props => [
+        absoluteCarName,
+        publishedAt,
+        contactAvailableFrom,
+        contactAvailableTo,
+        userType,
+        isWishlisted,
         id,
         make,
         model,
-        autoName,
         price,
         currency,
-        date,
         year,
         distanceTraveled,
         color,
@@ -140,18 +186,16 @@ class CarSingleEntity {
         longitude,
         latitude,
         isMine,
-        viewsCount,
-        createdAt,
-        updatedAt,
-        damagedParts,
       ];
 }
 
-class CarSingleConverter<S> implements JsonConverter<CarSingleEntity, Map<String, dynamic>?> {
+class CarSingleConverter<S>
+    implements JsonConverter<CarSingleEntity, Map<String, dynamic>?> {
   const CarSingleConverter();
 
   @override
-  CarSingleEntity fromJson(Map<String, dynamic>? json) => CarSingleModel.fromJson(json ?? {});
+  CarSingleEntity fromJson(Map<String, dynamic>? json) =>
+      CarSingleModel.fromJson(json ?? {});
 
   @override
   Map<String, dynamic> toJson(CarSingleEntity object) => {};

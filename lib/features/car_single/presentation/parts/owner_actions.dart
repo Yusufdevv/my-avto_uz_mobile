@@ -63,9 +63,11 @@ class OwnerActions extends StatelessWidget {
                   Navigator.of(context).push(fade(page: const InvoicePage()));
                 },
                 child: const OwnerActionBox(
-                    color: accentRed,
+                    color: Color(0xffDFEFFF),
                     entity: OwnerActionEntity(
-                        title: 'В горячие \n ', icon: AppIcons.fire)),
+                      title: 'В горячие \n ',
+                      icon: AppIcons.blue_fire,
+                    )),
               ),
             ),
           ],

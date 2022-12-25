@@ -88,7 +88,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                   title: LocaleKeys.more_than.tr(),
                   secondText: ' 10 000',
                   image: AppImages.thirdImage,
-                  thirdText: ' offers',
+                  thirdText: LocaleKeys.offers.tr(),
                 ),
               ],
             ),
