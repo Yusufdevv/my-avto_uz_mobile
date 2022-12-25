@@ -71,7 +71,6 @@ class _ComparisonPageState extends State<ComparisonPage> {
           ),
           body: BlocBuilder<ComparisonBloc, ComparisonState>(
             builder: (context, state) {
-              print('Bu token  ${StorageRepository.getString('token')}');
               if (state.cars.isEmpty) {
                 return EmptyComparison(
                   onTap: () {
@@ -109,13 +108,13 @@ class _ComparisonPageState extends State<ComparisonPage> {
                 );
               } else {
                 return Comparison(
-                  cars: state.cars,
                   isSticky: state.isSticky,
                   carModelBloc: carModelBloc,
                   carTypeSelectorBloc: carTypeSelectorBloc,
                   carSelectorBloc: carSelectorBloc,
                   getMakesBloc: getMakesBloc,
                   modelBloc: modelBloc,
+                  cars: state.cars,
                 );
               }
             },
