@@ -11,8 +11,8 @@ Future<dynamic> selectCategoryBottomSheet(BuildContext context) =>
       builder: (context) => SortBottomSheet(
         title: 'Категория',
         values: [],
-        onChanged: (String value) {  },
-        defaultValue: '',
+        onChanged: (value) {  },
+        defaultValue: null,
       ),
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
