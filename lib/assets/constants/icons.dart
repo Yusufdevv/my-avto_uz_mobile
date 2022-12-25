@@ -62,6 +62,10 @@ class AppIcons {
   static const uzbekistan = 'assets/icons/global/uzbekistan.svg';
   static const chevronDownGrey = 'assets/icons/global/chevron_down_grey.svg';
   static const chevronRight = 'assets/icons/global/chevron_right.svg';
+  static const locationIcon = 'assets/icons/global/location_icon.svg';
+  static const currentLocation = 'assets/icons/global/current_location.svg';
+  static const currentLoc = 'assets/images/global/current_location.png';
+  static const dealersLocIcon = 'assets/images/global/dealers_loc_icon.png';
 
   // PROFILE
   static const alert = 'assets/icons/profile/alert.svg';

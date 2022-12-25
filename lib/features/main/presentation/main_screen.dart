@@ -1,9 +1,11 @@
+import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_icons.dart';
 import 'package:auto/features/car_single/domain/entities/car_user_entity.dart';
 import 'package:auto/features/commercial/presentation/commercial_screen.dart';
 import 'package:auto/features/common/domain/entity/car_brand_entity.dart';
+import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/dealers/presentation/dealers_main.dart';
 import 'package:auto/features/main/domain/entities/ads_entity.dart';
 import 'package:auto/features/main/domain/entities/service_entity.dart';
@@ -78,14 +80,17 @@ class _MainScreenState extends State<MainScreen> {
   @override
   void initState() {
     topAdBloc = TopAdBloc(GetTopAdsUseCase())..add(TopAdEvent.getTopAds());
-    topBrandBloc = TopBrandBloc(GetTopBrandUseCase())..add(TopBrandEvent.getBrand());
+    topBrandBloc = TopBrandBloc(GetTopBrandUseCase())
+      ..add(TopBrandEvent.getBrand());
     serviceTaps = [
-      () => Navigator.pushReplacement(context, fade(page: const DealerScreen())),
+      () =>
+          Navigator.pushReplacement(context, fade(page: const DealerScreen())),
       () {},
       () {},
       () {},
-      () {}/*=> Navigator.pushReplacement(context, fade(page: const CommercialScreen()))*/,
-      () => Navigator.of(context, rootNavigator: true).push(fade(page: const RentScreen())),
+      () {} /*=> Navigator.pushReplacement(context, fade(page: const CommercialScreen()))*/,
+      () => Navigator.of(context, rootNavigator: true)
+          .push(fade(page: const RentScreen())),
     ];
     super.initState();
   }
@@ -191,7 +196,8 @@ class _MainScreenState extends State<MainScreen> {
             actions: [
               Padding(
                 padding: const EdgeInsets.only(right: 16),
-                child: GestureDetector(onTap: () {}, child: SvgPicture.asset(AppIcons.bell)),
+                child: GestureDetector(
+                    onTap: () {}, child: SvgPicture.asset(AppIcons.bell)),
               )
             ],
           ),
@@ -231,7 +237,10 @@ class _MainScreenState extends State<MainScreen> {
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: Text(
                     LocaleKeys.favorites.tr(),
-                    style: Theme.of(context).textTheme.headline1!.copyWith(fontSize: 18),
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline1!
+                        .copyWith(fontSize: 18),
                     // () => Navigator.pushReplacement(context, fade(page: const CommercialScreen())),
                     // () => Navigator.of(context, rootNavigator: true).push(fade(page: const RentScreen())),
 
@@ -240,7 +249,37 @@ class _MainScreenState extends State<MainScreen> {
                   ),
                 ),
                 const FavouriteItem(),
-                const YandexMapItem(),
+                Stack(alignment: Alignment.bottomCenter, children: [
+                  const YandexMapItem(),
+                  WButton(
+                    borderRadius: 8,
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 15, vertical: 14),
+                    margin: const EdgeInsets.all(32),
+                    color: white,
+                    onTap: () => Navigator.of(context,rootNavigator: true).push(
+                      MaterialPageRoute(
+                        builder: (_) => const DealerScreen(),
+                      ),
+                    ),
+                    child: Row(
+                      children: [
+                        SvgPicture.asset(
+                          AppIcons.locationIcon,
+                          color: blue,
+                        ),
+                        const SizedBox(width: 12),
+                        Text(
+                          'Показать всех дилеров',
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyMedium
+                              ?.copyWith(color: black),
+                        ),
+                      ],
+                    ),
+                  ),
+                ]),
               ],
             ),
           ),

@@ -15,7 +15,7 @@ class DealerCardEntity extends Equatable {
   final double longitude;
   final double latitude;
   final int carCount;
-  final String district;
+  final int district;
 
   const DealerCardEntity({
     this.id = 0,
@@ -30,7 +30,7 @@ class DealerCardEntity extends Equatable {
     this.longitude = 0.0,
     this.latitude = 0.0,
     this.carCount = 0,
-    this.district = '',
+    this.district = 0,
   });
 
   @override

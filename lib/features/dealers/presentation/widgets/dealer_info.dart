@@ -1,33 +1,46 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:yandex_mapkit/yandex_mapkit.dart';
 
-class SellerInfo extends StatelessWidget {
-  final String dealerType;
+class SellerInfo extends StatefulWidget {
+  //final String dealerType;
   final String dealerName;
+  final String contactFrom;
+  final String contactTo;
   final int quantityOfCars;
-  final String workingHours;
   final String contact;
   final String additionalInfo;
   final double longitude;
   final double latitude;
+
   const SellerInfo({
-    required this.dealerType,
+    //required this.dealerType,
     required this.dealerName,
     required this.quantityOfCars,
-    required this.workingHours,
     required this.contact,
     required this.additionalInfo,
     required this.longitude,
     required this.latitude,
+    required this.contactFrom,
+    required this.contactTo,
     Key? key,
   }) : super(key: key);
 
+  @override
+  State<SellerInfo> createState() => _SellerInfoState();
+}
+
+class _SellerInfoState extends State<SellerInfo> {
+  late YandexMapController controller;
+  double maxZoomLevel = 0;
+  double minZoomLevel = 0;
+  
   @override
   Widget build(BuildContext context) => Container(
       margin: const EdgeInsets.only(top: 20),
@@ -45,39 +58,86 @@ class SellerInfo extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            dealerType == 'showroom' ? dealerName : LocaleKeys.about_dealer.tr(),
+            // dealerType == 'showroom'
+            //     ? dealerName
+            //     : LocaleKeys.about_dealer.tr(),
+            widget.dealerName,
             style: const TextStyle(
                 color: orange, fontSize: 16, fontWeight: FontWeight.w600),
           ),
           const SizedBox(
             height: 16,
           ),
-          if (dealerType == 'showroom') ...{
-            Info(icon: AppIcons.vehicleCar, text: '$quantityOfCars автомобиля'),
-            const SizedBox(
-              height: 16,
-            ),
-          },
-          Info(text: LocaleKeys.every_day.tr() + ' $workingHours', icon: AppIcons.clock),
+          Info(
+              icon: AppIcons.vehicleCar,
+              text: '${widget.quantityOfCars} автомобиля'),
+          const SizedBox(
+            height: 16,
+          ),
+          // if (dealerType == 'showroom') ...{
+          //
+          // },
+          Info(
+              text:
+                  '${LocaleKeys.every_day.tr()} ${widget.contactFrom} - ${widget.contactTo}',
+              icon: AppIcons.clock),
           const SizedBox(height: 20),
           Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(6),
-                color: warmerGrey,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(6),
+              color: warmerGrey,
+            ),
+            padding: const EdgeInsets.all(1),
+            height: 110,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(6),
+              child: YandexMap(
+                rotateGesturesEnabled: false,
+                onMapCreated: (controller) async {
+                  controller = controller;
+                  maxZoomLevel = await controller.getMaxZoom();
+                  minZoomLevel = await controller.getMinZoom();
+                  final camera = await controller.getCameraPosition();
+                  final position = Point(
+                      latitude: StorageRepository.getDouble('lat',
+                          defValue: 41.310990),
+                      longitude: StorageRepository.getDouble('long',
+                          defValue: 69.281997));
+                  await controller.moveCamera(
+                    CameraUpdate.newCameraPosition(
+                      CameraPosition(
+                        target: Point(
+                            latitude: widget.latitude,
+                            longitude: widget.longitude),
+                      ),
+                    ),
+                    animation: const MapAnimation(
+                        duration: 0.15, type: MapAnimationType.smooth),
+                  );
+                },
+                mapObjects: [
+                  PlacemarkMapObject(
+                    icon: PlacemarkIcon.single(PlacemarkIconStyle(
+                      scale: 0.6,
+
+                      image: BitmapDescriptor.fromAssetImage(AppIcons.currentLoc),
+                    ),),
+                    mapId: MapObjectId(widget.latitude.toString()),
+                    point: Point(
+                        latitude: widget.latitude, longitude: widget.longitude),
+                  ),
+                ],
               ),
-              padding: const EdgeInsets.all(1),
-              height: 110,
-              child: ClipRRect(
-                  borderRadius: BorderRadius.circular(6),
-                  child: const YandexMap())),
+            ),
+          ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 20),
             child: Info(
-              text: contact,
+              text: widget.contact,
               icon: AppIcons.tablerPhone,
             ),
           ),
-          Info(icon: AppIcons.tablerInfo, text: additionalInfo),
+          Info(icon: AppIcons.tablerInfo, text: widget.additionalInfo),
         ],
       ));
 }
@@ -85,6 +145,7 @@ class SellerInfo extends StatelessWidget {
 class Info extends StatelessWidget {
   final String icon;
   final String text;
+
   const Info({
     required this.icon,
     required this.text,

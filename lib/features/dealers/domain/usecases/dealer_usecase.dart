@@ -1,9 +1,9 @@
 import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/core/usecases/usecase.dart';
+import 'package:auto/core/utils/either.dart';
 import 'package:auto/features/dealers/data/models/dealer_card_model.dart';
 import 'package:auto/features/pagination/models/generic_pagination.dart';
 import 'package:auto/features/pagination/repository/pagination.dart';
-import 'package:auto/core/utils/either.dart';
 
 class DealerUseCase
     extends UseCase<GenericPagination<DealerCardModel>, DealerParams> {
@@ -14,7 +14,7 @@ class DealerUseCase
       DealerParams params) async {
     final map = <String, dynamic>{'search': params.search};
     return await repo.fetchMore(
-        url: 'users/dealers/',
+        url: '/users/dealers/',
         fromJson: DealerCardModel.fromJson,
         next: params.next,
         query: map);
