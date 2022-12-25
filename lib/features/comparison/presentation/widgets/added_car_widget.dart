@@ -48,6 +48,7 @@ class AddedCar extends StatelessWidget {
                   ),
                 ),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
                       height: 112,
@@ -58,20 +59,23 @@ class AddedCar extends StatelessWidget {
                         ),
                         child: SvgPicture.asset(
                           AppImages.placeHolder,
-                          fit: BoxFit.fill,
+                          fit: BoxFit.cover,
                           height: 112,
                         ),
                       ),
                     ),
-                    const SizedBox(height: 12),
+                    const SizedBox(height: 8),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 4,
+                      ),
                       child: Text(
                         '227 000 000 UZS',
-                        style: Theme.of(context)
-                            .textTheme
-                            .headline1!
-                            .copyWith(fontSize: 13),
+                        style: Theme.of(context).textTheme.headline1!.copyWith(
+                              fontSize: 13,
+                              fontWeight: FontWeight.w700,
+                            ),
                       ),
                     ),
                     Padding(
@@ -79,7 +83,9 @@ class AddedCar extends StatelessWidget {
                       child: Text(
                         'Lexus LX 600 2022 Lexus LX 600 2022',
                         style: Theme.of(context).textTheme.headline1!.copyWith(
-                            fontSize: 12, fontWeight: FontWeight.w400),
+                              fontSize: 12,
+                              fontWeight: FontWeight.w400,
+                            ),
                       ),
                     ),
                   ],

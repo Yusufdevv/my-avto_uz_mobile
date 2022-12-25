@@ -18,7 +18,6 @@ import 'package:auto/features/ad/domain/repositories/ad_repository.dart';
 import 'package:auto/features/common/entities/makes_entity.dart';
 import 'package:auto/features/pagination/models/generic_pagination.dart';
 import 'package:dio/dio.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class AdRepositoryImpl extends AdRepository {
   final AdRemoteDataSource remoteDataSource;
@@ -68,9 +67,10 @@ class AdRepositoryImpl extends AdRepository {
   }
 
   @override
-  Future<Either<Failure, GetMakeEntity>> getCarModel(int makeId) async {
+  Future<Either<Failure, GetMakeEntity>> getCarModel(int makeId,
+      {String? name}) async {
     try {
-      final result = await remoteDataSource.getCarModel(makeId);
+      final result = await remoteDataSource.getCarModel(makeId, name: name);
       return Right(result);
     } on DioException {
       return Left(DioFailure());

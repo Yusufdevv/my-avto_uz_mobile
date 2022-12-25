@@ -1,5 +1,5 @@
-import 'package:auto/features/common/domain/model/car_dealer_model.dart';
 import 'package:auto/features/common/domain/entity/car_district_entity.dart';
+import 'package:auto/features/common/domain/model/car_dealer_model.dart';
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 

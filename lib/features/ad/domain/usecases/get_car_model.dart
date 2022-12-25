@@ -10,7 +10,6 @@ class GetCarModelUseCase extends UseCase<GetMakeEntity, int> {
   GetCarModelUseCase({required this.repository});
 
   @override
-  Future<Either<Failure, GetMakeEntity>> call(int params) =>
-      repository.getCarModel(params);
+  Future<Either<Failure, GetMakeEntity>> call(int params, {String? name}) =>
+      repository.getCarModel(params, name: name);
 }
-
