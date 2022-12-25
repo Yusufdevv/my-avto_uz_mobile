@@ -1,4 +1,3 @@
-import 'package:auto/assets/colors/color.dart';
 import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
 import 'package:auto/features/common/widgets/custom_screen.dart';
@@ -117,7 +116,7 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin, Wi
                       context.read<MapOrganizationBloc>().add(
                         MapOrganizationEvent.getCurrentLocation(
                           onError: (message) {
-                            context.read<ShowPopUpBloc>().add(ShowPopUp(message: message));
+                            context.read<ShowPopUpBloc>().add(ShowPopUp(message: message, isSucces: false));
                           },
                           onSuccess: (position) async {
                             myPoint = Point(latitude: position.latitude, longitude: position.longitude);
@@ -196,7 +195,7 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin, Wi
                               zoomLevel = 15;
                             },
                             onError: (message) {
-                              context.read<ShowPopUpBloc>().add(ShowPopUp(message: message));
+                              context.read<ShowPopUpBloc>().add(ShowPopUp(message: message, isSucces: false));
                             },
                           ),
                         );

@@ -36,13 +36,13 @@ class Seller extends StatelessWidget {
     required this.phoneNumber,
   });
 
-  List<MarksWithAnnouncementModel> marks = [
-    MarksWithAnnouncementModel(imageUrl: '', mark: 'BMW', quantity: 24),
-    MarksWithAnnouncementModel(imageUrl: '', mark: 'BMW', quantity: 24),
-    MarksWithAnnouncementModel(imageUrl: '', mark: 'BMW', quantity: 24),
-    MarksWithAnnouncementModel(imageUrl: '', mark: 'BMW', quantity: 24),
-    MarksWithAnnouncementModel(imageUrl: '', mark: 'BMW', quantity: 24),
-    MarksWithAnnouncementModel(imageUrl: '', mark: 'BMW', quantity: 24),
+  List<MarksWithAnnouncementEntity> marks = [
+    MarksWithAnnouncementEntity(imageUrl: '', mark: 'BMW', quantity: 24),
+    MarksWithAnnouncementEntity(imageUrl: '', mark: 'BMW', quantity: 24),
+    MarksWithAnnouncementEntity(imageUrl: '', mark: 'BMW', quantity: 24),
+    MarksWithAnnouncementEntity(imageUrl: '', mark: 'BMW', quantity: 24),
+    MarksWithAnnouncementEntity(imageUrl: '', mark: 'BMW', quantity: 24),
+    MarksWithAnnouncementEntity(imageUrl: '', mark: 'BMW', quantity: 24),
   ];
 
   @override
