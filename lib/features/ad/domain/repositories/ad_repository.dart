@@ -1,5 +1,6 @@
 import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/core/utils/either.dart';
+import 'package:auto/features/ad/domain/entities/car_model/car_model_entity.dart';
 import 'package:auto/features/ad/domain/entities/generation/generation.dart';
 import 'package:auto/features/ad/domain/entities/types/body_type.dart';
 import 'package:auto/features/ad/domain/entities/types/drive_type.dart';
@@ -35,6 +36,8 @@ abstract class AdRepository {
     String? next,
   });
 
+  Future<Either<Failure, GenericPagination<BodyTypeEntity>>> getBodyTypes();
+
   Future<Either<Failure, GenericPagination<EngineTypeEntity>>> getEngineType({
     required int generationId,
     required int bodyTypeId,
@@ -48,6 +51,8 @@ abstract class AdRepository {
     String? next,
   });
 
+  Future<Either<Failure, GenericPagination<DriveTypeEntity>>> driveTypesGet();
+
   Future<Either<Failure, GenericPagination<GearboxTypeEntity>>> getGearboxType({
     required int generationId,
     required int bodyTypeId,
@@ -55,6 +60,8 @@ abstract class AdRepository {
     required int driveTypeId,
     String? next,
   });
+
+  Future<Either<Failure, GenericPagination<GearboxTypeEntity>>> gearboxessGet();
 
   Future<Either<Failure, GenericPagination<ModificationTypeEntity>>>
       getModificationType({

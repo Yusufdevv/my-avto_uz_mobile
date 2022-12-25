@@ -23,9 +23,8 @@ class RegisterUseCase extends UseCase<TokenModel, RegisterModel> {
     if (model.image.isNotEmpty) {
       map.addAll({'image': await MultipartFile.fromFile(model.image)});
     }
-    print(map.toString());
     final formData = FormData.fromMap(map);
-    var result = await repo.postAndSingle(
+    final result = await repo.postAndSingle(
         endpoint: '/users/registration/',
         fromJson: TokenModel.fromJson,
         responseDataKey: 'token',

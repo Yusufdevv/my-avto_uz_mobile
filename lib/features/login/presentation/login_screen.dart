@@ -38,8 +38,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   void initState() {
-    phoneController = TextEditingController(text: '90 773 73 33');
-    passwordController = TextEditingController(text: '123456');
+    phoneController = TextEditingController(text: '99 017 14 48');
+    passwordController = TextEditingController(text: 'admin');
     super.initState();
   }
 
@@ -202,7 +202,7 @@ class _LoginScreenState extends State<LoginScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                   const Expanded(
+                  const Expanded(
                       child: WDivider(
                     margin: EdgeInsets.only(left: 32),
                   )),
@@ -235,11 +235,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   SocialMediaItem(
                       // onTap: () {},
                       icon: SvgPicture.asset(
-                        AppIcons.apple,
-                        color: Theme.of(context)
-                            .extension<ThemedColors>()!
-                            .blackToWhite80,
-                      )),
+                    AppIcons.apple,
+                    color: Theme.of(context)
+                        .extension<ThemedColors>()!
+                        .blackToWhite80,
+                  )),
                   const SizedBox(width: 24),
                   SocialMediaItem(
                     // onTap: () {},
