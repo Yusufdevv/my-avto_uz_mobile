@@ -184,6 +184,20 @@ class _PhoneVerifiyScreenState extends State<PhoneVerifiyScreen> {
                               setState(() {
                                 timeComplete = true;
                               });
+                              // context
+                              //     .read<ChangePhoneNumberBloc>()
+                              //     .add(SendPhoneNumberEvent(
+                              //       newPhoneNumber: "+998${widget.phone}",
+                              //       onSuccess: (session) {
+                                      
+                              //       },
+                              //       onError: (message) {
+                              //         context.read<ShowPopUpBloc>().add(
+                              //               ShowPopUp(
+                              //                   message: message,
+                              //                   isSucces: false));
+                              //       },
+                              //     ));
                             },
                           ),
                         )
@@ -205,9 +219,13 @@ class _PhoneVerifiyScreenState extends State<PhoneVerifiyScreen> {
                                       message:
                                           'Номер телефона успешно изменен',
                                       isSucces: true));
+                                      context.read<ProfileBloc>().add(GetProfileEvent());
                                   Navigator.pop(context);
+                                  
                                   Navigator.pop(
-                                      widget.ctx, '+998${widget.phone}');
+                                      widget.ctx, 
+                                      // '+998${widget.phone}'
+                                      );
                                 },
                                 onError: (message) {
                                   context.read<ShowPopUpBloc>().add(ShowPopUp(

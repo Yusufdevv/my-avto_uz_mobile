@@ -112,7 +112,6 @@ class _AppState extends State<App> {
                   navigator.pushAndRemoveUntil(
                       fade(page: const HomeScreen()), (route) => false);
                   (context) => ShowPopUpBloc();
-                  print(state.status);
                   if (!StorageRepository.getBool('onboarding',
                       defValue: false)) {
                     navigator.pushAndRemoveUntil(

@@ -11,8 +11,9 @@ import 'package:flutter/material.dart';
 
 class RentChooseRegionBottomSheet extends StatefulWidget {
   final List<Region> list;
+  final bool isProfileEdit;
 
-  const RentChooseRegionBottomSheet({required this.list, super.key}) : super();
+  const RentChooseRegionBottomSheet({required this.list,this.isProfileEdit=false ,super.key}) : super();
 
   @override
   State<RentChooseRegionBottomSheet> createState() =>
@@ -31,7 +32,7 @@ class _RentChooseRegionBottomSheetState
       decoration: const BoxDecoration(
         color: white,
         borderRadius: BorderRadius.vertical(
-          top: Radius.circular(20),
+          top: Radius.circular(20)
         ),
       ),
       child: Column(
@@ -48,6 +49,7 @@ class _RentChooseRegionBottomSheetState
               physics: const BouncingScrollPhysics(),
               child: Column(
                 children: [
+                  if(!widget.isProfileEdit)
                   RegionSelectAllItem(
                     isAllChecked: isAllChecked,
                     onTap: () {
@@ -75,6 +77,7 @@ class _RentChooseRegionBottomSheetState
                             setState(() {});
                           },
                           child: RegionSheetItem(
+                            isProfileEdit: widget.isProfileEdit,
                             title: widget.list[index].title,
                             hasBorder: index == widget.list.length - 1,
                             isChecked: checkStatus.containsKey(index),

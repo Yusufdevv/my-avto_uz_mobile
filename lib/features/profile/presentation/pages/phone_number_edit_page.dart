@@ -20,7 +20,6 @@ import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:formz/formz.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
@@ -43,17 +42,13 @@ class _PhoneNumberEditPageState extends State<PhoneNumberEditPage> {
   void initState() {
     phoneController = TextEditingController();
 
+
     final repo = serviceLocator<ProfileRepositoryImpl>();
     changePhoneNumberBloc = ChangePhoneNumberBloc(
         changePhoneNumberUseCase: ChangePhoneNumberUseCase(repository: repo),
         sendSmsVerificationUseCase:
             SendSmsVerificationUseCase(repository: repo));
     super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
   }
 
   @override

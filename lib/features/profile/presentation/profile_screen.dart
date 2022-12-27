@@ -1,15 +1,16 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/core/singletons/service_locator.dart';
-import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/core/utils/size_config.dart';
 import 'package:auto/features/ad/presentation/bloc/add_photo/image_bloc.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
+import 'package:auto/features/comparison/presentation/comparison_page.dart';
 import 'package:auto/features/dealers/presentation/dealers_main.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/profile/data/repositories/profile_repository_impl.dart';
 import 'package:auto/features/profile/domain/usecases/change_password_usecase.dart';
 import 'package:auto/features/profile/domain/usecases/edit_profile_usecase.dart';
+import 'package:auto/features/profile/domain/usecases/get_terms_of_use_usecase.dart';
 import 'package:auto/features/profile/domain/usecases/profil_favorites_usecase.dart';
 import 'package:auto/features/profile/domain/usecases/profile_usecase.dart';
 import 'package:auto/features/profile/presentation/bloc/profile/profile_bloc.dart';
@@ -54,9 +55,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
       editProfileUseCase: EditProfileUseCase(repository: repo),
       profileUseCase: ProfileUseCase(repository: repo),
       profileFavoritesUseCase: ProfileFavoritesUseCase(repository: repo),
+      getTermsOfUseUseCase: GetTermsOfUseUseCase(repository: repo),
     )
         ..add(GetProfileEvent())
-        ..add(GetProfileFavoritesEvent())
         ;
     imageBloc = ImageBloc();
     super.initState();
@@ -77,11 +78,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
             //   context.read<ProfileBloc>().add(GetProfileEvent());
             //   // context.read<ProfileBloc>().add(GetProfileFavoritesEvent());
             // } 
-            // else if (state.status.isSubmissionInProgress) {
-            //   return const Center(child: CupertinoActivityIndicator());
-            // } else if (state.status.isSubmissionFailure) {
-            //   return const Center(child: Text('Fail'));
-            // } else if (state.status.isSubmissionSuccess) {
+            // else 
+            if (state.status.isSubmissionInProgress) {
+              return const Center(child: CupertinoActivityIndicator());
+            } else if (state.status.isSubmissionFailure) {
+              return const Center(child: Text('Fail'));
+            } else if (state.status.isSubmissionSuccess) {
               return Scaffold(
                 appBar: WAppBar(
                     filledBackButton: true,
@@ -113,15 +115,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           onTap: () {
                             Navigator.of(context).push(fade(
                                 page: SeeProfileScreen(
-                                  announcementCount: state.profileEntity.usercountdata!.announcementsCount!,
-                              profileEntity: state.profileEntity,
                               profileBloc: profileBloc,
                               imageBloc: imageBloc,
                             )));
                           },
                           title: state.profileEntity.fullName ?? '',
                           subTitle:
-                              '${state.profileEntity.usercountdata?.announcementsCount} ${LocaleKeys.how_many_ads.tr()}',
+                              '${state.profileEntity.usercountdata?.announcementsCount ?? 0} ${LocaleKeys.how_many_ads.tr()}',
                           imageUrl: state.profileEntity.image ?? '',
                           margin: EdgeInsets.only(
                               top: SizeConfig.v(16), bottom: SizeConfig.v(12)),
@@ -146,8 +146,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ProfileMenuTile(
                               name: LocaleKeys.comparisons.tr(),
                               onTap: () {
-                                // Navigator.of(context)
-                                //     .push(fade(page: const ComparisonPage()));
+                                Navigator.of(context, rootNavigator: true)
+                                    .push(fade(page: const ComparisonPage()));
                               },
                               iconPath: AppIcons.scales,
                               count: 0),
@@ -158,8 +158,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ProfileMenuTile(
                               name: LocaleKeys.my_ads.tr(),
                               onTap: () {
-                                // Navigator.of(context)
-                                //     .push(fade(page: const MyAdScreen()));
+                                Navigator.of(context)
+                                    .push(fade(page: const MyAdScreen()));
                               },
                               iconPath: AppIcons.tabletNews,
                               count: state.profileEntity.usercountdata
@@ -236,7 +236,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   name: LocaleKeys.about_app.tr(),
                                   onTap: () {
                                     Navigator.of(context).push(fade(
-                                      page: const AboutAppScreen(),
+                                      page: AboutAppScreen(
+                                        profileBloc: profileBloc,
+                                      ),
                                     ));
                                   },
                                   iconPath: AppIcons.info),
@@ -247,8 +249,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               );
             }
-          //   return const Center(child: CupertinoActivityIndicator());
-          // },
+            return const Center(child: CupertinoActivityIndicator());
+          },
         ),
       );
 }

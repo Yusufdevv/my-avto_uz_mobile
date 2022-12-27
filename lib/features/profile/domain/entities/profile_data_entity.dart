@@ -32,12 +32,9 @@ class ProfileDataEntity {
     final bool? isActive;
     final bool? isStaff;
     final bool? isSuperuser;
-    final DateTime? lastLogin;
-    final DateTime? dateJoined;
+    final String? lastLogin;
+    final String? dateJoined;
     final Usercountdata? usercountdata;
-
-    
-
 }
 
 class Region {
@@ -52,16 +49,10 @@ class Region {
     final String? soato;
 
     factory Region.fromJson(Map<String, dynamic> json) => Region(
-        id: json['id'],
-        title: json['title'],
-        soato: json['soato'],
+          id: json['id'] as int? ?? 0,
+      title: json['title'] as String? ?? '',
+      soato: json['soato'] as String? ?? '',
     );
-
-    Map<String, dynamic> toJson() => {
-        'id': id,
-        'title': title,
-        'soato': soato,
-    };
 }
 
 class Usercountdata {
@@ -89,13 +80,4 @@ class Usercountdata {
         searchCount: json['search_count'],
         reviewsCount: json['reviews_count'],
     );
-
-    Map<String, dynamic> toJson() => {
-        'id': id,
-        'user': user,
-        'announcement_wishlist_count': announcementWishlistCount,
-        'announcements_count': announcementsCount,
-        'search_count': searchCount,
-        'reviews_count': reviewsCount,
-    };
 }
