@@ -103,6 +103,7 @@ class InfoResultContainer extends StatelessWidget {
                         bottomSheetForCalling(context, contactPhone);
                       },
                       height: 201,
+                      borderRadius: 0,
                       color: emerald,
                       margin: const EdgeInsets.only(left: 2, right: 16),
                       width: 264,
@@ -110,7 +111,7 @@ class InfoResultContainer extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          SvgPicture.asset(AppIcons.phoneCall),
+                          SvgPicture.asset(AppIcons.phone),
                           Text(
                             'Позвонить',
                             style: Theme.of(context)
@@ -269,20 +270,30 @@ class InfoResultContainer extends StatelessWidget {
             const SizedBox(height: 12),
             Row(
               children: [
-                SizedBox(
-                  height: 36,
-                  width: 36,
-                  child: CachedNetworkImage(
-                    imageBuilder: (context, imageProvider) => Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(150),
+                CachedNetworkImage(
+                  imageBuilder: (context, imageProvider) => Container(
+                    height: 36,
+                    width: 36,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(150),
+                    ),
+                  ),
+                  errorWidget: (context, url, error) => Container(
+                    padding: const EdgeInsets.all(8),
+                    // height: 36,
+                    // width: 36,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(150),
+                      color: warmerGrey,
+                      border: Border.all(
+                        color: dividerColor,
+                        width: 1,
                       ),
                     ),
-                    errorWidget: (context, url, error) =>
-                        SvgPicture.asset(AppIcons.car),
-                    imageUrl: userImage,
-                    fit: BoxFit.cover,
+                    child: SvgPicture.asset(AppIcons.userAvatar),
                   ),
+                  imageUrl: userImage,
+                  fit: BoxFit.cover,
                 ),
                 const SizedBox(width: 8),
                 RichText(

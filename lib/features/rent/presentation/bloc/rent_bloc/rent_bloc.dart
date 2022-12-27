@@ -36,14 +36,14 @@ class RentBloc extends Bloc<RentEvent, RentState> {
   FutureOr<void> _setFromFilter(
       RentSetParamFromFilterEvent event, Emitter<RentState> emit) async {
     print('the value of regionId is: ${event.regions}');
-    print('the value of carMakeId is: ${event.carMakers?.length}');
+    print('the value of carMakeId is: ${event.carMakerId?.length}');
     print('the value of carBodyTypeId is: ${event.carBodyTypeId}');
     print('the value of carDriveTypeId is: ${event.carDriveTypeId}');
     print('the value of gearboxTypeId is: ${event.gearboxTypeId}');
     emit(
       state.copyWith(
-        region: event.regions,
-        carMakers: event.carMakers,
+        regions: event.regions,
+        carMakers: event.carMakerId,
         carBodyTypeId: event.carBodyTypeId,
         carDriveTypeId: event.carDriveTypeId,
         gearboxTypeId: event.gearboxTypeId,
@@ -67,7 +67,7 @@ class RentBloc extends Bloc<RentEvent, RentState> {
           carBodyTypeId: state.carBodyTypeId,
           carDriveTypeId: state.carDriveTypeId,
           gearboxTypeId: state.gearboxTypeId,
-          makers: state.carMakers?.map((e) => e.toString()).toList(),
+          makers: state.carMakers,
           regions:
               state.regions?.map((e) => e.id.toString()).toList().join(',')),
     );

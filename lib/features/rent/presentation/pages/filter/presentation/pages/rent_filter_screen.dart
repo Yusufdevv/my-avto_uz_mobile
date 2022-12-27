@@ -1,5 +1,4 @@
 import 'package:auto/assets/colors/color.dart';
-import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/features/common/bloc/regions/regions_bloc.dart';
 import 'package:auto/features/common/models/region.dart';
 import 'package:auto/features/common/widgets/range_slider.dart';
@@ -8,8 +7,8 @@ import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/rent/presentation/bloc/rent_bloc/rent_bloc.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/choose_body_type.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/choose_drive_type.dart';
+import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/choose_gearbox.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/choose_maker.dart';
-import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/rent_choose_bottom_sheet.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/rent_choose_region_bottom_sheet.dart';
 import 'package:auto/features/search/presentation/widgets/selector_item.dart';
 import 'package:auto/generated/locale_keys.g.dart';
@@ -83,15 +82,15 @@ class _RentFilterScreenState extends State<RentFilterScreen> {
                   ),
                   SelectorItem(
                     onTap: () async {
-                      await showModalBottomSheet<List<int>>(
+                      await showModalBottomSheet<String>(
                         isDismissible: false,
                         context: context,
                         isScrollControlled: true,
                         backgroundColor: Colors.transparent,
                         builder: (c) => const ChooseMaker(),
                       ).then((value) {
-                        widget.rentBloc
-                            .add(RentSetParamFromFilterEvent(carMakers: value));
+                        widget.rentBloc.add(
+                            RentSetParamFromFilterEvent(carMakerId: value));
                       });
                     },
                     hintText: LocaleKeys.choose_brand.tr(),
@@ -100,15 +99,15 @@ class _RentFilterScreenState extends State<RentFilterScreen> {
                   ),
                   SelectorItem(
                     onTap: () async {
-                      await showModalBottomSheet<List<int>>(
+                      await showModalBottomSheet<String>(
                         isDismissible: false,
                         context: context,
                         isScrollControlled: true,
                         backgroundColor: Colors.transparent,
                         builder: (c) => const ChooseBodyType(),
                       ).then((value) {
-                        widget.rentBloc.add(RentSetParamFromFilterEvent(
-                            carBodyTypeId: value?[0].toString()));
+                        widget.rentBloc.add(
+                            RentSetParamFromFilterEvent(carBodyTypeId: value));
                       });
                     },
                     hintText: LocaleKeys.choose_body.tr(),
@@ -116,41 +115,15 @@ class _RentFilterScreenState extends State<RentFilterScreen> {
                   ),
                   SelectorItem(
                     onTap: () async {
-                      await showModalBottomSheet<List<int>>(
-                        isDismissible: false,
-                        context: context,
-                        isScrollControlled: true,
-                        backgroundColor: Colors.transparent,
-                        builder: (c) => RentChooseBottomSheet(
-                          title: 'Klass',
-                          list: List.generate(
-                            8,
-                            (index) => ToChoose(
-                              title: 'Class $index',
-                              imagePath: AppIcons.kia,
-                              id: index,
-                            ),
-                          ),
-                        ),
-                      ).then((value) {
-                        widget.rentBloc
-                            .add(RentSetParamFromFilterEvent(carMakers: value));
-                      });
-                    },
-                    hintText: LocaleKeys.choose_class.tr(),
-                    title: LocaleKeys.classs.tr(),
-                  ),
-                  SelectorItem(
-                    onTap: () async {
-                      await showModalBottomSheet<List<int>>(
+                      await showModalBottomSheet<String>(
                         isDismissible: false,
                         context: context,
                         isScrollControlled: true,
                         backgroundColor: Colors.transparent,
                         builder: (c) => const ChooseDriveType(),
                       ).then((value) {
-                        widget.rentBloc
-                            .add(RentSetParamFromFilterEvent(carMakers: value));
+                        widget.rentBloc.add(
+                            RentSetParamFromFilterEvent(carDriveTypeId: value));
                       });
                     },
                     hintText: LocaleKeys.choose_drive_type.tr(),
@@ -158,25 +131,15 @@ class _RentFilterScreenState extends State<RentFilterScreen> {
                   ),
                   SelectorItem(
                     onTap: () async {
-                      await showModalBottomSheet<List<int>>(
+                      await showModalBottomSheet<String>(
                         isDismissible: false,
                         context: context,
                         isScrollControlled: true,
                         backgroundColor: Colors.transparent,
-                        builder: (c) => RentChooseBottomSheet(
-                          title: 'Box',
-                          list: List.generate(
-                            8,
-                            (index) => ToChoose(
-                              title: 'Box $index',
-                              imagePath: AppIcons.kia,
-                              id: index,
-                            ),
-                          ),
-                        ),
+                        builder: (c) => const ChooseGearbox(),
                       ).then((value) {
-                        widget.rentBloc
-                            .add(RentSetParamFromFilterEvent(carMakers: value));
+                        widget.rentBloc.add(
+                            RentSetParamFromFilterEvent(gearboxTypeId: value));
                       });
                     },
                     hintText: LocaleKeys.choose_box_type.tr(),

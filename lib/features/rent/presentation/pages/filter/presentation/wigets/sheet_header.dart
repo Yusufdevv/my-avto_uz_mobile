@@ -15,7 +15,8 @@ class SheetHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Padding(
-        padding: const EdgeInsets.all(16),
+        padding:
+            const EdgeInsets.only(bottom: 26, left: 16, top: 20, right: 24),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [

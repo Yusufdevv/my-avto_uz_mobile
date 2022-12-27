@@ -34,10 +34,7 @@ class _ChooseDriveTypeState extends State<ChooseDriveType> {
     super.initState();
   }
 
-  Map<int, int> checkStatus = {};
-  void goBack() {
-    Navigator.of(context).pop(checkStatus.entries.map((e) => e.value).toList());
-  }
+  int selected = -1;
 
   @override
   Widget build(BuildContext context) => BlocProvider.value(
@@ -52,57 +49,36 @@ class _ChooseDriveTypeState extends State<ChooseDriveType> {
           ),
           child: BlocBuilder<GetDriveTypesBloc, GetDriveTypesState>(
             builder: (context, state) {
-              final isAllChecked =
-                  checkStatus.length == state.driveTypes.length;
               if (state.status == FormzStatus.submissionSuccess ||
                   state.status == FormzStatus.submissionFailure) {
                 return Column(
                   children: [
-                    SheetHeader(title: 'Марка', onCancelPressed: goBack),
+                    SheetHeader(
+                        title: 'Привод',
+                        onCancelPressed: () {
+                          Navigator.of(context).pop(selected >= 0
+                              ? '${state.driveTypes[selected].id}'
+                              : null);
+                        }),
                     const Divider(thickness: 1, color: border, height: 1),
                     Expanded(
                       child: SingleChildScrollView(
                         physics: const BouncingScrollPhysics(),
                         child: Column(
                           children: [
-                            SheetSelectAllButton(
-                              title: '${LocaleKeys.all.tr()} mарка',
-                              isAllChecked: isAllChecked,
-                              onTap: () {
-                                if (isAllChecked) {
-                                  checkStatus = {};
-                                } else {
-                                  for (var i = 0;
-                                      i < state.driveTypes.length;
-                                      i++) {
-                                    checkStatus[i] = state.driveTypes[i].id;
-                                  }
-                                }
-                                setState(() {});
-                              },
-                            ),
                             ...List.generate(
                                 state.driveTypes.length,
                                 (index) => Column(
                                       children: [
                                         WScaleAnimation(
                                           onTap: () {
-                                            if (checkStatus
-                                                .containsKey(index)) {
-                                              checkStatus.remove(index);
-                                            } else {
-                                              checkStatus[index] =
-                                                  state.driveTypes[index].id;
-                                            }
+                                            selected = index;
                                             setState(() {});
                                           },
-                                          child: MakerSheetItem(
-                                            logo:
-                                                state.driveTypes[index].logo,
-                                            title:
-                                                state.driveTypes[index].type,
-                                            isChecked:
-                                                checkStatus.containsKey(index),
+                                          child: RentSheetItem(
+                                            logo: state.driveTypes[index].logo,
+                                            title: state.driveTypes[index].type,
+                                            isChecked: index == selected,
                                           ),
                                         ),
                                         Visibility(
@@ -126,7 +102,12 @@ class _ChooseDriveTypeState extends State<ChooseDriveType> {
                       padding: const EdgeInsets.only(
                           left: 16, right: 16, bottom: 50),
                       child: WButton(
-                          onTap: goBack, color: orange, text: 'Применить'),
+                          onTap: () {
+                            Navigator.of(context).pop(selected >= 0
+                                ? '${state.driveTypes[selected].id}'
+                                : null);
+                          },
+                          text: 'Применить'),
                     ),
                   ],
                 );

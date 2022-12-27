@@ -23,7 +23,6 @@ class SearchResultsDatasourceImpl extends SearchResultsDatasource {
       if (response.statusCode != null &&
           response.statusCode! >= 200 &&
           response.statusCode! < 300) {
-        print(response.realUri);
         return GenericPagination.fromJson(response.data,
             (p0) => AutoModel.fromJson(p0 as Map<String, dynamic>));
       } else {

@@ -8,19 +8,25 @@ String text =
     'ФИНАЛЬНАЯ ЦЕНА за НАЛИЧНЫЙ РАСЧЕТ 2 879 000 сум. Автомобиль в безупречном состоянии! Без дтп! По регистрациям, были перевесы Гос номеров, прослеживается по истории владения. Оригинальный пробег. Полный комплект Ключей и документов к автомобилю!';
 
 class SellerComment extends StatelessWidget {
-  const SellerComment({Key? key}) : super(key: key);
+  final String comment;
+
+  const SellerComment({Key? key, required this.comment}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => Container(  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
-    margin: const EdgeInsets.only(bottom: 12),
-    decoration: BoxDecoration(
-        border: Border.all(
-          width: 1,
-          color: Theme.of(context).extension<ThemedColors>()!.solitudeToDarkRider,
-        ),
-        color: Theme.of(context).extension<ThemedColors>()!.whiteToNero
-    ),
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start,
+  Widget build(BuildContext context) => Container(
+        width: double.infinity,
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+        margin: const EdgeInsets.only(bottom: 12),
+        decoration: BoxDecoration(
+            border: Border.all(
+              width: 1,
+              color: Theme.of(context)
+                  .extension<ThemedColors>()!
+                  .solitudeToDarkRider,
+            ),
+            color: Theme.of(context).extension<ThemedColors>()!.whiteToNero),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               LocaleKeys.sellers_comment.tr(),
@@ -29,15 +35,15 @@ class SellerComment extends StatelessWidget {
                     fontSize: 18,
                   ),
             ),
-          const  SizedBox(
+            const SizedBox(
               height: 8,
             ),
             Text(
-              text,
-              style: Theme.of(context)
-                  .textTheme
-                  .headline1!
-                  .copyWith(fontWeight: FontWeight.w400, fontSize: 14,color: profileContainers),
+              comment,
+              style: Theme.of(context).textTheme.headline1!.copyWith(
+                  fontWeight: FontWeight.w400,
+                  fontSize: 14,
+                  color: profileContainers),
             )
           ],
         ),

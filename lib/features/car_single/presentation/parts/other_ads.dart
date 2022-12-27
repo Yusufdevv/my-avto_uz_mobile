@@ -26,7 +26,7 @@ class OtherAds extends StatelessWidget {
       longitude: 123.432,
       viewCount: 11,
       id: 1,
-      model: 'stark',
+      model: 'spark',
       region: 'tashkent',
       carUser: CarUserEntity(),
       price: '9898',

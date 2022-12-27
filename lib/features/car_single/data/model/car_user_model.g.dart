@@ -9,14 +9,14 @@ part of 'car_user_model.dart';
 CarUserModel _$CarUserModelFromJson(Map<String, dynamic> json) => CarUserModel(
       id: json['id'] as int? ?? 0,
       phoneNumber: json['phone_number'] as String? ?? '',
-      fullName: json['full_name'] as String? ?? '',
-      image: json['image'] as String? ?? '',
+      name: json['name'] as String? ?? '',
+      avatar: json['avatar'] as String? ?? '',
     );
 
 Map<String, dynamic> _$CarUserModelToJson(CarUserModel instance) =>
     <String, dynamic>{
       'id': instance.id,
       'phone_number': instance.phoneNumber,
-      'full_name': instance.fullName,
-      'image': instance.image,
+      'name': instance.name,
+      'avatar': instance.avatar,
     };

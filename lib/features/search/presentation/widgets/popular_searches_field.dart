@@ -3,7 +3,6 @@ import 'package:auto/assets/colors/light.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
-import 'package:auto/features/search/presentation/bloc/search_results/search_bloc.dart';
 import 'package:auto/features/search/presentation/search_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -14,7 +13,7 @@ class PopularSearchesField extends StatefulWidget {
     required this.title,
     required this.elements,
     required this.textController,
-    required this.hasFocus,
+    required this.focusNode,
     this.titlePadding = const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
     this.hasClearButtonInTitle = false,
     this.hasClearTrailing = false,
@@ -22,7 +21,7 @@ class PopularSearchesField extends StatefulWidget {
   }) : super(key: key);
   final bool hasClearButtonInTitle;
   final String title;
-  bool hasFocus;
+  FocusNode focusNode;
   final EdgeInsets titlePadding;
   final bool hasClearTrailing;
   List<String> elements;
@@ -84,9 +83,9 @@ class _PopularSearchesFieldState extends State<PopularSearchesField> {
                   widget.textController.text = widget.elements[index];
                   widget.textController.selection = TextSelection.fromPosition(
                       TextPosition(offset: widget.textController.text.length));
-                  widget.hasFocus = false;
+                  widget.focusNode.unfocus();
                   addSearchToStorage(widget.textController.text);
-                  setState(() {});
+                  
                 },
                 color: white,
                 borderRadius: 0,

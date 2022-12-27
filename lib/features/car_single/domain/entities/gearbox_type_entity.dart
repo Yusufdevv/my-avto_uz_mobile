@@ -3,8 +3,11 @@ import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 class RentCarGearboxTypeEntity extends Equatable {
+  @JsonKey(defaultValue: 0)
   final int id;
+  @JsonKey(defaultValue: '')
   final String type;
+  @JsonKey(defaultValue: '')
   final String? logo;
 
   const RentCarGearboxTypeEntity({

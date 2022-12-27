@@ -14,7 +14,7 @@ abstract class CarSingleDataSource {
   Future<CarSingleModel> payInvoice();
 }
 
-class CarSinglenDataSourceImpl extends CarSingleDataSource {
+class CarSingleDataSourceImpl extends CarSingleDataSource {
   final _dio = serviceLocator<DioSettings>().dio;
 
   @override
@@ -23,12 +23,21 @@ class CarSinglenDataSourceImpl extends CarSingleDataSource {
       final response = await _dio.get('/car/announcement/$id/detail/',
           options: Options(
               headers: StorageRepository.getString('token').isNotEmpty
-                  ? {'Authorization': 'Token ${StorageRepository.getString('token')}'}
+                  ? {
+                      'Authorization':
+                          'Token ${StorageRepository.getString('token')}'
+                    }
                   : {}));
-      if (response.statusCode != null && response.statusCode! >= 200 && response.statusCode! < 300) {
+      if (response.statusCode != null &&
+          response.statusCode! >= 200 &&
+          response.statusCode! < 300) {
+        print('SINGLE RESPONSE DATA  => ${response.data}');
         return CarSingleModel.fromJson(response.data);
       } else {
-        throw ServerException(statusCode: response.statusCode!, errorMessage: response.data.toString());
+        print('DATA SOURCE ERROR GET SINGLE');
+        throw ServerException(
+            statusCode: response.statusCode!,
+            errorMessage: response.data.toString());
       }
       // if (response.data is Map) {
       //   throw ServerException(
@@ -52,8 +61,12 @@ class CarSinglenDataSourceImpl extends CarSingleDataSource {
   Future<OtherAdsModel> getOtherAds() async {
     try {
       final response = await _dio.get('',
-          options: Options(headers: {'Authorization': 'Token ${StorageRepository.getString('token')}'}));
-      if (response.statusCode != null && response.statusCode! >= 200 && response.statusCode! < 300) {
+          options: Options(headers: {
+            'Authorization': 'Token ${StorageRepository.getString('token')}'
+          }));
+      if (response.statusCode != null &&
+          response.statusCode! >= 200 &&
+          response.statusCode! < 300) {
         return OtherAdsModel.fromJson(response.data);
       } else {
         await StorageRepository.deleteString('token');
@@ -61,11 +74,14 @@ class CarSinglenDataSourceImpl extends CarSingleDataSource {
       if (response.data is Map) {
         throw ServerException(
             statusCode: response.statusCode!,
-            errorMessage:
-                ((response.data as Map).values.isNotEmpty ? (response.data as Map).values.first : 'Error get CarAds')
-                    .toString());
+            errorMessage: ((response.data as Map).values.isNotEmpty
+                    ? (response.data as Map).values.first
+                    : 'Error get CarAds')
+                .toString());
       } else {
-        throw ServerException(statusCode: response.statusCode!, errorMessage: response.data.toString());
+        throw ServerException(
+            statusCode: response.statusCode!,
+            errorMessage: response.data.toString());
       }
     } on ServerException {
       rethrow;
@@ -80,8 +96,12 @@ class CarSinglenDataSourceImpl extends CarSingleDataSource {
   Future<CarSingleModel> payInvoice() async {
     try {
       final response = await _dio.get('',
-          options: Options(headers: {'Authorization': 'Token ${StorageRepository.getString('token')}'}));
-      if (response.statusCode != null && response.statusCode! >= 200 && response.statusCode! < 300) {
+          options: Options(headers: {
+            'Authorization': 'Token ${StorageRepository.getString('token')}'
+          }));
+      if (response.statusCode != null &&
+          response.statusCode! >= 200 &&
+          response.statusCode! < 300) {
         return CarSingleModel.fromJson(response.data);
       } else {
         await StorageRepository.deleteString('token');
@@ -89,11 +109,14 @@ class CarSinglenDataSourceImpl extends CarSingleDataSource {
       if (response.data is Map) {
         throw ServerException(
             statusCode: response.statusCode!,
-            errorMessage:
-                ((response.data as Map).values.isNotEmpty ? (response.data as Map).values.first : 'Error get CarAds')
-                    .toString());
+            errorMessage: ((response.data as Map).values.isNotEmpty
+                    ? (response.data as Map).values.first
+                    : 'Error get CarAds')
+                .toString());
       } else {
-        throw ServerException(statusCode: response.statusCode!, errorMessage: response.data.toString());
+        throw ServerException(
+            statusCode: response.statusCode!,
+            errorMessage: response.data.toString());
       }
     } on ServerException {
       rethrow;

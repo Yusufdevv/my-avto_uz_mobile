@@ -11,12 +11,15 @@ part 'get_drive_types_state.dart';
 class GetDriveTypesBloc extends Bloc<GetDriveTypesEvent, GetDriveTypesState> {
   final GetDriveTypesUseCase getBodyTypeUseCase;
   GetDriveTypesBloc({required this.getBodyTypeUseCase})
-      : super(
-            const GetDriveTypesState(status: FormzStatus.pure, driveTypes: [])) {
+      : super(const GetDriveTypesState(
+            status: FormzStatus.pure, driveTypes: [])) {
     on<GetDriveTypesEvent>((event, emit) async {
       emit(state.copyWith(status: FormzStatus.submissionInProgress));
+      print('result is getting');
       final result = await getBodyTypeUseCase.call(NoParams());
+      print('result is got');
       if (result.isRight) {
+      print('result is right in drivetype bloc');
         emit(
           state.copyWith(
             status: FormzStatus.submissionSuccess,
