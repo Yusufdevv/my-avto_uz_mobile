@@ -24,7 +24,7 @@ void setupLocator() {
         comparisonCarsDataSource: serviceLocator<ComparisonDataSourceImpl>()))
     ..registerLazySingleton(() => AdRepositoryImpl(
         remoteDataSource: serviceLocator<AdRemoteDataSourceImpl>()))
-    ..registerLazySingleton(() => ProfileRepositoryImpl(dataSource: ProfileDataSourceImpl()))
+    // ..registerLazySingleton(() => ProfileRepositoryImpl(dataSource: serviceLocator<ProfileDataSourceImpl>()))
   ..registerLazySingleton(
   () => CarSingleRepositoryImpl(dataSource: CarSingleDataSourceImpl()));
 }

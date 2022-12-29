@@ -56,9 +56,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       profileUseCase: ProfileUseCase(repository: repo),
       profileFavoritesUseCase: ProfileFavoritesUseCase(repository: repo),
       getTermsOfUseUseCase: GetTermsOfUseUseCase(repository: repo),
-    )
-        ..add(GetProfileEvent())
-        ;
+    )..add(GetProfileEvent());
     imageBloc = ImageBloc();
     super.initState();
   }
@@ -72,13 +70,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) => BlocProvider.value(
         value: profileBloc,
         child: BlocBuilder<ProfileBloc, ProfileState>(
-          // ignore: prefer_expression_function_bodies
           builder: (context, state) {
-            // if (state.status.isPure) {
-            //   context.read<ProfileBloc>().add(GetProfileEvent());
-            //   // context.read<ProfileBloc>().add(GetProfileFavoritesEvent());
-            // } 
-            // else 
             if (state.status.isSubmissionInProgress) {
               return const Center(child: CupertinoActivityIndicator());
             } else if (state.status.isSubmissionFailure) {
@@ -189,19 +181,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         //
                         ProfilItemsBox(marginTop: SizeConfig.v(12), widgets: [
                           ProfileMenuTile(
-                              name: 'Дилеры',
-                              onTap: () {
-                                Navigator.of(context)
-                                    .push(fade(page: const DealerScreen()));
-                              },
-                              iconPath: AppIcons.dealers,
-                              count: 0),
+                            name: 'Дилеры',
+                            onTap: () {
+                              Navigator.of(context)
+                                  .push(fade(page: const DealerScreen()));
+                            },
+                            iconPath: AppIcons.dealers,
+                            count: 0,
+                          ),
                           const ProfileDivider(),
                           ProfileMenuTile(
                               name: 'Справочник',
                               onTap: () {
                                 Navigator.of(context)
-                                    .push(fade(page: const DirectoryPage()));
+                                    .push(fade(page: const DealerScreen(isDirectoryPage: true,)));
                               },
                               iconPath: AppIcons.direct),
                           const ProfileDivider(),

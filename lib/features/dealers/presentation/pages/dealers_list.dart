@@ -5,7 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DealersList extends StatefulWidget {
-  const DealersList({Key? key}) : super(key: key);
+  const DealersList({Key? key, this.isDirectoryPage=false}) : super(key: key);
+  final bool isDirectoryPage;
 
   @override
   State<DealersList> createState() => _DealersListState();
@@ -44,6 +45,7 @@ class _DealersListState extends State<DealersList> {
                   contractNumber: state.list[index].phoneNumber.substring(2, 9),
                   contactTo: state.list[index].contactTo,
                   contactFrom: state.list[index].contactFrom,
+                  isDirectoryPage: widget.isDirectoryPage,
                 ),
                 separatorBuilder: (context, index) =>
                     const SizedBox(height: 16),

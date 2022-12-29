@@ -28,6 +28,7 @@ class ImageBloc extends Bloc<ImageEvent, ImageState> {
         image.remove(event.imageUrl);
       }
       emit(state.copyWith(images: image));
+      emit(state.copyWith(image: File('')));
     });
     on<GetImage>((event, emit) async {
       final image = await imagePicker.pickImage(source: event.source);

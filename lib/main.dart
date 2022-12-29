@@ -16,8 +16,6 @@ import 'package:auto/features/login/presentation/login_screen.dart';
 import 'package:auto/features/navigation/presentation/home.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/onboarding/presentation/first_onboarding.dart';
-import 'package:auto/features/onboarding/presentation/first_onboarding.dart';
-import 'package:auto/features/onboarding/presentation/pages/on_boarding_screen.dart';
 import 'package:auto/features/splash/presentation/pages/splash_sc.dart';
 import 'package:auto/generated/codegen_loader.g.dart';
 import 'package:easy_localization/easy_localization.dart';

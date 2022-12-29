@@ -14,15 +14,15 @@ class RegionSheetItem extends StatelessWidget {
       {required this.title,
       required this.hasBorder,
       required this.isChecked,
-      this.isProfileEdit=false,
+      this.isProfileEdit = false,
       super.key});
 
   @override
   Widget build(BuildContext context) => Container(
         padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 16),
         decoration: BoxDecoration(
-            color: isChecked ? snow : null,
-           ),
+          color: isChecked ? snow : null,
+        ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -33,13 +33,17 @@ class RegionSheetItem extends StatelessWidget {
                   .headline1!
                   .copyWith(fontWeight: FontWeight.w600, fontSize: 16),
             ),
-            if (isProfileEdit) isChecked ? SvgPicture.asset(AppIcons.check) :const SizedBox() else 
-            
-             
+            if (isProfileEdit)
+              isChecked
+                  ? SvgPicture.asset(
+                      AppIcons.check,
+                      color: orange,
+                    )
+                  : const SizedBox()
+            else
               RegionCheckBox(
-              isChecked: isChecked,
-            )
-            
+                isChecked: isChecked,
+              )
           ],
         ),
       );

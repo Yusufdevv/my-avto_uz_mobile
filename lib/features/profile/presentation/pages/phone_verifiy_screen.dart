@@ -224,7 +224,6 @@ class _PhoneVerifiyScreenState extends State<PhoneVerifiyScreen> {
                                   
                                   Navigator.pop(
                                       widget.ctx, 
-                                      // '+998${widget.phone}'
                                       );
                                 },
                                 onError: (message) {
