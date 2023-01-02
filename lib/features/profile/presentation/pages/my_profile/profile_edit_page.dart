@@ -1,6 +1,5 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
-import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/core/utils/size_config.dart';
 import 'package:auto/features/ad/presentation/bloc/add_photo/image_bloc.dart';
 import 'package:auto/features/common/bloc/regions/regions_bloc.dart';
@@ -13,12 +12,8 @@ import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/profile/presentation/bloc/profile/profile_bloc.dart';
-import 'package:auto/features/profile/presentation/pages/phone_number_edit_page.dart';
-import 'package:auto/features/profile/presentation/widgets/camera_bottom_sheet.dart';
-import 'package:auto/features/profile/presentation/widgets/edit_item_container.dart';
-import 'package:auto/features/profile/presentation/widgets/phone_container.dart';
-import 'package:auto/features/profile/presentation/widgets/profil_textfield.dart';
-import 'package:auto/features/profile/presentation/widgets/title_text_field_top.dart';
+import 'package:auto/features/profile/presentation/pages/my_profile/phone_number_edit_page.dart';
+import 'package:auto/features/profile/presentation/widgets/widgets.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/rent_choose_region_bottom_sheet.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -28,21 +23,21 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
-class ProfileEditScreen extends StatefulWidget {
+class ProfileEditPage extends StatefulWidget {
   final ProfileBloc profileBloc;
   final ImageBloc imageBloc;
 
-  const ProfileEditScreen({
+  const ProfileEditPage({
     required this.profileBloc,
     required this.imageBloc,
     Key? key,
   }) : super(key: key);
 
   @override
-  _ProfileEditScreenState createState() => _ProfileEditScreenState();
+  _ProfileEditPageState createState() => _ProfileEditPageState();
 }
 
-class _ProfileEditScreenState extends State<ProfileEditScreen> {
+class _ProfileEditPageState extends State<ProfileEditPage> {
   late TextEditingController nameController;
   late TextEditingController surNameController;
   Region? newRegion;
@@ -99,7 +94,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                             region: newRegion?.id,
                             onSuccess: () {
                               widget.profileBloc.add(GetProfileEvent());
-            
+
                               Navigator.pop(context);
                               context.read<ShowPopUpBloc>().add(ShowPopUp(
                                   message:

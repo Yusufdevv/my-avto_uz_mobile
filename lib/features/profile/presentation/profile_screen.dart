@@ -14,15 +14,15 @@ import 'package:auto/features/profile/domain/usecases/get_terms_of_use_usecase.d
 import 'package:auto/features/profile/domain/usecases/profil_favorites_usecase.dart';
 import 'package:auto/features/profile/domain/usecases/profile_usecase.dart';
 import 'package:auto/features/profile/presentation/bloc/profile/profile_bloc.dart';
-import 'package:auto/features/profile/presentation/pages/about_app_screen.dart';
-import 'package:auto/features/profile/presentation/pages/chat.dart';
-import 'package:auto/features/profile/presentation/pages/directory_page.dart';
-import 'package:auto/features/profile/presentation/pages/favourite_page.dart';
-import 'package:auto/features/profile/presentation/pages/my_ad_screen.dart';
-import 'package:auto/features/profile/presentation/pages/my_searches_page.dart';
-import 'package:auto/features/profile/presentation/pages/notifiaction_screen.dart';
-import 'package:auto/features/profile/presentation/pages/see_profile_screen.dart';
-import 'package:auto/features/profile/presentation/pages/settings_screen.dart';
+import 'package:auto/features/profile/presentation/pages/about_app/about_app_screen.dart';
+import 'package:auto/features/profile/presentation/pages/chat/chat_page.dart';
+import 'package:auto/features/profile/presentation/pages/directory/directory_page.dart';
+import 'package:auto/features/profile/presentation/pages/favorites/favourite_page.dart';
+import 'package:auto/features/profile/presentation/pages/my_adds/my_adds_page.dart';
+import 'package:auto/features/profile/presentation/pages/my_searches/my_searches_page.dart';
+import 'package:auto/features/profile/presentation/pages/notification/notifiaction_page.dart';
+import 'package:auto/features/profile/presentation/pages/my_profile/see_profile_page.dart';
+import 'package:auto/features/profile/presentation/pages/settings/settings_page.dart';
 import 'package:auto/features/profile/presentation/widgets/profil_items_box.dart';
 import 'package:auto/features/profile/presentation/widgets/profile_data.dart';
 import 'package:auto/features/profile/presentation/widgets/profile_divider.dart';
@@ -89,7 +89,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         child: GestureDetector(
                           onTap: () =>
                               Navigator.of(context, rootNavigator: true)
-                                  .push(fade(page: const NotificationScreen())),
+                                  .push(fade(page: const NotificationPage())),
                           child: SvgPicture.asset(
                             AppIcons.bellWithCircle,
                           ),
@@ -106,7 +106,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ProfileDataWidget(
                           onTap: () {
                             Navigator.of(context).push(fade(
-                                page: SeeProfileScreen(
+                                page: SeeProfilePage(
                               profileBloc: profileBloc,
                               imageBloc: imageBloc,
                             )));
@@ -151,7 +151,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               name: LocaleKeys.my_ads.tr(),
                               onTap: () {
                                 Navigator.of(context)
-                                    .push(fade(page: const MyAdScreen()));
+                                    .push(fade(page: const MyAddsPage()));
                               },
                               iconPath: AppIcons.tabletNews,
                               count: state.profileEntity.usercountdata
@@ -193,8 +193,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ProfileMenuTile(
                               name: 'Справочник',
                               onTap: () {
-                                Navigator.of(context)
-                                    .push(fade(page: const DealerScreen(isDirectoryPage: true,)));
+                                Navigator.of(context).push(fade(
+                                    page: const DealerScreen(
+                                  isDirectoryPage: true,
+                                )));
                               },
                               iconPath: AppIcons.direct),
                           const ProfileDivider(),
@@ -203,7 +205,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               onTap: () {
                                 Navigator.of(context, rootNavigator: true).push(
                                     fade(
-                                        page: Chat(
+                                        page: ChatPage(
                                             hasChat: false,
                                             imageBloc: imageBloc)));
                               },
@@ -214,7 +216,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               onTap: () {
                                 Navigator.of(context).push(
                                   fade(
-                                      page: SettingsScreen(
+                                      page: SettingsPage(
                                           profileBloc: profileBloc)),
                                 );
                               },

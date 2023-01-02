@@ -6,17 +6,17 @@ import 'package:auto/core/utils/size_config.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/profile/presentation/bloc/profile/profile_bloc.dart';
-import 'package:auto/features/profile/presentation/pages/password_changing_screen.dart';
-import 'package:auto/features/profile/presentation/widgets/language_bottom_sheet.dart';
+import 'package:auto/features/profile/presentation/pages/settings/password_changing_page.dart';
+import 'package:auto/features/profile/presentation/widgets/widgets.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class SettingsScreen extends StatelessWidget {
+class SettingsPage extends StatelessWidget {
   final ProfileBloc profileBloc;
 
-  SettingsScreen({required this.profileBloc, Key? key}) : super(key: key);
+  SettingsPage({required this.profileBloc, Key? key}) : super(key: key);
   final edit = <List<String>>[
     [
       LocaleKeys.change_password.tr(),
@@ -31,7 +31,10 @@ class SettingsScreen extends StatelessWidget {
             margin: EdgeInsets.only(
               top: MediaQuery.of(context).padding.top,
             ),
-            padding:   EdgeInsets.only(left: SizeConfig.h(20), top: SizeConfig.v(16), bottom: SizeConfig.v(16)),
+            padding: EdgeInsets.only(
+                left: SizeConfig.h(20),
+                top: SizeConfig.v(16),
+                bottom: SizeConfig.v(16)),
             decoration: BoxDecoration(
                 boxShadow: [
                   BoxShadow(
@@ -41,7 +44,7 @@ class SettingsScreen extends StatelessWidget {
                   ),
                 ],
                 color: white,
-                borderRadius:   BorderRadius.only(
+                borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(SizeConfig.h(24)),
                   bottomRight: Radius.circular(SizeConfig.h(24)),
                 )),
@@ -55,9 +58,7 @@ class SettingsScreen extends StatelessWidget {
                     Navigator.of(context).pop();
                   },
                 ),
-                  SizedBox(
-                  width: SizeConfig.h(8)
-                ),
+                SizedBox(width: SizeConfig.h(8)),
                 Text(
                   'Настройки',
                   style: Theme.of(context)
@@ -69,7 +70,8 @@ class SettingsScreen extends StatelessWidget {
             ),
           ),
           Container(
-            margin:   EdgeInsets.symmetric(vertical: SizeConfig.v(16), horizontal: SizeConfig.h(16)),
+            margin: EdgeInsets.symmetric(
+                vertical: SizeConfig.v(16), horizontal: SizeConfig.h(16)),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -77,13 +79,14 @@ class SettingsScreen extends StatelessWidget {
                   onTap: () {
                     Navigator.of(context).push(
                       fade(
-                        page: PasswordChangingScreen(profileBloc: profileBloc),
+                        page: PasswordChangingPage(profileBloc: profileBloc),
                       ),
                     );
                   },
                   child: Container(
-                    padding:   EdgeInsets.symmetric(
-                        horizontal: SizeConfig.h(12), vertical: SizeConfig.v(16)),
+                    padding: EdgeInsets.symmetric(
+                        horizontal: SizeConfig.h(12),
+                        vertical: SizeConfig.v(16)),
                     decoration: BoxDecoration(
                       color: Theme.of(context)
                           .extension<ThemedColors>()!
@@ -121,7 +124,7 @@ class SettingsScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                  SizedBox(height: SizeConfig.h(12)),
+                SizedBox(height: SizeConfig.h(12)),
                 WScaleAnimation(
                   onTap: () {
                     showModalBottomSheet(
@@ -133,8 +136,9 @@ class SettingsScreen extends StatelessWidget {
                         builder: (context) => const LanguageBottomSheet());
                   },
                   child: Container(
-                    padding:   EdgeInsets.symmetric(
-                        horizontal: SizeConfig.h(12), vertical: SizeConfig.v(16)),
+                    padding: EdgeInsets.symmetric(
+                        horizontal: SizeConfig.h(12),
+                        vertical: SizeConfig.v(16)),
                     decoration: BoxDecoration(
                       color: Theme.of(context)
                           .extension<ThemedColors>()!
@@ -160,11 +164,9 @@ class SettingsScreen extends StatelessWidget {
                                       fontWeight: FontWeight.w600),
                             ),
                             const Spacer(),
-                            Text(
-                              'Русский',
-                              style: Theme.of(context).textTheme.headline2
-                            ),
-                              SizedBox(width: SizeConfig.h(12)),
+                            Text('Русский',
+                                style: Theme.of(context).textTheme.headline2),
+                            SizedBox(width: SizeConfig.h(12)),
                             SvgPicture.asset(
                               AppIcons.chevronRightBlack,
                               color: Theme.of(context)

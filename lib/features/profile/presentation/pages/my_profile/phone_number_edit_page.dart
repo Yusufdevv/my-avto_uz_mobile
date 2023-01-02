@@ -15,7 +15,7 @@ import 'package:auto/features/profile/domain/usecases/change_phone_number_usecas
 import 'package:auto/features/profile/domain/usecases/send_sms_verifiaction_code_usecase.dart';
 import 'package:auto/features/profile/presentation/bloc/change_phone_number/change_phone_number_bloc.dart';
 import 'package:auto/features/profile/presentation/bloc/profile/profile_bloc.dart';
-import 'package:auto/features/profile/presentation/pages/phone_verifiy_screen.dart';
+import 'package:auto/features/profile/presentation/pages/my_profile/phone_verifiy_page.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -41,7 +41,6 @@ class _PhoneNumberEditPageState extends State<PhoneNumberEditPage> {
   @override
   void initState() {
     phoneController = TextEditingController();
-
 
     final repo = serviceLocator<ProfileRepositoryImpl>();
     changePhoneNumberBloc = ChangePhoneNumberBloc(
@@ -116,7 +115,7 @@ class _PhoneNumberEditPageState extends State<PhoneNumberEditPage> {
                                                 BlocProvider.value(
                                                     value: widget.profileBloc)
                                               ],
-                                              child: PhoneVerifiyScreen(
+                                              child: PhoneVerifiyPage(
                                                   ctx: context,
                                                   phone: phoneNumber,
                                                   session: session),

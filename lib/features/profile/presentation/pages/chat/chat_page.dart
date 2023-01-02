@@ -6,8 +6,7 @@ import 'package:auto/features/ad/presentation/bloc/add_photo/image_bloc.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/common/widgets/w_textfield.dart';
 import 'package:auto/features/profile/domain/entities/message_entity.dart';
-import 'package:auto/features/profile/presentation/widgets/app_bar_child.dart';
-import 'package:auto/features/profile/presentation/widgets/camera_bottom_sheet.dart';
+import 'package:auto/features/profile/presentation/widgets/widgets.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -15,21 +14,21 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:grouped_list/grouped_list.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
-class Chat extends StatefulWidget {
+class ChatPage extends StatefulWidget {
   final bool hasChat;
   final ImageBloc imageBloc;
 
-  const Chat({
+  const ChatPage({
     required this.hasChat,
     required this.imageBloc,
     Key? key,
   }) : super(key: key);
 
   @override
-  State<Chat> createState() => _ChatState();
+  State<ChatPage> createState() => _ChatPageState();
 }
 
-class _ChatState extends State<Chat> {
+class _ChatPageState extends State<ChatPage> {
   List<MessageEntity> messages = [
     MessageEntity(
         user: AppIcons.checks,

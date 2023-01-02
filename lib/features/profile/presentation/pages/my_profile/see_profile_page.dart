@@ -9,9 +9,8 @@ import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/profile/presentation/bloc/profile/profile_bloc.dart';
-import 'package:auto/features/profile/presentation/pages/profile_edit_screen.dart';
-import 'package:auto/features/profile/presentation/widgets/log_out_bottomsheet.dart';
-import 'package:auto/features/profile/presentation/widgets/text_spacer.dart';
+import 'package:auto/features/profile/presentation/pages/my_profile/profile_edit_page.dart';
+import 'package:auto/features/profile/presentation/widgets/widgets.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
@@ -20,17 +19,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:formz/formz.dart';
 
-class SeeProfileScreen extends StatelessWidget {
+class SeeProfilePage extends StatelessWidget {
   final ProfileBloc profileBloc;
   final ImageBloc imageBloc;
 
-  const SeeProfileScreen({
+  const SeeProfilePage({
     required this.profileBloc,
     required this.imageBloc,
     Key? key,
   }) : super(key: key);
-
-
 
   @override
   Widget build(BuildContext context) => MultiBlocProvider(
@@ -54,8 +51,7 @@ class SeeProfileScreen extends StatelessWidget {
                 return Container(
                   margin: EdgeInsets.only(top: SizeConfig.v(16)),
                   padding: EdgeInsets.symmetric(
-                      vertical: SizeConfig.v(24),
-                      horizontal: SizeConfig.h(16)),
+                      vertical: SizeConfig.v(24), horizontal: SizeConfig.h(16)),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(SizeConfig.h(20)),
@@ -97,10 +93,10 @@ class SeeProfileScreen extends StatelessWidget {
                                     color: Theme.of(context)
                                         .extension<ThemedColors>()!
                                         .darkGreyToWhite)),
-                            onTap: ()  {
+                            onTap: () {
                               Navigator.of(context).push(
                                 fade(
-                                  page: ProfileEditScreen(
+                                  page: ProfileEditPage(
                                       profileBloc: profileBloc,
                                       imageBloc: imageBloc),
                                 ),
@@ -112,8 +108,7 @@ class SeeProfileScreen extends StatelessWidget {
                       Padding(
                         padding: EdgeInsets.only(
                             top: SizeConfig.v(16), bottom: SizeConfig.v(2)),
-                        child: Text(
-                            state.profileEntity.fullName ?? 'No name',
+                        child: Text(state.profileEntity.fullName ?? 'No name',
                             style: Theme.of(context)
                                 .textTheme
                                 .headline1!
@@ -128,15 +123,13 @@ class SeeProfileScreen extends StatelessWidget {
                                   fontWeight: FontWeight.w600, color: grey)),
                       TextSpacer(
                         title: LocaleKeys.tel_number.tr(),
-                        value:
-                            state.profileEntity.phoneNumber ?? '',
+                        value: state.profileEntity.phoneNumber ?? '',
                         padding: EdgeInsets.only(
                             top: SizeConfig.v(36), bottom: SizeConfig.v(16)),
                       ),
                       TextSpacer(
                         title: LocaleKeys.region.tr(),
-                        value:
-                            state.profileEntity.region?.title ?? '',
+                        value: state.profileEntity.region?.title ?? '',
                         padding: EdgeInsets.only(bottom: SizeConfig.v(16)),
                       ),
                       TextSpacer(
@@ -162,8 +155,7 @@ class SeeProfileScreen extends StatelessWidget {
                           showModalBottomSheet(
                               context: context,
                               backgroundColor: Colors.transparent,
-                              builder: (context) =>
-                                  const LogoOutBottomsheet());
+                              builder: (context) => const LogoOutBottomsheet());
                         },
                         color: red.withOpacity(0.1),
                         shadowColor: white,

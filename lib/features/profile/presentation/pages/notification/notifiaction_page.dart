@@ -2,12 +2,12 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/core/utils/size_config.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
-import 'package:auto/features/profile/presentation/widgets/notification_item.dart';
+import 'package:auto/features/profile/presentation/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class NotificationScreen extends StatelessWidget {
-  const NotificationScreen({super.key});
+class NotificationPage extends StatelessWidget {
+  const NotificationPage({super.key});
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -42,4 +42,3 @@ class NotificationScreen extends StatelessWidget {
         ),
       );
 }
-

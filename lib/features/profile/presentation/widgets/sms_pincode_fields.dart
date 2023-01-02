@@ -10,10 +10,10 @@ class SmsPinCodeFields extends StatefulWidget {
   final VoidCallback onAutoSubmit;
 
   const SmsPinCodeFields(
-      {this.borderColor,
-      required this.controller,
+      {required this.controller,
       required this.errorAnimationController,
       required this.onAutoSubmit,
+      this.borderColor,
       Key? key})
       : super(key: key);
 
