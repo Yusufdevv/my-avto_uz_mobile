@@ -1,3 +1,11 @@
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:formz/formz.dart';
+
+// ignore: directives_ordering
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/core/singletons/service_locator.dart';
@@ -14,27 +22,10 @@ import 'package:auto/features/profile/domain/usecases/get_terms_of_use_usecase.d
 import 'package:auto/features/profile/domain/usecases/profil_favorites_usecase.dart';
 import 'package:auto/features/profile/domain/usecases/profile_usecase.dart';
 import 'package:auto/features/profile/presentation/bloc/profile/profile_bloc.dart';
-import 'package:auto/features/profile/presentation/pages/about_app/about_app_screen.dart';
-import 'package:auto/features/profile/presentation/pages/chat/chat_page.dart';
-import 'package:auto/features/profile/presentation/pages/directory/directory_page.dart';
-import 'package:auto/features/profile/presentation/pages/favorites/favourite_page.dart';
-import 'package:auto/features/profile/presentation/pages/my_adds/my_adds_page.dart';
-import 'package:auto/features/profile/presentation/pages/my_searches/my_searches_page.dart';
-import 'package:auto/features/profile/presentation/pages/notification/notifiaction_page.dart';
-import 'package:auto/features/profile/presentation/pages/my_profile/see_profile_page.dart';
-import 'package:auto/features/profile/presentation/pages/settings/settings_page.dart';
-import 'package:auto/features/profile/presentation/widgets/profil_items_box.dart';
-import 'package:auto/features/profile/presentation/widgets/profile_data.dart';
-import 'package:auto/features/profile/presentation/widgets/profile_divider.dart';
-import 'package:auto/features/profile/presentation/widgets/profile_menu_tile.dart';
+import 'package:auto/features/profile/presentation/pages/pages.dart';
+import 'package:auto/features/profile/presentation/widgets/widgets.dart';
 import 'package:auto/features/reviews/presentation/reviews_screen.dart';
 import 'package:auto/generated/locale_keys.g.dart';
-import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:formz/formz.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
