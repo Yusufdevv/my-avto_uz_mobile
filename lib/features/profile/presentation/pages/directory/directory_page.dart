@@ -1,10 +1,7 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
-import 'package:auto/assets/themes/theme_extensions/themed_icons.dart';
-import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_textfield.dart';
-import 'package:auto/features/dealers/presentation/pages/dealers_filter.dart';
 import 'package:auto/features/dealers/presentation/pages/directory_filter_page.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/generated/locale_keys.g.dart';
@@ -50,7 +47,9 @@ class DirectoryPage extends StatelessWidget {
               GestureDetector(
                   onTap: () {
                     Navigator.push(
-                        context, fade(page: const DirectoryFilterPage()));
+                        context, fade(page: const DirectoryFilterPage(
+                          
+                        )));
                   },
                   child: Container(
                     decoration: BoxDecoration(

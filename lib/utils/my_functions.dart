@@ -7,7 +7,6 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/core/exceptions/exceptions.dart';
 import 'package:auto/features/dealers/data/models/dealer_card_model.dart';
-import 'package:auto/features/profile/presentation/pages/sms_code.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:jiffy/jiffy.dart';
@@ -30,19 +29,6 @@ class MyFunctions {
         return yellow;
       default:
         return white;
-    }
-  }
-
-  static String getCodePageTitle(CodePageType codePageType) {
-    switch (codePageType) {
-      case CodePageType.forgot:
-        return 'LocaleKeys.forgot_password.tr()';
-      case CodePageType.login:
-        return ' LocaleKeys.authorization.tr()';
-      case CodePageType.register:
-        return 'LocaleKeys.register.tr()';
-      default:
-        return '';
     }
   }
 

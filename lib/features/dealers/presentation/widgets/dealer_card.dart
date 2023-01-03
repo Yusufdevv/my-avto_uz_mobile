@@ -23,6 +23,7 @@ class DealerCard extends StatefulWidget {
   final String contractNumber;
   final double latitude;
   final double longitude;
+  final bool isDirectoryPage;
 
   const DealerCard({
     //required this.dealerType,
@@ -37,6 +38,7 @@ class DealerCard extends StatefulWidget {
     required this.latitude,
     required this.longitude,
     required this.phoneNumber,
+    this.isDirectoryPage = false,
     Key? key,
   }) : super(key: key);
 
@@ -113,7 +115,7 @@ class _DealerCardState extends State<DealerCard> {
                         child: Text(
                           //widget.dealerType,
                           'Avtosalon',
-                          style:  TextStyle(
+                          style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w400,
                               color: purple),
@@ -150,69 +152,77 @@ class _DealerCardState extends State<DealerCard> {
                           .copyWith(fontSize: 14, fontWeight: FontWeight.w400))
                 ],
               ),
-              const SizedBox(height: 18),
-              Row(
-                children: [
-                  Expanded(
-                      child: Text(
-                    LocaleKeys.contacts.tr(),
-                    style: const TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 13,
-                        color: warmerGrey),
-                  )),
-                  Text(
-                    widget.contractCode,
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline1!
-                        .copyWith(fontSize: 16, fontWeight: FontWeight.w600),
-                  ),
-                  if (isSelected)
-                    const SizedBox(
-                      width: 3,
-                    )
-                  else
-                    const SizedBox(width: 9),
-                  WScaleAnimation(
-                    onTap: () {
-                      setState(() => isSelected = true);
-                    },
-                    child: isSelected
-                        ? Padding(
-                            padding: const EdgeInsets.fromLTRB(0, 5, 16, 5),
+              //
+              if (!widget.isDirectoryPage)
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(height: 18),
+                    Row(
+                      children: [
+                        Expanded(
                             child: Text(
-                              MyFunctions.phoneFormatter(
-                                  widget.contractNumber, [
-                                4,
-                                6,
-                              ]),
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline1!
-                                  .copyWith(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w600),
-                            ),
-                          )
-                        : Container(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 16, vertical: 5),
-                            decoration: BoxDecoration(
-                              color: green,
-                              borderRadius: BorderRadius.circular(4),
-                            ),
-                            child: Text(
-                              LocaleKeys.show_contact.tr(),
-                              style: const TextStyle(
-                                  color: white,
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 14),
-                            ),
-                          ),
-                  ),
-                ],
-              ),
+                          LocaleKeys.contacts.tr(),
+                          style: const TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 13,
+                              color: warmerGrey),
+                        )),
+                        Text(
+                          widget.contractCode,
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline1!
+                              .copyWith(
+                                  fontSize: 16, fontWeight: FontWeight.w600),
+                        ),
+                        if (isSelected)
+                          const SizedBox(width: 3)
+                        else
+                          const SizedBox(width: 9),
+                        WScaleAnimation(
+                          onTap: () {
+                            setState(() => isSelected = true);
+                          },
+                          child: isSelected
+                              ? Padding(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(0, 5, 16, 5),
+                                  child: Text(
+                                    MyFunctions.phoneFormatter(
+                                        widget.contractNumber, [
+                                      4,
+                                      6,
+                                    ]),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headline1!
+                                        .copyWith(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w600),
+                                  ),
+                                )
+                              : Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 16, vertical: 5),
+                                  decoration: BoxDecoration(
+                                    color: green,
+                                    borderRadius: BorderRadius.circular(4),
+                                  ),
+                                  child: Text(
+                                    LocaleKeys.show_contact.tr(),
+                                    style: const TextStyle(
+                                        color: white,
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 14),
+                                  ),
+                                ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              // const SizedBox(height: 12),
             ],
           ),
         ),

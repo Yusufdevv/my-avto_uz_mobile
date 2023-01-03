@@ -1,21 +1,19 @@
 import 'package:auto/assets/constants/icons.dart';
-import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/profile/domain/entities/profile_item_entity.dart';
-import 'package:auto/features/profile/presentation/widgets/all_tabs.dart';
-import 'package:auto/features/profile/presentation/widgets/profile_tab_bar.dart';
+import 'package:auto/features/profile/presentation/widgets/widgets.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class MyAdScreen extends StatefulWidget {
-  const MyAdScreen({Key? key}) : super(key: key);
+class MyAddsPage extends StatefulWidget {
+  const MyAddsPage({Key? key}) : super(key: key);
 
   @override
-  State<MyAdScreen> createState() => _MyAdScreenState();
+  State<MyAddsPage> createState() => _MyAddsPageState();
 }
 
-class _MyAdScreenState extends State<MyAdScreen> with TickerProviderStateMixin {
+class _MyAddsPageState extends State<MyAddsPage> with TickerProviderStateMixin {
   late TabController tabController;
   final List<ProfileItemEntity> list = [];
 

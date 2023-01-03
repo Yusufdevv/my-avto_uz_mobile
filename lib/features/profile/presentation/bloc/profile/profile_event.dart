@@ -6,6 +6,7 @@ abstract class ProfileEvent {}
 
 class GetProfileEvent extends ProfileEvent {}
 class GetProfileFavoritesEvent extends ProfileEvent {}
+class GetTermsOfUseEvent extends ProfileEvent {}
 class ChangePhoneDataEvent extends ProfileEvent {
   final String phone;
   ChangePhoneDataEvent({

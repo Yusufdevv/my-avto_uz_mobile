@@ -1,39 +1,31 @@
-import 'package:auto/assets/colors/color.dart';
-import 'package:auto/assets/constants/icons.dart';
-import 'package:auto/core/singletons/service_locator.dart';
-import 'package:auto/core/singletons/storage.dart';
-import 'package:auto/core/utils/size_config.dart';
-import 'package:auto/features/ad/presentation/bloc/add_photo/image_bloc.dart';
-import 'package:auto/features/common/widgets/w_app_bar.dart';
-import 'package:auto/features/dealers/presentation/dealers_main.dart';
-import 'package:auto/features/navigation/presentation/navigator.dart';
-import 'package:auto/features/profile/data/repositories/profile_repository_impl.dart';
-import 'package:auto/features/profile/domain/usecases/change_password_usecase.dart';
-import 'package:auto/features/profile/domain/usecases/edit_profile_usecase.dart';
-import 'package:auto/features/profile/domain/usecases/profil_favorites_usecase.dart';
-import 'package:auto/features/profile/domain/usecases/profile_usecase.dart';
-import 'package:auto/features/profile/presentation/bloc/profile/profile_bloc.dart';
-import 'package:auto/features/profile/presentation/pages/about_app_screen.dart';
-import 'package:auto/features/profile/presentation/pages/chat.dart';
-import 'package:auto/features/profile/presentation/pages/directory_page.dart';
-import 'package:auto/features/profile/presentation/pages/favourite_page.dart';
-import 'package:auto/features/profile/presentation/pages/my_ad_screen.dart';
-import 'package:auto/features/profile/presentation/pages/my_searches_page.dart';
-import 'package:auto/features/profile/presentation/pages/notifiaction_screen.dart';
-import 'package:auto/features/profile/presentation/pages/see_profile_screen.dart';
-import 'package:auto/features/profile/presentation/pages/settings_screen.dart';
-import 'package:auto/features/profile/presentation/widgets/profil_items_box.dart';
-import 'package:auto/features/profile/presentation/widgets/profile_data.dart';
-import 'package:auto/features/profile/presentation/widgets/profile_divider.dart';
-import 'package:auto/features/profile/presentation/widgets/profile_menu_tile.dart';
-import 'package:auto/features/reviews/presentation/reviews_screen.dart';
-import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:formz/formz.dart';
+
+// ignore: directives_ordering
+import 'package:auto/assets/colors/color.dart';
+import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/core/singletons/service_locator.dart';
+import 'package:auto/core/utils/size_config.dart';
+import 'package:auto/features/ad/presentation/bloc/add_photo/image_bloc.dart';
+import 'package:auto/features/common/widgets/w_app_bar.dart';
+import 'package:auto/features/comparison/presentation/comparison_page.dart';
+import 'package:auto/features/dealers/presentation/dealers_main.dart';
+import 'package:auto/features/navigation/presentation/navigator.dart';
+import 'package:auto/features/profile/data/repositories/profile_repository_impl.dart';
+import 'package:auto/features/profile/domain/usecases/change_password_usecase.dart';
+import 'package:auto/features/profile/domain/usecases/edit_profile_usecase.dart';
+import 'package:auto/features/profile/domain/usecases/get_terms_of_use_usecase.dart';
+import 'package:auto/features/profile/domain/usecases/profil_favorites_usecase.dart';
+import 'package:auto/features/profile/domain/usecases/profile_usecase.dart';
+import 'package:auto/features/profile/presentation/bloc/profile/profile_bloc.dart';
+import 'package:auto/features/profile/presentation/pages/pages.dart';
+import 'package:auto/features/profile/presentation/widgets/widgets.dart';
+import 'package:auto/features/reviews/presentation/reviews_screen.dart';
+import 'package:auto/generated/locale_keys.g.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -54,10 +46,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
       editProfileUseCase: EditProfileUseCase(repository: repo),
       profileUseCase: ProfileUseCase(repository: repo),
       profileFavoritesUseCase: ProfileFavoritesUseCase(repository: repo),
-    )
-        ..add(GetProfileEvent())
-        ..add(GetProfileFavoritesEvent())
-        ;
+      getTermsOfUseUseCase: GetTermsOfUseUseCase(repository: repo),
+    )..add(GetProfileEvent());
     imageBloc = ImageBloc();
     super.initState();
   }
@@ -71,17 +61,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) => BlocProvider.value(
         value: profileBloc,
         child: BlocBuilder<ProfileBloc, ProfileState>(
-          // ignore: prefer_expression_function_bodies
           builder: (context, state) {
-            // if (state.status.isPure) {
-            //   context.read<ProfileBloc>().add(GetProfileEvent());
-            //   // context.read<ProfileBloc>().add(GetProfileFavoritesEvent());
-            // } 
-            // else if (state.status.isSubmissionInProgress) {
-            //   return const Center(child: CupertinoActivityIndicator());
-            // } else if (state.status.isSubmissionFailure) {
-            //   return const Center(child: Text('Fail'));
-            // } else if (state.status.isSubmissionSuccess) {
+            if (state.status.isSubmissionInProgress) {
+              return const Center(child: CupertinoActivityIndicator());
+            } else if (state.status.isSubmissionFailure) {
+              return const Center(child: Text('Fail'));
+            } else if (state.status.isSubmissionSuccess) {
               return Scaffold(
                 appBar: WAppBar(
                     filledBackButton: true,
@@ -95,7 +80,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         child: GestureDetector(
                           onTap: () =>
                               Navigator.of(context, rootNavigator: true)
-                                  .push(fade(page: const NotificationScreen())),
+                                  .push(fade(page: const NotificationPage())),
                           child: SvgPicture.asset(
                             AppIcons.bellWithCircle,
                           ),
@@ -112,16 +97,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ProfileDataWidget(
                           onTap: () {
                             Navigator.of(context).push(fade(
-                                page: SeeProfileScreen(
-                                  announcementCount: state.profileEntity.usercountdata!.announcementsCount!,
-                              profileEntity: state.profileEntity,
+                                page: SeeProfilePage(
                               profileBloc: profileBloc,
                               imageBloc: imageBloc,
                             )));
                           },
                           title: state.profileEntity.fullName ?? '',
                           subTitle:
-                              '${state.profileEntity.usercountdata?.announcementsCount} ${LocaleKeys.how_many_ads.tr()}',
+                              '${state.profileEntity.usercountdata?.announcementsCount ?? 0} ${LocaleKeys.how_many_ads.tr()}',
                           imageUrl: state.profileEntity.image ?? '',
                           margin: EdgeInsets.only(
                               top: SizeConfig.v(16), bottom: SizeConfig.v(12)),
@@ -146,8 +129,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ProfileMenuTile(
                               name: LocaleKeys.comparisons.tr(),
                               onTap: () {
-                                // Navigator.of(context)
-                                //     .push(fade(page: const ComparisonPage()));
+                                Navigator.of(context, rootNavigator: true)
+                                    .push(fade(page: const ComparisonPage()));
                               },
                               iconPath: AppIcons.scales,
                               count: 0),
@@ -158,8 +141,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ProfileMenuTile(
                               name: LocaleKeys.my_ads.tr(),
                               onTap: () {
-                                // Navigator.of(context)
-                                //     .push(fade(page: const MyAdScreen()));
+                                Navigator.of(context)
+                                    .push(fade(page: const MyAddsPage()));
                               },
                               iconPath: AppIcons.tabletNews,
                               count: state.profileEntity.usercountdata
@@ -189,19 +172,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         //
                         ProfilItemsBox(marginTop: SizeConfig.v(12), widgets: [
                           ProfileMenuTile(
-                              name: 'Дилеры',
-                              onTap: () {
-                                Navigator.of(context)
-                                    .push(fade(page: const DealerScreen()));
-                              },
-                              iconPath: AppIcons.dealers,
-                              count: 0),
+                            name: 'Дилеры',
+                            onTap: () {
+                              Navigator.of(context)
+                                  .push(fade(page: const DealerScreen()));
+                            },
+                            iconPath: AppIcons.dealers,
+                            count: 0,
+                          ),
                           const ProfileDivider(),
                           ProfileMenuTile(
                               name: 'Справочник',
                               onTap: () {
-                                Navigator.of(context)
-                                    .push(fade(page: const DirectoryPage()));
+                                Navigator.of(context).push(fade(
+                                    page: const DealerScreen(
+                                  isDirectoryPage: true,
+                                )));
                               },
                               iconPath: AppIcons.direct),
                           const ProfileDivider(),
@@ -210,7 +196,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               onTap: () {
                                 Navigator.of(context, rootNavigator: true).push(
                                     fade(
-                                        page: Chat(
+                                        page: ChatPage(
                                             hasChat: false,
                                             imageBloc: imageBloc)));
                               },
@@ -221,7 +207,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               onTap: () {
                                 Navigator.of(context).push(
                                   fade(
-                                      page: SettingsScreen(
+                                      page: SettingsPage(
                                           profileBloc: profileBloc)),
                                 );
                               },
@@ -236,7 +222,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   name: LocaleKeys.about_app.tr(),
                                   onTap: () {
                                     Navigator.of(context).push(fade(
-                                      page: const AboutAppScreen(),
+                                      page: AboutAppScreen(
+                                        profileBloc: profileBloc,
+                                      ),
                                     ));
                                   },
                                   iconPath: AppIcons.info),
@@ -247,8 +235,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               );
             }
-          //   return const Center(child: CupertinoActivityIndicator());
-          // },
+            return const Center(child: CupertinoActivityIndicator());
+          },
         ),
       );
 }

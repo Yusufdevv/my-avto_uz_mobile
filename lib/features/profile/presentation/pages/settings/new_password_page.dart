@@ -5,7 +5,7 @@ import 'package:auto/features/common/widgets/custom_screen.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/profile/presentation/bloc/profile/profile_bloc.dart';
-import 'package:auto/features/profile/presentation/widgets/password_textfield.dart';
+import 'package:auto/features/profile/presentation/widgets/widgets.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -117,12 +117,6 @@ class NewPasswordsPage extends StatelessWidget {
                             oldPassword: _oldPasswordController.text,
                             newPasswordConfirm: _newPassword2Controller.text,
                             onSuccess: (message) {
-                              // Navigator.of(context, rootNavigator: true).push(
-                              //   fade(
-                              //     page: const SmsCodePage(
-                              //         phone: '+998 88 033 18 05'),
-                              //   ),
-                              // );
                               context
                                   .read<ShowPopUpBloc>()
                                   .add(ShowPopUp(message: message, isSucces: true));

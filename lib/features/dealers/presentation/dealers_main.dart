@@ -1,7 +1,6 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
-import 'package:auto/assets/themes/theme_extensions/themed_icons.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_textfield.dart';
 import 'package:auto/features/dealers/presentation/pages/dealers_filter.dart';
@@ -16,19 +15,17 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class DealerScreen extends StatefulWidget {
-  const DealerScreen({Key? key}) : super(key: key);
+  const DealerScreen({Key? key, this.isDirectoryPage = false})
+      : super(key: key);
+  final bool isDirectoryPage;
 
   @override
   State<DealerScreen> createState() => _DealerScreenState();
 }
 
-class _DealerScreenState extends State<DealerScreen>
-    with TickerProviderStateMixin {
-  late PageController _pageController;
-
+class _DealerScreenState extends State<DealerScreen> {
   @override
   void initState() {
-    _pageController = PageController();
     super.initState();
   }
 
@@ -51,7 +48,7 @@ class _DealerScreenState extends State<DealerScreen>
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       GestureDetector(
-                        onTap:()=>Navigator.pop(context),
+                        onTap: () => Navigator.pop(context),
                         child: SvgPicture.asset(AppIcons.chevronLeft),
                       ),
                       const SizedBox(width: 20),
@@ -79,16 +76,22 @@ class _DealerScreenState extends State<DealerScreen>
                       const SizedBox(width: 11),
                       WButton(
                         onTap: () => Navigator.push(
-                            context, fade(page: const DealersFilter())),
+                            context,
+                            fade(
+                                page: DealersFilter(
+                              isDirectoryPage: widget.isDirectoryPage,
+                            ))),
                         borderRadius: 12,
                         color: Theme.of(context)
                             .extension<ThemedColors>()!
                             .whiteSmokeToNightRider,
                         padding: const EdgeInsets.all(12),
-                        child: SvgPicture.asset(
-                          AppIcons.rentFilter,
-                          color: purple,
-                        ),
+                        child: widget.isDirectoryPage
+                            ? SvgPicture.asset(AppIcons.filter)
+                            : SvgPicture.asset(
+                                AppIcons.rentFilter,
+                                color: purple,
+                              ),
                       ),
                     ],
                   ),
@@ -97,12 +100,14 @@ class _DealerScreenState extends State<DealerScreen>
                   pinned: true,
                   delegate: SegmentedControl(maxHeight: 64, minHeight: 64),
                 ),
-                const SliverFillRemaining(
+                SliverFillRemaining(
                   child: TabBarView(
-                    physics: NeverScrollableScrollPhysics(),
+                    physics: const NeverScrollableScrollPhysics(),
                     children: [
-                      DealersList(),
-                      MapScreen(),
+                      DealersList(
+                        isDirectoryPage: widget.isDirectoryPage,
+                      ),
+                      const MapScreen(),
                     ],
                   ),
                 ),

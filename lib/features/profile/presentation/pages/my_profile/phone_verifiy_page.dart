@@ -6,40 +6,32 @@ import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
 import 'package:auto/features/common/widgets/custom_screen.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
-import 'package:auto/features/login/domain/usecases/verify_code.dart';
-import 'package:auto/features/login/presentation/bloc/register/register_bloc.dart';
-import 'package:auto/features/login/presentation/pages/personal_data_screen.dart';
 import 'package:auto/features/login/presentation/widgets/login_header_widget.dart';
-import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/profile/presentation/bloc/change_phone_number/change_phone_number_bloc.dart';
 import 'package:auto/features/profile/presentation/bloc/profile/profile_bloc.dart';
-import 'package:auto/features/profile/presentation/pages/phone_number_edit_page.dart';
-import 'package:auto/features/profile/presentation/pages/profile_edit_screen.dart';
-import 'package:auto/features/profile/presentation/widgets/refresh_button.dart';
-import 'package:auto/features/profile/presentation/widgets/time_counter.dart';
+import 'package:auto/features/profile/presentation/widgets/widgets.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:formz/formz.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
-class PhoneVerifiyScreen extends StatefulWidget {
+class PhoneVerifiyPage extends StatefulWidget {
   final String phone;
   final String session;
   final BuildContext ctx;
 
-  const PhoneVerifiyScreen(
+  const PhoneVerifiyPage(
       {required this.phone, required this.session, required this.ctx, Key? key})
       : super(key: key);
 
   @override
-  State<PhoneVerifiyScreen> createState() => _PhoneVerifiyScreenState();
+  State<PhoneVerifiyPage> createState() => _PhoneVerifiyPageState();
 }
 
-class _PhoneVerifiyScreenState extends State<PhoneVerifiyScreen> {
+class _PhoneVerifiyPageState extends State<PhoneVerifiyPage> {
   late TextEditingController verificationController;
   bool timeComplete = false;
 
@@ -184,6 +176,20 @@ class _PhoneVerifiyScreenState extends State<PhoneVerifiyScreen> {
                               setState(() {
                                 timeComplete = true;
                               });
+                              // context
+                              //     .read<ChangePhoneNumberBloc>()
+                              //     .add(SendPhoneNumberEvent(
+                              //       newPhoneNumber: "+998${widget.phone}",
+                              //       onSuccess: (session) {
+
+                              //       },
+                              //       onError: (message) {
+                              //         context.read<ShowPopUpBloc>().add(
+                              //               ShowPopUp(
+                              //                   message: message,
+                              //                   isSucces: false));
+                              //       },
+                              //     ));
                             },
                           ),
                         )
@@ -202,17 +208,20 @@ class _PhoneVerifiyScreenState extends State<PhoneVerifiyScreen> {
                                 session: widget.session,
                                 onSuccess: () {
                                   context.read<ShowPopUpBloc>().add(ShowPopUp(
-                                      message:
-                                          'Номер телефона успешно изменен',
+                                      message: 'Номер телефона успешно изменен',
                                       isSucces: true));
+                                  context
+                                      .read<ProfileBloc>()
+                                      .add(GetProfileEvent());
                                   Navigator.pop(context);
+
                                   Navigator.pop(
-                                      widget.ctx, '+998${widget.phone}');
+                                    widget.ctx,
+                                  );
                                 },
                                 onError: (message) {
                                   context.read<ShowPopUpBloc>().add(ShowPopUp(
-                                      message: message,
-                                      isSucces: false));
+                                      message: message, isSucces: false));
                                 }))
                         : {},
                     margin: EdgeInsets.only(

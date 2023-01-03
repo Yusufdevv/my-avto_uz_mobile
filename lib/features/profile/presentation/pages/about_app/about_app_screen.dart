@@ -6,15 +6,17 @@ import 'package:auto/core/utils/size_config.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
-import 'package:auto/features/profile/presentation/pages/terms_of_use_page.dart';
-import 'package:auto/features/profile/presentation/widgets/rate.dart';
+import 'package:auto/features/profile/presentation/bloc/profile/profile_bloc.dart';
+import 'package:auto/features/profile/presentation/pages/about_app/terms_of_use_page.dart';
+import 'package:auto/features/profile/presentation/widgets/widgets.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class AboutAppScreen extends StatelessWidget {
-  const AboutAppScreen({Key? key}) : super(key: key);
+  const AboutAppScreen({required this.profileBloc,Key? key}) : super(key: key);
+  final ProfileBloc profileBloc;
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -24,8 +26,9 @@ class AboutAppScreen extends StatelessWidget {
         body: Column(
           children: [
             WScaleAnimation(
-              onTap: () {
-                Navigator.of(context).push(fade(page: const TermsOfUsePage()));
+              onTap: ()  {
+               profileBloc.add(GetTermsOfUseEvent());
+                Navigator.of(context).push(fade(page:  TermsOfUsePage(profileBloc: profileBloc)));
               },
               child: Container(
                 padding: EdgeInsets.symmetric(
@@ -61,8 +64,10 @@ class AboutAppScreen extends StatelessWidget {
                 ),
               ),
             ),
+            //
             const Rate(),
             const Spacer(),
+            //
             SvgPicture.asset(
               Theme.of(context).extension<ThemedIcons>()!.autoUzLightDark,
             ),
