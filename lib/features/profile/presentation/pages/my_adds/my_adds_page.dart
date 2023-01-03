@@ -45,7 +45,7 @@ class _MyAddsPageState extends State<MyAddsPage> with TickerProviderStateMixin {
                 onTap: () => Navigator.pop(context),
                 child: Row(
                   children: [
-                    SizedBox(width: 20),
+                    const SizedBox(width: 20),
                     SizedBox(
                         height: 20,
                         width: 20,
@@ -72,7 +72,7 @@ class _MyAddsPageState extends State<MyAddsPage> with TickerProviderStateMixin {
           body: TabBarView(
             controller: tabController,
             children: [
-              const AllTabs(),
+              const AllAds(),
               Column(
                 children: const [Text('2 tab')],
               ),

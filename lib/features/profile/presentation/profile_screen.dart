@@ -53,11 +53,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   @override
-  void dispose() {
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) => BlocProvider.value(
         value: profileBloc,
         child: BlocBuilder<ProfileBloc, ProfileState>(
@@ -119,8 +114,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     context,
                                     fade(
                                         page: FavouritePage(
-                                            favoriteEntity:
-                                                state.favoriteEntity)));
+                                            profileBloc: profileBloc)));
                               },
                               iconPath: AppIcons.heartBlue,
                               count: state.profileEntity.usercountdata
@@ -178,7 +172,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   .push(fade(page: const DealerScreen()));
                             },
                             iconPath: AppIcons.dealers,
-                            count: 0,
                           ),
                           const ProfileDivider(),
                           ProfileMenuTile(

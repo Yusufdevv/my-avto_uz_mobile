@@ -8,20 +8,19 @@ import 'package:auto/features/profile/presentation/widgets/information_item.dart
 import 'package:auto/features/search/presentation/part/bottom_sheet_for_calling.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-class AllTabs extends StatefulWidget {
+class AllAds extends StatefulWidget {
   final bool isSalon;
 
-  const AllTabs({this.isSalon = true, Key? key}) : super(key: key);
+  const AllAds({this.isSalon = true, Key? key}) : super(key: key);
 
   @override
-  State<AllTabs> createState() => _AllTabsState();
+  State<AllAds> createState() => _AllAdsState();
 }
 
-class _AllTabsState extends State<AllTabs> {
+class _AllAdsState extends State<AllAds> {
   final List<String> images = [
     'https://images.unsplash.com/photo-1659812903095-d7e87abb0b3c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw4Mnx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60',
     'https://images.unsplash.com/photo-1658856226250-5b236fa6137d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxMDR8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60',
@@ -228,7 +227,7 @@ class _AllTabsState extends State<AllTabs> {
                                   ),
                           children: [
                             TextSpan(
-                              text: '4' + LocaleKeys.days.tr(),
+                              text: '4${LocaleKeys.days.tr()}',
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyText1!
@@ -307,7 +306,10 @@ class _AllTabsState extends State<AllTabs> {
                             padding: const EdgeInsets.symmetric(
                                 vertical: 10, horizontal: 11),
                             onTap: () {},
-                            child: SvgPicture.asset(AppIcons.share1),
+                            child: SvgPicture.asset(AppIcons.share,
+                                color: Theme.of(context)
+                                    .extension<ThemedColors>()!
+                                    .mediumSlateBlueToWhite),
                           ),
                         ],
                       ),

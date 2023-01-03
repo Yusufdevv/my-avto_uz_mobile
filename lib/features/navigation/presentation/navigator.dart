@@ -44,7 +44,7 @@ class _TabNavigatorState extends State<TabNavigator>
         };
       case NavItemEnum.profile:
         return {
-          TabNavigatorRoutes.root: (context) => ProfileScreen(),
+          TabNavigatorRoutes.root: (context) => const ProfileScreen(),
         };
       default:
         return {

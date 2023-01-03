@@ -2,7 +2,7 @@ import 'package:auto/core/exceptions/exceptions.dart';
 import 'package:auto/core/singletons/dio_settings.dart';
 import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/core/singletons/storage.dart';
-import 'package:auto/features/profile/data/models/favorite_model.dart';
+import 'package:auto/features/common/domain/model/auto_model.dart';
 import 'package:auto/features/profile/data/models/profile.dart';
 import 'package:auto/features/profile/data/models/profile_data_model.dart';
 import 'package:auto/features/profile/data/models/terms_of_use_model.dart';
@@ -25,7 +25,7 @@ abstract class ProfileDataSource {
       required String code,
       required String session});
 
-  Future<List<FavoriteModel>> getProfileFavorites();
+  Future<List<AutoModel>> getProfileFavorites();
 
   Future<List<TermsOfUseModel>> getTermsOfUseData();
 }
@@ -67,7 +67,6 @@ class ProfileDataSourceImpl extends ProfileDataSource {
       'image': image != null ? await MultipartFile.fromFile(image) : null,
       'region': region
     });
-
     try {
       final response = await dio.patch('/users/detail/edit/',
           data: data,
@@ -119,7 +118,7 @@ class ProfileDataSourceImpl extends ProfileDataSource {
   }
 
   @override
-  Future<List<FavoriteModel>> getProfileFavorites() async {
+  Future<List<AutoModel>> getProfileFavorites() async {
     try {
       final response = await dio.get(
         '/users/wishlist/announcement/list/',
@@ -130,7 +129,7 @@ class ProfileDataSourceImpl extends ProfileDataSource {
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
         return (response.data['results'] as List)
             // ignore: unnecessary_lambdas
-            .map((e) => FavoriteModel.fromJson(e))
+            .map((e) => AutoModel.fromJson(e))
             .toList();
       }
       throw ServerException(
