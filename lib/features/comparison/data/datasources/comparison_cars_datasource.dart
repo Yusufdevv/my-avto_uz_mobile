@@ -3,6 +3,7 @@ import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/comparison/data/models/comparison_model.dart';
 import 'package:dio/dio.dart';
 
+// ignore: one_member_abstracts
 abstract class ComparisonCarsDataSource {
   Future getComparisonCars();
 }
@@ -20,9 +21,9 @@ class ComparisonDataSourceImpl extends ComparisonCarsDataSource {
                       'Bearer ${StorageRepository.getString('token')}'
                 })
               : null);
-      print('Results: $response');
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
         return (response.data as List)
+            // ignore: unnecessary_lambdas
             .map((e) => ComparisonModel.fromJson(e))
             .toList();
       } else {
