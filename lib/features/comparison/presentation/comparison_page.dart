@@ -24,14 +24,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ComparisonPage extends StatefulWidget {
-  const ComparisonPage({Key? key}) : super(key: key);
+  final ComparisonBloc bloc;
+  const ComparisonPage({Key? key, required this.bloc}) : super(key: key);
 
   @override
   State<ComparisonPage> createState() => _ComparisonPageState();
 }
 
 class _ComparisonPageState extends State<ComparisonPage> {
-  late ComparisonBloc bloc;
   late ModelSelectorBloc modelBloc;
   late CarTypeSelectorBloc carTypeSelectorBloc;
   late GetCarModelBloc carModelBloc;
@@ -43,10 +43,6 @@ class _ComparisonPageState extends State<ComparisonPage> {
     carTypeSelectorBloc = CarTypeSelectorBloc();
     modelBloc = ModelSelectorBloc();
     carSelectorBloc = CarSelectorBloc();
-    bloc = ComparisonBloc(
-        comparisonCarsUseCase: ComparisonCarsUseCase(
-            comparisonCarsRepo: serviceLocator<ComparisonCarsRepoImpl>()))
-      ..add(GetComparableCars());
     carModelBloc = GetCarModelBloc(
         useCase:
             GetCarModelUseCase(repository: serviceLocator<AdRepositoryImpl>()));
@@ -60,7 +56,7 @@ class _ComparisonPageState extends State<ComparisonPage> {
 
   @override
   Widget build(BuildContext context) => BlocProvider.value(
-        value: bloc,
+        value: widget.bloc,
         child: Scaffold(
           appBar: WAppBar(
             title: LocaleKeys.car_comparison.tr(),
@@ -114,7 +110,7 @@ class _ComparisonPageState extends State<ComparisonPage> {
                   carSelectorBloc: carSelectorBloc,
                   getMakesBloc: getMakesBloc,
                   modelBloc: modelBloc,
-                  cars: state.cars,
+                  comparisonBloc: widget.bloc,
                 );
               }
             },

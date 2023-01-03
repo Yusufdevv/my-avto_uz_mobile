@@ -1,4 +1,5 @@
 import 'package:auto/assets/colors/color.dart';
+import 'package:auto/assets/colors/light.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
@@ -63,6 +64,8 @@ class ChangeCarItems extends StatelessWidget {
                               )
                             : CachedNetworkImage(
                                 imageUrl: imageUrl,
+                                height: 36,
+                                width: 36,
                                 fit: BoxFit.cover,
                               ),
                       ),
@@ -74,7 +77,7 @@ class ChangeCarItems extends StatelessWidget {
                         highlightedText: '',
                         terms: text.split(' '),
                         highlightColor:
-                            const Color.fromARGB(255, 249, 228, 145),
+                            LightThemeColors.tangerineYellowToMediumSlateBlue,
                         textStyle: Theme.of(context)
                             .textTheme
                             .headline1!
