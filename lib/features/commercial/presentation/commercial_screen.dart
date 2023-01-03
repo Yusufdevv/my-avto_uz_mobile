@@ -4,7 +4,6 @@ import 'package:auto/features/commercial/presentation/pages/commercial_body_scre
 import 'package:auto/features/commercial/presentation/widgets/commercial_tab.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
-import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -26,8 +25,7 @@ class _CommercialScreenState extends State<CommercialScreen> with SingleTickerPr
     super.initState();
   }
 
-  // phone: +998 90 478 17 17
-  // parol: parol123
+ 
   @override
   Widget build(BuildContext context) => KeyboardDismisser(
         child: AnnotatedRegion(

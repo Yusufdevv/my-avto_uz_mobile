@@ -28,6 +28,9 @@ class RentSetIdEvent extends RentEvent {
 class RentGetMoreEvent extends RentEvent {
   RentGetMoreEvent({bool? isRefresh}) : super(isRefresh: isRefresh);
 }
+    class  RentCleanFilterEvent  extends RentEvent  {
+
+}
 
 class RentSetParamFromFilterEvent extends RentEvent {
   List<Region>? regions;

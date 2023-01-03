@@ -3,6 +3,7 @@ import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/features/car_single/domain/entities/car_user_entity.dart';
 import 'package:auto/features/commercial/presentation/commercial_screen.dart';
+// import 'package:auto/features/commercial/presentation/commercial_screen.dart';
 import 'package:auto/features/common/domain/entity/car_brand_entity.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/dealers/presentation/dealers_main.dart';
@@ -97,8 +98,9 @@ class _MainScreenState extends State<MainScreen> {
       () {
         print(
             ' ===============   comercials state button pressed   ===============');
-        Navigator.pushReplacement(
-            context, fade(page: const CommercialScreen()));
+
+        Navigator.of(context, rootNavigator: true)
+            .push(fade(page: const CommercialScreen()));
       },
       () {
         print(' ===============   serviceTaps 5   ===============');
