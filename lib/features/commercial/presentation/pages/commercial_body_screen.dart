@@ -4,7 +4,6 @@ import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/commercial/presentation/widgets/commercial_car_model_item.dart';
 import 'package:auto/features/commercial/presentation/widgets/info_container.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
-import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -29,8 +28,8 @@ class CommercialBodyScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             WButton(
-              onTap: () {}
-                 /* Navigator.push(context, fade(page: const FilterScreen()))*/,
+              onTap:
+                  () {} /* Navigator.push(context, fade(page: const FilterScreen()))*/,
               width: size.width * 0.45,
               borderRadius: 8,
               margin: const EdgeInsets.only(left: 16),
@@ -52,7 +51,7 @@ class CommercialBodyScreen extends StatelessWidget {
                           .textTheme
                           .subtitle1!
                           .copyWith(color: orange)),
-                 const   Spacer(),
+                  const Spacer(),
                   CircleAvatar(
                     backgroundColor: warmerGrey,
                     radius: 10,
@@ -68,8 +67,10 @@ class CommercialBodyScreen extends StatelessWidget {
               ),
             ),
             WButton(
-              onTap: (){}/*() =>
-                  Navigator.push(context, fade(page: const FilterScreen()))*/,
+              onTap:
+                  () {} /*() =>
+                  Navigator.push(context, fade(page: const FilterScreen()))*/
+              ,
               width: size.width * 0.45,
               borderRadius: 8,
               margin: const EdgeInsets.only(right: 16),

@@ -9,14 +9,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 
-class CommercialScreen extends StatefulWidget {
-  const CommercialScreen({Key? key}) : super(key: key);
+class RentCommercialScreen extends StatefulWidget {
+  const RentCommercialScreen({Key? key}) : super(key: key);
 
   @override
-  State<CommercialScreen> createState() => _CommercialScreenState();
+  State<RentCommercialScreen> createState() => _RentCommercialScreenState();
 }
 
-class _CommercialScreenState extends State<CommercialScreen> {
+class _RentCommercialScreenState extends State<RentCommercialScreen> {
   final List<String> titles = [
     'Кондиционер',
     'Детское кресло',

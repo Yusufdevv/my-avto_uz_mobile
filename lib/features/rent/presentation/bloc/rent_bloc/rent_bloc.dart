@@ -32,14 +32,10 @@ class RentBloc extends Bloc<RentEvent, RentState> {
     on<RentGetMoreEvent>(_getMore);
     on<RentSetIdEvent>(_setId);
     on<RentSetParamFromFilterEvent>(_setFromFilter);
+    on<RentCleanFilterEvent>(_clearFilter);
   }
   FutureOr<void> _setFromFilter(
       RentSetParamFromFilterEvent event, Emitter<RentState> emit) async {
-    print('the value of regionId is: ${event.regions}');
-    print('the value of carMakeId is: ${event.carMakerId?.length}');
-    print('the value of carBodyTypeId is: ${event.carBodyTypeId}');
-    print('the value of carDriveTypeId is: ${event.carDriveTypeId}');
-    print('the value of gearboxTypeId is: ${event.gearboxTypeId}');
     emit(
       state.copyWith(
         regions: event.regions,
@@ -47,6 +43,19 @@ class RentBloc extends Bloc<RentEvent, RentState> {
         carBodyTypeId: event.carBodyTypeId,
         carDriveTypeId: event.carDriveTypeId,
         gearboxTypeId: event.gearboxTypeId,
+      ),
+    );
+  }
+
+  FutureOr<void> _clearFilter(
+      RentCleanFilterEvent event, Emitter<RentState> emit) async {
+    emit(
+      state.copyWith(
+        regions: [],
+        carMakers: '',
+        carBodyTypeId: '',
+        carDriveTypeId: '',
+        gearboxTypeId: '',
       ),
     );
   }

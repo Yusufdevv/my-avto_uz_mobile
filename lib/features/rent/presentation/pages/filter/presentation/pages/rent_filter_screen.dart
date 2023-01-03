@@ -4,6 +4,7 @@ import 'package:auto/features/common/models/region.dart';
 import 'package:auto/features/common/widgets/range_slider.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
+import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/rent/presentation/bloc/rent_bloc/rent_bloc.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/choose_body_type.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/choose_drive_type.dart';
@@ -42,14 +43,17 @@ class _RentFilterScreenState extends State<RentFilterScreen> {
                         .headline1!
                         .copyWith(fontSize: 16, fontWeight: FontWeight.w600)),
                 const Spacer(flex: 30),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: Text(
-                    LocaleKeys.clear.tr(),
-                    style: Theme.of(context)
-                        .textTheme
-                        .subtitle1!
-                        .copyWith(color: blue),
+                WScaleAnimation(
+                  onTap: () => widget.rentBloc.add(RentCleanFilterEvent()),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: Text(
+                      LocaleKeys.clear.tr(),
+                      style: Theme.of(context)
+                          .textTheme
+                          .subtitle1!
+                          .copyWith(color: blue),
+                    ),
                   ),
                 )
               ],
@@ -112,6 +116,7 @@ class _RentFilterScreenState extends State<RentFilterScreen> {
                     },
                     hintText: LocaleKeys.choose_body.tr(),
                     title: LocaleKeys.body_type.tr(),
+                    hasArrowDown: true,
                   ),
                   SelectorItem(
                     onTap: () async {
@@ -128,6 +133,7 @@ class _RentFilterScreenState extends State<RentFilterScreen> {
                     },
                     hintText: LocaleKeys.choose_drive_type.tr(),
                     title: LocaleKeys.drive_unit.tr(),
+                    hasArrowDown: true,
                   ),
                   SelectorItem(
                     onTap: () async {
@@ -144,6 +150,7 @@ class _RentFilterScreenState extends State<RentFilterScreen> {
                     },
                     hintText: LocaleKeys.choose_box_type.tr(),
                     title: LocaleKeys.box.tr(),
+                    hasArrowDown: true,
                   ),
                   const SizedBox(
                     height: 16,
