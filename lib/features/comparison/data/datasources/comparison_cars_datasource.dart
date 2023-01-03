@@ -6,6 +6,7 @@ import 'package:dio/dio.dart';
 // ignore: one_member_abstracts
 abstract class ComparisonCarsDataSource {
   Future getComparisonCars();
+  Future postComparisonCars(int id);
 }
 
 class ComparisonDataSourceImpl extends ComparisonCarsDataSource {
@@ -14,7 +15,7 @@ class ComparisonDataSourceImpl extends ComparisonCarsDataSource {
   @override
   Future getComparisonCars() async {
     try {
-       final response = await _dio.get('/car/comparison/',
+      final response = await _dio.get('/car/comparison/',
           options: StorageRepository.getString('token').isNotEmpty
               ? Options(headers: {
                   'Authorization':
@@ -37,6 +38,24 @@ class ComparisonDataSourceImpl extends ComparisonCarsDataSource {
       throw DioException();
     } on Exception catch (e) {
       throw ParsingException(errorMessage: e.toString());
+    }
+  }
+
+  @override
+  Future postComparisonCars(int id) async {
+    final response = await _dio.post(
+      '/car/comparison/',
+      data: {'announcement': id, 'order': id},
+      options: Options(
+        headers: StorageRepository.getString('token').isNotEmpty
+            ? {'Authorization': 'Token ${StorageRepository.getString('token')}'}
+            : {},
+      ),
+    );
+    if (response.statusCode! >= 200 && response.statusCode! < 300) {
+    } else {
+      throw ServerException(
+          statusCode: response.statusCode!, errorMessage: response.data);
     }
   }
 }

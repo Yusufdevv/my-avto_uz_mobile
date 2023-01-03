@@ -24,4 +24,19 @@ class ComparisonCarsRepoImpl extends ComparisonCarsRepo {
       );
     }
   }
+  
+  @override
+  Future<Either<Failure, String>> postComparisonCars(int id)  async {
+    try {
+      final result = await comparisonCarsDataSource.postComparisonCars(id);
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(
+        ServerFailure(
+          errorMessage: e.errorMessage,
+          statusCode: e.statusCode,
+        ),
+      );
+    }
+  }
 }

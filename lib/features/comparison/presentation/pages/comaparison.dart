@@ -12,6 +12,7 @@ import 'package:auto/features/comparison/domain/entities/complectation_parameter
 import 'package:auto/features/comparison/domain/usecases/delete_comparison.dart';
 import 'package:auto/features/comparison/presentation/bloc/comparison-bloc/comparison_bloc.dart';
 import 'package:auto/features/comparison/presentation/bloc/delete_comparison/delete_comparison_bloc.dart';
+import 'package:auto/features/comparison/presentation/pages/ads/ads.dart';
 import 'package:auto/features/comparison/presentation/pages/choose_car_brand.dart';
 import 'package:auto/features/comparison/presentation/pages/choose_generation.dart';
 import 'package:auto/features/comparison/presentation/pages/choose_model.dart';
@@ -171,12 +172,17 @@ class _ComparisonState extends State<Comparison> {
                             fade(
                               page: ChooseCarModelComparison(
                                 onTap: () {
+                                  // Navigator.of(context).push(
+                                  //   fade(
+                                  //     page: ChooseGenerationComparison(
+                                  //       onTap: () {},
+                                  //       modelBloc: widget.modelBloc,
+                                  //     ),
+                                  //   ),
+                                  // );
                                   Navigator.of(context).push(
                                     fade(
-                                      page: ChooseGenerationComparison(
-                                        onTap: () {},
-                                        modelBloc: widget.modelBloc,
-                                      ),
+                                      page: AdsScreen(),
                                     ),
                                   );
                                 },

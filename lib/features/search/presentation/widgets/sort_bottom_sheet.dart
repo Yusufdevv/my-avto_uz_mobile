@@ -68,8 +68,8 @@ class _SortBottomSheetState extends State<SortBottomSheet> {
                     widget.values.length,
                     (index) => GestureDetector(
                           behavior: HitTestBehavior.opaque,
-                          onTap: () =>
-                              setState(() => groupValue = widget.values[index].status),
+                          onTap: () => setState(
+                              () => groupValue = widget.values[index].status),
                           child: Container(
                             padding: const EdgeInsets.all(12),
                             margin: const EdgeInsets.only(
@@ -78,9 +78,25 @@ class _SortBottomSheetState extends State<SortBottomSheet> {
                               color: widget.values[index].status == groupValue
                                   ? purple.withOpacity(.1)
                                   : null,
+                              borderRadius: BorderRadius.circular(12),
                             ),
                             child: Row(
                               children: [
+                                Text(
+                                  widget.values[index].title,
+                                  style: widget.values[index].status ==
+                                          groupValue
+                                      ? Theme.of(context)
+                                          .textTheme
+                                          .subtitle1!
+                                          .copyWith(fontSize: 16)
+                                      : Theme.of(context)
+                                          .textTheme
+                                          .headline6!
+                                          .copyWith(
+                                              color: LightThemeColors.smoky),
+                                ),
+                                Spacer(),
                                 Transform.scale(
                                   scale: 1.3,
                                   child: SizedBox(
@@ -104,20 +120,6 @@ class _SortBottomSheetState extends State<SortBottomSheet> {
                                     ),
                                   ),
                                 ),
-                                const SizedBox(width: 8),
-                                Text(
-                                  widget.values[index].title,
-                                  style: widget.values[index].status == groupValue
-                                      ? Theme.of(context)
-                                          .textTheme
-                                          .subtitle1!
-                                          .copyWith(fontSize: 16)
-                                      : Theme.of(context)
-                                          .textTheme
-                                          .headline6!
-                                          .copyWith(
-                                              color: LightThemeColors.smoky),
-                                ),
                               ],
                             ),
                           ),
@@ -135,7 +137,6 @@ class _SortBottomSheetState extends State<SortBottomSheet> {
                       .textTheme
                       .subtitle1!
                       .copyWith(color: white),
-                      
                   margin: EdgeInsets.only(
                     bottom: MediaQuery.of(context).padding.bottom + 20,
                     top: 20,

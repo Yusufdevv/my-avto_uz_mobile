@@ -56,7 +56,7 @@ class _CommercialScreenState extends State<CommercialScreen> with SingleTickerPr
                   ),
                   CommercialTab(
                     tabController: tabController,
-                    tabLabels: ["Все", "Новые", "С пробегом"],
+                    tabLabels: const ['Все', 'Новые', 'С пробегом'],
                   ),
                 ],
               ),
