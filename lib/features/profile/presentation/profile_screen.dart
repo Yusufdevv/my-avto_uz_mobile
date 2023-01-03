@@ -129,8 +129,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ProfileMenuTile(
                               name: LocaleKeys.comparisons.tr(),
                               onTap: () {
-                                Navigator.of(context, rootNavigator: true)
-                                    .push(fade(page: const ComparisonPage()));
+                                // Navigator.of(context, rootNavigator: true)
+                                //     .push(fade(page: const ComparisonPage()));
                               },
                               iconPath: AppIcons.scales,
                               count: 0),
