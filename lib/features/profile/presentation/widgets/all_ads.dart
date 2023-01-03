@@ -11,16 +11,16 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-class AllTabs extends StatefulWidget {
+class AllAds extends StatefulWidget {
   final bool isSalon;
 
-  const AllTabs({this.isSalon = true, Key? key}) : super(key: key);
+  const AllAds({this.isSalon = true, Key? key}) : super(key: key);
 
   @override
-  State<AllTabs> createState() => _AllTabsState();
+  State<AllAds> createState() => _AllAdsState();
 }
 
-class _AllTabsState extends State<AllTabs> {
+class _AllAdsState extends State<AllAds> {
   final List<String> images = [
     'https://images.unsplash.com/photo-1659812903095-d7e87abb0b3c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw4Mnx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60',
     'https://images.unsplash.com/photo-1658856226250-5b236fa6137d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxMDR8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60',
