@@ -2,6 +2,7 @@ import 'package:auto/core/usecases/usecase.dart';
 import 'package:auto/features/ad/domain/usecases/get_makes.dart';
 import 'package:auto/features/common/entities/makes_entity.dart';
 import 'package:bloc/bloc.dart';
+import 'package:flutter/foundation.dart';
 import 'package:formz/formz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -12,9 +13,9 @@ part 'get_makes_bloc_bloc.freezed.dart';
 class GetMakesBloc extends Bloc<GetMakesBlocEvent, GetMakesState> {
   final GetMakesUseCase useCase;
   GetMakesBloc({required this.useCase}) : super(GetMakesState()) {
-    on<_GetMakes>((event, emit) async{
+    on<_GetMakes>((event, emit) async {
       emit(state.copyWith(status: FormzStatus.submissionInProgress));
-      final result = await useCase.call(NoParams());
+      final result = await useCase.call(state.search);
       if (result.isRight) {
         emit(
           state.copyWith(
@@ -24,7 +25,10 @@ class GetMakesBloc extends Bloc<GetMakesBlocEvent, GetMakesState> {
             next: result.right.next,
           ),
         );
+      } else {
+        emit(state.copyWith(status: FormzStatus.submissionFailure));
       }
     });
+    on<_GetSerched>((event, emit) => emit(state.copyWith(search: event.naem)));
   }
 }

@@ -73,7 +73,7 @@ class _CharacteristicTableState extends State<CharacteristicTable> {
                   Row(
                     children: [
                       ...List.generate(
-                        widget.list.sublist(6, 9).length,
+                        widget.list.sublist(6, 6).length,
                         (index) => CharacteristicBox(
                           color: Theme.of(context)
                               .extension<ThemedColors>()!
@@ -84,20 +84,20 @@ class _CharacteristicTableState extends State<CharacteristicTable> {
                       ),
                     ],
                   ),
-                  Row(
-                    children: [
-                      ...List.generate(
-                        widget.list.sublist(9, 12).length,
-                        (index) => CharacteristicBox(
-                          color: Theme.of(context)
-                              .extension<ThemedColors>()!
-                              .whiteToNero1,
-                          title: widget.titleList.sublist(9, 12)[index],
-                          value: widget.list.sublist(9, 12)[index],
-                        ),
-                      ),
-                    ],
-                  ),
+                  // Row(
+                  //   children: [
+                  //     ...List.generate(
+                  //       widget.list.sublist(9, 12).length,
+                  //       (index) => CharacteristicBox(
+                  //         color: Theme.of(context)
+                  //             .extension<ThemedColors>()!
+                  //             .whiteToNero1,
+                  //         title: widget.titleList.sublist(9, 12)[index],
+                  //         value: widget.list.sublist(9, 12)[index],
+                  //       ),
+                  //     ),
+                  //   ],
+                  // ),
                 ],
               ),
             ),

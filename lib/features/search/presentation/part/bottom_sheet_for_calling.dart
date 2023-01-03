@@ -19,12 +19,14 @@ Future<dynamic> bottomSheetForCalling(BuildContext context, String phone) =>
               child: Column(
                 children: [
                   WScaleAnimation(
+                    
                     child: Container(
-                      height: 64,
+                      height: 60,
                       width: double.maxFinite,
                       decoration: BoxDecoration(
-                          color: white,
-                          borderRadius: BorderRadius.circular(13)),
+                        color: white,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
                       margin: const EdgeInsets.symmetric(
                           horizontal: 8, vertical: 4),
                       child: Row(
@@ -35,17 +37,18 @@ Future<dynamic> bottomSheetForCalling(BuildContext context, String phone) =>
                           const SizedBox(width: 12),
                           Text(
                             phone,
-                            style:
-                                Theme.of(context).textTheme.headline1!.copyWith(
-                                      fontWeight: FontWeight.w400,
-                                      color: dodgerBlue,
-                                    ),
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline1!
+                                .copyWith(
+                                    fontWeight: FontWeight.w400,
+                                    color: dodgerBlue),
                           ),
                         ],
                       ),
                     ),
                     onTap: () {
-                      launchUrlString(phone);
+                      launchUrlString('tel: $phone');
                     },
                   ),
                   WScaleAnimation(
@@ -53,14 +56,18 @@ Future<dynamic> bottomSheetForCalling(BuildContext context, String phone) =>
                       Navigator.pop(context);
                     },
                     child: Container(
-                      height: 64,
+                      height: 60,
                       decoration: BoxDecoration(
                           color: white,
-                          borderRadius: BorderRadius.circular(13)),
+                          borderRadius: BorderRadius.circular(12)),
                       alignment: Alignment.center,
                       width: double.maxFinite,
-                      margin: const EdgeInsets.symmetric(
-                          horizontal: 8, vertical: 4),
+                      margin: const EdgeInsets.only(
+                        right: 8,
+                        left: 8,
+                        top: 4,
+                        bottom: 18,
+                      ),
                       child: Text(
                         'Отменить',
                         style: Theme.of(context).textTheme.headline1!.copyWith(
@@ -100,7 +107,7 @@ Future<dynamic> bottomSheetForCalling(BuildContext context, String phone) =>
                     ),
                   ),
                   onTap: () {
-                    launchUrlString(phone);
+                    launchUrlString('tel: $phone');
                   },
                 )
               ],

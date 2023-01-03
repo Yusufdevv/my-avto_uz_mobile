@@ -3,8 +3,11 @@ import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 class RentCarEngineTypeEntity extends Equatable {
+  @JsonKey(defaultValue: 0)
   final int id;
+  @JsonKey(defaultValue: '')
   final String type;
+  @JsonKey(defaultValue: '')
   final String? logo;
 
   const RentCarEngineTypeEntity({
@@ -21,11 +24,13 @@ class RentCarEngineTypeEntity extends Equatable {
       ];
 }
 
-class RentCarEngineTypeConverter<S> implements JsonConverter<RentCarEngineTypeEntity, Map<String, dynamic>?> {
+class RentCarEngineTypeConverter<S>
+    implements JsonConverter<RentCarEngineTypeEntity, Map<String, dynamic>?> {
   const RentCarEngineTypeConverter();
 
   @override
-  RentCarEngineTypeEntity fromJson(Map<String, dynamic>? json) => RentCarEngineTypeModel.fromJson(json ?? {});
+  RentCarEngineTypeEntity fromJson(Map<String, dynamic>? json) =>
+      RentCarEngineTypeModel.fromJson(json ?? {});
 
   @override
   Map<String, dynamic> toJson(RentCarEngineTypeEntity object) => {};

@@ -23,7 +23,6 @@ class AdsItem extends StatelessWidget {
             context,
             fade(
                 page: CarSingleScreen(
-              adsEntity: adsEntity,
             )));
       },
       child: Container(
@@ -93,14 +92,20 @@ class AdsItem extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Text(
                 adsEntity.model,
-                style: Theme.of(context).textTheme.headline3!.copyWith(fontWeight: FontWeight.w600, fontSize: 12),
+                style: Theme.of(context)
+                    .textTheme
+                    .headline3!
+                    .copyWith(fontWeight: FontWeight.w600, fontSize: 12),
               ),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Text(
                 adsEntity.price,
-                style: Theme.of(context).textTheme.headline1!.copyWith(fontSize: 16),
+                style: Theme.of(context)
+                    .textTheme
+                    .headline1!
+                    .copyWith(fontSize: 16),
               ),
             ),
             const SizedBox(height: 8),
@@ -110,17 +115,19 @@ class AdsItem extends StatelessWidget {
                 adsEntity.description,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyText1!
-                    .copyWith(color: Theme.of(context).extension<ThemedColors>()!.greySuitToWhite60),
+                style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                    color: Theme.of(context)
+                        .extension<ThemedColors>()!
+                        .greySuitToWhite60),
               ),
             ),
             const SizedBox(height: 10),
             Container(
               height: 1,
               margin: const EdgeInsets.only(left: 16),
-              color: Theme.of(context).extension<ThemedColors>()!.solitudeToWhite35,
+              color: Theme.of(context)
+                  .extension<ThemedColors>()!
+                  .solitudeToWhite35,
             ),
             const SizedBox(height: 10),
             Padding(
@@ -134,7 +141,10 @@ class AdsItem extends StatelessWidget {
                       Text(
                         adsEntity.region,
                         style: Theme.of(context).textTheme.headline6!.copyWith(
-                            fontSize: 12, color: Theme.of(context).extension<ThemedColors>()!.dolphinToGreySuit),
+                            fontSize: 12,
+                            color: Theme.of(context)
+                                .extension<ThemedColors>()!
+                                .dolphinToGreySuit),
                       )
                     ],
                   ),

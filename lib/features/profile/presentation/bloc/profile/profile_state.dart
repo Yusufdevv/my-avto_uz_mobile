@@ -2,25 +2,29 @@ part of 'profile_bloc.dart';
 
 @immutable
 class ProfileState extends Equatable {
-  final ProfileEntity profileEntity;
-  final List<FavoriteEntity> favoriteEntity;
-  final String phoneNumber;
+  final ProfileDataEntity profileEntity;
+  final List<AutoEntity> autoEntity;
+  final List<TermsOfUseEntity> termsOfUseEntity;
+    String phoneNumber;
   final FormzStatus status;
   final FormzStatus editStatus;
   final FormzStatus changeStatus;
 
-  const ProfileState({
+
+    ProfileState({
     required this.status,
     required this.profileEntity,
-    required this.favoriteEntity,
+    required this.autoEntity,
+    required this.termsOfUseEntity,
     required this.phoneNumber,
     required this.editStatus,
     required this.changeStatus,
   });
 
   ProfileState copyWith(
-          {ProfileEntity? profileEntity,
-          List<FavoriteEntity>? favoriteEntity,
+          {ProfileDataEntity? profileEntity,
+          List<AutoEntity>? autoEntity,
+          List<TermsOfUseEntity>? termsOfUseEntity,
           FormzStatus? status,
           String? phoneNumber,
           FormzStatus? editStatus,
@@ -28,7 +32,8 @@ class ProfileState extends Equatable {
       ProfileState(
         status: status ?? this.status,
         profileEntity: profileEntity ?? this.profileEntity,
-        favoriteEntity: favoriteEntity ?? this.favoriteEntity,
+        autoEntity: autoEntity ?? this.autoEntity,
+        termsOfUseEntity: termsOfUseEntity ?? this.termsOfUseEntity,
         phoneNumber: phoneNumber ?? this.phoneNumber,
         editStatus: editStatus ?? this.editStatus,
         changeStatus: changeStatus ?? this.changeStatus,
@@ -38,7 +43,8 @@ class ProfileState extends Equatable {
   List<Object?> get props => [
         status,
         profileEntity,
-        favoriteEntity,
+        autoEntity,
+        termsOfUseEntity,
         editStatus,
         changeStatus,
       ];

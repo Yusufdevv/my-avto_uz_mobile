@@ -59,9 +59,9 @@ AutoModel _$AutoModelFromJson(Map<String, dynamic> json) => AutoModel(
       isNew: json['is_new'] as bool? ?? false,
       isRegisteredLocally: json['is_registered_locally'] as bool? ?? false,
       isWishlisted: json['is_wishlisted'] as bool? ?? false,
-      latitude: json['latitude'] as String? ?? '',
+      latitude: (json['latitude'] as num).toDouble(),
       licenceType: json['licence_type'] as String? ?? '',
-      longitude: json['longitude'] as String? ?? '',
+      longitude: (json['longitude'] as num).toDouble(),
       ownership: json['ownership'] as String? ?? '',
       price: (json['price'] as num?)?.toDouble() ?? 0,
       publishedAt: json['published_at'] as String? ?? '',
@@ -78,6 +78,9 @@ AutoModel _$AutoModelFromJson(Map<String, dynamic> json) => AutoModel(
       userType: json['user_type'] as String? ?? '',
       viewsCount: json['views_count'] as int? ?? 0,
       isComparison: json['is_comparison'] as bool? ?? false,
+      discount: (json['discount'] as num?)?.toDouble() ?? -1,
+      contactAvailableFrom: json['contact_available_from'] as String? ?? '',
+      contactAvailableTo: json['contact_available_to'] as String? ?? '',
     );
 
 Map<String, dynamic> _$AutoModelToJson(AutoModel instance) => <String, dynamic>{
@@ -117,4 +120,7 @@ Map<String, dynamic> _$AutoModelToJson(AutoModel instance) => <String, dynamic>{
       'views_count': instance.viewsCount,
       'is_wishlisted': instance.isWishlisted,
       'is_comparison': instance.isComparison,
+      'discount': instance.discount,
+      'contact_available_from': instance.contactAvailableFrom,
+      'contact_available_to': instance.contactAvailableTo,
     };

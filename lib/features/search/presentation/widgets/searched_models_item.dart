@@ -4,9 +4,7 @@ import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_highlighted_text.dart';
-import 'package:auto/generated/locale_keys.g.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -14,12 +12,13 @@ class SearchedModelsItem extends StatelessWidget {
   final String fullText;
   final String searchText;
   final String imageUrl;
-
+  final String vehicleType;
   final VoidCallback onTap;
   const SearchedModelsItem(
       {required this.fullText,
       required this.searchText,
       required this.onTap,
+      required this.vehicleType,
       required this.imageUrl,
       Key? key})
       : super(key: key);
@@ -57,32 +56,35 @@ class SearchedModelsItem extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 12),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  WHighlightedText(
-                    allText: fullText,
-                    highlightedText: searchText,
-                    highlightColor:
-                        LightThemeColors.tangerineYellowToMediumSlateBlue,
-                    textStyle: Theme.of(context)
-                        .textTheme
-                        .subtitle1!
-                        .copyWith(fontSize: 13),
-                    textStyleHighlight: Theme.of(context)
-                        .textTheme
-                        .subtitle1!
-                        .copyWith(fontSize: 13),
-                    textAlign: TextAlign.center,
-                  ),
-                  Text(
-                    LocaleKeys.cars.tr(),
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline2!
-                        .copyWith(fontSize: 12),
-                  )
-                ],
+              Flexible(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    WHighlightedText(
+                      overflow: TextOverflow.ellipsis,
+                      allText: fullText,
+                      highlightedText: searchText,
+                      highlightColor:
+                          LightThemeColors.tangerineYellowToMediumSlateBlue,
+                      textStyle: Theme.of(context)
+                          .textTheme
+                          .subtitle1!
+                          .copyWith(fontSize: 13),
+                      textStyleHighlight: Theme.of(context)
+                          .textTheme
+                          .subtitle1!
+                          .copyWith(fontSize: 13),
+                      textAlign: TextAlign.start,
+                    ),
+                    Text(
+                      vehicleType,
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline2!
+                          .copyWith(fontSize: 12),
+                    )
+                  ],
+                ),
               ),
             ],
           ),

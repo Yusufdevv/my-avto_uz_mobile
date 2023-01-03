@@ -3,7 +3,9 @@ import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 class DamagedPartsEntity extends Equatable {
+  @JsonKey(defaultValue: '')
   final String part;
+  @JsonKey(defaultValue: '')
   final String damageType;
 
   const DamagedPartsEntity({

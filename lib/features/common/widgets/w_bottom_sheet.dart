@@ -19,51 +19,52 @@ class WBottomSheet extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => SingleChildScrollView(child: Column(
-    crossAxisAlignment: CrossAxisAlignment.center,
-    mainAxisAlignment: MainAxisAlignment.start,
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      Container(
-        height: 4,
-        width: 40,
-        margin: const EdgeInsets.only(bottom: 8),
-        decoration: BoxDecoration(
-          color: purple,
-          borderRadius: BorderRadius.circular(2),
-        ),
-      ),
-      Container(
-        decoration: BoxDecoration(
-          color: bottomsheetBackground ?? white,
-          borderRadius: BorderRadius.vertical(
-            top: Radius.circular(borderRadius),
-          ),
-        ),
-        padding: contentPadding ??
-            EdgeInsets.fromLTRB(
-              20,
-              16,
-              20,
-              bottomNavigation == null
-                  ? MediaQuery.of(context).padding.bottom + 16
-                  : 0,
-            ),
+  Widget build(BuildContext context) => SingleChildScrollView(
         child: Column(
-          mainAxisSize: MainAxisSize.max,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: children,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              height: 4,
+              width: 40,
+              margin: const EdgeInsets.only(bottom: 8),
+              decoration: BoxDecoration(
+                color: purple,
+                borderRadius: BorderRadius.circular(2),
+              ),
+            ),
+            Container(
+              decoration: BoxDecoration(
+                color: bottomsheetBackground ?? white,
+                borderRadius: BorderRadius.vertical(
+                  top: Radius.circular(borderRadius),
+                ),
+              ),
+              padding: contentPadding ??
+                  EdgeInsets.fromLTRB(
+                    20,
+                    16,
+                    20,
+                    bottomNavigation == null
+                        ? MediaQuery.of(context).padding.bottom + 16
+                        : 0,
+                  ),
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: children,
+              ),
+            ),
+            if (bottomNavigation != null) ...{
+              Padding(
+                padding: EdgeInsets.only(
+                  bottom: MediaQuery.of(context).padding.bottom + 20,
+                ),
+                child: bottomNavigation,
+              ),
+            }
+          ],
         ),
-      ),
-      if (bottomNavigation != null) ...{
-        Padding(
-          padding: EdgeInsets.only(
-            bottom: MediaQuery.of(context).padding.bottom + 20,
-          ),
-          child: bottomNavigation,
-        ),
-      }
-    ],
-  ),
-  );
+      );
 }

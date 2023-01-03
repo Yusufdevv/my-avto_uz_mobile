@@ -5,7 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class DealerTime extends StatelessWidget {
-  const DealerTime({Key? key}) : super(key: key);
+  final String timeFrom;
+  final String timeTo;
+
+  const DealerTime({Key? key, required this.timeFrom, required this.timeTo})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) => Container(
@@ -72,7 +76,7 @@ class DealerTime extends StatelessWidget {
                       ),
                     ),
                     child: Text(
-                      'от 09:00 - до 09:00',
+                      "от ${timeFrom}" + ' - до ${timeTo}',
                       style: Theme.of(context).textTheme.headline2!.copyWith(
                           fontWeight: FontWeight.w400,
                           fontSize: 12,

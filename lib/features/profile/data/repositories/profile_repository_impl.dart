@@ -1,9 +1,11 @@
 import 'package:auto/core/exceptions/exceptions.dart';
 import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/core/utils/either.dart';
+import 'package:auto/features/common/domain/entity/auto_entity.dart';
 import 'package:auto/features/profile/data/datasources/profile_datasource.dart';
-import 'package:auto/features/profile/domain/entities/favourite_entity.dart';
+import 'package:auto/features/profile/domain/entities/profile_data_entity.dart';
 import 'package:auto/features/profile/domain/entities/profile_entity.dart';
+import 'package:auto/features/profile/domain/entities/terms_of_use_entity.dart';
 import 'package:auto/features/profile/domain/repositories/profile_repository.dart';
 
 class ProfileRepositoryImpl extends ProfileRepository {
@@ -12,13 +14,13 @@ class ProfileRepositoryImpl extends ProfileRepository {
   ProfileRepositoryImpl({required this.dataSource});
 
   @override
-  Future<Either<ServerFailure, ProfileEntity>> getProfile() async {
+  Future<Either<ServerFailure, ProfileDataEntity>> getProfile() async {
     try {
       final result = await dataSource.getProfile();
       return Right(result);
     } on ServerException catch (error) {
       return Left(
-          ServerFailure(statusCode: 141, errorMessage: error.errorMessage));
+          ServerFailure(statusCode: error.statusCode, errorMessage: error.errorMessage));
     }
   }
 
@@ -31,7 +33,7 @@ class ProfileRepositoryImpl extends ProfileRepository {
       return Right(result);
     } on ServerException catch (error) {
       return Left(
-          ServerFailure(statusCode: 141, errorMessage: error.errorMessage));
+          ServerFailure(statusCode: error.statusCode, errorMessage: error.errorMessage));
     }
   }
 
@@ -44,19 +46,19 @@ class ProfileRepositoryImpl extends ProfileRepository {
       return Right(result);
     } on ServerException catch (error) {
       return Left(
-          ServerFailure(statusCode: 141, errorMessage: error.errorMessage));
+          ServerFailure(statusCode: error.statusCode, errorMessage: error.errorMessage));
     }
   }
 
   @override
-  Future<Either<ServerFailure, List<FavoriteEntity>>>
+  Future<Either<ServerFailure, List<AutoEntity>>>
       getProfileFavorites() async {
     try {
       final result = await dataSource.getProfileFavorites();
       return Right(result);
     } on ServerException catch (error) {
       return Left(
-          ServerFailure(statusCode: 141, errorMessage: error.errorMessage));
+          ServerFailure(statusCode: error.statusCode, errorMessage: error.errorMessage));
     }
   }
 
@@ -68,7 +70,7 @@ class ProfileRepositoryImpl extends ProfileRepository {
       return Right(result);
     } on ServerException catch (error) {
       return Left(
-          ServerFailure(statusCode: 141, errorMessage: error.errorMessage));
+          ServerFailure(statusCode: error.statusCode, errorMessage: error.errorMessage));
     }
   }
   
@@ -79,7 +81,18 @@ class ProfileRepositoryImpl extends ProfileRepository {
       return Right(result);
     } on ServerException catch (error) {
       return Left(
-          ServerFailure(statusCode: 141, errorMessage: error.errorMessage));
+          ServerFailure(statusCode: error.statusCode, errorMessage: error.errorMessage));
+    }
+  }
+
+  @override
+  Future<Either<ServerFailure, List<TermsOfUseEntity>>> getTermsOfUse() async {
+    try {
+      final result = await dataSource.getTermsOfUseData();
+      return Right(result);
+    } on ServerException catch (error) {
+      return Left(
+          ServerFailure(statusCode: error.statusCode, errorMessage: error.errorMessage));
     }
   }
 }

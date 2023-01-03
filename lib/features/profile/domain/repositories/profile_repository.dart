@@ -1,12 +1,14 @@
 import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/core/utils/either.dart';
-import 'package:auto/features/profile/domain/entities/favourite_entity.dart';
+import 'package:auto/features/common/domain/entity/auto_entity.dart';
+import 'package:auto/features/profile/domain/entities/profile_data_entity.dart';
 import 'package:auto/features/profile/domain/entities/profile_entity.dart';
+import 'package:auto/features/profile/domain/entities/terms_of_use_entity.dart';
 
 abstract class ProfileRepository {
   const ProfileRepository();
 
-  Future<Either<ServerFailure, ProfileEntity>> getProfile();
+  Future<Either<ServerFailure, ProfileDataEntity>> getProfile();
 
   Future<Either<ServerFailure, ProfileEntity>> editProfile(
       {String? image, String? name, String? surName, int? region});
@@ -19,5 +21,7 @@ abstract class ProfileRepository {
 
   Future<Either<ServerFailure, String>> sendVerificationCode({required String phoneNumber, required String code,required String session});
 
-  Future<Either<ServerFailure, List<FavoriteEntity>>> getProfileFavorites();
+  Future<Either<ServerFailure, List<AutoEntity>>> getProfileFavorites();
+
+  Future<Either<ServerFailure, List<TermsOfUseEntity>>> getTermsOfUse();
 }

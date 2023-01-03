@@ -4,10 +4,19 @@ import 'package:auto/features/car_single/presentation/widgets/car_action_box.dar
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:share_plus/share_plus.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class CarActions extends StatelessWidget {
-  const CarActions({Key? key}) : super(key: key);
+  final VoidCallback onVin;
+  final VoidCallback onComparison;
+  final VoidCallback onShare;
+
+  const CarActions(
+      {Key? key,
+      required this.onVin,
+      required this.onComparison,
+      required this.onShare})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) => Container(
@@ -15,17 +24,38 @@ class CarActions extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             CarActionsBox(
-                onTap: () {}, carStatistic: CarStatistic(valueText: LocaleKeys.report_vin.tr(), icon: AppIcons.file)),
+              onTap: onVin,
+              carStatistic: CarStatistic(
+                  valueText: LocaleKeys.report_vin.tr(), icon: AppIcons.file),
+              widget: SvgPicture.asset(
+                AppIcons.vin_soon,
+                height: 28,
+                width: 28,
+              ),
+            ),
             CarActionsBox(
-                onTap: () {}, carStatistic: CarStatistic(valueText: LocaleKeys.compare.tr(), icon: AppIcons.scale)),
+              onTap: onComparison,
+              carStatistic: CarStatistic(
+                  valueText: LocaleKeys.compare.tr(), icon: AppIcons.scale),
+              widget: SvgPicture.asset(
+                AppIcons.scale,
+                height: 28,
+                width: 28,
+                color: const Color(0xff696974),
+              ),
+            ),
             CarActionsBox(
-                onTap: ShareAuto, carStatistic: CarStatistic(valueText: LocaleKeys.share.tr(), icon: AppIcons.share)),
+              onTap: onShare,
+              carStatistic: CarStatistic(
+                  valueText: LocaleKeys.share.tr(), icon: AppIcons.share),
+              widget: SvgPicture.asset(
+                AppIcons.share,
+                height: 28,
+                width: 28,
+                color: const Color(0xff696974),
+              ),
+            ),
           ],
         ),
       );
-}
-
-void ShareAuto() {
-  var message = 'Auto Uz';
-  Share.share(message);
 }

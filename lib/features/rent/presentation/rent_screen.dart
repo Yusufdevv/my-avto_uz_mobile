@@ -1,6 +1,7 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/features/common/bloc/regions/regions_bloc.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
@@ -28,7 +29,6 @@ class _RentScreenState extends State<RentScreen>
   late TabController tabController;
   late RentBloc rentBloc;
   late CommercialBloc commercialBloc;
-
   @override
   void initState() {
     tabController = TabController(length: 2, vsync: this);
@@ -43,7 +43,7 @@ class _RentScreenState extends State<RentScreen>
   Widget build(BuildContext context) => MultiBlocProvider(
         providers: [
           BlocProvider.value(value: rentBloc),
-          BlocProvider.value(value: commercialBloc)
+          BlocProvider.value(value: commercialBloc),
         ],
         child: BlocBuilder<RentBloc, RentState>(
           builder: (context, state) => Scaffold(
@@ -59,10 +59,18 @@ class _RentScreenState extends State<RentScreen>
                       Padding(
                         padding: const EdgeInsets.only(right: 12),
                         child: WScaleAnimation(
-                          onTap: () => Navigator.push(
-                            context,
-                            fade(page: const RentFilterScreen()),
-                          ),
+                          onTap: () {
+                            context
+                                .read<RegionsBloc>()
+                                .add(RegionsEvent.getRegions());
+                            Navigator.push(
+                                    context,
+                                    fade(
+                                        page: RentFilterScreen(
+                                            rentBloc: rentBloc)))
+                                .then((value) =>
+                                    rentBloc.add(RentGetResultsEvent()));
+                          },
                           child: SvgPicture.asset(AppIcons.rentFilter),
                         ),
                       )
@@ -70,14 +78,16 @@ class _RentScreenState extends State<RentScreen>
                   ),
                   Container(
                     decoration: BoxDecoration(
-                        color: Theme.of(context).appBarTheme.backgroundColor,
-                        boxShadow: [
-                          BoxShadow(
-                              offset: const Offset(0, 8),
-                              blurRadius: 24,
-                              color: dark.withOpacity(.08),
-                              spreadRadius: 0),
-                        ]),
+                      color: Theme.of(context).appBarTheme.backgroundColor,
+                      boxShadow: [
+                        BoxShadow(
+                          offset: const Offset(0, 8),
+                          blurRadius: 24,
+                          color: dark.withOpacity(.08),
+                          spreadRadius: 0,
+                        ),
+                      ],
+                    ),
                     child: Container(
                       height: 32,
                       decoration: BoxDecoration(
@@ -139,7 +149,7 @@ class _RentScreenState extends State<RentScreen>
               controller: tabController,
               children: [
                 CarsScreen(id: state.categoryId),
-                const CommercialScreen(),
+                const RentCommercialScreen(),
               ],
             ),
           ),

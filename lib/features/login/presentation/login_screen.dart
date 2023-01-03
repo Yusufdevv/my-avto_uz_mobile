@@ -17,6 +17,7 @@ import 'package:auto/features/onboarding/presentation/widgets/social_media_item.
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:formz/formz.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
@@ -37,8 +38,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   void initState() {
-    phoneController = TextEditingController(text: '90 773 73 33');
-    passwordController = TextEditingController(text: '123456');
+    phoneController = TextEditingController(text: '94 678 60 12');
+    passwordController = TextEditingController(text: 'rW2gA6eN4hB9rQ1m');
     super.initState();
   }
 
@@ -162,9 +163,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           context.read<AuthenticationBloc>().add(LoginUser(
                               onError: (text) {
                                 if (text.isNotEmpty) {
-                                  context
-                                      .read<ShowPopUpBloc>()
-                                      .add(ShowPopUp(message: text));
+                                  context.read<ShowPopUpBloc>().add(ShowPopUp(
+                                      message: text, isSucces: false));
                                 } else {}
                               },
                               password: passwordController.text,
@@ -201,7 +201,7 @@ class _LoginScreenState extends State<LoginScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                   const Expanded(
+                  const Expanded(
                       child: WDivider(
                     margin: EdgeInsets.only(left: 32),
                   )),
@@ -234,11 +234,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   SocialMediaItem(
                       // onTap: () {},
                       icon: SvgPicture.asset(
-                        AppIcons.apple,
-                        color: Theme.of(context)
-                            .extension<ThemedColors>()!
-                            .blackToWhite80,
-                      )),
+                    AppIcons.apple,
+                    color: Theme.of(context)
+                        .extension<ThemedColors>()!
+                        .blackToWhite80,
+                  )),
                   const SizedBox(width: 24),
                   SocialMediaItem(
                     // onTap: () {},

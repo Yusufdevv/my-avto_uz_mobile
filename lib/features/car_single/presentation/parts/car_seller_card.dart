@@ -3,17 +3,27 @@ import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/generated/locale_keys.g.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class CarSellerCard extends StatelessWidget {
-  const CarSellerCard({Key? key}) : super(key: key);
+  final String image;
+  final String name;
+  final String position;
+
+  const CarSellerCard(
+      {Key? key,
+      required this.image,
+      required this.name,
+      required this.position})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) => Container(
-    color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
-        padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+        color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
+        padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -29,16 +39,21 @@ class CarSellerCard extends StatelessWidget {
             ),
             Row(
               children: [
-                SizedBox(height: 44,width: 44,
-                  child: CircleAvatar(
-                    radius: 16,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(50),
-                      child: Image.asset(AppImages.audi,),
+                SizedBox(
+                  height: 44,
+                  width: 44,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(50),
+                    child: CachedNetworkImage(
+                      imageUrl: image,
+                      fit: BoxFit.cover,
+                      errorWidget: (context, url, error) => Image.asset(
+                        AppImages.defaultPhoto,
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                 ),
-
                 const SizedBox(
                   width: 8,
                 ),
@@ -46,7 +61,7 @@ class CarSellerCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Анвар Гулямов',
+                      name,
                       style: Theme.of(context).textTheme.headline2!.copyWith(
                             fontWeight: FontWeight.w600,
                             fontSize: 16,
@@ -56,10 +71,10 @@ class CarSellerCard extends StatelessWidget {
                       height: 2,
                     ),
                     Text(
-                      LocaleKeys.private_person.tr(),
+                      position,
                       style: Theme.of(context).textTheme.headline2!.copyWith(
                           fontWeight: FontWeight.w600,
-                          fontSize: 12  ,
+                          fontSize: 12,
                           color: const Color(0xff695CEA)),
                     ),
                   ],
@@ -72,8 +87,12 @@ class CarSellerCard extends StatelessWidget {
             Container(
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12),
-                  color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
-                  border: Border.all(color: Theme.of(context).extension<ThemedColors>()!.solitudeToDarkRider)),
+                  color:
+                      Theme.of(context).extension<ThemedColors>()!.whiteToDark,
+                  border: Border.all(
+                      color: Theme.of(context)
+                          .extension<ThemedColors>()!
+                          .solitudeToDarkRider)),
               child: Stack(
                 children: [
                   Container(
@@ -93,8 +112,11 @@ class CarSellerCard extends StatelessWidget {
                         ),
                         Container(
                           decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(4),
-                              color: green),
+                            borderRadius: BorderRadius.circular(4),
+                            color: const Color(
+                              0xff5ECC81,
+                            ),
+                          ),
                           padding: const EdgeInsets.symmetric(
                               vertical: 6, horizontal: 8),
                           child: Row(
@@ -114,7 +136,8 @@ class CarSellerCard extends StatelessWidget {
                                     .headline1!
                                     .copyWith(
                                         fontWeight: FontWeight.w400,
-                                        fontSize: 14, color: white),
+                                        fontSize: 14,
+                                        color: white),
                               ),
                             ],
                           ),

@@ -1,4 +1,4 @@
-import 'package:auto/features/reviews/domain/entities/make_entity.dart';
+import 'package:auto/features/ad/domain/entities/types/make.dart';
 import 'package:json_annotation/json_annotation.dart';
 part 'make_model.g.dart';
 

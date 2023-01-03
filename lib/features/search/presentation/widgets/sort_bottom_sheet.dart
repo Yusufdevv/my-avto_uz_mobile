@@ -2,14 +2,15 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/colors/light.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
+import 'package:auto/features/search/presentation/search_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class SortBottomSheet extends StatefulWidget {
   final String title;
-  final ValueChanged<String> onChanged;
-  final List<String> values;
-  final String? defaultValue;
+  final ValueChanged<SortSearchResultStatus> onChanged;
+  final List<SortSearchResultsModel> values;
+  final SortSearchResultStatus? defaultValue;
   const SortBottomSheet(
       {required this.title,
       required this.values,
@@ -22,7 +23,7 @@ class SortBottomSheet extends StatefulWidget {
 }
 
 class _SortBottomSheetState extends State<SortBottomSheet> {
-  String? groupValue;
+  SortSearchResultStatus? groupValue;
 
   @override
   void initState() {
@@ -67,47 +68,24 @@ class _SortBottomSheetState extends State<SortBottomSheet> {
                     widget.values.length,
                     (index) => GestureDetector(
                           behavior: HitTestBehavior.opaque,
-                          onTap: () =>
-                              setState(() => groupValue = widget.values[index]),
+                          onTap: () => setState(
+                              () => groupValue = widget.values[index].status),
                           child: Container(
                             padding: const EdgeInsets.all(12),
                             margin: const EdgeInsets.only(
                                 left: 16, bottom: 10, right: 16),
                             decoration: BoxDecoration(
-                              color: widget.values[index] == groupValue
+                              color: widget.values[index].status == groupValue
                                   ? purple.withOpacity(.1)
                                   : null,
                               borderRadius: BorderRadius.circular(12),
                             ),
                             child: Row(
                               children: [
-                                Transform.scale(
-                                  scale: 1.3,
-                                  child: SizedBox(
-                                    height: 24,
-                                    width: 24,
-                                    child: Radio<String>(
-                                      activeColor: purple,
-                                      focusColor: red,
-                                      visualDensity: const VisualDensity(
-                                        horizontal:
-                                            VisualDensity.minimumDensity,
-                                        vertical: VisualDensity.minimumDensity,
-                                      ),
-                                      materialTapTargetSize:
-                                          MaterialTapTargetSize.shrinkWrap,
-                                      value: widget.values[index],
-                                      groupValue: groupValue,
-                                      onChanged: (val) =>
-                                          setState(() => groupValue = val),
-                                      splashRadius: 0,
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(width: 8),
                                 Text(
-                                  widget.values[index],
-                                  style: widget.values[index] == groupValue
+                                  widget.values[index].title,
+                                  style: widget.values[index].status ==
+                                          groupValue
                                       ? Theme.of(context)
                                           .textTheme
                                           .subtitle1!
@@ -117,6 +95,30 @@ class _SortBottomSheetState extends State<SortBottomSheet> {
                                           .headline6!
                                           .copyWith(
                                               color: LightThemeColors.smoky),
+                                ),
+                                Spacer(),
+                                Transform.scale(
+                                  scale: 1.3,
+                                  child: SizedBox(
+                                    height: 24,
+                                    width: 24,
+                                    child: Radio<SortSearchResultStatus>(
+                                      activeColor: purple,
+                                      focusColor: red,
+                                      visualDensity: const VisualDensity(
+                                        horizontal:
+                                            VisualDensity.minimumDensity,
+                                        vertical: VisualDensity.minimumDensity,
+                                      ),
+                                      materialTapTargetSize:
+                                          MaterialTapTargetSize.shrinkWrap,
+                                      value: widget.values[index].status,
+                                      groupValue: groupValue,
+                                      onChanged: (val) =>
+                                          setState(() => groupValue = val),
+                                      splashRadius: 0,
+                                    ),
+                                  ),
                                 ),
                               ],
                             ),
@@ -135,7 +137,6 @@ class _SortBottomSheetState extends State<SortBottomSheet> {
                       .textTheme
                       .subtitle1!
                       .copyWith(color: white),
-                      
                   margin: EdgeInsets.only(
                     bottom: MediaQuery.of(context).padding.bottom + 20,
                     top: 20,

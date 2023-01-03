@@ -46,6 +46,9 @@ class AutoModel extends AutoEntity {
     required super.userType,
     required super.viewsCount,
     required super.isComparison,
+    required super.discount,
+    required super.contactAvailableFrom,
+    required super.contactAvailableTo,
   });
 
   factory AutoModel.fromJson(Map<String, dynamic> json) =>

@@ -26,6 +26,7 @@ class AppIcons {
 
   //GLOBAL
   static const fluentCar = 'assets/icons/global/fluent_car.svg';
+  static const userAvatar = 'assets/icons/global/user_avatar.svg';
   static const phoneWithClock = 'assets/icons/global/phone_with_clock.png';
   static const chevronLeft = 'assets/icons/global/chevron_left.svg';
   static const chevronTop = 'assets/icons/global/chevron_top.svg';
@@ -43,6 +44,7 @@ class AppIcons {
   static const smallClose = 'assets/icons/global/smallClose.svg';
   static const chevrolet = 'assets/icons/global/chevrolet.svg';
   static const kia = 'assets/icons/global/kia.svg';
+  static const alfaRameo = 'assets/icons/global/alfa_rameo.svg';
   static const roundedClose = 'assets/icons/global/rounded_close.svg';
   static const addCarIcon = 'assets/icons/global/add_car_icon.svg';
   static const statusGood = 'assets/icons/global/status_good.svg';
@@ -51,8 +53,10 @@ class AppIcons {
   static const close = 'assets/icons/global/close.svg';
   static const flagUzb = 'assets/icons/global/flag_uzb.svg';
   static const bell = 'assets/icons/global/bell.svg';
+  static const bellWithCircle = 'assets/icons/profile/bell_with_circle.svg';
+  static const ellipseRed = 'assets/icons/profile/ellipse_red.svg';
   static const eye = 'assets/icons/global/eye.svg';
-  static const circlePlus = 'assets/icons/global/circle_plus.svg';
+  static const circlePlus = 'assets/icons/profile/circle_plus.svg';
   static const closeSquare = 'assets/icons/global/close_square.svg';
   static const edit = 'assets/icons/global/edit.svg';
   static const check = 'assets/icons/global/check.svg';
@@ -71,6 +75,10 @@ class AppIcons {
   static const mapPin = 'assets/icons/global/map_pin.svg';
   static const filterIcon = 'assets/icons/global/filter_icon.svg';
   static const cancel = 'assets/icons/global/cancel.svg';
+  static const locationIcon = 'assets/icons/global/location_icon.svg';
+  static const currentLocation = 'assets/icons/global/current_location.svg';
+  static const currentLoc = 'assets/images/global/current_location.png';
+  static const dealersLocIcon = 'assets/images/global/dealers_loc_icon.png';
 
   // PROFILE
   static const alert = 'assets/icons/profile/alert.svg';
@@ -190,6 +198,10 @@ class AppIcons {
   // static const id = 'assets/icons/car_single/id.svg';
   static const refresher = 'assets/icons/car_single/refreshers.svg';
   static const rocket = 'assets/icons/car_single/rocket.svg';
+  static const soon = 'assets/icons/car_single/soon.svg';
+  static const blue_fire = 'assets/icons/car_single/blue_fire.svg';
+  static const vin_soon = 'assets/icons/car_single/vin_soon.svg';
+  static const blue_vin_soon = 'assets/icons/car_single/blue_vin_soon.svg';
   static const safe = 'assets/icons/car_single/safety.svg';
   static const shieldCheckOutlined = 'assets/icons/car_single/shield_check_outlined.svg';
 

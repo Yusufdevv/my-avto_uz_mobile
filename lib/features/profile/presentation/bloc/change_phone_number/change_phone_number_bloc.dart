@@ -17,9 +17,11 @@ class ChangePhoneNumberBloc
     required this.changePhoneNumberUseCase,
     required this.sendSmsVerificationUseCase,
   }) : super(const ChangePhoneNumberState(
-            status: FormzStatus.pure, phoneNumber: '', session: '')) {
+          status: FormzStatus.pure,
+          phoneNumber: '',
+          session: '',
+        )) {
     on<SendPhoneNumberEvent>(_onSendPhoneNumber);
-
     on<VerifyCodeEvent>(_onSendSmsVerificationCode);
   }
 
@@ -30,25 +32,14 @@ class ChangePhoneNumberBloc
       final result = await changePhoneNumberUseCase
           .call(ChangePhoneNumberParams(phoneNumber: event.newPhoneNumber));
       if (result.isRight) {
-        emit(state.copyWith(
-          status: FormzStatus.submissionSuccess,
-        ));
-        if (event.onSuccess != null) {
-          event.onSuccess!(result.right);
-        }
+        emit(state.copyWith(status: FormzStatus.submissionSuccess));
+          event.onSuccess();
+        emit(state.copyWith(session: result.right));
+
       } else {
-        emit(state.copyWith(status: FormzStatus.submissionInProgress));
+        event.onError(result.left.toString());
+        emit(state.copyWith(status: FormzStatus.submissionFailure));
       }
-
-      // if (result.isRight) {
-      //   emit(state.copyWith(session: result.right));
-      //   emit(state.copyWith(status: FormzStatus.submissionSuccess));
-      //   event.onSuccess!(result.right);
-      // } else {
-      //   emit(state.copyWith(status: FormzStatus.submissionFailure));
-      //   event.onError(result.left.toString());
-      // }
-
     } else {
       emit(state.copyWith(status: FormzStatus.submissionFailure));
       event.onError('Telefon nomeringizni kiriting');
@@ -60,12 +51,12 @@ class ChangePhoneNumberBloc
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
     if (event.newPhoneNumber.isNotEmpty &&
         event.code.isNotEmpty &&
-        event.session.isNotEmpty) {
+        state.session.isNotEmpty) {
       final result = await sendSmsVerificationUseCase.call(
           SmsVerificationParams(
               phoneNumber: event.newPhoneNumber,
               code: event.code,
-              session: event.session));
+              session: state.session));
 
       if (result.isRight) {
         event.onSuccess();

@@ -58,23 +58,25 @@ class LogoOutBottomsheet extends StatelessWidget {
             SizedBox(height: SizeConfig.v(64)),
             Row(
               children: [
-                WButton(
-                    color: solitude,
-                    width: (MediaQuery.of(context).size.width / 2) - 16 - 7.5,
-                    onTap: () => Navigator.pop(context),
-                    text: 'Нет',
-                    textColor: greyText),
+                Expanded(
+                  child: WButton(
+                      color: solitude,
+                      onTap: () => Navigator.pop(context),
+                      text: 'Нет',
+                      textColor: greyText),
+                ),
                 const SizedBox(width: 13),
-                WButton(
-                  color: tutu,
-                  width: (MediaQuery.of(context).size.width / 2) - 16 - 7.5,
-                  onTap: () {
-                    StorageRepository.deleteString('token');
-                    Navigator.of(context).pushAndRemoveUntil(
-                        fade(page: const LoginScreen()), (route) => false);
-                  },
-                  text: 'Да',
-                  textColor: red,
+                Expanded(
+                  child: WButton(
+                    color: tutu,
+                    onTap: () {
+                      StorageRepository.deleteString('token');
+                      Navigator.of(context).pushAndRemoveUntil(
+                          fade(page: const LoginScreen()), (route) => false);
+                    },
+                    text: 'Да',
+                    textColor: red,
+                  ),
                 ),
               ],
             )

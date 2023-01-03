@@ -5,7 +5,6 @@ import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_like.dart';
-import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/search/presentation/part/bottom_sheet_for_calling.dart';
 import 'package:auto/features/search/presentation/widgets/custom_chip.dart';
 import 'package:auto/utils/my_functions.dart';
@@ -31,7 +30,7 @@ class InfoResultContainer extends StatelessWidget {
       required this.hasComparison,
       required this.callFrom,
       required this.callTo,
-      this.discountPrice,
+      required this.discount,
       this.sellType,
       super.key});
   final List<String> gallery;
@@ -48,14 +47,11 @@ class InfoResultContainer extends StatelessWidget {
   final String publishedAt;
   final bool isWishlisted;
   final bool hasComparison;
+  final double discount;
   final String callFrom;
   final String callTo;
 
-  final String? discountPrice;
   final String? sellType;
-  bool enableForCalling() {
-    return false;
-  }
 
   @override
   Widget build(BuildContext context) => Container(
@@ -100,12 +96,14 @@ class InfoResultContainer extends StatelessWidget {
                         ),
                       ),
                     ),
-                  if (enableForCalling())
+                  if (MyFunctions.enableForCalling(
+                      callFrom: callFrom, callTo: callTo))
                     WButton(
                       onTap: () {
                         bottomSheetForCalling(context, contactPhone);
                       },
                       height: 201,
+                      borderRadius: 0,
                       color: emerald,
                       margin: const EdgeInsets.only(left: 2, right: 16),
                       width: 264,
@@ -113,7 +111,7 @@ class InfoResultContainer extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          SvgPicture.asset(AppIcons.phoneCall),
+                          SvgPicture.asset(AppIcons.phone),
                           Text(
                             'Позвонить',
                             style: Theme.of(context)
@@ -158,7 +156,7 @@ class InfoResultContainer extends StatelessWidget {
                                       .copyWith(color: greyText),
                                 ),
                                 TextSpan(
-                                  text: '09:00 - 18:00',
+                                  text: '$callFrom - $callTo',
                                   style: Theme.of(context)
                                       .textTheme
                                       .headline2!
@@ -225,7 +223,7 @@ class InfoResultContainer extends StatelessWidget {
                   const SizedBox(),
               ],
             ),
-            if (discountPrice == null)
+            if (discount == -1)
               RichText(
                 text: TextSpan(
                   text: MyFunctions.getFormatCost('$price'),
@@ -243,7 +241,7 @@ class InfoResultContainer extends StatelessWidget {
                 text: TextSpan(
                   children: [
                     TextSpan(
-                      text: MyFunctions.getFormatCost(discountPrice!),
+                      text: MyFunctions.getFormatCost(discount.toString()),
                       style: const TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.w600,
@@ -272,20 +270,30 @@ class InfoResultContainer extends StatelessWidget {
             const SizedBox(height: 12),
             Row(
               children: [
-                SizedBox(
-                  height: 36,
-                  width: 36,
-                  child: CachedNetworkImage(
-                    imageBuilder: (context, imageProvider) => Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(150),
+                CachedNetworkImage(
+                  imageBuilder: (context, imageProvider) => Container(
+                    height: 36,
+                    width: 36,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(150),
+                    ),
+                  ),
+                  errorWidget: (context, url, error) => Container(
+                    padding: const EdgeInsets.all(8),
+                    // height: 36,
+                    // width: 36,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(150),
+                      color: warmerGrey,
+                      border: Border.all(
+                        color: dividerColor,
+                        width: 1,
                       ),
                     ),
-                    errorWidget: (context, url, error) =>
-                        SvgPicture.asset(AppIcons.car),
-                    imageUrl: userImage,
-                    fit: BoxFit.cover,
+                    child: SvgPicture.asset(AppIcons.userAvatar),
                   ),
+                  imageUrl: userImage,
+                  fit: BoxFit.cover,
                 ),
                 const SizedBox(width: 8),
                 RichText(
