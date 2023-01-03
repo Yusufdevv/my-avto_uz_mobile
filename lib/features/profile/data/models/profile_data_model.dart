@@ -20,22 +20,23 @@ class ProfileDataModel extends ProfileDataEntity {
     required super.usercountdata,
   });
 
-  factory ProfileDataModel.fromJson(Map<String, dynamic> json) => ProfileDataModel(
-        id: json['id'],
+  factory ProfileDataModel.fromJson(Map<String, dynamic>? json) =>
+      ProfileDataModel(
+        id: json!['id'],
         username: json['username'],
         firstName: json['first_name'],
         lastName: json['last_name'],
         fullName: json['full_name'],
         email: json['email'],
         image: json['image'],
-        region: Region.fromJson(json['region']),
+        region: json['region'] == null ? null : Region.fromJson(json['region']),
         phoneNumber: json['phone_number'],
         isDealer: json['is_dealer'],
         isActive: json['is_active'],
         isStaff: json['is_staff'],
         isSuperuser: json['is_superuser'],
-        lastLogin: json['last_login'],
-        dateJoined: DateTime.parse(json['date_joined']),
+        lastLogin: json['last_login'] as String? ?? '',
+        dateJoined: json['date_joined'],
         usercountdata: Usercountdata.fromJson(json['usercountdata']),
-    );
+      );
 }

@@ -48,5 +48,6 @@ class AppImages {
   static const clickpng = 'assets/images/car_single/click.png';
   static const paymepng = 'assets/images/car_single/payme.png';
   static const upaypng = 'assets/images/car_single/upay.png';
+  static const vin_soon = 'assets/images/car_single/vin_soon.png';
   static const noItemFoundCar = 'assets/images/global/no_item_found_car.png';
 }

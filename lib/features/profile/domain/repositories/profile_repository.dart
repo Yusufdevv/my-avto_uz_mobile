@@ -3,6 +3,7 @@ import 'package:auto/core/utils/either.dart';
 import 'package:auto/features/profile/domain/entities/favourite_entity.dart';
 import 'package:auto/features/profile/domain/entities/profile_data_entity.dart';
 import 'package:auto/features/profile/domain/entities/profile_entity.dart';
+import 'package:auto/features/profile/domain/entities/terms_of_use_entity.dart';
 
 abstract class ProfileRepository {
   const ProfileRepository();
@@ -21,4 +22,6 @@ abstract class ProfileRepository {
   Future<Either<ServerFailure, String>> sendVerificationCode({required String phoneNumber, required String code,required String session});
 
   Future<Either<ServerFailure, List<FavoriteEntity>>> getProfileFavorites();
+
+  Future<Either<ServerFailure, List<TermsOfUseEntity>>> getTermsOfUse();
 }

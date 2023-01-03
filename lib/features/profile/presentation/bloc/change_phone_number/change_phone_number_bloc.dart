@@ -17,9 +17,11 @@ class ChangePhoneNumberBloc
     required this.changePhoneNumberUseCase,
     required this.sendSmsVerificationUseCase,
   }) : super(const ChangePhoneNumberState(
-            status: FormzStatus.pure, phoneNumber: '', session: '')) {
+          status: FormzStatus.pure,
+          phoneNumber: '',
+          session: '',
+        )) {
     on<SendPhoneNumberEvent>(_onSendPhoneNumber);
-
     on<VerifyCodeEvent>(_onSendSmsVerificationCode);
   }
 
@@ -38,16 +40,6 @@ class ChangePhoneNumberBloc
         event.onError(result.left.toString());
         emit(state.copyWith(status: FormzStatus.submissionFailure));
       }
-
-      // if (result.isRight) {
-      //   emit(state.copyWith(session: result.right));
-      //   emit(state.copyWith(status: FormzStatus.submissionSuccess));
-      //   event.onSuccess!(result.right);
-      // } else {
-      //   emit(state.copyWith(status: FormzStatus.submissionFailure));
-      //   event.onError(result.left.toString());
-      // }
-
     } else {
       emit(state.copyWith(status: FormzStatus.submissionFailure));
       event.onError('Telefon nomeringizni kiriting');

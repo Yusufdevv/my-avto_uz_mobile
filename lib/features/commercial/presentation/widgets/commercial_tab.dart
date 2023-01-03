@@ -22,11 +22,11 @@ class CommercialTab extends StatelessWidget {
         child: Container(
           height: 32,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(9),
+            borderRadius: BorderRadius.circular(8),
             color: stormGrey12,
           ),
           padding: const EdgeInsets.all(2),
-          margin: const EdgeInsets.only(left: 16, right: 16, bottom: 10),
+          margin: const EdgeInsets.only(left: 16, right: 16, bottom: 12),
           child: TabBar(
             controller: tabController,
             indicator: BoxDecoration(

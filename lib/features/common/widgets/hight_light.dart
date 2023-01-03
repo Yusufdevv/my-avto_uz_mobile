@@ -76,7 +76,7 @@ class HighlightedText extends StatelessWidget {
             child: Container(
               decoration: BoxDecoration(
                 color: highlightColor,
-                borderRadius: BorderRadius.circular(3),
+                borderRadius: BorderRadius.circular(4),
               ),
               child: Text(
                 allText.substring(start, idxNearest + termLen),

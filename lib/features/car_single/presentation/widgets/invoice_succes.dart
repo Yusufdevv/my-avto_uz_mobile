@@ -2,7 +2,6 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/features/car_single/presentation/car_single_screen.dart';
 import 'package:auto/features/car_single/presentation/widgets/orange_button.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
-import 'package:auto/features/main/domain/entities/ads_entity.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
@@ -37,13 +36,11 @@ class InvoiceSucces extends StatelessWidget {
                     shadowColor: white,
                     color: orange,
                     content: Text('Вернутся на объявление',
-                        style:
-                            Theme.of(context).textTheme.headline4!.copyWith(fontSize: 14, fontWeight: FontWeight.w600)),
+                        style: Theme.of(context).textTheme.headline4!.copyWith(
+                            fontSize: 14, fontWeight: FontWeight.w600)),
                     onTap: () {
-                      Navigator.of(context).push(fade(
-                          page: const CarSingleScreen(
-                        adsEntity: AdsEntity(),
-                      )));
+                      Navigator.of(context)
+                          .push(fade(page: const CarSingleScreen()));
                     }),
                 SizedBox(
                   height: MediaQuery.of(context).padding.bottom + 16,

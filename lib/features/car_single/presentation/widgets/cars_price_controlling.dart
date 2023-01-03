@@ -5,14 +5,18 @@ class CarsPrice extends StatelessWidget {
   final String date;
   final String totalPrice;
   final String price;
+  final Color textColor;
 
   const CarsPrice(
-      {required this.date, required this.price, required this.totalPrice});
+      {required this.date,
+      required this.price,
+      required this.totalPrice,
+      required this.textColor});
 
   @override
   Widget build(BuildContext context) => Padding(
-    padding: const EdgeInsets.symmetric(horizontal: 16),
-    child: Column(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(
@@ -38,7 +42,7 @@ class CarsPrice extends StatelessWidget {
                   style: Theme.of(context)
                       .textTheme
                       .headline4!
-                      .copyWith(color: profileContainers),
+                      .copyWith(color: textColor),
                 ),
               ],
             ),
@@ -47,5 +51,5 @@ class CarsPrice extends StatelessWidget {
             ),
           ],
         ),
-  );
+      );
 }

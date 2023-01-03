@@ -1,4 +1,6 @@
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/core/singletons/service_locator.dart';
+import 'package:auto/features/ad/data/repositories/ad_repository_impl.dart';
 import 'package:auto/features/ad/presentation/bloc/car_selector/car_selector_bloc.dart';
 import 'package:auto/features/ad/presentation/bloc/choose_model/car_type_selector_bloc.dart';
 import 'package:auto/features/ad/presentation/bloc/choose_model/model_selectro_bloc.dart';
@@ -7,7 +9,10 @@ import 'package:auto/features/common/bloc/get_makes_bloc/get_makes_bloc_bloc.dar
 import 'package:auto/features/comparison/domain/entities/comparison_entity.dart';
 import 'package:auto/features/comparison/domain/entities/complectation_entity.dart';
 import 'package:auto/features/comparison/domain/entities/complectation_parameters_entity.dart';
+import 'package:auto/features/comparison/domain/usecases/delete_comparison.dart';
 import 'package:auto/features/comparison/presentation/bloc/comparison-bloc/comparison_bloc.dart';
+import 'package:auto/features/comparison/presentation/bloc/delete_comparison/delete_comparison_bloc.dart';
+import 'package:auto/features/comparison/presentation/pages/ads/ads.dart';
 import 'package:auto/features/comparison/presentation/pages/choose_car_brand.dart';
 import 'package:auto/features/comparison/presentation/pages/choose_generation.dart';
 import 'package:auto/features/comparison/presentation/pages/choose_model.dart';
@@ -26,7 +31,7 @@ class Comparison extends StatefulWidget {
   final GetCarModelBloc carModelBloc;
   final CarSelectorBloc carSelectorBloc;
   final GetMakesBloc getMakesBloc;
-  final List<ComparisonEntity> cars;
+  final ComparisonBloc comparisonBloc;
   const Comparison({
     Key? key,
     required this.isSticky,
@@ -35,7 +40,7 @@ class Comparison extends StatefulWidget {
     required this.carModelBloc,
     required this.carSelectorBloc,
     required this.getMakesBloc,
-    required this.cars,
+    required this.comparisonBloc,
   }) : super(key: key);
 
   @override
@@ -53,7 +58,7 @@ class _ComparisonState extends State<Comparison> {
   late LinkedScrollControllerGroup linkedScrollControllerGroup;
   late List<ScrollController> scrollControllers;
   late TextEditingController searchController;
-
+  late DeleteComparisonBloc deleteComparisonBloc;
   List<Complectation> complectationParameters = [
     Complectation(
       parameterName: 'Main Data',
@@ -127,6 +132,9 @@ class _ComparisonState extends State<Comparison> {
       ...List.generate(
           complectationParameters.length + 1, (index) => ScrollController())
     ];
+    deleteComparisonBloc = DeleteComparisonBloc(
+        useCase: DeleteComparisonUseCase(
+            comparisonCarsRepo: serviceLocator<AdRepositoryImpl>()));
     for (var i = 0; i < totalNUmberOfParameters; i++) {
       scrollControllers[i] = linkedScrollControllerGroup.addAndGet();
     }
@@ -141,107 +149,116 @@ class _ComparisonState extends State<Comparison> {
   }
 
   @override
-  Widget build(BuildContext context) => NestedScrollView(
-        headerSliverBuilder: (context, innerBoxIsScrolled) => [
-          SliverOverlapAbsorber(
-            handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context),
-            sliver: SliverSafeArea(
-              top: false,
-              sliver: SliverPersistentHeader(
-                delegate: SliverWidget(
-                  numberOfAddedCars: widget.cars.length,
-                  boolean: showDifferences,
-                  onChanged: (showDifferences1) =>
-                      setState(() => showDifferences = showDifferences1),
-                  scrollController: sliverWidgetScrollController,
-                  onAddCar: () => Navigator.of(context).push(
-                    fade(
-                      page: ChooseCarBrandComparison(
-                        onTap: () => Navigator.of(context).push(
-                          fade(
-                            page: ChooseCarModelComparison(
-                              onTap: () {
-                                Navigator.of(context).push(
-                                  fade(
-                                    page: ChooseGenerationComparison(
-                                      onTap: () {},
-                                      modelBloc: widget.modelBloc,
+  Widget build(BuildContext context) =>
+      BlocBuilder<ComparisonBloc, ComparisonState>(
+        bloc: widget.comparisonBloc,
+        builder: (context, state) => NestedScrollView(
+          headerSliverBuilder: (context, innerBoxIsScrolled) => [
+            SliverOverlapAbsorber(
+              handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context),
+              sliver: SliverSafeArea(
+                top: false,
+                sliver: SliverPersistentHeader(
+                  delegate: SliverWidget(
+                    numberOfAddedCars: state.cars.length,
+                    boolean: showDifferences,
+                    onChanged: (showDifferences1) =>
+                        setState(() => showDifferences = showDifferences1),
+                    scrollController: sliverWidgetScrollController,
+                    onAddCar: () => Navigator.of(context).push(
+                      fade(
+                        page: ChooseCarBrandComparison(
+                          onTap: () => Navigator.of(context).push(
+                            fade(
+                              page: ChooseCarModelComparison(
+                                onTap: () {
+                                  // Navigator.of(context).push(
+                                  //   fade(
+                                  //     page: ChooseGenerationComparison(
+                                  //       onTap: () {},
+                                  //       modelBloc: widget.modelBloc,
+                                  //     ),
+                                  //   ),
+                                  // );
+                                  Navigator.of(context).push(
+                                    fade(
+                                      page: AdsScreen(),
                                     ),
-                                  ),
-                                );
-                              },
-                              bloc: widget.carModelBloc,
-                              carTypeSelectorBloc: widget.carTypeSelectorBloc,
-                              modelBloc: widget.modelBloc,
-                              carSelectorBloc: widget.carSelectorBloc,
-                              getMakesBloc: widget.getMakesBloc,
+                                  );
+                                },
+                                bloc: widget.carModelBloc,
+                                carTypeSelectorBloc: widget.carTypeSelectorBloc,
+                                modelBloc: widget.modelBloc,
+                                carSelectorBloc: widget.carSelectorBloc,
+                                getMakesBloc: widget.getMakesBloc,
+                              ),
                             ),
                           ),
+                          carSelectorBloc: widget.carSelectorBloc,
+                          bloc: widget.getMakesBloc,
                         ),
-                        carSelectorBloc: widget.carSelectorBloc,
-                        bloc: widget.getMakesBloc,
                       ),
                     ),
+                    setSticky: (val) {
+                      context
+                          .read<ComparisonBloc>()
+                          .add(SetStickyEvent(isSticky: val));
+                    },
+                    deleteComparisonBloc: deleteComparisonBloc,
+                    comparisonBloc: widget.comparisonBloc,
                   ),
-                  setSticky: (val) {
-                    context
-                        .read<ComparisonBloc>()
-                        .add(SetStickyEvent(isSticky: val));
-                  },
-                  cars: widget.cars,
+                  pinned: true,
                 ),
-                pinned: true,
               ),
-            ),
-          )
-        ],
-        body: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                color: Theme.of(context).extension<ThemedColors>()!.whiteToNero,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(top: 12, left: 16),
-                      child: Text(
-                        'Характеристики',
-                        style: Theme.of(context)
-                            .textTheme
-                            .headline1!
-                            .copyWith(fontSize: 18),
+            )
+          ],
+          body: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  color:
+                      Theme.of(context).extension<ThemedColors>()!.whiteToNero,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 12, left: 16),
+                        child: Text(
+                          'Характеристики',
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline1!
+                              .copyWith(fontSize: 18),
+                        ),
                       ),
-                    ),
-                    CharacteristicsParametersWidget(
-                      onChanged: (integer) {
-                        setState(() {
-                          currentValueOfComplectation = integer;
-                        });
-                      },
-                      selectedValue: currentValueOfComplectation,
-                      comparisonParameters: complectationParameters[0],
-                      numberOfAddedCars:
-                          context.read<ComparisonBloc>().state.cars,
-                      controller: scrollControllers[0],
-                    ),
-                    EngineParametersWidget(
-                      onChanged: (integer) {
-                        setState(() {
-                          currentValueOfComplectation = integer;
-                        });
-                      },
-                      selectedValue: currentValueOfComplectation,
-                      comparisonParameters: complectationParameters[1],
-                      numberOfAddedCars:
-                          context.read<ComparisonBloc>().state.cars,
-                      controller: scrollControllers[1],
-                    ),
-                  ],
+                      CharacteristicsParametersWidget(
+                        onChanged: (integer) {
+                          setState(() {
+                            currentValueOfComplectation = integer;
+                          });
+                        },
+                        selectedValue: currentValueOfComplectation,
+                        comparisonParameters: complectationParameters[0],
+                        numberOfAddedCars: state.cars,
+                        controller: scrollControllers[0],
+                      ),
+                      EngineParametersWidget(
+                        onChanged: (integer) {
+                          setState(() {
+                            currentValueOfComplectation = integer;
+                          });
+                        },
+                        selectedValue: currentValueOfComplectation,
+                        comparisonParameters: complectationParameters[1],
+                        numberOfAddedCars: state.cars,
+                        controller: scrollControllers[1],
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       );

@@ -3,8 +3,11 @@ import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 class RentCarModificationEntity extends Equatable {
+  @JsonKey(defaultValue: 0)
   final int id;
+  @JsonKey(defaultValue: '')
   final String power;
+  @JsonKey(defaultValue: '')
   final String volume;
 
   const RentCarModificationEntity({

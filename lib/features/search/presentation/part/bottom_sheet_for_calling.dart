@@ -19,6 +19,7 @@ Future<dynamic> bottomSheetForCalling(BuildContext context, String phone) =>
               child: Column(
                 children: [
                   WScaleAnimation(
+                    
                     child: Container(
                       height: 60,
                       width: double.maxFinite,
@@ -47,7 +48,7 @@ Future<dynamic> bottomSheetForCalling(BuildContext context, String phone) =>
                       ),
                     ),
                     onTap: () {
-                      launchUrlString(phone);
+                      launchUrlString('tel: $phone');
                     },
                   ),
                   WScaleAnimation(
@@ -106,7 +107,7 @@ Future<dynamic> bottomSheetForCalling(BuildContext context, String phone) =>
                     ),
                   ),
                   onTap: () {
-                    launchUrlString(phone);
+                    launchUrlString('tel: $phone');
                   },
                 )
               ],

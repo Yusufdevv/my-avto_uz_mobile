@@ -16,7 +16,7 @@ SearchItemModel _$SearchItemModelFromJson(Map<String, dynamic> json) =>
           const [],
       publishedAt: json['published_at'] as String? ?? '',
       isNew: json['is_new'] as bool? ?? false,
-      price: json['price'] as int? ?? 0,
+      price: (json['price'] as num?)?.toDouble() ?? 0,
       isWishlisted: json['is_wishlisted'] as bool? ?? false,
       currency: json['currency'] as String? ?? '',
       userType: json['user_type'] as String? ?? '',
@@ -33,10 +33,7 @@ SearchItemModel _$SearchItemModelFromJson(Map<String, dynamic> json) =>
           ? const CarModelEntity()
           : const CarModelConverter()
               .fromJson(json['car_model'] as Map<String, dynamic>?),
-      dealer: json['dealer'] == null
-          ? const CarDealerEntity()
-          : const CarDealerConverter()
-              .fromJson(json['dealer'] as Map<String, dynamic>?),
+      dealer: json['dealer'],
       carGeneration: json['car_generation'] == null
           ? const CarGenerationEntity()
           : const CarGenerationConverter()
@@ -49,21 +46,21 @@ SearchItemModel _$SearchItemModelFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$SearchItemModelToJson(SearchItemModel instance) =>
     <String, dynamic>{
+      'car_make': const CarMakeConverter().toJson(instance.carMake),
+      'car_model': const CarModelConverter().toJson(instance.carModel),
+      'car_generation':
+          const CarGenerationConverter().toJson(instance.carGeneration),
       'car_year': instance.carYear,
+      'district': const CarDistrictConverter().toJson(instance.district),
+      'user': const CarUserConverter().toJson(instance.user),
+      'dealer': instance.dealer,
       'description': instance.description,
-      'gallery': instance.gallery,
-      'published_at': instance.publishedAt,
+      'contact_phone': instance.contactPhone,
+      'user_type': instance.userType,
       'is_new': instance.isNew,
       'price': instance.price,
       'currency': instance.currency,
+      'gallery': instance.gallery,
+      'published_at': instance.publishedAt,
       'is_wishlisted': instance.isWishlisted,
-      'user_type': instance.userType,
-      'contact_phone': instance.contactPhone,
-      'district': const CarDistrictConverter().toJson(instance.district),
-      'user': const CarUserConverter().toJson(instance.user),
-      'car_model': const CarModelConverter().toJson(instance.carModel),
-      'dealer': const CarDealerConverter().toJson(instance.dealer),
-      'car_generation':
-          const CarGenerationConverter().toJson(instance.carGeneration),
-      'car_make': const CarMakeConverter().toJson(instance.carMake),
     };

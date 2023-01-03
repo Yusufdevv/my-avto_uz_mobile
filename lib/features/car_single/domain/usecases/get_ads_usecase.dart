@@ -1,8 +1,8 @@
 import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/core/usecases/usecase.dart';
+import 'package:auto/core/utils/either.dart';
 import 'package:auto/features/car_single/domain/entities/car_single_entity.dart';
 import 'package:auto/features/car_single/domain/repository/car_single_repository.dart';
-import 'package:auto/core/utils/either.dart';
 
 class GetCarSingleUseCase implements UseCase<CarSingleEntity, int> {
   final CarSingleRepository repository;
@@ -10,5 +10,6 @@ class GetCarSingleUseCase implements UseCase<CarSingleEntity, int> {
   GetCarSingleUseCase({required this.repository});
 
   @override
-  Future<Either<Failure, CarSingleEntity>> call(int params) async => await repository.getCarSingle(id: params);
+  Future<Either<Failure, CarSingleEntity>> call(int params) =>
+      repository.getCarSingle(id: params);
 }

@@ -22,7 +22,11 @@ class CommercialBodyScreen extends StatelessWidget {
       physics: const BouncingScrollPhysics(),
       children: [
         const SizedBox(height: 16),
-        CommercialCarModelItem(title: 'Mercedes-Benz', subtitle: 'Sprinter'),
+        CommercialCarModelItem(
+          title: 'Mercedes-Benz',
+          subtitle: 'Sprinter',
+          onTap: () {},
+        ),
         const SizedBox(height: 12),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -126,7 +130,7 @@ class CommercialBodyScreen extends StatelessWidget {
               discountPrice: '270 000 000 UZS',
               sellType: sellType[index],
               hasStatusInfo: hasDiscount[index],
-              hasCallCard: hasDiscount[index],
+              hasCallCard: hasDiscount[index], onTapFavorites: () {  }, onTapComparsion: () {  },
             ),
           ),
         )

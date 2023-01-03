@@ -1,7 +1,6 @@
 import 'package:auto/features/car_single/presentation/parts/description_tabs.dart';
 import 'package:flutter/material.dart';
 
-
 class DescriptionHeader extends SliverPersistentHeaderDelegate {
   @override
   double get minExtent => 40;
@@ -14,6 +13,18 @@ class DescriptionHeader extends SliverPersistentHeaderDelegate {
 
   @override
   Widget build(
-      BuildContext context, double shrinkOffset, bool overlapsContent) =>  const DescriptionTabs();
+          BuildContext context, double shrinkOffset, bool overlapsContent) =>
+      DescriptionTabs(
+        changeIndex: () {},
+        comment: '',
+        complectation: '',
+        complectationItem: '',
+        bodyType: '',
+        milleage: '',
+        driveType: '',
+        engineType: '',
+        gearboxType: '',
+        enginePower: '',
+        engineVolume: '',
+      );
 }
-

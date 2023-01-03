@@ -1,15 +1,9 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
-import 'package:auto/features/common/widgets/w_button.dart';
-import 'package:auto/features/navigation/presentation/navigator.dart';
-import 'package:auto/features/reviews/presentation/pages/add_review_screen.dart';
 import 'package:auto/features/reviews/presentation/widgets/cancelled_review_item.dart';
 import 'package:auto/features/reviews/presentation/widgets/my_reviews_item.dart';
-import 'package:auto/features/reviews/presentation/widgets/review_bottom_sheet_item.dart';
-import 'package:auto/features/search/presentation/widgets/sort_bottom_sheet.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 class MyReviewsScreen extends StatelessWidget {
