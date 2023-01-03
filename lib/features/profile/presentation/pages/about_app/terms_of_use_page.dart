@@ -46,10 +46,10 @@ class TermsOfUsePage extends StatelessWidget {
                         child: Html(
                           data: state.termsOfUseEntity[0].content,
                           style: {
-                            // 'p strong': Style(
-                            //     color: const Color(0xFF171717),
-                            //     fontSize: FontSize(14),
-                            //     padding: EdgeInsets.all(16)),
+                            'p strong': Style(
+                                color: const Color(0xFF171717),
+                                fontSize: FontSize(14),
+                                fontWeight: FontWeight.w900),
                             'p': Style(
                                 padding:
                                     EdgeInsets.only(bottom: SizeConfig.v(16)),

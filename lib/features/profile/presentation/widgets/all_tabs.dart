@@ -8,7 +8,6 @@ import 'package:auto/features/profile/presentation/widgets/information_item.dart
 import 'package:auto/features/search/presentation/part/bottom_sheet_for_calling.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -228,7 +227,7 @@ class _AllTabsState extends State<AllTabs> {
                                   ),
                           children: [
                             TextSpan(
-                              text: '4' + LocaleKeys.days.tr(),
+                              text: '4${LocaleKeys.days.tr()}',
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyText1!
@@ -307,7 +306,10 @@ class _AllTabsState extends State<AllTabs> {
                             padding: const EdgeInsets.symmetric(
                                 vertical: 10, horizontal: 11),
                             onTap: () {},
-                            child: SvgPicture.asset(AppIcons.share1),
+                            child: SvgPicture.asset(AppIcons.share,
+                                color: Theme.of(context)
+                                    .extension<ThemedColors>()!
+                                    .mediumSlateBlueToWhite),
                           ),
                         ],
                       ),

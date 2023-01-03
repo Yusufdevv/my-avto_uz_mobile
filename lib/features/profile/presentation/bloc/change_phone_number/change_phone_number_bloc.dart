@@ -33,9 +33,9 @@ class ChangePhoneNumberBloc
           .call(ChangePhoneNumberParams(phoneNumber: event.newPhoneNumber));
       if (result.isRight) {
         emit(state.copyWith(status: FormzStatus.submissionSuccess));
-        if (event.onSuccess != null) {
-          event.onSuccess!(result.right);
-        }
+          event.onSuccess();
+        emit(state.copyWith(session: result.right));
+
       } else {
         event.onError(result.left.toString());
         emit(state.copyWith(status: FormzStatus.submissionFailure));
@@ -51,12 +51,12 @@ class ChangePhoneNumberBloc
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
     if (event.newPhoneNumber.isNotEmpty &&
         event.code.isNotEmpty &&
-        event.session.isNotEmpty) {
+        state.session.isNotEmpty) {
       final result = await sendSmsVerificationUseCase.call(
           SmsVerificationParams(
               phoneNumber: event.newPhoneNumber,
               code: event.code,
-              session: event.session));
+              session: state.session));
 
       if (result.isRight) {
         event.onSuccess();
