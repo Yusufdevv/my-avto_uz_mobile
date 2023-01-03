@@ -36,7 +36,7 @@ ResultModel _$ResultModelFromJson(Map<String, dynamic> json) => ResultModel(
       isMine: json['is_mine'] as String? ?? '',
       make: json['make'] == null
           ? const MakeEntity()
-          : const MakeConverter()
+          : const MakeEntityConverter()
               .fromJson(json['make'] as Map<String, dynamic>?),
       model: json['model'] == null
           ? const ModelEntity()
@@ -68,7 +68,7 @@ ResultModel _$ResultModelFromJson(Map<String, dynamic> json) => ResultModel(
 Map<String, dynamic> _$ResultModelToJson(ResultModel instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'make': const MakeConverter().toJson(instance.make),
+      'make': const MakeEntityConverter().toJson(instance.make),
       'model': const ModelConverter().toJson(instance.model),
       'generation': const GenerateConverter().toJson(instance.generation),
       'body_type': const TypeConverter().toJson(instance.bodyType),

@@ -1,10 +1,6 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
-import 'package:auto/core/singletons/service_locator.dart';
-import 'package:auto/features/ad/data/repositories/ad_repository_impl.dart';
-import 'package:auto/features/ad/domain/usecases/get_body_type.dart';
-import 'package:auto/features/ad/domain/usecases/get_makes.dart';
 import 'package:auto/features/common/bloc/regions/regions_bloc.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
@@ -21,7 +17,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
-/// GetMakesUseCase
 class RentScreen extends StatefulWidget {
   const RentScreen({Key? key}) : super(key: key);
 
@@ -83,14 +78,16 @@ class _RentScreenState extends State<RentScreen>
                   ),
                   Container(
                     decoration: BoxDecoration(
-                        color: Theme.of(context).appBarTheme.backgroundColor,
-                        boxShadow: [
-                          BoxShadow(
-                              offset: const Offset(0, 8),
-                              blurRadius: 24,
-                              color: dark.withOpacity(.08),
-                              spreadRadius: 0),
-                        ]),
+                      color: Theme.of(context).appBarTheme.backgroundColor,
+                      boxShadow: [
+                        BoxShadow(
+                          offset: const Offset(0, 8),
+                          blurRadius: 24,
+                          color: dark.withOpacity(.08),
+                          spreadRadius: 0,
+                        ),
+                      ],
+                    ),
                     child: Container(
                       height: 32,
                       decoration: BoxDecoration(
@@ -152,7 +149,7 @@ class _RentScreenState extends State<RentScreen>
               controller: tabController,
               children: [
                 CarsScreen(id: state.categoryId),
-                const CommercialScreen(),
+                const RentCommercialScreen(),
               ],
             ),
           ),

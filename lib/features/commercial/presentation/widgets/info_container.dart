@@ -24,7 +24,9 @@ class InfoContainer extends StatelessWidget {
       this.sellType,
       this.hasStatusInfo = true,
       this.hasCallCard = true,
-      super.key});
+      super.key,
+      required this.onTapComparsion,
+      required this.onTapFavorites});
 
   final String? avatarPicture;
   final bool hasDiscount;
@@ -40,6 +42,9 @@ class InfoContainer extends StatelessWidget {
   final String? sellType;
   final bool hasStatusInfo;
   final bool hasCallCard;
+  final VoidCallback onTapComparsion;
+  final VoidCallback onTapFavorites;
+
   @override
   Widget build(BuildContext context) => Container(
         width: MediaQuery.of(context).size.width,
@@ -116,7 +121,7 @@ class InfoContainer extends StatelessWidget {
                     if (index == 0 && hasStatusInfo)
                       Positioned(
                         top: 4,
-                        left: 4,
+                        left: 6,
                         child: CustomChip(
                           label: 'С пробегом',
                           labelStyle: Theme.of(context)
@@ -134,27 +139,27 @@ class InfoContainer extends StatelessWidget {
                 ),
               ),
             ),
-            CustomChip(
-              label: sellType ?? '',
-              backgroundColor: Theme.of(context)
-                  .extension<ThemedColors>()!
-                  .seashellToCinnabar15,
-              labelPadding:
-                  const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
-              margin: const EdgeInsets.only(top: 8, bottom: 12),
-              labelStyle: Theme.of(context).textTheme.subtitle1!.copyWith(
-                    color: orange,
-                    fontSize: 12,
-                  ),
-            ),
+            if (sellType!.isNotEmpty)
+              CustomChip(
+                label: sellType!,
+                backgroundColor: Theme.of(context)
+                    .extension<ThemedColors>()!
+                    .seashellToCinnabar15,
+                labelPadding:
+                    const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                margin: const EdgeInsets.only(top: 8, bottom: 12),
+                labelStyle: Theme.of(context).textTheme.subtitle1!.copyWith(
+                      color: orange,
+                      fontSize: 12,
+                    ),
+                borderRadius: 4,
+              ),
             Row(
               children: [
                 Text(
                   carModel ?? '',
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline2!
-                      .copyWith(color: dark),
+                  style: Theme.of(context).textTheme.headline2!.copyWith(
+                      color: dark, fontSize: 14, fontWeight: FontWeight.w400),
                 ),
                 const SizedBox(width: 4),
                 CustomChip(
@@ -168,8 +173,21 @@ class InfoContainer extends StatelessWidget {
                     color: LightThemeColors.navBarIndicator,
                   ),
                 ),
+                const SizedBox(width: 4),
+                CustomChip(
+                  leading: SvgPicture.asset(AppIcons.checkCurly),
+                  label: 'Новый',
+                  backgroundColor: emerald.withOpacity(0.1),
+                  borderRadius: 4,
+                  labelStyle: const TextStyle(
+                    fontSize: 10,
+                    fontWeight: FontWeight.w600,
+                    color: emerald,
+                  ),
+                )
               ],
             ),
+            const SizedBox(height: 4),
             RichText(
               text: TextSpan(
                 children: [
@@ -240,36 +258,42 @@ class InfoContainer extends StatelessWidget {
               ],
             ),
             Divider(
-                color: Theme.of(context)
-                    .extension<ThemedColors>()!
-                    .solitude2ToNightRider,
-                height: 32,
-                thickness: 1),
+              color: Theme.of(context)
+                  .extension<ThemedColors>()!
+                  .solitude2ToNightRider,
+              height: 28,
+              thickness: 1,
+            ),
             Padding(
               padding: const EdgeInsets.only(right: 16),
               child: Row(
                 children: [
-                  Text('$location • $publishTime',
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyText1!
-                          .copyWith(color: grey)),
+                  Text(
+                    '$location • $publishTime',
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyText1!
+                        .copyWith(color: grey),
+                  ),
                   const Spacer(),
-                  WButton(
-                    onTap: () {},
-                    height: 28,
-                    width: 28,
-                    isDisabled: true,
-                    disabledColor: transparentButton,
-                    color: transparentButton,
-                    child: SvgPicture.asset(
-                      AppIcons.scales,
-                      color: warmerGrey,
-                      fit: BoxFit.cover,
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 12),
+                    child: WButton(
+                      onTap: onTapComparsion,
+                      height: 28,
+                      width: 28,
+                      isDisabled: true,
+                      disabledColor: transparentButton,
+                      color: transparentButton,
+                      child: SvgPicture.asset(
+                        AppIcons.scales,
+                        color: warmerGrey,
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                   WButton(
-                    onTap: () {},
+                    onTap: onTapFavorites,
                     height: 28,
                     width: 28,
                     color: transparentButton,

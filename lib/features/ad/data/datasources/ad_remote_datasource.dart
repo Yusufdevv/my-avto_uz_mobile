@@ -1,12 +1,10 @@
 import 'package:auto/core/exceptions/exceptions.dart';
 import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/ad/data/models/body_type.dart';
-import 'package:auto/features/ad/data/models/car_model.dart';
 import 'package:auto/features/ad/data/models/drive_type.dart';
 import 'package:auto/features/ad/data/models/engine_type.dart';
 import 'package:auto/features/ad/data/models/gearbox_type.dart';
 import 'package:auto/features/ad/data/models/generation.dart';
-import 'package:auto/features/ad/data/models/make.dart';
 import 'package:auto/features/ad/data/models/modification_type.dart';
 import 'package:auto/features/ad/data/models/years.dart';
 import 'package:auto/features/common/entities/makes_entity.dart';
@@ -25,6 +23,7 @@ abstract class AdRemoteDataSource {
     required int modelId,
     String? next,
   });
+  Future deleteComparison(int id);
 
   Future<GenericPagination<GenerationModel>> getGeneration({
     required int modelId,
@@ -381,5 +380,25 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
       throw ServerException(
           statusCode: response.statusCode!, errorMessage: response.data);
     }
+  }
+
+  @override
+  Future deleteComparison(int id) async {
+    final response = await _dio.delete(
+        '/car/comparison/$id/delete-announcement/',
+        options: StorageRepository.getString('token').isNotEmpty
+            ? Options(headers: {
+                'Authorization':
+                    'Bearer ${StorageRepository.getString('token')}'
+              })
+            : null);
+
+    // if (response.statusCode! >= 200 && response.statusCode! < 300) {
+    // } else {
+    //   throw ServerException(
+    //     statusCode: response.statusCode!,
+    //     errorMessage: response.data,
+    //   );
+    // }
   }
 }

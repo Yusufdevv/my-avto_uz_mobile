@@ -193,7 +193,6 @@ class _ChooseCarModelComparison extends State<ChooseCarModelComparison> {
                     child: BlocBuilder<ModelSelectorBloc, ModelSelectorState>(
                       builder: (context, state) => WButton(
                         onTap: state.selectedId == -1 ? () {} : widget.onTap,
-                        // onTap: widget.onTap,
                         text: 'Далее',
                         shadow: [
                           BoxShadow(

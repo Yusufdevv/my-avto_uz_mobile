@@ -15,10 +15,11 @@ import 'package:dio/dio.dart';
 abstract class AdRepository {
   // Future<Either<Failure, GenericPagination<MakeEntity>>> getTopMakes(
   //     {String? next});
-
+  Future<Either<Failure, void>> deleteComparison(int id);
   Future<Either<Failure, GetMakeEntity>> getMake({String? name});
 
-  Future<Either<Failure, GetMakeEntity>> getCarModel(int makeId,{String? name});
+  Future<Either<Failure, GetMakeEntity>> getCarModel(int makeId,
+      {String? name});
 
   Future<Either<Failure, GenericPagination<YearsEntity>>> getYears({
     required int modelId,
