@@ -56,7 +56,7 @@ class FilterParameters extends StatelessWidget {
                 children: [
                   SelectorItem(
                     onTap: () async {
-                      await showModalBottomSheet<List<int>>(
+                      await showModalBottomSheet<String>(
                         isDismissible: false,
                         context: context,
                         isScrollControlled: true,
@@ -73,8 +73,8 @@ class FilterParameters extends StatelessWidget {
                           ),
                         ),
                       ).then((value) {
-                        rentBloc
-                            .add(RentSetParamFromFilterEvent(carMakers: value));
+                        rentBloc.add(
+                            RentSetParamFromFilterEvent(carMakerId: value));
                       });
                     },
                     hintText: LocaleKeys.choose_class.tr(),
@@ -82,15 +82,15 @@ class FilterParameters extends StatelessWidget {
                   ),
                   SelectorItem(
                     onTap: () async {
-                      await showModalBottomSheet<List<int>>(
+                      await showModalBottomSheet<String>(
                         isDismissible: false,
                         context: context,
                         isScrollControlled: true,
                         backgroundColor: Colors.transparent,
                         builder: (c) => const ChooseDriveType(),
                       ).then((value) {
-                        rentBloc
-                            .add(RentSetParamFromFilterEvent(carMakers: value));
+                        rentBloc.add(
+                            RentSetParamFromFilterEvent(carMakerId: value));
                       });
                     },
                     hintText: LocaleKeys.choose_drive_type.tr(),
@@ -161,17 +161,20 @@ class FilterParameters extends StatelessWidget {
                   ),
                   const SizedBox(height: 20),
                   WRangeSlider(
+                    values: RangeValues(0, 100),
                     title: LocaleKeys.price.tr(),
                     endValue: 500000,
                     startValue: 1000,
-                    sliderStatus: 'price',
+                    isForPrice: true,
+                    valueChanged: (v) {},
                   ),
                   const SizedBox(height: 20),
                   WRangeSlider(
+                    values: RangeValues(0, 100),
+                    valueChanged: (v) {},
                     title: LocaleKeys.year_of_issue.tr(),
                     endValue: 2022,
                     startValue: 1960,
-                    sliderStatus: '',
                   ),
                   SizedBox(height: size.height * 0.1),
                   WButton(

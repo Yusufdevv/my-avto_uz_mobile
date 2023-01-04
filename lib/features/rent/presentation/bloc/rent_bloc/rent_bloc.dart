@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:auto/features/common/models/region.dart';
 import 'package:auto/features/rent/domain/entities/rent_main_entity.dart';
 import 'package:auto/features/rent/domain/usecases/rent_usecase.dart';
-import 'package:auto/features/rent/domain/usecases/search_rent_usecase.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:formz/formz.dart';
@@ -12,12 +11,8 @@ part 'rent_state.dart';
 
 class RentBloc extends Bloc<RentEvent, RentState> {
   final RentUseCase rentUseCase;
-  final SearchRentUseCase rentSearchUseCase;
 
-  RentBloc(
-      {required this.rentUseCase,
-      required this.rentSearchUseCase,
-      required int id})
+  RentBloc({required this.rentUseCase, required int id})
       : super(RentState(
           carBodyTypeId: '',
           carDriveTypeId: '',
@@ -38,7 +33,6 @@ class RentBloc extends Bloc<RentEvent, RentState> {
     on<RentSetIdEvent>(_setId);
     on<RentSetParamFromFilterEvent>(_setFromFilter);
     on<RentCleanFilterEvent>(_clearFilter);
-    on<RentGetResultsFromListEvent>(_getFromList);
   }
   FutureOr<void> _setFromFilter(
       RentSetParamFromFilterEvent event, Emitter<RentState> emit) async {
@@ -104,52 +98,6 @@ class RentBloc extends Bloc<RentEvent, RentState> {
         ),
       );
     } else {
-      emit(state.copyWith(status: FormzStatus.submissionFailure));
-    }
-  }
-
-  FutureOr<void> _getFromList(
-      RentGetResultsFromListEvent event, Emitter<RentState> emit) async {
-    if (!(event.isRefresh ?? false)) {
-      emit(state.copyWith(status: FormzStatus.submissionInProgress));
-    }
-    final result = await rentSearchUseCase.call(
-      SearchParams(
-          next: '',
-          query: '',
-          params: mapper(
-            Param(
-              next: '',
-              id: state.categoryId,
-              hasAirConditioner: state.hasAirConditioners,
-              hasBabySeat: state.hasBabySeat,
-              rentCarIsClean: state.rentCarIsClean,
-              rentCarIsFullFuel: state.rentCarIsFullFuel,
-              carBodyTypeId: state.carBodyTypeId,
-              carDriveTypeId: state.carDriveTypeId,
-              gearboxTypeId: state.gearboxTypeId,
-              makers: state.carMakers,
-              regions:
-                  state.regions?.map((e) => e.id.toString()).toList().join(','),
-              rentPriceEnd: state.priceEnd,
-              rentPriceStatart: state.priceStart,
-              yearEnd: state.yearEnd,
-              yearStatart: state.yearStart,
-            ),
-          )),
-    );
-
-    if (result.isRight) {
-      print('========? > > > ${result.right.results}');
-      emit(
-        state.copyWith(
-          status: FormzStatus.submissionSuccess,
-          count: result.right.count,
-          next: result.right.next,
-        ),
-      );
-    } else {
-      print('result is left: ========? > > > ${result.left}');
       emit(state.copyWith(status: FormzStatus.submissionFailure));
     }
   }
