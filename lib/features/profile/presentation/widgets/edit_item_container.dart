@@ -1,4 +1,4 @@
-import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/assets/themes/theme_extensions/w_textfield_style.dart';
 import 'package:auto/core/utils/size_config.dart';
@@ -9,11 +9,13 @@ class EditItemContainer extends StatelessWidget {
   const EditItemContainer({
     required this.region,
     required this.icon,
+    this.isOtherPage = false,
     Key? key,
   }) : super(key: key);
 
   final String region;
   final String icon;
+  final bool isOtherPage;
 
   @override
   Widget build(BuildContext context) => Container(
@@ -35,8 +37,8 @@ class EditItemContainer extends StatelessWidget {
               region,
               style: Theme.of(context)
                   .textTheme
-                  .headline1!
-                  .copyWith(fontSize: 15, fontWeight: FontWeight.w600),
+                  .subtitle1!
+                  .copyWith(color: isOtherPage ? grey : dark),
             ),
             const Spacer(),
             SvgPicture.asset(

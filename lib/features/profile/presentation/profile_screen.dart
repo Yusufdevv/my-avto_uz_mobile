@@ -53,11 +53,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   @override
-  void dispose() {
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) => BlocProvider.value(
         value: profileBloc,
         child: BlocBuilder<ProfileBloc, ProfileState>(
@@ -119,21 +114,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     context,
                                     fade(
                                         page: FavouritePage(
-                                            favoriteEntity:
-                                                state.favoriteEntity)));
+                                            profileBloc: profileBloc)));
                               },
                               iconPath: AppIcons.heartBlue,
                               count: state.profileEntity.usercountdata
                                   ?.announcementWishlistCount),
                           const ProfileDivider(),
                           ProfileMenuTile(
-                              name: LocaleKeys.comparisons.tr(),
-                              onTap: () {
-                                // Navigator.of(context, rootNavigator: true)
-                                //     .push(fade(page: const ComparisonPage()));
-                              },
-                              iconPath: AppIcons.scales,
-                              count: 0),
+                            name: LocaleKeys.comparisons.tr(),
+                            onTap: () {
+                              // Navigator.of(context, rootNavigator: true)
+                              //     .push(fade(page: const ComparisonPage()));
+                            },
+                            iconPath: AppIcons.scales,
+                          ),
                         ]),
 
                         // moi obnovleniya
@@ -178,7 +172,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   .push(fade(page: const DealerScreen()));
                             },
                             iconPath: AppIcons.dealers,
-                            count: 0,
                           ),
                           const ProfileDivider(),
                           ProfileMenuTile(

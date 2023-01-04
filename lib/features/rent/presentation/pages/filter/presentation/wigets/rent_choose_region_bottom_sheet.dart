@@ -13,9 +13,13 @@ import 'package:flutter/material.dart';
 class RentChooseRegionBottomSheet extends StatefulWidget {
   final List<Region> list;
   final bool isProfileEdit;
+  final bool isOtherPage;
 
   const RentChooseRegionBottomSheet(
-      {required this.list, this.isProfileEdit = false, super.key})
+      {required this.list,
+      this.isProfileEdit = false,
+      this.isOtherPage = false,
+      super.key})
       : super();
 
   @override
@@ -54,6 +58,7 @@ class _RentChooseRegionBottomSheetState
                     RegionSelectAllItem(
                       isAllSelected: isAllChecked,
                       isSeveralSelected: checkStatus.length > 1,
+                      isOtherPage: widget.isOtherPage,
                       onTap: () {
                         if (isAllChecked) {
                           checkStatus = {};
@@ -85,6 +90,7 @@ class _RentChooseRegionBottomSheetState
                             setState(() {});
                           },
                           child: RegionSheetItem(
+                            isOtherPage: widget.isOtherPage,
                             isProfileEdit: widget.isProfileEdit,
                             title: widget.list[index].title,
                             hasBorder: index == widget.list.length - 1,
@@ -108,7 +114,7 @@ class _RentChooseRegionBottomSheetState
             padding: const EdgeInsets.only(
               left: 16,
               right: 16,
-              bottom: 50,
+              bottom: 16,
             ),
             child: WButton(
                 onTap: () {

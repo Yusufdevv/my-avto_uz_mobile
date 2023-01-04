@@ -1,8 +1,8 @@
 import 'package:auto/core/exceptions/exceptions.dart';
 import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/core/utils/either.dart';
+import 'package:auto/features/common/domain/entity/auto_entity.dart';
 import 'package:auto/features/profile/data/datasources/profile_datasource.dart';
-import 'package:auto/features/profile/domain/entities/favourite_entity.dart';
 import 'package:auto/features/profile/domain/entities/profile_data_entity.dart';
 import 'package:auto/features/profile/domain/entities/profile_entity.dart';
 import 'package:auto/features/profile/domain/entities/terms_of_use_entity.dart';
@@ -51,7 +51,7 @@ class ProfileRepositoryImpl extends ProfileRepository {
   }
 
   @override
-  Future<Either<ServerFailure, List<FavoriteEntity>>>
+  Future<Either<ServerFailure, List<AutoEntity>>>
       getProfileFavorites() async {
     try {
       final result = await dataSource.getProfileFavorites();

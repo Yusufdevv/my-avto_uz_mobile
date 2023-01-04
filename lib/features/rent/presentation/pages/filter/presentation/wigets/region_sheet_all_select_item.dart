@@ -7,10 +7,13 @@ class RegionSelectAllItem extends StatelessWidget {
   final bool isAllSelected;
   final bool isSeveralSelected;
   final VoidCallback onTap;
+  final bool isOtherPage;
+
   const RegionSelectAllItem({
     required this.isAllSelected,
     required this.isSeveralSelected,
     required this.onTap,
+    required this.isOtherPage,
     super.key,
   });
 

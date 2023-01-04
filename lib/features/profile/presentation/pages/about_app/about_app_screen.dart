@@ -15,20 +15,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class AboutAppScreen extends StatelessWidget {
-  const AboutAppScreen({required this.profileBloc,Key? key}) : super(key: key);
+  const AboutAppScreen({required this.profileBloc, Key? key}) : super(key: key);
   final ProfileBloc profileBloc;
 
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: const WAppBar(
           textWithButton: 'О приложении',
+          boxShadow: [],
         ),
         body: Column(
           children: [
             WScaleAnimation(
-              onTap: ()  {
-               profileBloc.add(GetTermsOfUseEvent());
-                Navigator.of(context).push(fade(page:  TermsOfUsePage(profileBloc: profileBloc)));
+              onTap: () {
+                profileBloc.add(GetTermsOfUseEvent());
+                Navigator.of(context)
+                    .push(fade(page: TermsOfUsePage(profileBloc: profileBloc)));
               },
               child: Container(
                 padding: EdgeInsets.symmetric(

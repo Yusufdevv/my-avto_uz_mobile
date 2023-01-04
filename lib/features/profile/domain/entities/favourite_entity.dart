@@ -16,7 +16,7 @@ class FavoriteEntity {
   });
 
   int? id;
-  List<dynamic>? gallery;
+  List<String>? gallery;
   String? description;
   String? price;
   String? discount;

@@ -20,7 +20,7 @@ class FavoriteModel extends FavoriteEntity{
 
   factory FavoriteModel.fromJson(Map<String, dynamic> json) => FavoriteModel(
         id: json['id'],
-        gallery: json['gallery'] == null ? null : List<dynamic>.from(json['gallery'].map((x) => x)),
+        gallery: json['gallery'] == null ? null : List<String>.from(json['gallery'].map((x) => x)),
         description: json['description'],
         price: json['price'],
         discount: json['discount'],

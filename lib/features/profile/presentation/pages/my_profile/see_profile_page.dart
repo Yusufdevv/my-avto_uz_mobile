@@ -33,7 +33,7 @@ class SeeProfilePage extends StatelessWidget {
   Widget build(BuildContext context) => MultiBlocProvider(
         providers: [
           BlocProvider.value(
-            value: profileBloc,
+            value: profileBloc
           ),
         ],
         child: Scaffold(
