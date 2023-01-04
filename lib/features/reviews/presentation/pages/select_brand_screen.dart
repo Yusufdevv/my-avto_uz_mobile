@@ -9,7 +9,7 @@ import 'package:auto/features/common/widgets/car_brand_item.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/common/widgets/w_textfield.dart';
-import 'package:auto/features/main/presentation/bloc/change_car_bloc.dart';
+import 'package:auto/features/main/presentation/bloc/change_car/change_car_bloc.dart';
 import 'package:auto/features/main/presentation/widgets/cars_item.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/reviews/presentation/pages/select_model_screen.dart';

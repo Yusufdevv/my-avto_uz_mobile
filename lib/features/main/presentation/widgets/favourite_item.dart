@@ -44,26 +44,29 @@ class FavouriteItem extends StatelessWidget {
                   child: SvgPicture.asset(AppIcons.heartWhite),
                 ),
                 const SizedBox(width: 8),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      LocaleKeys.You_dont_have_favorites.tr(),
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline1!
-                          .copyWith(fontSize: 14, fontWeight: FontWeight.w600),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      LocaleKeys.Save_ads_hat_you_liked.tr(),
-                      style: Theme.of(context).textTheme.headline6!.copyWith(
-                          fontSize: 10,
-                          color: Theme.of(context)
-                              .extension<ThemedColors>()!
-                              .dolphinToWhite60),
-                    ),
-                  ],
+                SizedBox(
+                  width: MediaQuery.of(context).size.width - 98,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        LocaleKeys.You_dont_have_favorites.tr(),
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline1!
+                            .copyWith(fontSize: 14, fontWeight: FontWeight.w600),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        LocaleKeys.Save_ads_hat_you_liked.tr(),
+                        style: Theme.of(context).textTheme.headline6!.copyWith(
+                            fontSize: 10,
+                            color: Theme.of(context)
+                                .extension<ThemedColors>()!
+                                .dolphinToWhite60),
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
