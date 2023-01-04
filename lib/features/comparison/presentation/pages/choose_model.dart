@@ -1,9 +1,6 @@
-import 'dart:ui';
-
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
-import 'package:auto/features/ad/domain/usecases/get_car_model.dart';
 import 'package:auto/features/ad/presentation/bloc/car_selector/car_selector_bloc.dart';
 import 'package:auto/features/ad/presentation/bloc/choose_model/car_type_selector_bloc.dart';
 import 'package:auto/features/ad/presentation/bloc/choose_model/model_selectro_bloc.dart';
@@ -12,8 +9,10 @@ import 'package:auto/features/common/bloc/get_car_model/get_car_model_bloc.dart'
 import 'package:auto/features/common/bloc/get_makes_bloc/get_makes_bloc_bloc.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
-import 'package:auto/features/common/widgets/w_textfield.dart';
+import 'package:auto/features/comparison/presentation/pages/ads/ads.dart';
+import 'package:auto/features/comparison/presentation/pages/choose_car_brand.dart';
 import 'package:auto/features/comparison/presentation/widgets/search_bar_widget.dart';
+import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -87,7 +86,6 @@ class _ChooseCarModelComparison extends State<ChooseCarModelComparison> {
                 InkWell(
                   onTap: () {
                     Navigator.of(context).pop();
-                    Navigator.of(context).pop();
                   },
                   child: Padding(
                     padding: const EdgeInsets.only(right: 16),
@@ -95,6 +93,49 @@ class _ChooseCarModelComparison extends State<ChooseCarModelComparison> {
                   ),
                 ),
               ],
+              onTapBack: () {
+                Navigator.of(context).pushReplacement(
+                  fade(
+                    page: ChooseCarBrandComparison(
+                      carSelectorBloc: widget.carSelectorBloc,
+                      bloc: widget.getMakesBloc,
+                      onTap: () => Navigator.of(context).pushReplacement(
+                        fade(
+                          page: ChooseCarModelComparison(
+                            onTap: () {
+                              // Navigator.of(context).push(
+                              //   fade(
+                              //     page: ChooseGenerationComparison(
+                              //       onTap: () {},
+                              //       modelBloc: modelBloc,
+                              //     ),
+                              //   ),
+                              // );
+                              Navigator.of(context).push(
+                                fade(
+                                  page: AdsScreen(
+                                    carSelectorBloc: widget.carSelectorBloc,
+                                    getMakesBloc: widget.getMakesBloc,
+                                    getCarModelBloc: widget.bloc,
+                                    carTypeSelectorBloc:
+                                        widget.carTypeSelectorBloc,
+                                    modelSelectorBloc: widget.modelBloc,
+                                  ),
+                                ),
+                              );
+                            },
+                            bloc: widget.bloc,
+                            carTypeSelectorBloc: widget.carTypeSelectorBloc,
+                            modelBloc: widget.modelBloc,
+                            carSelectorBloc: widget.carSelectorBloc,
+                            getMakesBloc: widget.getMakesBloc,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                );
+              },
             ),
             body: BlocBuilder<GetCarModelBloc, GetCarModelState>(
               builder: (context, statemodel) => Stack(

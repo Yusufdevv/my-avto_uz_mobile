@@ -182,7 +182,14 @@ class _ComparisonState extends State<Comparison> {
                                   // );
                                   Navigator.of(context).push(
                                     fade(
-                                      page: AdsScreen(),
+                                      page: AdsScreen(
+                                        carSelectorBloc: widget.carSelectorBloc,
+                                        getMakesBloc: widget.getMakesBloc,
+                                        getCarModelBloc: widget.carModelBloc,
+                                        carTypeSelectorBloc:
+                                            widget.carTypeSelectorBloc,
+                                        modelSelectorBloc: widget.modelBloc,
+                                      ),
                                     ),
                                   );
                                 },

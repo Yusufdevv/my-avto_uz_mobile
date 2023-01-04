@@ -8,9 +8,10 @@ part 'model_selectro_state.dart';
 
 class ModelSelectorBloc extends Bloc<ModelSelectorEvent, ModelSelectorState> {
   ModelSelectorBloc()
-      : super(const ModelSelectorState(selectedId: -1, confirmId: -1)) {
+      : super(
+            const ModelSelectorState(selectedId: -1, confirmId: -1, name: '')) {
     on<SelectedModelItemEvent>((event, emit) {
-      emit(state.copyWith(selectedId: event.id));
+      emit(state.copyWith(selectedId: event.id, name: event.name));
     });
     on<ConfirmModelOption>((event, emit) {
       emit(state.copyWith(confirmId: state.selectedId));

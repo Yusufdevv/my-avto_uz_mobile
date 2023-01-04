@@ -35,7 +35,7 @@ class _WRangeSliderState extends State<WRangeSlider> {
                 style: Theme.of(context)
                     .textTheme
                     .headline2!
-                    .copyWith(fontWeight: FontWeight.w600),
+                    .copyWith(fontWeight: FontWeight.w400),
                 children: [
                   TextSpan(
                     text: ' (USD)',
@@ -53,7 +53,7 @@ class _WRangeSliderState extends State<WRangeSlider> {
               style: Theme.of(context)
                   .textTheme
                   .headline2!
-                  .copyWith(fontWeight: FontWeight.w600),
+                  .copyWith(fontWeight: FontWeight.w400),
             ),
           const SizedBox(
             height: 12,
