@@ -24,7 +24,9 @@ class ModelItems extends StatelessWidget {
   Widget build(BuildContext context) => GestureDetector(
         onTap: () {
           print('clicked');
-          context.read<ModelSelectorBloc>().add(SelectedModelItemEvent(id: id));
+          context
+              .read<ModelSelectorBloc>()
+              .add(SelectedModelItemEvent(id: id, name: entity));
         },
         child: Container(
           padding: const EdgeInsets.only(left: 16),

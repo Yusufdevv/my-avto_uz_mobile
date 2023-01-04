@@ -28,7 +28,9 @@ class ChangeCarItems extends StatelessWidget {
   @override
   Widget build(BuildContext context) => GestureDetector(
         onTap: () {
-          context.read<CarSelectorBloc>().add(SelectedCarItemEvent(id: id));
+          context.read<CarSelectorBloc>().add(
+                SelectedCarItemEvent(id: id, name: name, imageUrl: imageUrl),
+              );
         },
         child: Container(
           padding: const EdgeInsets.only(left: 16),

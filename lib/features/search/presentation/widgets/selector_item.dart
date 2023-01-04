@@ -52,7 +52,7 @@ class SelectorItem extends StatelessWidget {
                     style: Theme.of(context)
                         .textTheme
                         .subtitle1!
-                        .copyWith(color: dark),
+                        .copyWith(color: grey),
                   ),
                   const Spacer(),
                   SvgPicture.asset(
