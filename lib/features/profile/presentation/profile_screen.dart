@@ -121,13 +121,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   ?.announcementWishlistCount),
                           const ProfileDivider(),
                           ProfileMenuTile(
-                              name: LocaleKeys.comparisons.tr(),
-                              onTap: () {
-                                // Navigator.of(context, rootNavigator: true)
-                                //     .push(fade(page: const ComparisonPage()));
-                              },
-                              iconPath: AppIcons.scales,
-                              count: 0),
+                            name: LocaleKeys.comparisons.tr(),
+                            onTap: () {
+                              // Navigator.of(context, rootNavigator: true)
+                              //     .push(fade(page: const ComparisonPage()));
+                            },
+                            iconPath: AppIcons.scales,
+                          ),
                         ]),
 
                         // moi obnovleniya
