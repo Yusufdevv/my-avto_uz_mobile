@@ -29,7 +29,13 @@ enum Category { all, news, withMileage }
 
 class _DealersFilterState extends State<DealersFilter> {
   Category selectedCategory = Category.all;
-  Region? newRegion;
+  List<Region>? newRegion;
+
+  @override
+  void initState() {
+    context.read<RegionsBloc>().add(RegionsEvent.getRegions());
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -122,18 +128,20 @@ class _DealersFilterState extends State<DealersFilter> {
                           isScrollControlled: true,
                           backgroundColor: Colors.transparent,
                           builder: (c) => RentChooseRegionBottomSheet(
+                              isOtherPage: widget.isDirectoryPage,
                               list: context.read<RegionsBloc>().state.regions),
                         ).then((value) {
                           if (value != null && value.isNotEmpty) {
                             setState(() {
-                              newRegion = value.first;
+                              newRegion = value;
                             });
+                            print(value);
                           }
                         });
                       },
                       child: EditItemContainer(
                           icon: AppIcons.chevronRightBlack,
-                          region: newRegion?.title ?? 'Выберите регион'),
+                          region: newRegion?[0].title ?? 'Выберите регион'),
                     ),
                     const SizedBox(height: 16),
 

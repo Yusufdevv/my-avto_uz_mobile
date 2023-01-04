@@ -9,12 +9,14 @@ class RegionSheetItem extends StatelessWidget {
   final bool hasBorder;
   final String title;
   final bool isProfileEdit;
+  final bool isOtherPage;
 
   const RegionSheetItem(
       {required this.title,
       required this.hasBorder,
       required this.isChecked,
       this.isProfileEdit = false,
+      this.isOtherPage = false,
       super.key});
 
   @override
@@ -33,7 +35,7 @@ class RegionSheetItem extends StatelessWidget {
                   .headline1!
                   .copyWith(fontWeight: FontWeight.w600, fontSize: 16),
             ),
-            if (isProfileEdit)
+            if (isProfileEdit || isOtherPage)
               isChecked
                   ? SvgPicture.asset(
                       AppIcons.check,
