@@ -6,6 +6,7 @@ import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/rent/domain/usecases/rent_usecase.dart';
+import 'package:auto/features/rent/domain/usecases/search_rent_usecase.dart';
 import 'package:auto/features/rent/presentation/bloc/commercial_bloc/commercial_bloc.dart';
 import 'package:auto/features/rent/presentation/bloc/rent_bloc/rent_bloc.dart';
 import 'package:auto/features/rent/presentation/pages/cars/pages/cars_screen.dart';
@@ -32,7 +33,10 @@ class _RentScreenState extends State<RentScreen>
   @override
   void initState() {
     tabController = TabController(length: 2, vsync: this);
-    rentBloc = RentBloc(rentUseCase: RentUseCase(), id: 5)
+    rentBloc = RentBloc(
+        rentUseCase: RentUseCase(),
+        rentSearchUseCase: SearchRentUseCase(),
+        id: 5)
       ..add(RentGetResultsEvent(isRefresh: false));
     commercialBloc = CommercialBloc(RentUseCase(), 6)
       ..add(CommercialEvent.getResults(isRefresh: false));

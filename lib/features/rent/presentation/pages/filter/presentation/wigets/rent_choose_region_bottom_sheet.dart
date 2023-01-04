@@ -52,7 +52,8 @@ class _RentChooseRegionBottomSheetState
                 children: [
                   if (!widget.isProfileEdit)
                     RegionSelectAllItem(
-                      isAllChecked: isAllChecked,
+                      isAllSelected: isAllChecked,
+                      isSeveralSelected: checkStatus.length > 1,
                       onTap: () {
                         if (isAllChecked) {
                           checkStatus = {};

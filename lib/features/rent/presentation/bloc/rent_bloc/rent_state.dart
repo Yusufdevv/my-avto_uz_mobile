@@ -16,6 +16,10 @@ class RentState extends Equatable {
   final String? carBodyTypeId;
   final String? carDriveTypeId;
   final String? gearboxTypeId;
+  final String? yearStart;
+  final String? yearEnd;
+  final num? priceStart;
+  final num? priceEnd;
 
   const RentState({
     required this.list,
@@ -33,6 +37,10 @@ class RentState extends Equatable {
     this.carBodyTypeId,
     this.carDriveTypeId,
     this.gearboxTypeId,
+    this.priceEnd,
+    this.priceStart,
+    this.yearEnd,
+    this.yearStart,
   });
 
   RentState copyWith({
@@ -51,6 +59,10 @@ class RentState extends Equatable {
     int? hasBabySeat,
     int? rentCarIsClean,
     int? rentCarIsFullFuel,
+    String? yearStart,
+    String? yearEnd,
+    num? priceStart,
+    num? priceEnd,
   }) =>
       RentState(
         regions: regions ?? this.regions,
@@ -68,15 +80,14 @@ class RentState extends Equatable {
         hasBabySeat: hasBabySeat ?? this.hasBabySeat,
         rentCarIsClean: rentCarIsClean ?? this.rentCarIsClean,
         rentCarIsFullFuel: rentCarIsFullFuel ?? this.rentCarIsFullFuel,
+        priceEnd: priceEnd ?? this.priceEnd,
+        priceStart: priceStart ?? this.priceStart,
+        yearEnd: yearEnd ?? this.yearEnd,
+        yearStart: yearStart ?? this.yearStart,
       );
 
   @override
   List<Object?> get props => [
-        regions,
-        carMakers,
-        carBodyTypeId,
-        carDriveTypeId,
-        gearboxTypeId,
         list,
         status,
         paginationStatus,
@@ -87,5 +98,14 @@ class RentState extends Equatable {
         hasBabySeat,
         rentCarIsClean,
         rentCarIsFullFuel,
+        carMakers,
+        regions,
+        carBodyTypeId,
+        carDriveTypeId,
+        gearboxTypeId,
+        priceEnd,
+        priceStart,
+        yearEnd,
+        yearStart,
       ];
 }

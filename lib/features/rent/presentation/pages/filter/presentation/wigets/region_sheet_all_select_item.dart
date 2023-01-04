@@ -4,11 +4,13 @@ import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets
 import 'package:flutter/material.dart';
 
 class RegionSelectAllItem extends StatelessWidget {
-  final bool isAllChecked;
+  final bool isAllSelected;
+  final bool isSeveralSelected;
   final VoidCallback onTap;
   const RegionSelectAllItem({
+    required this.isAllSelected,
+    required this.isSeveralSelected,
     required this.onTap,
-    required this.isAllChecked,
     super.key,
   });
 
@@ -29,11 +31,9 @@ class RegionSelectAllItem extends StatelessWidget {
                     .headline1!
                     .copyWith(fontWeight: FontWeight.w600, fontSize: 16),
               ),
-              if (isAllChecked)
-                const RegionCheckBox(
-                  isChecked: true,
-                )
-              else
+              if (isAllSelected)
+                const RegionCheckBox(isChecked: true)
+              else if (isSeveralSelected)
                 Container(
                   alignment: Alignment.center,
                   height: 20.28,
@@ -49,6 +49,8 @@ class RegionSelectAllItem extends StatelessWidget {
                         borderRadius: BorderRadius.circular(1), color: orange),
                   ),
                 )
+              else
+                const RegionCheckBox(isChecked: false)
             ],
           ),
         ),

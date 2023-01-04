@@ -22,6 +22,7 @@ class PaginationRepository {
         queryParams = query;
       }
 
+      print('========= query params: ${queryParams.toString()} ');
       final result = await dio.get(
         next != null && next.isNotEmpty ? next : url,
         options: Options(
