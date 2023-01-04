@@ -4,6 +4,8 @@ import 'package:auto/features/main/data/models/story_model.dart';
 import 'package:auto/features/pagination/models/generic_pagination.dart';
 
 abstract class MainRepository {
+  const MainRepository();
+
   Future<Either<Failure, GenericPagination<StoryModel>>> getStories({
     String? category,
     String? search,

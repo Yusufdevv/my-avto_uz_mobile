@@ -22,7 +22,6 @@ class MainBloc extends Bloc<MainEvent, MainState> {
   Future _getStories(Emitter<MainState> emit) async {
     final result = await mainUseCase.call({'limit': 100, 'offset': 0});
     if (result.isRight) {
-      await Future.delayed(const Duration(seconds: 10));
       emit(state.copWith(stories: result.right.results));
     }
   }

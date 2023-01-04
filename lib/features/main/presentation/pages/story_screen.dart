@@ -1,5 +1,6 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/assets/constants/images.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/main/domain/entities/story_entity.dart';
@@ -74,11 +75,20 @@ class _StoryScreenState extends State<StoryScreen>
             PageView.builder(
               controller: pageController,
               physics: const NeverScrollableScrollPhysics(),
+              itemCount: 1,
               itemBuilder: (context, index) {
                 final storyEntity = widget.stories[index];
                 return CachedNetworkImage(
                   imageUrl: storyEntity.url,
                   fit: BoxFit.cover,
+                  placeholder: (context, url) => Image.asset(
+                    AppImages.defaultPhoto,
+                    fit: BoxFit.cover,
+                  ),
+                  errorWidget: (context, url, error) => Image.asset(
+                    AppImages.defaultPhoto,
+                    fit: BoxFit.cover,
+                  ),
                 );
               },
             ),
@@ -120,7 +130,7 @@ class _StoryScreenState extends State<StoryScreen>
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 4),
                     child: Text(
-                      'descriptionTitle',
+                      widget.stories.first.description,
                       style: Theme.of(context)
                           .textTheme
                           .headline4!
@@ -139,6 +149,7 @@ class _StoryScreenState extends State<StoryScreen>
                     ),
                   ),
                   const SizedBox(height: 28),
+                  if(widget.stories.first.url.isNotEmpty)
                   WButton(
                     onTap: () {},
                     text: LocaleKeys.more.tr(),
@@ -169,8 +180,16 @@ class _StoryScreenState extends State<StoryScreen>
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(40),
                         child: CachedNetworkImage(
-                          imageUrl: 'image',
+                          imageUrl: widget.stories.first.content,
                           fit: BoxFit.cover,
+                          placeholder: (context, url) => Image.asset(
+                            AppImages.defaultPhoto,
+                            fit: BoxFit.cover,
+                          ),
+                          errorWidget: (context, url, error) => Image.asset(
+                            AppImages.defaultPhoto,
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       ),
                     ),
@@ -179,7 +198,7 @@ class _StoryScreenState extends State<StoryScreen>
                   Padding(
                     padding: const EdgeInsets.only(top: 10),
                     child: Text(
-                      'title',
+                      widget.stories.first.title,
                       style: Theme.of(context)
                           .textTheme
                           .headline4!

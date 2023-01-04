@@ -1,14 +1,9 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
-import 'package:auto/assets/constants/images.dart';
-import 'package:auto/features/car_single/domain/entities/car_user_entity.dart';
 import 'package:auto/features/commercial/presentation/commercial_screen.dart';
-// import 'package:auto/features/commercial/presentation/commercial_screen.dart';
-import 'package:auto/features/common/domain/entity/car_brand_entity.dart';
-import 'package:auto/features/common/widgets/image_preload_shimmer.dart';
+
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/dealers/presentation/dealers_main.dart';
-import 'package:auto/features/main/domain/entities/ads_entity.dart';
 import 'package:auto/features/main/domain/entities/service_entity.dart';
 import 'package:auto/features/main/domain/usecases/get_top_ads.dart';
 import 'package:auto/features/main/domain/usecases/get_top_brand.dart';
@@ -24,6 +19,7 @@ import 'package:auto/features/main/presentation/widgets/favourite_item.dart';
 import 'package:auto/features/main/presentation/widgets/main_app_bar.dart';
 import 'package:auto/features/main/presentation/widgets/service_item.dart';
 import 'package:auto/features/main/presentation/widgets/story_item.dart';
+import 'package:auto/features/main/presentation/widgets/story_shimmer_item.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/reels/presentation/pages/reels_screen.dart';
 import 'package:auto/features/rent/presentation/rent_screen.dart';
@@ -45,16 +41,7 @@ class _MainScreenState extends State<MainScreen> {
   late MainBloc mainBloc;
   late TopBrandBloc topBrandBloc;
   late TopAdBloc topAdBloc;
-  final List<CarBrandEntity> carBrandEntity = [
-    const CarBrandEntity(title: 'Chevrolet', icon: AppImages.chevrolet),
-    const CarBrandEntity(title: 'Chevrolet', icon: AppImages.chevrolet),
-    const CarBrandEntity(title: 'Chevrolet', icon: AppImages.chevrolet),
-    const CarBrandEntity(title: 'Chevrolet', icon: AppImages.chevrolet),
-    const CarBrandEntity(title: 'Chevrolet', icon: AppImages.chevrolet),
-    const CarBrandEntity(title: 'Chevrolet', icon: AppImages.chevrolet),
-    const CarBrandEntity(title: 'Chevrolet', icon: AppImages.chevrolet),
-    const CarBrandEntity(title: 'Chevrolet', icon: AppImages.chevrolet),
-  ];
+  late List<VoidCallback> serviceTaps = [];
 
   final List<ServiceEntity> serviceEntity = [
     const ServiceEntity(
@@ -88,114 +75,22 @@ class _MainScreenState extends State<MainScreen> {
       ..add(TopBrandEvent.getBrand());
     serviceTaps = [
       () {
-        print(' ===============   serviceTaps 0   ===============');
         Navigator.pushReplacement(context, fade(page: const DealerScreen()));
       },
+      () {},
+      () {},
+      () {},
       () {
-        print(' ===============   serviceTaps 1   ===============');
-      },
-      () {
-        print(' ===============   serviceTaps 2   ===============');
-      },
-      () {
-        print(' ===============   serviceTaps 3   ===============');
-      },
-      () {
-        print(
-            ' ===============   comercials state button pressed   ===============');
-
         Navigator.of(context, rootNavigator: true)
             .push(fade(page: const CommercialScreen()));
       },
       () {
-        print(' ===============   serviceTaps 5   ===============');
         Navigator.of(context, rootNavigator: true)
             .push(fade(page: const RentScreen()));
       }
     ];
     super.initState();
   }
-
-  final List<AdsEntity> adsEntity = [
-    const AdsEntity(
-      imageUrl: [
-        'https://cdn.motor1.com/images/mgl/LBl63/s1/2021-genesis-g80.jpg',
-        'https://cdn.motor1.com/images/mgl/LBl63/s1/2021-genesis-g80.jpg',
-      ],
-      isWishlisted: true,
-      description: 'description',
-      generation: 'generation',
-      make: 'make',
-      year: 2000,
-      latitude: 123.123,
-      longitude: 123.432,
-      viewCount: 11,
-      id: 1,
-      model: 'stark',
-      region: 'tashkent',
-      carUser: CarUserEntity(),
-      price: '9898',
-    ),
-    const AdsEntity(
-      imageUrl: [
-        'https://cdn.motor1.com/images/mgl/LBl63/s1/2021-genesis-g80.jpg',
-        'https://cdn.motor1.com/images/mgl/LBl63/s1/2021-genesis-g80.jpg',
-      ],
-      isWishlisted: true,
-      description: 'description',
-      generation: 'generation',
-      make: 'make',
-      year: 2000,
-      latitude: 123.123,
-      longitude: 123.432,
-      viewCount: 11,
-      id: 1,
-      model: 'stark',
-      region: 'tashkent',
-      carUser: CarUserEntity(),
-      price: '9898',
-    ),
-    const AdsEntity(
-      imageUrl: [
-        'https://cdn.motor1.com/images/mgl/LBl63/s1/2021-genesis-g80.jpg',
-        'https://cdn.motor1.com/images/mgl/LBl63/s1/2021-genesis-g80.jpg',
-      ],
-      isWishlisted: true,
-      description: 'description',
-      generation: 'generation',
-      make: 'make',
-      year: 2000,
-      latitude: 123.123,
-      longitude: 123.432,
-      viewCount: 11,
-      id: 1,
-      model: 'stark',
-      region: 'tashkent',
-      carUser: CarUserEntity(),
-      price: '9898',
-    ),
-    const AdsEntity(
-      imageUrl: [
-        'https://cdn.motor1.com/images/mgl/LBl63/s1/2021-genesis-g80.jpg',
-        'https://cdn.motor1.com/images/mgl/LBl63/s1/2021-genesis-g80.jpg',
-      ],
-      isWishlisted: true,
-      description: 'description',
-      generation: 'generation',
-      make: 'make',
-      year: 2000,
-      latitude: 123.123,
-      longitude: 123.432,
-      viewCount: 11,
-      id: 1,
-      model: 'stark',
-      region: 'tashkent',
-      carUser: CarUserEntity(),
-      price: '9898',
-    ),
-  ];
-
-  late List<VoidCallback> serviceTaps = [];
 
   @override
   Widget build(BuildContext context) => MultiBlocProvider(
@@ -221,15 +116,13 @@ class _MainScreenState extends State<MainScreen> {
                 children: [
                   SizedBox(
                     height: 96,
-                    child: ListView.builder(
+                    child: ListView.separated(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
                       itemBuilder: (context, index) => state.stories.isEmpty
-                          ? const ImagePreloadShimmer(
-                              height: 96,
-                              width: 80,
-                            )
+                          ? const StoryShimmerItem()
                           : StoryItem(
                               title: state.stories[index].title,
-                              image: state.stories[index].content,
+                              image: state.stories[index].icon,
                               onTap: () {
                                 Navigator.of(context, rootNavigator: true).push(
                                     fade(
@@ -241,6 +134,8 @@ class _MainScreenState extends State<MainScreen> {
                       itemCount:
                           state.stories.isEmpty ? 5 : state.stories.length,
                       scrollDirection: Axis.horizontal,
+                      separatorBuilder: (context, index) =>
+                          const SizedBox(width: 8),
                     ),
                   ),
                   const SizedBox(height: 16),
