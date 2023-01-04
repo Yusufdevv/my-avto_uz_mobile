@@ -119,7 +119,6 @@ class _SellerInfoState extends State<SellerInfo> {
                   PlacemarkMapObject(
                     icon: PlacemarkIcon.single(PlacemarkIconStyle(
                       scale: 0.6,
-
                       image: BitmapDescriptor.fromAssetImage(AppIcons.currentLoc),
                     ),),
                     mapId: MapObjectId(widget.latitude.toString()),
