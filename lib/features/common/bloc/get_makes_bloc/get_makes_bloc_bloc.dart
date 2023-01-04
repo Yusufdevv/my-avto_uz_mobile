@@ -13,6 +13,9 @@ part 'get_makes_bloc_bloc.freezed.dart';
 class GetMakesBloc extends Bloc<GetMakesBlocEvent, GetMakesState> {
   final GetMakesUseCase useCase;
   GetMakesBloc({required this.useCase}) : super(GetMakesState()) {
+    on<_ChangeSelected>((event, emit) {
+      emit(state.copyWith(selected: event.index));
+    });
     on<_GetMakes>((event, emit) async {
       emit(state.copyWith(status: FormzStatus.submissionInProgress));
       final result = await useCase.call(state.search);

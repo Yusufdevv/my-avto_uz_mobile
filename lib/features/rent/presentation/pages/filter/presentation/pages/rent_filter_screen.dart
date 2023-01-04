@@ -1,4 +1,5 @@
 import 'package:auto/assets/colors/color.dart';
+import 'package:auto/features/ad/domain/entities/types/make.dart';
 import 'package:auto/features/common/bloc/regions/regions_bloc.dart';
 import 'package:auto/features/common/models/region.dart';
 import 'package:auto/features/common/widgets/range_slider.dart';
@@ -88,18 +89,20 @@ class _RentFilterScreenState extends State<RentFilterScreen> {
                   ),
                   SelectorItem(
                     onTap: () async {
-                      await showModalBottomSheet<String>(
+                      await showModalBottomSheet<MakeEntity>(
                         isDismissible: false,
                         context: context,
                         isScrollControlled: true,
                         backgroundColor: Colors.transparent,
-                        builder: (c) => const ChooseMaker(),
+                        builder: (c) => const ChooseMaker(selectedId: -1),
                       ).then((value) {
-                        widget.rentBloc.add(
-                            RentSetParamFromFilterEvent(carMakerId: value));
+                        print('===6=6=6=6=6> ${value.runtimeType.toString()}');
+                        print(value);
+                        widget.rentBloc
+                            .add(RentSetParamFromFilterEvent(maker: value));
                       });
                     },
-                    hintText: LocaleKeys.choose_brand.tr(),
+                    hintText: state.maker?.name ?? LocaleKeys.choose_brand.tr(),
                     title: LocaleKeys.brand.tr(),
                     hasArrowDown: true,
                   ),

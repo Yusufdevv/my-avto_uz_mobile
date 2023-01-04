@@ -20,18 +20,21 @@ mixin _$GetMakesBlocEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() getMakes,
     required TResult Function(String naem) getSerched,
+    required TResult Function(int index) changeSelected,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getMakes,
     TResult? Function(String naem)? getSerched,
+    TResult? Function(int index)? changeSelected,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getMakes,
     TResult Function(String naem)? getSerched,
+    TResult Function(int index)? changeSelected,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -39,18 +42,21 @@ mixin _$GetMakesBlocEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(_GetMakes value) getMakes,
     required TResult Function(_GetSerched value) getSerched,
+    required TResult Function(_ChangeSelected value) changeSelected,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetMakes value)? getMakes,
     TResult? Function(_GetSerched value)? getSerched,
+    TResult? Function(_ChangeSelected value)? changeSelected,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetMakes value)? getMakes,
     TResult Function(_GetSerched value)? getSerched,
+    TResult Function(_ChangeSelected value)? changeSelected,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -120,6 +126,7 @@ class _$_GetMakes with DiagnosticableTreeMixin implements _GetMakes {
   TResult when<TResult extends Object?>({
     required TResult Function() getMakes,
     required TResult Function(String naem) getSerched,
+    required TResult Function(int index) changeSelected,
   }) {
     return getMakes();
   }
@@ -129,6 +136,7 @@ class _$_GetMakes with DiagnosticableTreeMixin implements _GetMakes {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getMakes,
     TResult? Function(String naem)? getSerched,
+    TResult? Function(int index)? changeSelected,
   }) {
     return getMakes?.call();
   }
@@ -138,6 +146,7 @@ class _$_GetMakes with DiagnosticableTreeMixin implements _GetMakes {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getMakes,
     TResult Function(String naem)? getSerched,
+    TResult Function(int index)? changeSelected,
     required TResult orElse(),
   }) {
     if (getMakes != null) {
@@ -151,6 +160,7 @@ class _$_GetMakes with DiagnosticableTreeMixin implements _GetMakes {
   TResult map<TResult extends Object?>({
     required TResult Function(_GetMakes value) getMakes,
     required TResult Function(_GetSerched value) getSerched,
+    required TResult Function(_ChangeSelected value) changeSelected,
   }) {
     return getMakes(this);
   }
@@ -160,6 +170,7 @@ class _$_GetMakes with DiagnosticableTreeMixin implements _GetMakes {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetMakes value)? getMakes,
     TResult? Function(_GetSerched value)? getSerched,
+    TResult? Function(_ChangeSelected value)? changeSelected,
   }) {
     return getMakes?.call(this);
   }
@@ -169,6 +180,7 @@ class _$_GetMakes with DiagnosticableTreeMixin implements _GetMakes {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetMakes value)? getMakes,
     TResult Function(_GetSerched value)? getSerched,
+    TResult Function(_ChangeSelected value)? changeSelected,
     required TResult orElse(),
   }) {
     if (getMakes != null) {
@@ -256,6 +268,7 @@ class _$_GetSerched with DiagnosticableTreeMixin implements _GetSerched {
   TResult when<TResult extends Object?>({
     required TResult Function() getMakes,
     required TResult Function(String naem) getSerched,
+    required TResult Function(int index) changeSelected,
   }) {
     return getSerched(naem);
   }
@@ -265,6 +278,7 @@ class _$_GetSerched with DiagnosticableTreeMixin implements _GetSerched {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getMakes,
     TResult? Function(String naem)? getSerched,
+    TResult? Function(int index)? changeSelected,
   }) {
     return getSerched?.call(naem);
   }
@@ -274,6 +288,7 @@ class _$_GetSerched with DiagnosticableTreeMixin implements _GetSerched {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getMakes,
     TResult Function(String naem)? getSerched,
+    TResult Function(int index)? changeSelected,
     required TResult orElse(),
   }) {
     if (getSerched != null) {
@@ -287,6 +302,7 @@ class _$_GetSerched with DiagnosticableTreeMixin implements _GetSerched {
   TResult map<TResult extends Object?>({
     required TResult Function(_GetMakes value) getMakes,
     required TResult Function(_GetSerched value) getSerched,
+    required TResult Function(_ChangeSelected value) changeSelected,
   }) {
     return getSerched(this);
   }
@@ -296,6 +312,7 @@ class _$_GetSerched with DiagnosticableTreeMixin implements _GetSerched {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetMakes value)? getMakes,
     TResult? Function(_GetSerched value)? getSerched,
+    TResult? Function(_ChangeSelected value)? changeSelected,
   }) {
     return getSerched?.call(this);
   }
@@ -305,6 +322,7 @@ class _$_GetSerched with DiagnosticableTreeMixin implements _GetSerched {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetMakes value)? getMakes,
     TResult Function(_GetSerched value)? getSerched,
+    TResult Function(_ChangeSelected value)? changeSelected,
     required TResult orElse(),
   }) {
     if (getSerched != null) {
@@ -324,9 +342,159 @@ abstract class _GetSerched implements GetMakesBlocEvent {
 }
 
 /// @nodoc
+abstract class _$$_ChangeSelectedCopyWith<$Res> {
+  factory _$$_ChangeSelectedCopyWith(
+          _$_ChangeSelected value, $Res Function(_$_ChangeSelected) then) =
+      __$$_ChangeSelectedCopyWithImpl<$Res>;
+  @useResult
+  $Res call({int index});
+}
+
+/// @nodoc
+class __$$_ChangeSelectedCopyWithImpl<$Res>
+    extends _$GetMakesBlocEventCopyWithImpl<$Res, _$_ChangeSelected>
+    implements _$$_ChangeSelectedCopyWith<$Res> {
+  __$$_ChangeSelectedCopyWithImpl(
+      _$_ChangeSelected _value, $Res Function(_$_ChangeSelected) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? index = null,
+  }) {
+    return _then(_$_ChangeSelected(
+      null == index
+          ? _value.index
+          : index // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_ChangeSelected
+    with DiagnosticableTreeMixin
+    implements _ChangeSelected {
+  _$_ChangeSelected(this.index);
+
+  @override
+  final int index;
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'GetMakesBlocEvent.changeSelected(index: $index)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'GetMakesBlocEvent.changeSelected'))
+      ..add(DiagnosticsProperty('index', index));
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_ChangeSelected &&
+            (identical(other.index, index) || other.index == index));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, index);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_ChangeSelectedCopyWith<_$_ChangeSelected> get copyWith =>
+      __$$_ChangeSelectedCopyWithImpl<_$_ChangeSelected>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() getMakes,
+    required TResult Function(String naem) getSerched,
+    required TResult Function(int index) changeSelected,
+  }) {
+    return changeSelected(index);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? getMakes,
+    TResult? Function(String naem)? getSerched,
+    TResult? Function(int index)? changeSelected,
+  }) {
+    return changeSelected?.call(index);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? getMakes,
+    TResult Function(String naem)? getSerched,
+    TResult Function(int index)? changeSelected,
+    required TResult orElse(),
+  }) {
+    if (changeSelected != null) {
+      return changeSelected(index);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_GetMakes value) getMakes,
+    required TResult Function(_GetSerched value) getSerched,
+    required TResult Function(_ChangeSelected value) changeSelected,
+  }) {
+    return changeSelected(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetMakes value)? getMakes,
+    TResult? Function(_GetSerched value)? getSerched,
+    TResult? Function(_ChangeSelected value)? changeSelected,
+  }) {
+    return changeSelected?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetMakes value)? getMakes,
+    TResult Function(_GetSerched value)? getSerched,
+    TResult Function(_ChangeSelected value)? changeSelected,
+    required TResult orElse(),
+  }) {
+    if (changeSelected != null) {
+      return changeSelected(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _ChangeSelected implements GetMakesBlocEvent {
+  factory _ChangeSelected(final int index) = _$_ChangeSelected;
+
+  int get index;
+  @JsonKey(ignore: true)
+  _$$_ChangeSelectedCopyWith<_$_ChangeSelected> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 mixin _$GetMakesState {
   FormzStatus get status => throw _privateConstructorUsedError;
   GetMakeEntity get makes => throw _privateConstructorUsedError;
+  dynamic get selected => throw _privateConstructorUsedError;
   dynamic get next => throw _privateConstructorUsedError;
   dynamic get search => throw _privateConstructorUsedError;
   dynamic get count => throw _privateConstructorUsedError;
@@ -345,6 +513,7 @@ abstract class $GetMakesStateCopyWith<$Res> {
   $Res call(
       {FormzStatus status,
       GetMakeEntity makes,
+      dynamic selected,
       dynamic next,
       dynamic search,
       dynamic count});
@@ -365,6 +534,7 @@ class _$GetMakesStateCopyWithImpl<$Res, $Val extends GetMakesState>
   $Res call({
     Object? status = null,
     Object? makes = null,
+    Object? selected = freezed,
     Object? next = freezed,
     Object? search = freezed,
     Object? count = freezed,
@@ -378,6 +548,10 @@ class _$GetMakesStateCopyWithImpl<$Res, $Val extends GetMakesState>
           ? _value.makes
           : makes // ignore: cast_nullable_to_non_nullable
               as GetMakeEntity,
+      selected: freezed == selected
+          ? _value.selected
+          : selected // ignore: cast_nullable_to_non_nullable
+              as dynamic,
       next: freezed == next
           ? _value.next
           : next // ignore: cast_nullable_to_non_nullable
@@ -405,6 +579,7 @@ abstract class _$$_GetMakesStateCopyWith<$Res>
   $Res call(
       {FormzStatus status,
       GetMakeEntity makes,
+      dynamic selected,
       dynamic next,
       dynamic search,
       dynamic count});
@@ -423,6 +598,7 @@ class __$$_GetMakesStateCopyWithImpl<$Res>
   $Res call({
     Object? status = null,
     Object? makes = null,
+    Object? selected = freezed,
     Object? next = freezed,
     Object? search = freezed,
     Object? count = freezed,
@@ -436,6 +612,7 @@ class __$$_GetMakesStateCopyWithImpl<$Res>
           ? _value.makes
           : makes // ignore: cast_nullable_to_non_nullable
               as GetMakeEntity,
+      selected: freezed == selected ? _value.selected! : selected,
       next: freezed == next ? _value.next! : next,
       search: freezed == search ? _value.search! : search,
       count: freezed == count ? _value.count! : count,
@@ -449,6 +626,7 @@ class _$_GetMakesState with DiagnosticableTreeMixin implements _GetMakesState {
   _$_GetMakesState(
       {this.status = FormzStatus.pure,
       this.makes = const GetMakeEntity(),
+      this.selected = -1,
       this.next = '',
       this.search = '',
       this.count = 0});
@@ -461,6 +639,9 @@ class _$_GetMakesState with DiagnosticableTreeMixin implements _GetMakesState {
   final GetMakeEntity makes;
   @override
   @JsonKey()
+  final dynamic selected;
+  @override
+  @JsonKey()
   final dynamic next;
   @override
   @JsonKey()
@@ -471,7 +652,7 @@ class _$_GetMakesState with DiagnosticableTreeMixin implements _GetMakesState {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'GetMakesState(status: $status, makes: $makes, next: $next, search: $search, count: $count)';
+    return 'GetMakesState(status: $status, makes: $makes, selected: $selected, next: $next, search: $search, count: $count)';
   }
 
   @override
@@ -481,6 +662,7 @@ class _$_GetMakesState with DiagnosticableTreeMixin implements _GetMakesState {
       ..add(DiagnosticsProperty('type', 'GetMakesState'))
       ..add(DiagnosticsProperty('status', status))
       ..add(DiagnosticsProperty('makes', makes))
+      ..add(DiagnosticsProperty('selected', selected))
       ..add(DiagnosticsProperty('next', next))
       ..add(DiagnosticsProperty('search', search))
       ..add(DiagnosticsProperty('count', count));
@@ -493,6 +675,7 @@ class _$_GetMakesState with DiagnosticableTreeMixin implements _GetMakesState {
             other is _$_GetMakesState &&
             (identical(other.status, status) || other.status == status) &&
             (identical(other.makes, makes) || other.makes == makes) &&
+            const DeepCollectionEquality().equals(other.selected, selected) &&
             const DeepCollectionEquality().equals(other.next, next) &&
             const DeepCollectionEquality().equals(other.search, search) &&
             const DeepCollectionEquality().equals(other.count, count));
@@ -503,6 +686,7 @@ class _$_GetMakesState with DiagnosticableTreeMixin implements _GetMakesState {
       runtimeType,
       status,
       makes,
+      const DeepCollectionEquality().hash(selected),
       const DeepCollectionEquality().hash(next),
       const DeepCollectionEquality().hash(search),
       const DeepCollectionEquality().hash(count));
@@ -518,6 +702,7 @@ abstract class _GetMakesState implements GetMakesState {
   factory _GetMakesState(
       {final FormzStatus status,
       final GetMakeEntity makes,
+      final dynamic selected,
       final dynamic next,
       final dynamic search,
       final dynamic count}) = _$_GetMakesState;
@@ -526,6 +711,8 @@ abstract class _GetMakesState implements GetMakesState {
   FormzStatus get status;
   @override
   GetMakeEntity get makes;
+  @override
+  dynamic get selected;
   @override
   dynamic get next;
   @override

@@ -1,5 +1,6 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/features/ad/domain/entities/types/make.dart';
 import 'package:auto/features/common/widgets/range_slider.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
@@ -56,7 +57,7 @@ class FilterParameters extends StatelessWidget {
                 children: [
                   SelectorItem(
                     onTap: () async {
-                      await showModalBottomSheet<String>(
+                      await showModalBottomSheet<MakeEntity>(
                         isDismissible: false,
                         context: context,
                         isScrollControlled: true,
@@ -73,8 +74,7 @@ class FilterParameters extends StatelessWidget {
                           ),
                         ),
                       ).then((value) {
-                        rentBloc.add(
-                            RentSetParamFromFilterEvent(carMakerId: value));
+                        rentBloc.add(RentSetParamFromFilterEvent(maker: value));
                       });
                     },
                     hintText: LocaleKeys.choose_class.tr(),
@@ -82,15 +82,14 @@ class FilterParameters extends StatelessWidget {
                   ),
                   SelectorItem(
                     onTap: () async {
-                      await showModalBottomSheet<String>(
+                      await showModalBottomSheet<MakeEntity>(
                         isDismissible: false,
                         context: context,
                         isScrollControlled: true,
                         backgroundColor: Colors.transparent,
                         builder: (c) => const ChooseDriveType(),
                       ).then((value) {
-                        rentBloc.add(
-                            RentSetParamFromFilterEvent(carMakerId: value));
+                        rentBloc.add(RentSetParamFromFilterEvent(maker: value));
                       });
                     },
                     hintText: LocaleKeys.choose_drive_type.tr(),

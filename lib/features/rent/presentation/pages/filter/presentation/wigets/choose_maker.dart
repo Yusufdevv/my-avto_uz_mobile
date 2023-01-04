@@ -13,7 +13,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 
 class ChooseMaker extends StatefulWidget {
-  const ChooseMaker({super.key});
+  final int selectedId;
+  const ChooseMaker({required this.selectedId, super.key});
 
   @override
   State<ChooseMaker> createState() => _ChooseMakerState();
@@ -28,10 +29,9 @@ class _ChooseMakerState extends State<ChooseMaker> {
         repository: serviceLocator<AdRepositoryImpl>(),
       ),
     )..add(GetMakesBlocEvent.getMakes());
+
     super.initState();
   }
-
-  int selected = -1;
 
   @override
   Widget build(BuildContext context) => BlocProvider.value(
@@ -51,8 +51,8 @@ class _ChooseMakerState extends State<ChooseMaker> {
                     SheetHeader(
                         title: 'Марка',
                         onCancelPressed: () {
-                          Navigator.of(context).pop(selected >= 0
-                              ? '${state.makes.results[selected].id}'
+                          Navigator.of(context).pop(state.selected >= 0
+                              ? state.makes.results[state.selected]
                               : null);
                         }),
                     const Divider(thickness: 1, color: border, height: 1),
@@ -67,15 +67,15 @@ class _ChooseMakerState extends State<ChooseMaker> {
                                       children: [
                                         WScaleAnimation(
                                           onTap: () {
-                                            selected = index;
-                                            setState(() {});
+                                            getMakesBloc.add(GetMakesBlocEvent
+                                                .changeSelected(index));
                                           },
                                           child: RentSheetItem(
                                             logo:
                                                 state.makes.results[index].logo,
                                             title:
                                                 state.makes.results[index].name,
-                                            isChecked: selected == index,
+                                            isChecked: state.selected == index,
                                           ),
                                         ),
                                         Visibility(
@@ -100,8 +100,8 @@ class _ChooseMakerState extends State<ChooseMaker> {
                           left: 16, right: 16, bottom: 50),
                       child: WButton(
                           onTap: () {
-                            Navigator.of(context).pop(selected >= 0
-                                ? '${state.makes.results[selected].id}'
+                            Navigator.of(context).pop(state.selected >= 0
+                                ? state.makes.results[state.selected]
                                 : null);
                           },
                           color: orange,

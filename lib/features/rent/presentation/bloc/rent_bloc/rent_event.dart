@@ -37,7 +37,7 @@ class RentCleanFilterEvent extends RentEvent {}
 
 class RentSetParamFromFilterEvent extends RentEvent {
   List<Region>? regions;
-  String? carMakerId;
+  MakeEntity? maker;
   String? carBodyTypeId;
   String? carDriveTypeId;
   String? gearboxTypeId;
@@ -48,7 +48,7 @@ class RentSetParamFromFilterEvent extends RentEvent {
 
   RentSetParamFromFilterEvent({
     this.regions,
-    this.carMakerId,
+    this.maker,
     this.carBodyTypeId,
     this.carDriveTypeId,
     this.gearboxTypeId,
