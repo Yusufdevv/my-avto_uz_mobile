@@ -75,12 +75,11 @@ class _DealerScreenState extends State<DealerScreen> {
                       ),
                       const SizedBox(width: 11),
                       WButton(
-                        onTap: () => Navigator.push(
-                            context,
-                            fade(
+                        onTap: () => Navigator.of(context, rootNavigator: true)
+                            .push(fade(
                                 page: DealersFilter(
-                              isDirectoryPage: widget.isDirectoryPage,
-                            ))),
+                          isDirectoryPage: widget.isDirectoryPage,
+                        ))),
                         borderRadius: 12,
                         color: Theme.of(context)
                             .extension<ThemedColors>()!

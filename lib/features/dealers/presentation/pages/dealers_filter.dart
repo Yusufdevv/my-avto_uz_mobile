@@ -128,18 +128,18 @@ class _DealersFilterState extends State<DealersFilter> {
                           isScrollControlled: true,
                           backgroundColor: Colors.transparent,
                           builder: (c) => RentChooseRegionBottomSheet(
-                              isOtherPage: widget.isDirectoryPage,
+                              isOtherPage: true,
                               list: context.read<RegionsBloc>().state.regions),
                         ).then((value) {
                           if (value != null && value.isNotEmpty) {
                             setState(() {
                               newRegion = value;
                             });
-                            print(value);
                           }
                         });
                       },
                       child: EditItemContainer(
+                          isOtherPage: true,
                           icon: AppIcons.chevronRightBlack,
                           region: newRegion?[0].title ?? 'Выберите регион'),
                     ),
