@@ -3,10 +3,11 @@ import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/features/dealers/domain/entities/marks_with_announcements.dart';
 import 'package:auto/features/dealers/presentation/pages/all_marks_with_announcements.dart';
-import 'package:auto/features/dealers/presentation/widgets/automobile_card.dart';
 import 'package:auto/features/dealers/presentation/widgets/dealer_info.dart';
 import 'package:auto/features/dealers/presentation/widgets/dealer_info_sliver_delegate.dart';
 import 'package:auto/features/dealers/presentation/widgets/mark_with_announcement.dart';
+import 'package:auto/features/main/domain/entities/ads_entity.dart';
+import 'package:auto/features/main/presentation/widgets/ads_item.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -53,7 +54,7 @@ class Seller extends StatelessWidget {
               pinned: true,
               delegate: SellerSliverDelegate(
                   minHeight: MediaQuery.of(context).size.height * 0.11,
-                  showroomOrPerson: 'Avtosalon'),
+                  showroomOrPerson: 'Avtasalon'),
             ),
           ],
           body: SingleChildScrollView(
@@ -77,11 +78,15 @@ class Seller extends StatelessWidget {
                   child: Row(
                     children: [
                       Expanded(
-                          child: Text(LocaleKeys.all_brands_with_ads.tr(),
-                              style: const TextStyle(
-                                  color: orange,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w600))),
+                        child: Text(
+                          LocaleKeys.all_brands_with_ads.tr(),
+                          style: const TextStyle(
+                            color: orange,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
                       GestureDetector(
                         onTap: () {
                           Navigator.push(
@@ -158,9 +163,19 @@ class Seller extends StatelessWidget {
                     ],
                   ),
                 ),
-                const CarsCard(),
-                const CarsCard(),
-                const CarsCard(),
+                SingleChildScrollView(
+                  physics: const BouncingScrollPhysics(),
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: List.generate(
+                      marks.length,
+                          (index) => const AdsItem(adsEntity: AdsEntity()),
+                    ),
+                  ),
+                ),
+                // const CarsCard(),
+                // const CarsCard(),
+                // const CarsCard(),
               ],
             ),
           ),
