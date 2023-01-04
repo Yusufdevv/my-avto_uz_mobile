@@ -29,6 +29,8 @@ class RentFilterScreen extends StatefulWidget {
 }
 
 class _RentFilterScreenState extends State<RentFilterScreen> {
+  RangeValues yearValues = RangeValues(1960, DateTime.now().year + 0);
+  RangeValues priceValues = const RangeValues(1000, 500000);
   @override
   Widget build(BuildContext context) => BlocProvider.value(
         value: widget.rentBloc,
@@ -156,25 +158,40 @@ class _RentFilterScreenState extends State<RentFilterScreen> {
                     height: 16,
                   ),
                   WRangeSlider(
+                    values: yearValues,
+                    valueChanged: (value) {
+                      yearValues = value;
+                      setState(() {});
+                    },
                     title: LocaleKeys.year_of_issue.tr(),
-                    endValue: 2022,
+                    endValue: DateTime.now().year + 0,
                     startValue: 1960,
-                    sliderStatus: '',
                   ),
-                  const SizedBox(
-                    height: 16,
-                  ),
+                  const SizedBox(height: 16),
                   WRangeSlider(
+                    values: priceValues,
+                    valueChanged: (value) {
+                      priceValues = value;
+                      setState(() {});
+                    },
                     title: LocaleKeys.price.tr(),
                     endValue: 500000,
                     startValue: 1000,
-                    sliderStatus: 'price',
+                    isForPrice: true,
                   ),
-                  const SizedBox(
-                    height: 16,
-                  ),
+                  const SizedBox(height: 16),
                   WButton(
-                    onTap: () => Navigator.pop(context),
+                    onTap: () {
+                      widget.rentBloc.add(
+                        RentSetParamFromFilterEvent(
+                          yearEnd: yearValues.end.floor().toString(),
+                          yearStart: yearValues.start.floor().toString(),
+                          priceEnd: priceValues.end.floor(),
+                          priceStart: priceValues.start.floor(),
+                        ),
+                      );
+                      Navigator.pop(context);
+                    },
                     text: LocaleKeys.apply.tr(),
                   ),
                 ],

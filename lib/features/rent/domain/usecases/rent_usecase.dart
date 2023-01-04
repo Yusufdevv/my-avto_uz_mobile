@@ -39,8 +39,8 @@ class RentUseCase extends UseCase<GenericPagination<RentMainModel>, Param> {
     if (params.gearboxTypeId != null && params.gearboxTypeId!.isNotEmpty) {
       map['rent_car__gearbox_type'] = params.gearboxTypeId;
     }
+
     print('=== map === map: ${map.toString()}');
-    await Future.delayed(const Duration(milliseconds: 200));
     final v = await repo.fetchMore(
       url: '/rent/main_page/${params.id}/',
       fromJson: RentMainModel.fromJson,
@@ -63,6 +63,10 @@ class Param {
   final String? carBodyTypeId;
   final String? carDriveTypeId;
   final String? gearboxTypeId;
+  final num? rentPriceStatart;
+  final num? rentPriceEnd;
+  final String? yearStatart;
+  final String? yearEnd;
 
   Param({
     this.hasAirConditioner,
@@ -76,5 +80,9 @@ class Param {
     this.carBodyTypeId,
     this.carDriveTypeId,
     this.gearboxTypeId,
+    this.rentPriceEnd,
+    this.rentPriceStatart,
+    this.yearEnd,
+    this.yearStatart,
   });
 }
