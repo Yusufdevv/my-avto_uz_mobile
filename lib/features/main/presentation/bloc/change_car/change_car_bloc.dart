@@ -1,9 +1,8 @@
-import 'dart:async';
-
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
 part 'change_car_event.dart';
+
 part 'change_car_state.dart';
 
 class ChangeCarBloc extends Bloc<ChangeCarEvent, ChangeCarState> {
@@ -11,10 +10,10 @@ class ChangeCarBloc extends Bloc<ChangeCarEvent, ChangeCarState> {
     on<SelectedChangeCarItemEvent>((event, emit) {
       emit(state.copyWith(selectedId: event.id));
     });
-    on<ConfirmChangeCarOption>((event, emit){
+    on<ConfirmChangeCarOption>((event, emit) {
       emit(state.copyWith(confirmId: state.selectedId));
     });
-    on<RevertChangeCarOption>((event, emit){
+    on<RevertChangeCarOption>((event, emit) {
       emit(state.copyWith(selectedId: state.confirmId));
     });
   }

@@ -4,27 +4,29 @@ abstract class CarSelectorEvent extends Equatable {
   const CarSelectorEvent();
 }
 
-class SelectedCarItemEvent extends CarSelectorEvent{
+class SelectedCarItemEvent extends CarSelectorEvent {
   final int id;
-  const SelectedCarItemEvent({required this.id});
+  final String name;
+  final String imageUrl;
+  const SelectedCarItemEvent({
+    required this.id,
+    required this.name,
+    required this.imageUrl,
+  });
   @override
-  List<Object?> get props => [id];
+  List<Object?> get props => [id, name];
 }
 
-
-class ConfirmCarOption extends CarSelectorEvent{
-
+class ConfirmCarOption extends CarSelectorEvent {
   const ConfirmCarOption();
 
   @override
   List<Object?> get props => [];
 }
 
-class RevertCarOption extends CarSelectorEvent{
-
+class RevertCarOption extends CarSelectorEvent {
   const RevertCarOption();
 
   @override
   List<Object?> get props => [];
-
 }

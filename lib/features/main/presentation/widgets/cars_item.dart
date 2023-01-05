@@ -1,7 +1,7 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
-import 'package:auto/features/main/presentation/bloc/change_car_bloc.dart';
+import 'package:auto/features/main/presentation/bloc/change_car/change_car_bloc.dart';
 import 'package:auto/features/ad/domain/entities/choose_car_brand/change_car_entity.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';

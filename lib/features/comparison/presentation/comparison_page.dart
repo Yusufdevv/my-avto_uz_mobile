@@ -1,5 +1,4 @@
 import 'package:auto/core/singletons/service_locator.dart';
-import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/ad/data/repositories/ad_repository_impl.dart';
 import 'package:auto/features/ad/domain/usecases/get_car_model.dart';
 import 'package:auto/features/ad/domain/usecases/get_makes.dart';
@@ -9,9 +8,8 @@ import 'package:auto/features/ad/presentation/bloc/choose_model/model_selectro_b
 import 'package:auto/features/common/bloc/get_car_model/get_car_model_bloc.dart';
 import 'package:auto/features/common/bloc/get_makes_bloc/get_makes_bloc_bloc.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
-import 'package:auto/features/comparison/data/repositories/comparison_cars_repo_impl.dart';
-import 'package:auto/features/comparison/domain/usecases/comparison_cars_use_case.dart';
 import 'package:auto/features/comparison/presentation/bloc/comparison-bloc/comparison_bloc.dart';
+import 'package:auto/features/comparison/presentation/pages/ads/ads.dart';
 import 'package:auto/features/comparison/presentation/pages/choose_car_brand.dart';
 import 'package:auto/features/comparison/presentation/pages/choose_generation.dart';
 import 'package:auto/features/comparison/presentation/pages/choose_model.dart';
@@ -74,15 +72,27 @@ class _ComparisonPageState extends State<ComparisonPage> {
                       context,
                       fade(
                         page: ChooseCarBrandComparison(
-                          onTap: () => Navigator.of(context).push(
+                          onTap: () => Navigator.of(context).pushReplacement(
                             fade(
                               page: ChooseCarModelComparison(
                                 onTap: () {
-                                  Navigator.of(context).push(
+                                  // Navigator.of(context).push(
+                                  //   fade(
+                                  //     page: ChooseGenerationComparison(
+                                  //       onTap: () {},
+                                  //       modelBloc: modelBloc,
+                                  //     ),
+                                  //   ),
+                                  // );
+                                  Navigator.of(context).pushReplacement(
                                     fade(
-                                      page: ChooseGenerationComparison(
-                                        onTap: () {},
-                                        modelBloc: modelBloc,
+                                      page: AdsScreen(
+                                        carSelectorBloc: carSelectorBloc,
+                                        getMakesBloc: getMakesBloc,
+                                        getCarModelBloc: carModelBloc,
+                                        carTypeSelectorBloc:
+                                            carTypeSelectorBloc,
+                                        modelSelectorBloc: modelBloc,
                                       ),
                                     ),
                                   );

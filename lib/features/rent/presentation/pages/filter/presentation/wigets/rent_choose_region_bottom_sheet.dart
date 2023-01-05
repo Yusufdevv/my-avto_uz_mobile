@@ -56,8 +56,8 @@ class _RentChooseRegionBottomSheetState
                 children: [
                   if (!widget.isProfileEdit)
                     RegionSelectAllItem(
-                      isOtherPage: widget.isOtherPage,
                       isAllChecked: isAllChecked,
+                      isOtherPage: widget.isOtherPage,
                       onTap: () {
                         if (isAllChecked) {
                           checkStatus = {};

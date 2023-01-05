@@ -1,5 +1,4 @@
-import 'package:auto/core/utils/size_config.dart';
-import 'package:auto/features/common/widgets/image_preload_shimmer.dart';
+import 'package:auto/assets/constants/images.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
@@ -44,13 +43,13 @@ class CachedImage extends StatelessWidget {
             height: height,
             color: color,
             fit: fit,
-            placeholder: (context, url) => ImagePreloadShimmer(
-              height: preloadHeight,
-              width: preloadWidth,
+            placeholder: (context, url) => Image.asset(
+              AppImages.defaultPhoto,
+              fit: BoxFit.cover,
             ),
-            errorWidget: (context, url, error) => ImagePreloadShimmer(
-              height: preloadHeight,
-              width: preloadWidth,
+            errorWidget: (context, url, error) => Image.asset(
+              AppImages.defaultPhoto,
+              fit: BoxFit.cover,
             ),
           ),
         ),

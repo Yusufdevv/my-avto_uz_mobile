@@ -25,6 +25,7 @@ class CommercialBodyScreen extends StatelessWidget {
         CommercialCarModelItem(
           title: 'Mercedes-Benz',
           subtitle: 'Sprinter',
+          imageUrl: '',
           onTap: () {},
         ),
         const SizedBox(height: 12),

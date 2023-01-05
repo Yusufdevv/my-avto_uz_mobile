@@ -2,6 +2,7 @@ import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/generated/locale_keys.g.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -14,6 +15,7 @@ class CommercialCarModelItem extends StatelessWidget {
     this.subtitle,
     super.key,
     required this.onTap,
+    required this.imageUrl,
   });
   bool centerTitle;
   String title;
@@ -21,6 +23,8 @@ class CommercialCarModelItem extends StatelessWidget {
   TextStyle? titleStyle;
   TextStyle? subtitleStyle;
   final VoidCallback onTap;
+  final String imageUrl;
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).extension<ThemedColors>()!;
@@ -36,11 +40,19 @@ class CommercialCarModelItem extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: 16),
       child: Row(
         children: [
-          SvgPicture.asset(
-            AppIcons.vehicle,
-            width: 24,
-            height: 24,
-          ),
+          if (imageUrl.isEmpty)
+            SvgPicture.asset(
+              AppIcons.vehicle,
+              width: 24,
+              height: 24,
+            )
+          else
+            CachedNetworkImage(
+              imageUrl: imageUrl,
+              height: 36,
+              width: 36,
+              fit: BoxFit.cover,
+            ),
           const SizedBox(
             width: 12,
           ),
@@ -48,8 +60,7 @@ class CommercialCarModelItem extends StatelessWidget {
             margin: const EdgeInsets.symmetric(vertical: 6),
             width: 1,
             height: 20,
-            color:
-                theme.solitudeToCharcoal,
+            color: theme.solitudeToCharcoal,
           ),
           const SizedBox(
             width: 12,
