@@ -25,6 +25,7 @@ class _ChooseMakerState extends State<ChooseMaker> {
   @override
   void initState() {
     getMakesBloc = GetMakesBloc(
+      selectedMakeId: widget.selectedId,
       useCase: GetMakesUseCase(
         repository: serviceLocator<AdRepositoryImpl>(),
       ),

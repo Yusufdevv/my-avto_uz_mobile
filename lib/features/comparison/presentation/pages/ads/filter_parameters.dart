@@ -6,7 +6,6 @@ import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/comparison/presentation/bloc/filter_parameters_bloc/bloc/filter_parameters_bloc.dart';
 import 'package:auto/features/rent/presentation/bloc/rent_bloc/rent_bloc.dart';
-import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/choose_body_type.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/choose_drive_type.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/rent_choose_bottom_sheet.dart';
 import 'package:auto/features/search/presentation/widgets/selector_item.dart';
@@ -87,7 +86,7 @@ class FilterParameters extends StatelessWidget {
                         context: context,
                         isScrollControlled: true,
                         backgroundColor: Colors.transparent,
-                        builder: (c) => const ChooseDriveType(),
+                        builder: (c) => const ChooseDriveType(selectedId: -1),
                       ).then((value) {
                         rentBloc.add(RentSetParamFromFilterEvent(maker: value));
                       });

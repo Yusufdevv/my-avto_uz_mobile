@@ -45,6 +45,7 @@ class _ComparisonPageState extends State<ComparisonPage> {
         useCase:
             GetCarModelUseCase(repository: serviceLocator<AdRepositoryImpl>()));
     getMakesBloc = GetMakesBloc(
+      selectedMakeId: -1,
       useCase: GetMakesUseCase(
         repository: serviceLocator<AdRepositoryImpl>(),
       ),

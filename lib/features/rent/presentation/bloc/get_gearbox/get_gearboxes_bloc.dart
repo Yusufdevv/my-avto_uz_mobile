@@ -9,16 +9,22 @@ part 'get_gearboxes_event.dart';
 part 'get_gearboxes_state.dart';
 
 class GetGearboxesBloc extends Bloc<GetGearboxesEvent, GetGearboxesState> {
+  final int selectedId;
   final GetGearBoxessUseCase getGearboxesUseCase;
-  GetGearboxesBloc({required this.getGearboxesUseCase})
+  GetGearboxesBloc(
+      {required this.selectedId, required this.getGearboxesUseCase})
       : super(
             const GetGearboxesState(status: FormzStatus.pure, gearBoxes: [])) {
-    on<GetGearboxesEvent>((event, emit) async {
+    on<GetGearboxesSelectEvent>(
+        (event, emit) => emit(state.copyWith(selected: event.index)));
+    on<GetGearboxesGetEvent>((event, emit) async {
       emit(state.copyWith(status: FormzStatus.submissionInProgress));
       final result = await getGearboxesUseCase.call(NoParams());
       if (result.isRight) {
         emit(
           state.copyWith(
+            selected: result.right.results
+                .indexWhere((element) => element.id == selectedId),
             status: FormzStatus.submissionSuccess,
             gearBoxes: result.right.results,
           ),

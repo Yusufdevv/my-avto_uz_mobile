@@ -1,3 +1,10 @@
 part of 'get_drive_types_bloc.dart';
 
- class GetDriveTypesEvent {}
+abstract class GetDriveTypesEvent {}
+
+class GetDriveTypesSelectEvent extends GetDriveTypesEvent {
+  final int index;
+  GetDriveTypesSelectEvent(this.index);
+}
+
+class GetDriveTypesGetEvent extends GetDriveTypesEvent {}
