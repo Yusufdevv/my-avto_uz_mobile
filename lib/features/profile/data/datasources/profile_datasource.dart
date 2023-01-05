@@ -25,7 +25,7 @@ abstract class ProfileDataSource {
       required String code,
       required String session});
 
-  Future<List<AutoModel>> getProfileFavorites();
+  Future<List<AutoModel>> getProfileFavorites(String endpoint);
 
   Future<List<TermsOfUseModel>> getTermsOfUseData();
 }
@@ -116,12 +116,12 @@ class ProfileDataSourceImpl extends ProfileDataSource {
       throw ParsingException(errorMessage: e.toString());
     }
   }
-
+//'/users/wishlist/announcement/list/'
   @override
-  Future<List<AutoModel>> getProfileFavorites() async {
+  Future<List<AutoModel>> getProfileFavorites(String endpoint) async {
     try {
       final response = await dio.get(
-        '/users/wishlist/announcement/list/',
+        endpoint,
         options: Options(headers: {
           'Authorization': 'Bearer ${StorageRepository.getString('token')}'
         }),

@@ -8,39 +8,39 @@ part of 'auto_model.dart';
 
 AutoModel _$AutoModelFromJson(Map<String, dynamic> json) => AutoModel(
       id: json['id'] as int? ?? -1,
-      carBodyType: json['car_body_type'] == null
+      bodyType: json['body_type'] == null
           ? const TypeEntity()
           : const TypeConverter()
-              .fromJson(json['car_body_type'] as Map<String, dynamic>?),
-      carDriveType: json['car_drive_type'] == null
+              .fromJson(json['body_type'] as Map<String, dynamic>?),
+      driveType: json['drive_type'] == null
           ? const TypeEntity()
           : const TypeConverter()
-              .fromJson(json['car_drive_type'] as Map<String, dynamic>?),
-      carEngineType: json['car_engine_type'] == null
+              .fromJson(json['drive_type'] as Map<String, dynamic>?),
+      engineType: json['engine_type'] == null
           ? const TypeEntity()
           : const TypeConverter()
-              .fromJson(json['car_engine_type'] as Map<String, dynamic>?),
-      carGearboxType: json['car_gearbox_type'] == null
+              .fromJson(json['engine_type'] as Map<String, dynamic>?),
+      gearboxType: json['gearbox_type'] == null
           ? const TypeEntity()
           : const TypeConverter()
-              .fromJson(json['car_gearbox_type'] as Map<String, dynamic>?),
-      carGeneration: json['car_generation'] == null
+              .fromJson(json['gearbox_type'] as Map<String, dynamic>?),
+      generation: json['generation'] == null
           ? const CarGenerationEntity()
           : const CarGenerationConverter()
-              .fromJson(json['car_generation'] as Map<String, dynamic>),
-      carMake: json['car_make'] == null
+              .fromJson(json['generation'] as Map<String, dynamic>),
+      make: json['make'] == null
           ? const CarMakeEntity()
           : const CarMakeConverter()
-              .fromJson(json['car_make'] as Map<String, dynamic>?),
-      carModel: json['car_model'] == null
+              .fromJson(json['make'] as Map<String, dynamic>?),
+      model: json['model'] == null
           ? const CarModelEntity()
           : const CarModelConverter()
-              .fromJson(json['car_model'] as Map<String, dynamic>?),
-      carModificationType: json['car_modification_type'] == null
+              .fromJson(json['model'] as Map<String, dynamic>?),
+      modificationType: json['modification_type'] == null
           ? const CarModificationTypeEntity()
           : const CarModificationTypeConverter()
-              .fromJson(json['car_modification_type'] as Map<String, dynamic>?),
-      carYear: json['car_year'] as int? ?? 0,
+              .fromJson(json['modification_type'] as Map<String, dynamic>?),
+      year: json['year'] as int? ?? 0,
       contactEmail: json['contact_email'] as String? ?? '',
       contactName: json['contact_name'] as String? ?? '',
       contactPhone: json['contact_phone'] as String? ?? '',
@@ -59,9 +59,9 @@ AutoModel _$AutoModelFromJson(Map<String, dynamic> json) => AutoModel(
       isNew: json['is_new'] as bool? ?? false,
       isRegisteredLocally: json['is_registered_locally'] as bool? ?? false,
       isWishlisted: json['is_wishlisted'] as bool? ?? false,
-      latitude: (json['latitude'] as num).toDouble(),
+      latitude: (json['latitude'] as num?)?.toDouble() ?? 0,
       licenceType: json['licence_type'] as String? ?? '',
-      longitude: (json['longitude'] as num).toDouble(),
+      longitude: (json['longitude'] as num?)?.toDouble() ?? 0,
       ownership: json['ownership'] as String? ?? '',
       price: (json['price'] as num?)?.toDouble() ?? 0,
       publishedAt: json['published_at'] as String? ?? '',
@@ -81,27 +81,40 @@ AutoModel _$AutoModelFromJson(Map<String, dynamic> json) => AutoModel(
       discount: (json['discount'] as num?)?.toDouble() ?? -1,
       contactAvailableFrom: json['contact_available_from'] as String? ?? '',
       contactAvailableTo: json['contact_available_to'] as String? ?? '',
+      absoluteCarName: json['absolute_car_name'] as String? ?? '',
+      color: json['color'] as String? ?? '',
+      locationUrl: json['location_url'] as String? ?? '',
+      mileageImage: json['mileage_image'] as String? ?? '',
+      purchaseDate: json['purchase_date'] as String? ?? '',
+      registrationCertificate:
+          json['registration_certificate'] as String? ?? '',
+      registrationPlate: json['registration_plate'] as String? ?? '',
+      registrationSerialNumber:
+          json['registration_serial_number'] as String? ?? '',
+      registrationVin: json['registration_vin'] as String? ?? '',
     );
 
 Map<String, dynamic> _$AutoModelToJson(AutoModel instance) => <String, dynamic>{
       'id': instance.id,
-      'car_make': const CarMakeConverter().toJson(instance.carMake),
-      'car_model': const CarModelConverter().toJson(instance.carModel),
-      'car_generation':
-          const CarGenerationConverter().toJson(instance.carGeneration),
-      'car_body_type': const TypeConverter().toJson(instance.carBodyType),
-      'car_drive_type': const TypeConverter().toJson(instance.carDriveType),
-      'car_engine_type': const TypeConverter().toJson(instance.carEngineType),
-      'car_gearbox_type': const TypeConverter().toJson(instance.carGearboxType),
-      'car_year': instance.carYear,
-      'car_modification_type': const CarModificationTypeConverter()
-          .toJson(instance.carModificationType),
+      'make': const CarMakeConverter().toJson(instance.make),
+      'model': const CarModelConverter().toJson(instance.model),
+      'generation': const CarGenerationConverter().toJson(instance.generation),
+      'body_type': const TypeConverter().toJson(instance.bodyType),
+      'drive_type': const TypeConverter().toJson(instance.driveType),
+      'engine_type': const TypeConverter().toJson(instance.engineType),
+      'gearbox_type': const TypeConverter().toJson(instance.gearboxType),
+      'year': instance.year,
+      'modification_type': const CarModificationTypeConverter()
+          .toJson(instance.modificationType),
       'region': const CarDistrictConverter().toJson(instance.region),
       'district': const CarDistrictConverter().toJson(instance.district),
       'user': const CarUserConverter().toJson(instance.user),
       'dealer': instance.dealer,
       'licence_type': instance.licenceType,
+      'absolute_car_name': instance.absoluteCarName,
+      'color': instance.color,
       'ownership': instance.ownership,
+      'purchase_date': instance.purchaseDate,
       'description': instance.description,
       'is_registered_locally': instance.isRegisteredLocally,
       'contact_name': instance.contactName,
@@ -123,4 +136,10 @@ Map<String, dynamic> _$AutoModelToJson(AutoModel instance) => <String, dynamic>{
       'discount': instance.discount,
       'contact_available_from': instance.contactAvailableFrom,
       'contact_available_to': instance.contactAvailableTo,
+      'location_url': instance.locationUrl,
+      'mileage_image': instance.mileageImage,
+      'registration_vin': instance.registrationVin,
+      'registration_plate': instance.registrationPlate,
+      'registration_certificate': instance.registrationCertificate,
+      'registration_serial_number': instance.registrationSerialNumber,
     };

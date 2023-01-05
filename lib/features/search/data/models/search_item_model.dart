@@ -11,7 +11,7 @@ part 'search_item_model.g.dart';
 @JsonSerializable(fieldRename: FieldRename.snake)
 class SearchItemModel extends AutoEntity {
   const SearchItemModel({
-    required super.carYear,
+    required super.year,
     required super.description,
     required super.gallery,
     required super.publishedAt,
@@ -23,10 +23,10 @@ class SearchItemModel extends AutoEntity {
     required super.contactPhone,
     required super.district,
     required super.user,
-    required super.carModel,
+    required super.model,
     required super.dealer,
-    required super.carGeneration,
-    required super.carMake,
+    required super.generation,
+    required super.make,
   });
 
   factory SearchItemModel.fromJson(Map<String, dynamic> json) =>

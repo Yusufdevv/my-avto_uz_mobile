@@ -32,21 +32,20 @@ class RegionSelectAllItem extends StatelessWidget {
                 style: Theme.of(context)
                     .textTheme
                     .headline1!
-                    .copyWith(fontWeight: FontWeight.w600, fontSize: 16),
+                    .copyWith(fontWeight: FontWeight.w400, fontSize: 16),
               ),
-              if(isOtherPage) 
-                isAllChecked ?
-                   SvgPicture.asset(
-                      AppIcons.check,
-                      color: orange,
-                    )
-                  : const SizedBox()
-              else 
-                if (isAllChecked)
+              if (isOtherPage)
+                isAllChecked
+                    ? SvgPicture.asset(
+                        AppIcons.check,
+                        color: orange,
+                      )
+                    : const SizedBox()
+              else if (isAllChecked)
                 const RegionCheckBox(
                   isChecked: true,
                 )
-                else
+              else
                 Container(
                   alignment: Alignment.center,
                   height: 20.28,

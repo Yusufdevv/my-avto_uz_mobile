@@ -4,6 +4,7 @@ import 'package:auto/features/common/domain/entity/car_make_entity.dart';
 import 'package:auto/features/common/domain/entity/car_model_entity.dart';
 import 'package:auto/features/common/domain/entity/car_modification_type_entity.dart';
 import 'package:auto/features/common/domain/entity/car_user_entity.dart';
+import 'package:auto/features/common/domain/entity/stats_entity.dart';
 import 'package:auto/features/common/domain/entity/type_entity.dart';
 import 'package:auto/features/common/domain/model/auto_model.dart';
 import 'package:equatable/equatable.dart';
@@ -12,14 +13,15 @@ import 'package:json_annotation/json_annotation.dart';
 class AutoEntity extends Equatable {
   const AutoEntity({
     this.id = -1,
-    this.carMake = const CarMakeEntity(),
-    this.carModel = const CarModelEntity(),
-    this.carGeneration = const CarGenerationEntity(),
-    this.carBodyType = const TypeEntity(),
-    this.carDriveType = const TypeEntity(),
-    this.carEngineType = const TypeEntity(),
-    this.carGearboxType = const TypeEntity(),
-    this.carModificationType = const CarModificationTypeEntity(),
+    this.make = const CarMakeEntity(),
+    this.model = const CarModelEntity(),
+    this.generation = const CarGenerationEntity(),
+    this.bodyType = const TypeEntity(),
+    this.driveType = const TypeEntity(),
+    this.engineType = const TypeEntity(),
+    this.gearboxType = const TypeEntity(),
+    this.modificationType = const CarModificationTypeEntity(),
+    // this.stats = const StatsEntity(),
     this.contactEmail = '',
     this.contactName = '',
     this.contactPhone = '',
@@ -28,7 +30,7 @@ class AutoEntity extends Equatable {
     this.price = 0,
     this.userType = '',
     this.registeredInUzbekistan = false,
-    this.carYear = 0,
+    this.year = 0,
     this.dealer,
     this.description = '',
     this.distanceTraveled = 0,
@@ -48,35 +50,49 @@ class AutoEntity extends Equatable {
     this.discount = -1,
     this.contactAvailableFrom = '',
     this.contactAvailableTo = '',
+    this.absoluteCarName = '',
+    this.color = '',
+    this.purchaseDate = '',
+    this.locationUrl = '',
+    this.mileageImage = '',
+    this.registrationVin = '',
+    this.registrationPlate = '',
+    this.registrationCertificate = '',
+    this.registrationSerialNumber = '',
   });
 
   final int id;
   @CarMakeConverter()
-  final CarMakeEntity carMake;
+  final CarMakeEntity make;
   @CarModelConverter()
-  final CarModelEntity carModel;
+  final CarModelEntity model;
   @CarGenerationConverter()
-  final CarGenerationEntity carGeneration;
+  final CarGenerationEntity generation;
   @TypeConverter()
-  final TypeEntity carBodyType;
+  final TypeEntity bodyType;
   @TypeConverter()
-  final TypeEntity carDriveType;
+  final TypeEntity driveType;
   @TypeConverter()
-  final TypeEntity carEngineType;
+  final TypeEntity engineType;
   @TypeConverter()
-  final TypeEntity carGearboxType;
-  final int carYear;
+  final TypeEntity gearboxType;
+  final int year;
   @CarModificationTypeConverter()
-  final CarModificationTypeEntity carModificationType;
+  final CarModificationTypeEntity modificationType;
   @CarDistrictConverter()
   final CarDistrictEntity region;
   @CarDistrictConverter()
   final CarDistrictEntity district;
+  // @StatsConverter()
+  // final StatsEntity stats;
   @CarUserConverter()
   final CarUserEntity user;
   final dynamic dealer;
   final String licenceType;
+  final String absoluteCarName;
+  final String color;
   final String ownership;
+  final String purchaseDate;
   final String description;
   final bool isRegisteredLocally;
   final String contactName;
@@ -98,19 +114,25 @@ class AutoEntity extends Equatable {
   final double discount;
   final String contactAvailableFrom;
   final String contactAvailableTo;
+  final String locationUrl;
+  final String mileageImage;
+  final String registrationVin;
+  final String registrationPlate;
+  final String registrationCertificate;
+  final String registrationSerialNumber;
 
   @override
   List<Object?> get props => [
         id,
-        carMake,
-        carModel,
-        carGeneration,
-        carBodyType,
-        carDriveType,
-        carEngineType,
-        carGearboxType,
-        carYear,
-        carModificationType,
+        make,
+        model,
+        generation,
+        bodyType,
+        driveType,
+        engineType,
+        gearboxType,
+        year,
+        modificationType,
         region,
         district,
         user,
@@ -135,6 +157,16 @@ class AutoEntity extends Equatable {
         viewsCount,
         isWishlisted,
         isComparison,
+        absoluteCarName,
+        color,
+        locationUrl,
+        mileageImage,
+        purchaseDate,
+        registrationCertificate,
+        registrationPlate,
+        registrationSerialNumber,
+        registrationVin,
+        // stats,
       ];
 }
 
@@ -148,15 +180,15 @@ class AutoConverter
   @override
   Map<String, dynamic>? toJson(AutoEntity object) => AutoModel(
         id: object.id,
-        carBodyType: object.carBodyType,
-        carDriveType: object.carDriveType,
-        carEngineType: object.carEngineType,
-        carGearboxType: object.carGearboxType,
-        carGeneration: object.carGeneration,
-        carMake: object.carMake,
-        carModel: object.carModel,
-        carModificationType: object.carModificationType,
-        carYear: object.carYear,
+        bodyType: object.bodyType,
+        driveType: object.driveType,
+        engineType: object.engineType,
+        gearboxType: object.gearboxType,
+        generation: object.generation,
+        make: object.make,
+        model: object.model,
+        modificationType: object.modificationType,
+        year: object.year,
         contactEmail: object.contactEmail,
         contactName: object.contactName,
         contactPhone: object.contactPhone,
@@ -184,5 +216,15 @@ class AutoConverter
         contactAvailableFrom: object.contactAvailableFrom,
         contactAvailableTo: object.contactAvailableTo,
         discount: object.discount,
+        absoluteCarName: object.absoluteCarName,
+        color: object.color,
+        locationUrl: object.locationUrl,
+        mileageImage: object.mileageImage,
+        purchaseDate: object.purchaseDate,
+        registrationCertificate: object.registrationCertificate,
+        registrationPlate: object.registrationPlate,
+        registrationSerialNumber: object.registrationSerialNumber,
+        registrationVin: object.registrationVin,
+        // stats: object.stats,
       ).toJson();
 }

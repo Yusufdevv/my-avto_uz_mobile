@@ -8,7 +8,7 @@ part of 'search_item_model.dart';
 
 SearchItemModel _$SearchItemModelFromJson(Map<String, dynamic> json) =>
     SearchItemModel(
-      carYear: json['car_year'] as int? ?? 0,
+      year: json['year'] as int? ?? 0,
       description: json['description'] as String? ?? '',
       gallery: (json['gallery'] as List<dynamic>?)
               ?.map((e) => e as String)
@@ -29,28 +29,27 @@ SearchItemModel _$SearchItemModelFromJson(Map<String, dynamic> json) =>
           ? const CarUserEntity()
           : const CarUserConverter()
               .fromJson(json['user'] as Map<String, dynamic>?),
-      carModel: json['car_model'] == null
+      model: json['model'] == null
           ? const CarModelEntity()
           : const CarModelConverter()
-              .fromJson(json['car_model'] as Map<String, dynamic>?),
+              .fromJson(json['model'] as Map<String, dynamic>?),
       dealer: json['dealer'],
-      carGeneration: json['car_generation'] == null
+      generation: json['generation'] == null
           ? const CarGenerationEntity()
           : const CarGenerationConverter()
-              .fromJson(json['car_generation'] as Map<String, dynamic>),
-      carMake: json['car_make'] == null
+              .fromJson(json['generation'] as Map<String, dynamic>),
+      make: json['make'] == null
           ? const CarMakeEntity()
           : const CarMakeConverter()
-              .fromJson(json['car_make'] as Map<String, dynamic>?),
+              .fromJson(json['make'] as Map<String, dynamic>?),
     );
 
 Map<String, dynamic> _$SearchItemModelToJson(SearchItemModel instance) =>
     <String, dynamic>{
-      'car_make': const CarMakeConverter().toJson(instance.carMake),
-      'car_model': const CarModelConverter().toJson(instance.carModel),
-      'car_generation':
-          const CarGenerationConverter().toJson(instance.carGeneration),
-      'car_year': instance.carYear,
+      'make': const CarMakeConverter().toJson(instance.make),
+      'model': const CarModelConverter().toJson(instance.model),
+      'generation': const CarGenerationConverter().toJson(instance.generation),
+      'year': instance.year,
       'district': const CarDistrictConverter().toJson(instance.district),
       'user': const CarUserConverter().toJson(instance.user),
       'dealer': instance.dealer,

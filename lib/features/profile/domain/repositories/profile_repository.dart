@@ -21,7 +21,7 @@ abstract class ProfileRepository {
 
   Future<Either<ServerFailure, String>> sendVerificationCode({required String phoneNumber, required String code,required String session});
 
-  Future<Either<ServerFailure, List<AutoEntity>>> getProfileFavorites();
+  Future<Either<ServerFailure, List<AutoEntity>>> getProfileFavorites(String endpoint);
 
   Future<Either<ServerFailure, List<TermsOfUseEntity>>> getTermsOfUse();
 }
