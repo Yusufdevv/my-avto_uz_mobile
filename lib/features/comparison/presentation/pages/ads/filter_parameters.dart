@@ -1,19 +1,17 @@
 import 'package:auto/assets/colors/color.dart';
-import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/features/common/widgets/range_slider.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/comparison/presentation/bloc/filter_parameters_bloc/bloc/filter_parameters_bloc.dart';
 import 'package:auto/features/rent/presentation/bloc/rent_bloc/rent_bloc.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/choose_body_type.dart';
-import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/rent_choose_bottom_sheet.dart';
 import 'package:auto/features/search/presentation/widgets/selector_item.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class FilterParameters extends StatelessWidget {
+class FilterParameters extends StatefulWidget {
   final FilterParametersBloc filterParametersBloc;
   final RentBloc rentBloc;
   const FilterParameters({
@@ -23,9 +21,18 @@ class FilterParameters extends StatelessWidget {
   });
 
   @override
+  State<FilterParameters> createState() => _FilterParametersState();
+}
+
+class _FilterParametersState extends State<FilterParameters> {
+  RangeValues yearValues = RangeValues(1960, DateTime.now().year + 0);
+
+  RangeValues priceValues = const RangeValues(1000, 500000);
+
+  @override
   Widget build(BuildContext context) =>
       BlocBuilder<FilterParametersBloc, FilterParametersState>(
-        bloc: filterParametersBloc,
+        bloc: widget.filterParametersBloc,
         builder: (context, state) {
           var size = MediaQuery.of(context).size;
           return Scaffold(
@@ -62,38 +69,12 @@ class FilterParameters extends StatelessWidget {
                         backgroundColor: Colors.transparent,
                         builder: (c) => const ChooseBodyType(),
                       ).then((value) {
-                        rentBloc.add(RentSetParamFromFilterEvent(
+                        widget.rentBloc.add(RentSetParamFromFilterEvent(
                             carBodyTypeId: value?[0].toString()));
                       });
                     },
                     hintText: LocaleKeys.choose_body.tr(),
                     title: LocaleKeys.body_type.tr(),
-                  ),
-                  SelectorItem(
-                    onTap: () async {
-                      await showModalBottomSheet<List<int>>(
-                        isDismissible: false,
-                        context: context,
-                        isScrollControlled: true,
-                        backgroundColor: Colors.transparent,
-                        builder: (c) => RentChooseBottomSheet(
-                          title: 'Klass',
-                          list: List.generate(
-                            8,
-                            (index) => ToChoose(
-                              title: 'Class $index',
-                              imagePath: AppIcons.kia,
-                              id: index,
-                            ),
-                          ),
-                        ),
-                      ).then((value) {
-                        rentBloc
-                            .add(RentSetParamFromFilterEvent(carMakers: value));
-                      });
-                    },
-                    hintText: LocaleKeys.choose_class.tr(),
-                    title: LocaleKeys.classs.tr(),
                   ),
                   SelectorItem(
                     onTap: () {},
@@ -118,7 +99,7 @@ class FilterParameters extends StatelessWidget {
                     children: [
                       WButton(
                         onTap: () {
-                          filterParametersBloc
+                          widget.filterParametersBloc
                               .add(FilterParametersEvent.getIdVal(0));
                         },
                         height: 36,
@@ -138,7 +119,7 @@ class FilterParameters extends StatelessWidget {
                       ),
                       WButton(
                         onTap: () {
-                          filterParametersBloc
+                          widget.filterParametersBloc
                               .add(FilterParametersEvent.getIdVal(1));
                         },
                         height: 36,
@@ -160,17 +141,26 @@ class FilterParameters extends StatelessWidget {
                   ),
                   const SizedBox(height: 20),
                   WRangeSlider(
+                    values: yearValues,
+                    valueChanged: (value) {
+                      yearValues = value;
+                      setState(() {});
+                    },
+                    title: LocaleKeys.year_of_issue.tr(),
+                    endValue: DateTime.now().year + 0,
+                    startValue: 1960,
+                  ),
+                  const SizedBox(height: 16),
+                  WRangeSlider(
+                    values: priceValues,
+                    valueChanged: (value) {
+                      priceValues = value;
+                      setState(() {});
+                    },
                     title: LocaleKeys.price.tr(),
                     endValue: 500000,
                     startValue: 1000,
-                    sliderStatus: 'price',
-                  ),
-                  const SizedBox(height: 20),
-                  WRangeSlider(
-                    title: LocaleKeys.year_of_issue.tr(),
-                    endValue: DateTime.now().year.toDouble(),
-                    startValue: 1960,
-                    sliderStatus: '',
+                    isForPrice: true,
                   ),
                   SizedBox(height: size.height * 0.1),
                   WButton(
