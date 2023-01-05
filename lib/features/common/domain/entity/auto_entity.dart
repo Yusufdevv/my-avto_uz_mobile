@@ -59,6 +59,7 @@ class AutoEntity extends Equatable {
     this.registrationPlate = '',
     this.registrationCertificate = '',
     this.registrationSerialNumber = '',
+    this.stats =const StatsEntity(),
   });
 
   final int id;
@@ -83,8 +84,8 @@ class AutoEntity extends Equatable {
   final CarDistrictEntity region;
   @CarDistrictConverter()
   final CarDistrictEntity district;
-  // @StatsConverter()
-  // final StatsEntity stats;
+  @StatsConverter()
+  final StatsEntity stats;
   @CarUserConverter()
   final CarUserEntity user;
   final dynamic dealer;
@@ -166,7 +167,7 @@ class AutoEntity extends Equatable {
         registrationPlate,
         registrationSerialNumber,
         registrationVin,
-        // stats,
+        stats,
       ];
 }
 
@@ -225,6 +226,6 @@ class AutoConverter
         registrationPlate: object.registrationPlate,
         registrationSerialNumber: object.registrationSerialNumber,
         registrationVin: object.registrationVin,
-        // stats: object.stats,
+        stats: object.stats,
       ).toJson();
 }

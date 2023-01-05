@@ -1,14 +1,18 @@
+import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/features/profile/domain/entities/profile_item_entity.dart';
 import 'package:auto/features/profile/presentation/bloc/profile/profile_bloc.dart';
 import 'package:auto/features/profile/presentation/widgets/widgets.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:formz/formz.dart';
 
 class MyAddsPage extends StatefulWidget {
-  const MyAddsPage({required this.profileBloc,Key? key}) : super(key: key);
+  const MyAddsPage({required this.profileBloc, Key? key}) : super(key: key);
   final ProfileBloc profileBloc;
 
   @override
@@ -22,7 +26,8 @@ class _MyAddsPageState extends State<MyAddsPage> with TickerProviderStateMixin {
   @override
   void initState() {
     tabController = TabController(length: 3, vsync: this);
-    widget.profileBloc.add(GetProfileFavoritesEvent(endpoint:'/car/my-announcements/'));
+    widget.profileBloc
+        .add(GetProfileFavoritesEvent(endpoint: '/car/my-announcements/'));
     super.initState();
   }
 
@@ -67,18 +72,42 @@ class _MyAddsPageState extends State<MyAddsPage> with TickerProviderStateMixin {
               ),
             )
           ],
-          body: TabBarView(
-            controller: tabController,
-            children: [
-              const AllAds(),
-              Column(
-                children: const [Text('2 tab')],
+          body: 
+          // BlocBuilder<ProfileBloc, ProfileState>(
+          //   builder: (context, state) {
+          //       if (state.status.isSubmissionFailure) {
+          //       return const Center(
+          //         child: Text('Xatolik!'),
+          //       );
+          //     }
+          //     if (state.status.isSubmissionInProgress) {
+          //       return const Center(
+          //           child: CupertinoActivityIndicator(
+          //         color: white,
+          //       ));
+          //     }
+          //     if (state.status.isSubmissionSuccess) {
+                // return 
+                TabBarView(
+                controller: tabController,
+                children: [
+                  const AllAds(),
+                  Column(
+                    children: const [Text('2 tab')],
+                  ),
+                  Column(
+                    children: const [Text(
+                      '2 tab')],
+                  ),
+                ],
               ),
-              Column(
-                children: const [Text('2 tab')],
-              ),
-            ],
-          ),
+              // ;
+              // } 
+              // return const Center(
+              //   child: Text('Xatolik!'),
+              // );
+            // },
+          // ),
         ),
       );
 }
