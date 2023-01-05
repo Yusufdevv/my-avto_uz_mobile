@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:auto/core/exceptions/exceptions.dart';
 import 'package:auto/core/singletons/storage.dart';
 
@@ -18,7 +20,7 @@ class AddWishlistDatasourceImpl extends AddWishlistDatasource {
   Future<void> addWishlist(int id) async {
     try {
       final response = await _dio.post('/users/wishlist/announcement/add/',
-          data: {'announcement': id},
+          data: json.encode({'announcement': id}),
           options: Options(headers: {
             'Authorization': 'Bearer ${StorageRepository.getString('token')}'
           })
@@ -47,7 +49,7 @@ class AddWishlistDatasourceImpl extends AddWishlistDatasource {
   Future<void> removeWishlist(int id) async {
     try {
       final response = await _dio.post('/users/wishlist/announcement/remove/',
-          queryParameters: {'announcement': id},
+          data: json.encode({'announcement': id}),
           options: Options(headers: {
             'Authorization': 'Bearer ${StorageRepository.getString('token')}'
           }));
