@@ -45,6 +45,7 @@ class _FavouritePageState extends State<FavouritePage> {
                         description: item.description,
                         districtTitle: item.district.title,
                         isNew: item.isNew,
+                        id: item.id,
                         isWishlisted: item.isWishlisted,
                         price: item.price,
                         publishedAt: item.publishedAt,

@@ -33,9 +33,11 @@ class _WLikeState extends State<WLike> {
   @override
   Widget build(BuildContext context) => GestureDetector(
         onTap: () {
+
           setState(() {
             isLiked = !isLiked;
           });
+
         },
         child: AnimatedSwitcher(
           duration: const Duration(milliseconds: 300),
