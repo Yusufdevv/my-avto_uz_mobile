@@ -31,13 +31,13 @@ class AdsBodyScreen extends StatefulWidget {
   final ModelSelectorBloc modelSelectorBloc;
   final FilterParametersBloc filterParametersBloc;
   const AdsBodyScreen({
-    super.key,
     required this.carSelectorBloc,
     required this.getMakesBloc,
     required this.getCarModelBloc,
     required this.carTypeSelectorBloc,
     required this.modelSelectorBloc,
     required this.filterParametersBloc,
+    super.key,
   });
 
   @override

@@ -1,10 +1,14 @@
 import 'dart:async';
-
+import 'package:auto/features/ad/domain/entities/types/body_type.dart';
+import 'package:auto/features/ad/domain/entities/types/drive_type.dart';
+import 'package:auto/features/ad/domain/entities/types/gearbox_type.dart';
+import 'package:auto/features/ad/domain/entities/types/make.dart';
 import 'package:auto/features/common/models/region.dart';
 import 'package:auto/features/rent/domain/entities/rent_main_entity.dart';
 import 'package:auto/features/rent/domain/usecases/rent_usecase.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:formz/formz.dart';
 part 'rent_event.dart';
 part 'rent_state.dart';
@@ -14,9 +18,6 @@ class RentBloc extends Bloc<RentEvent, RentState> {
 
   RentBloc({required this.rentUseCase, required int id})
       : super(RentState(
-          carBodyTypeId: '',
-          carDriveTypeId: '',
-          gearboxTypeId: '',
           categoryId: id,
           count: 5,
           hasAirConditioners: 0,
@@ -32,34 +33,28 @@ class RentBloc extends Bloc<RentEvent, RentState> {
     on<RentGetMoreEvent>(_getMore);
     on<RentSetIdEvent>(_setId);
     on<RentSetParamFromFilterEvent>(_setFromFilter);
-    on<RentCleanFilterEvent>(_clearFilter);
   }
   FutureOr<void> _setFromFilter(
       RentSetParamFromFilterEvent event, Emitter<RentState> emit) async {
     emit(
-      state.copyWith(
+      RentState(
+        categoryId: state.categoryId,
+        count: state.count,
+        hasAirConditioners: state.hasAirConditioners,
+        hasBabySeat: state.hasBabySeat,
+        list: state.list,
+        next: state.next,
+        paginationStatus: state.paginationStatus,
+        rentCarIsClean: state.rentCarIsClean,
+        rentCarIsFullFuel: state.rentCarIsFullFuel,
+        status: state.status,
+        gearboxType: event.gearboxType,
         regions: event.regions,
-        carMakers: event.carMakerId,
-        carBodyTypeId: event.carBodyTypeId,
-        carDriveTypeId: event.carDriveTypeId,
-        gearboxTypeId: event.gearboxTypeId,
-        yearEnd: event.yearEnd,
-        yearStart: event.yearStart,
-        priceEnd: event.priceEnd,
-        priceStart: event.priceStart,
-      ),
-    );
-  }
-
-  FutureOr<void> _clearFilter(
-      RentCleanFilterEvent event, Emitter<RentState> emit) async {
-    emit(
-      state.copyWith(
-        regions: [],
-        carMakers: '',
-        carBodyTypeId: '',
-        carDriveTypeId: '',
-        gearboxTypeId: '',
+        maker: event.maker,
+        bodyType: event.bodyType,
+        carDriveType: event.carDriveType,
+        yearValues: event.yearValues,
+        priceValues: event.priceValues,
       ),
     );
   }
@@ -69,6 +64,7 @@ class RentBloc extends Bloc<RentEvent, RentState> {
     if (!(event.isRefresh ?? false)) {
       emit(state.copyWith(status: FormzStatus.submissionInProgress));
     }
+
     final result = await rentUseCase(
       Param(
         next: '',
@@ -77,15 +73,17 @@ class RentBloc extends Bloc<RentEvent, RentState> {
         hasBabySeat: state.hasBabySeat,
         rentCarIsClean: state.rentCarIsClean,
         rentCarIsFullFuel: state.rentCarIsFullFuel,
-        carBodyTypeId: state.carBodyTypeId,
-        carDriveTypeId: state.carDriveTypeId,
-        gearboxTypeId: state.gearboxTypeId,
-        makers: state.carMakers,
+        carBodyTypeId: state.bodyType == null ? null : '${state.bodyType!.id}',
+        carDriveTypeId:
+            state.carDriveType == null ? null : '${state.carDriveType!.id}',
+        gearboxTypeId:
+            state.gearboxType == null ? null : '${state.gearboxType!.id}',
+        maker: state.maker == null ? null : '${state.maker!.id}',
         regions: state.regions?.map((e) => e.id.toString()).toList().join(','),
-        rentPriceEnd: state.priceEnd,
-        rentPriceStatart: state.priceStart,
-        yearEnd: state.yearEnd,
-        yearStatart: state.yearStart,
+        rentPriceEnd: state.priceValues?.end.floor(),
+        rentPriceStart: state.priceValues?.start.floor(),
+        yearEnd: state.yearValues?.end.floor().toString(),
+        yearStart: state.yearValues?.start.floor().toString(),
       ),
     );
     if (result.isRight) {
@@ -130,52 +128,5 @@ class RentBloc extends Bloc<RentEvent, RentState> {
       rentCarIsClean: event.rentCarIsClean ?? state.rentCarIsClean,
     ));
     add(RentGetResultsEvent(isRefresh: true));
-  }
-
-  static Map<String, dynamic> mapper(Param params) {
-    final map = <String, dynamic>{};
-    if (params.hasAirConditioner != null && params.hasAirConditioner! > 0) {
-      map['rent_car__has_air_conditioner'] = params.hasAirConditioner;
-    }
-    if (params.hasBabySeat != null && params.hasBabySeat! > 0) {
-      map['rent_car__has_baby_seat'] = params.hasBabySeat;
-    }
-    if (params.rentCarIsClean != null && params.rentCarIsClean! > 0) {
-      map['rent_car__is_clean'] = params.rentCarIsClean;
-    }
-    if (params.rentCarIsFullFuel != null && params.rentCarIsFullFuel! > 0) {
-      map['rent_car__is_full_fuel'] = params.rentCarIsFullFuel;
-    }
-    if (params.regions != null && params.regions!.isNotEmpty) {
-      map['region__in'] = params.regions;
-    }
-    if (params.makers != null && params.makers!.isNotEmpty) {
-      map['rent_car__make'] = params.makers;
-    }
-    if (params.carBodyTypeId != null && params.carBodyTypeId!.isNotEmpty) {
-      map['rent_car__body_type'] = params.carBodyTypeId;
-    }
-    if (params.carDriveTypeId != null && params.carDriveTypeId!.isNotEmpty) {
-      map['rent_car__drive_type'] = params.carDriveTypeId;
-    }
-    if (params.gearboxTypeId != null && params.gearboxTypeId!.isNotEmpty) {
-      map['rent_car__gearbox_type'] = params.gearboxTypeId;
-    }
-    /////////////////////////////////////////////////////////////////////
-    if (params.rentPriceStatart != null && params.rentPriceStatart! > 0) {
-      map['rent_price_start'] = params.rentPriceStatart;
-    }
-    if (params.rentPriceEnd != null && params.rentPriceEnd! > 0) {
-      map['rent_price_end'] = params.rentPriceEnd;
-    }
-    if (params.yearStatart != null && params.yearStatart!.isNotEmpty) {
-      map['rent_car_year_start'] = params.yearStatart;
-    }
-    if (params.yearEnd != null && params.yearEnd!.isNotEmpty) {
-      map['rent_car_year_end'] = params.yearEnd;
-    }
-    print('returning map is: $map');
-
-    return map;
   }
 }

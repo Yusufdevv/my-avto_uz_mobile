@@ -8,7 +8,7 @@ class MakeEntity extends Equatable {
   final String logo;
 
   const MakeEntity({
-     this.id = 0,
+     this.id = -1,
      this.name = '',
      this.logo = '',
   });

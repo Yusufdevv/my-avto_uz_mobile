@@ -1,10 +1,12 @@
 import 'package:auto/assets/colors/color.dart';
+import 'package:auto/features/ad/domain/entities/types/make.dart';
 import 'package:auto/features/common/widgets/range_slider.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/comparison/presentation/bloc/filter_parameters_bloc/bloc/filter_parameters_bloc.dart';
 import 'package:auto/features/rent/presentation/bloc/rent_bloc/rent_bloc.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/choose_body_type.dart';
+import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/choose_drive_type.dart';
 import 'package:auto/features/search/presentation/widgets/selector_item.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -62,19 +64,33 @@ class _FilterParametersState extends State<FilterParameters> {
                 children: [
                   SelectorItem(
                     onTap: () async {
-                      await showModalBottomSheet<List<int>>(
+                      await showModalBottomSheet<MakeEntity>(
                         isDismissible: false,
                         context: context,
                         isScrollControlled: true,
                         backgroundColor: Colors.transparent,
-                        builder: (c) => const ChooseBodyType(),
+                        builder: (c) => const ChooseBodyType(selectedId: -1),
                       ).then((value) {
-                        widget.rentBloc.add(RentSetParamFromFilterEvent(
-                            carBodyTypeId: value?[0].toString()));
+                        // rentBloc.add(RentSetParamFromFilterEvent(maker: value));
                       });
                     },
-                    hintText: LocaleKeys.choose_body.tr(),
-                    title: LocaleKeys.body_type.tr(),
+                    hintText: LocaleKeys.choose_class.tr(),
+                    title: LocaleKeys.classs.tr(),
+                  ),
+                  SelectorItem(
+                    onTap: () async {
+                      await showModalBottomSheet<MakeEntity>(
+                        isDismissible: false,
+                        context: context,
+                        isScrollControlled: true,
+                        backgroundColor: Colors.transparent,
+                        builder: (c) => const ChooseDriveType(selectedId: -1),
+                      ).then((value) {
+                        // rentBloc.add(RentSetParamFromFilterEvent(maker: value));
+                      });
+                    },
+                    hintText: LocaleKeys.choose_drive_type.tr(),
+                    title: LocaleKeys.drive_unit.tr(),
                   ),
                   SelectorItem(
                     onTap: () {},

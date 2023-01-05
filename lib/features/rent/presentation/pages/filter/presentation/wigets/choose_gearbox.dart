@@ -4,7 +4,7 @@ import 'package:auto/features/ad/data/repositories/ad_repository_impl.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/rent/domain/usecases/get_gearboxess_usecase.dart';
-import 'package:auto/features/rent/presentation/bloc/bloc/get_gearboxes_bloc.dart';
+import 'package:auto/features/rent/presentation/bloc/get_gearbox/get_gearboxes_bloc.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/maker_sheet_item.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/sheet_header.dart';
 import 'package:flutter/cupertino.dart';
@@ -13,7 +13,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 
 class ChooseGearbox extends StatefulWidget {
-  const ChooseGearbox({super.key});
+  final int selectedId;
+  const ChooseGearbox({required this.selectedId, super.key});
 
   @override
   State<ChooseGearbox> createState() => _ChooseGearboxState();
@@ -24,14 +25,13 @@ class _ChooseGearboxState extends State<ChooseGearbox> {
   @override
   void initState() {
     getGearboxesBloc = GetGearboxesBloc(
+      selectedId: widget.selectedId,
       getGearboxesUseCase: GetGearBoxessUseCase(
         repository: serviceLocator<AdRepositoryImpl>(),
       ),
-    )..add(GetGearboxesEvent());
+    )..add(GetGearboxesGetEvent());
     super.initState();
   }
-
-  int selected = -1;
 
   @override
   Widget build(BuildContext context) => BlocProvider.value(
@@ -53,8 +53,8 @@ class _ChooseGearboxState extends State<ChooseGearbox> {
                     SheetHeader(
                         title: 'Коробка',
                         onCancelPressed: () {
-                          Navigator.of(context).pop(selected >= 0
-                              ? '${state.gearBoxes[selected].id}'
+                          Navigator.of(context).pop(state.selected >= 0
+                              ? state.gearBoxes[state.selected]
                               : null);
                         }),
                     const Divider(thickness: 1, color: border, height: 1),
@@ -68,14 +68,12 @@ class _ChooseGearboxState extends State<ChooseGearbox> {
                                 (index) => Column(
                                       children: [
                                         WScaleAnimation(
-                                          onTap: () {
-                                            selected = index;
-                                            setState(() {});
-                                          },
+                                          onTap: () => getGearboxesBloc.add(
+                                              GetGearboxesSelectEvent(index)),
                                           child: RentSheetItem(
                                             logo: state.gearBoxes[index].logo,
                                             title: state.gearBoxes[index].type,
-                                            isChecked: index == selected,
+                                            isChecked: index == state.selected,
                                           ),
                                         ),
                                         Visibility(
@@ -99,8 +97,8 @@ class _ChooseGearboxState extends State<ChooseGearbox> {
                           left: 16, right: 16, bottom: 50),
                       child: WButton(
                         onTap: () {
-                          Navigator.of(context).pop(selected >= 0
-                              ? '${state.gearBoxes[selected].id}'
+                          Navigator.of(context).pop(state.selected >= 0
+                              ? state.gearBoxes[state.selected] 
                               : null);
                         },
                         color: orange,

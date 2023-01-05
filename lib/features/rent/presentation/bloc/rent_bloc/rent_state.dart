@@ -12,14 +12,13 @@ class RentState extends Equatable {
   final int rentCarIsClean;
   final int rentCarIsFullFuel;
   final List<Region>? regions;
-  final String? carMakers;
-  final String? carBodyTypeId;
-  final String? carDriveTypeId;
-  final String? gearboxTypeId;
-  final String? yearStart;
-  final String? yearEnd;
-  final num? priceStart;
-  final num? priceEnd;
+  final MakeEntity? maker;
+  final BodyTypeEntity? bodyType;
+  final DriveTypeEntity? carDriveType;
+  final GearboxTypeEntity? gearboxType;
+
+  final RangeValues? yearValues;
+  final RangeValues? priceValues;
 
   const RentState({
     required this.list,
@@ -32,23 +31,21 @@ class RentState extends Equatable {
     required this.hasBabySeat,
     required this.rentCarIsClean,
     required this.rentCarIsFullFuel,
-    this.carMakers,
+    this.maker,
     this.regions,
-    this.carBodyTypeId,
-    this.carDriveTypeId,
-    this.gearboxTypeId,
-    this.priceEnd,
-    this.priceStart,
-    this.yearEnd,
-    this.yearStart,
+    this.bodyType,
+    this.carDriveType,
+    this.gearboxType,
+    this.priceValues,
+    this.yearValues,
   });
 
   RentState copyWith({
     List<Region>? regions,
-    String? carMakers,
-    String? carBodyTypeId,
-    String? carDriveTypeId,
-    String? gearboxTypeId,
+    MakeEntity? maker,
+    BodyTypeEntity? bodyType,
+    DriveTypeEntity? carDriveType,
+    GearboxTypeEntity? gearboxType,
     List<RentMainEntity>? list,
     FormzStatus? status,
     FormzStatus? paginationStatus,
@@ -59,17 +56,15 @@ class RentState extends Equatable {
     int? hasBabySeat,
     int? rentCarIsClean,
     int? rentCarIsFullFuel,
-    String? yearStart,
-    String? yearEnd,
-    num? priceStart,
-    num? priceEnd,
+    RangeValues? yearValues,
+    RangeValues? priceValues,
   }) =>
       RentState(
         regions: regions ?? this.regions,
-        carMakers: carMakers ?? this.carMakers,
-        carBodyTypeId: carBodyTypeId ?? this.carBodyTypeId,
-        carDriveTypeId: carDriveTypeId ?? this.carDriveTypeId,
-        gearboxTypeId: gearboxTypeId ?? this.gearboxTypeId,
+        maker: maker ?? this.maker,
+        bodyType: bodyType ?? this.bodyType,
+        carDriveType: carDriveType ?? this.carDriveType,
+        gearboxType: gearboxType ?? this.gearboxType,
         list: list ?? this.list,
         status: status ?? this.status,
         paginationStatus: paginationStatus ?? this.paginationStatus,
@@ -80,10 +75,8 @@ class RentState extends Equatable {
         hasBabySeat: hasBabySeat ?? this.hasBabySeat,
         rentCarIsClean: rentCarIsClean ?? this.rentCarIsClean,
         rentCarIsFullFuel: rentCarIsFullFuel ?? this.rentCarIsFullFuel,
-        priceEnd: priceEnd ?? this.priceEnd,
-        priceStart: priceStart ?? this.priceStart,
-        yearEnd: yearEnd ?? this.yearEnd,
-        yearStart: yearStart ?? this.yearStart,
+        yearValues: yearValues ?? this.yearValues,
+        priceValues: priceValues ?? this.priceValues,
       );
 
   @override
@@ -98,14 +91,12 @@ class RentState extends Equatable {
         hasBabySeat,
         rentCarIsClean,
         rentCarIsFullFuel,
-        carMakers,
+        maker,
         regions,
-        carBodyTypeId,
-        carDriveTypeId,
-        gearboxTypeId,
-        priceEnd,
-        priceStart,
-        yearEnd,
-        yearStart,
+        bodyType,
+        carDriveType,
+        gearboxType,
+        priceValues,
+        yearValues,
       ];
 }
