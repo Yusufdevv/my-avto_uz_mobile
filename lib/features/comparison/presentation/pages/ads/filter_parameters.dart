@@ -6,7 +6,6 @@ import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/comparison/presentation/bloc/filter_parameters_bloc/bloc/filter_parameters_bloc.dart';
 import 'package:auto/features/rent/presentation/bloc/rent_bloc/rent_bloc.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/choose_body_type.dart';
-import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/choose_drive_type.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/rent_choose_bottom_sheet.dart';
 import 'package:auto/features/search/presentation/widgets/selector_item.dart';
 import 'package:auto/generated/locale_keys.g.dart';
@@ -56,7 +55,23 @@ class FilterParameters extends StatelessWidget {
                 children: [
                   SelectorItem(
                     onTap: () async {
-                      await showModalBottomSheet<String>(
+                      await showModalBottomSheet<List<int>>(
+                        isDismissible: false,
+                        context: context,
+                        isScrollControlled: true,
+                        backgroundColor: Colors.transparent,
+                        builder: (c) => const ChooseBodyType(),
+                      ).then((value) {
+                        rentBloc.add(RentSetParamFromFilterEvent(
+                            carBodyTypeId: value?[0].toString()));
+                      });
+                    },
+                    hintText: LocaleKeys.choose_body.tr(),
+                    title: LocaleKeys.body_type.tr(),
+                  ),
+                  SelectorItem(
+                    onTap: () async {
+                      await showModalBottomSheet<List<int>>(
                         isDismissible: false,
                         context: context,
                         isScrollControlled: true,
@@ -73,28 +88,12 @@ class FilterParameters extends StatelessWidget {
                           ),
                         ),
                       ).then((value) {
-                        rentBloc.add(
-                            RentSetParamFromFilterEvent(carMakerId: value));
+                        rentBloc
+                            .add(RentSetParamFromFilterEvent(carMakers: value));
                       });
                     },
                     hintText: LocaleKeys.choose_class.tr(),
                     title: LocaleKeys.classs.tr(),
-                  ),
-                  SelectorItem(
-                    onTap: () async {
-                      await showModalBottomSheet<String>(
-                        isDismissible: false,
-                        context: context,
-                        isScrollControlled: true,
-                        backgroundColor: Colors.transparent,
-                        builder: (c) => const ChooseDriveType(),
-                      ).then((value) {
-                        rentBloc.add(
-                            RentSetParamFromFilterEvent(carMakerId: value));
-                      });
-                    },
-                    hintText: LocaleKeys.choose_drive_type.tr(),
-                    title: LocaleKeys.drive_unit.tr(),
                   ),
                   SelectorItem(
                     onTap: () {},
@@ -161,20 +160,17 @@ class FilterParameters extends StatelessWidget {
                   ),
                   const SizedBox(height: 20),
                   WRangeSlider(
-                    values: RangeValues(0, 100),
                     title: LocaleKeys.price.tr(),
                     endValue: 500000,
                     startValue: 1000,
-                    isForPrice: true,
-                    valueChanged: (v) {},
+                    sliderStatus: 'price',
                   ),
                   const SizedBox(height: 20),
                   WRangeSlider(
-                    values: RangeValues(0, 100),
-                    valueChanged: (v) {},
                     title: LocaleKeys.year_of_issue.tr(),
-                    endValue: 2022,
+                    endValue: DateTime.now().year.toDouble(),
                     startValue: 1960,
+                    sliderStatus: '',
                   ),
                   SizedBox(height: size.height * 0.1),
                   WButton(
