@@ -7,31 +7,25 @@ part of 'story_model.dart';
 // **************************************************************************
 
 StoryModel _$StoryModelFromJson(Map<String, dynamic> json) => StoryModel(
-      id: json['id'] as int? ?? -1,
-      title: json['title'] as String? ?? '',
-      description: json['description'] as String? ?? '',
-      category: json['category'] == null
-          ? const CategoryEntity()
-          : const CategoryConverter()
-              .fromJson(json['category'] as Map<String, dynamic>?),
-      content: json['content'] as String? ?? '',
-      icon: json['icon'] as String? ?? '',
-      url: json['url'] as String? ?? '',
-      expired: json['expired'] as bool? ?? false,
-      redirectTo: json['redirect_to'] as String? ?? '',
-      redirectData: json['redirect_data'] as String? ?? '',
+      id: json['id'] as int,
+      name: json['name'] as String,
+      slug: json['slug'] as String,
+      coverImageThumbnail: const CoverImageThumbnailConverter()
+          .fromJson(json['cover_image_thumbnail'] as Map<String, dynamic>?),
+      isRead: json['is_read'] as bool,
+      items: (json['items'] as List<dynamic>)
+          .map((e) =>
+              const StoryItemConverter().fromJson(e as Map<String, dynamic>?))
+          .toList(),
     );
 
 Map<String, dynamic> _$StoryModelToJson(StoryModel instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'title': instance.title,
-      'description': instance.description,
-      'category': const CategoryConverter().toJson(instance.category),
-      'content': instance.content,
-      'icon': instance.icon,
-      'url': instance.url,
-      'expired': instance.expired,
-      'redirect_to': instance.redirectTo,
-      'redirect_data': instance.redirectData,
+      'name': instance.name,
+      'slug': instance.slug,
+      'cover_image_thumbnail': const CoverImageThumbnailConverter()
+          .toJson(instance.coverImageThumbnail),
+      'is_read': instance.isRead,
+      'items': instance.items.map(const StoryItemConverter().toJson).toList(),
     };
