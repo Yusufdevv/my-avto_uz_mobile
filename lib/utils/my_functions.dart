@@ -1,12 +1,22 @@
+import 'dart:async';
+import 'dart:math';
+import 'dart:typed_data';
+import 'dart:ui' as ui;
+
 import 'package:auto/assets/colors/color.dart';
-import 'package:auto/features/profile/presentation/pages/sms_code.dart';
+import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/core/exceptions/exceptions.dart';
+import 'package:auto/features/dealers/data/models/dealer_card_model.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:jiffy/jiffy.dart';
+import 'package:yandex_mapkit/yandex_mapkit.dart';
 
 // ignore: avoid_classes_with_only_static_members
 class MyFunctions {
   static String getData(String data) =>
       Jiffy(data).format('dd-MM-yyyy').replaceAll('-', '/').toString();
+
   static Color mapCategoryIndexToColor(final int index) {
     switch (index) {
       case 0:
@@ -19,19 +29,6 @@ class MyFunctions {
         return yellow;
       default:
         return white;
-    }
-  }
-
-  static String getCodePageTitle(CodePageType codePageType) {
-    switch (codePageType) {
-      case CodePageType.forgot:
-        return 'LocaleKeys.forgot_password.tr()';
-      case CodePageType.login:
-        return ' LocaleKeys.authorization.tr()';
-      case CodePageType.register:
-        return 'LocaleKeys.register.tr()';
-      default:
-        return '';
     }
   }
 
@@ -49,6 +46,180 @@ class MyFunctions {
     return buffer.toString();
   }
 
+  static Future<ImageInfo> getImageInfo(
+      BuildContext context, String image) async {
+    final assetImage = AssetImage(image);
+    final stream =
+    assetImage.resolve(createLocalImageConfiguration(context));
+    final completer = Completer<ImageInfo>();
+    stream.addListener(ImageStreamListener((imageInfo, _) => completer.complete(imageInfo)));
+    return completer.future;
+  }
+
+  static Future<Uint8List> getBytesFromCanvas(
+      {required int width,
+        required int height,
+        required int placeCount,
+        required BuildContext context,
+        Offset? offset,
+        required String image,
+        bool shouldAddText = true}) async {
+    final pictureRecorder = ui.PictureRecorder();
+    final canvas = Canvas(pictureRecorder);
+    final paint = Paint()..color = Colors.red;
+    canvas.drawImage(
+        await getImageInfo(context, image).then((value) => value.image),
+        offset ?? const Offset(0, 3),
+        paint);
+
+    if (shouldAddText) {
+      final painter = TextPainter(textDirection: ui.TextDirection.ltr);
+      painter..text = TextSpan(
+        text: placeCount.toString(),
+        style: const TextStyle(fontSize: 100, color: Colors.white),
+      )
+      ..layout()
+      ..paint(
+        canvas,
+        Offset((width * 0.47) - painter.width * 0.2,
+            (height * 0.1) - painter.height * 0.1),
+      );
+    }
+
+    final img = await pictureRecorder.endRecording().toImage(width, height);
+    final data = await img.toByteData(format: ui.ImageByteFormat.png);
+    return data?.buffer.asUint8List() ?? Uint8List(0);
+  }
+
+  static Future<MapObject<dynamic>> getMyPoint(
+      Point point, BuildContext context) async {
+    final myIconData = await getBytesFromCanvas(
+        placeCount: 0,
+        image: AppIcons.currentLoc,
+        width: 170,
+        //offset: const Offset(0, -30),
+        height: 410,
+        context: context,
+        shouldAddText: false);
+    final myPoint = PlacemarkMapObject(
+        opacity: 1,
+        mapId: const MapObjectId('my-point'),
+        point: point,
+        icon: PlacemarkIcon.single(PlacemarkIconStyle(
+          scale: 0.6,
+          image: BitmapDescriptor.fromBytes(myIconData),
+        )));
+    return myPoint;
+  }
+
+  static const clusterId = MapObjectId('big_cluster_id');
+
+  static Future<void> addDealer(
+      List<DealerCardModel> points,
+      BuildContext context,
+      List<MapObject<dynamic>> mapObjects,
+      YandexMapController controller,
+      Point point,
+      double accuracy) async {
+    final iconData = await getBytesFromCanvas(
+        placeCount: 0,
+        image: AppIcons.dealersLocIcon,
+        width: 170,
+        //offset: const Offset(0, -30),
+        height: 410,
+        context: context,
+        shouldAddText: false);
+    final placeMarks = points
+        .map(
+          (e) => PlacemarkMapObject(
+            opacity: 1,
+            mapId: MapObjectId(e.latitude.toString()),
+            point: Point(latitude: e.latitude, longitude: e.longitude),
+            onTap: (object, point) {
+              controller.moveCamera(
+                CameraUpdate.newCameraPosition(
+                  CameraPosition(
+                    target: Point(latitude: e.latitude, longitude: e.longitude),
+                    zoom: 15,
+                  ),
+                ),
+              );
+              showModalBottomSheet(
+                barrierColor: Colors.transparent,
+                context: context,
+                isScrollControlled: true,
+                useRootNavigator: true,
+                backgroundColor: Colors.transparent,
+                builder: (context) => const SizedBox(
+                  height: 40,
+                  width: 100,
+                  child: Text('Shu locationga bosdingiz'),
+                ),
+                // builder: (context) => HospitalSingleBottomSheet(
+                //   id: e.id,
+                //   isHospital: true,
+                //   slug: e.slug,
+                //   title: e.title,
+                //   phone: e.phoneNumber,
+                //   logo: e.logo.middle,
+                //   address: e.address,
+                //   images: e.images.map((e) => e.middle).toList(),
+                //   location: Point(latitude: e.latitude, longitude: e.longitude),
+                //   rating: e.rating,
+                // ),
+              );
+            },
+            icon: PlacemarkIcon.single(
+              PlacemarkIconStyle(
+                scale: 0.6,
+                image: BitmapDescriptor.fromBytes(iconData),
+              ),
+            ),
+          ),
+        )
+        .toList();
+    final myPoint = await getMyPoint(point, context);
+    final clusterItem = ClusterizedPlacemarkCollection(
+      mapId: clusterId,
+      placemarks: placeMarks,
+      radius: 25,
+      minZoom: 30,
+      onClusterTap: (collection, cluster) {
+        controller.moveCamera(CameraUpdate.newCameraPosition(CameraPosition(
+            target: Point(
+                latitude: collection.placemarks.first.point.latitude,
+                longitude: collection.placemarks.first.point.latitude),
+            zoom: 15)));
+      },
+      onTap: (collection, point) {},
+      // onClusterAdded: (collection, cluster) async => cluster.copyWith(
+      //   appearance: cluster.appearance.copyWith(
+      //     opacity: 1,
+      //     icon: PlacemarkIcon.single(
+      //       PlacemarkIconStyle(
+      //         image: BitmapDescriptor.fromBytes(
+      //           await getBytesFromCanvas(
+      //               image: AppImages.hospitalCluster,
+      //               width: 170,
+      //               height: 410,
+      //               placeCount: cluster.placemarks.length,
+      //               context: context,
+      //               shouldAddText: true),
+      //         ),
+      //         scale: 0.6,
+      //       ),
+      //     ),
+      //   ),
+      // ),
+    );
+
+    mapObjects.clear();
+    mapObjects.addAll([clusterItem, myPoint]);
+  }
+
+  static double getRadiusFromZoom(double zoom) =>
+      40000 / pow(2, zoom) > 1 ? 40000 / pow(2, zoom) : 1;
+
   static String getFormatCost(String cost) {
     String oldCost = cost;
     if (cost.contains('.')) {
@@ -63,8 +234,37 @@ class MyFunctions {
     return newCost.trimLeft();
   }
 
+  static Future<Position> determinePosition() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      throw const ParsingException(errorMessage: 'location_services_disabled');
+    }
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        throw const ParsingException(
+            errorMessage: 'location_permission_disabled');
+      }
+    }
+    if (permission == LocationPermission.deniedForever) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        throw const ParsingException(
+            errorMessage: 'location_permission_disabled');
+      } else if (permission == LocationPermission.deniedForever) {
+        throw const ParsingException(
+            errorMessage: 'location_permission_permanent_disabled');
+      }
+    }
+    return await Geolocator.getCurrentPosition();
+  }
+
   static String getHoursFormat(String data) =>
       Jiffy(data).format('h-mm').replaceAll('-', ':').toString();
+
   static String phoneFormatter(String content, List<int> stopsList) {
     final buffer = StringBuffer();
     for (int i = 0; i < content.length; i++) {
@@ -134,17 +334,17 @@ class MyFunctions {
     final now = DateTime.now();
 
     final dateFrom = DateTime(
-      2022,
-      1,
-      1,
+      now.year,
+      now.month,
+      now.day,
       int.parse(callFrom.substring(0, 2)),
       int.parse(callFrom.substring(3, 5)),
       int.parse(callFrom.substring(6)),
     );
     final dateTo = DateTime(
-      2022,
-      1,
-      1,
+      now.year,
+      now.month,
+      now.day,
       int.parse(callTo.substring(0, 2)),
       int.parse(callTo.substring(3, 5)),
       int.parse(callTo.substring(6)),

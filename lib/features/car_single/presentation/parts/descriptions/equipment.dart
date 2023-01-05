@@ -7,13 +7,37 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class EquipmentCard extends StatefulWidget {
-  const EquipmentCard({Key? key}) : super(key: key);
+  final String complectation;
+  final String complectationItem;
+
+  const EquipmentCard(
+      {Key? key, required this.complectation, required this.complectationItem})
+      : super(key: key);
 
   @override
   State<EquipmentCard> createState() => _EquipmentCardState();
 }
 
-class _EquipmentCardState extends State<EquipmentCard> {
+class _EquipmentCardState extends State<EquipmentCard>
+    with TickerProviderStateMixin {
+  bool showContent = false;
+  late AnimationController animationController;
+  late Animation<Color?> _colorAnimation;
+  late Animation<Color?> _containerColorAnimation;
+
+  @override
+  void initState() {
+    animationController = AnimationController(
+        vsync: this, duration: const Duration(microseconds: 200));
+    _colorAnimation =
+        ColorTween(begin: grey, end: white).animate(animationController);
+    _containerColorAnimation =
+        ColorTween(begin: orange, end: grey).animate(animationController);
+    _containerColorAnimation.addListener(() => setState(() {}));
+    _colorAnimation.addListener(() => setState(() {}));
+    super.initState();
+  }
+
   final List<EquipmentEntity> entity = [
     const EquipmentEntity(title: 'Подушки безопасности боковые'),
     const EquipmentEntity(title: 'Подушки безопасности боковые'),
@@ -39,7 +63,7 @@ class _EquipmentCardState extends State<EquipmentCard> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Комплектация CLS 400 4MATIC',
+              widget.complectation,
               style:
                   Theme.of(context).textTheme.headline1!.copyWith(fontSize: 18),
             ),
@@ -49,29 +73,70 @@ class _EquipmentCardState extends State<EquipmentCard> {
             ...List.generate(
               entity.length,
               (index) => Padding(
-                padding: const EdgeInsets.only(left: 8.0),
-                child: EquipmentTile(equipmentEntity: entity[index]),
+                padding: EdgeInsets.only(left: 8),
+                child: EquipmentTile(title: widget.complectationItem),
               ),
             ),
             if (entity.length >= 6)
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Показать все',
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline3!
-                        .copyWith(fontSize: 14, fontWeight: FontWeight.w600),
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    showContent = !showContent;
+                    if (showContent) {
+                      animationController.forward();
+                    } else {
+                      animationController.reverse();
+                    }
+                  });
+                },
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 8.0),
+                  child: Column(
+                    children: [
+                      AnimatedCrossFade(
+                          firstChild: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              EquipmentTile(title: widget.complectationItem),
+                              EquipmentTile(title: widget.complectationItem),
+                              EquipmentTile(title: widget.complectationItem),
+                              EquipmentTile(title: widget.complectationItem),
+                              EquipmentTile(title: widget.complectationItem),
+                              EquipmentTile(title: widget.complectationItem),
+                            ],
+                          ),
+                          secondChild: SizedBox(),
+                          crossFadeState: showContent
+                              ? CrossFadeState.showFirst
+                              : CrossFadeState.showSecond,
+                          duration: const Duration(milliseconds: 200)),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Показать все',
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline3!
+                                .copyWith(
+                                    fontSize: 14, fontWeight: FontWeight.w600),
+                          ),
+                          const SizedBox(
+                            width: 4,
+                          ),
+                          AnimatedRotation(
+                            turns: showContent ? 1 / 2 : 1,
+                            duration: const Duration(milliseconds: 200),
+                            child: SvgPicture.asset(
+                              AppIcons.chevronDown,
+                              color: purple,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
-                  const SizedBox(
-                    width: 4,
-                  ),
-                  SvgPicture.asset(
-                    AppIcons.chevronDown,
-                    color: purple,
-                  ),
-                ],
+                ),
               )
             else
               const SizedBox(),

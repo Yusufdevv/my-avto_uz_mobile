@@ -6,29 +6,30 @@ class WRangeSlider extends StatefulWidget {
   final String title;
   final double startValue;
   final double endValue;
-  final String sliderStatus;
+  final bool isForPrice;
+  final RangeValues values;
+  final ValueChanged<RangeValues> valueChanged;
 
-  const WRangeSlider(
-      {required this.title,
-      required this.endValue,
-      required this.sliderStatus,
-      required this.startValue,
-      Key? key})
-      : super(key: key);
+  const WRangeSlider({
+    required this.title,
+    required this.values,
+    required this.valueChanged,
+    required this.endValue,
+    required this.startValue,
+    this.isForPrice = false,
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<WRangeSlider> createState() => _WRangeSliderState();
 }
 
 class _WRangeSliderState extends State<WRangeSlider> {
-  RangeValues values = const RangeValues(1960, 2022);
-  int year = 0;
-
   @override
   Widget build(BuildContext context) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          if (widget.sliderStatus == 'price')
+          if (widget.isForPrice)
             RichText(
               text: TextSpan(
                 text: widget.title,
@@ -64,17 +65,14 @@ class _WRangeSliderState extends State<WRangeSlider> {
             child: SliderTheme(
               data: SliderTheme.of(context).copyWith(thumbColor: white),
               child: RangeSlider(
-                  divisions: 5000,
-                  min: widget.startValue,
-                  max: widget.endValue,
-                  activeColor: purple,
-                  inactiveColor: grey,
-                  values: values,
-                  onChanged: (value) {
-                    setState(() {
-                      values = value;
-                    });
-                  }),
+                divisions: 5000,
+                min: widget.startValue,
+                max: widget.endValue,
+                activeColor: purple,
+                inactiveColor: grey,
+                values: widget.values,
+                onChanged: widget.valueChanged,
+              ),
             ),
           ),
           const SizedBox(
@@ -86,17 +84,17 @@ class _WRangeSliderState extends State<WRangeSlider> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                    widget.sliderStatus == 'price'
-                        ? '${MyFunctions.getFormatCost(values.start.toInt().toString())} \$'
-                        : values.start.toInt().toString(),
+                    widget.isForPrice
+                        ? '${MyFunctions.getFormatCost(widget.values.start.toInt().toString())} \$'
+                        : widget.values.start.toInt().toString(),
                     style: Theme.of(context)
                         .textTheme
                         .headline2!
                         .copyWith(fontWeight: FontWeight.w600)),
                 Text(
-                    widget.sliderStatus == 'price'
-                        ? '${MyFunctions.getFormatCost(values.end.toInt().toString())} \$'
-                        : values.end.toInt().toString(),
+                    widget.isForPrice
+                        ? '${MyFunctions.getFormatCost(widget.values.end.toInt().toString())} \$'
+                        : widget.values.end.toInt().toString(),
                     style: Theme.of(context)
                         .textTheme
                         .headline2!

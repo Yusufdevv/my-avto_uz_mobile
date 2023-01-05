@@ -85,7 +85,7 @@ class _RentChooseBottomSheetState extends State<RentChooseBottomSheet> {
                                   }
                                   setState(() {});
                                 },
-                                child: MakerSheetItem(
+                                child: RentSheetItem(
                                   logo: widget.list[index].imagePath,
                                   title: widget.list[index].title,
                                   isChecked: checkStatus.containsKey(index),

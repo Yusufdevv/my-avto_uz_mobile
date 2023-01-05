@@ -1,10 +1,10 @@
 import 'package:auto/core/usecases/usecase.dart';
-import 'package:auto/features/profile/data/models/profile.dart';
-import 'package:auto/features/profile/domain/entities/favourite_entity.dart';
+import 'package:auto/features/common/domain/entity/auto_entity.dart';
 import 'package:auto/features/profile/domain/entities/profile_data_entity.dart';
-import 'package:auto/features/profile/domain/entities/profile_entity.dart';
+import 'package:auto/features/profile/domain/entities/terms_of_use_entity.dart';
 import 'package:auto/features/profile/domain/usecases/change_password_usecase.dart';
 import 'package:auto/features/profile/domain/usecases/edit_profile_usecase.dart';
+import 'package:auto/features/profile/domain/usecases/get_terms_of_use_usecase.dart';
 import 'package:auto/features/profile/domain/usecases/profil_favorites_usecase.dart';
 import 'package:auto/features/profile/domain/usecases/profile_usecase.dart';
 import 'package:bloc/bloc.dart';
@@ -21,12 +21,14 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   final ProfileFavoritesUseCase profileFavoritesUseCase;
   final EditProfileUseCase editProfileUseCase;
   final ChangePasswordUseCase changePasswordUseCase;
+  final GetTermsOfUseUseCase getTermsOfUseUseCase;
 
   ProfileBloc({
     required this.profileUseCase,
     required this.profileFavoritesUseCase,
     required this.editProfileUseCase,
     required this.changePasswordUseCase,
+    required this.getTermsOfUseUseCase,
     
   }) : super(
           ProfileState(
@@ -35,7 +37,8 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
             status: FormzStatus.pure,
             phoneNumber: '',
             profileEntity: ProfileDataEntity(),
-            favoriteEntity: const <FavoriteEntity>[],
+            autoEntity: const <AutoEntity>[],
+            termsOfUseEntity: const <TermsOfUseEntity>[],
           ),
         ) { 
           
@@ -44,6 +47,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     on<EditProfileEvent>(_onEditProfile);
     on<GetProfileFavoritesEvent>(_onGetProfileFavorites);
     on<ChangePhoneDataEvent>(_onChangePhoneData);
+    on<GetTermsOfUseEvent>(_onGetTermsOfUse);
     
   }
 
@@ -65,6 +69,20 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     }
   }
 
+  Future<void> _onGetTermsOfUse(
+      GetTermsOfUseEvent event, Emitter<ProfileState> emit) async {
+    emit(state.copyWith(status: FormzStatus.submissionInProgress));
+    final result = await getTermsOfUseUseCase.call(NoParams());
+    if (result.isRight) {
+      emit(state.copyWith(
+        status: FormzStatus.submissionSuccess,
+        termsOfUseEntity: result.right,
+      ));
+    } else {
+      emit(state.copyWith(status: FormzStatus.submissionFailure));
+    }
+  }
+
   Future<void> _onEditProfile(
       EditProfileEvent event, Emitter<ProfileState> emit) async {
     emit(state.copyWith(editStatus: FormzStatus.submissionInProgress));
@@ -75,15 +93,13 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       image: event.image,
     ));
     if (result.isRight) {
-      emit(state.copyWith(status: FormzStatus.submissionSuccess));
+      emit(state.copyWith(editStatus: FormzStatus.submissionSuccess));
       event.onSuccess();
     } else {
-      emit(state.copyWith(status: FormzStatus.submissionFailure));
+      emit(state.copyWith(editStatus: FormzStatus.submissionFailure));
       event.onError(result.left.toString());
     }
   }
-
-  
 
   Future<void> _onChangePassword(
       ChangePasswordEvent event, Emitter<ProfileState> emit) async {
@@ -122,7 +138,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     if (result.isRight) {
       emit(state.copyWith(
         status: FormzStatus.submissionSuccess,
-        favoriteEntity: result.right,
+        autoEntity: result.right,
       ));
     } else {
       emit(state.copyWith(status: FormzStatus.submissionFailure));

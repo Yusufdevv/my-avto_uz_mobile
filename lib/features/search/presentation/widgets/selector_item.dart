@@ -28,7 +28,7 @@ class SelectorItem extends StatelessWidget {
             style: Theme.of(context)
                 .textTheme
                 .headline2!
-                .copyWith(fontWeight: FontWeight.w400),
+                .copyWith(fontWeight: FontWeight.w400,color: grey),
           ),
           const SizedBox(height: 8),
           WScaleAnimation(
@@ -59,6 +59,7 @@ class SelectorItem extends StatelessWidget {
                     hasArrowDown
                         ? AppIcons.chevronDownGrey
                         : AppIcons.chevronRightBlack,
+                    color: greyText,
                   )
                 ],
               ),

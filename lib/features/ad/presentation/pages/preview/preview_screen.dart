@@ -4,7 +4,7 @@ import 'package:auto/features/ad/presentation/pages/preview/widgets/preview_item
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/navigation/presentation/home.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
-import 'package:auto/features/profile/presentation/pages/my_ad_screen.dart';
+import 'package:auto/features/profile/presentation/pages/my_adds/my_adds_page.dart';
 import 'package:flutter/material.dart';
 
 class PreviewScreen extends StatelessWidget {
@@ -47,7 +47,7 @@ class PreviewScreen extends StatelessWidget {
                   Navigator.pop(context);
                   HomeTabControllerProvider.of(context).controller.animateTo(4);
 
-                  await Navigator.push(context, fade(page: const MyAdScreen()));
+                  await Navigator.push(context, fade(page: const MyAddsPage()));
                 },
                 text: 'Разместить бесплатно на 7 дней....',
                 shadow: [

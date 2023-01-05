@@ -20,7 +20,10 @@ class AdsItem extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Navigator.push(
-            context, fade(page: CarSingleScreen(adsEntity: adsEntity)));
+            context,
+            fade(
+                page: CarSingleScreen(
+            )));
       },
       child: Container(
         width: 225,

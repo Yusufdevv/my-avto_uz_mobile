@@ -1,26 +1,17 @@
-import 'package:auto/assets/colors/color.dart';
-import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/core/singletons/dio_settings.dart';
 import 'package:auto/features/common/domain/entity/auto_review_entity.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
-import 'package:auto/features/common/widgets/w_button.dart';
-import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/reviews/data/datasources/reviews_datasource.dart';
 import 'package:auto/features/reviews/data/models/reviews_model.dart';
 import 'package:auto/features/reviews/data/repositories/reviews_repository_impl.dart';
 import 'package:auto/features/reviews/domain/usecases/reviews_usecase.dart';
 import 'package:auto/features/reviews/presentation/blocs/reviews_bloc/reviews_bloc.dart';
-import 'package:auto/features/reviews/presentation/pages/add_review_screen.dart';
-import 'package:auto/features/reviews/presentation/pages/plus_minus_screen.dart';
 import 'package:auto/features/reviews/presentation/parts/tab_views_part.dart';
-import 'package:auto/features/reviews/presentation/widgets/review_bottom_sheet_item.dart';
 import 'package:auto/features/reviews/presentation/widgets/review_tab_bar.dart';
-import 'package:auto/features/search/presentation/widgets/sort_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 class ReviewsScreen extends StatefulWidget {

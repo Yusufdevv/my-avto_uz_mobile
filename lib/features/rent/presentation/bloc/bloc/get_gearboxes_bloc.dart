@@ -1,4 +1,5 @@
 import 'package:auto/core/usecases/usecase.dart';
+import 'package:auto/features/ad/domain/entities/types/gearbox_type.dart';
 import 'package:auto/features/rent/domain/usecases/get_gearboxess_usecase.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';

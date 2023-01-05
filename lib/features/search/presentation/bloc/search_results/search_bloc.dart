@@ -57,8 +57,6 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       emit(state.copyWith(suggestionsStatus: FormzStatus.submissionInProgress));
       final result = await suggestionUseCase.call(event.search);
       if (result.isRight) {
-        print('suggest => ${result.right.absoluteCarNameSuggestCompletion}');
-        print(result.right.absoluteCarNameSuggestCompletion[0].options.length);
         emit(
           state.copyWith(
             suggestions: result.right.absoluteCarNameSuggestCompletion[0].options,

@@ -4,7 +4,7 @@ part 'star_answer_model.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class StarAnswerModel extends StarAnswerEntity {
-  StarAnswerModel({required super.question, required super.starCount});
+ const  StarAnswerModel({required super.question, required super.starCount});
 
   factory StarAnswerModel.fromJson(Map<String, dynamic> json) =>
       _$StarAnswerModelFromJson(json);

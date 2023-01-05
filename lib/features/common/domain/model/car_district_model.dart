@@ -1,4 +1,3 @@
-import 'package:auto/features/common/domain/entity/car_dealer_entity.dart';
 import 'package:auto/features/common/domain/entity/car_district_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 part 'car_district_model.g.dart';

@@ -26,6 +26,7 @@ class AppIcons {
 
   //GLOBAL
   static const fluentCar = 'assets/icons/global/fluent_car.svg';
+  static const userAvatar = 'assets/icons/global/user_avatar.svg';
   static const phoneWithClock = 'assets/icons/global/phone_with_clock.png';
   static const chevronLeft = 'assets/icons/global/chevron_left.svg';
   static const chevronTop = 'assets/icons/global/chevron_top.svg';
@@ -74,6 +75,10 @@ class AppIcons {
   static const mapPin = 'assets/icons/global/map_pin.svg';
   static const filterIcon = 'assets/icons/global/filter_icon.svg';
   static const cancel = 'assets/icons/global/cancel.svg';
+  static const locationIcon = 'assets/icons/global/location_icon.svg';
+  static const currentLocation = 'assets/icons/global/current_location.svg';
+  static const currentLoc = 'assets/images/global/current_location.png';
+  static const dealersLocIcon = 'assets/images/global/dealers_loc_icon.png';
 
   // PROFILE
   static const alert = 'assets/icons/profile/alert.svg';
@@ -193,6 +198,10 @@ class AppIcons {
   // static const id = 'assets/icons/car_single/id.svg';
   static const refresher = 'assets/icons/car_single/refreshers.svg';
   static const rocket = 'assets/icons/car_single/rocket.svg';
+  static const soon = 'assets/icons/car_single/soon.svg';
+  static const blue_fire = 'assets/icons/car_single/blue_fire.svg';
+  static const vin_soon = 'assets/icons/car_single/vin_soon.svg';
+  static const blue_vin_soon = 'assets/icons/car_single/blue_vin_soon.svg';
   static const safe = 'assets/icons/car_single/safety.svg';
   static const shieldCheckOutlined = 'assets/icons/car_single/shield_check_outlined.svg';
 

@@ -1,5 +1,4 @@
 import 'package:auto/assets/constants/icons.dart';
-import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/presentation/pages/choose_car_brand/widget/persistant_header.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
@@ -33,14 +32,12 @@ class _ChooseCarScreenState extends State<ChooseCarScreen> {
   @override
   void initState() {
     searchController = TextEditingController();
-    // TODO: implement initState
     super.initState();
   }
 
   @override
   void dispose() {
     searchController.dispose();
-    // TODO: implement dispose
     super.dispose();
   }
 

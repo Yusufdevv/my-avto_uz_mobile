@@ -16,8 +16,7 @@ class PublishScreen extends StatefulWidget {
 }
 
 class _PublishScreenState extends State<PublishScreen> {
-  TextEditingController _titleController = TextEditingController();
-  TextEditingController _textController = TextEditingController();
+  final TextEditingController _titleController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(

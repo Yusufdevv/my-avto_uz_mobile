@@ -2,7 +2,6 @@ import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/core/usecases/usecase.dart';
 import 'package:auto/core/utils/either.dart';
 import 'package:auto/features/profile/domain/entities/profile_data_entity.dart';
-import 'package:auto/features/profile/domain/entities/profile_entity.dart';
 import 'package:auto/features/profile/domain/repositories/profile_repository.dart';
 
 class ProfileUseCase extends UseCase<ProfileDataEntity, NoParams> {

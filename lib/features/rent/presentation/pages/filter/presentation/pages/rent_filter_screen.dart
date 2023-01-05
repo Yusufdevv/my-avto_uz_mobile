@@ -1,15 +1,15 @@
 import 'package:auto/assets/colors/color.dart';
-import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/features/common/bloc/regions/regions_bloc.dart';
 import 'package:auto/features/common/models/region.dart';
 import 'package:auto/features/common/widgets/range_slider.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
+import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/rent/presentation/bloc/rent_bloc/rent_bloc.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/choose_body_type.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/choose_drive_type.dart';
+import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/choose_gearbox.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/choose_maker.dart';
-import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/rent_choose_bottom_sheet.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/rent_choose_region_bottom_sheet.dart';
 import 'package:auto/features/search/presentation/widgets/selector_item.dart';
 import 'package:auto/generated/locale_keys.g.dart';
@@ -29,6 +29,8 @@ class RentFilterScreen extends StatefulWidget {
 }
 
 class _RentFilterScreenState extends State<RentFilterScreen> {
+  RangeValues yearValues = RangeValues(1960, DateTime.now().year + 0);
+  RangeValues priceValues = const RangeValues(1000, 500000);
   @override
   Widget build(BuildContext context) => BlocProvider.value(
         value: widget.rentBloc,
@@ -43,14 +45,17 @@ class _RentFilterScreenState extends State<RentFilterScreen> {
                         .headline1!
                         .copyWith(fontSize: 16, fontWeight: FontWeight.w600)),
                 const Spacer(flex: 30),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: Text(
-                    LocaleKeys.clear.tr(),
-                    style: Theme.of(context)
-                        .textTheme
-                        .subtitle1!
-                        .copyWith(color: blue),
+                WScaleAnimation(
+                  onTap: () => widget.rentBloc.add(RentCleanFilterEvent()),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: Text(
+                      LocaleKeys.clear.tr(),
+                      style: Theme.of(context)
+                          .textTheme
+                          .subtitle1!
+                          .copyWith(color: blue),
+                    ),
                   ),
                 )
               ],
@@ -83,15 +88,15 @@ class _RentFilterScreenState extends State<RentFilterScreen> {
                   ),
                   SelectorItem(
                     onTap: () async {
-                      await showModalBottomSheet<List<int>>(
+                      await showModalBottomSheet<String>(
                         isDismissible: false,
                         context: context,
                         isScrollControlled: true,
                         backgroundColor: Colors.transparent,
                         builder: (c) => const ChooseMaker(),
                       ).then((value) {
-                        widget.rentBloc
-                            .add(RentSetParamFromFilterEvent(carMakers: value));
+                        widget.rentBloc.add(
+                            RentSetParamFromFilterEvent(carMakerId: value));
                       });
                     },
                     hintText: LocaleKeys.choose_brand.tr(),
@@ -100,111 +105,93 @@ class _RentFilterScreenState extends State<RentFilterScreen> {
                   ),
                   SelectorItem(
                     onTap: () async {
-                      await showModalBottomSheet<List<int>>(
+                      await showModalBottomSheet<String>(
                         isDismissible: false,
                         context: context,
                         isScrollControlled: true,
                         backgroundColor: Colors.transparent,
                         builder: (c) => const ChooseBodyType(),
                       ).then((value) {
-                        widget.rentBloc.add(RentSetParamFromFilterEvent(
-                            carBodyTypeId: value?[0].toString()));
+                        widget.rentBloc.add(
+                            RentSetParamFromFilterEvent(carBodyTypeId: value));
                       });
                     },
                     hintText: LocaleKeys.choose_body.tr(),
                     title: LocaleKeys.body_type.tr(),
+                    hasArrowDown: true,
                   ),
                   SelectorItem(
                     onTap: () async {
-                      await showModalBottomSheet<List<int>>(
-                        isDismissible: false,
-                        context: context,
-                        isScrollControlled: true,
-                        backgroundColor: Colors.transparent,
-                        builder: (c) => RentChooseBottomSheet(
-                          title: 'Klass',
-                          list: List.generate(
-                            8,
-                            (index) => ToChoose(
-                              title: 'Class $index',
-                              imagePath: AppIcons.kia,
-                              id: index,
-                            ),
-                          ),
-                        ),
-                      ).then((value) {
-                        widget.rentBloc
-                            .add(RentSetParamFromFilterEvent(carMakers: value));
-                      });
-                    },
-                    hintText: LocaleKeys.choose_class.tr(),
-                    title: LocaleKeys.classs.tr(),
-                  ),
-                  SelectorItem(
-                    onTap: () async {
-                      await showModalBottomSheet<List<int>>(
+                      await showModalBottomSheet<String>(
                         isDismissible: false,
                         context: context,
                         isScrollControlled: true,
                         backgroundColor: Colors.transparent,
                         builder: (c) => const ChooseDriveType(),
                       ).then((value) {
-                        widget.rentBloc
-                            .add(RentSetParamFromFilterEvent(carMakers: value));
+                        widget.rentBloc.add(
+                            RentSetParamFromFilterEvent(carDriveTypeId: value));
                       });
                     },
                     hintText: LocaleKeys.choose_drive_type.tr(),
                     title: LocaleKeys.drive_unit.tr(),
+                    hasArrowDown: true,
                   ),
                   SelectorItem(
                     onTap: () async {
-                      await showModalBottomSheet<List<int>>(
+                      await showModalBottomSheet<String>(
                         isDismissible: false,
                         context: context,
                         isScrollControlled: true,
                         backgroundColor: Colors.transparent,
-                        builder: (c) => RentChooseBottomSheet(
-                          title: 'Box',
-                          list: List.generate(
-                            8,
-                            (index) => ToChoose(
-                              title: 'Box $index',
-                              imagePath: AppIcons.kia,
-                              id: index,
-                            ),
-                          ),
-                        ),
+                        builder: (c) => const ChooseGearbox(),
                       ).then((value) {
-                        widget.rentBloc
-                            .add(RentSetParamFromFilterEvent(carMakers: value));
+                        widget.rentBloc.add(
+                            RentSetParamFromFilterEvent(gearboxTypeId: value));
                       });
                     },
                     hintText: LocaleKeys.choose_box_type.tr(),
                     title: LocaleKeys.box.tr(),
+                    hasArrowDown: true,
                   ),
                   const SizedBox(
                     height: 16,
                   ),
                   WRangeSlider(
+                    values: yearValues,
+                    valueChanged: (value) {
+                      yearValues = value;
+                      setState(() {});
+                    },
                     title: LocaleKeys.year_of_issue.tr(),
-                    endValue: 2022,
+                    endValue: DateTime.now().year + 0,
                     startValue: 1960,
-                    sliderStatus: '',
                   ),
-                  const SizedBox(
-                    height: 16,
-                  ),
+                  const SizedBox(height: 16),
                   WRangeSlider(
+                    values: priceValues,
+                    valueChanged: (value) {
+                      priceValues = value;
+                      setState(() {});
+                    },
                     title: LocaleKeys.price.tr(),
                     endValue: 500000,
                     startValue: 1000,
-                    sliderStatus: 'price',
+                    isForPrice: true,
                   ),
-                  const SizedBox(
-                    height: 16,
-                  ),
+                  const SizedBox(height: 16),
                   WButton(
-                    onTap: () => Navigator.pop(context),
+                    onTap: () {
+                      widget.rentBloc.add(
+                        RentSetParamFromFilterEvent(
+                          yearEnd: yearValues.end.floor().toString(),
+                          yearStart: yearValues.start.floor().toString(),
+                          priceEnd: priceValues.end.floor(),
+                          priceStart: priceValues.start.floor(),
+                        ),
+                      );
+                      Navigator.pop(context);
+                    },
                     text: LocaleKeys.apply.tr(),
                   ),
                 ],

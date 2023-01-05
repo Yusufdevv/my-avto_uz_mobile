@@ -3,12 +3,18 @@ import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 class RentCarGenerationEntity extends Equatable {
+  @JsonKey(defaultValue: 0)
   final int id;
+  @JsonKey(defaultValue: '')
   final String name;
+  @JsonKey(defaultValue: 0)
   final int yearBegin;
+  @JsonKey(defaultValue: 0)
   final int yearEnd;
+  @JsonKey(defaultValue: 0)
   final int model;
-  final String? logo;
+  @JsonKey(defaultValue: '')
+  final String logo;
 
   const RentCarGenerationEntity({
     this.id = 0,
@@ -21,13 +27,13 @@ class RentCarGenerationEntity extends Equatable {
 
   @override
   List<Object?> get props => [
-    id,
-    name,
-    yearBegin,
-    yearEnd,
-    model,
-    logo,
-  ];
+        id,
+        name,
+        yearBegin,
+        yearEnd,
+        model,
+        logo,
+      ];
 }
 
 class RentCarGenerationConverter<S>

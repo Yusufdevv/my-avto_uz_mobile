@@ -8,7 +8,7 @@ part of 'rent_car_models_model.dart';
 
 RentCarModelsModel _$RentCarModelsModelFromJson(Map<String, dynamic> json) =>
     RentCarModelsModel(
-      id: json['id'] as int? ?? 0,
+      id: json['id'] as int? ?? 1,
       name: json['name'] as String? ?? '',
       make: json['make'] as int? ?? 0,
     );

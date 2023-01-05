@@ -15,8 +15,10 @@ class GetBodyTypesBloc extends Bloc<GetBodyTypesEvent, GetBodyTypesState> {
             const GetBodyTypesState(status: FormzStatus.pure, bodyTypes: [])) {
     on<GetBodyTypesEvent>((event, emit) async {
       emit(state.copyWith(status: FormzStatus.submissionInProgress));
+      print("gettint body types");
       final result = await getBodyTypeUseCase.call(NoParams());
       if (result.isRight) {
+      print("got result is right ${result.right.results.toString()}");
         emit(
           state.copyWith(
             status: FormzStatus.submissionSuccess,
@@ -24,6 +26,7 @@ class GetBodyTypesBloc extends Bloc<GetBodyTypesEvent, GetBodyTypesState> {
           ),
         );
       } else {
+      print("got result is left ${result.left.toString()}");
         emit(state.copyWith(status: FormzStatus.submissionFailure));
       }
     });
