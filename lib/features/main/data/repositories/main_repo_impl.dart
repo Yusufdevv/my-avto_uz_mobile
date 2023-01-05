@@ -35,4 +35,21 @@ class MainRepositoryImpl extends MainRepository {
       return Left(DioFailure());
     }
   }
+
+  @override
+  Future<Either<Failure, dynamic>> readStory({required int itemId}) async {
+    try {
+      final result = await dataSource.readStory(
+        itemId: itemId,
+      );
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(
+          errorMessage: e.errorMessage, statusCode: e.statusCode));
+    } on DioException {
+      return Left(DioFailure());
+    } on DioError {
+      return Left(DioFailure());
+    }
+  }
 }
