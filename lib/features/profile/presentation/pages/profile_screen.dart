@@ -1,3 +1,4 @@
+import 'package:auto/core/singletons/storage.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -48,6 +49,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       getTermsOfUseUseCase: GetTermsOfUseUseCase(repository: repo),
     )..add(GetProfileEvent());
     imageBloc = ImageBloc();
+    print(StorageRepository.getString('token'));
     super.initState();
   }
 
@@ -90,6 +92,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       children: [
                         ProfileDataWidget(
                           onTap: () {
+                            print(StorageRepository.getString('token'));
                             Navigator.of(context).push(fade(
                                 page: SeeProfilePage(
                               profileBloc: profileBloc,

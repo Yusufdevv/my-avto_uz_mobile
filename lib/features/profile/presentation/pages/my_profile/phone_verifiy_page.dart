@@ -7,10 +7,13 @@ import 'package:auto/features/common/widgets/custom_screen.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/login/presentation/widgets/login_header_widget.dart';
+import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/profile/presentation/bloc/change_phone_number/change_phone_number_bloc.dart';
 import 'package:auto/features/profile/presentation/bloc/profile/profile_bloc.dart';
+import 'package:auto/features/profile/presentation/pages/my_profile/phone_number_edit_page.dart';
 import 'package:auto/features/profile/presentation/widgets/widgets.dart';
 import 'package:auto/generated/locale_keys.g.dart';
+import 'package:auto/utils/my_functions.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,9 +23,10 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 
 class PhoneVerifiyPage extends StatefulWidget {
   final String phone;
+  final ProfileBloc profileBloc;
   final BuildContext ctx;
 
-  const PhoneVerifiyPage({required this.phone, required this.ctx, Key? key})
+  const PhoneVerifiyPage({required this.phone, required this.profileBloc, required this.ctx, Key? key})
       : super(key: key);
 
   @override
@@ -45,7 +49,7 @@ class _PhoneVerifiyPageState extends State<PhoneVerifiyPage> {
           child: Scaffold(
             appBar: WAppBar(
               onTapBack: () {
-                Navigator.pop(widget.ctx, '+998${widget.phone}');
+               Navigator.pushReplacement(context, fade(page: PhoneNumberEditPage(profileBloc: widget.profileBloc, phone: widget.phone,)));
               },
               title: 'Номер телефона',
             ),
@@ -73,7 +77,7 @@ class _PhoneVerifiyPageState extends State<PhoneVerifiyPage> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Text(
-                          '+998 ${widget.phone}',
+                          '+998 ${MyFunctions.phoneFormat(widget.phone)}',
                           style: Theme.of(context)
                               .textTheme
                               .headline6!
@@ -83,7 +87,7 @@ class _PhoneVerifiyPageState extends State<PhoneVerifiyPage> {
                         SizedBox(width: SizeConfig.h(12)),
                         WButton(
                           onTap: () {
-                            Navigator.pop(context);
+                            Navigator.pushReplacement(context, fade(page: PhoneNumberEditPage(profileBloc: widget.profileBloc, phone: widget.phone,)));
                           },
                           padding: EdgeInsets.symmetric(
                               horizontal: SizeConfig.h(4),
