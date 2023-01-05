@@ -23,7 +23,6 @@ class StoryItem extends StatelessWidget {
         child: Container(
           height: 96,
           width: 80,
-          margin: const EdgeInsets.only(left: 16),
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
               gradient: LinearGradient(

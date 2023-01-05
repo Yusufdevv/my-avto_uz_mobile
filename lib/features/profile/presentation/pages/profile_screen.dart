@@ -12,7 +12,6 @@ import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/core/utils/size_config.dart';
 import 'package:auto/features/ad/presentation/bloc/add_photo/image_bloc.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
-import 'package:auto/features/comparison/presentation/comparison_page.dart';
 import 'package:auto/features/dealers/presentation/dealers_main.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/profile/data/repositories/profile_repository_impl.dart';
@@ -135,8 +134,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ProfileMenuTile(
                               name: LocaleKeys.my_ads.tr(),
                               onTap: () {
-                                Navigator.of(context)
-                                    .push(fade(page: const MyAddsPage()));
+                                Navigator.of(context).push(fade(
+                                    page:
+                                        MyAddsPage(profileBloc: profileBloc)));
                               },
                               iconPath: AppIcons.tabletNews,
                               count: state.profileEntity.usercountdata

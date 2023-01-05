@@ -1,6 +1,6 @@
 import 'package:auto/features/main/presentation/main_screen.dart';
 import 'package:auto/features/navigation/presentation/home.dart';
-import 'package:auto/features/profile/presentation/profile_screen.dart';
+import 'package:auto/features/profile/presentation/pages/profile_screen.dart';
 import 'package:auto/features/reels/presentation/pages/reels_screen.dart';
 import 'package:auto/features/search/presentation/search_screen.dart';
 import 'package:flutter/cupertino.dart';

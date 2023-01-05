@@ -5,7 +5,12 @@ part of 'profile_bloc.dart';
 abstract class ProfileEvent {}
 
 class GetProfileEvent extends ProfileEvent {}
-class GetProfileFavoritesEvent extends ProfileEvent {}
+class GetProfileFavoritesEvent extends ProfileEvent {
+  final String endpoint;
+  GetProfileFavoritesEvent({
+    required this.endpoint,
+  });
+}
 class GetTermsOfUseEvent extends ProfileEvent {}
 class ChangePhoneDataEvent extends ProfileEvent {
   final String phone;

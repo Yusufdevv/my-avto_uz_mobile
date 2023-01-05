@@ -52,9 +52,9 @@ class ProfileRepositoryImpl extends ProfileRepository {
 
   @override
   Future<Either<ServerFailure, List<AutoEntity>>>
-      getProfileFavorites() async {
+      getProfileFavorites(String endpoint) async {
     try {
-      final result = await dataSource.getProfileFavorites();
+      final result = await dataSource.getProfileFavorites(endpoint);
       return Right(result);
     } on ServerException catch (error) {
       return Left(

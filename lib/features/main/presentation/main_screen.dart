@@ -10,6 +10,7 @@ import 'package:auto/features/main/domain/usecases/get_top_brand.dart';
 import 'package:auto/features/main/presentation/bloc/main_bloc.dart';
 import 'package:auto/features/main/presentation/bloc/top_ad/top_ad_bloc.dart';
 import 'package:auto/features/main/presentation/bloc/top_brand/top_brand_bloc.dart';
+import 'package:auto/features/main/presentation/pages/select_car_model.dart';
 import 'package:auto/features/main/presentation/pages/story_screen.dart';
 import 'package:auto/features/main/presentation/parts/top_ads.dart';
 import 'package:auto/features/main/presentation/parts/top_brands.dart';
@@ -145,7 +146,13 @@ class _MainScreenState extends State<MainScreen> {
                           .push(fade(page: const ReelsScreen()));
                     },
                   ),
-                  const CarModelItem(),
+                  CarModelItem(
+                    count: 1,
+                    onTapSelect: () =>
+                        Navigator.of(context, rootNavigator: true)
+                            .push(fade(page: const SelectCarModelScreen())),
+                    onTapShow: () {},
+                  ),
                   SizedBox(
                     height: 48,
                     child: ListView.builder(

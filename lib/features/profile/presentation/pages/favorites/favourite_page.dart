@@ -17,7 +17,7 @@ class FavouritePage extends StatefulWidget {
 class _FavouritePageState extends State<FavouritePage> {
   @override
   void initState() {
-    widget.profileBloc.add(GetProfileFavoritesEvent());
+    widget.profileBloc.add(GetProfileFavoritesEvent(endpoint:'/users/wishlist/announcement/list/'));
     super.initState();
   }
 
@@ -39,8 +39,8 @@ class _FavouritePageState extends State<FavouritePage> {
                     final item = favorites[index];
                     return InfoResultContainer(
                         gallery: item.gallery,
-                        carModelName: item.carModel.name,
-                        carYear: item.carYear,
+                        carModelName: item.model.name,
+                        carYear: item.year,
                         contactPhone: item.contactPhone,
                         description: item.description,
                         districtTitle: item.district.title,

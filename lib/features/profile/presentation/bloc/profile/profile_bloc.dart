@@ -134,7 +134,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   Future<void> _onGetProfileFavorites(
       GetProfileFavoritesEvent event, Emitter<ProfileState> emit) async {
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
-    final result = await profileFavoritesUseCase.call(NoParams());
+    final result = await profileFavoritesUseCase.call(event.endpoint);
     if (result.isRight) {
       emit(state.copyWith(
         status: FormzStatus.submissionSuccess,
