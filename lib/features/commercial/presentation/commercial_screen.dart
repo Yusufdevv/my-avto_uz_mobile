@@ -16,7 +16,8 @@ class CommercialScreen extends StatefulWidget {
   State<CommercialScreen> createState() => _CommercialScreenState();
 }
 
-class _CommercialScreenState extends State<CommercialScreen> with SingleTickerProviderStateMixin {
+class _CommercialScreenState extends State<CommercialScreen>
+    with SingleTickerProviderStateMixin {
   late TabController tabController;
 
   @override
@@ -25,12 +26,12 @@ class _CommercialScreenState extends State<CommercialScreen> with SingleTickerPr
     super.initState();
   }
 
- 
   @override
   Widget build(BuildContext context) => KeyboardDismisser(
         child: AnnotatedRegion(
           value: SystemUiOverlayStyle(
-            statusBarColor: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
+            statusBarColor:
+                Theme.of(context).extension<ThemedColors>()!.whiteToDark,
             statusBarBrightness: Brightness.light,
             statusBarIconBrightness: Brightness.dark,
           ),
@@ -46,8 +47,10 @@ class _CommercialScreenState extends State<CommercialScreen> with SingleTickerPr
                       Padding(
                         padding: const EdgeInsets.only(right: 12),
                         child: WScaleAnimation(
-                          onTap: () {}/* => Navigator.push(context, fade(page: const SelectCarScreen()))*/,
-                          child: SvgPicture.asset(AppIcons.searchWithHeart, width: 20, height: 20),
+                          onTap:
+                              () {} /* => Navigator.push(context, fade(page: const SelectCarScreen()))*/,
+                          child: SvgPicture.asset(AppIcons.searchWithHeart,
+                              width: 20, height: 20),
                         ),
                       ),
                     ],
@@ -60,6 +63,7 @@ class _CommercialScreenState extends State<CommercialScreen> with SingleTickerPr
               ),
             ),
             body: TabBarView(
+              physics: const NeverScrollableScrollPhysics(),
               controller: tabController,
               children: [
                 CommercialBodyScreen(),
