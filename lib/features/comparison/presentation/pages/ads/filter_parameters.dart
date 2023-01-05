@@ -6,7 +6,6 @@ import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/comparison/presentation/bloc/filter_parameters_bloc/bloc/filter_parameters_bloc.dart';
 import 'package:auto/features/rent/presentation/bloc/rent_bloc/rent_bloc.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/choose_body_type.dart';
-import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/choose_drive_type.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/rent_choose_bottom_sheet.dart';
 import 'package:auto/features/search/presentation/widgets/selector_item.dart';
 import 'package:auto/generated/locale_keys.g.dart';
@@ -61,6 +60,22 @@ class FilterParameters extends StatelessWidget {
                         context: context,
                         isScrollControlled: true,
                         backgroundColor: Colors.transparent,
+                        builder: (c) => const ChooseBodyType(),
+                      ).then((value) {
+                        rentBloc.add(RentSetParamFromFilterEvent(
+                            carBodyTypeId: value?[0].toString()));
+                      });
+                    },
+                    hintText: LocaleKeys.choose_body.tr(),
+                    title: LocaleKeys.body_type.tr(),
+                  ),
+                  SelectorItem(
+                    onTap: () async {
+                      await showModalBottomSheet<List<int>>(
+                        isDismissible: false,
+                        context: context,
+                        isScrollControlled: true,
+                        backgroundColor: Colors.transparent,
                         builder: (c) => RentChooseBottomSheet(
                           title: 'Klass',
                           list: List.generate(
@@ -79,22 +94,6 @@ class FilterParameters extends StatelessWidget {
                     },
                     hintText: LocaleKeys.choose_class.tr(),
                     title: LocaleKeys.classs.tr(),
-                  ),
-                  SelectorItem(
-                    onTap: () async {
-                      await showModalBottomSheet<List<int>>(
-                        isDismissible: false,
-                        context: context,
-                        isScrollControlled: true,
-                        backgroundColor: Colors.transparent,
-                        builder: (c) => const ChooseDriveType(),
-                      ).then((value) {
-                        rentBloc
-                            .add(RentSetParamFromFilterEvent(carMakers: value));
-                      });
-                    },
-                    hintText: LocaleKeys.choose_drive_type.tr(),
-                    title: LocaleKeys.drive_unit.tr(),
                   ),
                   SelectorItem(
                     onTap: () {},
@@ -169,7 +168,7 @@ class FilterParameters extends StatelessWidget {
                   const SizedBox(height: 20),
                   WRangeSlider(
                     title: LocaleKeys.year_of_issue.tr(),
-                    endValue: 2022,
+                    endValue: DateTime.now().year.toDouble(),
                     startValue: 1960,
                     sliderStatus: '',
                   ),
