@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:auto/features/login/domain/usecases/change_password.dart';
 import 'package:auto/features/login/domain/usecases/send_recovery_code.dart';
+import 'package:auto/features/login/domain/usecases/verify_code.dart';
 import 'package:auto/features/login/domain/usecases/verify_recovery.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/foundation.dart';
@@ -25,7 +26,7 @@ class RecoveryBloc extends Bloc<RecoveryEvent, RecoveryState> {
       emit(state.copyWith(sendCodeStatus: FormzStatus.submissionInProgress));
       final result = await senCode(event.phone);
       if (result.isRight) {
-        emit(state.copyWith(sendCodeStatus: FormzStatus.submissionSuccess));
+        emit(state.copyWith(sendCodeStatus: FormzStatus.submissionSuccess,));
 
         event.onSuccess(result.right);
       } else {

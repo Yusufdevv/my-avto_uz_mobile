@@ -109,6 +109,9 @@ class GlobalRequestRepository {
         if (responseDataKey != null && responseDataKey.isNotEmpty) {
           return Right(fromJson(result.data[responseDataKey]));
         } else {
+          if (result.data.toString().isEmpty) {
+            return Right('' as S);
+          }
           return Right(fromJson(result.data));
         }
       } else {

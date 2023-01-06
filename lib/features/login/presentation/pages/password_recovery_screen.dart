@@ -5,6 +5,7 @@ import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/login/domain/usecases/change_password.dart';
 import 'package:auto/features/login/domain/usecases/send_recovery_code.dart';
+import 'package:auto/features/login/domain/usecases/verify_code.dart';
 import 'package:auto/features/login/domain/usecases/verify_recovery.dart';
 import 'package:auto/features/login/presentation/bloc/recovery/recovery_bloc.dart';
 import 'package:auto/features/login/presentation/pages/new_password_screen.dart';
@@ -60,7 +61,7 @@ class _PasswordRecoveryScreenState extends State<PasswordRecoveryScreen> {
   Widget build(BuildContext context) => KeyboardDismisser(
         child: Scaffold(
           appBar: const WAppBar(
-            title: 'Забыли пароль1',
+            title: 'Забыли пароль',
           ),
           body: Padding(
             padding: const EdgeInsets.all(16),

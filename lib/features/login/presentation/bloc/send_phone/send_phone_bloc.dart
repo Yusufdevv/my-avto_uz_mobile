@@ -12,12 +12,11 @@ class SendPhoneBloc extends Bloc<SendPhoneEvent, SendPhoneState> {
       : super(const SendPhoneState(
             status: FormzStatus.pure, toastMessage: '', session: '')) {
     on<SendPhoneEvent>((event, emit) async {
-      print('=>=>=>=> event phone ${event.phone} <=<=<=<=');
       emit(state.copyWith(status: FormzStatus.submissionInProgress));
       final result = await senCode.call(event.phone);
       if (result.isRight) {
-        print('=>=>=>=> result right: ${result.right} <=<=<=<=');
-        emit(state.copyWith(status: FormzStatus.submissionSuccess));
+        emit(state.copyWith(
+            status: FormzStatus.submissionSuccess, session: result.right));
       } else {
         emit(state.copyWith(
             status: FormzStatus.submissionCanceled,

@@ -1,0 +1,172 @@
+import 'package:auto/assets/colors/color.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
+import 'package:auto/features/common/widgets/custom_screen.dart';
+import 'package:auto/features/common/widgets/w_app_bar.dart';
+import 'package:auto/features/common/widgets/w_button.dart';
+import 'package:auto/features/login/domain/usecases/change_password.dart';
+import 'package:auto/features/login/domain/usecases/register_user.dart';
+import 'package:auto/features/login/domain/usecases/send_code.dart';
+import 'package:auto/features/login/domain/usecases/verify_code.dart';
+import 'package:auto/features/login/presentation/bloc/new_password/new_password_bloc.dart';
+import 'package:auto/features/login/presentation/bloc/register/register_bloc.dart';
+import 'package:auto/features/login/presentation/login_screen.dart';
+import 'package:auto/features/login/presentation/widgets/login_header_widget.dart';
+import 'package:auto/features/login/presentation/widgets/z_text_form_field.dart';
+import 'package:auto/features/navigation/presentation/navigator.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:formz/formz.dart';
+import 'package:keyboard_dismisser/keyboard_dismisser.dart';
+
+class LoginNewPasswordPage extends StatefulWidget {
+  final String phone;
+  const LoginNewPasswordPage({required this.phone, Key? key}) : super(key: key);
+
+  @override
+  State<LoginNewPasswordPage> createState() => _LoginNewPasswordPageState();
+}
+
+class _LoginNewPasswordPageState extends State<LoginNewPasswordPage> {
+  late TextEditingController newPasswordController;
+  late TextEditingController confirmPasswordController;
+  late NewPasswordBloc newPasswordBloc;
+
+  @override
+  void initState() {
+    newPasswordBloc = NewPasswordBloc(
+        changePassword: ChangePasswordInLoginUseCase(), phone: widget.phone);
+    newPasswordController = TextEditingController();
+    confirmPasswordController = TextEditingController();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    confirmPasswordController.dispose();
+    newPasswordController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) => CustomScreen(
+        child: KeyboardDismisser(
+          child: BlocProvider.value(
+            value: newPasswordBloc,
+            child: BlocConsumer<NewPasswordBloc, NewPasswordState>(
+              listener: (context, state) {
+                if (state.status == FormzStatus.submissionCanceled) {
+                   print('=>=>=>=> failed change password <=<=<=<=');
+                  context.read<ShowPopUpBloc>().add(
+                      ShowPopUp(message: state.toastMessage, isSucces: false));
+                }
+                if (state.status == FormzStatus.submissionSuccess) {
+                  Navigator.pushAndRemoveUntil(
+                      context,
+                      fade(
+                        page: BlocProvider(
+                          create: (c) => RegisterBloc(
+                            sendCodeUseCase: SendCodeUseCase(),
+                            registerUseCase: RegisterUseCase(),
+                            verifyCodeUseCase: VerifyCodeUseCase(),
+                          ),
+                          child: const LoginScreen(),
+                        ),
+                      ),
+                      (route) => false);
+                }
+              },
+              builder: (context, state) => CustomScreen(
+                child: Scaffold(
+                  appBar: WAppBar(
+                    title: LocaleKeys.security.tr(),
+                  ),
+                  body: Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          child: ListView(
+                            children: [
+                              LoginHeader(
+                                title: LocaleKeys.new_password.tr(),
+                                description: LocaleKeys.create_password.tr(),
+                              ),
+                              const SizedBox(
+                                height: 36,
+                              ),
+                              ZTextFormField(
+                                onChanged: (value) {
+                                  setState(() {});
+                                },
+                                isObscure: true,
+                                hintText: LocaleKeys.new_password.tr(),
+                                controller: newPasswordController,
+                              ),
+                              const SizedBox(
+                                height: 16,
+                              ),
+                              ZTextFormField(
+                                onChanged: (value) {
+                                  setState(() {});
+                                },
+                                isObscure: true,
+                                hintText: LocaleKeys.confirm_password.tr(),
+                                controller: confirmPasswordController,
+                              ),
+                              const SizedBox(height: 36),
+                              WButton(
+                                onTap: () {
+                                  print('tap');
+                                  if ((newPasswordController.text.length >= 6 &&
+                                          confirmPasswordController
+                                                  .text.length >=
+                                              6) &&
+                                      newPasswordController.text ==
+                                          confirmPasswordController.text) {
+                                    newPasswordBloc.add(
+                                      NewPasswordEvent(
+                                          password: newPasswordController.text),
+                                    );
+                                  } else {}
+                                },
+                                shadow: [
+                                  BoxShadow(
+                                      offset: const Offset(0, 4),
+                                      blurRadius: 20,
+                                      color: solitude.withOpacity(.12)),
+                                ],
+                                margin: EdgeInsets.only(
+                                    bottom: 4 +
+                                        MediaQuery.of(context).padding.bottom),
+                                color: (newPasswordController.text.isNotEmpty &&
+                                        confirmPasswordController
+                                            .text.isNotEmpty)
+                                    ? orange
+                                    : Theme.of(context)
+                                        .extension<ThemedColors>()!
+                                        .veryLightGreyToEclipse,
+                                text: LocaleKeys.continuee.tr(),
+                                border: Border.all(
+                                  width: 1,
+                                  color: Theme.of(context)
+                                      .extension<ThemedColors>()!
+                                      .whiteToDolphin,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      );
+}

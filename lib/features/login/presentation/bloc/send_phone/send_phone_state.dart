@@ -6,9 +6,7 @@ class SendPhoneState extends Equatable {
   final String session;
 
   const SendPhoneState(
-      {required this.status,
-      required this.toastMessage,
-      required this.session});
+      {required this.status, this.toastMessage = '', this.session = ''});
   SendPhoneState copyWith(
           {FormzStatus? status, String? toastMessage, String? session}) =>
       SendPhoneState(

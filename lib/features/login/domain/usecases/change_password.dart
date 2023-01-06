@@ -11,9 +11,10 @@ class ChangePasswordInLoginUseCase extends UseCase<String, ChangePassParam> {
     // print(params.phone);
     // print(params.validPassword);
     return repo.postAndSingle(
+      
         endpoint: '/users/forget-pass/change-password/',
         sendToken: false,
-        fromJson: (json) => 'rahmat',
+        fromJson: (json) => json[''],
         data: {'phone_number': params.phone, 'password': params.validPassword});
   }
 }
