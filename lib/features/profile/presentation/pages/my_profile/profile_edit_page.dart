@@ -49,7 +49,6 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
     surNameController = TextEditingController(
         text: widget.profileBloc.state.profileEntity.lastName);
     context.read<RegionsBloc>().add(RegionsEvent.getRegions());
-    // print(StorageRepository.getString('token'));
     widget.imageBloc
         .add(DeleteImage(imageUrl: widget.imageBloc.state.image.path));
     super.initState();

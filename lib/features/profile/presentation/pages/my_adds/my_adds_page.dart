@@ -2,6 +2,7 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/features/profile/domain/entities/profile_item_entity.dart';
 import 'package:auto/features/profile/presentation/bloc/profile/profile_bloc.dart';
+import 'package:auto/features/profile/presentation/widgets/empty_item_body.dart';
 import 'package:auto/features/profile/presentation/widgets/widgets.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -83,11 +84,10 @@ class _MyAddsPageState extends State<MyAddsPage> with TickerProviderStateMixin {
                 }
                 if (state.secondStatus.isSubmissionInProgress) {
                   return const Center(
-                      child: CupertinoActivityIndicator(
-                    color: white,
-                  ));
+                      child: CupertinoActivityIndicator(color: white));
                 }
-                if (state.secondStatus.isSubmissionSuccess) {
+                if (state.secondStatus.isSubmissionSuccess &&
+                    state.autoEntity.isNotEmpty) {
                   return TabBarView(
                     controller: tabController,
                     children: [
@@ -101,8 +101,14 @@ class _MyAddsPageState extends State<MyAddsPage> with TickerProviderStateMixin {
                     ],
                   );
                 }
-                return const Center(
-                  child: Text('Xatolik, internetingizni tekshiring!'),
+                if (state.secondStatus.isSubmissionSuccess &&
+                    state.autoEntity.isEmpty) {
+                  return const EmptyItemBody(
+                    title: 'У вас еще нет объявлений'
+                  );
+                }
+                return const EmptyItemBody(
+                  title: 'Xatolik'
                 );
               },
             ),
