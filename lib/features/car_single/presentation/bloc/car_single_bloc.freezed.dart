@@ -20,32 +20,38 @@ mixin _$CarSingleEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(int id) getSingle,
+    required TResult Function(int id) getOtherAds,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(int id)? getSingle,
+    TResult? Function(int id)? getOtherAds,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(int id)? getSingle,
+    TResult Function(int id)? getOtherAds,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_GetSingle value) getSingle,
+    required TResult Function(_GetAds value) getOtherAds,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetSingle value)? getSingle,
+    TResult? Function(_GetAds value)? getOtherAds,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetSingle value)? getSingle,
+    TResult Function(_GetAds value)? getOtherAds,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -155,6 +161,7 @@ class _$_GetSingle implements _GetSingle {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(int id) getSingle,
+    required TResult Function(int id) getOtherAds,
   }) {
     return getSingle(id);
   }
@@ -163,6 +170,7 @@ class _$_GetSingle implements _GetSingle {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(int id)? getSingle,
+    TResult? Function(int id)? getOtherAds,
   }) {
     return getSingle?.call(id);
   }
@@ -171,6 +179,7 @@ class _$_GetSingle implements _GetSingle {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(int id)? getSingle,
+    TResult Function(int id)? getOtherAds,
     required TResult orElse(),
   }) {
     if (getSingle != null) {
@@ -183,6 +192,7 @@ class _$_GetSingle implements _GetSingle {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_GetSingle value) getSingle,
+    required TResult Function(_GetAds value) getOtherAds,
   }) {
     return getSingle(this);
   }
@@ -191,6 +201,7 @@ class _$_GetSingle implements _GetSingle {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetSingle value)? getSingle,
+    TResult? Function(_GetAds value)? getOtherAds,
   }) {
     return getSingle?.call(this);
   }
@@ -199,6 +210,7 @@ class _$_GetSingle implements _GetSingle {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetSingle value)? getSingle,
+    TResult Function(_GetAds value)? getOtherAds,
     required TResult orElse(),
   }) {
     if (getSingle != null) {
@@ -220,9 +232,147 @@ abstract class _GetSingle implements CarSingleEvent {
 }
 
 /// @nodoc
+abstract class _$$_GetAdsCopyWith<$Res>
+    implements $CarSingleEventCopyWith<$Res> {
+  factory _$$_GetAdsCopyWith(_$_GetAds value, $Res Function(_$_GetAds) then) =
+      __$$_GetAdsCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({int id});
+}
+
+/// @nodoc
+class __$$_GetAdsCopyWithImpl<$Res>
+    extends _$CarSingleEventCopyWithImpl<$Res, _$_GetAds>
+    implements _$$_GetAdsCopyWith<$Res> {
+  __$$_GetAdsCopyWithImpl(_$_GetAds _value, $Res Function(_$_GetAds) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+  }) {
+    return _then(_$_GetAds(
+      null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_GetAds implements _GetAds {
+  _$_GetAds(this.id);
+
+  @override
+  final int id;
+
+  @override
+  String toString() {
+    return 'CarSingleEvent.getOtherAds(id: $id)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_GetAds &&
+            (identical(other.id, id) || other.id == id));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, id);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_GetAdsCopyWith<_$_GetAds> get copyWith =>
+      __$$_GetAdsCopyWithImpl<_$_GetAds>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(int id) getSingle,
+    required TResult Function(int id) getOtherAds,
+  }) {
+    return getOtherAds(id);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(int id)? getSingle,
+    TResult? Function(int id)? getOtherAds,
+  }) {
+    return getOtherAds?.call(id);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(int id)? getSingle,
+    TResult Function(int id)? getOtherAds,
+    required TResult orElse(),
+  }) {
+    if (getOtherAds != null) {
+      return getOtherAds(id);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_GetSingle value) getSingle,
+    required TResult Function(_GetAds value) getOtherAds,
+  }) {
+    return getOtherAds(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetSingle value)? getSingle,
+    TResult? Function(_GetAds value)? getOtherAds,
+  }) {
+    return getOtherAds?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetSingle value)? getSingle,
+    TResult Function(_GetAds value)? getOtherAds,
+    required TResult orElse(),
+  }) {
+    if (getOtherAds != null) {
+      return getOtherAds(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _GetAds implements CarSingleEvent {
+  factory _GetAds(final int id) = _$_GetAds;
+
+  @override
+  int get id;
+  @override
+  @JsonKey(ignore: true)
+  _$$_GetAdsCopyWith<_$_GetAds> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 mixin _$CarSingleState {
   FormzStatus get status => throw _privateConstructorUsedError;
   CarSingleEntity get singleEntity => throw _privateConstructorUsedError;
+  List<ElasticSearchEntity> get elasticSearchEntity =>
+      throw _privateConstructorUsedError;
+  dynamic get fetchMore => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $CarSingleStateCopyWith<CarSingleState> get copyWith =>
@@ -235,7 +385,11 @@ abstract class $CarSingleStateCopyWith<$Res> {
           CarSingleState value, $Res Function(CarSingleState) then) =
       _$CarSingleStateCopyWithImpl<$Res, CarSingleState>;
   @useResult
-  $Res call({FormzStatus status, CarSingleEntity singleEntity});
+  $Res call(
+      {FormzStatus status,
+      CarSingleEntity singleEntity,
+      List<ElasticSearchEntity> elasticSearchEntity,
+      dynamic fetchMore});
 }
 
 /// @nodoc
@@ -253,6 +407,8 @@ class _$CarSingleStateCopyWithImpl<$Res, $Val extends CarSingleState>
   $Res call({
     Object? status = null,
     Object? singleEntity = null,
+    Object? elasticSearchEntity = null,
+    Object? fetchMore = freezed,
   }) {
     return _then(_value.copyWith(
       status: null == status
@@ -263,6 +419,14 @@ class _$CarSingleStateCopyWithImpl<$Res, $Val extends CarSingleState>
           ? _value.singleEntity
           : singleEntity // ignore: cast_nullable_to_non_nullable
               as CarSingleEntity,
+      elasticSearchEntity: null == elasticSearchEntity
+          ? _value.elasticSearchEntity
+          : elasticSearchEntity // ignore: cast_nullable_to_non_nullable
+              as List<ElasticSearchEntity>,
+      fetchMore: freezed == fetchMore
+          ? _value.fetchMore
+          : fetchMore // ignore: cast_nullable_to_non_nullable
+              as dynamic,
     ) as $Val);
   }
 }
@@ -275,7 +439,11 @@ abstract class _$$_CarSingleStateCopyWith<$Res>
       __$$_CarSingleStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({FormzStatus status, CarSingleEntity singleEntity});
+  $Res call(
+      {FormzStatus status,
+      CarSingleEntity singleEntity,
+      List<ElasticSearchEntity> elasticSearchEntity,
+      dynamic fetchMore});
 }
 
 /// @nodoc
@@ -291,6 +459,8 @@ class __$$_CarSingleStateCopyWithImpl<$Res>
   $Res call({
     Object? status = null,
     Object? singleEntity = null,
+    Object? elasticSearchEntity = null,
+    Object? fetchMore = freezed,
   }) {
     return _then(_$_CarSingleState(
       status: null == status
@@ -301,6 +471,11 @@ class __$$_CarSingleStateCopyWithImpl<$Res>
           ? _value.singleEntity
           : singleEntity // ignore: cast_nullable_to_non_nullable
               as CarSingleEntity,
+      elasticSearchEntity: null == elasticSearchEntity
+          ? _value._elasticSearchEntity
+          : elasticSearchEntity // ignore: cast_nullable_to_non_nullable
+              as List<ElasticSearchEntity>,
+      fetchMore: freezed == fetchMore ? _value.fetchMore! : fetchMore,
     ));
   }
 }
@@ -310,7 +485,10 @@ class __$$_CarSingleStateCopyWithImpl<$Res>
 class _$_CarSingleState implements _CarSingleState {
   const _$_CarSingleState(
       {this.status = FormzStatus.pure,
-      this.singleEntity = const CarSingleEntity()});
+      this.singleEntity = const CarSingleEntity(),
+      final List<ElasticSearchEntity> elasticSearchEntity = const [],
+      this.fetchMore = false})
+      : _elasticSearchEntity = elasticSearchEntity;
 
   @override
   @JsonKey()
@@ -318,10 +496,23 @@ class _$_CarSingleState implements _CarSingleState {
   @override
   @JsonKey()
   final CarSingleEntity singleEntity;
+  final List<ElasticSearchEntity> _elasticSearchEntity;
+  @override
+  @JsonKey()
+  List<ElasticSearchEntity> get elasticSearchEntity {
+    if (_elasticSearchEntity is EqualUnmodifiableListView)
+      return _elasticSearchEntity;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_elasticSearchEntity);
+  }
+
+  @override
+  @JsonKey()
+  final dynamic fetchMore;
 
   @override
   String toString() {
-    return 'CarSingleState(status: $status, singleEntity: $singleEntity)';
+    return 'CarSingleState(status: $status, singleEntity: $singleEntity, elasticSearchEntity: $elasticSearchEntity, fetchMore: $fetchMore)';
   }
 
   @override
@@ -331,11 +522,19 @@ class _$_CarSingleState implements _CarSingleState {
             other is _$_CarSingleState &&
             (identical(other.status, status) || other.status == status) &&
             (identical(other.singleEntity, singleEntity) ||
-                other.singleEntity == singleEntity));
+                other.singleEntity == singleEntity) &&
+            const DeepCollectionEquality()
+                .equals(other._elasticSearchEntity, _elasticSearchEntity) &&
+            const DeepCollectionEquality().equals(other.fetchMore, fetchMore));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, status, singleEntity);
+  int get hashCode => Object.hash(
+      runtimeType,
+      status,
+      singleEntity,
+      const DeepCollectionEquality().hash(_elasticSearchEntity),
+      const DeepCollectionEquality().hash(fetchMore));
 
   @JsonKey(ignore: true)
   @override
@@ -347,12 +546,18 @@ class _$_CarSingleState implements _CarSingleState {
 abstract class _CarSingleState implements CarSingleState {
   const factory _CarSingleState(
       {final FormzStatus status,
-      final CarSingleEntity singleEntity}) = _$_CarSingleState;
+      final CarSingleEntity singleEntity,
+      final List<ElasticSearchEntity> elasticSearchEntity,
+      final dynamic fetchMore}) = _$_CarSingleState;
 
   @override
   FormzStatus get status;
   @override
   CarSingleEntity get singleEntity;
+  @override
+  List<ElasticSearchEntity> get elasticSearchEntity;
+  @override
+  dynamic get fetchMore;
   @override
   @JsonKey(ignore: true)
   _$$_CarSingleStateCopyWith<_$_CarSingleState> get copyWith =>

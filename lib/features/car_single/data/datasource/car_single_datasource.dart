@@ -3,13 +3,14 @@ import 'package:auto/core/singletons/dio_settings.dart';
 import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/car_single/data/model/car_single_model.dart';
-import 'package:auto/features/car_single/data/model/other_ads_model.dart';
+import 'package:auto/features/car_single/data/model/elastic_search_model.dart';
+import 'package:auto/features/pagination/models/generic_pagination.dart';
 import 'package:dio/dio.dart';
 
 abstract class CarSingleDataSource {
   Future<CarSingleModel> getCarSingle({required int id});
 
-  Future<OtherAdsModel> getOtherAds();
+  Future<GenericPagination<ElasticSearchModel>> getOtherAds({required int id});
 
   Future<CarSingleModel> payInvoice();
 }
@@ -31,7 +32,7 @@ class CarSingleDataSourceImpl extends CarSingleDataSource {
       if (response.statusCode != null &&
           response.statusCode! >= 200 &&
           response.statusCode! < 300) {
-        print('SINGLE RESPONSE DATA  => ${response.data}');
+        print('SINGLE RESPONSE DATA SINGLE => ${response.data}');
         return CarSingleModel.fromJson(response.data);
       } else {
         print('DATA SOURCE ERROR GET SINGLE');
@@ -58,17 +59,28 @@ class CarSingleDataSourceImpl extends CarSingleDataSource {
   }
 
   @override
-  Future<OtherAdsModel> getOtherAds() async {
+  Future<GenericPagination<ElasticSearchModel>> getOtherAds({required int id}) async {
     try {
-      final response = await _dio.get('',
+      final response = await _dio.get('/es/AnnouncementElasticSearch/',
+          queryParameters: {'car_model':id},
           options: Options(headers: {
             'Authorization': 'Token ${StorageRepository.getString('token')}'
           }));
       if (response.statusCode != null &&
           response.statusCode! >= 200 &&
           response.statusCode! < 300) {
-        return OtherAdsModel.fromJson(response.data);
-      } else {
+        print('DATA FROM DATASOURCE GET OTHER => ${response.data}');
+        return GenericPagination.fromJson(response.data,
+                (p0) => ElasticSearchModel.fromJson(p0 as Map<String, dynamic>));
+      } else if (response.data is Map) {
+        throw ServerException(
+            statusCode: response.statusCode!,
+            errorMessage: ((response.data as Map).values.isNotEmpty
+                ? (response.data as Map).values.first
+                : 'error while get other ads')
+                .toString());
+      }  else {
+        print('DATASOURCE ERROR GET ADS');
         await StorageRepository.deleteString('token');
       }
       if (response.data is Map) {

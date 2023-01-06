@@ -19,39 +19,47 @@ class SingleImagePart extends StatefulWidget {
 
 class _SingleImagePartState extends State<SingleImagePart> {
   int currentIndex = 0;
+  final ScrollController controller = ScrollController();
+  final PageController pageController = PageController();
 
   @override
   Widget build(BuildContext context) => Stack(
         children: [
-          PageView.builder(
-            onPageChanged: (value) => setState(() {
-              currentIndex = value;
-            }),
-            itemCount: widget.images.isEmpty ? 1 : widget.images.length,
-            itemBuilder: (BuildContext context, int index) =>
-                widget.images.isEmpty
-                    ? Image.asset(
-                        AppImages.defaultPhoto,
-                        fit: BoxFit.cover,
-                      )
-                    : Image.network(
-                        widget.images[index],
-                        width: double.maxFinite,
-                        height: 340,
-                        fit: BoxFit.cover,
-                      ),
-          ),
+
           Container(
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  Colors.black54,
-                  Colors.black12,
-                  Colors.black12,
-                ],
-              ),
+
+            child:  PageView.builder(
+              controller: pageController,
+              scrollDirection: Axis.horizontal,
+              onPageChanged: (value) => setState(() {
+                currentIndex = value;
+              }),
+              itemCount: widget.images.isEmpty ? 1 : widget.images.length,
+              itemBuilder: (BuildContext context, int index) =>
+             Container(
+               foregroundDecoration: const BoxDecoration(
+                 gradient: LinearGradient(
+                   begin: Alignment.topCenter,
+                   end: Alignment.bottomCenter,
+                   colors: [
+                     Colors.black54,
+                     Colors.black12,
+                     Colors.black12,
+                   ],
+                 ),
+               ),
+               child:  widget.images.isEmpty
+                   ? Image.asset(
+                 AppImages.defaultPhoto,
+                 fit: BoxFit.cover,
+               )
+                   : Image.network(
+                 widget.images[index],
+                 width: double.maxFinite,
+                 height: 340,
+                 fit: BoxFit.cover,
+               ),
+             )
             ),
           ),
           if (widget.images.length > 1)

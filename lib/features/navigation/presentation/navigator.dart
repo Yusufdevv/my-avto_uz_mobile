@@ -1,3 +1,4 @@
+import 'package:auto/features/car_single/presentation/car_single_screen.dart';
 import 'package:auto/features/main/presentation/main_screen.dart';
 import 'package:auto/features/navigation/presentation/home.dart';
 import 'package:auto/features/profile/presentation/profile_screen.dart';
@@ -28,7 +29,7 @@ class _TabNavigatorState extends State<TabNavigator>
     switch (widget.tabItem) {
       case NavItemEnum.head:
         return {
-          TabNavigatorRoutes.root: (context) => const MainScreen(),
+          TabNavigatorRoutes.root: (context) => const CarSingleScreen(),
         };
       case NavItemEnum.search:
         return {

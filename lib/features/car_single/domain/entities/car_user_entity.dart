@@ -11,9 +11,13 @@ class CarUserEntity extends Equatable {
   final String name;
   @JsonKey(defaultValue: '')
   final String? avatar;
+  final String fullName;
+  final String? image;
 
   const CarUserEntity({
     this.id = 0,
+    this.fullName = '',
+    this.image = '',
     this.phoneNumber = '',
     this.name = '',
     this.avatar = '',
@@ -25,6 +29,8 @@ class CarUserEntity extends Equatable {
         phoneNumber,
         name,
         avatar,
+        name,
+        image,
       ];
 }
 
