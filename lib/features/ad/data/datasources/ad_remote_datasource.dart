@@ -9,6 +9,7 @@ import 'package:auto/features/ad/data/models/modification_type.dart';
 import 'package:auto/features/ad/data/models/years.dart';
 import 'package:auto/features/common/entities/makes_entity.dart';
 import 'package:auto/features/common/models/get_make_model.dart';
+import 'package:auto/features/comparison/data/models/announcement_list_model.dart';
 import 'package:auto/features/pagination/models/generic_pagination.dart';
 import 'package:dio/dio.dart';
 
@@ -73,6 +74,8 @@ abstract class AdRemoteDataSource {
   Future<void> createAnnouncement({
     required FormData announcementFormData,
   });
+
+  Future<GenericPagination<AnnouncementListModel>> getAnnouncementList();
 }
 
 class AdRemoteDataSourceImpl extends AdRemoteDataSource {
@@ -315,8 +318,7 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
           statusCode: response.statusCode!, errorMessage: response.data);
     }
   }
-
-  @override
+  
   @override
   Future<GenericPagination<GearboxTypeModel>> gearboxessGet() async {
     final response = await _dio.get(
@@ -400,5 +402,24 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
     //     errorMessage: response.data,
     //   );
     // }
+  }
+  
+  @override
+  Future<GenericPagination<AnnouncementListModel>> getAnnouncementList() async {
+    final response = await _dio.get(
+      '/car/announcement/list/',
+      options: Options(
+        headers: StorageRepository.getString('token').isNotEmpty
+            ? {'Authorization': 'Token ${StorageRepository.getString('token')}'}
+            : {},
+      ),
+    );
+    if (response.statusCode! >= 200 && response.statusCode! < 300) {
+      return GenericPagination.fromJson(response.data,
+          (p0) => AnnouncementListModel.fromJson(p0 as Map<String, dynamic>));
+    } else {
+      throw ServerException(
+          statusCode: response.statusCode!, errorMessage: response.data);
+    }
   }
 }

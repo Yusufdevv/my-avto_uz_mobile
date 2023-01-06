@@ -94,7 +94,7 @@ class _ChooseGearboxState extends State<ChooseGearbox> {
                     ),
                     Padding(
                       padding: const EdgeInsets.only(
-                          left: 16, right: 16, bottom: 50),
+                          left: 16, right: 16, bottom: 40),
                       child: WButton(
                         onTap: () {
                           Navigator.of(context).pop(state.selected >= 0

@@ -1,6 +1,7 @@
-
-
 import 'package:auto/assets/colors/color.dart';
+import 'package:auto/features/ad/domain/entities/types/body_type.dart';
+import 'package:auto/features/ad/domain/entities/types/drive_type.dart';
+import 'package:auto/features/ad/domain/entities/types/gearbox_type.dart';
 import 'package:auto/features/common/widgets/range_slider.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
@@ -46,7 +47,18 @@ class _FilterParametersState extends State<FilterParameters> {
               centerTitle: false,
               extraActions: [
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    widget.filterParametersBloc.add(
+                        FilterParametersEvent.getBodyType(
+                            const BodyTypeEntity(id: -1, logo: '', type: '')));
+                    widget.filterParametersBloc.add(
+                        FilterParametersEvent.getDriveType(
+                            const DriveTypeEntity(id: -1, logo: '', type: '')));
+                    widget.filterParametersBloc.add(
+                        FilterParametersEvent.getGearboxType(
+                            const GearboxTypeEntity(
+                                id: -1, logo: '', type: '')));
+                  },
                   child: const Text(
                     'Сбросить',
                     style: TextStyle(
@@ -76,29 +88,15 @@ class _FilterParametersState extends State<FilterParameters> {
                           selectedId: 0,
                         ),
                       ).then((value) {
-                        // widget.rentBloc.add(RentSetParamFromFilterEvent(
-                        //     carBodyTypeId: value?[0].toString()));
+                        widget.filterParametersBloc
+                            .add(FilterParametersEvent.getBodyType(value));
+                        print(value);
                       });
                     },
-                    hintText: LocaleKeys.choose_body.tr(),
+                    hintText: state.bodyTypeEntity.type.isEmpty
+                        ? LocaleKeys.choose_body.tr()
+                        : state.bodyTypeEntity.type,
                     title: LocaleKeys.body_type.tr(),
-                    hasArrowDown: true,
-                  ),
-                  SelectorItem(
-                    onTap: () async {
-                      await showModalBottomSheet(
-                        isDismissible: false,
-                        context: context,
-                        isScrollControlled: true,
-                        backgroundColor: Colors.transparent,
-                        builder: (c) => const ChooseBodyType(selectedId: 0),
-                      ).then((value) {
-                        // widget.rentBloc.add(RentSetParamFromFilterEvent(
-                        //     carBodyTypeId: value?[0].toString()));
-                      });
-                    },
-                    hintText: LocaleKeys.choose_class.tr(),
-                    title: LocaleKeys.classs.tr(),
                     hasArrowDown: true,
                   ),
                   SelectorItem(
@@ -110,11 +108,14 @@ class _FilterParametersState extends State<FilterParameters> {
                         backgroundColor: Colors.transparent,
                         builder: (c) => const ChooseDriveType(selectedId: 0),
                       ).then((value) {
-                        // widget.rentBloc.add(
-                        //     RentSetParamFromFilterEvent(carDriveTypeId: value));
+                        widget.filterParametersBloc
+                            .add(FilterParametersEvent.getDriveType(value));
+                        print(value);
                       });
                     },
-                    hintText: LocaleKeys.choose_drive_type.tr(),
+                    hintText: state.driveTypeEntity.type.isEmpty
+                        ? LocaleKeys.choose_drive_type.tr()
+                        : state.driveTypeEntity.type,
                     title: LocaleKeys.drive_unit.tr(),
                     hasArrowDown: true,
                   ),
@@ -127,11 +128,14 @@ class _FilterParametersState extends State<FilterParameters> {
                         backgroundColor: Colors.transparent,
                         builder: (c) => const ChooseGearbox(selectedId: 0),
                       ).then((value) {
-                        // widget.rentBloc.add(
-                        //     RentSetParamFromFilterEvent(gearboxTypeId: value));
+                        widget.filterParametersBloc
+                            .add(FilterParametersEvent.getGearboxType(value));
+                        print(value);
                       });
                     },
-                    hintText: LocaleKeys.choose_box_type.tr(),
+                    hintText: state.gearboxTypeEntity.type.isEmpty
+                        ? LocaleKeys.choose_box_type.tr()
+                        : state.gearboxTypeEntity.type,
                     title: LocaleKeys.box.tr(),
                     hasArrowDown: true,
                   ),
@@ -211,7 +215,7 @@ class _FilterParametersState extends State<FilterParameters> {
                     startValue: 1000,
                     isForPrice: true,
                   ),
-                  SizedBox(height: size.height * 0.1),
+                  SizedBox(height: size.height * 0.2),
                   WButton(
                     onTap: () => Navigator.pop(context),
                     text: 'Показать',

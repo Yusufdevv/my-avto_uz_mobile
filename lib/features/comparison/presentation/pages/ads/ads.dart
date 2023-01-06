@@ -129,8 +129,7 @@ class _AdsScreenState extends State<AdsScreen>
                 backgroundColor: orange,
                 onPressed: () {},
                 child: SvgPicture.asset(
-                  AppIcons.searchWithHeart,
-                  color: white,
+                  AppIcons.searchWithHeartWhite,
                 ),
               ),
               floatingActionButtonLocation:

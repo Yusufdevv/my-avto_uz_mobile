@@ -1,7 +1,8 @@
+import 'package:auto/features/common/domain/entity/car_dealer_entity.dart';
 import 'package:auto/features/comparison/domain/entities/user_entity.dart';
 
-class AnnouncementEntity {
-  AnnouncementEntity({
+class AnnouncementListEntity {
+  AnnouncementListEntity({
     this.id = 0,
     this.make = '',
     this.model = '',
@@ -14,13 +15,20 @@ class AnnouncementEntity {
     this.longitude = 0,
     this.latitude = 0,
     this.user = const UserEntity(),
-    this.price = '',
+    this.price = 0,
     this.isComparison = false,
-    this.discount = '',
+    this.discount = 0,
     this.contactAvailableFrom = '',
     this.contactAvailableTo = '',
+    this.isNew = false,
+    this.dealer = const CarDealerEntity(),
+    this.userType = '',
+    this.currency = '',
+    this.publishedAt = '',
+    this.createdAt = '',
     this.isWishlisted = false,
   });
+
   final int id;
   final String make;
   final String model;
@@ -34,10 +42,17 @@ class AnnouncementEntity {
   final double latitude;
   @UserConverter()
   final UserEntity user;
-  final String price;
+  final double price;
   final bool isComparison;
-  final String discount;
+  final double? discount;
   final String contactAvailableFrom;
   final String contactAvailableTo;
+  final bool isNew;
+  @CarDealerConverter()
+  final CarDealerEntity dealer;
+  final String userType;
+  final String currency;
+  final String publishedAt;
+  final String createdAt;
   final bool isWishlisted;
 }
