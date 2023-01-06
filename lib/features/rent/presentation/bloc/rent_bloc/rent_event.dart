@@ -9,6 +9,10 @@ class RentGetResultsEvent extends RentEvent {
   RentGetResultsEvent({bool? isRefresh}) : super(isRefresh: isRefresh);
 }
 
+class RentGetResultsFromListEvent extends RentEvent {
+  RentGetResultsFromListEvent({bool? isRefresh}) : super(isRefresh: isRefresh);
+}
+
 class RentSetIdEvent extends RentEvent {
   final int categoryId;
   int? hasAirConditioner;
@@ -28,22 +32,25 @@ class RentSetIdEvent extends RentEvent {
 class RentGetMoreEvent extends RentEvent {
   RentGetMoreEvent({bool? isRefresh}) : super(isRefresh: isRefresh);
 }
-    class  RentCleanFilterEvent  extends RentEvent  {
 
-}
 
 class RentSetParamFromFilterEvent extends RentEvent {
   List<Region>? regions;
-  String? carMakerId;
-  String? carBodyTypeId;
-  String? carDriveTypeId;
-  String? gearboxTypeId;
+  MakeEntity? maker;
+  BodyTypeEntity? bodyType;
+  DriveTypeEntity? carDriveType;
+  GearboxTypeEntity? gearboxType;
+
+  RangeValues? yearValues;
+  RangeValues? priceValues;
 
   RentSetParamFromFilterEvent({
     this.regions,
-    this.carMakerId,
-    this.carBodyTypeId,
-    this.carDriveTypeId,
-    this.gearboxTypeId,
+    this.maker,
+    this.bodyType,
+    this.carDriveType,
+    this.gearboxType,
+    this.priceValues,
+    this.yearValues,
   });
 }

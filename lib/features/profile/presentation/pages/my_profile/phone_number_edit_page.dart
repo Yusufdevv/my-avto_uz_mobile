@@ -33,11 +33,14 @@ class PhoneNumberEditPage extends StatefulWidget {
 class _PhoneNumberEditPageState extends State<PhoneNumberEditPage> {
   final phoneFormatter = MaskTextInputFormatter(
     mask: '## ### ## ##',
-    filter: {'#': RegExp(r'[0-9]')},
+    filter: {'#': RegExp('[0-9]')},
   );
 
   late TextEditingController phoneController;
   late ChangePhoneNumberBloc changePhoneNumberBloc;
+  bool colorChange = false;
+  late GlobalKey _formKey;
+
   @override
   void initState() {
     phoneController = TextEditingController();
@@ -47,6 +50,7 @@ class _PhoneNumberEditPageState extends State<PhoneNumberEditPage> {
         changePhoneNumberUseCase: ChangePhoneNumberUseCase(repository: repo),
         sendSmsVerificationUseCase:
             SendSmsVerificationUseCase(repository: repo));
+            _formKey = GlobalKey<FormState>();
     super.initState();
   }
 
@@ -64,96 +68,112 @@ class _PhoneNumberEditPageState extends State<PhoneNumberEditPage> {
                 body: Padding(
                   padding: const EdgeInsets.only(
                       top: 50, left: 16, right: 16, bottom: 16),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      LoginHeader(
-                          title: LocaleKeys.tel_number.tr(),
-                          description:
-                              'Мы отправим код подтверждения на номер телефона'),
-                      SizedBox(height: SizeConfig.v(49)),
-                      ZTextFormField(
-                        disabledBorderColor: border,
-                        onChanged: (value) {},
-                        controller: phoneController,
-                        prefixIcon: Row(
-                          children: [
-                            Image.asset(AppImages.flagUzb),
-                            const SizedBox(width: 4),
-                            Text('+998',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .subtitle1!
-                                    .copyWith(fontSize: 15)),
-                          ],
-                        ),
-                        hintText: '00 000 00 00',
-                        keyBoardType: TextInputType.number,
-                        textInputFormatters: [phoneFormatter],
-                      ),
-                      const Spacer(),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 12),
-                        child: WButton(
-                          onTap: () {
-                            final phoneNumber =
-                                phoneController.text.replaceAll(' ', '');
-                            if (phoneController.text.length == 12) {
-                              context
-                                  .read<ChangePhoneNumberBloc>()
-                                  .add(SendPhoneNumberEvent(
-                                      newPhoneNumber: '+998$phoneNumber',
-                                      onSuccess: (session) {
-                                        Navigator.push(
-                                            context,
-                                            fade(
-                                                page: MultiBlocProvider(
-                                              providers: [
-                                                BlocProvider.value(
-                                                    value:
-                                                        changePhoneNumberBloc),
-                                                BlocProvider.value(
-                                                    value: widget.profileBloc)
-                                              ],
-                                              child: PhoneVerifiyPage(
-                                                  ctx: context,
-                                                  phone: phoneNumber,
-                                                  session: session),
-                                            )));
-                                      },
-                                      onError: (message) {
-                                        context.read<ShowPopUpBloc>().add(
-                                            ShowPopUp(
-                                                message: message,
-                                                isSucces: false));
-                                      }));
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        LoginHeader(
+                            title: LocaleKeys.tel_number.tr(),
+                            description:
+                                'Мы отправим код подтверждения на номер телефона'),
+                        SizedBox(height: SizeConfig.v(49)),
+                        ZTextFormField(
+                          disabledBorderColor: border,
+                          onChanged: (value) {
+                            if (value.length == 12) {
+                              FocusScope.of(context).unfocus();
+                            }
+                            if (value.length == 11) {
+                              setState(() {});
                             }
                           },
-                          shadow: [
-                            BoxShadow(
-                                offset: const Offset(0, 4),
-                                blurRadius: 20,
-                                color: solitude.withOpacity(.12)),
-                          ],
-                          margin: EdgeInsets.only(
-                              bottom:
-                                  4 + MediaQuery.of(context).padding.bottom),
-                          color: (phoneController.text.isNotEmpty)
-                              ? orange
-                              : Theme.of(context)
+                          validate: (value) {
+                            if (value==null || value.isEmpty || value.length!=12) {
+                              return "Iltimos, telefon raqamingizni to'g'ri kiriting";
+                            }
+                            return '';
+                          },
+                          controller: phoneController,
+                          prefixIcon: Row(
+                            children: [
+                              Image.asset(AppImages.flagUzb),
+                              const SizedBox(width: 4),
+                              Text('+998',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .subtitle1!
+                                      .copyWith(fontSize: 15)),
+                            ],
+                          ),
+                          hintText: '00 000 00 00',
+                          keyBoardType: TextInputType.number,
+                          textInputFormatters: [phoneFormatter],
+                        ),
+                        const Spacer(),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 12),
+                          child: WButton(
+                            onTap: () {
+                              final phoneNumber =
+                                  phoneController.text.replaceAll(' ', '');
+                              if (phoneController.text.length == 12) {
+                                context
+                                    .read<ChangePhoneNumberBloc>()
+                                    .add(SendPhoneNumberEvent(
+                                        newPhoneNumber: '+998$phoneNumber',
+                                        onSuccess: () {
+                                          Navigator.push(
+                                              context,
+                                              fade(
+                                                  page: MultiBlocProvider(
+                                                providers: [
+                                                  BlocProvider.value(
+                                                      value:
+                                                          changePhoneNumberBloc),
+                                                  BlocProvider.value(
+                                                      value: widget.profileBloc)
+                                                ],
+                                                child: PhoneVerifiyPage(
+                                                    ctx: context,
+                                                    phone: phoneNumber,
+                                                    ),
+                                              )));
+                                        },
+                                        onError: (message) {
+                                          context.read<ShowPopUpBloc>().add(
+                                              ShowPopUp(
+                                                  message: message,
+                                                  isSucces: false));
+                                        }));
+                              }
+                            },
+                            shadow: [
+                              BoxShadow(
+                                  offset: const Offset(0, 4),
+                                  blurRadius: 20,
+                                  color: solitude.withOpacity(.12)),
+                            ],
+                            margin: EdgeInsets.only(
+                                bottom:
+                                    4 + MediaQuery.of(context).padding.bottom),
+                            color: phoneController.text.length == 12
+                                ? orange
+                                : Theme.of(context)
+                                    .extension<ThemedColors>()!
+                                    .veryLightGreyToEclipse,
+                            text: LocaleKeys.continuee.tr(),
+                            border: Border.all(
+                              width: 1,
+                              color: Theme.of(context)
                                   .extension<ThemedColors>()!
-                                  .veryLightGreyToEclipse,
-                          text: LocaleKeys.continuee.tr(),
-                          border: Border.all(
-                            width: 1,
-                            color: Theme.of(context)
-                                .extension<ThemedColors>()!
-                                .whiteToDolphin,
+                                  .whiteToDolphin,
+                            ),
                           ),
                         ),
-                      ),
-                      // SizedBox(height: SizeConfig.v(49)),
-                    ],
+                        // SizedBox(height: SizeConfig.v(49)),
+                      ],
+                    ),
                   ),
                 ),
               ),

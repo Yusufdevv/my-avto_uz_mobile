@@ -1,5 +1,5 @@
 import 'package:auto/core/usecases/usecase.dart';
-import 'package:auto/features/profile/domain/entities/favourite_entity.dart';
+import 'package:auto/features/common/domain/entity/auto_entity.dart';
 import 'package:auto/features/profile/domain/entities/profile_data_entity.dart';
 import 'package:auto/features/profile/domain/entities/terms_of_use_entity.dart';
 import 'package:auto/features/profile/domain/usecases/change_password_usecase.dart';
@@ -37,7 +37,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
             status: FormzStatus.pure,
             phoneNumber: '',
             profileEntity: ProfileDataEntity(),
-            favoriteEntity: const <FavoriteEntity>[],
+            autoEntity: const <AutoEntity>[],
             termsOfUseEntity: const <TermsOfUseEntity>[],
           ),
         ) { 
@@ -134,11 +134,11 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   Future<void> _onGetProfileFavorites(
       GetProfileFavoritesEvent event, Emitter<ProfileState> emit) async {
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
-    final result = await profileFavoritesUseCase.call(NoParams());
+    final result = await profileFavoritesUseCase.call(event.endpoint);
     if (result.isRight) {
       emit(state.copyWith(
         status: FormzStatus.submissionSuccess,
-        favoriteEntity: result.right,
+        autoEntity: result.right,
       ));
     } else {
       emit(state.copyWith(status: FormzStatus.submissionFailure));

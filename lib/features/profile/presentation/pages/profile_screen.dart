@@ -12,7 +12,6 @@ import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/core/utils/size_config.dart';
 import 'package:auto/features/ad/presentation/bloc/add_photo/image_bloc.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
-import 'package:auto/features/comparison/presentation/comparison_page.dart';
 import 'package:auto/features/dealers/presentation/dealers_main.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/profile/data/repositories/profile_repository_impl.dart';
@@ -50,11 +49,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
     )..add(GetProfileEvent());
     imageBloc = ImageBloc();
     super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
   }
 
   @override
@@ -119,21 +113,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     context,
                                     fade(
                                         page: FavouritePage(
-                                            favoriteEntity:
-                                                state.favoriteEntity)));
+                                            profileBloc: profileBloc)));
                               },
                               iconPath: AppIcons.heartBlue,
                               count: state.profileEntity.usercountdata
                                   ?.announcementWishlistCount),
                           const ProfileDivider(),
                           ProfileMenuTile(
-                              name: LocaleKeys.comparisons.tr(),
-                              onTap: () {
-                                // Navigator.of(context, rootNavigator: true)
-                                //     .push(fade(page: const ComparisonPage()));
-                              },
-                              iconPath: AppIcons.scales,
-                              count: 0),
+                            name: LocaleKeys.comparisons.tr(),
+                            onTap: () {
+                              // Navigator.of(context, rootNavigator: true)
+                              //     .push(fade(page: const ComparisonPage()));
+                            },
+                            iconPath: AppIcons.scales,
+                          ),
                         ]),
 
                         // moi obnovleniya
@@ -141,8 +134,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ProfileMenuTile(
                               name: LocaleKeys.my_ads.tr(),
                               onTap: () {
-                                Navigator.of(context)
-                                    .push(fade(page: const MyAddsPage()));
+                                Navigator.of(context).push(fade(
+                                    page:
+                                        MyAddsPage(profileBloc: profileBloc)));
                               },
                               iconPath: AppIcons.tabletNews,
                               count: state.profileEntity.usercountdata
@@ -178,7 +172,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   .push(fade(page: const DealerScreen()));
                             },
                             iconPath: AppIcons.dealers,
-                            count: 0,
                           ),
                           const ProfileDivider(),
                           ProfileMenuTile(

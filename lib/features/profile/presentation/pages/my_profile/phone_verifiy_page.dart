@@ -20,11 +20,9 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 
 class PhoneVerifiyPage extends StatefulWidget {
   final String phone;
-  final String session;
   final BuildContext ctx;
 
-  const PhoneVerifiyPage(
-      {required this.phone, required this.session, required this.ctx, Key? key})
+  const PhoneVerifiyPage({required this.phone, required this.ctx, Key? key})
       : super(key: key);
 
   @override
@@ -39,11 +37,6 @@ class _PhoneVerifiyPageState extends State<PhoneVerifiyPage> {
   void initState() {
     verificationController = TextEditingController();
     super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
   }
 
   @override
@@ -148,51 +141,41 @@ class _PhoneVerifiyPageState extends State<PhoneVerifiyPage> {
                       const SizedBox(
                         width: 6,
                       ),
-                      if (timeComplete)
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 4, vertical: 3),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(4),
-                              color: orange.withOpacity(0.1)),
-                          child: RefreshButton(
-                            filteredPhone: widget.phone,
-                            onSucces: () {
-                              setState(() {
-                                timeComplete = false;
-                              });
-                            },
-                          ),
-                        )
-                      else
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 4, vertical: 3),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(4),
-                              color: orange.withOpacity(0.1)),
-                          child: TimeCounter(
-                            onComplete: () {
-                              setState(() {
-                                timeComplete = true;
-                              });
-                              // context
-                              //     .read<ChangePhoneNumberBloc>()
-                              //     .add(SendPhoneNumberEvent(
-                              //       newPhoneNumber: "+998${widget.phone}",
-                              //       onSuccess: (session) {
-
-                              //       },
-                              //       onError: (message) {
-                              //         context.read<ShowPopUpBloc>().add(
-                              //               ShowPopUp(
-                              //                   message: message,
-                              //                   isSucces: false));
-                              //       },
-                              //     ));
-                            },
-                          ),
-                        )
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 4, vertical: 3),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(4),
+                            color: orange.withOpacity(0.1)),
+                        child: timeComplete
+                            ? RefreshButton(
+                                filteredPhone: widget.phone,
+                                onSucces: () {
+                                  setState(() {
+                                    timeComplete = false;
+                                  });
+                                  context
+                                      .read<ChangePhoneNumberBloc>()
+                                      .add(SendPhoneNumberEvent(
+                                        newPhoneNumber: '+998${widget.phone}',
+                                        onSuccess: () {},
+                                        onError: (message) {
+                                          context.read<ShowPopUpBloc>().add(
+                                              ShowPopUp(
+                                                  message: message,
+                                                  isSucces: false));
+                                        },
+                                      ),);
+                                },
+                              )
+                            : TimeCounter(
+                                onComplete: () {
+                                  setState(() {
+                                    timeComplete = true;
+                                  });
+                                },
+                              ),
+                      )
                     ],
                   ),
                   const SizedBox(height: 24),
@@ -205,7 +188,6 @@ class _PhoneVerifiyPageState extends State<PhoneVerifiyPage> {
                             .add(VerifyCodeEvent(
                                 newPhoneNumber: '+998${widget.phone}',
                                 code: verificationController.text,
-                                session: widget.session,
                                 onSuccess: () {
                                   context.read<ShowPopUpBloc>().add(ShowPopUp(
                                       message: 'Номер телефона успешно изменен',
@@ -214,10 +196,7 @@ class _PhoneVerifiyPageState extends State<PhoneVerifiyPage> {
                                       .read<ProfileBloc>()
                                       .add(GetProfileEvent());
                                   Navigator.pop(context);
-
-                                  Navigator.pop(
-                                    widget.ctx,
-                                  );
+                                  Navigator.pop(widget.ctx);
                                 },
                                 onError: (message) {
                                   context.read<ShowPopUpBloc>().add(ShowPopUp(

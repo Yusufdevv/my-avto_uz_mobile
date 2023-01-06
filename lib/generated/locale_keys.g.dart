@@ -1,6 +1,6 @@
 // DO NOT EDIT. This is code generated via package:easy_localization/generate.dart
 
-abstract class LocaleKeys {
+abstract class  LocaleKeys {
   static const price_of_similar_cars = 'price_of_similar_cars';
   static const see_price_statustic = 'see_price_statustic';
   static const report_vin = 'report_vin';
@@ -95,7 +95,6 @@ abstract class LocaleKeys {
   static const add_photo = 'add_photo';
   static const region = 'region';
   static const top_marks = 'top_marks';
-  static const show_offers = 'show_offers';
   static const offers_of_day = 'offers_of_day';
   static const main = 'main';
   static const add = 'add';
@@ -104,6 +103,7 @@ abstract class LocaleKeys {
   static const trusted_car_dealers = 'trusted_car_dealers';
   static const more_than = 'more_than';
   static const offers = 'offers';
+  static const offers1 = 'offers1';
   static const enter_to_system = 'enter_to_system';
   static const another_ways = 'another_ways';
   static const hello = 'hello';
@@ -305,6 +305,13 @@ abstract class LocaleKeys {
   static const load_more = 'load_more';
   static const show = 'show';
   static const result = 'result';
+  static const moto = 'moto';
+  static const category = 'category';
+  static const add_review = 'add_review';
+  static const auto = 'auto';
+  static const filled = 'filled';
+  static const ownership_term = 'ownership_term';
+  static const rating_comment = 'rating_comment';
   static const cars = 'cars';
   static const email_example = 'email_example';
   static const i_accept_rules = 'i_accept_rules';
@@ -312,11 +319,5 @@ abstract class LocaleKeys {
   static const i_accept_rules2 = 'i_accept_rules2';
   static const i_accept_rules3 = 'i_accept_rules3';
   static const complete_registration = 'complete_registration';
-  static const moto = 'moto';
-  static const category = 'category';
-  static const add_review = 'add_review';
-  static const auto = 'auto';
-  static const filled = 'filled';
-  static const ownership_term = 'ownership_term';
-  static const rating_comment = 'rating_comment3';
+
 }

@@ -16,29 +16,29 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 
 class ChooseDriveType extends StatefulWidget {
-  const ChooseDriveType({super.key});
+  final int selectedId;
+  const ChooseDriveType({required this.selectedId, super.key});
 
   @override
   State<ChooseDriveType> createState() => _ChooseDriveTypeState();
 }
 
 class _ChooseDriveTypeState extends State<ChooseDriveType> {
-  late GetDriveTypesBloc getMakesBloc;
+  late GetDriveTypesBloc getDriveTypesBloc;
   @override
   void initState() {
-    getMakesBloc = GetDriveTypesBloc(
+    getDriveTypesBloc = GetDriveTypesBloc(
+      selectedId: widget.selectedId,
       getBodyTypeUseCase: GetDriveTypesUseCase(
         repository: serviceLocator<AdRepositoryImpl>(),
       ),
-    )..add(GetDriveTypesEvent());
+    )..add(GetDriveTypesGetEvent());
     super.initState();
   }
 
-  int selected = -1;
-
   @override
   Widget build(BuildContext context) => BlocProvider.value(
-        value: getMakesBloc,
+        value: getDriveTypesBloc,
         child: Container(
           margin: EdgeInsets.only(top: MediaQuery.of(context).padding.top + 44),
           decoration: const BoxDecoration(
@@ -56,8 +56,8 @@ class _ChooseDriveTypeState extends State<ChooseDriveType> {
                     SheetHeader(
                         title: 'Привод',
                         onCancelPressed: () {
-                          Navigator.of(context).pop(selected >= 0
-                              ? '${state.driveTypes[selected].id}'
+                          Navigator.of(context).pop(state.selected >= 0
+                              ? state.driveTypes[state.selected]
                               : null);
                         }),
                     const Divider(thickness: 1, color: border, height: 1),
@@ -71,14 +71,12 @@ class _ChooseDriveTypeState extends State<ChooseDriveType> {
                                 (index) => Column(
                                       children: [
                                         WScaleAnimation(
-                                          onTap: () {
-                                            selected = index;
-                                            setState(() {});
-                                          },
+                                          onTap: () => getDriveTypesBloc.add(
+                                              GetDriveTypesSelectEvent(index)),
                                           child: RentSheetItem(
                                             logo: state.driveTypes[index].logo,
                                             title: state.driveTypes[index].type,
-                                            isChecked: index == selected,
+                                            isChecked: index == state.selected,
                                           ),
                                         ),
                                         Visibility(
@@ -103,8 +101,8 @@ class _ChooseDriveTypeState extends State<ChooseDriveType> {
                           left: 16, right: 16, bottom: 50),
                       child: WButton(
                           onTap: () {
-                            Navigator.of(context).pop(selected >= 0
-                                ? '${state.driveTypes[selected].id}'
+                            Navigator.of(context).pop(state.selected >= 0
+                                ? state.driveTypes[state.selected]
                                 : null);
                           },
                           text: 'Применить'),

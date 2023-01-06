@@ -1,14 +1,19 @@
 import 'package:auto/assets/colors/color.dart';
+import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/region_checkbox.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class RegionSelectAllItem extends StatelessWidget {
   final bool isAllChecked;
   final VoidCallback onTap;
+  final bool isOtherPage;
+
   const RegionSelectAllItem({
     required this.onTap,
     required this.isAllChecked,
+    required this.isOtherPage,
     super.key,
   });
 
@@ -27,9 +32,16 @@ class RegionSelectAllItem extends StatelessWidget {
                 style: Theme.of(context)
                     .textTheme
                     .headline1!
-                    .copyWith(fontWeight: FontWeight.w600, fontSize: 16),
+                    .copyWith(fontWeight: FontWeight.w400, fontSize: 16),
               ),
-              if (isAllChecked)
+              if (isOtherPage)
+                isAllChecked
+                    ? SvgPicture.asset(
+                        AppIcons.check,
+                        color: orange,
+                      )
+                    : const SizedBox()
+              else if (isAllChecked)
                 const RegionCheckBox(
                   isChecked: true,
                 )

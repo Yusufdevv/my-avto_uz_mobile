@@ -9,6 +9,7 @@ import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/dealers/presentation/widgets/filter_radio.dart';
 import 'package:auto/features/dealers/presentation/widgets/filter_region_mark_container.dart';
+import 'package:auto/features/profile/presentation/widgets/directory_filter_category.dart';
 import 'package:auto/features/profile/presentation/widgets/edit_item_container.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/rent_choose_region_bottom_sheet.dart';
 import 'package:auto/generated/locale_keys.g.dart';
@@ -29,7 +30,13 @@ enum Category { all, news, withMileage }
 
 class _DealersFilterState extends State<DealersFilter> {
   Category selectedCategory = Category.all;
-  Region? newRegion;
+  List<Region>? newRegion;
+
+  @override
+  void initState() {
+    context.read<RegionsBloc>().add(RegionsEvent.getRegions());
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -126,14 +133,15 @@ class _DealersFilterState extends State<DealersFilter> {
                         ).then((value) {
                           if (value != null && value.isNotEmpty) {
                             setState(() {
-                              newRegion = value.first;
+                              newRegion = value;
                             });
                           }
                         });
                       },
                       child: EditItemContainer(
+                          isOtherPage: true,
                           icon: AppIcons.chevronRightBlack,
-                          region: newRegion?.title ?? 'Выберите регион'),
+                          region: newRegion?[0].title ?? 'Выберите регион'),
                     ),
                     const SizedBox(height: 16),
 
@@ -157,112 +165,7 @@ class _DealersFilterState extends State<DealersFilter> {
                       ),
 
                     //Категории
-                    if (widget.isDirectoryPage)
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text('Категории',
-                              style: TextStyle(
-                                  color: Theme.of(context)
-                                      .extension<ThemedColors>()!
-                                      .greySuitToWhite,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w400)),
-                          SizedBox(height: SizeConfig.v(12)),
-                          Wrap(
-                            spacing: SizeConfig.v(16),
-                            runSpacing: SizeConfig.h(12),
-                            children: List.generate(
-                              10,
-                              (index) => WButton(
-                                width: (MediaQuery.of(context).size.width / 2) -
-                                    SizeConfig.h(24),
-                                borderRadius: 8,
-                                border: Border.all(color: dividerColor),
-                                shadow: [
-                                  BoxShadow(
-                                      offset: const Offset(0, 4),
-                                      blurRadius: 16,
-                                      color: darkBlack.withOpacity(0.05))
-                                ],
-                                onTap: () {},
-                                padding: EdgeInsets.symmetric(
-                                  horizontal: SizeConfig.h(12),
-                                ),
-                                color: white,
-                                child: Stack(
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Expanded(
-                                          child: Text('Автострахование',
-                                              maxLines: 1,
-                                              overflow: TextOverflow.ellipsis,
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .headline6
-                                                  ?.copyWith(
-                                                      height: 1.3,
-                                                      color: nero)),
-                                        ),
-                                      ],
-                                    ),
-                                    Positioned(
-                                      right: 0,
-                                      child: Row(
-                                        children: [
-                                          Container(
-                                            height: SizeConfig.v(21),
-                                            width: SizeConfig.h(24),
-                                            decoration: BoxDecoration(
-                                                gradient:
-                                                    LinearGradient(colors: [
-                                              white.withOpacity(0),
-                                              white,
-                                            ])),
-                                          ),
-                                          Container(
-                                            color: white,
-                                            child: Row(
-                                              children: [
-                                                SizedBox(
-                                                    width: SizeConfig.h(10)),
-                                                Container(
-                                                  padding: EdgeInsets.symmetric(
-                                                      horizontal:
-                                                          SizeConfig.h(4),
-                                                      vertical:
-                                                          SizeConfig.v(4)),
-                                                  decoration: BoxDecoration(
-                                                      color: const Color(
-                                                          0xFFFFF8F5),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              SizeConfig.h(4))),
-                                                  child: Text(
-                                                    '24',
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .headline2
-                                                        ?.copyWith(
-                                                            color: orange),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      )
+                    if (widget.isDirectoryPage) const DirectoryFilterCategory()
                   ],
                 ),
               ),
