@@ -6,7 +6,6 @@ import 'package:auto/features/dealers/presentation/pages/all_marks_with_announce
 import 'package:auto/features/dealers/presentation/widgets/dealer_info.dart';
 import 'package:auto/features/dealers/presentation/widgets/dealer_info_sliver_delegate.dart';
 import 'package:auto/features/dealers/presentation/widgets/mark_with_announcement.dart';
-import 'package:auto/features/main/domain/entities/ads_entity.dart';
 import 'package:auto/features/main/presentation/widgets/ads_item.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/generated/locale_keys.g.dart';
@@ -169,7 +168,7 @@ class Seller extends StatelessWidget {
                   child: Row(
                     children: List.generate(
                       marks.length,
-                          (index) => const AdsItem(adsEntity: AdsEntity()),
+                          (index) => const AdsItem(name: '', price: '', location: '', description: '', image: '',),
                     ),
                   ),
                 ),
