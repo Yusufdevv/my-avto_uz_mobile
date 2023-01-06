@@ -17,6 +17,16 @@ class MyFunctions {
   static String getData(String data) =>
       Jiffy(data).format('dd-MM-yyyy').replaceAll('-', '/').toString();
 
+  static String phoneFormat(String phone) {
+    //904781717
+    var formattedPhone = '';
+    formattedPhone += '${phone.substring(0, 2)} ';//90
+    formattedPhone += '${phone.substring(2, 5)} ';// 478 
+    formattedPhone += '${phone.substring(5, 7)} '; // 17
+    formattedPhone += phone.substring(7); // 17
+    return formattedPhone; // 90 478 17 17
+  }    
+
   static Color mapCategoryIndexToColor(final int index) {
     switch (index) {
       case 0:

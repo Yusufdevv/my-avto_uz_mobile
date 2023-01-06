@@ -6,6 +6,7 @@ import 'package:auto/features/common/domain/entity/car_model_entity.dart';
 import 'package:auto/features/common/domain/entity/car_modification_type_entity.dart';
 import 'package:auto/features/common/domain/entity/car_user_entity.dart';
 import 'package:auto/features/common/domain/entity/type_entity.dart';
+import 'package:auto/features/common/domain/entity/stats_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 part 'auto_model.g.dart';
 
@@ -58,7 +59,7 @@ class AutoModel extends AutoEntity {
     required super.registrationPlate,
     required super.registrationSerialNumber,
     required super.registrationVin,
-    // required super.stats,
+    required super.stats,
   });
 
   factory AutoModel.fromJson(Map<String, dynamic> json) =>

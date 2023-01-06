@@ -92,6 +92,10 @@ AutoModel _$AutoModelFromJson(Map<String, dynamic> json) => AutoModel(
       registrationSerialNumber:
           json['registration_serial_number'] as String? ?? '',
       registrationVin: json['registration_vin'] as String? ?? '',
+      stats: json['stats'] == null
+          ? const StatsEntity()
+          : const StatsConverter()
+              .fromJson(json['stats'] as Map<String, dynamic>?),
     );
 
 Map<String, dynamic> _$AutoModelToJson(AutoModel instance) => <String, dynamic>{
@@ -108,6 +112,7 @@ Map<String, dynamic> _$AutoModelToJson(AutoModel instance) => <String, dynamic>{
           .toJson(instance.modificationType),
       'region': const CarDistrictConverter().toJson(instance.region),
       'district': const CarDistrictConverter().toJson(instance.district),
+      'stats': const StatsConverter().toJson(instance.stats),
       'user': const CarUserConverter().toJson(instance.user),
       'dealer': instance.dealer,
       'licence_type': instance.licenceType,

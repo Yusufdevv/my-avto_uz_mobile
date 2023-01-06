@@ -14,4 +14,8 @@ abstract class MainRepository {
   }) {
     throw 'getStories() is not implemented yet';
   }
+
+  Future<Either<Failure, dynamic>> readStory({required int itemId}) {
+    throw 'readStory() is not implemented yet';
+  }
 }

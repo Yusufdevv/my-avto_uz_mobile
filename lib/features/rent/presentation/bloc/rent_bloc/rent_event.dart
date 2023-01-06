@@ -33,28 +33,24 @@ class RentGetMoreEvent extends RentEvent {
   RentGetMoreEvent({bool? isRefresh}) : super(isRefresh: isRefresh);
 }
 
-class RentCleanFilterEvent extends RentEvent {}
 
 class RentSetParamFromFilterEvent extends RentEvent {
   List<Region>? regions;
-  String? carMakerId;
-  String? carBodyTypeId;
-  String? carDriveTypeId;
-  String? gearboxTypeId;
-  String? yearStart;
-  String? yearEnd;
-  num? priceStart;
-  num? priceEnd;
+  MakeEntity? maker;
+  BodyTypeEntity? bodyType;
+  DriveTypeEntity? carDriveType;
+  GearboxTypeEntity? gearboxType;
+
+  RangeValues? yearValues;
+  RangeValues? priceValues;
 
   RentSetParamFromFilterEvent({
     this.regions,
-    this.carMakerId,
-    this.carBodyTypeId,
-    this.carDriveTypeId,
-    this.gearboxTypeId,
-    this.priceEnd,
-    this.priceStart,
-    this.yearEnd,
-    this.yearStart,
+    this.maker,
+    this.bodyType,
+    this.carDriveType,
+    this.gearboxType,
+    this.priceValues,
+    this.yearValues,
   });
 }

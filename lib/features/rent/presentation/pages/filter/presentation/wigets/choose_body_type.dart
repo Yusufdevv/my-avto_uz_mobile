@@ -13,7 +13,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 
 class ChooseBodyType extends StatefulWidget {
-  const ChooseBodyType({super.key});
+  final int selectedId;
+  const ChooseBodyType({required this.selectedId, super.key});
 
   @override
   State<ChooseBodyType> createState() => _ChooseBodyTypeState();
@@ -24,14 +25,13 @@ class _ChooseBodyTypeState extends State<ChooseBodyType> {
   @override
   void initState() {
     getBodyTypesBloc = GetBodyTypesBloc(
+      selectedId: widget.selectedId,
       getBodyTypeUseCase: GetBodyTypesUseCase(
         repository: serviceLocator<AdRepositoryImpl>(),
       ),
-    )..add(GetBodyTypesEvent());
+    )..add(GetBodyTypesGetEvent());
     super.initState();
   }
-
-  int selected = -1;
 
   @override
   Widget build(BuildContext context) => BlocProvider.value(
@@ -46,7 +46,6 @@ class _ChooseBodyTypeState extends State<ChooseBodyType> {
           ),
           child: BlocBuilder<GetBodyTypesBloc, GetBodyTypesState>(
             builder: (context, state) {
-              // final isAllChecked = checkStatus.length == state.bodyTypes.length;
               if (state.status == FormzStatus.submissionSuccess ||
                   state.status == FormzStatus.submissionFailure) {
                 return Column(
@@ -54,8 +53,8 @@ class _ChooseBodyTypeState extends State<ChooseBodyType> {
                     SheetHeader(
                         title: 'Кузов',
                         onCancelPressed: () {
-                          Navigator.of(context).pop(selected >= 0
-                              ? '${state.bodyTypes[selected].id}'
+                          Navigator.of(context).pop(state.selected >= 0
+                              ? state.bodyTypes[state.selected]
                               : null);
                         }),
                     const Divider(thickness: 1, color: border, height: 1),
@@ -69,14 +68,12 @@ class _ChooseBodyTypeState extends State<ChooseBodyType> {
                                 (index) => Column(
                                       children: [
                                         WScaleAnimation(
-                                          onTap: () {
-                                            selected = index;
-                                            setState(() {});
-                                          },
+                                          onTap: () => getBodyTypesBloc.add(
+                                              GetBodyTypesSelectIndex(index)),
                                           child: RentSheetItem(
                                             logo: state.bodyTypes[index].logo,
                                             title: state.bodyTypes[index].type,
-                                            isChecked: index == selected,
+                                            isChecked: index == state.selected,
                                           ),
                                         ),
                                         Visibility(
@@ -100,8 +97,8 @@ class _ChooseBodyTypeState extends State<ChooseBodyType> {
                           left: 16, right: 16, bottom: 50),
                       child: WButton(
                           onTap: () {
-                            Navigator.of(context).pop(selected >= 0
-                                ? '${state.bodyTypes[selected].id}'
+                            Navigator.of(context).pop(state.selected >= 0
+                                ? state.bodyTypes[state.selected]
                                 : null);
                           },
                           color: orange,

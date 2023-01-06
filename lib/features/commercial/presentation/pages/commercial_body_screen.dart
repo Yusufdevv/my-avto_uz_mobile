@@ -8,7 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class CommercialBodyScreen extends StatelessWidget {
-  CommercialBodyScreen({super.key});
+  final ScrollController scrollController;
+  CommercialBodyScreen({required this.scrollController, super.key});
   final List<bool> hasDiscount = [true, false];
   final List<String> owner = ['Анвар Гулямов', 'ORIENT MOTORS'];
   final List<String> ownerType = ['Частное лицо', 'Автосалон'];
@@ -19,6 +20,7 @@ class CommercialBodyScreen extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     final theme = Theme.of(context).extension<ThemedColors>()!;
     return ListView(
+      controller: scrollController,
       physics: const BouncingScrollPhysics(),
       children: [
         const SizedBox(height: 16),
@@ -131,7 +133,9 @@ class CommercialBodyScreen extends StatelessWidget {
               discountPrice: '270 000 000 UZS',
               sellType: sellType[index],
               hasStatusInfo: hasDiscount[index],
-              hasCallCard: hasDiscount[index], onTapFavorites: () {  }, onTapComparsion: () {  },
+              hasCallCard: hasDiscount[index],
+              onTapFavorites: () {},
+              onTapComparsion: () {},
             ),
           ),
         )

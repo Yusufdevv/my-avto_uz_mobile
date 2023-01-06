@@ -69,10 +69,12 @@ class _FilterParametersState extends State<FilterParameters> {
                         context: context,
                         isScrollControlled: true,
                         backgroundColor: Colors.transparent,
-                        builder: (c) => const ChooseBodyType(),
+                        builder: (c) => const ChooseBodyType(
+                          selectedId: 0,
+                        ),
                       ).then((value) {
-                        widget.rentBloc.add(RentSetParamFromFilterEvent(
-                            carBodyTypeId: value?[0].toString()));
+                        // widget.rentBloc.add(RentSetParamFromFilterEvent(
+                        //     carBodyTypeId: value?[0].toString()));
                       });
                     },
                     hintText: LocaleKeys.choose_body.tr(),
@@ -86,10 +88,10 @@ class _FilterParametersState extends State<FilterParameters> {
                         context: context,
                         isScrollControlled: true,
                         backgroundColor: Colors.transparent,
-                        builder: (c) => const ChooseBodyType(),
+                        builder: (c) => const ChooseBodyType(selectedId: 0),
                       ).then((value) {
-                        widget.rentBloc.add(RentSetParamFromFilterEvent(
-                            carBodyTypeId: value?[0].toString()));
+                        // widget.rentBloc.add(RentSetParamFromFilterEvent(
+                        //     carBodyTypeId: value?[0].toString()));
                       });
                     },
                     hintText: LocaleKeys.choose_class.tr(),
@@ -103,10 +105,10 @@ class _FilterParametersState extends State<FilterParameters> {
                         context: context,
                         isScrollControlled: true,
                         backgroundColor: Colors.transparent,
-                        builder: (c) => const ChooseDriveType(),
+                        builder: (c) => const ChooseDriveType(selectedId: 0),
                       ).then((value) {
-                        widget.rentBloc.add(
-                            RentSetParamFromFilterEvent(carDriveTypeId: value));
+                        // widget.rentBloc.add(
+                        //     RentSetParamFromFilterEvent(carDriveTypeId: value));
                       });
                     },
                     hintText: LocaleKeys.choose_drive_type.tr(),
@@ -120,10 +122,10 @@ class _FilterParametersState extends State<FilterParameters> {
                         context: context,
                         isScrollControlled: true,
                         backgroundColor: Colors.transparent,
-                        builder: (c) => const ChooseGearbox(),
+                        builder: (c) => const ChooseGearbox(selectedId: 0),
                       ).then((value) {
-                        widget.rentBloc.add(
-                            RentSetParamFromFilterEvent(gearboxTypeId: value));
+                        // widget.rentBloc.add(
+                        //     RentSetParamFromFilterEvent(gearboxTypeId: value));
                       });
                     },
                     hintText: LocaleKeys.choose_box_type.tr(),

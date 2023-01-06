@@ -5,8 +5,8 @@ class ProfileState extends Equatable {
   final ProfileDataEntity profileEntity;
   final List<AutoEntity> autoEntity;
   final List<TermsOfUseEntity> termsOfUseEntity;
-    String phoneNumber;
   final FormzStatus status;
+  final FormzStatus secondStatus;
   final FormzStatus editStatus;
   final FormzStatus changeStatus;
 
@@ -16,8 +16,8 @@ class ProfileState extends Equatable {
     required this.profileEntity,
     required this.autoEntity,
     required this.termsOfUseEntity,
-    required this.phoneNumber,
     required this.editStatus,
+    required this.secondStatus,
     required this.changeStatus,
   });
 
@@ -26,17 +26,17 @@ class ProfileState extends Equatable {
           List<AutoEntity>? autoEntity,
           List<TermsOfUseEntity>? termsOfUseEntity,
           FormzStatus? status,
-          String? phoneNumber,
           FormzStatus? editStatus,
+          FormzStatus? secondStatus,
           FormzStatus? changeStatus,}) =>
       ProfileState(
         status: status ?? this.status,
         profileEntity: profileEntity ?? this.profileEntity,
         autoEntity: autoEntity ?? this.autoEntity,
         termsOfUseEntity: termsOfUseEntity ?? this.termsOfUseEntity,
-        phoneNumber: phoneNumber ?? this.phoneNumber,
         editStatus: editStatus ?? this.editStatus,
         changeStatus: changeStatus ?? this.changeStatus,
+        secondStatus: secondStatus ?? this.secondStatus,
       );
 
   @override

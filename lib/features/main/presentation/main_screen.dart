@@ -122,13 +122,16 @@ class _MainScreenState extends State<MainScreen> {
                       itemBuilder: (context, index) => state.stories.isEmpty
                           ? const StoryShimmerItem()
                           : StoryItem(
-                              title: state.stories[index].title,
-                              image: state.stories[index].icon,
+                              title: state.stories[index].name,
+                              image: state
+                                  .stories[index].coverImageThumbnail.square,
                               onTap: () {
-                                Navigator.of(context, rootNavigator: true).push(
-                                    fade(
+                                Navigator.of(context, rootNavigator: true)
+                                    .push(fade(
                                         page: StoryScreen(
-                                            stories: state.stories)));
+                                  stories: state.stories,
+                                  index: index,
+                                )));
                               },
                               shimmer: false,
                             ),

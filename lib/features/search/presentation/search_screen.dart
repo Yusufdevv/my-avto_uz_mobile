@@ -45,6 +45,7 @@ class _SearchScreenState extends State<SearchScreen> {
   late TextEditingController searchController;
   late SearchBloc searchBloc;
   late UserSearchesBloc userSearchesBloc;
+
   FocusNode focusNode = FocusNode();
   bool isFocused = false;
   SortSearchResultStatus sortingValue = SortSearchResultStatus.cheapest;
@@ -141,10 +142,8 @@ class _SearchScreenState extends State<SearchScreen> {
                             } else {
                               textControllerStatus =
                                   SearchControllerStatus.typing;
-                              searchBloc.add(
-                                SearchEvent.getSuggestions(
-                                    search: searchController.text),
-                              );
+                              searchBloc.add(SearchEvent.getSuggestions(
+                                  search: searchController.text));
                             }
 
                             setState(() {});
@@ -346,6 +345,7 @@ void addSearchToStorage(String text) {
 class SortSearchResultsModel {
   final String title;
   final SortSearchResultStatus status;
+
   const SortSearchResultsModel({required this.title, required this.status});
 }
 

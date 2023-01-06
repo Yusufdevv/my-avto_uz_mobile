@@ -1,9 +1,13 @@
+// import 'package:another_transformer_page_view/another_transformer_page_view.dart';
+import 'package:another_transformer_page_view/another_transformer_page_view.dart';
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/images.dart';
+import 'package:auto/core/utils/buildin_transformers.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/main/domain/entities/story_entity.dart';
+import 'package:auto/features/main/presentation/bloc/story_bloc/story_bloc.dart';
 import 'package:auto/features/main/presentation/widgets/animated_bar.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -13,8 +17,13 @@ import 'package:flutter_svg/svg.dart';
 
 class StoryScreen extends StatefulWidget {
   final List<StoryEntity> stories;
+  final int index;
 
-  const StoryScreen({required this.stories, Key? key}) : super(key: key);
+  const StoryScreen({
+    required this.stories,
+    required this.index,
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<StoryScreen> createState() => _StoryScreenState();
@@ -22,33 +31,39 @@ class StoryScreen extends StatefulWidget {
 
 class _StoryScreenState extends State<StoryScreen>
     with SingleTickerProviderStateMixin {
+  late StoryBloc bloc;
   late PageController pageController;
   late AnimationController animationController;
-  int currentIndex = 0;
+  int storyIndex = 0;
+  int itemIndex = 0;
 
   @override
   void initState() {
     super.initState();
-
+    bloc = StoryBloc();
+    storyIndex = widget.index;
     pageController = PageController();
     animationController = AnimationController(vsync: this);
 
-    final firstStory = widget.stories.first;
-    _loadStory(story: firstStory, animateToPage: false);
+    _loadStory();
     animationController.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
         animationController
           ..stop()
           ..reset();
         setState(() {
-          if (currentIndex + 1 < widget.stories.length) {
-            currentIndex += 1;
-            _loadStory(story: widget.stories[currentIndex]);
-          } else if (currentIndex == widget.stories.length - 1) {
-            Navigator.pop(context);
+          if (itemIndex + 1 == widget.stories[storyIndex].items.length) {
+            if (storyIndex + 1 == widget.stories.length) {
+              Navigator.pop(context);
+            } else {
+              itemIndex = 0;
+              storyIndex++;
+              _animateToPage(storyIndex);
+              _loadStory();
+            }
           } else {
-            currentIndex = 0;
-            _loadStory(story: widget.stories[currentIndex]);
+            itemIndex++;
+            _loadStory();
           }
         });
       }
@@ -63,23 +78,19 @@ class _StoryScreenState extends State<StoryScreen>
   }
 
   @override
-  Widget build(BuildContext context) {
-    final story = widget.stories[currentIndex];
-    return Scaffold(
-      body: GestureDetector(
-        onLongPress: _onLongPress,
-        onLongPressEnd: (e) => _onLongPress(isStopped: false),
-        onTapDown: (details) => _onTapDown(details, story),
-        child: Stack(
-          children: [
-            PageView.builder(
-              controller: pageController,
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: 1,
-              itemBuilder: (context, index) {
-                final storyEntity = widget.stories[index];
-                return CachedNetworkImage(
-                  imageUrl: storyEntity.url,
+  Widget build(BuildContext context) => Scaffold(
+        body: GestureDetector(
+          onLongPress: _onLongPress,
+          onLongPressEnd: (e) => _onLongPress(isStopped: false),
+          onTapDown: _onTapDown,
+          child: Stack(
+            children: [
+              TransformerPageView(
+                transformer: ThreeDTransformer(),
+                itemCount: widget.stories.length,
+                itemBuilder: (context, index) => CachedNetworkImage(
+                  imageUrl:
+                  widget.stories[storyIndex].items[itemIndex].content,
                   fit: BoxFit.cover,
                   placeholder: (context, url) => Image.asset(
                     AppImages.defaultPhoto,
@@ -89,172 +100,207 @@ class _StoryScreenState extends State<StoryScreen>
                     AppImages.defaultPhoto,
                     fit: BoxFit.cover,
                   ),
-                );
-              },
-            ),
-            Positioned(
-              top: MediaQuery.of(context).padding.top + 12,
-              left: 16,
-              right: 10,
-              child: Row(
-                children: widget.stories
-                    .asMap()
-                    .map(
-                      (i, e) => MapEntry(
-                        i,
-                        AnimatedBar(
-                          animationController: animationController,
-                          currentIndex: currentIndex,
-                          position: i,
-                        ),
-                      ),
-                    )
-                    .values
-                    .toList(),
+                ),
               ),
-            ),
-            Container(
-              decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                      begin: Alignment.bottomCenter,
-                      end: Alignment.center,
-                      colors: [dark.withOpacity(1), dark.withOpacity(0)])),
-            ),
-            Positioned(
-              bottom: MediaQuery.of(context).padding.bottom + 8,
-              left: 16,
-              right: 16,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 4),
-                    child: Text(
-                      widget.stories.first.description,
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline4!
-                          .copyWith(fontWeight: FontWeight.w600),
+              if(false)
+              PageView.builder(
+                controller: pageController,
+                physics: const BouncingScrollPhysics(),
+                itemCount: widget.stories.length,
+                itemBuilder: (context, index) => CachedNetworkImage(
+                    imageUrl:
+                        widget.stories[storyIndex].items[itemIndex].content,
+                    fit: BoxFit.cover,
+                    placeholder: (context, url) => Image.asset(
+                      AppImages.defaultPhoto,
+                      fit: BoxFit.cover,
+                    ),
+                    errorWidget: (context, url, error) => Image.asset(
+                      AppImages.defaultPhoto,
+                      fit: BoxFit.cover,
                     ),
                   ),
-                  const SizedBox(height: 8),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 4),
-                    child: Text(
-                      'description',
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      style: Theme.of(context).textTheme.subtitle2!.copyWith(
-                          fontWeight: FontWeight.w400, color: dividerColor),
-                    ),
-                  ),
-                  const SizedBox(height: 28),
-                  if(widget.stories.first.url.isNotEmpty)
-                  WButton(
-                    onTap: () {},
-                    text: LocaleKeys.more.tr(),
-                    textColor: white,
-                    color: white.withOpacity(.2),
-                  ),
-                ],
               ),
-            ),
-            Positioned(
-              top: MediaQuery.of(context).padding.top + 28,
-              left: 20,
-              right: 16,
-              child: Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(top: 4),
-                    child: Container(
-                      height: 32,
-                      width: 32,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(40),
-                        border: Border.all(
-                          width: 1.5,
-                          color: white.withOpacity(.4),
-                        ),
-                      ),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(40),
-                        child: CachedNetworkImage(
-                          imageUrl: widget.stories.first.content,
-                          fit: BoxFit.cover,
-                          placeholder: (context, url) => Image.asset(
-                            AppImages.defaultPhoto,
-                            fit: BoxFit.cover,
-                          ),
-                          errorWidget: (context, url, error) => Image.asset(
-                            AppImages.defaultPhoto,
-                            fit: BoxFit.cover,
+              Positioned(
+                top: MediaQuery.of(context).padding.top + 12,
+                left: 16,
+                right: 10,
+                child: Row(
+                  children: widget.stories[storyIndex].items
+                      .asMap()
+                      .map(
+                        (i, e) => MapEntry(
+                          i,
+                          AnimatedBar(
+                            animationController: animationController,
+                            currentIndex: itemIndex,
+                            position: i,
                           ),
                         ),
+                      )
+                      .values
+                      .toList(),
+                ),
+              ),
+              Container(
+                decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                        begin: Alignment.bottomCenter,
+                        end: Alignment.center,
+                        colors: [dark.withOpacity(1), dark.withOpacity(0)])),
+              ),
+              Positioned(
+                bottom: MediaQuery.of(context).padding.bottom + 8,
+                left: 16,
+                right: 16,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 4),
+                      child: Text(
+                        widget.stories[storyIndex].items[itemIndex].description,
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline4!
+                            .copyWith(fontWeight: FontWeight.w600),
                       ),
                     ),
-                  ),
-                  const SizedBox(width: 12),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 10),
-                    child: Text(
-                      widget.stories.first.title,
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline4!
-                          .copyWith(fontSize: 16),
+                    const SizedBox(height: 8),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 4),
+                      child: Text(
+                        'description',
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: Theme.of(context).textTheme.subtitle2!.copyWith(
+                            fontWeight: FontWeight.w400, color: dividerColor),
+                      ),
                     ),
-                  ),
-                  const Spacer(),
-                  WScaleAnimation(
-                      child: SvgPicture.asset(AppIcons.closeWhite),
-                      onTap: () => Navigator.pop(context))
-                ],
+                    const SizedBox(height: 28),
+                    if (widget
+                        .stories[storyIndex].items[itemIndex].url.isNotEmpty)
+                      WButton(
+                        onTap: () {},
+                        text: LocaleKeys.more.tr(),
+                        textColor: white,
+                        color: white.withOpacity(.2),
+                      ),
+                  ],
+                ),
               ),
-            ),
-          ],
+              Positioned(
+                top: MediaQuery.of(context).padding.top + 28,
+                left: 20,
+                right: 16,
+                child: Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 4),
+                      child: Container(
+                        height: 32,
+                        width: 32,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(40),
+                          border: Border.all(
+                            width: 1.5,
+                            color: white.withOpacity(.4),
+                          ),
+                        ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(40),
+                          child: CachedNetworkImage(
+                            imageUrl: widget
+                                .stories[storyIndex].coverImageThumbnail.crop,
+                            fit: BoxFit.cover,
+                            placeholder: (context, url) => Image.asset(
+                              AppImages.defaultPhoto,
+                              fit: BoxFit.cover,
+                            ),
+                            errorWidget: (context, url, error) => Image.asset(
+                              AppImages.defaultPhoto,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 12),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 10),
+                      child: Text(
+                        widget.stories[storyIndex].name,
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline4!
+                            .copyWith(fontSize: 16),
+                      ),
+                    ),
+                    const Spacer(),
+                    WScaleAnimation(
+                        child: SvgPicture.asset(AppIcons.closeWhite),
+                        onTap: () => Navigator.pop(context))
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
-      ),
-    );
-  }
+      );
 
-  void _onTapDown(TapDownDetails details, StoryEntity story) {
+  void _onTapDown(TapDownDetails details) {
     final screenWidth = MediaQuery.of(context).size.width;
     final dx = details.globalPosition.dx;
     if (dx < screenWidth / 3) {
       setState(() {
-        if (currentIndex - 1 >= 0) {
-          currentIndex -= 1;
-          _loadStory(story: widget.stories[currentIndex]);
+        if (itemIndex == 0) {
+          if (storyIndex == 0) {
+            Navigator.pop(context);
+          } else {
+            storyIndex--;
+            itemIndex = widget.stories[storyIndex].items.length - 1;
+            _animateToPage(storyIndex);
+            _loadStory();
+          }
+        } else {
+          itemIndex--;
+          _loadStory();
         }
       });
     } else if (dx > 2 * screenWidth / 3) {
       setState(() {
-        if (currentIndex + 1 < widget.stories.length + 1) {
-          currentIndex += 1;
-          if(currentIndex == widget.stories.length){
+        if (itemIndex + 1 == widget.stories[storyIndex].items.length) {
+          if (storyIndex + 1 == widget.stories.length) {
             Navigator.pop(context);
+          } else {
+            itemIndex = 0;
+            storyIndex++;
+            _animateToPage(storyIndex);
+            _loadStory();
           }
-          _loadStory(story: widget.stories[currentIndex]);
-        }else {
-          currentIndex = 0;
-          _loadStory(story: widget.stories[currentIndex]);
+        } else {
+          itemIndex++;
+          _loadStory();
         }
-
       });
     } else {}
   }
 
-  void _loadStory({required StoryEntity story, bool animateToPage = true}) {
+  void _loadStory() {
     animationController
       ..stop()
       ..reset()
       ..duration = const Duration(seconds: 5)
       ..forward();
-    if (animateToPage) {
-      pageController.animateToPage(currentIndex,
-          duration: const Duration(milliseconds: 1), curve: Curves.easeInOut);
-    }
+    bloc.add(ReadEvent(widget.stories[storyIndex].items[itemIndex].id));
+  }
+
+  void _animateToPage(int index) {
+    pageController.animateToPage(
+      storyIndex,
+      duration: const Duration(milliseconds: 50),
+      curve: Curves.easeInOut,
+    );
   }
 
   void _onLongPress({bool isStopped = true}) {
