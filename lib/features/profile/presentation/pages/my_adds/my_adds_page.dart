@@ -38,76 +38,75 @@ class _MyAddsPageState extends State<MyAddsPage> with TickerProviderStateMixin {
   }
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-        body: NestedScrollView(
-          headerSliverBuilder: (context, item) => [
-            SliverAppBar(
-              pinned: true,
-              leadingWidth: 40,
-              leading: GestureDetector(
-                onTap: () => Navigator.pop(context),
-                child: Row(
-                  children: [
-                    const SizedBox(width: 20),
-                    SizedBox(
-                        height: 20,
-                        width: 20,
-                        child: SvgPicture.asset(
-                          AppIcons.chevronLeft,
-                        )),
+  Widget build(BuildContext context) => BlocProvider.value(
+        value: widget.profileBloc,
+        child: Scaffold(
+          body: NestedScrollView(
+            headerSliverBuilder: (context, item) => [
+              SliverAppBar(
+                pinned: true,
+                leadingWidth: 40,
+                leading: GestureDetector(
+                  onTap: () => Navigator.pop(context),
+                  child: Row(
+                    children: [
+                      const SizedBox(width: 20),
+                      SizedBox(
+                          height: 20,
+                          width: 20,
+                          child: SvgPicture.asset(
+                            AppIcons.chevronLeft,
+                          )),
+                    ],
+                  ),
+                ),
+                title: Text(LocaleKeys.my_ads.tr()),
+              ),
+              SliverPersistentHeader(
+                delegate: ProfileTabBar(
+                  tabController: tabController,
+                  onTap: (index) {},
+                  tabs: [
+                    LocaleKeys.all.tr(),
+                    LocaleKeys.using.tr(),
+                    LocaleKeys.close.tr(),
                   ],
                 ),
-              ),
-              title: Text(LocaleKeys.my_ads.tr()),
+              )
+            ],
+            body: BlocBuilder<ProfileBloc, ProfileState>(
+              builder: (context, state) {
+                if (state.secondStatus.isSubmissionFailure) {
+                  return const Center(
+                    child: Text('Xatolik!'),
+                  );
+                }
+                if (state.secondStatus.isSubmissionInProgress) {
+                  return const Center(
+                      child: CupertinoActivityIndicator(
+                    color: white,
+                  ));
+                }
+                if (state.secondStatus.isSubmissionSuccess) {
+                  return TabBarView(
+                    controller: tabController,
+                    children: [
+                      const AllAds(),
+                      Column(
+                        children: const [Text('2 tab')],
+                      ),
+                      Column(
+                        children: const [Text('2 tab')],
+                      ),
+                    ],
+                  );
+                }
+                return const Center(
+                  child: Text('Xatolik, internetingizni tekshiring!'),
+                );
+              },
             ),
-            SliverPersistentHeader(
-              delegate: ProfileTabBar(
-                tabController: tabController,
-                onTap: (index) {},
-                tabs: [
-                  LocaleKeys.all.tr(),
-                  LocaleKeys.using.tr(),
-                  LocaleKeys.close.tr(),
-                ],
-              ),
-            )
-          ],
-          body: 
-          // BlocBuilder<ProfileBloc, ProfileState>(
-          //   builder: (context, state) {
-          //       if (state.status.isSubmissionFailure) {
-          //       return const Center(
-          //         child: Text('Xatolik!'),
-          //       );
-          //     }
-          //     if (state.status.isSubmissionInProgress) {
-          //       return const Center(
-          //           child: CupertinoActivityIndicator(
-          //         color: white,
-          //       ));
-          //     }
-          //     if (state.status.isSubmissionSuccess) {
-                // return 
-                TabBarView(
-                controller: tabController,
-                children: [
-                  const AllAds(),
-                  Column(
-                    children: const [Text('2 tab')],
-                  ),
-                  Column(
-                    children: const [Text(
-                      '2 tab')],
-                  ),
-                ],
-              ),
-              // ;
-              // } 
-              // return const Center(
-              //   child: Text('Xatolik!'),
-              // );
-            // },
-          // ),
+          ),
         ),
       );
 }

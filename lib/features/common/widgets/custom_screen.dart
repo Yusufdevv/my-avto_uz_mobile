@@ -6,7 +6,6 @@ import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:formz/formz.dart';
 
 class CustomScreen extends StatelessWidget {
   final Widget child;
@@ -56,8 +55,11 @@ class CustomScreen extends StatelessWidget {
                           overflow: TextOverflow.ellipsis,
                           style: Theme.of(context)
                               .textTheme
-                              .headline3!
-                              .copyWith(color: secondary),
+                              .bodyText1!
+                              .copyWith(
+                                  color: secondary,
+                                  fontWeight: FontWeight.w600,
+                                  height: 1.3),
                         ),
                       ),
                       Container(

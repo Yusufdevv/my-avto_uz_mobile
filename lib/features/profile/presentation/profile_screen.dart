@@ -92,7 +92,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       children: [
                         ProfileDataWidget(
                           onTap: () {
-                            print(StorageRepository.getString('token'));
                             Navigator.of(context).push(fade(
                                 page: SeeProfilePage(
                               profileBloc: profileBloc,
@@ -191,10 +190,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               name: 'Чат',
                               onTap: () {
                                 Navigator.of(context, rootNavigator: true).push(
-                                    fade(
-                                        page: ChatPage(
-                                            hasChat: false,
-                                            imageBloc: imageBloc)));
+                                  fade(
+                                    page: ChatPage(
+                                      phone: state.profileEntity.phoneNumber!,
+                                      userName: state.profileEntity.username ??
+                                          state.profileEntity.firstName,
+                                      hasChat: false,
+                                      imageBloc: imageBloc,
+                                    ),
+                                  ),
+                                );
                               },
                               iconPath: AppIcons.message),
                           const ProfileDivider(),

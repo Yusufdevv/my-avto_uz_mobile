@@ -20,14 +20,14 @@ import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:formz/formz.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 class PhoneNumberEditPage extends StatefulWidget {
-  const PhoneNumberEditPage(
-      {required this.profileBloc, this.phone = '', super.key});
+  const PhoneNumberEditPage({required this.profileBloc, this.phone, super.key});
   final ProfileBloc profileBloc;
-  final String phone;
+  final String? phone;
   @override
   State<PhoneNumberEditPage> createState() => _PhoneNumberEditPageState();
 }
@@ -45,8 +45,7 @@ class _PhoneNumberEditPageState extends State<PhoneNumberEditPage> {
 
   @override
   void initState() {
-    phoneController = TextEditingController(text: widget.phone);
-
+    phoneController = TextEditingController();
     final repo = serviceLocator<ProfileRepositoryImpl>();
     changePhoneNumberBloc = ChangePhoneNumberBloc(
         changePhoneNumberUseCase: ChangePhoneNumberUseCase(repository: repo),
@@ -116,6 +115,7 @@ class _PhoneNumberEditPageState extends State<PhoneNumberEditPage> {
                         Padding(
                           padding: const EdgeInsets.only(top: 12),
                           child: WButton(
+                            isLoading: state.status.isSubmissionInProgress,
                             onTap: () {
                               final phoneNumber =
                                   phoneController.text.replaceAll(' ', '');
@@ -124,8 +124,8 @@ class _PhoneNumberEditPageState extends State<PhoneNumberEditPage> {
                                     .read<ChangePhoneNumberBloc>()
                                     .add(SendPhoneNumberEvent(
                                         newPhoneNumber: '+998$phoneNumber',
-                                        onSuccess: ()  {
-                                       Navigator.push(
+                                        onSuccess: () {
+                                          Navigator.push(
                                             context,
                                             fade(
                                                 page: MultiBlocProvider(
@@ -143,7 +143,6 @@ class _PhoneNumberEditPageState extends State<PhoneNumberEditPage> {
                                               ),
                                             )),
                                           );
-                                          Navigator.pop(context);
                                         },
                                         onError: (message) {
                                           context.read<ShowPopUpBloc>().add(

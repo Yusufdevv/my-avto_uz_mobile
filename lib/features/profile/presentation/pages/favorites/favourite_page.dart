@@ -36,18 +36,18 @@ class _FavouritePageState extends State<FavouritePage> {
           ),
           body: BlocBuilder<ProfileBloc, ProfileState>(
             builder: (context, state) {
-              if (state.status.isSubmissionFailure) {
+              if (state.secondStatus.isSubmissionFailure) {
                 return const Center(
                   child: Text('Xatolik!'),
                 );
               }
-              if (state.status.isSubmissionInProgress) {
+              if (state.secondStatus.isSubmissionInProgress) {
                 return const Center(
                     child: CupertinoActivityIndicator(
                   color: white,
                 ));
               }
-              if (state.status.isSubmissionSuccess) {
+              if (state.secondStatus.isSubmissionSuccess) {
                 final favorites = state.autoEntity;
                 return ListView.builder(
                     itemCount: favorites.length,

@@ -7,10 +7,8 @@ import 'package:auto/features/common/widgets/custom_screen.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/login/presentation/widgets/login_header_widget.dart';
-import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/profile/presentation/bloc/change_phone_number/change_phone_number_bloc.dart';
 import 'package:auto/features/profile/presentation/bloc/profile/profile_bloc.dart';
-import 'package:auto/features/profile/presentation/pages/my_profile/phone_number_edit_page.dart';
 import 'package:auto/features/profile/presentation/widgets/widgets.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:auto/utils/my_functions.dart';
@@ -18,6 +16,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:formz/formz.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
@@ -26,7 +25,11 @@ class PhoneVerifiyPage extends StatefulWidget {
   final ProfileBloc profileBloc;
   final BuildContext ctx;
 
-  const PhoneVerifiyPage({required this.phone, required this.profileBloc, required this.ctx, Key? key})
+  const PhoneVerifiyPage(
+      {required this.phone,
+      required this.profileBloc,
+      required this.ctx,
+      Key? key})
       : super(key: key);
 
   @override
@@ -49,7 +52,7 @@ class _PhoneVerifiyPageState extends State<PhoneVerifiyPage> {
           child: Scaffold(
             appBar: WAppBar(
               onTapBack: () {
-               Navigator.pushReplacement(context, fade(page: PhoneNumberEditPage(profileBloc: widget.profileBloc, phone: widget.phone,)));
+                Navigator.pop(context);
               },
               title: 'Номер телефона',
             ),
@@ -87,7 +90,7 @@ class _PhoneVerifiyPageState extends State<PhoneVerifiyPage> {
                         SizedBox(width: SizeConfig.h(12)),
                         WButton(
                           onTap: () {
-                            Navigator.pushReplacement(context, fade(page: PhoneNumberEditPage(profileBloc: widget.profileBloc, phone: widget.phone,)));
+                            Navigator.pop(context);
                           },
                           padding: EdgeInsets.symmetric(
                               horizontal: SizeConfig.h(4),
@@ -158,18 +161,18 @@ class _PhoneVerifiyPageState extends State<PhoneVerifiyPage> {
                                   setState(() {
                                     timeComplete = false;
                                   });
-                                  context
-                                      .read<ChangePhoneNumberBloc>()
-                                      .add(SendPhoneNumberEvent(
-                                        newPhoneNumber: '+998${widget.phone}',
-                                        onSuccess: () {},
-                                        onError: (message) {
-                                          context.read<ShowPopUpBloc>().add(
-                                              ShowPopUp(
-                                                  message: message,
-                                                  isSucces: false));
-                                        },
-                                      ),);
+                                  context.read<ChangePhoneNumberBloc>().add(
+                                        SendPhoneNumberEvent(
+                                          newPhoneNumber: '+998${widget.phone}',
+                                          onSuccess: () {},
+                                          onError: (message) {
+                                            context.read<ShowPopUpBloc>().add(
+                                                ShowPopUp(
+                                                    message: message,
+                                                    isSucces: false));
+                                          },
+                                        ),
+                                      );
                                 },
                               )
                             : TimeCounter(
@@ -184,49 +187,54 @@ class _PhoneVerifiyPageState extends State<PhoneVerifiyPage> {
                   ),
                   const SizedBox(height: 24),
                   const Spacer(),
-                  WButton(
-                    onTap: () => verificationController.text.isNotEmpty &&
-                            verificationController.text.length == 6
-                        ? context
-                            .read<ChangePhoneNumberBloc>()
-                            .add(VerifyCodeEvent(
-                                newPhoneNumber: '+998${widget.phone}',
-                                code: verificationController.text,
-                                onSuccess: () {
-                                  context.read<ShowPopUpBloc>().add(ShowPopUp(
-                                      message: 'Номер телефона успешно изменен',
-                                      isSucces: true));
-                                  context
-                                      .read<ProfileBloc>()
-                                      .add(GetProfileEvent());
-                                  Navigator.pop(context);
-                                  Navigator.pop(widget.ctx);
-                                },
-                                onError: (message) {
-                                  context.read<ShowPopUpBloc>().add(ShowPopUp(
-                                      message: message, isSucces: false));
-                                }))
-                        : {},
-                    margin: EdgeInsets.only(
-                        bottom: MediaQuery.of(context).padding.bottom + 4),
-                    color: (verificationController.text.isNotEmpty &&
-                            verificationController.text.length == 6)
-                        ? orange
-                        : Theme.of(context)
+                  BlocBuilder<ChangePhoneNumberBloc, ChangePhoneNumberState>(
+                    builder: (context, state) => WButton(
+                      isLoading:
+                          state.status == FormzStatus.submissionInProgress,
+                      onTap: () => verificationController.text.isNotEmpty &&
+                              verificationController.text.length == 6
+                          ? context
+                              .read<ChangePhoneNumberBloc>()
+                              .add(VerifyCodeEvent(
+                                  newPhoneNumber: '+998${widget.phone}',
+                                  code: verificationController.text,
+                                  onSuccess: () {
+                                    context.read<ShowPopUpBloc>().add(ShowPopUp(
+                                        message:
+                                            'Номер телефона успешно изменен',
+                                        isSucces: true));
+                                    context
+                                        .read<ProfileBloc>()
+                                        .add(GetProfileEvent());
+                                    Navigator.pop(context);
+                                    Navigator.pop(widget.ctx);
+                                  },
+                                  onError: (message) {
+                                    context.read<ShowPopUpBloc>().add(ShowPopUp(
+                                        message: message, isSucces: false));
+                                  }))
+                          : {},
+                      margin: EdgeInsets.only(
+                          bottom: MediaQuery.of(context).padding.bottom + 4),
+                      color: (verificationController.text.isNotEmpty &&
+                              verificationController.text.length == 6)
+                          ? orange
+                          : Theme.of(context)
+                              .extension<ThemedColors>()!
+                              .veryLightGreyToEclipse,
+                      text: LocaleKeys.continuee.tr(),
+                      shadow: [
+                        BoxShadow(
+                            offset: const Offset(0, 4),
+                            blurRadius: 20,
+                            color: solitude.withOpacity(.12)),
+                      ],
+                      border: Border.all(
+                        width: 1,
+                        color: Theme.of(context)
                             .extension<ThemedColors>()!
-                            .veryLightGreyToEclipse,
-                    text: LocaleKeys.continuee.tr(),
-                    shadow: [
-                      BoxShadow(
-                          offset: const Offset(0, 4),
-                          blurRadius: 20,
-                          color: solitude.withOpacity(.12)),
-                    ],
-                    border: Border.all(
-                      width: 1,
-                      color: Theme.of(context)
-                          .extension<ThemedColors>()!
-                          .whiteToDolphin,
+                            .whiteToDolphin,
+                      ),
                     ),
                   ),
                 ],
