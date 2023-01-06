@@ -73,33 +73,7 @@ class _AllAdsState extends State<AllAds> {
                                         ),
                                         imageUrl: images[index],
                                       ),
-                                      // Positioned(
-                                      //     top: 4,
-                                      //     left: 4,
-                                      //     child: Container(
-                                      //       padding: const EdgeInsets.symmetric(
-                                      //           horizontal: 16, vertical: 4),
-                                      //       decoration: BoxDecoration(
-                                      //         borderRadius:
-                                      //             BorderRadius.circular(4),
-                                      //         color: white,
-                                      //       ),
-                                      //       child: Row(
-                                      //         children: [
-                                      //           SvgPicture.asset(
-                                      //               AppIcons.shieldCheck),
-                                      //           const SizedBox(width: 4),
-                                      //           Text(
-                                      //               LocaleKeys.with_Mileage
-                                      //                   .tr(),
-                                      //               style: Theme.of(context)
-                                      //                   .textTheme
-                                      //                   .bodyText1!
-                                      //                   .copyWith(
-                                      //                       color: green)),
-                                      //         ],
-                                      //       ),
-                                      //     ))
+                                      
                                     ],
                                   ),
                                 ),
@@ -357,6 +331,34 @@ class _AllAdsState extends State<AllAds> {
             }),
       );
 }
+
+// Positioned(
+                                      //     top: 4,
+                                      //     left: 4,
+                                      //     child: Container(
+                                      //       padding: const EdgeInsets.symmetric(
+                                      //           horizontal: 16, vertical: 4),
+                                      //       decoration: BoxDecoration(
+                                      //         borderRadius:
+                                      //             BorderRadius.circular(4),
+                                      //         color: white,
+                                      //       ),
+                                      //       child: Row(
+                                      //         children: [
+                                      //           SvgPicture.asset(
+                                      //               AppIcons.shieldCheck),
+                                      //           const SizedBox(width: 4),
+                                      //           Text(
+                                      //               LocaleKeys.with_Mileage
+                                      //                   .tr(),
+                                      //               style: Theme.of(context)
+                                      //                   .textTheme
+                                      //                   .bodyText1!
+                                      //                   .copyWith(
+                                      //                       color: green)),
+                                      //         ],
+                                      //       ),
+                                      //     ))
 // Advertising(
                     //   isSalon: true,
                     //   images: [image1, imege2],
