@@ -14,8 +14,8 @@ final serviceLocator = GetIt.I;
 void setupLocator() {
   serviceLocator
     ..registerLazySingleton(DioSettings.new)
-    ..registerLazySingleton(
-        () => ProfileRepositoryImpl(dataSource: ProfileDataSourceImpl()))
+    // ..registerLazySingleton(
+    //     () => ProfileRepositoryImpl(dataSource: ProfileDataSourceImpl()))
     ..registerLazySingleton(
         () => ComparisonDataSourceImpl(serviceLocator<DioSettings>().dio))
     ..registerLazySingleton(

@@ -4,6 +4,7 @@ import 'package:auto/features/car_single/presentation/widgets/dealer_item.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:share_plus/share_plus.dart';
 
 class MoreActions extends StatelessWidget {
   final String name;
@@ -145,12 +146,12 @@ class MoreActions extends StatelessWidget {
                                   .textTheme
                                   .headline1!
                                   .copyWith(
-                                color: const Color(
-                                  0xff171725,
-                                ),
-                                fontWeight: FontWeight.w600,
-                                fontSize: 12,
-                              ),
+                                    color: const Color(
+                                      0xff171725,
+                                    ),
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 12,
+                                  ),
                             ),
                           ],
                         ),
@@ -163,7 +164,9 @@ class MoreActions extends StatelessWidget {
                 ),
                 Expanded(
                   child: WScaleAnimation(
-                    onTap: () {},
+                    onTap: () {
+                      Share.share('Auto uz');
+                    },
                     child: Container(
                       padding: const EdgeInsets.only(
                         top: 16,
@@ -207,7 +210,6 @@ class MoreActions extends StatelessWidget {
                 const SizedBox(
                   width: 16,
                 ),
-
               ],
             ),
             DealerItem(

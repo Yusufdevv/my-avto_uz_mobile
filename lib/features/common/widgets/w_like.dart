@@ -6,13 +6,14 @@ class WLike extends StatefulWidget {
   final bool? initialLike;
   final Widget? activeIcon;
   final Widget? inActiveIcon;
+  final Color color;
   final BoxFit? fit;
   const WLike(
       {this.initialLike,
       this.activeIcon,
       this.inActiveIcon,
       this.fit,
-      Key? key})
+      Key? key, required this.color})
       : super(key: key);
 
   @override
@@ -52,6 +53,7 @@ class _WLikeState extends State<WLike> {
               : widget.inActiveIcon ??
                   SvgPicture.asset(
                     AppIcons.heart,
+                    color: widget.color,
                     key: const ValueKey<int>(2),
                   ),
         ),

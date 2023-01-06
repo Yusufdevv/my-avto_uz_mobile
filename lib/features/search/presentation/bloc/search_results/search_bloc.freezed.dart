@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'search_bloc.dart';
 
@@ -429,6 +429,7 @@ abstract class _$$_GetSuggestionsCopyWith<$Res> {
   factory _$$_GetSuggestionsCopyWith(
           _$_GetSuggestions value, $Res Function(_$_GetSuggestions) then) =
       __$$_GetSuggestionsCopyWithImpl<$Res>;
+  @useResult
   $Res call({String search});
 }
 
@@ -438,17 +439,15 @@ class __$$_GetSuggestionsCopyWithImpl<$Res>
     implements _$$_GetSuggestionsCopyWith<$Res> {
   __$$_GetSuggestionsCopyWithImpl(
       _$_GetSuggestions _value, $Res Function(_$_GetSuggestions) _then)
-      : super(_value, (v) => _then(v as _$_GetSuggestions));
+      : super(_value, _then);
 
-  @override
-  _$_GetSuggestions get _value => super._value as _$_GetSuggestions;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? search = freezed,
+    Object? search = null,
   }) {
     return _then(_$_GetSuggestions(
-      search: search == freezed
+      search: null == search
           ? _value.search
           : search // ignore: cast_nullable_to_non_nullable
               as String,
@@ -474,15 +473,15 @@ class _$_GetSuggestions implements _GetSuggestions {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_GetSuggestions &&
-            const DeepCollectionEquality().equals(other.search, search));
+            (identical(other.search, search) || other.search == search));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(search));
+  int get hashCode => Object.hash(runtimeType, search);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_GetSuggestionsCopyWith<_$_GetSuggestions> get copyWith =>
       __$$_GetSuggestionsCopyWithImpl<_$_GetSuggestions>(this, _$identity);
 
@@ -609,10 +608,7 @@ class __$$_SetSuggestionsCopyWithImpl<$Res>
     implements _$$_SetSuggestionsCopyWith<$Res> {
   __$$_SetSuggestionsCopyWithImpl(
       _$_SetSuggestions _value, $Res Function(_$_SetSuggestions) _then)
-      : super(_value, (v) => _then(v as _$_SetSuggestions));
-
-  @override
-  _$_SetSuggestions get _value => super._value as _$_SetSuggestions;
+      : super(_value, _then);
 }
 
 /// @nodoc
@@ -744,6 +740,7 @@ abstract class _$$_SaveLocaleSuggestionCopyWith<$Res> {
   factory _$$_SaveLocaleSuggestionCopyWith(_$_SaveLocaleSuggestion value,
           $Res Function(_$_SaveLocaleSuggestion) then) =
       __$$_SaveLocaleSuggestionCopyWithImpl<$Res>;
+  @useResult
   $Res call({String text});
 }
 
@@ -753,17 +750,15 @@ class __$$_SaveLocaleSuggestionCopyWithImpl<$Res>
     implements _$$_SaveLocaleSuggestionCopyWith<$Res> {
   __$$_SaveLocaleSuggestionCopyWithImpl(_$_SaveLocaleSuggestion _value,
       $Res Function(_$_SaveLocaleSuggestion) _then)
-      : super(_value, (v) => _then(v as _$_SaveLocaleSuggestion));
+      : super(_value, _then);
 
-  @override
-  _$_SaveLocaleSuggestion get _value => super._value as _$_SaveLocaleSuggestion;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? text = freezed,
+    Object? text = null,
   }) {
     return _then(_$_SaveLocaleSuggestion(
-      text: text == freezed
+      text: null == text
           ? _value.text
           : text // ignore: cast_nullable_to_non_nullable
               as String,
@@ -789,15 +784,15 @@ class _$_SaveLocaleSuggestion implements _SaveLocaleSuggestion {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_SaveLocaleSuggestion &&
-            const DeepCollectionEquality().equals(other.text, text));
+            (identical(other.text, text) || other.text == text));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(text));
+  int get hashCode => Object.hash(runtimeType, text);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_SaveLocaleSuggestionCopyWith<_$_SaveLocaleSuggestion> get copyWith =>
       __$$_SaveLocaleSuggestionCopyWithImpl<_$_SaveLocaleSuggestion>(
           this, _$identity);
@@ -918,6 +913,7 @@ abstract class _$$_DeleteLocaleSuggestionCopyWith<$Res> {
   factory _$$_DeleteLocaleSuggestionCopyWith(_$_DeleteLocaleSuggestion value,
           $Res Function(_$_DeleteLocaleSuggestion) then) =
       __$$_DeleteLocaleSuggestionCopyWithImpl<$Res>;
+  @useResult
   $Res call({String text});
 }
 
@@ -927,18 +923,15 @@ class __$$_DeleteLocaleSuggestionCopyWithImpl<$Res>
     implements _$$_DeleteLocaleSuggestionCopyWith<$Res> {
   __$$_DeleteLocaleSuggestionCopyWithImpl(_$_DeleteLocaleSuggestion _value,
       $Res Function(_$_DeleteLocaleSuggestion) _then)
-      : super(_value, (v) => _then(v as _$_DeleteLocaleSuggestion));
+      : super(_value, _then);
 
-  @override
-  _$_DeleteLocaleSuggestion get _value =>
-      super._value as _$_DeleteLocaleSuggestion;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? text = freezed,
+    Object? text = null,
   }) {
     return _then(_$_DeleteLocaleSuggestion(
-      text: text == freezed
+      text: null == text
           ? _value.text
           : text // ignore: cast_nullable_to_non_nullable
               as String,
@@ -964,15 +957,15 @@ class _$_DeleteLocaleSuggestion implements _DeleteLocaleSuggestion {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_DeleteLocaleSuggestion &&
-            const DeepCollectionEquality().equals(other.text, text));
+            (identical(other.text, text) || other.text == text));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(text));
+  int get hashCode => Object.hash(runtimeType, text);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_DeleteLocaleSuggestionCopyWith<_$_DeleteLocaleSuggestion> get copyWith =>
       __$$_DeleteLocaleSuggestionCopyWithImpl<_$_DeleteLocaleSuggestion>(
           this, _$identity);
@@ -1093,6 +1086,7 @@ abstract class _$$_SelectLocaleSuggestionCopyWith<$Res> {
   factory _$$_SelectLocaleSuggestionCopyWith(_$_SelectLocaleSuggestion value,
           $Res Function(_$_SelectLocaleSuggestion) then) =
       __$$_SelectLocaleSuggestionCopyWithImpl<$Res>;
+  @useResult
   $Res call({String text});
 }
 
@@ -1102,18 +1096,15 @@ class __$$_SelectLocaleSuggestionCopyWithImpl<$Res>
     implements _$$_SelectLocaleSuggestionCopyWith<$Res> {
   __$$_SelectLocaleSuggestionCopyWithImpl(_$_SelectLocaleSuggestion _value,
       $Res Function(_$_SelectLocaleSuggestion) _then)
-      : super(_value, (v) => _then(v as _$_SelectLocaleSuggestion));
+      : super(_value, _then);
 
-  @override
-  _$_SelectLocaleSuggestion get _value =>
-      super._value as _$_SelectLocaleSuggestion;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? text = freezed,
+    Object? text = null,
   }) {
     return _then(_$_SelectLocaleSuggestion(
-      text: text == freezed
+      text: null == text
           ? _value.text
           : text // ignore: cast_nullable_to_non_nullable
               as String,
@@ -1139,15 +1130,15 @@ class _$_SelectLocaleSuggestion implements _SelectLocaleSuggestion {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_SelectLocaleSuggestion &&
-            const DeepCollectionEquality().equals(other.text, text));
+            (identical(other.text, text) || other.text == text));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(text));
+  int get hashCode => Object.hash(runtimeType, text);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_SelectLocaleSuggestionCopyWith<_$_SelectLocaleSuggestion> get copyWith =>
       __$$_SelectLocaleSuggestionCopyWithImpl<_$_SelectLocaleSuggestion>(
           this, _$identity);
@@ -1450,6 +1441,7 @@ class _$SearchStateCopyWithImpl<$Res, $Val extends SearchState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? searchResults = null,
@@ -1515,6 +1507,7 @@ abstract class _$$_SearchStateCopyWith<$Res>
           _$_SearchState value, $Res Function(_$_SearchState) then) =
       __$$_SearchStateCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {List<AutoEntity> searchResults,
       FormzStatus status,
@@ -1536,6 +1529,7 @@ class __$$_SearchStateCopyWithImpl<$Res>
       _$_SearchState _value, $Res Function(_$_SearchState) _then)
       : super(_value, _then);
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? searchResults = null,

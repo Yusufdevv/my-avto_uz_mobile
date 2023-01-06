@@ -33,6 +33,7 @@ class InfoResultContainer extends StatelessWidget {
       required this.discount,
       this.sellType,
       super.key});
+
   final List<String> gallery;
   final String contactPhone;
   final String carModelName;
@@ -351,7 +352,7 @@ class InfoResultContainer extends StatelessWidget {
                           width: 24,
                           height: 24,
                           fit: BoxFit.cover,
-                        ),
+                        ), color: grey,
                       ),
                     ),
                   ),
@@ -359,7 +360,10 @@ class InfoResultContainer extends StatelessWidget {
                   SizedBox(
                     height: 28,
                     width: 28,
-                    child: WLike(initialLike: isWishlisted),
+                    child: WLike(
+                      initialLike: isWishlisted,
+                      color: grey,
+                    ),
                   ),
                 ],
               ),
