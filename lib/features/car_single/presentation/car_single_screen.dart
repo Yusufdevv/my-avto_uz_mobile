@@ -21,9 +21,7 @@ import 'package:auto/features/car_single/presentation/widgets/vin_soon_item.dart
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_like.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
-import 'package:auto/features/dealers/presentation/dealers_main.dart';
 import 'package:auto/features/main/presentation/widgets/ads_item.dart';
-import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/pagination/presentation/paginator.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:auto/utils/my_functions.dart';
@@ -80,7 +78,7 @@ class _CarSingleScreenState extends State<CarSingleScreen>
         GetCarSingleUseCase(
             repository: serviceLocator<CarSingleRepositoryImpl>()),
         OtherAdsUseCase(repository: serviceLocator<CarSingleRepositoryImpl>()))
-      ..add(CarSingleEvent.getSingle(5))
+      ..add(CarSingleEvent.getSingle(9))
       ..add(CarSingleEvent.getOtherAds(2));
     _scrollController.addListener(() {
       if (_scrollController.offset > 287 && isAppBarOffset != true) {
@@ -119,8 +117,6 @@ class _CarSingleScreenState extends State<CarSingleScreen>
           body: BlocBuilder<CarSingleBloc, CarSingleState>(
             builder: (context, state) {
               if (state.status != FormzStatus.submissionSuccess) {
-                print('CAR SINGLE STATUS IS ${state.status}');
-                print('SINGLE DATA FROM BLOC ${state.singleEntity.make}');
                 return const Center(child: CupertinoActivityIndicator());
               } else {
                 return Stack(
@@ -193,10 +189,11 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                             ],
                           ),
                           flexibleSpace: FlexibleSpaceBar(
-                              background: SingleImagePart(
-                            count: 0,
-                            images: state.singleEntity.gallery,
-                          )),
+                            background: SingleImagePart(
+                              count: 0,
+                              images: state.singleEntity.gallery,
+                            ),
+                          ),
                         ),
                         SliverToBoxAdapter(
                           child: CarNameWidget(
@@ -234,8 +231,12 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                         ),
                         SliverToBoxAdapter(
                           child: CarSellerCard(
-                            image: state.singleEntity.user.avatar ?? '',
-                            name: state.singleEntity.user.name,
+                            image: state.singleEntity.userType == 'dealer'
+                                ? state.singleEntity.user.avatar ?? ''
+                                : state.singleEntity.user.image ?? '',
+                            name: state.singleEntity.userType == 'dealer'
+                                ? state.singleEntity.user.name
+                                : state.singleEntity.user.fullName,
                             position: state.singleEntity.userType,
                           ),
                         ),
@@ -442,6 +443,17 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                                         state.singleEntity.contactAvailableTo)
                                 ? WButton(
                                     onTap: () {
+                                      launch(
+                                          'tel://${state.singleEntity.user.phoneNumber}');
+                                    },
+                                    height: 44,
+                                    borderRadius: 8,
+                                    color: const Color(0xff5ECC81),
+                                    text: LocaleKeys.call.tr(),
+                                    textColor: Colors.white,
+                                  )
+                                : WButton(
+                                    onTap: () {
                                       showModalBottomSheet(
                                         useRootNavigator: true,
                                         isScrollControlled: false,
@@ -454,34 +466,6 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                                               .contactAvailableFrom,
                                         ),
                                       );
-                                    },
-                                    height: 44,
-                                    borderRadius: 8,
-                                    color: const Color(0xff5ECC81),
-                                    text: LocaleKeys.call.tr(),
-                                    textColor: Colors.white,
-                                  )
-                                : WButton(
-                                    onTap: () {
-                                      DateTime.now().isAfter(timeFrom) &&
-                                              DateTime.now().isBefore(timeTo)
-                                          ? launch(
-                                              'tel://${state.singleEntity.user.phoneNumber}')
-                                          : showModalBottomSheet(
-                                              useRootNavigator: true,
-                                              isScrollControlled: false,
-                                              backgroundColor:
-                                                  Colors.transparent,
-                                              context: context,
-                                              builder: (context) => DealerTime(
-                                                timeTo: state.singleEntity
-                                                    .contactAvailableTo,
-                                                timeFrom: state.singleEntity
-                                                    .contactAvailableFrom,
-                                              ),
-                                            );
-                                      Navigator.of(context).push(
-                                          fade(page: const DealerScreen()));
                                     },
                                     height: 44,
                                     borderRadius: 8,
@@ -520,8 +504,8 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(8),
                                 child: CachedNetworkImage(
+                                  fit: BoxFit.cover,
                                   width: 44,
-                                  height: 44,
                                   imageUrl:
                                       state.singleEntity.user.avatar ?? '',
                                   errorWidget: (context, url, error) =>

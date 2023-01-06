@@ -29,6 +29,8 @@ class CarStatistics extends StatelessWidget {
                   children: [
                     SvgPicture.asset(
                       AppIcons.calendar,
+                      width: 16,
+                      height: 16,
                       color: const Color(0xffB5B5BE),
                     ),
                     const SizedBox(
@@ -52,8 +54,8 @@ class CarStatistics extends StatelessWidget {
                     SvgPicture.asset(
                       AppIcons.eye2,
                       color: const Color(0xffB5B5BE),
-                      width: 24,
-                      height: 24,
+                      width: 16,
+                      height: 16,
                     ),
                     const SizedBox(
                       width: 8,
@@ -79,8 +81,8 @@ class CarStatistics extends StatelessWidget {
                 SvgPicture.asset(
                   AppIcons.id,
                   color: const Color(0xffB5B5BE),
-                  width: 24,
-                  height: 24,
+                  width: 16,
+                  height: 16,
                 ),
                 const SizedBox(
                   width: 8,

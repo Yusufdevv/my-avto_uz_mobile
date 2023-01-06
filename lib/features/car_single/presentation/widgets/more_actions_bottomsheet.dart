@@ -78,40 +78,37 @@ class MoreActions extends StatelessWidget {
                   width: 16,
                 ),
                 Expanded(
-                  child: WScaleAnimation(
-                    onTap: () {},
-                    child: Container(
-                      padding: const EdgeInsets.only(
-                        top: 16,
-                        bottom: 16,
+                  child: Container(
+                    padding: const EdgeInsets.only(
+                      top: 16,
+                      bottom: 16,
+                    ),
+                    decoration: BoxDecoration(
+                      color: const Color(0xffF0EFFD),
+                      borderRadius: BorderRadius.circular(
+                        8,
                       ),
-                      decoration: BoxDecoration(
-                        color: const Color(0xffF0EFFD),
-                        borderRadius: BorderRadius.circular(
-                          8,
-                        ),
-                      ),
-                      child: Center(
-                        child: Column(
-                          children: [
-                            SvgPicture.asset(
-                              AppIcons.blue_vin_soon,
-                            ),
-                            Text(
-                              'Отчет (VIN)',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline1!
-                                  .copyWith(
-                                    color: const Color(
-                                      0xff171725,
-                                    ),
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 12,
+                    ),
+                    child: Center(
+                      child: Column(
+                        children: [
+                          SvgPicture.asset(
+                            AppIcons.blue_vin_soon,
+                          ),
+                          Text(
+                            'Отчет (VIN)',
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline1!
+                                .copyWith(
+                                  color: const Color(
+                                    0xff171725,
                                   ),
-                            ),
-                          ],
-                        ),
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 12,
+                                ),
+                          ),
+                        ],
                       ),
                     ),
                   ),
