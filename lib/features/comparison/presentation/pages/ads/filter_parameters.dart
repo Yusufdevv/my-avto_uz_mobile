@@ -1,3 +1,5 @@
+
+
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/features/common/widgets/range_slider.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
@@ -71,10 +73,11 @@ class _FilterParametersState extends State<FilterParameters> {
                         isScrollControlled: true,
                         backgroundColor: Colors.transparent,
                         builder: (c) => const ChooseBodyType(
-                          selectedId: -1,
+                          selectedId: 0,
                         ),
                       ).then((value) {
-                        widget.rentBloc.add(RentSetParamFromFilterEvent());
+                        // widget.rentBloc.add(RentSetParamFromFilterEvent(
+                        //     carBodyTypeId: value?[0].toString()));
                       });
                     },
                     hintText: LocaleKeys.choose_body.tr(),
@@ -88,11 +91,10 @@ class _FilterParametersState extends State<FilterParameters> {
                         context: context,
                         isScrollControlled: true,
                         backgroundColor: Colors.transparent,
-                        builder: (c) => const ChooseBodyType(
-                          selectedId: -1,
-                        ),
+                        builder: (c) => const ChooseBodyType(selectedId: 0),
                       ).then((value) {
-                        widget.rentBloc.add(RentSetParamFromFilterEvent());
+                        // widget.rentBloc.add(RentSetParamFromFilterEvent(
+                        //     carBodyTypeId: value?[0].toString()));
                       });
                     },
                     hintText: LocaleKeys.choose_class.tr(),
@@ -106,11 +108,10 @@ class _FilterParametersState extends State<FilterParameters> {
                         context: context,
                         isScrollControlled: true,
                         backgroundColor: Colors.transparent,
-                        builder: (c) => const ChooseDriveType(
-                          selectedId: -1,
-                        ),
+                        builder: (c) => const ChooseDriveType(selectedId: 0),
                       ).then((value) {
-                        widget.rentBloc.add(RentSetParamFromFilterEvent());
+                        // widget.rentBloc.add(
+                        //     RentSetParamFromFilterEvent(carDriveTypeId: value));
                       });
                     },
                     hintText: LocaleKeys.choose_drive_type.tr(),
@@ -124,11 +125,10 @@ class _FilterParametersState extends State<FilterParameters> {
                         context: context,
                         isScrollControlled: true,
                         backgroundColor: Colors.transparent,
-                        builder: (c) => const ChooseGearbox(
-                          selectedId: -1,
-                        ),
+                        builder: (c) => const ChooseGearbox(selectedId: 0),
                       ).then((value) {
-                        widget.rentBloc.add(RentSetParamFromFilterEvent());
+                        // widget.rentBloc.add(
+                        //     RentSetParamFromFilterEvent(gearboxTypeId: value));
                       });
                     },
                     hintText: LocaleKeys.choose_box_type.tr(),
