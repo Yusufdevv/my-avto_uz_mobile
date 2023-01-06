@@ -191,6 +191,7 @@ class _SelectModelScreenState extends State<SelectModelScreen> {
                                             ModelSelectorState>(
                                           builder: (context, state) =>
                                               ModelItems(
+                                                bloc: modelBloc,
                                             entity: modelItems[index].title,
                                             selectedId: state.selectedId,
                                             id: index, text: '',

@@ -8,10 +8,11 @@ import 'package:auto/features/ad/presentation/bloc/choose_model/model_selectro_b
 import 'package:auto/features/common/bloc/get_car_model/get_car_model_bloc.dart';
 import 'package:auto/features/common/bloc/get_makes_bloc/get_makes_bloc_bloc.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
+import 'package:auto/features/comparison/data/repositories/comparison_cars_repo_impl.dart';
+import 'package:auto/features/comparison/domain/usecases/comparison_cars_use_case.dart';
 import 'package:auto/features/comparison/presentation/bloc/comparison-bloc/comparison_bloc.dart';
 import 'package:auto/features/comparison/presentation/pages/ads/ads.dart';
 import 'package:auto/features/comparison/presentation/pages/choose_car_brand.dart';
-import 'package:auto/features/comparison/presentation/pages/choose_generation.dart';
 import 'package:auto/features/comparison/presentation/pages/choose_model.dart';
 import 'package:auto/features/comparison/presentation/pages/comaparison.dart';
 import 'package:auto/features/comparison/presentation/widgets/empty_widget.dart';
@@ -22,8 +23,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ComparisonPage extends StatefulWidget {
-  final ComparisonBloc bloc;
-  const ComparisonPage({Key? key, required this.bloc}) : super(key: key);
+  const ComparisonPage({Key? key}) : super(key: key);
 
   @override
   State<ComparisonPage> createState() => _ComparisonPageState();
@@ -35,9 +35,14 @@ class _ComparisonPageState extends State<ComparisonPage> {
   late GetCarModelBloc carModelBloc;
   late GetMakesBloc getMakesBloc;
   late CarSelectorBloc carSelectorBloc;
+  late ComparisonBloc bloc;
 
   @override
   void initState() {
+    bloc = ComparisonBloc(
+        comparisonCarsUseCase: ComparisonCarsUseCase(
+            comparisonCarsRepo: serviceLocator<ComparisonCarsRepoImpl>()))
+      ..add(GetComparableCars());
     carTypeSelectorBloc = CarTypeSelectorBloc();
     modelBloc = ModelSelectorBloc();
     carSelectorBloc = CarSelectorBloc();
@@ -54,8 +59,27 @@ class _ComparisonPageState extends State<ComparisonPage> {
   }
 
   @override
-  Widget build(BuildContext context) => BlocProvider.value(
-        value: widget.bloc,
+  Widget build(BuildContext context) => MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (context) => bloc,
+          ),
+          BlocProvider(
+            create: (context) => modelBloc,
+          ),
+          BlocProvider(
+            create: (context) => carModelBloc,
+          ),
+          BlocProvider(
+            create: (context) => getMakesBloc,
+          ),
+          BlocProvider(
+            create: (context) => carTypeSelectorBloc,
+          ),
+          BlocProvider(
+            create: (context) => carSelectorBloc,
+          ),
+        ],
         child: Scaffold(
           appBar: WAppBar(
             title: LocaleKeys.car_comparison.tr(),
@@ -73,7 +97,7 @@ class _ComparisonPageState extends State<ComparisonPage> {
                       context,
                       fade(
                         page: ChooseCarBrandComparison(
-                          onTap: () => Navigator.of(context).pushReplacement(
+                          onTap: () => Navigator.of(context).push(
                             fade(
                               page: ChooseCarModelComparison(
                                 onTap: () {
@@ -85,7 +109,7 @@ class _ComparisonPageState extends State<ComparisonPage> {
                                   //     ),
                                   //   ),
                                   // );
-                                  Navigator.of(context).pushReplacement(
+                                  Navigator.of(context).push(
                                     fade(
                                       page: AdsScreen(
                                         carSelectorBloc: carSelectorBloc,
@@ -121,7 +145,7 @@ class _ComparisonPageState extends State<ComparisonPage> {
                   carSelectorBloc: carSelectorBloc,
                   getMakesBloc: getMakesBloc,
                   modelBloc: modelBloc,
-                  comparisonBloc: widget.bloc,
+                  comparisonBloc: bloc,
                 );
               }
             },

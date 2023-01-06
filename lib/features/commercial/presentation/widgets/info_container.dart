@@ -9,24 +9,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class InfoContainer extends StatelessWidget {
-  const InfoContainer(
-      {this.year,
-      this.avatarPicture,
-      this.hasDiscount = true,
-      this.carModel,
-      this.subtitle,
-      this.owner,
-      this.ownerType,
-      this.location,
-      this.publishTime,
-      this.price,
-      this.discountPrice,
-      this.sellType,
-      this.hasStatusInfo = true,
-      this.hasCallCard = true,
-      super.key,
-      required this.onTapComparsion,
-      required this.onTapFavorites});
+  const InfoContainer({
+    this.year,
+    this.avatarPicture,
+    this.hasDiscount = true,
+    this.carModel,
+    this.subtitle,
+    this.owner,
+    this.ownerType,
+    this.location,
+    this.publishTime,
+    this.price,
+    this.discountPrice,
+    this.sellType,
+    this.hasStatusInfo = true,
+    this.hasCallCard = true,
+    // ignore: always_put_required_named_parameters_first
+    required this.onTapComparsion,
+    // ignore: always_put_required_named_parameters_first
+    required this.onTapFavorites,
+    super.key,
+  });
 
   final String? avatarPicture;
   final bool hasDiscount;
@@ -118,23 +121,6 @@ class InfoContainer extends StatelessWidget {
                         ),
                         margin: const EdgeInsets.symmetric(horizontal: 2),
                       ),
-                    if (index == 0 && hasStatusInfo)
-                      Positioned(
-                        top: 4,
-                        left: 6,
-                        child: CustomChip(
-                          label: 'С пробегом',
-                          labelStyle: Theme.of(context)
-                              .textTheme
-                              .bodyText1!
-                              .copyWith(color: green),
-                          leading: SvgPicture.asset(AppIcons.shieldCheck),
-                          backgroundColor: white,
-                          borderRadius: 4,
-                        ),
-                      )
-                    else
-                      const SizedBox()
                   ],
                 ),
               ),

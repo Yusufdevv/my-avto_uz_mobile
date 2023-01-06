@@ -7,11 +7,10 @@ import 'package:auto/features/ad/presentation/bloc/choose_model/model_selectro_b
 import 'package:auto/features/ad/presentation/pages/choose_model/widgets/model_items.dart';
 import 'package:auto/features/common/bloc/get_car_model/get_car_model_bloc.dart';
 import 'package:auto/features/common/bloc/get_makes_bloc/get_makes_bloc_bloc.dart';
-import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/comparison/presentation/pages/ads/ads.dart';
 import 'package:auto/features/comparison/presentation/pages/choose_car_brand.dart';
-import 'package:auto/features/comparison/presentation/widgets/search_bar_widget.dart';
+import 'package:auto/features/comparison/presentation/widgets/search_bar.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -60,92 +59,61 @@ class _ChooseCarModelComparison extends State<ChooseCarModelComparison> {
 
   @override
   Widget build(BuildContext context) => KeyboardDismisser(
-        child: MultiBlocProvider(
-          providers: [
-            BlocProvider.value(
-              value: widget.modelBloc,
-            ),
-            BlocProvider.value(
-              value: widget.carTypeSelectorBloc,
-            ),
-            BlocProvider.value(
-              value: widget.bloc,
-            ),
-          ],
-          child: Scaffold(
-            resizeToAvoidBottomInset: false,
-            appBar: WAppBar(
-              title: 'Марка автомобиля',
-              titleStyle: const TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w600,
-                color: grey,
-              ),
-              centerTitle: false,
-              extraActions: [
-                InkWell(
-                  onTap: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.only(right: 16),
-                    child: SvgPicture.asset(AppIcons.close),
-                  ),
-                ),
-              ],
-              onTapBack: () {
-                Navigator.of(context).pushReplacement(
-                  fade(
-                    page: ChooseCarBrandComparison(
-                      carSelectorBloc: widget.carSelectorBloc,
-                      bloc: widget.getMakesBloc,
-                      onTap: () => Navigator.of(context).pushReplacement(
-                        fade(
-                          page: ChooseCarModelComparison(
-                            onTap: () {
-                              // Navigator.of(context).push(
-                              //   fade(
-                              //     page: ChooseGenerationComparison(
-                              //       onTap: () {},
-                              //       modelBloc: modelBloc,
-                              //     ),
-                              //   ),
-                              // );
-                              Navigator.of(context).push(
-                                fade(
-                                  page: AdsScreen(
-                                    carSelectorBloc: widget.carSelectorBloc,
-                                    getMakesBloc: widget.getMakesBloc,
-                                    getCarModelBloc: widget.bloc,
-                                    carTypeSelectorBloc:
-                                        widget.carTypeSelectorBloc,
-                                    modelSelectorBloc: widget.modelBloc,
-                                  ),
-                                ),
-                              );
-                            },
-                            bloc: widget.bloc,
-                            carTypeSelectorBloc: widget.carTypeSelectorBloc,
-                            modelBloc: widget.modelBloc,
-                            carSelectorBloc: widget.carSelectorBloc,
-                            getMakesBloc: widget.getMakesBloc,
-                          ),
+        child: Scaffold(
+          resizeToAvoidBottomInset: false,
+          body: BlocBuilder<GetCarModelBloc, GetCarModelState>(
+            bloc: widget.bloc,
+            builder: (context, statemodel) => Stack(
+              children: [
+                CustomScrollView(
+                  slivers: [
+                    SliverAppBar(
+                      elevation: 0,
+                      pinned: true,
+                      leadingWidth: 85,
+                      leading: GestureDetector(
+                        onTap: () {
+                          print('nima disan');
+                          Navigator.of(context).pop();
+                        },
+                        behavior: HitTestBehavior.opaque,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  top: 16, bottom: 16, right: 4, left: 16),
+                              child: SvgPicture.asset(AppIcons.chevronLeft),
+                            ),
+                            Text(
+                              'Назад',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline2!
+                                  .copyWith(fontWeight: FontWeight.w600),
+                            ),
+                          ],
                         ),
                       ),
+                      actions: [
+                        Padding(
+                          padding: const EdgeInsets.only(right: 16),
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.of(context).pop();
+                              Navigator.of(context).pop();
+                            },
+                            child: SvgPicture.asset(AppIcons.close),
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
-                );
-              },
-            ),
-            body: BlocBuilder<GetCarModelBloc, GetCarModelState>(
-              builder: (context, statemodel) => Stack(
-                children: [
-                  CustomScrollView(
-                    slivers: [
-                      SliverToBoxAdapter(
-                        child: SearchBarWidget(
-                          searchController: searchController,
-                          title: 'Выберите модель',
+                    SliverSafeArea(
+                      top: false,
+                      bottom: true,
+                      sliver: SliverPersistentHeader(
+                        delegate: WSerachBar(
+                          controller: searchController,
                           onChanged: () {
                             widget.bloc.add(
                               GetCarModelEvent.getSerched(
@@ -155,98 +123,105 @@ class _ChooseCarModelComparison extends State<ChooseCarModelComparison> {
                             widget.bloc.add(GetCarModelEvent.getCarModel(id));
                           },
                         ),
+                        pinned: true,
                       ),
-                      if (statemodel.search.isEmpty)
-                        SliverToBoxAdapter(
-                          child: Transform.translate(
-                            offset: const Offset(0, 1),
-                            child: Container(
-                              height: 20,
-                              width: double.infinity,
-                              decoration: BoxDecoration(
-                                color: Theme.of(context)
-                                    .extension<ThemedColors>()!
-                                    .whiteToDark,
-                                borderRadius: const BorderRadius.vertical(
-                                  top: Radius.circular(20),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      if (statemodel.search.isEmpty)
-                        SliverToBoxAdapter(
+                    ),
+                    const SliverPadding(
+                      padding: EdgeInsets.symmetric(vertical: 16),
+                    ),
+                    if (statemodel.search.isEmpty)
+                      SliverToBoxAdapter(
+                        child: Transform.translate(
+                          offset: const Offset(0, 1),
                           child: Container(
+                            height: 20,
+                            width: double.infinity,
                             decoration: BoxDecoration(
                               color: Theme.of(context)
                                   .extension<ThemedColors>()!
                                   .whiteToDark,
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 16),
-                                  child: Text(
-                                    'Популярные',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headline1!
-                                        .copyWith(
-                                            fontWeight: FontWeight.w600,
-                                            color: purple),
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      SliverList(
-                        delegate: SliverChildBuilderDelegate(
-                          (context, index) => Container(
-                            color: Theme.of(context)
-                                .extension<ThemedColors>()!
-                                .whiteToDark,
-                            child: BlocBuilder<ModelSelectorBloc,
-                                ModelSelectorState>(
-                              builder: (context, state) => ModelItems(
-                                entity: statemodel.model.results[index].name,
-                                selectedId: state.selectedId,
-                                id: statemodel.model.results[index].id,
-                                text: statemodel.search,
+                              borderRadius: const BorderRadius.vertical(
+                                top: Radius.circular(20),
                               ),
                             ),
                           ),
-                          childCount: statemodel.model.results.length,
                         ),
                       ),
-                      const SliverToBoxAdapter(child: SizedBox(height: 60)),
-                    ],
-                  ),
-                  Positioned(
-                    bottom: 16,
-                    right: 16,
-                    left: 16,
-                    child: BlocBuilder<ModelSelectorBloc, ModelSelectorState>(
-                      builder: (context, state) => WButton(
-                        onTap: state.selectedId == -1 ? () {} : widget.onTap,
-                        text: 'Далее',
-                        shadow: [
-                          BoxShadow(
-                            offset: const Offset(0, 4),
-                            blurRadius: 20,
-                            color: orange.withOpacity(0.2),
+                    if (statemodel.search.isEmpty)
+                      SliverToBoxAdapter(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Theme.of(context)
+                                .extension<ThemedColors>()!
+                                .whiteToDark,
                           ),
-                        ],
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 16),
+                                child: Text(
+                                  'Популярные',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headline1!
+                                      .copyWith(
+                                          fontWeight: FontWeight.w600,
+                                          color: purple),
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    SliverList(
+                      delegate: SliverChildBuilderDelegate(
+                        (context, index) => Container(
+                          color: Theme.of(context)
+                              .extension<ThemedColors>()!
+                              .whiteToDark,
+                          child: BlocBuilder<ModelSelectorBloc,
+                              ModelSelectorState>(
+                            bloc: widget.modelBloc,
+                            builder: (context, state) => ModelItems(
+                              bloc: widget.modelBloc,
+                              entity: statemodel.model.results[index].name,
+                              selectedId: state.selectedId,
+                              id: statemodel.model.results[index].id,
+                              text: statemodel.search,
+                            ),
+                          ),
+                        ),
+                        childCount: statemodel.model.results.length,
                       ),
                     ),
+                    const SliverToBoxAdapter(child: SizedBox(height: 60)),
+                  ],
+                ),
+                Positioned(
+                  bottom: 16,
+                  right: 16,
+                  left: 16,
+                  child: BlocBuilder<ModelSelectorBloc, ModelSelectorState>(
+                    bloc: widget.modelBloc,
+                    builder: (context, state) => WButton(
+                      onTap: state.selectedId == -1 ? () {} : widget.onTap,
+                      text: 'Далее',
+                      shadow: [
+                        BoxShadow(
+                          offset: const Offset(0, 4),
+                          blurRadius: 20,
+                          color: orange.withOpacity(0.2),
+                        ),
+                      ],
+                    ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),

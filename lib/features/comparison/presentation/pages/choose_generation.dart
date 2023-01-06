@@ -30,23 +30,6 @@ class _ChooseGenerationComparisonState
     extends State<ChooseGenerationComparison> {
   final List<ModelItemEntity> modelItems = [
     ModelItemEntity(title: 'm90'),
-    ModelItemEntity(title: 'm90'),
-    ModelItemEntity(title: 'm90'),
-    ModelItemEntity(title: 'm90'),
-    ModelItemEntity(title: 'm90'),
-    ModelItemEntity(title: 'm90'),
-    ModelItemEntity(title: 'm90'),
-    ModelItemEntity(title: 'm90'),
-    ModelItemEntity(title: 'm90'),
-    ModelItemEntity(title: 'm90'),
-    ModelItemEntity(title: 'm90'),
-    ModelItemEntity(title: 'm90'),
-    ModelItemEntity(title: 'm90'),
-    ModelItemEntity(title: 'm90'),
-    ModelItemEntity(title: 'm90'),
-    ModelItemEntity(title: 'm90'),
-    ModelItemEntity(title: 'm90'),
-    ModelItemEntity(title: 'm90'),
   ];
 
   @override
@@ -120,7 +103,9 @@ class _ChooseGenerationComparisonState
                           .extension<ThemedColors>()!
                           .whiteToDark,
                       child: BlocBuilder<ModelSelectorBloc, ModelSelectorState>(
+                        bloc: widget.modelBloc,
                         builder: (context, state) => ModelItems(
+                          bloc: widget.modelBloc,
                           entity: modelItems[index].title,
                           selectedId: state.selectedId,
                           id: index,

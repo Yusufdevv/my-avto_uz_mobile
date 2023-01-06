@@ -1,4 +1,5 @@
 import 'package:auto/core/singletons/storage.dart';
+import 'package:auto/features/comparison/presentation/comparison_page.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -49,7 +50,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
       getTermsOfUseUseCase: GetTermsOfUseUseCase(repository: repo),
     )..add(GetProfileEvent());
     imageBloc = ImageBloc();
-    print(StorageRepository.getString('token'));
     super.initState();
   }
 
@@ -124,8 +124,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ProfileMenuTile(
                             name: LocaleKeys.comparisons.tr(),
                             onTap: () {
-                              // Navigator.of(context, rootNavigator: true)
-                              //     .push(fade(page: const ComparisonPage()));
+                              Navigator.of(context, rootNavigator: true)
+                                  .push(fade(page: const ComparisonPage()));
                             },
                             iconPath: AppIcons.scales,
                           ),
