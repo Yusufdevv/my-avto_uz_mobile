@@ -1,6 +1,7 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/profile/presentation/bloc/profile/profile_bloc.dart';
+import 'package:auto/features/profile/presentation/widgets/empty_item_body.dart';
 import 'package:auto/features/search/presentation/widgets/info_result_container.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -47,9 +48,10 @@ class _FavouritePageState extends State<FavouritePage> {
                   color: white,
                 ));
               }
-              if (state.secondStatus.isSubmissionSuccess) {
+              if (state.secondStatus.isSubmissionSuccess &&
+                  state.autoEntity.isNotEmpty) {
                 final favorites = state.autoEntity;
-                return ListView.builder(
+                ListView.builder(
                     itemCount: favorites.length,
                     itemBuilder: (context, index) {
                       final item = favorites[index];
@@ -74,10 +76,12 @@ class _FavouritePageState extends State<FavouritePage> {
                           discount: item.discount);
                     });
               }
-              return const Center(
-                child: Text('Xatolik!'),
-              );
-},
+              if (state.secondStatus.isSubmissionSuccess &&
+                  state.autoEntity.isEmpty) {
+                return const EmptyItemBody(title: 'У вас еще нет объявлений');
+              }
+              return const EmptyItemBody(title: 'Xatolik!');
+            },
           ),
         ),
       );
