@@ -1,3 +1,4 @@
+import 'package:auto/core/singletons/storage.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -48,6 +49,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       getTermsOfUseUseCase: GetTermsOfUseUseCase(repository: repo),
     )..add(GetProfileEvent());
     imageBloc = ImageBloc();
+    print(StorageRepository.getString('token'));
     super.initState();
   }
 
@@ -188,10 +190,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               name: 'Чат',
                               onTap: () {
                                 Navigator.of(context, rootNavigator: true).push(
-                                    fade(
-                                        page: ChatPage(
-                                            hasChat: false,
-                                            imageBloc: imageBloc)));
+                                  fade(
+                                    page: ChatPage(
+                                      phone: state.profileEntity.phoneNumber!,
+                                      userName: state.profileEntity.username ??
+                                          state.profileEntity.firstName,
+                                      hasChat: false,
+                                      imageBloc: imageBloc,
+                                    ),
+                                  ),
+                                );
                               },
                               iconPath: AppIcons.message),
                           const ProfileDivider(),

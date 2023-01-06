@@ -19,8 +19,8 @@ class ProfileRepositoryImpl extends ProfileRepository {
       final result = await dataSource.getProfile();
       return Right(result);
     } on ServerException catch (error) {
-      return Left(
-          ServerFailure(statusCode: error.statusCode, errorMessage: error.errorMessage));
+      return Left(ServerFailure(
+          statusCode: error.statusCode, errorMessage: error.errorMessage));
     }
   }
 
@@ -32,8 +32,8 @@ class ProfileRepositoryImpl extends ProfileRepository {
           image: image, name: name, surName: surName, region: region);
       return Right(result);
     } on ServerException catch (error) {
-      return Left(
-          ServerFailure(statusCode: error.statusCode, errorMessage: error.errorMessage));
+      return Left(ServerFailure(
+          statusCode: error.statusCode, errorMessage: error.errorMessage));
     }
   }
 
@@ -45,20 +45,20 @@ class ProfileRepositoryImpl extends ProfileRepository {
           oldPassword: oldPassword, newPassword: newPassword);
       return Right(result);
     } on ServerException catch (error) {
-      return Left(
-          ServerFailure(statusCode: error.statusCode, errorMessage: error.errorMessage));
+      return Left(ServerFailure(
+          statusCode: error.statusCode, errorMessage: error.errorMessage));
     }
   }
 
   @override
-  Future<Either<ServerFailure, List<AutoEntity>>>
-      getProfileFavorites(String endpoint) async {
+  Future<Either<ServerFailure, List<AutoEntity>>> getProfileFavorites(
+      String endpoint) async {
     try {
       final result = await dataSource.getProfileFavorites(endpoint);
       return Right(result);
     } on ServerException catch (error) {
-      return Left(
-          ServerFailure(statusCode: error.statusCode, errorMessage: error.errorMessage));
+      return Left(ServerFailure(
+          statusCode: error.statusCode, errorMessage: error.errorMessage));
     }
   }
 
@@ -69,19 +69,23 @@ class ProfileRepositoryImpl extends ProfileRepository {
       final result = await dataSource.sendPhoneNumber(phoneNumber: phoneNumber);
       return Right(result);
     } on ServerException catch (error) {
-      return Left(
-          ServerFailure(statusCode: error.statusCode, errorMessage: error.errorMessage));
+      return Left(ServerFailure(
+          statusCode: error.statusCode, errorMessage: error.errorMessage));
     }
   }
-  
+
   @override
-  Future<Either<ServerFailure, String>> sendVerificationCode({required String phoneNumber, required String code, required String session}) async {
+  Future<Either<ServerFailure, String>> sendVerificationCode(
+      {required String phoneNumber,
+      required String code,
+      required String session}) async {
     try {
-      final result = await dataSource.sendVerificationCode(phoneNumber: phoneNumber, code: code, session: session);
+      final result = await dataSource.sendVerificationCode(
+          phoneNumber: phoneNumber, code: code, session: session);
       return Right(result);
     } on ServerException catch (error) {
-      return Left(
-          ServerFailure(statusCode: error.statusCode, errorMessage: error.errorMessage));
+      return Left(ServerFailure(
+          statusCode: error.statusCode, errorMessage: error.errorMessage));
     }
   }
 
@@ -91,8 +95,8 @@ class ProfileRepositoryImpl extends ProfileRepository {
       final result = await dataSource.getTermsOfUseData();
       return Right(result);
     } on ServerException catch (error) {
-      return Left(
-          ServerFailure(statusCode: error.statusCode, errorMessage: error.errorMessage));
+      return Left(ServerFailure(
+          statusCode: error.statusCode, errorMessage: error.errorMessage));
     }
   }
 }

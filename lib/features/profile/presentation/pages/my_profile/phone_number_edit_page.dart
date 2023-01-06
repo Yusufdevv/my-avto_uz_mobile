@@ -20,12 +20,14 @@ import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:formz/formz.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 class PhoneNumberEditPage extends StatefulWidget {
-  const PhoneNumberEditPage({required this.profileBloc, super.key});
+  const PhoneNumberEditPage({required this.profileBloc, this.phone, super.key});
   final ProfileBloc profileBloc;
+  final String? phone;
   @override
   State<PhoneNumberEditPage> createState() => _PhoneNumberEditPageState();
 }
@@ -44,13 +46,12 @@ class _PhoneNumberEditPageState extends State<PhoneNumberEditPage> {
   @override
   void initState() {
     phoneController = TextEditingController();
-
     final repo = serviceLocator<ProfileRepositoryImpl>();
     changePhoneNumberBloc = ChangePhoneNumberBloc(
         changePhoneNumberUseCase: ChangePhoneNumberUseCase(repository: repo),
         sendSmsVerificationUseCase:
             SendSmsVerificationUseCase(repository: repo));
-            _formKey = GlobalKey<FormState>();
+    _formKey = GlobalKey<FormState>();
     super.initState();
   }
 
@@ -62,9 +63,7 @@ class _PhoneNumberEditPageState extends State<PhoneNumberEditPage> {
             child: CustomScreen(
               child: Scaffold(
                 backgroundColor: white,
-                appBar: const WAppBar(
-                  title: 'Номер телефона',
-                ),
+                appBar: const WAppBar(title: 'Номер телефона'),
                 body: Padding(
                   padding: const EdgeInsets.only(
                       top: 50, left: 16, right: 16, bottom: 16),
@@ -89,7 +88,9 @@ class _PhoneNumberEditPageState extends State<PhoneNumberEditPage> {
                             }
                           },
                           validate: (value) {
-                            if (value==null || value.isEmpty || value.length!=12) {
+                            if (value == null ||
+                                value.isEmpty ||
+                                value.length != 12) {
                               return "Iltimos, telefon raqamingizni to'g'ri kiriting";
                             }
                             return '';
@@ -114,6 +115,7 @@ class _PhoneNumberEditPageState extends State<PhoneNumberEditPage> {
                         Padding(
                           padding: const EdgeInsets.only(top: 12),
                           child: WButton(
+                            isLoading: state.status.isSubmissionInProgress,
                             onTap: () {
                               final phoneNumber =
                                   phoneController.text.replaceAll(' ', '');
@@ -124,21 +126,23 @@ class _PhoneNumberEditPageState extends State<PhoneNumberEditPage> {
                                         newPhoneNumber: '+998$phoneNumber',
                                         onSuccess: () {
                                           Navigator.push(
-                                              context,
-                                              fade(
-                                                  page: MultiBlocProvider(
-                                                providers: [
-                                                  BlocProvider.value(
-                                                      value:
-                                                          changePhoneNumberBloc),
-                                                  BlocProvider.value(
-                                                      value: widget.profileBloc)
-                                                ],
-                                                child: PhoneVerifiyPage(
-                                                    ctx: context,
-                                                    phone: phoneNumber,
-                                                    ),
-                                              )));
+                                            context,
+                                            fade(
+                                                page: MultiBlocProvider(
+                                              providers: [
+                                                BlocProvider.value(
+                                                    value:
+                                                        changePhoneNumberBloc),
+                                                BlocProvider.value(
+                                                    value: widget.profileBloc)
+                                              ],
+                                              child: PhoneVerifiyPage(
+                                                ctx: context,
+                                                profileBloc: widget.profileBloc,
+                                                phone: phoneNumber,
+                                              ),
+                                            )),
+                                          );
                                         },
                                         onError: (message) {
                                           context.read<ShowPopUpBloc>().add(

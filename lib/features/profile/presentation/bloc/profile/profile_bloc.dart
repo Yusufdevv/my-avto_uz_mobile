@@ -33,9 +33,9 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   }) : super(
           ProfileState(
             changeStatus: FormzStatus.pure,
+            secondStatus: FormzStatus.pure,
             editStatus: FormzStatus.pure,
             status: FormzStatus.pure,
-            phoneNumber: '',
             profileEntity: ProfileDataEntity(),
             autoEntity: const <AutoEntity>[],
             termsOfUseEntity: const <TermsOfUseEntity>[],
@@ -46,15 +46,10 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     on<ChangePasswordEvent>(_onChangePassword);
     on<EditProfileEvent>(_onEditProfile);
     on<GetProfileFavoritesEvent>(_onGetProfileFavorites);
-    on<ChangePhoneDataEvent>(_onChangePhoneData);
     on<GetTermsOfUseEvent>(_onGetTermsOfUse);
     
   }
-
-  void _onChangePhoneData(ChangePhoneDataEvent event, Emitter<ProfileState> emit) {
-    emit(state.copyWith(phoneNumber: event.phone));
-  }
-
+  
   Future<void> _onGetProfile(
       GetProfileEvent event, Emitter<ProfileState> emit) async {
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
@@ -133,15 +128,15 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
 
   Future<void> _onGetProfileFavorites(
       GetProfileFavoritesEvent event, Emitter<ProfileState> emit) async {
-    emit(state.copyWith(status: FormzStatus.submissionInProgress));
+    emit(state.copyWith(secondStatus: FormzStatus.submissionInProgress));
     final result = await profileFavoritesUseCase.call(event.endpoint);
     if (result.isRight) {
       emit(state.copyWith(
-        status: FormzStatus.submissionSuccess,
+        secondStatus: FormzStatus.submissionSuccess,
         autoEntity: result.right,
       ));
     } else {
-      emit(state.copyWith(status: FormzStatus.submissionFailure));
+      emit(state.copyWith(secondStatus: FormzStatus.submissionFailure));
     }
   }
 }
