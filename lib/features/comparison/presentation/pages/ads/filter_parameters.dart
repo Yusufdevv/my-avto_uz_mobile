@@ -1,3 +1,5 @@
+
+
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/features/common/widgets/range_slider.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
@@ -16,6 +18,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class FilterParameters extends StatefulWidget {
   final FilterParametersBloc filterParametersBloc;
   final RentBloc rentBloc;
+
   const FilterParameters({
     super.key,
     required this.filterParametersBloc,
