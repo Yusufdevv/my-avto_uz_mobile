@@ -7,7 +7,7 @@ import 'package:auto/features/main/domain/entities/story_entity.dart';
 import 'package:auto/features/main/domain/repositories/main_repository.dart';
 import 'package:auto/features/pagination/models/generic_pagination.dart';
 
-class MainUseCase
+class GetStoriesUseCase
     extends UseCase<GenericPagination<StoryEntity>, Map<String, dynamic>> {
   final MainRepository repository = serviceLocator<MainRepositoryImpl>();
 

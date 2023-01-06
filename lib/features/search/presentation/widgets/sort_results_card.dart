@@ -28,7 +28,7 @@ class SortResultsCard extends StatelessWidget {
         newList.sort(
           (a, b) => a.price.compareTo(b.price),
         );
-        newList.reversed;
+        newList.reversed.toList(growable: false);
         break;
       case SortSearchResultStatus.newest:
         newList.sort(
@@ -75,7 +75,7 @@ class SortResultsCard extends StatelessWidget {
             return aDate.compareTo(bDate);
           },
         );
-        newList.reversed;
+        newList.reversed.toList(growable: false);
         break;
     }
 
@@ -97,6 +97,7 @@ class SortResultsCard extends StatelessWidget {
       userImage: newList[index].user.image,
       userType: newList[index].userType,
       hasComparison: newList[index].isComparison,
+      id: newList[index].id,
     );
   }
 }

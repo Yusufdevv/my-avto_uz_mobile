@@ -46,14 +46,17 @@ class CarBrandItem extends StatelessWidget {
               loadingBuilder: (ctx, widget, chunkEvent) => Image.asset(AppImages.defaultPhoto),
             ),
             const SizedBox(height: 8),
-            Text(
-              carBrandEntity.title,
-              textAlign: TextAlign.center,
-              maxLines: 2,
-              style: Theme.of(context)
-                  .textTheme
-                  .headline1!
-                  .copyWith(fontSize: 12, fontWeight: FontWeight.w400),
+            Expanded(
+              child: Text(
+                carBrandEntity.title,
+                textAlign: TextAlign.center,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: Theme.of(context)
+                    .textTheme
+                    .headline1!
+                    .copyWith(fontSize: 12, fontWeight: FontWeight.w400),
+              ),
             )
           ],
         ),

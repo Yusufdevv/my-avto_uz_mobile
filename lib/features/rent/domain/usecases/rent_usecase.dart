@@ -27,8 +27,8 @@ class RentUseCase extends UseCase<GenericPagination<RentMainModel>, Param> {
     if (params.regions != null && params.regions!.isNotEmpty) {
       map['region__in'] = params.regions;
     }
-    if (params.makers != null && params.makers!.isNotEmpty) {
-      map['rent_car__make'] = params.makers;
+    if (params.maker != null && params.maker!.isNotEmpty) {
+      map['rent_car__make'] = params.maker;
     }
     if (params.carBodyTypeId != null && params.carBodyTypeId!.isNotEmpty) {
       map['rent_car__body_type'] = params.carBodyTypeId;
@@ -39,8 +39,19 @@ class RentUseCase extends UseCase<GenericPagination<RentMainModel>, Param> {
     if (params.gearboxTypeId != null && params.gearboxTypeId!.isNotEmpty) {
       map['rent_car__gearbox_type'] = params.gearboxTypeId;
     }
+    if (params.rentPriceStart != null && params.rentPriceStart! > 0) {
+      map['rent_price_start'] = params.rentPriceStart;
+    }
+    if (params.rentPriceEnd != null && params.rentPriceEnd! > 0) {
+      map['rent_price_end'] = params.rentPriceEnd;
+    }
+    if (params.yearStart != null && params.yearStart!.isNotEmpty) {
+      map['rent_car_year_start'] = params.yearStart;
+    }
+    if (params.yearEnd != null && params.yearEnd!.isNotEmpty) {
+      map['rent_car_year_end'] = params.yearEnd;
+    }
 
-    print('=== map === map: ${map.toString()}');
     final v = await repo.fetchMore(
       url: '/rent/main_page/${params.id}/',
       fromJson: RentMainModel.fromJson,
@@ -59,13 +70,13 @@ class Param {
   final int? rentCarIsClean;
   final int? rentCarIsFullFuel;
   final String? regions;
-  final String? makers;
+  final String? maker;
   final String? carBodyTypeId;
   final String? carDriveTypeId;
   final String? gearboxTypeId;
-  final num? rentPriceStatart;
+  final num? rentPriceStart;
   final num? rentPriceEnd;
-  final String? yearStatart;
+  final String? yearStart;
   final String? yearEnd;
 
   Param({
@@ -76,13 +87,13 @@ class Param {
     this.rentCarIsClean,
     this.rentCarIsFullFuel,
     this.regions,
-    this.makers,
+    this.maker,
     this.carBodyTypeId,
     this.carDriveTypeId,
     this.gearboxTypeId,
     this.rentPriceEnd,
-    this.rentPriceStatart,
+    this.rentPriceStart,
     this.yearEnd,
-    this.yearStatart,
+    this.yearStart,
   });
 }

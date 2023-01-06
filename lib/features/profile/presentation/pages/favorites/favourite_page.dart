@@ -36,6 +36,7 @@ class _FavouritePageState extends State<FavouritePage> {
           ),
           body: BlocBuilder<ProfileBloc, ProfileState>(
             builder: (context, state) {
+<<<<<<< HEAD
               if (state.secondStatus.isSubmissionFailure) {
                 return const Center(
                   child: Text('Xatolik!'),
@@ -76,6 +77,33 @@ class _FavouritePageState extends State<FavouritePage> {
               return const Center(
                 child: Text('Xatolik!'),
               );
+=======
+              final favorites = state.autoEntity;
+              return ListView.builder(
+                  itemCount: favorites.length,
+                  itemBuilder: (context, index) {
+                    final item = favorites[index];
+                    return InfoResultContainer(
+                        gallery: item.gallery,
+                        carModelName: item.model.name,
+                        carYear: item.year,
+                        contactPhone: item.contactPhone,
+                        description: item.description,
+                        districtTitle: item.district.title,
+                        isNew: item.isNew,
+                        id: item.id,
+                        isWishlisted: item.isWishlisted,
+                        price: item.price,
+                        publishedAt: item.publishedAt,
+                        userFullName: item.user.fullName,
+                        userImage: item.user.image,
+                        userType: item.userType,
+                        hasComparison: item.isComparison,
+                        callFrom: item.contactAvailableFrom,
+                        callTo: item.contactAvailableTo,
+                        discount: item.discount);
+                  });
+>>>>>>> 234c346fadc4e1d3d7fb2053f9676391453a0baa
             },
           ),
         ),

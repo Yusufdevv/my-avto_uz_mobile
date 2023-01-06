@@ -67,7 +67,15 @@ class _RentScreenState extends State<RentScreen>
                                     context,
                                     fade(
                                         page: RentFilterScreen(
-                                            rentBloc: rentBloc)))
+                                      rentBloc: rentBloc,
+                                      priceValues: state.priceValues,
+                                      yearValues: state.yearValues,
+                                      bodyType: state.bodyType,
+                                      carDriveType: state.carDriveType,
+                                      gearboxType: state.gearboxType,
+                                      maker: state.maker,
+                                      regions: state.regions,
+                                    )))
                                 .then((value) =>
                                     rentBloc.add(RentGetResultsEvent()));
                           },
