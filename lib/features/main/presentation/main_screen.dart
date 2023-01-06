@@ -1,5 +1,6 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/commercial/presentation/commercial_screen.dart';
 
 import 'package:auto/features/common/widgets/w_button.dart';
@@ -78,8 +79,18 @@ class _MainScreenState extends State<MainScreen> {
       () {
         Navigator.pushReplacement(context, fade(page: const DealerScreen()));
       },
-      () {},
-      () {},
+      () async {
+        /// for testing purpose
+        await StorageRepository.putString('token', '');
+        await StorageRepository.putBool(key: 'onboarding', value: false);
+      },
+      () {
+        /// for testing purpose
+        var onboarding = StorageRepository.getBool('onboarding');
+        var token = StorageRepository.getString('token');
+        print('=>=>=>=> onboarding: $onboarding <=<=<=<=');
+        print('=>=>=>=> token: $token <=<=<=<=');
+      },
       () {},
       () {
         Navigator.of(context, rootNavigator: true)

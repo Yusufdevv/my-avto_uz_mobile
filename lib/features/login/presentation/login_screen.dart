@@ -9,6 +9,7 @@ import 'package:auto/features/common/widgets/custom_screen.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_divider.dart';
+import 'package:auto/features/login/presentation/pages/password_recovery_screen.dart';
 import 'package:auto/features/login/presentation/pages/register_screen.dart';
 import 'package:auto/features/login/presentation/pages/reset_password.dart';
 import 'package:auto/features/login/presentation/widgets/z_text_form_field.dart';
@@ -135,15 +136,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 GestureDetector(
                   onTap: () {
                     Navigator.of(context)
-                        .push(fade(page: const ResetPasswordScreen()));
-                    //   Navigator.push(
-                    //   context,
-                    //   fade(
-                    //     page: PasswordRecoveryScreen(
-                    //       phone: phoneController.text,
-                    //     ),
-                    //   ),
-                    // );
+                        .push(fade(page: const ForgotPasswordSendPhonePage()));
                   },
                   child: Text(
                     'Забыли пароль?',

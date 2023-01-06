@@ -11,9 +11,7 @@ class ListOfAddedCars extends StatefulWidget {
 
 class _ListOfAddedCarsState extends State<ListOfAddedCars> {
   @override
-  Widget build(BuildContext context) {
-    print(widget.list.length);
-    return SizedBox(
+  Widget build(BuildContext context) => SizedBox(
       width:
           ((MediaQuery.of(context).size.width - 28) / 2) * widget.list.length +
               20,
@@ -35,5 +33,4 @@ class _ListOfAddedCarsState extends State<ListOfAddedCars> {
         ],
       ),
     );
-  }
 }

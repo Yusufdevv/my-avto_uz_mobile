@@ -22,7 +22,7 @@ class CarTypeItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) => GestureDetector(
         onTap: () {
-          print('clicked');
+        
           context.read<CarTypeSelectorBloc>().add(SelectedCarTypeEvent(id: id));
         },
         child: Container(

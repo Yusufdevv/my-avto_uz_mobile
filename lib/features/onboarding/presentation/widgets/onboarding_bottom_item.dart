@@ -19,73 +19,77 @@ class OnBoardingBottom extends StatefulWidget {
 
 class _OnBoardingBottomState extends State<OnBoardingBottom> {
   @override
-  Widget build(BuildContext context) => Stack(children: [
-        Container(
-          decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.bottomCenter,
-                  end: Alignment.topCenter,
-                  colors: [
-                orange.withOpacity(.03),
-                orange.withOpacity(.1),
-                orange.withOpacity(.01),
-              ])),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 32,
+  Widget build(BuildContext context) => Stack(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+                gradient: LinearGradient(
+                    begin: Alignment.bottomCenter,
+                    end: Alignment.topCenter,
+                    colors: [
+                  orange.withOpacity(.03),
+                  orange.withOpacity(.1),
+                  orange.withOpacity(.01),
+                ])),
           ),
-          child: Column(
-            children: [
-              Row(
-                children: [
-                  Text(
-                    LocaleKeys.hello.tr(),
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyText1!
-                        .copyWith(fontSize: 13, color: darkGray),
-                  ),
-                  const SizedBox(
-                    width: 4,
-                  ),
-                  Image.asset(AppImages.clap)
-                ],
-              ),
-              const SizedBox(
-                height: 8,
-              ),
-              RichText(
-                text: TextSpan(
-                    text: LocaleKeys.build_plans.tr(),
-                    style: Theme.of(context)
-                        .textTheme
-                        .caption!
-                        .copyWith(fontSize: 32, fontWeight: FontWeight.w700),
-                    children: [
-                      WidgetSpan(child: Image.asset(AppImages.magic))
-                    ]),
-              ),
-              const SizedBox(
-                height: 35,
-              ),
-              const LanguageItem()
-            ],
+          Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 32,
+            ),
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    Text(
+                      LocaleKeys.hello.tr(),
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyText1!
+                          .copyWith(fontSize: 13, color: darkGray),
+                    ),
+                    const SizedBox(
+                      width: 4,
+                    ),
+                    Image.asset(AppImages.clap)
+                  ],
+                ),
+                const SizedBox(
+                  height: 8,
+                ),
+                RichText(
+                  text: TextSpan(
+                      text: LocaleKeys.build_plans.tr(),
+                      style: Theme.of(context)
+                          .textTheme
+                          .caption!
+                          .copyWith(fontSize: 32, fontWeight: FontWeight.w700),
+                      children: [
+                        WidgetSpan(child: Image.asset(AppImages.magic))
+                      ]),
+                ),
+                const SizedBox(
+                  height: 35,
+                ),
+                const LanguageItem()
+              ],
+            ),
           ),
-        ),
-        Positioned(
+          Positioned(
             right: 0,
             child: WScaleAnimation(
-                onTap: () => Navigator.of(context)
-                    .push(fade(page: const OnBoardingScreen())),
-                child: Stack(
-                  children: [
-                    SvgPicture.asset(AppIcons.orangePolygon),
-                    Positioned(
-                        right: 10,
-                        top: 110,
-                        child: SvgPicture.asset(AppIcons.arrowRight)),
-                  ],
-                )))
-      ]);
+              onTap: () => Navigator.of(context)
+                  .push(fade(page: const OnBoardingScreen())),
+              child: Stack(
+                children: [
+                  SvgPicture.asset(AppIcons.orangePolygon),
+                  Positioned(
+                      right: 10,
+                      top: 110,
+                      child: SvgPicture.asset(AppIcons.arrowRight)),
+                ],
+              ),
+            ),
+          ),
+        ],
+      );
 }
