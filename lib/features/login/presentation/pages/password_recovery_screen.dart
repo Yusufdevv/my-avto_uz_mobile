@@ -22,8 +22,10 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 
 class PasswordRecoveryScreen extends StatefulWidget {
   final String phone;
+  final String session;
 
-  const PasswordRecoveryScreen({required this.phone, Key? key})
+  const PasswordRecoveryScreen(
+      {required this.phone, required this.session, Key? key})
       : super(key: key);
 
   @override
@@ -39,7 +41,7 @@ class _PasswordRecoveryScreenState extends State<PasswordRecoveryScreen> {
   @override
   void initState() {
     recoveryBloc = RecoveryBloc(SendRecoveryCodeUseCase(),
-        VerifyRecoveryUseCase(), ChangePasswordUseCase())
+        VerifyRecoveryUseCase(), ChangePasswordInLoginUseCase())
       ..add(RecoveryEvent.sendCode(widget.phone, onSuccess: (session) {
         sessions = session;
       }));

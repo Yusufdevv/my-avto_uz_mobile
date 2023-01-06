@@ -16,7 +16,7 @@ class AdsItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('object ${adsEntity.imageUrl}');
+    // print('object ${adsEntity.imageUrl}');
     return GestureDetector(
       onTap: () {
         Navigator.push(

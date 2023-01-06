@@ -29,6 +29,7 @@ class StackedOnBoardingWidget extends StatelessWidget {
                   width: 70,
                   height: 72,
                   decoration: const BoxDecoration(
+                    color: Colors.black,
                       shape: BoxShape.circle,
                       image: DecorationImage(
                           image: AssetImage(AppImages.audi),

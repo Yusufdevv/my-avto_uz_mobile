@@ -18,12 +18,15 @@ class _SplashScState extends State<SplashSc> {
   @override
   void initState() {
     print('intstatega krdi');
-    if(mounted) {
-      _timer =  Timer(const Duration(seconds: 5), () async {
-        await Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (context) => const FirstOnBoarding()));
-      });
-    }
+    // if (mounted) {
+    //   _timer = Timer(const Duration(seconds: 5), () async {
+    //     await Navigator.pushReplacement(context,
+    //         MaterialPageRoute(builder: (context) {
+    //            print('=>=>=>=> throvine to the first on boarding page <=<=<=<=');
+    //       return const FirstOnBoarding();
+    //     }));
+    //   });
+    // }
 
     super.initState();
 
@@ -38,20 +41,22 @@ class _SplashScState extends State<SplashSc> {
     super.dispose();
   }
 
-
   @override
-  Widget build(BuildContext context) => Scaffold(
-        body: Center(
-          child: Column(
-            children: [
-              const Spacer(),
-              SvgPicture.asset(
-                Theme.of(context).extension<ThemedIcons>()!.autoUzLightDark,
-              ),
-              const Spacer(),
-              Lottie.asset('assets/lottie/red_car.json', height: 86),
-            ],
-          ),
+  Widget build(BuildContext context) {
+    print('=>=>=>=> this is SplashSc <=<=<=<=');
+    return Scaffold(
+      body: Center(
+        child: Column(
+          children: [
+            const Spacer(),
+            SvgPicture.asset(
+              Theme.of(context).extension<ThemedIcons>()!.autoUzLightDark,
+            ),
+            const Spacer(),
+            Lottie.asset('assets/lottie/red_car.json', height: 86),
+          ],
         ),
-      );
+      ),
+    );
+  }
 }

@@ -101,9 +101,7 @@ class _CarSingleScreenState extends State<CarSingleScreen> {
           body: BlocBuilder<CarSingleBloc, CarSingleState>(
             builder: (context, state) {
               if (state.status != FormzStatus.submissionSuccess) {
-                print('STATUS IS ${state.status}');
-                print('DATA FROM BLOC ${state.singleEntity.make}');
-                return const Center(child: CupertinoActivityIndicator());
+               return const Center(child: CupertinoActivityIndicator());
               } else {
                 timeFrom =
                     Jiffy(state.singleEntity.contactAvailableFrom, 'hh:MM:ss')
@@ -111,13 +109,7 @@ class _CarSingleScreenState extends State<CarSingleScreen> {
                 timeTo =
                     Jiffy(state.singleEntity.contactAvailableTo, 'hh:MM:ss')
                         .dateTime;
-                print(state.singleEntity.contactAvailableTo);
-                print(state.singleEntity.contactAvailableFrom);
-                print(
-                    "Jiffy(state.singleEntity.contactAvailableFrom,'hh:MM:ss').isAfter(DateTime.now()) : ${Jiffy(state.singleEntity.contactAvailableFrom, 'hh:MM:ss').isSameOrAfter(DateTime.now())}");
-                print(
-                    "Jiffy(state.singleEntity.contactAvailableTo,'hh:MM:ss').isBefore(DateTime.now()) : ${Jiffy(state.singleEntity.contactAvailableTo, 'hh:MM:ss').isBefore(DateTime.now())}");
-                print('STATUS IS ${state.status}');
+              
                 return Stack(
                   children: [
                     CustomScrollView(
@@ -324,11 +316,7 @@ class _CarSingleScreenState extends State<CarSingleScreen> {
                                         .isAfter(DateTime.now())
                                 ? WButton(
                                     onTap: () {
-                                      print(
-                                          'DateTime.now().isAfter(timeFrom) : ${DateTime.now().isAfter(timeFrom)}');
-                                      print(
-                                          'DateTime.now().isBefore(timeTo) : ${DateTime.now().isBefore(timeTo)}');
-                                      showModalBottomSheet(
+                                    showModalBottomSheet(
                                         useRootNavigator: true,
                                         isScrollControlled: false,
                                         backgroundColor: Colors.transparent,
@@ -350,11 +338,7 @@ class _CarSingleScreenState extends State<CarSingleScreen> {
                                   )
                                 : WButton(
                                     onTap: () {
-                                      print(
-                                          'DateTime.now().isAfter(timeFrom) : ${DateTime.now().isAfter(timeFrom)}');
-                                      print(
-                                          'DateTime.now().isBefore(timeTo) : ${DateTime.now().isBefore(timeTo)}');
-                                      DateTime.now().isAfter(timeFrom) &&
+                                    DateTime.now().isAfter(timeFrom) &&
                                               DateTime.now().isBefore(timeTo)
                                           ? launch(
                                               'tel://${state.singleEntity.user.phoneNumber}')

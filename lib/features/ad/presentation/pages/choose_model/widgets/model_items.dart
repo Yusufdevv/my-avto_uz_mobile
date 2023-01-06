@@ -23,7 +23,7 @@ class ModelItems extends StatelessWidget {
   @override
   Widget build(BuildContext context) => GestureDetector(
         onTap: () {
-          print('clicked');
+        
           context
               .read<ModelSelectorBloc>()
               .add(SelectedModelItemEvent(id: id, name: entity));

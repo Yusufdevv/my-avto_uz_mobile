@@ -31,10 +31,10 @@ class CarSingleDataSourceImpl extends CarSingleDataSource {
       if (response.statusCode != null &&
           response.statusCode! >= 200 &&
           response.statusCode! < 300) {
-        print('SINGLE RESPONSE DATA  => ${response.data}');
+       
         return CarSingleModel.fromJson(response.data);
       } else {
-        print('DATA SOURCE ERROR GET SINGLE');
+        
         throw ServerException(
             statusCode: response.statusCode!,
             errorMessage: response.data.toString());
