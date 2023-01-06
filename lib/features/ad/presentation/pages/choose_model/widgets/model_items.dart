@@ -12,21 +12,21 @@ class ModelItems extends StatelessWidget {
   final int id;
   final int selectedId;
   final String text;
+  final ModelSelectorBloc bloc;
   const ModelItems(
       {required this.entity,
       required this.selectedId,
       required this.id,
       Key? key,
-      required this.text})
+      required this.text,
+      required this.bloc})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) => GestureDetector(
         onTap: () {
           print('clicked');
-          context
-              .read<ModelSelectorBloc>()
-              .add(SelectedModelItemEvent(id: id, name: entity));
+          bloc.add(SelectedModelItemEvent(id: id, name: entity));
         },
         child: Container(
           padding: const EdgeInsets.only(left: 16),

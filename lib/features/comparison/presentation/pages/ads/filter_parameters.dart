@@ -5,6 +5,8 @@ import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/comparison/presentation/bloc/filter_parameters_bloc/bloc/filter_parameters_bloc.dart';
 import 'package:auto/features/rent/presentation/bloc/rent_bloc/rent_bloc.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/choose_body_type.dart';
+import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/choose_drive_type.dart';
+import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/choose_gearbox.dart';
 import 'package:auto/features/search/presentation/widgets/selector_item.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -62,7 +64,7 @@ class _FilterParametersState extends State<FilterParameters> {
                 children: [
                   SelectorItem(
                     onTap: () async {
-                      await showModalBottomSheet<List<int>>(
+                      await showModalBottomSheet(
                         isDismissible: false,
                         context: context,
                         isScrollControlled: true,
@@ -75,16 +77,58 @@ class _FilterParametersState extends State<FilterParameters> {
                     },
                     hintText: LocaleKeys.choose_body.tr(),
                     title: LocaleKeys.body_type.tr(),
+                    hasArrowDown: true,
                   ),
                   SelectorItem(
-                    onTap: () {},
-                    title: 'Привод',
-                    hintText: 'Выберите тип привода',
+                    onTap: () async {
+                      await showModalBottomSheet(
+                        isDismissible: false,
+                        context: context,
+                        isScrollControlled: true,
+                        backgroundColor: Colors.transparent,
+                        builder: (c) => const ChooseBodyType(),
+                      ).then((value) {
+                        widget.rentBloc.add(RentSetParamFromFilterEvent(
+                            carBodyTypeId: value?[0].toString()));
+                      });
+                    },
+                    hintText: LocaleKeys.choose_class.tr(),
+                    title: LocaleKeys.classs.tr(),
+                    hasArrowDown: true,
                   ),
                   SelectorItem(
-                    onTap: () {},
-                    title: 'Коробка',
-                    hintText: 'Выберите тип коробки',
+                    onTap: () async {
+                      await showModalBottomSheet(
+                        isDismissible: false,
+                        context: context,
+                        isScrollControlled: true,
+                        backgroundColor: Colors.transparent,
+                        builder: (c) => const ChooseDriveType(),
+                      ).then((value) {
+                        widget.rentBloc.add(
+                            RentSetParamFromFilterEvent(carDriveTypeId: value));
+                      });
+                    },
+                    hintText: LocaleKeys.choose_drive_type.tr(),
+                    title: LocaleKeys.drive_unit.tr(),
+                    hasArrowDown: true,
+                  ),
+                  SelectorItem(
+                    onTap: () async {
+                      await showModalBottomSheet(
+                        isDismissible: false,
+                        context: context,
+                        isScrollControlled: true,
+                        backgroundColor: Colors.transparent,
+                        builder: (c) => const ChooseGearbox(),
+                      ).then((value) {
+                        widget.rentBloc.add(
+                            RentSetParamFromFilterEvent(gearboxTypeId: value));
+                      });
+                    },
+                    hintText: LocaleKeys.choose_box_type.tr(),
+                    title: LocaleKeys.box.tr(),
+                    hasArrowDown: true,
                   ),
                   Text(
                     'Выберите валюту',

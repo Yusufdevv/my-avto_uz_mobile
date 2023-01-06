@@ -156,6 +156,7 @@ class _ChooseCarModelScreenState extends State<ChooseCarModelScreen> {
                           child: BlocBuilder<ModelSelectorBloc,
                               ModelSelectorState>(
                             builder: (context, state) => ModelItems(
+                              bloc: modelBloc,
                               entity: modelItems[index].title,
                               selectedId: state.selectedId,
                               id: index, text: '',

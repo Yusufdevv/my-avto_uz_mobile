@@ -177,6 +177,7 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
                           imageUrl: carList[index].icon,
                           name: carList[index].title,
                           text: '',
+                          bloc: carSelectorBloc,
                         ),
                       ),
                       itemCount: carList.length,
