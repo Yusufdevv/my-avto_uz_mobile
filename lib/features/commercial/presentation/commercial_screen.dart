@@ -18,12 +18,14 @@ class CommercialScreen extends StatefulWidget {
 
 class _CommercialScreenState extends State<CommercialScreen>
     with SingleTickerProviderStateMixin {
-  late ScrollController _scrollController;
+  late ScrollController _scrollControllerAll;
+  late ScrollController _scrollControllerNew;
+  late ScrollController _scrollControllerRidden;
   CrossFadeState crossFadeState = CrossFadeState.showFirst;
   late TabController tabController;
   double height = 130;
   void _scrollListener() {
-    print('scroll listener trigered ${_scrollController.offset}');
+    // print('scroll listener trigered ${_scrollController.offset}');
     if (_isShrink) {
       setState(() {
         crossFadeState = CrossFadeState.showSecond;
@@ -36,19 +38,21 @@ class _CommercialScreenState extends State<CommercialScreen>
   }
 
   bool get _isShrink =>
-      _scrollController.hasClients &&
-      _scrollController.offset > (height - kToolbarHeight);
+      _scrollControllerAll.hasClients &&
+      _scrollControllerAll.offset > (height - kToolbarHeight);
 
   @override
   void initState() {
-    _scrollController = ScrollController()..addListener(_scrollListener);
+    _scrollControllerAll = ScrollController()..addListener(_scrollListener);
+    _scrollControllerNew = ScrollController();
+    _scrollControllerRidden = ScrollController();
     tabController = TabController(length: 3, vsync: this);
     super.initState();
   }
 
   @override
   void dispose() {
-    _scrollController
+    _scrollControllerAll
       ..removeListener(_scrollListener)
       ..dispose();
     super.dispose();
@@ -73,20 +77,14 @@ class _CommercialScreenState extends State<CommercialScreen>
                     titleSpacing: 1,
                     pinned: true,
                     automaticallyImplyLeading: false,
-                    leading: Expanded(
-                      flex: 1,
-                      child: WScaleAnimation(
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 24, right: 16),
-                          child: Align(
-                            alignment: Alignment.center,
-                            child: Transform.scale(
-                                scale: 1.5,
-                                child: SvgPicture.asset(AppIcons.chevronLeft)),
-                          ),
-                        ),
-                        onTap: () {},
+                    leading: WScaleAnimation(
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 24, right: 16),
+                        child: Transform.scale(
+                            scale: 1.5,
+                            child: SvgPicture.asset(AppIcons.chevronLeft)),
                       ),
+                      onTap: () {},
                     ),
                     title: AnimatedCrossFade(
                       duration: fadeDuration,
@@ -123,21 +121,11 @@ class _CommercialScreenState extends State<CommercialScreen>
                       Padding(
                         padding: const EdgeInsets.only(right: 16),
                         child: WScaleAnimation(
-                          onTap: () {
-                            crossFadeState =
-                                CrossFadeState.showFirst == crossFadeState
-                                    ? CrossFadeState.showSecond
-                                    : CrossFadeState.showFirst;
-                            setState(() {});
-                          } /* => Navigator.push(context, fade(page: const SelectCarScreen()))*/,
-                          child: Expanded(
-                            child: Align(
-                              alignment: Alignment.center,
-                              child: SvgPicture.asset(
-                                AppIcons.arrowsSort,
-                                color: orange,
-                              ),
-                            ),
+                          onTap:
+                              () {} /* => Navigator.push(context, fade(page: const SelectCarScreen()))*/,
+                          child: SvgPicture.asset(
+                            AppIcons.arrowsSort,
+                            color: orange,
                           ),
                         ),
                       ),
@@ -163,11 +151,11 @@ class _CommercialScreenState extends State<CommercialScreen>
                         controller: tabController,
                         children: [
                           CommercialBodyScreen(
-                              scrollController: _scrollController),
+                              scrollController: _scrollControllerAll),
                           CommercialBodyScreen(
-                              scrollController: _scrollController),
+                              scrollController: _scrollControllerNew),
                           CommercialBodyScreen(
-                              scrollController: _scrollController),
+                              scrollController: _scrollControllerRidden),
                         ],
                       ),
                     ),
@@ -184,36 +172,44 @@ class _CommercialScreenState extends State<CommercialScreen>
                 height: 46,
                 duration: fadeDuration,
                 child: Container(
+                  alignment: Alignment.center,
                   decoration: BoxDecoration(
                       color: orange, borderRadius: BorderRadius.circular(22)),
                   width: crossFadeState == CrossFadeState.showFirst ? 221 : 44,
                   height: 44,
                   child: AnimatedCrossFade(
-                    alignment: Alignment.center,
-                    duration: fadeDuration,
+                    duration: const Duration(microseconds: 10),
                     crossFadeState: crossFadeState,
-                    firstChild: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Text(
-                          'Сохранить поиск',
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w600,
+                    firstChild: FittedBox(
+                      fit: BoxFit.cover,
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Text(
+                            'Сохранить поиск',
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600,
+                              color: white,
+                            ),
+                          ),
+                          const SizedBox(width: 12),
+                          SvgPicture.asset(
+                            AppIcons.searchWithHeart,
                             color: white,
                           ),
-                        ),
-                        const SizedBox(width: 12),
+                        ],
+                      ),
+                    ),
+                    secondChild: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
                         SvgPicture.asset(
                           AppIcons.searchWithHeart,
                           color: white,
                         ),
                       ],
-                    ),
-                    secondChild: SvgPicture.asset(
-                      AppIcons.searchWithHeart,
-                      color: white,
                     ),
                   ),
                 ),
