@@ -7,7 +7,7 @@ import 'package:auto/features/comparison/domain/entities/complectation_entity.da
 import 'package:auto/features/comparison/domain/entities/complectation_parameters_entity.dart';
 import 'package:auto/features/comparison/domain/usecases/delete_comparison.dart';
 import 'package:auto/features/comparison/presentation/bloc/comparison-bloc/comparison_bloc.dart';
-import 'package:auto/features/comparison/presentation/pages/ads/ads.dart';
+import 'package:auto/features/ad/presentation/pages/ads/ads_screen.dart';
 import 'package:auto/features/comparison/presentation/pages/choose_car_brand.dart';
 import 'package:auto/features/comparison/presentation/pages/choose_model.dart';
 import 'package:auto/features/comparison/presentation/widgets/engin_info_widget.dart';

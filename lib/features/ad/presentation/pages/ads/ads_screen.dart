@@ -7,7 +7,7 @@ import 'package:auto/features/commercial/presentation/widgets/commercial_tab.dar
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/comparison/presentation/bloc/filter_parameters_bloc/bloc/filter_parameters_bloc.dart';
-import 'package:auto/features/comparison/presentation/pages/ads/ads_body_screen.dart';
+import 'package:auto/features/ad/presentation/pages/ads/ads_body_screen.dart';
 import 'package:auto/features/search/presentation/search_screen.dart';
 import 'package:auto/features/search/presentation/widgets/sort_bottom_sheet.dart';
 import 'package:flutter/material.dart';

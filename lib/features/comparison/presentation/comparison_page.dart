@@ -1,10 +1,9 @@
 import 'package:auto/core/singletons/service_locator.dart';
-import 'package:auto/features/ad/presentation/bloc/choose_model/car_type_selector_bloc.dart';
+import 'package:auto/features/ad/presentation/pages/ads/ads_screen.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/comparison/data/repositories/comparison_cars_repo_impl.dart';
 import 'package:auto/features/comparison/domain/usecases/comparison_cars_use_case.dart';
 import 'package:auto/features/comparison/presentation/bloc/comparison-bloc/comparison_bloc.dart';
-import 'package:auto/features/comparison/presentation/pages/ads/ads.dart';
 import 'package:auto/features/comparison/presentation/pages/choose_car_brand.dart';
 import 'package:auto/features/comparison/presentation/pages/choose_model.dart';
 import 'package:auto/features/comparison/presentation/pages/comaparison.dart';

@@ -39,7 +39,6 @@ void main() async {
           Locale('uz'),
         ],
         path: 'lib/assets/strings',
-        // <-- change the path of the translation files
         fallbackLocale: const Locale('ru'),
         assetLoader: const CodegenLoader(),
         child: const AppProvider()),
