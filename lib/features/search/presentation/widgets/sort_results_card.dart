@@ -79,6 +79,7 @@ class SortResultsCard extends StatelessWidget {
         break;
     }
     return InfoResultContainer(
+      currency: newList[index].currency,
       discount: newList[index].discount,
       callFrom: newList[index].contactAvailableFrom,
       callTo: newList[index].contactAvailableTo,

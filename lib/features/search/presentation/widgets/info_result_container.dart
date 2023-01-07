@@ -34,6 +34,7 @@ class InfoResultContainer extends StatefulWidget {
       required this.isNew,
       required this.isWishlisted,
       required this.price,
+      required this.currency,
       required this.publishedAt,
       required this.userFullName,
       required this.userImage,
@@ -52,6 +53,7 @@ class InfoResultContainer extends StatefulWidget {
   final int carYear;
   final int id;
   final double price;
+  final String currency;
   final bool isNew;
   final String description;
   final String userImage;
@@ -271,7 +273,7 @@ class _InfoResultContainerState extends State<InfoResultContainer> {
               if (widget.discount == -1)
                 RichText(
                   text: TextSpan(
-                    text: MyFunctions.getFormatCost('${widget.price}'),
+                    text: MyFunctions.getFormatCost('${widget.price} ${widget.currency.toUpperCase()}'),
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w600,
@@ -286,8 +288,8 @@ class _InfoResultContainerState extends State<InfoResultContainer> {
                   text: TextSpan(
                     children: [
                       TextSpan(
-                        text: MyFunctions.getFormatCost(
-                            widget.discount.toString()),
+                        text: MyFunctions.getFormatCost('${widget.discount} ${widget.currency.toUpperCase()}')
+                        ,
                         style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w600,
@@ -296,7 +298,7 @@ class _InfoResultContainerState extends State<InfoResultContainer> {
                       ),
                       const WidgetSpan(child: SizedBox(width: 4)),
                       TextSpan(
-                        text: MyFunctions.getFormatCost('${widget.price}'),
+                        text: MyFunctions.getFormatCost('${widget.price} ${widget.currency.toUpperCase()}'),
                         style: Theme.of(context).textTheme.headline2!.copyWith(
                               decoration: TextDecoration.lineThrough,
                               color: grey,

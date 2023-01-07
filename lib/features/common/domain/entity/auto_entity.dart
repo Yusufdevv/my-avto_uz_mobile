@@ -21,7 +21,6 @@ class AutoEntity extends Equatable {
     this.engineType = const TypeEntity(),
     this.gearboxType = const TypeEntity(),
     this.modificationType = const CarModificationTypeEntity(),
-    // this.stats = const StatsEntity(),
     this.contactEmail = '',
     this.contactName = '',
     this.contactPhone = '',
@@ -40,6 +39,7 @@ class AutoEntity extends Equatable {
     this.isWishlisted = false,
     this.latitude = 0,
     this.licenceType = '',
+    this.moderationStatus = '',
     this.longitude = 0,
     this.ownership = '',
     this.publishedAt = '',
@@ -90,6 +90,7 @@ class AutoEntity extends Equatable {
   final CarUserEntity user;
   final dynamic dealer;
   final String licenceType;
+  final String moderationStatus;
   final String absoluteCarName;
   final String color;
   final String ownership;
@@ -139,6 +140,7 @@ class AutoEntity extends Equatable {
         user,
         dealer,
         licenceType,
+        moderationStatus,
         ownership,
         description,
         isRegisteredLocally,
@@ -186,6 +188,7 @@ class AutoConverter
         engineType: object.engineType,
         gearboxType: object.gearboxType,
         generation: object.generation,
+        moderationStatus: object.moderationStatus,
         make: object.make,
         model: object.model,
         modificationType: object.modificationType,

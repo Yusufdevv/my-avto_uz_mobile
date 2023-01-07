@@ -19,6 +19,11 @@ class ChangePhoneDataEvent extends ProfileEvent {
   });
   
 }
+class LoginUser extends ProfileEvent {
+  final String phone ;
+  final String password ;
+  LoginUser({required this.password, required this.phone});
+}
 
 class ChangePasswordEvent extends ProfileEvent {
   final String oldPassword;
