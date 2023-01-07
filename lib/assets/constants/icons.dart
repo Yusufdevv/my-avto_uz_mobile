@@ -241,4 +241,5 @@ class AppIcons {
   static const wait = 'assets/images/car_single/waiting.svg';
   static const mercedes = 'assets/icons/car_single/benz.svg';
   static const eye2 = 'assets/icons/car_single/eye2.svg';
+  static const bl_ch = 'assets/icons/car_single/bl_ch.svg';
 }

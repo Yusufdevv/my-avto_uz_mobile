@@ -1,8 +1,6 @@
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
-import 'package:auto/features/ad/const/constants.dart';
-import 'package:auto/features/ad/domain/entities/damaged_part/damaged_part.dart';
 import 'package:auto/features/car_single/domain/entities/damaged_parts_entity.dart';
 import 'package:auto/features/car_single/presentation/widgets/car_status_icon.dart';
 import 'package:auto/features/car_single/presentation/widgets/information_about_doors.dart';

@@ -144,6 +144,9 @@ class _CarSingleScreenState extends State<CarSingleScreen>
               if (state.status != FormzStatus.submissionSuccess) {
                 return const Center(child: CupertinoActivityIndicator());
               } else {
+                // if (state.singleEntity.price != null && state.singleEntity.price.length >= 5) {
+                //   state.singleEntity.price = state.singleEntity.price.substring(0, state.singleEntity.price.length - 5);
+                // }
                 print('DAMAGE PARTS -> ${state.singleEntity.damagedParts}');
                 return Stack(
                   children: [
@@ -238,6 +241,7 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                             fullname: state.singleEntity.absoluteCarName,
                             price: MyFunctions.getFormattedPrice(
                                 state.singleEntity.price, [3, 6, 9, 12]),
+
                             date: state.singleEntity.publishedAt,
                             view: '${state.singleEntity.viewsCount}',
                             id: '${state.singleEntity.id}',

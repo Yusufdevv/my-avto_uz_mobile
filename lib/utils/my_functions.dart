@@ -419,7 +419,7 @@ class MyFunctions {
       case 'scratched':
         return SvgPicture.asset(AppIcons.yellowWarning);
       case 'replaced':
-        return SvgPicture.asset(AppIcons.checkRounded, color: blue, height: 20, width: 20);
+        return SvgPicture.asset(AppIcons.bl_ch, height: 24, width: 24);
       case 'with_dents':
         return SvgPicture.asset(AppIcons.blueWarning);
       case 'requires_replacement':
