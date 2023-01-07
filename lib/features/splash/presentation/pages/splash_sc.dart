@@ -41,18 +41,21 @@ class _SplashScState extends State<SplashSc> {
   }
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-        body: Center(
-          child: Column(
-            children: [
-              const Spacer(),
-              SvgPicture.asset(
-                Theme.of(context).extension<ThemedIcons>()!.autoUzLightDark,
-              ),
-              const Spacer(),
-              Lottie.asset('assets/lottie/red_car.json', height: 86),
-            ],
-          ),
+  Widget build(BuildContext context) {
+    print('=>=>=>=> this is SplashSc <=<=<=<=');
+    return Scaffold(
+      body: Center(
+        child: Column(
+          children: [
+            const Spacer(),
+            SvgPicture.asset(
+              Theme.of(context).extension<ThemedIcons>()!.autoUzLightDark,
+            ),
+            const Spacer(),
+            Lottie.asset('assets/lottie/red_car.json', height: 86),
+          ],
         ),
-      );
+      ),
+    );
+  }
 }
