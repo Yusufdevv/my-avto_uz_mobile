@@ -2,7 +2,6 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
-import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -21,7 +20,7 @@ class ProfileMenuTile extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => WScaleAnimation(
+  Widget build(BuildContext context) => GestureDetector(
         onTap: onTap,
         child: Container(
           padding: const EdgeInsets.fromLTRB(12, 12, 12, 16),
