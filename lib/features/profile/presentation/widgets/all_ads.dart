@@ -358,6 +358,6 @@ class _AllAdsState extends State<AllAds> {
       );
 }
 // Advertising(
-                    //   isSalon: true,
-                    //   images: [image1, imege2],
-                    // ),
+//   isSalon: true,
+//   images: [image1, imege2],
+// ),
