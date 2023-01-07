@@ -8,14 +8,14 @@ class StoryItem extends StatelessWidget {
     required this.image,
     required this.title,
     required this.onTap,
-    required this.shimmer,
+    required this.isRead,
     Key? key,
   }) : super(key: key);
 
   final String image;
   final String title;
   final VoidCallback onTap;
-  final bool shimmer;
+  final bool isRead;
 
   @override
   Widget build(BuildContext context) => WScaleAnimation(
@@ -25,19 +25,23 @@ class StoryItem extends StatelessWidget {
           width: 80,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
-              gradient: LinearGradient(
-                begin: Alignment.topRight,
-                end: Alignment.bottomLeft,
-                colors: [
-                  orange.withOpacity(1),
-                  purple.withOpacity(1),
-                ],
-              ),
+              border: isRead ? Border.all(color: dividerColor, width: 2) : null,
+              gradient: isRead
+                  ? null
+                  : LinearGradient(
+                      begin: Alignment.topRight,
+                      end: Alignment.bottomLeft,
+                      colors: [
+                        orange.withOpacity(1),
+                        purple.withOpacity(1),
+                      ],
+                    ),
               boxShadow: [
                 BoxShadow(
-                    offset: const Offset(0, 8),
-                    blurRadius: 19,
-                    color: purple.withOpacity(.12)),
+                  offset: const Offset(0, 8),
+                  blurRadius: 19,
+                  color: purple.withOpacity(.12),
+                ),
               ]),
           child: Container(
             margin: const EdgeInsets.all(2),
@@ -49,7 +53,7 @@ class StoryItem extends StatelessWidget {
               children: [
                 Positioned.fill(
                   child: Container(
-                    padding: const EdgeInsets.all(4),
+                    padding: const EdgeInsets.all(2),
                     child: CachedImage(
                       fit: BoxFit.cover,
                       height: 40,
@@ -60,7 +64,7 @@ class StoryItem extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  margin: const EdgeInsets.all(3),
+                  margin: const EdgeInsets.all(2),
                   padding: const EdgeInsets.all(4),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),

@@ -29,7 +29,7 @@ class _TabNavigatorState extends State<TabNavigator>
     switch (widget.tabItem) {
       case NavItemEnum.head:
         return {
-          TabNavigatorRoutes.root: (context) => const CarSingleScreen(),
+          TabNavigatorRoutes.root: (context) => const MainScreen(),
         };
       case NavItemEnum.search:
         return {

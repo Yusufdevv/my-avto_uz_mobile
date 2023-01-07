@@ -32,7 +32,7 @@ class StoryScreen extends StatefulWidget {
 class _StoryScreenState extends State<StoryScreen>
     with SingleTickerProviderStateMixin {
   late StoryBloc bloc;
-  late PageController pageController;
+  late TransformerPageController pageController;
   late AnimationController animationController;
   int storyIndex = 0;
   int itemIndex = 0;
@@ -42,10 +42,10 @@ class _StoryScreenState extends State<StoryScreen>
     super.initState();
     bloc = StoryBloc();
     storyIndex = widget.index;
-    pageController = PageController();
+    pageController = TransformerPageController();
     animationController = AnimationController(vsync: this);
 
-    _loadStory();
+    // _loadStory();
     animationController.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
         animationController
@@ -86,16 +86,23 @@ class _StoryScreenState extends State<StoryScreen>
           child: Stack(
             children: [
               TransformerPageView(
+                pageController: pageController,
                 transformer: ThreeDTransformer(),
                 itemCount: widget.stories.length,
                 itemBuilder: (context, index) => CachedNetworkImage(
                   imageUrl:
                   widget.stories[storyIndex].items[itemIndex].content,
                   fit: BoxFit.cover,
-                  placeholder: (context, url) => Image.asset(
-                    AppImages.defaultPhoto,
-                    fit: BoxFit.cover,
-                  ),
+                  imageBuilder: (context, image) => Image(image: image),
+                  progressIndicatorBuilder: (context, s, progress) {
+                    if(progress.totalSize == progress.downloaded) {
+                      _loadStory();
+                    }
+                    return Image.asset(
+                      AppImages.defaultPhoto,
+                      fit: BoxFit.cover,
+                    );
+                  },
                   errorWidget: (context, url, error) => Image.asset(
                     AppImages.defaultPhoto,
                     fit: BoxFit.cover,
