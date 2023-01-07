@@ -4,6 +4,7 @@ import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/core/singletons/service_locator.dart';
+import 'package:auto/features/ad/data/repositories/ad_repository_impl.dart';
 import 'package:auto/features/common/bloc/comparison_add/bloc/comparison_add_bloc.dart';
 import 'package:auto/features/common/bloc/wishlist_add/wishlist_add_bloc.dart';
 import 'package:auto/features/common/repository/add_wishlist_repository.dart';
@@ -11,6 +12,7 @@ import 'package:auto/features/common/usecases/add_wishlist_usecase.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/comparison/data/repositories/comparison_cars_repo_impl.dart';
 import 'package:auto/features/comparison/domain/usecases/comparison_add_use_case.dart';
+import 'package:auto/features/comparison/domain/usecases/delete_comparison.dart';
 import 'package:auto/features/search/presentation/part/bottom_sheet_for_calling.dart';
 import 'package:auto/features/search/presentation/widgets/add_comparison_item.dart';
 import 'package:auto/features/search/presentation/widgets/add_wishlist_item.dart';
@@ -40,7 +42,7 @@ class InfoResultContainer extends StatefulWidget {
       required this.callFrom,
       required this.callTo,
       required this.discount,
-        required this.id,
+      required this.id,
       this.sellType,
       super.key});
 
@@ -82,8 +84,10 @@ class _InfoResultContainerState extends State<InfoResultContainer> {
             repo: serviceLocator<AddWishlistRepositoryImpl>()));
 
     comparisonAddBloc = ComparisonAddBloc(
-        useCase: ComparisonAddUseCase(
-            comparisonAddRepo: serviceLocator<ComparisonCarsRepoImpl>()));
+        addUseCase: ComparisonAddUseCase(
+            comparisonAddRepo: serviceLocator<ComparisonCarsRepoImpl>()),
+        deleteUseCase: DeleteComparisonUseCase(
+            comparisonCarsRepo: serviceLocator<AdRepositoryImpl>()));
 
     super.initState();
   }

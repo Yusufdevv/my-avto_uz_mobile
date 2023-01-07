@@ -20,32 +20,38 @@ mixin _$ComparisonAddEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(int id) postComparisonCars,
+    required TResult Function(int id) deleteComparison,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(int id)? postComparisonCars,
+    TResult? Function(int id)? deleteComparison,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(int id)? postComparisonCars,
+    TResult Function(int id)? deleteComparison,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_PostComparisonCars value) postComparisonCars,
+    required TResult Function(_DeleteComparison value) deleteComparison,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_PostComparisonCars value)? postComparisonCars,
+    TResult? Function(_DeleteComparison value)? deleteComparison,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_PostComparisonCars value)? postComparisonCars,
+    TResult Function(_DeleteComparison value)? deleteComparison,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -156,6 +162,7 @@ class _$_PostComparisonCars implements _PostComparisonCars {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(int id) postComparisonCars,
+    required TResult Function(int id) deleteComparison,
   }) {
     return postComparisonCars(id);
   }
@@ -164,6 +171,7 @@ class _$_PostComparisonCars implements _PostComparisonCars {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(int id)? postComparisonCars,
+    TResult? Function(int id)? deleteComparison,
   }) {
     return postComparisonCars?.call(id);
   }
@@ -172,6 +180,7 @@ class _$_PostComparisonCars implements _PostComparisonCars {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(int id)? postComparisonCars,
+    TResult Function(int id)? deleteComparison,
     required TResult orElse(),
   }) {
     if (postComparisonCars != null) {
@@ -184,6 +193,7 @@ class _$_PostComparisonCars implements _PostComparisonCars {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_PostComparisonCars value) postComparisonCars,
+    required TResult Function(_DeleteComparison value) deleteComparison,
   }) {
     return postComparisonCars(this);
   }
@@ -192,6 +202,7 @@ class _$_PostComparisonCars implements _PostComparisonCars {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_PostComparisonCars value)? postComparisonCars,
+    TResult? Function(_DeleteComparison value)? deleteComparison,
   }) {
     return postComparisonCars?.call(this);
   }
@@ -200,6 +211,7 @@ class _$_PostComparisonCars implements _PostComparisonCars {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_PostComparisonCars value)? postComparisonCars,
+    TResult Function(_DeleteComparison value)? deleteComparison,
     required TResult orElse(),
   }) {
     if (postComparisonCars != null) {
@@ -217,6 +229,143 @@ abstract class _PostComparisonCars implements ComparisonAddEvent {
   @override
   @JsonKey(ignore: true)
   _$$_PostComparisonCarsCopyWith<_$_PostComparisonCars> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_DeleteComparisonCopyWith<$Res>
+    implements $ComparisonAddEventCopyWith<$Res> {
+  factory _$$_DeleteComparisonCopyWith(
+          _$_DeleteComparison value, $Res Function(_$_DeleteComparison) then) =
+      __$$_DeleteComparisonCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({int id});
+}
+
+/// @nodoc
+class __$$_DeleteComparisonCopyWithImpl<$Res>
+    extends _$ComparisonAddEventCopyWithImpl<$Res, _$_DeleteComparison>
+    implements _$$_DeleteComparisonCopyWith<$Res> {
+  __$$_DeleteComparisonCopyWithImpl(
+      _$_DeleteComparison _value, $Res Function(_$_DeleteComparison) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+  }) {
+    return _then(_$_DeleteComparison(
+      null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_DeleteComparison implements _DeleteComparison {
+  _$_DeleteComparison(this.id);
+
+  @override
+  final int id;
+
+  @override
+  String toString() {
+    return 'ComparisonAddEvent.deleteComparison(id: $id)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_DeleteComparison &&
+            (identical(other.id, id) || other.id == id));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, id);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_DeleteComparisonCopyWith<_$_DeleteComparison> get copyWith =>
+      __$$_DeleteComparisonCopyWithImpl<_$_DeleteComparison>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(int id) postComparisonCars,
+    required TResult Function(int id) deleteComparison,
+  }) {
+    return deleteComparison(id);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(int id)? postComparisonCars,
+    TResult? Function(int id)? deleteComparison,
+  }) {
+    return deleteComparison?.call(id);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(int id)? postComparisonCars,
+    TResult Function(int id)? deleteComparison,
+    required TResult orElse(),
+  }) {
+    if (deleteComparison != null) {
+      return deleteComparison(id);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_PostComparisonCars value) postComparisonCars,
+    required TResult Function(_DeleteComparison value) deleteComparison,
+  }) {
+    return deleteComparison(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_PostComparisonCars value)? postComparisonCars,
+    TResult? Function(_DeleteComparison value)? deleteComparison,
+  }) {
+    return deleteComparison?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_PostComparisonCars value)? postComparisonCars,
+    TResult Function(_DeleteComparison value)? deleteComparison,
+    required TResult orElse(),
+  }) {
+    if (deleteComparison != null) {
+      return deleteComparison(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _DeleteComparison implements ComparisonAddEvent {
+  factory _DeleteComparison(final int id) = _$_DeleteComparison;
+
+  @override
+  int get id;
+  @override
+  @JsonKey(ignore: true)
+  _$$_DeleteComparisonCopyWith<_$_DeleteComparison> get copyWith =>
       throw _privateConstructorUsedError;
 }
 

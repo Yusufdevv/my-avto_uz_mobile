@@ -125,7 +125,7 @@ class __$$_DeleteComparisonECopyWithImpl<$Res>
 /// @nodoc
 
 class _$_DeleteComparisonE implements _DeleteComparisonE {
-  const _$_DeleteComparisonE(this.id);
+  _$_DeleteComparisonE(this.id);
 
   @override
   final int id;
@@ -211,7 +211,7 @@ class _$_DeleteComparisonE implements _DeleteComparisonE {
 }
 
 abstract class _DeleteComparisonE implements DeleteComparisonEvent {
-  const factory _DeleteComparisonE(final int id) = _$_DeleteComparisonE;
+  factory _DeleteComparisonE(final int id) = _$_DeleteComparisonE;
 
   @override
   int get id;

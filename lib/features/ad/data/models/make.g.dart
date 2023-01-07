@@ -7,7 +7,7 @@ part of 'make.dart';
 // **************************************************************************
 
 MakeModel _$MakeModelFromJson(Map<String, dynamic> json) => MakeModel(
-      id: json['id'] as int? ?? 0,
+      id: json['id'] as int? ?? -1,
       name: json['name'] as String? ?? '',
       logo: json['logo'] as String? ?? '',
     );
