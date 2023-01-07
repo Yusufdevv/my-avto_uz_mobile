@@ -1,9 +1,11 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
-import 'package:auto/core/singletons/storage.dart';
+import 'package:auto/features/ad/presentation/pages/ads/ads_screen.dart';
 import 'package:auto/features/commercial/presentation/commercial_screen.dart';
 
 import 'package:auto/features/common/widgets/w_button.dart';
+import 'package:auto/features/comparison/presentation/pages/choose_car_brand.dart';
+import 'package:auto/features/comparison/presentation/pages/choose_model.dart';
 import 'package:auto/features/dealers/presentation/dealers_main.dart';
 import 'package:auto/features/main/domain/entities/service_entity.dart';
 import 'package:auto/features/main/domain/usecases/get_top_ads.dart';
@@ -79,17 +81,15 @@ class _MainScreenState extends State<MainScreen> {
       () {
         Navigator.pushReplacement(context, fade(page: const DealerScreen()));
       },
-      () async {
-        /// for testing purpose
-        // await StorageRepository.putString('token', '');
-        // await StorageRepository.putBool(key: 'onboarding', value: false);
+      () {
+        Navigator.of(context, rootNavigator: true)
+            .push(fade(page: const AdsScreen()));
       },
       () {
-        
         /// for testing purpose
         // var onboarding = StorageRepository.getBool('onboarding');
         // var token = StorageRepository.getString('token');
-     },
+      },
       () {},
       () {
         Navigator.of(context, rootNavigator: true)
@@ -162,8 +162,11 @@ class _MainScreenState extends State<MainScreen> {
                   CarModelItem(
                     count: 1,
                     onTapSelect: () =>
-                        Navigator.of(context, rootNavigator: true)
-                            .push(fade(page: const SelectCarModelScreen())),
+                        Navigator.of(context, rootNavigator: true).push(fade(
+                            page: ChooseCarBrandComparison(
+                                onTap: () => Navigator.of(context).push(fade(
+                                    page: ChooseCarModelComparison(
+                                        onTap: () {})))))),
                     onTapShow: () {},
                   ),
                   SizedBox(
