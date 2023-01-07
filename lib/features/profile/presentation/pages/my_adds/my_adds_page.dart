@@ -27,8 +27,7 @@ class _MyAddsPageState extends State<MyAddsPage> with TickerProviderStateMixin {
   @override
   void initState() {
     tabController = TabController(length: 3, vsync: this);
-    widget.profileBloc
-        .add(GetProfileFavoritesEvent(endpoint: '/car/my-announcements/'));
+
     super.initState();
   }
 
@@ -39,80 +38,63 @@ class _MyAddsPageState extends State<MyAddsPage> with TickerProviderStateMixin {
   }
 
   @override
-  Widget build(BuildContext context) => BlocProvider.value(
-        value: widget.profileBloc,
-        child: Scaffold(
-          body: NestedScrollView(
-            headerSliverBuilder: (context, item) => [
-              SliverAppBar(
-                pinned: true,
-                leadingWidth: 40,
-                leading: GestureDetector(
-                  onTap: () => Navigator.pop(context),
-                  child: Row(
-                    children: [
-                      const SizedBox(width: 20),
-                      SizedBox(
-                          height: 20,
-                          width: 20,
-                          child: SvgPicture.asset(
-                            AppIcons.chevronLeft,
-                          )),
-                    ],
-                  ),
-                ),
-                title: Text(LocaleKeys.my_ads.tr()),
-              ),
-              SliverPersistentHeader(
-                delegate: ProfileTabBar(
-                  tabController: tabController,
-                  onTap: (index) {},
-                  tabs: [
-                    LocaleKeys.all.tr(),
-                    LocaleKeys.using.tr(),
-                    LocaleKeys.close.tr(),
+  Widget build(BuildContext context) => Scaffold(
+        body: NestedScrollView(
+          headerSliverBuilder: (context, item) => [
+            SliverAppBar(
+              pinned: true,
+              leadingWidth: 40,
+              leading: GestureDetector(
+                onTap: () => Navigator.pop(context),
+                child: Row(
+                  children: [
+                    const SizedBox(width: 20),
+                    SizedBox(
+                        height: 20,
+                        width: 20,
+                        child: SvgPicture.asset(
+                          AppIcons.chevronLeft,
+                        )),
                   ],
                 ),
-              )
-            ],
-            body: BlocBuilder<ProfileBloc, ProfileState>(
-              builder: (context, state) {
-                if (state.secondStatus.isSubmissionFailure) {
-                  return const Center(
-                    child: Text('Xatolik!'),
-                  );
-                }
-                if (state.secondStatus.isSubmissionInProgress) {
-                  return const Center(
-                      child: CupertinoActivityIndicator(color: white));
-                }
-                if (state.secondStatus.isSubmissionSuccess &&
-                    state.autoEntity.isNotEmpty) {
-                  return TabBarView(
-                    controller: tabController,
-                    children: [
-                      const AllAds(),
-                      Column(
-                        children: const [Text('2 tab')],
-                      ),
-                      Column(
-                        children: const [Text('2 tab')],
-                      ),
-                    ],
-                  );
-                }
-                if (state.secondStatus.isSubmissionSuccess &&
-                    state.autoEntity.isEmpty) {
-                  return const EmptyItemBody(
-                    title: 'У вас еще нет объявлений'
-                  );
-                }
-                return const EmptyItemBody(
-                  title: 'Xatolik'
-                );
-              },
+              ),
+              title: Text(LocaleKeys.my_ads.tr()),
             ),
-          ),
+            SliverPersistentHeader(
+              delegate: ProfileTabBar(
+                tabController: tabController,
+                onTap: (index) {},
+                tabs: [
+                  LocaleKeys.all.tr(),
+                  LocaleKeys.using.tr(),
+                  LocaleKeys.close.tr(),
+                ],
+              ),
+            )
+          ],
+          body:
+              BlocBuilder<ProfileBloc, ProfileState>(builder: (context, state) {
+            if (state.secondStatus.isSubmissionFailure) {
+              return const Center(child: Text('Xatolik!'));
+            }
+            if (state.secondStatus.isSubmissionInProgress) {
+              return const Center(
+                  child: CupertinoActivityIndicator(color: white));
+            }
+            if (state.secondStatus.isSubmissionSuccess) {
+              return state.autoEntity.isNotEmpty
+                  ? TabBarView(
+                      controller: tabController,
+                      children: [
+                        AllAds(autoEntity: state.autoEntity),
+                        AllAds(autoEntity: state.autoEntity),
+                        AllAds(autoEntity: state.autoEntity),
+                      ],
+                    )
+                  : const EmptyItemBody(title: 'У вас еще нет объявлений');
+            }
+            return const Center(child: CupertinoActivityIndicator());
+          }),
         ),
       );
 }

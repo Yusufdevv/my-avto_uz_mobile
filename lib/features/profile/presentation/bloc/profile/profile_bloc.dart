@@ -1,5 +1,6 @@
 import 'package:auto/core/usecases/usecase.dart';
 import 'package:auto/features/common/domain/entity/auto_entity.dart';
+import 'package:auto/features/common/repository/auth.dart';
 import 'package:auto/features/profile/domain/entities/profile_data_entity.dart';
 import 'package:auto/features/profile/domain/entities/terms_of_use_entity.dart';
 import 'package:auto/features/profile/domain/usecases/change_password_usecase.dart';
@@ -17,6 +18,8 @@ part 'profile_event.dart';
 part 'profile_state.dart';
 
 class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
+  final AuthRepository repository;
+
   final ProfileUseCase profileUseCase;
   final ProfileFavoritesUseCase profileFavoritesUseCase;
   final EditProfileUseCase editProfileUseCase;
@@ -29,6 +32,8 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     required this.editProfileUseCase,
     required this.changePasswordUseCase,
     required this.getTermsOfUseUseCase,
+    required this.repository,
+
     
   }) : super(
           ProfileState(
@@ -47,7 +52,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     on<EditProfileEvent>(_onEditProfile);
     on<GetProfileFavoritesEvent>(_onGetProfileFavorites);
     on<GetTermsOfUseEvent>(_onGetTermsOfUse);
-    
+    on<LoginUser>(_onLoginUser);
   }
   
   Future<void> _onGetProfile(
@@ -124,6 +129,21 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       emit(state.copyWith(changeStatus: FormzStatus.submissionFailure));
     }
   }
+
+  Future<void> _onLoginUser(LoginUser event,Emitter<ProfileState> emit) async {
+      final result = await repository.login(
+          login: event.phone, password: event.password);
+      if (result.isRight) {
+        print('auth good ');
+        
+        
+      } 
+      // else {
+      //   if (event.onError != null) {
+      //     event.onError!((result.left as ServerFailure).errorMessage);
+      //   }
+      // }
+    }
 
 
   Future<void> _onGetProfileFavorites(

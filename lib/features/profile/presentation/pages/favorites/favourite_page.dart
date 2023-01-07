@@ -21,37 +21,32 @@ class FavouritePage extends StatefulWidget {
 class _FavouritePageState extends State<FavouritePage> {
   @override
   void initState() {
-    widget.profileBloc.add(GetProfileFavoritesEvent(
-        endpoint: '/users/wishlist/announcement/list/'));
     super.initState();
   }
 
   @override
-  Widget build(BuildContext context) => BlocProvider.value(
-        value: widget.profileBloc,
-        child: Scaffold(
-          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-          appBar: WAppBar(
-            title: LocaleKeys.favorites.tr(),
-            centerTitle: false,
-          ),
-          body: BlocBuilder<ProfileBloc, ProfileState>(
-            builder: (context, state) {
-              if (state.secondStatus.isSubmissionFailure) {
-                return const Center(
-                  child: Text('Xatolik!'),
-                );
-              }
-              if (state.secondStatus.isSubmissionInProgress) {
-                return const Center(
-                    child: CupertinoActivityIndicator(
-                  color: white,
-                ));
-              }
-              if (state.secondStatus.isSubmissionSuccess &&
-                  state.autoEntity.isNotEmpty) {
-                final favorites = state.autoEntity;
-                ListView.builder(
+  Widget build(BuildContext context) => Scaffold(
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        appBar: WAppBar(
+          title: LocaleKeys.favorites.tr(),
+          centerTitle: false,
+        ),
+        body: BlocBuilder<ProfileBloc, ProfileState>(
+          builder: (context, state) {
+            if (state.secondStatus.isSubmissionFailure) {
+              return const Center(child: Text('Xatolik!'));
+            }
+            if (state.secondStatus.isSubmissionInProgress) {
+              return const Center(
+                  child: CupertinoActivityIndicator(color: white));
+            }
+            // if (state.secondStatus.isSubmissionSuccess &&
+            //     state.autoEntity.isEmpty) {
+            //   return const EmptyItemBody(title: 'У вас еще нет объявлений');
+            // }
+            final favorites = state.autoEntity;
+            return state.autoEntity.isNotEmpty
+                ? ListView.builder(
                     itemCount: favorites.length,
                     itemBuilder: (context, index) {
                       final item = favorites[index];
@@ -65,6 +60,7 @@ class _FavouritePageState extends State<FavouritePage> {
                           isNew: item.isNew,
                           isWishlisted: item.isWishlisted,
                           price: item.price,
+                          currency: item.currency,
                           id: item.id,
                           publishedAt: item.publishedAt,
                           userFullName: item.user.fullName,
@@ -74,15 +70,9 @@ class _FavouritePageState extends State<FavouritePage> {
                           callFrom: item.contactAvailableFrom,
                           callTo: item.contactAvailableTo,
                           discount: item.discount);
-                    });
-              }
-              if (state.secondStatus.isSubmissionSuccess &&
-                  state.autoEntity.isEmpty) {
-                return const EmptyItemBody(title: 'У вас еще нет объявлений');
-              }
-              return const EmptyItemBody(title: 'Xatolik!');
-            },
-          ),
+                    })
+                : const Center(child: CupertinoActivityIndicator());
+          },
         ),
       );
 }

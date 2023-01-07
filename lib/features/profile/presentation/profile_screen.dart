@@ -1,4 +1,5 @@
 import 'package:auto/core/singletons/storage.dart';
+import 'package:auto/features/common/repository/auth.dart';
 import 'package:auto/features/comparison/presentation/comparison_page.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
@@ -43,11 +44,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
   void initState() {
     final repo = serviceLocator<ProfileRepositoryImpl>();
     profileBloc = ProfileBloc(
+      
       changePasswordUseCase: ChangePasswordUseCase(repository: repo),
       editProfileUseCase: EditProfileUseCase(repository: repo),
       profileUseCase: ProfileUseCase(repository: repo),
       profileFavoritesUseCase: ProfileFavoritesUseCase(repository: repo),
       getTermsOfUseUseCase: GetTermsOfUseUseCase(repository: repo),
+      repository: AuthRepository()
     )..add(GetProfileEvent());
     imageBloc = ImageBloc();
     super.initState();
@@ -105,17 +108,26 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           margin: EdgeInsets.only(
                               top: SizeConfig.v(16), bottom: SizeConfig.v(12)),
                         ),
-
                         // izbrannoe va sravnenie
                         ProfilItemsBox(widgets: [
                           ProfileMenuTile(
                               name: LocaleKeys.favorites.tr(),
                               onTap: () {
+                                print(StorageRepository.getString('token'));
+                                context.read<ProfileBloc>().add(
+                                    GetProfileFavoritesEvent(
+                                        endpoint:
+                                            '/users/wishlist/announcement/list/'));
                                 Navigator.push(
-                                    context,
-                                    fade(
-                                        page: FavouritePage(
-                                            profileBloc: profileBloc)));
+                                  context,
+                                  fade(
+                                    page: BlocProvider.value(
+                                      value: profileBloc,
+                                      child: FavouritePage(
+                                          profileBloc: profileBloc),
+                                    ),
+                                  ),
+                                );
                               },
                               iconPath: AppIcons.heartBlue,
                               count: state.profileEntity.usercountdata
@@ -136,9 +148,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ProfileMenuTile(
                               name: LocaleKeys.my_ads.tr(),
                               onTap: () {
+                                context.read<ProfileBloc>().add(
+                                    GetProfileFavoritesEvent(
+                                        endpoint: '/car/my-announcements/'));
                                 Navigator.of(context).push(fade(
-                                    page:
-                                        MyAddsPage(profileBloc: profileBloc)));
+                                    page: BlocProvider.value(
+                                  value: profileBloc,
+                                  child: MyAddsPage(profileBloc: profileBloc),
+                                )));
                               },
                               iconPath: AppIcons.tabletNews,
                               count: state.profileEntity.usercountdata
