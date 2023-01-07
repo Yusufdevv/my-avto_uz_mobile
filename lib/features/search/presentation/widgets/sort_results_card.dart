@@ -78,8 +78,8 @@ class SortResultsCard extends StatelessWidget {
         newList.reversed.toList(growable: false);
         break;
     }
-
     return InfoResultContainer(
+      currency: newList[index].currency,
       discount: newList[index].discount,
       callFrom: newList[index].contactAvailableFrom,
       callTo: newList[index].contactAvailableTo,

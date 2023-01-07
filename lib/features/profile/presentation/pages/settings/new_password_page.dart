@@ -117,15 +117,20 @@ class NewPasswordsPage extends StatelessWidget {
                             oldPassword: _oldPasswordController.text,
                             newPasswordConfirm: _newPassword2Controller.text,
                             onSuccess: (message) {
-                              context
-                                  .read<ShowPopUpBloc>()
-                                  .add(ShowPopUp(message: message, isSucces: true));
+                              context.read<ShowPopUpBloc>().add(ShowPopUp(
+                                  message: "Parol muvaffaqiyatli o'zgartirildi",
+                                  isSucces: true));
+                              // for get new token
+                              context.read<ProfileBloc>().add(LoginUser(
+                                  password: _newPassword1Controller.text,
+                                  phone: state.profileEntity.phoneNumber!
+                                      .replaceAll('+998', '')
+                                      .replaceAll('', ' ')));
                               Navigator.of(context).pop();
                             },
                             onError: (message) {
-                              context
-                                  .read<ShowPopUpBloc>()
-                                  .add(ShowPopUp(message: message, isSucces: false));
+                              context.read<ShowPopUpBloc>().add(
+                                  ShowPopUp(message: message, isSucces: false));
                             },
                           ),
                         );

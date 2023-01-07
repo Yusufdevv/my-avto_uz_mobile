@@ -1,6 +1,5 @@
 import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/core/utils/either.dart';
-import 'package:auto/features/ad/domain/entities/car_model/car_model_entity.dart';
 import 'package:auto/features/ad/domain/entities/generation/generation.dart';
 import 'package:auto/features/ad/domain/entities/types/body_type.dart';
 import 'package:auto/features/ad/domain/entities/types/drive_type.dart';
@@ -9,6 +8,7 @@ import 'package:auto/features/ad/domain/entities/types/gearbox_type.dart';
 import 'package:auto/features/ad/domain/entities/types/modification_type.dart';
 import 'package:auto/features/ad/domain/entities/years/years.dart';
 import 'package:auto/features/common/entities/makes_entity.dart';
+import 'package:auto/features/comparison/domain/entities/announcement_list_entity.dart';
 import 'package:auto/features/pagination/models/generic_pagination.dart';
 import 'package:dio/dio.dart';
 
@@ -78,16 +78,6 @@ abstract class AdRepository {
     required FormData announcementFormData,
   });
 
-  // ╔╗───────────╔╗─╔═══╗──╔╗
-  // ║║───────────║║─╚╗╔╗║─╔╝╚╗
-  // ║║──╔══╦══╦══╣║──║║║╠═╩╗╔╬══╗
-  // ║║─╔╣╔╗║╔═╣╔╗║║──║║║║╔╗║║║╔╗║
-  // ║╚═╝║╚╝║╚═╣╔╗║╚╗╔╝╚╝║╔╗║╚╣╔╗║
-  // ╚═══╩══╩══╩╝╚╩═╝╚═══╩╝╚╩═╩╝╚╝
-
-  // Future<Either<Failure, AnnouncementEntity>> getDraftAnnouncement();
-
-  // Future<Either<Failure, void>> cacheDraftAnnouncement({
-  //   required AnnouncementEntity announcementEntity,
-  // });
+  Future<Either<Failure, GenericPagination<AnnouncementListEntity>>>
+      getAnnouncementList();
 }

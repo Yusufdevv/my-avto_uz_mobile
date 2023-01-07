@@ -1,4 +1,5 @@
 import 'package:auto/core/exceptions/exceptions.dart';
+import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/common/domain/model/auto_model.dart';
 import 'package:auto/features/pagination/models/generic_pagination.dart';
 
@@ -6,7 +7,7 @@ import 'package:dio/dio.dart';
 
 abstract class SearchResultsDatasource {
   Future<GenericPagination<AutoModel>> getSearchResults(String? searchedText);
-  // Future<>
+// Future<>
 }
 
 class SearchResultsDatasourceImpl extends SearchResultsDatasource {
@@ -19,7 +20,10 @@ class SearchResultsDatasourceImpl extends SearchResultsDatasource {
       String? searchedText) async {
     try {
       final response = await _dio.get('es/AnnouncementElasticSearch/',
-          queryParameters: {'search': searchedText});
+          queryParameters: {'search': searchedText},
+          options: Options(headers: {
+            'Authorization': 'Bearer ${StorageRepository.getString('token')}'
+          }));
       if (response.statusCode != null &&
           response.statusCode! >= 200 &&
           response.statusCode! < 300) {

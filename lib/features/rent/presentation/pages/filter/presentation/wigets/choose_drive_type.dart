@@ -6,10 +6,7 @@ import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/rent/domain/usecases/get_drive_types_usecase.dart';
 import 'package:auto/features/rent/presentation/bloc/get_drive_types/get_drive_types_bloc.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/maker_sheet_item.dart';
-import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/marks_sheet_all_select_item.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/sheet_header.dart';
-import 'package:auto/generated/locale_keys.g.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -98,7 +95,7 @@ class _ChooseDriveTypeState extends State<ChooseDriveType> {
                     ),
                     Padding(
                       padding: const EdgeInsets.only(
-                          left: 16, right: 16, bottom: 50),
+                          left: 16, right: 16, bottom: 40),
                       child: WButton(
                           onTap: () {
                             Navigator.of(context).pop(state.selected >= 0

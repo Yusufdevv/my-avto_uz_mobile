@@ -37,6 +37,7 @@ class AutoModel extends AutoEntity {
     required super.isWishlisted,
     required super.latitude,
     required super.licenceType,
+    required super.moderationStatus,
     required super.longitude,
     required super.ownership,
     required super.price,

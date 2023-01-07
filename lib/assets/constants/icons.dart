@@ -172,6 +172,7 @@ class AppIcons {
   // SEARCH
   static const parameter = 'assets/icons/search/parameter.svg';
   static const searchWithHeart = 'assets/icons/search/search_with_heart.svg';
+  static const searchWithHeartWhite = 'assets/icons/search/search_with_heart_white.svg';
   static const circleClose = 'assets/icons/search/circle_close.svg';
   static const car = 'assets/icons/search/lightweight_car.svg';
   static const shieldCheck = 'assets/icons/search/shield_check.svg';

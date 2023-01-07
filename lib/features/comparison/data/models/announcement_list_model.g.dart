@@ -12,7 +12,7 @@ AnnouncementListModel _$AnnouncementListModelFromJson(
       contactAvailableFrom: json['contact_available_from'] as String? ?? '',
       contactAvailableTo: json['contact_available_to'] as String? ?? '',
       description: json['description'] as String? ?? '',
-      discount: json['discount'] as String? ?? '',
+      discount: (json['discount'] as num?)?.toDouble() ?? 0,
       gallery: (json['gallery'] as List<dynamic>?)
               ?.map((e) => e as String)
               .toList() ??
@@ -25,7 +25,7 @@ AnnouncementListModel _$AnnouncementListModelFromJson(
       longitude: (json['longitude'] as num?)?.toDouble() ?? 0,
       make: json['make'] as String? ?? '',
       model: json['model'] as String? ?? '',
-      price: json['price'] as String? ?? '',
+      price: (json['price'] as num?)?.toDouble() ?? 0,
       region: json['region'] as String? ?? '',
       user: json['user'] == null
           ? const UserEntity()
@@ -33,6 +33,15 @@ AnnouncementListModel _$AnnouncementListModelFromJson(
               .fromJson(json['user'] as Map<String, dynamic>?),
       viewsCount: json['views_count'] as int? ?? 0,
       year: json['year'] as int? ?? 0,
+      createdAt: json['created_at'] as String? ?? '',
+      currency: json['currency'] as String? ?? '',
+      dealer: json['dealer'] == null
+          ? const CarDealerEntity()
+          : const CarDealerConverter()
+              .fromJson(json['dealer'] as Map<String, dynamic>?),
+      isNew: json['is_new'] as bool? ?? false,
+      publishedAt: json['published_at'] as String? ?? '',
+      userType: json['user_type'] as String? ?? '',
     );
 
 Map<String, dynamic> _$AnnouncementListModelToJson(
@@ -55,5 +64,11 @@ Map<String, dynamic> _$AnnouncementListModelToJson(
       'discount': instance.discount,
       'contact_available_from': instance.contactAvailableFrom,
       'contact_available_to': instance.contactAvailableTo,
+      'is_new': instance.isNew,
+      'dealer': const CarDealerConverter().toJson(instance.dealer),
+      'user_type': instance.userType,
+      'currency': instance.currency,
+      'published_at': instance.publishedAt,
+      'created_at': instance.createdAt,
       'is_wishlisted': instance.isWishlisted,
     };

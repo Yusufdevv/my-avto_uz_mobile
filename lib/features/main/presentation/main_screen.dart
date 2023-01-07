@@ -144,7 +144,7 @@ class _MainScreenState extends State<MainScreen> {
                                   index: index,
                                 )));
                               },
-                              shimmer: false,
+                              isRead: state.stories[index].isRead,
                             ),
                       itemCount:
                           state.stories.isEmpty ? 5 : state.stories.length,
