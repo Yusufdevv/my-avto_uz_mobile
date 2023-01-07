@@ -9,5 +9,9 @@ class GetMakesState with _$GetMakesState {
     @Default('') next,
     @Default('') search,
     @Default(0) count,
+    @Default(-1) int selectedId,
+    @Default(-1) int confirmId,
+    @Default('') String name,
+    @Default('') String imageUrl,
   }) = _GetMakesState;
 }

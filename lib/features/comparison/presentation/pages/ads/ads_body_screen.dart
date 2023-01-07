@@ -3,9 +3,7 @@ import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/features/ad/data/repositories/ad_repository_impl.dart';
-import 'package:auto/features/ad/presentation/bloc/car_selector/car_selector_bloc.dart';
 import 'package:auto/features/ad/presentation/bloc/choose_model/car_type_selector_bloc.dart';
-import 'package:auto/features/ad/presentation/bloc/choose_model/model_selectro_bloc.dart';
 import 'package:auto/features/commercial/presentation/widgets/commercial_car_model_item.dart';
 import 'package:auto/features/commercial/presentation/widgets/info_container.dart';
 import 'package:auto/features/common/bloc/announcement_bloc/bloc/announcement_list_bloc.dart';
@@ -32,18 +30,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AdsBodyScreen extends StatefulWidget {
-  final CarSelectorBloc carSelectorBloc;
   final GetMakesBloc getMakesBloc;
   final GetCarModelBloc getCarModelBloc;
   final CarTypeSelectorBloc carTypeSelectorBloc;
-  final ModelSelectorBloc modelSelectorBloc;
   final FilterParametersBloc filterParametersBloc;
   const AdsBodyScreen({
-    required this.carSelectorBloc,
     required this.getMakesBloc,
     required this.getCarModelBloc,
     required this.carTypeSelectorBloc,
-    required this.modelSelectorBloc,
     required this.filterParametersBloc,
     super.key,
   });
@@ -93,9 +87,9 @@ class _AdsBodyScreenState extends State<AdsBodyScreen> {
         children: [
           const SizedBox(height: 16),
           CommercialCarModelItem(
-            title: widget.carSelectorBloc.state.name,
-            subtitle: widget.modelSelectorBloc.state.name,
-            imageUrl: widget.carSelectorBloc.state.imageUrl,
+            title: widget.getMakesBloc.state.name,
+            subtitle: widget.getCarModelBloc.state.name,
+            imageUrl: widget.getMakesBloc.state.imageUrl,
             onTap: () {
               Navigator.push(
                 context,
@@ -116,25 +110,20 @@ class _AdsBodyScreenState extends State<AdsBodyScreen> {
                             Navigator.of(context).push(
                               fade(
                                 page: AdsScreen(
-                                  carSelectorBloc: widget.carSelectorBloc,
                                   getMakesBloc: widget.getMakesBloc,
                                   getCarModelBloc: widget.getCarModelBloc,
                                   carTypeSelectorBloc:
                                       widget.carTypeSelectorBloc,
-                                  modelSelectorBloc: widget.modelSelectorBloc,
                                 ),
                               ),
                             );
                           },
                           bloc: widget.getCarModelBloc,
                           carTypeSelectorBloc: widget.carTypeSelectorBloc,
-                          modelBloc: widget.modelSelectorBloc,
-                          carSelectorBloc: widget.carSelectorBloc,
                           getMakesBloc: widget.getMakesBloc,
                         ),
                       ),
                     ),
-                    carSelectorBloc: widget.carSelectorBloc,
                     bloc: widget.getMakesBloc,
                   ),
                 ),
@@ -216,10 +205,13 @@ class _AdsBodyScreenState extends State<AdsBodyScreen> {
                     : state.announcementList[index].discount.toString(),
                 sellType: '',
                 hasStatusInfo: false,
-                hasCallCard: false,
+                hasCallCard: MyFunctions.enableForCalling(
+                  callFrom: state.announcementList[index].contactAvailableFrom,
+                  callTo: state.announcementList[index].contactAvailableTo,
+                ),
                 gallery: state.announcementList[index].gallery,
                 currency: state.announcementList[index].currency,
-                initialLike: false,
+                initialLike: state.announcementList[index].isWishlisted,
                 bloc: wishlistAddBloc,
                 id: state.announcementList[index].id,
                 onTapComparsion: () {},

@@ -2,9 +2,7 @@ import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/features/ad/data/repositories/ad_repository_impl.dart';
 import 'package:auto/features/ad/domain/usecases/get_car_model.dart';
 import 'package:auto/features/ad/domain/usecases/get_makes.dart';
-import 'package:auto/features/ad/presentation/bloc/car_selector/car_selector_bloc.dart';
 import 'package:auto/features/ad/presentation/bloc/choose_model/car_type_selector_bloc.dart';
-import 'package:auto/features/ad/presentation/bloc/choose_model/model_selectro_bloc.dart';
 import 'package:auto/features/common/bloc/get_car_model/get_car_model_bloc.dart';
 import 'package:auto/features/common/bloc/get_makes_bloc/get_makes_bloc_bloc.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
@@ -30,11 +28,9 @@ class ComparisonPage extends StatefulWidget {
 }
 
 class _ComparisonPageState extends State<ComparisonPage> {
-  late ModelSelectorBloc modelBloc;
   late CarTypeSelectorBloc carTypeSelectorBloc;
   late GetCarModelBloc carModelBloc;
   late GetMakesBloc getMakesBloc;
-  late CarSelectorBloc carSelectorBloc;
   late ComparisonBloc bloc;
 
   @override
@@ -44,8 +40,6 @@ class _ComparisonPageState extends State<ComparisonPage> {
             comparisonCarsRepo: serviceLocator<ComparisonCarsRepoImpl>()))
       ..add(GetComparableCars());
     carTypeSelectorBloc = CarTypeSelectorBloc();
-    modelBloc = ModelSelectorBloc();
-    carSelectorBloc = CarSelectorBloc();
     carModelBloc = GetCarModelBloc(
         useCase:
             GetCarModelUseCase(repository: serviceLocator<AdRepositoryImpl>()));
@@ -65,9 +59,6 @@ class _ComparisonPageState extends State<ComparisonPage> {
             create: (context) => bloc,
           ),
           BlocProvider(
-            create: (context) => modelBloc,
-          ),
-          BlocProvider(
             create: (context) => carModelBloc,
           ),
           BlocProvider(
@@ -75,9 +66,6 @@ class _ComparisonPageState extends State<ComparisonPage> {
           ),
           BlocProvider(
             create: (context) => carTypeSelectorBloc,
-          ),
-          BlocProvider(
-            create: (context) => carSelectorBloc,
           ),
         ],
         child: Scaffold(
@@ -112,25 +100,20 @@ class _ComparisonPageState extends State<ComparisonPage> {
                                   Navigator.of(context).push(
                                     fade(
                                       page: AdsScreen(
-                                        carSelectorBloc: carSelectorBloc,
                                         getMakesBloc: getMakesBloc,
                                         getCarModelBloc: carModelBloc,
                                         carTypeSelectorBloc:
                                             carTypeSelectorBloc,
-                                        modelSelectorBloc: modelBloc,
                                       ),
                                     ),
                                   );
                                 },
                                 bloc: carModelBloc,
                                 carTypeSelectorBloc: carTypeSelectorBloc,
-                                modelBloc: modelBloc,
-                                carSelectorBloc: carSelectorBloc,
                                 getMakesBloc: getMakesBloc,
                               ),
                             ),
                           ),
-                          carSelectorBloc: carSelectorBloc,
                           bloc: getMakesBloc,
                         ),
                       ),
@@ -142,9 +125,7 @@ class _ComparisonPageState extends State<ComparisonPage> {
                   isSticky: state.isSticky,
                   carModelBloc: carModelBloc,
                   carTypeSelectorBloc: carTypeSelectorBloc,
-                  carSelectorBloc: carSelectorBloc,
                   getMakesBloc: getMakesBloc,
-                  modelBloc: modelBloc,
                   comparisonBloc: bloc,
                 );
               }

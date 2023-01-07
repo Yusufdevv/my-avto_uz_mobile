@@ -1,9 +1,7 @@
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/features/ad/data/repositories/ad_repository_impl.dart';
-import 'package:auto/features/ad/presentation/bloc/car_selector/car_selector_bloc.dart';
 import 'package:auto/features/ad/presentation/bloc/choose_model/car_type_selector_bloc.dart';
-import 'package:auto/features/ad/presentation/bloc/choose_model/model_selectro_bloc.dart';
 import 'package:auto/features/common/bloc/delete_comparison/delete_comparison_bloc.dart';
 import 'package:auto/features/common/bloc/get_car_model/get_car_model_bloc.dart';
 import 'package:auto/features/common/bloc/get_makes_bloc/get_makes_bloc_bloc.dart';
@@ -24,19 +22,15 @@ import 'package:linked_scroll_controller/linked_scroll_controller.dart';
 
 class Comparison extends StatefulWidget {
   final bool isSticky;
-  final ModelSelectorBloc modelBloc;
   final CarTypeSelectorBloc carTypeSelectorBloc;
   final GetCarModelBloc carModelBloc;
-  final CarSelectorBloc carSelectorBloc;
   final GetMakesBloc getMakesBloc;
   final ComparisonBloc comparisonBloc;
   const Comparison({
     Key? key,
     required this.isSticky,
-    required this.modelBloc,
     required this.carTypeSelectorBloc,
     required this.carModelBloc,
-    required this.carSelectorBloc,
     required this.getMakesBloc,
     required this.comparisonBloc,
   }) : super(key: key);
@@ -181,25 +175,20 @@ class _ComparisonState extends State<Comparison> {
                                   Navigator.of(context).push(
                                     fade(
                                       page: AdsScreen(
-                                        carSelectorBloc: widget.carSelectorBloc,
                                         getMakesBloc: widget.getMakesBloc,
                                         getCarModelBloc: widget.carModelBloc,
                                         carTypeSelectorBloc:
                                             widget.carTypeSelectorBloc,
-                                        modelSelectorBloc: widget.modelBloc,
                                       ),
                                     ),
                                   );
                                 },
                                 bloc: widget.carModelBloc,
                                 carTypeSelectorBloc: widget.carTypeSelectorBloc,
-                                modelBloc: widget.modelBloc,
-                                carSelectorBloc: widget.carSelectorBloc,
                                 getMakesBloc: widget.getMakesBloc,
                               ),
                             ),
                           ),
-                          carSelectorBloc: widget.carSelectorBloc,
                           bloc: widget.getMakesBloc,
                         ),
                       ),
