@@ -30,14 +30,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AdsBodyScreen extends StatefulWidget {
-  final GetMakesBloc getMakesBloc;
-  final GetCarModelBloc getCarModelBloc;
-  final CarTypeSelectorBloc carTypeSelectorBloc;
   final FilterParametersBloc filterParametersBloc;
   const AdsBodyScreen({
-    required this.getMakesBloc,
-    required this.getCarModelBloc,
-    required this.carTypeSelectorBloc,
     required this.filterParametersBloc,
     super.key,
   });
@@ -87,9 +81,9 @@ class _AdsBodyScreenState extends State<AdsBodyScreen> {
         children: [
           const SizedBox(height: 16),
           CommercialCarModelItem(
-            title: widget.getMakesBloc.state.name,
-            subtitle: widget.getCarModelBloc.state.name,
-            imageUrl: widget.getMakesBloc.state.imageUrl,
+            title: BlocProvider.of<GetMakesBloc>(context).state.name,
+            subtitle: BlocProvider.of<GetCarModelBloc>(context).state.name,
+            imageUrl: BlocProvider.of<GetMakesBloc>(context).state.imageUrl,
             onTap: () {
               Navigator.push(
                 context,
@@ -109,22 +103,13 @@ class _AdsBodyScreenState extends State<AdsBodyScreen> {
                             // );
                             Navigator.of(context).push(
                               fade(
-                                page: AdsScreen(
-                                  getMakesBloc: widget.getMakesBloc,
-                                  getCarModelBloc: widget.getCarModelBloc,
-                                  carTypeSelectorBloc:
-                                      widget.carTypeSelectorBloc,
-                                ),
+                                page: const AdsScreen(),
                               ),
                             );
                           },
-                          bloc: widget.getCarModelBloc,
-                          carTypeSelectorBloc: widget.carTypeSelectorBloc,
-                          getMakesBloc: widget.getMakesBloc,
                         ),
                       ),
                     ),
-                    bloc: widget.getMakesBloc,
                   ),
                 ),
               );

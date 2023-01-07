@@ -1,7 +1,6 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
-import 'package:auto/features/ad/presentation/bloc/choose_model/car_type_selector_bloc.dart';
 import 'package:auto/features/ad/presentation/pages/choose_model/widgets/model_items.dart';
 import 'package:auto/features/common/bloc/get_car_model/get_car_model_bloc.dart';
 import 'package:auto/features/common/bloc/get_makes_bloc/get_makes_bloc_bloc.dart';
@@ -14,16 +13,8 @@ import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 class ChooseCarModelComparison extends StatefulWidget {
   final VoidCallback onTap;
-  final CarTypeSelectorBloc carTypeSelectorBloc;
-  final GetCarModelBloc bloc;
-  final GetMakesBloc getMakesBloc;
-  const ChooseCarModelComparison({
-    required this.onTap,
-    Key? key,
-    required this.carTypeSelectorBloc,
-    required this.bloc,
-    required this.getMakesBloc,
-  }) : super(key: key);
+  const ChooseCarModelComparison({required this.onTap, Key? key})
+      : super(key: key);
 
   @override
   State<ChooseCarModelComparison> createState() => _ChooseCarModelComparison();
@@ -34,9 +25,9 @@ class _ChooseCarModelComparison extends State<ChooseCarModelComparison> {
   late int id;
   @override
   void initState() {
-    id = widget.getMakesBloc.state.selectedId;
+    id = BlocProvider.of<GetMakesBloc>(context).state.selectedId;
     searchController = TextEditingController();
-    widget.bloc.add(
+    BlocProvider.of<GetCarModelBloc>(context).add(
       GetCarModelEvent.getCarModel(id),
     );
     super.initState();
@@ -53,7 +44,7 @@ class _ChooseCarModelComparison extends State<ChooseCarModelComparison> {
         child: Scaffold(
           resizeToAvoidBottomInset: false,
           body: BlocBuilder<GetCarModelBloc, GetCarModelState>(
-            bloc: widget.bloc,
+            bloc: BlocProvider.of<GetCarModelBloc>(context),
             builder: (context, state) => Stack(
               children: [
                 CustomScrollView(
@@ -98,12 +89,13 @@ class _ChooseCarModelComparison extends State<ChooseCarModelComparison> {
                         delegate: WSerachBar(
                           controller: searchController,
                           onChanged: () {
-                            widget.bloc.add(
+                            BlocProvider.of<GetCarModelBloc>(context).add(
                               GetCarModelEvent.getSerched(
                                 searchController.text,
                               ),
                             );
-                            widget.bloc.add(GetCarModelEvent.getCarModel(id));
+                            BlocProvider.of<GetCarModelBloc>(context)
+                                .add(GetCarModelEvent.getCarModel(id));
                           },
                         ),
                         pinned: true,
@@ -168,7 +160,6 @@ class _ChooseCarModelComparison extends State<ChooseCarModelComparison> {
                               .extension<ThemedColors>()!
                               .whiteToDark,
                           child: ModelItems(
-                            bloc: widget.bloc,
                             entity: state.model.results[index].name,
                             selectedId: state.selectedId,
                             id: state.model.results[index].id,

@@ -1,10 +1,5 @@
 import 'package:auto/core/singletons/service_locator.dart';
-import 'package:auto/features/ad/data/repositories/ad_repository_impl.dart';
-import 'package:auto/features/ad/domain/usecases/get_car_model.dart';
-import 'package:auto/features/ad/domain/usecases/get_makes.dart';
 import 'package:auto/features/ad/presentation/bloc/choose_model/car_type_selector_bloc.dart';
-import 'package:auto/features/common/bloc/get_car_model/get_car_model_bloc.dart';
-import 'package:auto/features/common/bloc/get_makes_bloc/get_makes_bloc_bloc.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/comparison/data/repositories/comparison_cars_repo_impl.dart';
 import 'package:auto/features/comparison/domain/usecases/comparison_cars_use_case.dart';
@@ -28,9 +23,6 @@ class ComparisonPage extends StatefulWidget {
 }
 
 class _ComparisonPageState extends State<ComparisonPage> {
-  late CarTypeSelectorBloc carTypeSelectorBloc;
-  late GetCarModelBloc carModelBloc;
-  late GetMakesBloc getMakesBloc;
   late ComparisonBloc bloc;
 
   @override
@@ -39,16 +31,6 @@ class _ComparisonPageState extends State<ComparisonPage> {
         comparisonCarsUseCase: ComparisonCarsUseCase(
             comparisonCarsRepo: serviceLocator<ComparisonCarsRepoImpl>()))
       ..add(GetComparableCars());
-    carTypeSelectorBloc = CarTypeSelectorBloc();
-    carModelBloc = GetCarModelBloc(
-        useCase:
-            GetCarModelUseCase(repository: serviceLocator<AdRepositoryImpl>()));
-    getMakesBloc = GetMakesBloc(
-      selectedMakeId: -1,
-      useCase: GetMakesUseCase(
-        repository: serviceLocator<AdRepositoryImpl>(),
-      ),
-    )..add(GetMakesBlocEvent.getMakes());
     super.initState();
   }
 
@@ -57,15 +39,6 @@ class _ComparisonPageState extends State<ComparisonPage> {
         providers: [
           BlocProvider(
             create: (context) => bloc,
-          ),
-          BlocProvider(
-            create: (context) => carModelBloc,
-          ),
-          BlocProvider(
-            create: (context) => getMakesBloc,
-          ),
-          BlocProvider(
-            create: (context) => carTypeSelectorBloc,
           ),
         ],
         child: Scaffold(
@@ -99,22 +72,13 @@ class _ComparisonPageState extends State<ComparisonPage> {
                                   // );
                                   Navigator.of(context).push(
                                     fade(
-                                      page: AdsScreen(
-                                        getMakesBloc: getMakesBloc,
-                                        getCarModelBloc: carModelBloc,
-                                        carTypeSelectorBloc:
-                                            carTypeSelectorBloc,
-                                      ),
+                                      page: const AdsScreen(),
                                     ),
                                   );
                                 },
-                                bloc: carModelBloc,
-                                carTypeSelectorBloc: carTypeSelectorBloc,
-                                getMakesBloc: getMakesBloc,
                               ),
                             ),
                           ),
-                          bloc: getMakesBloc,
                         ),
                       ),
                     );
@@ -123,9 +87,6 @@ class _ComparisonPageState extends State<ComparisonPage> {
               } else {
                 return Comparison(
                   isSticky: state.isSticky,
-                  carModelBloc: carModelBloc,
-                  carTypeSelectorBloc: carTypeSelectorBloc,
-                  getMakesBloc: getMakesBloc,
                   comparisonBloc: bloc,
                 );
               }

@@ -15,9 +15,8 @@ import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 class ChooseCarBrandComparison extends StatefulWidget {
   final VoidCallback onTap;
-  final GetMakesBloc bloc;
   const ChooseCarBrandComparison(
-      {required this.onTap, Key? key, required this.bloc})
+      {required this.onTap, Key? key})
       : super(key: key);
 
   @override
@@ -52,7 +51,6 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
   @override
   Widget build(BuildContext context) => KeyboardDismisser(
         child: BlocBuilder<GetMakesBloc, GetMakesState>(
-          bloc: widget.bloc,
           builder: (context, state) => Scaffold(
             resizeToAvoidBottomInset: false,
             body: Stack(
@@ -99,12 +97,12 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
                         delegate: WSerachBar(
                           controller: searchController,
                           onChanged: () {
-                            widget.bloc.add(
+                            BlocProvider.of<GetMakesBloc>(context).add(
                               GetMakesBlocEvent.getSerched(
                                 searchController.text,
                               ),
                             );
-                            widget.bloc.add(GetMakesBlocEvent.getMakes());
+                            BlocProvider.of<GetMakesBloc>(context).add(GetMakesBlocEvent.getMakes());
                           },
                         ),
                         pinned: true,
@@ -113,7 +111,6 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
                     if (state.search.isEmpty)
                       SliverToBoxAdapter(
                         child: BlocBuilder<GetMakesBloc, GetMakesState>(
-                          bloc: widget.bloc,
                           builder: (context, state) => SizedBox(
                             height: 132,
                             child: ListView.builder(
@@ -171,7 +168,7 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
                         imageUrl: state.makes.results[index].logo,
                         name: state.makes.results[index].name,
                         text: state.search,
-                        bloc: widget.bloc,
+                        bloc: BlocProvider.of<GetMakesBloc>(context),
                       ),
                     ),
                   ),

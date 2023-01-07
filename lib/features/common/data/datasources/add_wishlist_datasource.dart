@@ -18,7 +18,7 @@ class AddWishlistDatasourceImpl extends AddWishlistDatasource {
   Future<void> addWishlist(int id) async {
     try {
       final response = await _dio.post('/users/wishlist/announcement/add/',
-          data: json.encode({'announcement': id}),
+          data: {'announcement': id},
           options: Options(headers: {
             'Authorization': 'Bearer ${StorageRepository.getString('token')}'
           }));
