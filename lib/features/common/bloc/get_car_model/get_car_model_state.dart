@@ -9,5 +9,8 @@ class GetCarModelState with _$GetCarModelState {
     @Default('') search,
     @Default(0) int getId,
     @Default(0) count,
+    @Default(0) selectedId,
+    @Default(0) confirmId,
+    @Default('') name,
   }) = _GetCarModelState;
 }

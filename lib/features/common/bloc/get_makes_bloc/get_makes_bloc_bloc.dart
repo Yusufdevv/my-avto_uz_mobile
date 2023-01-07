@@ -1,7 +1,6 @@
 import 'package:auto/features/ad/domain/usecases/get_makes.dart';
 import 'package:auto/features/common/entities/makes_entity.dart';
 import 'package:bloc/bloc.dart';
-import 'package:flutter/foundation.dart';
 import 'package:formz/formz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -36,5 +35,15 @@ class GetMakesBloc extends Bloc<GetMakesBlocEvent, GetMakesState> {
       }
     });
     on<_GetSerched>((event, emit) => emit(state.copyWith(search: event.naem)));
+    on<_SelectedCarItems>((event, emit) {
+      emit(state.copyWith(
+          selectedId: event.id, name: event.name, imageUrl: event.imageUrl));
+    });
+    on<_ConfirmCarOption>((event, emit) {
+      emit(state.copyWith(confirmId: state.selectedId));
+    });
+    on<_RevertCarOption>((event, emit) {
+      emit(state.copyWith(selectedId: state.confirmId));
+    });
   }
 }

@@ -2,16 +2,12 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/colors/light.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
-import 'package:auto/features/ad/presentation/bloc/car_selector/car_selector_bloc.dart';
 import 'package:auto/features/ad/presentation/bloc/choose_model/car_type_selector_bloc.dart';
-import 'package:auto/features/ad/presentation/bloc/choose_model/model_selectro_bloc.dart';
 import 'package:auto/features/commercial/presentation/widgets/commercial_tab.dart';
-import 'package:auto/features/common/bloc/get_car_model/get_car_model_bloc.dart';
-import 'package:auto/features/common/bloc/get_makes_bloc/get_makes_bloc_bloc.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/comparison/presentation/bloc/filter_parameters_bloc/bloc/filter_parameters_bloc.dart';
-import 'package:auto/features/comparison/presentation/pages/ads/ads_body_screen.dart';
+import 'package:auto/features/ad/presentation/pages/ads/ads_body_screen.dart';
 import 'package:auto/features/search/presentation/search_screen.dart';
 import 'package:auto/features/search/presentation/widgets/sort_bottom_sheet.dart';
 import 'package:flutter/material.dart';
@@ -21,19 +17,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 class AdsScreen extends StatefulWidget {
-  final CarSelectorBloc carSelectorBloc;
-  final GetMakesBloc getMakesBloc;
-  final GetCarModelBloc getCarModelBloc;
-  final CarTypeSelectorBloc carTypeSelectorBloc;
-  final ModelSelectorBloc modelSelectorBloc;
-  const AdsScreen({
-    super.key,
-    required this.carSelectorBloc,
-    required this.getMakesBloc,
-    required this.getCarModelBloc,
-    required this.carTypeSelectorBloc,
-    required this.modelSelectorBloc,
-  });
+  const AdsScreen({super.key});
 
   @override
   State<AdsScreen> createState() => _AdsScreenState();
@@ -100,27 +84,12 @@ class _AdsScreenState extends State<AdsScreen>
                 controller: tabController,
                 children: [
                   AdsBodyScreen(
-                    carSelectorBloc: widget.carSelectorBloc,
-                    getMakesBloc: widget.getMakesBloc,
-                    getCarModelBloc: widget.getCarModelBloc,
-                    carTypeSelectorBloc: widget.carTypeSelectorBloc,
-                    modelSelectorBloc: widget.modelSelectorBloc,
                     filterParametersBloc: filterParametersBlock,
                   ),
                   AdsBodyScreen(
-                    carSelectorBloc: widget.carSelectorBloc,
-                    getMakesBloc: widget.getMakesBloc,
-                    getCarModelBloc: widget.getCarModelBloc,
-                    carTypeSelectorBloc: widget.carTypeSelectorBloc,
-                    modelSelectorBloc: widget.modelSelectorBloc,
                     filterParametersBloc: filterParametersBlock,
                   ),
                   AdsBodyScreen(
-                    carSelectorBloc: widget.carSelectorBloc,
-                    getMakesBloc: widget.getMakesBloc,
-                    getCarModelBloc: widget.getCarModelBloc,
-                    carTypeSelectorBloc: widget.carTypeSelectorBloc,
-                    modelSelectorBloc: widget.modelSelectorBloc,
                     filterParametersBloc: filterParametersBlock,
                   ),
                 ],
