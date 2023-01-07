@@ -50,26 +50,30 @@ class _FavouritePageState extends State<FavouritePage> {
                     itemCount: favorites.length,
                     itemBuilder: (context, index) {
                       final item = favorites[index];
-                      return InfoResultContainer(
-                          gallery: item.gallery,
-                          carModelName: item.model.name,
-                          carYear: item.year,
-                          contactPhone: item.contactPhone,
-                          description: item.description,
-                          districtTitle: item.district.title,
-                          isNew: item.isNew,
-                          isWishlisted: item.isWishlisted,
-                          price: item.price,
-                          currency: item.currency,
-                          id: item.id,
-                          publishedAt: item.publishedAt,
-                          userFullName: item.user.fullName,
-                          userImage: item.user.image,
-                          userType: item.userType,
-                          hasComparison: item.isComparison,
-                          callFrom: item.contactAvailableFrom,
-                          callTo: item.contactAvailableTo,
-                          discount: item.discount);
+                      return Padding(
+                        padding: EdgeInsets.only(
+                            top: index == 0 ? 16 : 0, bottom: 12),
+                        child: InfoResultContainer(
+                            gallery: item.gallery,
+                            carModelName: item.model.name,
+                            carYear: item.year,
+                            contactPhone: item.contactPhone,
+                            description: item.description,
+                            districtTitle: item.district.title,
+                            isNew: item.isNew,
+                            isWishlisted: item.isWishlisted,
+                            price: item.price,
+                            currency: item.currency,
+                            id: item.id,
+                            publishedAt: item.publishedAt,
+                            userFullName: item.user.fullName,
+                            userImage: item.user.image,
+                            userType: item.userType,
+                            hasComparison: item.isComparison,
+                            callFrom: item.contactAvailableFrom,
+                            callTo: item.contactAvailableTo,
+                            discount: item.discount),
+                      );
                     })
                 : const Center(child: CupertinoActivityIndicator());
           },
