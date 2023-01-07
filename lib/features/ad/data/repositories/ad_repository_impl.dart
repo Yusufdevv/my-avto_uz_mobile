@@ -11,16 +11,15 @@ import 'package:auto/features/ad/domain/entities/types/modification_type.dart';
 import 'package:auto/features/ad/domain/entities/years/years.dart';
 import 'package:auto/features/ad/domain/repositories/ad_repository.dart';
 import 'package:auto/features/common/entities/makes_entity.dart';
+import 'package:auto/features/comparison/domain/entities/announcement_list_entity.dart';
 import 'package:auto/features/pagination/models/generic_pagination.dart';
 import 'package:dio/dio.dart';
 
 class AdRepositoryImpl extends AdRepository {
   final AdRemoteDataSource remoteDataSource;
-  // final AdLocalDataSource localDataSource;
 
   AdRepositoryImpl({
     required this.remoteDataSource,
-    // required this.localDataSource,
   });
 
   @override
@@ -333,35 +332,21 @@ class AdRepositoryImpl extends AdRepository {
     }
   }
 
-// ╔╗───────────╔╗─╔═══╗──╔╗
-// ║║───────────║║─╚╗╔╗║─╔╝╚╗
-// ║║──╔══╦══╦══╣║──║║║╠═╩╗╔╬══╗
-// ║║─╔╣╔╗║╔═╣╔╗║║──║║║║╔╗║║║╔╗║
-// ║╚═╝║╚╝║╚═╣╔╗║╚╗╔╝╚╝║╔╗║╚╣╔╗║
-// ╚═══╩══╩══╩╝╚╩═╝╚═══╩╝╚╩═╩╝╚╝
-
-  // @override
-  // Future<Either<Failure, void>> cacheDraftAnnouncement({
-  //   required AnnouncementEntity announcementEntity,
-  // }) async {
-  //   try {
-  //     final result = await localDataSource.cacheDraftAnnouncement(
-  //         announcementModel: announcementEntity as AnnouncementModel);
-  //     return Right(result);
-  //     return Right('');
-  //   } on ParsingException catch (e) {
-  //     return Left(ParsingFailure(errorMessage: e.errorMessage));
-  //   }
-  // }
-
-  // @override
-  // Future<Either<Failure, AnnouncementEntity>> getDraftAnnouncement() async {
-  //   try {
-  //     final result = await localDataSource.getDraftAnnouncement();
-  //     return Right(result);
-
-  //   } on ParsingException catch (e) {
-  //     return Left(ParsingFailure(errorMessage: e.errorMessage));
-  //   }
-  // }
+  @override
+  Future<Either<Failure, GenericPagination<AnnouncementListEntity>>>
+      getAnnouncementList() async {
+    try {
+      final result = await remoteDataSource.getAnnouncementList();
+      return Right(result);
+    } on DioException {
+      return Left(DioFailure());
+    } on ParsingException catch (e) {
+      return Left(ParsingFailure(errorMessage: e.errorMessage));
+    } on ServerException catch (e) {
+      return Left(ServerFailure(
+        errorMessage: e.errorMessage,
+        statusCode: e.statusCode,
+      ));
+    }
+  }
 }

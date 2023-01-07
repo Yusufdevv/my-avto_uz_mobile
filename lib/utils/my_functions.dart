@@ -20,12 +20,12 @@ class MyFunctions {
   static String phoneFormat(String phone) {
     //904781717
     var formattedPhone = '';
-    formattedPhone += '${phone.substring(0, 2)} ';//90
-    formattedPhone += '${phone.substring(2, 5)} ';// 478 
+    formattedPhone += '${phone.substring(0, 2)} '; //90
+    formattedPhone += '${phone.substring(2, 5)} '; // 478
     formattedPhone += '${phone.substring(5, 7)} '; // 17
     formattedPhone += phone.substring(7); // 17
     return formattedPhone; // 90 478 17 17
-  }    
+  }
 
   static Color mapCategoryIndexToColor(final int index) {
     switch (index) {
@@ -59,21 +59,21 @@ class MyFunctions {
   static Future<ImageInfo> getImageInfo(
       BuildContext context, String image) async {
     final assetImage = AssetImage(image);
-    final stream =
-    assetImage.resolve(createLocalImageConfiguration(context));
+    final stream = assetImage.resolve(createLocalImageConfiguration(context));
     final completer = Completer<ImageInfo>();
-    stream.addListener(ImageStreamListener((imageInfo, _) => completer.complete(imageInfo)));
+    stream.addListener(
+        ImageStreamListener((imageInfo, _) => completer.complete(imageInfo)));
     return completer.future;
   }
 
   static Future<Uint8List> getBytesFromCanvas(
       {required int width,
-        required int height,
-        required int placeCount,
-        required BuildContext context,
-        Offset? offset,
-        required String image,
-        bool shouldAddText = true}) async {
+      required int height,
+      required int placeCount,
+      required BuildContext context,
+      Offset? offset,
+      required String image,
+      bool shouldAddText = true}) async {
     final pictureRecorder = ui.PictureRecorder();
     final canvas = Canvas(pictureRecorder);
     final paint = Paint()..color = Colors.red;
@@ -84,16 +84,17 @@ class MyFunctions {
 
     if (shouldAddText) {
       final painter = TextPainter(textDirection: ui.TextDirection.ltr);
-      painter..text = TextSpan(
-        text: placeCount.toString(),
-        style: const TextStyle(fontSize: 100, color: Colors.white),
-      )
-      ..layout()
-      ..paint(
-        canvas,
-        Offset((width * 0.47) - painter.width * 0.2,
-            (height * 0.1) - painter.height * 0.1),
-      );
+      painter
+        ..text = TextSpan(
+          text: placeCount.toString(),
+          style: const TextStyle(fontSize: 100, color: Colors.white),
+        )
+        ..layout()
+        ..paint(
+          canvas,
+          Offset((width * 0.47) - painter.width * 0.2,
+              (height * 0.1) - painter.height * 0.1),
+        );
     }
 
     final img = await pictureRecorder.endRecording().toImage(width, height);
@@ -321,6 +322,21 @@ class MyFunctions {
     final list = data.substring(0, 10).split('-');
 
     return '${list[2]} ${getMonthByIndex(int.tryParse(list[1]) ?? -1)}, ${list[0]} г.';
+  }
+
+  static String getDateNamedMonthEdit(String data) {
+    final date = DateTime.now();
+    final list = data.substring(0, 10).split('-');
+    if (date.year.toString() == list[0]) {
+      if (date.month == int.tryParse(list[1]) &&
+          date.day == int.tryParse(list[2])) {
+        return 'Сегодня';
+      } else {
+        return '${int.tryParse(list[2])} ${getMonthByIndex(int.tryParse(list[1]) ?? -1)}';
+      }
+    } else {
+      return '${int.tryParse(list[2])} ${getMonthByIndex(int.tryParse(list[1]) ?? -1)}, ${list[0]} г.';
+    }
   }
 
   static String getAutoPublishDate(String data) {

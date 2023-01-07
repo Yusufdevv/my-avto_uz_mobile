@@ -1,6 +1,6 @@
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/features/common/bloc/delete_comparison/delete_comparison_bloc.dart';
 import 'package:auto/features/comparison/presentation/bloc/comparison-bloc/comparison_bloc.dart';
-import 'package:auto/features/comparison/presentation/bloc/delete_comparison/delete_comparison_bloc.dart';
 import 'package:auto/features/comparison/presentation/widgets/add_new_car.dart';
 import 'package:auto/features/comparison/presentation/widgets/added_car_sticky.dart';
 import 'package:auto/features/comparison/presentation/widgets/added_car_widget.dart';

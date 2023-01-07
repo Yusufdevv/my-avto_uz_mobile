@@ -4,6 +4,7 @@ import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/core/singletons/service_locator.dart';
+import 'package:auto/features/ad/data/repositories/ad_repository_impl.dart';
 import 'package:auto/features/common/bloc/comparison_add/bloc/comparison_add_bloc.dart';
 import 'package:auto/features/common/bloc/wishlist_add/wishlist_add_bloc.dart';
 import 'package:auto/features/common/repository/add_wishlist_repository.dart';
@@ -11,6 +12,7 @@ import 'package:auto/features/common/usecases/add_wishlist_usecase.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/comparison/data/repositories/comparison_cars_repo_impl.dart';
 import 'package:auto/features/comparison/domain/usecases/comparison_add_use_case.dart';
+import 'package:auto/features/comparison/domain/usecases/delete_comparison.dart';
 import 'package:auto/features/search/presentation/part/bottom_sheet_for_calling.dart';
 import 'package:auto/features/search/presentation/widgets/add_comparison_item.dart';
 import 'package:auto/features/search/presentation/widgets/add_wishlist_item.dart';
@@ -32,6 +34,7 @@ class InfoResultContainer extends StatefulWidget {
       required this.isNew,
       required this.isWishlisted,
       required this.price,
+      required this.currency,
       required this.publishedAt,
       required this.userFullName,
       required this.userImage,
@@ -40,7 +43,7 @@ class InfoResultContainer extends StatefulWidget {
       required this.callFrom,
       required this.callTo,
       required this.discount,
-        required this.id,
+      required this.id,
       this.sellType,
       super.key});
 
@@ -50,6 +53,7 @@ class InfoResultContainer extends StatefulWidget {
   final int carYear;
   final int id;
   final double price;
+  final String currency;
   final bool isNew;
   final String description;
   final String userImage;
@@ -82,8 +86,10 @@ class _InfoResultContainerState extends State<InfoResultContainer> {
             repo: serviceLocator<AddWishlistRepositoryImpl>()));
 
     comparisonAddBloc = ComparisonAddBloc(
-        useCase: ComparisonAddUseCase(
-            comparisonAddRepo: serviceLocator<ComparisonCarsRepoImpl>()));
+        addUseCase: ComparisonAddUseCase(
+            comparisonAddRepo: serviceLocator<ComparisonCarsRepoImpl>()),
+        deleteUseCase: DeleteComparisonUseCase(
+            comparisonCarsRepo: serviceLocator<AdRepositoryImpl>()));
 
     super.initState();
   }
@@ -267,7 +273,7 @@ class _InfoResultContainerState extends State<InfoResultContainer> {
               if (widget.discount == -1)
                 RichText(
                   text: TextSpan(
-                    text: MyFunctions.getFormatCost('${widget.price}'),
+                    text: MyFunctions.getFormatCost('${widget.price} ${widget.currency.toUpperCase()}'),
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w600,
@@ -282,8 +288,8 @@ class _InfoResultContainerState extends State<InfoResultContainer> {
                   text: TextSpan(
                     children: [
                       TextSpan(
-                        text: MyFunctions.getFormatCost(
-                            widget.discount.toString()),
+                        text: MyFunctions.getFormatCost('${widget.discount} ${widget.currency.toUpperCase()}')
+                        ,
                         style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w600,
@@ -292,7 +298,7 @@ class _InfoResultContainerState extends State<InfoResultContainer> {
                       ),
                       const WidgetSpan(child: SizedBox(width: 4)),
                       TextSpan(
-                        text: MyFunctions.getFormatCost('${widget.price}'),
+                        text: MyFunctions.getFormatCost('${widget.price} ${widget.currency.toUpperCase()}'),
                         style: Theme.of(context).textTheme.headline2!.copyWith(
                               decoration: TextDecoration.lineThrough,
                               color: grey,

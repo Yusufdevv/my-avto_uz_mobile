@@ -44,7 +44,7 @@ class SeeProfilePage extends StatelessWidget {
               builder: (context, state) {
                 if (state.status.isSubmissionInProgress) {
                   return const Center(
-                    child: CupertinoActivityIndicator(),
+                    child: CupertinoActivityIndicator()
                   );
                 }
                 if (state.status.isSubmissionSuccess) {

@@ -6,12 +6,15 @@ import 'package:dio/dio.dart';
 // ignore: one_member_abstracts
 abstract class ComparisonCarsDataSource {
   Future getComparisonCars();
+
   Future postComparisonCars(int id);
 }
 
 class ComparisonDataSourceImpl extends ComparisonCarsDataSource {
   final Dio _dio;
+
   ComparisonDataSourceImpl(this._dio);
+
   @override
   Future getComparisonCars() async {
     try {
@@ -55,7 +58,8 @@ class ComparisonDataSourceImpl extends ComparisonCarsDataSource {
     if (response.statusCode! >= 200 && response.statusCode! < 300) {
     } else {
       throw ServerException(
-          statusCode: response.statusCode!, errorMessage: response.data);
+          statusCode: response.statusCode!,
+          errorMessage: response.data['detail']);
     }
   }
 }

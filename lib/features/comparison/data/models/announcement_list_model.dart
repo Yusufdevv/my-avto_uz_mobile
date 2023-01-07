@@ -1,10 +1,12 @@
+import 'package:auto/features/common/domain/entity/car_dealer_entity.dart';
 import 'package:auto/features/comparison/domain/entities/announcement_list_entity.dart';
+import 'package:auto/features/comparison/domain/entities/user_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'announcement_list_model.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake)
-class AnnouncementListModel extends AnnouncementEntity {
+class AnnouncementListModel extends AnnouncementListEntity {
   AnnouncementListModel({
     required super.contactAvailableFrom,
     required super.contactAvailableTo,
@@ -24,9 +26,15 @@ class AnnouncementListModel extends AnnouncementEntity {
     required super.user,
     required super.viewsCount,
     required super.year,
+    required super.createdAt,
+    required super.currency,
+    required super.dealer,
+    required super.isNew,
+    required super.publishedAt,
+    required super.userType,
   });
 
-   factory AnnouncementListModel.fromJson(Map<String, dynamic> json) =>
+  factory AnnouncementListModel.fromJson(Map<String, dynamic> json) =>
       _$AnnouncementListModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$AnnouncementListModelToJson(this);

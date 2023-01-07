@@ -1,20 +1,12 @@
-import 'dart:convert';
 
-import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
-import 'package:auto/assets/constants/images.dart';
-import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/presentation/bloc/add_photo/image_bloc.dart';
-import 'package:auto/features/common/widgets/w_scale.dart';
-import 'package:auto/features/common/widgets/w_textfield.dart';
 import 'package:auto/features/profile/domain/entities/message_entity.dart';
 import 'package:auto/features/profile/presentation/widgets/widgets.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:grouped_list/grouped_list.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 class ChatPage extends StatefulWidget {
@@ -68,7 +60,7 @@ class _ChatPageState extends State<ChatPage> {
                 })
             }
         })(document,"script");
-         window.$chatwoot?.setUser("id", {
+         window.\$chatwoot?.setUser("id", {
             name: $userName,
             phone_number: $phone,
         });
@@ -106,11 +98,12 @@ class _ChatPageState extends State<ChatPage> {
                 child: InAppWebView(
                   onWebViewCreated: (controller) {
                     _contoller = controller;
+                    _contoller.loadData(data: htmlCode(chatwoot, widget.phone, 'Elzodxon'));
                   },
-                  initialData: InAppWebViewInitialData(
-                      data: htmlCode(chatwoot, widget.phone, 'Elzodxon'),
-                      //  baseUrl:Uri.parse( 'https://chat.uicgroup.tech'0
-                      baseUrl: Uri.parse('http://localhost')),
+                  // initialData: InAppWebViewInitialData(
+                  //     data: htmlCode(chatwoot, widget.phone, 'Elzodxon'),
+                  //     //  baseUrl:Uri.parse( 'https://chat.uicgroup.tech'0
+                  //     baseUrl: Uri.parse('http://localhost')),
                 ),
               ),
             ],

@@ -10,13 +10,13 @@ class CarDealerModel extends CarDealerEntity {
       required super.name,
       required super.slug,
       required super.description,
-      required super.phone,
+      required super.phoneNumber,
       required super.contactFrom,
       required super.contactTo,
       required super.longitude,
       required super.latitude,
       required super.district,
-      required super.type,
+      required super.avatar,
       required super.carCount});
   factory CarDealerModel.fromJson(Map<String, dynamic> json) =>
       _$CarDealerModelFromJson(json);

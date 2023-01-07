@@ -15,7 +15,7 @@ import 'package:auto/features/comparison/presentation/pages/ads/ads.dart';
 import 'package:auto/features/comparison/presentation/pages/choose_car_brand.dart';
 import 'package:auto/features/comparison/presentation/pages/choose_model.dart';
 import 'package:auto/features/comparison/presentation/pages/comaparison.dart';
-import 'package:auto/features/comparison/presentation/widgets/empty_widget.dart';
+import 'package:auto/features/comparison/presentation/widgets/empty_comparison_widget.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
