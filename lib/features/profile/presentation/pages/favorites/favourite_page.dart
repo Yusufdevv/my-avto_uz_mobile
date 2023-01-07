@@ -1,6 +1,11 @@
 import 'package:auto/assets/colors/color.dart';
+import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
+import 'package:auto/features/profile/data/repositories/get_user_list_repo_impl.dart';
+import 'package:auto/features/profile/data/repositories/profile_repository_impl.dart';
+import 'package:auto/features/profile/domain/usecases/profil_favorites_usecase.dart';
 import 'package:auto/features/profile/presentation/bloc/profile/profile_bloc.dart';
+import 'package:auto/features/profile/presentation/bloc/user_wishlists/user_wishlists_bloc.dart';
 import 'package:auto/features/profile/presentation/widgets/empty_item_body.dart';
 import 'package:auto/features/search/presentation/widgets/info_result_container.dart';
 import 'package:auto/generated/locale_keys.g.dart';
@@ -11,72 +16,75 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 
 class FavouritePage extends StatefulWidget {
-  const FavouritePage({required this.profileBloc, Key? key}) : super(key: key);
-  final ProfileBloc profileBloc;
+  const FavouritePage({Key? key}) : super(key: key);
 
   @override
   State<FavouritePage> createState() => _FavouritePageState();
 }
 
 class _FavouritePageState extends State<FavouritePage> {
+  late UserWishListsBloc bloc;
   @override
   void initState() {
+    final repo = serviceLocator<GetUserListRepoImpl>();
+    bloc = UserWishListsBloc(
+      profileFavoritesUseCase: GetUserFavoritesMyAdsUseCase(repository: repo),
+    )..add(
+        GetUserFavoritesEvent(endpoint: '/users/wishlist/announcement/list/'));
     super.initState();
   }
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        appBar: WAppBar(
-          title: LocaleKeys.favorites.tr(),
-          centerTitle: false,
-        ),
-        body: BlocBuilder<ProfileBloc, ProfileState>(
-          builder: (context, state) {
-            if (state.secondStatus.isSubmissionFailure) {
-              return const Center(child: Text('Xatolik!'));
-            }
-            if (state.secondStatus.isSubmissionInProgress) {
-              return const Center(
-                  child: CupertinoActivityIndicator(color: white));
-            }
-            // if (state.secondStatus.isSubmissionSuccess &&
-            //     state.autoEntity.isEmpty) {
-            //   return const EmptyItemBody(title: 'У вас еще нет объявлений');
-            // }
-            final favorites = state.autoEntity;
-            return state.autoEntity.isNotEmpty
-                ? ListView.builder(
-                    itemCount: favorites.length,
-                    itemBuilder: (context, index) {
-                      final item = favorites[index];
-                      return Padding(
-                        padding: EdgeInsets.only(
-                            top: index == 0 ? 16 : 0, bottom: 12),
-                        child: InfoResultContainer(
-                            gallery: item.gallery,
-                            carModelName: item.model.name,
-                            carYear: item.year,
-                            contactPhone: item.contactPhone,
-                            description: item.description,
-                            districtTitle: item.district.title,
-                            isNew: item.isNew,
-                            isWishlisted: item.isWishlisted,
-                            price: item.price,
-                            currency: item.currency,
-                            id: item.id,
-                            publishedAt: item.publishedAt,
-                            userFullName: item.user.fullName,
-                            userImage: item.user.image,
-                            userType: item.userType,
-                            hasComparison: item.isComparison,
-                            callFrom: item.contactAvailableFrom,
-                            callTo: item.contactAvailableTo,
-                            discount: item.discount),
-                      );
-                    })
-                : const Center(child: CupertinoActivityIndicator());
-          },
+  Widget build(BuildContext context) => BlocProvider.value(
+        value: bloc,
+        child: Scaffold(
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+          appBar: WAppBar(
+            title: LocaleKeys.favorites.tr(),
+            centerTitle: false,
+          ),
+          body: BlocBuilder<UserWishListsBloc, UserWishListsState>(
+            builder: (context, state) {
+              if (state.favoritesStatus.isSubmissionInProgress) {
+                return const Center(child: CupertinoActivityIndicator());
+              }
+              if (state.favoritesStatus.isSubmissionSuccess) {
+                final favorites = state.favorites;
+                return favorites.isNotEmpty
+                    ? ListView.builder(
+                        itemCount: favorites.length,
+                        itemBuilder: (context, index) {
+                          final item = favorites[index];
+                          return Padding(
+                            padding: EdgeInsets.only(
+                                top: index == 0 ? 16 : 0, bottom: 12),
+                            child: InfoResultContainer(
+                                gallery: item.gallery,
+                                carModelName: item.model.name,
+                                carYear: item.year,
+                                contactPhone: item.contactPhone,
+                                description: item.description,
+                                districtTitle: item.district.title,
+                                isNew: item.isNew,
+                                isWishlisted: item.isWishlisted,
+                                price: item.price,
+                                currency: item.currency,
+                                id: item.id,
+                                publishedAt: item.publishedAt,
+                                userFullName: item.user.fullName,
+                                userImage: item.user.image,
+                                userType: item.userType,
+                                hasComparison: item.isComparison,
+                                callFrom: item.contactAvailableFrom,
+                                callTo: item.contactAvailableTo,
+                                discount: item.discount),
+                          );
+                        })
+                    : const EmptyItemBody(title: 'У вас еще нет объявлений');
+              }
+              return const Center(child: Text('Xatolik'));
+            },
+          ),
         ),
       );
 }

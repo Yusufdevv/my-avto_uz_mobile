@@ -2,7 +2,6 @@ import 'package:auto/core/exceptions/exceptions.dart';
 import 'package:auto/core/singletons/dio_settings.dart';
 import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/core/singletons/storage.dart';
-import 'package:auto/features/common/domain/model/auto_model.dart';
 import 'package:auto/features/profile/data/models/profile.dart';
 import 'package:auto/features/profile/data/models/profile_data_model.dart';
 import 'package:auto/features/profile/data/models/terms_of_use_model.dart';
@@ -25,7 +24,6 @@ abstract class ProfileDataSource {
       required String code,
       required String session});
 
-  Future<List<AutoModel>> getProfileFavorites(String endpoint);
 
   Future<List<TermsOfUseModel>> getTermsOfUseData();
 }
@@ -117,32 +115,7 @@ class ProfileDataSourceImpl extends ProfileDataSource {
     }
   }
 //'/users/wishlist/announcement/list/'
-  @override
-  Future<List<AutoModel>> getProfileFavorites(String endpoint) async {
-    try {
-      final response = await dio.get(
-        endpoint,
-        options: Options(headers: {
-          'Authorization': 'Bearer ${StorageRepository.getString('token')}'
-        }),
-      );
-      if (response.statusCode! >= 200 && response.statusCode! < 300) {
-        return (response.data['results'] as List)
-            // ignore: unnecessary_lambdas
-            .map((e) => AutoModel.fromJson(e))
-            .toList();
-      }
-      throw ServerException(
-          statusCode: response.statusCode ?? 0,
-          errorMessage: response.statusMessage ?? '');
-    } on ServerException {
-      rethrow;
-    } on DioError {
-      throw DioException();
-    } on Exception catch (e) {
-      throw ParsingException(errorMessage: e.toString());
-    }
-  }
+  
 
   @override
   Future<String> sendPhoneNumber({required String phoneNumber}) async {

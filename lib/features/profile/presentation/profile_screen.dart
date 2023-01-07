@@ -43,15 +43,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   void initState() {
     final repo = serviceLocator<ProfileRepositoryImpl>();
+
     profileBloc = ProfileBloc(
-      
-      changePasswordUseCase: ChangePasswordUseCase(repository: repo),
-      editProfileUseCase: EditProfileUseCase(repository: repo),
-      profileUseCase: ProfileUseCase(repository: repo),
-      profileFavoritesUseCase: ProfileFavoritesUseCase(repository: repo),
-      getTermsOfUseUseCase: GetTermsOfUseUseCase(repository: repo),
-      repository: AuthRepository()
-    )..add(GetProfileEvent());
+        changePasswordUseCase: ChangePasswordUseCase(repository: repo),
+        editProfileUseCase: EditProfileUseCase(repository: repo),
+        profileUseCase: ProfileUseCase(repository: repo),
+        getTermsOfUseUseCase: GetTermsOfUseUseCase(repository: repo),
+        repository: AuthRepository())
+      ..add(GetProfileEvent());
     imageBloc = ImageBloc();
     super.initState();
   }
@@ -114,19 +113,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               name: LocaleKeys.favorites.tr(),
                               onTap: () {
                                 print(StorageRepository.getString('token'));
-                                context.read<ProfileBloc>().add(
-                                    GetProfileFavoritesEvent(
-                                        endpoint:
-                                            '/users/wishlist/announcement/list/'));
                                 Navigator.push(
                                   context,
-                                  fade(
-                                    page: BlocProvider.value(
-                                      value: profileBloc,
-                                      child: FavouritePage(
-                                          profileBloc: profileBloc),
-                                    ),
-                                  ),
+                                  fade(page: const FavouritePage()),
                                 );
                               },
                               iconPath: AppIcons.heartBlue,
@@ -148,14 +137,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ProfileMenuTile(
                               name: LocaleKeys.my_ads.tr(),
                               onTap: () {
-                                context.read<ProfileBloc>().add(
-                                    GetProfileFavoritesEvent(
-                                        endpoint: '/car/my-announcements/'));
                                 Navigator.of(context).push(fade(
-                                    page: BlocProvider.value(
-                                  value: profileBloc,
-                                  child: MyAddsPage(profileBloc: profileBloc),
-                                )));
+                                  page: const MyAddsPage(),
+                                ));
                               },
                               iconPath: AppIcons.tabletNews,
                               count: state.profileEntity.usercountdata
