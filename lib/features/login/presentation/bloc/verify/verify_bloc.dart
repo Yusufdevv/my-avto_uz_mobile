@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/features/login/domain/usecases/change_password.dart';
 import 'package:auto/features/login/domain/usecases/verify_code.dart';
 import 'package:auto/features/login/domain/usecases/verify_recovery.dart';
@@ -32,9 +33,18 @@ class VerifyBloc extends Bloc<VerifyEvent, VerifyState> {
         status: FormzStatus.submissionSuccess,
       ));
     } else {
-      emit(state.copyWith(
+      var error = result.left is ServerFailure
+          ? (result.left as ServerFailure).errorMessage
+          : result.left.toString();
+      if (error == 'Wrong code!') {
+        error = 'Код подтверждения введен неверно';
+      }
+      emit(
+        state.copyWith(
           status: FormzStatus.submissionCanceled,
-          toastMessage: result.left.toString()));
+          toastMessage: error,
+        ),
+      );
     }
   }
 }

@@ -93,7 +93,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    print('=>=>=>=> this is home <=<=<=<=');
     return HomeTabControllerProvider(
       controller: _controller,
       child: WillPopScope(

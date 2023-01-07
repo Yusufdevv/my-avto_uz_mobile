@@ -12,6 +12,7 @@ class NewPasswordBloc extends Bloc<NewPasswordEvent, NewPasswordState> {
       : super(NewPasswordState(status: FormzStatus.pure, phone: phone)) {
     on<NewPasswordEvent>((event, emit) async {
       emit(state.copyWith(status: FormzStatus.submissionInProgress));
+      await Future.delayed(Duration(seconds: 4));
       final result = await changePassword.call(
           ChangePassParam(phone: state.phone, validPassword: event.password));
       if (result.isRight) {

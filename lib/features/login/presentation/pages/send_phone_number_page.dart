@@ -59,7 +59,7 @@ class _SendPhoneNumberPageState extends State<SendPhoneNumberPage> {
                   Navigator.push(
                     context,
                     fade(
-                      page: VerifyPage(
+                      page: VerifySmsCodePage(
                         phone: phoneController.text,
                         session: state.session,
                       ),

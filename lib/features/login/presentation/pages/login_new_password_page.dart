@@ -58,7 +58,6 @@ class _LoginNewPasswordPageState extends State<LoginNewPasswordPage> {
             child: BlocConsumer<NewPasswordBloc, NewPasswordState>(
               listener: (context, state) {
                 if (state.status == FormzStatus.submissionCanceled) {
-                   print('=>=>=>=> failed change password <=<=<=<=');
                   context.read<ShowPopUpBloc>().add(
                       ShowPopUp(message: state.toastMessage, isSucces: false));
                 }
@@ -119,19 +118,26 @@ class _LoginNewPasswordPageState extends State<LoginNewPasswordPage> {
                               ),
                               const SizedBox(height: 36),
                               WButton(
+                                isLoading: state.status ==
+                                    FormzStatus.submissionInProgress,
                                 onTap: () {
-                                  print('tap');
-                                  if ((newPasswordController.text.length >= 6 &&
-                                          confirmPasswordController
-                                                  .text.length >=
-                                              6) &&
-                                      newPasswordController.text ==
-                                          confirmPasswordController.text) {
-                                    newPasswordBloc.add(
-                                      NewPasswordEvent(
-                                          password: newPasswordController.text),
-                                    );
-                                  } else {}
+                                  if (newPasswordController.text.length >= 6 &&
+                                      confirmPasswordController.text.length >=
+                                          6) {
+                                    if (newPasswordController.text ==
+                                        confirmPasswordController.text) {
+                                      newPasswordBloc.add(
+                                        NewPasswordEvent(
+                                            password:
+                                                newPasswordController.text),
+                                      );
+                                    } else {
+                                      context.read<ShowPopUpBloc>().add(ShowPopUp(
+                                          message:
+                                              'Пароли не совпали, повторите попытку еще раз',
+                                          isSucces: false));
+                                    }
+                                  }
                                 },
                                 shadow: [
                                   BoxShadow(

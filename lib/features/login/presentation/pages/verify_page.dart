@@ -22,18 +22,19 @@ import 'package:formz/formz.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
-class VerifyPage extends StatefulWidget {
+class VerifySmsCodePage extends StatefulWidget {
   final String phone;
   final String session;
 
-  const VerifyPage({required this.phone, required this.session, Key? key})
+  const VerifySmsCodePage(
+      {required this.phone, required this.session, Key? key})
       : super(key: key);
 
   @override
-  State<VerifyPage> createState() => _VerifyPageState();
+  State<VerifySmsCodePage> createState() => _VerifySmsCodePageState();
 }
 
-class _VerifyPageState extends State<VerifyPage> {
+class _VerifySmsCodePageState extends State<VerifySmsCodePage> {
   late TextEditingController passwordRecoveryController;
   bool timeComplete = false;
   late VerifyBloc verifyBloc;
@@ -57,11 +58,7 @@ class _VerifyPageState extends State<VerifyPage> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    print('=>=>=>=> session ${widget.session} <=<=<=<=');
-    print('=>=>=>=> phone ${widget.phone} <=<=<=<=');
-
-    return CustomScreen(
+  Widget build(BuildContext context) => CustomScreen(
       child: KeyboardDismisser(
         child: BlocProvider.value(
           value: verifyBloc,
@@ -201,6 +198,7 @@ class _VerifyPageState extends State<VerifyPage> {
                     Padding(
                       padding: const EdgeInsets.only(top: 24),
                       child: WButton(
+                        isLoading: state.status == FormzStatus.submissionInProgress,
                         onTap: () {
                           verifyBloc.add(
                             VerifyVerifyEvent(
@@ -245,5 +243,4 @@ class _VerifyPageState extends State<VerifyPage> {
         ),
       ),
     );
-  }
 }

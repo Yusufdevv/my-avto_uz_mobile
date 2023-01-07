@@ -1,3 +1,4 @@
+import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/features/login/domain/usecases/send_recovery_code.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -18,10 +19,10 @@ class SendPhoneBloc extends Bloc<SendPhoneEvent, SendPhoneState> {
         emit(state.copyWith(
             status: FormzStatus.submissionSuccess, session: result.right));
       } else {
-        emit(state.copyWith(
+       emit(state.copyWith(
             status: FormzStatus.submissionCanceled,
             toastMessage:
-                'Пользователь не существует с введенным номером телефона'));
+                'Номер телефона или парольвведены неверно'));
       }
     });
   }
