@@ -6,6 +6,7 @@ import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/login/domain/usecases/send_recovery_code.dart';
 import 'package:auto/features/login/presentation/bloc/send_phone/send_phone_bloc.dart';
+import 'package:auto/features/login/presentation/pages/verify_page.dart';
 import 'package:auto/features/login/presentation/pages/password_recovery_screen.dart';
 import 'package:auto/features/login/presentation/widgets/z_text_form_field.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
@@ -15,16 +16,14 @@ import 'package:formz/formz.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
-class ForgotPasswordSendPhonePage extends StatefulWidget {
-  const ForgotPasswordSendPhonePage({Key? key}) : super(key: key);
+class SendPhoneNumberPage extends StatefulWidget {
+  const SendPhoneNumberPage({Key? key}) : super(key: key);
 
   @override
-  State<ForgotPasswordSendPhonePage> createState() =>
-      _ForgotPasswordSendPhonePageState();
+  State<SendPhoneNumberPage> createState() => _SendPhoneNumberPageState();
 }
 
-class _ForgotPasswordSendPhonePageState
-    extends State<ForgotPasswordSendPhonePage> {
+class _SendPhoneNumberPageState extends State<SendPhoneNumberPage> {
   late TextEditingController phoneController;
   late SendPhoneBloc sendPhoneBloc;
   @override
@@ -60,7 +59,7 @@ class _ForgotPasswordSendPhonePageState
                   Navigator.push(
                     context,
                     fade(
-                      page: PasswordRecoveryScreen(
+                      page: VerifySmsCodePage(
                         phone: phoneController.text,
                         session: state.session,
                       ),

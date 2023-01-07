@@ -88,36 +88,19 @@ class _AppState extends State<App> {
           onGenerateRoute: (settings) => SplashSc.route(),
           builder: (context, child) {
             SizeConfig().init(context);
-                       return   BlocListener<AuthenticationBloc, AuthenticationState>(
-            listener: (context, state) {
-              switch (state.status) {
-                case AuthenticationStatus.unauthenticated:
-                  navigator.pushAndRemoveUntil(
-                      fade(page: const FirstOnBoarding()), (route) => false);
-                  // navigator.pushAndRemoveUntil(
-                  //     fade(
-                  //         page: BlocProvider(
-                  //             create: (c) => RegisterBloc(
-                  //                 sendCodeUseCase: SendCodeUseCase(),
-                  //                 registerUseCase: RegisterUseCase(),
-                  //                 verifyCodeUseCase: VerifyCodeUseCase()),
-                  //             child: const LoginScreen())),
-                  //     (route) => false);
-                  break;
-                case AuthenticationStatus.authenticated:
-                  navigator.pushAndRemoveUntil(
-                      fade(page: const HomeScreen()), (route) => false);
-                  navigator.pushAndRemoveUntil(
-                      fade(page: const HomeScreen()), (route) => false);
-                  (context) => ShowPopUpBloc();
-                  if (!StorageRepository.getBool('onboarding',
-                      defValue: false)) {
-                    navigator.pushAndRemoveUntil(
-                      fade(page: const HomeScreen()),
-                      (route) => false,
-                    );
-                  } else {
-                    navigator.pushAndRemoveUntil(
+            return BlocListener<AuthenticationBloc, AuthenticationState>(
+              listener: (context, state) async {
+                await Future.delayed(const Duration(seconds: 3));
+                switch (state.status) {
+                  case AuthenticationStatus.unauthenticated:
+                    if (!StorageRepository.getBool('onboarding',
+                        defValue: false)) {
+                      await navigator.pushAndRemoveUntil(
+                          fade(page: const FirstOnBoarding()),
+                          (route) => false);
+                      break;
+                    }
+                    await navigator.pushAndRemoveUntil(
                         fade(
                           page: BlocProvider(
                             create: (c) => RegisterBloc(
@@ -129,12 +112,32 @@ class _AppState extends State<App> {
                           ),
                         ),
                         (route) => false);
-                  }
-                  break;
-              }
-            },
-            child: child,
-          );}
+
+                    break;
+                  case AuthenticationStatus.authenticated:
+                    if (StorageRepository.getString('token').isEmpty) {
+                      await navigator.pushAndRemoveUntil(
+                          fade(
+                            page: BlocProvider(
+                              create: (c) => RegisterBloc(
+                                sendCodeUseCase: SendCodeUseCase(),
+                                registerUseCase: RegisterUseCase(),
+                                verifyCodeUseCase: VerifyCodeUseCase(),
+                              ),
+                              child: const LoginScreen(),
+                            ),
+                          ),
+                          (route) => false);
+                    } else {
+                      await navigator.pushAndRemoveUntil(
+                          fade(page: const HomeScreen()), (route) => false);
+                    }
+                    break;
+                }
+              },
+              child: child,
+            );
+          },
         ),
       );
 }

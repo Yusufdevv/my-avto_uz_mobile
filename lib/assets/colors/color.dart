@@ -72,7 +72,7 @@ const nero = _nero3;
 const snow = _snow;
 const seashell = _seashell;
 const yellowSea = _yellowSea;
-
+const disabledButton = _veryLightGrey;
 
 // Main palette (http://www.color-blindness.com/color-name-hue/).
 
@@ -148,3 +148,4 @@ const _emerald = Color(0xff5ECC81);
 const _lavender = Color(0xffF0EFFD);
 
 const _tutu = Color(0xFFFAEEEE);
+const _veryLightGrey = Color(0xFFCCCCCC);

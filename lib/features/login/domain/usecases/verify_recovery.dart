@@ -2,6 +2,7 @@ import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/core/usecases/usecase.dart';
 import 'package:auto/features/common/repository/global_request_repository.dart';
 import 'package:auto/core/utils/either.dart';
+import 'package:auto/features/login/domain/usecases/verify_code.dart';
 
 class VerifyRecoveryUseCase extends UseCase<String, VerifyParam> {
   final GlobalRequestRepository repo = GlobalRequestRepository();
@@ -18,10 +19,4 @@ class VerifyRecoveryUseCase extends UseCase<String, VerifyParam> {
           });
 }
 
-class VerifyParam {
-  final String phone;
-  final String code;
-  final String session;
 
-  VerifyParam({required this.phone, required this.code, required this.session});
-}

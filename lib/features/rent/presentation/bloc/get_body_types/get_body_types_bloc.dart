@@ -20,7 +20,7 @@ class GetBodyTypesBloc extends Bloc<GetBodyTypesEvent, GetBodyTypesState> {
       print("gettint body types");
       final result = await getBodyTypeUseCase.call(NoParams());
       if (result.isRight) {
-        print("got result is right ${result.right.results.toString()}");
+        // print("got result is right ${result.right.results.toString()}");
         emit(
           state.copyWith(
             selected: result.right.results

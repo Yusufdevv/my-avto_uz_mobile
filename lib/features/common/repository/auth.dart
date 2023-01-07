@@ -26,8 +26,8 @@ class AuthRepository {
 
   Future<Either<Failure, TokenModel>> login(
       {required String login, required String password}) async {
-    print('$login\n');
-    print(password);
+    // print('$login\n');
+    // print(password);
     try {
       final result = await repo.postAndSingle<TokenModel>(
         endpoint: '/users/login/',

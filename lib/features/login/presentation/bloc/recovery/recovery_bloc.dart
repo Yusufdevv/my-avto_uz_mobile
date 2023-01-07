@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:auto/features/login/domain/usecases/change_password.dart';
 import 'package:auto/features/login/domain/usecases/send_recovery_code.dart';
+import 'package:auto/features/login/domain/usecases/verify_code.dart';
 import 'package:auto/features/login/domain/usecases/verify_recovery.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/foundation.dart';
@@ -17,7 +18,7 @@ part 'recovery_bloc.freezed.dart';
 class RecoveryBloc extends Bloc<RecoveryEvent, RecoveryState> {
   final SendRecoveryCodeUseCase senCode;
   final VerifyRecoveryUseCase verifyCode;
-  final ChangePasswordUseCase changePassword;
+  final ChangePasswordInLoginUseCase changePassword;
 
   RecoveryBloc(this.senCode, this.verifyCode, this.changePassword)
       : super(RecoveryState()) {
@@ -25,7 +26,7 @@ class RecoveryBloc extends Bloc<RecoveryEvent, RecoveryState> {
       emit(state.copyWith(sendCodeStatus: FormzStatus.submissionInProgress));
       final result = await senCode(event.phone);
       if (result.isRight) {
-        emit(state.copyWith(sendCodeStatus: FormzStatus.submissionSuccess));
+        emit(state.copyWith(sendCodeStatus: FormzStatus.submissionSuccess,));
 
         event.onSuccess(result.right);
       } else {
@@ -37,7 +38,7 @@ class RecoveryBloc extends Bloc<RecoveryEvent, RecoveryState> {
       emit(state.copyWith(verifyStatus: FormzStatus.submissionInProgress));
       final result = await verifyCode(event.param);
       if (result.isRight) {
-        print(result.right + 'from Bloc');
+        // print(result.right + 'from Bloc');
         emit(state.copyWith(
           phone: result.right,
           verifyStatus: FormzStatus.submissionSuccess,

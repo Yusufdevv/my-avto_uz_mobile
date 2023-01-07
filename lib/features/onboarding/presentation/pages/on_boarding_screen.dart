@@ -2,6 +2,7 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/login/presentation/login_screen.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
@@ -79,6 +80,9 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                 PageView(
                   physics: const BouncingScrollPhysics(),
                   onPageChanged: (page) {
+                    if (page == 2) {
+                      setOnboardingTrue();
+                    }
                     setState(() {
                       currentIndex = page;
                     });
@@ -175,5 +179,9 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
         ],
       ),
     );
+  }
+
+  Future<void> setOnboardingTrue() async {
+    await StorageRepository.putBool(key: 'onboarding', value: true);
   }
 }
