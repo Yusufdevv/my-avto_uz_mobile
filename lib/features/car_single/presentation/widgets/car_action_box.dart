@@ -15,7 +15,7 @@ class CarActionsBox extends StatelessWidget {
       : super(key: key);
 
   @override
-  Widget build(BuildContext context) => WScaleAnimation(
+  Widget build(BuildContext context) => GestureDetector(
         onTap: onTap,
         child: Container(
           child: Column(

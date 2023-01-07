@@ -9,7 +9,8 @@ class VinSoonItem extends StatelessWidget {
   Widget build(BuildContext context) => Container(
         padding: const EdgeInsets.only(
           right: 20,
-          left: 20
+          left: 20,
+          top: 20,
         ),
         margin: const EdgeInsets.only(
           bottom: 8,

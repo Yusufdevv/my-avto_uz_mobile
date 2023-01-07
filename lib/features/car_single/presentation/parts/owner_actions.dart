@@ -13,64 +13,68 @@ class OwnerActions extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Container(
         margin: const EdgeInsets.symmetric(horizontal: 16),
-        child: Row(
-          children: [
-            Expanded(
-              child: WScaleAnimation(
-                onTap: () {
-                  Navigator.of(context).push(fade(page: const InvoicePage()));
-                },
-                child: const OwnerActionBox(
-                    color: accentYellow,
-                    entity: OwnerActionEntity(
-                        title: 'Стать VIP на 3 дня', icon: AppIcons.crown)),
+        child: Container(
+            color: Theme.of(context).scaffoldBackgroundColor,
+            padding: const EdgeInsets.symmetric(vertical: 12),
+          child: Row(
+            children: [
+              Expanded(
+                child: WScaleAnimation(
+                  onTap: () {
+                    Navigator.of(context).push(fade(page: const InvoicePage()));
+                  },
+                  child: const OwnerActionBox(
+                      color: accentYellow,
+                      entity: OwnerActionEntity(
+                          title: 'Стать VIP на 3 дня', icon: AppIcons.crown)),
+                ),
               ),
-            ),
-            const SizedBox(
-              width: 8,
-            ),
-            Expanded(
-              child: WScaleAnimation(
-                onTap: () {
-                  Navigator.of(context).push(fade(page: const InvoicePage()));
-                },
-                child: const OwnerActionBox(
-                    color: accentGreen,
-                    entity: OwnerActionEntity(
-                        title: 'Продлить на 7 дней', icon: AppIcons.refresher)),
+              const SizedBox(
+                width: 8,
               ),
-            ),
-            const SizedBox(
-              width: 8,
-            ),
-            Expanded(
-              child: WScaleAnimation(
-                onTap: () {
-                  Navigator.of(context).push(fade(page: const InvoicePage()));
-                },
-                child: const OwnerActionBox(
-                    color: accentRed,
-                    entity: OwnerActionEntity(
-                        title: 'Отправить в “ТОП”', icon: AppIcons.rocket)),
+              Expanded(
+                child: WScaleAnimation(
+                  onTap: () {
+                    Navigator.of(context).push(fade(page: const InvoicePage()));
+                  },
+                  child: const OwnerActionBox(
+                      color: accentGreen,
+                      entity: OwnerActionEntity(
+                          title: 'Продлить на 7 дней', icon: AppIcons.refresher)),
+                ),
               ),
-            ),
-            const SizedBox(
-              width: 8,
-            ),
-            Expanded(
-              child: WScaleAnimation(
-                onTap: () {
-                  Navigator.of(context).push(fade(page: const InvoicePage()));
-                },
-                child: const OwnerActionBox(
-                    color: Color(0xffDFEFFF),
-                    entity: OwnerActionEntity(
-                      title: 'В горячие \n ',
-                      icon: AppIcons.blue_fire,
-                    )),
+              const SizedBox(
+                width: 8,
               ),
-            ),
-          ],
+              Expanded(
+                child: WScaleAnimation(
+                  onTap: () {
+                    Navigator.of(context).push(fade(page: const InvoicePage()));
+                  },
+                  child: const OwnerActionBox(
+                      color: accentRed,
+                      entity: OwnerActionEntity(
+                          title: 'Отправить в “ТОП”', icon: AppIcons.rocket)),
+                ),
+              ),
+              const SizedBox(
+                width: 8,
+              ),
+              Expanded(
+                child: WScaleAnimation(
+                  onTap: () {
+                    Navigator.of(context).push(fade(page: const InvoicePage()));
+                  },
+                  child: const OwnerActionBox(
+                      color: Color(0xffDFEFFF),
+                      entity: OwnerActionEntity(
+                        title: 'В горячие \n ',
+                        icon: AppIcons.blue_fire,
+                      )),
+                ),
+              ),
+            ],
+          ),
         ),
       );
 }

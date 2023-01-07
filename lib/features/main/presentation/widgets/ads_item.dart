@@ -4,30 +4,40 @@ import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/car_single/presentation/car_single_screen.dart';
 import 'package:auto/features/common/widgets/w_like.dart';
-import 'package:auto/features/main/domain/entities/ads_entity.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class AdsItem extends StatelessWidget {
-  final AdsEntity adsEntity;
+  final String name;
+  final String image;
+  final String price;
+  final String location;
+  final String description;
 
-  const AdsItem({required this.adsEntity, Key? key}) : super(key: key);
+  const AdsItem(
+      {Key? key,
+      required this.name,
+      required this.price,
+      required this.location,
+      required this.description,
+      required this.image})
+      : super(key: key);
 
   @override
+  // ignore: prefer_expression_function_bodies
   Widget build(BuildContext context) {
-    print('object ${adsEntity.imageUrl}');
+    // print('object ${adsEntity.imageUrl}');
     return GestureDetector(
       onTap: () {
-        Navigator.push(
-            context,
-            fade(
-                page: CarSingleScreen(
-            )));
+        Navigator.push(context, fade(page: CarSingleScreen()));
       },
       child: Container(
+        height: 269,
         width: 225,
-        margin: const EdgeInsets.only(left: 16),
+        padding: EdgeInsets.only(right: 4),
+        margin: const EdgeInsets.only(left: 16,right: 50),
         decoration: BoxDecoration(
           boxShadow: [
             BoxShadow(
@@ -68,22 +78,25 @@ class AdsItem extends StatelessWidget {
               height: 126,
               width: 225,
               child: ClipRRect(
-                borderRadius: const BorderRadius.only(
-                  topRight: Radius.circular(12),
-                  topLeft: Radius.circular(12),
-                ),
-                child:
-                    // adsEntity.imageUrl.first != ''
-                    //     ? Image.network(
-                    //         adsEntity.imageUrl.first.toString(),
-                    //         fit: BoxFit.cover,
-                    //       )
-                    //     :
-                    Image.asset(
-                  AppImages.defaultPhoto,
-                  fit: BoxFit.cover,
-                ),
-              ),
+                  borderRadius: const BorderRadius.only(
+                    topRight: Radius.circular(12),
+                    topLeft: Radius.circular(12),
+                  ),
+                  child:
+                      // adsEntity.imageUrl.first != ''
+                      //     ? Image.network(
+                      //         adsEntity.imageUrl.first.toString(),
+                      //         fit: BoxFit.cover,
+                      //       )
+                      //     :
+                      CachedNetworkImage(
+                    imageUrl: image,
+                    fit: BoxFit.cover,
+                    errorWidget: (context, url, error) => Image.asset(
+                      AppImages.defaultPhoto,
+                      fit: BoxFit.cover,
+                    ),
+                  )),
             ),
             const SizedBox(
               height: 12,
@@ -91,7 +104,7 @@ class AdsItem extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Text(
-                adsEntity.model,
+                name,
                 style: Theme.of(context)
                     .textTheme
                     .headline3!
@@ -101,7 +114,7 @@ class AdsItem extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Text(
-                adsEntity.price,
+                price,
                 style: Theme.of(context)
                     .textTheme
                     .headline1!
@@ -112,7 +125,7 @@ class AdsItem extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Text(
-                adsEntity.description,
+                description,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 style: Theme.of(context).textTheme.bodyText1!.copyWith(
@@ -139,7 +152,7 @@ class AdsItem extends StatelessWidget {
                       SvgPicture.asset(AppIcons.location),
                       const SizedBox(width: 4),
                       Text(
-                        adsEntity.region,
+                        location,
                         style: Theme.of(context).textTheme.headline6!.copyWith(
                             fontSize: 12,
                             color: Theme.of(context)
@@ -151,7 +164,9 @@ class AdsItem extends StatelessWidget {
                   const Spacer(),
                   Row(
                     children: [
-                      const WLike(),
+                      const WLike(
+                        color: grey,
+                      ),
                       const SizedBox(width: 12),
                       SvgPicture.asset(AppIcons.scale),
                     ],

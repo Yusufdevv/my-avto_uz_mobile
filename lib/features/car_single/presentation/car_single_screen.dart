@@ -5,20 +5,26 @@ import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/features/car_single/data/repository/car_single_repository_impl.dart';
 import 'package:auto/features/car_single/domain/usecases/get_ads_usecase.dart';
+import 'package:auto/features/car_single/domain/usecases/other_ads_usecase.dart';
 import 'package:auto/features/car_single/presentation/bloc/car_single_bloc.dart';
 import 'package:auto/features/car_single/presentation/parts/car_seller_card.dart';
 import 'package:auto/features/car_single/presentation/parts/characteristics/car_characteristic.dart';
-import 'package:auto/features/car_single/presentation/parts/description_tabs.dart';
-import 'package:auto/features/car_single/presentation/parts/other_ads.dart';
+import 'package:auto/features/car_single/presentation/parts/descriptions/seller_comment.dart';
 import 'package:auto/features/car_single/presentation/parts/owner_actions.dart';
 import 'package:auto/features/car_single/presentation/widgets/car_name_widget.dart';
+import 'package:auto/features/car_single/presentation/widgets/cars_characteristic.dart';
 import 'package:auto/features/car_single/presentation/widgets/dealer_time_botomsheet.dart';
 import 'package:auto/features/car_single/presentation/widgets/more_actions_bottomsheet.dart';
+import 'package:auto/features/car_single/presentation/widgets/persistant_header.dart';
 import 'package:auto/features/car_single/presentation/widgets/sliver_images_item.dart';
+import 'package:auto/features/car_single/presentation/widgets/vin_soon_item.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_like.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
+import 'package:auto/features/main/presentation/widgets/ads_item.dart';
+import 'package:auto/features/pagination/presentation/paginator.dart';
 import 'package:auto/generated/locale_keys.g.dart';
+import 'package:auto/utils/my_functions.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
@@ -26,7 +32,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:formz/formz.dart';
-import 'package:jiffy/jiffy.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class CarSingleScreen extends StatefulWidget {
@@ -36,19 +42,25 @@ class CarSingleScreen extends StatefulWidget {
   State<CarSingleScreen> createState() => _CarSingleScreenState();
 }
 
-class _CarSingleScreenState extends State<CarSingleScreen> {
-  late CarSingleBloc bloc;
+class _CarSingleScreenState extends State<CarSingleScreen>
+    with SingleTickerProviderStateMixin {
   final Color color = white;
+  late CarSingleBloc bloc;
+  late TabController _tabController;
   late bool isLike;
   late bool isDisable;
-  final ScrollController _scrollController = ScrollController();
+  late ScrollController _scrollController;
+  late DateTime timeFrom;
+  late DateTime timeTo;
+  Color tabColor = border;
+  Color iconColor = white;
   Color likeColor = white;
-  String title = 'dasdasca';
-  double height = 36;
   CrossFadeState actionState = CrossFadeState.showFirst;
-  bool isAppBarOffset = false;
   CrossFadeState crossFadeState = CrossFadeState.showFirst;
+  bool isAppBarOffset = false;
+  int currentindex = 0;
   int currentIndex = 0;
+  double height = 36;
 
   void changeIndex(int index) {
     setState(() {
@@ -56,17 +68,18 @@ class _CarSingleScreenState extends State<CarSingleScreen> {
     });
   }
 
-  late DateTime timeFrom;
-  late DateTime timeTo;
-
   @override
   void initState() {
+    _scrollController = ScrollController();
+    _tabController = TabController(length: 2, vsync: this);
     isDisable = true;
     isLike = false;
-    bloc = CarSingleBloc(GetCarSingleUseCase(
-        repository: serviceLocator<CarSingleRepositoryImpl>()))
-      ..add(CarSingleEvent.getSingle(1));
-
+    bloc = CarSingleBloc(
+        GetCarSingleUseCase(
+            repository: serviceLocator<CarSingleRepositoryImpl>()),
+        OtherAdsUseCase(repository: serviceLocator<CarSingleRepositoryImpl>()))
+      ..add(CarSingleEvent.getSingle(9))
+      ..add(CarSingleEvent.getOtherAds(2));
     _scrollController.addListener(() {
       if (_scrollController.offset > 287 && isAppBarOffset != true) {
         actionState = CrossFadeState.showSecond;
@@ -75,13 +88,16 @@ class _CarSingleScreenState extends State<CarSingleScreen> {
       } else if (_scrollController.offset < 287 && isAppBarOffset != false) {
         isAppBarOffset = false;
         actionState = CrossFadeState.showFirst;
-        title = 'Mersedes Benz';
         setState(() {});
       } else {
         likeColor = white;
         crossFadeState = CrossFadeState.showFirst;
-        title = '';
         setState(() {});
+      }
+      if (_scrollController.offset > 240) {
+        iconColor = grey;
+      } else {
+        iconColor = white;
       }
     });
     super.initState();
@@ -101,33 +117,18 @@ class _CarSingleScreenState extends State<CarSingleScreen> {
           body: BlocBuilder<CarSingleBloc, CarSingleState>(
             builder: (context, state) {
               if (state.status != FormzStatus.submissionSuccess) {
-                print('STATUS IS ${state.status}');
-                print('DATA FROM BLOC ${state.singleEntity.make}');
                 return const Center(child: CupertinoActivityIndicator());
               } else {
-                timeFrom =
-                    Jiffy(state.singleEntity.contactAvailableFrom, 'hh:MM:ss')
-                        .dateTime;
-                timeTo =
-                    Jiffy(state.singleEntity.contactAvailableTo, 'hh:MM:ss')
-                        .dateTime;
-                print(state.singleEntity.contactAvailableTo);
-                print(state.singleEntity.contactAvailableFrom);
-                print(
-                    "Jiffy(state.singleEntity.contactAvailableFrom,'hh:MM:ss').isAfter(DateTime.now()) : ${Jiffy(state.singleEntity.contactAvailableFrom, 'hh:MM:ss').isSameOrAfter(DateTime.now())}");
-                print(
-                    "Jiffy(state.singleEntity.contactAvailableTo,'hh:MM:ss').isBefore(DateTime.now()) : ${Jiffy(state.singleEntity.contactAvailableTo, 'hh:MM:ss').isBefore(DateTime.now())}");
-                print('STATUS IS ${state.status}');
                 return Stack(
                   children: [
                     CustomScrollView(
                       controller: _scrollController,
                       slivers: [
                         SliverAppBar(
-                          stretch: true,
-                          pinned: true,
-                          floating: false,
                           elevation: 0,
+                          pinned: true,
+                          stretch: true,
+                          floating: false,
                           expandedHeight: 311,
                           automaticallyImplyLeading: false,
                           title: Row(
@@ -140,6 +141,7 @@ class _CarSingleScreenState extends State<CarSingleScreen> {
                                   AppIcons.chevronLeft,
                                   width: 24,
                                   height: 24,
+                                  color: iconColor,
                                 ),
                               ),
                               Expanded(
@@ -147,38 +149,28 @@ class _CarSingleScreenState extends State<CarSingleScreen> {
                                   firstChild: const SizedBox(),
                                   secondChild: Text(
                                     state.singleEntity.absoluteCarName,
-                                    style: const TextStyle(color: Colors.black),
+                                    style: const TextStyle(
+                                      color: Colors.black,
+                                    ),
                                     overflow: TextOverflow.ellipsis,
                                     maxLines: 1,
                                   ),
                                   crossFadeState: actionState,
-                                  duration: const Duration(milliseconds: 100),
+                                  duration: const Duration(
+                                    milliseconds: 100,
+                                  ),
                                 ),
                               ),
-                              const SizedBox(
-                                width: 8,
-                              ),
-                              // if (currentIndex != 0)
-                              //   GestureDetector(
-                              //     onTap: () {},
-                              //     child: SvgPicture.asset(
-                              //       AppIcons.edit,
-                              //       height: 25,
-                              //       width: 25,
-                              //     ),
-                              //   )
-                              // else
-                              const WLike(),
-                              const SizedBox(
-                                width: 8,
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 8, right: 8),
+                                child: WLike(
+                                  color: iconColor,
+                                ),
                               ),
                               GestureDetector(
-                                child: SvgPicture.asset(
-                                  AppIcons.moreVertical,
-                                  width: 36,
-                                  height: 36,
-                                  color: grey,
-                                ),
+                                child: SvgPicture.asset(AppIcons.moreVertical,
+                                    width: 36, height: 36, color: iconColor),
                                 onTap: () {
                                   showModalBottomSheet(
                                     useRootNavigator: true,
@@ -197,10 +189,11 @@ class _CarSingleScreenState extends State<CarSingleScreen> {
                             ],
                           ),
                           flexibleSpace: FlexibleSpaceBar(
-                              background: SingleImagePart(
-                            count: 0,
-                            images: state.singleEntity.gallery,
-                          )),
+                            background: SingleImagePart(
+                              count: 0,
+                              images: state.singleEntity.gallery,
+                            ),
+                          ),
                         ),
                         SliverToBoxAdapter(
                           child: CarNameWidget(
@@ -212,7 +205,9 @@ class _CarSingleScreenState extends State<CarSingleScreen> {
                             currency: state.singleEntity.currency,
                             onVin: () {},
                             onComparison: () {},
-                            onShare: () {},
+                            onShare: () {
+                              Share.share('Auto uz');
+                            },
                             year: '${state.singleEntity.year}',
                             mileage: '${state.singleEntity.distanceTraveled}',
                             body: state.singleEntity.bodyType.type,
@@ -231,74 +226,201 @@ class _CarSingleScreenState extends State<CarSingleScreen> {
                             percent: '5',
                           ),
                         ),
-                        // if (currentIndex != 0)
-                        //   SliverToBoxAdapter(
-                        //     child: Column(
-                        //       children: [
-                        //         DayLikeCallItem(
-                        //           days: '${state.singleEntity.viewsCount}',
-                        //           likes: '${state.singleEntity.viewsCount}',
-                        //           calls: '${state.singleEntity.viewsCount}',
-                        //         ),
-                        //         AnnouncementPeriodItem(
-                        //           days: '${state.singleEntity.viewsCount}' +
-                        //               ' дня',
-                        //         )
-                        //       ],
-                        //     ),
-                        //   )
-                        // else
-                        //   const SliverToBoxAdapter(child: SizedBox()),
+                        const SliverToBoxAdapter(
+                          child: OwnerActions(),
+                        ),
                         SliverToBoxAdapter(
-                          child: Container(
-                            color: Theme.of(context).scaffoldBackgroundColor,
-                            padding: const EdgeInsets.symmetric(vertical: 12),
-                            child: const OwnerActions(),
+                          child: CarSellerCard(
+                            image: state.singleEntity.userType == 'dealer'
+                                ? state.singleEntity.user.avatar ?? ''
+                                : state.singleEntity.user.image ?? '',
+                            name: state.singleEntity.userType == 'dealer'
+                                ? state.singleEntity.user.name
+                                : state.singleEntity.user.fullName,
+                            position: state.singleEntity.userType,
+                          ),
+                        ),
+                        SliverPersistentHeader(
+                          pinned: true,
+                          delegate: DescriptionHeader(
+                            controller: _tabController,
+                            onTap: (integer) {
+                              changeIndex(integer);
+                              setState(
+                                () {
+                                  currentindex = integer;
+                                },
+                              );
+                            },
                           ),
                         ),
                         SliverToBoxAdapter(
-                          child: Container(
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                width: 1,
-                                color: Theme.of(context)
-                                    .extension<ThemedColors>()!
-                                    .solitudeToDarkRider,
-                              ),
-                              color: Theme.of(context)
-                                  .extension<ThemedColors>()!
-                                  .whiteToDark,
-                            ),
-                            padding: const EdgeInsets.symmetric(horizontal: 16),
-                            child: CarSellerCard(
-                              image: state.singleEntity.user.avatar ?? '',
-                              name: state.singleEntity.user.name,
-                              position: state.singleEntity.userType,
-                            ),
-                          ),
-                        ),
-                        SliverToBoxAdapter(
-                          child: DescriptionTabs(
-                            changeIndex: changeIndex,
-                            comment: state.singleEntity.description,
-                            complectation: state.singleEntity.model.name,
-                            complectationItem: state.singleEntity.model.name,
-                            bodyType: state.singleEntity.bodyType.type,
-                            milleage: '${state.singleEntity.distanceTraveled}',
-                            driveType: state.singleEntity.driveType.type,
-                            engineType: state.singleEntity.engineType.type,
-                            gearboxType: state.singleEntity.gearboxType.type,
-                            enginePower:
-                                state.singleEntity.modificationType.power,
-                            engineVolume:
-                                state.singleEntity.modificationType.volume,
-                          ),
+                          child: (currentindex == 0)
+                              ? Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    SellerComment(
+                                      comment: state.singleEntity.description,
+                                    ),
+                                    const VinSoonItem(),
+                                  ],
+                                )
+                              : CarCharacteristicItem(
+                                  bodyType: state.singleEntity.bodyType.type,
+                                  milleage:
+                                      '${state.singleEntity.distanceTraveled}',
+                                  driveType: state.singleEntity.driveType.type,
+                                  engineType:
+                                      state.singleEntity.engineType.type,
+                                  gearboxType:
+                                      state.singleEntity.gearboxType.type,
+                                  enginePower:
+                                      state.singleEntity.modificationType.power,
+                                  engineVolume: state
+                                      .singleEntity.modificationType.volume,
+                                ),
                         ),
                         const SliverToBoxAdapter(
                           child: CarCharacteristic(),
                         ),
-                        const SliverToBoxAdapter(
-                          child: OtherAds(),
+                        SliverToBoxAdapter(
+                          child: state.elasticSearchEntity.isNotEmpty
+                              ? Container(
+                                  height: 400,
+                                  padding: const EdgeInsets.only(
+                                    bottom: 20,
+                                  ),
+                                  decoration: BoxDecoration(
+                                      color: Theme.of(context)
+                                          .extension<ThemedColors>()!
+                                          .whiteToDark,
+                                      border: Border.all(color: border)),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      const SizedBox(
+                                        height: 20,
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 16),
+                                        child: Text(
+                                          LocaleKeys.Other_announcements.tr(),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headline1!
+                                              .copyWith(
+                                                  fontWeight: FontWeight.w700,
+                                                  fontSize: 18),
+                                        ),
+                                      ),
+                                      Container(
+                                        margin: const EdgeInsets.fromLTRB(
+                                            16, 8, 16, 0),
+                                        decoration: BoxDecoration(
+                                          color: Theme.of(context)
+                                              .extension<ThemedColors>()!
+                                              .solitudeTo1Black,
+                                          borderRadius:
+                                              BorderRadius.circular(12),
+                                        ),
+                                        padding: const EdgeInsets.all(2),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  left: 16, right: 28),
+                                              child: Text(
+                                                state.singleEntity.make.name,
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .headline1!
+                                                    .copyWith(
+                                                        fontSize: 14,
+                                                        fontWeight:
+                                                            FontWeight.w700),
+                                              ),
+                                            ),
+                                            Container(
+                                              width: 50,
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          7.5),
+                                                  color: Theme.of(context)
+                                                      .extension<
+                                                          ThemedColors>()!
+                                                      .whiteToEclipse,
+                                                  border: Border.all(
+                                                      color: border)),
+                                              height: 36,
+                                              child: Center(
+                                                child: CachedNetworkImage(
+                                                  imageUrl: state
+                                                      .singleEntity.model.name,
+                                                  errorWidget:
+                                                      (context, url, error) =>
+                                                          const SizedBox(),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        height: 12,
+                                      ),
+                                      BlocBuilder<CarSingleBloc,
+                                          CarSingleState>(
+                                        builder: (context, state) {
+                                          if (state.status !=
+                                              FormzStatus.submissionSuccess) {
+                                            return const CupertinoActivityIndicator();
+                                          } else {
+                                            return Expanded(
+                                              child: Paginator(
+                                                scrollDirection:
+                                                    Axis.horizontal,
+                                                paginatorStatus: state.status,
+                                                itemBuilder: (context, index) =>
+                                                    AdsItem(
+                                                  name: state
+                                                      .elasticSearchEntity[
+                                                          index]
+                                                      .carModel
+                                                      .name,
+                                                  price:
+                                                      '${state.elasticSearchEntity[index].price}',
+                                                  location: state
+                                                      .elasticSearchEntity[
+                                                          index]
+                                                      .region
+                                                      .title,
+                                                  description: state
+                                                      .elasticSearchEntity[
+                                                          index]
+                                                      .description,
+                                                  image: state
+                                                      .elasticSearchEntity[
+                                                          index]
+                                                      .gallery[0],
+                                                ),
+                                                itemCount: state
+                                                    .elasticSearchEntity.length,
+                                                fetchMoreFunction: () {},
+                                                hasMoreToFetch: state.fetchMore,
+                                                errorWidget: Container(),
+                                              ),
+                                            );
+                                          }
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              : const SizedBox(),
                         ),
                         const SliverToBoxAdapter(
                           child: SizedBox(
@@ -314,20 +436,24 @@ class _CarSingleScreenState extends State<CarSingleScreen> {
                       child: Row(
                         children: [
                           Expanded(
-                            child: Jiffy(
-                                            state.singleEntity
-                                                .contactAvailableFrom,
-                                            'hh:MM:ss')
-                                        .isAfter(DateTime.now()) &&
-                                    Jiffy(state.singleEntity.contactAvailableTo,
-                                            'hh:MM:ss')
-                                        .isAfter(DateTime.now())
+                            child: MyFunctions.enableForCalling(
+                                    callFrom:
+                                        state.singleEntity.contactAvailableFrom,
+                                    callTo:
+                                        state.singleEntity.contactAvailableTo)
                                 ? WButton(
                                     onTap: () {
-                                      print(
-                                          'DateTime.now().isAfter(timeFrom) : ${DateTime.now().isAfter(timeFrom)}');
-                                      print(
-                                          'DateTime.now().isBefore(timeTo) : ${DateTime.now().isBefore(timeTo)}');
+                                      launch(
+                                          'tel://${state.singleEntity.user.phoneNumber}');
+                                    },
+                                    height: 44,
+                                    borderRadius: 8,
+                                    color: const Color(0xff5ECC81),
+                                    text: LocaleKeys.call.tr(),
+                                    textColor: Colors.white,
+                                  )
+                                : WButton(
+                                    onTap: () {
                                       showModalBottomSheet(
                                         useRootNavigator: true,
                                         isScrollControlled: false,
@@ -340,38 +466,6 @@ class _CarSingleScreenState extends State<CarSingleScreen> {
                                               .contactAvailableFrom,
                                         ),
                                       );
-                                      // Navigator.of(context).push(fade(page: const DealerScreen()));
-                                    },
-                                    height: 44,
-                                    borderRadius: 8,
-                                    color: const Color(0xff5ECC81),
-                                    text: LocaleKeys.call.tr(),
-                                    textColor: Colors.white,
-                                  )
-                                : WButton(
-                                    onTap: () {
-                                      print(
-                                          'DateTime.now().isAfter(timeFrom) : ${DateTime.now().isAfter(timeFrom)}');
-                                      print(
-                                          'DateTime.now().isBefore(timeTo) : ${DateTime.now().isBefore(timeTo)}');
-                                      DateTime.now().isAfter(timeFrom) &&
-                                              DateTime.now().isBefore(timeTo)
-                                          ? launch(
-                                              'tel://${state.singleEntity.user.phoneNumber}')
-                                          : showModalBottomSheet(
-                                              useRootNavigator: true,
-                                              isScrollControlled: false,
-                                              backgroundColor:
-                                                  Colors.transparent,
-                                              context: context,
-                                              builder: (context) => DealerTime(
-                                                timeTo: state.singleEntity
-                                                        .contactAvailableFrom,
-                                                timeFrom: state.singleEntity
-                                                        .contactAvailableTo,
-                                              ),
-                                            );
-                                      // Navigator.of(context).push(fade(page: const DealerScreen()));
                                     },
                                     height: 44,
                                     borderRadius: 8,
@@ -410,8 +504,8 @@ class _CarSingleScreenState extends State<CarSingleScreen> {
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(8),
                                 child: CachedNetworkImage(
+                                  fit: BoxFit.cover,
                                   width: 44,
-                                  height: 44,
                                   imageUrl:
                                       state.singleEntity.user.avatar ?? '',
                                   errorWidget: (context, url, error) =>

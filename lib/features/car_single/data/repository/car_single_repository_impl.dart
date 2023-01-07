@@ -5,8 +5,9 @@ import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/core/utils/either.dart';
 import 'package:auto/features/car_single/data/datasource/car_single_datasource.dart';
 import 'package:auto/features/car_single/domain/entities/car_single_entity.dart';
-import 'package:auto/features/car_single/domain/entities/other_ads_entity.dart';
+import 'package:auto/features/car_single/domain/entities/elastic_search_entity.dart';
 import 'package:auto/features/car_single/domain/repository/car_single_repository.dart';
+import 'package:auto/features/pagination/models/generic_pagination.dart';
 
 class CarSingleRepositoryImpl extends CarSingleRepository {
   late final CarSingleDataSource dataSource;
@@ -31,9 +32,11 @@ class CarSingleRepositoryImpl extends CarSingleRepository {
   }
 
   @override
-  Future<Either<Failure, OtherAdsEntity>> getOtherAds() async {
+  Future<Either<Failure, GenericPagination<ElasticSearchEntity>>> getOtherAds(
+      {required int id}) async {
     try {
-      final result = await dataSource.getOtherAds();
+      final result = await dataSource.getOtherAds(id: id);
+      print('REPOSITORY DATA ${Right(result)}');
       return Right(result);
     } on DioException {
       return Left(DioFailure());
