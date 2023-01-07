@@ -12,13 +12,14 @@ class MoreContainer extends StatelessWidget {
     final width = MediaQuery.of(context).size.width;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 2),
-      child: Container(
+      child: AnimatedContainer(
         height: 4,
         width: (width - 28 - itemQuantity * 4) / itemQuantity,
         decoration: BoxDecoration(
           color: color,
           borderRadius: BorderRadius.circular(2),
         ),
+        duration: const Duration(milliseconds: 200),
       ),
     );
   }
