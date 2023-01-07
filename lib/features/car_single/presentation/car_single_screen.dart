@@ -117,20 +117,8 @@ class _CarSingleScreenState extends State<CarSingleScreen>
           body: BlocBuilder<CarSingleBloc, CarSingleState>(
             builder: (context, state) {
               if (state.status != FormzStatus.submissionSuccess) {
-<<<<<<< HEAD
                 return const Center(child: CupertinoActivityIndicator());
               } else {
-=======
-               return const Center(child: CupertinoActivityIndicator());
-              } else {
-                timeFrom =
-                    Jiffy(state.singleEntity.contactAvailableFrom, 'hh:MM:ss')
-                        .dateTime;
-                timeTo =
-                    Jiffy(state.singleEntity.contactAvailableTo, 'hh:MM:ss')
-                        .dateTime;
-              
->>>>>>> b9c69efdf05c65708b6fe669d95ce92ebfef12ba
                 return Stack(
                   children: [
                     CustomScrollView(
