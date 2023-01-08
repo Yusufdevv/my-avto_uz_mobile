@@ -1,12 +1,11 @@
-import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/features/profile/data/repositories/get_user_list_repo_impl.dart';
-import 'package:auto/features/profile/data/repositories/profile_repository_impl.dart';
 import 'package:auto/features/profile/domain/entities/profile_item_entity.dart';
+import 'package:auto/features/profile/domain/usecases/get_notification_single.dart';
+import 'package:auto/features/profile/domain/usecases/get_notification_usecase.dart';
 import 'package:auto/features/profile/domain/usecases/profil_favorites_usecase.dart';
-import 'package:auto/features/profile/presentation/bloc/profile/profile_bloc.dart';
-import 'package:auto/features/profile/presentation/bloc/user_wishlists/user_wishlists_notification_bloc.dart';
+import 'package:auto/features/profile/presentation/bloc/user_wishlists_notifications/user_wishlists_notification_bloc.dart';
 import 'package:auto/features/profile/presentation/widgets/empty_item_body.dart';
 import 'package:auto/features/profile/presentation/widgets/widgets.dart';
 import 'package:auto/generated/locale_keys.g.dart';
@@ -32,7 +31,9 @@ class _MyAddsPageState extends State<MyAddsPage> {
   void initState() {
     final repo = serviceLocator<GetUserListRepoImpl>();
     bloc = UserWishListsBloc(
-      profileFavoritesUseCase: GetUserFavoritesMyAdsUseCase(repository: repo),
+      profileFavoritesMyAdsUseCase: GetUserFavoritesMyAdsUseCase(repository: repo),
+      getNotificationSingleUseCase: GetNotificationSingleUseCase(repository: repo),
+      getNotificationsUseCase: GetNotificationsUseCase(repository: repo),
     )..add(GetUserMyAdsEvent(endpoint: '/car/my-announcements/'));
     super.initState();
   }

@@ -1,12 +1,13 @@
 import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/core/utils/either.dart';
 import 'package:auto/features/common/domain/entity/auto_entity.dart';
+import 'package:auto/features/profile/domain/entities/notifications_entity.dart';
 
 abstract class GetUserListRepository {
   const GetUserListRepository();
 
-
- 
   Future<Either<ServerFailure, List<AutoEntity>>> getProfileFavorites(String endpoint);
+  Future<Either<ServerFailure, List<NotificationsEntity>>> getNotifications();
+  Future<Either<ServerFailure, NotificationsEntity>> getNotificationSingle(String id);
 
 }
