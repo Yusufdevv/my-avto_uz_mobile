@@ -19,7 +19,7 @@ class CarSingleRepositoryImpl extends CarSingleRepository {
       {required int id}) async {
     try {
       final result = await dataSource.getCarSingle(id: id);
-      print('REPOSITORY DATA ${Right(result)}');
+    
       return Right(result);
     } on DioException {
       return Left(DioFailure());

@@ -14,7 +14,7 @@ class GlobalRequestRepository {
       required S Function(Map<String, dynamic>) fromJson,
       bool sendToken = true}) async {
     try {
-      print(StorageRepository.getString('token', defValue: ''));
+      // print(StorageRepository.getString('token', defValue: ''));
       final result = await dio.get(endpoint,
           queryParameters: query,
           options: Options(
@@ -24,8 +24,8 @@ class GlobalRequestRepository {
                           "Bearer ${StorageRepository.getString('token', defValue: '')}"
                     }
                   : {}));
-      print(result.realUri);
-      print("====  ${result.data}  =====");
+      // print(result.realUri);
+      // print("====  ${result.data}  =====");
       if (result.statusCode! >= 200 && result.statusCode! < 300) {
         return Right(fromJson(result.data));
       } else {
@@ -58,8 +58,8 @@ class GlobalRequestRepository {
                     }
                   : {}));
 
-      print(result.realUri);
-      print(result.data);
+      // print(result.realUri);
+      // print(result.data);
       List<S> list = [];
 
       if (result.statusCode! >= 200 && result.statusCode! < 300) {
@@ -102,13 +102,16 @@ class GlobalRequestRepository {
                           "Bearer ${StorageRepository.getString('token', defValue: '')}"
                     }
                   : {}));
-      print(result.realUri);
-      print(result.data);
-      print(result.statusCode);
+      // print(result.realUri);
+      // print(result.data);
+      // print(result.statusCode);
       if (result.statusCode! >= 200 && result.statusCode! < 300) {
         if (responseDataKey != null && responseDataKey.isNotEmpty) {
           return Right(fromJson(result.data[responseDataKey]));
         } else {
+          if (result.data.toString().isEmpty) {
+            return Right('' as S);
+          }
           return Right(fromJson(result.data));
         }
       } else {
@@ -140,8 +143,8 @@ class GlobalRequestRepository {
                           "Bearer ${StorageRepository.getString('token', defValue: '')}"
                     }
                   : {}));
-      print(result.realUri);
-      print(result.data);
+      // print(result.realUri);
+      // print(result.data);
       var list = <S>[];
 
       if (result.statusCode! >= 200 && result.statusCode! < 300) {

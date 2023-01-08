@@ -35,7 +35,7 @@ class CarSingleDataSourceImpl extends CarSingleDataSource {
         print('SINGLE RESPONSE DATA SINGLE => ${response.data}');
         return CarSingleModel.fromJson(response.data);
       } else {
-        print('DATA SOURCE ERROR GET SINGLE');
+
         throw ServerException(
             statusCode: response.statusCode!,
             errorMessage: response.data.toString());

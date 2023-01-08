@@ -5,6 +5,7 @@ import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/login/domain/usecases/change_password.dart';
 import 'package:auto/features/login/domain/usecases/send_recovery_code.dart';
+import 'package:auto/features/login/domain/usecases/verify_code.dart';
 import 'package:auto/features/login/domain/usecases/verify_recovery.dart';
 import 'package:auto/features/login/presentation/bloc/recovery/recovery_bloc.dart';
 import 'package:auto/features/login/presentation/pages/new_password_screen.dart';
@@ -22,8 +23,10 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 
 class PasswordRecoveryScreen extends StatefulWidget {
   final String phone;
+  final String session;
 
-  const PasswordRecoveryScreen({required this.phone, Key? key})
+  const PasswordRecoveryScreen(
+      {required this.phone, required this.session, Key? key})
       : super(key: key);
 
   @override
@@ -39,7 +42,7 @@ class _PasswordRecoveryScreenState extends State<PasswordRecoveryScreen> {
   @override
   void initState() {
     recoveryBloc = RecoveryBloc(SendRecoveryCodeUseCase(),
-        VerifyRecoveryUseCase(), ChangePasswordUseCase())
+        VerifyRecoveryUseCase(), ChangePasswordInLoginUseCase())
       ..add(RecoveryEvent.sendCode(widget.phone, onSuccess: (session) {
         sessions = session;
       }));
@@ -53,12 +56,13 @@ class _PasswordRecoveryScreenState extends State<PasswordRecoveryScreen> {
     passwordRecoveryController.dispose();
     super.dispose();
   }
+  /// comment to 
 
   @override
   Widget build(BuildContext context) => KeyboardDismisser(
         child: Scaffold(
           appBar: const WAppBar(
-            title: 'Забыли пароль1',
+            title: 'Забыли пароль',
           ),
           body: Padding(
             padding: const EdgeInsets.all(16),

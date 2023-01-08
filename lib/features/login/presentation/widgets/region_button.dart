@@ -39,8 +39,8 @@ class _RegionButtonState extends State<RegionButton> {
         },
         child: BlocBuilder<RegionsBloc, RegionsState>(
           builder: (context, state) {
-            print('regions');
-            print(state.regions);
+            // print('regions');
+            // print(state.regions);
             return Container(
               padding: const EdgeInsets.only(right: 8, top: 16),
               child: Row(

@@ -1,17 +1,11 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
-import 'package:auto/features/ad/presentation/bloc/car_selector/car_selector_bloc.dart';
-import 'package:auto/features/ad/presentation/bloc/choose_model/car_type_selector_bloc.dart';
-import 'package:auto/features/ad/presentation/bloc/choose_model/model_selectro_bloc.dart';
 import 'package:auto/features/ad/presentation/pages/choose_model/widgets/model_items.dart';
 import 'package:auto/features/common/bloc/get_car_model/get_car_model_bloc.dart';
 import 'package:auto/features/common/bloc/get_makes_bloc/get_makes_bloc_bloc.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
-import 'package:auto/features/comparison/presentation/pages/ads/ads.dart';
-import 'package:auto/features/comparison/presentation/pages/choose_car_brand.dart';
 import 'package:auto/features/comparison/presentation/widgets/search_bar.dart';
-import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -19,20 +13,8 @@ import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 class ChooseCarModelComparison extends StatefulWidget {
   final VoidCallback onTap;
-  final ModelSelectorBloc modelBloc;
-  final CarTypeSelectorBloc carTypeSelectorBloc;
-  final GetCarModelBloc bloc;
-  final GetMakesBloc getMakesBloc;
-  final CarSelectorBloc carSelectorBloc;
-  const ChooseCarModelComparison({
-    required this.onTap,
-    Key? key,
-    required this.modelBloc,
-    required this.carTypeSelectorBloc,
-    required this.bloc,
-    required this.carSelectorBloc,
-    required this.getMakesBloc,
-  }) : super(key: key);
+  const ChooseCarModelComparison({required this.onTap, Key? key})
+      : super(key: key);
 
   @override
   State<ChooseCarModelComparison> createState() => _ChooseCarModelComparison();
@@ -43,9 +25,9 @@ class _ChooseCarModelComparison extends State<ChooseCarModelComparison> {
   late int id;
   @override
   void initState() {
-    id = widget.carSelectorBloc.state.selectedId;
+    id = BlocProvider.of<GetMakesBloc>(context).state.selectedId;
     searchController = TextEditingController();
-    widget.bloc.add(
+    BlocProvider.of<GetCarModelBloc>(context).add(
       GetCarModelEvent.getCarModel(id),
     );
     super.initState();
@@ -62,37 +44,29 @@ class _ChooseCarModelComparison extends State<ChooseCarModelComparison> {
         child: Scaffold(
           resizeToAvoidBottomInset: false,
           body: BlocBuilder<GetCarModelBloc, GetCarModelState>(
-            bloc: widget.bloc,
-            builder: (context, statemodel) => Stack(
+            bloc: BlocProvider.of<GetCarModelBloc>(context),
+            builder: (context, state) => Stack(
               children: [
                 CustomScrollView(
                   slivers: [
                     SliverAppBar(
                       elevation: 0,
                       pinned: true,
-                      leadingWidth: 85,
+                      leadingWidth: 36,
                       leading: GestureDetector(
-                        onTap: () {
-                          print('nima disan');
-                          Navigator.of(context).pop();
-                        },
-                        behavior: HitTestBehavior.opaque,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                  top: 16, bottom: 16, right: 4, left: 16),
-                              child: SvgPicture.asset(AppIcons.chevronLeft),
-                            ),
-                            Text(
-                              'Назад',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline2!
-                                  .copyWith(fontWeight: FontWeight.w600),
-                            ),
-                          ],
+                        onTap: () => Navigator.pop(context),
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 16),
+                          child: SvgPicture.asset(AppIcons.chevronLeft),
+                        ),
+                      ),
+                      titleSpacing: 4,
+                      title: const Text(
+                        'Выберите модель автомобиля',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w700,
+                          color: dark,
                         ),
                       ),
                       actions: [
@@ -115,12 +89,13 @@ class _ChooseCarModelComparison extends State<ChooseCarModelComparison> {
                         delegate: WSerachBar(
                           controller: searchController,
                           onChanged: () {
-                            widget.bloc.add(
+                            BlocProvider.of<GetCarModelBloc>(context).add(
                               GetCarModelEvent.getSerched(
                                 searchController.text,
                               ),
                             );
-                            widget.bloc.add(GetCarModelEvent.getCarModel(id));
+                            BlocProvider.of<GetCarModelBloc>(context)
+                                .add(GetCarModelEvent.getCarModel(id));
                           },
                         ),
                         pinned: true,
@@ -129,7 +104,7 @@ class _ChooseCarModelComparison extends State<ChooseCarModelComparison> {
                     const SliverPadding(
                       padding: EdgeInsets.symmetric(vertical: 16),
                     ),
-                    if (statemodel.search.isEmpty)
+                    if (state.search.isEmpty)
                       SliverToBoxAdapter(
                         child: Transform.translate(
                           offset: const Offset(0, 1),
@@ -147,7 +122,7 @@ class _ChooseCarModelComparison extends State<ChooseCarModelComparison> {
                           ),
                         ),
                       ),
-                    if (statemodel.search.isEmpty)
+                    if (state.search.isEmpty)
                       SliverToBoxAdapter(
                         child: Container(
                           decoration: BoxDecoration(
@@ -184,19 +159,14 @@ class _ChooseCarModelComparison extends State<ChooseCarModelComparison> {
                           color: Theme.of(context)
                               .extension<ThemedColors>()!
                               .whiteToDark,
-                          child: BlocBuilder<ModelSelectorBloc,
-                              ModelSelectorState>(
-                            bloc: widget.modelBloc,
-                            builder: (context, state) => ModelItems(
-                              bloc: widget.modelBloc,
-                              entity: statemodel.model.results[index].name,
-                              selectedId: state.selectedId,
-                              id: statemodel.model.results[index].id,
-                              text: statemodel.search,
-                            ),
+                          child: ModelItems(
+                            entity: state.model.results[index].name,
+                            selectedId: state.selectedId,
+                            id: state.model.results[index].id,
+                            text: state.search,
                           ),
                         ),
-                        childCount: statemodel.model.results.length,
+                        childCount: state.model.results.length,
                       ),
                     ),
                     const SliverToBoxAdapter(child: SizedBox(height: 60)),
@@ -206,19 +176,16 @@ class _ChooseCarModelComparison extends State<ChooseCarModelComparison> {
                   bottom: 16,
                   right: 16,
                   left: 16,
-                  child: BlocBuilder<ModelSelectorBloc, ModelSelectorState>(
-                    bloc: widget.modelBloc,
-                    builder: (context, state) => WButton(
-                      onTap: state.selectedId == -1 ? () {} : widget.onTap,
-                      text: 'Далее',
-                      shadow: [
-                        BoxShadow(
-                          offset: const Offset(0, 4),
-                          blurRadius: 20,
-                          color: orange.withOpacity(0.2),
-                        ),
-                      ],
-                    ),
+                  child: WButton(
+                    onTap: state.selectedId == -1 ? () {} : widget.onTap,
+                    text: 'Далее',
+                    shadow: [
+                      BoxShadow(
+                        offset: const Offset(0, 4),
+                        blurRadius: 20,
+                        color: orange.withOpacity(0.2),
+                      ),
+                    ],
                   ),
                 ),
               ],

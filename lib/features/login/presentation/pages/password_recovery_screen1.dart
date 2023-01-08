@@ -110,7 +110,9 @@ class _LoginScreenState1 extends State<LoginScreen1> {
                                   context,
                                   fade(
                                     page: PasswordRecoveryScreen(
-                                        phone: phoneController.text),
+                                      phone: phoneController.text,
+                                      session: '',
+                                    ),
                                   ),
                                 )
                             : () {},

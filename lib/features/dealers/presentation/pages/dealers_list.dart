@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DealersList extends StatefulWidget {
-  const DealersList({Key? key, this.isDirectoryPage=false}) : super(key: key);
+  const DealersList({Key? key, this.isDirectoryPage = false}) : super(key: key);
   final bool isDirectoryPage;
 
   @override
@@ -27,31 +27,27 @@ class _DealersListState extends State<DealersList> {
         value: dealerCardBloc,
         child: Scaffold(
           body: BlocBuilder<DealerCardBloc, DealerCardState>(
-            builder: (context, state) {
-              print('${state.list.length} this is length for dealer cards');
-              return ListView.separated(
-                padding: const EdgeInsets.only(left: 16, right: 16, top: 20),
-                itemBuilder: (context, index) => DealerCard(
-                  //dealerType: state.list[index].description,
-                  dealerName: state.list[index].name,
-                  phoneNumber: state.list[index].phoneNumber,
-                  dealerInfo: state.list[index].description,
-                  dealerImageUrl: state.list[index].avatar,
-                  quantityOfCars: state.list[index].carCount,
-                  latitude: state.list[index].latitude,
-                  longitude: state.list[index].longitude,
-                  contractCode:
-                      '+998 ${state.list[index].phoneNumber.substring(0, 2)}',
-                  contractNumber: state.list[index].phoneNumber.substring(2, 9),
-                  contactTo: state.list[index].contactTo,
-                  contactFrom: state.list[index].contactFrom,
-                  isDirectoryPage: widget.isDirectoryPage,
-                ),
-                separatorBuilder: (context, index) =>
-                    const SizedBox(height: 16),
-                itemCount: state.count,
-              );
-            },
+            builder: (context, state) => ListView.separated(
+              padding: const EdgeInsets.only(left: 16, right: 16, top: 20),
+              itemBuilder: (context, index) => DealerCard(
+                //dealerType: state.list[index].description,
+                dealerName: state.list[index].name,
+                phoneNumber: state.list[index].phoneNumber,
+                dealerInfo: state.list[index].description,
+                dealerImageUrl: state.list[index].avatar,
+                quantityOfCars: state.list[index].carCount,
+                latitude: state.list[index].latitude,
+                longitude: state.list[index].longitude,
+                contractCode:
+                    '+998 ${state.list[index].phoneNumber.substring(0, 2)}',
+                contractNumber: state.list[index].phoneNumber.substring(2, 9),
+                contactTo: state.list[index].contactTo,
+                contactFrom: state.list[index].contactFrom,
+                isDirectoryPage: widget.isDirectoryPage,
+              ),
+              separatorBuilder: (context, index) => const SizedBox(height: 16),
+              itemCount: state.count,
+            ),
           ),
         ),
       );

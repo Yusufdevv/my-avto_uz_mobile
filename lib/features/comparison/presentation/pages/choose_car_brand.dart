@@ -1,7 +1,6 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
-import 'package:auto/features/ad/presentation/bloc/car_selector/car_selector_bloc.dart';
 import 'package:auto/features/ad/presentation/pages/choose_car_brand/widget/car_items.dart';
 import 'package:auto/features/common/bloc/get_makes_bloc/get_makes_bloc_bloc.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
@@ -16,13 +15,8 @@ import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 class ChooseCarBrandComparison extends StatefulWidget {
   final VoidCallback onTap;
-  final CarSelectorBloc carSelectorBloc;
-  final GetMakesBloc bloc;
   const ChooseCarBrandComparison(
-      {required this.onTap,
-      Key? key,
-      required this.carSelectorBloc,
-      required this.bloc})
+      {required this.onTap, Key? key})
       : super(key: key);
 
   @override
@@ -57,7 +51,6 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
   @override
   Widget build(BuildContext context) => KeyboardDismisser(
         child: BlocBuilder<GetMakesBloc, GetMakesState>(
-          bloc: widget.bloc,
           builder: (context, state) => Scaffold(
             resizeToAvoidBottomInset: false,
             body: Stack(
@@ -104,12 +97,12 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
                         delegate: WSerachBar(
                           controller: searchController,
                           onChanged: () {
-                            widget.bloc.add(
+                            BlocProvider.of<GetMakesBloc>(context).add(
                               GetMakesBlocEvent.getSerched(
                                 searchController.text,
                               ),
                             );
-                            widget.bloc.add(GetMakesBlocEvent.getMakes());
+                            BlocProvider.of<GetMakesBloc>(context).add(GetMakesBlocEvent.getMakes());
                           },
                         ),
                         pinned: true,
@@ -118,7 +111,6 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
                     if (state.search.isEmpty)
                       SliverToBoxAdapter(
                         child: BlocBuilder<GetMakesBloc, GetMakesState>(
-                          bloc: widget.bloc,
                           builder: (context, state) => SizedBox(
                             height: 132,
                             child: ListView.builder(
@@ -166,20 +158,17 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
                   body: ListView.builder(
                     padding: const EdgeInsets.only(bottom: 60),
                     itemCount: state.makes.results.length,
-                    itemBuilder: (context, index) =>
-                        BlocBuilder<CarSelectorBloc, SelectedCarItems>(
-                      bloc: widget.carSelectorBloc,
-                      builder: (context, stateSel) => Container(
-                        color: Theme.of(context)
-                            .extension<ThemedColors>()!
-                            .whiteToDark,
-                        child: ChangeCarItems(
-                            selectedId: stateSel.selectedId,
-                            id: state.makes.results[index].id,
-                            imageUrl: state.makes.results[index].logo,
-                            name: state.makes.results[index].name,
-                            text: state.search,
-                            bloc: widget.carSelectorBloc),
+                    itemBuilder: (context, index) => Container(
+                      color: Theme.of(context)
+                          .extension<ThemedColors>()!
+                          .whiteToDark,
+                      child: ChangeCarItems(
+                        selectedId: state.selectedId,
+                        id: state.makes.results[index].id,
+                        imageUrl: state.makes.results[index].logo,
+                        name: state.makes.results[index].name,
+                        text: state.search,
+                        bloc: BlocProvider.of<GetMakesBloc>(context),
                       ),
                     ),
                   ),
@@ -188,9 +177,7 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
                   bottom: 16,
                   right: 16,
                   left: 16,
-                  child: BlocBuilder<CarSelectorBloc, SelectedCarItems>(
-                    bloc: widget.carSelectorBloc,
-                    builder: (context, state) => WButton(
+                  child: WButton(
                       onTap: state.selectedId == -1 ? () {} : widget.onTap,
                       text: 'Далее',
                       shadow: [
@@ -201,7 +188,6 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
                         ),
                       ],
                     ),
-                  ),
                 ),
               ],
             ),

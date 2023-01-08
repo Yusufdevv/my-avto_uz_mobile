@@ -13,7 +13,7 @@ class ComparisonCarsRepoImpl extends ComparisonCarsRepo {
   Future<Either<Failure, List<ComparisonEntity>>> getComparableCars() async {
     try {
       final result = await comparisonCarsDataSource.getComparisonCars();
-      print(result);
+      // print(result);
       return Right(result);
     } on ServerException catch (e) {
       return Left(

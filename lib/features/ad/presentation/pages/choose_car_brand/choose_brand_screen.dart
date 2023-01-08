@@ -2,9 +2,9 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/domain/entities/choose_car_brand/change_car_entity.dart';
-import 'package:auto/features/ad/presentation/bloc/car_selector/car_selector_bloc.dart';
 import 'package:auto/features/ad/presentation/pages/choose_car_brand/widget/car_items.dart';
 import 'package:auto/features/ad/presentation/pages/choose_car_brand/widget/persistant_header.dart';
+import 'package:auto/features/common/bloc/get_makes_bloc/get_makes_bloc_bloc.dart';
 import 'package:auto/features/common/domain/entity/car_brand_entity.dart';
 import 'package:auto/features/common/widgets/car_brand_item.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
@@ -24,12 +24,12 @@ class ChooseCarBrand extends StatefulWidget {
 
 class _ChooseCarBrandState extends State<ChooseCarBrand> {
   late TextEditingController searchController;
-  late CarSelectorBloc carSelectorBloc;
+  late GetMakesBloc carSelectorBloc;
 
   @override
   void initState() {
     searchController = TextEditingController();
-    carSelectorBloc = CarSelectorBloc();
+    // carSelectorBloc = GetMakesBloc(useCase: );
     super.initState();
   }
 
@@ -167,39 +167,39 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
                     color: Theme.of(context)
                         .extension<ThemedColors>()!
                         .whiteToDark,
-                    child: ListView.builder(
-                      padding: const EdgeInsets.only(bottom: 50),
-                      itemBuilder: (context, index) =>
-                          BlocBuilder<CarSelectorBloc, SelectedCarItems>(
-                        builder: (context, state) => ChangeCarItems(
-                          selectedId: state.selectedId,
-                          id: index,
-                          imageUrl: carList[index].icon,
-                          name: carList[index].title,
-                          text: '',
-                          bloc: carSelectorBloc,
-                        ),
-                      ),
-                      itemCount: carList.length,
-                    ),
+                    // child: ListView.builder(
+                    //   padding: const EdgeInsets.only(bottom: 50),
+                    //   itemBuilder: (context, index) =>
+                    //       BlocBuilder<CarSelectorBloc, SelectedCarItems>(
+                    //     builder: (context, state) => ChangeCarItems(
+                    //       selectedId: state.selectedId,
+                    //       id: index,
+                    //       imageUrl: carList[index].icon,
+                    //       name: carList[index].title,
+                    //       text: '',
+                    //       bloc: carSelectorBloc,
+                    //     ),
+                    //   ),
+                    //   itemCount: carList.length,
+                    // ),
                   ),
                 ),
-                Positioned(
-                    bottom: 16,
-                    right: 16,
-                    left: 16,
-                    child: BlocBuilder<CarSelectorBloc, SelectedCarItems>(
-                      builder: (context, state) => WButton(
-                        onTap: state.selectedId == -1 ? () {} : widget.onTap,
-                        text: 'Далее',
-                        shadow: [
-                          BoxShadow(
-                              offset: const Offset(0, 4),
-                              blurRadius: 20,
-                              color: orange.withOpacity(0.2)),
-                        ],
-                      ),
-                    )),
+                // Positioned(
+                //     bottom: 16,
+                //     right: 16,
+                //     left: 16,
+                //     child: BlocBuilder<CarSelectorBloc, SelectedCarItems>(
+                //       builder: (context, state) => WButton(
+                //         onTap: state.selectedId == -1 ? () {} : widget.onTap,
+                //         text: 'Далее',
+                //         shadow: [
+                //           BoxShadow(
+                //               offset: const Offset(0, 4),
+                //               blurRadius: 20,
+                //               color: orange.withOpacity(0.2)),
+                //         ],
+                //       ),
+                //     )),
               ],
             ),
           ),
