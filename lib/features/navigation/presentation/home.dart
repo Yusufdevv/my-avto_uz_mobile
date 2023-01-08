@@ -1,8 +1,9 @@
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/core/utils/size_config.dart';
+import 'package:auto/features/ad/presentation/pages/qr_code/qr_code.dart';
 import 'package:auto/features/navigation/domain/entities/navbar.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/navigation/presentation/widgets/nav_bar_item.dart';
-import 'package:auto/features/ad/presentation/pages/qr_code/qr_code.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -112,7 +113,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           child: Scaffold(
             resizeToAvoidBottomInset: true,
             bottomNavigationBar: Container(
-              height: 68 + MediaQuery.of(context).padding.bottom,
+              height: SizeConfig.v(68) + MediaQuery.of(context).padding.bottom,
               decoration: BoxDecoration(
                 borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(15),
