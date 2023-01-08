@@ -65,6 +65,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
             } else if (state.status.isSubmissionFailure) {
               return const Center(child: Text('Fail'));
             } else if (state.status.isSubmissionSuccess) {
+              final profileData = state.profileEntity;
+              final usercountData = profileData.usercountdata;
               return Scaffold(
                 appBar: WAppBar(
                     filledBackButton: true,
@@ -100,10 +102,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               imageBloc: imageBloc,
                             )));
                           },
-                          title: state.profileEntity.fullName ?? '',
+                          title: profileData.fullName ?? '',
                           subTitle:
-                              '${state.profileEntity.usercountdata?.announcementsCount ?? 0} ${LocaleKeys.how_many_ads.tr()}',
-                          imageUrl: state.profileEntity.image ?? '',
+                              '${usercountData?.announcementsCount ?? 0} ${LocaleKeys.how_many_ads.tr()}',
+                          imageUrl: profileData.image ?? '',
                           margin: EdgeInsets.only(
                               top: SizeConfig.v(16), bottom: SizeConfig.v(12)),
                         ),
@@ -119,8 +121,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 );
                               },
                               iconPath: AppIcons.heartBlue,
-                              count: state.profileEntity.usercountdata
-                                  ?.announcementWishlistCount),
+                              count: usercountData?.announcementWishlistCount),
                           const ProfileDivider(),
                           ProfileMenuTile(
                             name: LocaleKeys.comparisons.tr(),
@@ -142,14 +143,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 ));
                               },
                               iconPath: AppIcons.tabletNews,
-                              count: state.profileEntity.usercountdata
-                                  ?.announcementsCount),
+                              count: usercountData?.announcementsCount),
                           const ProfileDivider(),
                           ProfileMenuTile(
                               name: 'Мои поиски',
                               onTap: () {
-                                Navigator.push(context,
-                                    fade(page: const MySearchesPage()));
+                                Navigator.of(context, rootNavigator: true)
+                                    .push(fade(page: const MySearchesPage()));
                               },
                               iconPath: AppIcons.mySearch,
                               count: state
@@ -193,9 +193,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 Navigator.of(context, rootNavigator: true).push(
                                   fade(
                                     page: ChatPage(
-                                      phone: state.profileEntity.phoneNumber!,
-                                      userName: state.profileEntity.username ??
-                                          state.profileEntity.firstName,
+                                      phone: profileData.phoneNumber!,
+                                      userName: profileData.username ??
+                                          profileData.firstName,
                                       hasChat: false,
                                       imageBloc: imageBloc,
                                     ),

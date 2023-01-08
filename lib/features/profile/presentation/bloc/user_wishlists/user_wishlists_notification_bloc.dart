@@ -5,8 +5,8 @@ import 'package:equatable/equatable.dart';
 import 'package:formz/formz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'user_wishlists_event.dart';
-part 'user_wishlists_state.dart';
+part 'user_wishlists_notifications_event.dart';
+part 'user_wishlists_notifiactions_state.dart';
 
 class UserWishListsBloc extends Bloc<UserWishListsEvent, UserWishListsState> {
   final GetUserFavoritesMyAdsUseCase profileFavoritesUseCase;

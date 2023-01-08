@@ -5,7 +5,7 @@ import 'package:auto/features/profile/data/repositories/get_user_list_repo_impl.
 import 'package:auto/features/profile/data/repositories/profile_repository_impl.dart';
 import 'package:auto/features/profile/domain/usecases/profil_favorites_usecase.dart';
 import 'package:auto/features/profile/presentation/bloc/profile/profile_bloc.dart';
-import 'package:auto/features/profile/presentation/bloc/user_wishlists/user_wishlists_bloc.dart';
+import 'package:auto/features/profile/presentation/bloc/user_wishlists/user_wishlists_notification_bloc.dart';
 import 'package:auto/features/profile/presentation/widgets/empty_item_body.dart';
 import 'package:auto/features/search/presentation/widgets/info_result_container.dart';
 import 'package:auto/generated/locale_keys.g.dart';

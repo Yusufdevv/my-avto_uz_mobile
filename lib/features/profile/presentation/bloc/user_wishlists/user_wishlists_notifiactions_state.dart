@@ -1,4 +1,4 @@
-part of 'user_wishlists_bloc.dart';
+part of 'user_wishlists_notification_bloc.dart';
 
 class UserWishListsState extends Equatable {
   final List<AutoEntity> favorites;
