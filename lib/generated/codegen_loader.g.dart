@@ -438,7 +438,7 @@ static const Map<String,dynamic> uz = {
   "trusted_car_dealers": "Доверенные    автосалоны",
   "more_than": "Более",
   "offers": " объявлений",
-  "offers1": "takliflar",
+  "offers1": "предложений",
   "enter_to_system": "Войти через номер телефона",
   "another_ways": "Другие способы входа",
   "hello": "Здравствуйте",

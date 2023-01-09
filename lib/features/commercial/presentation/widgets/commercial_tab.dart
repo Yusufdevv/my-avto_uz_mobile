@@ -3,10 +3,10 @@ import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:flutter/material.dart';
 
 class CommercialTab extends StatelessWidget {
-  CommercialTab(
+  const CommercialTab(
       {required this.tabController, required this.tabLabels, super.key});
-  TabController tabController;
-  List<String> tabLabels;
+  final TabController tabController;
+  final List<String> tabLabels;
 
   @override
   Widget build(BuildContext context) => Container(

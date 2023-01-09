@@ -3,7 +3,8 @@ import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/features/ad/data/repositories/ad_repository_impl.dart';
-import 'package:auto/features/ad/presentation/bloc/choose_model/car_type_selector_bloc.dart';
+import 'package:auto/features/ad/presentation/pages/ads/ads_screen.dart';
+import 'package:auto/features/ad/presentation/pages/ads/filter_parameters.dart';
 import 'package:auto/features/commercial/presentation/widgets/commercial_car_model_item.dart';
 import 'package:auto/features/commercial/presentation/widgets/info_container.dart';
 import 'package:auto/features/common/bloc/announcement_bloc/bloc/announcement_list_bloc.dart';
@@ -17,8 +18,6 @@ import 'package:auto/features/common/usecases/add_wishlist_usecase.dart';
 import 'package:auto/features/common/usecases/announcement_list_usecase.dart';
 import 'package:auto/features/common/widgets/w_filter_button.dart';
 import 'package:auto/features/comparison/presentation/bloc/filter_parameters_bloc/bloc/filter_parameters_bloc.dart';
-import 'package:auto/features/ad/presentation/pages/ads/ads_screen.dart';
-import 'package:auto/features/ad/presentation/pages/ads/filter_parameters.dart';
 import 'package:auto/features/comparison/presentation/pages/choose_car_brand.dart';
 import 'package:auto/features/comparison/presentation/pages/choose_model.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
@@ -31,9 +30,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AdsBodyScreen extends StatefulWidget {
   final FilterParametersBloc filterParametersBloc;
+  final ScrollController scrollController;
   const AdsBodyScreen({
     required this.filterParametersBloc,
-    super.key,
+    super.key, required this.scrollController,
   });
 
   @override
@@ -44,15 +44,6 @@ class _AdsBodyScreenState extends State<AdsBodyScreen> {
   late RentBloc rentBloc;
   late AnnouncementListBloc bloc;
   late WishlistAddBloc wishlistAddBloc;
-  final List<bool> hasDiscount = [true, false];
-
-  final List<String> owner = ['Анвар Гулямов', 'ORIENT MOTORS'];
-
-  final List<String> ownerType = ['Частное лицо', 'Автосалон'];
-
-  final List<String> publishTime = ['Сегодня', '27 февраля'];
-
-  final List<String> sellType = ['Продажа Автомобиля', 'Аренда c выкупом'];
 
   @override
   void initState() {
@@ -78,6 +69,7 @@ class _AdsBodyScreenState extends State<AdsBodyScreen> {
       bloc: bloc,
       builder: (context, state) => ListView(
         physics: const BouncingScrollPhysics(),
+        controller: widget.scrollController,
         children: [
           const SizedBox(height: 16),
           CommercialCarModelItem(
