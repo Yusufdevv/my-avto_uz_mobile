@@ -23,7 +23,6 @@ class _CommercialScreenState extends State<CommercialScreen>
   late TabController tabController;
   double height = 130;
   void _scrollListener() {
-    print('scroll listener trigered ${_scrollController.offset}');
     if (_isShrink) {
       setState(() {
         crossFadeState = CrossFadeState.showSecond;
