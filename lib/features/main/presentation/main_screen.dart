@@ -89,6 +89,8 @@ class _MainScreenState extends State<MainScreen> {
         /// for testing purpose
         // var onboarding = StorageRepository.getBool('onboarding');
         // var token = StorageRepository.getString('token');
+        //  print('=>=>=>=> onboarding $onboarding <=<=<=<=');
+        //  print('=>=>=>=> token $token <=<=<=<=');
       },
       () {},
       () {

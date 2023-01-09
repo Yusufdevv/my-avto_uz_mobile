@@ -12,18 +12,25 @@ class RegisterUseCase extends UseCase<TokenModel, RegisterModel> {
 
   @override
   Future<Either<Failure, TokenModel>> call(model) async {
-    final map = {
-      'full_name': model.fullName,
-      'region': model.region,
-      'phone_number': model.phoneNumber.replaceAll(' ', ''),
-      'email': model.email,
-      'password': model.password,
-    };
+    MultipartFile? multipartFile;
+    var map = <String, dynamic>{};
 
-    if (model.image.isNotEmpty) {
-      map.addAll({'image': await MultipartFile.fromFile(model.image)});
+    try {
+      multipartFile = await MultipartFile.fromFile(model.image,
+          filename: model.image.split('/').last);
+    } catch (e) {
+      print('=>=>=>=> "multi part file exeption" $e <=<=<=<=');
     }
+
+    map['full_name'] = model.fullName;
+    map['region'] = model.region;
+    map['phone_number'] = model.phoneNumber.replaceAll(' ', '');
+    map['email'] = model.email;
+    map['password'] = model.password;
+    multipartFile != null ? map['image'] = multipartFile : null;
+
     final formData = FormData.fromMap(map);
+
     final result = await repo.postAndSingle(
         endpoint: '/users/registration/',
         fromJson: TokenModel.fromJson,

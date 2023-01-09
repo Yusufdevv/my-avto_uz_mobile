@@ -26,7 +26,9 @@ class RecoveryBloc extends Bloc<RecoveryEvent, RecoveryState> {
       emit(state.copyWith(sendCodeStatus: FormzStatus.submissionInProgress));
       final result = await senCode(event.phone);
       if (result.isRight) {
-        emit(state.copyWith(sendCodeStatus: FormzStatus.submissionSuccess,));
+        emit(state.copyWith(
+          sendCodeStatus: FormzStatus.submissionSuccess,
+        ));
 
         event.onSuccess(result.right);
       } else {
@@ -38,7 +40,6 @@ class RecoveryBloc extends Bloc<RecoveryEvent, RecoveryState> {
       emit(state.copyWith(verifyStatus: FormzStatus.submissionInProgress));
       final result = await verifyCode(event.param);
       if (result.isRight) {
-        // print(result.right + 'from Bloc');
         emit(state.copyWith(
           phone: result.right,
           verifyStatus: FormzStatus.submissionSuccess,
@@ -46,7 +47,7 @@ class RecoveryBloc extends Bloc<RecoveryEvent, RecoveryState> {
 
         event.onSuccess();
       } else {
-        emit(state.copyWith(verifyStatus: FormzStatus.submissionInProgress));
+        emit(state.copyWith(verifyStatus: FormzStatus.submissionFailure));
       }
     });
 

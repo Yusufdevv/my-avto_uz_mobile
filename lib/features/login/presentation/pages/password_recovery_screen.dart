@@ -9,7 +9,7 @@ import 'package:auto/features/login/domain/usecases/verify_code.dart';
 import 'package:auto/features/login/domain/usecases/verify_recovery.dart';
 import 'package:auto/features/login/presentation/bloc/recovery/recovery_bloc.dart';
 import 'package:auto/features/login/presentation/pages/new_password_screen.dart';
-import 'package:auto/features/login/presentation/widgets/SignIn_with_socials.dart';
+import 'package:auto/features/login/presentation/widgets/signIn_with_socials.dart';
 import 'package:auto/features/login/presentation/widgets/login_header_widget.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/profile/presentation/widgets/refresh_button.dart';
@@ -56,7 +56,8 @@ class _PasswordRecoveryScreenState extends State<PasswordRecoveryScreen> {
     passwordRecoveryController.dispose();
     super.dispose();
   }
-  /// comment to 
+
+  /// comment to
 
   @override
   Widget build(BuildContext context) => KeyboardDismisser(

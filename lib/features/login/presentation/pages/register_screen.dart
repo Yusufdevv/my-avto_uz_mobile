@@ -10,7 +10,6 @@ import 'package:auto/features/login/domain/usecases/send_code.dart';
 import 'package:auto/features/login/domain/usecases/verify_code.dart';
 import 'package:auto/features/login/presentation/bloc/register/register_bloc.dart';
 import 'package:auto/features/login/presentation/pages/verification_screen.dart';
-import 'package:auto/features/login/presentation/widgets/SignIn_with_socials.dart';
 import 'package:auto/features/login/presentation/widgets/login_header_widget.dart';
 import 'package:auto/features/login/presentation/widgets/z_text_form_field.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
@@ -53,113 +52,122 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 
   @override
-  Widget build(BuildContext context) => BlocProvider.value(
-        value: registerBloc,
-        child: CustomScreen(
-          child: Scaffold(
-            appBar: WAppBar(
-              title: LocaleKeys.register.tr(),
-            ),
-            body: Padding(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  LoginHeader(
-                    title: LocaleKeys.tel_number.tr(),
-                    description: LocaleKeys.check_number.tr(),
-                  ),
-                  const SizedBox(
-                    height: 12,
-                  ),
-                  ZTextFormField(
-                    onChanged: (onChanged) {
-                      setState(() {});
-                    },
-                    controller: phoneController,
-                    prefixIcon: Row(
-                      children: [
-                        Image.asset(AppImages.flagUzb),
-                        const SizedBox(
-                          width: 4,
-                        ),
-                        Text(
-                          '+998',
-                          style: Theme.of(context)
-                              .textTheme
-                              .subtitle1!
-                              .copyWith(fontSize: 15),
-                        ),
-                      ],
-                    ),
-                    hintText: '91 234 56 78',
-                    keyBoardType: TextInputType.number,
-                    textInputFormatters: [phoneFormatter],
-                  ),
-                  const SizedBox(height: 24),
-                  // RichText(
-                  //     text: TextSpan(
-                  //   children: [
-                  //     TextSpan(
-                  //         text: "Продолжая регистрацию, я признаю что принимаю",
-                  //         style: Theme.of(context).textTheme.headline1),
-                  //     TextSpan(text: ' условия использования'),
-                  //     TextSpan(text: ' и'),
-                  //     TextSpan(text: ' правила'),
-                  //   ],
-                  // )),
-                  //const Spacer(),
-                  WButton(
-                    onTap: () {
-                      print(phoneController.text.length);
-                      if (phoneController.text.length == 12) {
-                        registerBloc.add(RegisterEvent.sendCode(
-                            phoneController.text.replaceAll('+998', ''),
-                            onError: (text) {
-                          if (text.isNotEmpty) {
-                            context
-                                .read<ShowPopUpBloc>()
-                                .add(ShowPopUp(message: text, isSucces: false));
-                          } else {}
-                        }, onSuccess: (session) {
-                          Navigator.push(
-                              context,
-                              fade(
-                                  page: BlocProvider.value(
-                                value: registerBloc,
-                                child: VerificationScreen(
-                                    session: session,
-                                    phone: phoneController.text
-                                        .replaceAll('+998', '')),
-                              )));
-                        }));
-                      } else {}
-                    },
-                    shadow: [
-                      BoxShadow(
-                          offset: const Offset(0, 4),
-                          blurRadius: 20,
-                          color: solitude.withOpacity(.12)),
-                    ],
-                    margin: EdgeInsets.only(
-                        bottom: 4 + MediaQuery.of(context).padding.bottom),
-                    color: (phoneController.text.isNotEmpty)
-                        ? orange
-                        : Theme.of(context)
-                            .extension<ThemedColors>()!
-                            .veryLightGreyToEclipse,
-                    text: LocaleKeys.continuee.tr(),
-                    border: Border.all(
-                      width: 1,
-                      color: Theme.of(context)
-                          .extension<ThemedColors>()!
-                          .whiteToDolphin,
-                    ),
-                  ),
-                ],
+  Widget build(BuildContext context) => CustomScreen(
+        child: BlocProvider.value(
+          value: registerBloc,
+          child: BlocBuilder<RegisterBloc, RegisterState>(
+              builder: (context, state) {
+            print(
+                '=>=>=>=> send code status name:  ${state.sendCodeStatus.name} <=<=<=<=');
+            return Scaffold(
+              appBar: WAppBar(
+                title: LocaleKeys.register.tr(),
               ),
-            ),
-          ),
+              body: Padding(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    LoginHeader(
+                      title: LocaleKeys.tel_number.tr(),
+                      description: LocaleKeys.check_number.tr(),
+                    ),
+                    const SizedBox(
+                      height: 12,
+                    ),
+                    ZTextFormField(
+                      onChanged: (onChanged) {
+                        setState(() {});
+                      },
+                      controller: phoneController,
+                      prefixIcon: Row(
+                        children: [
+                          Image.asset(AppImages.flagUzb),
+                          const SizedBox(
+                            width: 4,
+                          ),
+                          Text(
+                            '+998',
+                            style: Theme.of(context)
+                                .textTheme
+                                .subtitle1!
+                                .copyWith(fontSize: 15),
+                          ),
+                        ],
+                      ),
+                      hintText: '91 234 56 78',
+                      keyBoardType: TextInputType.number,
+                      textInputFormatters: [phoneFormatter],
+                    ),
+                    const SizedBox(height: 24),
+                    // RichText(
+                    //     text: TextSpan(
+                    //   children: [
+                    //     TextSpan(
+                    //         text: "Продолжая регистрацию, я признаю что принимаю",
+                    //         style: Theme.of(context).textTheme.headline1),
+                    //     TextSpan(text: ' условия использования'),
+                    //     TextSpan(text: ' и'),
+                    //     TextSpan(text: ' правила'),
+                    //   ],
+                    // )),
+                    //const Spacer(),
+                    WButton(
+                      isLoading: state.sendCodeStatus ==
+                          FormzStatus.submissionInProgress,
+                      onTap: () {
+                        if (phoneController.text.length == 12) {
+                          registerBloc.add(RegisterEvent.sendCode(
+                              phoneController.text.replaceAll('+998', ''),
+                              onError: (text) {
+                            if (text.isNotEmpty) {
+                              context.read<ShowPopUpBloc>().add(
+                                  ShowPopUp(message: text, isSucces: false));
+                            } else {
+                              context.read<ShowPopUpBloc>().add(ShowPopUp(
+                                  message: 'something went wronggggggg',
+                                  isSucces: false));
+                            }
+                          }, onSuccess: (session) {
+                            Navigator.push(
+                                context,
+                                fade(
+                                    page: BlocProvider.value(
+                                  value: registerBloc,
+                                  child: VerificationScreen(
+                                      session: session,
+                                      phone: phoneController.text
+                                          .replaceAll('+998', '')),
+                                )));
+                          }));
+                        } else {}
+                      },
+                      shadow: [
+                        BoxShadow(
+                            offset: const Offset(0, 4),
+                            blurRadius: 20,
+                            color: solitude.withOpacity(.12)),
+                      ],
+                      margin: EdgeInsets.only(
+                          bottom: 4 + MediaQuery.of(context).padding.bottom),
+                      color: (phoneController.text.isNotEmpty)
+                          ? orange
+                          : Theme.of(context)
+                              .extension<ThemedColors>()!
+                              .veryLightGreyToEclipse,
+                      text: LocaleKeys.continuee.tr(),
+                      border: Border.all(
+                        width: 1,
+                        color: Theme.of(context)
+                            .extension<ThemedColors>()!
+                            .whiteToDolphin,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          }),
         ),
       );
 }

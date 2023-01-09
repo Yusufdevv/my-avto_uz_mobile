@@ -39,8 +39,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   void initState() {
-    phoneController = TextEditingController(text: '94 678 60 12');
-    passwordController = TextEditingController(text: 'rW2gA6eN4hB9rQ1m');
+    phoneController = TextEditingController();
+    passwordController = TextEditingController();
     super.initState();
   }
 
@@ -150,6 +150,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 WButton(
                   isDisabled: !(passwordController.text.length >= 4 &&
                       phoneController.text.length == 12),
+                  isLoading: context.watch<AuthenticationBloc>().state.status ==
+                      AuthenticationStatus.loading,
                   onTap: passwordController.text.length >= 4 &&
                           phoneController.text.length == 12
                       ? () {

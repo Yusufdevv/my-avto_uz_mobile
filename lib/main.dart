@@ -105,18 +105,17 @@ class _AppState extends State<App> {
           builder: (context, child) {
             SizeConfig().init(context);
             return BlocListener<AuthenticationBloc, AuthenticationState>(
-              listener: (context, state) async {
-                await Future.delayed(const Duration(seconds: 3));
+              listener: (context, state) {
                 switch (state.status) {
                   case AuthenticationStatus.unauthenticated:
                     if (!StorageRepository.getBool('onboarding',
                         defValue: false)) {
-                      await navigator.pushAndRemoveUntil(
+                      navigator.pushAndRemoveUntil(
                           fade(page: const FirstOnBoarding()),
                           (route) => false);
                       break;
                     }
-                    await navigator.pushAndRemoveUntil(
+                    navigator.pushAndRemoveUntil(
                         fade(
                           page: BlocProvider(
                             create: (c) => RegisterBloc(
@@ -132,7 +131,7 @@ class _AppState extends State<App> {
                     break;
                   case AuthenticationStatus.authenticated:
                     if (StorageRepository.getString('token').isEmpty) {
-                      await navigator.pushAndRemoveUntil(
+                      navigator.pushAndRemoveUntil(
                           fade(
                             page: BlocProvider(
                               create: (c) => RegisterBloc(
@@ -145,9 +144,11 @@ class _AppState extends State<App> {
                           ),
                           (route) => false);
                     } else {
-                      await navigator.pushAndRemoveUntil(
+                      navigator.pushAndRemoveUntil(
                           fade(page: const HomeScreen()), (route) => false);
                     }
+                    break;
+                  case AuthenticationStatus.loading:
                     break;
                 }
               },
