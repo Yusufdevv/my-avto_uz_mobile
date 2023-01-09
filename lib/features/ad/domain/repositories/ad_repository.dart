@@ -1,5 +1,6 @@
 import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/core/utils/either.dart';
+import 'package:auto/features/ad/data/models/announcement_filter.dart';
 import 'package:auto/features/ad/domain/entities/generation/generation.dart';
 import 'package:auto/features/ad/domain/entities/types/body_type.dart';
 import 'package:auto/features/ad/domain/entities/types/drive_type.dart';
@@ -15,7 +16,6 @@ import 'package:dio/dio.dart';
 abstract class AdRepository {
   // Future<Either<Failure, GenericPagination<MakeEntity>>> getTopMakes(
   //     {String? next});
-  Future<Either<Failure, void>> deleteComparison(int id);
   Future<Either<Failure, GetMakeEntity>> getMake({String? name});
 
   Future<Either<Failure, GetMakeEntity>> getCarModel(int makeId,
@@ -79,5 +79,5 @@ abstract class AdRepository {
   });
 
   Future<Either<Failure, GenericPagination<AnnouncementListEntity>>>
-      getAnnouncementList();
+      getAnnouncementList(AnnouncementFilterModel filter);
 }

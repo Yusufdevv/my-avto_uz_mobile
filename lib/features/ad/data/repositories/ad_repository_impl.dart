@@ -2,6 +2,7 @@ import 'package:auto/core/exceptions/exceptions.dart';
 import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/core/utils/either.dart';
 import 'package:auto/features/ad/data/datasources/ad_remote_datasource.dart';
+import 'package:auto/features/ad/data/models/announcement_filter.dart';
 import 'package:auto/features/ad/domain/entities/generation/generation.dart';
 import 'package:auto/features/ad/domain/entities/types/body_type.dart';
 import 'package:auto/features/ad/domain/entities/types/drive_type.dart';
@@ -318,25 +319,10 @@ class AdRepositoryImpl extends AdRepository {
   }
 
   @override
-  Future<Either<Failure, void>> deleteComparison(int id) async {
-    try {
-      final result = await remoteDataSource.deleteComparison(id);
-      return Right('success');
-    } on DioException {
-      return Left(DioFailure());
-    } on ParsingException catch (e) {
-      return Left(ParsingFailure(errorMessage: e.errorMessage));
-    } on ServerException catch (e) {
-      return Left(ServerFailure(
-          errorMessage: e.errorMessage, statusCode: e.statusCode));
-    }
-  }
-
-  @override
   Future<Either<Failure, GenericPagination<AnnouncementListEntity>>>
-      getAnnouncementList() async {
+      getAnnouncementList(AnnouncementFilterModel filter) async {
     try {
-      final result = await remoteDataSource.getAnnouncementList();
+      final result = await remoteDataSource.getAnnouncementList(filter);
       return Right(result);
     } on DioException {
       return Left(DioFailure());

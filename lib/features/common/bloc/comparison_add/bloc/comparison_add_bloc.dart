@@ -14,21 +14,21 @@ class ComparisonAddBloc extends Bloc<ComparisonAddEvent, ComparisonAddState> {
   ComparisonAddBloc({required this.addUseCase, required this.deleteUseCase})
       : super(ComparisonAddState()) {
     on<_PostComparisonCars>((event, emit) async {
-      emit(state.copyWith(status: FormzStatus.submissionInProgress));
+      emit(state.copyWith(addStatus: FormzStatus.submissionInProgress));
       final result = await addUseCase.call(event.id);
       if (result.isRight) {
-        emit(state.copyWith(status: FormzStatus.submissionSuccess));
+        emit(state.copyWith(addStatus: FormzStatus.submissionSuccess));
       } else {
-        emit(state.copyWith(status: FormzStatus.submissionFailure));
+        emit(state.copyWith(addStatus: FormzStatus.submissionFailure));
       }
     });
     on<_DeleteComparison>((event, emit) async {
-      emit(state.copyWith(status: FormzStatus.submissionInProgress));
+      emit(state.copyWith(removeStatus: FormzStatus.submissionInProgress));
       final result = await deleteUseCase.call(event.id);
       if (result.isRight) {
-        emit(state.copyWith(status: FormzStatus.submissionSuccess));
+        emit(state.copyWith(removeStatus: FormzStatus.submissionSuccess));
       } else {
-        emit(state.copyWith(status: FormzStatus.submissionFailure));
+        emit(state.copyWith(removeStatus: FormzStatus.submissionFailure));
       }
     });
   }

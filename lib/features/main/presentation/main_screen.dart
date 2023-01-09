@@ -2,6 +2,8 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/features/ad/presentation/pages/ads/ads_screen.dart';
 import 'package:auto/features/commercial/presentation/commercial_screen.dart';
+import 'package:auto/features/common/bloc/get_car_model/get_car_model_bloc.dart';
+import 'package:auto/features/common/bloc/get_makes_bloc/get_makes_bloc_bloc.dart';
 
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/comparison/presentation/pages/choose_car_brand.dart';
@@ -13,7 +15,6 @@ import 'package:auto/features/main/domain/usecases/get_top_brand.dart';
 import 'package:auto/features/main/presentation/bloc/main_bloc.dart';
 import 'package:auto/features/main/presentation/bloc/top_ad/top_ad_bloc.dart';
 import 'package:auto/features/main/presentation/bloc/top_brand/top_brand_bloc.dart';
-import 'package:auto/features/main/presentation/pages/select_car_model.dart';
 import 'package:auto/features/main/presentation/pages/story_screen.dart';
 import 'package:auto/features/main/presentation/parts/top_ads.dart';
 import 'package:auto/features/main/presentation/parts/top_brands.dart';
@@ -79,11 +80,17 @@ class _MainScreenState extends State<MainScreen> {
       ..add(TopBrandEvent.getBrand());
     serviceTaps = [
       () {
-        Navigator.pushReplacement(context, fade(page: const DealerScreen()));
+        Navigator.push(context, fade(page: const DealerScreen()));
       },
       () {
-        Navigator.of(context, rootNavigator: true)
-            .push(fade(page: const AdsScreen()));
+        BlocProvider.of<GetMakesBloc>(context).add(
+          GetMakesBlocEvent.selectedCarItems(id: -1, name: '', imageUrl: ''),
+        );
+        BlocProvider.of<GetCarModelBloc>(context)
+            .add(GetCarModelEvent.selectedModelItem(id: -1, name: ''));
+        Navigator.of(context).push(fade(page: AdsScreen(onBack: () {
+          Navigator.of(context).pop();
+        })));
       },
       () {
         /// for testing purpose
@@ -161,15 +168,17 @@ class _MainScreenState extends State<MainScreen> {
                           .push(fade(page: const ReelsScreen()));
                     },
                   ),
-                  CarModelItem(
-                    count: 1,
-                    onTapSelect: () =>
-                        Navigator.of(context, rootNavigator: true).push(fade(
-                            page: ChooseCarBrandComparison(
-                                onTap: () => Navigator.of(context).push(fade(
-                                    page: ChooseCarModelComparison(
-                                        onTap: () {})))))),
-                    onTapShow: () {},
+                  BlocBuilder<GetMakesBloc, GetMakesState>(
+                    builder: (context, state) => CarModelItem(
+                      count: 1,
+                      onTapSelect: () => Navigator.of(context)
+                          .push(fade(page: ChooseCarBrandComparison(onTap: () {
+                        Navigator.pop(context);
+                      }))),
+                      onTapShow: () {},
+                      imageUrl: state.imageUrl,
+                      title: state.name,
+                    ),
                   ),
                   SizedBox(
                     height: 48,

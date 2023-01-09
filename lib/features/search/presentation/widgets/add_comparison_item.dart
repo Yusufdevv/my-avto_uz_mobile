@@ -44,7 +44,7 @@ class _AddComparisonItemState extends State<AddComparisonItem> {
                   isLiked = true;
                 } else {
                   widget.bloc
-                      .add(ComparisonAddEvent.postComparisonCars(widget.id));
+                      .add(ComparisonAddEvent.deleteComparison(widget.id));
                   isLiked = false;
                 }
                 setState(() {});

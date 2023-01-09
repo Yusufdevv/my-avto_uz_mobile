@@ -136,6 +136,7 @@ class CommercialBodyScreen extends StatelessWidget {
               hasCallCard: hasDiscount[index],
               onTapFavorites: () {},
               onTapComparsion: () {},
+              initialComparsions: false,
             ),
           ),
         )

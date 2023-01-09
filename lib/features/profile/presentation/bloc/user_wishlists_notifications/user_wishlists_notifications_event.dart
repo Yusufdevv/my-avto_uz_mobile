@@ -1,6 +1,5 @@
 part of 'user_wishlists_notification_bloc.dart';
 
-@freezed
 class UserWishListsEvent {}
 
 class GetUserFavoritesEvent extends UserWishListsEvent {

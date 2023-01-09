@@ -12,33 +12,37 @@ class ServiceItem extends StatelessWidget {
       : super(key: key);
 
   @override
-  Widget build(BuildContext context) => WButton(
+  Widget build(BuildContext context) => GestureDetector(
         onTap: onTap,
-        margin: const EdgeInsets.only(left: 12),
-        color: Theme.of(context)
-            .extension<ThemedColors>()!
-            .whiteLilacToWhiteLilac10,
-        border: Border.all(
-            width: 1,
+        child: Container(
+          margin: const EdgeInsets.only(left: 12),
+          decoration: BoxDecoration(
+            border: Border.all(
+                width: 1,
+                color: Theme.of(context)
+                    .extension<ThemedColors>()!
+                    .solitudeBorderToSolitudeBorder10),
+            borderRadius: BorderRadius.circular(12),
             color: Theme.of(context)
                 .extension<ThemedColors>()!
-                .solitudeBorderToSolitudeBorder10),
-        borderRadius: 12,
-        padding: const EdgeInsets.all(12),
-        child: Row(
-          children: [
-            SvgPicture.asset(serviceEntity.icon),
-            const SizedBox(
-              width: 8,
-            ),
-            Text(
-              serviceEntity.title,
-              style: Theme.of(context)
-                  .textTheme
-                  .headline1!
-                  .copyWith(fontSize: 12, fontWeight: FontWeight.w600),
-            ),
-          ],
+                .whiteLilacToWhiteLilac10,
+          ),
+          padding: const EdgeInsets.all(12),
+          child: Row(
+            children: [
+              SvgPicture.asset(serviceEntity.icon),
+              const SizedBox(
+                width: 8,
+              ),
+              Text(
+                serviceEntity.title,
+                style: Theme.of(context)
+                    .textTheme
+                    .headline1!
+                    .copyWith(fontSize: 12, fontWeight: FontWeight.w600),
+              ),
+            ],
+          ),
         ),
       );
 }

@@ -371,7 +371,8 @@ abstract class _DeleteComparison implements ComparisonAddEvent {
 
 /// @nodoc
 mixin _$ComparisonAddState {
-  FormzStatus get status => throw _privateConstructorUsedError;
+  FormzStatus get addStatus => throw _privateConstructorUsedError;
+  FormzStatus get removeStatus => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ComparisonAddStateCopyWith<ComparisonAddState> get copyWith =>
@@ -384,7 +385,7 @@ abstract class $ComparisonAddStateCopyWith<$Res> {
           ComparisonAddState value, $Res Function(ComparisonAddState) then) =
       _$ComparisonAddStateCopyWithImpl<$Res, ComparisonAddState>;
   @useResult
-  $Res call({FormzStatus status});
+  $Res call({FormzStatus addStatus, FormzStatus removeStatus});
 }
 
 /// @nodoc
@@ -400,12 +401,17 @@ class _$ComparisonAddStateCopyWithImpl<$Res, $Val extends ComparisonAddState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? status = null,
+    Object? addStatus = null,
+    Object? removeStatus = null,
   }) {
     return _then(_value.copyWith(
-      status: null == status
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
+      addStatus: null == addStatus
+          ? _value.addStatus
+          : addStatus // ignore: cast_nullable_to_non_nullable
+              as FormzStatus,
+      removeStatus: null == removeStatus
+          ? _value.removeStatus
+          : removeStatus // ignore: cast_nullable_to_non_nullable
               as FormzStatus,
     ) as $Val);
   }
@@ -419,7 +425,7 @@ abstract class _$$_ComparisonAddStateCopyWith<$Res>
       __$$_ComparisonAddStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({FormzStatus status});
+  $Res call({FormzStatus addStatus, FormzStatus removeStatus});
 }
 
 /// @nodoc
@@ -433,12 +439,17 @@ class __$$_ComparisonAddStateCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? status = null,
+    Object? addStatus = null,
+    Object? removeStatus = null,
   }) {
     return _then(_$_ComparisonAddState(
-      status: null == status
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
+      addStatus: null == addStatus
+          ? _value.addStatus
+          : addStatus // ignore: cast_nullable_to_non_nullable
+              as FormzStatus,
+      removeStatus: null == removeStatus
+          ? _value.removeStatus
+          : removeStatus // ignore: cast_nullable_to_non_nullable
               as FormzStatus,
     ));
   }
@@ -447,15 +458,20 @@ class __$$_ComparisonAddStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_ComparisonAddState implements _ComparisonAddState {
-  _$_ComparisonAddState({this.status = FormzStatus.pure});
+  _$_ComparisonAddState(
+      {this.addStatus = FormzStatus.pure,
+      this.removeStatus = FormzStatus.pure});
 
   @override
   @JsonKey()
-  final FormzStatus status;
+  final FormzStatus addStatus;
+  @override
+  @JsonKey()
+  final FormzStatus removeStatus;
 
   @override
   String toString() {
-    return 'ComparisonAddState(status: $status)';
+    return 'ComparisonAddState(addStatus: $addStatus, removeStatus: $removeStatus)';
   }
 
   @override
@@ -463,11 +479,14 @@ class _$_ComparisonAddState implements _ComparisonAddState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_ComparisonAddState &&
-            (identical(other.status, status) || other.status == status));
+            (identical(other.addStatus, addStatus) ||
+                other.addStatus == addStatus) &&
+            (identical(other.removeStatus, removeStatus) ||
+                other.removeStatus == removeStatus));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, status);
+  int get hashCode => Object.hash(runtimeType, addStatus, removeStatus);
 
   @JsonKey(ignore: true)
   @override
@@ -478,11 +497,14 @@ class _$_ComparisonAddState implements _ComparisonAddState {
 }
 
 abstract class _ComparisonAddState implements ComparisonAddState {
-  factory _ComparisonAddState({final FormzStatus status}) =
-      _$_ComparisonAddState;
+  factory _ComparisonAddState(
+      {final FormzStatus addStatus,
+      final FormzStatus removeStatus}) = _$_ComparisonAddState;
 
   @override
-  FormzStatus get status;
+  FormzStatus get addStatus;
+  @override
+  FormzStatus get removeStatus;
   @override
   @JsonKey(ignore: true)
   _$$_ComparisonAddStateCopyWith<_$_ComparisonAddState> get copyWith =>

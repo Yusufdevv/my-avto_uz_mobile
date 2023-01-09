@@ -1,11 +1,12 @@
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
-import 'package:auto/features/common/bloc/delete_comparison/delete_comparison_bloc.dart';
+import 'package:auto/features/common/bloc/comparison_add/bloc/comparison_add_bloc.dart';
 import 'package:auto/features/comparison/presentation/bloc/comparison-bloc/comparison_bloc.dart';
 import 'package:auto/features/comparison/presentation/widgets/add_new_car.dart';
 import 'package:auto/features/comparison/presentation/widgets/added_car_sticky.dart';
 import 'package:auto/features/comparison/presentation/widgets/added_car_widget.dart';
 import 'package:auto/features/search/presentation/part/bottom_sheet_for_calling.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SliverWidget extends SliverPersistentHeaderDelegate {
   final ScrollController scrollController;
@@ -14,7 +15,6 @@ class SliverWidget extends SliverPersistentHeaderDelegate {
   final ValueChanged<bool> onChanged;
   final VoidCallback onAddCar;
   final ValueChanged<bool> setSticky;
-  final DeleteComparisonBloc deleteComparisonBloc;
   final ComparisonBloc comparisonBloc;
 
   SliverWidget({
@@ -24,7 +24,6 @@ class SliverWidget extends SliverPersistentHeaderDelegate {
     required this.onChanged,
     required this.scrollController,
     required this.setSticky,
-    required this.deleteComparisonBloc,
     required this.comparisonBloc,
   });
 
@@ -37,7 +36,7 @@ class SliverWidget extends SliverPersistentHeaderDelegate {
       setSticky(false);
     }
     return AnimatedSwitcher(
-      duration: const Duration(milliseconds: 50),
+      duration: const Duration(milliseconds: 300),
       child: shrinkOffset >= 220
           ? Container(
               width: MediaQuery.of(context).size.width,
@@ -49,13 +48,15 @@ class SliverWidget extends SliverPersistentHeaderDelegate {
                   children: List.generate(
                     comparisonBloc.state.cars.length,
                     (index) => StickyAdderCar(
-                      carImage:
-                          comparisonBloc.state.cars[index].announcement.mainData.gallery.isEmpty
-                              ? ''
-                              : comparisonBloc.state.cars[index].announcement.mainData.gallery[0],
+                      carImage: comparisonBloc.state.cars[index].announcement
+                              .mainData.gallery.isEmpty
+                          ? ''
+                          : comparisonBloc.state.cars[index].announcement
+                              .mainData.gallery[0],
                       carSalary:
                           '${comparisonBloc.state.cars[index].announcement.price} ${comparisonBloc.state.cars[index].announcement.currency}',
-                      name: comparisonBloc.state.cars[index].announcement.mainData.make,
+                      name: comparisonBloc
+                          .state.cars[index].announcement.mainData.make,
                     ),
                   )),
             )
@@ -80,28 +81,24 @@ class SliverWidget extends SliverPersistentHeaderDelegate {
                             ...List.generate(
                               comparisonBloc.state.cars.length,
                               (index) => AddedCar(
-                                carName:
-                                    comparisonBloc.state.cars[index].announcement.mainData.model,
+                                carName: comparisonBloc.state.cars[index]
+                                    .announcement.mainData.model,
                                 carSalary:
                                     '${comparisonBloc.state.cars[index].announcement.price} ${comparisonBloc.state.cars[index].announcement.currency.toUpperCase()}',
-                                imageUrl:
-                                    comparisonBloc.state.cars[index].announcement.mainData.gallery,
+                                imageUrl: comparisonBloc.state.cars[index]
+                                    .announcement.mainData.gallery,
                                 onTabCall: () {
                                   bottomSheetForCalling(
                                     context,
                                     comparisonBloc.state.cars[index]
-                                        .announcement
-                                        .mainData
-                                        .user
-                                        .phoneNumber,
+                                        .announcement.mainData.user.phoneNumber,
                                   );
                                 },
                                 onTabClose: () {
-                                  deleteComparisonBloc.add(
-                                    DeleteComparisonEvent.deleteComparison(
-                                      comparisonBloc.state.cars[index].order,
-                                    ),
-                                  );
+                                  BlocProvider.of<ComparisonAddBloc>(context)
+                                      .add(ComparisonAddEvent.deleteComparison(
+                                    comparisonBloc.state.cars[index].order,
+                                  ));
                                   comparisonBloc.add(GetComparableCars());
                                 },
                               ),
