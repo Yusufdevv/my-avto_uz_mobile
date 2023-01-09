@@ -16,6 +16,7 @@ class MyAdCarDescPart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(height: SizeConfig.v(8)),
           Row(
@@ -74,7 +75,7 @@ class MyAdCarDescPart extends StatelessWidget {
           Row(
             children: [
               Text(
-                item.discount != 0.0
+                item.discount > 0.0
                     ? '${item.discount.floor()} ${item.currency.toUpperCase()}'
                     : '${item.price.floor()} ${item.currency.toUpperCase()}',
                 style: Theme.of(context)
@@ -83,7 +84,7 @@ class MyAdCarDescPart extends StatelessWidget {
                     .copyWith(color: green, fontWeight: FontWeight.w600),
               ),
               const SizedBox(width: 4),
-              if (item.discount != 0.0)
+              if (item.discount > 0.0)
                 Text(
                   '${item.price.floor()} ${item.currency.toUpperCase()}',
                   style: Theme.of(context).textTheme.headline2!.copyWith(
@@ -94,14 +95,14 @@ class MyAdCarDescPart extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 8),
-          Text(
-            item.description,
-            overflow: TextOverflow.ellipsis,
-            maxLines: 2,
-            style: Theme.of(context).textTheme.headline2!.copyWith(
-                  fontSize: 13,
-                ),
-          ),
+          // if (item.description.isNotEmpty)
+          Text(item.description.trim(),
+              overflow: TextOverflow.ellipsis,
+              maxLines: 2,
+              style: Theme.of(context)
+                  .textTheme
+                  .headline2!
+                  .copyWith(fontSize: 13)),
         ],
       );
 }

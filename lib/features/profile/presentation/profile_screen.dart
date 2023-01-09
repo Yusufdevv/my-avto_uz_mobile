@@ -100,7 +100,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               imageBloc: imageBloc,
                             )));
                           },
-                          title: profileData.fullName ?? '',
+                          fullName: profileData.fullName ?? '',
                           subTitle:
                               '${usercountData?.announcementsCount ?? 0} ${LocaleKeys.how_many_ads.tr()}',
                           imageUrl: profileData.image ?? '',

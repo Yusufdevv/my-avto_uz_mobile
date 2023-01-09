@@ -25,20 +25,18 @@ class InformationGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => GridView.builder(
-      padding: const EdgeInsets.all(0),
-      shrinkWrap: true,
-      scrollDirection: Axis.vertical,
-      physics: const NeverScrollableScrollPhysics(),
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        childAspectRatio: 132 / 53,
-        mainAxisSpacing: 8,
-        crossAxisSpacing: 8,
-      ),
-      itemCount: listData.length,
-      itemBuilder: (context, index) => WScaleAnimation(
-        onTap: () {},
-        child: Container(
+        padding: const EdgeInsets.all(0),
+        shrinkWrap: true,
+        scrollDirection: Axis.vertical,
+        physics: const NeverScrollableScrollPhysics(),
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          childAspectRatio: 132 / 53,
+          mainAxisSpacing: 8,
+          crossAxisSpacing: 8,
+        ),
+        itemCount: listData.length,
+        itemBuilder: (context, index) => Container(
           padding: const EdgeInsets.only(top: 8, bottom: 8, left: 12),
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8), color: color[index]),
@@ -61,6 +59,5 @@ class InformationGrid extends StatelessWidget {
             ],
           ),
         ),
-      ),
-    );
+      );
 }

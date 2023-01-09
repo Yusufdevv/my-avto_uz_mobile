@@ -158,15 +158,13 @@ class SeeProfilePage extends StatelessWidget {
                                 backgroundColor: Colors.transparent,
                                 builder: (context) => CustomProfileBottomsheet(
                                       title: 'Вы действительно \nхотите выйти?',
-                                      subTitle: '''
-После выхода из приложения, необходимо 
-  будет заново пройти авторизацию чтобы
-              войти обратно в приложение.
-            ''',
+                                      subTitle:
+                                          'После выхода из приложения, необходимо\nбудет заново пройти авторизацию чтобы\nвойти обратно в приложение.',
                                       betweenHeight: 64,
                                       onTap: () {
                                         StorageRepository.deleteString('token');
-                                        Navigator.of(context)
+                                        Navigator.of(context,
+                                                rootNavigator: true)
                                             .pushAndRemoveUntil(
                                                 fade(page: const LoginScreen()),
                                                 (route) => false);

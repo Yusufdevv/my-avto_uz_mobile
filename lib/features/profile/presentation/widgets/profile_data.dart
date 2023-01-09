@@ -11,14 +11,14 @@ import 'package:flutter_svg/flutter_svg.dart';
 class ProfileDataWidget extends StatelessWidget {
   final EdgeInsets margin;
   final String imageUrl;
-  final String title;
+  final String fullName;
   final String subTitle;
   final VoidCallback onTap;
   final bool hasAlert;
 
   const ProfileDataWidget({
     required this.onTap,
-    required this.title,
+    required this.fullName,
     required this.subTitle,
     required this.imageUrl,
     this.hasAlert = true,
@@ -55,49 +55,35 @@ class ProfileDataWidget extends StatelessWidget {
                       SizeConfig.h(24),
                     )),
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    title.isEmpty ? 'No name' : title,
-                    style: Theme.of(context).textTheme.headline1!.copyWith(
-                          fontSize: 18,
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Text(fullName.isEmpty ? 'No name' : fullName,
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline1!
+                                  .copyWith(fontSize: 18)),
                         ),
-                  ),
-                  SizedBox(height: SizeConfig.v(2)),
-                  Text(
-                    subTitle,
-                    style: Theme.of(context).textTheme.headline6!.copyWith(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600,
-                        ),
-                  )
-                ],
+                      ],
+                    ),
+                    SizedBox(height: SizeConfig.v(2)),
+                    Text(
+                      subTitle,
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline6!
+                          .copyWith(fontSize: 14, fontWeight: FontWeight.w600),
+                    )
+                  ],
+                ),
               ),
-              // //
-              // if (hasAlert)
-              //   Container(
-              //     margin: const EdgeInsets.only(
-              //       bottom: 18,
-              //       left: 4,
-              //     ),
-              //     height: 16,
-              //     width: 16,
-              //     decoration: BoxDecoration(
-              //         borderRadius: BorderRadius.circular(
-              //           4,
-              //         ),
-              //         color: iconBackground.withOpacity(.1)),
-              //     child: Center(
-              //       child: SvgPicture.asset(AppIcons.alert),
-              //     ),
-              //   )
-              // else
-              //   const SizedBox(),
-
-              const Spacer(),
-              //
               Padding(
                 padding: EdgeInsets.only(
                   right: SizeConfig.h(16),

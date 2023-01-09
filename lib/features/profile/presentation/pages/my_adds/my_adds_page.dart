@@ -92,13 +92,18 @@ class _MyAddsPageState extends State<MyAddsPage> {
                 }
                 if (state.myAdsStatus.isSubmissionSuccess) {
                   final myAds = state.myAds;
-                  // final activeAds = myAds.where((e) => e.e);
+                  final activeAds = myAds
+                      .where((e) => e.moderationStatus == 'active')
+                      .toList();
+                  final noActive = myAds
+                      .where((e) => e.moderationStatus != 'active')
+                      .toList();
                   return myAds.isNotEmpty
                       ? TabBarView(
                           children: [
                             AllAds(autoEntity: myAds),
-                            AllAds(autoEntity: myAds),
-                            AllAds(autoEntity: myAds),
+                            AllAds(autoEntity: activeAds),
+                            AllAds(autoEntity: noActive),
                           ],
                         )
                       : const Center(
