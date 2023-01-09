@@ -13,10 +13,7 @@ class GetUserMyAdsEvent extends UserWishListsEvent {
   GetUserMyAdsEvent({required this.endpoint});
 }
 
-class GetUserHistoryEvent extends UserWishListsEvent {
-  final String endpoint;
-  GetUserHistoryEvent({required this.endpoint});
-}
+class GetMySearchesEvent extends UserWishListsEvent {}
 
 class GetNotificationSingleEvent extends UserWishListsEvent {
   final String id;

@@ -8,13 +8,14 @@ import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class LogoOutBottomsheet extends StatelessWidget {
-  const LogoOutBottomsheet({
-    required this.title,
-    required this.subTitle,
-    required this.betweenHeight,
-    required this.onTap,
-    Key? key}) : super(key: key);
+class CustomProfileBottomsheet extends StatelessWidget {
+  const CustomProfileBottomsheet(
+      {required this.title,
+      required this.subTitle,
+      required this.betweenHeight,
+      required this.onTap,
+      Key? key})
+      : super(key: key);
   final int betweenHeight;
   final String title;
   final String subTitle;
@@ -22,29 +23,23 @@ class LogoOutBottomsheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Container(
-        padding: EdgeInsets.symmetric(
-            vertical: SizeConfig.v(20), horizontal: SizeConfig.h(16)),
-        decoration: BoxDecoration(
+        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
+        decoration: const BoxDecoration(
             color: white,
             borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(SizeConfig.h(20)),
-              topRight: Radius.circular(SizeConfig.h(20)),
+              topLeft: Radius.circular(20),
+              topRight: Radius.circular(20),
             )),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: [
-            Row(
-              children: [
-                const Spacer(),
-                GestureDetector(
-                    onTap: () => Navigator.pop(context),
-                    child: SvgPicture.asset(
-                      AppIcons.close,
-                      height: 32,
-                      width: 32,
-                    ))
-              ],
+            Align(
+              alignment: Alignment.centerRight,
+              child: GestureDetector(
+                  onTap: () => Navigator.pop(context),
+                  child:
+                      SvgPicture.asset(AppIcons.close, height: 32, width: 32)),
             ),
             const SizedBox(height: 12),
             Text(
@@ -60,7 +55,7 @@ class LogoOutBottomsheet extends StatelessWidget {
                   .headline2!
                   .copyWith(fontWeight: FontWeight.w400, fontSize: 16),
             ),
-            SizedBox(height: SizeConfig.v(betweenHeight)),
+            SizedBox(height: betweenHeight.toDouble()),
             Row(
               children: [
                 Expanded(
@@ -70,7 +65,7 @@ class LogoOutBottomsheet extends StatelessWidget {
                       text: 'Нет',
                       textColor: greyText),
                 ),
-                const SizedBox(width: 13),
+                const SizedBox(width: 12),
                 Expanded(
                   child: WButton(
                     color: tutu,

@@ -92,6 +92,7 @@ class _AppState extends State<App> {
                       repository: serviceLocator<AdRepositoryImpl>())))
         ],
         child: MaterialApp(
+          
           supportedLocales: context.supportedLocales,
           localizationsDelegates: context.localizationDelegates,
           locale: context.locale,

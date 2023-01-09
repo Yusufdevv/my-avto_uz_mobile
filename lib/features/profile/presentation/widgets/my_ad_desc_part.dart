@@ -10,6 +10,7 @@ import 'package:auto/utils/my_functions.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:share_plus/share_plus.dart';
 
 class MyAdDesc extends StatelessWidget {
   const MyAdDesc({
@@ -120,7 +121,10 @@ class MyAdDesc extends StatelessWidget {
                       borderRadius: 12,
                       padding: const EdgeInsets.symmetric(
                           vertical: 10, horizontal: 11),
-                      onTap: () {},
+                      onTap: () {
+                        Share.share(
+                            'https://panel.avto.uz/api/v1/car/announcement/${item.id}/detail/');
+                      },
                       child: SvgPicture.asset(AppIcons.share,
                           color: Theme.of(context)
                               .extension<ThemedColors>()!
@@ -191,7 +195,10 @@ class MyAdDesc extends StatelessWidget {
                     borderRadius: 12,
                     padding: const EdgeInsets.symmetric(
                         vertical: 10, horizontal: 11),
-                    onTap: () {},
+                    onTap: () {
+                      Share.share(
+                          'https://panel.avto.uz/api/v1/car/announcement/${item.id}/detail/');
+                    },
                     child: SvgPicture.asset(AppIcons.share,
                         color: Theme.of(context)
                             .extension<ThemedColors>()!

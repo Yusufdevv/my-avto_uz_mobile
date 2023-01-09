@@ -2,6 +2,7 @@ import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/features/profile/data/repositories/get_user_list_repo_impl.dart';
 import 'package:auto/features/profile/domain/entities/profile_item_entity.dart';
+import 'package:auto/features/profile/domain/usecases/get_my_searches_usecase.dart';
 import 'package:auto/features/profile/domain/usecases/get_notification_single.dart';
 import 'package:auto/features/profile/domain/usecases/get_notification_usecase.dart';
 import 'package:auto/features/profile/domain/usecases/profil_favorites_usecase.dart';
@@ -24,25 +25,26 @@ class MyAddsPage extends StatefulWidget {
 }
 
 class _MyAddsPageState extends State<MyAddsPage> {
-  final List<ProfileItemEntity> list = [];
   late UserWishListsBloc bloc;
 
   @override
   void initState() {
     final repo = serviceLocator<GetUserListRepoImpl>();
     bloc = UserWishListsBloc(
-      profileFavoritesMyAdsUseCase:
-          GetUserFavoritesMyAdsUseCase(repository: repo),
-      getNotificationSingleUseCase:
-          GetNotificationSingleUseCase(repository: repo),
-      getNotificationsUseCase: GetNotificationsUseCase(repository: repo),
-    )..add(GetUserMyAdsEvent(endpoint: '/car/my-announcements/'));
+        profileFavoritesMyAdsUseCase:
+            GetUserFavoritesMyAdsUseCase(repository: repo),
+        getNotificationSingleUseCase:
+            GetNotificationSingleUseCase(repository: repo),
+        getNotificationsUseCase: GetNotificationsUseCase(repository: repo),
+        getMySearchesUseCase: GetMySearchesUseCase(repository: repo))
+      ..add(GetUserMyAdsEvent(endpoint: '/car/my-announcements/'));
     super.initState();
   }
 
   @override
   void dispose() {
     super.dispose();
+    bloc.close();
   }
 
   @override
@@ -90,6 +92,7 @@ class _MyAddsPageState extends State<MyAddsPage> {
                 }
                 if (state.myAdsStatus.isSubmissionSuccess) {
                   final myAds = state.myAds;
+                  // final activeAds = myAds.where((e) => e.e);
                   return myAds.isNotEmpty
                       ? TabBarView(
                           children: [
@@ -98,9 +101,10 @@ class _MyAddsPageState extends State<MyAddsPage> {
                             AllAds(autoEntity: myAds),
                           ],
                         )
-                      : const EmptyItemBody(
-                          subtitle: 'У вас еще нет объявлений',
-                          image: AppIcons.carIcon
+                      : const Center(
+                          child: EmptyItemBody(
+                              subtitle: 'У вас еще нет объявлений',
+                              image: AppIcons.carIcon),
                         );
                 }
                 return const Center(child: Text('Xatolik!'));

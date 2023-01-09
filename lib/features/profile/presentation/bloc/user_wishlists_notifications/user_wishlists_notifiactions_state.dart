@@ -4,6 +4,7 @@ class UserWishListsState extends Equatable {
   final List<AutoEntity> favorites;
   final List<AutoEntity> myAds;
   final List<NotificationsEntity> notifications;
+  final List<MySearchesEntity> mySearches;
   final NotificationsEntity notificationSingle;
   final FormzStatus favoritesStatus;
   final FormzStatus myAdsStatus;
@@ -13,6 +14,7 @@ class UserWishListsState extends Equatable {
     required this.myAdsStatus,
     required this.favorites,
     required this.myAds,
+    required this.mySearches,
     required this.notifications,
     required this.notificationSingle,
   });
@@ -20,7 +22,7 @@ class UserWishListsState extends Equatable {
   UserWishListsState copyWith({
     List<AutoEntity>? favorites,
     List<AutoEntity>? myAds,
-    
+    List<MySearchesEntity>? mySearches,
    List<NotificationsEntity>? notifications,
    NotificationsEntity? notificationSingle,
     FormzStatus? favoritesStatus,
@@ -29,6 +31,7 @@ class UserWishListsState extends Equatable {
       UserWishListsState(
         favorites: favorites ?? this.favorites,
         myAds: myAds ?? this.myAds,
+        mySearches: mySearches ?? this.mySearches,
         notificationSingle: notificationSingle ?? this.notificationSingle,
         notifications: notifications ?? this.notifications,
         favoritesStatus: favoritesStatus ?? this.favoritesStatus,
@@ -36,5 +39,5 @@ class UserWishListsState extends Equatable {
       );
 
   @override
-  List<Object?> get props => [favorites, myAds, favoritesStatus, myAdsStatus, notificationSingle, notifications];
+  List<Object?> get props => [favorites, myAds,mySearches ,favoritesStatus, myAdsStatus, notificationSingle, notifications];
 }

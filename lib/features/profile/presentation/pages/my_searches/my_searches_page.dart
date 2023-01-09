@@ -1,15 +1,27 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/core/utils/size_config.dart';
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
 import 'package:auto/features/common/widgets/custom_screen.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
+import 'package:auto/features/common/widgets/w_scale.dart';
+import 'package:auto/features/profile/data/repositories/get_user_list_repo_impl.dart';
+import 'package:auto/features/profile/domain/entities/my_searches_entity.dart';
+import 'package:auto/features/profile/domain/usecases/get_my_searches_usecase.dart';
+import 'package:auto/features/profile/domain/usecases/get_notification_single.dart';
+import 'package:auto/features/profile/domain/usecases/get_notification_usecase.dart';
+import 'package:auto/features/profile/domain/usecases/profil_favorites_usecase.dart';
+import 'package:auto/features/profile/presentation/bloc/user_wishlists_notifications/user_wishlists_notification_bloc.dart';
+import 'package:auto/features/profile/presentation/widgets/empty_item_body.dart';
 import 'package:auto/features/profile/presentation/widgets/log_out_bottomsheet.dart';
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:auto/features/profile/presentation/widgets/my_search_item.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:formz/formz.dart';
 
 class MySearchesPage extends StatefulWidget {
   const MySearchesPage({super.key});
@@ -18,156 +30,135 @@ class MySearchesPage extends StatefulWidget {
   State<MySearchesPage> createState() => _MySearchesPageState();
 }
 
-// const EmptyItemBody(title: 'Нет уведомлении', subtitle: 'Ваши сохранённые поиски будут отображаться в данном разделе.',
-// image: AppIcons.notification);
-
 class _MySearchesPageState extends State<MySearchesPage> {
+  late UserWishListsBloc bloc;
+
+  @override
+  void initState() {
+    final repo = serviceLocator<GetUserListRepoImpl>();
+    bloc = UserWishListsBloc(
+        profileFavoritesMyAdsUseCase:
+            GetUserFavoritesMyAdsUseCase(repository: repo),
+        getNotificationSingleUseCase:
+            GetNotificationSingleUseCase(repository: repo),
+        getNotificationsUseCase: GetNotificationsUseCase(repository: repo),
+        getMySearchesUseCase: GetMySearchesUseCase(repository: repo))
+      ..add(GetMySearchesEvent());
+    super.initState();
+  }
+
+  List mySearches = [];
+  List deletedList = [];
   bool isToggled = false;
   bool isDeleted = false;
-  List<int> deletedList = [];
-  List<int> list = [1, 3, 5, 6, 9];
-  List<String> listMarks = ['Alfa Romeo', 'BMW', 'BYD', 'Mers', 'Tesla'];
   @override
-  Widget build(BuildContext context) {
-    print(deletedList);
-    print(list);
-    return CustomScreen(
-      child: Scaffold(
-        appBar: WAppBar(
-          textWithButton: 'Мои поиски',
-          extraActions: [
-            GestureDetector(
-              onTap: () {
-                setState(() {
-                  isToggled = !isToggled;
-                });
-              },
-              child: Padding(
-                padding: const EdgeInsets.only(right: 16),
-                child: isToggled
-                    ? Text(
-                        'Отменить',
-                        style: Theme.of(context)
-                            .textTheme
-                            .subtitle1
-                            ?.copyWith(color: red, height: 1.3),
-                      )
-                    : SvgPicture.asset(AppIcons.delete, color: grey),
-              ),
-            )
-          ],
-        ),
-        body: ListView.builder(
-          itemCount: list.length,
-          itemBuilder: (context, index) => GestureDetector(
-            onTap: () {
-              if (isToggled) {
-                if (deletedList.contains(list[index])) {
-                  setState(() {
-                    deletedList.remove(list[index]);
-                  });
-                } else {
-                  setState(() {
-                    deletedList.add(list[index]);
-                  });
-                }
-              }
-            },
-            child: Container(
-              key: ValueKey<int>(list[index]),
-              margin: EdgeInsets.only(
-                left: SizeConfig.h(16),
-                right: SizeConfig.h(16),
-                top: index == 0 ? SizeConfig.v(20) : 0,
-                bottom: SizeConfig.v(12),
-              ),
-              padding: EdgeInsets.only(
-                  left: SizeConfig.h(16),
-                  right: SizeConfig.h(12),
-                  top: SizeConfig.v(16),
-                  bottom: SizeConfig.v(16)),
-              decoration: BoxDecoration(
-                  color: white,
-                  borderRadius: BorderRadius.circular(SizeConfig.h(12)),
-                  boxShadow: [
-                    BoxShadow(
-                        offset: const Offset(0, 8),
-                        blurRadius: 19,
-                        color: profileContainers.withOpacity(0.07))
-                  ]),
-              child: Row(
-                children: [
-                  SizedBox(
-                    height: SizeConfig.v(38),
-                    width: SizeConfig.h(38),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(SizeConfig.h(50)),
-                      child: CachedNetworkImage(
-                          imageUrl:
-                              'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/BMW_logo_%28gray%29.svg/2048px-BMW_logo_%28gray%29.svg.png'),
-                    ),
-                  ),
-                  SizedBox(width: SizeConfig.h(6)),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(listMarks[index],
+  Widget build(BuildContext context) => BlocProvider.value(
+        value: bloc,
+        child: CustomScreen(
+          child: Scaffold(
+            appBar: WAppBar(
+              textWithButton: 'Мои поиски',
+              extraActions: [
+                WScaleAnimation(
+                  onTap: () {
+                    setState(() {
+                      isToggled = !isToggled;
+                    });
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 16),
+                    child: isToggled
+                        ? Text(
+                            'Отменить',
                             style: Theme.of(context)
                                 .textTheme
-                                .headline6
-                                ?.copyWith(color: dark)),
-                        SizedBox(height: SizeConfig.v(2)),
-                        Text('147 GTA • Rome Edt 597',
-                            style: Theme.of(context)
-                                .textTheme
-                                .headline2
-                                ?.copyWith(color: greyText)),
-                      ],
-                    ),
+                                .subtitle1
+                                ?.copyWith(color: red, height: 1.3),
+                          )
+                        : SvgPicture.asset(AppIcons.delete, color: grey),
                   ),
-                  if (isToggled)
-                    SvgPicture.asset(deletedList.contains(list[index])
-                        ? AppIcons.circleChecked
-                        : AppIcons.circleEmpty)
-                  else
-                    SvgPicture.asset(AppIcons.chevronRight1)
-                ],
-              ),
+                )
+              ],
             ),
+            body: BlocBuilder<UserWishListsBloc, UserWishListsState>(
+              builder: (context, state) {
+                if (state.myAdsStatus.isSubmissionInProgress) {
+                  return const Center(child: CupertinoActivityIndicator());
+                }
+                if (state.myAdsStatus.isSubmissionSuccess) {
+                  mySearches = state.mySearches;
+                  return mySearches.isNotEmpty
+                      ? ListView.builder(
+                          itemCount: mySearches.length,
+                          itemBuilder: (context, index) {
+                            final MySearchesEntity item = mySearches[index];
+                            return GestureDetector(
+                              onTap: () {
+                                if (isToggled) {
+                                  if (deletedList.contains(mySearches[index])) {
+                                    setState(() {
+                                      deletedList.remove(mySearches[index]);
+                                    });
+                                  } else {
+                                    setState(() {
+                                      deletedList.add(mySearches[index]);
+                                    });
+                                  }
+                                }
+                              },
+                              child: MySearchItem(
+                                  item: item,
+                                  index: index,
+                                  isToggled: isToggled,
+                                  deletedList: deletedList,
+                                  mySearches: mySearches),
+                            );
+                          },
+                        )
+                      : const Center(
+                          child: EmptyItemBody(
+                              title: 'Нет уведомлении',
+                              subtitle:
+                                  'Ваши сохранённые поиски будут отображаться в данном разделе.',
+                              image: AppIcons.emptyFolder),
+                        );
+                }
+                return const Center(child: Text('Xatolik!'));
+              },
+            ),
+            bottomNavigationBar: isToggled
+                ? WButton(
+                    text: 'Удалить',
+                    color: deletedList.isNotEmpty ? orange : grey,
+                    margin: EdgeInsets.symmetric(
+                        horizontal: SizeConfig.h(16),
+                        vertical: SizeConfig.v(16)),
+                    onTap: () {
+                      deletedList.isNotEmpty
+                          ? showModalBottomSheet(
+                              context: context,
+                              builder: (context) => CustomProfileBottomsheet(
+                                title: 'Вы действительно \nхотите удалить?',
+                                subTitle: 'Удаление возврату не поддлежит',
+                                betweenHeight: 36,
+                                onTap: () {
+                                  isDeleted = !isDeleted;
+                                  mySearches.removeWhere(
+                                      (e) => deletedList.contains(e));
+                                  deletedList.clear();
+                                  isToggled = false;
+                                  Navigator.pop(context);
+                                  setState(() {});
+                                },
+                              ),
+                            )
+                          : context.read<ShowPopUpBloc>().add(ShowPopUp(
+                              isSucces: false,
+                              message: "O'chirish uchun avval tanlang"));
+                    },
+                  )
+                : const SizedBox(),
           ),
         ),
-        bottomNavigationBar: isToggled
-            ? WButton(
-                text: 'Удалить',
-                color: deletedList.isNotEmpty ? orange : grey,
-                margin: EdgeInsets.symmetric(
-                    horizontal: SizeConfig.h(16), vertical: SizeConfig.v(16)),
-                onTap: () {
-                  deletedList.isNotEmpty
-                      ? showModalBottomSheet(
-                          context: context,
-                          builder: (context) => LogoOutBottomsheet(
-                            title: 'Вы действительно хотите удалить?',
-                            subTitle: 'Удаление возврату не поддлежит',
-                            betweenHeight: 36,
-                            onTap: () {
-                              isDeleted = !isDeleted;
-                              list.removeWhere((e) => deletedList.contains(e));
-
-                              deletedList.clear();
-                              setState(() {});
-                              Navigator.pop(context);
-                            },
-                          ),
-                        )
-                      : context.read<ShowPopUpBloc>().add(ShowPopUp(
-                          isSucces: false,
-                          message: "O'chirish uchun avval tanlang"));
-                },
-              )
-            : const SizedBox(),
-      ),
-    );
-  }
+      );
 }

@@ -75,7 +75,7 @@ class _PhoneNumberEditPageState extends State<PhoneNumberEditPage> {
                             title: LocaleKeys.tel_number.tr(),
                             description:
                                 'Мы отправим код подтверждения на номер телефона'),
-                        SizedBox(height: SizeConfig.v(49)),
+                        SizedBox(height: SizeConfig.v(50)),
                         ZTextFormField(
                           disabledBorderColor: border,
                           onChanged: (value) {

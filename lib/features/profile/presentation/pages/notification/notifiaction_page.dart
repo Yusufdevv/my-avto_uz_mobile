@@ -5,6 +5,7 @@ import 'package:auto/core/utils/size_config.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/profile/data/repositories/get_user_list_repo_impl.dart';
+import 'package:auto/features/profile/domain/usecases/get_my_searches_usecase.dart';
 import 'package:auto/features/profile/domain/usecases/get_notification_single.dart';
 import 'package:auto/features/profile/domain/usecases/get_notification_usecase.dart';
 import 'package:auto/features/profile/domain/usecases/profil_favorites_usecase.dart';
@@ -31,12 +32,13 @@ class _NotificationPageState extends State<NotificationPage> {
   void initState() {
     final repo = serviceLocator<GetUserListRepoImpl>();
     bloc = UserWishListsBloc(
-      profileFavoritesMyAdsUseCase:
-          GetUserFavoritesMyAdsUseCase(repository: repo),
-      getNotificationSingleUseCase:
-          GetNotificationSingleUseCase(repository: repo),
-      getNotificationsUseCase: GetNotificationsUseCase(repository: repo),
-    )..add(GetNotificationsEvent());
+        profileFavoritesMyAdsUseCase:
+            GetUserFavoritesMyAdsUseCase(repository: repo),
+        getNotificationSingleUseCase:
+            GetNotificationSingleUseCase(repository: repo),
+        getNotificationsUseCase: GetNotificationsUseCase(repository: repo),
+        getMySearchesUseCase: GetMySearchesUseCase(repository: repo))
+      ..add(GetNotificationsEvent());
     super.initState();
   }
 
@@ -68,7 +70,7 @@ class _NotificationPageState extends State<NotificationPage> {
               }
               if (state.myAdsStatus.isSubmissionSuccess) {
                 final notifications = state.notifications;
-                return notifications.isEmpty
+                return notifications.isNotEmpty
                     ? ListView.builder(
                         itemCount: notifications.length,
                         itemBuilder: (context, index) {
