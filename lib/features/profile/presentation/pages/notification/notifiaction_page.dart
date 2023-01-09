@@ -10,6 +10,7 @@ import 'package:auto/features/profile/domain/usecases/get_notification_usecase.d
 import 'package:auto/features/profile/domain/usecases/profil_favorites_usecase.dart';
 import 'package:auto/features/profile/presentation/bloc/user_wishlists_notifications/user_wishlists_notification_bloc.dart';
 import 'package:auto/features/profile/presentation/pages/notification/notification_single_page.dart';
+import 'package:auto/features/profile/presentation/widgets/empty_item_body.dart';
 import 'package:auto/features/profile/presentation/widgets/widgets.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -67,20 +68,22 @@ class _NotificationPageState extends State<NotificationPage> {
               }
               if (state.myAdsStatus.isSubmissionSuccess) {
                 final notifications = state.notifications;
-                return notifications.isNotEmpty
+                return notifications.isEmpty
                     ? ListView.builder(
                         itemCount: notifications.length,
                         itemBuilder: (context, index) {
                           final item = notifications[index];
                           return InkWell(
                             onTap: () {
-                              context.read<UserWishListsBloc>().add(GetNotificationSingleEvent(id: item.id.toString()));
+                              context.read<UserWishListsBloc>().add(
+                                  GetNotificationSingleEvent(
+                                      id: item.id.toString()));
                               Navigator.push(
                                   context,
                                   fade(
-                                      page:   BlocProvider.value(
+                                      page: BlocProvider.value(
                                     value: bloc,
-                                    child:const NotificationSinglePage(),
+                                    child: const NotificationSinglePage(),
                                   )));
                             },
                             child: NotificationItem(
@@ -94,14 +97,14 @@ class _NotificationPageState extends State<NotificationPage> {
                           );
                         },
                       )
-                    : const Center(
-                        child: Text("Yangiliklar yo'q"),
-                      );
+                    : const EmptyItemBody(
+                        title: 'Нет уведомлении',
+                        subtitle:
+                            'Пока нет уведомлении, они будут отображаться в данном разделе.',
+                        image: AppIcons.notification);
               }
               return const Center(
-                child: Text(
-                  "Xatolik! o'zingni vashshem yo'qotma ukam",
-                ),
+                child: Text('Xatolik!'),
               );
             },
           ),

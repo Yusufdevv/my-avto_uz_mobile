@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 class ProfilTextField extends StatelessWidget {
   const ProfilTextField({
     required this.controller,
-     this.suffix,
-     this.isNameField = false,
+    this.suffix,
+    this.isNameField = false,
     Key? key,
   }) : super(key: key);
 
@@ -17,30 +17,31 @@ class ProfilTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => WTextField(
-      validate: (p0) {
-         if (p0 == null || p0.isEmpty) {
-                              return isNameField ?  'Iltimos, ismingizni kiriting' : 'Iltimos, familyangizni kiriting';
-                            } 
-                            return null;
-      },
-      focusColor: Theme.of(context).scaffoldBackgroundColor,
-      borderColor: purple,
-      cursorColor: purple,
-      disabledColor: Theme.of(context).scaffoldBackgroundColor,
-      textStyle: Theme.of(context)
-          .textTheme
-          .headline1!
-          .copyWith(fontSize: 14, fontWeight: FontWeight.w600),
-      borderRadius: SizeConfig.h(12),
-      hintText: '',
-      suffix: suffix,
-      hintTextStyle: Theme.of(context)
-          .textTheme
-          .headline1!
-          .copyWith(fontWeight: FontWeight.w600, fontSize: 14),
-      onChanged: (tmp) {
-      },
-      controller: controller,
-      contentPadding: EdgeInsets.symmetric(horizontal: SizeConfig.h(16)),
-    );
+        validate: (p0) {
+          if (p0 == null || p0.isEmpty) {
+            return isNameField
+                ? 'Iltimos, ismingizni kiriting'
+                : 'Iltimos, familyangizni kiriting';
+          }
+          return null;
+        },
+        focusColor: Theme.of(context).scaffoldBackgroundColor,
+        borderColor: purple,
+        cursorColor: purple,
+        disabledColor: Theme.of(context).scaffoldBackgroundColor,
+        textStyle: Theme.of(context)
+            .textTheme
+            .headline1!
+            .copyWith(fontSize: 14, fontWeight: FontWeight.w600),
+        borderRadius: SizeConfig.h(12),
+        hintText: '',
+        suffix: suffix,
+        hintTextStyle: Theme.of(context)
+            .textTheme
+            .headline1!
+            .copyWith(fontWeight: FontWeight.w600, fontSize: 14),
+        onChanged: (tmp) {},
+        controller: controller,
+        contentPadding: EdgeInsets.symmetric(horizontal: SizeConfig.h(16)),
+      );
 }

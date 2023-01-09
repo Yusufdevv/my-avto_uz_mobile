@@ -1,3 +1,4 @@
+import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/profile/data/repositories/get_user_list_repo_impl.dart';
@@ -27,10 +28,13 @@ class _FavouritePageState extends State<FavouritePage> {
   void initState() {
     final repo = serviceLocator<GetUserListRepoImpl>();
     bloc = UserWishListsBloc(
-      profileFavoritesMyAdsUseCase: GetUserFavoritesMyAdsUseCase(repository: repo),
-      getNotificationSingleUseCase: GetNotificationSingleUseCase(repository: repo),
+      profileFavoritesMyAdsUseCase:
+          GetUserFavoritesMyAdsUseCase(repository: repo),
+      getNotificationSingleUseCase:
+          GetNotificationSingleUseCase(repository: repo),
       getNotificationsUseCase: GetNotificationsUseCase(repository: repo),
-    )..add(GetUserFavoritesEvent(endpoint: '/users/wishlist/announcement/list/'));
+    )..add(
+        GetUserFavoritesEvent(endpoint: '/users/wishlist/announcement/list/'));
     super.initState();
   }
 
@@ -80,7 +84,9 @@ class _FavouritePageState extends State<FavouritePage> {
                                 discount: item.discount),
                           );
                         })
-                    : const EmptyItemBody(title: 'У вас еще нет объявлений');
+                    : const EmptyItemBody(
+                        subtitle: 'У вас еще нет объявлений',
+                        image: AppIcons.carIcon);
               }
               return const Center(child: Text('Xatolik'));
             },

@@ -41,6 +41,8 @@ class AppIcons {
   static const tablerInfo = 'assets/icons/global/tabler_info_circle.svg';
   static const tablerPhone = 'assets/icons/global/tabler_phone.svg';
   static const carIcon = 'assets/icons/global/car.png';
+  static const emptyFolder = 'assets/icons/global/empty_folder.png';
+  static const notification = 'assets/icons/global/notification.png';
   static const smallClose = 'assets/icons/global/smallClose.svg';
   static const chevrolet = 'assets/icons/global/chevrolet.svg';
   static const kia = 'assets/icons/global/kia.svg';

@@ -31,8 +31,10 @@ class _MyAddsPageState extends State<MyAddsPage> {
   void initState() {
     final repo = serviceLocator<GetUserListRepoImpl>();
     bloc = UserWishListsBloc(
-      profileFavoritesMyAdsUseCase: GetUserFavoritesMyAdsUseCase(repository: repo),
-      getNotificationSingleUseCase: GetNotificationSingleUseCase(repository: repo),
+      profileFavoritesMyAdsUseCase:
+          GetUserFavoritesMyAdsUseCase(repository: repo),
+      getNotificationSingleUseCase:
+          GetNotificationSingleUseCase(repository: repo),
       getNotificationsUseCase: GetNotificationsUseCase(repository: repo),
     )..add(GetUserMyAdsEvent(endpoint: '/car/my-announcements/'));
     super.initState();
@@ -96,7 +98,10 @@ class _MyAddsPageState extends State<MyAddsPage> {
                             AllAds(autoEntity: myAds),
                           ],
                         )
-                      : const EmptyItemBody(title: 'У вас еще нет объявлений');
+                      : const EmptyItemBody(
+                          subtitle: 'У вас еще нет объявлений',
+                          image: AppIcons.carIcon,
+                        );
                 }
                 return const Center(child: Text('Xatolik!'));
               }),

@@ -18,6 +18,9 @@ class MySearchesPage extends StatefulWidget {
   State<MySearchesPage> createState() => _MySearchesPageState();
 }
 
+// const EmptyItemBody(title: 'Нет уведомлении', subtitle: 'Ваши сохранённые поиски будут отображаться в данном разделе.',
+// image: AppIcons.notification);
+
 class _MySearchesPageState extends State<MySearchesPage> {
   bool isToggled = false;
   bool isDeleted = false;
@@ -160,7 +163,7 @@ class _MySearchesPageState extends State<MySearchesPage> {
                         )
                       : context.read<ShowPopUpBloc>().add(ShowPopUp(
                           isSucces: false,
-                          message: "O'chirish qilish uchun avval tanlang"));
+                          message: "O'chirish uchun avval tanlang"));
                 },
               )
             : const SizedBox(),
