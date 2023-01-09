@@ -6,13 +6,12 @@ import 'package:flutter/material.dart';
 
 
 class ProfileTabBar extends SliverPersistentHeaderDelegate {
-  final TabController tabController;
   final ValueChanged<int> onTap;
   final List<String> tabs;
   final int currentTab;
 
   const ProfileTabBar(
-      {required this.tabController,
+      {
       required this.onTap,
       this.currentTab = 0,
       this.tabs = const []});
@@ -61,7 +60,6 @@ color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
                     ),
                   ],
                 ),
-                controller: tabController,
                 labelStyle: Theme.of(context)
                     .textTheme
                     .subtitle1!

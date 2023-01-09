@@ -9,7 +9,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class LogoOutBottomsheet extends StatelessWidget {
-  const LogoOutBottomsheet({Key? key}) : super(key: key);
+  const LogoOutBottomsheet({
+    required this.title,
+    required this.subTitle,
+    required this.betweenHeight,
+    required this.onTap,
+    Key? key}) : super(key: key);
+  final int betweenHeight;
+  final String title;
+  final String subTitle;
+  final Function() onTap;
 
   @override
   Widget build(BuildContext context) => Container(
@@ -39,23 +48,19 @@ class LogoOutBottomsheet extends StatelessWidget {
             ),
             const SizedBox(height: 12),
             Text(
-              'Вы действительно \nхотите выйти?',
+              title,
               style: Theme.of(context).textTheme.headline1,
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 8),
             Text(
-              '''
-После выхода из приложения, необходимо 
-  будет заново пройти авторизацию чтобы
-              войти обратно в приложение.
-            ''',
+              subTitle,
               style: Theme.of(context)
                   .textTheme
                   .headline2!
                   .copyWith(fontWeight: FontWeight.w400, fontSize: 16),
             ),
-            SizedBox(height: SizeConfig.v(64)),
+            SizedBox(height: SizeConfig.v(betweenHeight)),
             Row(
               children: [
                 Expanded(
@@ -69,11 +74,7 @@ class LogoOutBottomsheet extends StatelessWidget {
                 Expanded(
                   child: WButton(
                     color: tutu,
-                    onTap: () {
-                      StorageRepository.deleteString('token');
-                      Navigator.of(context).pushAndRemoveUntil(
-                          fade(page: const LoginScreen()), (route) => false);
-                    },
+                    onTap: onTap,
                     text: 'Да',
                     textColor: red,
                   ),
