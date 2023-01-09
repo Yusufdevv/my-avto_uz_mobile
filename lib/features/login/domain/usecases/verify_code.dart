@@ -10,6 +10,7 @@ class VerifyCodeUseCase extends UseCase<String, VerifyParam> {
   Future<Either<Failure, String>> call(VerifyParam param) => repo.postAndSingle(
           endpoint: '/users/registration/sms-verification/verify/',
           sendToken: false,
+          errorKey: 'detail',
           fromJson: (data) => data['phone'],
           data: {
             'phone': '+998${param.phone.replaceAll(' ', '')}',

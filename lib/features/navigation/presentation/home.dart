@@ -92,120 +92,119 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return HomeTabControllerProvider(
-      controller: _controller,
-      child: WillPopScope(
-        onWillPop: () async {
-          print('calling pop');
-          final isFirstRouteInCurrentTab =
-              !await _navigatorKeys[NavItemEnum.values[_currentIndex]]!
-                  .currentState!
-                  .maybePop();
-          if (isFirstRouteInCurrentTab) {
-            if (NavItemEnum.values[_currentIndex] != NavItemEnum.head) {
-              changePage(0);
-              return false;
+  Widget build(BuildContext context) => HomeTabControllerProvider(
+        controller: _controller,
+        child: WillPopScope(
+          onWillPop: () async {
+            print('calling pop');
+            final isFirstRouteInCurrentTab =
+                !await _navigatorKeys[NavItemEnum.values[_currentIndex]]!
+                    .currentState!
+                    .maybePop();
+            if (isFirstRouteInCurrentTab) {
+              if (NavItemEnum.values[_currentIndex] != NavItemEnum.head) {
+                changePage(0);
+                return false;
+              }
             }
-          }
-          return isFirstRouteInCurrentTab;
-        },
-        child: Scaffold(
-          resizeToAvoidBottomInset: true,
-          bottomNavigationBar: Container(
-            height: 68 + MediaQuery.of(context).padding.bottom,
-            decoration: BoxDecoration(
-              borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(15), topRight: Radius.circular(15)),
-              color: Theme.of(context).appBarTheme.backgroundColor,
-              boxShadow: [
-                BoxShadow(
-                  color: const Color(0xFF171725).withOpacity(0.05),
-                  blurRadius: 24,
-                  offset: const Offset(0, -8),
-                )
-              ],
+            return isFirstRouteInCurrentTab;
+          },
+          child: Scaffold(
+            resizeToAvoidBottomInset: true,
+            bottomNavigationBar: Container(
+              height: 68 + MediaQuery.of(context).padding.bottom,
+              decoration: BoxDecoration(
+                borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(15),
+                    topRight: Radius.circular(15)),
+                color: Theme.of(context).appBarTheme.backgroundColor,
+                boxShadow: [
+                  BoxShadow(
+                    color: const Color(0xFF171725).withOpacity(0.05),
+                    blurRadius: 24,
+                    offset: const Offset(0, -8),
+                  )
+                ],
+              ),
+              child: TabBar(
+                enableFeedback: true,
+                onTap: (index) {
+                  if (index == 2) {
+                    Navigator.of(context, rootNavigator: true)
+                        .push(fade(page: const QRScannerScreen()));
+                  }
+                },
+                indicator: const BoxDecoration(),
+                controller: _controller,
+                labelPadding: EdgeInsets.zero,
+                tabs: [
+                  GestureDetector(
+                    onDoubleTap: () =>
+                        _navigatorKeys[NavItemEnum.values[_currentIndex]]!
+                            .currentState!
+                            .popUntil((route) => route.isFirst),
+                    child: NavItemWidget(
+                      navBar: lables[0],
+                      currentIndex: _currentIndex,
+                    ),
+                  ),
+                  GestureDetector(
+                    onDoubleTap: () =>
+                        _navigatorKeys[NavItemEnum.values[_currentIndex]]!
+                            .currentState!
+                            .popUntil((route) => route.isFirst),
+                    child: NavItemWidget(
+                      navBar: lables[1],
+                      currentIndex: _currentIndex,
+                    ),
+                  ),
+                  GestureDetector(
+                    onDoubleTap: () =>
+                        _navigatorKeys[NavItemEnum.values[_currentIndex]]!
+                            .currentState!
+                            .popUntil((route) => route.isFirst),
+                    child: NavItemWidget(
+                      navBar: lables[2],
+                      currentIndex: _currentIndex,
+                    ),
+                  ),
+                  GestureDetector(
+                    onDoubleTap: () =>
+                        _navigatorKeys[NavItemEnum.values[_currentIndex]]!
+                            .currentState!
+                            .popUntil((route) => route.isFirst),
+                    child: NavItemWidget(
+                      navBar: lables[3],
+                      currentIndex: _currentIndex,
+                    ),
+                  ),
+                  GestureDetector(
+                    onDoubleTap: () =>
+                        _navigatorKeys[NavItemEnum.values[_currentIndex]]!
+                            .currentState!
+                            .popUntil((route) => route.isFirst),
+                    child: NavItemWidget(
+                      navBar: lables[4],
+                      currentIndex: _currentIndex,
+                    ),
+                  )
+                ],
+              ),
             ),
-            child: TabBar(
-              enableFeedback: true,
-              onTap: (index) {
-                if (index == 2) {
-                  Navigator.of(context, rootNavigator: true)
-                      .push(fade(page: const QRScannerScreen()));
-                }
-              },
-              indicator: const BoxDecoration(),
+            body: TabBarView(
               controller: _controller,
-              labelPadding: EdgeInsets.zero,
-              tabs: [
-                GestureDetector(
-                  onDoubleTap: () =>
-                      _navigatorKeys[NavItemEnum.values[_currentIndex]]!
-                          .currentState!
-                          .popUntil((route) => route.isFirst),
-                  child: NavItemWidget(
-                    navBar: lables[0],
-                    currentIndex: _currentIndex,
-                  ),
-                ),
-                GestureDetector(
-                  onDoubleTap: () =>
-                      _navigatorKeys[NavItemEnum.values[_currentIndex]]!
-                          .currentState!
-                          .popUntil((route) => route.isFirst),
-                  child: NavItemWidget(
-                    navBar: lables[1],
-                    currentIndex: _currentIndex,
-                  ),
-                ),
-                GestureDetector(
-                  onDoubleTap: () =>
-                      _navigatorKeys[NavItemEnum.values[_currentIndex]]!
-                          .currentState!
-                          .popUntil((route) => route.isFirst),
-                  child: NavItemWidget(
-                    navBar: lables[2],
-                    currentIndex: _currentIndex,
-                  ),
-                ),
-                GestureDetector(
-                  onDoubleTap: () =>
-                      _navigatorKeys[NavItemEnum.values[_currentIndex]]!
-                          .currentState!
-                          .popUntil((route) => route.isFirst),
-                  child: NavItemWidget(
-                    navBar: lables[3],
-                    currentIndex: _currentIndex,
-                  ),
-                ),
-                GestureDetector(
-                  onDoubleTap: () =>
-                      _navigatorKeys[NavItemEnum.values[_currentIndex]]!
-                          .currentState!
-                          .popUntil((route) => route.isFirst),
-                  child: NavItemWidget(
-                    navBar: lables[4],
-                    currentIndex: _currentIndex,
-                  ),
-                )
+              physics: const NeverScrollableScrollPhysics(),
+              children: [
+                _buildPageNavigator(NavItemEnum.head),
+                _buildPageNavigator(NavItemEnum.search),
+                _buildPageNavigator(NavItemEnum.newPost),
+                _buildPageNavigator(NavItemEnum.categories),
+                _buildPageNavigator(NavItemEnum.profile),
               ],
             ),
-          ),
-          body: TabBarView(
-            controller: _controller,
-            physics: const NeverScrollableScrollPhysics(),
-            children: [
-              _buildPageNavigator(NavItemEnum.head),
-              _buildPageNavigator(NavItemEnum.search),
-              _buildPageNavigator(NavItemEnum.newPost),
-              _buildPageNavigator(NavItemEnum.categories),
-              _buildPageNavigator(NavItemEnum.profile),
-            ],
           ),
         ),
-      ),
-    );
-  }
+      );
 }
 
 class HomeTabControllerProvider extends InheritedWidget {

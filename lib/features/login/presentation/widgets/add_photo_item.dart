@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/images.dart';
@@ -95,78 +97,81 @@ class _AddPhotoItemState extends State<AddPhotoItem> {
   }
 
   @override
-  Widget build(BuildContext context) => Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Text(
-            LocaleKeys.photo.tr(),
-            style: Theme.of(context)
-                .textTheme
-                .headline1!
-                .copyWith(fontWeight: FontWeight.w400, fontSize: 14),
-          ),
-          const SizedBox(width: 48),
-          Expanded(
-            child: Column(
-              children: [
-                Row(
-                  children: [
-                    BlocBuilder<RegisterBloc, RegisterState>(
-                      builder: (context, state) {
-                        print('image');
-                        print(state.registerModel.image);
-                        return Container(
-                          height: 64,
-                          width: 64,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            image: DecorationImage(
-                                fit: BoxFit.cover,
-                                image: AssetImage(
-                                    state.registerModel.image.isNotEmpty
-                                        ? state.registerModel.image
-                                        : AppImages.imagePlaceHolder)),
-                          ),
-                        );
-                      },
-                    ),
-                    const SizedBox(width: 21),
-                    WButton(
-                      onTap: () {
-                        //showTakeImageBottomSheet(context);
-                        showImageBottomSheet(
-                            onSuccess: (image) {
-                              context
-                                  .read<RegisterBloc>()
-                                  .add(RegisterEvent.changeImage(path: image));
-                              Navigator.pop(context);
-                            },
-                            context: context);
-                      },
-                      borderRadius: 4,
-                      height: 24,
-                      padding: const EdgeInsets.symmetric(horizontal: 12),
-                      text: LocaleKeys.add_photo.tr(),
-                      textColor: grey,
-                      color: Theme.of(context)
-                          .extension<ThemedColors>()!
-                          .solitudeToBastille,
-                    )
-                  ],
-                ),
-                const SizedBox(
-                  height: 12,
-                ),
-                Divider(
-                  height: 10,
-                  thickness: 1,
-                  color: Theme.of(context)
-                      .extension<ThemedColors>()!
-                      .solitudeToWhite35,
-                ),
-              ],
+  Widget build(BuildContext context) =>
+      BlocBuilder<RegisterBloc, RegisterState>(
+        builder: (context, state) => Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              LocaleKeys.photo.tr(),
+              style: Theme.of(context)
+                  .textTheme
+                  .headline1!
+                  .copyWith(fontWeight: FontWeight.w400, fontSize: 14),
             ),
-          ),
-        ],
+            const SizedBox(width: 48),
+            Expanded(
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      Container(
+                        height: 64,
+                        width: 64,
+                        decoration: const BoxDecoration(
+                          shape: BoxShape.circle,
+                          image: DecorationImage(
+                              fit: BoxFit.cover,
+                              image: AssetImage(AppImages.imagePlaceHolder)),
+                        ),
+                        child: state.registerModel.image.isNotEmpty
+                            ? ClipRRect(
+                                borderRadius: BorderRadius.circular(32),
+                                child: Image.file(
+                                  File(state.registerModel.image),
+                                  fit: BoxFit.cover,
+                                ))
+                            : null,
+                      ),
+                      const SizedBox(width: 21),
+                      WButton(
+                        onTap: () {
+                          //showTakeImageBottomSheet(context);
+                          showImageBottomSheet(
+                              onSuccess: (image) {
+                                context.read<RegisterBloc>().add(
+                                    RegisterEvent.changeImage(path: image));
+                                Navigator.pop(context);
+                              },
+                              context: context);
+                        },
+                        borderRadius: 4,
+                        height: 24,
+                        padding: const EdgeInsets.symmetric(horizontal: 12),
+                        text: state.registerModel.image.isEmpty
+                            ? LocaleKeys.add_photo.tr()
+                            : LocaleKeys.change_photo.tr(),
+                        textColor: grey,
+                        color: Theme.of(context)
+                            .extension<ThemedColors>()!
+                            .solitudeToBastille,
+                      )
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 12,
+                  ),
+                  Divider(
+                    height: 10,
+                    thickness: 1,
+                    color: Theme.of(context)
+                        .extension<ThemedColors>()!
+                        .solitudeToWhite35,
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       );
 }

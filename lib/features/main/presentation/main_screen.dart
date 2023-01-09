@@ -82,14 +82,15 @@ class _MainScreenState extends State<MainScreen> {
       () async {
         /// for testing purpose
         // await StorageRepository.putString('token', '');
-        // await StorageRepository.putBool(key: 'onboarding', value: false);
+        // await StorageRepository.putBool(key: 'onboarding', value: true);
       },
       () {
-        
         /// for testing purpose
         // var onboarding = StorageRepository.getBool('onboarding');
         // var token = StorageRepository.getString('token');
-     },
+        //  print('=>=>=>=> onboarding $onboarding <=<=<=<=');
+        //  print('=>=>=>=> token $token <=<=<=<=');
+      },
       () {},
       () {
         Navigator.of(context, rootNavigator: true)

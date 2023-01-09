@@ -24,7 +24,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     required this.registerUseCase,
     required this.verifyCodeUseCase,
   }) : super(RegisterState()) {
-    on<_VerifyCode>((event, emit) async {
+    on<_RegisterVerifyCode>((event, emit) async {
       emit(state.copyWith(verifyStatus: FormzStatus.submissionInProgress));
       final result = await verifyCodeUseCase(event.param);
       if (result.isRight) {
@@ -39,33 +39,43 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
         }
       } else {
         if (event.onError != null) {
-          event.onError!(result.left.toString());
+          var err = (result.left is ServerFailure)
+              ? (result.left as ServerFailure).errorMessage
+              : result.left.toString();
+          if (err == 'Wrong code!') {
+            err = 'Код подтверждения введен неверно';
+          }
+          event.onError!(err);
         }
-        emit(state.copyWith(verifyStatus: FormzStatus.submissionInProgress));
+        emit(state.copyWith(verifyStatus: FormzStatus.submissionFailure));
       }
     });
-    on<_SendCode>((event, emit) async {
-      emit(state.copyWith(sendCodeStatus: FormzStatus.submissionInProgress));
-      final result = await sendCodeUseCase(event.phone);
-      if (result.isRight) {
-        print('right');
-        emit(state.copyWith(
-          sendCodeStatus: FormzStatus.submissionSuccess,
-        ));
-        if (event.onSuccess != null) {
-          event.onSuccess!(result.right);
-        }
-      } else {
-        print('left');
-        if (event.onError != null) {
-          print('null');
-          print(result.left);
-          print((result.left as ServerFailure).errorMessage);
-          event.onError!((result.left as ServerFailure).errorMessage);
-        } else {}
+    on<_SendCode>(
+      (event, emit) async {
         emit(state.copyWith(sendCodeStatus: FormzStatus.submissionInProgress));
-      }
-    });
+        final result = await sendCodeUseCase(event.phone);
+        if (result.isRight) {
+          emit(state.copyWith(
+            sendCodeStatus: FormzStatus.submissionSuccess,
+          ));
+          if (event.onSuccess != null) {
+            event.onSuccess!(result.right);
+          }
+        } else {
+          if (event.onError != null) {
+            var errorMessage = (result.left is ServerFailure)
+                ? (result.left as ServerFailure).errorMessage
+                : result.left.toString();
+            if (errorMessage.contains('User exist with phone number')) {
+              errorMessage =
+                  'Пользователь существует с введенным номером телефона';
+            }
+            event.onError!(errorMessage);
+          } else {}
+          emit(state.copyWith(sendCodeStatus: FormzStatus.submissionFailure));
+        }
+      },
+    );
 
     on<_SetName>((event, emit) async {
       emit(state.copyWith(
@@ -88,7 +98,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
         }
       } else {
         event.onError((result.left as ServerFailure).errorMessage);
-        emit(state.copyWith(registerStatus: FormzStatus.submissionInProgress));
+        emit(state.copyWith(registerStatus: FormzStatus.submissionFailure));
       }
     });
     on<_ChangeImage>((event, emit) {
