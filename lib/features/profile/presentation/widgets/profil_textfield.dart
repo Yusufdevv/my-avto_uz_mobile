@@ -7,14 +7,22 @@ class ProfilTextField extends StatelessWidget {
   const ProfilTextField({
     required this.controller,
      this.suffix,
+     this.isNameField = false,
     Key? key,
   }) : super(key: key);
 
   final TextEditingController controller;
   final Widget? suffix;
+  final bool isNameField;
 
   @override
   Widget build(BuildContext context) => WTextField(
+      validate: (p0) {
+         if (p0 == null || p0.isEmpty) {
+                              return isNameField ?  'Iltimos, ismingizni kiriting' : 'Iltimos, familyangizni kiriting';
+                            } 
+                            return null;
+      },
       focusColor: Theme.of(context).scaffoldBackgroundColor,
       borderColor: purple,
       cursorColor: purple,
@@ -30,7 +38,8 @@ class ProfilTextField extends StatelessWidget {
           .textTheme
           .headline1!
           .copyWith(fontWeight: FontWeight.w600, fontSize: 14),
-      onChanged: (tmp) {},
+      onChanged: (tmp) {
+      },
       controller: controller,
       contentPadding: EdgeInsets.symmetric(horizontal: SizeConfig.h(16)),
     );

@@ -41,6 +41,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
   late TextEditingController nameController;
   late TextEditingController surNameController;
   Region? newRegion;
+  final GlobalKey<FormState> _formKey = GlobalKey();
 
   @override
   void initState() {
@@ -83,29 +84,31 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                       SizeConfig.v(8) + mediaQuery.padding.bottom),
                   text: 'Подтвердить',
                   onTap: () {
-                    context.read<ProfileBloc>().add(
-                          EditProfileEvent(
-                            name: nameController.text,
-                            surName: surNameController.text,
-                            image: widget.imageBloc.state.image.path.isNotEmpty
-                                ? widget.imageBloc.state.image.path
-                                : null,
-                            region: newRegion?.id,
-                            onSuccess: () {
-                              widget.profileBloc.add(GetProfileEvent());
-
-                              Navigator.pop(context);
-                              context.read<ShowPopUpBloc>().add(ShowPopUp(
-                                  message:
-                                      "Malumotlar mufavvaqiyatli o'zgartirildi",
-                                  isSucces: true));
-                            },
-                            onError: (text) {
-                              context.read<ShowPopUpBloc>().add(
-                                  ShowPopUp(message: text, isSucces: false));
-                            },
-                          ),
-                        );
+                    if (_formKey.currentState!.validate()) {
+                      context.read<ProfileBloc>().add(
+                            EditProfileEvent(
+                              name: nameController.text,
+                              surName: surNameController.text,
+                              image:
+                                  widget.imageBloc.state.image.path.isNotEmpty
+                                      ? widget.imageBloc.state.image.path
+                                      : null,
+                              region: newRegion?.id,
+                              onSuccess: () {
+                                widget.profileBloc.add(GetProfileEvent());
+                                Navigator.pop(context);
+                                context.read<ShowPopUpBloc>().add(ShowPopUp(
+                                    message:
+                                        "Malumotlar mufavvaqiyatli o'zgartirildi",
+                                    isSucces: true));
+                              },
+                              onError: (text) {
+                                context.read<ShowPopUpBloc>().add(
+                                    ShowPopUp(message: text, isSucces: false));
+                              },
+                            ),
+                          );
+                    }
                   },
                 ),
                 body: KeyboardDismisser(
@@ -125,125 +128,134 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                       physics: const BouncingScrollPhysics(),
                       child: Padding(
                         padding: EdgeInsets.only(top: SizeConfig.v(24)),
-                        child: Column(
-                          children: [
-                            Align(
-                              alignment: Alignment.center,
-                              child: WScaleAnimation(
-                                  onTap: () {
-                                    showModalBottomSheet(
-                                        backgroundColor: Colors.transparent,
-                                        context: context,
-                                        useRootNavigator: true,
-                                        builder: (context) => CameraBottomSheet(
-                                            imageBloc: widget.imageBloc));
-                                  },
-                                  child: Column(
-                                    children: [
-                                      BlocBuilder<ImageBloc, ImageState>(
-                                        builder: (context, stateImage) =>
-                                            stateImage.image.path.isEmpty
-                                                ? CachedImage(
-                                                    height: SizeConfig.v(80),
-                                                    width: SizeConfig.h(80),
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            SizeConfig.h(40)),
-                                                    fit: BoxFit.cover,
-                                                    imageUrl: stateProfile
-                                                            .profileEntity
-                                                            .image ??
-                                                        '',
-                                                  )
-                                                : SizedBox(
-                                                    height: SizeConfig.v(80),
-                                                    width: SizeConfig.h(80),
-                                                    child: ClipRRect(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(
-                                                                    SizeConfig
-                                                                        .h(40)),
-                                                        child: Image.file(
-                                                            stateImage.image,
-                                                            fit: BoxFit.cover)),
-                                                  ),
-                                      ),
-                                      SizedBox(height: SizeConfig.h(8)),
-                                      Text(
-                                        LocaleKeys.change_photo.tr(),
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headline2!
-                                            .copyWith(color: blue),
-                                      ),
-                                    ],
-                                  )),
-                            ),
-                            //
-                            TitleTextFieldTop(
-                              title: LocaleKeys.name.tr(),
-                            ),
-                            ProfilTextField(controller: nameController),
-                            //
-                            TitleTextFieldTop(
-                              title: LocaleKeys.surname.tr(),
-                            ),
-                            ProfilTextField(controller: surNameController),
-                            //
-                            TitleTextFieldTop(
-                              title: LocaleKeys.region.tr(),
-                            ),
-                            WScaleAnimation(
-                              onTap: () async {
-                                await showModalBottomSheet<List<Region>>(
-                                  isDismissible: false,
-                                  context: context,
-                                  isScrollControlled: true,
-                                  backgroundColor: Colors.transparent,
-                                  builder: (c) => RentChooseRegionBottomSheet(
-                                      isProfileEdit: true,
-                                      list: context
-                                          .read<RegionsBloc>()
-                                          .state
-                                          .regions),
-                                ).then((value) {
-                                  if (value != null && value.isNotEmpty) {
-                                    setState(() {
-                                      newRegion = value.first;
-                                    });
-                                  }
-                                });
-                              },
-                              child: EditItemContainer(
-                                  icon: AppIcons.chevronRightBlack,
-                                  region: newRegion?.title ??
-                                      widget.profileBloc.state.profileEntity
-                                          .region?.title ??
-                                      ''),
-                            ),
-                            //
-                            const TitleTextFieldTop(title: 'Номер телефона'),
-                            WScaleAnimation(
-                                onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      fade(
-                                          page: PhoneNumberEditPage(
-                                              profileBloc:
-                                                  widget.profileBloc)));
+                        child: Form(
+                          key: _formKey,
+                          child: Column(
+                            children: [
+                              Align(
+                                alignment: Alignment.center,
+                                child: WScaleAnimation(
+                                    onTap: () {
+                                      showModalBottomSheet(
+                                          backgroundColor: Colors.transparent,
+                                          context: context,
+                                          useRootNavigator: true,
+                                          builder: (context) =>
+                                              CameraBottomSheet(
+                                                  imageBloc: widget.imageBloc));
+                                    },
+                                    child: Column(
+                                      children: [
+                                        BlocBuilder<ImageBloc, ImageState>(
+                                          builder: (context, stateImage) =>
+                                              stateImage.image.path.isEmpty
+                                                  ? CachedImage(
+                                                      height: SizeConfig.v(80),
+                                                      width: SizeConfig.h(80),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              SizeConfig.h(40)),
+                                                      fit: BoxFit.cover,
+                                                      imageUrl: stateProfile
+                                                              .profileEntity
+                                                              .image ??
+                                                          '',
+                                                    )
+                                                  : SizedBox(
+                                                      height: SizeConfig.v(80),
+                                                      width: SizeConfig.h(80),
+                                                      child: ClipRRect(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      SizeConfig.h(
+                                                                          40)),
+                                                          child: Image.file(
+                                                              stateImage.image,
+                                                              fit: BoxFit
+                                                                  .cover)),
+                                                    ),
+                                        ),
+                                        SizedBox(height: SizeConfig.h(8)),
+                                        Text(
+                                          LocaleKeys.change_photo.tr(),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headline2!
+                                              .copyWith(color: blue),
+                                        ),
+                                      ],
+                                    )),
+                              ),
+                              //
+                              TitleTextFieldTop(
+                                title: LocaleKeys.name.tr(),
+                              ),
+                              ProfilTextField(
+                                controller: nameController,
+                                isNameField: true,
+                              ),
+                              //
+                              TitleTextFieldTop(
+                                title: LocaleKeys.surname.tr(),
+                              ),
+                              ProfilTextField(controller: surNameController),
+                              //
+                              TitleTextFieldTop(
+                                title: LocaleKeys.region.tr(),
+                              ),
+                              WScaleAnimation(
+                                onTap: () async {
+                                  await showModalBottomSheet<List<Region>>(
+                                    isDismissible: false,
+                                    context: context,
+                                    isScrollControlled: true,
+                                    backgroundColor: Colors.transparent,
+                                    builder: (c) => RentChooseRegionBottomSheet(
+                                        isProfileEdit: true,
+                                        list: context
+                                            .read<RegionsBloc>()
+                                            .state
+                                            .regions),
+                                  ).then((value) {
+                                    if (value != null && value.isNotEmpty) {
+                                      setState(() {
+                                        newRegion = value.first;
+                                      });
+                                    }
+                                  });
                                 },
-                                child: PhoneContainer(
-                                    phoneNumber: stateProfile
-                                            .profileEntity.phoneNumber ??
-                                        '')),
-                            //
-                            const TitleTextFieldTop(title: 'Email'),
-                            EditItemContainer(
-                                icon: AppIcons.lock,
-                                region: stateProfile.profileEntity.email ?? ''),
-                            SizedBox(height: SizeConfig.v(32))
-                          ],
+                                child: EditItemContainer(
+                                    icon: AppIcons.chevronRightBlack,
+                                    region: newRegion?.title ??
+                                        widget.profileBloc.state.profileEntity
+                                            .region?.title ??
+                                        ''),
+                              ),
+                              //
+                              const TitleTextFieldTop(title: 'Номер телефона'),
+                              WScaleAnimation(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        fade(
+                                            page: PhoneNumberEditPage(
+                                                profileBloc:
+                                                    widget.profileBloc)));
+                                  },
+                                  child: PhoneContainer(
+                                      phoneNumber: stateProfile
+                                              .profileEntity.phoneNumber ??
+                                          '')),
+                              //
+                              const TitleTextFieldTop(title: 'Email'),
+                              EditItemContainer(
+                                  icon: AppIcons.lock,
+                                  region:
+                                      stateProfile.profileEntity.email ?? ''),
+                              SizedBox(height: SizeConfig.v(32))
+                            ],
+                          ),
                         ),
                       ),
                     ),

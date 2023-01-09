@@ -20,7 +20,7 @@ class ProfileMenuTile extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => GestureDetector(
+  Widget build(BuildContext context) => InkWell(
         onTap: onTap,
         child: Container(
           padding: const EdgeInsets.fromLTRB(12, 12, 12, 16),

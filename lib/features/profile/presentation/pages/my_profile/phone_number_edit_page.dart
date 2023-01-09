@@ -41,7 +41,7 @@ class _PhoneNumberEditPageState extends State<PhoneNumberEditPage> {
   late TextEditingController phoneController;
   late ChangePhoneNumberBloc changePhoneNumberBloc;
   bool colorChange = false;
-  late GlobalKey _formKey;
+  final GlobalKey<FormState> _formKey = GlobalKey();
 
   @override
   void initState() {
@@ -51,7 +51,6 @@ class _PhoneNumberEditPageState extends State<PhoneNumberEditPage> {
         changePhoneNumberUseCase: ChangePhoneNumberUseCase(repository: repo),
         sendSmsVerificationUseCase:
             SendSmsVerificationUseCase(repository: repo));
-    _formKey = GlobalKey<FormState>();
     super.initState();
   }
 
@@ -88,12 +87,12 @@ class _PhoneNumberEditPageState extends State<PhoneNumberEditPage> {
                             }
                           },
                           validate: (value) {
-                            if (value == null ||
-                                value.isEmpty ||
-                                value.length != 12) {
-                              return "Iltimos, telefon raqamingizni to'g'ri kiriting";
+                            if (value == null || value.isEmpty) {
+                              return 'Iltimos, telefon nomerni kiriting';
+                            } else if (value.length < 12) {
+                              return "Telefon nomer 12 raqamdan iborat bo'lishi kerak";
                             }
-                            return '';
+                            return null;
                           },
                           controller: phoneController,
                           prefixIcon: Row(
@@ -119,7 +118,7 @@ class _PhoneNumberEditPageState extends State<PhoneNumberEditPage> {
                             onTap: () {
                               final phoneNumber =
                                   phoneController.text.replaceAll(' ', '');
-                              if (phoneController.text.length == 12) {
+                              if (_formKey.currentState!.validate()) {
                                 context
                                     .read<ChangePhoneNumberBloc>()
                                     .add(SendPhoneNumberEvent(

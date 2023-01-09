@@ -21,6 +21,7 @@ class NewPasswordsPage extends StatelessWidget {
   final TextEditingController _oldPasswordController = TextEditingController();
   final TextEditingController _newPassword1Controller = TextEditingController();
   final TextEditingController _newPassword2Controller = TextEditingController();
+  final GlobalKey<FormState> _formKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) => BlocProvider.value(
@@ -33,64 +34,70 @@ class NewPasswordsPage extends StatelessWidget {
               ),
               body: SingleChildScrollView(
                 physics: const ClampingScrollPhysics(),
-                child: Container(
-                  padding: EdgeInsets.only(
-                      left: SizeConfig.h(16),
-                      right: SizeConfig.h(16),
-                      top: SizeConfig.v(24)),
-                  child: Column(
-                    children: [
-                      Text(
-                        LocaleKeys.change_password.tr(),
-                        style: Theme.of(context)
-                            .textTheme
-                            .headline1!
-                            .copyWith(fontSize: SizeConfig.h(32)),
-                      ),
-                      SizedBox(height: SizeConfig.v(6)),
-                      Text(LocaleKeys.create_unfoget.tr(),
-                          textAlign: TextAlign.center,
-                          style: Theme.of(context).textTheme.headline2),
-                      SizedBox(height: SizeConfig.v(36)),
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          LocaleKeys.old_password.tr(),
-                          style: Theme.of(context).textTheme.headline2,
+                child: Form(
+                  key: _formKey,
+                  child: Container(
+                    padding: EdgeInsets.only(
+                        left: SizeConfig.h(16),
+                        right: SizeConfig.h(16),
+                        top: SizeConfig.v(24)),
+                    child: Column(
+                      children: [
+                        Text(
+                          LocaleKeys.change_password.tr(),
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline1!
+                              .copyWith(fontSize: SizeConfig.h(32)),
                         ),
-                      ),
-                      SizedBox(height: SizeConfig.v(8)),
-                      PasswordTextField(
-                        controller: _oldPasswordController,
-                        hintText: LocaleKeys.write_old_password.tr(),
-                      ),
-                      SizedBox(height: SizeConfig.v(20)),
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          LocaleKeys.new_password.tr(),
-                          style: Theme.of(context).textTheme.headline2,
+                        SizedBox(height: SizeConfig.v(6)),
+                        Text(LocaleKeys.create_unfoget.tr(),
+                            textAlign: TextAlign.center,
+                            style: Theme.of(context).textTheme.headline2),
+                        SizedBox(height: SizeConfig.v(36)),
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            LocaleKeys.old_password.tr(),
+                            style: Theme.of(context).textTheme.headline2,
+                          ),
                         ),
-                      ),
-                      SizedBox(height: SizeConfig.v(8)),
-                      PasswordTextField(
-                        controller: _newPassword1Controller,
-                        hintText: LocaleKeys.enter_Passowrd.tr(),
-                      ),
-                      SizedBox(height: SizeConfig.v(20)),
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          LocaleKeys.confirm_password.tr(),
-                          style: Theme.of(context).textTheme.headline2,
+                        SizedBox(height: SizeConfig.v(8)),
+                        PasswordTextField(
+                          isOldPasword: true,
+                          controller: _oldPasswordController,
+                          hintText: LocaleKeys.write_old_password.tr(),
                         ),
-                      ),
-                      SizedBox(height: SizeConfig.v(8)),
-                      PasswordTextField(
-                        controller: _newPassword2Controller,
-                        hintText: LocaleKeys.write_again.tr(),
-                      ),
-                    ],
+                        SizedBox(height: SizeConfig.v(20)),
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            LocaleKeys.new_password.tr(),
+                            style: Theme.of(context).textTheme.headline2,
+                          ),
+                        ),
+                        SizedBox(height: SizeConfig.v(8)),
+                        PasswordTextField(
+                          secondController: _newPassword2Controller,
+                          controller: _newPassword1Controller,
+                          hintText: LocaleKeys.enter_Passowrd.tr(),
+                        ),
+                        SizedBox(height: SizeConfig.v(20)),
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            LocaleKeys.confirm_password.tr(),
+                            style: Theme.of(context).textTheme.headline2,
+                          ),
+                        ),
+                        SizedBox(height: SizeConfig.v(8)),
+                        PasswordTextField(
+                          secondController: _newPassword1Controller,
+                          controller: _newPassword2Controller,
+                          hintText: LocaleKeys.write_again.tr(),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -111,29 +118,32 @@ class NewPasswordsPage extends StatelessWidget {
                       SizeConfig.v(24) +
                           MediaQuery.of(context).viewInsets.bottom),
                   onTap: () {
-                    context.read<ProfileBloc>().add(
-                          ChangePasswordEvent(
-                            newPassword: _newPassword1Controller.text,
-                            oldPassword: _oldPasswordController.text,
-                            newPasswordConfirm: _newPassword2Controller.text,
-                            onSuccess: (message) {
-                              context.read<ShowPopUpBloc>().add(ShowPopUp(
-                                  message: "Parol muvaffaqiyatli o'zgartirildi",
-                                  isSucces: true));
-                              // for get new token
-                              context.read<ProfileBloc>().add(LoginUser(
-                                  password: _newPassword1Controller.text,
-                                  phone: state.profileEntity.phoneNumber!
-                                      .replaceAll('+998', '')
-                                      .replaceAll('', ' ')));
-                              Navigator.of(context).pop();
-                            },
-                            onError: (message) {
-                              context.read<ShowPopUpBloc>().add(
-                                  ShowPopUp(message: message, isSucces: false));
-                            },
-                          ),
-                        );
+                    if (_formKey.currentState!.validate()) {
+                      context.read<ProfileBloc>().add(
+                            ChangePasswordEvent(
+                              newPassword: _newPassword1Controller.text,
+                              oldPassword: _oldPasswordController.text,
+                              newPasswordConfirm: _newPassword2Controller.text,
+                              onSuccess: (message) {
+                                context.read<ShowPopUpBloc>().add(ShowPopUp(
+                                    message:
+                                        "Parol muvaffaqiyatli o'zgartirildi",
+                                    isSucces: true));
+                                // for get new token
+                                context.read<ProfileBloc>().add(LoginUser(
+                                    password: _newPassword1Controller.text,
+                                    phone: state.profileEntity.phoneNumber!
+                                        .replaceAll('+998', '')
+                                        .replaceAll('', ' ')));
+                                Navigator.of(context).pop();
+                              },
+                              onError: (message) {
+                                context.read<ShowPopUpBloc>().add(ShowPopUp(
+                                    message: message, isSucces: false));
+                              },
+                            ),
+                          );
+                    }
                   },
                   child: Text(
                     LocaleKeys.further.tr(),
