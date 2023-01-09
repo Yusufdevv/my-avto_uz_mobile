@@ -113,6 +113,7 @@ class _StoryScreenState extends State<StoryScreen>
                               progress.downloaded == 0) {
                         _loadStory();
                       }
+
                       return Expanded(
                         child: Container(
                           color: grey,
