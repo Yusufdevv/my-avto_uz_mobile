@@ -1,4 +1,3 @@
-import 'package:auto/features/ad/data/models/body_type.dart';
 import 'package:auto/features/ad/data/models/car_model.dart';
 import 'package:equatable/equatable.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';

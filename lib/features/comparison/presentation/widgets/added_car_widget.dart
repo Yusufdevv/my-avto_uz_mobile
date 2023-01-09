@@ -69,10 +69,12 @@ class AddedCar extends StatelessWidget {
                           topRight: Radius.circular(12),
                         ),
                         child: imageUrl.isEmpty
-                            ? SvgPicture.asset(
-                                AppImages.placeHolder,
-                                fit: BoxFit.cover,
-                                height: 112,
+                            ? Center(
+                                child: SvgPicture.asset(
+                                  AppImages.placeHolder,
+                                  fit: BoxFit.cover,
+                                  height: 112,
+                                ),
                               )
                             : CachedNetworkImage(
                                 imageUrl: imageUrl[0],
@@ -109,15 +111,11 @@ class AddedCar extends StatelessWidget {
               ),
             ),
             Positioned(
-              top: 10,
+              top: 5,
               right: 0,
               child: GestureDetector(
                 onTap: onTabClose,
-                child: Stack(
-                  children: [
-                    SvgPicture.asset(AppIcons.roundedClose),
-                  ],
-                ),
+                child: SvgPicture.asset(AppIcons.roundedClose),
               ),
             ),
             Positioned(

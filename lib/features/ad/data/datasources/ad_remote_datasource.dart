@@ -1,5 +1,6 @@
 import 'package:auto/core/exceptions/exceptions.dart';
 import 'package:auto/core/singletons/storage.dart';
+import 'package:auto/features/ad/data/models/announcement_filter.dart';
 import 'package:auto/features/ad/data/models/body_type.dart';
 import 'package:auto/features/ad/data/models/drive_type.dart';
 import 'package:auto/features/ad/data/models/engine_type.dart';
@@ -24,7 +25,6 @@ abstract class AdRemoteDataSource {
     required int modelId,
     String? next,
   });
-  Future deleteComparison(int id);
 
   Future<GenericPagination<GenerationModel>> getGeneration({
     required int modelId,
@@ -75,7 +75,9 @@ abstract class AdRemoteDataSource {
     required FormData announcementFormData,
   });
 
-  Future<GenericPagination<AnnouncementListModel>> getAnnouncementList();
+  Future<GenericPagination<AnnouncementListModel>> getAnnouncementList(
+    AnnouncementFilterModel filter,
+  );
 }
 
 class AdRemoteDataSourceImpl extends AdRemoteDataSource {
@@ -318,7 +320,7 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
           statusCode: response.statusCode!, errorMessage: response.data);
     }
   }
-  
+
   @override
   Future<GenericPagination<GearboxTypeModel>> gearboxessGet() async {
     final response = await _dio.get(
@@ -385,41 +387,32 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
   }
 
   @override
-  Future deleteComparison(int id) async {
-    final response = await _dio.delete(
-        '/car/comparison/$id/delete-announcement/',
-        options: StorageRepository.getString('token').isNotEmpty
-            ? Options(headers: {
-                'Authorization':
-                    'Bearer ${StorageRepository.getString('token')}'
-              })
-            : null);
-
-    // if (response.statusCode! >= 200 && response.statusCode! < 300) {
-    // } else {
-    //   throw ServerException(
-    //     statusCode: response.statusCode!,
-    //     errorMessage: response.data,
-    //   );
-    // }
-  }
-  
-  @override
-  Future<GenericPagination<AnnouncementListModel>> getAnnouncementList() async {
-    final response = await _dio.get(
-      '/car/announcement/list/',
-      options: Options(
-        headers: StorageRepository.getString('token').isNotEmpty
-            ? {'Authorization': 'Token ${StorageRepository.getString('token')}'}
-            : {},
-      ),
-    );
-    if (response.statusCode! >= 200 && response.statusCode! < 300) {
-      return GenericPagination.fromJson(response.data,
-          (p0) => AnnouncementListModel.fromJson(p0 as Map<String, dynamic>));
-    } else {
-      throw ServerException(
-          statusCode: response.statusCode!, errorMessage: response.data);
+  Future<GenericPagination<AnnouncementListModel>> getAnnouncementList(
+    AnnouncementFilterModel filter,
+  ) async {
+    try {
+      final response = await _dio.get(
+        '/car/announcement/list/',
+        options: Options(headers: {
+          'Authorization': 'Bearer ${StorageRepository.getString('token')}'
+        }),
+        queryParameters: filter.toJson(),
+      );
+      if (response.statusCode! >= 200 && response.statusCode! < 300) {
+        return GenericPagination.fromJson(response.data,
+            (p0) => AnnouncementListModel.fromJson(p0 as Map<String, dynamic>));
+      } else {
+        throw ServerException(
+          statusCode: response.statusCode!,
+          errorMessage: response.data.toString(),
+        );
+      }
+    } on ServerException {
+      rethrow;
+    } on DioError {
+      throw DioException();
+    } on Exception catch (e) {
+      throw ParsingException(errorMessage: e.toString());
     }
   }
 }

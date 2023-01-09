@@ -1,13 +1,8 @@
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
-import 'package:auto/core/singletons/service_locator.dart';
-import 'package:auto/features/ad/data/repositories/ad_repository_impl.dart';
-import 'package:auto/features/ad/presentation/bloc/choose_model/car_type_selector_bloc.dart';
-import 'package:auto/features/common/bloc/delete_comparison/delete_comparison_bloc.dart';
+import 'package:auto/features/ad/presentation/pages/ads/ads_screen.dart';
 import 'package:auto/features/comparison/domain/entities/complectation_entity.dart';
 import 'package:auto/features/comparison/domain/entities/complectation_parameters_entity.dart';
-import 'package:auto/features/comparison/domain/usecases/delete_comparison.dart';
 import 'package:auto/features/comparison/presentation/bloc/comparison-bloc/comparison_bloc.dart';
-import 'package:auto/features/ad/presentation/pages/ads/ads_screen.dart';
 import 'package:auto/features/comparison/presentation/pages/choose_car_brand.dart';
 import 'package:auto/features/comparison/presentation/pages/choose_model.dart';
 import 'package:auto/features/comparison/presentation/widgets/engin_info_widget.dart';
@@ -42,7 +37,6 @@ class _ComparisonState extends State<Comparison> {
   late LinkedScrollControllerGroup linkedScrollControllerGroup;
   late List<ScrollController> scrollControllers;
   late TextEditingController searchController;
-  late DeleteComparisonBloc deleteComparisonBloc;
   List<Complectation> complectationParameters = [
     Complectation(
       parameterName: 'Main Data',
@@ -116,9 +110,6 @@ class _ComparisonState extends State<Comparison> {
       ...List.generate(
           complectationParameters.length + 1, (index) => ScrollController())
     ];
-    deleteComparisonBloc = DeleteComparisonBloc(
-        useCase: DeleteComparisonUseCase(
-            comparisonCarsRepo: serviceLocator<AdRepositoryImpl>()));
     for (var i = 0; i < totalNUmberOfParameters; i++) {
       scrollControllers[i] = linkedScrollControllerGroup.addAndGet();
     }
@@ -156,17 +147,17 @@ class _ComparisonState extends State<Comparison> {
                             fade(
                               page: ChooseCarModelComparison(
                                 onTap: () {
-                                  // Navigator.of(context).push(
-                                  //   fade(
-                                  //     page: ChooseGenerationComparison(
-                                  //       onTap: () {},
-                                  //       modelBloc: widget.modelBloc,
-                                  //     ),
-                                  //   ),
-                                  // );
                                   Navigator.of(context).push(
                                     fade(
-                                      page: const AdsScreen(),
+                                      page: AdsScreen(
+                                        onBack: () {
+                                          widget.comparisonBloc
+                                              .add(GetComparableCars());
+                                          Navigator.of(context).pop();
+                                          Navigator.of(context).pop();
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
                                     ),
                                   );
                                 },
@@ -181,7 +172,6 @@ class _ComparisonState extends State<Comparison> {
                           .read<ComparisonBloc>()
                           .add(SetStickyEvent(isSticky: val));
                     },
-                    deleteComparisonBloc: deleteComparisonBloc,
                     comparisonBloc: widget.comparisonBloc,
                   ),
                   pinned: true,
