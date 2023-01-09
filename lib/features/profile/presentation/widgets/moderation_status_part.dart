@@ -11,9 +11,7 @@ class ModerationStatusPart extends StatelessWidget {
   Widget build(BuildContext context) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          if (moderationStatus == 'active')
-            const SizedBox()
-          else if (moderationStatus == 'in_moderation')
+          if (moderationStatus == 'blocked')
             ModerationWidget(
               title: 'Заблокировано модератором',
               titleColor: red,

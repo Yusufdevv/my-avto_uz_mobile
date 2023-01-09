@@ -39,12 +39,12 @@ class AllAds extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             ModerationStatusPart(
-                              moderationStatus: item.moderationStatus,
+                              moderationStatus: item.moderationStatus
                             ),
                             //
                             MyAdCarDescPart(item: item),
                             //
-                            if (item.moderationStatus != 'in_moderation')
+                            if (item.moderationStatus != 'blocked')
                               MyAdDesc(item: item)
                             else
                               ReSendPart(item: item)

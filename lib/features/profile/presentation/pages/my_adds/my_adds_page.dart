@@ -100,7 +100,7 @@ class _MyAddsPageState extends State<MyAddsPage> {
                         )
                       : const EmptyItemBody(
                           subtitle: 'У вас еще нет объявлений',
-                          image: AppIcons.carIcon,
+                          image: AppIcons.carIcon
                         );
                 }
                 return const Center(child: Text('Xatolik!'));
