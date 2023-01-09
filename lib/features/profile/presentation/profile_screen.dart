@@ -1,4 +1,3 @@
-import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/common/repository/auth.dart';
 import 'package:auto/features/comparison/presentation/comparison_page.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -113,7 +112,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ProfileMenuTile(
                               name: LocaleKeys.favorites.tr(),
                               onTap: () {
-                                print(StorageRepository.getString('token'));
                                 Navigator.push(
                                   context,
                                   fade(page: const FavouritePage()),
