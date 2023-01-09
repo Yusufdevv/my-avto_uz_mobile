@@ -2,20 +2,19 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/core/utils/size_config.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class NotificationItem extends StatelessWidget {
   final int currentIndex;
+  final String category;
   final String title;
-  final String subTitle;
   final String image;
   final bool isRead;
   const NotificationItem({
     required this.currentIndex,
+    required this.category,
     required this.title,
-    required this.subTitle,
     required this.image,
     required this.isRead,
     Key? key,
@@ -50,7 +49,7 @@ class NotificationItem extends StatelessWidget {
                 right: SizeConfig.h(0),
                 child: SvgPicture.asset(
                   AppIcons.ellipseRed,
-                  color: isRead ? warmerGrey : null,
+                  color: isRead ? null : warmerGrey,
                 )),
             Row(
               children: [
@@ -70,14 +69,14 @@ class NotificationItem extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(title,
+                      Text(category,
                           style: Theme.of(context)
                               .textTheme
                               .bodyText1
                               ?.copyWith(color: greyText)),
                       SizedBox(height: SizeConfig.v(8)),
                       Text(
-                        subTitle,
+                        title,
                         style: Theme.of(context)
                             .textTheme
                             .subtitle1

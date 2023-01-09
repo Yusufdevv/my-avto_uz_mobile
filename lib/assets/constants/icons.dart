@@ -82,6 +82,8 @@ class AppIcons {
 
   // PROFILE
   static const alert = 'assets/icons/profile/alert.svg';
+  static const circleChecked = 'assets/icons/profile/circle_checked.svg';
+  static const circleEmpty = 'assets/icons/profile/circle_empty.svg';
   static const logout = 'assets/icons/profile/logout.svg';
   static const dealers = 'assets/icons/profile/dealer.svg';
   static const direct = 'assets/icons/profile/tabler_news.svg';

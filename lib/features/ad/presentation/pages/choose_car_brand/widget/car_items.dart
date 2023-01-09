@@ -3,11 +3,10 @@ import 'package:auto/assets/colors/light.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
-import 'package:auto/features/ad/presentation/bloc/car_selector/car_selector_bloc.dart';
+import 'package:auto/features/common/bloc/get_makes_bloc/get_makes_bloc_bloc.dart';
 import 'package:auto/features/common/widgets/hight_light.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
 class ChangeCarItems extends StatelessWidget {
@@ -16,7 +15,7 @@ class ChangeCarItems extends StatelessWidget {
   final int id;
   final int selectedId;
   final String text;
-  final CarSelectorBloc bloc;
+  final GetMakesBloc bloc;
   const ChangeCarItems({
     required this.selectedId,
     required this.id,
@@ -31,8 +30,8 @@ class ChangeCarItems extends StatelessWidget {
   Widget build(BuildContext context) => GestureDetector(
         onTap: () {
           bloc.add(
-                SelectedCarItemEvent(id: id, name: name, imageUrl: imageUrl),
-              );
+          GetMakesBlocEvent.selectedCarItems(id: id, name: name, imageUrl: imageUrl),
+          );
         },
         child: Container(
           padding: const EdgeInsets.only(left: 16),

@@ -63,9 +63,7 @@ class InfoContainer extends StatelessWidget {
   final int? id;
 
   @override
-  Widget build(BuildContext context) {
-    print('Bu Galary' + gallery.toString());
-    return Container(
+  Widget build(BuildContext context) => Container(
       width: MediaQuery.of(context).size.width,
       padding: const EdgeInsets.only(top: 12, left: 16, bottom: 12),
       decoration: BoxDecoration(
@@ -330,5 +328,4 @@ class InfoContainer extends StatelessWidget {
         ],
       ),
     );
-  }
 }

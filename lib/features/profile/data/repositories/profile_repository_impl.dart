@@ -50,17 +50,7 @@ class ProfileRepositoryImpl extends ProfileRepository {
     }
   }
 
-  @override
-  Future<Either<ServerFailure, List<AutoEntity>>> getProfileFavorites(
-      String endpoint) async {
-    try {
-      final result = await dataSource.getProfileFavorites(endpoint);
-      return Right(result);
-    } on ServerException catch (error) {
-      return Left(ServerFailure(
-          statusCode: error.statusCode, errorMessage: error.errorMessage));
-    }
-  }
+  
 
   @override
   Future<Either<ServerFailure, String>> sendPhoneNumber(

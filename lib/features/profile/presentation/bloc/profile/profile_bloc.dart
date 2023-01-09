@@ -21,14 +21,12 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   final AuthRepository repository;
 
   final ProfileUseCase profileUseCase;
-  final ProfileFavoritesUseCase profileFavoritesUseCase;
   final EditProfileUseCase editProfileUseCase;
   final ChangePasswordUseCase changePasswordUseCase;
   final GetTermsOfUseUseCase getTermsOfUseUseCase;
 
   ProfileBloc({
     required this.profileUseCase,
-    required this.profileFavoritesUseCase,
     required this.editProfileUseCase,
     required this.changePasswordUseCase,
     required this.getTermsOfUseUseCase,
@@ -38,11 +36,9 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   }) : super(
           ProfileState(
             changeStatus: FormzStatus.pure,
-            secondStatus: FormzStatus.pure,
             editStatus: FormzStatus.pure,
             status: FormzStatus.pure,
             profileEntity: ProfileDataEntity(),
-            autoEntity: const <AutoEntity>[],
             termsOfUseEntity: const <TermsOfUseEntity>[],
           ),
         ) { 
@@ -50,7 +46,6 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     on<GetProfileEvent>(_onGetProfile);
     on<ChangePasswordEvent>(_onChangePassword);
     on<EditProfileEvent>(_onEditProfile);
-    on<GetProfileFavoritesEvent>(_onGetProfileFavorites);
     on<GetTermsOfUseEvent>(_onGetTermsOfUse);
     on<LoginUser>(_onLoginUser);
   }
@@ -135,28 +130,10 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
           login: event.phone, password: event.password);
       if (result.isRight) {
         print('auth good ');
-        
-        
       } 
-      // else {
-      //   if (event.onError != null) {
-      //     event.onError!((result.left as ServerFailure).errorMessage);
-      //   }
-      // }
+
     }
 
 
-  Future<void> _onGetProfileFavorites(
-      GetProfileFavoritesEvent event, Emitter<ProfileState> emit) async {
-    emit(state.copyWith(secondStatus: FormzStatus.submissionInProgress));
-    final result = await profileFavoritesUseCase.call(event.endpoint);
-    if (result.isRight) {
-      emit(state.copyWith(
-        secondStatus: FormzStatus.submissionSuccess,
-        autoEntity: result.right,
-      ));
-    } else {
-      emit(state.copyWith(secondStatus: FormzStatus.submissionFailure));
-    }
-  }
+  
 }

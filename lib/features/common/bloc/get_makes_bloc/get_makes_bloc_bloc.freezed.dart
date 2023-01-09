@@ -21,6 +21,10 @@ mixin _$GetMakesBlocEvent {
     required TResult Function() getMakes,
     required TResult Function(String naem) getSerched,
     required TResult Function(int index) changeSelected,
+    required TResult Function(int id, String name, String imageUrl)
+        selectedCarItems,
+    required TResult Function() confirmCarOption,
+    required TResult Function() revertCarOption,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -28,6 +32,9 @@ mixin _$GetMakesBlocEvent {
     TResult? Function()? getMakes,
     TResult? Function(String naem)? getSerched,
     TResult? Function(int index)? changeSelected,
+    TResult? Function(int id, String name, String imageUrl)? selectedCarItems,
+    TResult? Function()? confirmCarOption,
+    TResult? Function()? revertCarOption,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -35,6 +42,9 @@ mixin _$GetMakesBlocEvent {
     TResult Function()? getMakes,
     TResult Function(String naem)? getSerched,
     TResult Function(int index)? changeSelected,
+    TResult Function(int id, String name, String imageUrl)? selectedCarItems,
+    TResult Function()? confirmCarOption,
+    TResult Function()? revertCarOption,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -43,6 +53,9 @@ mixin _$GetMakesBlocEvent {
     required TResult Function(_GetMakes value) getMakes,
     required TResult Function(_GetSerched value) getSerched,
     required TResult Function(_ChangeSelected value) changeSelected,
+    required TResult Function(_SelectedCarItems value) selectedCarItems,
+    required TResult Function(_ConfirmCarOption value) confirmCarOption,
+    required TResult Function(_RevertCarOption value) revertCarOption,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -50,6 +63,9 @@ mixin _$GetMakesBlocEvent {
     TResult? Function(_GetMakes value)? getMakes,
     TResult? Function(_GetSerched value)? getSerched,
     TResult? Function(_ChangeSelected value)? changeSelected,
+    TResult? Function(_SelectedCarItems value)? selectedCarItems,
+    TResult? Function(_ConfirmCarOption value)? confirmCarOption,
+    TResult? Function(_RevertCarOption value)? revertCarOption,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -57,6 +73,9 @@ mixin _$GetMakesBlocEvent {
     TResult Function(_GetMakes value)? getMakes,
     TResult Function(_GetSerched value)? getSerched,
     TResult Function(_ChangeSelected value)? changeSelected,
+    TResult Function(_SelectedCarItems value)? selectedCarItems,
+    TResult Function(_ConfirmCarOption value)? confirmCarOption,
+    TResult Function(_RevertCarOption value)? revertCarOption,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -98,18 +117,12 @@ class __$$_GetMakesCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_GetMakes with DiagnosticableTreeMixin implements _GetMakes {
+class _$_GetMakes implements _GetMakes {
   _$_GetMakes();
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'GetMakesBlocEvent.getMakes()';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty('type', 'GetMakesBlocEvent.getMakes'));
   }
 
   @override
@@ -127,6 +140,10 @@ class _$_GetMakes with DiagnosticableTreeMixin implements _GetMakes {
     required TResult Function() getMakes,
     required TResult Function(String naem) getSerched,
     required TResult Function(int index) changeSelected,
+    required TResult Function(int id, String name, String imageUrl)
+        selectedCarItems,
+    required TResult Function() confirmCarOption,
+    required TResult Function() revertCarOption,
   }) {
     return getMakes();
   }
@@ -137,6 +154,9 @@ class _$_GetMakes with DiagnosticableTreeMixin implements _GetMakes {
     TResult? Function()? getMakes,
     TResult? Function(String naem)? getSerched,
     TResult? Function(int index)? changeSelected,
+    TResult? Function(int id, String name, String imageUrl)? selectedCarItems,
+    TResult? Function()? confirmCarOption,
+    TResult? Function()? revertCarOption,
   }) {
     return getMakes?.call();
   }
@@ -147,6 +167,9 @@ class _$_GetMakes with DiagnosticableTreeMixin implements _GetMakes {
     TResult Function()? getMakes,
     TResult Function(String naem)? getSerched,
     TResult Function(int index)? changeSelected,
+    TResult Function(int id, String name, String imageUrl)? selectedCarItems,
+    TResult Function()? confirmCarOption,
+    TResult Function()? revertCarOption,
     required TResult orElse(),
   }) {
     if (getMakes != null) {
@@ -161,6 +184,9 @@ class _$_GetMakes with DiagnosticableTreeMixin implements _GetMakes {
     required TResult Function(_GetMakes value) getMakes,
     required TResult Function(_GetSerched value) getSerched,
     required TResult Function(_ChangeSelected value) changeSelected,
+    required TResult Function(_SelectedCarItems value) selectedCarItems,
+    required TResult Function(_ConfirmCarOption value) confirmCarOption,
+    required TResult Function(_RevertCarOption value) revertCarOption,
   }) {
     return getMakes(this);
   }
@@ -171,6 +197,9 @@ class _$_GetMakes with DiagnosticableTreeMixin implements _GetMakes {
     TResult? Function(_GetMakes value)? getMakes,
     TResult? Function(_GetSerched value)? getSerched,
     TResult? Function(_ChangeSelected value)? changeSelected,
+    TResult? Function(_SelectedCarItems value)? selectedCarItems,
+    TResult? Function(_ConfirmCarOption value)? confirmCarOption,
+    TResult? Function(_RevertCarOption value)? revertCarOption,
   }) {
     return getMakes?.call(this);
   }
@@ -181,6 +210,9 @@ class _$_GetMakes with DiagnosticableTreeMixin implements _GetMakes {
     TResult Function(_GetMakes value)? getMakes,
     TResult Function(_GetSerched value)? getSerched,
     TResult Function(_ChangeSelected value)? changeSelected,
+    TResult Function(_SelectedCarItems value)? selectedCarItems,
+    TResult Function(_ConfirmCarOption value)? confirmCarOption,
+    TResult Function(_RevertCarOption value)? revertCarOption,
     required TResult orElse(),
   }) {
     if (getMakes != null) {
@@ -227,23 +259,15 @@ class __$$_GetSerchedCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_GetSerched with DiagnosticableTreeMixin implements _GetSerched {
+class _$_GetSerched implements _GetSerched {
   _$_GetSerched(this.naem);
 
   @override
   final String naem;
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'GetMakesBlocEvent.getSerched(naem: $naem)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'GetMakesBlocEvent.getSerched'))
-      ..add(DiagnosticsProperty('naem', naem));
   }
 
   @override
@@ -269,6 +293,10 @@ class _$_GetSerched with DiagnosticableTreeMixin implements _GetSerched {
     required TResult Function() getMakes,
     required TResult Function(String naem) getSerched,
     required TResult Function(int index) changeSelected,
+    required TResult Function(int id, String name, String imageUrl)
+        selectedCarItems,
+    required TResult Function() confirmCarOption,
+    required TResult Function() revertCarOption,
   }) {
     return getSerched(naem);
   }
@@ -279,6 +307,9 @@ class _$_GetSerched with DiagnosticableTreeMixin implements _GetSerched {
     TResult? Function()? getMakes,
     TResult? Function(String naem)? getSerched,
     TResult? Function(int index)? changeSelected,
+    TResult? Function(int id, String name, String imageUrl)? selectedCarItems,
+    TResult? Function()? confirmCarOption,
+    TResult? Function()? revertCarOption,
   }) {
     return getSerched?.call(naem);
   }
@@ -289,6 +320,9 @@ class _$_GetSerched with DiagnosticableTreeMixin implements _GetSerched {
     TResult Function()? getMakes,
     TResult Function(String naem)? getSerched,
     TResult Function(int index)? changeSelected,
+    TResult Function(int id, String name, String imageUrl)? selectedCarItems,
+    TResult Function()? confirmCarOption,
+    TResult Function()? revertCarOption,
     required TResult orElse(),
   }) {
     if (getSerched != null) {
@@ -303,6 +337,9 @@ class _$_GetSerched with DiagnosticableTreeMixin implements _GetSerched {
     required TResult Function(_GetMakes value) getMakes,
     required TResult Function(_GetSerched value) getSerched,
     required TResult Function(_ChangeSelected value) changeSelected,
+    required TResult Function(_SelectedCarItems value) selectedCarItems,
+    required TResult Function(_ConfirmCarOption value) confirmCarOption,
+    required TResult Function(_RevertCarOption value) revertCarOption,
   }) {
     return getSerched(this);
   }
@@ -313,6 +350,9 @@ class _$_GetSerched with DiagnosticableTreeMixin implements _GetSerched {
     TResult? Function(_GetMakes value)? getMakes,
     TResult? Function(_GetSerched value)? getSerched,
     TResult? Function(_ChangeSelected value)? changeSelected,
+    TResult? Function(_SelectedCarItems value)? selectedCarItems,
+    TResult? Function(_ConfirmCarOption value)? confirmCarOption,
+    TResult? Function(_RevertCarOption value)? revertCarOption,
   }) {
     return getSerched?.call(this);
   }
@@ -323,6 +363,9 @@ class _$_GetSerched with DiagnosticableTreeMixin implements _GetSerched {
     TResult Function(_GetMakes value)? getMakes,
     TResult Function(_GetSerched value)? getSerched,
     TResult Function(_ChangeSelected value)? changeSelected,
+    TResult Function(_SelectedCarItems value)? selectedCarItems,
+    TResult Function(_ConfirmCarOption value)? confirmCarOption,
+    TResult Function(_RevertCarOption value)? revertCarOption,
     required TResult orElse(),
   }) {
     if (getSerched != null) {
@@ -374,25 +417,15 @@ class __$$_ChangeSelectedCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_ChangeSelected
-    with DiagnosticableTreeMixin
-    implements _ChangeSelected {
+class _$_ChangeSelected implements _ChangeSelected {
   _$_ChangeSelected(this.index);
 
   @override
   final int index;
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'GetMakesBlocEvent.changeSelected(index: $index)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'GetMakesBlocEvent.changeSelected'))
-      ..add(DiagnosticsProperty('index', index));
   }
 
   @override
@@ -418,6 +451,10 @@ class _$_ChangeSelected
     required TResult Function() getMakes,
     required TResult Function(String naem) getSerched,
     required TResult Function(int index) changeSelected,
+    required TResult Function(int id, String name, String imageUrl)
+        selectedCarItems,
+    required TResult Function() confirmCarOption,
+    required TResult Function() revertCarOption,
   }) {
     return changeSelected(index);
   }
@@ -428,6 +465,9 @@ class _$_ChangeSelected
     TResult? Function()? getMakes,
     TResult? Function(String naem)? getSerched,
     TResult? Function(int index)? changeSelected,
+    TResult? Function(int id, String name, String imageUrl)? selectedCarItems,
+    TResult? Function()? confirmCarOption,
+    TResult? Function()? revertCarOption,
   }) {
     return changeSelected?.call(index);
   }
@@ -438,6 +478,9 @@ class _$_ChangeSelected
     TResult Function()? getMakes,
     TResult Function(String naem)? getSerched,
     TResult Function(int index)? changeSelected,
+    TResult Function(int id, String name, String imageUrl)? selectedCarItems,
+    TResult Function()? confirmCarOption,
+    TResult Function()? revertCarOption,
     required TResult orElse(),
   }) {
     if (changeSelected != null) {
@@ -452,6 +495,9 @@ class _$_ChangeSelected
     required TResult Function(_GetMakes value) getMakes,
     required TResult Function(_GetSerched value) getSerched,
     required TResult Function(_ChangeSelected value) changeSelected,
+    required TResult Function(_SelectedCarItems value) selectedCarItems,
+    required TResult Function(_ConfirmCarOption value) confirmCarOption,
+    required TResult Function(_RevertCarOption value) revertCarOption,
   }) {
     return changeSelected(this);
   }
@@ -462,6 +508,9 @@ class _$_ChangeSelected
     TResult? Function(_GetMakes value)? getMakes,
     TResult? Function(_GetSerched value)? getSerched,
     TResult? Function(_ChangeSelected value)? changeSelected,
+    TResult? Function(_SelectedCarItems value)? selectedCarItems,
+    TResult? Function(_ConfirmCarOption value)? confirmCarOption,
+    TResult? Function(_RevertCarOption value)? revertCarOption,
   }) {
     return changeSelected?.call(this);
   }
@@ -472,6 +521,9 @@ class _$_ChangeSelected
     TResult Function(_GetMakes value)? getMakes,
     TResult Function(_GetSerched value)? getSerched,
     TResult Function(_ChangeSelected value)? changeSelected,
+    TResult Function(_SelectedCarItems value)? selectedCarItems,
+    TResult Function(_ConfirmCarOption value)? confirmCarOption,
+    TResult Function(_RevertCarOption value)? revertCarOption,
     required TResult orElse(),
   }) {
     if (changeSelected != null) {
@@ -491,6 +543,441 @@ abstract class _ChangeSelected implements GetMakesBlocEvent {
 }
 
 /// @nodoc
+abstract class _$$_SelectedCarItemsCopyWith<$Res> {
+  factory _$$_SelectedCarItemsCopyWith(
+          _$_SelectedCarItems value, $Res Function(_$_SelectedCarItems) then) =
+      __$$_SelectedCarItemsCopyWithImpl<$Res>;
+  @useResult
+  $Res call({int id, String name, String imageUrl});
+}
+
+/// @nodoc
+class __$$_SelectedCarItemsCopyWithImpl<$Res>
+    extends _$GetMakesBlocEventCopyWithImpl<$Res, _$_SelectedCarItems>
+    implements _$$_SelectedCarItemsCopyWith<$Res> {
+  __$$_SelectedCarItemsCopyWithImpl(
+      _$_SelectedCarItems _value, $Res Function(_$_SelectedCarItems) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? name = null,
+    Object? imageUrl = null,
+  }) {
+    return _then(_$_SelectedCarItems(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      imageUrl: null == imageUrl
+          ? _value.imageUrl
+          : imageUrl // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_SelectedCarItems implements _SelectedCarItems {
+  _$_SelectedCarItems(
+      {required this.id, required this.name, required this.imageUrl});
+
+  @override
+  final int id;
+  @override
+  final String name;
+  @override
+  final String imageUrl;
+
+  @override
+  String toString() {
+    return 'GetMakesBlocEvent.selectedCarItems(id: $id, name: $name, imageUrl: $imageUrl)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_SelectedCarItems &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.imageUrl, imageUrl) ||
+                other.imageUrl == imageUrl));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, id, name, imageUrl);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_SelectedCarItemsCopyWith<_$_SelectedCarItems> get copyWith =>
+      __$$_SelectedCarItemsCopyWithImpl<_$_SelectedCarItems>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() getMakes,
+    required TResult Function(String naem) getSerched,
+    required TResult Function(int index) changeSelected,
+    required TResult Function(int id, String name, String imageUrl)
+        selectedCarItems,
+    required TResult Function() confirmCarOption,
+    required TResult Function() revertCarOption,
+  }) {
+    return selectedCarItems(id, name, imageUrl);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? getMakes,
+    TResult? Function(String naem)? getSerched,
+    TResult? Function(int index)? changeSelected,
+    TResult? Function(int id, String name, String imageUrl)? selectedCarItems,
+    TResult? Function()? confirmCarOption,
+    TResult? Function()? revertCarOption,
+  }) {
+    return selectedCarItems?.call(id, name, imageUrl);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? getMakes,
+    TResult Function(String naem)? getSerched,
+    TResult Function(int index)? changeSelected,
+    TResult Function(int id, String name, String imageUrl)? selectedCarItems,
+    TResult Function()? confirmCarOption,
+    TResult Function()? revertCarOption,
+    required TResult orElse(),
+  }) {
+    if (selectedCarItems != null) {
+      return selectedCarItems(id, name, imageUrl);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_GetMakes value) getMakes,
+    required TResult Function(_GetSerched value) getSerched,
+    required TResult Function(_ChangeSelected value) changeSelected,
+    required TResult Function(_SelectedCarItems value) selectedCarItems,
+    required TResult Function(_ConfirmCarOption value) confirmCarOption,
+    required TResult Function(_RevertCarOption value) revertCarOption,
+  }) {
+    return selectedCarItems(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetMakes value)? getMakes,
+    TResult? Function(_GetSerched value)? getSerched,
+    TResult? Function(_ChangeSelected value)? changeSelected,
+    TResult? Function(_SelectedCarItems value)? selectedCarItems,
+    TResult? Function(_ConfirmCarOption value)? confirmCarOption,
+    TResult? Function(_RevertCarOption value)? revertCarOption,
+  }) {
+    return selectedCarItems?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetMakes value)? getMakes,
+    TResult Function(_GetSerched value)? getSerched,
+    TResult Function(_ChangeSelected value)? changeSelected,
+    TResult Function(_SelectedCarItems value)? selectedCarItems,
+    TResult Function(_ConfirmCarOption value)? confirmCarOption,
+    TResult Function(_RevertCarOption value)? revertCarOption,
+    required TResult orElse(),
+  }) {
+    if (selectedCarItems != null) {
+      return selectedCarItems(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _SelectedCarItems implements GetMakesBlocEvent {
+  factory _SelectedCarItems(
+      {required final int id,
+      required final String name,
+      required final String imageUrl}) = _$_SelectedCarItems;
+
+  int get id;
+  String get name;
+  String get imageUrl;
+  @JsonKey(ignore: true)
+  _$$_SelectedCarItemsCopyWith<_$_SelectedCarItems> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_ConfirmCarOptionCopyWith<$Res> {
+  factory _$$_ConfirmCarOptionCopyWith(
+          _$_ConfirmCarOption value, $Res Function(_$_ConfirmCarOption) then) =
+      __$$_ConfirmCarOptionCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$_ConfirmCarOptionCopyWithImpl<$Res>
+    extends _$GetMakesBlocEventCopyWithImpl<$Res, _$_ConfirmCarOption>
+    implements _$$_ConfirmCarOptionCopyWith<$Res> {
+  __$$_ConfirmCarOptionCopyWithImpl(
+      _$_ConfirmCarOption _value, $Res Function(_$_ConfirmCarOption) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$_ConfirmCarOption implements _ConfirmCarOption {
+  _$_ConfirmCarOption();
+
+  @override
+  String toString() {
+    return 'GetMakesBlocEvent.confirmCarOption()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$_ConfirmCarOption);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() getMakes,
+    required TResult Function(String naem) getSerched,
+    required TResult Function(int index) changeSelected,
+    required TResult Function(int id, String name, String imageUrl)
+        selectedCarItems,
+    required TResult Function() confirmCarOption,
+    required TResult Function() revertCarOption,
+  }) {
+    return confirmCarOption();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? getMakes,
+    TResult? Function(String naem)? getSerched,
+    TResult? Function(int index)? changeSelected,
+    TResult? Function(int id, String name, String imageUrl)? selectedCarItems,
+    TResult? Function()? confirmCarOption,
+    TResult? Function()? revertCarOption,
+  }) {
+    return confirmCarOption?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? getMakes,
+    TResult Function(String naem)? getSerched,
+    TResult Function(int index)? changeSelected,
+    TResult Function(int id, String name, String imageUrl)? selectedCarItems,
+    TResult Function()? confirmCarOption,
+    TResult Function()? revertCarOption,
+    required TResult orElse(),
+  }) {
+    if (confirmCarOption != null) {
+      return confirmCarOption();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_GetMakes value) getMakes,
+    required TResult Function(_GetSerched value) getSerched,
+    required TResult Function(_ChangeSelected value) changeSelected,
+    required TResult Function(_SelectedCarItems value) selectedCarItems,
+    required TResult Function(_ConfirmCarOption value) confirmCarOption,
+    required TResult Function(_RevertCarOption value) revertCarOption,
+  }) {
+    return confirmCarOption(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetMakes value)? getMakes,
+    TResult? Function(_GetSerched value)? getSerched,
+    TResult? Function(_ChangeSelected value)? changeSelected,
+    TResult? Function(_SelectedCarItems value)? selectedCarItems,
+    TResult? Function(_ConfirmCarOption value)? confirmCarOption,
+    TResult? Function(_RevertCarOption value)? revertCarOption,
+  }) {
+    return confirmCarOption?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetMakes value)? getMakes,
+    TResult Function(_GetSerched value)? getSerched,
+    TResult Function(_ChangeSelected value)? changeSelected,
+    TResult Function(_SelectedCarItems value)? selectedCarItems,
+    TResult Function(_ConfirmCarOption value)? confirmCarOption,
+    TResult Function(_RevertCarOption value)? revertCarOption,
+    required TResult orElse(),
+  }) {
+    if (confirmCarOption != null) {
+      return confirmCarOption(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _ConfirmCarOption implements GetMakesBlocEvent {
+  factory _ConfirmCarOption() = _$_ConfirmCarOption;
+}
+
+/// @nodoc
+abstract class _$$_RevertCarOptionCopyWith<$Res> {
+  factory _$$_RevertCarOptionCopyWith(
+          _$_RevertCarOption value, $Res Function(_$_RevertCarOption) then) =
+      __$$_RevertCarOptionCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$_RevertCarOptionCopyWithImpl<$Res>
+    extends _$GetMakesBlocEventCopyWithImpl<$Res, _$_RevertCarOption>
+    implements _$$_RevertCarOptionCopyWith<$Res> {
+  __$$_RevertCarOptionCopyWithImpl(
+      _$_RevertCarOption _value, $Res Function(_$_RevertCarOption) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$_RevertCarOption implements _RevertCarOption {
+  _$_RevertCarOption();
+
+  @override
+  String toString() {
+    return 'GetMakesBlocEvent.revertCarOption()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$_RevertCarOption);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() getMakes,
+    required TResult Function(String naem) getSerched,
+    required TResult Function(int index) changeSelected,
+    required TResult Function(int id, String name, String imageUrl)
+        selectedCarItems,
+    required TResult Function() confirmCarOption,
+    required TResult Function() revertCarOption,
+  }) {
+    return revertCarOption();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? getMakes,
+    TResult? Function(String naem)? getSerched,
+    TResult? Function(int index)? changeSelected,
+    TResult? Function(int id, String name, String imageUrl)? selectedCarItems,
+    TResult? Function()? confirmCarOption,
+    TResult? Function()? revertCarOption,
+  }) {
+    return revertCarOption?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? getMakes,
+    TResult Function(String naem)? getSerched,
+    TResult Function(int index)? changeSelected,
+    TResult Function(int id, String name, String imageUrl)? selectedCarItems,
+    TResult Function()? confirmCarOption,
+    TResult Function()? revertCarOption,
+    required TResult orElse(),
+  }) {
+    if (revertCarOption != null) {
+      return revertCarOption();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_GetMakes value) getMakes,
+    required TResult Function(_GetSerched value) getSerched,
+    required TResult Function(_ChangeSelected value) changeSelected,
+    required TResult Function(_SelectedCarItems value) selectedCarItems,
+    required TResult Function(_ConfirmCarOption value) confirmCarOption,
+    required TResult Function(_RevertCarOption value) revertCarOption,
+  }) {
+    return revertCarOption(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetMakes value)? getMakes,
+    TResult? Function(_GetSerched value)? getSerched,
+    TResult? Function(_ChangeSelected value)? changeSelected,
+    TResult? Function(_SelectedCarItems value)? selectedCarItems,
+    TResult? Function(_ConfirmCarOption value)? confirmCarOption,
+    TResult? Function(_RevertCarOption value)? revertCarOption,
+  }) {
+    return revertCarOption?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetMakes value)? getMakes,
+    TResult Function(_GetSerched value)? getSerched,
+    TResult Function(_ChangeSelected value)? changeSelected,
+    TResult Function(_SelectedCarItems value)? selectedCarItems,
+    TResult Function(_ConfirmCarOption value)? confirmCarOption,
+    TResult Function(_RevertCarOption value)? revertCarOption,
+    required TResult orElse(),
+  }) {
+    if (revertCarOption != null) {
+      return revertCarOption(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _RevertCarOption implements GetMakesBlocEvent {
+  factory _RevertCarOption() = _$_RevertCarOption;
+}
+
+/// @nodoc
 mixin _$GetMakesState {
   FormzStatus get status => throw _privateConstructorUsedError;
   GetMakeEntity get makes => throw _privateConstructorUsedError;
@@ -498,6 +985,10 @@ mixin _$GetMakesState {
   dynamic get next => throw _privateConstructorUsedError;
   dynamic get search => throw _privateConstructorUsedError;
   dynamic get count => throw _privateConstructorUsedError;
+  int get selectedId => throw _privateConstructorUsedError;
+  int get confirmId => throw _privateConstructorUsedError;
+  String get name => throw _privateConstructorUsedError;
+  String get imageUrl => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $GetMakesStateCopyWith<GetMakesState> get copyWith =>
@@ -516,7 +1007,11 @@ abstract class $GetMakesStateCopyWith<$Res> {
       dynamic selected,
       dynamic next,
       dynamic search,
-      dynamic count});
+      dynamic count,
+      int selectedId,
+      int confirmId,
+      String name,
+      String imageUrl});
 }
 
 /// @nodoc
@@ -538,6 +1033,10 @@ class _$GetMakesStateCopyWithImpl<$Res, $Val extends GetMakesState>
     Object? next = freezed,
     Object? search = freezed,
     Object? count = freezed,
+    Object? selectedId = null,
+    Object? confirmId = null,
+    Object? name = null,
+    Object? imageUrl = null,
   }) {
     return _then(_value.copyWith(
       status: null == status
@@ -564,6 +1063,22 @@ class _$GetMakesStateCopyWithImpl<$Res, $Val extends GetMakesState>
           ? _value.count
           : count // ignore: cast_nullable_to_non_nullable
               as dynamic,
+      selectedId: null == selectedId
+          ? _value.selectedId
+          : selectedId // ignore: cast_nullable_to_non_nullable
+              as int,
+      confirmId: null == confirmId
+          ? _value.confirmId
+          : confirmId // ignore: cast_nullable_to_non_nullable
+              as int,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      imageUrl: null == imageUrl
+          ? _value.imageUrl
+          : imageUrl // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -582,7 +1097,11 @@ abstract class _$$_GetMakesStateCopyWith<$Res>
       dynamic selected,
       dynamic next,
       dynamic search,
-      dynamic count});
+      dynamic count,
+      int selectedId,
+      int confirmId,
+      String name,
+      String imageUrl});
 }
 
 /// @nodoc
@@ -602,6 +1121,10 @@ class __$$_GetMakesStateCopyWithImpl<$Res>
     Object? next = freezed,
     Object? search = freezed,
     Object? count = freezed,
+    Object? selectedId = null,
+    Object? confirmId = null,
+    Object? name = null,
+    Object? imageUrl = null,
   }) {
     return _then(_$_GetMakesState(
       status: null == status
@@ -616,20 +1139,40 @@ class __$$_GetMakesStateCopyWithImpl<$Res>
       next: freezed == next ? _value.next! : next,
       search: freezed == search ? _value.search! : search,
       count: freezed == count ? _value.count! : count,
+      selectedId: null == selectedId
+          ? _value.selectedId
+          : selectedId // ignore: cast_nullable_to_non_nullable
+              as int,
+      confirmId: null == confirmId
+          ? _value.confirmId
+          : confirmId // ignore: cast_nullable_to_non_nullable
+              as int,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      imageUrl: null == imageUrl
+          ? _value.imageUrl
+          : imageUrl // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
 
 /// @nodoc
 
-class _$_GetMakesState with DiagnosticableTreeMixin implements _GetMakesState {
+class _$_GetMakesState implements _GetMakesState {
   _$_GetMakesState(
       {this.status = FormzStatus.pure,
       this.makes = const GetMakeEntity(),
       this.selected = -1,
       this.next = '',
       this.search = '',
-      this.count = 0});
+      this.count = 0,
+      this.selectedId = -1,
+      this.confirmId = -1,
+      this.name = '',
+      this.imageUrl = ''});
 
   @override
   @JsonKey()
@@ -649,23 +1192,22 @@ class _$_GetMakesState with DiagnosticableTreeMixin implements _GetMakesState {
   @override
   @JsonKey()
   final dynamic count;
+  @override
+  @JsonKey()
+  final int selectedId;
+  @override
+  @JsonKey()
+  final int confirmId;
+  @override
+  @JsonKey()
+  final String name;
+  @override
+  @JsonKey()
+  final String imageUrl;
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'GetMakesState(status: $status, makes: $makes, selected: $selected, next: $next, search: $search, count: $count)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'GetMakesState'))
-      ..add(DiagnosticsProperty('status', status))
-      ..add(DiagnosticsProperty('makes', makes))
-      ..add(DiagnosticsProperty('selected', selected))
-      ..add(DiagnosticsProperty('next', next))
-      ..add(DiagnosticsProperty('search', search))
-      ..add(DiagnosticsProperty('count', count));
+  String toString() {
+    return 'GetMakesState(status: $status, makes: $makes, selected: $selected, next: $next, search: $search, count: $count, selectedId: $selectedId, confirmId: $confirmId, name: $name, imageUrl: $imageUrl)';
   }
 
   @override
@@ -678,7 +1220,14 @@ class _$_GetMakesState with DiagnosticableTreeMixin implements _GetMakesState {
             const DeepCollectionEquality().equals(other.selected, selected) &&
             const DeepCollectionEquality().equals(other.next, next) &&
             const DeepCollectionEquality().equals(other.search, search) &&
-            const DeepCollectionEquality().equals(other.count, count));
+            const DeepCollectionEquality().equals(other.count, count) &&
+            (identical(other.selectedId, selectedId) ||
+                other.selectedId == selectedId) &&
+            (identical(other.confirmId, confirmId) ||
+                other.confirmId == confirmId) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.imageUrl, imageUrl) ||
+                other.imageUrl == imageUrl));
   }
 
   @override
@@ -689,7 +1238,11 @@ class _$_GetMakesState with DiagnosticableTreeMixin implements _GetMakesState {
       const DeepCollectionEquality().hash(selected),
       const DeepCollectionEquality().hash(next),
       const DeepCollectionEquality().hash(search),
-      const DeepCollectionEquality().hash(count));
+      const DeepCollectionEquality().hash(count),
+      selectedId,
+      confirmId,
+      name,
+      imageUrl);
 
   @JsonKey(ignore: true)
   @override
@@ -705,7 +1258,11 @@ abstract class _GetMakesState implements GetMakesState {
       final dynamic selected,
       final dynamic next,
       final dynamic search,
-      final dynamic count}) = _$_GetMakesState;
+      final dynamic count,
+      final int selectedId,
+      final int confirmId,
+      final String name,
+      final String imageUrl}) = _$_GetMakesState;
 
   @override
   FormzStatus get status;
@@ -719,6 +1276,14 @@ abstract class _GetMakesState implements GetMakesState {
   dynamic get search;
   @override
   dynamic get count;
+  @override
+  int get selectedId;
+  @override
+  int get confirmId;
+  @override
+  String get name;
+  @override
+  String get imageUrl;
   @override
   @JsonKey(ignore: true)
   _$$_GetMakesStateCopyWith<_$_GetMakesState> get copyWith =>

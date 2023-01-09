@@ -1,6 +1,7 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/core/utils/size_config.dart';
 import 'package:auto/features/ad/presentation/bloc/add_photo/image_bloc.dart';
 import 'package:auto/features/car_single/presentation/widgets/orange_button.dart';
@@ -8,6 +9,7 @@ import 'package:auto/features/common/widgets/cached_image.dart';
 import 'package:auto/features/common/widgets/custom_screen.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
+import 'package:auto/features/login/presentation/login_screen.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/profile/presentation/bloc/profile/profile_bloc.dart';
 import 'package:auto/features/profile/presentation/pages/my_profile/profile_edit_page.dart';
@@ -157,7 +159,20 @@ class SeeProfilePage extends StatelessWidget {
                                 context: context,
                                 backgroundColor: Colors.transparent,
                                 builder: (context) =>
-                                    const LogoOutBottomsheet());
+                                      LogoOutBottomsheet(
+                                        title: 'Вы действительно \nхотите выйти?',
+                                        subTitle: '''
+После выхода из приложения, необходимо 
+  будет заново пройти авторизацию чтобы
+              войти обратно в приложение.
+            ''',
+                                        betweenHeight: 64,
+                                        onTap: (){
+                                          StorageRepository.deleteString('token');
+                      Navigator.of(context).pushAndRemoveUntil(
+                          fade(page: const LoginScreen()), (route) => false);
+                                        },
+                                      ));
                           },
                           color: red.withOpacity(0.1),
                           shadowColor: white,

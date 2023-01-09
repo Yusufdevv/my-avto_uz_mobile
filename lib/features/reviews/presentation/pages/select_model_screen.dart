@@ -4,7 +4,6 @@ import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/domain/entities/choose_model/car_type_entity.dart';
 import 'package:auto/features/ad/domain/entities/choose_model/model_item_entity.dart';
 import 'package:auto/features/ad/presentation/bloc/choose_model/car_type_selector_bloc.dart';
-import 'package:auto/features/ad/presentation/bloc/choose_model/model_selectro_bloc.dart';
 import 'package:auto/features/ad/presentation/pages/choose_model/widgets/car_type_item.dart';
 import 'package:auto/features/ad/presentation/pages/choose_model/widgets/model_items.dart';
 import 'package:auto/features/ad/presentation/pages/choose_model/widgets/persistant_header.dart';
@@ -29,13 +28,11 @@ class SelectModelScreen extends StatefulWidget {
 
 class _SelectModelScreenState extends State<SelectModelScreen> {
   late TextEditingController searchController;
-  late ModelSelectorBloc modelBloc;
   late CarTypeSelectorBloc carTypeSelectorBloc;
 
   @override
   void initState() {
     carTypeSelectorBloc = CarTypeSelectorBloc();
-    modelBloc = ModelSelectorBloc();
     searchController = TextEditingController();
     super.initState();
   }
@@ -77,9 +74,9 @@ class _SelectModelScreenState extends State<SelectModelScreen> {
   Widget build(BuildContext context) => KeyboardDismisser(
         child: MultiBlocProvider(
           providers: [
-            BlocProvider.value(
-              value: modelBloc,
-            ),
+            // BlocProvider.value(
+            //   value: modelBloc,
+            // ),
             BlocProvider.value(
               value: carTypeSelectorBloc,
             ),
@@ -181,24 +178,24 @@ class _SelectModelScreenState extends State<SelectModelScreen> {
                               ),
                             ),
                           ),
-                          SliverList(
-                              delegate: SliverChildBuilderDelegate(
-                                  (context, index) => Container(
-                                        color: Theme.of(context)
-                                            .extension<ThemedColors>()!
-                                            .whiteToDark,
-                                        child: BlocBuilder<ModelSelectorBloc,
-                                            ModelSelectorState>(
-                                          builder: (context, state) =>
-                                              ModelItems(
-                                                bloc: modelBloc,
-                                            entity: modelItems[index].title,
-                                            selectedId: state.selectedId,
-                                            id: index, text: '',
-                                          ),
-                                        ),
-                                      ),
-                                  childCount: modelItems.length)),
+                          // SliverList(
+                          //     delegate: SliverChildBuilderDelegate(
+                          //         (context, index) => Container(
+                          //               color: Theme.of(context)
+                          //                   .extension<ThemedColors>()!
+                          //                   .whiteToDark,
+                          //               child: BlocBuilder<ModelSelectorBloc,
+                          //                   ModelSelectorState>(
+                          //                 builder: (context, state) =>
+                          //                     ModelItems(
+                          //                       bloc: modelBloc,
+                          //                   entity: modelItems[index].title,
+                          //                   selectedId: state.selectedId,
+                          //                   id: index, text: '',
+                          //                 ),
+                          //               ),
+                          //             ),
+                          //         childCount: modelItems.length)),
                           SliverToBoxAdapter(
                             child: Container(
                               height: 10,

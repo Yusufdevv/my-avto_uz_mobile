@@ -1,7 +1,11 @@
-import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/core/singletons/service_locator.dart';
+import 'package:auto/features/profile/data/repositories/get_user_list_repo_impl.dart';
 import 'package:auto/features/profile/domain/entities/profile_item_entity.dart';
-import 'package:auto/features/profile/presentation/bloc/profile/profile_bloc.dart';
+import 'package:auto/features/profile/domain/usecases/get_notification_single.dart';
+import 'package:auto/features/profile/domain/usecases/get_notification_usecase.dart';
+import 'package:auto/features/profile/domain/usecases/profil_favorites_usecase.dart';
+import 'package:auto/features/profile/presentation/bloc/user_wishlists_notifications/user_wishlists_notification_bloc.dart';
 import 'package:auto/features/profile/presentation/widgets/empty_item_body.dart';
 import 'package:auto/features/profile/presentation/widgets/widgets.dart';
 import 'package:auto/generated/locale_keys.g.dart';
@@ -13,88 +17,91 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:formz/formz.dart';
 
 class MyAddsPage extends StatefulWidget {
-  const MyAddsPage({required this.profileBloc, Key? key}) : super(key: key);
-  final ProfileBloc profileBloc;
+  const MyAddsPage({Key? key}) : super(key: key);
 
   @override
   State<MyAddsPage> createState() => _MyAddsPageState();
 }
 
-class _MyAddsPageState extends State<MyAddsPage> with TickerProviderStateMixin {
-  late TabController tabController;
+class _MyAddsPageState extends State<MyAddsPage> {
   final List<ProfileItemEntity> list = [];
+  late UserWishListsBloc bloc;
 
   @override
   void initState() {
-    tabController = TabController(length: 3, vsync: this);
-
+    final repo = serviceLocator<GetUserListRepoImpl>();
+    bloc = UserWishListsBloc(
+      profileFavoritesMyAdsUseCase: GetUserFavoritesMyAdsUseCase(repository: repo),
+      getNotificationSingleUseCase: GetNotificationSingleUseCase(repository: repo),
+      getNotificationsUseCase: GetNotificationsUseCase(repository: repo),
+    )..add(GetUserMyAdsEvent(endpoint: '/car/my-announcements/'));
     super.initState();
   }
 
   @override
   void dispose() {
-    tabController.dispose();
     super.dispose();
   }
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-        body: NestedScrollView(
-          headerSliverBuilder: (context, item) => [
-            SliverAppBar(
-              pinned: true,
-              leadingWidth: 40,
-              leading: GestureDetector(
-                onTap: () => Navigator.pop(context),
-                child: Row(
-                  children: [
-                    const SizedBox(width: 20),
-                    SizedBox(
-                        height: 20,
-                        width: 20,
-                        child: SvgPicture.asset(
-                          AppIcons.chevronLeft,
-                        )),
-                  ],
-                ),
-              ),
-              title: Text(LocaleKeys.my_ads.tr()),
-            ),
-            SliverPersistentHeader(
-              delegate: ProfileTabBar(
-                tabController: tabController,
-                onTap: (index) {},
-                tabs: [
-                  LocaleKeys.all.tr(),
-                  LocaleKeys.using.tr(),
-                  LocaleKeys.close.tr(),
-                ],
-              ),
-            )
-          ],
-          body:
-              BlocBuilder<ProfileBloc, ProfileState>(builder: (context, state) {
-            if (state.secondStatus.isSubmissionFailure) {
-              return const Center(child: Text('Xatolik!'));
-            }
-            if (state.secondStatus.isSubmissionInProgress) {
-              return const Center(
-                  child: CupertinoActivityIndicator(color: white));
-            }
-            if (state.secondStatus.isSubmissionSuccess) {
-              return state.autoEntity.isNotEmpty
-                  ? TabBarView(
-                      controller: tabController,
+  Widget build(BuildContext context) => BlocProvider.value(
+        value: bloc,
+        child: DefaultTabController(
+          length: 3,
+          child: Scaffold(
+            body: NestedScrollView(
+              headerSliverBuilder: (context, item) => [
+                SliverAppBar(
+                  pinned: true,
+                  leadingWidth: 40,
+                  leading: GestureDetector(
+                    onTap: () => Navigator.pop(context),
+                    child: Row(
                       children: [
-                        AllAds(autoEntity: state.autoEntity),
-                        AllAds(autoEntity: state.autoEntity),
-                        AllAds(autoEntity: state.autoEntity),
+                        const SizedBox(width: 20),
+                        SizedBox(
+                            height: 20,
+                            width: 20,
+                            child: SvgPicture.asset(
+                              AppIcons.chevronLeft,
+                            )),
                       ],
-                    )
-                  : const EmptyItemBody(title: 'У вас еще нет объявлений');
-            }
-            return const Center(child: CupertinoActivityIndicator());
-          }),
+                    ),
+                  ),
+                  title: Text(LocaleKeys.my_ads.tr()),
+                ),
+                SliverPersistentHeader(
+                  delegate: ProfileTabBar(
+                    onTap: (index) {},
+                    tabs: [
+                      LocaleKeys.all.tr(),
+                      LocaleKeys.using.tr(),
+                      LocaleKeys.close.tr(),
+                    ],
+                  ),
+                )
+              ],
+              body: BlocBuilder<UserWishListsBloc, UserWishListsState>(
+                  builder: (context, state) {
+                if (state.myAdsStatus.isSubmissionInProgress) {
+                  return const Center(child: CupertinoActivityIndicator());
+                }
+                if (state.myAdsStatus.isSubmissionSuccess) {
+                  final myAds = state.myAds;
+                  return myAds.isNotEmpty
+                      ? TabBarView(
+                          children: [
+                            AllAds(autoEntity: myAds),
+                            AllAds(autoEntity: myAds),
+                            AllAds(autoEntity: myAds),
+                          ],
+                        )
+                      : const EmptyItemBody(title: 'У вас еще нет объявлений');
+                }
+                return const Center(child: Text('Xatolik!'));
+              }),
+            ),
+          ),
         ),
       );
 }

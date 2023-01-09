@@ -21,7 +21,6 @@ import 'package:auto/features/profile/data/repositories/profile_repository_impl.
 import 'package:auto/features/profile/domain/usecases/change_password_usecase.dart';
 import 'package:auto/features/profile/domain/usecases/edit_profile_usecase.dart';
 import 'package:auto/features/profile/domain/usecases/get_terms_of_use_usecase.dart';
-import 'package:auto/features/profile/domain/usecases/profil_favorites_usecase.dart';
 import 'package:auto/features/profile/domain/usecases/profile_usecase.dart';
 import 'package:auto/features/profile/presentation/bloc/profile/profile_bloc.dart';
 import 'package:auto/features/profile/presentation/pages/pages.dart';
@@ -43,15 +42,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   void initState() {
     final repo = serviceLocator<ProfileRepositoryImpl>();
+
     profileBloc = ProfileBloc(
-      
-      changePasswordUseCase: ChangePasswordUseCase(repository: repo),
-      editProfileUseCase: EditProfileUseCase(repository: repo),
-      profileUseCase: ProfileUseCase(repository: repo),
-      profileFavoritesUseCase: ProfileFavoritesUseCase(repository: repo),
-      getTermsOfUseUseCase: GetTermsOfUseUseCase(repository: repo),
-      repository: AuthRepository()
-    )..add(GetProfileEvent());
+        changePasswordUseCase: ChangePasswordUseCase(repository: repo),
+        editProfileUseCase: EditProfileUseCase(repository: repo),
+        profileUseCase: ProfileUseCase(repository: repo),
+        getTermsOfUseUseCase: GetTermsOfUseUseCase(repository: repo),
+        repository: AuthRepository())
+      ..add(GetProfileEvent());
     imageBloc = ImageBloc();
     super.initState();
   }
@@ -66,6 +64,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
             } else if (state.status.isSubmissionFailure) {
               return const Center(child: Text('Fail'));
             } else if (state.status.isSubmissionSuccess) {
+              final profileData = state.profileEntity;
+              final usercountData = profileData.usercountdata;
               return Scaffold(
                 appBar: WAppBar(
                     filledBackButton: true,
@@ -101,10 +101,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               imageBloc: imageBloc,
                             )));
                           },
-                          title: state.profileEntity.fullName ?? '',
+                          title: profileData.fullName ?? '',
                           subTitle:
-                              '${state.profileEntity.usercountdata?.announcementsCount ?? 0} ${LocaleKeys.how_many_ads.tr()}',
-                          imageUrl: state.profileEntity.image ?? '',
+                              '${usercountData?.announcementsCount ?? 0} ${LocaleKeys.how_many_ads.tr()}',
+                          imageUrl: profileData.image ?? '',
                           margin: EdgeInsets.only(
                               top: SizeConfig.v(16), bottom: SizeConfig.v(12)),
                         ),
@@ -114,24 +114,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               name: LocaleKeys.favorites.tr(),
                               onTap: () {
                                 print(StorageRepository.getString('token'));
-                                context.read<ProfileBloc>().add(
-                                    GetProfileFavoritesEvent(
-                                        endpoint:
-                                            '/users/wishlist/announcement/list/'));
                                 Navigator.push(
                                   context,
-                                  fade(
-                                    page: BlocProvider.value(
-                                      value: profileBloc,
-                                      child: FavouritePage(
-                                          profileBloc: profileBloc),
-                                    ),
-                                  ),
+                                  fade(page: const FavouritePage()),
                                 );
                               },
                               iconPath: AppIcons.heartBlue,
-                              count: state.profileEntity.usercountdata
-                                  ?.announcementWishlistCount),
+                              count: usercountData?.announcementWishlistCount),
                           const ProfileDivider(),
                           ProfileMenuTile(
                             name: LocaleKeys.comparisons.tr(),
@@ -148,24 +137,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ProfileMenuTile(
                               name: LocaleKeys.my_ads.tr(),
                               onTap: () {
-                                context.read<ProfileBloc>().add(
-                                    GetProfileFavoritesEvent(
-                                        endpoint: '/car/my-announcements/'));
                                 Navigator.of(context).push(fade(
-                                    page: BlocProvider.value(
-                                  value: profileBloc,
-                                  child: MyAddsPage(profileBloc: profileBloc),
-                                )));
+                                  page: const MyAddsPage(),
+                                ));
                               },
                               iconPath: AppIcons.tabletNews,
-                              count: state.profileEntity.usercountdata
-                                  ?.announcementsCount),
+                              count: usercountData?.announcementsCount),
                           const ProfileDivider(),
                           ProfileMenuTile(
                               name: 'Мои поиски',
                               onTap: () {
-                                Navigator.push(context,
-                                    fade(page: const MySearchesPage()));
+                                Navigator.of(context, rootNavigator: true)
+                                    .push(fade(page: const MySearchesPage()));
                               },
                               iconPath: AppIcons.mySearch,
                               count: state
@@ -209,9 +192,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 Navigator.of(context, rootNavigator: true).push(
                                   fade(
                                     page: ChatPage(
-                                      phone: state.profileEntity.phoneNumber!,
-                                      userName: state.profileEntity.username ??
-                                          state.profileEntity.firstName,
+                                      phone: profileData.phoneNumber!,
+                                      userName: profileData.username ??
+                                          profileData.firstName,
                                       hasChat: false,
                                       imageBloc: imageBloc,
                                     ),
