@@ -241,7 +241,6 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                             fullname: state.singleEntity.absoluteCarName,
                             price: MyFunctions.getFormattedPrice(
                                 state.singleEntity.price, [3, 6, 9, 12]),
-
                             date: state.singleEntity.publishedAt,
                             view: '${state.singleEntity.viewsCount}',
                             id: '${state.singleEntity.id}',
