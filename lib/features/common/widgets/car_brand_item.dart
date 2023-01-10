@@ -1,9 +1,7 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
-import 'package:auto/features/car_single/presentation/car_single_screen.dart';
 import 'package:auto/features/common/domain/entity/car_brand_entity.dart';
-import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:flutter/material.dart';
 
 class CarBrandItem extends StatelessWidget {
@@ -19,7 +17,6 @@ class CarBrandItem extends StatelessWidget {
         height: 100,
         width: 80,
         padding: const EdgeInsets.symmetric(horizontal: 8),
-        margin: const EdgeInsets.only(left: 12),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12),
             color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
@@ -50,7 +47,6 @@ class CarBrandItem extends StatelessWidget {
                   Image.asset(AppImages.defaultPhoto),
             ),
             const SizedBox(height: 8),
-          
             Expanded(
               child: Text(
                 carBrandEntity.title,

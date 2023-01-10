@@ -156,15 +156,10 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                     children: buildIndicator(),
                   ),
                 ),
-                const SizedBox(
-                  height: 15,
-                ),
+                const SizedBox(height: 15),
                 BaseOnBoarding(
                   onTap: () => Navigator.pushAndRemoveUntil(context,
                       fade(page: const LoginScreen()), (route) => false),
-                  // currentIndex == 0 || currentIndex == 1
-                  //     ? () {}
-                  //     : () => ,
                   color: currentIndex == 1 && currentIndex == 2
                       ? Theme.of(context)
                           .extension<ThemedColors>()!

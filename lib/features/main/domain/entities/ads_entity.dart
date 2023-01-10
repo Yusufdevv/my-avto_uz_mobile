@@ -13,11 +13,11 @@ class AdsEntity {
   final double longitude;
   final double latitude;
   final CarUserEntity carUser;
-  final String price;
+  final int price;
   final bool isWishlisted;
   const AdsEntity({
     this.imageUrl = const [],
-    this.price = '',
+    this.price = 0,
     this.model = '',
     this.id = 0,
     this.description = '',
