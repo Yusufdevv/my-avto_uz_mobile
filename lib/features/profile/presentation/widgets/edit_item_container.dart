@@ -33,19 +33,22 @@ class EditItemContainer extends StatelessWidget {
                     .borderColor)),
         child: Row(
           children: [
-            Text(
-              region,
-              style: Theme.of(context)
-                  .textTheme
-                  .subtitle1!
-                  .copyWith(color: isOtherPage ? grey : dark),
+            Expanded(
+              child: Text(
+                region,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: Theme.of(context)
+                    .textTheme
+                    .subtitle1!
+                    .copyWith(color: isOtherPage ? grey : dark),
+              ),
             ),
-            const Spacer(),
-            SvgPicture.asset(
-              icon,
-              color:
-                  Theme.of(context).extension<ThemedColors>()!.darkGreyToWhite,
-            ),
+            const SizedBox(width: 8),
+            SvgPicture.asset(icon,
+                color: Theme.of(context)
+                    .extension<ThemedColors>()!
+                    .darkGreyToWhite),
           ],
         ),
       );

@@ -62,9 +62,7 @@ class _DealerScreenState extends State<DealerScreen> {
                             fillColor: Theme.of(context)
                                 .extension<ThemedColors>()!
                                 .whiteSmokeToNightRider,
-                            hintText: widget.isDirectoryPage
-                                ? 'Автосалон, автосервис'
-                                : LocaleKeys.model_brand.tr(),
+                            hintText: LocaleKeys.model_brand.tr(),
                             hintTextStyle: const TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w400,
@@ -90,12 +88,10 @@ class _DealerScreenState extends State<DealerScreen> {
                               .extension<ThemedColors>()!
                               .whiteSmokeToNightRider,
                           padding: const EdgeInsets.all(12),
-                          child: widget.isDirectoryPage
-                              ? SvgPicture.asset(AppIcons.filter)
-                              : SvgPicture.asset(
-                                  AppIcons.rentFilter,
-                                  color: purple,
-                                ),
+                          child: SvgPicture.asset(
+                            AppIcons.rentFilter,
+                            color: purple,
+                          ),
                         ),
                       ],
                     ),
@@ -105,14 +101,12 @@ class _DealerScreenState extends State<DealerScreen> {
                   pinned: true,
                   delegate: SegmentedControl(maxHeight: 64, minHeight: 64),
                 ),
-                SliverFillRemaining(
+                const SliverFillRemaining(
                   child: TabBarView(
-                    physics: const NeverScrollableScrollPhysics(),
+                    physics: NeverScrollableScrollPhysics(),
                     children: [
-                      DealersList(
-                        isDirectoryPage: widget.isDirectoryPage,
-                      ),
-                      const MapScreen(),
+                      DealersList(),
+                      MapScreen(),
                     ],
                   ),
                 ),
