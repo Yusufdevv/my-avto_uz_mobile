@@ -134,7 +134,17 @@ class _AdsBodyScreenState extends State<AdsBodyScreen> {
                           )
                           .then((value) => null);
                     },
-                    onTapClear: () {},
+                    onTapClear: () {
+                      context
+                          .read<AnnouncementListBloc>()
+                          .add(AnnouncementListEvent.getInfo(isFilter: false));
+                      context
+                          .read<AnnouncementListBloc>()
+                          .add(AnnouncementListEvent.getFilterClear());
+                      context
+                          .read<AnnouncementListBloc>()
+                          .add(AnnouncementListEvent.getAnnouncementList());
+                    },
                   ),
                   WFilterButton(
                     size: size,
