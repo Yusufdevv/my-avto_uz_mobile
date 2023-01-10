@@ -90,8 +90,6 @@ class MyAdCarDescPart extends StatelessWidget {
                   style: Theme.of(context).textTheme.headline2!.copyWith(
                       decoration: TextDecoration.lineThrough, color: grey),
                 )
-              else
-                const SizedBox()
             ],
           ),
           const SizedBox(height: 8),

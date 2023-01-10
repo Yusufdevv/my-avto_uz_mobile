@@ -4,6 +4,7 @@ import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/bloc/comparison_add/bloc/comparison_add_bloc.dart';
+import 'package:auto/features/common/bloc/wishlist_add/wishlist_add_bloc.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/search/presentation/part/bottom_sheet_for_calling.dart';
 import 'package:auto/features/search/presentation/widgets/add_comparison_item.dart';
@@ -36,6 +37,7 @@ class InfoResultContainer extends StatefulWidget {
       required this.callTo,
       required this.discount,
       required this.id,
+      this.onTap,
       this.sellType,
       super.key});
 
@@ -58,14 +60,22 @@ class InfoResultContainer extends StatefulWidget {
   final double discount;
   final String callFrom;
   final String callTo;
-
   final String? sellType;
+  final Function()? onTap;
 
   @override
   State<InfoResultContainer> createState() => _InfoResultContainerState();
 }
 
 class _InfoResultContainerState extends State<InfoResultContainer> {
+  bool isLiked = false;
+
+  @override
+  void initState() {
+    isLiked = widget.isWishlisted;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) => Container(
         width: MediaQuery.of(context).size.width,
@@ -185,19 +195,21 @@ class _InfoResultContainerState extends State<InfoResultContainer> {
                 ],
               ),
             ),
-            CustomChip(
-              label: widget.sellType ?? '',
-              backgroundColor: Theme.of(context)
-                  .extension<ThemedColors>()!
-                  .seashellToCinnabar15,
-              labelPadding:
-                  const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
-              margin: const EdgeInsets.only(top: 8, bottom: 12),
-              labelStyle: Theme.of(context).textTheme.subtitle1!.copyWith(
-                    color: orange,
-                    fontSize: 12,
-                  ),
-            ),
+            if (widget.sellType != null)
+              CustomChip(
+                label: widget.sellType!,
+                backgroundColor: Theme.of(context)
+                    .extension<ThemedColors>()!
+                    .seashellToCinnabar15,
+                labelPadding:
+                    const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                margin: const EdgeInsets.only(top: 8, bottom: 12),
+                labelStyle: Theme.of(context).textTheme.subtitle1!.copyWith(
+                      color: orange,
+                      fontSize: 12,
+                    ),
+              ),
+            const SizedBox(height: 12),
             Row(
               children: [
                 Text(
@@ -232,52 +244,34 @@ class _InfoResultContainerState extends State<InfoResultContainer> {
                       color: green,
                     ),
                   )
-                else
-                  const SizedBox(),
               ],
             ),
-            if (widget.discount == -1)
-              RichText(
-                text: TextSpan(
-                  text: MyFunctions.getFormatCost(
-                      '${widget.price} ${widget.currency.toUpperCase()}'),
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w600,
-                    color: Theme.of(context)
-                        .extension<ThemedColors>()!
-                        .darkToWhite,
-                  ),
+            const SizedBox(height: 4),
+            Row(
+              children: [
+                Text(
+                  widget.discount > 0.0
+                      ? '${widget.discount.floor()} ${widget.currency.toUpperCase()}'
+                      : '${widget.price.floor()} ${widget.currency.toUpperCase()}',
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline5!
+                      .copyWith(color: green, fontWeight: FontWeight.w600),
                 ),
-              )
-            else
-              RichText(
-                text: TextSpan(
-                  children: [
-                    TextSpan(
-                      text: MyFunctions.getFormatCost(
-                          '${widget.discount} ${widget.currency.toUpperCase()}'),
-                      style: const TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
-                        color: green,
-                      ),
-                    ),
-                    const WidgetSpan(child: SizedBox(width: 4)),
-                    TextSpan(
-                      text: MyFunctions.getFormatCost(
-                          '${widget.price} ${widget.currency.toUpperCase()}'),
-                      style: Theme.of(context).textTheme.headline2!.copyWith(
-                            decoration: TextDecoration.lineThrough,
-                            color: grey,
-                          ),
-                    ),
-                  ],
-                ),
-              ),
+                const SizedBox(width: 4),
+                if (widget.discount > 0.0)
+                  Text(
+                    '${widget.price.floor()} ${widget.currency.toUpperCase()}',
+                    style: Theme.of(context).textTheme.headline2!.copyWith(
+                        decoration: TextDecoration.lineThrough, color: grey),
+                  )
+              ],
+            ),
             const SizedBox(height: 8),
             Text(
               widget.description,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
               style: Theme.of(context).textTheme.headline2!.copyWith(
                     fontSize: 13,
                     color: grey,
@@ -292,7 +286,8 @@ class _InfoResultContainerState extends State<InfoResultContainer> {
                     width: 36,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(150),
-                      image: DecorationImage(image: imageProvider),
+                      image: DecorationImage(
+                          image: imageProvider, fit: BoxFit.cover),
                     ),
                   ),
                   errorWidget: (context, url, error) => Container(
@@ -365,7 +360,21 @@ class _InfoResultContainerState extends State<InfoResultContainer> {
                   ),
                   const SizedBox(width: 8),
                   AddWishlistItem(
-                    initialLike: widget.isWishlisted,
+                    onTap: () {
+                      if (!isLiked) {
+                        context
+                            .read<WishlistAddBloc>()
+                            .add(WishlistAddEvent.addWishlist(widget.id));
+                        isLiked = true;
+                      } else {
+                        context
+                            .read<WishlistAddBloc>()
+                            .add(WishlistAddEvent.removeWishlist(widget.id));
+                        isLiked = false;
+                      }
+                      setState(() {});
+                    },
+                    initialLike: isLiked,
                     id: widget.id,
                   ),
                 ],

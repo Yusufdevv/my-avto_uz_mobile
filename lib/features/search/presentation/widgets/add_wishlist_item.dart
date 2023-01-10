@@ -5,10 +5,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
 class AddWishlistItem extends StatefulWidget {
-  final bool? initialLike;
+  final bool initialLike;
   final int id;
+  final Function() onTap;
 
-  const AddWishlistItem({required this.id, this.initialLike, Key? key})
+  const AddWishlistItem({required this.id, required this.onTap,required  this.initialLike, Key? key})
       : super(key: key);
 
   @override
@@ -16,15 +17,7 @@ class AddWishlistItem extends StatefulWidget {
 }
 
 class _AddWishlistItemState extends State<AddWishlistItem> {
-  bool isLiked = false;
-
-  @override
-  void initState() {
-    if (widget.initialLike != null) {
-      isLiked = widget.initialLike!;
-    }
-    widget.initialLike ?? super.initState();
-  }
+  
 
   @override
   Widget build(BuildContext context) => SizedBox(
@@ -32,23 +25,14 @@ class _AddWishlistItemState extends State<AddWishlistItem> {
         width: 28,
         child: BlocBuilder<WishlistAddBloc, WishlistAddState>(
           builder: (context, state) => GestureDetector(
-            onTap: () {
-              if (!isLiked) {
-                BlocProvider.of<WishlistAddBloc>(context).add(WishlistAddEvent.addWishlist(widget.id));
-                isLiked = true;
-              } else {
-                BlocProvider.of<WishlistAddBloc>(context).add(WishlistAddEvent.removeWishlist(widget.id));
-                isLiked = false;
-              }
-              setState(() {});
-            },
+            onTap: widget.onTap,
             child: AnimatedSwitcher(
               duration: const Duration(milliseconds: 300),
               transitionBuilder: (child, animation) => ScaleTransition(
                 scale: animation,
                 child: child,
               ),
-              child: isLiked
+              child: widget.initialLike
                   ? SvgPicture.asset(
                       AppIcons.enabledHeart,
                       key: const ValueKey<int>(1),

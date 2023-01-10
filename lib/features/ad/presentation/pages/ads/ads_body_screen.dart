@@ -177,7 +177,8 @@ class _AdsBodyScreenState extends State<AdsBodyScreen> {
                   initialLike: list[index].isWishlisted,
                   id: state.announcementList[index].id,
                   onTapComparsion: () {},
-                  onTapFavorites: () {},
+                  onTapFavorites: () {
+                  },
                   initialComparsions: list[index].isComparison,
                 ),
               ),
