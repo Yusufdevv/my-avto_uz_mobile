@@ -4,9 +4,7 @@ import 'package:auto/features/ad/presentation/widgets/base_widget.dart';
 import 'package:flutter/material.dart';
 
 class ColorsScreen extends StatefulWidget {
-  final VoidCallback onTap;
-
-  const ColorsScreen({required this.onTap, Key? key}) : super(key: key);
+  const ColorsScreen({Key? key}) : super(key: key);
 
   @override
   State<ColorsScreen> createState() => _ColorsScreenState();
@@ -34,7 +32,7 @@ class _ColorsScreenState extends State<ColorsScreen> {
   @override
   Widget build(BuildContext context) => Scaffold(
         body: BaseWidget(
-          onTap: currentId.isEmpty ? () {} : widget.onTap,
+          hasButton: false,
           padding: const EdgeInsets.only(top: 16),
           child: GridView.builder(
             itemBuilder: (context, index) => ColorsItem(

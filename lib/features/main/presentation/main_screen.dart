@@ -9,7 +9,6 @@ import 'package:auto/features/common/bloc/get_makes_bloc/get_makes_bloc_bloc.dar
 
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/comparison/presentation/pages/choose_car_brand.dart';
-import 'package:auto/features/comparison/presentation/pages/choose_model.dart';
 import 'package:auto/features/dealers/presentation/dealers_main.dart';
 import 'package:auto/features/main/domain/entities/service_entity.dart';
 import 'package:auto/features/main/domain/usecases/get_top_ads.dart';
@@ -96,6 +95,8 @@ class _MainScreenState extends State<MainScreen> {
       },
       () async {
         await StorageRepository.putString('token', '');
+        await StorageRepository.putBool(value: false, key: 'onboarding');
+        print('=>=>=>=> onboarding put false <=<=<=<=');
         print('=>=>=>=> token put empty <=<=<=<=');
       },
       () async {},

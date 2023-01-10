@@ -3,14 +3,12 @@ import 'package:auto/features/ad/presentation/widgets/base_widget.dart';
 import 'package:flutter/material.dart';
 
 class CarcaseScreen extends StatelessWidget {
-  final VoidCallback onTap;
-
-  const CarcaseScreen({required this.onTap, Key? key}) : super(key: key);
+  const CarcaseScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) => Scaffold(
       body: BaseWidget(
-          onTap: onTap,
+          hasButton: false,
           child: ListView.builder(
             itemBuilder: (context, index) => CarCaseItem(title: 'Седан'),
             itemCount: 1,

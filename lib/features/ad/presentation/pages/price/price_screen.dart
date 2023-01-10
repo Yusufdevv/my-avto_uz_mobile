@@ -10,9 +10,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 class PriceScreen extends StatefulWidget {
-  final VoidCallback onTap;
-
-  const PriceScreen({required this.onTap, Key? key}) : super(key: key);
+  const PriceScreen({Key? key}) : super(key: key);
 
   @override
   State<PriceScreen> createState() => _PriceScreenState();
@@ -31,7 +29,7 @@ class _PriceScreenState extends State<PriceScreen> {
   Widget build(BuildContext context) => KeyboardDismisser(
         child: Scaffold(
           body: BaseWidget(
-            onTap: widget.onTap,
+            hasButton: false,
             child: Padding(
               padding: const EdgeInsets.all(16),
               child: Column(

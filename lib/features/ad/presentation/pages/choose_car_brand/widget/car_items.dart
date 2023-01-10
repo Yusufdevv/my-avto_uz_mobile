@@ -3,6 +3,7 @@ import 'package:auto/assets/colors/light.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/features/common/bloc/get_makes_bloc/get_makes_bloc_bloc.dart';
 import 'package:auto/features/common/widgets/hight_light.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -18,16 +19,18 @@ class ChangeCarItems extends StatelessWidget {
   const ChangeCarItems({
     required this.selectedId,
     required this.id,
-    Key? key,
     required this.name,
     required this.imageUrl,
     required this.text,
     required this.onTap,
+    Key? key
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) => GestureDetector(
-        onTap: onTap,
+        onTap: () {
+         
+        },
         child: Container(
           padding: const EdgeInsets.only(left: 16),
           color: id == selectedId
@@ -59,6 +62,7 @@ class ChangeCarItems extends StatelessWidget {
                                 AppImages.carImage,
                                 height: 40,
                                 fit: BoxFit.cover,
+                                color: Colors.red,
                               )
                             : CachedNetworkImage(
                                 imageUrl: imageUrl,

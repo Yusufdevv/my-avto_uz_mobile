@@ -15,14 +15,26 @@ class _AzListState extends State<AzList> {
 
   @override
   Widget build(BuildContext context) => GestureDetector(
-    onTap: (){
-      setState((){
-        isSelected = !isSelected;
-      });
-    },
-    child: Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: Text(widget.letter, style: isSelected ?  Theme.of(context).textTheme.headline6!.copyWith(color: greyText) : Theme.of(context).textTheme.headline6!.copyWith(color: warmerGrey),),
-    ),
-  );
+        onTap: () {
+          print('=>=>=>=> selectec letter <=<=<=<=');
+          setState(() {
+            isSelected = !isSelected;
+          });
+        },
+        child: Container(
+          padding: const EdgeInsets.only(left: 16, right: 16, bottom: 4),
+          child: Text(
+            widget.letter,
+            style: isSelected
+                ? Theme.of(context)
+                    .textTheme
+                    .headline6!
+                    .copyWith(color: greyText)
+                : Theme.of(context)
+                    .textTheme
+                    .headline6!
+                    .copyWith(color: warmerGrey),
+          ),
+        ),
+      );
 }

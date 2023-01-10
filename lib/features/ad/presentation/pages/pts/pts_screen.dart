@@ -12,9 +12,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 class PtsScreen extends StatefulWidget {
-  final VoidCallback onTap;
-
-  const PtsScreen({required this.onTap, Key? key}) : super(key: key);
+  const PtsScreen({Key? key}) : super(key: key);
 
   @override
   State<PtsScreen> createState() => _PtsScreenState();
@@ -49,9 +47,7 @@ class _PtsScreenState extends State<PtsScreen> {
           value: bloc,
           child: Scaffold(
             body: BaseWidget(
-              onTap: ownerId.isNotEmpty && currentId.isNotEmpty
-                  ? widget.onTap
-                  : () {},
+              hasButton: false,
               child: SingleChildScrollView(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 16, vertical: 25),

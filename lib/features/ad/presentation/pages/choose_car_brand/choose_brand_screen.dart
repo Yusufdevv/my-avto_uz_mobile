@@ -19,9 +19,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 class ChooseCarBrand extends StatefulWidget {
-  final VoidCallback onTap;
-
-  const ChooseCarBrand({required this.onTap, Key? key}) : super(key: key);
+  const ChooseCarBrand({Key? key}) : super(key: key);
 
   @override
   State<ChooseCarBrand> createState() => _ChooseCarBrandState();
@@ -127,108 +125,90 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
                 print(
                     '=>=>=>=> top brand state name ${topBrandState.status.name} <=<=<=<=');
                 return Scaffold(
-                  body: Stack(
-                    children: [
-                      NestedScrollView(
-                        headerSliverBuilder: (context, innerBoxIsScrolled) => [
-                          SliverToBoxAdapter(
-                            child: WTextField(
-                              margin: const EdgeInsets.symmetric(
-                                  horizontal: 16, vertical: 29),
-                              onChanged: (value) {},
-                              borderRadius: 12,
-                              hasSearch: true,
-                              hintText: 'Поиск',
-                              height: 40,
-                              controller: searchController,
-                              hasClearButton: true,
-                            ),
-                          ),
-                          SliverToBoxAdapter(
-                            child: ListView.builder(
-                              scrollDirection: Axis.horizontal,
-                              itemBuilder: (context, index) => CarBrandItem(
-                                carBrandEntity: topBrandState.brands[index],
-                                hasShadow: true,
-                              ),
-                              itemCount: topBrandState.brands.length,
-                            ),
-                          ),
-                          SliverToBoxAdapter(
-                            child: SizedBox(
-                              height: 100,
-                              child: ListView.builder(
-                                scrollDirection: Axis.horizontal,
-                                itemBuilder: (context, index) => CarBrandItem(
-                                    carBrandEntity: carBrandEntityy[index]),
-                                itemCount: carBrandEntityy.length,
-                              ),
-                            ),
-                          ),
-                          const SliverToBoxAdapter(
-                            child: SizedBox(
-                              height: 20,
-                            ),
-                          ),
-                          SliverToBoxAdapter(
-                            child: Transform.translate(
-                              offset: const Offset(0, 1),
-                              child: Container(
-                                height: 20,
-                                width: double.infinity,
-                                decoration: BoxDecoration(
-                                    color: Theme.of(context)
-                                        .extension<ThemedColors>()!
-                                        .whiteToDark,
-                                    borderRadius: const BorderRadius.vertical(
-                                      top: Radius.circular(20),
-                                    )),
-                              ),
-                            ),
-                          ),
-                          SliverSafeArea(
-                            top: false,
-                            bottom: false,
-                            sliver: SliverPersistentHeader(
-                              delegate: Header(),
-                              pinned: true,
-                            ),
-                          ),
-                        ],
-                        body: Container(
-                          color: Theme.of(context)
-                              .extension<ThemedColors>()!
-                              .whiteToDark,
+                  body: NestedScrollView(
+                    floatHeaderSlivers: true,
+                    physics: const BouncingScrollPhysics(),
+                    headerSliverBuilder: (context, innerBoxIsScrolled) => [
+                      SliverToBoxAdapter(
+                        child: WTextField(
+                          margin: const EdgeInsets.symmetric(
+                              horizontal: 16, vertical: 29),
+                          onChanged: (value) {},
+                          borderRadius: 12,
+                          hasSearch: true,
+                          hintText: 'Поиск',
+                          height: 40,
+                          controller: searchController,
+                          hasClearButton: true,
+                        ),
+                      ),
+
+                      /// TOP CAR BRANDS
+                      SliverToBoxAdapter(
+                        child: SizedBox(
+                          height: 100,
                           child: ListView.builder(
-                            padding: const EdgeInsets.only(bottom: 50),
-                            itemBuilder: (context, index) => ChangeCarItems(
-                              selectedId: getMakesState.selected,
-                              id: index,
-                              imageUrl: getMakesState.makes.results[index].logo,
-                              name: getMakesState.makes.results[index].name,
-                              text: '',
-                              onTap: () {},
+                            padding: const EdgeInsets.only(right: 16),
+                            physics: const BouncingScrollPhysics(),
+                            scrollDirection: Axis.horizontal,
+                            itemBuilder: (context, index) => CarBrandItem(
+                              carBrandEntity: topBrandState.brands[index],
                             ),
-                            itemCount: getMakesState.makes.results.length,
+                            itemCount: topBrandState.brands.length,
                           ),
                         ),
                       ),
-                      Positioned(
-                        bottom: 16,
-                        right: 16,
-                        left: 16,
-                        child: WButton(
-                          onTap: widget.onTap,
-                          text: 'Далее',
-                          shadow: [
-                            BoxShadow(
-                                offset: const Offset(0, 4),
-                                blurRadius: 20,
-                                color: orange.withOpacity(0.2)),
-                          ],
+
+                      const SliverToBoxAdapter(
+                        child: SizedBox(height: 20),
+                      ),
+
+                      /// SIZED BOX
+                      SliverToBoxAdapter(
+                        child: Transform.translate(
+                          offset: const Offset(0, 1),
+                          child: Container(
+                            height: 20,
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                                color: Theme.of(context)
+                                    .extension<ThemedColors>()!
+                                    .whiteToDark,
+                                borderRadius: const BorderRadius.vertical(
+                                  top: Radius.circular(20),
+                                )),
+                          ),
+                        ),
+                      ),
+
+                      /// LETTER BUTTONS
+                      SliverSafeArea(
+                        top: false,
+                        bottom: false,
+                        sliver: SliverPersistentHeader(
+                          delegate: Header(),
+                          pinned: true,
                         ),
                       ),
                     ],
+                    body: Container(
+                      color: Theme.of(context)
+                          .extension<ThemedColors>()!
+                          .whiteToDark,
+                      child: ListView.builder(
+                        physics: const BouncingScrollPhysics(),
+                        padding: const EdgeInsets.only(bottom: 50),
+                        itemBuilder: (context, index) => ChangeCarItems(
+                          onTap: () {},
+                          selectedId: getMakesState.confirmId,
+                          id: index,
+                          imageUrl: getMakesState.makes.results[index].logo,
+                          name: getMakesState.makes.results[index].name,
+                          text: '',
+                        ),
+                        itemCount: getMakesState.makes.results.length,
+                      ),
+                    ),
                   ),
                 );
               },

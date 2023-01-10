@@ -5,9 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 class EquipmentScreen extends StatefulWidget {
-  final VoidCallback onTap;
-
-  const EquipmentScreen({required this.onTap, Key? key}) : super(key: key);
+  const EquipmentScreen({Key? key}) : super(key: key);
 
   @override
   State<EquipmentScreen> createState() => _EquipmentScreenState();
@@ -24,7 +22,7 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
   Widget build(BuildContext context) => KeyboardDismisser(
         child: Scaffold(
           body: BaseWidget(
-            onTap: widget.onTap,
+            hasButton: false,
             child: Padding(
               padding: const EdgeInsets.only(top: 16),
               child: Column(

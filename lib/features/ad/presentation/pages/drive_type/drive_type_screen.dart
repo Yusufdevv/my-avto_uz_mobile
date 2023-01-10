@@ -3,8 +3,7 @@ import 'package:auto/features/common/widgets/w_radio_tile.dart';
 import 'package:flutter/material.dart';
 
 class DriveTypeScreen extends StatefulWidget {
-  final VoidCallback onTap;
-  const DriveTypeScreen({required this.onTap, Key? key}) : super(key: key);
+  const DriveTypeScreen({Key? key}) : super(key: key);
 
   @override
   State<DriveTypeScreen> createState() => _DriveTypeScreenState();
@@ -20,7 +19,7 @@ class _DriveTypeScreenState extends State<DriveTypeScreen> {
   @override
   Widget build(BuildContext context) => Scaffold(
           body: BaseWidget(
-        onTap: widget.onTap,
+        hasButton: false,
         padding: const EdgeInsets.only(top: 16),
         child: ListView.builder(
           itemBuilder: (context, index) => RadioItem(

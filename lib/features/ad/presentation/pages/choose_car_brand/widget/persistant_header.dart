@@ -55,9 +55,7 @@ class Header extends SliverPersistentHeaderDelegate {
                   scrollDirection: Axis.horizontal,
                 ),
               ),
-              const SizedBox(
-                height: 4,
-              ),
+              
               Divider(
                 color: Theme.of(context).dividerColor,
               )

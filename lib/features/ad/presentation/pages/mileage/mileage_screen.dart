@@ -10,9 +10,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 class MileageScreen extends StatefulWidget {
-  final VoidCallback onTap;
-
-  const MileageScreen({required this.onTap, Key? key}) : super(key: key);
+  const MileageScreen({Key? key}) : super(key: key);
 
   @override
   State<MileageScreen> createState() => _MileageScreenState();
@@ -43,7 +41,7 @@ class _MileageScreenState extends State<MileageScreen> {
           child: Scaffold(
             body: BlocBuilder<MileageImageBloc, MileageImageState>(
               builder: (context, state) => BaseWidget(
-                onTap: widget.onTap,
+                hasButton: false,
                 child: Padding(
                   padding: const EdgeInsets.all(16),
                   child: Column(
