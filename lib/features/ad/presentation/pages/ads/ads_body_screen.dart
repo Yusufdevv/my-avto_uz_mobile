@@ -40,6 +40,16 @@ class _AdsBodyScreenState extends State<AdsBodyScreen> {
   void initState() {
     rentBloc = RentBloc(rentUseCase: RentUseCase(), id: 5)
       ..add(RentGetResultsEvent(isRefresh: false));
+    print('===> ==> Bu yoda ishga tushdi');
+    context.read<AnnouncementListBloc>().add(AnnouncementListEvent.getFilter(
+        context
+            .read<AnnouncementListBloc>()
+            .state
+            .filter
+            .copyWith(isNew: widget.isNew)));
+    context
+        .read<AnnouncementListBloc>()
+        .add(AnnouncementListEvent.getAnnouncementList());
     super.initState();
   }
 
@@ -196,8 +206,7 @@ class _AdsBodyScreenState extends State<AdsBodyScreen> {
                   initialLike: list[index].isWishlisted,
                   id: state.announcementList[index].id,
                   onTapComparsion: () {},
-                  onTapFavorites: () {
-                  },
+                  onTapFavorites: () {},
                   initialComparsions: list[index].isComparison,
                 ),
               ),
