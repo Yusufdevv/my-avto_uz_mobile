@@ -9,7 +9,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:yandex_mapkit/yandex_mapkit.dart';
 
 class SellerInfo extends StatefulWidget {
-  final String dealerType;
+  // final String dealerType;
   final String dealerName;
   final String contactFrom;
   final String contactTo;
@@ -20,7 +20,7 @@ class SellerInfo extends StatefulWidget {
   final double latitude;
 
   const SellerInfo({
-    required this.dealerType,
+    // required this.dealerType,
     required this.dealerName,
     required this.quantityOfCars,
     required this.contact,
@@ -43,102 +43,108 @@ class _SellerInfoState extends State<SellerInfo> {
 
   @override
   Widget build(BuildContext context) => Container(
-      margin: const EdgeInsets.only(top: 20),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12),
-        color: Theme.of(context).extension<ThemedColors>()!.whiteToNero,
-        border: Border.all(
-          color: Theme.of(context)
-              .extension<ThemedColors>()!
-              .solitude2ToNightRider,
+        margin: const EdgeInsets.only(top: 20),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12),
+          color: Theme.of(context).extension<ThemedColors>()!.whiteToNero,
+          border: Border.all(
+            color: Theme.of(context)
+                .extension<ThemedColors>()!
+                .solitude2ToNightRider,
+          ),
         ),
-      ),
-      padding: const EdgeInsets.all(16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            // dealerType == 'showroom'
-            //     ? dealerName
-            //     : LocaleKeys.about_dealer.tr(),
-            widget.dealerType.isEmpty ? widget.dealerName : widget.dealerType,
-            style: const TextStyle(
-                color: orange, fontSize: 16, fontWeight: FontWeight.w600),
-          ),
-          const SizedBox(
-            height: 16,
-          ),
-          Info(
-              icon: AppIcons.vehicleCar,
-              text: '${widget.quantityOfCars} автомобиля'),
-          const SizedBox(
-            height: 16,
-          ),
-          // if (dealerType == 'showroom') ...{
-          //
-          // },
-          Info(
-              text:
-                  '${LocaleKeys.every_day.tr()} ${widget.contactFrom} - ${widget.contactTo}',
-              icon: AppIcons.clock),
-          const SizedBox(height: 20),
-          Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(6),
-              color: warmerGrey,
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              // dealerType == 'showroom'
+              //     ? dealerName
+              //     : LocaleKeys.about_dealer.tr(),
+               widget.dealerName,
+              style: const TextStyle(
+                  color: orange, fontSize: 16, fontWeight: FontWeight.w600),
             ),
-            padding: const EdgeInsets.all(1),
-            height: 110,
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(6),
-              child: YandexMap(
-                rotateGesturesEnabled: false,
-                onMapCreated: (controller) async {
-                  controller = controller;
-                  maxZoomLevel = await controller.getMaxZoom();
-                  minZoomLevel = await controller.getMinZoom();
-                  final camera = await controller.getCameraPosition();
-                  final position = Point(
-                      latitude: StorageRepository.getDouble('lat',
-                          defValue: 41.310990),
-                      longitude: StorageRepository.getDouble('long',
-                          defValue: 69.281997));
-                  await controller.moveCamera(
-                    CameraUpdate.newCameraPosition(
-                      CameraPosition(
-                        target: Point(
-                            latitude: widget.latitude,
-                            longitude: widget.longitude),
+            const SizedBox(
+              height: 16,
+            ),
+            Info(
+                icon: AppIcons.vehicleCar,
+                text: '${widget.quantityOfCars} автомобиля'),
+            const SizedBox(
+              height: 16,
+            ),
+            // if (dealerType == 'showroom') ...{
+            //
+            // },
+
+            Info(
+                //${LocaleKeys.every_day.tr()}
+                text:
+                    'Каждый день, ${widget.contactFrom} - ${widget.contactTo}',
+                icon: AppIcons.clock),
+            const SizedBox(height: 20),
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(6),
+                color: warmerGrey,
+              ),
+              padding: const EdgeInsets.all(1),
+              height: 110,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(6),
+                child: YandexMap(
+                  rotateGesturesEnabled: false,
+                  onMapCreated: (controller) async {
+                    controller = controller;
+                    maxZoomLevel = await controller.getMaxZoom();
+                    minZoomLevel = await controller.getMinZoom();
+                    final camera = await controller.getCameraPosition();
+                    final position = Point(
+                        latitude: StorageRepository.getDouble('lat',
+                            defValue: 41.310990),
+                        longitude: StorageRepository.getDouble('long',
+                            defValue: 69.281997));
+                    await controller.moveCamera(
+                      CameraUpdate.newCameraPosition(
+                        CameraPosition(
+                          target: Point(
+                              latitude: widget.latitude,
+                              longitude: widget.longitude),
+                        ),
                       ),
+                      animation: const MapAnimation(
+                          duration: 0.15, type: MapAnimationType.smooth),
+                    );
+                  },
+                  mapObjects: [
+                    PlacemarkMapObject(
+                      icon: PlacemarkIcon.single(
+                        PlacemarkIconStyle(
+                          scale: 0.6,
+                          image: BitmapDescriptor.fromAssetImage(
+                              AppIcons.currentLoc),
+                        ),
+                      ),
+                      mapId: MapObjectId(widget.latitude.toString()),
+                      point: Point(
+                          latitude: widget.latitude,
+                          longitude: widget.longitude),
                     ),
-                    animation: const MapAnimation(
-                        duration: 0.15, type: MapAnimationType.smooth),
-                  );
-                },
-                mapObjects: [
-                  PlacemarkMapObject(
-                    icon: PlacemarkIcon.single(PlacemarkIconStyle(
-                      scale: 0.6,
-                      image: BitmapDescriptor.fromAssetImage(AppIcons.currentLoc),
-                    ),),
-                    mapId: MapObjectId(widget.latitude.toString()),
-                    point: Point(
-                        latitude: widget.latitude, longitude: widget.longitude),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 20),
-            child: Info(
-              text: widget.contact,
-              icon: AppIcons.tablerPhone,
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 20),
+              child: Info(
+                text: widget.contact,
+                icon: AppIcons.tablerPhone,
+              ),
             ),
-          ),
-          Info(icon: AppIcons.tablerInfo, text: widget.additionalInfo),
-        ],
-      ));
+            Info(icon: AppIcons.tablerInfo, text: widget.additionalInfo),
+          ],
+        ));
 }
 
 class Info extends StatelessWidget {

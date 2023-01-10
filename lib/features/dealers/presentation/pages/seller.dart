@@ -14,7 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class Seller extends StatelessWidget {
-  final String dealerType;
+  //final String dealerType;
   final String dealerName;
   final String dealerInfo;
   final String contactFrom;
@@ -25,7 +25,7 @@ class Seller extends StatelessWidget {
   final int carCount;
 
   Seller({
-    required this.dealerType,
+    //required this.dealerType,
     required this.dealerName,
     required this.dealerInfo,
     required this.latitude,
@@ -62,7 +62,7 @@ class Seller extends StatelessWidget {
               mainAxisSize: MainAxisSize.max,
               children: [
                 SellerInfo(
-                  dealerType: dealerType,
+                  // dealerType: dealerType,
                   dealerName: dealerName,
                   quantityOfCars: carCount,
                   contactFrom: contactFrom,

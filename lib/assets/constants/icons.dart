@@ -131,6 +131,7 @@ class AppIcons {
   static const verification = 'assets/icons/global/verification.svg';
   static const ads = 'assets/icons/global/ads.svg';
   static const location = 'assets/icons/global/location.svg';
+  static const location1 = 'assets/icons/profile/location1.svg';
   static const heart = 'assets/icons/global/heart.svg';
   static const scale = 'assets/icons/global/scale.svg';
   static const heartWhite = 'assets/icons/global/heart_white.svg';

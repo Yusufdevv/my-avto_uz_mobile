@@ -55,7 +55,7 @@ class _DirectoryCardState extends State<DirectoryCard> {
             context,
             fade(
               page: Seller(
-                dealerType: widget.dealerType,
+                // dealerType: widget.dealerType,
                 dealerName: widget.dealerName,
                 phoneNumber: widget.phoneNumber,
                 dealerInfo: widget.dealerInfo,
@@ -95,43 +95,34 @@ class _DirectoryCardState extends State<DirectoryCard> {
                             fit: BoxFit.cover)),
                   ),
                   const SizedBox(width: 12),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        width: 200,
-                        child: Text(
-                          widget.dealerName,
-                          style:
-                              Theme.of(context).textTheme.headline1!.copyWith(
-                                    fontSize: 16,
-                                  ),
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 1,
-                        ),
-                      ),
-                      const SizedBox(height: 2),
-                      const SizedBox(
-                        width: 120,
-                        child: Text(
-                          //widget.dealerType,
-                          'Avtosalon',
-                          style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400,
-                              color: purple),
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 1,
-                        ),
-                      )
-                    ],
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(widget.dealerName,
+                            style:
+                                Theme.of(context).textTheme.headline1!.copyWith(
+                                      fontSize: 16,
+                                    ),
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1),
+                        const SizedBox(height: 2),
+                        Text(widget.dealerType,
+                            style: const TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                                color: purple),
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1)
+                      ],
+                    ),
                   )
                 ],
               ),
               const SizedBox(height: 16),
               Row(
                 children: [
-                  SvgPicture.asset(AppIcons.vehicleCar),
+                  SvgPicture.asset(AppIcons.location1),
                   const SizedBox(width: 8),
                   Text('${widget.quantityOfCars} ${LocaleKeys.carses.tr()}',
                       style: Theme.of(context)
@@ -146,7 +137,8 @@ class _DirectoryCardState extends State<DirectoryCard> {
                   SvgPicture.asset(AppIcons.clock),
                   const SizedBox(width: 8),
                   Text(
-                      '${LocaleKeys.every_day}, ${widget.contactFrom} - ${widget.contactTo}',
+                      //${LocaleKeys.every_day}
+                      'Каждый день, ${widget.contactFrom} - ${widget.contactTo}',
                       style: Theme.of(context)
                           .textTheme
                           .headline1!

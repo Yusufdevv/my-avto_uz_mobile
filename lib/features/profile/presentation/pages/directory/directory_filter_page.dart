@@ -62,13 +62,10 @@ class _DirectoryFilterPageState extends State<DirectoryFilterPage> {
       ),
       body:
           BlocBuilder<DirectoryBloc, DirectoryState>(builder: (context, state) {
-        print(state.categories);
-
         if (state.status.isSubmissionInProgress) {
           return const Center(child: CupertinoActivityIndicator());
         }
         if (state.status.isSubmissionSuccess) {
-          print(state.categories);
           return Container(
             padding: const EdgeInsets.fromLTRB(16, 20, 16, 16),
             child: Column(

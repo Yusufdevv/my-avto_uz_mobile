@@ -2,11 +2,13 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/core/utils/size_config.dart';
+import 'package:auto/features/ad/presentation/pages/ads/ads_screen.dart';
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
 import 'package:auto/features/common/widgets/custom_screen.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
+import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/profile/data/repositories/get_user_list_repo_impl.dart';
 import 'package:auto/features/profile/domain/entities/my_searches_entity.dart';
 import 'package:auto/features/profile/domain/usecases/get_my_searches_usecase.dart';
@@ -106,6 +108,12 @@ class _MySearchesPageState extends State<MySearchesPage> {
                                       deletedList.add(mySearches[index]);
                                     });
                                   }
+                                } else {
+                                  Navigator.push(context, fade(page: AdsScreen(
+                                    onBack: () {
+                                      Navigator.pop(context);
+                                    },
+                                  )));
                                 }
                               },
                               child: MySearchItem(

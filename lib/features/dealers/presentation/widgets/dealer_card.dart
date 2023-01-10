@@ -56,7 +56,7 @@ class _DealerCardState extends State<DealerCard> {
             context,
             fade(
               page: Seller(
-                dealerType: widget.dealerType,
+                // dealerType: widget.dealerType,
                 dealerName: widget.dealerName,
                 phoneNumber: widget.phoneNumber,
                 dealerInfo: widget.dealerInfo,
@@ -65,7 +65,7 @@ class _DealerCardState extends State<DealerCard> {
                 carCount: widget.quantityOfCars,
                 contactFrom: widget.contactFrom,
                 contactTo: widget.contactTo,
-              ),
+              )
             ),
           );
         },

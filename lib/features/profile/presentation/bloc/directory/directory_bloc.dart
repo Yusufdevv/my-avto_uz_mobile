@@ -38,7 +38,6 @@ class DirectoryBloc extends Bloc<DirectoryEvent, DirectoryState> {
       emit(state.copyWith(status: FormzStatus.submissionInProgress));
       final result = await getDirCategoriesUseCase(NoParams());
       if (result.isRight) {
-        print('======= ${result.right}');
         emit(state.copyWith(
           status: FormzStatus.submissionSuccess,
           categories: result.right,
