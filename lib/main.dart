@@ -120,7 +120,6 @@ class _AppState extends State<App> {
                 ..add(AnnouncementListEvent.getAnnouncementList()))
         ],
         child: MaterialApp(
-          
           supportedLocales: context.supportedLocales,
           localizationsDelegates: context.localizationDelegates,
           locale: context.locale,
