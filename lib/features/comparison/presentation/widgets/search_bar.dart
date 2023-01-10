@@ -8,10 +8,10 @@ class WSerachBar extends SliverPersistentHeaderDelegate {
   final Function() onChanged;
   WSerachBar({required this.controller, required this.onChanged});
   @override
-  double get minExtent => 60;
+  double get minExtent => 64;
 
   @override
-  double get maxExtent => 60;
+  double get maxExtent => 64;
 
   @override
   bool shouldRebuild(WSerachBar oldChild) => controller != oldChild.controller;

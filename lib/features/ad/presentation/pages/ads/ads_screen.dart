@@ -52,10 +52,6 @@ class _AdsScreenState extends State<AdsScreen>
   void initState() {
     _scrollController = ScrollController()..addListener(_scrollListener);
     tabController = TabController(length: 3, vsync: this);
-    print('===> ==> Bu yoda ishga tushdi');
-    context
-        .read<AnnouncementListBloc>()
-        .add(AnnouncementListEvent.getAnnouncementList());
     super.initState();
   }
 
@@ -196,9 +192,11 @@ class _AdsScreenState extends State<AdsScreen>
                           ),
                           AdsBodyScreen(
                             scrollController: _scrollController,
+                            isNew: true,
                           ),
                           AdsBodyScreen(
                             scrollController: _scrollController,
+                            isNew: false,
                           ),
                         ],
                       ),

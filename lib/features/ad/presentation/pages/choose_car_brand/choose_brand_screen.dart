@@ -202,12 +202,12 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
                           child: ListView.builder(
                             padding: const EdgeInsets.only(bottom: 50),
                             itemBuilder: (context, index) => ChangeCarItems(
-                              selectedId: getMakesState.selectedId,
+                              selectedId: getMakesState.selected,
                               id: index,
                               imageUrl: getMakesState.makes.results[index].logo,
                               name: getMakesState.makes.results[index].name,
                               text: '',
-                              bloc: carSelectorBloc,
+                              onTap: () {},
                             ),
                             itemCount: getMakesState.makes.results.length,
                           ),
