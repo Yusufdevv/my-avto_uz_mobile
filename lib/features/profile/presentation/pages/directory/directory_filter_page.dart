@@ -11,6 +11,7 @@ import 'package:auto/features/profile/presentation/widgets/directory_filter_cate
 import 'package:auto/features/profile/presentation/widgets/edit_item_container.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/rent_choose_region_bottom_sheet.dart';
 import 'package:auto/generated/locale_keys.g.dart';
+import 'package:auto/utils/my_functions.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -50,12 +51,21 @@ class _DirectoryFilterPageState extends State<DirectoryFilterPage> {
           const Spacer(
             flex: 30,
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Text(
-              LocaleKeys.clear.tr(),
-              style:
-                  Theme.of(context).textTheme.subtitle1!.copyWith(color: blue),
+          WScaleAnimation(
+            onTap: () {
+              newRegion = null;
+
+              setState(() {});
+            },
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Text(
+                LocaleKeys.clear.tr(),
+                style: Theme.of(context)
+                    .textTheme
+                    .subtitle1!
+                    .copyWith(color: blue),
+              ),
             ),
           ),
         ],
@@ -105,7 +115,7 @@ class _DirectoryFilterPageState extends State<DirectoryFilterPage> {
                             icon: AppIcons.chevronRightBlack,
                             region: newRegion == null
                                 ? 'Выберите регион'
-                                : text(newRegion!)),
+                                : MyFunctions.text(newRegion!)),
                       ),
                       const SizedBox(height: 16),
                       //Категории
@@ -125,19 +135,4 @@ class _DirectoryFilterPageState extends State<DirectoryFilterPage> {
         }
         return const SizedBox();
       }));
-}
-
-String text(List<Region>? list) {
-  // output : 'Sirdaryo, Namangan, Toshkent
-  var result = '';
-  if (list != null) {
-    for (var i = 0; i < list.length; i++) {
-      // ignore: use_string_buffers
-      result += list[i].title;
-      if (i != list.length - 1) {
-        result += ', ';
-      }
-    }
-  }
-  return result;
 }

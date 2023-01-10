@@ -22,10 +22,12 @@ class DirectoryCard extends StatefulWidget {
   final String contactFrom;
   final String contractCode;
   final String contractNumber;
+  final String region;
   final double latitude;
   final double longitude;
 
   const DirectoryCard({
+    required this.region,
     required this.dealerType,
     required this.dealerName,
     required this.dealerImageUrl,
@@ -124,7 +126,7 @@ class _DirectoryCardState extends State<DirectoryCard> {
                 children: [
                   SvgPicture.asset(AppIcons.location1),
                   const SizedBox(width: 8),
-                  Text('${widget.quantityOfCars} ${LocaleKeys.carses.tr()}',
+                  Text(widget.region,
                       style: Theme.of(context)
                           .textTheme
                           .headline1!

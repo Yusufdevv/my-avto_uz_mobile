@@ -38,6 +38,7 @@ class _DirectoryListState extends State<DirectoryList> {
                   itemBuilder: (context, index) {
                     final item = directories[index];
                     return DirectoryCard(
+                      region: item.region!,
                       dealerType: item.category!.name!,
                       dealerName: item.name!,
                       phoneNumber: '',
