@@ -1,10 +1,8 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
-import 'package:auto/features/common/bloc/get_car_model/get_car_model_bloc.dart';
 import 'package:auto/features/common/widgets/hight_light.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
 class ModelItems extends StatelessWidget {
@@ -12,20 +10,19 @@ class ModelItems extends StatelessWidget {
   final int id;
   final int selectedId;
   final String text;
+  final VoidCallback onTap;
   const ModelItems({
     required this.entity,
     required this.selectedId,
     required this.id,
     Key? key,
     required this.text,
+    required this.onTap,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) => GestureDetector(
-        onTap: () {
-          print('clicked');
-          BlocProvider.of<GetCarModelBloc>(context).add(GetCarModelEvent.selectedModelItem(id: id, name: entity));
-        },
+        onTap: onTap,
         child: Container(
           padding: const EdgeInsets.only(left: 16),
           color: id == selectedId

@@ -985,7 +985,7 @@ mixin _$GetMakesState {
   dynamic get next => throw _privateConstructorUsedError;
   dynamic get search => throw _privateConstructorUsedError;
   dynamic get count => throw _privateConstructorUsedError;
-  int get selectedId => throw _privateConstructorUsedError;
+  int get selectId => throw _privateConstructorUsedError;
   int get confirmId => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get imageUrl => throw _privateConstructorUsedError;
@@ -1008,7 +1008,7 @@ abstract class $GetMakesStateCopyWith<$Res> {
       dynamic next,
       dynamic search,
       dynamic count,
-      int selectedId,
+      int selectId,
       int confirmId,
       String name,
       String imageUrl});
@@ -1033,7 +1033,7 @@ class _$GetMakesStateCopyWithImpl<$Res, $Val extends GetMakesState>
     Object? next = freezed,
     Object? search = freezed,
     Object? count = freezed,
-    Object? selectedId = null,
+    Object? selectId = null,
     Object? confirmId = null,
     Object? name = null,
     Object? imageUrl = null,
@@ -1063,9 +1063,9 @@ class _$GetMakesStateCopyWithImpl<$Res, $Val extends GetMakesState>
           ? _value.count
           : count // ignore: cast_nullable_to_non_nullable
               as dynamic,
-      selectedId: null == selectedId
-          ? _value.selectedId
-          : selectedId // ignore: cast_nullable_to_non_nullable
+      selectId: null == selectId
+          ? _value.selectId
+          : selectId // ignore: cast_nullable_to_non_nullable
               as int,
       confirmId: null == confirmId
           ? _value.confirmId
@@ -1098,7 +1098,7 @@ abstract class _$$_GetMakesStateCopyWith<$Res>
       dynamic next,
       dynamic search,
       dynamic count,
-      int selectedId,
+      int selectId,
       int confirmId,
       String name,
       String imageUrl});
@@ -1121,7 +1121,7 @@ class __$$_GetMakesStateCopyWithImpl<$Res>
     Object? next = freezed,
     Object? search = freezed,
     Object? count = freezed,
-    Object? selectedId = null,
+    Object? selectId = null,
     Object? confirmId = null,
     Object? name = null,
     Object? imageUrl = null,
@@ -1139,9 +1139,9 @@ class __$$_GetMakesStateCopyWithImpl<$Res>
       next: freezed == next ? _value.next! : next,
       search: freezed == search ? _value.search! : search,
       count: freezed == count ? _value.count! : count,
-      selectedId: null == selectedId
-          ? _value.selectedId
-          : selectedId // ignore: cast_nullable_to_non_nullable
+      selectId: null == selectId
+          ? _value.selectId
+          : selectId // ignore: cast_nullable_to_non_nullable
               as int,
       confirmId: null == confirmId
           ? _value.confirmId
@@ -1165,11 +1165,11 @@ class _$_GetMakesState implements _GetMakesState {
   _$_GetMakesState(
       {this.status = FormzStatus.pure,
       this.makes = const GetMakeEntity(),
-      this.selected = -1,
+      this.selected = 0,
       this.next = '',
       this.search = '',
       this.count = 0,
-      this.selectedId = -1,
+      this.selectId = 0,
       this.confirmId = -1,
       this.name = '',
       this.imageUrl = ''});
@@ -1194,7 +1194,7 @@ class _$_GetMakesState implements _GetMakesState {
   final dynamic count;
   @override
   @JsonKey()
-  final int selectedId;
+  final int selectId;
   @override
   @JsonKey()
   final int confirmId;
@@ -1207,7 +1207,7 @@ class _$_GetMakesState implements _GetMakesState {
 
   @override
   String toString() {
-    return 'GetMakesState(status: $status, makes: $makes, selected: $selected, next: $next, search: $search, count: $count, selectedId: $selectedId, confirmId: $confirmId, name: $name, imageUrl: $imageUrl)';
+    return 'GetMakesState(status: $status, makes: $makes, selected: $selected, next: $next, search: $search, count: $count, selectId: $selectId, confirmId: $confirmId, name: $name, imageUrl: $imageUrl)';
   }
 
   @override
@@ -1221,8 +1221,8 @@ class _$_GetMakesState implements _GetMakesState {
             const DeepCollectionEquality().equals(other.next, next) &&
             const DeepCollectionEquality().equals(other.search, search) &&
             const DeepCollectionEquality().equals(other.count, count) &&
-            (identical(other.selectedId, selectedId) ||
-                other.selectedId == selectedId) &&
+            (identical(other.selectId, selectId) ||
+                other.selectId == selectId) &&
             (identical(other.confirmId, confirmId) ||
                 other.confirmId == confirmId) &&
             (identical(other.name, name) || other.name == name) &&
@@ -1239,7 +1239,7 @@ class _$_GetMakesState implements _GetMakesState {
       const DeepCollectionEquality().hash(next),
       const DeepCollectionEquality().hash(search),
       const DeepCollectionEquality().hash(count),
-      selectedId,
+      selectId,
       confirmId,
       name,
       imageUrl);
@@ -1259,7 +1259,7 @@ abstract class _GetMakesState implements GetMakesState {
       final dynamic next,
       final dynamic search,
       final dynamic count,
-      final int selectedId,
+      final int selectId,
       final int confirmId,
       final String name,
       final String imageUrl}) = _$_GetMakesState;
@@ -1277,7 +1277,7 @@ abstract class _GetMakesState implements GetMakesState {
   @override
   dynamic get count;
   @override
-  int get selectedId;
+  int get selectId;
   @override
   int get confirmId;
   @override

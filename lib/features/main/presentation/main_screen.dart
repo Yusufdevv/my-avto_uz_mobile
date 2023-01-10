@@ -84,11 +84,6 @@ class _MainScreenState extends State<MainScreen> {
         Navigator.push(context, fade(page: const DealerScreen()));
       },
       () {
-        BlocProvider.of<GetMakesBloc>(context).add(
-          GetMakesBlocEvent.selectedCarItems(id: -1, name: '', imageUrl: ''),
-        );
-        BlocProvider.of<GetCarModelBloc>(context)
-            .add(GetCarModelEvent.selectedModelItem(id: -1, name: ''));
         Navigator.of(context).push(fade(page: AdsScreen(onBack: () {
           Navigator.of(context).pop();
         })));

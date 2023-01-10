@@ -6,6 +6,7 @@ import 'package:auto/core/utils/size_config.dart';
 import 'package:auto/features/ad/data/repositories/ad_repository_impl.dart';
 import 'package:auto/features/ad/domain/usecases/get_car_model.dart';
 import 'package:auto/features/ad/domain/usecases/get_makes.dart';
+import 'package:auto/features/common/bloc/announcement_bloc/bloc/announcement_list_bloc.dart';
 import 'package:auto/features/common/bloc/auth/authentication_bloc.dart';
 import 'package:auto/features/common/bloc/comparison_add/bloc/comparison_add_bloc.dart';
 import 'package:auto/features/common/bloc/get_car_model/get_car_model_bloc.dart';
@@ -16,6 +17,7 @@ import 'package:auto/features/common/bloc/wishlist_add/wishlist_add_bloc.dart';
 import 'package:auto/features/common/repository/add_wishlist_repository.dart';
 import 'package:auto/features/common/repository/auth.dart';
 import 'package:auto/features/common/usecases/add_wishlist_usecase.dart';
+import 'package:auto/features/common/usecases/announcement_list_usecase.dart';
 import 'package:auto/features/common/usecases/get_regions.dart';
 import 'package:auto/features/comparison/data/repositories/comparison_cars_repo_impl.dart';
 import 'package:auto/features/comparison/domain/usecases/comparison_add_use_case.dart';
@@ -110,7 +112,12 @@ class _AppState extends State<App> {
                           serviceLocator<ComparisonCarsRepoImpl>()),
                   deleteUseCase: DeleteComparisonUseCase(
                       comparisonCarsRepo:
-                          serviceLocator<ComparisonCarsRepoImpl>())))
+                          serviceLocator<ComparisonCarsRepoImpl>()))),
+          BlocProvider(
+              create: (context) => AnnouncementListBloc(
+                  useCase: AnnouncementListUseCase(
+                      repositoryImpl: serviceLocator<AdRepositoryImpl>()))
+                ..add(AnnouncementListEvent.getAnnouncementList()))
         ],
         child: MaterialApp(
           

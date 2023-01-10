@@ -6,7 +6,7 @@ class FilterState extends Equatable {
   final BodyTypeEntity? bodyType;
   final DriveTypeEntity? carDriveType;
   final GearboxTypeEntity? gearboxType;
-
+  final int? idVal;
   final RangeValues yearValues;
   final RangeValues priceValues;
 
@@ -18,6 +18,7 @@ class FilterState extends Equatable {
     this.bodyType,
     this.carDriveType,
     this.gearboxType,
+    this.idVal,
   });
 
   FilterState copyWith({
@@ -28,6 +29,7 @@ class FilterState extends Equatable {
     GearboxTypeEntity? gearboxType,
     RangeValues? yearValues,
     RangeValues? priceValues,
+    int? idVal,
   }) =>
       FilterState(
         regions: regions ?? this.regions,
@@ -37,6 +39,7 @@ class FilterState extends Equatable {
         gearboxType: gearboxType ?? this.gearboxType,
         yearValues: yearValues ?? this.yearValues,
         priceValues: priceValues ?? this.priceValues,
+        idVal: idVal?? this.idVal,
       );
 
   @override
@@ -48,5 +51,6 @@ class FilterState extends Equatable {
         gearboxType,
         priceValues,
         yearValues,
+        idVal
       ];
 }

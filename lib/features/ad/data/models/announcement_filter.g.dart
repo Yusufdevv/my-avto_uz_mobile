@@ -9,10 +9,11 @@ part of 'announcement_filter.dart';
 AnnouncementFilterModel _$AnnouncementFilterModelFromJson(
         Map<String, dynamic> json) =>
     AnnouncementFilterModel(
-      make: json['make'] as int? ?? 0,
-      model: json['model'] as int? ?? 0,
+      make: json['make'] as int?,
+      model: json['model'] as int?,
       isNew: json['is_new'] as bool?,
       prosta: json['prosta'] as String? ?? '',
+      region: json['region'] as String? ?? '',
     );
 
 Map<String, dynamic> _$AnnouncementFilterModelToJson(
@@ -22,4 +23,5 @@ Map<String, dynamic> _$AnnouncementFilterModelToJson(
       'model': instance.model,
       'is_new': instance.isNew,
       'prosta': instance.prosta,
+      'region': instance.region,
     };

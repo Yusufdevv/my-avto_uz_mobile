@@ -52,8 +52,8 @@ class _ChooseMakerState extends State<ChooseMaker> {
                     SheetHeader(
                         title: 'Марка',
                         onCancelPressed: () {
-                          Navigator.of(context).pop(state.selected >= 0
-                              ? state.makes.results[state.selected]
+                          Navigator.of(context).pop(state.selectId >= 0
+                              ? state.makes.results[state.selectId]
                               : null);
                         }),
                     const Divider(thickness: 1, color: border, height: 1),
@@ -76,7 +76,7 @@ class _ChooseMakerState extends State<ChooseMaker> {
                                                 state.makes.results[index].logo,
                                             title:
                                                 state.makes.results[index].name,
-                                            isChecked: state.selected == index,
+                                            isChecked: state.selectId == index,
                                           ),
                                         ),
                                         Visibility(
@@ -101,8 +101,8 @@ class _ChooseMakerState extends State<ChooseMaker> {
                           left: 16, right: 16, bottom: 50),
                       child: WButton(
                           onTap: () {
-                            Navigator.of(context).pop(state.selected >= 0
-                                ? state.makes.results[state.selected]
+                            Navigator.of(context).pop(state.selectId >= 0
+                                ? state.makes.results[state.selectId]
                                 : null);
                           },
                           color: orange,

@@ -22,8 +22,6 @@ class GetMakesBloc extends Bloc<GetMakesBlocEvent, GetMakesState> {
       if (result.isRight) {
         emit(
           state.copyWith(
-            selected: result.right.results
-                .indexWhere((element) => element.id == selectedMakeId),
             makes: result.right,
             status: FormzStatus.submissionSuccess,
             count: result.right.count,
@@ -36,14 +34,18 @@ class GetMakesBloc extends Bloc<GetMakesBlocEvent, GetMakesState> {
     });
     on<_GetSerched>((event, emit) => emit(state.copyWith(search: event.naem)));
     on<_SelectedCarItems>((event, emit) {
+      print('======   select card item event triggere');
+      print('======   id: ${event.id}');
+      print('======   ${event.name}');     
+      print('======   ${event.imageUrl}');
       emit(state.copyWith(
-          selectedId: event.id, name: event.name, imageUrl: event.imageUrl));
+          selectId: event.id, name: event.name, imageUrl: event.imageUrl));
     });
     on<_ConfirmCarOption>((event, emit) {
-      emit(state.copyWith(confirmId: state.selectedId));
+      emit(state.copyWith(confirmId: state.selectId));
     });
     on<_RevertCarOption>((event, emit) {
-      emit(state.copyWith(selectedId: state.confirmId));
+      emit(state.copyWith(selectId: state.confirmId));
     });
   }
 }

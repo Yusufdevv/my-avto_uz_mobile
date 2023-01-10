@@ -33,6 +33,7 @@ class TopBrands extends StatelessWidget {
                   hasShadow: true,
                 ),
                 itemCount: state.brands.length,
+                
               ),
             ),
           ),

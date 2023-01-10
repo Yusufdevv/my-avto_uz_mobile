@@ -25,11 +25,15 @@ class _ChooseCarModelComparison extends State<ChooseCarModelComparison> {
   late int id;
   @override
   void initState() {
-    id = BlocProvider.of<GetMakesBloc>(context).state.selectedId;
+    id = context.read<GetMakesBloc>().state.selectId;
     searchController = TextEditingController();
-    BlocProvider.of<GetCarModelBloc>(context).add(
-      GetCarModelEvent.getCarModel(id),
-    );
+    context.read<GetCarModelBloc>().add(GetCarModelEvent.getSerched(''));
+    context.read<GetCarModelBloc>().add(
+          GetCarModelEvent.getCarModel(id),
+        );
+    context.read<GetCarModelBloc>().add(
+          GetCarModelEvent.selectedModelItem(id: -1, name: ''),
+        );
     super.initState();
   }
 
@@ -44,7 +48,7 @@ class _ChooseCarModelComparison extends State<ChooseCarModelComparison> {
         child: Scaffold(
           resizeToAvoidBottomInset: false,
           body: BlocBuilder<GetCarModelBloc, GetCarModelState>(
-            bloc: BlocProvider.of<GetCarModelBloc>(context),
+            bloc: context.read<GetCarModelBloc>(),
             builder: (context, state) => Stack(
               children: [
                 CustomScrollView(
@@ -89,12 +93,13 @@ class _ChooseCarModelComparison extends State<ChooseCarModelComparison> {
                         delegate: WSerachBar(
                           controller: searchController,
                           onChanged: () {
-                            BlocProvider.of<GetCarModelBloc>(context).add(
-                              GetCarModelEvent.getSerched(
-                                searchController.text,
-                              ),
-                            );
-                            BlocProvider.of<GetCarModelBloc>(context)
+                            context.read<GetCarModelBloc>().add(
+                                  GetCarModelEvent.getSerched(
+                                    searchController.text,
+                                  ),
+                                );
+                            context
+                                .read<GetCarModelBloc>()
                                 .add(GetCarModelEvent.getCarModel(id));
                           },
                         ),
@@ -164,6 +169,18 @@ class _ChooseCarModelComparison extends State<ChooseCarModelComparison> {
                             selectedId: state.selectedId,
                             id: state.model.results[index].id,
                             text: state.search,
+                            onTap: () {
+                              print("Bu kelgan IdMake $id");
+                              print(
+                                  'clicked Bu id ${state.model.results[index].id} Bu ${state.selectedId}');
+                              context.read<GetCarModelBloc>().add(
+                                  GetCarModelEvent.selectedModelItem(
+                                      id: state.model.results[index].id,
+                                      name: state.model.results[index].name));
+                              print(
+                                  'clicked Bu keyingi ${state.model.results[index].id} Bu ${state.selectedId}');
+                              setState(() {});
+                            },
                           ),
                         ),
                         childCount: state.model.results.length,

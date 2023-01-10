@@ -15,7 +15,7 @@ class ChangeCarItems extends StatelessWidget {
   final int id;
   final int selectedId;
   final String text;
-  final GetMakesBloc bloc;
+  final VoidCallback onTap;
   const ChangeCarItems({
     required this.selectedId,
     required this.id,
@@ -23,16 +23,12 @@ class ChangeCarItems extends StatelessWidget {
     required this.name,
     required this.imageUrl,
     required this.text,
-    required this.bloc,
+    required this.onTap,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) => GestureDetector(
-        onTap: () {
-          bloc.add(
-          GetMakesBlocEvent.selectedCarItems(id: id, name: name, imageUrl: imageUrl),
-          );
-        },
+        onTap: onTap,
         child: Container(
           padding: const EdgeInsets.only(left: 16),
           color: id == selectedId

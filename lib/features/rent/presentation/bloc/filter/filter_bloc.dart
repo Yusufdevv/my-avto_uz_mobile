@@ -1,3 +1,4 @@
+import 'package:auto/assets/colors/color.dart';
 import 'package:auto/features/ad/domain/entities/types/body_type.dart';
 import 'package:auto/features/ad/domain/entities/types/drive_type.dart';
 import 'package:auto/features/ad/domain/entities/types/gearbox_type.dart';
@@ -16,6 +17,7 @@ class FilterBloc extends Bloc<FilterEvent, FilterState> {
   final BodyTypeEntity? bodyType;
   final DriveTypeEntity? carDriveType;
   final GearboxTypeEntity? gearboxType;
+  final int? idVal;
 
   final RangeValues? yearValues;
   final RangeValues? priceValues;
@@ -27,12 +29,14 @@ class FilterBloc extends Bloc<FilterEvent, FilterState> {
     this.gearboxType,
     this.yearValues,
     this.priceValues,
+    this.idVal,
   }) : super(FilterState(
           bodyType: bodyType,
           carDriveType: carDriveType,
           gearboxType: gearboxType,
           maker: maker,
           regions: regions,
+          idVal: idVal,
           yearValues: yearValues ?? RangeValues(1960, DateTime.now().year + 0),
           priceValues: priceValues ?? const RangeValues(1000, 500000),
         )) {
@@ -49,6 +53,7 @@ class FilterBloc extends Bloc<FilterEvent, FilterState> {
         priceValues: event.priceValues,
         yearValues: event.yearValues,
         regions: event.regions,
+        idVal: event.idVal,
       ));
     });
   }

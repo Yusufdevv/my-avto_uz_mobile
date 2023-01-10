@@ -15,8 +15,7 @@ import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 class ChooseCarBrandComparison extends StatefulWidget {
   final VoidCallback onTap;
-  const ChooseCarBrandComparison(
-      {required this.onTap, Key? key})
+  const ChooseCarBrandComparison({required this.onTap, Key? key})
       : super(key: key);
 
   @override
@@ -34,6 +33,10 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
   @override
   void initState() {
     searchController = TextEditingController();
+    context.read<GetMakesBloc>().add(GetMakesBlocEvent.getSerched(''));
+    context.read<GetMakesBloc>().add(GetMakesBlocEvent.getMakes());
+    context.read<GetMakesBloc>().add(
+        GetMakesBlocEvent.selectedCarItems(id: -1, name: '', imageUrl: ''));
     scrollingBloc = ScrollingBloc();
     scrollController = ScrollController();
     scrollController.addListener(() {
@@ -51,6 +54,7 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
   @override
   Widget build(BuildContext context) => KeyboardDismisser(
         child: BlocBuilder<GetMakesBloc, GetMakesState>(
+          bloc: context.read<GetMakesBloc>(),
           builder: (context, state) => Scaffold(
             resizeToAvoidBottomInset: false,
             body: Stack(
@@ -97,12 +101,14 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
                         delegate: WSerachBar(
                           controller: searchController,
                           onChanged: () {
-                            BlocProvider.of<GetMakesBloc>(context).add(
-                              GetMakesBlocEvent.getSerched(
-                                searchController.text,
-                              ),
-                            );
-                            BlocProvider.of<GetMakesBloc>(context).add(GetMakesBlocEvent.getMakes());
+                            context.read<GetMakesBloc>().add(
+                                  GetMakesBlocEvent.getSerched(
+                                    searchController.text,
+                                  ),
+                                );
+                            context
+                                .read<GetMakesBloc>()
+                                .add(GetMakesBlocEvent.getMakes());
                           },
                         ),
                         pinned: true,
@@ -163,12 +169,23 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
                           .extension<ThemedColors>()!
                           .whiteToDark,
                       child: ChangeCarItems(
-                        selectedId: state.selectedId,
+                        selectedId: state.selectId,
                         id: state.makes.results[index].id,
                         imageUrl: state.makes.results[index].logo,
                         name: state.makes.results[index].name,
                         text: state.search,
-                        bloc: BlocProvider.of<GetMakesBloc>(context),
+                        onTap: () {
+                          print(
+                              '===> ==> Bu Boshida ${state.makes.results[index].id}');
+                          context.read<GetMakesBloc>().add(
+                                GetMakesBlocEvent.selectedCarItems(
+                                  id: state.makes.results[index].id,
+                                  name: state.makes.results[index].name,
+                                  imageUrl: state.makes.results[index].logo,
+                                ),
+                              );
+                          print('===> ==> Bu stateda ${state.selectId}');
+                        },
                       ),
                     ),
                   ),
@@ -178,16 +195,16 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
                   right: 16,
                   left: 16,
                   child: WButton(
-                      onTap: state.selectedId == -1 ? () {} : widget.onTap,
-                      text: 'Далее',
-                      shadow: [
-                        BoxShadow(
-                          offset: const Offset(0, 4),
-                          blurRadius: 20,
-                          color: orange.withOpacity(0.2),
-                        ),
-                      ],
-                    ),
+                    onTap: state.selectId == -1 ? () {} : widget.onTap,
+                    text: 'Далее',
+                    shadow: [
+                      BoxShadow(
+                        offset: const Offset(0, 4),
+                        blurRadius: 20,
+                        color: orange.withOpacity(0.2),
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),

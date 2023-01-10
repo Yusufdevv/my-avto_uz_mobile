@@ -7,6 +7,7 @@ import 'package:auto/features/ad/domain/entities/types/gearbox_type.dart';
 import 'package:auto/features/common/usecases/announcement_list_usecase.dart';
 import 'package:auto/features/comparison/domain/entities/announcement_list_entity.dart';
 import 'package:bloc/bloc.dart';
+import 'package:flutter/material.dart';
 import 'package:formz/formz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -21,6 +22,7 @@ class AnnouncementListBloc
       : super(AnnouncementListState()) {
     on<_GetAnnouncementList>((event, emit) async {
       emit(state.copyWith(status: FormzStatus.submissionInProgress));
+      print('====> filter as string ${state.filter}');
       final result = await useCase.call(state.filter);
       if (result.isRight) {
         emit(
@@ -28,7 +30,7 @@ class AnnouncementListBloc
             announcementList: result.right.results,
             status: FormzStatus.submissionSuccess,
             count: result.right.count,
-            next: result.right.next,
+            next: result.right.next ?? '',
           ),
         );
       } else {
@@ -38,11 +40,13 @@ class AnnouncementListBloc
     on<_GetFilter>(
       (event, emit) => emit(state.copyWith(filter: event.filter)),
     );
-        on<_GetIdVal>((event, emit) {
-      emit(state.copyWith(idVal: event.id));
-    });
-    on<_GetBodyType>((event, emit) => emit(state.copyWith(bodyTypeEntity: event.entity)));
-    on<_GetDriveType>((event, emit) => emit(state.copyWith(driveTypeEntity: event.entity)));
-    on<_GetGearboxType>((event, emit) => emit(state.copyWith(gearboxTypeEntity: event.entity)));
+    on<_GetInfo>((event, emit) => emit(state.copyWith(
+          bodyTypeEntity: event.bodyType!,
+          gearboxTypeEntity: event.gearboxType!,
+          driveTypeEntity: event.carDriveType!,
+          yearValues: event.yearValues!,
+          priceValues: event.priceValues!,
+          idVal: event.idVal!,
+        )));
   }
 }
