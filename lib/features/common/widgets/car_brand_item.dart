@@ -23,7 +23,6 @@ class CarBrandItem extends StatelessWidget {
           height: 100,
           width: 80,
           padding: const EdgeInsets.symmetric(horizontal: 8),
-          margin: const EdgeInsets.only(left: 12),
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
               color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,

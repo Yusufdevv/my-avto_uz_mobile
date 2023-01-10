@@ -8,7 +8,6 @@ import 'package:auto/features/common/bloc/get_makes_bloc/get_makes_bloc_bloc.dar
 
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/comparison/presentation/pages/choose_car_brand.dart';
-import 'package:auto/features/comparison/presentation/pages/choose_model.dart';
 import 'package:auto/features/dealers/presentation/dealers_main.dart';
 import 'package:auto/features/main/domain/entities/service_entity.dart';
 import 'package:auto/features/main/domain/usecases/get_top_ads.dart';
@@ -16,7 +15,7 @@ import 'package:auto/features/main/domain/usecases/get_top_brand.dart';
 import 'package:auto/features/main/presentation/bloc/main_bloc.dart';
 import 'package:auto/features/main/presentation/bloc/top_ad/top_ad_bloc.dart';
 import 'package:auto/features/main/presentation/bloc/top_brand/top_brand_bloc.dart';
-import 'package:auto/features/main/presentation/pages/story_screen.dart';
+import 'package:auto/features/main/presentation/parts/stories.dart';
 import 'package:auto/features/main/presentation/parts/top_ads.dart';
 import 'package:auto/features/main/presentation/parts/top_brands.dart';
 import 'package:auto/features/main/presentation/widgets/car_model_item.dart';
@@ -24,8 +23,6 @@ import 'package:auto/features/main/presentation/widgets/deal_button.dart';
 import 'package:auto/features/main/presentation/widgets/favourite_item.dart';
 import 'package:auto/features/main/presentation/widgets/main_app_bar.dart';
 import 'package:auto/features/main/presentation/widgets/service_item.dart';
-import 'package:auto/features/main/presentation/widgets/story_item.dart';
-import 'package:auto/features/main/presentation/widgets/story_shimmer_item.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/reels/presentation/pages/reels_screen.dart';
 import 'package:auto/features/rent/presentation/rent_screen.dart';
@@ -34,6 +31,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:formz/formz.dart';
 import 'package:yandex_mapkit/yandex_mapkit.dart';
 
 class MainScreen extends StatefulWidget {
@@ -73,6 +71,7 @@ class _MainScreenState extends State<MainScreen> {
     ),
   ];
   int n = 10;
+
   @override
   void initState() {
     mainBloc = MainBloc()..add(InitialEvent());
@@ -132,31 +131,13 @@ class _MainScreenState extends State<MainScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(
-                    height: 96,
-                    child: ListView.separated(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      itemBuilder: (context, index) => state.stories.isEmpty
-                          ? const StoryShimmerItem()
-                          : StoryItem(
-                              title: state.stories[index].name,
-                              image: state
-                                  .stories[index].coverImageThumbnail.square,
-                              onTap: () {
-                                Navigator.of(context, rootNavigator: true)
-                                    .push(fade(
-                                        page: StoryScreen(
-                                  stories: state.stories,
-                                  index: index,
-                                )));
-                              },
-                              isRead: state.stories[index].isRead,
-                            ),
-                      itemCount:
-                          state.stories.isEmpty ? 5 : state.stories.length,
-                      scrollDirection: Axis.horizontal,
-                      separatorBuilder: (context, index) =>
-                          const SizedBox(width: 8),
+                  Visibility(
+                    visible: state.statusStoriesGet.isSubmissionInProgress ||
+                        state.statusStoriesGet.isSubmissionSuccess &&
+                            state.stories.isNotEmpty,
+                    child: Stories(
+                      status: state.statusStoriesGet,
+                      stories: state.stories,
                     ),
                   ),
                   const SizedBox(height: 16),
@@ -191,8 +172,26 @@ class _MainScreenState extends State<MainScreen> {
                       scrollDirection: Axis.horizontal,
                     ),
                   ),
-                  const TopBrands(),
-                  const TopAds(),
+                  BlocBuilder<TopBrandBloc, TopBrandState>(
+                    builder: (context, state) => Visibility(
+                      visible: state.status.isSubmissionInProgress ||
+                          state.status.isSubmissionSuccess &&
+                              state.brands.isNotEmpty,
+                      child: TopBrands(
+                        status: state.status,
+                        brands: state.brands,
+                      ),
+                    ),
+                  ),
+                  BlocBuilder<TopAdBloc, TopAdState>(
+                    builder: (context, state) => Visibility(
+                      visible: true,
+                      child: TopAds(
+                        status: FormzStatus.pure,
+                        topAds: state.topAds,
+                      ),
+                    ),
+                  ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: Text(

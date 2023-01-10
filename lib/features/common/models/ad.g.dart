@@ -26,7 +26,7 @@ AdModel _$AdModelFromJson(Map<String, dynamic> json) => AdModel(
           : const CarUserConverter()
               .fromJson(json['user'] as Map<String, dynamic>?),
       isWishlisted: json['is_wishlisted'] as bool? ?? false,
-      price: json['price'] as String? ?? '',
+      price: json['price'] as int? ?? 0,
     );
 
 Map<String, dynamic> _$AdModelToJson(AdModel instance) => <String, dynamic>{
