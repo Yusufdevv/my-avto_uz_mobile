@@ -2,6 +2,7 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/profile/presentation/widgets/radio_item.dart';
@@ -12,8 +13,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 class LanguageBottomSheet extends StatefulWidget {
   const LanguageBottomSheet({
+    required this.onTap,
     Key? key,
   }) : super(key: key);
+  final Function() onTap;
 
   @override
   State<LanguageBottomSheet> createState() => LanguageBottomSheetState();
@@ -21,15 +24,26 @@ class LanguageBottomSheet extends StatefulWidget {
 
 class LanguageBottomSheetState extends State<LanguageBottomSheet> {
   List<String> titleList = [
-    'Русский',
     'O‘zbekcha',
+    'Русский',
   ];
   List<String> img = [
-    AppImages.russian,
     AppImages.uzbek,
+    AppImages.russian,
   ];
+  late int selectedLanguage;
+  late int oldLangIndex;
 
-  int selectedLanguage = 0;
+  @override
+  void initState() {
+    StorageRepository.getString('language') == 'uz'
+        ? selectedLanguage = 0
+        : selectedLanguage = 1;
+    StorageRepository.getString('language') == 'uz'
+        ? oldLangIndex = 0
+        : oldLangIndex = 1;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) => Container(
@@ -59,6 +73,10 @@ class LanguageBottomSheetState extends State<LanguageBottomSheet> {
                       height: 32,
                     ),
                     onTap: () {
+                      if (selectedLanguage!=oldLangIndex) {
+                        StorageRepository.putString(
+                            'language', oldLangIndex == 0 ? 'uz' : 'ru');
+                      } 
                       Navigator.of(context).pop();
                     }),
               ],
@@ -78,9 +96,10 @@ class LanguageBottomSheetState extends State<LanguageBottomSheet> {
                       isHaveImage: true,
                       img: img[index],
                       onTap: (value) {
-                        setState(() {
-                          selectedLanguage = index;
-                        });
+                        selectedLanguage = index;
+                        StorageRepository.putString(
+                            'language', selectedLanguage == 0 ? 'uz' : 'ru');
+                        setState(() {});
                       },
                       title: titleList[index],
                       value: selectedLanguage,
@@ -96,9 +115,7 @@ class LanguageBottomSheetState extends State<LanguageBottomSheet> {
               ],
               margin: EdgeInsets.only(
                   top: 20, bottom: MediaQuery.of(context).padding.bottom),
-              onTap: () {
-                Navigator.pop(context);
-              },
+              onTap: widget.onTap,
               child: Text(
                 LocaleKeys.confirm.tr(),
                 style: Theme.of(context)

@@ -2,6 +2,7 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/assets/themes/theme_extensions/w_textfield_style.dart';
+import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/core/utils/size_config.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
@@ -13,10 +14,16 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class SettingsPage extends StatelessWidget {
+class SettingsPage extends StatefulWidget {
   final ProfileBloc profileBloc;
 
   SettingsPage({required this.profileBloc, Key? key}) : super(key: key);
+
+  @override
+  State<SettingsPage> createState() => _SettingsPageState();
+}
+
+class _SettingsPageState extends State<SettingsPage> {
   final edit = <List<String>>[
     [
       LocaleKeys.change_password.tr(),
@@ -79,7 +86,8 @@ class SettingsPage extends StatelessWidget {
                   onTap: () {
                     Navigator.of(context).push(
                       fade(
-                        page: PasswordChangingPage(profileBloc: profileBloc),
+                        page: PasswordChangingPage(
+                            profileBloc: widget.profileBloc),
                       ),
                     );
                   },
@@ -133,7 +141,12 @@ class SettingsPage extends StatelessWidget {
                         backgroundColor: Colors.transparent,
                         constraints: BoxConstraints(
                             minWidth: MediaQuery.of(context).size.width),
-                        builder: (context) => const LanguageBottomSheet());
+                        builder: (context) => LanguageBottomSheet(
+                              onTap: () {
+                                Navigator.pop(context);
+                                setState(() {});
+                              },
+                            ));
                   },
                   child: Container(
                     padding: EdgeInsets.symmetric(
@@ -164,7 +177,10 @@ class SettingsPage extends StatelessWidget {
                                       fontWeight: FontWeight.w600),
                             ),
                             const Spacer(),
-                            Text('Русский',
+                            Text(
+                                StorageRepository.getString('language') == 'uz'
+                                    ? "O'zbek"
+                                    : 'Русский',
                                 style: Theme.of(context).textTheme.headline2),
                             SizedBox(width: SizeConfig.h(12)),
                             SvgPicture.asset(
