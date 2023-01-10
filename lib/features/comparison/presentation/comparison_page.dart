@@ -36,81 +36,100 @@ class _ComparisonPageState extends State<ComparisonPage> {
   }
 
   @override
-  Widget build(BuildContext context) => MultiBlocProvider(
-        providers: [
-          BlocProvider(
-            create: (context) => bloc,
-          ),
-        ],
-        child: Scaffold(
-          appBar: WAppBar(
-            title: LocaleKeys.car_comparison.tr(),
-            titleStyle: Theme.of(context)
-                .textTheme
-                .headline1!
-                .copyWith(fontSize: 16, fontWeight: FontWeight.w600),
-          ),
-          body: BlocBuilder<ComparisonBloc, ComparisonState>(
-            builder: (context, state) {
-              if (state.cars.isEmpty) {
-                return EmptyComparison(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      fade(
-                        page: ChooseCarBrandComparison(
-                          onTap: () => Navigator.of(context).push(
-                            fade(
-                              page: ChooseCarModelComparison(
-                                onTap: () {
-                                  print(
-                                      '===> ==> comparsin make ${context.read<GetMakesBloc>().state.selectId}');
-                                  context.read<AnnouncementListBloc>().add(
-                                        AnnouncementListEvent.getFilter(
-                                          context
-                                              .read<AnnouncementListBloc>()
-                                              .state
-                                              .filter
-                                              .copyWith(
-                                                make: context
-                                                    .read<GetMakesBloc>()
-                                                    .state
-                                                    .selectId,
-                                                model: context
-                                                    .read<GetCarModelBloc>()
-                                                    .state
-                                                    .selectedId,
-                                              ),
+  Widget build(BuildContext context) => WillPopScope(
+        onWillPop: () async {
+          context
+              .read<GetCarModelBloc>()
+              .add(GetCarModelEvent.selectedModelItem(id: -1, name: ''));
+          context.read<GetMakesBloc>().add(GetMakesBlocEvent.selectedCarItems(
+              id: -1, name: '', imageUrl: ''));
+          return true;
+        },
+        child: MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (context) => bloc,
+            ),
+          ],
+          child: Scaffold(
+            appBar: WAppBar(
+              title: LocaleKeys.car_comparison.tr(),
+              titleStyle: Theme.of(context)
+                  .textTheme
+                  .headline1!
+                  .copyWith(fontSize: 16, fontWeight: FontWeight.w600),
+              onTapBack: () {
+                context
+                    .read<GetCarModelBloc>()
+                    .add(GetCarModelEvent.selectedModelItem(id: -1, name: ''));
+                context.read<GetMakesBloc>().add(
+                    GetMakesBlocEvent.selectedCarItems(
+                        id: -1, name: '', imageUrl: ''));
+                Navigator.pop(context);
+              },
+            ),
+            body: BlocBuilder<ComparisonBloc, ComparisonState>(
+              builder: (context, state) {
+                if (state.cars.isEmpty) {
+                  return EmptyComparison(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        fade(
+                          page: ChooseCarBrandComparison(
+                            onTap: () => Navigator.of(context).push(
+                              fade(
+                                page: ChooseCarModelComparison(
+                                  onTap: () {
+                                    print(
+                                        '===> ==> comparsin make ${context.read<GetMakesBloc>().state.selectId}');
+                                    context.read<AnnouncementListBloc>().add(
+                                          AnnouncementListEvent.getFilter(
+                                            context
+                                                .read<AnnouncementListBloc>()
+                                                .state
+                                                .filter
+                                                .copyWith(
+                                                  make: context
+                                                      .read<GetMakesBloc>()
+                                                      .state
+                                                      .selectId,
+                                                  model: context
+                                                      .read<GetCarModelBloc>()
+                                                      .state
+                                                      .selectedId,
+                                                ),
+                                          ),
+                                        );
+                                    Navigator.of(context).push(
+                                      fade(
+                                        page: AdsScreen(
+                                          onBack: () {
+                                            bloc.add(GetComparableCars());
+                                            Navigator.of(context).pop();
+                                            Navigator.of(context).pop();
+                                            Navigator.of(context).pop();
+                                          },
                                         ),
-                                      );
-                                  Navigator.of(context).push(
-                                    fade(
-                                      page: AdsScreen(
-                                        onBack: () {
-                                          bloc.add(GetComparableCars());
-                                          Navigator.of(context).pop();
-                                          Navigator.of(context).pop();
-                                          Navigator.of(context).pop();
-                                        },
                                       ),
-                                    ),
-                                  );
-                                },
+                                    );
+                                  },
+                                ),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                    );
-                  },
-                );
-              } else {
-                return Comparison(
-                  isSticky: state.isSticky,
-                  comparisonBloc: bloc,
-                );
-              }
-            },
+                      );
+                    },
+                  );
+                } else {
+                  return Comparison(
+                    isSticky: state.isSticky,
+                    comparisonBloc: bloc,
+                  );
+                }
+              },
+            ),
           ),
         ),
       );

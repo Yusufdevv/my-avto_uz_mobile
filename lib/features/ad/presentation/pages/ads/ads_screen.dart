@@ -189,6 +189,7 @@ class _AdsScreenState extends State<AdsScreen>
                         children: [
                           AdsBodyScreen(
                             scrollController: _scrollController,
+                            isNew: null,
                           ),
                           AdsBodyScreen(
                             scrollController: _scrollController,

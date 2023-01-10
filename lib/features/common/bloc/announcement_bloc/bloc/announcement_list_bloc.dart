@@ -40,13 +40,22 @@ class AnnouncementListBloc
     on<_GetFilter>(
       (event, emit) => emit(state.copyWith(filter: event.filter)),
     );
+    on<_GetFilterClear>(
+      (event, emit) =>
+          emit(state.copyWith(filter: const AnnouncementFilterModel())),
+    );
     on<_GetInfo>((event, emit) => emit(state.copyWith(
-          bodyTypeEntity: event.bodyType!,
-          gearboxTypeEntity: event.gearboxType!,
-          driveTypeEntity: event.carDriveType!,
-          yearValues: event.yearValues!,
-          priceValues: event.priceValues!,
-          idVal: event.idVal!,
+          bodyTypeEntity: event.bodyType,
+          gearboxTypeEntity: event.gearboxType,
+          driveTypeEntity: event.carDriveType,
+          yearValues: event.yearValues == null
+              ? const RangeValues(1960, 2023)
+              : event.yearValues!,
+          priceValues: event.priceValues == null
+              ? const RangeValues(1000, 500000)
+              : event.priceValues!,
+          idVal: event.idVal,
+          isFilter: event.isFilter!,
         )));
   }
 }

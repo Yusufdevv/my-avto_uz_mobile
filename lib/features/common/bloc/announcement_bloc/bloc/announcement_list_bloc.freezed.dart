@@ -19,6 +19,7 @@ mixin _$AnnouncementListEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getAnnouncementList,
+    required TResult Function() getFilterClear,
     required TResult Function(AnnouncementFilterModel filter) getFilter,
     required TResult Function(
             RangeValues? yearValues,
@@ -26,13 +27,15 @@ mixin _$AnnouncementListEvent {
             BodyTypeEntity? bodyType,
             DriveTypeEntity? carDriveType,
             GearboxTypeEntity? gearboxType,
-            int? idVal)
+            int? idVal,
+            bool? isFilter)
         getInfo,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getAnnouncementList,
+    TResult? Function()? getFilterClear,
     TResult? Function(AnnouncementFilterModel filter)? getFilter,
     TResult? Function(
             RangeValues? yearValues,
@@ -40,13 +43,15 @@ mixin _$AnnouncementListEvent {
             BodyTypeEntity? bodyType,
             DriveTypeEntity? carDriveType,
             GearboxTypeEntity? gearboxType,
-            int? idVal)?
+            int? idVal,
+            bool? isFilter)?
         getInfo,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getAnnouncementList,
+    TResult Function()? getFilterClear,
     TResult Function(AnnouncementFilterModel filter)? getFilter,
     TResult Function(
             RangeValues? yearValues,
@@ -54,7 +59,8 @@ mixin _$AnnouncementListEvent {
             BodyTypeEntity? bodyType,
             DriveTypeEntity? carDriveType,
             GearboxTypeEntity? gearboxType,
-            int? idVal)?
+            int? idVal,
+            bool? isFilter)?
         getInfo,
     required TResult orElse(),
   }) =>
@@ -62,6 +68,7 @@ mixin _$AnnouncementListEvent {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_GetAnnouncementList value) getAnnouncementList,
+    required TResult Function(_GetFilterClear value) getFilterClear,
     required TResult Function(_GetFilter value) getFilter,
     required TResult Function(_GetInfo value) getInfo,
   }) =>
@@ -69,6 +76,7 @@ mixin _$AnnouncementListEvent {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetAnnouncementList value)? getAnnouncementList,
+    TResult? Function(_GetFilterClear value)? getFilterClear,
     TResult? Function(_GetFilter value)? getFilter,
     TResult? Function(_GetInfo value)? getInfo,
   }) =>
@@ -76,6 +84,7 @@ mixin _$AnnouncementListEvent {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetAnnouncementList value)? getAnnouncementList,
+    TResult Function(_GetFilterClear value)? getFilterClear,
     TResult Function(_GetFilter value)? getFilter,
     TResult Function(_GetInfo value)? getInfo,
     required TResult orElse(),
@@ -141,6 +150,7 @@ class _$_GetAnnouncementList implements _GetAnnouncementList {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getAnnouncementList,
+    required TResult Function() getFilterClear,
     required TResult Function(AnnouncementFilterModel filter) getFilter,
     required TResult Function(
             RangeValues? yearValues,
@@ -148,7 +158,8 @@ class _$_GetAnnouncementList implements _GetAnnouncementList {
             BodyTypeEntity? bodyType,
             DriveTypeEntity? carDriveType,
             GearboxTypeEntity? gearboxType,
-            int? idVal)
+            int? idVal,
+            bool? isFilter)
         getInfo,
   }) {
     return getAnnouncementList();
@@ -158,6 +169,7 @@ class _$_GetAnnouncementList implements _GetAnnouncementList {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getAnnouncementList,
+    TResult? Function()? getFilterClear,
     TResult? Function(AnnouncementFilterModel filter)? getFilter,
     TResult? Function(
             RangeValues? yearValues,
@@ -165,7 +177,8 @@ class _$_GetAnnouncementList implements _GetAnnouncementList {
             BodyTypeEntity? bodyType,
             DriveTypeEntity? carDriveType,
             GearboxTypeEntity? gearboxType,
-            int? idVal)?
+            int? idVal,
+            bool? isFilter)?
         getInfo,
   }) {
     return getAnnouncementList?.call();
@@ -175,6 +188,7 @@ class _$_GetAnnouncementList implements _GetAnnouncementList {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getAnnouncementList,
+    TResult Function()? getFilterClear,
     TResult Function(AnnouncementFilterModel filter)? getFilter,
     TResult Function(
             RangeValues? yearValues,
@@ -182,7 +196,8 @@ class _$_GetAnnouncementList implements _GetAnnouncementList {
             BodyTypeEntity? bodyType,
             DriveTypeEntity? carDriveType,
             GearboxTypeEntity? gearboxType,
-            int? idVal)?
+            int? idVal,
+            bool? isFilter)?
         getInfo,
     required TResult orElse(),
   }) {
@@ -196,6 +211,7 @@ class _$_GetAnnouncementList implements _GetAnnouncementList {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_GetAnnouncementList value) getAnnouncementList,
+    required TResult Function(_GetFilterClear value) getFilterClear,
     required TResult Function(_GetFilter value) getFilter,
     required TResult Function(_GetInfo value) getInfo,
   }) {
@@ -206,6 +222,7 @@ class _$_GetAnnouncementList implements _GetAnnouncementList {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetAnnouncementList value)? getAnnouncementList,
+    TResult? Function(_GetFilterClear value)? getFilterClear,
     TResult? Function(_GetFilter value)? getFilter,
     TResult? Function(_GetInfo value)? getInfo,
   }) {
@@ -216,6 +233,7 @@ class _$_GetAnnouncementList implements _GetAnnouncementList {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetAnnouncementList value)? getAnnouncementList,
+    TResult Function(_GetFilterClear value)? getFilterClear,
     TResult Function(_GetFilter value)? getFilter,
     TResult Function(_GetInfo value)? getInfo,
     required TResult orElse(),
@@ -229,6 +247,144 @@ class _$_GetAnnouncementList implements _GetAnnouncementList {
 
 abstract class _GetAnnouncementList implements AnnouncementListEvent {
   factory _GetAnnouncementList() = _$_GetAnnouncementList;
+}
+
+/// @nodoc
+abstract class _$$_GetFilterClearCopyWith<$Res> {
+  factory _$$_GetFilterClearCopyWith(
+          _$_GetFilterClear value, $Res Function(_$_GetFilterClear) then) =
+      __$$_GetFilterClearCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$_GetFilterClearCopyWithImpl<$Res>
+    extends _$AnnouncementListEventCopyWithImpl<$Res, _$_GetFilterClear>
+    implements _$$_GetFilterClearCopyWith<$Res> {
+  __$$_GetFilterClearCopyWithImpl(
+      _$_GetFilterClear _value, $Res Function(_$_GetFilterClear) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$_GetFilterClear implements _GetFilterClear {
+  _$_GetFilterClear();
+
+  @override
+  String toString() {
+    return 'AnnouncementListEvent.getFilterClear()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$_GetFilterClear);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() getAnnouncementList,
+    required TResult Function() getFilterClear,
+    required TResult Function(AnnouncementFilterModel filter) getFilter,
+    required TResult Function(
+            RangeValues? yearValues,
+            RangeValues? priceValues,
+            BodyTypeEntity? bodyType,
+            DriveTypeEntity? carDriveType,
+            GearboxTypeEntity? gearboxType,
+            int? idVal,
+            bool? isFilter)
+        getInfo,
+  }) {
+    return getFilterClear();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? getAnnouncementList,
+    TResult? Function()? getFilterClear,
+    TResult? Function(AnnouncementFilterModel filter)? getFilter,
+    TResult? Function(
+            RangeValues? yearValues,
+            RangeValues? priceValues,
+            BodyTypeEntity? bodyType,
+            DriveTypeEntity? carDriveType,
+            GearboxTypeEntity? gearboxType,
+            int? idVal,
+            bool? isFilter)?
+        getInfo,
+  }) {
+    return getFilterClear?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? getAnnouncementList,
+    TResult Function()? getFilterClear,
+    TResult Function(AnnouncementFilterModel filter)? getFilter,
+    TResult Function(
+            RangeValues? yearValues,
+            RangeValues? priceValues,
+            BodyTypeEntity? bodyType,
+            DriveTypeEntity? carDriveType,
+            GearboxTypeEntity? gearboxType,
+            int? idVal,
+            bool? isFilter)?
+        getInfo,
+    required TResult orElse(),
+  }) {
+    if (getFilterClear != null) {
+      return getFilterClear();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_GetAnnouncementList value) getAnnouncementList,
+    required TResult Function(_GetFilterClear value) getFilterClear,
+    required TResult Function(_GetFilter value) getFilter,
+    required TResult Function(_GetInfo value) getInfo,
+  }) {
+    return getFilterClear(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetAnnouncementList value)? getAnnouncementList,
+    TResult? Function(_GetFilterClear value)? getFilterClear,
+    TResult? Function(_GetFilter value)? getFilter,
+    TResult? Function(_GetInfo value)? getInfo,
+  }) {
+    return getFilterClear?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetAnnouncementList value)? getAnnouncementList,
+    TResult Function(_GetFilterClear value)? getFilterClear,
+    TResult Function(_GetFilter value)? getFilter,
+    TResult Function(_GetInfo value)? getInfo,
+    required TResult orElse(),
+  }) {
+    if (getFilterClear != null) {
+      return getFilterClear(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _GetFilterClear implements AnnouncementListEvent {
+  factory _GetFilterClear() = _$_GetFilterClear;
 }
 
 /// @nodoc
@@ -296,6 +452,7 @@ class _$_GetFilter implements _GetFilter {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getAnnouncementList,
+    required TResult Function() getFilterClear,
     required TResult Function(AnnouncementFilterModel filter) getFilter,
     required TResult Function(
             RangeValues? yearValues,
@@ -303,7 +460,8 @@ class _$_GetFilter implements _GetFilter {
             BodyTypeEntity? bodyType,
             DriveTypeEntity? carDriveType,
             GearboxTypeEntity? gearboxType,
-            int? idVal)
+            int? idVal,
+            bool? isFilter)
         getInfo,
   }) {
     return getFilter(filter);
@@ -313,6 +471,7 @@ class _$_GetFilter implements _GetFilter {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getAnnouncementList,
+    TResult? Function()? getFilterClear,
     TResult? Function(AnnouncementFilterModel filter)? getFilter,
     TResult? Function(
             RangeValues? yearValues,
@@ -320,7 +479,8 @@ class _$_GetFilter implements _GetFilter {
             BodyTypeEntity? bodyType,
             DriveTypeEntity? carDriveType,
             GearboxTypeEntity? gearboxType,
-            int? idVal)?
+            int? idVal,
+            bool? isFilter)?
         getInfo,
   }) {
     return getFilter?.call(filter);
@@ -330,6 +490,7 @@ class _$_GetFilter implements _GetFilter {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getAnnouncementList,
+    TResult Function()? getFilterClear,
     TResult Function(AnnouncementFilterModel filter)? getFilter,
     TResult Function(
             RangeValues? yearValues,
@@ -337,7 +498,8 @@ class _$_GetFilter implements _GetFilter {
             BodyTypeEntity? bodyType,
             DriveTypeEntity? carDriveType,
             GearboxTypeEntity? gearboxType,
-            int? idVal)?
+            int? idVal,
+            bool? isFilter)?
         getInfo,
     required TResult orElse(),
   }) {
@@ -351,6 +513,7 @@ class _$_GetFilter implements _GetFilter {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_GetAnnouncementList value) getAnnouncementList,
+    required TResult Function(_GetFilterClear value) getFilterClear,
     required TResult Function(_GetFilter value) getFilter,
     required TResult Function(_GetInfo value) getInfo,
   }) {
@@ -361,6 +524,7 @@ class _$_GetFilter implements _GetFilter {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetAnnouncementList value)? getAnnouncementList,
+    TResult? Function(_GetFilterClear value)? getFilterClear,
     TResult? Function(_GetFilter value)? getFilter,
     TResult? Function(_GetInfo value)? getInfo,
   }) {
@@ -371,6 +535,7 @@ class _$_GetFilter implements _GetFilter {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetAnnouncementList value)? getAnnouncementList,
+    TResult Function(_GetFilterClear value)? getFilterClear,
     TResult Function(_GetFilter value)? getFilter,
     TResult Function(_GetInfo value)? getInfo,
     required TResult orElse(),
@@ -403,7 +568,8 @@ abstract class _$$_GetInfoCopyWith<$Res> {
       BodyTypeEntity? bodyType,
       DriveTypeEntity? carDriveType,
       GearboxTypeEntity? gearboxType,
-      int? idVal});
+      int? idVal,
+      bool? isFilter});
 }
 
 /// @nodoc
@@ -422,6 +588,7 @@ class __$$_GetInfoCopyWithImpl<$Res>
     Object? carDriveType = freezed,
     Object? gearboxType = freezed,
     Object? idVal = freezed,
+    Object? isFilter = freezed,
   }) {
     return _then(_$_GetInfo(
       yearValues: freezed == yearValues
@@ -448,6 +615,10 @@ class __$$_GetInfoCopyWithImpl<$Res>
           ? _value.idVal
           : idVal // ignore: cast_nullable_to_non_nullable
               as int?,
+      isFilter: freezed == isFilter
+          ? _value.isFilter
+          : isFilter // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ));
   }
 }
@@ -461,7 +632,8 @@ class _$_GetInfo implements _GetInfo {
       this.bodyType,
       this.carDriveType,
       this.gearboxType,
-      this.idVal});
+      this.idVal,
+      this.isFilter});
 
   @override
   final RangeValues? yearValues;
@@ -475,10 +647,12 @@ class _$_GetInfo implements _GetInfo {
   final GearboxTypeEntity? gearboxType;
   @override
   final int? idVal;
+  @override
+  final bool? isFilter;
 
   @override
   String toString() {
-    return 'AnnouncementListEvent.getInfo(yearValues: $yearValues, priceValues: $priceValues, bodyType: $bodyType, carDriveType: $carDriveType, gearboxType: $gearboxType, idVal: $idVal)';
+    return 'AnnouncementListEvent.getInfo(yearValues: $yearValues, priceValues: $priceValues, bodyType: $bodyType, carDriveType: $carDriveType, gearboxType: $gearboxType, idVal: $idVal, isFilter: $isFilter)';
   }
 
   @override
@@ -496,12 +670,14 @@ class _$_GetInfo implements _GetInfo {
                 other.carDriveType == carDriveType) &&
             (identical(other.gearboxType, gearboxType) ||
                 other.gearboxType == gearboxType) &&
-            (identical(other.idVal, idVal) || other.idVal == idVal));
+            (identical(other.idVal, idVal) || other.idVal == idVal) &&
+            (identical(other.isFilter, isFilter) ||
+                other.isFilter == isFilter));
   }
 
   @override
   int get hashCode => Object.hash(runtimeType, yearValues, priceValues,
-      bodyType, carDriveType, gearboxType, idVal);
+      bodyType, carDriveType, gearboxType, idVal, isFilter);
 
   @JsonKey(ignore: true)
   @override
@@ -513,6 +689,7 @@ class _$_GetInfo implements _GetInfo {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getAnnouncementList,
+    required TResult Function() getFilterClear,
     required TResult Function(AnnouncementFilterModel filter) getFilter,
     required TResult Function(
             RangeValues? yearValues,
@@ -520,17 +697,19 @@ class _$_GetInfo implements _GetInfo {
             BodyTypeEntity? bodyType,
             DriveTypeEntity? carDriveType,
             GearboxTypeEntity? gearboxType,
-            int? idVal)
+            int? idVal,
+            bool? isFilter)
         getInfo,
   }) {
-    return getInfo(
-        yearValues, priceValues, bodyType, carDriveType, gearboxType, idVal);
+    return getInfo(yearValues, priceValues, bodyType, carDriveType, gearboxType,
+        idVal, isFilter);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getAnnouncementList,
+    TResult? Function()? getFilterClear,
     TResult? Function(AnnouncementFilterModel filter)? getFilter,
     TResult? Function(
             RangeValues? yearValues,
@@ -538,17 +717,19 @@ class _$_GetInfo implements _GetInfo {
             BodyTypeEntity? bodyType,
             DriveTypeEntity? carDriveType,
             GearboxTypeEntity? gearboxType,
-            int? idVal)?
+            int? idVal,
+            bool? isFilter)?
         getInfo,
   }) {
-    return getInfo?.call(
-        yearValues, priceValues, bodyType, carDriveType, gearboxType, idVal);
+    return getInfo?.call(yearValues, priceValues, bodyType, carDriveType,
+        gearboxType, idVal, isFilter);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getAnnouncementList,
+    TResult Function()? getFilterClear,
     TResult Function(AnnouncementFilterModel filter)? getFilter,
     TResult Function(
             RangeValues? yearValues,
@@ -556,13 +737,14 @@ class _$_GetInfo implements _GetInfo {
             BodyTypeEntity? bodyType,
             DriveTypeEntity? carDriveType,
             GearboxTypeEntity? gearboxType,
-            int? idVal)?
+            int? idVal,
+            bool? isFilter)?
         getInfo,
     required TResult orElse(),
   }) {
     if (getInfo != null) {
-      return getInfo(
-          yearValues, priceValues, bodyType, carDriveType, gearboxType, idVal);
+      return getInfo(yearValues, priceValues, bodyType, carDriveType,
+          gearboxType, idVal, isFilter);
     }
     return orElse();
   }
@@ -571,6 +753,7 @@ class _$_GetInfo implements _GetInfo {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_GetAnnouncementList value) getAnnouncementList,
+    required TResult Function(_GetFilterClear value) getFilterClear,
     required TResult Function(_GetFilter value) getFilter,
     required TResult Function(_GetInfo value) getInfo,
   }) {
@@ -581,6 +764,7 @@ class _$_GetInfo implements _GetInfo {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetAnnouncementList value)? getAnnouncementList,
+    TResult? Function(_GetFilterClear value)? getFilterClear,
     TResult? Function(_GetFilter value)? getFilter,
     TResult? Function(_GetInfo value)? getInfo,
   }) {
@@ -591,6 +775,7 @@ class _$_GetInfo implements _GetInfo {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetAnnouncementList value)? getAnnouncementList,
+    TResult Function(_GetFilterClear value)? getFilterClear,
     TResult Function(_GetFilter value)? getFilter,
     TResult Function(_GetInfo value)? getInfo,
     required TResult orElse(),
@@ -609,7 +794,8 @@ abstract class _GetInfo implements AnnouncementListEvent {
       final BodyTypeEntity? bodyType,
       final DriveTypeEntity? carDriveType,
       final GearboxTypeEntity? gearboxType,
-      final int? idVal}) = _$_GetInfo;
+      final int? idVal,
+      final bool? isFilter}) = _$_GetInfo;
 
   RangeValues? get yearValues;
   RangeValues? get priceValues;
@@ -617,6 +803,7 @@ abstract class _GetInfo implements AnnouncementListEvent {
   DriveTypeEntity? get carDriveType;
   GearboxTypeEntity? get gearboxType;
   int? get idVal;
+  bool? get isFilter;
   @JsonKey(ignore: true)
   _$$_GetInfoCopyWith<_$_GetInfo> get copyWith =>
       throw _privateConstructorUsedError;
@@ -629,15 +816,17 @@ mixin _$AnnouncementListState {
   String get next => throw _privateConstructorUsedError;
   String get search => throw _privateConstructorUsedError;
   int get count => throw _privateConstructorUsedError;
+  bool get isFilter => throw _privateConstructorUsedError;
   List<AnnouncementListEntity> get announcementList =>
       throw _privateConstructorUsedError;
   AnnouncementFilterModel get filter => throw _privateConstructorUsedError;
   RangeValues get yearValues => throw _privateConstructorUsedError;
   RangeValues get priceValues => throw _privateConstructorUsedError;
-  int get idVal => throw _privateConstructorUsedError;
-  GearboxTypeEntity get gearboxTypeEntity => throw _privateConstructorUsedError;
-  BodyTypeEntity get bodyTypeEntity => throw _privateConstructorUsedError;
-  DriveTypeEntity get driveTypeEntity => throw _privateConstructorUsedError;
+  int? get idVal => throw _privateConstructorUsedError;
+  GearboxTypeEntity? get gearboxTypeEntity =>
+      throw _privateConstructorUsedError;
+  BodyTypeEntity? get bodyTypeEntity => throw _privateConstructorUsedError;
+  DriveTypeEntity? get driveTypeEntity => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $AnnouncementListStateCopyWith<AnnouncementListState> get copyWith =>
@@ -656,14 +845,15 @@ abstract class $AnnouncementListStateCopyWith<$Res> {
       String next,
       String search,
       int count,
+      bool isFilter,
       List<AnnouncementListEntity> announcementList,
       AnnouncementFilterModel filter,
       RangeValues yearValues,
       RangeValues priceValues,
-      int idVal,
-      GearboxTypeEntity gearboxTypeEntity,
-      BodyTypeEntity bodyTypeEntity,
-      DriveTypeEntity driveTypeEntity});
+      int? idVal,
+      GearboxTypeEntity? gearboxTypeEntity,
+      BodyTypeEntity? bodyTypeEntity,
+      DriveTypeEntity? driveTypeEntity});
 }
 
 /// @nodoc
@@ -685,14 +875,15 @@ class _$AnnouncementListStateCopyWithImpl<$Res,
     Object? next = null,
     Object? search = null,
     Object? count = null,
+    Object? isFilter = null,
     Object? announcementList = null,
     Object? filter = null,
     Object? yearValues = null,
     Object? priceValues = null,
-    Object? idVal = null,
-    Object? gearboxTypeEntity = null,
-    Object? bodyTypeEntity = null,
-    Object? driveTypeEntity = null,
+    Object? idVal = freezed,
+    Object? gearboxTypeEntity = freezed,
+    Object? bodyTypeEntity = freezed,
+    Object? driveTypeEntity = freezed,
   }) {
     return _then(_value.copyWith(
       status: null == status
@@ -715,6 +906,10 @@ class _$AnnouncementListStateCopyWithImpl<$Res,
           ? _value.count
           : count // ignore: cast_nullable_to_non_nullable
               as int,
+      isFilter: null == isFilter
+          ? _value.isFilter
+          : isFilter // ignore: cast_nullable_to_non_nullable
+              as bool,
       announcementList: null == announcementList
           ? _value.announcementList
           : announcementList // ignore: cast_nullable_to_non_nullable
@@ -731,22 +926,22 @@ class _$AnnouncementListStateCopyWithImpl<$Res,
           ? _value.priceValues
           : priceValues // ignore: cast_nullable_to_non_nullable
               as RangeValues,
-      idVal: null == idVal
+      idVal: freezed == idVal
           ? _value.idVal
           : idVal // ignore: cast_nullable_to_non_nullable
-              as int,
-      gearboxTypeEntity: null == gearboxTypeEntity
+              as int?,
+      gearboxTypeEntity: freezed == gearboxTypeEntity
           ? _value.gearboxTypeEntity
           : gearboxTypeEntity // ignore: cast_nullable_to_non_nullable
-              as GearboxTypeEntity,
-      bodyTypeEntity: null == bodyTypeEntity
+              as GearboxTypeEntity?,
+      bodyTypeEntity: freezed == bodyTypeEntity
           ? _value.bodyTypeEntity
           : bodyTypeEntity // ignore: cast_nullable_to_non_nullable
-              as BodyTypeEntity,
-      driveTypeEntity: null == driveTypeEntity
+              as BodyTypeEntity?,
+      driveTypeEntity: freezed == driveTypeEntity
           ? _value.driveTypeEntity
           : driveTypeEntity // ignore: cast_nullable_to_non_nullable
-              as DriveTypeEntity,
+              as DriveTypeEntity?,
     ) as $Val);
   }
 }
@@ -765,14 +960,15 @@ abstract class _$$_AnnouncementListCopyWith<$Res>
       String next,
       String search,
       int count,
+      bool isFilter,
       List<AnnouncementListEntity> announcementList,
       AnnouncementFilterModel filter,
       RangeValues yearValues,
       RangeValues priceValues,
-      int idVal,
-      GearboxTypeEntity gearboxTypeEntity,
-      BodyTypeEntity bodyTypeEntity,
-      DriveTypeEntity driveTypeEntity});
+      int? idVal,
+      GearboxTypeEntity? gearboxTypeEntity,
+      BodyTypeEntity? bodyTypeEntity,
+      DriveTypeEntity? driveTypeEntity});
 }
 
 /// @nodoc
@@ -791,14 +987,15 @@ class __$$_AnnouncementListCopyWithImpl<$Res>
     Object? next = null,
     Object? search = null,
     Object? count = null,
+    Object? isFilter = null,
     Object? announcementList = null,
     Object? filter = null,
     Object? yearValues = null,
     Object? priceValues = null,
-    Object? idVal = null,
-    Object? gearboxTypeEntity = null,
-    Object? bodyTypeEntity = null,
-    Object? driveTypeEntity = null,
+    Object? idVal = freezed,
+    Object? gearboxTypeEntity = freezed,
+    Object? bodyTypeEntity = freezed,
+    Object? driveTypeEntity = freezed,
   }) {
     return _then(_$_AnnouncementList(
       status: null == status
@@ -821,6 +1018,10 @@ class __$$_AnnouncementListCopyWithImpl<$Res>
           ? _value.count
           : count // ignore: cast_nullable_to_non_nullable
               as int,
+      isFilter: null == isFilter
+          ? _value.isFilter
+          : isFilter // ignore: cast_nullable_to_non_nullable
+              as bool,
       announcementList: null == announcementList
           ? _value._announcementList
           : announcementList // ignore: cast_nullable_to_non_nullable
@@ -837,22 +1038,22 @@ class __$$_AnnouncementListCopyWithImpl<$Res>
           ? _value.priceValues
           : priceValues // ignore: cast_nullable_to_non_nullable
               as RangeValues,
-      idVal: null == idVal
+      idVal: freezed == idVal
           ? _value.idVal
           : idVal // ignore: cast_nullable_to_non_nullable
-              as int,
-      gearboxTypeEntity: null == gearboxTypeEntity
+              as int?,
+      gearboxTypeEntity: freezed == gearboxTypeEntity
           ? _value.gearboxTypeEntity
           : gearboxTypeEntity // ignore: cast_nullable_to_non_nullable
-              as GearboxTypeEntity,
-      bodyTypeEntity: null == bodyTypeEntity
+              as GearboxTypeEntity?,
+      bodyTypeEntity: freezed == bodyTypeEntity
           ? _value.bodyTypeEntity
           : bodyTypeEntity // ignore: cast_nullable_to_non_nullable
-              as BodyTypeEntity,
-      driveTypeEntity: null == driveTypeEntity
+              as BodyTypeEntity?,
+      driveTypeEntity: freezed == driveTypeEntity
           ? _value.driveTypeEntity
           : driveTypeEntity // ignore: cast_nullable_to_non_nullable
-              as DriveTypeEntity,
+              as DriveTypeEntity?,
     ));
   }
 }
@@ -866,6 +1067,7 @@ class _$_AnnouncementList implements _AnnouncementList {
       this.next = '',
       this.search = '',
       this.count = 0,
+      this.isFilter = false,
       final List<AnnouncementListEntity> announcementList = const [],
       this.filter = const AnnouncementFilterModel(),
       this.yearValues = const RangeValues(1960, 2023),
@@ -892,6 +1094,9 @@ class _$_AnnouncementList implements _AnnouncementList {
   @override
   @JsonKey()
   final int count;
+  @override
+  @JsonKey()
+  final bool isFilter;
   final List<AnnouncementListEntity> _announcementList;
   @override
   @JsonKey()
@@ -913,20 +1118,20 @@ class _$_AnnouncementList implements _AnnouncementList {
   final RangeValues priceValues;
   @override
   @JsonKey()
-  final int idVal;
+  final int? idVal;
   @override
   @JsonKey()
-  final GearboxTypeEntity gearboxTypeEntity;
+  final GearboxTypeEntity? gearboxTypeEntity;
   @override
   @JsonKey()
-  final BodyTypeEntity bodyTypeEntity;
+  final BodyTypeEntity? bodyTypeEntity;
   @override
   @JsonKey()
-  final DriveTypeEntity driveTypeEntity;
+  final DriveTypeEntity? driveTypeEntity;
 
   @override
   String toString() {
-    return 'AnnouncementListState(status: $status, selected: $selected, next: $next, search: $search, count: $count, announcementList: $announcementList, filter: $filter, yearValues: $yearValues, priceValues: $priceValues, idVal: $idVal, gearboxTypeEntity: $gearboxTypeEntity, bodyTypeEntity: $bodyTypeEntity, driveTypeEntity: $driveTypeEntity)';
+    return 'AnnouncementListState(status: $status, selected: $selected, next: $next, search: $search, count: $count, isFilter: $isFilter, announcementList: $announcementList, filter: $filter, yearValues: $yearValues, priceValues: $priceValues, idVal: $idVal, gearboxTypeEntity: $gearboxTypeEntity, bodyTypeEntity: $bodyTypeEntity, driveTypeEntity: $driveTypeEntity)';
   }
 
   @override
@@ -940,6 +1145,8 @@ class _$_AnnouncementList implements _AnnouncementList {
             (identical(other.next, next) || other.next == next) &&
             (identical(other.search, search) || other.search == search) &&
             (identical(other.count, count) || other.count == count) &&
+            (identical(other.isFilter, isFilter) ||
+                other.isFilter == isFilter) &&
             const DeepCollectionEquality()
                 .equals(other._announcementList, _announcementList) &&
             (identical(other.filter, filter) || other.filter == filter) &&
@@ -964,6 +1171,7 @@ class _$_AnnouncementList implements _AnnouncementList {
       next,
       search,
       count,
+      isFilter,
       const DeepCollectionEquality().hash(_announcementList),
       filter,
       yearValues,
@@ -987,14 +1195,15 @@ abstract class _AnnouncementList implements AnnouncementListState {
       final String next,
       final String search,
       final int count,
+      final bool isFilter,
       final List<AnnouncementListEntity> announcementList,
       final AnnouncementFilterModel filter,
       final RangeValues yearValues,
       final RangeValues priceValues,
-      final int idVal,
-      final GearboxTypeEntity gearboxTypeEntity,
-      final BodyTypeEntity bodyTypeEntity,
-      final DriveTypeEntity driveTypeEntity}) = _$_AnnouncementList;
+      final int? idVal,
+      final GearboxTypeEntity? gearboxTypeEntity,
+      final BodyTypeEntity? bodyTypeEntity,
+      final DriveTypeEntity? driveTypeEntity}) = _$_AnnouncementList;
 
   @override
   FormzStatus get status;
@@ -1007,6 +1216,8 @@ abstract class _AnnouncementList implements AnnouncementListState {
   @override
   int get count;
   @override
+  bool get isFilter;
+  @override
   List<AnnouncementListEntity> get announcementList;
   @override
   AnnouncementFilterModel get filter;
@@ -1015,13 +1226,13 @@ abstract class _AnnouncementList implements AnnouncementListState {
   @override
   RangeValues get priceValues;
   @override
-  int get idVal;
+  int? get idVal;
   @override
-  GearboxTypeEntity get gearboxTypeEntity;
+  GearboxTypeEntity? get gearboxTypeEntity;
   @override
-  BodyTypeEntity get bodyTypeEntity;
+  BodyTypeEntity? get bodyTypeEntity;
   @override
-  DriveTypeEntity get driveTypeEntity;
+  DriveTypeEntity? get driveTypeEntity;
   @override
   @JsonKey(ignore: true)
   _$$_AnnouncementListCopyWith<_$_AnnouncementList> get copyWith =>

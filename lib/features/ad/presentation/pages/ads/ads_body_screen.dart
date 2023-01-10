@@ -41,12 +41,16 @@ class _AdsBodyScreenState extends State<AdsBodyScreen> {
     rentBloc = RentBloc(rentUseCase: RentUseCase(), id: 5)
       ..add(RentGetResultsEvent(isRefresh: false));
     print('===> ==> Bu yoda ishga tushdi');
-    context.read<AnnouncementListBloc>().add(AnnouncementListEvent.getFilter(
-        context
+    widget.isNew == null
+        ? context
             .read<AnnouncementListBloc>()
-            .state
-            .filter
-            .copyWith(isNew: widget.isNew)));
+            .add(AnnouncementListEvent.getFilterClear())
+        : context.read<AnnouncementListBloc>().add(
+            AnnouncementListEvent.getFilter(context
+                .read<AnnouncementListBloc>()
+                .state
+                .filter
+                .copyWith(isNew: widget.isNew)));
     context
         .read<AnnouncementListBloc>()
         .add(AnnouncementListEvent.getAnnouncementList());
@@ -67,52 +71,38 @@ class _AdsBodyScreenState extends State<AdsBodyScreen> {
           children: [
             const SizedBox(height: 16),
             CommercialCarModelItem(
-              title: context.read<GetMakesBloc>().state.name,
-              subtitle: context.read<GetCarModelBloc>().state.name,
-              imageUrl: context.read<GetMakesBloc>().state.imageUrl,
-              onTap: () {
-                Navigator.push(
-                  context,
-                  fade(
-                    page: ChooseCarBrandComparison(
-                      onTap: () => Navigator.of(context).push(
-                        fade(
-                          page: ChooseCarModelComparison(
-                            onTap: () {
-                              context.read<AnnouncementListBloc>().add(
-                                    AnnouncementListEvent.getFilter(
-                                      state.filter.copyWith(
-                                          make: context
-                                              .read<GetMakesBloc>()
-                                              .state
-                                              .selectId,
-                                          model: context
-                                              .read<GetCarModelBloc>()
-                                              .state
-                                              .selectedId),
-                                    ),
-                                  );
-                              print(
-                                  '===> ==> Bu selectMak Id ${context.read<GetMakesBloc>().state.selectId}');
-                              print(
-                                  '===> ==> Bu selectModel Id ${context.read<GetCarModelBloc>().state.selectedId}');
-
-                              Navigator.pop(context);
-                              Navigator.pop(context);
-                            },
-                          ),
-                        ),
-                      ).then((value) {
-                        print('===> ==> Buyaqa kirdi');
-                        context
-                            .read<AnnouncementListBloc>()
-                            .add(AnnouncementListEvent.getAnnouncementList());
-                      }),
-                    ),
-                  ),
-                );
-              },
-            ),
+                title: context.read<GetMakesBloc>().state.name,
+                subtitle: context.read<GetCarModelBloc>().state.name,
+                imageUrl: context.read<GetMakesBloc>().state.imageUrl,
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      fade(
+                          page: ChooseCarBrandComparison(
+                              onTap: () => Navigator.of(context).push(fade(
+                                      page: ChooseCarModelComparison(onTap: () {
+                                    context
+                                        .read<AnnouncementListBloc>()
+                                        .add(AnnouncementListEvent.getFilter(
+                                          state.filter.copyWith(
+                                              make: context
+                                                  .read<GetMakesBloc>()
+                                                  .state
+                                                  .selectId,
+                                              model: context
+                                                  .read<GetCarModelBloc>()
+                                                  .state
+                                                  .selectedId),
+                                        ));
+                                    Navigator.pop(context);
+                                    Navigator.pop(context);
+                                  }))).then((value) {
+                                    print('===> ==> Buyaqa kirdi');
+                                    context.read<AnnouncementListBloc>().add(
+                                        AnnouncementListEvent
+                                            .getAnnouncementList());
+                                  }))));
+                }),
             const SizedBox(height: 12),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -124,7 +114,7 @@ class _AdsBodyScreenState extends State<AdsBodyScreen> {
                     theme: theme,
                     icon: AppIcons.filter,
                     name: '',
-                    claerA: false,
+                    claerA: state.isFilter,
                     activeColor: orange,
                     defaultTitle: 'Параметры',
                     onTap: () {
