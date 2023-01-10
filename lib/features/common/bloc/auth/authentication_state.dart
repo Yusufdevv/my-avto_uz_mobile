@@ -15,4 +15,6 @@ class AuthenticationState {
             user: const UserModel());
   const AuthenticationState.loading()
       : this._(status: AuthenticationStatus.loading, user: const UserModel());
+  const AuthenticationState.cancelLoading()
+      : this._(status: AuthenticationStatus.cancelLoading, user: const UserModel());
 }

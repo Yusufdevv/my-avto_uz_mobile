@@ -1,5 +1,6 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/ad/presentation/pages/ads/ads_screen.dart';
 import 'package:auto/features/commercial/presentation/commercial_screen.dart';
 import 'package:auto/features/common/bloc/get_car_model/get_car_model_bloc.dart';
@@ -71,7 +72,7 @@ class _MainScreenState extends State<MainScreen> {
       icon: AppIcons.rentCar,
     ),
   ];
-
+  int n = 10;
   @override
   void initState() {
     mainBloc = MainBloc()..add(InitialEvent());
@@ -93,13 +94,8 @@ class _MainScreenState extends State<MainScreen> {
         })));
       },
       () {
-        /// for testing purpose
-        // var onboarding = StorageRepository.getBool('onboarding');
-        // var token = StorageRepository.getString('token');
-        //  print('=>=>=>=> onboarding $onboarding <=<=<=<=');
-        //  print('=>=>=>=> token $token <=<=<=<=');
       },
-      () {},
+      () async {},
       () {
         Navigator.of(context, rootNavigator: true)
             .push(fade(page: const CommercialScreen()));

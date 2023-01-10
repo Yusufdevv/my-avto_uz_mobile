@@ -7,7 +7,6 @@ import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/login/domain/usecases/send_recovery_code.dart';
 import 'package:auto/features/login/presentation/bloc/send_phone/send_phone_bloc.dart';
 import 'package:auto/features/login/presentation/pages/verify_page.dart';
-import 'package:auto/features/login/presentation/pages/password_recovery_screen.dart';
 import 'package:auto/features/login/presentation/widgets/z_text_form_field.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:flutter/material.dart';
@@ -26,6 +25,7 @@ class SendPhoneNumberPage extends StatefulWidget {
 class _SendPhoneNumberPageState extends State<SendPhoneNumberPage> {
   late TextEditingController phoneController;
   late SendPhoneBloc sendPhoneBloc;
+  bool isToastShowing = false;
   @override
   void initState() {
     phoneController = TextEditingController();
@@ -53,7 +53,13 @@ class _SendPhoneNumberPageState extends State<SendPhoneNumberPage> {
               listener: (context, state) {
                 if (state.status == FormzStatus.submissionCanceled) {
                   context.read<ShowPopUpBloc>().add(
-                      ShowPopUp(message: state.toastMessage, isSucces: false));
+                        ShowPopUp(
+                          message: state.toastMessage,
+                          isSucces: false,
+                          dismissible: false,
+                        ),
+                      );
+                  isToastShowing = true;
                 }
                 if (state.status == FormzStatus.submissionSuccess) {
                   Navigator.push(
@@ -90,6 +96,12 @@ class _SendPhoneNumberPageState extends State<SendPhoneNumberPage> {
                         style: Theme.of(context).textTheme.headline2,
                       ),
                       ZTextFormField(
+                        onTap: () {
+                          if (isToastShowing) {
+                            context.read<ShowPopUpBloc>().add(HidePopUp());
+                            isToastShowing = false;
+                          }
+                        },
                         onChanged: (onChanged) {
                           setState(() {});
                         },

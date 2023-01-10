@@ -171,6 +171,7 @@ class _AppState extends State<App> {
                     }
                     break;
                   case AuthenticationStatus.loading:
+                  case AuthenticationStatus.cancelLoading:
                     break;
                 }
               },

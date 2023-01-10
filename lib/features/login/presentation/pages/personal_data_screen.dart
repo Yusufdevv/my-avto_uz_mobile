@@ -32,6 +32,7 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
   late TextEditingController nameController;
   late TextEditingController emailController;
   late ImageBloc imageBloc;
+  bool isToastShowing = false;
 
   @override
   void initState() {
@@ -47,6 +48,13 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
     emailController.dispose();
     imageBloc.close();
     super.dispose();
+  }
+
+  void hidePopUp() {
+    if (isToastShowing) {
+      context.read<ShowPopUpBloc>().add(HidePopUp());
+      isToastShowing = false;
+    }
   }
 
   @override
@@ -65,7 +73,7 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
                   children: [
                     Expanded(
                       child: ListView(
-                        physics:const  BouncingScrollPhysics(),
+                        physics: const BouncingScrollPhysics(),
                         children: [
                           LoginHeader(
                             title: LocaleKeys.personal_data.tr(),
@@ -73,8 +81,12 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
                             hasSizedBox: false,
                           ),
                           const SizedBox(height: 36),
-                          const AddPhotoItem(),
-                          PersonalDataItem(
+                          AddPhotoItem(
+                            onTap: hidePopUp,
+                          ),
+                          PersonalDataItemm(
+                            isRequired: true,
+                            onTap: hidePopUp,
                             title: LocaleKeys.name.tr(),
                             controller: nameController,
                             hintText: 'Имя и фамилия',
@@ -82,10 +94,13 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
                               setState(() {});
                             },
                           ),
-                          const RegionButton(
+                          RegionButton(
+                            onTap: hidePopUp,
                             title: '',
                           ),
-                          PersonalDataItem(
+                          PersonalDataItemm(
+                            isRequired: true,
+                            onTap: hidePopUp,
                             title: 'Email',
                             controller: emailController,
                             hintText: 'example@auto.uz',
@@ -113,22 +128,24 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
                                         page: BlocProvider.value(
                                           value: context.read<RegisterBloc>(),
                                           child: NewPasswordScreen(
-                                            
                                             onSubmit:
                                                 (password, confirmPassword) {
                                               context.read<RegisterBloc>().add(
                                                     RegisterEvent.register(
                                                       validPassword: password,
                                                       onError: (text) {
-                                                        if (text.isNotEmpty) {
-                                                          context
-                                                              .read<
-                                                                  ShowPopUpBloc>()
-                                                              .add(ShowPopUp(
-                                                                  message: text,
-                                                                  isSucces:
-                                                                      false));
-                                                        } else {}
+                                                        context
+                                                            .read<
+                                                                ShowPopUpBloc>()
+                                                            .add(
+                                                              ShowPopUp(
+                                                                message: text,
+                                                                isSucces: false,
+                                                                dismissible:
+                                                                    false,
+                                                              ),
+                                                            );
+                                                        isToastShowing = true;
                                                       },
                                                       onSuccess: () {
                                                         context
@@ -154,12 +171,15 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
                             context.read<ShowPopUpBloc>().add(ShowPopUp(
                                 message:
                                     'Пожалуйста, введите действительный адрес электронной почты',
-                                isSucces: false));
+                                isSucces: false,
+                                dismissible: false));
                           } else {
                             context.read<ShowPopUpBloc>().add(ShowPopUp(
                                 message: 'Имя и электронная почта обязательны',
-                                isSucces: false));
+                                isSucces: false,
+                                dismissible: false));
                           }
+                          isToastShowing = true;
                         }
                       },
                       shadow: [

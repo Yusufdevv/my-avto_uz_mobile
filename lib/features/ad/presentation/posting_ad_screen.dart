@@ -83,6 +83,8 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                   if (currentTabIndex == 0) {
                     Navigator.pop(context);
                   } else {
+                    print(
+                        '=>=>=>=> currentTab index $currentTabIndex <=<=<=<=');
                     --currentTabIndex;
                     tabController.animateTo(currentTabIndex);
                   }
@@ -101,61 +103,66 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                     const SizedBox()
                 ],
               ),
-              Container(
-                color: Theme.of(context).appBarTheme.backgroundColor,
-                padding: const EdgeInsets.symmetric(vertical: 15),
-                child: TabBar(
-                  onTap: (index) {
-                    // currentTabIndex = index;
-                    tabController.index = tabController.previousIndex;
-                  },
-                  isScrollable: true,
-                  indicatorColor: Theme.of(context).appBarTheme.backgroundColor,
-                  controller: tabController,
-                  labelStyle: Theme.of(context)
-                      .textTheme
-                      .headline1!
-                      .copyWith(fontSize: 16),
-                  unselectedLabelColor: grey,
-                  labelColor: Theme.of(context)
-                      .extension<ThemedColors>()!
-                      .midnightExpressToWhite,
-                  tabs: List.generate(
-                    21,
-                    (index) => index == 10
-                        ? Row(
-                            children: [
-                              Text(tabs[index],
-                                  style: currentTabIndex > index
-                                      ? Theme.of(context)
-                                          .textTheme
-                                          .headline1!
-                                          .copyWith(fontSize: 12, color: green)
-                                      : const TextStyle()),
-                              const SizedBox(
-                                width: 4,
-                              ),
-                              WScaleAnimation(
-                                  onTap: () => Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              const AddingPhotoScreen())),
-                                  child: SvgPicture.asset(AppIcons.infoCircle)),
-                            ],
-                          )
-                        : Text(
-                            tabs[index],
-                            style: currentTabIndex > index
-                                ? Theme.of(context)
-                                    .textTheme
-                                    .headline1!
-                                    .copyWith(fontSize: 12, color: green)
-                                : const TextStyle(),
-                          ),
-                  ),
-                ),
-              ),
+              // Container(
+              //   color: Theme.of(context).appBarTheme.backgroundColor,
+              //   // color: Colors.amber,
+              //   padding: const EdgeInsets.symmetric(vertical: 15),
+              //   child: TabBar(
+              //     onTap: (index) {
+              //        print('=>=>=>=> index ${tabController.index} <=<=<=<=');
+              //        print('=>=>=>=> privious index ${tabController.previousIndex} <=<=<=<=');
+              //       currentTabIndex = index;
+              //       tabController..index = tabController.previousIndex
+              //       ..animateTo(currentTabIndex);
+              //       setState(() {});
+              //     },
+              //     isScrollable: true,
+              //     indicatorColor: Theme.of(context).appBarTheme.backgroundColor,
+              //     controller: tabController,
+              //     labelStyle: Theme.of(context)
+              //         .textTheme
+              //         .headline1!
+              //         .copyWith(fontSize: 16),
+              //     unselectedLabelColor: grey,
+              //     labelColor: Theme.of(context)
+              //         .extension<ThemedColors>()!
+              //         .midnightExpressToWhite,
+              //     tabs: List.generate(
+              //       21,
+              //       (index) => index == 10
+              //           ? Row(
+              //               children: [
+              //                 Text(tabs[index],
+              //                     style: currentTabIndex > index
+              //                         ? Theme.of(context)
+              //                             .textTheme
+              //                             .headline1!
+              //                             .copyWith(fontSize: 12, color: green)
+              //                         : const TextStyle()),
+              //                 const SizedBox(
+              //                   width: 4,
+              //                 ),
+              //                 WScaleAnimation(
+              //                     onTap: () => Navigator.push(
+              //                         context,
+              //                         MaterialPageRoute(
+              //                             builder: (context) =>
+              //                                 const AddingPhotoScreen())),
+              //                     child: SvgPicture.asset(AppIcons.infoCircle)),
+              //               ],
+              //             )
+              //           : Text(
+              //               tabs[index],
+              //               style: currentTabIndex > index
+              //                   ? Theme.of(context)
+              //                       .textTheme
+              //                       .headline1!
+              //                       .copyWith(fontSize: 12, color: green)
+              //                   : const TextStyle(),
+              //             ),
+              //     ),
+              //   ),
+              // ),
               CompletionBar(
                   screenWidth: MediaQuery.of(context).size.width,
                   totalSteps: 21,
@@ -169,10 +176,14 @@ class _PostingAdScreenState extends State<PostingAdScreen>
           physics: const NeverScrollableScrollPhysics(),
           children: [
             ChooseCarBrand(
-              onTap: () => setState(() {
+              onTap: () {
+                 print('=>=>=>=> ontap of tab item <=<=<=<=');
                 currentTabIndex = 1;
-                tabController.animateTo(1);
-              }),
+                tabController
+                  ..index = tabController.previousIndex
+                  ..animateTo(currentTabIndex);
+                  
+              },
             ),
             ChooseCarModelScreen(
               onTap: () => setState(() {
