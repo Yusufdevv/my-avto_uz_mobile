@@ -107,6 +107,10 @@ class _PhoneNumberEditPageState extends State<PhoneNumberEditPage> {
                             ],
                           ),
                           hintText: '00 000 00 00',
+                          hintTextStyle: Theme.of(context)
+                              .textTheme
+                              .subtitle1!
+                              .copyWith(fontSize: 15, color: grey),
                           keyBoardType: TextInputType.number,
                           textInputFormatters: [phoneFormatter],
                         ),
