@@ -34,6 +34,7 @@ class _LoginScreenState extends State<LoginScreen> {
   );
   late TextEditingController phoneController;
   late TextEditingController passwordController;
+  bool isToastShowing = false;
 
   @override
   void initState() {
@@ -42,14 +43,18 @@ class _LoginScreenState extends State<LoginScreen> {
     super.initState();
   }
 
-  bool isToastShowing = false;
-
   // @override
   // void dispose() {
   //   phoneController.dispose();
   //   passwordController.dispose();
   //   super.dispose();
   // }
+  void hidePopUp() {
+    if (isToastShowing) {
+      context.read<ShowPopUpBloc>().add(HidePopUp());
+      isToastShowing = false;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -88,8 +93,11 @@ class _LoginScreenState extends State<LoginScreen> {
                       width: 4,
                     ),
                     GestureDetector(
-                      onTap: () => Navigator.push(
-                          context, fade(page: const RegisterScreen())),
+                      onTap: () {
+                        hidePopUp();
+                        Navigator.push(
+                            context, fade(page: const RegisterScreen()));
+                      },
                       child: Text(
                         'Регистрация',
                         style: Theme.of(context).textTheme.headline3!.copyWith(
@@ -100,12 +108,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 const SizedBox(height: 36),
                 ZTextFormField(
-                  onTap: () {
-                    if (isToastShowing) {
-                      context.read<ShowPopUpBloc>().add(HidePopUp());
-                      isToastShowing = false;
-                    }
-                  },
+                  onTap: hidePopUp,
                   onChanged: (onChanged) {
                     setState(() {});
                   },
@@ -132,12 +135,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 const SizedBox(height: 30),
                 ZTextFormField(
-                  onTap: () {
-                    if (isToastShowing) {
-                      context.read<ShowPopUpBloc>().add(HidePopUp());
-                      isToastShowing = false;
-                    }
-                  },
+                  onTap: hidePopUp,
                   onChanged: (value) {
                     setState(() {});
                   },
@@ -148,6 +146,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 const SizedBox(height: 16),
                 GestureDetector(
                   onTap: () {
+                    hidePopUp();
                     Navigator.of(context)
                         .push(fade(page: const SendPhoneNumberPage()));
                   },
