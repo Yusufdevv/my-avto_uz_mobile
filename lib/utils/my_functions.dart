@@ -224,21 +224,21 @@ class MyFunctions {
       // ),
     );
 
-    mapObjects.clear();
-    mapObjects.addAll([clusterItem, myPoint]);
+    mapObjects..clear()
+    ..addAll([clusterItem, myPoint]);
   }
 
   static double getRadiusFromZoom(double zoom) =>
       40000 / pow(2, zoom) > 1 ? 40000 / pow(2, zoom) : 1;
 
   static String getFormatCost(String cost) {
-    String oldCost = cost;
+    var oldCost = cost;
     if (cost.contains('.')) {
-      List<String> arr = cost.split('.');
+      final arr = cost.split('.');
       oldCost = arr.first;
     }
-    String newCost = "";
-    for (int i = 0; i < oldCost.length; i++) {
+    var newCost = '';
+    for (var i = 0; i < oldCost.length; i++) {
       if ((oldCost.length - i) % 3 == 0) newCost += ' ';
       newCost += oldCost[i];
     }
@@ -278,7 +278,7 @@ class MyFunctions {
 
   static String phoneFormatter(String content, List<int> stopsList) {
     final buffer = StringBuffer();
-    for (int i = 0; i < content.length; i++) {
+    for (var i = 0; i < content.length; i++) {
       if (stopsList.contains(i + 1)) {
         buffer.write(' ');
       }

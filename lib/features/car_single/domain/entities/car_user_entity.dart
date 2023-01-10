@@ -3,9 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 class CarUserEntity extends Equatable {
-  @JsonKey(defaultValue: 0)
   final int id;
-  @JsonKey(defaultValue: '')
   final String phoneNumber;
   @JsonKey(defaultValue: '')
   final String name;
@@ -34,7 +32,7 @@ class CarUserEntity extends Equatable {
       ];
 }
 
-class CarUserConverter<S>
+class CarUserConverter
     implements JsonConverter<CarUserEntity, Map<String, dynamic>?> {
   const CarUserConverter();
 
@@ -43,5 +41,5 @@ class CarUserConverter<S>
       CarUserModel.fromJson(json ?? {});
 
   @override
-  Map<String, dynamic> toJson(CarUserEntity object) => {};
+  Map<String, dynamic>? toJson(CarUserEntity object) => {};
 }

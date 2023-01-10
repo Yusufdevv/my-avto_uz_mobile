@@ -1,4 +1,4 @@
-import 'package:auto/features/common/models/ad.dart';
+import 'package:auto/features/common/models/ad_model.dart';
 import 'package:auto/features/main/domain/usecases/get_top_ads.dart';
 import 'package:bloc/bloc.dart';
 import 'package:formz/formz.dart';

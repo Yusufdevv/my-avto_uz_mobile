@@ -1,4 +1,4 @@
-import 'package:auto/features/common/models/ad.dart';
+import 'package:auto/features/common/models/ad_model.dart';
 import 'package:auto/features/main/presentation/widgets/ads_item.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -29,16 +29,18 @@ class TopAds extends StatelessWidget {
           const SizedBox(height: 8),
           SizedBox(
             height: 276,
-            child: ListView.builder(
+            child: ListView.separated(
               scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) => const AdsItem(
-                name: '',
-                price: '',
-                location: '',
-                description: '',
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              itemBuilder: (context, index) => AdsItem(
+                name: topAds[index].make,
+                price: topAds[index].price.toString(),
+                location: topAds[index].region,
+                description: topAds[index].description,
                 image: '',
               ),
               itemCount: 2,
+              separatorBuilder: (context, index) => const SizedBox(width: 24),
             ),
           ),
           const SizedBox(height: 16),

@@ -8,8 +8,6 @@ class CarUserModel extends CarUserEntity {
   const CarUserModel({
     required super.id,
     required super.phoneNumber,
-    required super.name,
-    required super.avatar,
     required super.image,
     required super.fullName,
   });

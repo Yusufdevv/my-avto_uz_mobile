@@ -5,6 +5,7 @@ import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/car_single/presentation/car_single_screen.dart';
 import 'package:auto/features/common/widgets/w_like.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
+import 'package:auto/utils/my_functions.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -16,14 +17,14 @@ class AdsItem extends StatelessWidget {
   final String location;
   final String description;
 
-  const AdsItem(
-      {Key? key,
-      required this.name,
-      required this.price,
-      required this.location,
-      required this.description,
-      required this.image})
-      : super(key: key);
+  const AdsItem({
+    required this.name,
+    required this.price,
+    required this.location,
+    required this.description,
+    required this.image,
+    Key? key,
+  }) : super(key: key);
 
   @override
   // ignore: prefer_expression_function_bodies
@@ -31,13 +32,12 @@ class AdsItem extends StatelessWidget {
     // print('object ${adsEntity.imageUrl}');
     return GestureDetector(
       onTap: () {
-        Navigator.push(context, fade(page: CarSingleScreen()));
+        Navigator.push(context, fade(page: const CarSingleScreen()));
       },
       child: Container(
         height: 269,
         width: 225,
-        padding: EdgeInsets.only(right: 4),
-        margin: const EdgeInsets.only(left: 16,right: 50),
+        padding: const EdgeInsets.only(right: 4),
         decoration: BoxDecoration(
           boxShadow: [
             BoxShadow(
@@ -114,7 +114,7 @@ class AdsItem extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Text(
-                price,
+                MyFunctions.getFormatCost(price),
                 style: Theme.of(context)
                     .textTheme
                     .headline1!
