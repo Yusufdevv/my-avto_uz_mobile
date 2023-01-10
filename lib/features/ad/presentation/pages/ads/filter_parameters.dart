@@ -67,7 +67,14 @@ class _FilterParametersState extends State<FilterParameters> {
                 centerTitle: false,
                 extraActions: [
                   TextButton(
-                    onPressed: () => filterBloc.add(FilterClearEvent()),
+                    onPressed: () {
+                      widget.bloc!
+                          .add(AnnouncementListEvent.getInfo(isFilter: false));
+                      widget.bloc!.add(AnnouncementListEvent.getFilterClear());
+                      widget.bloc!
+                          .add(AnnouncementListEvent.getAnnouncementList());
+                      filterBloc.add(FilterClearEvent());
+                    },
                     child: const Text(
                       'Сбросить',
                       style: TextStyle(
@@ -80,8 +87,7 @@ class _FilterParametersState extends State<FilterParameters> {
                   const SizedBox(width: 8),
                 ],
               ),
-              body: SingleChildScrollView(
-                physics: const BouncingScrollPhysics(),
+              body: Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
                 child: Column(
@@ -100,8 +106,11 @@ class _FilterParametersState extends State<FilterParameters> {
                           filterBloc.add(FilterSelectEvent(bodyType: value));
                         });
                       },
-                      hintText:
-                          state.bodyType?.type ?? LocaleKeys.choose_body.tr(),
+                      hintText: state.bodyType?.type == null
+                          ? LocaleKeys.choose_body.tr()
+                          : state.bodyType!.type.isEmpty
+                              ? LocaleKeys.choose_body.tr()
+                              : state.bodyType!.type,
                       title: LocaleKeys.body_type.tr(),
                       hasArrowDown: true,
                     ),
@@ -119,8 +128,11 @@ class _FilterParametersState extends State<FilterParameters> {
                               .add(FilterSelectEvent(carDriveType: value));
                         });
                       },
-                      hintText: state.carDriveType?.type ??
-                          LocaleKeys.choose_drive_type.tr(),
+                      hintText: state.carDriveType?.type == null
+                          ? LocaleKeys.choose_body.tr()
+                          : state.carDriveType!.type.isEmpty
+                              ? LocaleKeys.choose_drive_type.tr()
+                              : state.carDriveType!.type,
                       title: LocaleKeys.drive_unit.tr(),
                       hasArrowDown: true,
                     ),
@@ -137,8 +149,11 @@ class _FilterParametersState extends State<FilterParameters> {
                           filterBloc.add(FilterSelectEvent(gearboxType: value));
                         });
                       },
-                      hintText: state.gearboxType?.type ??
-                          LocaleKeys.choose_box_type.tr(),
+                      hintText: state.gearboxType?.type == null
+                          ? LocaleKeys.choose_body.tr()
+                          : state.gearboxType!.type.isEmpty
+                              ? LocaleKeys.choose_box_type.tr()
+                              : state.gearboxType!.type,
                       title: LocaleKeys.box.tr(),
                       hasArrowDown: true,
                     ),
@@ -214,9 +229,19 @@ class _FilterParametersState extends State<FilterParameters> {
                       startValue: 1000,
                       isForPrice: true,
                     ),
-                    SizedBox(height: size.height * 0.2),
+                    const Spacer(),
                     WButton(
                       onTap: () {
+                        widget.bloc!.add(AnnouncementListEvent.getFilter(
+                            widget.bloc!.state.filter.copyWith(
+                          bodyType: state.bodyType?.id,
+                          carDriveType: state.carDriveType?.id,
+                          gearboxType: state.gearboxType?.id == -1
+                              ? null
+                              : state.gearboxType?.id,
+                        )));
+                        widget.bloc!
+                            .add(AnnouncementListEvent.getAnnouncementList());
                         widget.bloc!.add(
                           AnnouncementListEvent.getInfo(
                             bodyType: state.bodyType,
@@ -225,6 +250,7 @@ class _FilterParametersState extends State<FilterParameters> {
                             yearValues: state.yearValues,
                             priceValues: state.priceValues,
                             idVal: state.idVal,
+                            isFilter: true,
                           ),
                         );
                         Navigator.of(context).pop();

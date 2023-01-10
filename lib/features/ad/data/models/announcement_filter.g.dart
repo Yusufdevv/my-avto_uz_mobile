@@ -12,8 +12,9 @@ AnnouncementFilterModel _$AnnouncementFilterModelFromJson(
       make: json['make'] as int?,
       model: json['model'] as int?,
       isNew: json['is_new'] as bool?,
-      prosta: json['prosta'] as String? ?? '',
-      region: json['region'] as String? ?? '',
+      bodyType: json['body_type'] as int?,
+      gearboxType: json['gearbox_type'] as int?,
+      carDriveType: json['car_drive_type'] as int?,
     );
 
 Map<String, dynamic> _$AnnouncementFilterModelToJson(
@@ -22,6 +23,7 @@ Map<String, dynamic> _$AnnouncementFilterModelToJson(
       'make': instance.make,
       'model': instance.model,
       'is_new': instance.isNew,
-      'prosta': instance.prosta,
-      'region': instance.region,
+      'body_type': instance.bodyType,
+      'gearbox_type': instance.gearboxType,
+      'car_drive_type': instance.carDriveType,
     };

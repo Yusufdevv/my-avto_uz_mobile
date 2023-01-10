@@ -1170,7 +1170,7 @@ class _$_GetMakesState implements _GetMakesState {
       this.search = '',
       this.count = 0,
       this.selectId = 0,
-      this.confirmId = -1,
+      this.confirmId = 0,
       this.name = '',
       this.imageUrl = ''});
 

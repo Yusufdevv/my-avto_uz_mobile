@@ -84,13 +84,18 @@ class _MainScreenState extends State<MainScreen> {
         Navigator.push(context, fade(page: const DealerScreen()));
       },
       () {
+        context
+            .read<GetCarModelBloc>()
+            .add(GetCarModelEvent.selectedModelItem(id: -1, name: ''));
+        context.read<GetMakesBloc>().add(
+            GetMakesBlocEvent.selectedCarItems(id: -1, name: '', imageUrl: ''));
         Navigator.of(context).push(fade(page: AdsScreen(onBack: () {
           Navigator.of(context).pop();
         })));
       },
       () async {
         await StorageRepository.putString('token', '');
-         print('=>=>=>=> token put empty <=<=<=<=');
+        print('=>=>=>=> token put empty <=<=<=<=');
       },
       () async {},
       () {
