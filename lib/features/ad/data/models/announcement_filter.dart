@@ -5,16 +5,18 @@ part 'announcement_filter.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class AnnouncementFilterModel extends Equatable {
-  final int make;
-  final int model;
+  final int? make;
+  final int? model;
   final bool? isNew;
   final String prosta;
+  final String region;
 
   const AnnouncementFilterModel({
-    this.make = 0,
-    this.model = 0,
+    this.make,
+    this.model,
     this.isNew,
     this.prosta = '',
+    this.region = '',
   });
 
   AnnouncementFilterModel copyWith({
@@ -22,12 +24,14 @@ class AnnouncementFilterModel extends Equatable {
     int? model,
     bool? isNew,
     String? prosta,
+    String? region,
   }) =>
       AnnouncementFilterModel(
         make: make ?? this.make,
         model: model ?? this.model,
         isNew: isNew ?? this.isNew,
-        prosta: prosta?? this.prosta,
+        prosta: prosta ?? this.prosta,
+        region: region?? this.region,
       );
   factory AnnouncementFilterModel.fromJson(Map<String, dynamic> json) =>
       _$AnnouncementFilterModelFromJson(json);

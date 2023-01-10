@@ -6,7 +6,7 @@ import 'package:auto/features/common/bloc/announcement_bloc/bloc/announcement_li
 import 'package:auto/features/common/widgets/range_slider.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
-import 'package:auto/features/rent/presentation/bloc/rent_bloc/rent_bloc.dart';
+import 'package:auto/features/rent/presentation/bloc/filter/filter_bloc.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/choose_body_type.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/choose_drive_type.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/choose_gearbox.dart';
@@ -17,11 +17,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class FilterParameters extends StatefulWidget {
-  final RentBloc rentBloc;
-
+  final BodyTypeEntity? bodyType;
+  final DriveTypeEntity? carDriveType;
+  final GearboxTypeEntity? gearboxType;
+  final int? idVal;
+  final RangeValues? yearValues;
+  final RangeValues? priceValues;
+  final AnnouncementListBloc? bloc;
   const FilterParameters({
     super.key,
-    required this.rentBloc,
+    this.bodyType,
+    this.carDriveType,
+    this.gearboxType,
+    this.yearValues,
+    this.priceValues,
+    this.bloc,
+    this.idVal,
   });
 
   @override
@@ -29,48 +40,34 @@ class FilterParameters extends StatefulWidget {
 }
 
 class _FilterParametersState extends State<FilterParameters> {
-  RangeValues yearValues = RangeValues(1960, DateTime.now().year + 0);
-
-  RangeValues priceValues = const RangeValues(1000, 500000);
+  late FilterBloc filterBloc;
 
   @override
-  Widget build(BuildContext context) =>
-      BlocBuilder<AnnouncementListBloc, AnnouncementListState>(
-        builder: (context, state) {
-          var size = MediaQuery.of(context).size;
-          return WillPopScope(
-            onWillPop: () async {
-              BlocProvider.of<AnnouncementListBloc>(context).add(
-                  AnnouncementListEvent.getBodyType(
-                      const BodyTypeEntity(id: -1, logo: '', type: '')));
-              BlocProvider.of<AnnouncementListBloc>(context).add(
-                  AnnouncementListEvent.getDriveType(
-                      const DriveTypeEntity(id: -1, logo: '', type: '')));
-              BlocProvider.of<AnnouncementListBloc>(context).add(
-                  AnnouncementListEvent.getGearboxType(
-                      const GearboxTypeEntity(id: -1, logo: '', type: '')));
-              return true;
-            },
-            child: Scaffold(
+  void initState() {
+    filterBloc = FilterBloc(
+      bodyType: widget.bodyType,
+      carDriveType: widget.carDriveType,
+      gearboxType: widget.gearboxType,
+      priceValues: widget.priceValues,
+      yearValues: widget.yearValues,
+      idVal: widget.idVal,
+    );
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) => BlocProvider.value(
+        value: filterBloc,
+        child: BlocBuilder<FilterBloc, FilterState>(
+          builder: (context, state) {
+            var size = MediaQuery.of(context).size;
+            return Scaffold(
               appBar: WAppBar(
                 title: 'Параметры',
                 centerTitle: false,
                 extraActions: [
                   TextButton(
-                    onPressed: () {
-                      BlocProvider.of<AnnouncementListBloc>(context).add(
-                          AnnouncementListEvent.getBodyType(
-                              const BodyTypeEntity(
-                                  id: -1, logo: '', type: '')));
-                      BlocProvider.of<AnnouncementListBloc>(context).add(
-                          AnnouncementListEvent.getDriveType(
-                              const DriveTypeEntity(
-                                  id: -1, logo: '', type: '')));
-                      BlocProvider.of<AnnouncementListBloc>(context).add(
-                          AnnouncementListEvent.getGearboxType(
-                              const GearboxTypeEntity(
-                                  id: -1, logo: '', type: '')));
-                    },
+                    onPressed: () => filterBloc.add(FilterClearEvent()),
                     child: const Text(
                       'Сбросить',
                       style: TextStyle(
@@ -92,63 +89,56 @@ class _FilterParametersState extends State<FilterParameters> {
                   children: [
                     SelectorItem(
                       onTap: () async {
-                        await showModalBottomSheet(
+                        await showModalBottomSheet<BodyTypeEntity>(
                           isDismissible: false,
                           context: context,
                           isScrollControlled: true,
                           backgroundColor: Colors.transparent,
-                          builder: (c) => const ChooseBodyType(
-                            selectedId: 0,
-                          ),
+                          builder: (c) => ChooseBodyType(
+                              selectedId: state.bodyType?.id ?? -1),
                         ).then((value) {
-                          BlocProvider.of<AnnouncementListBloc>(context)
-                              .add(AnnouncementListEvent.getBodyType(value));
-                          print(value);
+                          filterBloc.add(FilterSelectEvent(bodyType: value));
                         });
                       },
-                      hintText: state.bodyTypeEntity.type.isEmpty
-                          ? LocaleKeys.choose_body.tr()
-                          : state.bodyTypeEntity.type,
+                      hintText:
+                          state.bodyType?.type ?? LocaleKeys.choose_body.tr(),
                       title: LocaleKeys.body_type.tr(),
                       hasArrowDown: true,
                     ),
                     SelectorItem(
                       onTap: () async {
-                        await showModalBottomSheet(
+                        await showModalBottomSheet<DriveTypeEntity>(
                           isDismissible: false,
                           context: context,
                           isScrollControlled: true,
                           backgroundColor: Colors.transparent,
-                          builder: (c) => const ChooseDriveType(selectedId: 0),
+                          builder: (c) => ChooseDriveType(
+                              selectedId: state.carDriveType?.id ?? -1),
                         ).then((value) {
-                          BlocProvider.of<AnnouncementListBloc>(context)
-                              .add(AnnouncementListEvent.getDriveType(value));
-                          print(value);
+                          filterBloc
+                              .add(FilterSelectEvent(carDriveType: value));
                         });
                       },
-                      hintText: state.driveTypeEntity.type.isEmpty
-                          ? LocaleKeys.choose_drive_type.tr()
-                          : state.driveTypeEntity.type,
+                      hintText: state.carDriveType?.type ??
+                          LocaleKeys.choose_drive_type.tr(),
                       title: LocaleKeys.drive_unit.tr(),
                       hasArrowDown: true,
                     ),
                     SelectorItem(
                       onTap: () async {
-                        await showModalBottomSheet(
+                        await showModalBottomSheet<GearboxTypeEntity>(
                           isDismissible: false,
                           context: context,
                           isScrollControlled: true,
                           backgroundColor: Colors.transparent,
-                          builder: (c) => const ChooseGearbox(selectedId: 0),
+                          builder: (c) => ChooseGearbox(
+                              selectedId: state.gearboxType?.id ?? -1),
                         ).then((value) {
-                          BlocProvider.of<AnnouncementListBloc>(context)
-                              .add(AnnouncementListEvent.getGearboxType(value));
-                          print(value);
+                          filterBloc.add(FilterSelectEvent(gearboxType: value));
                         });
                       },
-                      hintText: state.gearboxTypeEntity.type.isEmpty
-                          ? LocaleKeys.choose_box_type.tr()
-                          : state.gearboxTypeEntity.type,
+                      hintText: state.gearboxType?.type ??
+                          LocaleKeys.choose_box_type.tr(),
                       title: LocaleKeys.box.tr(),
                       hasArrowDown: true,
                     ),
@@ -165,8 +155,7 @@ class _FilterParametersState extends State<FilterParameters> {
                       children: [
                         WButton(
                           onTap: () {
-                            BlocProvider.of<AnnouncementListBloc>(context)
-                                .add(AnnouncementListEvent.getIdVal(0));
+                            filterBloc.add(FilterSelectEvent(idVal: 0));
                           },
                           height: 36,
                           width: MediaQuery.of(context).size.width * 0.45,
@@ -186,8 +175,7 @@ class _FilterParametersState extends State<FilterParameters> {
                         ),
                         WButton(
                           onTap: () {
-                            BlocProvider.of<AnnouncementListBloc>(context)
-                                .add(AnnouncementListEvent.getIdVal(1));
+                            filterBloc.add(FilterSelectEvent(idVal: 1));
                           },
                           height: 36,
                           width: MediaQuery.of(context).size.width * 0.45,
@@ -209,22 +197,18 @@ class _FilterParametersState extends State<FilterParameters> {
                     ),
                     const SizedBox(height: 20),
                     WRangeSlider(
-                      values: yearValues,
-                      valueChanged: (value) {
-                        yearValues = value;
-                        setState(() {});
-                      },
+                      values: state.yearValues,
+                      valueChanged: (value) =>
+                          filterBloc.add(FilterSelectEvent(yearValues: value)),
                       title: LocaleKeys.year_of_issue.tr(),
                       endValue: DateTime.now().year + 0,
                       startValue: 1960,
                     ),
                     const SizedBox(height: 16),
                     WRangeSlider(
-                      values: priceValues,
-                      valueChanged: (value) {
-                        priceValues = value;
-                        setState(() {});
-                      },
+                      values: state.priceValues,
+                      valueChanged: (value) =>
+                          filterBloc.add(FilterSelectEvent(priceValues: value)),
                       title: LocaleKeys.price.tr(),
                       endValue: 500000,
                       startValue: 1000,
@@ -232,14 +216,26 @@ class _FilterParametersState extends State<FilterParameters> {
                     ),
                     SizedBox(height: size.height * 0.2),
                     WButton(
-                      onTap: () => Navigator.pop(context),
+                      onTap: () {
+                        widget.bloc!.add(
+                          AnnouncementListEvent.getInfo(
+                            bodyType: state.bodyType,
+                            gearboxType: state.gearboxType,
+                            carDriveType: state.carDriveType,
+                            yearValues: state.yearValues,
+                            priceValues: state.priceValues,
+                            idVal: state.idVal,
+                          ),
+                        );
+                        Navigator.of(context).pop();
+                      },
                       text: 'Показать',
                     ),
                   ],
                 ),
               ),
-            ),
-          );
-        },
+            );
+          },
+        ),
       );
 }

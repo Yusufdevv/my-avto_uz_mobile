@@ -1,5 +1,8 @@
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/presentation/pages/ads/ads_screen.dart';
+import 'package:auto/features/common/bloc/announcement_bloc/bloc/announcement_list_bloc.dart';
+import 'package:auto/features/common/bloc/get_car_model/get_car_model_bloc.dart';
+import 'package:auto/features/common/bloc/get_makes_bloc/get_makes_bloc_bloc.dart';
 import 'package:auto/features/comparison/domain/entities/complectation_entity.dart';
 import 'package:auto/features/comparison/domain/entities/complectation_parameters_entity.dart';
 import 'package:auto/features/comparison/presentation/bloc/comparison-bloc/comparison_bloc.dart';
@@ -147,6 +150,28 @@ class _ComparisonState extends State<Comparison> {
                             fade(
                               page: ChooseCarModelComparison(
                                 onTap: () {
+                                  context.read<AnnouncementListBloc>().add(
+                                        AnnouncementListEvent.getFilter(
+                                          context
+                                              .read<AnnouncementListBloc>()
+                                              .state
+                                              .filter
+                                              .copyWith(
+                                                  make: context
+                                                      .read<GetMakesBloc>()
+                                                      .state
+                                                      .selectId,
+                                                  model: context
+                                                      .read<GetCarModelBloc>()
+                                                      .state
+                                                      .selectedId),
+                                        ),
+                                      );
+                                  print(
+                                      '===> ==> Bu selectMak Id ${context.read<GetMakesBloc>().state.selectId}');
+                                  print(
+                                      '===> ==> Bu selectModel Id ${context.read<GetCarModelBloc>().state.selectedId}');
+
                                   Navigator.of(context).push(
                                     fade(
                                       page: AdsScreen(

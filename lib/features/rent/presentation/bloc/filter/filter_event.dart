@@ -14,6 +14,7 @@ class FilterSelectEvent extends FilterEvent {
   final GearboxTypeEntity? gearboxType;
   final RangeValues? yearValues;
   final RangeValues? priceValues;
+  final int? idVal;
   FilterSelectEvent({
     this.bodyType,
     this.carDriveType,
@@ -22,5 +23,6 @@ class FilterSelectEvent extends FilterEvent {
     this.priceValues,
     this.regions,
     this.yearValues,
+    this.idVal
   });
 }

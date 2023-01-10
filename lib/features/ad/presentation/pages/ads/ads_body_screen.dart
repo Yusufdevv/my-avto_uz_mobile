@@ -1,7 +1,6 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
-import 'package:auto/features/ad/data/models/announcement_filter.dart';
 import 'package:auto/features/ad/presentation/pages/ads/filter_parameters.dart';
 import 'package:auto/features/commercial/presentation/widgets/commercial_car_model_item.dart';
 import 'package:auto/features/commercial/presentation/widgets/info_container.dart';
@@ -23,12 +22,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AdsBodyScreen extends StatefulWidget {
-  final AnnouncementListBloc bloc;
   final ScrollController scrollController;
+  final bool? isNew;
   const AdsBodyScreen({
-    required this.bloc,
     super.key,
     required this.scrollController,
+    this.isNew,
   });
 
   @override
@@ -37,17 +36,10 @@ class AdsBodyScreen extends StatefulWidget {
 
 class _AdsBodyScreenState extends State<AdsBodyScreen> {
   late RentBloc rentBloc;
-
   @override
   void initState() {
     rentBloc = RentBloc(rentUseCase: RentUseCase(), id: 5)
       ..add(RentGetResultsEvent(isRefresh: false));
-    widget.bloc
-        .add(AnnouncementListEvent.getFilter(widget.bloc.state.filter.copyWith(
-      make: BlocProvider.of<GetMakesBloc>(context).state.selectedId,
-      model: BlocProvider.of<GetCarModelBloc>(context).state.selectedId,
-    )));
-    widget.bloc.add(AnnouncementListEvent.getAnnouncementList());
     super.initState();
   }
 
@@ -56,6 +48,7 @@ class _AdsBodyScreenState extends State<AdsBodyScreen> {
     final size = MediaQuery.of(context).size;
     final theme = Theme.of(context).extension<ThemedColors>()!;
     return BlocBuilder<AnnouncementListBloc, AnnouncementListState>(
+      bloc: context.read<AnnouncementListBloc>(),
       builder: (context, state) {
         var list = List<AnnouncementListEntity>.from(state.announcementList);
         return ListView(
@@ -63,34 +56,52 @@ class _AdsBodyScreenState extends State<AdsBodyScreen> {
           controller: widget.scrollController,
           children: [
             const SizedBox(height: 16),
-            BlocBuilder<GetMakesBloc, GetMakesState>(
-              builder: (context, stateMakes) =>
-                  BlocBuilder<GetCarModelBloc, GetCarModelState>(
-                builder: (context, stateModel) => CommercialCarModelItem(
-                  title: stateMakes.name,
-                  subtitle: stateModel.name,
-                  imageUrl: stateMakes.imageUrl,
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      fade(
-                        page: ChooseCarBrandComparison(
-                          onTap: () => Navigator.of(context).push(
-                            fade(
-                              page: ChooseCarModelComparison(
-                                onTap: () {
-                                  Navigator.of(context).pop();
-                                  Navigator.of(context).pop();
-                                },
-                              ),
-                            ),
+            CommercialCarModelItem(
+              title: context.read<GetMakesBloc>().state.name,
+              subtitle: context.read<GetCarModelBloc>().state.name,
+              imageUrl: context.read<GetMakesBloc>().state.imageUrl,
+              onTap: () {
+                Navigator.push(
+                  context,
+                  fade(
+                    page: ChooseCarBrandComparison(
+                      onTap: () => Navigator.of(context).push(
+                        fade(
+                          page: ChooseCarModelComparison(
+                            onTap: () {
+                              context.read<AnnouncementListBloc>().add(
+                                    AnnouncementListEvent.getFilter(
+                                      state.filter.copyWith(
+                                          make: context
+                                              .read<GetMakesBloc>()
+                                              .state
+                                              .selectId,
+                                          model: context
+                                              .read<GetCarModelBloc>()
+                                              .state
+                                              .selectedId),
+                                    ),
+                                  );
+                              print(
+                                  '===> ==> Bu selectMak Id ${context.read<GetMakesBloc>().state.selectId}');
+                              print(
+                                  '===> ==> Bu selectModel Id ${context.read<GetCarModelBloc>().state.selectedId}');
+
+                              Navigator.pop(context);
+                              Navigator.pop(context);
+                            },
                           ),
                         ),
-                      ),
-                    );
-                  },
-                ),
-              ),
+                      ).then((value) {
+                        print('===> ==> Buyaqa kirdi');
+                        context
+                            .read<AnnouncementListBloc>()
+                            .add(AnnouncementListEvent.getAnnouncementList());
+                      }),
+                    ),
+                  ),
+                );
+              },
             ),
             const SizedBox(height: 12),
             Padding(
@@ -107,13 +118,21 @@ class _AdsBodyScreenState extends State<AdsBodyScreen> {
                     activeColor: orange,
                     defaultTitle: 'Параметры',
                     onTap: () {
-                      Navigator.of(context).push(
-                        fade(
-                          page: FilterParameters(
-                            rentBloc: rentBloc,
-                          ),
-                        ),
-                      );
+                      Navigator.of(context)
+                          .push(
+                            fade(
+                              page: FilterParameters(
+                                bloc: context.read<AnnouncementListBloc>(),
+                                bodyType: state.bodyTypeEntity,
+                                gearboxType: state.gearboxTypeEntity,
+                                carDriveType: state.driveTypeEntity,
+                                yearValues: state.yearValues,
+                                priceValues: state.priceValues,
+                                idVal: state.idVal,
+                              ),
+                            ),
+                          )
+                          .then((value) => null);
                     },
                     onTapClear: () {},
                   ),
