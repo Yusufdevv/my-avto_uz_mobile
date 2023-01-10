@@ -6,6 +6,7 @@ import 'dart:ui' as ui;
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/core/exceptions/exceptions.dart';
+import 'package:auto/features/common/models/region.dart';
 import 'package:auto/features/dealers/data/models/dealer_card_model.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
@@ -18,7 +19,8 @@ class MyFunctions {
       Jiffy(data).format('dd-MM-yyyy').replaceAll('-', '/').toString();
 
   static String phoneFormat(String phone) {
-    //904781717
+    //input: 904781717
+    //output : 90 478 17 17
     var formattedPhone = '';
     formattedPhone += '${phone.substring(0, 2)} '; //90
     formattedPhone += '${phone.substring(2, 5)} '; // 478
@@ -26,6 +28,22 @@ class MyFunctions {
     formattedPhone += phone.substring(7); // 17
     return formattedPhone; // 90 478 17 17
   }
+
+  static String text(List<Region>? list) {
+    
+  // output : "Sirdaryo, Namangan, Toshkent"
+  var result = '';
+  if (list != null) {
+    for (var i = 0; i < list.length; i++) {
+      // ignore: use_string_buffers
+      result += list[i].title;
+      if (i != list.length - 1) {
+        result += ', ';
+      }
+    }
+  }
+  return result;
+}
 
   static Color mapCategoryIndexToColor(final int index) {
     switch (index) {
