@@ -9,7 +9,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:yandex_mapkit/yandex_mapkit.dart';
 
 class SellerInfo extends StatefulWidget {
-  //final String dealerType;
+  final String dealerType;
   final String dealerName;
   final String contactFrom;
   final String contactTo;
@@ -20,7 +20,7 @@ class SellerInfo extends StatefulWidget {
   final double latitude;
 
   const SellerInfo({
-    //required this.dealerType,
+    required this.dealerType,
     required this.dealerName,
     required this.quantityOfCars,
     required this.contact,
@@ -61,7 +61,7 @@ class _SellerInfoState extends State<SellerInfo> {
             // dealerType == 'showroom'
             //     ? dealerName
             //     : LocaleKeys.about_dealer.tr(),
-            widget.dealerName,
+            widget.dealerType.isEmpty ? widget.dealerName : widget.dealerType,
             style: const TextStyle(
                 color: orange, fontSize: 16, fontWeight: FontWeight.w600),
           ),

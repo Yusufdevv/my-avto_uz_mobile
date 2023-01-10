@@ -15,9 +15,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class DealerScreen extends StatefulWidget {
-  const DealerScreen({Key? key, this.isDirectoryPage = false})
-      : super(key: key);
-  final bool isDirectoryPage;
+  const DealerScreen({Key? key}) : super(key: key);
 
   @override
   State<DealerScreen> createState() => _DealerScreenState();
@@ -79,10 +77,7 @@ class _DealerScreenState extends State<DealerScreen> {
                         WButton(
                           onTap: () =>
                               Navigator.of(context, rootNavigator: true)
-                                  .push(fade(
-                                      page: DealersFilter(
-                            isDirectoryPage: widget.isDirectoryPage,
-                          ))),
+                                  .push(fade(page: const DealersFilter())),
                           borderRadius: 12,
                           color: Theme.of(context)
                               .extension<ThemedColors>()!

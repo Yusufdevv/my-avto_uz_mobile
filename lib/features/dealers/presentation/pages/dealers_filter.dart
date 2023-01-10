@@ -1,7 +1,6 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
-import 'package:auto/core/utils/size_config.dart';
 import 'package:auto/features/common/bloc/regions/regions_bloc.dart';
 import 'package:auto/features/common/models/region.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
@@ -165,7 +164,6 @@ class _DealersFilterState extends State<DealersFilter> {
                       ),
 
                     //Категории
-                    if (widget.isDirectoryPage) const DirectoryFilterCategory()
                   ],
                 ),
               ),

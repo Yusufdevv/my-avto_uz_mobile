@@ -30,7 +30,7 @@ class _DealersListState extends State<DealersList> {
             builder: (context, state) => ListView.separated(
               padding: const EdgeInsets.only(left: 16, right: 16, top: 20),
               itemBuilder: (context, index) => DealerCard(
-                //dealerType: state.list[index].description,
+                dealerType: '',
                 dealerName: state.list[index].name,
                 phoneNumber: state.list[index].phoneNumber,
                 dealerInfo: state.list[index].description,
