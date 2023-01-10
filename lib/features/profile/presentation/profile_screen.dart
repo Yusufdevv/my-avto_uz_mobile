@@ -173,8 +173,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               name: 'Справочник',
                               onTap: () {
                                 Navigator.of(context).push(fade(
-                                    page: const DealerScreen(
-                                        isDirectoryPage: true)));
+                                    page: const DirectoryPage()));
                               },
                               iconPath: AppIcons.direct),
                           const ProfileDivider(),
