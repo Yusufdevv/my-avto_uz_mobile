@@ -26,6 +26,7 @@ class NewPasswordScreen extends StatefulWidget {
 class _NewPasswordScreenState extends State<NewPasswordScreen> {
   late TextEditingController newPasswordController;
   late TextEditingController confirmPasswordController;
+  bool isShowingToast = false;
 
   @override
   void initState() {
@@ -39,6 +40,13 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
     confirmPasswordController.dispose();
     newPasswordController.dispose();
     super.dispose();
+  }
+
+  void hidePopUp() {
+    if (isShowingToast) {
+      context.read<ShowPopUpBloc>().add(HidePopUp());
+      isShowingToast = false;
+    }
   }
 
   @override
@@ -65,6 +73,7 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                             height: 36,
                           ),
                           ZTextFormField(
+                            onTap: hidePopUp,
                             onChanged: (value) {
                               setState(() {});
                             },
@@ -76,6 +85,7 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                             height: 16,
                           ),
                           ZTextFormField(
+                            onTap: hidePopUp,
                             onChanged: (value) {
                               setState(() {});
                             },
@@ -99,11 +109,15 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                                 widget.onSubmit(newPasswordController.text,
                                     confirmPasswordController.text);
                               } else {
-                                 context.read<ShowPopUpBloc>().add(ShowPopUp(
-                                    message:
-                                        'Пароли не совпали, повторите попытку еще раз',
-                                    isSucces: false));
-                               
+                                context.read<ShowPopUpBloc>().add(
+                                      ShowPopUp(
+                                        message:
+                                            'Пароли не совпали, повторите попытку еще раз',
+                                        isSucces: false,
+                                        dismissible: false,
+                                      ),
+                                    );
+                                isShowingToast = true;
                               }
                             },
                             shadow: [

@@ -75,12 +75,20 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     super.initState();
   }
 
-  void onTabChange() => setState(() {
-        _currentIndex = _controller.index;
-        _navigatorKeys[NavItemEnum.values[_currentIndex]]!
-            .currentState!
-            .popUntil((route) => route.isFirst);
-      });
+  void onTabChange() {
+    print(
+        '=>=>=>=> current index in onTabChange home: $_currentIndex <=<=<=<=');
+    print(
+        '=>=>=>=> current index in onTabChange home: $_currentIndex <=<=<=<=');
+    print(
+        '=>=>=>=> runtime type of navigator key home: ${_navigatorKeys[NavItemEnum.values[_currentIndex]]!.currentState!.runtimeType} <=<=<=<=');
+    setState(() {
+      _currentIndex = _controller.index;
+      _navigatorKeys[NavItemEnum.values[_currentIndex]]!
+          .currentState!
+          .popUntil((route) => route.isFirst);
+    });
+  }
 
   Widget _buildPageNavigator(NavItemEnum tabItem) => TabNavigator(
         navigatorKey: _navigatorKeys[tabItem]!,
@@ -113,7 +121,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           child: Scaffold(
             resizeToAvoidBottomInset: true,
             bottomNavigationBar: Container(
-              height: SizeConfig.v(68) + MediaQuery.of(context).padding.bottom,
+              height: 68 + MediaQuery.of(context).padding.bottom,
               decoration: BoxDecoration(
                 borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(15),
@@ -130,10 +138,10 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               child: TabBar(
                 enableFeedback: true,
                 onTap: (index) {
-                  if (index == 2) {
-                    Navigator.of(context, rootNavigator: true)
-                        .push(fade(page: const QRScannerScreen()));
-                  }
+                  // if (index == 2) {
+                  //   Navigator.of(context, rootNavigator: true)
+                  //       .push(fade(page: const QRScannerScreen()));
+                  // }
                 },
                 indicator: const BoxDecoration(),
                 controller: _controller,

@@ -11,7 +11,12 @@ part 'authentication_event.dart';
 
 part 'authentication_state.dart';
 
-enum AuthenticationStatus { authenticated, unauthenticated, loading }
+enum AuthenticationStatus {
+  authenticated,
+  unauthenticated,
+  loading,
+  cancelLoading
+}
 
 class AuthenticationBloc
     extends Bloc<AuthenticationEvent, AuthenticationState> {
@@ -24,7 +29,6 @@ class AuthenticationBloc
       add(AuthenticationStatusChanged(status: event));
     });
     on<AuthenticationStatusChanged>((event, emit) async {
-      emit(const AuthenticationState.loading());
       switch (event.status) {
         case AuthenticationStatus.authenticated:
           final userData = await repository.getUser();
@@ -38,6 +42,7 @@ class AuthenticationBloc
           emit(const AuthenticationState.unauthenticated());
           break;
         case AuthenticationStatus.loading:
+        case AuthenticationStatus.cancelLoading:
           break;
       }
     });
@@ -56,6 +61,7 @@ class AuthenticationBloc
         if (event.onError != null) {
           event.onError!((result.left as ServerFailure).errorMessage);
         }
+        emit(const AuthenticationState.cancelLoading());
       }
     });
 

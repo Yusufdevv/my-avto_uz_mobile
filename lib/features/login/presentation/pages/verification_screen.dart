@@ -36,6 +36,7 @@ class VerificationScreen extends StatefulWidget {
 class _VerificationScreenState extends State<VerificationScreen> {
   late TextEditingController verificationController;
   bool timeComplete = false;
+  bool isToastShowing = false;
 
   @override
   void initState() {
@@ -110,6 +111,12 @@ class _VerificationScreenState extends State<VerificationScreen> {
                       height: 35,
                     ),
                     PinCodeTextField(
+                      onTap: () {
+                        if (isToastShowing) {
+                          context.read<ShowPopUpBloc>().add(HidePopUp());
+                          isToastShowing = false;
+                        }
+                      },
                       onChanged: (value) {
                         setState(() {});
                       },
@@ -202,8 +209,11 @@ class _VerificationScreenState extends State<VerificationScreen> {
                                           phone: widget.phone,
                                           session: widget.session),
                                       onError: (text) {
-                                context.read<ShowPopUpBloc>().add(
-                                    ShowPopUp(message: text, isSucces: false));
+                                context.read<ShowPopUpBloc>().add(ShowPopUp(
+                                    message: text,
+                                    isSucces: false,
+                                    dismissible: false));
+                                isToastShowing = true;
                               }, onSuccess: () {
                                 Navigator.pushReplacement(
                                     context,

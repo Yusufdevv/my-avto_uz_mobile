@@ -10,15 +10,20 @@ part 'show_pop_up_event.dart';
 part 'show_pop_up_state.dart';
 
 class ShowPopUpBloc extends Bloc<ShowPopUpEvent, ShowPopUpState> {
-  ShowPopUpBloc() : super(const ShowPopUpState(message: '', showPopUp: false, isSucces: false)) {
+  ShowPopUpBloc()
+      : super(const ShowPopUpState(
+            message: '', showPopUp: false, isSucces: false)) {
     var timer = Timer(Duration.zero, () {});
     on<ShowPopUp>((event, emit) {
-      emit(state.copyWith(message: event.message, showPopUp: true, isSucces: event.isSucces));
+      emit(state.copyWith(
+          message: event.message, showPopUp: true, isSucces: event.isSucces));
       if (timer.isActive) {
         timer.cancel();
       }
       timer = Timer(const Duration(seconds: 3), () {
-        add(HidePopUp());
+        if (event.dismissible) {
+          add(HidePopUp());
+        }
       });
     });
     on<HidePopUp>((event, emit) {

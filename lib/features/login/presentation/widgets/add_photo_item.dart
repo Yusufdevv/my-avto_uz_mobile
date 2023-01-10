@@ -17,7 +17,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 
 class AddPhotoItem extends StatefulWidget {
-  const AddPhotoItem({Key? key}) : super(key: key);
+  final VoidCallback onTap;
+  const AddPhotoItem({required this.onTap, Key? key}) : super(key: key);
 
   @override
   State<AddPhotoItem> createState() => _AddPhotoItemState();
@@ -136,7 +137,7 @@ class _AddPhotoItemState extends State<AddPhotoItem> {
                       const SizedBox(width: 21),
                       WButton(
                         onTap: () {
-                          //showTakeImageBottomSheet(context);
+                          widget.onTap();
                           showImageBottomSheet(
                               onSuccess: (image) {
                                 context.read<RegisterBloc>().add(
