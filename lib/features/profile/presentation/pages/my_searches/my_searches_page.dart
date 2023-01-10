@@ -61,12 +61,14 @@ class _MySearchesPageState extends State<MySearchesPage> {
               extraActions: [
                 WScaleAnimation(
                   onTap: () {
-                    setState(() {
-                      isToggled = !isToggled;
-                    });
+                    if (mySearches.isNotEmpty) {
+                      setState(() {
+                        isToggled = !isToggled;
+                      });
+                    }
                   },
                   child: Padding(
-                    padding: const EdgeInsets.only(right: 16),
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: isToggled
                         ? Text(
                             'Отменить',
