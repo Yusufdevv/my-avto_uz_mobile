@@ -50,19 +50,7 @@ class CarBrandItem extends StatelessWidget {
                   Image.asset(AppImages.defaultPhoto),
             ),
             const SizedBox(height: 8),
-            Expanded(
-              child: Text(
-                carBrandEntity.title,
-                textAlign: TextAlign.center,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: Theme.of(context)
-                    .textTheme
-                    .headline1!
-                    .copyWith(fontSize: 12, fontWeight: FontWeight.w400),
-              ),
-            ),
-            const SizedBox(height: 8),
+          
             Expanded(
               child: Text(
                 carBrandEntity.title,
