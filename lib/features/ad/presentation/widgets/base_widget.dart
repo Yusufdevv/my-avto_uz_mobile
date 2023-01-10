@@ -6,12 +6,17 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class BaseWidget extends StatelessWidget {
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
   final Widget child;
   final EdgeInsets? padding;
+  final bool hasButton;
 
   const BaseWidget(
-      {required this.child, this.padding, required this.onTap, Key? key})
+      {required this.child,
+      this.onTap,
+      this.padding,
+      this.hasButton = true,
+      Key? key})
       : super(key: key);
 
   @override
@@ -24,25 +29,27 @@ class BaseWidget extends StatelessWidget {
             color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
             borderRadius:
                 const BorderRadius.vertical(top: Radius.circular(20))),
-        child: Stack(
-          children: [
-            child,
-            Positioned(
-              bottom: MediaQuery.of(context).padding.bottom + 16,
-              right: 16,
-              left: 16,
-              child: WButton(
-                onTap: onTap,
-                text: LocaleKeys.further.tr(),
-                shadow: [
-                  BoxShadow(
-                      offset: const Offset(0, 4),
-                      blurRadius: 20,
-                      color: orange.withOpacity(0.2)),
+        child: hasButton
+            ? Stack(
+                children: [
+                  child,
+                  Positioned(
+                    bottom: MediaQuery.of(context).padding.bottom + 16,
+                    right: 16,
+                    left: 16,
+                    child: WButton(
+                      onTap: onTap ?? () {},
+                      text: LocaleKeys.further.tr(),
+                      shadow: [
+                        BoxShadow(
+                            offset: const Offset(0, 4),
+                            blurRadius: 20,
+                            color: orange.withOpacity(0.2)),
+                      ],
+                    ),
+                  ),
                 ],
-              ),
-            ),
-          ],
-        ),
+              )
+            : child,
       );
 }

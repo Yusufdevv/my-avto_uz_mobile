@@ -83,6 +83,7 @@ class _VerifySmsCodePageState extends State<VerifySmsCodePage> {
                 }
               },
               builder: (context, state) => Scaffold(
+                resizeToAvoidBottomInset: false,
                 appBar: const WAppBar(
                   title: 'Забыли пароль',
                 ),

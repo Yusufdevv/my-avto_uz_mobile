@@ -9,9 +9,8 @@ import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 class ContactScreen extends StatefulWidget {
-  final VoidCallback onTap;
 
-  const ContactScreen({required this.onTap, Key? key}) : super(key: key);
+  const ContactScreen({ Key? key}) : super(key: key);
 
   @override
   State<ContactScreen> createState() => _ContactScreenState();
@@ -49,11 +48,12 @@ class _ContactScreenState extends State<ContactScreen> {
           body: Form(
             key: _formKey,
             child: BaseWidget(
-              onTap: nameController.text.isNotEmpty ||
-                      emailController.text.isNotEmpty ||
-                      numberController.text.length > 7
-                  ? widget.onTap
-                  : () {},
+              // onTap: nameController.text.isNotEmpty ||
+              //         emailController.text.isNotEmpty ||
+              //         numberController.text.length > 7
+              //     ? widget.onTap
+              //     : () {},
+              hasButton: false,
               child: Column(
                 children: [
                   Expanded(

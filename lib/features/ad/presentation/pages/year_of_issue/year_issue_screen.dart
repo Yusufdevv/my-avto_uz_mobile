@@ -6,9 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class YearIssueScreen extends StatefulWidget {
-  final VoidCallback onTap;
-
-  const YearIssueScreen({required this.onTap, Key? key}) : super(key: key);
+  const YearIssueScreen({Key? key}) : super(key: key);
 
   @override
   State<YearIssueScreen> createState() => _YearIssueScreenState();
@@ -35,7 +33,7 @@ class _YearIssueScreenState extends State<YearIssueScreen> {
         child: Scaffold(
             body: BlocBuilder<YearIssueBloc, YearIssueState>(
           builder: (context, state) => BaseWidget(
-            onTap: state.selectedId == -1 ? () {} : widget.onTap,
+            hasButton: false,
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 16),
               child: ListView.builder(

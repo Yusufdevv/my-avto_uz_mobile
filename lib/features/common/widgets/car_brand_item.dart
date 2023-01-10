@@ -42,8 +42,10 @@ class CarBrandItem extends StatelessWidget {
               carBrandEntity.icon,
               width: 40,
               height: 40,
-              errorBuilder: (ctx, object, stackTrace) => Image.asset(AppImages.defaultPhoto),
-              loadingBuilder: (ctx, widget, chunkEvent) => Image.asset(AppImages.defaultPhoto),
+              errorBuilder: (ctx, object, stackTrace) =>
+                  Image.asset(AppImages.defaultPhoto),
+              loadingBuilder: (ctx, widget, chunkEvent) =>
+                  Image.asset(AppImages.defaultPhoto),
             ),
             const SizedBox(height: 8),
             Expanded(

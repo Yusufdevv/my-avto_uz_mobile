@@ -6,10 +6,7 @@ import 'package:auto/features/ad/presentation/widgets/base_widget.dart';
 import 'package:flutter/material.dart';
 
 class InspectionPlaceScreen extends StatefulWidget {
-  final VoidCallback onTap;
-
-  const InspectionPlaceScreen({required this.onTap, Key? key})
-      : super(key: key);
+  const InspectionPlaceScreen({Key? key}) : super(key: key);
 
   @override
   State<InspectionPlaceScreen> createState() => _InspectionPlaceScreenState();
@@ -19,7 +16,7 @@ class _InspectionPlaceScreenState extends State<InspectionPlaceScreen> {
   @override
   Widget build(BuildContext context) => Scaffold(
         body: BaseWidget(
-          onTap: widget.onTap,
+          hasButton: false,
           child: Padding(
             padding: const EdgeInsets.all(16),
             child: Column(

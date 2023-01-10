@@ -3,9 +3,7 @@ import 'package:auto/features/ad/presentation/widgets/base_widget.dart';
 import 'package:flutter/material.dart';
 
 class ModificationScreen extends StatefulWidget {
-  final VoidCallback onTap;
-
-  const ModificationScreen({required this.onTap, Key? key}) : super(key: key);
+  const ModificationScreen({Key? key}) : super(key: key);
 
   @override
   State<ModificationScreen> createState() => _ModificationScreenState();
@@ -21,7 +19,7 @@ class _ModificationScreenState extends State<ModificationScreen> {
   @override
   Widget build(BuildContext context) => Scaffold(
       body: BaseWidget(
-          onTap: widget.onTap,
+          hasButton: false,
           padding: const EdgeInsets.only(top: 16),
           child: ListView.builder(
             itemBuilder: (context, index) => RadioItem(

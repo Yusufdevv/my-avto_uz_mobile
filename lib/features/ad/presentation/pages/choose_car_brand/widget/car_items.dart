@@ -19,18 +19,20 @@ class ChangeCarItems extends StatelessWidget {
   const ChangeCarItems({
     required this.selectedId,
     required this.id,
-    Key? key,
     required this.name,
     required this.imageUrl,
     required this.text,
     required this.bloc,
+    Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) => GestureDetector(
         onTap: () {
+          print('=>=>=>=> image url ${imageUrl} <=<=<=<=');
           bloc.add(
-          GetMakesBlocEvent.selectedCarItems(id: id, name: name, imageUrl: imageUrl),
+            GetMakesBlocEvent.selectedCarItems(
+                id: id, name: name, imageUrl: imageUrl),
           );
         },
         child: Container(
@@ -64,6 +66,7 @@ class ChangeCarItems extends StatelessWidget {
                                 AppImages.carImage,
                                 height: 40,
                                 fit: BoxFit.cover,
+                                color: Colors.red,
                               )
                             : CachedNetworkImage(
                                 imageUrl: imageUrl,

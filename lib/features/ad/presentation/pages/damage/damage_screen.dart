@@ -7,9 +7,7 @@ import 'package:auto/features/ad/presentation/widgets/base_widget.dart';
 import 'package:flutter/material.dart';
 
 class DamageScreen extends StatefulWidget {
-  final VoidCallback onTap;
-
-  const DamageScreen({required this.onTap, Key? key}) : super(key: key);
+  const DamageScreen({Key? key}) : super(key: key);
 
   @override
   State<DamageScreen> createState() => _DamageScreenState();
@@ -33,7 +31,7 @@ class _DamageScreenState extends State<DamageScreen>
   Widget build(BuildContext context) => Scaffold(
       resizeToAvoidBottomInset: false,
       body: BaseWidget(
-        onTap: widget.onTap,
+        hasButton: false,
         child: SingleChildScrollView(
           padding: const EdgeInsets.fromLTRB(16, 16, 16, 50),
           child: Column(

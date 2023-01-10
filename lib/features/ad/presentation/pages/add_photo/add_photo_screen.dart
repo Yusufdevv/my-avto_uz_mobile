@@ -10,9 +10,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
 class AddPhotoScreen extends StatefulWidget {
-  final VoidCallback onTap;
-
-  const AddPhotoScreen({required this.onTap, Key? key}) : super(key: key);
+  const AddPhotoScreen({Key? key}) : super(key: key);
 
   @override
   State<AddPhotoScreen> createState() => _AddPhotoScreenState();
@@ -32,7 +30,7 @@ class _AddPhotoScreenState extends State<AddPhotoScreen> {
         value: imageBloc,
         child: Scaffold(
           body: BaseWidget(
-            onTap: widget.onTap,
+            hasButton: false,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

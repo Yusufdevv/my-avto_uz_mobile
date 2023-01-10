@@ -8,9 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 class StsScreen extends StatefulWidget {
-  final VoidCallback onTap;
-
-  const StsScreen({required this.onTap, Key? key}) : super(key: key);
+  const StsScreen({Key? key}) : super(key: key);
 
   @override
   State<StsScreen> createState() => _StsScreenState();
@@ -45,12 +43,13 @@ class _StsScreenState extends State<StsScreen> {
   Widget build(BuildContext context) => KeyboardDismisser(
         child: Scaffold(
           body: BaseWidget(
-            onTap: vinController.text.isNotEmpty &&
-                    numberController.text.length == 8 &&
-                    stsController.text.isNotEmpty &&
-                    passportController.text.isNotEmpty
-                ? widget.onTap
-                : () {},
+            // onTap: vinController.text.isNotEmpty &&
+            //         numberController.text.length == 8 &&
+            //         stsController.text.isNotEmpty &&
+            //         passportController.text.isNotEmpty
+            //     ? widget.onTap
+            //     : () {},
+            hasButton: false,
             child: Padding(
               padding: const EdgeInsets.all(16),
               child: SingleChildScrollView(

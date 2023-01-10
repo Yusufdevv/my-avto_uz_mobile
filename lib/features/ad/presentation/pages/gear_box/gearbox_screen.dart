@@ -4,9 +4,7 @@ import 'package:auto/features/ad/presentation/widgets/base_widget.dart';
 import 'package:flutter/material.dart';
 
 class GearboxScreen extends StatefulWidget {
-  final VoidCallback onTap;
-
-  const GearboxScreen({required this.onTap, Key? key}) : super(key: key);
+  const GearboxScreen({Key? key}) : super(key: key);
 
   @override
   State<GearboxScreen> createState() => _GearboxScreenState();
@@ -19,7 +17,7 @@ class _GearboxScreenState extends State<GearboxScreen> {
   @override
   Widget build(BuildContext context) => Scaffold(
           body: BaseWidget(
-        onTap: widget.onTap,
+        hasButton: false,
         padding: const EdgeInsets.only(top: 16),
         child: ListView.builder(
           itemBuilder: (context, index) => RadioItem(

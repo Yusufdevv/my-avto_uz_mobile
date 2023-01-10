@@ -7,9 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 class DescriptionScreen extends StatefulWidget {
-  final VoidCallback onTap;
-
-  const DescriptionScreen({required this.onTap, Key? key}) : super(key: key);
+  const DescriptionScreen({Key? key}) : super(key: key);
 
   @override
   State<DescriptionScreen> createState() => _DescriptionScreenState();
@@ -35,7 +33,7 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
   Widget build(BuildContext context) => KeyboardDismisser(
         child: Scaffold(
           body: BaseWidget(
-            onTap: widget.onTap,
+            hasButton: false,
             child: Padding(
               padding: const EdgeInsets.all(16),
               child: Column(

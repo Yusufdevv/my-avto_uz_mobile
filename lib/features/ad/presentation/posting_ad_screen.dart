@@ -2,7 +2,6 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/presentation/pages/add_photo/add_photo_screen.dart';
-import 'package:auto/features/ad/presentation/pages/adding_photo/adding_photo_screen.dart';
 import 'package:auto/features/ad/presentation/pages/carcase/carcase_screen.dart';
 import 'package:auto/features/ad/presentation/pages/choose_car_brand/choose_brand_screen.dart';
 import 'package:auto/features/ad/presentation/pages/choose_model/choose_car_model.dart';
@@ -24,9 +23,12 @@ import 'package:auto/features/ad/presentation/pages/pts/pts_screen.dart';
 import 'package:auto/features/ad/presentation/pages/sts/sts_screen.dart';
 import 'package:auto/features/ad/presentation/pages/year_of_issue/year_issue_screen.dart';
 import 'package:auto/features/ad/presentation/widgets/completion_bar.dart';
+import 'package:auto/features/ad/presentation/widgets/posting_ad_appbar.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
+import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 
 class PostingAdScreen extends StatefulWidget {
@@ -68,239 +70,172 @@ class _PostingAdScreenState extends State<PostingAdScreen>
     'Цена',
     'Пробег',
     'СТС',
-    'Предосмотор'
+    'Предосмотор',
   ];
+  void onNextPressed() {
+    currentTabIndex++;
+
+    tabController.animateTo(currentTabIndex);
+    setState(() {});
+  }
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-        appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(108),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+  Widget build(BuildContext context) => AnnotatedRegion(
+        value: SystemUiOverlayStyle(
+          statusBarColor:
+              Theme.of(context).extension<ThemedColors>()!.whiteToDark,
+          statusBarBrightness: Brightness.light,
+          statusBarIconBrightness: Brightness.dark,
+        ),
+        child: Scaffold(
+          appBar: PreferredSize(
+            preferredSize: const Size.fromHeight(60),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                PostingAdAppBar(
+                  onTapBack: () {
+                    if (currentTabIndex == 0) {
+                      // Navigator.pop(context);
+                    } else {
+                      print(
+                          '=>=>=>=> currentTab index $currentTabIndex <=<=<=<=');
+                      --currentTabIndex;
+                      tabController.animateTo(currentTabIndex);
+                      setState(() {});
+                    }
+                  },
+                  title: currentTabIndex == 0 ? '' : tabs[currentTabIndex - 1],
+                  extraActions: [
+                    if (currentTabIndex > 1)
+                      Padding(
+                        padding: const EdgeInsets.all(16),
+                        child: WScaleAnimation(
+                            child: SvgPicture.asset(
+                              AppIcons.close,
+                            ),
+                            onTap: () {
+                              // Navigator.pop(context);
+                            }),
+                      )
+                    else
+                      const SizedBox()
+                  ],
+                ),
+                // Container(
+                //   color: Theme.of(context).appBarTheme.backgroundColor,
+                //   // color: Colors.amber,
+                //   padding: const EdgeInsets.symmetric(vertical: 15),
+                //   child: TabBar(
+                //     onTap: (index) {
+                //        print('=>=>=>=> index ${tabController.index} <=<=<=<=');
+                //        print('=>=>=>=> privious index ${tabController.previousIndex} <=<=<=<=');
+                //       currentTabIndex = index;
+                //       tabController..index = tabController.previousIndex
+                //       ..animateTo(currentTabIndex);
+                //       setState(() {});
+                //     },
+                //     isScrollable: true,
+                //     indicatorColor: Theme.of(context).appBarTheme.backgroundColor,
+                //     controller: tabController,
+                //     labelStyle: Theme.of(context)
+                //         .textTheme
+                //         .headline1!
+                //         .copyWith(fontSize: 16),
+                //     unselectedLabelColor: grey,
+                //     labelColor: Theme.of(context)
+                //         .extension<ThemedColors>()!
+                //         .midnightExpressToWhite,
+                //     tabs: List.generate(
+                //       21,
+                //       (index) => index == 10
+                //           ? Row(
+                //               children: [
+                //                 Text(tabs[index],
+                //                     style: currentTabIndex > index
+                //                         ? Theme.of(context)
+                //                             .textTheme
+                //                             .headline1!
+                //                             .copyWith(fontSize: 12, color: green)
+                //                         : const TextStyle()),
+                //                 const SizedBox(
+                //                   width: 4,
+                //                 ),
+                //                 WScaleAnimation(
+                //                     onTap: () => Navigator.push(
+                //                         context,
+                //                         MaterialPageRoute(
+                //                             builder: (context) =>
+                //                                 const AddingPhotoScreen())),
+                //                     child: SvgPicture.asset(AppIcons.infoCircle)),
+                //               ],
+                //             )
+                //           : Text(
+                //               tabs[index],
+                //               style: currentTabIndex > index
+                //                   ? Theme.of(context)
+                //                       .textTheme
+                //                       .headline1!
+                //                       .copyWith(fontSize: 12, color: green)
+                //                   : const TextStyle(),
+                //             ),
+                //     ),
+                //   ),
+                // ),
+                CompletionBar(
+                    screenWidth: MediaQuery.of(context).size.width,
+                    totalSteps: 21,
+                    currentStep: currentTabIndex + 1,
+                    progressBarColor: orange),
+              ],
+            ),
+          ),
+          body: Stack(
             children: [
-              WAppBar(
-                onTapBack: () {
-                  if (currentTabIndex == 0) {
-                    Navigator.pop(context);
-                  } else {
-                    print(
-                        '=>=>=>=> currentTab index $currentTabIndex <=<=<=<=');
-                    --currentTabIndex;
-                    tabController.animateTo(currentTabIndex);
-                  }
-                },
-                extraActions: [
-                  if (currentTabIndex > 1)
-                    Padding(
-                      padding: const EdgeInsets.all(16),
-                      child: WScaleAnimation(
-                          child: SvgPicture.asset(
-                            AppIcons.close,
-                          ),
-                          onTap: () => Navigator.pop(context)),
-                    )
-                  else
-                    const SizedBox()
+              TabBarView(
+                controller: tabController,
+                physics: const NeverScrollableScrollPhysics(),
+                children: [
+                  const ChooseCarBrand(),
+                  const ChooseCarModelScreen(),
+                  const YearIssueScreen(),
+                  const CarcaseScreen(),
+                  const GenerationScreen(),
+                  const EngineScreen(),
+                  const DriveTypeScreen(),
+                  const GearboxScreen(),
+                  const ModificationScreen(),
+                  const ColorsScreen(),
+                  const AddPhotoScreen(),
+                  const PtsScreen(),
+                  const DescriptionScreen(),
+                  const EquipmentScreen(),
+                  const DamageScreen(),
+                  const ContactScreen(),
+                  const InspectionPlaceScreen(),
+                  const PriceScreen(),
+                  const MileageScreen(),
+                  const StsScreen(),
+                  PreviewScreen()
                 ],
               ),
-              // Container(
-              //   color: Theme.of(context).appBarTheme.backgroundColor,
-              //   // color: Colors.amber,
-              //   padding: const EdgeInsets.symmetric(vertical: 15),
-              //   child: TabBar(
-              //     onTap: (index) {
-              //        print('=>=>=>=> index ${tabController.index} <=<=<=<=');
-              //        print('=>=>=>=> privious index ${tabController.previousIndex} <=<=<=<=');
-              //       currentTabIndex = index;
-              //       tabController..index = tabController.previousIndex
-              //       ..animateTo(currentTabIndex);
-              //       setState(() {});
-              //     },
-              //     isScrollable: true,
-              //     indicatorColor: Theme.of(context).appBarTheme.backgroundColor,
-              //     controller: tabController,
-              //     labelStyle: Theme.of(context)
-              //         .textTheme
-              //         .headline1!
-              //         .copyWith(fontSize: 16),
-              //     unselectedLabelColor: grey,
-              //     labelColor: Theme.of(context)
-              //         .extension<ThemedColors>()!
-              //         .midnightExpressToWhite,
-              //     tabs: List.generate(
-              //       21,
-              //       (index) => index == 10
-              //           ? Row(
-              //               children: [
-              //                 Text(tabs[index],
-              //                     style: currentTabIndex > index
-              //                         ? Theme.of(context)
-              //                             .textTheme
-              //                             .headline1!
-              //                             .copyWith(fontSize: 12, color: green)
-              //                         : const TextStyle()),
-              //                 const SizedBox(
-              //                   width: 4,
-              //                 ),
-              //                 WScaleAnimation(
-              //                     onTap: () => Navigator.push(
-              //                         context,
-              //                         MaterialPageRoute(
-              //                             builder: (context) =>
-              //                                 const AddingPhotoScreen())),
-              //                     child: SvgPicture.asset(AppIcons.infoCircle)),
-              //               ],
-              //             )
-              //           : Text(
-              //               tabs[index],
-              //               style: currentTabIndex > index
-              //                   ? Theme.of(context)
-              //                       .textTheme
-              //                       .headline1!
-              //                       .copyWith(fontSize: 12, color: green)
-              //                   : const TextStyle(),
-              //             ),
-              //     ),
-              //   ),
-              // ),
-              CompletionBar(
-                  screenWidth: MediaQuery.of(context).size.width,
-                  totalSteps: 21,
-                  currentStep: currentTabIndex + 1,
-                  progressBarColor: orange),
+              Positioned(
+                bottom: 16,
+                right: 16,
+                left: 16,
+                child: WButton(
+                  onTap: onNextPressed,
+                  text: 'Далее',
+                  shadow: [
+                    BoxShadow(
+                        offset: const Offset(0, 4),
+                        blurRadius: 20,
+                        color: orange.withOpacity(0.2)),
+                  ],
+                ),
+              ),
             ],
           ),
-        ),
-        body: TabBarView(
-          controller: tabController,
-          physics: const NeverScrollableScrollPhysics(),
-          children: [
-            ChooseCarBrand(
-              onTap: () {
-                 print('=>=>=>=> ontap of tab item <=<=<=<=');
-                currentTabIndex = 1;
-                tabController
-                  ..index = tabController.previousIndex
-                  ..animateTo(currentTabIndex);
-                  
-              },
-            ),
-            ChooseCarModelScreen(
-              onTap: () => setState(() {
-                currentTabIndex = 2;
-                tabController.animateTo(2);
-              }),
-            ),
-            YearIssueScreen(
-              onTap: () => setState(() {
-                currentTabIndex = 3;
-                tabController.animateTo(3);
-              }),
-            ),
-            CarcaseScreen(
-              onTap: () => setState(() {
-                currentTabIndex = 4;
-                tabController.animateTo(4);
-              }),
-            ),
-            GenerationScreen(
-              onTap: () => setState(() {
-                currentTabIndex = 5;
-                tabController.animateTo(5);
-              }),
-            ),
-            EngineScreen(
-              onTap: () => setState(() {
-                currentTabIndex = 6;
-                tabController.animateTo(6);
-              }),
-            ),
-            DriveTypeScreen(
-              onTap: () => setState(() {
-                currentTabIndex = 7;
-                tabController.animateTo(7);
-              }),
-            ),
-            GearboxScreen(
-              onTap: () => setState(() {
-                currentTabIndex = 8;
-                tabController.animateTo(8);
-              }),
-            ),
-            ModificationScreen(
-              onTap: () => setState(() {
-                currentTabIndex = 9;
-                tabController.animateTo(9);
-              }),
-            ),
-            ColorsScreen(
-              onTap: () => setState(() {
-                currentTabIndex = 10;
-                tabController.animateTo(10);
-              }),
-            ),
-            AddPhotoScreen(
-              onTap: () => setState(() {
-                currentTabIndex = 11;
-                tabController.animateTo(11);
-              }),
-            ),
-            PtsScreen(
-              onTap: () => setState(() {
-                currentTabIndex = 12;
-                tabController.animateTo(12);
-              }),
-            ),
-            DescriptionScreen(
-              onTap: () => setState(() {
-                currentTabIndex = 13;
-                tabController.animateTo(13);
-              }),
-            ),
-            EquipmentScreen(
-              onTap: () => setState(() {
-                currentTabIndex = 14;
-                tabController.animateTo(14);
-              }),
-            ),
-            DamageScreen(
-              onTap: () => setState(() {
-                currentTabIndex = 15;
-                tabController.animateTo(15);
-              }),
-            ),
-            ContactScreen(
-              onTap: () => setState(() {
-                currentTabIndex = 16;
-                tabController.animateTo(16);
-              }),
-            ),
-            InspectionPlaceScreen(
-              onTap: () => setState(() {
-                currentTabIndex = 17;
-                tabController.animateTo(17);
-              }),
-            ),
-            PriceScreen(
-              onTap: () => setState(() {
-                currentTabIndex = 18;
-                tabController.animateTo(18);
-              }),
-            ),
-            MileageScreen(
-              onTap: () => setState(() {
-                currentTabIndex = 19;
-                tabController.animateTo(19);
-              }),
-            ),
-            StsScreen(
-              onTap: () => setState(() {
-                currentTabIndex = 20;
-                tabController.animateTo(20);
-              }),
-            ),
-            PreviewScreen()
-          ],
         ),
       );
 }
