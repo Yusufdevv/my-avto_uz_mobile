@@ -7,8 +7,8 @@ class CoverImageThumbnailEntity extends Equatable {
   final String square;
 
   const CoverImageThumbnailEntity({
-    required this.crop,
-    required this.square,
+    this.crop = '',
+    this.square = '',
   });
 
   @override
