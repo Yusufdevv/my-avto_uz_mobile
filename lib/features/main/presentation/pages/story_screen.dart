@@ -42,7 +42,7 @@ class _StoryScreenState extends State<StoryScreen>
     super.initState();
     bloc = StoryBloc();
     storyIndex = widget.index;
-    pageController = TransformerPageController();
+    pageController = TransformerPageController(initialPage: storyIndex, itemCount: widget.stories.length);
     animationController = AnimationController(vsync: this);
 
     _loadStory();
@@ -58,7 +58,7 @@ class _StoryScreenState extends State<StoryScreen>
             } else {
               itemIndex = 0;
               storyIndex++;
-              _animateToPage(storyIndex);
+              _animateToPage(forward: true);
               _loadStory();
             }
           } else {
@@ -90,7 +90,7 @@ class _StoryScreenState extends State<StoryScreen>
           child: TransformerPageView(
             pageController: pageController,
             transformer: ThreeDTransformer(),
-            curve: Curves.easeInBack,
+            curve: Curves.linear,
             scrollDirection: Axis.horizontal,
             itemCount: widget.stories.length,
             itemBuilder: (context, index) => Stack(
@@ -130,7 +130,7 @@ class _StoryScreenState extends State<StoryScreen>
                   left: 16,
                   right: 10,
                   child: Row(
-                    children: widget.stories[storyIndex].items
+                    children: widget.stories[index].items
                         .asMap()
                         .map(
                           (i, e) => MapEntry(
@@ -164,7 +164,7 @@ class _StoryScreenState extends State<StoryScreen>
                         padding: const EdgeInsets.symmetric(horizontal: 4),
                         child: Text(
                           widget
-                              .stories[storyIndex].items[itemIndex].description,
+                              .stories[index].items[itemIndex].description,
                           style: Theme.of(context)
                               .textTheme
                               .headline4!
@@ -188,7 +188,7 @@ class _StoryScreenState extends State<StoryScreen>
                       ),
                       const SizedBox(height: 28),
                       if (widget
-                          .stories[storyIndex].items[itemIndex].url.isNotEmpty)
+                          .stories[index].items[itemIndex].url.isNotEmpty)
                         WButton(
                           onTap: () {},
                           text: LocaleKeys.more.tr(),
@@ -220,7 +220,7 @@ class _StoryScreenState extends State<StoryScreen>
                             borderRadius: BorderRadius.circular(40),
                             child: CachedNetworkImage(
                               imageUrl: widget
-                                  .stories[storyIndex].coverImageThumbnail.crop,
+                                  .stories[index].coverImageThumbnail.crop,
                               fit: BoxFit.cover,
                               placeholder: (context, url) => const Image(
                                 image: AssetImage(AppImages.defaultPhoto),
@@ -238,7 +238,7 @@ class _StoryScreenState extends State<StoryScreen>
                       Padding(
                         padding: const EdgeInsets.only(top: 10),
                         child: Text(
-                          widget.stories[storyIndex].name,
+                          widget.stories[index].name,
                           style: Theme.of(context)
                               .textTheme
                               .headline4!
@@ -269,7 +269,9 @@ class _StoryScreenState extends State<StoryScreen>
           } else {
             storyIndex--;
             itemIndex = widget.stories[storyIndex].items.length - 1;
-            _animateToPage(storyIndex);
+            print('itemIndex: $itemIndex');
+            print('storyIndex: $storyIndex');
+            _animateToPage(forward: false);
             _loadStory();
           }
         } else {
@@ -285,7 +287,7 @@ class _StoryScreenState extends State<StoryScreen>
           } else {
             itemIndex = 0;
             storyIndex++;
-            _animateToPage(storyIndex);
+            _animateToPage(forward: true);
             _loadStory();
           }
         } else {
@@ -300,19 +302,27 @@ class _StoryScreenState extends State<StoryScreen>
     animationController
       ..stop()
       ..reset()
-      ..duration = const Duration(seconds: 10)
+      ..duration = const Duration(seconds: 5)
       ..forward();
     if (!widget.stories[storyIndex].items[itemIndex].isRead) {
       bloc.add(ReadEvent(widget.stories[storyIndex].items[itemIndex].id));
     }
   }
 
-  void _animateToPage(int index) {
-    pageController.animateToPage(
-      storyIndex,
-      duration: const Duration(milliseconds: 500),
-      curve: Curves.easeInOut,
-    );
+  void _animateToPage({required bool forward}) {
+    print('animate: $forward');
+    forward
+        ? pageController.nextPage(
+        duration: const Duration(milliseconds: 500),
+        curve: Curves.linear)
+        : pageController.previousPage(
+        duration: const Duration(milliseconds: 500),
+        curve: Curves.linear);
+    // pageController.animateToPage(
+    //   storyIndex,
+    //   duration: const Duration(milliseconds: 500),
+    //   curve: forward ? Curves.easeInBack : Curves.easeInOut,
+    // );
   }
 
   void _onLongPress({bool isStopped = true}) {
