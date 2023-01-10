@@ -93,7 +93,9 @@ class _MainScreenState extends State<MainScreen> {
           Navigator.of(context).pop();
         })));
       },
-      () {
+      () async {
+        await StorageRepository.putString('token', '');
+         print('=>=>=>=> token put empty <=<=<=<=');
       },
       () async {},
       () {
