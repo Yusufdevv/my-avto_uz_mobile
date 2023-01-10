@@ -6,12 +6,13 @@ import 'package:auto/features/dealers/presentation/pages/seller.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:auto/utils/my_functions.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class DirectoryCard extends StatefulWidget {
-  //final String dealerType;
+  final String dealerType;
   final String dealerInfo;
   final String dealerName;
   final String dealerImageUrl;
@@ -25,7 +26,7 @@ class DirectoryCard extends StatefulWidget {
   final double longitude;
 
   const DirectoryCard({
-    //required this.dealerType,
+    required this.dealerType,
     required this.dealerName,
     required this.dealerImageUrl,
     required this.quantityOfCars,
@@ -54,7 +55,7 @@ class _DirectoryCardState extends State<DirectoryCard> {
             context,
             fade(
               page: Seller(
-                //dealerType: widget.dealerType,
+                dealerType: widget.dealerType,
                 dealerName: widget.dealerName,
                 phoneNumber: widget.phoneNumber,
                 dealerInfo: widget.dealerInfo,
@@ -89,7 +90,9 @@ class _DirectoryCardState extends State<DirectoryCard> {
                         border: Border.all(color: dividerColor)),
                     child: ClipRRect(
                         borderRadius: BorderRadius.circular(32),
-                        child: Image.network(widget.dealerImageUrl)),
+                        child: CachedNetworkImage(
+                            imageUrl: widget.dealerImageUrl,
+                            fit: BoxFit.cover)),
                   ),
                   const SizedBox(width: 12),
                   Column(

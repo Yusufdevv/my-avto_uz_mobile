@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class DealerCard extends StatefulWidget {
-  //final String dealerType;
+  final String dealerType;
   final String dealerInfo;
   final String dealerName;
   final String dealerImageUrl;
@@ -26,7 +26,7 @@ class DealerCard extends StatefulWidget {
   final bool isDirectoryPage;
 
   const DealerCard({
-    //required this.dealerType,
+    required this.dealerType,
     required this.dealerName,
     required this.dealerImageUrl,
     required this.quantityOfCars,
@@ -56,7 +56,7 @@ class _DealerCardState extends State<DealerCard> {
             context,
             fade(
               page: Seller(
-                //dealerType: widget.dealerType,
+                dealerType: widget.dealerType,
                 dealerName: widget.dealerName,
                 phoneNumber: widget.phoneNumber,
                 dealerInfo: widget.dealerInfo,

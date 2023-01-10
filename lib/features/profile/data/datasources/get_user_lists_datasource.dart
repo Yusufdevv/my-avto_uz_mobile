@@ -3,6 +3,8 @@ import 'package:auto/core/singletons/dio_settings.dart';
 import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/common/domain/model/auto_model.dart';
+import 'package:auto/features/profile/data/models/dir_category_model.dart';
+import 'package:auto/features/profile/data/models/directory_model.dart';
 import 'package:auto/features/profile/data/models/my_searches_model.dart';
 import 'package:auto/features/profile/data/models/notifications_model.dart';
 import 'package:dio/dio.dart';
@@ -12,6 +14,9 @@ abstract class GetUserListDatasource {
 
   Future<List<NotificationsModel>> getNotifications();
   Future<List<MySearchesModel>> getMySearches();
+  Future<List<DirectoryModel>> getDirectories();
+  Future<List<DirCategoryModel>> getDirCategory();
+  Future<DirectoryModel> getDirectory(String id);
   Future<NotificationsModel> getNotificationSingle(String id);
 }
 
@@ -110,6 +115,84 @@ class GetUserListDatasourceImpl extends GetUserListDatasource {
       );
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
         return NotificationsModel.fromJson(response.data);
+      }
+      throw ServerException(
+          statusCode: response.statusCode ?? 0,
+          errorMessage: response.statusMessage ?? '');
+    } on ServerException {
+      rethrow;
+    } on DioError {
+      throw DioException();
+    } on Exception catch (e) {
+      throw ParsingException(errorMessage: e.toString());
+    }
+  }
+
+  @override
+  Future<List<DirectoryModel>> getDirectories() async {
+    try {
+      final response = await dio.get(
+        '/car-place/list/',
+        options: Options(headers: {
+          'Authorization': 'Bearer ${StorageRepository.getString('token')}'
+        }),
+      );
+      if (response.statusCode! >= 200 && response.statusCode! < 300) {
+        return (response.data['results'] as List)
+            // ignore: unnecessary_lambdas
+            .map((e) => DirectoryModel.fromJson(e))
+            .toList();
+      }
+      throw ServerException(
+          statusCode: response.statusCode ?? 0,
+          errorMessage: response.statusMessage ?? '');
+    } on ServerException {
+      rethrow;
+    } on DioError {
+      throw DioException();
+    } on Exception catch (e) {
+      throw ParsingException(errorMessage: e.toString());
+    }
+  }
+
+  @override
+  Future<List<DirCategoryModel>> getDirCategory() async {
+    try {
+      final response = await dio.get(
+        '/car-place/category/list/',
+        options: Options(headers: {
+          'Authorization': 'Bearer ${StorageRepository.getString('token')}'
+        }),
+      );
+      if (response.statusCode! >= 200 && response.statusCode! < 300) {
+        return (response.data['results'] as List)
+            // ignore: unnecessary_lambdas
+            .map((e) => DirCategoryModel.fromJson(e))
+            .toList();
+      }
+      throw ServerException(
+          statusCode: response.statusCode ?? 0,
+          errorMessage: response.statusMessage ?? '');
+    } on ServerException {
+      rethrow;
+    } on DioError {
+      throw DioException();
+    } on Exception catch (e) {
+      throw ParsingException(errorMessage: e.toString());
+    }
+  }
+
+  @override
+  Future<DirectoryModel> getDirectory(String id) async {
+    try {
+      final response = await dio.get(
+        'users/notification/$id/',
+        options: Options(headers: {
+          'Authorization': 'Bearer ${StorageRepository.getString('token')}'
+        }),
+      );
+      if (response.statusCode! >= 200 && response.statusCode! < 300) {
+        return DirectoryModel.fromJson(response.data);
       }
       throw ServerException(
           statusCode: response.statusCode ?? 0,
