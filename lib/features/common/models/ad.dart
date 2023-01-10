@@ -32,7 +32,7 @@ class AdModel extends AdsEntity {
   @JsonKey(name: 'is_wishlisted')
   final bool isWishlisted;
   @JsonKey(name: 'price')
-  final String price;
+  final int price;
 
   AdModel({
     this.id = 0,
@@ -48,7 +48,7 @@ class AdModel extends AdsEntity {
     this.images = const [],
     this.user = const CarUserEntity(),
     this.isWishlisted = false,
-    this.price = '',
+    this.price = 0,
   }) : super(
           id: id,
           viewCount: viewCount,
