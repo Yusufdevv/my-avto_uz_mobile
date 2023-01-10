@@ -36,6 +36,7 @@ class InfoContainer extends StatelessWidget {
     this.gallery,
     this.initialLike,
     this.id,
+    this.phone,
     required this.initialComparsions,
   });
 
@@ -51,6 +52,7 @@ class InfoContainer extends StatelessWidget {
   final String? price;
   final String? discountPrice;
   final String? sellType;
+  final String? phone;
   final String? currency;
   final List<String>? gallery;
   final bool hasStatusInfo;
@@ -87,7 +89,11 @@ class InfoContainer extends StatelessWidget {
                         child: Container(
                           height: 201,
                           decoration: BoxDecoration(
-                            color: hasCallCard ? green : red,
+                            color: ownerType == 'owner'
+                                ? hasCallCard
+                                    ? green
+                                    : red
+                                : red,
                             borderRadius: BorderRadius.only(
                                 topRight: const Radius.circular(8),
                                 bottomRight: const Radius.circular(8),
@@ -102,12 +108,12 @@ class InfoContainer extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               SvgPicture.asset(
-                                  hasCallCard
+                                  ownerType == 'owner'
                                       ? AppIcons.phone
                                       : AppIcons.shopping,
                                   color: white),
                               Text(
-                                hasCallCard ? 'Позвонить' : 'Купить',
+                                ownerType == 'owner' ? 'Позвонить' : 'Купить',
                                 style: Theme.of(context)
                                     .textTheme
                                     .headline4!

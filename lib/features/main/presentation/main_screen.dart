@@ -3,6 +3,7 @@ import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/ad/presentation/pages/ads/ads_screen.dart';
 import 'package:auto/features/commercial/presentation/commercial_screen.dart';
+import 'package:auto/features/common/bloc/announcement_bloc/bloc/announcement_list_bloc.dart';
 import 'package:auto/features/common/bloc/get_car_model/get_car_model_bloc.dart';
 import 'package:auto/features/common/bloc/get_makes_bloc/get_makes_bloc_bloc.dart';
 
@@ -127,128 +128,149 @@ class _MainScreenState extends State<MainScreen> {
           builder: (context, state) => Scaffold(
             backgroundColor: Theme.of(context).scaffoldBackgroundColor,
             appBar: const MainAppBar(),
-            body: SingleChildScrollView(
-              padding: const EdgeInsets.symmetric(vertical: 20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    height: 96,
-                    child: ListView.separated(
+            body: BlocBuilder<AnnouncementListBloc, AnnouncementListState>(
+              builder: (context, stateAnnounc) => SingleChildScrollView(
+                padding: const EdgeInsets.symmetric(vertical: 20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      height: 96,
+                      child: ListView.separated(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        itemBuilder: (context, index) => state.stories.isEmpty
+                            ? const StoryShimmerItem()
+                            : StoryItem(
+                                title: state.stories[index].name,
+                                image: state
+                                    .stories[index].coverImageThumbnail.square,
+                                onTap: () {
+                                  Navigator.of(context, rootNavigator: true)
+                                      .push(fade(
+                                          page: StoryScreen(
+                                    stories: state.stories,
+                                    index: index,
+                                  )));
+                                },
+                                isRead: state.stories[index].isRead,
+                              ),
+                        itemCount:
+                            state.stories.isEmpty ? 5 : state.stories.length,
+                        scrollDirection: Axis.horizontal,
+                        separatorBuilder: (context, index) =>
+                            const SizedBox(width: 8),
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    DealButton(
+                      onTap: () {
+                        Navigator.of(context, rootNavigator: true)
+                            .push(fade(page: const ReelsScreen()));
+                      },
+                    ),
+                    BlocBuilder<GetMakesBloc, GetMakesState>(
+                      builder: (context, state) => CarModelItem(
+                        onTapSelect: () => Navigator.of(context).push(
+                            fade(page: ChooseCarBrandComparison(onTap: () {
+                          Navigator.pop(context);
+                        }))).then((value) {
+                          print('===> ==> Buyoda bu');
+                          context.read<AnnouncementListBloc>().add(
+                              AnnouncementListEvent.getFilter(context
+                                  .read<AnnouncementListBloc>()
+                                  .state
+                                  .filter
+                                  .copyWith(
+                                    make: context
+                                        .read<GetMakesBloc>()
+                                        .state
+                                        .selectId,
+                                  )));
+                          print(
+                              '===> ==> Bu Hammasi ${context.read<GetMakesBloc>().state.selectId}');
+                          context
+                              .read<AnnouncementListBloc>()
+                              .add(AnnouncementListEvent.getAnnouncementList());
+                        }),
+                        onTapShow: () {},
+                        imageUrl: state.imageUrl,
+                        title: state.name,
+                        count: stateAnnounc.count,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 48,
+                      child: ListView.builder(
+                        physics: const BouncingScrollPhysics(),
+                        padding: const EdgeInsets.only(right: 12),
+                        itemBuilder: (context, index) => ServiceItem(
+                          serviceEntity: serviceEntity[index],
+                          onTap: serviceTaps[index],
+                        ),
+                        itemCount: serviceEntity.length,
+                        scrollDirection: Axis.horizontal,
+                      ),
+                    ),
+                    const TopBrands(),
+                    const TopAds(),
+                    Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16),
-                      itemBuilder: (context, index) => state.stories.isEmpty
-                          ? const StoryShimmerItem()
-                          : StoryItem(
-                              title: state.stories[index].name,
-                              image: state
-                                  .stories[index].coverImageThumbnail.square,
-                              onTap: () {
-                                Navigator.of(context, rootNavigator: true)
-                                    .push(fade(
-                                        page: StoryScreen(
-                                  stories: state.stories,
-                                  index: index,
-                                )));
-                              },
-                              isRead: state.stories[index].isRead,
-                            ),
-                      itemCount:
-                          state.stories.isEmpty ? 5 : state.stories.length,
-                      scrollDirection: Axis.horizontal,
-                      separatorBuilder: (context, index) =>
-                          const SizedBox(width: 8),
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  DealButton(
-                    onTap: () {
-                      Navigator.of(context, rootNavigator: true)
-                          .push(fade(page: const ReelsScreen()));
-                    },
-                  ),
-                  BlocBuilder<GetMakesBloc, GetMakesState>(
-                    builder: (context, state) => CarModelItem(
-                      count: 1,
-                      onTapSelect: () => Navigator.of(context)
-                          .push(fade(page: ChooseCarBrandComparison(onTap: () {
-                        Navigator.pop(context);
-                      }))),
-                      onTapShow: () {},
-                      imageUrl: state.imageUrl,
-                      title: state.name,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 48,
-                    child: ListView.builder(
-                      physics: const BouncingScrollPhysics(),
-                      padding: const EdgeInsets.only(right: 12),
-                      itemBuilder: (context, index) => ServiceItem(
-                        serviceEntity: serviceEntity[index],
-                        onTap: serviceTaps[index],
+                      child: Text(
+                        LocaleKeys.favorites.tr(),
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline1!
+                            .copyWith(fontSize: 18),
                       ),
-                      itemCount: serviceEntity.length,
-                      scrollDirection: Axis.horizontal,
                     ),
-                  ),
-                  const TopBrands(),
-                  const TopAds(),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: Text(
-                      LocaleKeys.favorites.tr(),
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline1!
-                          .copyWith(fontSize: 18),
-                    ),
-                  ),
-                  const FavouriteItem(),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: SizedBox(
-                      height: 191,
-                      child: Stack(
-                        alignment: AlignmentDirectional.bottomStart,
-                        children: [
-                          const YandexMap(),
-                          WButton(
-                            onTap: () => Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const DealerScreen(),
-                                )),
-                            margin: const EdgeInsets.symmetric(
-                                horizontal: 16, vertical: 15),
-                            padding: const EdgeInsets.symmetric(horizontal: 15),
-                            height: 44,
-                            color: white,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                SvgPicture.asset(
-                                  AppIcons.mapPin,
-                                  color: purple,
-                                  height: 15,
-                                  width: 13,
-                                ),
-                                const SizedBox(width: 12),
-                                const Text(
-                                  'Показать всех дилеров',
-                                  style: TextStyle(
-                                    color: black,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w600,
+                    const FavouriteItem(),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: SizedBox(
+                        height: 191,
+                        child: Stack(
+                          alignment: AlignmentDirectional.bottomStart,
+                          children: [
+                            const YandexMap(),
+                            WButton(
+                              onTap: () => Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const DealerScreen(),
+                                  )),
+                              margin: const EdgeInsets.symmetric(
+                                  horizontal: 16, vertical: 15),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 15),
+                              height: 44,
+                              color: white,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  SvgPicture.asset(
+                                    AppIcons.mapPin,
+                                    color: purple,
+                                    height: 15,
+                                    width: 13,
                                   ),
-                                ),
-                              ],
+                                  const SizedBox(width: 12),
+                                  const Text(
+                                    'Показать всех дилеров',
+                                    style: TextStyle(
+                                      color: black,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
