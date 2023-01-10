@@ -44,55 +44,61 @@ class _DealerScreenState extends State<DealerScreen> {
                   backgroundColor:
                       Theme.of(context).extension<ThemedColors>()!.whiteToNero,
                   leadingWidth: 0,
-                  title: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      GestureDetector(
-                        onTap: () => Navigator.pop(context),
-                        child: SvgPicture.asset(AppIcons.chevronLeft),
-                      ),
-                      const SizedBox(width: 20),
-                      Expanded(
-                        child: WTextField(
-                          borderColor: Theme.of(context)
-                              .extension<ThemedColors>()!
-                              .whiteSmokeToNightRider,
-                          fillColor: Theme.of(context)
-                              .extension<ThemedColors>()!
-                              .whiteSmokeToNightRider,
-                          hintText: LocaleKeys.model_brand.tr(),
-                          hintTextStyle: const TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w400,
-                              color: grey),
-                          focusColor: Theme.of(context)
-                              .extension<ThemedColors>()!
-                              .whiteSmokeToNightRider,
-                          onChanged: (value) {},
-                          hasSearch: true,
-                          borderRadius: 8,
+                  title: Padding(
+                    padding: const EdgeInsets.only(top: 12),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        GestureDetector(
+                          onTap: () => Navigator.pop(context),
+                          child: SvgPicture.asset(AppIcons.chevronLeft),
                         ),
-                      ),
-                      const SizedBox(width: 11),
-                      WButton(
-                        onTap: () => Navigator.of(context, rootNavigator: true)
-                            .push(fade(
-                                page: DealersFilter(
-                          isDirectoryPage: widget.isDirectoryPage,
-                        ))),
-                        borderRadius: 12,
-                        color: Theme.of(context)
-                            .extension<ThemedColors>()!
-                            .whiteSmokeToNightRider,
-                        padding: const EdgeInsets.all(12),
-                        child: widget.isDirectoryPage
-                            ? SvgPicture.asset(AppIcons.filter)
-                            : SvgPicture.asset(
-                                AppIcons.rentFilter,
-                                color: purple,
-                              ),
-                      ),
-                    ],
+                        const SizedBox(width: 20),
+                        Expanded(
+                          child: WTextField(
+                            borderColor: Theme.of(context)
+                                .extension<ThemedColors>()!
+                                .whiteSmokeToNightRider,
+                            fillColor: Theme.of(context)
+                                .extension<ThemedColors>()!
+                                .whiteSmokeToNightRider,
+                            hintText: widget.isDirectoryPage
+                                ? 'Автосалон, автосервис'
+                                : LocaleKeys.model_brand.tr(),
+                            hintTextStyle: const TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w400,
+                                color: grey),
+                            focusColor: Theme.of(context)
+                                .extension<ThemedColors>()!
+                                .whiteSmokeToNightRider,
+                            onChanged: (value) {},
+                            hasSearch: true,
+                            borderRadius: 8,
+                          ),
+                        ),
+                        const SizedBox(width: 11),
+                        WButton(
+                          onTap: () =>
+                              Navigator.of(context, rootNavigator: true)
+                                  .push(fade(
+                                      page: DealersFilter(
+                            isDirectoryPage: widget.isDirectoryPage,
+                          ))),
+                          borderRadius: 12,
+                          color: Theme.of(context)
+                              .extension<ThemedColors>()!
+                              .whiteSmokeToNightRider,
+                          padding: const EdgeInsets.all(12),
+                          child: widget.isDirectoryPage
+                              ? SvgPicture.asset(AppIcons.filter)
+                              : SvgPicture.asset(
+                                  AppIcons.rentFilter,
+                                  color: purple,
+                                ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
                 SliverPersistentHeader(
