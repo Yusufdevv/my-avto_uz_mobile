@@ -7,7 +7,8 @@ import 'package:dio/dio.dart';
 abstract class ComparisonCarsDataSource {
   Future getComparisonCars();
 
-  Future postComparisonCars(int id);
+  Future<void> postComparisonCars(int id);
+  Future<void> deleteComparisonCars(int id);
 }
 
 class ComparisonDataSourceImpl extends ComparisonCarsDataSource {
@@ -19,12 +20,9 @@ class ComparisonDataSourceImpl extends ComparisonCarsDataSource {
   Future getComparisonCars() async {
     try {
       final response = await _dio.get('/car/comparison/',
-          options: StorageRepository.getString('token').isNotEmpty
-              ? Options(headers: {
-                  'Authorization':
-                      'Bearer ${StorageRepository.getString('token')}'
-                })
-              : null);
+          options: Options(headers: {
+            'Authorization': 'Bearer ${StorageRepository.getString('token')}'
+          }));
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
         return (response.data as List)
             // ignore: unnecessary_lambdas
@@ -45,21 +43,34 @@ class ComparisonDataSourceImpl extends ComparisonCarsDataSource {
   }
 
   @override
-  Future postComparisonCars(int id) async {
-    final response = await _dio.post(
-      '/car/comparison/',
-      data: {'announcement': id, 'order': id},
-      options: Options(
-        headers: StorageRepository.getString('token').isNotEmpty
-            ? {'Authorization': 'Token ${StorageRepository.getString('token')}'}
-            : {},
-      ),
-    );
+  Future<void> postComparisonCars(int id) async {
+    print('Bu menga kelgan id $id');
+    final response = await _dio.post('/car/comparison/',
+        data: {'announcement': id, 'order': id},
+        options: Options(headers: {
+          'Authorization': 'Bearer ${StorageRepository.getString('token')}'
+        }));
     if (response.statusCode! >= 200 && response.statusCode! < 300) {
     } else {
       throw ServerException(
           statusCode: response.statusCode!,
           errorMessage: response.data['detail']);
+    }
+  }
+
+  @override
+  Future deleteComparisonCars(int id) async {
+    final response = await _dio.delete(
+        '/car/comparison/$id/delete-announcement/',
+        options: Options(headers: {
+          'Authorization': 'Bearer ${StorageRepository.getString('token')}'
+        }));
+    if (response.statusCode! >= 200 && response.statusCode! < 300) {
+    } else {
+      throw ServerException(
+        statusCode: response.statusCode!,
+        errorMessage: response.data,
+      );
     }
   }
 }

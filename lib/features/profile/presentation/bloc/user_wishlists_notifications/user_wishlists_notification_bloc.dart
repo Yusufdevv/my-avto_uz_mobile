@@ -11,7 +11,6 @@ import 'package:auto/features/profile/domain/usecases/profil_favorites_usecase.d
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:formz/formz.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'user_wishlists_notifications_event.dart';
 part 'user_wishlists_notifiactions_state.dart';

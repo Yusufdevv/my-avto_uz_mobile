@@ -61,17 +61,16 @@ class _ComparisonPageState extends State<ComparisonPage> {
                             fade(
                               page: ChooseCarModelComparison(
                                 onTap: () {
-                                  // Navigator.of(context).push(
-                                  //   fade(
-                                  //     page: ChooseGenerationComparison(
-                                  //       onTap: () {},
-                                  //       modelBloc: modelBloc,
-                                  //     ),
-                                  //   ),
-                                  // );
                                   Navigator.of(context).push(
                                     fade(
-                                      page: const AdsScreen(),
+                                      page: AdsScreen(
+                                        onBack: () {
+                                          bloc.add(GetComparableCars());
+                                          Navigator.of(context).pop();
+                                          Navigator.of(context).pop();
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
                                     ),
                                   );
                                 },

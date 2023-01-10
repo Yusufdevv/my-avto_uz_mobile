@@ -11,10 +11,7 @@ part 'authentication_event.dart';
 
 part 'authentication_state.dart';
 
-enum AuthenticationStatus {
-  authenticated,
-  unauthenticated,
-}
+enum AuthenticationStatus { authenticated, unauthenticated, loading }
 
 class AuthenticationBloc
     extends Bloc<AuthenticationEvent, AuthenticationState> {
@@ -27,6 +24,7 @@ class AuthenticationBloc
       add(AuthenticationStatusChanged(status: event));
     });
     on<AuthenticationStatusChanged>((event, emit) async {
+      emit(const AuthenticationState.loading());
       switch (event.status) {
         case AuthenticationStatus.authenticated:
           final userData = await repository.getUser();
@@ -39,10 +37,13 @@ class AuthenticationBloc
         case AuthenticationStatus.unauthenticated:
           emit(const AuthenticationState.unauthenticated());
           break;
+        case AuthenticationStatus.loading:
+          break;
       }
     });
 
     on<LoginUser>((event, emit) async {
+      emit(const AuthenticationState.loading());
       final result = await repository.login(
           login: event.userName, password: event.password);
       if (result.isRight) {
@@ -50,6 +51,8 @@ class AuthenticationBloc
         add(AuthenticationStatusChanged(
             status: AuthenticationStatus.authenticated));
       } else {
+        print(
+            '=>=>=>=> ${(result.left as ServerFailure).errorMessage} <=<=<=<=');
         if (event.onError != null) {
           event.onError!((result.left as ServerFailure).errorMessage);
         }
@@ -57,8 +60,6 @@ class AuthenticationBloc
     });
 
     on<CheckUser>((event, emit) async {
-       print('=>=>=>=> CheckUser <=<=<=<=');
-      await Future.delayed( Duration(seconds: 2));
       final hasToken =
           StorageRepository.getString('token', defValue: '').isNotEmpty;
       if (hasToken) {

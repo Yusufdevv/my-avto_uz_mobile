@@ -7,12 +7,19 @@ import 'package:auto/features/ad/data/repositories/ad_repository_impl.dart';
 import 'package:auto/features/ad/domain/usecases/get_car_model.dart';
 import 'package:auto/features/ad/domain/usecases/get_makes.dart';
 import 'package:auto/features/common/bloc/auth/authentication_bloc.dart';
+import 'package:auto/features/common/bloc/comparison_add/bloc/comparison_add_bloc.dart';
 import 'package:auto/features/common/bloc/get_car_model/get_car_model_bloc.dart';
 import 'package:auto/features/common/bloc/get_makes_bloc/get_makes_bloc_bloc.dart';
 import 'package:auto/features/common/bloc/regions/regions_bloc.dart';
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
+import 'package:auto/features/common/bloc/wishlist_add/wishlist_add_bloc.dart';
+import 'package:auto/features/common/repository/add_wishlist_repository.dart';
 import 'package:auto/features/common/repository/auth.dart';
+import 'package:auto/features/common/usecases/add_wishlist_usecase.dart';
 import 'package:auto/features/common/usecases/get_regions.dart';
+import 'package:auto/features/comparison/data/repositories/comparison_cars_repo_impl.dart';
+import 'package:auto/features/comparison/domain/usecases/comparison_add_use_case.dart';
+import 'package:auto/features/comparison/domain/usecases/delete_comparison.dart';
 import 'package:auto/features/login/domain/usecases/register_user.dart';
 import 'package:auto/features/login/domain/usecases/send_code.dart';
 import 'package:auto/features/login/domain/usecases/verify_code.dart';
@@ -89,7 +96,21 @@ class _AppState extends State<App> {
           BlocProvider(
               create: (context) => GetCarModelBloc(
                   useCase: GetCarModelUseCase(
-                      repository: serviceLocator<AdRepositoryImpl>())))
+                      repository: serviceLocator<AdRepositoryImpl>()))),
+          BlocProvider(
+              create: (context) => WishlistAddBloc(
+                  useCase: AddWishlistUseCase(
+                      repo: serviceLocator<AddWishlistRepositoryImpl>()),
+                  removeWishlistUseCase: RemoveWishlistUseCase(
+                      repo: serviceLocator<AddWishlistRepositoryImpl>()))),
+          BlocProvider(
+              create: (context) => ComparisonAddBloc(
+                  addUseCase: ComparisonAddUseCase(
+                      comparisonAddRepo:
+                          serviceLocator<ComparisonCarsRepoImpl>()),
+                  deleteUseCase: DeleteComparisonUseCase(
+                      comparisonCarsRepo:
+                          serviceLocator<ComparisonCarsRepoImpl>())))
         ],
         child: MaterialApp(
           
@@ -106,18 +127,17 @@ class _AppState extends State<App> {
           builder: (context, child) {
             SizeConfig().init(context);
             return BlocListener<AuthenticationBloc, AuthenticationState>(
-              listener: (context, state) async {
-                await Future.delayed(const Duration(seconds: 3));
+              listener: (context, state) {
                 switch (state.status) {
                   case AuthenticationStatus.unauthenticated:
                     if (!StorageRepository.getBool('onboarding',
                         defValue: false)) {
-                      await navigator.pushAndRemoveUntil(
+                      navigator.pushAndRemoveUntil(
                           fade(page: const FirstOnBoarding()),
                           (route) => false);
                       break;
                     }
-                    await navigator.pushAndRemoveUntil(
+                    navigator.pushAndRemoveUntil(
                         fade(
                           page: BlocProvider(
                             create: (c) => RegisterBloc(
@@ -133,7 +153,7 @@ class _AppState extends State<App> {
                     break;
                   case AuthenticationStatus.authenticated:
                     if (StorageRepository.getString('token').isEmpty) {
-                      await navigator.pushAndRemoveUntil(
+                      navigator.pushAndRemoveUntil(
                           fade(
                             page: BlocProvider(
                               create: (c) => RegisterBloc(
@@ -146,9 +166,11 @@ class _AppState extends State<App> {
                           ),
                           (route) => false);
                     } else {
-                      await navigator.pushAndRemoveUntil(
+                      navigator.pushAndRemoveUntil(
                           fade(page: const HomeScreen()), (route) => false);
                     }
+                    break;
+                  case AuthenticationStatus.loading:
                     break;
                 }
               },

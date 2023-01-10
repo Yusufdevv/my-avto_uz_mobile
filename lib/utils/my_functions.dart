@@ -377,4 +377,7 @@ class MyFunctions {
     );
     return now.isAfter(dateFrom) && now.isBefore(dateTo);
   }
+
+  static bool isEmail(String email) =>
+      RegExp(r'^[a-z0-9](\.?[a-z0-9]){5,}@g(oogle)?mail\.com$').hasMatch(email);
 }

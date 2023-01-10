@@ -30,8 +30,13 @@ class StickyAdderCar extends StatelessWidget {
                       ? SvgPicture.asset(
                           AppImages.placeHolder,
                           fit: BoxFit.fill,
+                          height: 44,
+                          width: 44,
                         )
-                      : CachedNetworkImage(imageUrl: carImage),
+                      : CachedNetworkImage(
+                          imageUrl: carImage,
+                          fit: BoxFit.cover,
+                        ),
                 ),
               ),
               const SizedBox(width: 8),

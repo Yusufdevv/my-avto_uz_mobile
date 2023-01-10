@@ -23,7 +23,7 @@ mixin _$RegisterEvent {
         sendCode,
     required TResult Function(VerifyParam param, VoidCallback? onSuccess,
             dynamic Function(String)? onError)
-        verifyCode,
+        registerVerifyCode,
     required TResult Function(
             String fullName, String email, VoidCallback? onSuccess)
         setName,
@@ -44,7 +44,7 @@ mixin _$RegisterEvent {
         sendCode,
     TResult? Function(VerifyParam param, VoidCallback? onSuccess,
             dynamic Function(String)? onError)?
-        verifyCode,
+        registerVerifyCode,
     TResult? Function(String fullName, String email, VoidCallback? onSuccess)?
         setName,
     TResult? Function(String validPassword, VoidCallback? onSuccess,
@@ -64,7 +64,7 @@ mixin _$RegisterEvent {
         sendCode,
     TResult Function(VerifyParam param, VoidCallback? onSuccess,
             dynamic Function(String)? onError)?
-        verifyCode,
+        registerVerifyCode,
     TResult Function(String fullName, String email, VoidCallback? onSuccess)?
         setName,
     TResult Function(String validPassword, VoidCallback? onSuccess,
@@ -81,7 +81,7 @@ mixin _$RegisterEvent {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_SendCode value) sendCode,
-    required TResult Function(_VerifyCode value) verifyCode,
+    required TResult Function(_RegisterVerifyCode value) registerVerifyCode,
     required TResult Function(_SetName value) setName,
     required TResult Function(_Register value) register,
     required TResult Function(_CheckPassword value) checkPassword,
@@ -92,7 +92,7 @@ mixin _$RegisterEvent {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_SendCode value)? sendCode,
-    TResult? Function(_VerifyCode value)? verifyCode,
+    TResult? Function(_RegisterVerifyCode value)? registerVerifyCode,
     TResult? Function(_SetName value)? setName,
     TResult? Function(_Register value)? register,
     TResult? Function(_CheckPassword value)? checkPassword,
@@ -103,7 +103,7 @@ mixin _$RegisterEvent {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_SendCode value)? sendCode,
-    TResult Function(_VerifyCode value)? verifyCode,
+    TResult Function(_RegisterVerifyCode value)? registerVerifyCode,
     TResult Function(_SetName value)? setName,
     TResult Function(_Register value)? register,
     TResult Function(_CheckPassword value)? checkPassword,
@@ -221,7 +221,7 @@ class _$_SendCode implements _SendCode {
         sendCode,
     required TResult Function(VerifyParam param, VoidCallback? onSuccess,
             dynamic Function(String)? onError)
-        verifyCode,
+        registerVerifyCode,
     required TResult Function(
             String fullName, String email, VoidCallback? onSuccess)
         setName,
@@ -245,7 +245,7 @@ class _$_SendCode implements _SendCode {
         sendCode,
     TResult? Function(VerifyParam param, VoidCallback? onSuccess,
             dynamic Function(String)? onError)?
-        verifyCode,
+        registerVerifyCode,
     TResult? Function(String fullName, String email, VoidCallback? onSuccess)?
         setName,
     TResult? Function(String validPassword, VoidCallback? onSuccess,
@@ -268,7 +268,7 @@ class _$_SendCode implements _SendCode {
         sendCode,
     TResult Function(VerifyParam param, VoidCallback? onSuccess,
             dynamic Function(String)? onError)?
-        verifyCode,
+        registerVerifyCode,
     TResult Function(String fullName, String email, VoidCallback? onSuccess)?
         setName,
     TResult Function(String validPassword, VoidCallback? onSuccess,
@@ -291,7 +291,7 @@ class _$_SendCode implements _SendCode {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_SendCode value) sendCode,
-    required TResult Function(_VerifyCode value) verifyCode,
+    required TResult Function(_RegisterVerifyCode value) registerVerifyCode,
     required TResult Function(_SetName value) setName,
     required TResult Function(_Register value) register,
     required TResult Function(_CheckPassword value) checkPassword,
@@ -305,7 +305,7 @@ class _$_SendCode implements _SendCode {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_SendCode value)? sendCode,
-    TResult? Function(_VerifyCode value)? verifyCode,
+    TResult? Function(_RegisterVerifyCode value)? registerVerifyCode,
     TResult? Function(_SetName value)? setName,
     TResult? Function(_Register value)? register,
     TResult? Function(_CheckPassword value)? checkPassword,
@@ -319,7 +319,7 @@ class _$_SendCode implements _SendCode {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_SendCode value)? sendCode,
-    TResult Function(_VerifyCode value)? verifyCode,
+    TResult Function(_RegisterVerifyCode value)? registerVerifyCode,
     TResult Function(_SetName value)? setName,
     TResult Function(_Register value)? register,
     TResult Function(_CheckPassword value)? checkPassword,
@@ -348,10 +348,10 @@ abstract class _SendCode implements RegisterEvent {
 }
 
 /// @nodoc
-abstract class _$$_VerifyCodeCopyWith<$Res> {
-  factory _$$_VerifyCodeCopyWith(
-          _$_VerifyCode value, $Res Function(_$_VerifyCode) then) =
-      __$$_VerifyCodeCopyWithImpl<$Res>;
+abstract class _$$_RegisterVerifyCodeCopyWith<$Res> {
+  factory _$$_RegisterVerifyCodeCopyWith(_$_RegisterVerifyCode value,
+          $Res Function(_$_RegisterVerifyCode) then) =
+      __$$_RegisterVerifyCodeCopyWithImpl<$Res>;
   @useResult
   $Res call(
       {VerifyParam param,
@@ -360,11 +360,11 @@ abstract class _$$_VerifyCodeCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_VerifyCodeCopyWithImpl<$Res>
-    extends _$RegisterEventCopyWithImpl<$Res, _$_VerifyCode>
-    implements _$$_VerifyCodeCopyWith<$Res> {
-  __$$_VerifyCodeCopyWithImpl(
-      _$_VerifyCode _value, $Res Function(_$_VerifyCode) _then)
+class __$$_RegisterVerifyCodeCopyWithImpl<$Res>
+    extends _$RegisterEventCopyWithImpl<$Res, _$_RegisterVerifyCode>
+    implements _$$_RegisterVerifyCodeCopyWith<$Res> {
+  __$$_RegisterVerifyCodeCopyWithImpl(
+      _$_RegisterVerifyCode _value, $Res Function(_$_RegisterVerifyCode) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -374,7 +374,7 @@ class __$$_VerifyCodeCopyWithImpl<$Res>
     Object? onSuccess = freezed,
     Object? onError = freezed,
   }) {
-    return _then(_$_VerifyCode(
+    return _then(_$_RegisterVerifyCode(
       null == param
           ? _value.param
           : param // ignore: cast_nullable_to_non_nullable
@@ -393,8 +393,8 @@ class __$$_VerifyCodeCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_VerifyCode implements _VerifyCode {
-  _$_VerifyCode(this.param, {this.onSuccess, this.onError});
+class _$_RegisterVerifyCode implements _RegisterVerifyCode {
+  _$_RegisterVerifyCode(this.param, {this.onSuccess, this.onError});
 
   @override
   final VerifyParam param;
@@ -405,14 +405,14 @@ class _$_VerifyCode implements _VerifyCode {
 
   @override
   String toString() {
-    return 'RegisterEvent.verifyCode(param: $param, onSuccess: $onSuccess, onError: $onError)';
+    return 'RegisterEvent.registerVerifyCode(param: $param, onSuccess: $onSuccess, onError: $onError)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_VerifyCode &&
+            other is _$_RegisterVerifyCode &&
             (identical(other.param, param) || other.param == param) &&
             (identical(other.onSuccess, onSuccess) ||
                 other.onSuccess == onSuccess) &&
@@ -425,8 +425,9 @@ class _$_VerifyCode implements _VerifyCode {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_VerifyCodeCopyWith<_$_VerifyCode> get copyWith =>
-      __$$_VerifyCodeCopyWithImpl<_$_VerifyCode>(this, _$identity);
+  _$$_RegisterVerifyCodeCopyWith<_$_RegisterVerifyCode> get copyWith =>
+      __$$_RegisterVerifyCodeCopyWithImpl<_$_RegisterVerifyCode>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -436,7 +437,7 @@ class _$_VerifyCode implements _VerifyCode {
         sendCode,
     required TResult Function(VerifyParam param, VoidCallback? onSuccess,
             dynamic Function(String)? onError)
-        verifyCode,
+        registerVerifyCode,
     required TResult Function(
             String fullName, String email, VoidCallback? onSuccess)
         setName,
@@ -449,7 +450,7 @@ class _$_VerifyCode implements _VerifyCode {
     required TResult Function(String path) changeImage,
     required TResult Function(int region) changeRegion,
   }) {
-    return verifyCode(param, onSuccess, onError);
+    return registerVerifyCode(param, onSuccess, onError);
   }
 
   @override
@@ -460,7 +461,7 @@ class _$_VerifyCode implements _VerifyCode {
         sendCode,
     TResult? Function(VerifyParam param, VoidCallback? onSuccess,
             dynamic Function(String)? onError)?
-        verifyCode,
+        registerVerifyCode,
     TResult? Function(String fullName, String email, VoidCallback? onSuccess)?
         setName,
     TResult? Function(String validPassword, VoidCallback? onSuccess,
@@ -472,7 +473,7 @@ class _$_VerifyCode implements _VerifyCode {
     TResult? Function(String path)? changeImage,
     TResult? Function(int region)? changeRegion,
   }) {
-    return verifyCode?.call(param, onSuccess, onError);
+    return registerVerifyCode?.call(param, onSuccess, onError);
   }
 
   @override
@@ -483,7 +484,7 @@ class _$_VerifyCode implements _VerifyCode {
         sendCode,
     TResult Function(VerifyParam param, VoidCallback? onSuccess,
             dynamic Function(String)? onError)?
-        verifyCode,
+        registerVerifyCode,
     TResult Function(String fullName, String email, VoidCallback? onSuccess)?
         setName,
     TResult Function(String validPassword, VoidCallback? onSuccess,
@@ -496,8 +497,8 @@ class _$_VerifyCode implements _VerifyCode {
     TResult Function(int region)? changeRegion,
     required TResult orElse(),
   }) {
-    if (verifyCode != null) {
-      return verifyCode(param, onSuccess, onError);
+    if (registerVerifyCode != null) {
+      return registerVerifyCode(param, onSuccess, onError);
     }
     return orElse();
   }
@@ -506,35 +507,35 @@ class _$_VerifyCode implements _VerifyCode {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_SendCode value) sendCode,
-    required TResult Function(_VerifyCode value) verifyCode,
+    required TResult Function(_RegisterVerifyCode value) registerVerifyCode,
     required TResult Function(_SetName value) setName,
     required TResult Function(_Register value) register,
     required TResult Function(_CheckPassword value) checkPassword,
     required TResult Function(_ChangeImage value) changeImage,
     required TResult Function(_ChangeRegion value) changeRegion,
   }) {
-    return verifyCode(this);
+    return registerVerifyCode(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_SendCode value)? sendCode,
-    TResult? Function(_VerifyCode value)? verifyCode,
+    TResult? Function(_RegisterVerifyCode value)? registerVerifyCode,
     TResult? Function(_SetName value)? setName,
     TResult? Function(_Register value)? register,
     TResult? Function(_CheckPassword value)? checkPassword,
     TResult? Function(_ChangeImage value)? changeImage,
     TResult? Function(_ChangeRegion value)? changeRegion,
   }) {
-    return verifyCode?.call(this);
+    return registerVerifyCode?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_SendCode value)? sendCode,
-    TResult Function(_VerifyCode value)? verifyCode,
+    TResult Function(_RegisterVerifyCode value)? registerVerifyCode,
     TResult Function(_SetName value)? setName,
     TResult Function(_Register value)? register,
     TResult Function(_CheckPassword value)? checkPassword,
@@ -542,23 +543,23 @@ class _$_VerifyCode implements _VerifyCode {
     TResult Function(_ChangeRegion value)? changeRegion,
     required TResult orElse(),
   }) {
-    if (verifyCode != null) {
-      return verifyCode(this);
+    if (registerVerifyCode != null) {
+      return registerVerifyCode(this);
     }
     return orElse();
   }
 }
 
-abstract class _VerifyCode implements RegisterEvent {
-  factory _VerifyCode(final VerifyParam param,
+abstract class _RegisterVerifyCode implements RegisterEvent {
+  factory _RegisterVerifyCode(final VerifyParam param,
       {final VoidCallback? onSuccess,
-      final dynamic Function(String)? onError}) = _$_VerifyCode;
+      final dynamic Function(String)? onError}) = _$_RegisterVerifyCode;
 
   VerifyParam get param;
   VoidCallback? get onSuccess;
   dynamic Function(String)? get onError;
   @JsonKey(ignore: true)
-  _$$_VerifyCodeCopyWith<_$_VerifyCode> get copyWith =>
+  _$$_RegisterVerifyCodeCopyWith<_$_RegisterVerifyCode> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -648,7 +649,7 @@ class _$_SetName implements _SetName {
         sendCode,
     required TResult Function(VerifyParam param, VoidCallback? onSuccess,
             dynamic Function(String)? onError)
-        verifyCode,
+        registerVerifyCode,
     required TResult Function(
             String fullName, String email, VoidCallback? onSuccess)
         setName,
@@ -672,7 +673,7 @@ class _$_SetName implements _SetName {
         sendCode,
     TResult? Function(VerifyParam param, VoidCallback? onSuccess,
             dynamic Function(String)? onError)?
-        verifyCode,
+        registerVerifyCode,
     TResult? Function(String fullName, String email, VoidCallback? onSuccess)?
         setName,
     TResult? Function(String validPassword, VoidCallback? onSuccess,
@@ -695,7 +696,7 @@ class _$_SetName implements _SetName {
         sendCode,
     TResult Function(VerifyParam param, VoidCallback? onSuccess,
             dynamic Function(String)? onError)?
-        verifyCode,
+        registerVerifyCode,
     TResult Function(String fullName, String email, VoidCallback? onSuccess)?
         setName,
     TResult Function(String validPassword, VoidCallback? onSuccess,
@@ -718,7 +719,7 @@ class _$_SetName implements _SetName {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_SendCode value) sendCode,
-    required TResult Function(_VerifyCode value) verifyCode,
+    required TResult Function(_RegisterVerifyCode value) registerVerifyCode,
     required TResult Function(_SetName value) setName,
     required TResult Function(_Register value) register,
     required TResult Function(_CheckPassword value) checkPassword,
@@ -732,7 +733,7 @@ class _$_SetName implements _SetName {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_SendCode value)? sendCode,
-    TResult? Function(_VerifyCode value)? verifyCode,
+    TResult? Function(_RegisterVerifyCode value)? registerVerifyCode,
     TResult? Function(_SetName value)? setName,
     TResult? Function(_Register value)? register,
     TResult? Function(_CheckPassword value)? checkPassword,
@@ -746,7 +747,7 @@ class _$_SetName implements _SetName {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_SendCode value)? sendCode,
-    TResult Function(_VerifyCode value)? verifyCode,
+    TResult Function(_RegisterVerifyCode value)? registerVerifyCode,
     TResult Function(_SetName value)? setName,
     TResult Function(_Register value)? register,
     TResult Function(_CheckPassword value)? checkPassword,
@@ -867,7 +868,7 @@ class _$_Register implements _Register {
         sendCode,
     required TResult Function(VerifyParam param, VoidCallback? onSuccess,
             dynamic Function(String)? onError)
-        verifyCode,
+        registerVerifyCode,
     required TResult Function(
             String fullName, String email, VoidCallback? onSuccess)
         setName,
@@ -891,7 +892,7 @@ class _$_Register implements _Register {
         sendCode,
     TResult? Function(VerifyParam param, VoidCallback? onSuccess,
             dynamic Function(String)? onError)?
-        verifyCode,
+        registerVerifyCode,
     TResult? Function(String fullName, String email, VoidCallback? onSuccess)?
         setName,
     TResult? Function(String validPassword, VoidCallback? onSuccess,
@@ -914,7 +915,7 @@ class _$_Register implements _Register {
         sendCode,
     TResult Function(VerifyParam param, VoidCallback? onSuccess,
             dynamic Function(String)? onError)?
-        verifyCode,
+        registerVerifyCode,
     TResult Function(String fullName, String email, VoidCallback? onSuccess)?
         setName,
     TResult Function(String validPassword, VoidCallback? onSuccess,
@@ -937,7 +938,7 @@ class _$_Register implements _Register {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_SendCode value) sendCode,
-    required TResult Function(_VerifyCode value) verifyCode,
+    required TResult Function(_RegisterVerifyCode value) registerVerifyCode,
     required TResult Function(_SetName value) setName,
     required TResult Function(_Register value) register,
     required TResult Function(_CheckPassword value) checkPassword,
@@ -951,7 +952,7 @@ class _$_Register implements _Register {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_SendCode value)? sendCode,
-    TResult? Function(_VerifyCode value)? verifyCode,
+    TResult? Function(_RegisterVerifyCode value)? registerVerifyCode,
     TResult? Function(_SetName value)? setName,
     TResult? Function(_Register value)? register,
     TResult? Function(_CheckPassword value)? checkPassword,
@@ -965,7 +966,7 @@ class _$_Register implements _Register {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_SendCode value)? sendCode,
-    TResult Function(_VerifyCode value)? verifyCode,
+    TResult Function(_RegisterVerifyCode value)? registerVerifyCode,
     TResult Function(_SetName value)? setName,
     TResult Function(_Register value)? register,
     TResult Function(_CheckPassword value)? checkPassword,
@@ -1084,7 +1085,7 @@ class _$_CheckPassword implements _CheckPassword {
         sendCode,
     required TResult Function(VerifyParam param, VoidCallback? onSuccess,
             dynamic Function(String)? onError)
-        verifyCode,
+        registerVerifyCode,
     required TResult Function(
             String fullName, String email, VoidCallback? onSuccess)
         setName,
@@ -1108,7 +1109,7 @@ class _$_CheckPassword implements _CheckPassword {
         sendCode,
     TResult? Function(VerifyParam param, VoidCallback? onSuccess,
             dynamic Function(String)? onError)?
-        verifyCode,
+        registerVerifyCode,
     TResult? Function(String fullName, String email, VoidCallback? onSuccess)?
         setName,
     TResult? Function(String validPassword, VoidCallback? onSuccess,
@@ -1131,7 +1132,7 @@ class _$_CheckPassword implements _CheckPassword {
         sendCode,
     TResult Function(VerifyParam param, VoidCallback? onSuccess,
             dynamic Function(String)? onError)?
-        verifyCode,
+        registerVerifyCode,
     TResult Function(String fullName, String email, VoidCallback? onSuccess)?
         setName,
     TResult Function(String validPassword, VoidCallback? onSuccess,
@@ -1154,7 +1155,7 @@ class _$_CheckPassword implements _CheckPassword {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_SendCode value) sendCode,
-    required TResult Function(_VerifyCode value) verifyCode,
+    required TResult Function(_RegisterVerifyCode value) registerVerifyCode,
     required TResult Function(_SetName value) setName,
     required TResult Function(_Register value) register,
     required TResult Function(_CheckPassword value) checkPassword,
@@ -1168,7 +1169,7 @@ class _$_CheckPassword implements _CheckPassword {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_SendCode value)? sendCode,
-    TResult? Function(_VerifyCode value)? verifyCode,
+    TResult? Function(_RegisterVerifyCode value)? registerVerifyCode,
     TResult? Function(_SetName value)? setName,
     TResult? Function(_Register value)? register,
     TResult? Function(_CheckPassword value)? checkPassword,
@@ -1182,7 +1183,7 @@ class _$_CheckPassword implements _CheckPassword {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_SendCode value)? sendCode,
-    TResult Function(_VerifyCode value)? verifyCode,
+    TResult Function(_RegisterVerifyCode value)? registerVerifyCode,
     TResult Function(_SetName value)? setName,
     TResult Function(_Register value)? register,
     TResult Function(_CheckPassword value)? checkPassword,
@@ -1280,7 +1281,7 @@ class _$_ChangeImage implements _ChangeImage {
         sendCode,
     required TResult Function(VerifyParam param, VoidCallback? onSuccess,
             dynamic Function(String)? onError)
-        verifyCode,
+        registerVerifyCode,
     required TResult Function(
             String fullName, String email, VoidCallback? onSuccess)
         setName,
@@ -1304,7 +1305,7 @@ class _$_ChangeImage implements _ChangeImage {
         sendCode,
     TResult? Function(VerifyParam param, VoidCallback? onSuccess,
             dynamic Function(String)? onError)?
-        verifyCode,
+        registerVerifyCode,
     TResult? Function(String fullName, String email, VoidCallback? onSuccess)?
         setName,
     TResult? Function(String validPassword, VoidCallback? onSuccess,
@@ -1327,7 +1328,7 @@ class _$_ChangeImage implements _ChangeImage {
         sendCode,
     TResult Function(VerifyParam param, VoidCallback? onSuccess,
             dynamic Function(String)? onError)?
-        verifyCode,
+        registerVerifyCode,
     TResult Function(String fullName, String email, VoidCallback? onSuccess)?
         setName,
     TResult Function(String validPassword, VoidCallback? onSuccess,
@@ -1350,7 +1351,7 @@ class _$_ChangeImage implements _ChangeImage {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_SendCode value) sendCode,
-    required TResult Function(_VerifyCode value) verifyCode,
+    required TResult Function(_RegisterVerifyCode value) registerVerifyCode,
     required TResult Function(_SetName value) setName,
     required TResult Function(_Register value) register,
     required TResult Function(_CheckPassword value) checkPassword,
@@ -1364,7 +1365,7 @@ class _$_ChangeImage implements _ChangeImage {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_SendCode value)? sendCode,
-    TResult? Function(_VerifyCode value)? verifyCode,
+    TResult? Function(_RegisterVerifyCode value)? registerVerifyCode,
     TResult? Function(_SetName value)? setName,
     TResult? Function(_Register value)? register,
     TResult? Function(_CheckPassword value)? checkPassword,
@@ -1378,7 +1379,7 @@ class _$_ChangeImage implements _ChangeImage {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_SendCode value)? sendCode,
-    TResult Function(_VerifyCode value)? verifyCode,
+    TResult Function(_RegisterVerifyCode value)? registerVerifyCode,
     TResult Function(_SetName value)? setName,
     TResult Function(_Register value)? register,
     TResult Function(_CheckPassword value)? checkPassword,
@@ -1471,7 +1472,7 @@ class _$_ChangeRegion implements _ChangeRegion {
         sendCode,
     required TResult Function(VerifyParam param, VoidCallback? onSuccess,
             dynamic Function(String)? onError)
-        verifyCode,
+        registerVerifyCode,
     required TResult Function(
             String fullName, String email, VoidCallback? onSuccess)
         setName,
@@ -1495,7 +1496,7 @@ class _$_ChangeRegion implements _ChangeRegion {
         sendCode,
     TResult? Function(VerifyParam param, VoidCallback? onSuccess,
             dynamic Function(String)? onError)?
-        verifyCode,
+        registerVerifyCode,
     TResult? Function(String fullName, String email, VoidCallback? onSuccess)?
         setName,
     TResult? Function(String validPassword, VoidCallback? onSuccess,
@@ -1518,7 +1519,7 @@ class _$_ChangeRegion implements _ChangeRegion {
         sendCode,
     TResult Function(VerifyParam param, VoidCallback? onSuccess,
             dynamic Function(String)? onError)?
-        verifyCode,
+        registerVerifyCode,
     TResult Function(String fullName, String email, VoidCallback? onSuccess)?
         setName,
     TResult Function(String validPassword, VoidCallback? onSuccess,
@@ -1541,7 +1542,7 @@ class _$_ChangeRegion implements _ChangeRegion {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_SendCode value) sendCode,
-    required TResult Function(_VerifyCode value) verifyCode,
+    required TResult Function(_RegisterVerifyCode value) registerVerifyCode,
     required TResult Function(_SetName value) setName,
     required TResult Function(_Register value) register,
     required TResult Function(_CheckPassword value) checkPassword,
@@ -1555,7 +1556,7 @@ class _$_ChangeRegion implements _ChangeRegion {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_SendCode value)? sendCode,
-    TResult? Function(_VerifyCode value)? verifyCode,
+    TResult? Function(_RegisterVerifyCode value)? registerVerifyCode,
     TResult? Function(_SetName value)? setName,
     TResult? Function(_Register value)? register,
     TResult? Function(_CheckPassword value)? checkPassword,
@@ -1569,7 +1570,7 @@ class _$_ChangeRegion implements _ChangeRegion {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_SendCode value)? sendCode,
-    TResult Function(_VerifyCode value)? verifyCode,
+    TResult Function(_RegisterVerifyCode value)? registerVerifyCode,
     TResult Function(_SetName value)? setName,
     TResult Function(_Register value)? register,
     TResult Function(_CheckPassword value)? checkPassword,

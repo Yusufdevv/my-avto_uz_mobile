@@ -115,12 +115,20 @@ class GlobalRequestRepository {
           return Right(fromJson(result.data));
         }
       } else {
-        final data = result.data[errorKey ?? 'detail'] ?? '';
+        if (result.data is List && (result.data as List).isNotEmpty) {
+          return Left(ServerFailure(
+              errorMessage: (result.data as List).first.toString(),
+              statusCode: 141));
+        }
+        var data = result.data[errorKey ?? 'detail'] ?? '';
+        if (data.isEmpty) {
+          data = result.data.toString();
+        }
 
         return Left(ServerFailure(errorMessage: data, statusCode: 141));
       }
     } catch (e) {
-      return Left(ServerFailure(statusCode: 141, errorMessage: ''));
+      return Left(ServerFailure(statusCode: 141, errorMessage: e.toString()));
     }
   }
 

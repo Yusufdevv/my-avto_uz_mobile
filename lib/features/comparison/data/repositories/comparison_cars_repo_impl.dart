@@ -13,30 +13,44 @@ class ComparisonCarsRepoImpl extends ComparisonCarsRepo {
   Future<Either<Failure, List<ComparisonEntity>>> getComparableCars() async {
     try {
       final result = await comparisonCarsDataSource.getComparisonCars();
-      // print(result);
       return Right(result);
+    } on DioException {
+      return Left(DioFailure());
+    } on ParsingException catch (e) {
+      return Left(ParsingFailure(errorMessage: e.errorMessage));
     } on ServerException catch (e) {
-      return Left(
-        ServerFailure(
-          errorMessage: e.errorMessage,
-          statusCode: e.statusCode,
-        ),
-      );
+      return Left(ServerFailure(
+          errorMessage: e.errorMessage, statusCode: e.statusCode));
     }
   }
-  
+
   @override
-  Future<Either<Failure, String>> postComparisonCars(int id)  async {
+  Future<Either<Failure, void>> postComparisonCars(int id) async {
     try {
       final result = await comparisonCarsDataSource.postComparisonCars(id);
       return Right(result);
+    } on DioException {
+      return Left(DioFailure());
+    } on ParsingException catch (e) {
+      return Left(ParsingFailure(errorMessage: e.errorMessage));
     } on ServerException catch (e) {
-      return Left(
-        ServerFailure(
-          errorMessage: e.errorMessage,
-          statusCode: e.statusCode,
-        ),
-      );
+      return Left(ServerFailure(
+          errorMessage: e.errorMessage, statusCode: e.statusCode));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> deleteComparisonCars(int id) async {
+    try {
+      final result = await comparisonCarsDataSource.deleteComparisonCars(id);
+      return Right(result);
+    } on DioException {
+      return Left(DioFailure());
+    } on ParsingException catch (e) {
+      return Left(ParsingFailure(errorMessage: e.errorMessage));
+    } on ServerException catch (e) {
+      return Left(ServerFailure(
+          errorMessage: e.errorMessage, statusCode: e.statusCode));
     }
   }
 }

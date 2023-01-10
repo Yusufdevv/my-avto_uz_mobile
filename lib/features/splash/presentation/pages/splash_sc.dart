@@ -41,9 +41,7 @@ class _SplashScState extends State<SplashSc> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    print('=>=>=>=> this is SplashSc <=<=<=<=');
-    return Scaffold(
+  Widget build(BuildContext context) => Scaffold(
       body: Center(
         child: Column(
           children: [
@@ -57,5 +55,4 @@ class _SplashScState extends State<SplashSc> {
         ),
       ),
     );
-  }
 }
