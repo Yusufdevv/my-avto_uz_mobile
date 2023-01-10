@@ -239,20 +239,3 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ),
       );
 }
-
-// Container(
-                    //   decoration: BoxDecoration(
-                    //       borderRadius: BorderRadius.circular(12),
-                    //       color: iconBackground),
-                    //   margin: const EdgeInsets.only(bottom: 12),
-                    //   padding: const EdgeInsets.symmetric(
-                    //       horizontal: 16, vertical: 12),
-                    //   child: Text(
-                    //     LocaleKeys.number_dont_regist.tr(),
-                    //     textAlign: TextAlign.center,
-                    //     style: Theme.of(context)
-                    //         .textTheme
-                    //         .headline4!
-                    //         .copyWith(fontSize: 12),
-                    //   ),
-                    // ),

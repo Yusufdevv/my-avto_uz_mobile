@@ -3,6 +3,7 @@ import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/core/utils/size_config.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
+import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/profile/data/repositories/get_user_list_repo_impl.dart';
 import 'package:auto/features/profile/domain/usecases/get_my_searches_usecase.dart';
@@ -42,6 +43,8 @@ class _NotificationPageState extends State<NotificationPage> {
     super.initState();
   }
 
+  bool isAllRead = false;
+
   @override
   Widget build(BuildContext context) => BlocProvider.value(
         value: bloc,
@@ -51,14 +54,15 @@ class _NotificationPageState extends State<NotificationPage> {
             title: 'Уведомления',
             centerTitle: true,
             extraActions: [
-              Padding(
-                padding: EdgeInsets.only(right: SizeConfig.h(16)),
-                child: GestureDetector(
-                  onTap: () {},
-                  child: SvgPicture.asset(
-                    AppIcons.checks,
-                    color: orange,
-                  ),
+              WScaleAnimation(
+                onTap: () {
+                  setState(() {
+                    isAllRead = !isAllRead;
+                  });
+                },
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: SizeConfig.h(16)),
+                  child: SvgPicture.asset(AppIcons.checks, color: orange),
                 ),
               )
             ],
@@ -93,7 +97,7 @@ class _NotificationPageState extends State<NotificationPage> {
                               category:
                                   '#${item.category?.name} • 2 часа назад',
                               title: item.title!,
-                              isRead: item.isRead!,
+                              isRead: isAllRead ? isAllRead : item.isRead!,
                               image: item.cover!,
                             ),
                           );
