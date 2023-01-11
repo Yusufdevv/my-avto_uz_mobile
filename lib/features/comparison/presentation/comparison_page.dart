@@ -55,7 +55,7 @@ class _ComparisonPageState extends State<ComparisonPage> {
           ],
           child: Scaffold(
             appBar: WAppBar(
-              boxShadow:const [],
+              boxShadow: const [],
               title: LocaleKeys.car_comparison.tr(),
               titleStyle: Theme.of(context)
                   .textTheme
