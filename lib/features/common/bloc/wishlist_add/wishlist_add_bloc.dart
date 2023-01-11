@@ -25,10 +25,9 @@ class WishlistAddBloc extends Bloc<WishlistAddEvent, WishlistAddState> {
         emit(state.copyWith(addStatus: FormzStatus.submissionFailure));
       }
     });
-
     on<_RemoveWishlist>((event, emit) async {
       emit(state.copyWith(removeStatus: FormzStatus.submissionInProgress));
-      final result = await removeWishlistUseCase.call(event.id);
+      final result = await removeWishlistUseCase.call(Params(endpoint: event.endpoint, id: event.id));
       if (result.isRight) {
         emit(
           state.copyWith(removeStatus: FormzStatus.submissionSuccess),

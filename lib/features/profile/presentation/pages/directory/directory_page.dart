@@ -83,7 +83,9 @@ class _DirectoryPageState extends State<DirectoryPage> {
                               focusColor: Theme.of(context)
                                   .extension<ThemedColors>()!
                                   .whiteSmokeToNightRider,
-                              onChanged: (value) {},
+                              onChanged: (value) {
+                                bloc.add(GetDirectoriesEvent(search: value));
+                              },
                               hasSearch: true,
                               borderRadius: 8,
                             ),
@@ -95,7 +97,7 @@ class _DirectoryPageState extends State<DirectoryPage> {
                                       .push(fade(
                                           page: BlocProvider.value(
                                     value: bloc,
-                                    child: DirectoryFilterPage(bloc: bloc,),
+                                    child: DirectoryFilterPage(bloc: bloc),
                                   ))),
                               borderRadius: 12,
                               color: Theme.of(context)

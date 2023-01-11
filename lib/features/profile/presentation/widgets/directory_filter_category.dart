@@ -3,7 +3,9 @@ import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/core/utils/size_config.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/profile/domain/entities/dir_category_entity.dart';
+import 'package:auto/features/profile/presentation/bloc/directory/directory_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DirectoryFilterCategory extends StatefulWidget {
   const DirectoryFilterCategory({
@@ -43,22 +45,38 @@ class _DirectoryFilterCategoryState extends State<DirectoryFilterCategory> {
                       SizeConfig.h(24),
                   borderRadius: 8,
                   border: Border.all(
-                      color: _selectedIndexes.contains(item)
+                      color: context
+                              .read<DirectoryBloc>()
+                              .state
+                              .selectedCategories
+                              .contains(item)
                           ? purple.withOpacity(0.6)
                           : dividerColor),
                   shadow: [
                     BoxShadow(
                         offset: const Offset(0, 4),
                         blurRadius: 16,
-                        color: _selectedIndexes.contains(item)
+                        color: context
+                                .read<DirectoryBloc>()
+                                .state
+                                .selectedCategories
+                                .contains(item)
                             ? purple.withOpacity(0.12)
                             : darkBlack.withOpacity(0.05))
                   ],
                   onTap: () {
-                    if (_selectedIndexes.contains(item)) {
+                    if (context
+                        .read<DirectoryBloc>()
+                        .state
+                        .selectedCategories
+                        .contains(item)) {
                       _selectedIndexes.remove(item);
+                      context.read<DirectoryBloc>().add(DirectoryFilterEvent(
+                          selectedCategories: _selectedIndexes));
                     } else {
                       _selectedIndexes.add(item);
+                      context.read<DirectoryBloc>().add(DirectoryFilterEvent(
+                          selectedCategories: _selectedIndexes));
                     }
                     setState(() {});
                   },
@@ -105,7 +123,11 @@ class _DirectoryFilterCategoryState extends State<DirectoryFilterCategory> {
                                         horizontal: SizeConfig.h(4),
                                         vertical: SizeConfig.v(4)),
                                     decoration: BoxDecoration(
-                                        color: _selectedIndexes.contains(item)
+                                        color: context
+                                                .read<DirectoryBloc>()
+                                                .state
+                                                .selectedCategories
+                                                .contains(item)
                                             ? lavender2
                                             : seashell,
                                         borderRadius: BorderRadius.circular(
@@ -116,7 +138,10 @@ class _DirectoryFilterCategoryState extends State<DirectoryFilterCategory> {
                                           .textTheme
                                           .headline2
                                           ?.copyWith(
-                                              color: _selectedIndexes
+                                              color: context
+                                                      .read<DirectoryBloc>()
+                                                      .state
+                                                      .selectedCategories
                                                       .contains(item)
                                                   ? purple
                                                   : orange),
