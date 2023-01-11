@@ -1,5 +1,5 @@
+import 'package:auto/features/ad/domain/entities/types/make.dart';
 import 'package:auto/features/ad/domain/usecases/get_makes.dart';
-import 'package:auto/features/common/entities/makes_entity.dart';
 import 'package:bloc/bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -16,13 +16,24 @@ class GetMakesBloc extends Bloc<GetMakesBlocEvent, GetMakesState> {
     on<_ChangeSelected>((event, emit) {
       emit(state.copyWith(selectId: event.id));
     });
+    on<_SortMakes>((event, emit) {
+      final firstMakes = state.makes
+          .where((element) => element.name.startsWith(event.letter))
+          .toList();
+      final secondMakes = state.makes
+          .where((element) => !element.name.startsWith(event.letter));
+      emit(state.copyWith(
+          makes: firstMakes.isEmpty
+              ? state.makes
+              : [...firstMakes, ...secondMakes]));
+    });
     on<_GetMakes>((event, emit) async {
       emit(state.copyWith(status: FormzStatus.submissionInProgress));
       final result = await useCase.call(state.search);
       if (result.isRight) {
         emit(
           state.copyWith(
-            makes: result.right,
+            makes: result.right.results,
             status: FormzStatus.submissionSuccess,
             count: result.right.count,
             next: result.right.next,

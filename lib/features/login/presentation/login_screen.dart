@@ -167,6 +167,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   onTap: passwordController.text.length >= 4 &&
                           phoneController.text.length == 12
                       ? () {
+                          hidePopUp();
                           context.read<AuthenticationBloc>().add(LoginUser(
                               onError: (text) {
                                 context.read<ShowPopUpBloc>().add(ShowPopUp(
@@ -180,7 +181,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   .replaceAll('+998', '')
                                   .replaceAll('', ' ')));
                         }
-                      : () {},
+                      : hidePopUp,
                   shadow: [
                     BoxShadow(
                         offset: const Offset(0, 4),

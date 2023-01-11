@@ -14,6 +14,15 @@ class TopBrandBloc extends Bloc<TopBrandEvent, TopBrandState> {
   final GetTopBrandUseCase getBrands;
 
   TopBrandBloc(this.getBrands) : super(TopBrandState()) {
+    on<_SortBrands>((event, emit) {
+      final first = state.brands
+          .where((element) => element.name.startsWith(event.letter));
+
+      final second = state.brands
+          .where((element) => !element.name.startsWith(event.letter));
+      emit(state.copyWith(
+          brands: first.isEmpty ? state.brands : [...first, ...second]));
+    });
     on<_GetBrand>((event, emit) async {
       emit(state.copyWith(
         status: FormzStatus.submissionInProgress,

@@ -3,18 +3,17 @@ import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/domain/entities/choose_model/car_type_entity.dart';
 import 'package:auto/features/ad/domain/entities/choose_model/model_item_entity.dart';
 import 'package:auto/features/ad/presentation/bloc/choose_model/car_type_selector_bloc.dart';
+import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.dart';
 import 'package:auto/features/ad/presentation/pages/choose_model/widgets/car_type_item.dart';
+import 'package:auto/features/ad/presentation/pages/choose_model/widgets/model_items.dart';
 import 'package:auto/features/ad/presentation/pages/choose_model/widgets/persistant_header.dart';
-import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 class ChooseCarModelScreen extends StatefulWidget {
- 
-
-  const ChooseCarModelScreen({ Key? key}) : super(key: key);
+  const ChooseCarModelScreen({Key? key}) : super(key: key);
 
   @override
   State<ChooseCarModelScreen> createState() => _ChooseCarModelScreenState();
@@ -37,40 +36,15 @@ class _ChooseCarModelScreenState extends State<ChooseCarModelScreen> {
     super.dispose();
   }
 
-  final List<ModelItemEntity> modelItems = [
-    ModelItemEntity(title: 'm90'),
-    ModelItemEntity(title: 'm90'),
-    ModelItemEntity(title: 'm90'),
-    ModelItemEntity(title: 'm90'),
-    ModelItemEntity(title: 'm90'),
-    ModelItemEntity(title: 'm90'),
-  ];
-  final List<CarTypeEntity> carTypes = [
-    const CarTypeEntity(title: '02 (E10)'),
-    const CarTypeEntity(title: '1 серия'),
-    const CarTypeEntity(title: '1M'),
-    const CarTypeEntity(title: '2 серия'),
-    const CarTypeEntity(title: '2 серия Active Tourer'),
-    const CarTypeEntity(title: '2 серия Coupe'),
-    const CarTypeEntity(title: '2 серия Coupe'),
-    const CarTypeEntity(title: '2 серия Coupe'),
-    const CarTypeEntity(title: '2 серия Coupe'),
-    const CarTypeEntity(title: '2 серия Coupe'),
-    const CarTypeEntity(title: '2 серия Coupe'),
-    const CarTypeEntity(title: '2 серия Coupe'),
-    const CarTypeEntity(title: '2 серия Coupe'),
-    const CarTypeEntity(title: '2 серия Coupe'),
-    const CarTypeEntity(title: '2 серия Coupe'),
-    const CarTypeEntity(title: '2 серия Coupe'),
-  ];
+  final List<CarTypeEntity> carTypes = List.generate(
+      12,
+      (index) => CarTypeEntity(
+          title: '${index + 1} серия Coupe', id: index, logo: ''));
 
   @override
   Widget build(BuildContext context) => KeyboardDismisser(
         child: MultiBlocProvider(
           providers: [
-            // BlocProvider.value(
-            //   value: modelBloc,
-            // ),
             BlocProvider.value(
               value: carTypeSelectorBloc,
             ),
@@ -78,11 +52,12 @@ class _ChooseCarModelScreenState extends State<ChooseCarModelScreen> {
           child: Scaffold(
             body: CustomScrollView(
               slivers: [
+                /// SEARCH FIELD
                 SliverToBoxAdapter(
                   child: WTextField(
                     margin: const EdgeInsets.symmetric(
                         horizontal: 16, vertical: 14),
-                    onChanged: (value) {},
+                    onChanged: (value) => setState(() {}),
                     borderRadius: 12,
                     hasSearch: true,
                     hintText: 'Поиск',
@@ -90,6 +65,8 @@ class _ChooseCarModelScreenState extends State<ChooseCarModelScreen> {
                     controller: searchController,
                   ),
                 ),
+
+                /// SIZED BOX
                 SliverToBoxAdapter(
                   child: Transform.translate(
                     offset: const Offset(0, 1),
@@ -107,6 +84,8 @@ class _ChooseCarModelScreenState extends State<ChooseCarModelScreen> {
                     ),
                   ),
                 ),
+
+                ///
                 SliverToBoxAdapter(
                   child: Container(
                     decoration: BoxDecoration(
@@ -118,21 +97,17 @@ class _ChooseCarModelScreenState extends State<ChooseCarModelScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Padding(
-                          padding:
-                              const EdgeInsets.symmetric(horizontal: 16),
+                          padding: const EdgeInsets.symmetric(horizontal: 16),
                           child: Text(
                             'Популярные',
                             style: Theme.of(context)
                                 .textTheme
                                 .headline1!
                                 .copyWith(
-                                    fontWeight: FontWeight.w600,
-                                    color: purple),
+                                    fontWeight: FontWeight.w600, color: purple),
                           ),
                         ),
-                        const SizedBox(
-                          height: 10,
-                        ),
+                        const SizedBox(height: 10),
                         Divider(
                           thickness: 1,
                           color: Theme.of(context).dividerColor,
@@ -141,25 +116,33 @@ class _ChooseCarModelScreenState extends State<ChooseCarModelScreen> {
                     ),
                   ),
                 ),
-                // SliverList(
-                //   delegate: SliverChildBuilderDelegate(
-                //     (context, index) => Container(
-                //       color: Theme.of(context)
-                //           .extension<ThemedColors>()!
-                //           .whiteToDark,
-                //       child: BlocBuilder<ModelSelectorBloc,
-                //           ModelSelectorState>(
-                //         builder: (context, state) => ModelItems(
-                //           bloc: modelBloc,
-                //           entity: modelItems[index].title,
-                //           selectedId: state.selectedId,
-                //           id: index, text: '',
-                //         ),
-                //       ),
-                //     ),
-                //     childCount: modelItems.length,
-                //   ),
-                // ),
+
+                /// POPULAR TYPES
+                SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                    (context, index) => Container(
+                      color: Theme.of(context)
+                          .extension<ThemedColors>()!
+                          .whiteToDark,
+                      child: ModelItems(
+                        onTap: () {
+                          print('=>=>=>=> model item tap <=<=<=<=');
+                        },
+                        entity: 'entity $index',
+                        selectedId: context
+                                .watch<PostingAdBloc>()
+                                .state
+                                .selectedPopularTypeId ??
+                            -1,
+                        id: index,
+                        text: 'text',
+                      ),
+                    ),
+                    childCount: 4,
+                  ),
+                ),
+
+                /// JUST CONTAINER
                 SliverToBoxAdapter(
                   child: Container(
                     height: 10,
@@ -169,6 +152,8 @@ class _ChooseCarModelScreenState extends State<ChooseCarModelScreen> {
                         .whiteToDark,
                   ),
                 ),
+
+                /// NUMBER BOX
                 SliverSafeArea(
                   top: false,
                   bottom: false,
@@ -177,6 +162,8 @@ class _ChooseCarModelScreenState extends State<ChooseCarModelScreen> {
                     pinned: true,
                   ),
                 ),
+
+                /// CAR TYPES
                 SliverList(
                     delegate: SliverChildBuilderDelegate(
                         (context, index) => Container(
@@ -188,7 +175,7 @@ class _ChooseCarModelScreenState extends State<ChooseCarModelScreen> {
                                 builder: (context, state) => CarTypeItem(
                                     entity: carTypes[index],
                                     selectedId: state.selectedId,
-                                    id: index),
+                                    id: carTypes[index].id),
                               ),
                             ),
                         childCount: carTypes.length)),

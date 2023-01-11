@@ -20,18 +20,21 @@ mixin _$TopBrandEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() getBrand,
     required TResult Function() getMoreBrand,
+    required TResult Function(String letter) sortBarands,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getBrand,
     TResult? Function()? getMoreBrand,
+    TResult? Function(String letter)? sortBarands,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getBrand,
     TResult Function()? getMoreBrand,
+    TResult Function(String letter)? sortBarands,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -39,18 +42,21 @@ mixin _$TopBrandEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(_GetBrand value) getBrand,
     required TResult Function(_GetMoreBrand value) getMoreBrand,
+    required TResult Function(_SortBrands value) sortBarands,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetBrand value)? getBrand,
     TResult? Function(_GetMoreBrand value)? getMoreBrand,
+    TResult? Function(_SortBrands value)? sortBarands,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetBrand value)? getBrand,
     TResult Function(_GetMoreBrand value)? getMoreBrand,
+    TResult Function(_SortBrands value)? sortBarands,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -114,6 +120,7 @@ class _$_GetBrand implements _GetBrand {
   TResult when<TResult extends Object?>({
     required TResult Function() getBrand,
     required TResult Function() getMoreBrand,
+    required TResult Function(String letter) sortBarands,
   }) {
     return getBrand();
   }
@@ -123,6 +130,7 @@ class _$_GetBrand implements _GetBrand {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getBrand,
     TResult? Function()? getMoreBrand,
+    TResult? Function(String letter)? sortBarands,
   }) {
     return getBrand?.call();
   }
@@ -132,6 +140,7 @@ class _$_GetBrand implements _GetBrand {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getBrand,
     TResult Function()? getMoreBrand,
+    TResult Function(String letter)? sortBarands,
     required TResult orElse(),
   }) {
     if (getBrand != null) {
@@ -145,6 +154,7 @@ class _$_GetBrand implements _GetBrand {
   TResult map<TResult extends Object?>({
     required TResult Function(_GetBrand value) getBrand,
     required TResult Function(_GetMoreBrand value) getMoreBrand,
+    required TResult Function(_SortBrands value) sortBarands,
   }) {
     return getBrand(this);
   }
@@ -154,6 +164,7 @@ class _$_GetBrand implements _GetBrand {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetBrand value)? getBrand,
     TResult? Function(_GetMoreBrand value)? getMoreBrand,
+    TResult? Function(_SortBrands value)? sortBarands,
   }) {
     return getBrand?.call(this);
   }
@@ -163,6 +174,7 @@ class _$_GetBrand implements _GetBrand {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetBrand value)? getBrand,
     TResult Function(_GetMoreBrand value)? getMoreBrand,
+    TResult Function(_SortBrands value)? sortBarands,
     required TResult orElse(),
   }) {
     if (getBrand != null) {
@@ -216,6 +228,7 @@ class _$_GetMoreBrand implements _GetMoreBrand {
   TResult when<TResult extends Object?>({
     required TResult Function() getBrand,
     required TResult Function() getMoreBrand,
+    required TResult Function(String letter) sortBarands,
   }) {
     return getMoreBrand();
   }
@@ -225,6 +238,7 @@ class _$_GetMoreBrand implements _GetMoreBrand {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getBrand,
     TResult? Function()? getMoreBrand,
+    TResult? Function(String letter)? sortBarands,
   }) {
     return getMoreBrand?.call();
   }
@@ -234,6 +248,7 @@ class _$_GetMoreBrand implements _GetMoreBrand {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getBrand,
     TResult Function()? getMoreBrand,
+    TResult Function(String letter)? sortBarands,
     required TResult orElse(),
   }) {
     if (getMoreBrand != null) {
@@ -247,6 +262,7 @@ class _$_GetMoreBrand implements _GetMoreBrand {
   TResult map<TResult extends Object?>({
     required TResult Function(_GetBrand value) getBrand,
     required TResult Function(_GetMoreBrand value) getMoreBrand,
+    required TResult Function(_SortBrands value) sortBarands,
   }) {
     return getMoreBrand(this);
   }
@@ -256,6 +272,7 @@ class _$_GetMoreBrand implements _GetMoreBrand {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetBrand value)? getBrand,
     TResult? Function(_GetMoreBrand value)? getMoreBrand,
+    TResult? Function(_SortBrands value)? sortBarands,
   }) {
     return getMoreBrand?.call(this);
   }
@@ -265,6 +282,7 @@ class _$_GetMoreBrand implements _GetMoreBrand {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetBrand value)? getBrand,
     TResult Function(_GetMoreBrand value)? getMoreBrand,
+    TResult Function(_SortBrands value)? sortBarands,
     required TResult orElse(),
   }) {
     if (getMoreBrand != null) {
@@ -276,6 +294,145 @@ class _$_GetMoreBrand implements _GetMoreBrand {
 
 abstract class _GetMoreBrand implements TopBrandEvent {
   factory _GetMoreBrand() = _$_GetMoreBrand;
+}
+
+/// @nodoc
+abstract class _$$_SortBrandsCopyWith<$Res> {
+  factory _$$_SortBrandsCopyWith(
+          _$_SortBrands value, $Res Function(_$_SortBrands) then) =
+      __$$_SortBrandsCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String letter});
+}
+
+/// @nodoc
+class __$$_SortBrandsCopyWithImpl<$Res>
+    extends _$TopBrandEventCopyWithImpl<$Res, _$_SortBrands>
+    implements _$$_SortBrandsCopyWith<$Res> {
+  __$$_SortBrandsCopyWithImpl(
+      _$_SortBrands _value, $Res Function(_$_SortBrands) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? letter = null,
+  }) {
+    return _then(_$_SortBrands(
+      null == letter
+          ? _value.letter
+          : letter // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_SortBrands implements _SortBrands {
+  _$_SortBrands(this.letter);
+
+  @override
+  final String letter;
+
+  @override
+  String toString() {
+    return 'TopBrandEvent.sortBarands(letter: $letter)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_SortBrands &&
+            (identical(other.letter, letter) || other.letter == letter));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, letter);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_SortBrandsCopyWith<_$_SortBrands> get copyWith =>
+      __$$_SortBrandsCopyWithImpl<_$_SortBrands>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() getBrand,
+    required TResult Function() getMoreBrand,
+    required TResult Function(String letter) sortBarands,
+  }) {
+    return sortBarands(letter);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? getBrand,
+    TResult? Function()? getMoreBrand,
+    TResult? Function(String letter)? sortBarands,
+  }) {
+    return sortBarands?.call(letter);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? getBrand,
+    TResult Function()? getMoreBrand,
+    TResult Function(String letter)? sortBarands,
+    required TResult orElse(),
+  }) {
+    if (sortBarands != null) {
+      return sortBarands(letter);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_GetBrand value) getBrand,
+    required TResult Function(_GetMoreBrand value) getMoreBrand,
+    required TResult Function(_SortBrands value) sortBarands,
+  }) {
+    return sortBarands(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetBrand value)? getBrand,
+    TResult? Function(_GetMoreBrand value)? getMoreBrand,
+    TResult? Function(_SortBrands value)? sortBarands,
+  }) {
+    return sortBarands?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetBrand value)? getBrand,
+    TResult Function(_GetMoreBrand value)? getMoreBrand,
+    TResult Function(_SortBrands value)? sortBarands,
+    required TResult orElse(),
+  }) {
+    if (sortBarands != null) {
+      return sortBarands(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _SortBrands implements TopBrandEvent {
+  factory _SortBrands(final String letter) = _$_SortBrands;
+
+  String get letter;
+  @JsonKey(ignore: true)
+  _$$_SortBrandsCopyWith<_$_SortBrands> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc

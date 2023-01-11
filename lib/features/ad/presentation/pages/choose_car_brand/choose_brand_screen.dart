@@ -1,16 +1,15 @@
-import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/features/ad/data/repositories/ad_repository_impl.dart';
 import 'package:auto/features/ad/domain/entities/choose_car_brand/change_car_entity.dart';
 import 'package:auto/features/ad/domain/usecases/get_makes.dart';
+import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.dart';
 import 'package:auto/features/ad/presentation/pages/choose_car_brand/widget/car_items.dart';
 import 'package:auto/features/ad/presentation/pages/choose_car_brand/widget/persistant_header.dart';
 import 'package:auto/features/common/bloc/get_makes_bloc/get_makes_bloc_bloc.dart';
 import 'package:auto/features/common/domain/entity/car_brand_entity.dart';
 import 'package:auto/features/common/widgets/car_brand_item.dart';
-import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_textfield.dart';
 import 'package:auto/features/main/domain/usecases/get_top_brand.dart';
 import 'package:auto/features/main/presentation/bloc/top_brand/top_brand_bloc.dart';
@@ -19,7 +18,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 class ChooseCarBrand extends StatefulWidget {
-  const ChooseCarBrand({Key? key}) : super(key: key);
+  const ChooseCarBrand({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<ChooseCarBrand> createState() => _ChooseCarBrandState();
@@ -27,7 +28,7 @@ class ChooseCarBrand extends StatefulWidget {
 
 class _ChooseCarBrandState extends State<ChooseCarBrand> {
   late TextEditingController searchController;
-  late GetMakesBloc carSelectorBloc;
+  late GetMakesBloc getMakesBloc;
   late TopBrandBloc topBrandBloc;
 
   @override
@@ -35,7 +36,7 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
     topBrandBloc = TopBrandBloc(GetTopBrandUseCase())
       ..add(TopBrandEvent.getBrand());
     searchController = TextEditingController();
-    carSelectorBloc = GetMakesBloc(
+    getMakesBloc = GetMakesBloc(
         useCase: GetMakesUseCase(
           repository: serviceLocator<AdRepositoryImpl>(),
         ),
@@ -115,25 +116,34 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
   Widget build(BuildContext context) => KeyboardDismisser(
         child: MultiBlocProvider(
           providers: [
-            BlocProvider(create: (c) => carSelectorBloc),
+            BlocProvider(create: (c) => getMakesBloc),
             BlocProvider(create: (c) => topBrandBloc),
           ],
           child: BlocBuilder<GetMakesBloc, GetMakesState>(
             builder: (context, getMakesState) =>
                 BlocBuilder<TopBrandBloc, TopBrandState>(
               builder: (context, topBrandState) {
-                print(
-                    '=>=>=>=> top brand state name ${topBrandState.status.name} <=<=<=<=');
+                final postingAdState = context.watch<PostingAdBloc>().state;
+
+                if (postingAdState.letter !=
+                    postingAdState.previousMakeLetter) {
+                  getMakesBloc.add(
+                      GetMakesBlocEvent.sortMakes(postingAdState.letter ?? ''));
+                  topBrandBloc.add(
+                      TopBrandEvent.sortBarands(postingAdState.letter ?? ''));
+                }
+
                 return Scaffold(
                   body: NestedScrollView(
                     floatHeaderSlivers: true,
                     physics: const BouncingScrollPhysics(),
                     headerSliverBuilder: (context, innerBoxIsScrolled) => [
+                      /// SEARCH FIED
                       SliverToBoxAdapter(
                         child: WTextField(
                           margin: const EdgeInsets.symmetric(
                               horizontal: 16, vertical: 29),
-                          onChanged: (value) {},
+                          onChanged: (value) => setState(() {}),
                           borderRadius: 12,
                           hasSearch: true,
                           hintText: 'Поиск',
@@ -153,8 +163,12 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
                                   const EdgeInsets.symmetric(horizontal: 16),
                               physics: const BouncingScrollPhysics(),
                               scrollDirection: Axis.horizontal,
-                              itemBuilder: (context, index) => CarBrandItem(
-                                    carBrandEntity: topBrandState.brands[index],
+                              itemBuilder: (context, index) => GestureDetector(
+                                    onTap: () {},
+                                    child: CarBrandItem(
+                                      carBrandEntity:
+                                          topBrandState.brands[index],
+                                    ),
                                   ),
                               separatorBuilder: (context, index) =>
                                   const SizedBox(width: 12)),
@@ -201,14 +215,21 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
                         physics: const BouncingScrollPhysics(),
                         padding: const EdgeInsets.only(bottom: 50),
                         itemBuilder: (context, index) => ChangeCarItems(
-                          onTap: () {},
-                          selectedId: getMakesState.confirmId,
-                          id: index,
-                          imageUrl: getMakesState.makes.results[index].logo,
-                          name: getMakesState.makes.results[index].name,
-                          text: '',
+                          onTap: () => context.read<PostingAdBloc>().add(
+                              PostingAdChooseMakeEvent(
+                                  makeEntity: getMakesState.makes[index])),
+                          selectedId: context
+                                  .watch<PostingAdBloc>()
+                                  .state
+                                  .makeEntity
+                                  ?.id ??
+                              -1,
+                          id: getMakesState.makes[index].id,
+                          imageUrl: getMakesState.makes[index].logo,
+                          name: getMakesState.makes[index].name,
+                          text: searchController.text,
                         ),
-                        itemCount: getMakesState.makes.results.length,
+                        itemCount: getMakesState.makes.length,
                       ),
                     ),
                   ),
