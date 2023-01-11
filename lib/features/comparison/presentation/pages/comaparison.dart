@@ -8,10 +8,12 @@ import 'package:auto/features/comparison/domain/entities/complectation_parameter
 import 'package:auto/features/comparison/presentation/bloc/comparison-bloc/comparison_bloc.dart';
 import 'package:auto/features/comparison/presentation/pages/choose_car_brand.dart';
 import 'package:auto/features/comparison/presentation/pages/choose_model.dart';
+import 'package:auto/features/comparison/presentation/widgets/comparison_info_sliver_delegate.dart';
 import 'package:auto/features/comparison/presentation/widgets/engin_info_widget.dart';
 import 'package:auto/features/comparison/presentation/widgets/main_parameters_widget.dart';
 import 'package:auto/features/comparison/presentation/widgets/sliver_delegate.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
+import 'package:auto/utils/my_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:linked_scroll_controller/linked_scroll_controller.dart';
@@ -137,6 +139,12 @@ class _ComparisonState extends State<Comparison> {
               sliver: SliverSafeArea(
                 top: false,
                 sliver: SliverPersistentHeader(
+                  pinned: true,
+                  // delegate: ComparisonSliverDelegate(
+                  //   onAddCar: () {},
+                  //   comparisonBloc: widget.comparisonBloc,
+                  //   scrollController: sliverWidgetScrollController,
+                  // ),
                   delegate: SliverWidget(
                     numberOfAddedCars: state.cars.length,
                     boolean: showDifferences,
@@ -199,7 +207,6 @@ class _ComparisonState extends State<Comparison> {
                     },
                     comparisonBloc: widget.comparisonBloc,
                   ),
-                  pinned: true,
                 ),
               ),
             )
