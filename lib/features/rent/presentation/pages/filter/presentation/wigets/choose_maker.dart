@@ -55,9 +55,8 @@ class _ChooseMakerState extends State<ChooseMaker> {
                         title: 'Марка',
                         onCancelPressed: () {
                           Navigator.of(context).pop(getMakesState.selectId >= 0
-                              ? getMakesState.makes.results.firstWhere(
-                                  (element) =>
-                                      getMakesState.selectId == element.id)
+                              ? getMakesState.makes.firstWhere((element) =>
+                                  getMakesState.selectId == element.id)
                               : null);
                         }),
                     const Divider(thickness: 1, color: border, height: 1),
@@ -67,30 +66,25 @@ class _ChooseMakerState extends State<ChooseMaker> {
                         child: Column(
                           children: [
                             ...List.generate(
-                              getMakesState.makes.results.length,
+                              getMakesState.makes.length,
                               (index) => Column(
                                 children: [
                                   WScaleAnimation(
                                     onTap: () {
                                       getMakesBloc.add(
                                           GetMakesBlocEvent.changeSelected(
-                                              getMakesState
-                                                  .makes.results[index].id));
+                                              getMakesState.makes[index].id));
                                     },
                                     child: RentSheetItem(
-                                      logo: getMakesState
-                                          .makes.results[index].logo,
-                                      title: getMakesState
-                                          .makes.results[index].name,
+                                      logo: getMakesState.makes[index].logo,
+                                      title: getMakesState.makes[index].name,
                                       isChecked: getMakesState.selectId ==
-                                          getMakesState.makes.results[index].id,
+                                          getMakesState.makes[index].id,
                                     ),
                                   ),
                                   Visibility(
                                     visible:
-                                        getMakesState.makes.results.length -
-                                                1 !=
-                                            index,
+                                        getMakesState.makes.length - 1 != index,
                                     child: const Divider(
                                       thickness: 1,
                                       color: border,
@@ -112,7 +106,7 @@ class _ChooseMakerState extends State<ChooseMaker> {
                           onTap: () {
                             Navigator.of(context).pop(getMakesState.selectId >=
                                     0
-                                ? getMakesState.makes.results.firstWhere((element) =>
+                                ? getMakesState.makes.firstWhere((element) =>
                                     element.id == getMakesState.selectId)
                                 : null);
                           },

@@ -20,48 +20,46 @@ class CarTypeItem extends StatelessWidget {
       : super(key: key);
 
   @override
-  Widget build(BuildContext context) => GestureDetector(
-        onTap: () {
-        
-          context.read<CarTypeSelectorBloc>().add(SelectedCarTypeEvent(id: id));
-        },
+  Widget build(BuildContext context) {
+     print('=>=>=>=> $selectedId $id <=<=<=<=');
+    return GestureDetector(
+      onTap: () =>
+          context.read<CarTypeSelectorBloc>().add(SelectedCarTypeEvent(id: id)),
+      child: Container(
+        padding: const EdgeInsets.only(left: 16),
+        color: id == selectedId
+            ? Theme.of(context).extension<ThemedColors>()!.snowToNightRider
+            : Colors.transparent,
         child: Container(
-          padding: const EdgeInsets.only(left: 16),
-          color: id == selectedId
-              ? Theme.of(context).extension<ThemedColors>()!.snowToNightRider
-              : Colors.transparent,
-          child: Container(
-            padding: const EdgeInsets.only(right: 16, top: 10, bottom: 10),
-            decoration: BoxDecoration(
-              border: Border(
-                  bottom: BorderSide(
-                      width: 1, color: Theme.of(context).dividerColor)),
-            ),
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 40,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(entity.title,
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline1!
-                              .copyWith(
-                                  fontSize: 16, fontWeight: FontWeight.w400)),
-                      if (id == selectedId)
-                        SvgPicture.asset(
-                          AppIcons.check,
-                          color: orange,
-                          height: 14,
-                        ),
-                    ],
-                  ),
+          padding: const EdgeInsets.only(right: 16, top: 10, bottom: 10),
+          decoration: BoxDecoration(
+            border: Border(
+                bottom: BorderSide(
+                    width: 1, color: Theme.of(context).dividerColor)),
+          ),
+          child: Column(
+            children: [
+              SizedBox(
+                height: 40,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(entity.title,
+                        style: Theme.of(context).textTheme.headline1!.copyWith(
+                            fontSize: 16, fontWeight: FontWeight.w400)),
+                    if (id == selectedId)
+                      SvgPicture.asset(
+                        AppIcons.check,
+                        color: orange,
+                        height: 14,
+                      ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
-      );
+      ),
+    );
+  }
 }

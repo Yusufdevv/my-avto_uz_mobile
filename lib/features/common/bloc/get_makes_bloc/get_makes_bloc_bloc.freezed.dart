@@ -21,6 +21,7 @@ mixin _$GetMakesBlocEvent {
     required TResult Function() getMakes,
     required TResult Function(String naem) getSerched,
     required TResult Function(int id) changeSelected,
+    required TResult Function(String letter) sortMakes,
     required TResult Function(int id, String name, String imageUrl)
         selectedCarItems,
     required TResult Function() confirmCarOption,
@@ -32,6 +33,7 @@ mixin _$GetMakesBlocEvent {
     TResult? Function()? getMakes,
     TResult? Function(String naem)? getSerched,
     TResult? Function(int id)? changeSelected,
+    TResult? Function(String letter)? sortMakes,
     TResult? Function(int id, String name, String imageUrl)? selectedCarItems,
     TResult? Function()? confirmCarOption,
     TResult? Function()? revertCarOption,
@@ -42,6 +44,7 @@ mixin _$GetMakesBlocEvent {
     TResult Function()? getMakes,
     TResult Function(String naem)? getSerched,
     TResult Function(int id)? changeSelected,
+    TResult Function(String letter)? sortMakes,
     TResult Function(int id, String name, String imageUrl)? selectedCarItems,
     TResult Function()? confirmCarOption,
     TResult Function()? revertCarOption,
@@ -53,6 +56,7 @@ mixin _$GetMakesBlocEvent {
     required TResult Function(_GetMakes value) getMakes,
     required TResult Function(_GetSerched value) getSerched,
     required TResult Function(_ChangeSelected value) changeSelected,
+    required TResult Function(_SortMakes value) sortMakes,
     required TResult Function(_SelectedCarItems value) selectedCarItems,
     required TResult Function(_ConfirmCarOption value) confirmCarOption,
     required TResult Function(_RevertCarOption value) revertCarOption,
@@ -63,6 +67,7 @@ mixin _$GetMakesBlocEvent {
     TResult? Function(_GetMakes value)? getMakes,
     TResult? Function(_GetSerched value)? getSerched,
     TResult? Function(_ChangeSelected value)? changeSelected,
+    TResult? Function(_SortMakes value)? sortMakes,
     TResult? Function(_SelectedCarItems value)? selectedCarItems,
     TResult? Function(_ConfirmCarOption value)? confirmCarOption,
     TResult? Function(_RevertCarOption value)? revertCarOption,
@@ -73,6 +78,7 @@ mixin _$GetMakesBlocEvent {
     TResult Function(_GetMakes value)? getMakes,
     TResult Function(_GetSerched value)? getSerched,
     TResult Function(_ChangeSelected value)? changeSelected,
+    TResult Function(_SortMakes value)? sortMakes,
     TResult Function(_SelectedCarItems value)? selectedCarItems,
     TResult Function(_ConfirmCarOption value)? confirmCarOption,
     TResult Function(_RevertCarOption value)? revertCarOption,
@@ -140,6 +146,7 @@ class _$_GetMakes implements _GetMakes {
     required TResult Function() getMakes,
     required TResult Function(String naem) getSerched,
     required TResult Function(int id) changeSelected,
+    required TResult Function(String letter) sortMakes,
     required TResult Function(int id, String name, String imageUrl)
         selectedCarItems,
     required TResult Function() confirmCarOption,
@@ -154,6 +161,7 @@ class _$_GetMakes implements _GetMakes {
     TResult? Function()? getMakes,
     TResult? Function(String naem)? getSerched,
     TResult? Function(int id)? changeSelected,
+    TResult? Function(String letter)? sortMakes,
     TResult? Function(int id, String name, String imageUrl)? selectedCarItems,
     TResult? Function()? confirmCarOption,
     TResult? Function()? revertCarOption,
@@ -167,6 +175,7 @@ class _$_GetMakes implements _GetMakes {
     TResult Function()? getMakes,
     TResult Function(String naem)? getSerched,
     TResult Function(int id)? changeSelected,
+    TResult Function(String letter)? sortMakes,
     TResult Function(int id, String name, String imageUrl)? selectedCarItems,
     TResult Function()? confirmCarOption,
     TResult Function()? revertCarOption,
@@ -184,6 +193,7 @@ class _$_GetMakes implements _GetMakes {
     required TResult Function(_GetMakes value) getMakes,
     required TResult Function(_GetSerched value) getSerched,
     required TResult Function(_ChangeSelected value) changeSelected,
+    required TResult Function(_SortMakes value) sortMakes,
     required TResult Function(_SelectedCarItems value) selectedCarItems,
     required TResult Function(_ConfirmCarOption value) confirmCarOption,
     required TResult Function(_RevertCarOption value) revertCarOption,
@@ -197,6 +207,7 @@ class _$_GetMakes implements _GetMakes {
     TResult? Function(_GetMakes value)? getMakes,
     TResult? Function(_GetSerched value)? getSerched,
     TResult? Function(_ChangeSelected value)? changeSelected,
+    TResult? Function(_SortMakes value)? sortMakes,
     TResult? Function(_SelectedCarItems value)? selectedCarItems,
     TResult? Function(_ConfirmCarOption value)? confirmCarOption,
     TResult? Function(_RevertCarOption value)? revertCarOption,
@@ -210,6 +221,7 @@ class _$_GetMakes implements _GetMakes {
     TResult Function(_GetMakes value)? getMakes,
     TResult Function(_GetSerched value)? getSerched,
     TResult Function(_ChangeSelected value)? changeSelected,
+    TResult Function(_SortMakes value)? sortMakes,
     TResult Function(_SelectedCarItems value)? selectedCarItems,
     TResult Function(_ConfirmCarOption value)? confirmCarOption,
     TResult Function(_RevertCarOption value)? revertCarOption,
@@ -293,6 +305,7 @@ class _$_GetSerched implements _GetSerched {
     required TResult Function() getMakes,
     required TResult Function(String naem) getSerched,
     required TResult Function(int id) changeSelected,
+    required TResult Function(String letter) sortMakes,
     required TResult Function(int id, String name, String imageUrl)
         selectedCarItems,
     required TResult Function() confirmCarOption,
@@ -307,6 +320,7 @@ class _$_GetSerched implements _GetSerched {
     TResult? Function()? getMakes,
     TResult? Function(String naem)? getSerched,
     TResult? Function(int id)? changeSelected,
+    TResult? Function(String letter)? sortMakes,
     TResult? Function(int id, String name, String imageUrl)? selectedCarItems,
     TResult? Function()? confirmCarOption,
     TResult? Function()? revertCarOption,
@@ -320,6 +334,7 @@ class _$_GetSerched implements _GetSerched {
     TResult Function()? getMakes,
     TResult Function(String naem)? getSerched,
     TResult Function(int id)? changeSelected,
+    TResult Function(String letter)? sortMakes,
     TResult Function(int id, String name, String imageUrl)? selectedCarItems,
     TResult Function()? confirmCarOption,
     TResult Function()? revertCarOption,
@@ -337,6 +352,7 @@ class _$_GetSerched implements _GetSerched {
     required TResult Function(_GetMakes value) getMakes,
     required TResult Function(_GetSerched value) getSerched,
     required TResult Function(_ChangeSelected value) changeSelected,
+    required TResult Function(_SortMakes value) sortMakes,
     required TResult Function(_SelectedCarItems value) selectedCarItems,
     required TResult Function(_ConfirmCarOption value) confirmCarOption,
     required TResult Function(_RevertCarOption value) revertCarOption,
@@ -350,6 +366,7 @@ class _$_GetSerched implements _GetSerched {
     TResult? Function(_GetMakes value)? getMakes,
     TResult? Function(_GetSerched value)? getSerched,
     TResult? Function(_ChangeSelected value)? changeSelected,
+    TResult? Function(_SortMakes value)? sortMakes,
     TResult? Function(_SelectedCarItems value)? selectedCarItems,
     TResult? Function(_ConfirmCarOption value)? confirmCarOption,
     TResult? Function(_RevertCarOption value)? revertCarOption,
@@ -363,6 +380,7 @@ class _$_GetSerched implements _GetSerched {
     TResult Function(_GetMakes value)? getMakes,
     TResult Function(_GetSerched value)? getSerched,
     TResult Function(_ChangeSelected value)? changeSelected,
+    TResult Function(_SortMakes value)? sortMakes,
     TResult Function(_SelectedCarItems value)? selectedCarItems,
     TResult Function(_ConfirmCarOption value)? confirmCarOption,
     TResult Function(_RevertCarOption value)? revertCarOption,
@@ -451,6 +469,7 @@ class _$_ChangeSelected implements _ChangeSelected {
     required TResult Function() getMakes,
     required TResult Function(String naem) getSerched,
     required TResult Function(int id) changeSelected,
+    required TResult Function(String letter) sortMakes,
     required TResult Function(int id, String name, String imageUrl)
         selectedCarItems,
     required TResult Function() confirmCarOption,
@@ -465,6 +484,7 @@ class _$_ChangeSelected implements _ChangeSelected {
     TResult? Function()? getMakes,
     TResult? Function(String naem)? getSerched,
     TResult? Function(int id)? changeSelected,
+    TResult? Function(String letter)? sortMakes,
     TResult? Function(int id, String name, String imageUrl)? selectedCarItems,
     TResult? Function()? confirmCarOption,
     TResult? Function()? revertCarOption,
@@ -478,6 +498,7 @@ class _$_ChangeSelected implements _ChangeSelected {
     TResult Function()? getMakes,
     TResult Function(String naem)? getSerched,
     TResult Function(int id)? changeSelected,
+    TResult Function(String letter)? sortMakes,
     TResult Function(int id, String name, String imageUrl)? selectedCarItems,
     TResult Function()? confirmCarOption,
     TResult Function()? revertCarOption,
@@ -495,6 +516,7 @@ class _$_ChangeSelected implements _ChangeSelected {
     required TResult Function(_GetMakes value) getMakes,
     required TResult Function(_GetSerched value) getSerched,
     required TResult Function(_ChangeSelected value) changeSelected,
+    required TResult Function(_SortMakes value) sortMakes,
     required TResult Function(_SelectedCarItems value) selectedCarItems,
     required TResult Function(_ConfirmCarOption value) confirmCarOption,
     required TResult Function(_RevertCarOption value) revertCarOption,
@@ -508,6 +530,7 @@ class _$_ChangeSelected implements _ChangeSelected {
     TResult? Function(_GetMakes value)? getMakes,
     TResult? Function(_GetSerched value)? getSerched,
     TResult? Function(_ChangeSelected value)? changeSelected,
+    TResult? Function(_SortMakes value)? sortMakes,
     TResult? Function(_SelectedCarItems value)? selectedCarItems,
     TResult? Function(_ConfirmCarOption value)? confirmCarOption,
     TResult? Function(_RevertCarOption value)? revertCarOption,
@@ -521,6 +544,7 @@ class _$_ChangeSelected implements _ChangeSelected {
     TResult Function(_GetMakes value)? getMakes,
     TResult Function(_GetSerched value)? getSerched,
     TResult Function(_ChangeSelected value)? changeSelected,
+    TResult Function(_SortMakes value)? sortMakes,
     TResult Function(_SelectedCarItems value)? selectedCarItems,
     TResult Function(_ConfirmCarOption value)? confirmCarOption,
     TResult Function(_RevertCarOption value)? revertCarOption,
@@ -539,6 +563,170 @@ abstract class _ChangeSelected implements GetMakesBlocEvent {
   int get id;
   @JsonKey(ignore: true)
   _$$_ChangeSelectedCopyWith<_$_ChangeSelected> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_SortMakesCopyWith<$Res> {
+  factory _$$_SortMakesCopyWith(
+          _$_SortMakes value, $Res Function(_$_SortMakes) then) =
+      __$$_SortMakesCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String letter});
+}
+
+/// @nodoc
+class __$$_SortMakesCopyWithImpl<$Res>
+    extends _$GetMakesBlocEventCopyWithImpl<$Res, _$_SortMakes>
+    implements _$$_SortMakesCopyWith<$Res> {
+  __$$_SortMakesCopyWithImpl(
+      _$_SortMakes _value, $Res Function(_$_SortMakes) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? letter = null,
+  }) {
+    return _then(_$_SortMakes(
+      null == letter
+          ? _value.letter
+          : letter // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_SortMakes implements _SortMakes {
+  _$_SortMakes(this.letter);
+
+  @override
+  final String letter;
+
+  @override
+  String toString() {
+    return 'GetMakesBlocEvent.sortMakes(letter: $letter)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_SortMakes &&
+            (identical(other.letter, letter) || other.letter == letter));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, letter);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_SortMakesCopyWith<_$_SortMakes> get copyWith =>
+      __$$_SortMakesCopyWithImpl<_$_SortMakes>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() getMakes,
+    required TResult Function(String naem) getSerched,
+    required TResult Function(int id) changeSelected,
+    required TResult Function(String letter) sortMakes,
+    required TResult Function(int id, String name, String imageUrl)
+        selectedCarItems,
+    required TResult Function() confirmCarOption,
+    required TResult Function() revertCarOption,
+  }) {
+    return sortMakes(letter);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? getMakes,
+    TResult? Function(String naem)? getSerched,
+    TResult? Function(int id)? changeSelected,
+    TResult? Function(String letter)? sortMakes,
+    TResult? Function(int id, String name, String imageUrl)? selectedCarItems,
+    TResult? Function()? confirmCarOption,
+    TResult? Function()? revertCarOption,
+  }) {
+    return sortMakes?.call(letter);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? getMakes,
+    TResult Function(String naem)? getSerched,
+    TResult Function(int id)? changeSelected,
+    TResult Function(String letter)? sortMakes,
+    TResult Function(int id, String name, String imageUrl)? selectedCarItems,
+    TResult Function()? confirmCarOption,
+    TResult Function()? revertCarOption,
+    required TResult orElse(),
+  }) {
+    if (sortMakes != null) {
+      return sortMakes(letter);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_GetMakes value) getMakes,
+    required TResult Function(_GetSerched value) getSerched,
+    required TResult Function(_ChangeSelected value) changeSelected,
+    required TResult Function(_SortMakes value) sortMakes,
+    required TResult Function(_SelectedCarItems value) selectedCarItems,
+    required TResult Function(_ConfirmCarOption value) confirmCarOption,
+    required TResult Function(_RevertCarOption value) revertCarOption,
+  }) {
+    return sortMakes(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetMakes value)? getMakes,
+    TResult? Function(_GetSerched value)? getSerched,
+    TResult? Function(_ChangeSelected value)? changeSelected,
+    TResult? Function(_SortMakes value)? sortMakes,
+    TResult? Function(_SelectedCarItems value)? selectedCarItems,
+    TResult? Function(_ConfirmCarOption value)? confirmCarOption,
+    TResult? Function(_RevertCarOption value)? revertCarOption,
+  }) {
+    return sortMakes?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetMakes value)? getMakes,
+    TResult Function(_GetSerched value)? getSerched,
+    TResult Function(_ChangeSelected value)? changeSelected,
+    TResult Function(_SortMakes value)? sortMakes,
+    TResult Function(_SelectedCarItems value)? selectedCarItems,
+    TResult Function(_ConfirmCarOption value)? confirmCarOption,
+    TResult Function(_RevertCarOption value)? revertCarOption,
+    required TResult orElse(),
+  }) {
+    if (sortMakes != null) {
+      return sortMakes(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _SortMakes implements GetMakesBlocEvent {
+  factory _SortMakes(final String letter) = _$_SortMakes;
+
+  String get letter;
+  @JsonKey(ignore: true)
+  _$$_SortMakesCopyWith<_$_SortMakes> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -627,6 +815,7 @@ class _$_SelectedCarItems implements _SelectedCarItems {
     required TResult Function() getMakes,
     required TResult Function(String naem) getSerched,
     required TResult Function(int id) changeSelected,
+    required TResult Function(String letter) sortMakes,
     required TResult Function(int id, String name, String imageUrl)
         selectedCarItems,
     required TResult Function() confirmCarOption,
@@ -641,6 +830,7 @@ class _$_SelectedCarItems implements _SelectedCarItems {
     TResult? Function()? getMakes,
     TResult? Function(String naem)? getSerched,
     TResult? Function(int id)? changeSelected,
+    TResult? Function(String letter)? sortMakes,
     TResult? Function(int id, String name, String imageUrl)? selectedCarItems,
     TResult? Function()? confirmCarOption,
     TResult? Function()? revertCarOption,
@@ -654,6 +844,7 @@ class _$_SelectedCarItems implements _SelectedCarItems {
     TResult Function()? getMakes,
     TResult Function(String naem)? getSerched,
     TResult Function(int id)? changeSelected,
+    TResult Function(String letter)? sortMakes,
     TResult Function(int id, String name, String imageUrl)? selectedCarItems,
     TResult Function()? confirmCarOption,
     TResult Function()? revertCarOption,
@@ -671,6 +862,7 @@ class _$_SelectedCarItems implements _SelectedCarItems {
     required TResult Function(_GetMakes value) getMakes,
     required TResult Function(_GetSerched value) getSerched,
     required TResult Function(_ChangeSelected value) changeSelected,
+    required TResult Function(_SortMakes value) sortMakes,
     required TResult Function(_SelectedCarItems value) selectedCarItems,
     required TResult Function(_ConfirmCarOption value) confirmCarOption,
     required TResult Function(_RevertCarOption value) revertCarOption,
@@ -684,6 +876,7 @@ class _$_SelectedCarItems implements _SelectedCarItems {
     TResult? Function(_GetMakes value)? getMakes,
     TResult? Function(_GetSerched value)? getSerched,
     TResult? Function(_ChangeSelected value)? changeSelected,
+    TResult? Function(_SortMakes value)? sortMakes,
     TResult? Function(_SelectedCarItems value)? selectedCarItems,
     TResult? Function(_ConfirmCarOption value)? confirmCarOption,
     TResult? Function(_RevertCarOption value)? revertCarOption,
@@ -697,6 +890,7 @@ class _$_SelectedCarItems implements _SelectedCarItems {
     TResult Function(_GetMakes value)? getMakes,
     TResult Function(_GetSerched value)? getSerched,
     TResult Function(_ChangeSelected value)? changeSelected,
+    TResult Function(_SortMakes value)? sortMakes,
     TResult Function(_SelectedCarItems value)? selectedCarItems,
     TResult Function(_ConfirmCarOption value)? confirmCarOption,
     TResult Function(_RevertCarOption value)? revertCarOption,
@@ -764,6 +958,7 @@ class _$_ConfirmCarOption implements _ConfirmCarOption {
     required TResult Function() getMakes,
     required TResult Function(String naem) getSerched,
     required TResult Function(int id) changeSelected,
+    required TResult Function(String letter) sortMakes,
     required TResult Function(int id, String name, String imageUrl)
         selectedCarItems,
     required TResult Function() confirmCarOption,
@@ -778,6 +973,7 @@ class _$_ConfirmCarOption implements _ConfirmCarOption {
     TResult? Function()? getMakes,
     TResult? Function(String naem)? getSerched,
     TResult? Function(int id)? changeSelected,
+    TResult? Function(String letter)? sortMakes,
     TResult? Function(int id, String name, String imageUrl)? selectedCarItems,
     TResult? Function()? confirmCarOption,
     TResult? Function()? revertCarOption,
@@ -791,6 +987,7 @@ class _$_ConfirmCarOption implements _ConfirmCarOption {
     TResult Function()? getMakes,
     TResult Function(String naem)? getSerched,
     TResult Function(int id)? changeSelected,
+    TResult Function(String letter)? sortMakes,
     TResult Function(int id, String name, String imageUrl)? selectedCarItems,
     TResult Function()? confirmCarOption,
     TResult Function()? revertCarOption,
@@ -808,6 +1005,7 @@ class _$_ConfirmCarOption implements _ConfirmCarOption {
     required TResult Function(_GetMakes value) getMakes,
     required TResult Function(_GetSerched value) getSerched,
     required TResult Function(_ChangeSelected value) changeSelected,
+    required TResult Function(_SortMakes value) sortMakes,
     required TResult Function(_SelectedCarItems value) selectedCarItems,
     required TResult Function(_ConfirmCarOption value) confirmCarOption,
     required TResult Function(_RevertCarOption value) revertCarOption,
@@ -821,6 +1019,7 @@ class _$_ConfirmCarOption implements _ConfirmCarOption {
     TResult? Function(_GetMakes value)? getMakes,
     TResult? Function(_GetSerched value)? getSerched,
     TResult? Function(_ChangeSelected value)? changeSelected,
+    TResult? Function(_SortMakes value)? sortMakes,
     TResult? Function(_SelectedCarItems value)? selectedCarItems,
     TResult? Function(_ConfirmCarOption value)? confirmCarOption,
     TResult? Function(_RevertCarOption value)? revertCarOption,
@@ -834,6 +1033,7 @@ class _$_ConfirmCarOption implements _ConfirmCarOption {
     TResult Function(_GetMakes value)? getMakes,
     TResult Function(_GetSerched value)? getSerched,
     TResult Function(_ChangeSelected value)? changeSelected,
+    TResult Function(_SortMakes value)? sortMakes,
     TResult Function(_SelectedCarItems value)? selectedCarItems,
     TResult Function(_ConfirmCarOption value)? confirmCarOption,
     TResult Function(_RevertCarOption value)? revertCarOption,
@@ -891,6 +1091,7 @@ class _$_RevertCarOption implements _RevertCarOption {
     required TResult Function() getMakes,
     required TResult Function(String naem) getSerched,
     required TResult Function(int id) changeSelected,
+    required TResult Function(String letter) sortMakes,
     required TResult Function(int id, String name, String imageUrl)
         selectedCarItems,
     required TResult Function() confirmCarOption,
@@ -905,6 +1106,7 @@ class _$_RevertCarOption implements _RevertCarOption {
     TResult? Function()? getMakes,
     TResult? Function(String naem)? getSerched,
     TResult? Function(int id)? changeSelected,
+    TResult? Function(String letter)? sortMakes,
     TResult? Function(int id, String name, String imageUrl)? selectedCarItems,
     TResult? Function()? confirmCarOption,
     TResult? Function()? revertCarOption,
@@ -918,6 +1120,7 @@ class _$_RevertCarOption implements _RevertCarOption {
     TResult Function()? getMakes,
     TResult Function(String naem)? getSerched,
     TResult Function(int id)? changeSelected,
+    TResult Function(String letter)? sortMakes,
     TResult Function(int id, String name, String imageUrl)? selectedCarItems,
     TResult Function()? confirmCarOption,
     TResult Function()? revertCarOption,
@@ -935,6 +1138,7 @@ class _$_RevertCarOption implements _RevertCarOption {
     required TResult Function(_GetMakes value) getMakes,
     required TResult Function(_GetSerched value) getSerched,
     required TResult Function(_ChangeSelected value) changeSelected,
+    required TResult Function(_SortMakes value) sortMakes,
     required TResult Function(_SelectedCarItems value) selectedCarItems,
     required TResult Function(_ConfirmCarOption value) confirmCarOption,
     required TResult Function(_RevertCarOption value) revertCarOption,
@@ -948,6 +1152,7 @@ class _$_RevertCarOption implements _RevertCarOption {
     TResult? Function(_GetMakes value)? getMakes,
     TResult? Function(_GetSerched value)? getSerched,
     TResult? Function(_ChangeSelected value)? changeSelected,
+    TResult? Function(_SortMakes value)? sortMakes,
     TResult? Function(_SelectedCarItems value)? selectedCarItems,
     TResult? Function(_ConfirmCarOption value)? confirmCarOption,
     TResult? Function(_RevertCarOption value)? revertCarOption,
@@ -961,6 +1166,7 @@ class _$_RevertCarOption implements _RevertCarOption {
     TResult Function(_GetMakes value)? getMakes,
     TResult Function(_GetSerched value)? getSerched,
     TResult Function(_ChangeSelected value)? changeSelected,
+    TResult Function(_SortMakes value)? sortMakes,
     TResult Function(_SelectedCarItems value)? selectedCarItems,
     TResult Function(_ConfirmCarOption value)? confirmCarOption,
     TResult Function(_RevertCarOption value)? revertCarOption,
@@ -980,7 +1186,7 @@ abstract class _RevertCarOption implements GetMakesBlocEvent {
 /// @nodoc
 mixin _$GetMakesState {
   FormzStatus get status => throw _privateConstructorUsedError;
-  GetMakeEntity get makes => throw _privateConstructorUsedError;
+  List<MakeEntity> get makes => throw _privateConstructorUsedError;
   dynamic get next => throw _privateConstructorUsedError;
   dynamic get search => throw _privateConstructorUsedError;
   dynamic get count => throw _privateConstructorUsedError;
@@ -1002,7 +1208,7 @@ abstract class $GetMakesStateCopyWith<$Res> {
   @useResult
   $Res call(
       {FormzStatus status,
-      GetMakeEntity makes,
+      List<MakeEntity> makes,
       dynamic next,
       dynamic search,
       dynamic count,
@@ -1043,7 +1249,7 @@ class _$GetMakesStateCopyWithImpl<$Res, $Val extends GetMakesState>
       makes: null == makes
           ? _value.makes
           : makes // ignore: cast_nullable_to_non_nullable
-              as GetMakeEntity,
+              as List<MakeEntity>,
       next: freezed == next
           ? _value.next
           : next // ignore: cast_nullable_to_non_nullable
@@ -1086,7 +1292,7 @@ abstract class _$$_GetMakesStateCopyWith<$Res>
   @useResult
   $Res call(
       {FormzStatus status,
-      GetMakeEntity makes,
+      List<MakeEntity> makes,
       dynamic next,
       dynamic search,
       dynamic count,
@@ -1123,9 +1329,9 @@ class __$$_GetMakesStateCopyWithImpl<$Res>
           : status // ignore: cast_nullable_to_non_nullable
               as FormzStatus,
       makes: null == makes
-          ? _value.makes
+          ? _value._makes
           : makes // ignore: cast_nullable_to_non_nullable
-              as GetMakeEntity,
+              as List<MakeEntity>,
       next: freezed == next ? _value.next! : next,
       search: freezed == search ? _value.search! : search,
       count: freezed == count ? _value.count! : count,
@@ -1154,21 +1360,28 @@ class __$$_GetMakesStateCopyWithImpl<$Res>
 class _$_GetMakesState implements _GetMakesState {
   _$_GetMakesState(
       {this.status = FormzStatus.pure,
-      this.makes = const GetMakeEntity(),
+      final List<MakeEntity> makes = const <MakeEntity>[],
       this.next = '',
       this.search = '',
       this.count = 0,
       this.selectId = -1,
       this.confirmId = 0,
       this.name = '',
-      this.imageUrl = ''});
+      this.imageUrl = ''})
+      : _makes = makes;
 
   @override
   @JsonKey()
   final FormzStatus status;
+  final List<MakeEntity> _makes;
   @override
   @JsonKey()
-  final GetMakeEntity makes;
+  List<MakeEntity> get makes {
+    if (_makes is EqualUnmodifiableListView) return _makes;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_makes);
+  }
+
   @override
   @JsonKey()
   final dynamic next;
@@ -1202,7 +1415,7 @@ class _$_GetMakesState implements _GetMakesState {
         (other.runtimeType == runtimeType &&
             other is _$_GetMakesState &&
             (identical(other.status, status) || other.status == status) &&
-            (identical(other.makes, makes) || other.makes == makes) &&
+            const DeepCollectionEquality().equals(other._makes, _makes) &&
             const DeepCollectionEquality().equals(other.next, next) &&
             const DeepCollectionEquality().equals(other.search, search) &&
             const DeepCollectionEquality().equals(other.count, count) &&
@@ -1219,7 +1432,7 @@ class _$_GetMakesState implements _GetMakesState {
   int get hashCode => Object.hash(
       runtimeType,
       status,
-      makes,
+      const DeepCollectionEquality().hash(_makes),
       const DeepCollectionEquality().hash(next),
       const DeepCollectionEquality().hash(search),
       const DeepCollectionEquality().hash(count),
@@ -1238,7 +1451,7 @@ class _$_GetMakesState implements _GetMakesState {
 abstract class _GetMakesState implements GetMakesState {
   factory _GetMakesState(
       {final FormzStatus status,
-      final GetMakeEntity makes,
+      final List<MakeEntity> makes,
       final dynamic next,
       final dynamic search,
       final dynamic count,
@@ -1250,7 +1463,7 @@ abstract class _GetMakesState implements GetMakesState {
   @override
   FormzStatus get status;
   @override
-  GetMakeEntity get makes;
+  List<MakeEntity> get makes;
   @override
   dynamic get next;
   @override
