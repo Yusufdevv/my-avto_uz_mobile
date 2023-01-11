@@ -1,4 +1,5 @@
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/core/utils/size_config.dart';
 import 'package:auto/features/navigation/domain/entities/navbar.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/navigation/presentation/widgets/nav_bar_item.dart';
@@ -74,11 +75,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   }
 
   void onTabChange() {
-    print(
-        '=>=>=>=> current index in onTabChange home: $_currentIndex <=<=<=<=');
-    print(
-        '=>=>=>=> runtime type of navigator key home: ${_navigatorKeys[NavItemEnum.values[_currentIndex]]!.currentState!.runtimeType} <=<=<=<=');
-    setState(() {
+     setState(() {
       _currentIndex = _controller.index;
       _navigatorKeys[NavItemEnum.values[_currentIndex]]!
           .currentState!
@@ -101,7 +98,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         controller: _controller,
         child: WillPopScope(
           onWillPop: () async {
-            print('calling pop');
             final isFirstRouteInCurrentTab =
                 !await _navigatorKeys[NavItemEnum.values[_currentIndex]]!
                     .currentState!
@@ -117,7 +113,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           child: Scaffold(
             resizeToAvoidBottomInset: true,
             bottomNavigationBar: Container(
-              height: 68 + MediaQuery.of(context).padding.bottom,
+              height: SizeConfig.v(68) + MediaQuery.of(context).padding.bottom,
               decoration: BoxDecoration(
                 borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(15),

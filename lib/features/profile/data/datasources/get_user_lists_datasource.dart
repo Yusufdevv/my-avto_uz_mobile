@@ -184,6 +184,7 @@ class GetUserListDatasourceImpl extends GetUserListDatasource {
       throw ParsingException(errorMessage: e.toString());
     }
   }
+
   @override
   Future<DirectoryModel> getDirectory(String id) async {
     try {
@@ -211,7 +212,7 @@ class GetUserListDatasourceImpl extends GetUserListDatasource {
   @override
   Future<String> notificationAllRead() async {
     try {
-      final response = await dio.get(
+      final response = await dio.post(
         'users/notification/read-all/',
         options: Options(headers: {
           'Authorization': 'Bearer ${StorageRepository.getString('token')}'
