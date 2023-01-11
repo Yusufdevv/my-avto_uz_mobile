@@ -97,8 +97,6 @@ class _MainScreenState extends State<MainScreen> {
         /// KAR SHARING
         await StorageRepository.putString('token', '');
         await StorageRepository.putBool(value: false, key: 'onboarding');
-        print('=>=>=>=> onboarding put false <=<=<=<=');
-        print('=>=>=>=> token put empty <=<=<=<=');
       },
       () async {},
       () {
@@ -158,7 +156,6 @@ class _MainScreenState extends State<MainScreen> {
                             fade(page: ChooseCarBrandComparison(onTap: () {
                           Navigator.pop(context);
                         }))).then((value) {
-                          print('===> ==> Buyoda bu');
                           context.read<AnnouncementListBloc>().add(
                               AnnouncementListEvent.getFilter(context
                                   .read<AnnouncementListBloc>()
@@ -170,8 +167,6 @@ class _MainScreenState extends State<MainScreen> {
                                         .state
                                         .selectId,
                                   )));
-                          print(
-                              '===> ==> Bu Hammasi ${context.read<GetMakesBloc>().state.selectId}');
                           context
                               .read<AnnouncementListBloc>()
                               .add(AnnouncementListEvent.getAnnouncementList());
