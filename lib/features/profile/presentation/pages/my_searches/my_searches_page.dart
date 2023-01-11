@@ -3,6 +3,7 @@ import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/core/utils/size_config.dart';
 import 'package:auto/features/ad/presentation/pages/ads/ads_screen.dart';
+import 'package:auto/features/common/bloc/announcement_bloc/bloc/announcement_list_bloc.dart';
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
 import 'package:auto/features/common/widgets/custom_screen.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
@@ -85,12 +86,12 @@ class _MySearchesPageState extends State<MySearchesPage> {
               ],
             ),
             body: BlocBuilder<UserWishListsBloc, UserWishListsState>(
-              builder: (context, state) {
-                if (state.myAdsStatus.isSubmissionInProgress) {
+              builder: (context, st) {
+                if (st.myAdsStatus.isSubmissionInProgress) {
                   return const Center(child: CupertinoActivityIndicator());
                 }
-                if (state.myAdsStatus.isSubmissionSuccess) {
-                  mySearches = state.mySearches;
+                if (st.myAdsStatus.isSubmissionSuccess) {
+                  mySearches = st.mySearches;
                   return mySearches.isNotEmpty
                       ? ListView.builder(
                           itemCount: mySearches.length,
@@ -109,6 +110,17 @@ class _MySearchesPageState extends State<MySearchesPage> {
                                     });
                                   }
                                 } else {
+                                  context.read<AnnouncementListBloc>().add(
+                                      AnnouncementListEvent.getFilter(context
+                                          .read<AnnouncementListBloc>()
+                                          .state
+                                          .filter
+                                          .copyWith(
+                                              make: item.make!.id,
+                                              model: item.model![0]!.id)));
+                                  context.read<AnnouncementListBloc>().add(
+                                      AnnouncementListEvent
+                                          .getAnnouncementList());
                                   Navigator.push(context, fade(page: AdsScreen(
                                     onBack: () {
                                       Navigator.pop(context);
