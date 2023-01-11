@@ -24,9 +24,10 @@ class GetUserListRepoImpl extends GetUserListRepository {
           statusCode: error.statusCode, errorMessage: error.errorMessage));
     }
   }
+
   @override
-  Future<Either<ServerFailure, NotificationsEntity>> getNotificationSingle(String id
-      ) async {
+  Future<Either<ServerFailure, NotificationsEntity>> getNotificationSingle(
+      String id) async {
     try {
       final result = await dataSource.getNotificationSingle(id);
       return Right(result);
@@ -35,9 +36,10 @@ class GetUserListRepoImpl extends GetUserListRepository {
           statusCode: error.statusCode, errorMessage: error.errorMessage));
     }
   }
+
   @override
-  Future<Either<ServerFailure, List<NotificationsEntity>>> getNotifications(
-      ) async {
+  Future<Either<ServerFailure, List<NotificationsEntity>>>
+      getNotifications() async {
     try {
       final result = await dataSource.getNotifications();
       return Right(result);
@@ -48,8 +50,7 @@ class GetUserListRepoImpl extends GetUserListRepository {
   }
 
   @override
-  Future<Either<ServerFailure, List<MySearchesEntity>>> getMySearches(
-      ) async {
+  Future<Either<ServerFailure, List<MySearchesEntity>>> getMySearches() async {
     try {
       final result = await dataSource.getMySearches();
       return Right(result);
@@ -60,8 +61,9 @@ class GetUserListRepoImpl extends GetUserListRepository {
   }
 
   @override
-  Future<Either<ServerFailure, List<DirCategoryEntity>>> getDirCategory()async {
- try {
+  Future<Either<ServerFailure, List<DirCategoryEntity>>>
+      getDirCategory() async {
+    try {
       final result = await dataSource.getDirCategory();
       return Right(result);
     } on ServerException catch (error) {
@@ -71,11 +73,11 @@ class GetUserListRepoImpl extends GetUserListRepository {
   }
 
   @override
-  Future<Either<ServerFailure, List<DirectoryEntity>>> getDirectories(String search,
-  String regions,
-  String categories)async {
- try {
-      final result = await dataSource.getDirectories(search, regions, categories);
+  Future<Either<ServerFailure, List<DirectoryEntity>>> getDirectories(
+      String search, String regions, String categories) async {
+    try {
+      final result =
+          await dataSource.getDirectories(search, regions, categories);
       return Right(result);
     } on ServerException catch (error) {
       return Left(ServerFailure(
@@ -84,8 +86,8 @@ class GetUserListRepoImpl extends GetUserListRepository {
   }
 
   @override
-  Future<Either<ServerFailure,  DirectoryEntity>> getDirectory(String id)async {
-  try {
+  Future<Either<ServerFailure, DirectoryEntity>> getDirectory(String id) async {
+    try {
       final result = await dataSource.getDirectory(id);
       return Right(result);
     } on ServerException catch (error) {
@@ -93,11 +95,22 @@ class GetUserListRepoImpl extends GetUserListRepository {
           statusCode: error.statusCode, errorMessage: error.errorMessage));
     }
   }
-  
+
   @override
   Future<Either<ServerFailure, String>> notificationAllRead() async {
     try {
       final result = await dataSource.notificationAllRead();
+      return Right(result);
+    } on ServerException catch (error) {
+      return Left(ServerFailure(
+          statusCode: error.statusCode, errorMessage: error.errorMessage));
+    }
+  }
+
+  @override
+  Future<Either<ServerFailure, String>> deleteMySearches(String id) async {
+    try {
+      final result = await dataSource.deleteMySearches(id);
       return Right(result);
     } on ServerException catch (error) {
       return Left(ServerFailure(

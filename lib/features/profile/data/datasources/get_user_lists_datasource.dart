@@ -19,6 +19,7 @@ abstract class GetUserListDatasource {
   Future<List<DirCategoryModel>> getDirCategory();
   Future<DirectoryModel> getDirectory(String id);
   Future<String> notificationAllRead();
+  Future<String> deleteMySearches(String id);
   Future<NotificationsModel> getNotificationSingle(String id);
 }
 
@@ -214,6 +215,30 @@ class GetUserListDatasourceImpl extends GetUserListDatasource {
     try {
       final response = await dio.post(
         'users/notification/read-all/',
+        options: Options(headers: {
+          'Authorization': 'Bearer ${StorageRepository.getString('token')}'
+        }),
+      );
+      if (response.statusCode! >= 200 && response.statusCode! < 300) {
+        return response.data['message'];
+      }
+      throw ServerException(
+          statusCode: response.statusCode ?? 0,
+          errorMessage: response.statusMessage ?? '');
+    } on ServerException {
+      rethrow;
+    } on DioError {
+      throw DioException();
+    } on Exception catch (e) {
+      throw ParsingException(errorMessage: e.toString());
+    }
+  }
+
+  @override
+  Future<String> deleteMySearches(String id) async {
+    try {
+      final response = await dio.delete(
+        '/users/filter-history/$id/',
         options: Options(headers: {
           'Authorization': 'Bearer ${StorageRepository.getString('token')}'
         }),

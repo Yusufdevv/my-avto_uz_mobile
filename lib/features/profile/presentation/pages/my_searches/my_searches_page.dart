@@ -172,9 +172,7 @@ class _MySearchesPageState extends State<MySearchesPage> {
                                   isToggled = false;
 
                                   Navigator.pop(context);
-                                  // context.read<WishlistAddBloc>().add(
-                            // WishlistAddEvent.removeWishlist(widget.id,
-                            //     '/users/wishlist/announcement/remove/'));
+                                  // context.read<UserWishListsBloc>().add(DeleteMySearchesEvent(id: ));
                                   setState(() {});
                                 },
                               ),

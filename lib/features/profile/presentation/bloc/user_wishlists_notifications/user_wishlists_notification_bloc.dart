@@ -4,6 +4,7 @@ import 'package:auto/features/common/domain/entity/auto_entity.dart';
 import 'package:auto/features/profile/data/datasources/get_user_lists_datasource.dart';
 import 'package:auto/features/profile/domain/entities/my_searches_entity.dart';
 import 'package:auto/features/profile/domain/entities/notifications_entity.dart';
+import 'package:auto/features/profile/domain/usecases/delete_my_searches_usecase.dart';
 import 'package:auto/features/profile/domain/usecases/get_my_searches_usecase.dart';
 import 'package:auto/features/profile/domain/usecases/get_notification_single.dart';
 import 'package:auto/features/profile/domain/usecases/get_notification_usecase.dart';
@@ -23,6 +24,7 @@ class UserWishListsBloc extends Bloc<UserWishListsEvent, UserWishListsState> {
   final GetMySearchesUseCase getMySearchesUseCase;
   NotificationAllReadUseCase notificationAllReadUseCase =
       NotificationAllReadUseCase();
+      DeleteMySearchesUseCase deleteMySearchesUseCase = DeleteMySearchesUseCase();
   UserWishListsBloc({
     required this.profileFavoritesMyAdsUseCase,
     required this.getNotificationSingleUseCase,
@@ -43,6 +45,7 @@ class UserWishListsBloc extends Bloc<UserWishListsEvent, UserWishListsState> {
     on<GetNotificationsEvent>(_onGetNotifications);
     on<GetNotificationSingleEvent>(_onGetNotificationSingle);
     on<NotificationAllReadEvent>(_onNotificationAllReadEvent);
+    on<DeleteMySearchesEvent>(_onDeleteMySearchesEvent);
   }
 
   Future<void> _onGetUserFavorites(
@@ -61,6 +64,13 @@ class UserWishListsBloc extends Bloc<UserWishListsEvent, UserWishListsState> {
   Future<void> _onNotificationAllReadEvent(
       NotificationAllReadEvent event, Emitter<UserWishListsState> emit) async {
     final result = await notificationAllReadUseCase.call(NoParams());
+    if (result.isRight) {
+    }
+  }
+
+  Future<void> _onDeleteMySearchesEvent(
+      DeleteMySearchesEvent event, Emitter<UserWishListsState> emit) async {
+    final result = await deleteMySearchesUseCase.call(event.id);
     if (result.isRight) {
     }
   }
