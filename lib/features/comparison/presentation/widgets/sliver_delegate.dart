@@ -42,15 +42,7 @@ class SliverWidget extends SliverPersistentHeaderDelegate {
     return AnimatedSwitcher(
       duration: const Duration(milliseconds: 300),
       child: shrinkOffset >= 180
-          ? Container(BoxShadow(
-                      offset: const Offset(0, 8),
-                      blurRadius: 24,
-                      color: dark.withOpacity(0.08),
-                    ),
-                    BoxShadow(
-                      offset: const Offset(0, -1),
-                      color: dark.withOpacity(0.08),
-                    ),
+          ? Container(
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
                 color: Theme.of(context).extension<ThemedColors>()!.whiteToNero,
