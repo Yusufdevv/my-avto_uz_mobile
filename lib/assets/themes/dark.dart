@@ -14,7 +14,7 @@ abstract class DarkTheme {
   /// More info for theme: https://docs.flutter.dev/cookbook/design/themes
 
   static ThemeData theme() => ThemeData(
-        fontFamily: 'NotoSans',
+        fontFamily: 'Averta CY',
         scaffoldBackgroundColor: DarkThemeColors.scaffoldBackground,
         indicatorColor: DarkThemeColors.navBarIndicator,
         dividerColor: DarkThemeColors.divider,
