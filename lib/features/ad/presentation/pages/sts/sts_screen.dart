@@ -43,13 +43,14 @@ class _StsScreenState extends State<StsScreen> {
   Widget build(BuildContext context) => KeyboardDismisser(
         child: Scaffold(
           body: BaseWidget(
+            headerText: 'STS SCREEN',
             // onTap: vinController.text.isNotEmpty &&
             //         numberController.text.length == 8 &&
             //         stsController.text.isNotEmpty &&
             //         passportController.text.isNotEmpty
             //     ? widget.onTap
             //     : () {},
-            hasButton: false,
+            
             child: Padding(
               padding: const EdgeInsets.all(16),
               child: SingleChildScrollView(

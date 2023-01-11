@@ -30,7 +30,7 @@ class _AddPhotoScreenState extends State<AddPhotoScreen> {
         value: imageBloc,
         child: Scaffold(
           body: BaseWidget(
-            hasButton: false,
+            headerText: 'Фото',
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

@@ -12,11 +12,13 @@ class PostingAdAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Color? backgroundColor;
   final Widget? childWithButton;
   final bool hasBackButton;
+  final bool hasShadow;
 
   ///Default is 20
   final double backButtonSize;
 
   const PostingAdAppBar({
+    required this.hasShadow,
     required this.hasBackButton,
     required this.title,
     required this.onTapBack,
@@ -36,13 +38,15 @@ class PostingAdAppBar extends StatelessWidget implements PreferredSizeWidget {
         height: (52) + MediaQuery.of(context).padding.top,
         padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
         decoration: BoxDecoration(
-          boxShadow: [
-            BoxShadow(
-              offset: const Offset(0, 8),
-              blurRadius: 11,
-              color: dark.withOpacity(0.04),
-            ),
-          ],
+          boxShadow: hasShadow
+              ? [
+                  BoxShadow(
+                    offset: const Offset(0, 8),
+                    blurRadius: 11,
+                    color: dark.withOpacity(0.04),
+                  ),
+                ]
+              : null,
           color:
               backgroundColor ?? Theme.of(context).appBarTheme.backgroundColor,
         ),

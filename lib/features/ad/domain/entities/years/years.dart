@@ -13,10 +13,10 @@ class YearsEntity extends Equatable {
   final int modelId;
 
   const YearsEntity({
-    required this.id,
-    required this.yearBegin,
-    required this.yearEnd,
-    required this.modelId,
+    this.id = -1,
+    this.yearBegin = -1,
+    this.yearEnd = -1,
+    this.modelId = -1,
   });
 
   @override

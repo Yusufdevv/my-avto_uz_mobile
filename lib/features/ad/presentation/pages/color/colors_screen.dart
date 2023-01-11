@@ -32,7 +32,7 @@ class _ColorsScreenState extends State<ColorsScreen> {
   @override
   Widget build(BuildContext context) => Scaffold(
         body: BaseWidget(
-          hasButton: false,
+          headerText: 'Цвет автомобиля',
           padding: const EdgeInsets.only(top: 16),
           child: GridView.builder(
             itemBuilder: (context, index) => ColorsItem(

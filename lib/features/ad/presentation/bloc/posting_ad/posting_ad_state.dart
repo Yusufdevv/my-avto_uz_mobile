@@ -4,36 +4,40 @@ class PostingAdState extends Equatable {
   final MakeEntity? makeEntity;
   final CarTypeEntity? carTypeEntity;
   final String? letter;
-  final String? previousMakeLetter;
   final int? selectedPopularTypeId;
+  final bool isSortByLetter;
+  final bool hasAppBarShadow;
 
   const PostingAdState({
+    this.isSortByLetter = false,
+    this.hasAppBarShadow = true,
     this.makeEntity,
     this.letter,
-    this.previousMakeLetter,
     this.carTypeEntity,
     this.selectedPopularTypeId,
   });
   PostingAdState copyWith(
-          {MakeEntity? makeEntity,
+          {bool isSortByLetter = false,
+          MakeEntity? makeEntity,
           String? letter,
-          String? previousMakeLetter,
           CarTypeEntity? carTypeEntity,
-          int? selectedPopularTypeId}) =>
+          int? selectedPopularTypeId,
+          bool? hasAppBarShadow}) =>
       PostingAdState(
+        hasAppBarShadow: hasAppBarShadow ?? this.hasAppBarShadow,
+        isSortByLetter: isSortByLetter,
         selectedPopularTypeId:
             selectedPopularTypeId ?? this.selectedPopularTypeId,
         carTypeEntity: carTypeEntity ?? this.carTypeEntity,
         makeEntity: makeEntity ?? this.makeEntity,
-        letter: letter ?? this.letter,
-        previousMakeLetter: previousMakeLetter ?? this.previousMakeLetter,
+        letter: letter,
       );
   @override
   List<Object?> get props => [
         makeEntity,
         letter,
-        previousMakeLetter,
         carTypeEntity,
-        selectedPopularTypeId
+        selectedPopularTypeId,
+        hasAppBarShadow
       ];
 }

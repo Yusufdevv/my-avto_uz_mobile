@@ -19,7 +19,7 @@ class _DriveTypeScreenState extends State<DriveTypeScreen> {
   @override
   Widget build(BuildContext context) => Scaffold(
           body: BaseWidget(
-        hasButton: false,
+            headerText: 'Привод',
         padding: const EdgeInsets.only(top: 16),
         child: ListView.builder(
           itemBuilder: (context, index) => RadioItem(

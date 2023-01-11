@@ -32,3 +32,11 @@ class RevertYearEvent extends YearIssueEvent{
   List<Object?> get props => [];
 
 }
+    class  YearsIssueGetEvent  extends YearIssueEvent  {
+      
+      @override
+     
+      List<Object?> get props => [];
+
+
+}

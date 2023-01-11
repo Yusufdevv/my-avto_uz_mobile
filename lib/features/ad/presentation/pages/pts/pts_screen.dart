@@ -47,7 +47,7 @@ class _PtsScreenState extends State<PtsScreen> {
           value: bloc,
           child: Scaffold(
             body: BaseWidget(
-              hasButton: false,
+              headerText: 'ПТС',
               child: SingleChildScrollView(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 16, vertical: 25),

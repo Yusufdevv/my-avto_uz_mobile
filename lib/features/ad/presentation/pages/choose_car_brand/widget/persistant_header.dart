@@ -53,7 +53,7 @@ class Header extends SliverPersistentHeaderDelegate {
                 itemBuilder: (context, index) => GestureDetector(
                   onTap: () => context
                       .read<PostingAdBloc>()
-                      .add(PostingAdChooseLetterEvent(letter: letters[index])),
+                      .add(PostingAdChooseEvent(letter: letters[index])),
                   child: AzList(
                     isSelected: context.watch<PostingAdBloc>().state.letter ==
                         letters[index],

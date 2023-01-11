@@ -22,7 +22,7 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
   Widget build(BuildContext context) => KeyboardDismisser(
         child: Scaffold(
           body: BaseWidget(
-            hasButton: false,
+            headerText: 'Модификация',
             child: Padding(
               padding: const EdgeInsets.only(top: 16),
               child: Column(

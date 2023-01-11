@@ -8,9 +8,9 @@ class CarcaseScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Scaffold(
       body: BaseWidget(
-          hasButton: false,
+        headerText: 'Кузов',
           child: ListView.builder(
-            itemBuilder: (context, index) => CarCaseItem(title: 'Седан'),
+            itemBuilder: (context, index) =>const  CarCaseItem(title: 'Седан'),
             itemCount: 1,
           )));
 }

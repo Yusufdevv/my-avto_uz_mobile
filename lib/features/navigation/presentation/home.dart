@@ -74,10 +74,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   }
 
   void onTabChange() {
-    print(
-        '=>=>=>=> current index in onTabChange home: $_currentIndex <=<=<=<=');
-    print(
-        '=>=>=>=> runtime type of navigator key home: ${_navigatorKeys[NavItemEnum.values[_currentIndex]]!.currentState!.runtimeType} <=<=<=<=');
     setState(() {
       _currentIndex = _controller.index;
       _navigatorKeys[NavItemEnum.values[_currentIndex]]!

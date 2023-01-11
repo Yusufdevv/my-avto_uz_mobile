@@ -57,10 +57,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         child: BlocProvider.value(
           value: registerBloc,
           child: BlocBuilder<RegisterBloc, RegisterState>(
-            builder: (context, state) {
-              print(
-                  '=>=>=>=> send code status name:  ${state.sendCodeStatus.name} <=<=<=<=');
-              return Scaffold(
+            builder: (context, state) => Scaffold(
                 appBar: WAppBar(
                   title: LocaleKeys.register.tr(),
                 ),
@@ -177,8 +174,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ],
                   ),
                 ),
-              );
-            },
+              ),
           ),
         ),
       );

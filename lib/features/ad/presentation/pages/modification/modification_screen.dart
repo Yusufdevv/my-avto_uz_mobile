@@ -19,7 +19,7 @@ class _ModificationScreenState extends State<ModificationScreen> {
   @override
   Widget build(BuildContext context) => Scaffold(
       body: BaseWidget(
-          hasButton: false,
+        headerText: 'Модификация',
           padding: const EdgeInsets.only(top: 16),
           child: ListView.builder(
             itemBuilder: (context, index) => RadioItem(

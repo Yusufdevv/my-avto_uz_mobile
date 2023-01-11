@@ -31,7 +31,7 @@ class _DamageScreenState extends State<DamageScreen>
   Widget build(BuildContext context) => Scaffold(
       resizeToAvoidBottomInset: false,
       body: BaseWidget(
-        hasButton: false,
+        headerText: 'Состояние кузова',
         child: SingleChildScrollView(
           padding: const EdgeInsets.fromLTRB(16, 16, 16, 50),
           child: Column(
