@@ -17,7 +17,7 @@ class _EngineScreenState extends State<EngineScreen> {
   @override
   Widget build(BuildContext context) => Scaffold(
           body: BaseWidget(
-        hasButton: false,
+            headerText: 'EngineScreen',
         padding: const EdgeInsets.only(top: 16),
         child: Column(
           children: [

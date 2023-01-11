@@ -41,7 +41,8 @@ class _MileageScreenState extends State<MileageScreen> {
           child: Scaffold(
             body: BlocBuilder<MileageImageBloc, MileageImageState>(
               builder: (context, state) => BaseWidget(
-                hasButton: false,
+                headerText: 'Пробег',
+               
                 child: Padding(
                   padding: const EdgeInsets.all(16),
                   child: Column(

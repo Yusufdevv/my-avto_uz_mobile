@@ -16,7 +16,7 @@ class _InspectionPlaceScreenState extends State<InspectionPlaceScreen> {
   @override
   Widget build(BuildContext context) => Scaffold(
         body: BaseWidget(
-          hasButton: false,
+          headerText: 'INSPECTION PAGE',
           child: Padding(
             padding: const EdgeInsets.all(16),
             child: Column(

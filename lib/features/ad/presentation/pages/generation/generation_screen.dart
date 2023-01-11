@@ -20,7 +20,7 @@ class _GenerationScreenState extends State<GenerationScreen> {
   @override
   Widget build(BuildContext context) => Scaffold(
           body: BaseWidget(
-        hasButton: false,
+            headerText: 'Год выпуска',
         padding: const EdgeInsets.only(top: 16),
         child: ListView.builder(
           itemBuilder: (context, index) => RadioItem(

@@ -7,6 +7,7 @@ import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.da
 import 'package:auto/features/ad/presentation/pages/choose_model/widgets/car_type_item.dart';
 import 'package:auto/features/ad/presentation/pages/choose_model/widgets/model_items.dart';
 import 'package:auto/features/ad/presentation/pages/choose_model/widgets/persistant_header.dart';
+import 'package:auto/features/ad/presentation/widgets/sliver_header_text.dart';
 import 'package:auto/features/common/widgets/w_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -51,10 +52,16 @@ class _ChooseCarModelScreenState extends State<ChooseCarModelScreen> {
           ],
           child: Scaffold(
             body: CustomScrollView(
+              physics: const BouncingScrollPhysics(),
               slivers: [
+                /// HEADER TEXT
+                const SliverHeaderText(text: 'Выберите модель'),
+
                 /// SEARCH FIELD
                 SliverToBoxAdapter(
                   child: WTextField(
+                    fillColor: white,
+                    filled: true,
                     margin: const EdgeInsets.symmetric(
                         horizontal: 16, vertical: 14),
                     onChanged: (value) => setState(() {}),
@@ -85,7 +92,7 @@ class _ChooseCarModelScreenState extends State<ChooseCarModelScreen> {
                   ),
                 ),
 
-                ///
+                /// POPULAR HEADER
                 SliverToBoxAdapter(
                   child: Container(
                     decoration: BoxDecoration(
@@ -125,9 +132,10 @@ class _ChooseCarModelScreenState extends State<ChooseCarModelScreen> {
                           .extension<ThemedColors>()!
                           .whiteToDark,
                       child: ModelItems(
-                        onTap: () {
-                          print('=>=>=>=> model item tap <=<=<=<=');
-                        },
+                        hasBorder: index != 3,
+                        onTap: () => context
+                            .read<PostingAdBloc>()
+                            .add(PostingAdChooseEvent(popularTypeId: index)),
                         entity: 'entity $index',
                         selectedId: context
                                 .watch<PostingAdBloc>()
@@ -173,9 +181,19 @@ class _ChooseCarModelScreenState extends State<ChooseCarModelScreen> {
                               child: BlocBuilder<CarTypeSelectorBloc,
                                   CarTypeSelectorState>(
                                 builder: (context, state) => CarTypeItem(
-                                    entity: carTypes[index],
-                                    selectedId: state.selectedId,
-                                    id: carTypes[index].id),
+                                  onTap: () => context
+                                      .read<PostingAdBloc>()
+                                      .add(PostingAdChooseEvent(
+                                          carTypeEntity: carTypes[index])),
+                                  title: carTypes[index].title,
+                                  isSelected: (context
+                                              .watch<PostingAdBloc>()
+                                              .state
+                                              .carTypeEntity
+                                              ?.id ??
+                                          -1) ==
+                                      carTypes[index].id,
+                                ),
                               ),
                             ),
                         childCount: carTypes.length)),

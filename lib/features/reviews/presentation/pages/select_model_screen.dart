@@ -5,7 +5,6 @@ import 'package:auto/features/ad/domain/entities/choose_model/car_type_entity.da
 import 'package:auto/features/ad/domain/entities/choose_model/model_item_entity.dart';
 import 'package:auto/features/ad/presentation/bloc/choose_model/car_type_selector_bloc.dart';
 import 'package:auto/features/ad/presentation/pages/choose_model/widgets/car_type_item.dart';
-import 'package:auto/features/ad/presentation/pages/choose_model/widgets/model_items.dart';
 import 'package:auto/features/ad/presentation/pages/choose_model/widgets/persistant_header.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
@@ -51,24 +50,10 @@ class _SelectModelScreenState extends State<SelectModelScreen> {
     ModelItemEntity(title: 'm90'),
     ModelItemEntity(title: 'm90'),
   ];
-  final List<CarTypeEntity> carTypes = [
-    const CarTypeEntity(title: '02 (E10)'),
-    const CarTypeEntity(title: '1 серия'),
-    const CarTypeEntity(title: '1M'),
-    const CarTypeEntity(title: '2 серия'),
-    const CarTypeEntity(title: '2 серия Active Tourer'),
-    const CarTypeEntity(title: '2 серия Coupe'),
-    const CarTypeEntity(title: '2 серия Coupe'),
-    const CarTypeEntity(title: '2 серия Coupe'),
-    const CarTypeEntity(title: '2 серия Coupe'),
-    const CarTypeEntity(title: '2 серия Coupe'),
-    const CarTypeEntity(title: '2 серия Coupe'),
-    const CarTypeEntity(title: '2 серия Coupe'),
-    const CarTypeEntity(title: '2 серия Coupe'),
-    const CarTypeEntity(title: '2 серия Coupe'),
-    const CarTypeEntity(title: '2 серия Coupe'),
-    const CarTypeEntity(title: '2 серия Coupe'),
-  ];
+  final List<CarTypeEntity> carTypes = List.generate(
+      12,
+      (index) =>
+          CarTypeEntity(title: '${index + 1} cartype', id: index, logo: ''));
 
   @override
   Widget build(BuildContext context) => KeyboardDismisser(
@@ -223,9 +208,17 @@ class _SelectModelScreenState extends State<SelectModelScreen> {
                         builder: (context, state) => ListView.builder(
                           padding: const EdgeInsets.only(bottom: 50),
                           itemBuilder: (context, index) => CarTypeItem(
-                              entity: carTypes[index],
-                              selectedId: state.selectedId,
-                              id: index),
+                            onTap: () => context
+                                .read<CarTypeSelectorBloc>()
+                                .add(SelectedCarTypeEvent(
+                                    id: carTypes[index].id)),
+                            title: carTypes[index].title,
+                            isSelected: context
+                                    .watch<CarTypeSelectorBloc>()
+                                    .state
+                                    .selectedId ==
+                                carTypes[index].id,
+                          ),
                           itemCount: carTypes.length,
                         ),
                       ),

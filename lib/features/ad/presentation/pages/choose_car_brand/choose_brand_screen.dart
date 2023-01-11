@@ -1,3 +1,4 @@
+import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/core/singletons/service_locator.dart';
@@ -7,6 +8,8 @@ import 'package:auto/features/ad/domain/usecases/get_makes.dart';
 import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.dart';
 import 'package:auto/features/ad/presentation/pages/choose_car_brand/widget/car_items.dart';
 import 'package:auto/features/ad/presentation/pages/choose_car_brand/widget/persistant_header.dart';
+import 'package:auto/features/ad/presentation/pages/choose_car_brand/widget/persistent_header_search.dart';
+import 'package:auto/features/ad/presentation/widgets/sliver_header_text.dart';
 import 'package:auto/features/common/bloc/get_makes_bloc/get_makes_bloc_bloc.dart';
 import 'package:auto/features/common/domain/entity/car_brand_entity.dart';
 import 'package:auto/features/common/widgets/car_brand_item.dart';
@@ -18,7 +21,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 class ChooseCarBrand extends StatefulWidget {
+  final PostingAdBloc bloc;
   const ChooseCarBrand({
+    required this.bloc,
     Key? key,
   }) : super(key: key);
 
@@ -27,12 +32,16 @@ class ChooseCarBrand extends StatefulWidget {
 }
 
 class _ChooseCarBrandState extends State<ChooseCarBrand> {
+  CrossFadeState crossFadeState = CrossFadeState.showFirst;
+  late ScrollController _scrollController;
   late TextEditingController searchController;
   late GetMakesBloc getMakesBloc;
   late TopBrandBloc topBrandBloc;
 
+  double height = 140;
   @override
   void initState() {
+    _scrollController = ScrollController()..addListener(_scrollListener);
     topBrandBloc = TopBrandBloc(GetTopBrandUseCase())
       ..add(TopBrandEvent.getBrand());
     searchController = TextEditingController();
@@ -44,6 +53,26 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
       ..add(GetMakesBlocEvent.getMakes());
     super.initState();
   }
+
+  void _scrollListener() {
+    if (widget.bloc.state.hasAppBarShadow == _isShrink) {
+      widget.bloc.add(PostingAdChangeAppBarShadowEvent(value: !_isShrink));
+    }
+
+    if (_scrollController.offset > 55) {
+      setState(() {
+        crossFadeState = CrossFadeState.showSecond;
+      });
+    } else {
+      setState(() {
+        crossFadeState = CrossFadeState.showFirst;
+      });
+    }
+  }
+
+  bool get _isShrink =>
+      _scrollController.hasClients &&
+      _scrollController.offset > (height - kToolbarHeight);
 
   @override
   void dispose() {
@@ -125,8 +154,7 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
               builder: (context, topBrandState) {
                 final postingAdState = context.watch<PostingAdBloc>().state;
 
-                if (postingAdState.letter !=
-                    postingAdState.previousMakeLetter) {
+                if (postingAdState.isSortByLetter) {
                   getMakesBloc.add(
                       GetMakesBlocEvent.sortMakes(postingAdState.letter ?? ''));
                   topBrandBloc.add(
@@ -135,43 +163,71 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
 
                 return Scaffold(
                   body: NestedScrollView(
+                    controller: _scrollController,
                     floatHeaderSlivers: true,
                     physics: const BouncingScrollPhysics(),
                     headerSliverBuilder: (context, innerBoxIsScrolled) => [
-                      /// SEARCH FIED
-                      SliverToBoxAdapter(
-                        child: WTextField(
-                          margin: const EdgeInsets.symmetric(
-                              horizontal: 16, vertical: 29),
-                          onChanged: (value) => setState(() {}),
-                          borderRadius: 12,
-                          hasSearch: true,
-                          hintText: 'Поиск',
-                          height: 40,
-                          controller: searchController,
-                          hasClearButton: true,
+                      /// HEADER TEXT
+                      const SliverHeaderText(text: 'Выберите марку автомобиля'),
+
+                      /// SEARCH FIELD WITH PERSISTENT HEADER
+
+                      SliverSafeArea(
+                        top: false,
+                        bottom: false,
+                        sliver: SliverPersistentHeader(
+                          delegate: PersistentHeaderSearch(
+                            child: AnimatedContainer(
+                              duration: const Duration(milliseconds: 150),
+                              color: _isShrink
+                                  ? white
+                                  : Theme.of(context).scaffoldBackgroundColor,
+                              padding:
+                                  const EdgeInsets.only(top: 16, bottom: 12),
+                              child: WTextField(
+                                fillColor: _isShrink ? whiteSmoke : white,
+                                filled: true,
+                                margin:
+                                    const EdgeInsets.only(left: 16, right: 16),
+                                onChanged: (value) => setState(() {}),
+                                borderRadius: 12,
+                                hasSearch: true,
+                                hintText: 'Поиск',
+                                height: 40,
+                                controller: searchController,
+                                hasClearButton: true,
+                              ),
+                            ),
+                          ),
+                          pinned: true,
                         ),
                       ),
 
                       /// TOP CAR BRANDS
                       SliverToBoxAdapter(
-                        child: SizedBox(
-                          height: 100,
-                          child: ListView.separated(
-                              itemCount: topBrandState.brands.length,
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 16),
-                              physics: const BouncingScrollPhysics(),
-                              scrollDirection: Axis.horizontal,
-                              itemBuilder: (context, index) => GestureDetector(
-                                    onTap: () {},
-                                    child: CarBrandItem(
-                                      carBrandEntity:
-                                          topBrandState.brands[index],
+                        child: AnimatedCrossFade(
+                          duration: const Duration(microseconds: 150),
+                          crossFadeState: crossFadeState,
+                          secondChild: const SizedBox(),
+                          firstChild: SizedBox(
+                            height: 100,
+                            child: ListView.separated(
+                                itemCount: topBrandState.brands.length,
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 16),
+                                physics: const BouncingScrollPhysics(),
+                                scrollDirection: Axis.horizontal,
+                                itemBuilder: (context, index) =>
+                                    GestureDetector(
+                                      onTap: () {},
+                                      child: CarBrandItem(
+                                        carBrandEntity:
+                                            topBrandState.brands[index],
+                                      ),
                                     ),
-                                  ),
-                              separatorBuilder: (context, index) =>
-                                  const SizedBox(width: 12)),
+                                separatorBuilder: (context, index) =>
+                                    const SizedBox(width: 12)),
+                          ),
                         ),
                       ),
 
@@ -216,7 +272,7 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
                         padding: const EdgeInsets.only(bottom: 50),
                         itemBuilder: (context, index) => ChangeCarItems(
                           onTap: () => context.read<PostingAdBloc>().add(
-                              PostingAdChooseMakeEvent(
+                              PostingAdChooseEvent(
                                   makeEntity: getMakesState.makes[index])),
                           selectedId: context
                                   .watch<PostingAdBloc>()

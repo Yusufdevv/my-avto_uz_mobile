@@ -33,7 +33,7 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
   Widget build(BuildContext context) => KeyboardDismisser(
         child: Scaffold(
           body: BaseWidget(
-            hasButton: false,
+            headerText: 'Описание',
             child: Padding(
               padding: const EdgeInsets.all(16),
               child: Column(

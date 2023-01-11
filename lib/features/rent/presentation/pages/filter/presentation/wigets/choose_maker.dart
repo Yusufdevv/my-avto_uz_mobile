@@ -45,8 +45,7 @@ class _ChooseMakerState extends State<ChooseMaker> {
           ),
           child: BlocBuilder<GetMakesBloc, GetMakesState>(
             builder: (context, getMakesState) {
-              print(
-                  '=>=>=>=> get makes selected id: ${getMakesState.selectId} <=<=<=<=');
+             
               if (getMakesState.status == FormzStatus.submissionSuccess ||
                   getMakesState.status == FormzStatus.submissionFailure) {
                 return Column(

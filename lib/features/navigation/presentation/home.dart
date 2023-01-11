@@ -75,7 +75,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   }
 
   void onTabChange() {
-     setState(() {
+    setState(() {
       _currentIndex = _controller.index;
       _navigatorKeys[NavItemEnum.values[_currentIndex]]!
           .currentState!

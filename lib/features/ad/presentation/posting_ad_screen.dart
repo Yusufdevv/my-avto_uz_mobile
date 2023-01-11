@@ -45,11 +45,11 @@ class _PostingAdScreenState extends State<PostingAdScreen>
   late TabController tabController;
   late PostingAdBloc postingAdBloc;
   int currentTabIndex = 0;
-
+  final int tabLength = 21;
   @override
   void initState() {
     postingAdBloc = PostingAdBloc();
-    tabController = TabController(length: 21, vsync: this);
+    tabController = TabController(length: tabLength, vsync: this);
     super.initState();
   }
 
@@ -77,10 +77,12 @@ class _PostingAdScreenState extends State<PostingAdScreen>
     'Предосмотор',
   ];
   void onNextPressed() {
-    currentTabIndex++;
+    if (currentTabIndex < tabLength - 1) {
+      currentTabIndex++;
 
-    tabController.animateTo(currentTabIndex);
-    setState(() {});
+      tabController.animateTo(currentTabIndex);
+      setState(() {});
+    }
   }
 
   @override
@@ -94,98 +96,97 @@ class _PostingAdScreenState extends State<PostingAdScreen>
         child: BlocProvider.value(
           value: postingAdBloc,
           child: BlocBuilder<PostingAdBloc, PostingAdState>(
-            builder: (context, state) {
-              print('=>=>=>=> ${state.letter} <=<=<=<=');
-              return Scaffold(
-                appBar: PreferredSize(
-                  preferredSize: const Size.fromHeight(60),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      PostingAdAppBar(
-                        hasBackButton: currentTabIndex != 0,
-                        onTapBack: () {
-                          print(
-                              '=>=>=>=> currentTab index $currentTabIndex <=<=<=<=');
-                          --currentTabIndex;
-                          tabController.animateTo(currentTabIndex);
-                          setState(() {});
-                        },
-                        title: currentTabIndex == 0
-                            ? ''
-                            : tabs[currentTabIndex - 1],
-                        extraActions: [
-                          if (currentTabIndex > 0)
-                            Padding(
-                              padding: const EdgeInsets.all(16),
-                              child: WScaleAnimation(
-                                  child: SvgPicture.asset(
-                                    AppIcons.close,
-                                  ),
-                                  onTap: () {
-                                    // Navigator.pop(context);
-                                  }),
-                            )
-                          else
-                            const SizedBox()
-                        ],
-                      ),
-                      CompletionBar(
-                          screenWidth: MediaQuery.of(context).size.width,
-                          totalSteps: 21,
-                          currentStep: currentTabIndex + 1,
-                          progressBarColor: orange),
-                    ],
-                  ),
-                ),
-                body: Stack(
+            builder: (context, state) => Scaffold(
+              appBar: PreferredSize(
+                preferredSize: Size.fromHeight(state.hasAppBarShadow ? 55 : 52),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    TabBarView(
-                      controller: tabController,
-                      physics: const NeverScrollableScrollPhysics(),
-                      children: [
-                        const ChooseCarBrand(),
-                        const ChooseCarModelScreen(),
-                        const YearIssueScreen(),
-                        const CarcaseScreen(),
-                        const GenerationScreen(),
-                        const EngineScreen(),
-                        const DriveTypeScreen(),
-                        const GearboxScreen(),
-                        const ModificationScreen(),
-                        const ColorsScreen(),
-                        const AddPhotoScreen(),
-                        const PtsScreen(),
-                        const DescriptionScreen(),
-                        const EquipmentScreen(),
-                        const DamageScreen(),
-                        const ContactScreen(),
-                        const InspectionPlaceScreen(),
-                        const PriceScreen(),
-                        const MileageScreen(),
-                        const StsScreen(),
-                        PreviewScreen()
+                    PostingAdAppBar(
+                      backgroundColor: white,
+                      hasShadow: state.hasAppBarShadow,
+                      hasBackButton: currentTabIndex != 0,
+                      onTapBack: () {
+                        --currentTabIndex;
+                        tabController.animateTo(currentTabIndex);
+                        setState(() {});
+                      },
+                      title:
+                          currentTabIndex == 0 ? '' : tabs[currentTabIndex - 1],
+                      extraActions: [
+                        if (currentTabIndex > 0)
+                          Padding(
+                            padding: const EdgeInsets.all(16),
+                            child: WScaleAnimation(
+                                child: SvgPicture.asset(
+                                  AppIcons.close,
+                                ),
+                                onTap: () {
+                                  // Navigator.pop(context);
+                                }),
+                          )
+                        else
+                          const SizedBox()
                       ],
                     ),
-                    Positioned(
-                      bottom: 16,
-                      right: 16,
-                      left: 16,
-                      child: WButton(
-                        onTap: onNextPressed,
-                        text: 'Далее',
-                        shadow: [
-                          BoxShadow(
-                              offset: const Offset(0, 4),
-                              blurRadius: 20,
-                              color: orange.withOpacity(0.2)),
-                        ],
+                    if (state.hasAppBarShadow) ...{
+                      CompletionBar(
+                        screenWidth: MediaQuery.of(context).size.width,
+                        totalSteps: 21,
+                        currentStep: currentTabIndex + 1,
+                        progressBarColor: orange,
                       ),
-                    ),
+                    }
                   ],
                 ),
-              );
-            },
+              ),
+              body: Stack(
+                children: [
+                  TabBarView(
+                    controller: tabController,
+                    physics: const NeverScrollableScrollPhysics(),
+                    children: [
+                      ChooseCarBrand(bloc: postingAdBloc),
+                      const ChooseCarModelScreen(),
+                      const YearIssueScreen(modelId:10),
+                      const CarcaseScreen(),
+                      const GenerationScreen(),
+                      const EngineScreen(),
+                      const DriveTypeScreen(),
+                      const GearboxScreen(),
+                      const ModificationScreen(),
+                      const ColorsScreen(),
+                      const AddPhotoScreen(),
+                      const PtsScreen(),
+                      const DescriptionScreen(),
+                      const EquipmentScreen(),
+                      const DamageScreen(),
+                      const ContactScreen(),
+                      const InspectionPlaceScreen(),
+                      const PriceScreen(),
+                      const MileageScreen(),
+                      const StsScreen(),
+                      PreviewScreen()
+                    ],
+                  ),
+                  Positioned(
+                    bottom: 16,
+                    right: 16,
+                    left: 16,
+                    child: WButton(
+                      onTap: onNextPressed,
+                      text: 'Далее',
+                      shadow: [
+                        BoxShadow(
+                            offset: const Offset(0, 4),
+                            blurRadius: 20,
+                            color: orange.withOpacity(0.2)),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ),
         ),
       );

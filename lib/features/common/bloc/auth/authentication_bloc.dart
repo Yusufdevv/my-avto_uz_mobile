@@ -56,8 +56,7 @@ class AuthenticationBloc
         add(AuthenticationStatusChanged(
             status: AuthenticationStatus.authenticated));
       } else {
-        print(
-            '=>=>=>=> ${(result.left as ServerFailure).errorMessage} <=<=<=<=');
+
         if (event.onError != null) {
           event.onError!((result.left as ServerFailure).errorMessage);
         }

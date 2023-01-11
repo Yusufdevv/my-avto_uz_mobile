@@ -17,7 +17,7 @@ class _GearboxScreenState extends State<GearboxScreen> {
   @override
   Widget build(BuildContext context) => Scaffold(
           body: BaseWidget(
-        hasButton: false,
+            headerText:'Коробка передач' ,
         padding: const EdgeInsets.only(top: 16),
         child: ListView.builder(
           itemBuilder: (context, index) => RadioItem(

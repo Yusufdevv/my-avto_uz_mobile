@@ -29,7 +29,7 @@ class _PriceScreenState extends State<PriceScreen> {
   Widget build(BuildContext context) => KeyboardDismisser(
         child: Scaffold(
           body: BaseWidget(
-            hasButton: false,
+            headerText: 'Цена',
             child: Padding(
               padding: const EdgeInsets.all(16),
               child: Column(

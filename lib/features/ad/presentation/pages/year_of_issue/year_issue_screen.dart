@@ -1,4 +1,6 @@
-import 'package:auto/features/ad/domain/entities/years/years.dart';
+import 'package:auto/core/singletons/service_locator.dart';
+import 'package:auto/features/ad/data/repositories/ad_repository_impl.dart';
+import 'package:auto/features/ad/domain/usecases/get_years.dart';
 import 'package:auto/features/ad/presentation/bloc/year_of_issue/year_issue_bloc.dart';
 import 'package:auto/features/ad/presentation/pages/year_of_issue/widget/years_item.dart';
 import 'package:auto/features/ad/presentation/widgets/base_widget.dart';
@@ -6,7 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class YearIssueScreen extends StatefulWidget {
-  const YearIssueScreen({Key? key}) : super(key: key);
+  final int modelId;
+  const YearIssueScreen({required this.modelId, Key? key}) : super(key: key);
 
   @override
   State<YearIssueScreen> createState() => _YearIssueScreenState();
@@ -14,16 +17,14 @@ class YearIssueScreen extends StatefulWidget {
 
 class _YearIssueScreenState extends State<YearIssueScreen> {
   late YearIssueBloc yearIssueBloc;
-  final YearsEntity years = const YearsEntity(
-    id: 1,
-    yearBegin: 2012,
-    yearEnd: 2020,
-    modelId: 2,
-  );
 
   @override
   void initState() {
-    yearIssueBloc = YearIssueBloc();
+    yearIssueBloc = YearIssueBloc(
+        modelId: widget.modelId,
+        getYearsUseCase:
+            GetYearsUseCase(repository: serviceLocator<AdRepositoryImpl>()))
+      ..add(YearsIssueGetEvent());
     super.initState();
   }
 
@@ -33,17 +34,22 @@ class _YearIssueScreenState extends State<YearIssueScreen> {
         child: Scaffold(
             body: BlocBuilder<YearIssueBloc, YearIssueState>(
           builder: (context, state) => BaseWidget(
-            hasButton: false,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 16),
-              child: ListView.builder(
-                shrinkWrap: true,
-                itemBuilder: (context, index) => YearItem(
-                    year: years.yearBegin + index,
-                    selectedId: state.selectedId,
-                    id: index),
-                itemCount: years.yearEnd - years.yearBegin,
+            headerText: 'Год выпуска',
+            child: ListView.builder(
+              physics: const BouncingScrollPhysics(),
+              shrinkWrap: true,
+              itemBuilder: (context, index) => GestureDetector(
+                onTap: () {
+                  context
+                      .read<YearIssueBloc>()
+                      .add(SelectedYearEvent(id: index));
+                },
+                child: YearItem(
+                  year: state.yearsEntity[index].yearBegin,
+                  isSelected: state.selectedId == index,
+                ),
               ),
+              itemCount: state.yearsEntity.length,
             ),
           ),
         )),

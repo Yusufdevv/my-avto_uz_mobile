@@ -41,7 +41,6 @@ class _RentChooseRegionBottomSheetState
 
   @override
   Widget build(BuildContext context) {
-    print('=>=>=>=> ${widget.list} <=<=<=<=');
     final isAllChecked = checkStatus.length == widget.list.length;
     return Container(
       margin: EdgeInsets.only(top: SizeConfig.v(24)),

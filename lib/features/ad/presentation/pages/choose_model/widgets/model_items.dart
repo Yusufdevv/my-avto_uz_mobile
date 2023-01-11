@@ -11,13 +11,15 @@ class ModelItems extends StatelessWidget {
   final int selectedId;
   final String text;
   final VoidCallback onTap;
+  final bool hasBorder;
   const ModelItems({
     required this.entity,
     required this.selectedId,
     required this.id,
-    Key? key,
     required this.text,
     required this.onTap,
+   this.hasBorder = true,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -31,12 +33,14 @@ class ModelItems extends StatelessWidget {
           child: Container(
             padding: const EdgeInsets.only(right: 16, top: 10, bottom: 10),
             decoration: BoxDecoration(
-              border: Border(
-                bottom: BorderSide(
-                  width: 1,
-                  color: Theme.of(context).dividerColor,
-                ),
-              ),
+              border: hasBorder
+                  ? Border(
+                      bottom: BorderSide(
+                        width: 1,
+                        color: Theme.of(context).dividerColor,
+                      ),
+                    )
+                  : null,
             ),
             child: Column(
               children: [

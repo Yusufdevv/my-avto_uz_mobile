@@ -10,27 +10,23 @@ part 'posting_ad_state.dart';
 
 class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
   PostingAdBloc() : super(const PostingAdState()) {
-    on<PostingAdChooseMakeEvent>(_makeChoose);
-    on<PostingAdChooseLetterEvent>(_letterChoose);
-    on<PostingAdChooseCarTypeEvent>(_carTypeChoose);
+    on<PostingAdChangeAppBarShadowEvent>(_changeAppBarShadow);
+    on<PostingAdChooseEvent>(_choose);
+  }
+  void _changeAppBarShadow(
+      PostingAdChangeAppBarShadowEvent event, Emitter<PostingAdState> emit) {
+    emit(state.copyWith(hasAppBarShadow: event.value));
   }
 
-  void _carTypeChoose(
-      PostingAdChooseCarTypeEvent event, Emitter<PostingAdState> emit) {
-    emit(state.copyWith(carTypeEntity: event.carTypeEntity));
-  }
-
-  void _letterChoose(
-      PostingAdChooseLetterEvent event, Emitter<PostingAdState> emit) {
-    if (state.previousMakeLetter == event.letter) {
-      return;
-    }
-
+  void _choose(PostingAdChooseEvent event, Emitter<PostingAdState> emit) {
     emit(
-        state.copyWith(letter: event.letter, previousMakeLetter: state.letter));
+      state.copyWith(
+        isSortByLetter: event.letter != state.letter,
+        carTypeEntity: event.carTypeEntity,
+        letter: event.letter,
+        makeEntity: event.makeEntity,
+        selectedPopularTypeId: event.popularTypeId,
+      ),
+    );
   }
-
-  void _makeChoose(
-          PostingAdChooseMakeEvent event, Emitter<PostingAdState> emit) =>
-      emit(state.copyWith(makeEntity: event.makeEntity));
 }

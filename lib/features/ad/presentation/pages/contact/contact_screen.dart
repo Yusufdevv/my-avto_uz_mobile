@@ -48,12 +48,12 @@ class _ContactScreenState extends State<ContactScreen> {
           body: Form(
             key: _formKey,
             child: BaseWidget(
+              headerText: 'Contact',
               // onTap: nameController.text.isNotEmpty ||
               //         emailController.text.isNotEmpty ||
               //         numberController.text.length > 7
               //     ? widget.onTap
               //     : () {},
-              hasButton: false,
               child: Column(
                 children: [
                   Expanded(
