@@ -58,8 +58,8 @@ class _AdsBodyScreenState extends State<AdsBodyScreen> {
 
   @override
   void initState() {
-    rentBloc = RentBloc(rentUseCase: RentUseCase(), id: 5)
-      ..add(RentGetResultsEvent(isRefresh: false));
+    // rentBloc = RentBloc(rentUseCase: RentUseCase(), id: 5)
+    //   ..add(RentGetResultsEvent(isRefresh: false));
     super.initState();
   }
 

@@ -74,7 +74,7 @@ class FilterParameters extends StatelessWidget {
                         ),
                       ).then((value) {
                         rentBloc
-                            .add(RentSetParamFromFilterEvent(carMakers: value));
+                            .add(RentSetParamFromFilterEvent());
                       });
                     },
                     hintText: LocaleKeys.choose_class.tr(),
@@ -90,7 +90,7 @@ class FilterParameters extends StatelessWidget {
                         builder: (c) => const ChooseDriveType(),
                       ).then((value) {
                         rentBloc
-                            .add(RentSetParamFromFilterEvent(carMakers: value));
+                            .add(RentSetParamFromFilterEvent());
                       });
                     },
                     hintText: LocaleKeys.choose_drive_type.tr(),
@@ -160,19 +160,19 @@ class FilterParameters extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 20),
-                  WRangeSlider(
-                    title: LocaleKeys.price.tr(),
-                    endValue: 500000,
-                    startValue: 1000,
-                    sliderStatus: 'price',
-                  ),
-                  const SizedBox(height: 20),
-                  WRangeSlider(
-                    title: LocaleKeys.year_of_issue.tr(),
-                    endValue: 2022,
-                    startValue: 1960,
-                    sliderStatus: '',
-                  ),
+                  // WRangeSlider(
+                  //   title: LocaleKeys.price.tr(),
+                  //   endValue: 500000,
+                  //   startValue: 1000,
+                  //   sliderStatus: 'price',
+                  // ),
+                  // const SizedBox(height: 20),
+                  // WRangeSlider(
+                  //   title: LocaleKeys.year_of_issue.tr(),
+                  //   endValue: 2022,
+                  //   startValue: 1960,
+                  //   sliderStatus: '',
+                  // ),
                   SizedBox(height: size.height * 0.1),
                   WButton(
                     onTap: () => Navigator.pop(context),

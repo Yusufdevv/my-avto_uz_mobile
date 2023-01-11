@@ -181,11 +181,13 @@ class _MainScreenState extends State<MainScreen> {
                         children: [
                           const YandexMap(),
                           WButton(
-                            onTap: () => Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const DealerScreen(),
-                                )),
+                            onTap: () =>
+                                Navigator.of(context, rootNavigator: true)
+                                    .push(
+                              fade(
+                                page: const DealerScreen(),
+                              ),
+                            ),
                             margin: const EdgeInsets.symmetric(
                                 horizontal: 16, vertical: 15),
                             padding: const EdgeInsets.symmetric(horizontal: 15),
