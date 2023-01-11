@@ -9,8 +9,8 @@ part of 'thumbnail_model.dart';
 CoverImageThumbnailModel _$CoverImageThumbnailModelFromJson(
         Map<String, dynamic> json) =>
     CoverImageThumbnailModel(
-      crop: json['crop'] as String,
-      square: json['square'] as String,
+      crop: json['crop'] as String? ?? '',
+      square: json['square'] as String? ?? '',
     );
 
 Map<String, dynamic> _$CoverImageThumbnailModelToJson(

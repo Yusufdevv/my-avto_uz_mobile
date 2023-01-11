@@ -14,8 +14,10 @@ import 'package:auto/features/comparison/presentation/widgets/empty_comparison_w
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:formz/formz.dart';
 
 class ComparisonPage extends StatefulWidget {
   const ComparisonPage({Key? key}) : super(key: key);
@@ -70,64 +72,73 @@ class _ComparisonPageState extends State<ComparisonPage> {
             ),
             body: BlocBuilder<ComparisonBloc, ComparisonState>(
               builder: (context, state) {
-                if (state.cars.isEmpty) {
-                  return EmptyComparison(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        fade(
-                          page: ChooseCarBrandComparison(
-                            onTap: () => Navigator.of(context).push(
-                              fade(
-                                page: ChooseCarModelComparison(
-                                  onTap: () {
-                                    print(
-                                        '===> ==> comparsin make ${context.read<GetMakesBloc>().state.selectId}');
-                                    context.read<AnnouncementListBloc>().add(
-                                          AnnouncementListEvent.getFilter(
-                                            context
-                                                .read<AnnouncementListBloc>()
-                                                .state
-                                                .filter
-                                                .copyWith(
-                                                  make: context
-                                                      .read<GetMakesBloc>()
-                                                      .state
-                                                      .selectId,
-                                                  model: context
-                                                      .read<GetCarModelBloc>()
-                                                      .state
-                                                      .selectedId,
-                                                ),
+                if (state.status == FormzStatus.submissionInProgress) {
+                  return const Center(child: CupertinoActivityIndicator());
+                }
+                if (state.status == FormzStatus.submissionSuccess ||
+                    state.status == FormzStatus.submissionFailure) {
+                  if (state.cars.isEmpty) {
+                    return EmptyComparison(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          fade(
+                            page: ChooseCarBrandComparison(
+                              onTap: () => Navigator.of(context).push(
+                                fade(
+                                  page: ChooseCarModelComparison(
+                                    onTap: () {
+                                      print(
+                                          '===> ==> comparsin make ${context.read<GetMakesBloc>().state.selectId}');
+                                      context.read<AnnouncementListBloc>().add(
+                                            AnnouncementListEvent.getFilter(
+                                              context
+                                                  .read<AnnouncementListBloc>()
+                                                  .state
+                                                  .filter
+                                                  .copyWith(
+                                                    make: context
+                                                        .read<GetMakesBloc>()
+                                                        .state
+                                                        .selectId,
+                                                    model: context
+                                                        .read<GetCarModelBloc>()
+                                                        .state
+                                                        .selectedId,
+                                                  ),
+                                            ),
+                                          );
+                                      Navigator.of(context).push(
+                                        fade(
+                                          page: AdsScreen(
+                                            onBack: () {
+                                              bloc.add(GetComparableCars());
+                                              Navigator.of(context).pop();
+                                              Navigator.of(context).pop();
+                                              Navigator.of(context).pop();
+                                            },
                                           ),
-                                        );
-                                    Navigator.of(context).push(
-                                      fade(
-                                        page: AdsScreen(
-                                          onBack: () {
-                                            bloc.add(GetComparableCars());
-                                            Navigator.of(context).pop();
-                                            Navigator.of(context).pop();
-                                            Navigator.of(context).pop();
-                                          },
                                         ),
-                                      ),
-                                    );
-                                  },
+                                      );
+                                    },
+                                  ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
-                      );
-                    },
-                  );
-                } else {
-                  return Comparison(
-                    isSticky: state.isSticky,
-                    comparisonBloc: bloc,
-                  );
+                        );
+                      },
+                    );
+                  } else {
+                    return Comparison(
+                      isSticky: state.isSticky,
+                      comparisonBloc: bloc,
+                    );
+                  }
                 }
+                return const Center(
+                  child: Text('Error'),
+                );
               },
             ),
           ),
