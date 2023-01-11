@@ -1,24 +1,24 @@
 import 'package:auto/core/exceptions/exceptions.dart';
 import 'package:auto/core/singletons/storage.dart';
+import 'package:auto/features/dealers/data/models/user_search_model.dart';
 import 'package:auto/features/pagination/models/generic_pagination.dart';
-import 'package:auto/features/search/data/models/popular_search_model.dart';
-
 import 'package:dio/dio.dart';
 
-abstract class PopularSearchesDataSource {
-  Future<GenericPagination<PopularSearchModel>> getPopularSearches(
-      String? search);
+abstract class UserSearchDatasource {
+  Future<GenericPagination<UserSearchDealerModel>> getUserSearches(String? search);
+// Future<>
 }
 
-class PopularSearchesSourceImpl extends PopularSearchesDataSource {
+class UserSearchDatasourceImpl extends UserSearchDatasource {
   final Dio _dio;
-  PopularSearchesSourceImpl(this._dio);
+
+  UserSearchDatasourceImpl(this._dio);
 
   @override
-  Future<GenericPagination<PopularSearchModel>> getPopularSearches(
+  Future<GenericPagination<UserSearchDealerModel>> getUserSearches(
       String? search) async {
     try {
-      final response = await _dio.get('users/popular-searches/',
+      final response = await _dio.get('users/dealers/',
           queryParameters: {'search': search},
           options: Options(headers: {
             'Authorization': 'Bearer ${StorageRepository.getString('token')}'
@@ -27,7 +27,7 @@ class PopularSearchesSourceImpl extends PopularSearchesDataSource {
           response.statusCode! >= 200 &&
           response.statusCode! < 300) {
         return GenericPagination.fromJson(response.data,
-            (p0) => PopularSearchModel.fromJson(p0 as Map<String, dynamic>));
+                (p0) => UserSearchDealerModel.fromJson(p0 as Map<String, dynamic>));
       } else {
         throw ServerException(
           statusCode: response.statusCode!,

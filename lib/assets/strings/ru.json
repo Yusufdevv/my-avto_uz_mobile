@@ -316,5 +316,6 @@
   "i_accept_rules1": "условия использования",
   "i_accept_rules2": " и ",
   "i_accept_rules3": "правила",
-  "complete_registration": "Заполните поля для завершения регистрации"
+  "complete_registration": "Заполните поля для завершения регистрации",
+  "no_dealer": "Пока нет диллеров"
 }

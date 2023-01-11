@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class DealerCard extends StatefulWidget {
-  final String dealerType;
+  //final String dealerType;
   final String dealerInfo;
   final String dealerName;
   final String dealerImageUrl;
@@ -24,9 +24,10 @@ class DealerCard extends StatefulWidget {
   final double latitude;
   final double longitude;
   final bool isDirectoryPage;
+  final VoidCallback onTap;
 
   const DealerCard({
-    required this.dealerType,
+    //required this.dealerType,
     required this.dealerName,
     required this.dealerImageUrl,
     required this.quantityOfCars,
@@ -38,6 +39,7 @@ class DealerCard extends StatefulWidget {
     required this.latitude,
     required this.longitude,
     required this.phoneNumber,
+    required this.onTap,
     this.isDirectoryPage = false,
     Key? key,
   }) : super(key: key);
@@ -51,24 +53,7 @@ class _DealerCardState extends State<DealerCard> {
 
   @override
   Widget build(BuildContext context) => GestureDetector(
-        onTap: () {
-          Navigator.push(
-            context,
-            fade(
-              page: Seller(
-                // dealerType: widget.dealerType,
-                dealerName: widget.dealerName,
-                phoneNumber: widget.phoneNumber,
-                dealerInfo: widget.dealerInfo,
-                latitude: widget.latitude,
-                longitude: widget.longitude,
-                carCount: widget.quantityOfCars,
-                contactFrom: widget.contactFrom,
-                contactTo: widget.contactTo,
-              )
-            ),
-          );
-        },
+        onTap: widget.onTap,
         child: Container(
           decoration: BoxDecoration(
               color: Theme.of(context).extension<ThemedColors>()!.whiteToNero,
