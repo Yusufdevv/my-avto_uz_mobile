@@ -14,7 +14,8 @@ abstract class GetUserListDatasource {
 
   Future<List<NotificationsModel>> getNotifications();
   Future<List<MySearchesModel>> getMySearches();
-  Future<List<DirectoryModel>> getDirectories();
+  Future<List<DirectoryModel>> getDirectories(
+      String search, String regions, String categories);
   Future<List<DirCategoryModel>> getDirCategory();
   Future<DirectoryModel> getDirectory(String id);
   Future<NotificationsModel> getNotificationSingle(String id);
@@ -129,10 +130,19 @@ class GetUserListDatasourceImpl extends GetUserListDatasource {
   }
 
   @override
-  Future<List<DirectoryModel>> getDirectories() async {
+  Future<List<DirectoryModel>> getDirectories(
+      String search, String regions, String categories) async {
+    print('=======search ${search}');
+    print('=======regions ${regions}');
+    print('=======categories ${categories}');
     try {
       final response = await dio.get(
-        '/car-place/list/',
+        '/car-place/list/?region__in=$regions&category__in=$categories&search=$search',
+        // queryParameters: {
+        //   'search': search,
+        //   'region_in': regions,
+        //   'categoriy_in': categories
+        // },
         options: Options(headers: {
           'Authorization': 'Bearer ${StorageRepository.getString('token')}'
         }),

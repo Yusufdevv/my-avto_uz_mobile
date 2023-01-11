@@ -54,7 +54,7 @@ class _DirectoryFilterPageState extends State<DirectoryFilterPage> {
           WScaleAnimation(
             onTap: () {
               newRegion = null;
-
+              context.read<DirectoryBloc>().state.selectedCategories.clear();
               setState(() {});
             },
             child: Padding(
@@ -106,6 +106,12 @@ class _DirectoryFilterPageState extends State<DirectoryFilterPage> {
                             if (value != null && value.isNotEmpty) {
                               setState(() {
                                 newRegion = value;
+                                context
+                                    .read<DirectoryBloc>()
+                                    .add(DirectoryFilterEvent(
+                                        regions: MyFunctions.text(
+                                      newRegion!,
+                                    )));
                               });
                             }
                           });
@@ -115,7 +121,7 @@ class _DirectoryFilterPageState extends State<DirectoryFilterPage> {
                             icon: AppIcons.chevronRightBlack,
                             region: newRegion == null
                                 ? 'Выберите регион'
-                                : MyFunctions.text(newRegion!)),
+                                : MyFunctions.text(newRegion!, true)),
                       ),
                       const SizedBox(height: 16),
                       //Категории
@@ -126,7 +132,12 @@ class _DirectoryFilterPageState extends State<DirectoryFilterPage> {
                 WButton(
                   textStyle: const TextStyle(
                       fontWeight: FontWeight.w600, fontSize: 14),
-                  onTap: () {},
+                  onTap: () {
+                    context.read<DirectoryBloc>().add(GetDirectoriesEvent());
+                    Navigator.pop(context);
+                    context.read<DirectoryBloc>().add(DirectoryFilterEvent(
+                        selectedCategories: [], regions: ''));
+                  },
                   text: LocaleKeys.apply.tr(),
                 ),
               ],

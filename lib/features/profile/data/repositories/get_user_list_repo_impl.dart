@@ -71,9 +71,11 @@ class GetUserListRepoImpl extends GetUserListRepository {
   }
 
   @override
-  Future<Either<ServerFailure, List<DirectoryEntity>>> getDirectories()async {
+  Future<Either<ServerFailure, List<DirectoryEntity>>> getDirectories(String search,
+  String regions,
+  String categories)async {
  try {
-      final result = await dataSource.getDirectories();
+      final result = await dataSource.getDirectories(search, regions, categories);
       return Right(result);
     } on ServerException catch (error) {
       return Left(ServerFailure(

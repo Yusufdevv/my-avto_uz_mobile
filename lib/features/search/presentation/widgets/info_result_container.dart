@@ -367,9 +367,9 @@ class _InfoResultContainerState extends State<InfoResultContainer> {
                             .add(WishlistAddEvent.addWishlist(widget.id));
                         isLiked = true;
                       } else {
-                        context
-                            .read<WishlistAddBloc>()
-                            .add(WishlistAddEvent.removeWishlist(widget.id));
+                        context.read<WishlistAddBloc>().add(
+                            WishlistAddEvent.removeWishlist(widget.id,
+                                '/users/wishlist/announcement/remove/'));
                         isLiked = false;
                       }
                       setState(() {});

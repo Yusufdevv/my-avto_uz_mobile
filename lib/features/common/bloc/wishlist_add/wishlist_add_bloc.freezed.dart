@@ -20,19 +20,19 @@ mixin _$WishlistAddEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(int id) addWishlist,
-    required TResult Function(int id) removeWishlist,
+    required TResult Function(int id, String endpoint) removeWishlist,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(int id)? addWishlist,
-    TResult? Function(int id)? removeWishlist,
+    TResult? Function(int id, String endpoint)? removeWishlist,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(int id)? addWishlist,
-    TResult Function(int id)? removeWishlist,
+    TResult Function(int id, String endpoint)? removeWishlist,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -161,7 +161,7 @@ class _$_AddWishlist implements _AddWishlist {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(int id) addWishlist,
-    required TResult Function(int id) removeWishlist,
+    required TResult Function(int id, String endpoint) removeWishlist,
   }) {
     return addWishlist(id);
   }
@@ -170,7 +170,7 @@ class _$_AddWishlist implements _AddWishlist {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(int id)? addWishlist,
-    TResult? Function(int id)? removeWishlist,
+    TResult? Function(int id, String endpoint)? removeWishlist,
   }) {
     return addWishlist?.call(id);
   }
@@ -179,7 +179,7 @@ class _$_AddWishlist implements _AddWishlist {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(int id)? addWishlist,
-    TResult Function(int id)? removeWishlist,
+    TResult Function(int id, String endpoint)? removeWishlist,
     required TResult orElse(),
   }) {
     if (addWishlist != null) {
@@ -239,7 +239,7 @@ abstract class _$$_RemoveWishlistCopyWith<$Res>
       __$$_RemoveWishlistCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int id});
+  $Res call({int id, String endpoint});
 }
 
 /// @nodoc
@@ -254,12 +254,17 @@ class __$$_RemoveWishlistCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
+    Object? endpoint = null,
   }) {
     return _then(_$_RemoveWishlist(
       null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
+      null == endpoint
+          ? _value.endpoint
+          : endpoint // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -267,14 +272,16 @@ class __$$_RemoveWishlistCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_RemoveWishlist implements _RemoveWishlist {
-  _$_RemoveWishlist(this.id);
+  _$_RemoveWishlist(this.id, this.endpoint);
 
   @override
   final int id;
+  @override
+  final String endpoint;
 
   @override
   String toString() {
-    return 'WishlistAddEvent.removeWishlist(id: $id)';
+    return 'WishlistAddEvent.removeWishlist(id: $id, endpoint: $endpoint)';
   }
 
   @override
@@ -282,11 +289,13 @@ class _$_RemoveWishlist implements _RemoveWishlist {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_RemoveWishlist &&
-            (identical(other.id, id) || other.id == id));
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.endpoint, endpoint) ||
+                other.endpoint == endpoint));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, id);
+  int get hashCode => Object.hash(runtimeType, id, endpoint);
 
   @JsonKey(ignore: true)
   @override
@@ -298,29 +307,29 @@ class _$_RemoveWishlist implements _RemoveWishlist {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(int id) addWishlist,
-    required TResult Function(int id) removeWishlist,
+    required TResult Function(int id, String endpoint) removeWishlist,
   }) {
-    return removeWishlist(id);
+    return removeWishlist(id, endpoint);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(int id)? addWishlist,
-    TResult? Function(int id)? removeWishlist,
+    TResult? Function(int id, String endpoint)? removeWishlist,
   }) {
-    return removeWishlist?.call(id);
+    return removeWishlist?.call(id, endpoint);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(int id)? addWishlist,
-    TResult Function(int id)? removeWishlist,
+    TResult Function(int id, String endpoint)? removeWishlist,
     required TResult orElse(),
   }) {
     if (removeWishlist != null) {
-      return removeWishlist(id);
+      return removeWishlist(id, endpoint);
     }
     return orElse();
   }
@@ -358,10 +367,12 @@ class _$_RemoveWishlist implements _RemoveWishlist {
 }
 
 abstract class _RemoveWishlist implements WishlistAddEvent {
-  factory _RemoveWishlist(final int id) = _$_RemoveWishlist;
+  factory _RemoveWishlist(final int id, final String endpoint) =
+      _$_RemoveWishlist;
 
   @override
   int get id;
+  String get endpoint;
   @override
   @JsonKey(ignore: true)
   _$$_RemoveWishlistCopyWith<_$_RemoveWishlist> get copyWith =>
