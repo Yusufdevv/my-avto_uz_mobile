@@ -147,15 +147,17 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
                       SliverToBoxAdapter(
                         child: SizedBox(
                           height: 100,
-                          child: ListView.builder(
-                            padding: const EdgeInsets.only(right: 16),
-                            physics: const BouncingScrollPhysics(),
-                            scrollDirection: Axis.horizontal,
-                            itemBuilder: (context, index) => CarBrandItem(
-                              carBrandEntity: topBrandState.brands[index],
-                            ),
-                            itemCount: topBrandState.brands.length,
-                          ),
+                          child: ListView.separated(
+                              itemCount: topBrandState.brands.length,
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 16),
+                              physics: const BouncingScrollPhysics(),
+                              scrollDirection: Axis.horizontal,
+                              itemBuilder: (context, index) => CarBrandItem(
+                                    carBrandEntity: topBrandState.brands[index],
+                                  ),
+                              separatorBuilder: (context, index) =>
+                                  const SizedBox(width: 12)),
                         ),
                       ),
 

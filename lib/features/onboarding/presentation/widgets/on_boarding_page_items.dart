@@ -8,15 +8,15 @@ class OnBoardingItems extends StatelessWidget {
   final String secondText;
   final String thirdText;
 
-  const OnBoardingItems(
-      {required this.icon,
-      required this.title,
-      required this.image,
-      this.secondText = '',
-      this.thirdText = '',
-      this.hasSecondText = false,
-      Key? key})
-      : super(key: key);
+  const OnBoardingItems({
+    required this.icon,
+    required this.title,
+    required this.image,
+    this.secondText = '',
+    this.thirdText = '',
+    this.hasSecondText = false,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) => Column(
