@@ -11,11 +11,13 @@ class PostingAdAppBar extends StatelessWidget implements PreferredSizeWidget {
   final List<Widget> extraActions;
   final Color? backgroundColor;
   final Widget? childWithButton;
+  final bool hasBackButton;
 
   ///Default is 20
   final double backButtonSize;
 
   const PostingAdAppBar({
+    required this.hasBackButton,
     required this.title,
     required this.onTapBack,
     this.backButtonSize = 20,
@@ -49,10 +51,13 @@ class PostingAdAppBar extends StatelessWidget implements PreferredSizeWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             WScaleAnimation(
-                onTap: onTapBack,
-                child: Row(children: [
+              onTap: hasBackButton ? onTapBack : () {},
+              child: Row(
+                children: [
                   const SizedBox(width: 24),
-                  SvgPicture.asset(AppIcons.chevronLeft),
+                  if (hasBackButton) ...{
+                    SvgPicture.asset(AppIcons.chevronLeft)
+                  },
                   const SizedBox(width: 8),
                   Text(
                     title,
@@ -61,7 +66,9 @@ class PostingAdAppBar extends StatelessWidget implements PreferredSizeWidget {
                         .headline2!
                         .copyWith(fontWeight: FontWeight.w600),
                   ),
-                ])),
+                ],
+              ),
+            ),
             const Spacer(),
             ...extraActions
           ],
