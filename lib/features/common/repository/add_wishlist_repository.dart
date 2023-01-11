@@ -5,7 +5,7 @@ import 'package:auto/features/common/data/datasources/add_wishlist_datasource.da
 
 abstract class AddWishlistRepository {
   Future<Either<Failure, void>> addWishlist(int id);
-  Future<Either<Failure, void>> removeWishlist(int id, String endpoint);
+  Future<Either<Failure, void>> removeWishlist(int id);
 }
 
 class AddWishlistRepositoryImpl extends AddWishlistRepository {
@@ -29,9 +29,9 @@ class AddWishlistRepositoryImpl extends AddWishlistRepository {
   }
 
   @override
-  Future<Either<Failure, void>> removeWishlist(int id, String endpoint) async {
+  Future<Either<Failure, void>> removeWishlist(int id) async {
     try {
-      final result = await dataSource.removeWishlist(id, endpoint);
+      final result = await dataSource.removeWishlist(id);
       return Right(result);
     } on DioException {
       return Left(DioFailure());

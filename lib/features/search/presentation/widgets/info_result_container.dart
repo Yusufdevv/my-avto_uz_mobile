@@ -364,14 +364,14 @@ class _InfoResultContainerState extends State<InfoResultContainer> {
                   AddWishlistItem(
                     onTap: () {
                       if (!isLiked) {
-                        context
-                            .read<WishlistAddBloc>()
-                            .add(WishlistAddEvent.addWishlist(widget.id, widget.index));
+                        context.read<WishlistAddBloc>().add(
+                            WishlistAddEvent.addWishlist(
+                                widget.id, widget.index));
                         isLiked = true;
                       } else {
                         context.read<WishlistAddBloc>().add(
-                            WishlistAddEvent.removeWishlist(widget.id,
-                                '/users/wishlist/announcement/remove/'));
+                            WishlistAddEvent.removeWishlist(
+                                widget.id, widget.index));
                         isLiked = false;
                       }
                       setState(() {});

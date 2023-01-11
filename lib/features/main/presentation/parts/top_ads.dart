@@ -36,6 +36,7 @@ class TopAds extends StatelessWidget {
                       stateWish.removeStatus.isSubmissionSuccess) {
                     context.read<TopAdBloc>().add(TopAdEvent.changeIsWish(
                         index: stateWish.index, id: stateWish.id));
+                    context.read<WishlistAddBloc>().add(WishlistAddEvent.clearState());
                   }
                 },
                 builder: (context, stateWish) => SizedBox(

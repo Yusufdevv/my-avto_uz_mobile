@@ -6,7 +6,7 @@ import 'package:dio/dio.dart';
 abstract class AddWishlistDatasource {
   Future<void> addWishlist(int id);
 
-  Future<void> removeWishlist(int id, String endpoint);
+  Future<void> removeWishlist(int id);
 }
 
 class AddWishlistDatasourceImpl extends AddWishlistDatasource {
@@ -42,9 +42,9 @@ class AddWishlistDatasourceImpl extends AddWishlistDatasource {
   }
 
   @override
-  Future<void> removeWishlist(int id,String endpoint) async {
+  Future<void> removeWishlist(int id) async {
     try {
-      final response = await _dio.post(endpoint,
+      final response = await _dio.post('/users/wishlist/announcement/remove/',
           data: {'announcement': id},
           options: Options(headers: {
             'Authorization': 'Bearer ${StorageRepository.getString('token')}'

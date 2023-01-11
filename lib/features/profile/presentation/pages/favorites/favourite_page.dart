@@ -10,7 +10,6 @@ import 'package:auto/features/profile/domain/usecases/get_notification_usecase.d
 import 'package:auto/features/profile/domain/usecases/profil_favorites_usecase.dart';
 import 'package:auto/features/profile/presentation/bloc/user_wishlists_notifications/user_wishlists_notification_bloc.dart';
 import 'package:auto/features/profile/presentation/widgets/empty_item_body.dart';
-import 'package:auto/features/search/presentation/widgets/info_result_container.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:auto/utils/my_functions.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -28,6 +27,7 @@ class FavouritePage extends StatefulWidget {
 
 class _FavouritePageState extends State<FavouritePage> {
   late UserWishListsBloc bloc;
+
   @override
   void initState() {
     final repo = serviceLocator<GetUserListRepoImpl>();
@@ -60,7 +60,7 @@ class _FavouritePageState extends State<FavouritePage> {
                 return const Center(child: CupertinoActivityIndicator());
               }
               if (state.favoritesStatus.isSubmissionSuccess) {
-                  favorites = state.favorites;
+                favorites = state.favorites;
                 return favorites.isNotEmpty
                     ? ListView.builder(
                         itemCount: favorites.length,
@@ -100,17 +100,19 @@ class _FavouritePageState extends State<FavouritePage> {
                               initialComparsions: item.isComparison,
                               onTapComparsion: () {},
                               onTapFavorites: () {
-                                  favorites.remove(item);
+                                favorites.remove(item);
                                 if (!isLiked) {
-                                    context.read<WishlistAddBloc>().add(WishlistAddEvent.addWishlist(item.id, index));
-                                    isLiked = true;
+                                  context.read<WishlistAddBloc>().add(
+                                      WishlistAddEvent.addWishlist(
+                                          item.id, index));
+                                  isLiked = true;
                                 } else {
                                   context.read<WishlistAddBloc>().add(
-                                      WishlistAddEvent.removeWishlist(item.id,
-                                          '/users/wishlist/announcement/remove/'));
+                                      WishlistAddEvent.removeWishlist(
+                                          item.id, index));
                                   isLiked = false;
                                 }
-                                  setState(() {});
+                                setState(() {});
                               },
                             ),
                             //                 InfoResultContainer(
@@ -134,7 +136,6 @@ class _FavouritePageState extends State<FavouritePage> {
                             //               callTo: item.contactAvailableTo,
                             //               discount: item.discount,
                             //             ),
-                           
                           );
                         })
                     : const Center(
