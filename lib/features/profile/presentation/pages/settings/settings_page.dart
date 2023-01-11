@@ -2,12 +2,15 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/assets/themes/theme_extensions/w_textfield_style.dart';
+import 'package:auto/core/singletons/dio_settings.dart';
+import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/core/utils/size_config.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/profile/presentation/bloc/profile/profile_bloc.dart';
 import 'package:auto/features/profile/presentation/pages/settings/password_changing_page.dart';
+import 'package:auto/features/profile/presentation/profile_screen.dart';
 import 'package:auto/features/profile/presentation/widgets/widgets.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -17,7 +20,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 class SettingsPage extends StatefulWidget {
   final ProfileBloc profileBloc;
 
-  SettingsPage({required this.profileBloc, Key? key}) : super(key: key);
+  const SettingsPage({required this.profileBloc, Key? key}) : super(key: key);
 
   @override
   State<SettingsPage> createState() => _SettingsPageState();
@@ -143,10 +146,16 @@ class _SettingsPageState extends State<SettingsPage> {
                             minWidth: MediaQuery.of(context).size.width),
                         builder: (context) => LanguageBottomSheet(
                               onTap: () {
+                                context.setLocale(Locale(
+                                    StorageRepository.getString('language')));
+                                serviceLocator<DioSettings>().setBaseOptions(
+                                    lang: StorageRepository.getString(
+                                        'language'));
                                 Navigator.pop(context);
-                                setState(() {});
                               },
-                            ));
+                            )).then((value) => Navigator.of(context)
+                        .pushAndRemoveUntil(fade(page: const ProfileScreen()),
+                            (route) => false));
                   },
                   child: Container(
                     padding: EdgeInsets.symmetric(
