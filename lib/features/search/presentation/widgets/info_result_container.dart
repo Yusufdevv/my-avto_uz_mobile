@@ -375,7 +375,6 @@ class _InfoResultContainerState extends State<InfoResultContainer> {
                       setState(() {});
                     },
                     initialLike: isLiked,
-                    id: widget.id,
                   ),
                 ],
               ),

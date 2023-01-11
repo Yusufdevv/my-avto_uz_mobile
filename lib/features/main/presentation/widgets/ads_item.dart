@@ -3,8 +3,8 @@ import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/car_single/presentation/car_single_screen.dart';
-import 'package:auto/features/common/widgets/w_like.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
+import 'package:auto/features/search/presentation/widgets/add_wishlist_item.dart';
 import 'package:auto/utils/my_functions.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +16,9 @@ class AdsItem extends StatelessWidget {
   final String price;
   final String location;
   final String description;
+  final String currency;
+  final bool isLiked;
+  final VoidCallback onTapLike;
 
   const AdsItem({
     required this.name,
@@ -23,6 +26,9 @@ class AdsItem extends StatelessWidget {
     required this.location,
     required this.description,
     required this.image,
+    required this.currency,
+    required this.isLiked,
+    required this.onTapLike,
     Key? key,
   }) : super(key: key);
 
@@ -53,27 +59,6 @@ class AdsItem extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // CachedNetworkImage(
-            //   imageUrl: adsEntity.imageUrl.first,
-            //   errorWidget: (context, url, error) => Image.asset(
-            //     AppImages.defaultPhoto,
-            //     fit: BoxFit.cover,
-            //   ),
-            //   imageBuilder: (context, imageProvider) => Container(
-            //     decoration: BoxDecoration(
-            //       image: DecorationImage(
-            //         image: imageProvider,
-            //         fit: BoxFit.cover,
-            //         colorFilter: const ColorFilter.mode(
-            //           Colors.red,
-            //           BlendMode.colorBurn,
-            //         ),
-            //       ),
-            //     ),
-            //   ),
-            //   placeholder: (context, url) => const CircularProgressIndicator(),
-            //   // errorWidget: (context, url, error) => const Icon(Icons.error),
-            // ),
             SizedBox(
               height: 126,
               width: 225,
@@ -82,14 +67,7 @@ class AdsItem extends StatelessWidget {
                     topRight: Radius.circular(12),
                     topLeft: Radius.circular(12),
                   ),
-                  child:
-                      // adsEntity.imageUrl.first != ''
-                      //     ? Image.network(
-                      //         adsEntity.imageUrl.first.toString(),
-                      //         fit: BoxFit.cover,
-                      //       )
-                      //     :
-                      CachedNetworkImage(
+                  child: CachedNetworkImage(
                     imageUrl: image,
                     fit: BoxFit.cover,
                     errorWidget: (context, url, error) => Image.asset(
@@ -98,27 +76,25 @@ class AdsItem extends StatelessWidget {
                     ),
                   )),
             ),
-            const SizedBox(
-              height: 12,
-            ),
+            const SizedBox(height: 12),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Text(
                 name,
                 style: Theme.of(context)
                     .textTheme
-                    .headline3!
-                    .copyWith(fontWeight: FontWeight.w600, fontSize: 12),
+                    .headline3
+                    ?.copyWith(fontWeight: FontWeight.w600, fontSize: 12),
               ),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Text(
-                MyFunctions.getFormatCost(price),
+                '${MyFunctions.getFormatCost(price)} $currency',
                 style: Theme.of(context)
                     .textTheme
-                    .headline1!
-                    .copyWith(fontSize: 16),
+                    .headline1
+                    ?.copyWith(fontSize: 16, fontWeight: FontWeight.w700),
               ),
             ),
             const SizedBox(height: 8),
@@ -130,8 +106,8 @@ class AdsItem extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
                 style: Theme.of(context).textTheme.bodyText1!.copyWith(
                     color: Theme.of(context)
-                        .extension<ThemedColors>()!
-                        .greySuitToWhite60),
+                        .extension<ThemedColors>()
+                        ?.greySuitToWhite60),
               ),
             ),
             const SizedBox(height: 10),
@@ -162,14 +138,9 @@ class AdsItem extends StatelessWidget {
                     ],
                   ),
                   const Spacer(),
-                  Row(
-                    children: [
-                      const WLike(
-                        color: grey,
-                      ),
-                      const SizedBox(width: 12),
-                      SvgPicture.asset(AppIcons.scale),
-                    ],
+                  AddWishlistItem(
+                    onTap: onTapLike,
+                    initialLike: isLiked,
                   ),
                 ],
               ),

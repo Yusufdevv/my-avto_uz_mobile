@@ -6,19 +6,19 @@ import 'package:flutter_svg/svg.dart';
 
 class AddWishlistItem extends StatefulWidget {
   final bool initialLike;
-  final int id;
   final Function() onTap;
 
-  const AddWishlistItem({required this.id, required this.onTap,required  this.initialLike, Key? key})
-      : super(key: key);
+  const AddWishlistItem({
+    required this.onTap,
+    required this.initialLike,
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<AddWishlistItem> createState() => _AddWishlistItemState();
 }
 
 class _AddWishlistItemState extends State<AddWishlistItem> {
-  
-
   @override
   Widget build(BuildContext context) => SizedBox(
         height: 28,

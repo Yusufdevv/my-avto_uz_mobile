@@ -21,7 +21,7 @@ class TopAdBloc extends Bloc<TopAdEvent, TopAdState> {
         emit(state.copyWith(
             next: state.next,
             count: state.count,
-            status: FormzStatus.submissionInProgress,
+            status: FormzStatus.submissionSuccess,
             topAds: result.right.results));
       } else {
         emit(state.copyWith(status: FormzStatus.submissionFailure));

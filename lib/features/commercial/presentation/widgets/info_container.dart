@@ -311,7 +311,6 @@ class InfoContainer extends StatelessWidget {
                   const SizedBox(width: 8),
                   AddWishlistItem(
                     onTap: onTapFavorites,
-                    id: id!,
                     initialLike: initialLike!,
                   ),
                 ],

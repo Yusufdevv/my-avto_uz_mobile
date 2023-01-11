@@ -207,10 +207,13 @@ class _MainScreenState extends State<MainScreen> {
                     ),
                     BlocBuilder<TopAdBloc, TopAdState>(
                       builder: (context, state) => Visibility(
-                        visible: true,
+                        visible: state.status.isSubmissionInProgress ||
+                            state.status.isSubmissionSuccess &&
+                                state.topAds.isNotEmpty,
                         child: TopAds(
-                          status: FormzStatus.pure,
+                          status: state.status,
                           topAds: state.topAds,
+                          onTapLike: (index) {},
                         ),
                       ),
                     ),
