@@ -11,7 +11,10 @@ AdModel _$AdModelFromJson(Map<String, dynamic> json) => AdModel(
       make: json['make'] as String? ?? '',
       model: json['model'] as String? ?? '',
       generation: json['generation'] as String? ?? '',
-      gallery: json['gallery'] as List<dynamic>? ?? const [],
+      gallery: (json['gallery'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList() ??
+          const [],
       region: json['region'] as String? ?? '',
       description: json['description'] as String? ?? '',
       year: json['year'] as int? ?? 0,

@@ -406,6 +406,12 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                                                       .elasticSearchEntity[
                                                           index]
                                                       .gallery[0],
+                                                  currency: state
+                                                      .elasticSearchEntity[
+                                                          index]
+                                                      .currency,
+                                                  isLiked: false,
+                                                  onTapLike: () {},
                                                 ),
                                                 itemCount: state
                                                     .elasticSearchEntity.length,
@@ -443,8 +449,7 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                                         state.singleEntity.contactAvailableTo)
                                 ? WButton(
                                     onTap: () {
-                                      launch(
-                                          'tel://${state.singleEntity.user.phoneNumber}');
+                                      launchUrl(Uri.parse('tel://${state.singleEntity.user.phoneNumber}'));
                                     },
                                     height: 44,
                                     borderRadius: 8,

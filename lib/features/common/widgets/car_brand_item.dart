@@ -15,25 +15,28 @@ class CarBrandItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Container(
         height: 100,
-        width: 80,
+        width: 72,
         padding: const EdgeInsets.symmetric(horizontal: 8),
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12),
-            color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
-            border: Border.all(
-                width: 1,
-                color: Theme.of(context)
-                    .extension<ThemedColors>()!
-                    .solitudeToDarkRider),
-            boxShadow: [
-              if (hasShadow)
-                BoxShadow(
-                    offset: const Offset(0, 8),
-                    blurRadius: 19,
-                    color: dark.withOpacity(0.07))
-              else
-                const BoxShadow()
-            ]),
+          borderRadius: BorderRadius.circular(12),
+          color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
+          border: Border.all(
+            width: 1,
+            color: Theme.of(context)
+                .extension<ThemedColors>()!
+                .solitudeToDarkRider,
+          ),
+          boxShadow: [
+            if (hasShadow)
+              BoxShadow(
+                offset: const Offset(0, 8),
+                blurRadius: 19,
+                color: dark.withOpacity(0.07),
+              )
+            else
+              const BoxShadow()
+          ],
+        ),
         child: Column(
           children: [
             const SizedBox(height: 16),
@@ -56,7 +59,7 @@ class CarBrandItem extends StatelessWidget {
                 style: Theme.of(context)
                     .textTheme
                     .headline1!
-                    .copyWith(fontSize: 12, fontWeight: FontWeight.w400),
+                    .copyWith(fontSize: 12, fontWeight: FontWeight.w600),
               ),
             )
           ],

@@ -5,7 +5,7 @@ class AdsEntity {
   final String make;
   final String model;
   final String generation;
-  final List<dynamic> gallery;
+  final List<String> gallery;
   final String region;
   final String description;
   final int year;

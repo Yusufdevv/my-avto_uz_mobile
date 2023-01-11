@@ -168,7 +168,7 @@ class Seller extends StatelessWidget {
                   child: Row(
                     children: List.generate(
                       marks.length,
-                          (index) => const AdsItem(name: '', price: '', location: '', description: '', image: '',),
+                          (index) => AdsItem(name: '', price: '', location: '', description: '', image: '', currency: '', isLiked: false, onTapLike: () {},),
                     ),
                   ),
                 ),
