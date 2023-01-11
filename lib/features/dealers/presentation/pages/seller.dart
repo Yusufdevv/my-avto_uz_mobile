@@ -52,8 +52,9 @@ class Seller extends StatelessWidget {
             SliverPersistentHeader(
               pinned: true,
               delegate: SellerSliverDelegate(
-                  minHeight: MediaQuery.of(context).size.height * 0.11,
-                  showroomOrPerson: 'Avtasalon'),
+                minHeight: MediaQuery.of(context).size.height * 0.11,
+                showroomOrPerson: 'Avtasalon',
+              ),
             ),
           ],
           body: SingleChildScrollView(
@@ -168,7 +169,17 @@ class Seller extends StatelessWidget {
                   child: Row(
                     children: List.generate(
                       marks.length,
-                          (index) => AdsItem(name: '', price: '', location: '', description: '', image: '', currency: '', isLiked: false, onTapLike: () {}, id: -1,),
+                      (index) => AdsItem(
+                        name: '',
+                        price: '',
+                        location: '',
+                        description: '',
+                        image: '',
+                        currency: '',
+                        isLiked: false,
+                        onTapLike: () {},
+                        id: -1,
+                      ),
                     ),
                   ),
                 ),

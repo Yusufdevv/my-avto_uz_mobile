@@ -15,13 +15,17 @@ class AddedCar extends StatelessWidget {
   final List<String> imageUrl;
   final String carName;
   final String carSalary;
+  final bool hasCallCard;
+  final String ownerType;
   const AddedCar(
       {Key? key,
+      required this.hasCallCard,
       required this.onTabClose,
       required this.onTabCall,
       required this.imageUrl,
       required this.carName,
-      required this.carSalary})
+      required this.carSalary,
+      required this.ownerType})
       : super(key: key);
 
   @override
@@ -123,21 +127,31 @@ class AddedCar extends StatelessWidget {
               right: 0,
               left: 0,
               child: WScaleAnimation(
-                onTap: onTabCall,
+                onTap: hasCallCard ? onTabCall : () {},
                 child: Container(
                   margin: const EdgeInsets.symmetric(horizontal: 12),
                   padding:
                       const EdgeInsets.symmetric(horizontal: 23, vertical: 8),
                   decoration: BoxDecoration(
-                    color: green,
+                    color: ownerType == 'first'
+                        ? hasCallCard
+                            ? green
+                            : red
+                        : red,
                     borderRadius: BorderRadius.circular(150),
                   ),
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      SvgPicture.asset(AppIcons.tablerPhone, color: white),
+                      SvgPicture.asset(
+                          ownerType == 'first'
+                              ? AppIcons.tablerInfo
+                              : AppIcons.tablerPhone,
+                          color: white),
                       const SizedBox(width: 4),
                       Text(
-                        LocaleKeys.call.tr(),
+                        ownerType == 'first' ? 'Купить' : LocaleKeys.call.tr(),
                         style: const TextStyle(
                           fontWeight: FontWeight.w600,
                           fontSize: 14,
