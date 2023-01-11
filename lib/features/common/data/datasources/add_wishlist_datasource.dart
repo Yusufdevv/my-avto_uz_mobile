@@ -22,11 +22,10 @@ class AddWishlistDatasourceImpl extends AddWishlistDatasource {
           options: Options(headers: {
             'Authorization': 'Bearer ${StorageRepository.getString('token')}'
           }));
-      print(' ${response.realUri}');
       if (response.statusCode != null &&
           response.statusCode! >= 200 &&
           response.statusCode! < 300) {
-        print('nice ${response.realUri}');
+
       } else {
         throw ServerException(
           statusCode: response.statusCode!,

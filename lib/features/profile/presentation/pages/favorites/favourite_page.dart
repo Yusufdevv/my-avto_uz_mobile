@@ -60,7 +60,7 @@ class _FavouritePageState extends State<FavouritePage> {
                 return const Center(child: CupertinoActivityIndicator());
               }
               if (state.favoritesStatus.isSubmissionSuccess) {
-                favorites = state.favorites;
+                  favorites = state.favorites;
                 return favorites.isNotEmpty
                     ? ListView.builder(
                         itemCount: favorites.length,
@@ -100,18 +100,17 @@ class _FavouritePageState extends State<FavouritePage> {
                               initialComparsions: item.isComparison,
                               onTapComparsion: () {},
                               onTapFavorites: () {
-                                favorites.remove(item);
+                                  favorites.remove(item);
                                 if (!isLiked) {
-                                  context.read<WishlistAddBloc>().add(
-                                      WishlistAddEvent.addWishlist(item.id));
-                                  isLiked = true;
+                                    context.read<WishlistAddBloc>().add(WishlistAddEvent.addWishlist(item.id, index));
+                                    isLiked = true;
                                 } else {
                                   context.read<WishlistAddBloc>().add(
                                       WishlistAddEvent.removeWishlist(item.id,
                                           '/users/wishlist/announcement/remove/'));
                                   isLiked = false;
                                 }
-                                setState(() {});
+                                  setState(() {});
                               },
                             ),
                             //                 InfoResultContainer(
@@ -135,6 +134,7 @@ class _FavouritePageState extends State<FavouritePage> {
                             //               callTo: item.contactAvailableTo,
                             //               discount: item.discount,
                             //             ),
+                           
                           );
                         })
                     : const Center(

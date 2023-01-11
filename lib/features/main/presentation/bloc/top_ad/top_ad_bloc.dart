@@ -37,5 +37,12 @@ class TopAdBloc extends Bloc<TopAdEvent, TopAdState> {
         ));
       } else {}
     });
+    on<_ChangeIsWish>(_onChangeIsWish);
+  }
+
+  void _onChangeIsWish(_ChangeIsWish event, Emitter<TopAdState> emit) {
+    final list = <AdModel>[...state.topAds];
+    list[event.index].isWishlisted = !list[event.index].isWishlisted;
+    emit(state.copyWith(topAds: list));
   }
 }

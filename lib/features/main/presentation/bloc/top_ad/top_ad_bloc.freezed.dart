@@ -20,18 +20,21 @@ mixin _$TopAdEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() getTopAds,
     required TResult Function() getMoreTopAds,
+    required TResult Function(int index, int id) changeIsWish,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getTopAds,
     TResult? Function()? getMoreTopAds,
+    TResult? Function(int index, int id)? changeIsWish,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getTopAds,
     TResult Function()? getMoreTopAds,
+    TResult Function(int index, int id)? changeIsWish,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -39,18 +42,21 @@ mixin _$TopAdEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(_GetTopAds value) getTopAds,
     required TResult Function(_GetMoreTopAds value) getMoreTopAds,
+    required TResult Function(_ChangeIsWish value) changeIsWish,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetTopAds value)? getTopAds,
     TResult? Function(_GetMoreTopAds value)? getMoreTopAds,
+    TResult? Function(_ChangeIsWish value)? changeIsWish,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetTopAds value)? getTopAds,
     TResult Function(_GetMoreTopAds value)? getMoreTopAds,
+    TResult Function(_ChangeIsWish value)? changeIsWish,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -114,6 +120,7 @@ class _$_GetTopAds implements _GetTopAds {
   TResult when<TResult extends Object?>({
     required TResult Function() getTopAds,
     required TResult Function() getMoreTopAds,
+    required TResult Function(int index, int id) changeIsWish,
   }) {
     return getTopAds();
   }
@@ -123,6 +130,7 @@ class _$_GetTopAds implements _GetTopAds {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getTopAds,
     TResult? Function()? getMoreTopAds,
+    TResult? Function(int index, int id)? changeIsWish,
   }) {
     return getTopAds?.call();
   }
@@ -132,6 +140,7 @@ class _$_GetTopAds implements _GetTopAds {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getTopAds,
     TResult Function()? getMoreTopAds,
+    TResult Function(int index, int id)? changeIsWish,
     required TResult orElse(),
   }) {
     if (getTopAds != null) {
@@ -145,6 +154,7 @@ class _$_GetTopAds implements _GetTopAds {
   TResult map<TResult extends Object?>({
     required TResult Function(_GetTopAds value) getTopAds,
     required TResult Function(_GetMoreTopAds value) getMoreTopAds,
+    required TResult Function(_ChangeIsWish value) changeIsWish,
   }) {
     return getTopAds(this);
   }
@@ -154,6 +164,7 @@ class _$_GetTopAds implements _GetTopAds {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetTopAds value)? getTopAds,
     TResult? Function(_GetMoreTopAds value)? getMoreTopAds,
+    TResult? Function(_ChangeIsWish value)? changeIsWish,
   }) {
     return getTopAds?.call(this);
   }
@@ -163,6 +174,7 @@ class _$_GetTopAds implements _GetTopAds {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetTopAds value)? getTopAds,
     TResult Function(_GetMoreTopAds value)? getMoreTopAds,
+    TResult Function(_ChangeIsWish value)? changeIsWish,
     required TResult orElse(),
   }) {
     if (getTopAds != null) {
@@ -216,6 +228,7 @@ class _$_GetMoreTopAds implements _GetMoreTopAds {
   TResult when<TResult extends Object?>({
     required TResult Function() getTopAds,
     required TResult Function() getMoreTopAds,
+    required TResult Function(int index, int id) changeIsWish,
   }) {
     return getMoreTopAds();
   }
@@ -225,6 +238,7 @@ class _$_GetMoreTopAds implements _GetMoreTopAds {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getTopAds,
     TResult? Function()? getMoreTopAds,
+    TResult? Function(int index, int id)? changeIsWish,
   }) {
     return getMoreTopAds?.call();
   }
@@ -234,6 +248,7 @@ class _$_GetMoreTopAds implements _GetMoreTopAds {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getTopAds,
     TResult Function()? getMoreTopAds,
+    TResult Function(int index, int id)? changeIsWish,
     required TResult orElse(),
   }) {
     if (getMoreTopAds != null) {
@@ -247,6 +262,7 @@ class _$_GetMoreTopAds implements _GetMoreTopAds {
   TResult map<TResult extends Object?>({
     required TResult Function(_GetTopAds value) getTopAds,
     required TResult Function(_GetMoreTopAds value) getMoreTopAds,
+    required TResult Function(_ChangeIsWish value) changeIsWish,
   }) {
     return getMoreTopAds(this);
   }
@@ -256,6 +272,7 @@ class _$_GetMoreTopAds implements _GetMoreTopAds {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetTopAds value)? getTopAds,
     TResult? Function(_GetMoreTopAds value)? getMoreTopAds,
+    TResult? Function(_ChangeIsWish value)? changeIsWish,
   }) {
     return getMoreTopAds?.call(this);
   }
@@ -265,6 +282,7 @@ class _$_GetMoreTopAds implements _GetMoreTopAds {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetTopAds value)? getTopAds,
     TResult Function(_GetMoreTopAds value)? getMoreTopAds,
+    TResult Function(_ChangeIsWish value)? changeIsWish,
     required TResult orElse(),
   }) {
     if (getMoreTopAds != null) {
@@ -276,6 +294,155 @@ class _$_GetMoreTopAds implements _GetMoreTopAds {
 
 abstract class _GetMoreTopAds implements TopAdEvent {
   factory _GetMoreTopAds() = _$_GetMoreTopAds;
+}
+
+/// @nodoc
+abstract class _$$_ChangeIsWishCopyWith<$Res> {
+  factory _$$_ChangeIsWishCopyWith(
+          _$_ChangeIsWish value, $Res Function(_$_ChangeIsWish) then) =
+      __$$_ChangeIsWishCopyWithImpl<$Res>;
+  @useResult
+  $Res call({int index, int id});
+}
+
+/// @nodoc
+class __$$_ChangeIsWishCopyWithImpl<$Res>
+    extends _$TopAdEventCopyWithImpl<$Res, _$_ChangeIsWish>
+    implements _$$_ChangeIsWishCopyWith<$Res> {
+  __$$_ChangeIsWishCopyWithImpl(
+      _$_ChangeIsWish _value, $Res Function(_$_ChangeIsWish) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? index = null,
+    Object? id = null,
+  }) {
+    return _then(_$_ChangeIsWish(
+      index: null == index
+          ? _value.index
+          : index // ignore: cast_nullable_to_non_nullable
+              as int,
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_ChangeIsWish implements _ChangeIsWish {
+  _$_ChangeIsWish({required this.index, required this.id});
+
+  @override
+  final int index;
+  @override
+  final int id;
+
+  @override
+  String toString() {
+    return 'TopAdEvent.changeIsWish(index: $index, id: $id)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_ChangeIsWish &&
+            (identical(other.index, index) || other.index == index) &&
+            (identical(other.id, id) || other.id == id));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, index, id);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_ChangeIsWishCopyWith<_$_ChangeIsWish> get copyWith =>
+      __$$_ChangeIsWishCopyWithImpl<_$_ChangeIsWish>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() getTopAds,
+    required TResult Function() getMoreTopAds,
+    required TResult Function(int index, int id) changeIsWish,
+  }) {
+    return changeIsWish(index, id);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? getTopAds,
+    TResult? Function()? getMoreTopAds,
+    TResult? Function(int index, int id)? changeIsWish,
+  }) {
+    return changeIsWish?.call(index, id);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? getTopAds,
+    TResult Function()? getMoreTopAds,
+    TResult Function(int index, int id)? changeIsWish,
+    required TResult orElse(),
+  }) {
+    if (changeIsWish != null) {
+      return changeIsWish(index, id);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_GetTopAds value) getTopAds,
+    required TResult Function(_GetMoreTopAds value) getMoreTopAds,
+    required TResult Function(_ChangeIsWish value) changeIsWish,
+  }) {
+    return changeIsWish(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetTopAds value)? getTopAds,
+    TResult? Function(_GetMoreTopAds value)? getMoreTopAds,
+    TResult? Function(_ChangeIsWish value)? changeIsWish,
+  }) {
+    return changeIsWish?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetTopAds value)? getTopAds,
+    TResult Function(_GetMoreTopAds value)? getMoreTopAds,
+    TResult Function(_ChangeIsWish value)? changeIsWish,
+    required TResult orElse(),
+  }) {
+    if (changeIsWish != null) {
+      return changeIsWish(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _ChangeIsWish implements TopAdEvent {
+  factory _ChangeIsWish({required final int index, required final int id}) =
+      _$_ChangeIsWish;
+
+  int get index;
+  int get id;
+  @JsonKey(ignore: true)
+  _$$_ChangeIsWishCopyWith<_$_ChangeIsWish> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc

@@ -1,6 +1,5 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
-import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/ad/presentation/pages/ads/ads_screen.dart';
 import 'package:auto/features/commercial/presentation/commercial_screen.dart';
 import 'package:auto/features/common/bloc/announcement_bloc/bloc/announcement_list_bloc.dart';
@@ -194,29 +193,8 @@ class _MainScreenState extends State<MainScreen> {
                         scrollDirection: Axis.horizontal,
                       ),
                     ),
-                    BlocBuilder<TopBrandBloc, TopBrandState>(
-                      builder: (context, state) => Visibility(
-                        visible: state.status.isSubmissionInProgress ||
-                            state.status.isSubmissionSuccess &&
-                                state.brands.isNotEmpty,
-                        child: TopBrands(
-                          status: state.status,
-                          brands: state.brands,
-                        ),
-                      ),
-                    ),
-                    BlocBuilder<TopAdBloc, TopAdState>(
-                      builder: (context, state) => Visibility(
-                        visible: state.status.isSubmissionInProgress ||
-                            state.status.isSubmissionSuccess &&
-                                state.topAds.isNotEmpty,
-                        child: TopAds(
-                          status: state.status,
-                          topAds: state.topAds,
-                          onTapLike: (index) {},
-                        ),
-                      ),
-                    ),
+                    const TopBrands(),
+                    const TopAds(),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16),
                       child: Text(

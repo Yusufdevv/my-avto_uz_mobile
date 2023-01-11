@@ -98,6 +98,7 @@ class SortResultsCard extends StatelessWidget {
       userType: newList[index].userType,
       hasComparison: newList[index].isComparison,
       id: newList[index].id,
+      index: index,
     );
   }
 }
