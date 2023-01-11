@@ -10,6 +10,8 @@ import 'package:auto/features/common/bloc/get_makes_bloc/get_makes_bloc_bloc.dar
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/search/presentation/search_screen.dart';
 import 'package:auto/features/search/presentation/widgets/sort_bottom_sheet.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -80,21 +82,18 @@ class _AdsScreenState extends State<AdsScreen>
                 physics: const BouncingScrollPhysics(),
                 slivers: [
                   SliverAppBar(
-                    titleSpacing: 1,
+                    titleSpacing: 0,
                     pinned: true,
                     automaticallyImplyLeading: false,
-                    leading: Expanded(
-                      flex: 1,
-                      child: WScaleAnimation(
-                        onTap: widget.onBack,
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 24, right: 16),
-                          child: Align(
-                            alignment: Alignment.center,
-                            child: Transform.scale(
-                              scale: 1.5,
-                              child: SvgPicture.asset(AppIcons.chevronLeft),
-                            ),
+                    leading: WScaleAnimation(
+                      onTap: widget.onBack,
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 24, right: 16),
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: Transform.scale(
+                            scale: 1.5,
+                            child: SvgPicture.asset(AppIcons.chevronLeft),
                           ),
                         ),
                       ),
@@ -109,43 +108,49 @@ class _AdsScreenState extends State<AdsScreen>
                             color: dark,
                             fontWeight: FontWeight.w600),
                       ),
-                      secondChild: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          if (context
-                              .read<GetMakesBloc>()
-                              .state
-                              .name
-                              .isNotEmpty)
-                            Text(
-                              context.read<GetMakesBloc>().state.name,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline1!
-                                  .copyWith(fontSize: 16),
-                            )
-                          else
-                            Text(
-                              'Выберите марку и модель',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline1!
-                                  .copyWith(fontSize: 16),
-                            ),
-                          if (context
-                              .read<GetCarModelBloc>()
-                              .state
-                              .name
-                              .isNotEmpty)
-                            Text(
-                              context.read<GetCarModelBloc>().state.name,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline2!
-                                  .copyWith(fontSize: 12),
-                            ),
-                        ],
+                      secondChild: SizedBox(
+                        height: 60,
+                        width: double.infinity,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            if (context
+                                .read<GetMakesBloc>()
+                                .state
+                                .name
+                                .isNotEmpty)
+                              Text(
+                                '${context.read<GetMakesBloc>().state.name}  ${context.read<GetCarModelBloc>().state.name}',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline1!
+                                    .copyWith(fontSize: 16),
+                              )
+                            else
+                              Text(
+                                'Выберите марку и модель',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline1!
+                                    .copyWith(fontSize: 16),
+                              ),
+                            if (context
+                                .read<GetMakesBloc>()
+                                .state
+                                .name
+                                .isNotEmpty)
+                              Text(
+                                '${context.read<AnnouncementListBloc>().state.count} ${LocaleKeys.offers.tr()}',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline2!
+                                    .copyWith(
+                                      color: grey,
+                                    ),
+                              )
+                          ],
+                        ),
                       ),
                     ),
                     actions: [
@@ -155,13 +160,11 @@ class _AdsScreenState extends State<AdsScreen>
                           onTap: () {
                             filterBottomSheet(context);
                           },
-                          child: Expanded(
-                            child: Align(
-                              alignment: Alignment.center,
-                              child: SvgPicture.asset(
-                                AppIcons.arrowsSort,
-                                color: orange,
-                              ),
+                          child: Align(
+                            alignment: Alignment.center,
+                            child: SvgPicture.asset(
+                              AppIcons.arrowsSort,
+                              color: orange,
                             ),
                           ),
                         ),
