@@ -15,14 +15,14 @@ class WishlistAddBloc extends Bloc<WishlistAddEvent, WishlistAddState> {
 
   WishlistAddBloc({required this.useCase, required this.removeWishlistUseCase}) : super(WishlistAddState()) {
     on<_AddWishlist>((event, emit) async {
-      emit(state.copyWith(addStatus: FormzStatus.submissionInProgress));
+      emit(state.copyWith(addStatus: FormzStatus.submissionInProgress, id: event.id, index: event.index));
       final result = await useCase.call(event.id);
       if (result.isRight) {
         emit(
-          state.copyWith(addStatus: FormzStatus.submissionSuccess),
+          state.copyWith(addStatus: FormzStatus.submissionSuccess, id: event.id, index: event.index),
         );
       } else {
-        emit(state.copyWith(addStatus: FormzStatus.submissionFailure));
+        emit(state.copyWith(addStatus: FormzStatus.submissionFailure, id: event.id, index: event.index));
       }
     });
 
@@ -31,11 +31,21 @@ class WishlistAddBloc extends Bloc<WishlistAddEvent, WishlistAddState> {
       final result = await removeWishlistUseCase.call(event.id);
       if (result.isRight) {
         emit(
-          state.copyWith(removeStatus: FormzStatus.submissionSuccess),
+          state.copyWith(removeStatus: FormzStatus.submissionSuccess, id: event.id, index: event.index),
         );
       } else {
-        emit(state.copyWith(removeStatus: FormzStatus.submissionFailure));
+        emit(state.copyWith(removeStatus: FormzStatus.submissionFailure, id: event.id, index: event.index));
       }
     });
+    on<_ClearState>(_onClear);
+  }
+
+  void _onClear(_ClearState event, Emitter<WishlistAddState> emit) {
+    emit(state.copyWith(
+      addStatus: FormzStatus.pure,
+      removeStatus: FormzStatus.pure,
+      id: -1,
+      index: -1,
+    ));
   }
 }

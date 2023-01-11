@@ -10,7 +10,6 @@ import 'package:auto/features/profile/domain/usecases/get_notification_usecase.d
 import 'package:auto/features/profile/domain/usecases/profil_favorites_usecase.dart';
 import 'package:auto/features/profile/presentation/bloc/user_wishlists_notifications/user_wishlists_notification_bloc.dart';
 import 'package:auto/features/profile/presentation/widgets/empty_item_body.dart';
-import 'package:auto/features/search/presentation/widgets/info_result_container.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:auto/utils/my_functions.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -102,10 +101,10 @@ class _FavouritePageState extends State<FavouritePage> {
                               onTapFavorites: () {
                                   favorites.remove(item);
                                 if (!isLiked) {
-                                    context.read<WishlistAddBloc>().add(WishlistAddEvent.addWishlist(item.id));
+                                    context.read<WishlistAddBloc>().add(WishlistAddEvent.addWishlist(item.id, index));
                                     isLiked = true;
                                 } else {
-                                context.read<WishlistAddBloc>().add(WishlistAddEvent.removeWishlist(item.id));
+                                context.read<WishlistAddBloc>().add(WishlistAddEvent.removeWishlist(item.id, index));
                                   isLiked = false;
                                 }
                                   setState(() {});

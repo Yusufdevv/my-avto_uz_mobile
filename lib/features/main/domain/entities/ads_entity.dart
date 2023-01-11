@@ -1,6 +1,7 @@
 import 'package:auto/features/car_single/domain/entities/car_user_entity.dart';
+import 'package:equatable/equatable.dart';
 
-class AdsEntity {
+class AdsEntity extends Equatable {
   final int id;
   final String make;
   final String model;
@@ -25,7 +26,7 @@ class AdsEntity {
   final String publishedAt;
   final String createdAt;
   final String expiredAt;
-  final bool isWishlisted;
+  bool isWishlisted;
 
   AdsEntity({
     this.id = -1,
@@ -53,4 +54,32 @@ class AdsEntity {
     this.expiredAt = '',
     this.isWishlisted = false,
   });
+
+  @override
+  List<Object?> get props => [
+        id,
+        make,
+        model,
+        generation,
+        gallery,
+        region,
+        description,
+        year,
+        viewCount,
+        longitude,
+        latitude,
+        user,
+        price,
+        isComparison,
+        discount,
+        contactAvailableFrom,
+        contactAvailableTo,
+        isNew,
+        userType,
+        currency,
+        publishedAt,
+        createdAt,
+        expiredAt,
+        isWishlisted,
+      ];
 }

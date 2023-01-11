@@ -9,12 +9,15 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 class CommercialBodyScreen extends StatelessWidget {
   final ScrollController scrollController;
+
   CommercialBodyScreen({required this.scrollController, super.key});
+
   final List<bool> hasDiscount = [true, false];
   final List<String> owner = ['Анвар Гулямов', 'ORIENT MOTORS'];
   final List<String> ownerType = ['Частное лицо', 'Автосалон'];
   final List<String> publishTime = ['Сегодня', '27 февраля'];
   final List<String> sellType = ['Продажа Автомобиля', 'Аренда c выкупом'];
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -137,6 +140,7 @@ class CommercialBodyScreen extends StatelessWidget {
               onTapFavorites: () {},
               onTapComparsion: () {},
               initialComparsions: false,
+              id: -1,
             ),
           ),
         )

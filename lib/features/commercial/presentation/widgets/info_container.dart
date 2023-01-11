@@ -15,6 +15,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 class InfoContainer extends StatelessWidget {
   const InfoContainer({
+    required this.id,
     this.year,
     this.avatarPicture,
     this.hasDiscount = true,
@@ -35,7 +36,6 @@ class InfoContainer extends StatelessWidget {
     this.currency,
     this.gallery,
     this.initialLike,
-    this.id,
     this.phone,
     required this.initialComparsions,
   });
@@ -61,7 +61,7 @@ class InfoContainer extends StatelessWidget {
   final VoidCallback onTapFavorites;
   final bool? initialLike;
   final bool initialComparsions;
-  final int? id;
+  final int id;
 
   @override
   Widget build(BuildContext context) => Container(
@@ -304,7 +304,7 @@ class InfoContainer extends StatelessWidget {
                   ),
                   const Spacer(),
                   AddComparisonItem(
-                    id: id!,
+                    id: id,
                     initialLike: initialComparsions,
                     bloc: BlocProvider.of<ComparisonAddBloc>(context),
                   ),

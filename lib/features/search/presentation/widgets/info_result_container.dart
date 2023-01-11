@@ -37,6 +37,7 @@ class InfoResultContainer extends StatefulWidget {
       required this.callTo,
       required this.discount,
       required this.id,
+      required this.index,
       this.onTap,
       this.sellType,
       super.key});
@@ -62,6 +63,7 @@ class InfoResultContainer extends StatefulWidget {
   final String callTo;
   final String? sellType;
   final Function()? onTap;
+  final int index;
 
   @override
   State<InfoResultContainer> createState() => _InfoResultContainerState();
@@ -364,12 +366,12 @@ class _InfoResultContainerState extends State<InfoResultContainer> {
                       if (!isLiked) {
                         context
                             .read<WishlistAddBloc>()
-                            .add(WishlistAddEvent.addWishlist(widget.id));
+                            .add(WishlistAddEvent.addWishlist(widget.id, widget.index));
                         isLiked = true;
                       } else {
                         context
                             .read<WishlistAddBloc>()
-                            .add(WishlistAddEvent.removeWishlist(widget.id));
+                            .add(WishlistAddEvent.removeWishlist(widget.id, widget.index));
                         isLiked = false;
                       }
                       setState(() {});

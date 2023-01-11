@@ -386,6 +386,10 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                                                 paginatorStatus: state.status,
                                                 itemBuilder: (context, index) =>
                                                     AdsItem(
+                                                  id: state
+                                                      .elasticSearchEntity[
+                                                          index]
+                                                      .id,
                                                   name: state
                                                       .elasticSearchEntity[
                                                           index]
@@ -449,7 +453,8 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                                         state.singleEntity.contactAvailableTo)
                                 ? WButton(
                                     onTap: () {
-                                      launchUrl(Uri.parse('tel://${state.singleEntity.user.phoneNumber}'));
+                                      launchUrl(Uri.parse(
+                                          'tel://${state.singleEntity.user.phoneNumber}'));
                                     },
                                     height: 44,
                                     borderRadius: 8,

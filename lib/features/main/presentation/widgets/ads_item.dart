@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class AdsItem extends StatelessWidget {
+  final int id;
   final String name;
   final String image;
   final String price;
@@ -21,6 +22,7 @@ class AdsItem extends StatelessWidget {
   final VoidCallback onTapLike;
 
   const AdsItem({
+    required this.id,
     required this.name,
     required this.price,
     required this.location,
@@ -38,7 +40,8 @@ class AdsItem extends StatelessWidget {
     // print('object ${adsEntity.imageUrl}');
     return GestureDetector(
       onTap: () {
-        Navigator.push(context, fade(page: const CarSingleScreen()));
+        Navigator.of(context, rootNavigator: true)
+            .push(fade(page: const CarSingleScreen()));
       },
       child: Container(
         height: 269,
