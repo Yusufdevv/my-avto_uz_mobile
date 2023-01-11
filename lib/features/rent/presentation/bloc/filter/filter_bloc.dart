@@ -35,12 +35,13 @@ class FilterBloc extends Bloc<FilterEvent, FilterState> {
           carDriveType: carDriveType,
           gearboxType: gearboxType,
           maker: maker,
-          regions: regions,
+          regions: regions ?? <Region>[],
           idVal: idVal,
           yearValues: yearValues ?? RangeValues(1960, DateTime.now().year + 0),
           priceValues: priceValues ?? const RangeValues(1000, 500000),
         )) {
     on<FilterClearEvent>((event, emit) => emit(FilterState(
+          regions: const <Region>[],
           yearValues: RangeValues(1960, DateTime.now().year + 0),
           priceValues: const RangeValues(1000, 500000),
         )));

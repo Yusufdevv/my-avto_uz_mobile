@@ -44,16 +44,20 @@ class _ChooseMakerState extends State<ChooseMaker> {
             borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
           ),
           child: BlocBuilder<GetMakesBloc, GetMakesState>(
-            builder: (context, state) {
-              if (state.status == FormzStatus.submissionSuccess ||
-                  state.status == FormzStatus.submissionFailure) {
+            builder: (context, getMakesState) {
+              print(
+                  '=>=>=>=> get makes selected id: ${getMakesState.selectId} <=<=<=<=');
+              if (getMakesState.status == FormzStatus.submissionSuccess ||
+                  getMakesState.status == FormzStatus.submissionFailure) {
                 return Column(
                   children: [
                     SheetHeader(
                         title: 'Марка',
                         onCancelPressed: () {
-                          Navigator.of(context).pop(state.selectId >= 0
-                              ? state.makes.results[state.selectId]
+                          Navigator.of(context).pop(getMakesState.selectId >= 0
+                              ? getMakesState.makes.results.firstWhere(
+                                  (element) =>
+                                      getMakesState.selectId == element.id)
                               : null);
                         }),
                     const Divider(thickness: 1, color: border, height: 1),
@@ -63,35 +67,40 @@ class _ChooseMakerState extends State<ChooseMaker> {
                         child: Column(
                           children: [
                             ...List.generate(
-                                state.makes.results.length,
-                                (index) => Column(
-                                      children: [
-                                        WScaleAnimation(
-                                          onTap: () {
-                                            getMakesBloc.add(GetMakesBlocEvent
-                                                .changeSelected(index));
-                                          },
-                                          child: RentSheetItem(
-                                            logo:
-                                                state.makes.results[index].logo,
-                                            title:
-                                                state.makes.results[index].name,
-                                            isChecked: state.selectId == index,
-                                          ),
-                                        ),
-                                        Visibility(
-                                          visible:
-                                              state.makes.results.length - 1 !=
-                                                  index,
-                                          child: const Divider(
-                                            thickness: 1,
-                                            color: border,
-                                            height: 1,
-                                            indent: 16,
-                                          ),
-                                        ),
-                                      ],
-                                    )),
+                              getMakesState.makes.results.length,
+                              (index) => Column(
+                                children: [
+                                  WScaleAnimation(
+                                    onTap: () {
+                                      getMakesBloc.add(
+                                          GetMakesBlocEvent.changeSelected(
+                                              getMakesState
+                                                  .makes.results[index].id));
+                                    },
+                                    child: RentSheetItem(
+                                      logo: getMakesState
+                                          .makes.results[index].logo,
+                                      title: getMakesState
+                                          .makes.results[index].name,
+                                      isChecked: getMakesState.selectId ==
+                                          getMakesState.makes.results[index].id,
+                                    ),
+                                  ),
+                                  Visibility(
+                                    visible:
+                                        getMakesState.makes.results.length -
+                                                1 !=
+                                            index,
+                                    child: const Divider(
+                                      thickness: 1,
+                                      color: border,
+                                      height: 1,
+                                      indent: 16,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -101,8 +110,10 @@ class _ChooseMakerState extends State<ChooseMaker> {
                           left: 16, right: 16, bottom: 50),
                       child: WButton(
                           onTap: () {
-                            Navigator.of(context).pop(state.selectId >= 0
-                                ? state.makes.results[state.selectId]
+                            Navigator.of(context).pop(getMakesState.selectId >=
+                                    0
+                                ? getMakesState.makes.results.firstWhere((element) =>
+                                    element.id == getMakesState.selectId)
                                 : null);
                           },
                           color: orange,
@@ -111,7 +122,7 @@ class _ChooseMakerState extends State<ChooseMaker> {
                   ],
                 );
               }
-              if (state.status == FormzStatus.submissionInProgress) {
+              if (getMakesState.status == FormzStatus.submissionInProgress) {
                 return const Center(child: CupertinoActivityIndicator());
               }
 

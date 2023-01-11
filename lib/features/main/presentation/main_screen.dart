@@ -94,11 +94,12 @@ class _MainScreenState extends State<MainScreen> {
         })));
       },
       () async {
+        /// for testing purpose
         /// KAR SHARING
-        await StorageRepository.putString('token', '');
-        await StorageRepository.putBool(value: false, key: 'onboarding');
-        print('=>=>=>=> onboarding put false <=<=<=<=');
-        print('=>=>=>=> token put empty <=<=<=<=');
+        // await StorageRepository.putString('token', '');
+        // await StorageRepository.putBool(value: false, key: 'onboarding');
+        // print('=>=>=>=> onboarding put false <=<=<=<=');
+        // print('=>=>=>=> token put empty <=<=<=<=');
       },
       () async {},
       () {

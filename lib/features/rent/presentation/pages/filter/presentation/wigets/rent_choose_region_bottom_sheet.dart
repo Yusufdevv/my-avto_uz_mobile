@@ -14,13 +14,15 @@ class RentChooseRegionBottomSheet extends StatefulWidget {
   final List<Region> list;
   final bool isProfileEdit;
   final bool isOtherPage;
+  Map<int, Region> checkedRegions;
 
-  const RentChooseRegionBottomSheet(
-      {required this.list,
-      this.isProfileEdit = false,
-      this.isOtherPage = false,
-      super.key})
-      : super();
+  RentChooseRegionBottomSheet({
+    required this.list,
+    this.isProfileEdit = false,
+    this.isOtherPage = false,
+    this.checkedRegions = const <int, Region>{},
+    super.key,
+  }) : super();
 
   @override
   State<RentChooseRegionBottomSheet> createState() =>
@@ -29,10 +31,17 @@ class RentChooseRegionBottomSheet extends StatefulWidget {
 
 class _RentChooseRegionBottomSheetState
     extends State<RentChooseRegionBottomSheet> {
-  Map<int, Region> checkStatus = {};
+  Map<int, Region> checkStatus = <int, Region>{};
+  @override
+  void initState() {
+    checkStatus =
+        widget.checkedRegions.map((key, value) => MapEntry(value.id, value));
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
+    print('=>=>=>=> ${widget.list} <=<=<=<=');
     final isAllChecked = checkStatus.length == widget.list.length;
     return Container(
       margin: EdgeInsets.only(top: SizeConfig.v(24)),
@@ -63,7 +72,7 @@ class _RentChooseRegionBottomSheetState
                           checkStatus = {};
                         } else {
                           for (var i = 0; i < widget.list.length; i++) {
-                            checkStatus[i] = widget.list[i];
+                            checkStatus[widget.list[i].id] = widget.list[i];
                           }
                         }
                         setState(() {});
@@ -80,10 +89,12 @@ class _RentChooseRegionBottomSheetState
                                   .removeWhere((key, value) => key != index);
                               checkStatus[index] = widget.list[index];
                             } else {
-                              if (checkStatus.containsKey(index)) {
-                                checkStatus.remove(index);
+                              if (checkStatus
+                                  .containsKey(widget.list[index].id)) {
+                                checkStatus.remove(widget.list[index].id);
                               } else {
-                                checkStatus[index] = widget.list[index];
+                                checkStatus[widget.list[index].id] =
+                                    widget.list[index];
                               }
                             }
                             setState(() {});
@@ -93,7 +104,8 @@ class _RentChooseRegionBottomSheetState
                             isProfileEdit: widget.isProfileEdit,
                             title: widget.list[index].title,
                             hasBorder: index == widget.list.length - 1,
-                            isChecked: checkStatus.containsKey(index),
+                            isChecked:
+                                checkStatus.containsKey(widget.list[index].id),
                           ),
                         ),
                         const Divider(

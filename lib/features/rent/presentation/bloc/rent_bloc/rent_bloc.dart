@@ -18,6 +18,7 @@ class RentBloc extends Bloc<RentEvent, RentState> {
 
   RentBloc({required this.rentUseCase, required int id})
       : super(RentState(
+          regions: const <Region>[],
           categoryId: id,
           count: 5,
           hasAirConditioners: 0,
@@ -49,7 +50,7 @@ class RentBloc extends Bloc<RentEvent, RentState> {
         rentCarIsFullFuel: state.rentCarIsFullFuel,
         status: state.status,
         gearboxType: event.gearboxType,
-        regions: event.regions,
+        regions: event.regions ?? [],
         maker: event.maker,
         bodyType: event.bodyType,
         carDriveType: event.carDriveType,
@@ -79,7 +80,7 @@ class RentBloc extends Bloc<RentEvent, RentState> {
         gearboxTypeId:
             state.gearboxType == null ? null : '${state.gearboxType!.id}',
         maker: state.maker == null ? null : '${state.maker!.id}',
-        regions: state.regions?.map((e) => e.id.toString()).toList().join(','),
+        regions: state.regions.map((e) => e.id.toString()).toList().join(','),
         rentPriceEnd: state.priceValues?.end.floor(),
         rentPriceStart: state.priceValues?.start.floor(),
         yearEnd: state.yearValues?.end.floor().toString(),

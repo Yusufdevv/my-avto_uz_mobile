@@ -11,7 +11,7 @@ class RentState extends Equatable {
   final int hasBabySeat;
   final int rentCarIsClean;
   final int rentCarIsFullFuel;
-  final List<Region>? regions;
+  final List<Region> regions;
   final MakeEntity? maker;
   final BodyTypeEntity? bodyType;
   final DriveTypeEntity? carDriveType;
@@ -31,8 +31,8 @@ class RentState extends Equatable {
     required this.hasBabySeat,
     required this.rentCarIsClean,
     required this.rentCarIsFullFuel,
+   required  this.regions,
     this.maker,
-    this.regions,
     this.bodyType,
     this.carDriveType,
     this.gearboxType,

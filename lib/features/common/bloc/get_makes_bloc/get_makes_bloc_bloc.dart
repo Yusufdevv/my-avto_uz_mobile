@@ -12,9 +12,9 @@ class GetMakesBloc extends Bloc<GetMakesBlocEvent, GetMakesState> {
   final int selectedMakeId;
   final GetMakesUseCase useCase;
   GetMakesBloc({required this.useCase, required this.selectedMakeId})
-      : super(GetMakesState()) {
+      : super(GetMakesState(selectId: selectedMakeId)) {
     on<_ChangeSelected>((event, emit) {
-      emit(state.copyWith(selected: event.index));
+      emit(state.copyWith(selectId: event.id));
     });
     on<_GetMakes>((event, emit) async {
       emit(state.copyWith(status: FormzStatus.submissionInProgress));
@@ -36,7 +36,7 @@ class GetMakesBloc extends Bloc<GetMakesBlocEvent, GetMakesState> {
     on<_SelectedCarItems>((event, emit) {
       print('======   select card item event triggere');
       print('======   id: ${event.id}');
-      print('======   ${event.name}');     
+      print('======   ${event.name}');
       print('======   ${event.imageUrl}');
       emit(state.copyWith(
           selectId: event.id, name: event.name, imageUrl: event.imageUrl));

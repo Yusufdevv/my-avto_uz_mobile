@@ -60,6 +60,7 @@ class _RentScreenState extends State<RentScreen>
                         padding: const EdgeInsets.only(right: 12),
                         child: WScaleAnimation(
                           onTap: () {
+                       print('=>=>=>=> state regions: ${state.regions} <=<=<=<=');
                             context
                                 .read<RegionsBloc>()
                                 .add(RegionsEvent.getRegions());

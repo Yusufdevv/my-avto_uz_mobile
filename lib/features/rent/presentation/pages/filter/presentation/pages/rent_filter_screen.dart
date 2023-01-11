@@ -108,14 +108,15 @@ class _RentFilterScreenState extends State<RentFilterScreen> {
                         isScrollControlled: true,
                         backgroundColor: Colors.transparent,
                         builder: (c) => RentChooseRegionBottomSheet(
+                            checkedRegions: state.regions.asMap(),
                             list: context.read<RegionsBloc>().state.regions),
                       ).then((value) {
                         filterBloc.add(FilterSelectEvent(regions: value));
                       });
                     },
-                    hintText: (state.regions?.isEmpty ?? true)
+                    hintText: (state.regions.isEmpty)
                         ? LocaleKeys.choose_region.tr()
-                        : state.regions!.first.title,
+                        : state.regions.first.title,
                     title: LocaleKeys.region.tr(),
                     hasArrowDown: true,
                   ),
@@ -126,8 +127,10 @@ class _RentFilterScreenState extends State<RentFilterScreen> {
                         context: context,
                         isScrollControlled: true,
                         backgroundColor: Colors.transparent,
-                        builder: (c) =>
-                            ChooseMaker(selectedId: state.maker?.id ?? -1),
+                        builder: (c) {
+                           print('=>=>=>=> state maker: ${state.maker} <=<=<=<=');
+                          return ChooseMaker(selectedId: state.maker?.id ?? -1);
+                        },
                       ).then((value) {
                         filterBloc.add(FilterSelectEvent(maker: value));
                       });

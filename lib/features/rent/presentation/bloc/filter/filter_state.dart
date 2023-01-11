@@ -1,7 +1,7 @@
 part of 'filter_bloc.dart';
 
 class FilterState extends Equatable {
-  final List<Region>? regions;
+  final List<Region> regions;
   final MakeEntity? maker;
   final BodyTypeEntity? bodyType;
   final DriveTypeEntity? carDriveType;
@@ -13,8 +13,8 @@ class FilterState extends Equatable {
   const FilterState({
     required this.priceValues,
     required this.yearValues,
+    required this.regions,
     this.maker,
-    this.regions,
     this.bodyType,
     this.carDriveType,
     this.gearboxType,
@@ -39,18 +39,18 @@ class FilterState extends Equatable {
         gearboxType: gearboxType ?? this.gearboxType,
         yearValues: yearValues ?? this.yearValues,
         priceValues: priceValues ?? this.priceValues,
-        idVal: idVal?? this.idVal,
+        idVal: idVal ?? this.idVal,
       );
 
   @override
   List<Object?> get props => [
-        maker,
         regions,
+        maker,
         bodyType,
         carDriveType,
         gearboxType,
-        priceValues,
         yearValues,
-        idVal
+        priceValues,
+        idVal,
       ];
 }
