@@ -22,7 +22,9 @@ class CarSingleBloc extends Bloc<CarSingleEvent, CarSingleState> {
       if (result.isRight) {
         print('BLOC RESULT RIGHT => ${result.right}');
         emit(state.copyWith(
-            singleEntity: result.right, status: FormzStatus.submissionSuccess));
+          singleEntity: result.right,
+          status: FormzStatus.submissionSuccess,
+        ));
       } else {
         print('BLOC ERROR GET SINGLE');
       }
