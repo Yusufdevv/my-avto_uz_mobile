@@ -1,4 +1,3 @@
-
 import 'package:auto/features/main/data/models/top_brand.dart';
 import 'package:auto/features/main/domain/usecases/get_top_brand.dart';
 import 'package:bloc/bloc.dart';
@@ -33,10 +32,16 @@ class TopBrandBloc extends Bloc<TopBrandEvent, TopBrandState> {
     on<_GetMoreBrand>((event, emit) async {
       final result = await getBrands(state.next);
       if (result.isRight) {
-        emit(state.copyWith(brands: [
-          ...state.brands,
-          ...result.right.results,
-        ], next: result.right.next, count: result.right.count));
+        emit(
+          state.copyWith(
+            brands: [
+              ...state.brands,
+              ...result.right.results,
+            ],
+            next: result.right.next,
+            count: result.right.count,
+          ),
+        );
       } else {}
     });
   }
