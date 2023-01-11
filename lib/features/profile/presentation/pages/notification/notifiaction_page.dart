@@ -57,8 +57,9 @@ class _NotificationPageState extends State<NotificationPage> {
               WScaleAnimation(
                 onTap: () {
                   setState(() {
-                    isAllRead = !isAllRead;
+                    isAllRead = true;
                   });
+                  bloc.add(NotificationAllReadEvent());
                 },
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: SizeConfig.h(16)),

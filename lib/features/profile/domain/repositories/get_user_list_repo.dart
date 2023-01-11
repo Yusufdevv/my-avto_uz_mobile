@@ -16,9 +16,9 @@ abstract class GetUserListRepository {
   Future<Either<ServerFailure, List<MySearchesEntity>>> getMySearches();
   Future<Either<ServerFailure, NotificationsEntity>> getNotificationSingle(
       String id);
-  Future<Either<ServerFailure, List<DirectoryEntity>>> getDirectories(String search,
-  String regions,
-  String categories);
+  Future<Either<ServerFailure, List<DirectoryEntity>>> getDirectories(
+      String search, String regions, String categories);
   Future<Either<ServerFailure, List<DirCategoryEntity>>> getDirCategory();
   Future<Either<ServerFailure, DirectoryEntity>> getDirectory(String id);
+  Future<Either<ServerFailure, String>> notificationAllRead();
 }

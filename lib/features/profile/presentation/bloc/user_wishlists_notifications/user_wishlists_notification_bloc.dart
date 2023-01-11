@@ -7,6 +7,7 @@ import 'package:auto/features/profile/domain/entities/notifications_entity.dart'
 import 'package:auto/features/profile/domain/usecases/get_my_searches_usecase.dart';
 import 'package:auto/features/profile/domain/usecases/get_notification_single.dart';
 import 'package:auto/features/profile/domain/usecases/get_notification_usecase.dart';
+import 'package:auto/features/profile/domain/usecases/notification_all_read_usecase.dart';
 import 'package:auto/features/profile/domain/usecases/profil_favorites_usecase.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -20,14 +21,14 @@ class UserWishListsBloc extends Bloc<UserWishListsEvent, UserWishListsState> {
   final GetNotificationSingleUseCase getNotificationSingleUseCase;
   final GetNotificationsUseCase getNotificationsUseCase;
   final GetMySearchesUseCase getMySearchesUseCase;
-
-  UserWishListsBloc(
-      {required this.profileFavoritesMyAdsUseCase,
-      required this.getNotificationSingleUseCase,
-      required this.getNotificationsUseCase,
-      required this.getMySearchesUseCase,
-      })
-      : super(UserWishListsState(
+  NotificationAllReadUseCase notificationAllReadUseCase =
+      NotificationAllReadUseCase();
+  UserWishListsBloc({
+    required this.profileFavoritesMyAdsUseCase,
+    required this.getNotificationSingleUseCase,
+    required this.getNotificationsUseCase,
+    required this.getMySearchesUseCase,
+  }) : super(UserWishListsState(
           favoritesStatus: FormzStatus.pure,
           myAdsStatus: FormzStatus.pure,
           favorites: const <AutoEntity>[],
@@ -41,6 +42,7 @@ class UserWishListsBloc extends Bloc<UserWishListsEvent, UserWishListsState> {
     on<GetMySearchesEvent>(_onGetMySearches);
     on<GetNotificationsEvent>(_onGetNotifications);
     on<GetNotificationSingleEvent>(_onGetNotificationSingle);
+    on<NotificationAllReadEvent>(_onNotificationAllReadEvent);
   }
 
   Future<void> _onGetUserFavorites(
@@ -53,6 +55,13 @@ class UserWishListsBloc extends Bloc<UserWishListsEvent, UserWishListsState> {
           favorites: result.right));
     } else {
       emit(state.copyWith(favoritesStatus: FormzStatus.submissionFailure));
+    }
+  }
+
+  Future<void> _onNotificationAllReadEvent(
+      NotificationAllReadEvent event, Emitter<UserWishListsState> emit) async {
+    final result = await notificationAllReadUseCase.call(NoParams());
+    if (result.isRight) {
     }
   }
 
@@ -74,7 +83,8 @@ class UserWishListsBloc extends Bloc<UserWishListsEvent, UserWishListsState> {
     final result = await getMySearchesUseCase.call(NoParams());
     if (result.isRight) {
       emit(state.copyWith(
-          myAdsStatus: FormzStatus.submissionSuccess, mySearches: result.right));
+          myAdsStatus: FormzStatus.submissionSuccess,
+          mySearches: result.right));
     } else {
       emit(state.copyWith(myAdsStatus: FormzStatus.submissionFailure));
     }

@@ -14,6 +14,8 @@ class GetUserMyAdsEvent extends UserWishListsEvent {
 
 class GetMySearchesEvent extends UserWishListsEvent {}
 
+class NotificationAllReadEvent extends UserWishListsEvent {}
+
 class GetNotificationSingleEvent extends UserWishListsEvent {
   final String id;
   GetNotificationSingleEvent({required this.id});

@@ -18,6 +18,7 @@ abstract class GetUserListDatasource {
       String search, String regions, String categories);
   Future<List<DirCategoryModel>> getDirCategory();
   Future<DirectoryModel> getDirectory(String id);
+  Future<String> notificationAllRead();
   Future<NotificationsModel> getNotificationSingle(String id);
 }
 
@@ -132,17 +133,9 @@ class GetUserListDatasourceImpl extends GetUserListDatasource {
   @override
   Future<List<DirectoryModel>> getDirectories(
       String search, String regions, String categories) async {
-    print('=======search ${search}');
-    print('=======regions ${regions}');
-    print('=======categories ${categories}');
     try {
       final response = await dio.get(
         '/car-place/list/?region__in=$regions&category__in=$categories&search=$search',
-        // queryParameters: {
-        //   'search': search,
-        //   'region_in': regions,
-        //   'categoriy_in': categories
-        // },
         options: Options(headers: {
           'Authorization': 'Bearer ${StorageRepository.getString('token')}'
         }),
@@ -191,18 +184,41 @@ class GetUserListDatasourceImpl extends GetUserListDatasource {
       throw ParsingException(errorMessage: e.toString());
     }
   }
-
   @override
   Future<DirectoryModel> getDirectory(String id) async {
     try {
       final response = await dio.get(
-        'users/notification/$id/',
+        '/car-place/$id/',
         options: Options(headers: {
           'Authorization': 'Bearer ${StorageRepository.getString('token')}'
         }),
       );
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
         return DirectoryModel.fromJson(response.data);
+      }
+      throw ServerException(
+          statusCode: response.statusCode ?? 0,
+          errorMessage: response.statusMessage ?? '');
+    } on ServerException {
+      rethrow;
+    } on DioError {
+      throw DioException();
+    } on Exception catch (e) {
+      throw ParsingException(errorMessage: e.toString());
+    }
+  }
+
+  @override
+  Future<String> notificationAllRead() async {
+    try {
+      final response = await dio.get(
+        'users/notification/read-all/',
+        options: Options(headers: {
+          'Authorization': 'Bearer ${StorageRepository.getString('token')}'
+        }),
+      );
+      if (response.statusCode! >= 200 && response.statusCode! < 300) {
+        return response.data['message'];
       }
       throw ServerException(
           statusCode: response.statusCode ?? 0,
