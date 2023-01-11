@@ -16,21 +16,19 @@ class ChangeCarItems extends StatelessWidget {
   final int selectedId;
   final String text;
   final VoidCallback onTap;
-  const ChangeCarItems({
-    required this.selectedId,
-    required this.id,
-    required this.name,
-    required this.imageUrl,
-    required this.text,
-    required this.onTap,
-    Key? key
-  }) : super(key: key);
+  const ChangeCarItems(
+      {required this.selectedId,
+      required this.id,
+      required this.name,
+      required this.imageUrl,
+      required this.text,
+      required this.onTap,
+      Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) => GestureDetector(
-        onTap: () {
-         
-        },
+        onTap: onTap,
         child: Container(
           padding: const EdgeInsets.only(left: 16),
           color: id == selectedId

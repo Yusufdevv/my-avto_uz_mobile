@@ -124,11 +124,11 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
                               scrollDirection: Axis.horizontal,
                               itemBuilder: (context, index) =>
                                   CarBrandContainer(
-                                imageUrl: state.makes.results[index].logo,
-                                title: state.makes.results[index].name,
+                                imageUrl: state.makes[index].logo,
+                                title: state.makes[index].name,
                                 text: state.search,
                               ),
-                              itemCount: state.makes.results.length,
+                              itemCount: state.makes.length,
                             ),
                           ),
                         ),
@@ -163,25 +163,24 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
                   ],
                   body: ListView.builder(
                     padding: const EdgeInsets.only(bottom: 60),
-                    itemCount: state.makes.results.length,
+                    itemCount: state.makes.length,
                     itemBuilder: (context, index) => Container(
                       color: Theme.of(context)
                           .extension<ThemedColors>()!
                           .whiteToDark,
                       child: ChangeCarItems(
                         selectedId: state.selectId,
-                        id: state.makes.results[index].id,
-                        imageUrl: state.makes.results[index].logo,
-                        name: state.makes.results[index].name,
+                        id: state.makes[index].id,
+                        imageUrl: state.makes[index].logo,
+                        name: state.makes[index].name,
                         text: state.search,
                         onTap: () {
-                          print(
-                              '===> ==> Bu Boshida ${state.makes.results[index].id}');
+                          print('===> ==> Bu Boshida ${state.makes[index].id}');
                           context.read<GetMakesBloc>().add(
                                 GetMakesBlocEvent.selectedCarItems(
-                                  id: state.makes.results[index].id,
-                                  name: state.makes.results[index].name,
-                                  imageUrl: state.makes.results[index].logo,
+                                  id: state.makes[index].id,
+                                  name: state.makes[index].name,
+                                  imageUrl: state.makes[index].logo,
                                 ),
                               );
                           print('===> ==> Bu stateda ${state.selectId}');
