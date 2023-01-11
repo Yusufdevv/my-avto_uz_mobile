@@ -1,5 +1,5 @@
 import 'package:auto/core/singletons/service_locator.dart';
-import 'package:auto/features/ad/presentation/pages/ads/ads_screen.dart';
+import 'package:auto/features/ads/presentation/pages/ads_screen.dart';
 import 'package:auto/features/common/bloc/announcement_bloc/bloc/announcement_list_bloc.dart';
 import 'package:auto/features/common/bloc/get_car_model/get_car_model_bloc.dart';
 import 'package:auto/features/common/bloc/get_makes_bloc/get_makes_bloc_bloc.dart';
@@ -55,7 +55,7 @@ class _ComparisonPageState extends State<ComparisonPage> {
           ],
           child: Scaffold(
             appBar: WAppBar(
-              boxShadow:const [],
+              boxShadow: const [],
               title: LocaleKeys.car_comparison.tr(),
               titleStyle: Theme.of(context)
                   .textTheme

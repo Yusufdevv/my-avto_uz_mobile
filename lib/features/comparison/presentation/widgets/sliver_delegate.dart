@@ -29,8 +29,6 @@ class SliverWidget extends SliverPersistentHeaderDelegate {
     required this.comparisonBloc,
   });
 
-  final Duration _duration = const Duration(milliseconds: 80);
-
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
