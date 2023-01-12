@@ -4,6 +4,7 @@ import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/features/ad/data/repositories/ad_repository_impl.dart';
 import 'package:auto/features/ad/domain/entities/choose_car_brand/change_car_entity.dart';
+import 'package:auto/features/ad/domain/entities/types/make.dart';
 import 'package:auto/features/ad/domain/usecases/get_makes.dart';
 import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.dart';
 import 'package:auto/features/ad/presentation/pages/choose_car_brand/widget/car_items.dart';
@@ -11,7 +12,6 @@ import 'package:auto/features/ad/presentation/pages/choose_car_brand/widget/pers
 import 'package:auto/features/ad/presentation/pages/choose_car_brand/widget/persistent_header_search.dart';
 import 'package:auto/features/ad/presentation/widgets/sliver_header_text.dart';
 import 'package:auto/features/common/bloc/get_makes_bloc/get_makes_bloc_bloc.dart';
-import 'package:auto/features/common/domain/entity/car_brand_entity.dart';
 import 'package:auto/features/common/widgets/car_brand_item.dart';
 import 'package:auto/features/common/widgets/w_textfield.dart';
 import 'package:auto/features/main/domain/usecases/get_top_brand.dart';
@@ -130,16 +130,10 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
         icon:
             'https://seeklogo.com/images/V/Volkswagen-logo-FAE94F013E-seeklogo.com.png'),
   ];
-  final List<CarBrandEntity> carBrandEntityy = [
-    const CarBrandEntity(title: 'Chevrolet', icon: AppImages.chevrolet),
-    const CarBrandEntity(title: 'Chevrolet', icon: AppImages.chevrolet),
-    const CarBrandEntity(title: 'Chevrolet', icon: AppImages.chevrolet),
-    const CarBrandEntity(title: 'Chevrolet', icon: AppImages.chevrolet),
-    const CarBrandEntity(title: 'Chevrolet', icon: AppImages.chevrolet),
-    const CarBrandEntity(title: 'Chevrolet', icon: AppImages.chevrolet),
-    const CarBrandEntity(title: 'Chevrolet', icon: AppImages.chevrolet),
-    const CarBrandEntity(title: 'Chevrolet', icon: AppImages.chevrolet),
-  ];
+  final List<MakeEntity> carBrandEntityy = List.generate(
+      8,
+      (index) => MakeEntity(
+          id: index, logo: AppImages.chevrolet, name: 'Make $index'));
 
   @override
   Widget build(BuildContext context) => KeyboardDismisser(

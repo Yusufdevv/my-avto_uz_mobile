@@ -3,8 +3,8 @@ import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/domain/entities/choose_car_brand/change_car_entity.dart';
+import 'package:auto/features/ad/domain/entities/types/make.dart';
 import 'package:auto/features/ad/presentation/pages/choose_car_brand/widget/persistant_header.dart';
-import 'package:auto/features/common/domain/entity/car_brand_entity.dart';
 import 'package:auto/features/common/widgets/car_brand_item.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
@@ -94,16 +94,10 @@ class _SelectBrandScreenState extends State<SelectBrandScreen> {
         icon:
             'https://seeklogo.com/images/V/Volkswagen-logo-FAE94F013E-seeklogo.com.png'),
   ];
-  final List<CarBrandEntity> carBrandEntity = [
-    const CarBrandEntity(title: 'Chevrolet', icon: AppImages.chevrolet),
-    const CarBrandEntity(title: 'Chevrolet', icon: AppImages.chevrolet),
-    const CarBrandEntity(title: 'Chevrolet', icon: AppImages.chevrolet),
-    const CarBrandEntity(title: 'Chevrolet', icon: AppImages.chevrolet),
-    const CarBrandEntity(title: 'Chevrolet', icon: AppImages.chevrolet),
-    const CarBrandEntity(title: 'Chevrolet', icon: AppImages.chevrolet),
-    const CarBrandEntity(title: 'Chevrolet', icon: AppImages.chevrolet),
-    const CarBrandEntity(title: 'Chevrolet', icon: AppImages.chevrolet),
-  ];
+  final List<MakeEntity> carBrandEntity = List.generate(
+      8,
+      (index) =>
+          MakeEntity(name: 'Chevrolet', id: index, logo: AppImages.chevrolet));
 
   @override
   Widget build(BuildContext context) => KeyboardDismisser(

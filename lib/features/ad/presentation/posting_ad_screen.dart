@@ -148,7 +148,7 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                     children: [
                       ChooseCarBrand(bloc: postingAdBloc),
                       const ChooseCarModelScreen(),
-                      const YearIssueScreen(modelId:10),
+                      const YearIssueScreen(modelId: 10),
                       const CarcaseScreen(),
                       const GenerationScreen(),
                       const EngineScreen(),
