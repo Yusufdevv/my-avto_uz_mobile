@@ -1,11 +1,11 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
-import 'package:auto/features/common/domain/entity/car_brand_entity.dart';
+import 'package:auto/features/ad/domain/entities/types/make.dart';
 import 'package:flutter/material.dart';
 
 class CarBrandItem extends StatelessWidget {
-  final CarBrandEntity carBrandEntity;
+  final MakeEntity carBrandEntity;
   final bool hasShadow;
 
   const CarBrandItem(
@@ -41,7 +41,7 @@ class CarBrandItem extends StatelessWidget {
           children: [
             const SizedBox(height: 16),
             Image.network(
-              carBrandEntity.icon,
+              carBrandEntity.logo,
               width: 40,
               height: 40,
               errorBuilder: (ctx, object, stackTrace) =>
@@ -52,7 +52,7 @@ class CarBrandItem extends StatelessWidget {
             const SizedBox(height: 8),
             Expanded(
               child: Text(
-                carBrandEntity.title,
+                carBrandEntity.name,
                 textAlign: TextAlign.center,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,

@@ -438,7 +438,7 @@ abstract class _SortBrands implements TopBrandEvent {
 /// @nodoc
 mixin _$TopBrandState {
   FormzStatus get status => throw _privateConstructorUsedError;
-  List<TopBrandModel> get brands => throw _privateConstructorUsedError;
+  List<MakeModel> get brands => throw _privateConstructorUsedError;
   String? get next => throw _privateConstructorUsedError;
   int get count => throw _privateConstructorUsedError;
 
@@ -454,10 +454,7 @@ abstract class $TopBrandStateCopyWith<$Res> {
       _$TopBrandStateCopyWithImpl<$Res, TopBrandState>;
   @useResult
   $Res call(
-      {FormzStatus status,
-      List<TopBrandModel> brands,
-      String? next,
-      int count});
+      {FormzStatus status, List<MakeModel> brands, String? next, int count});
 }
 
 /// @nodoc
@@ -486,7 +483,7 @@ class _$TopBrandStateCopyWithImpl<$Res, $Val extends TopBrandState>
       brands: null == brands
           ? _value.brands
           : brands // ignore: cast_nullable_to_non_nullable
-              as List<TopBrandModel>,
+              as List<MakeModel>,
       next: freezed == next
           ? _value.next
           : next // ignore: cast_nullable_to_non_nullable
@@ -508,10 +505,7 @@ abstract class _$$_TopBrandStateCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {FormzStatus status,
-      List<TopBrandModel> brands,
-      String? next,
-      int count});
+      {FormzStatus status, List<MakeModel> brands, String? next, int count});
 }
 
 /// @nodoc
@@ -538,7 +532,7 @@ class __$$_TopBrandStateCopyWithImpl<$Res>
       brands: null == brands
           ? _value._brands
           : brands // ignore: cast_nullable_to_non_nullable
-              as List<TopBrandModel>,
+              as List<MakeModel>,
       next: freezed == next
           ? _value.next
           : next // ignore: cast_nullable_to_non_nullable
@@ -556,7 +550,7 @@ class __$$_TopBrandStateCopyWithImpl<$Res>
 class _$_TopBrandState implements _TopBrandState {
   _$_TopBrandState(
       {this.status = FormzStatus.pure,
-      final List<TopBrandModel> brands = const [],
+      final List<MakeModel> brands = const [],
       this.next,
       this.count = 0})
       : _brands = brands;
@@ -564,10 +558,10 @@ class _$_TopBrandState implements _TopBrandState {
   @override
   @JsonKey()
   final FormzStatus status;
-  final List<TopBrandModel> _brands;
+  final List<MakeModel> _brands;
   @override
   @JsonKey()
-  List<TopBrandModel> get brands {
+  List<MakeModel> get brands {
     if (_brands is EqualUnmodifiableListView) return _brands;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_brands);
@@ -609,14 +603,14 @@ class _$_TopBrandState implements _TopBrandState {
 abstract class _TopBrandState implements TopBrandState {
   factory _TopBrandState(
       {final FormzStatus status,
-      final List<TopBrandModel> brands,
+      final List<MakeModel> brands,
       final String? next,
       final int count}) = _$_TopBrandState;
 
   @override
   FormzStatus get status;
   @override
-  List<TopBrandModel> get brands;
+  List<MakeModel> get brands;
   @override
   String? get next;
   @override

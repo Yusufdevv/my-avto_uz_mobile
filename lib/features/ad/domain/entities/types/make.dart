@@ -1,4 +1,4 @@
-import 'package:auto/features/ad/data/models/make.dart';
+import 'package:auto/features/reviews/data/models/make_model.dart';
 import 'package:equatable/equatable.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -8,9 +8,9 @@ class MakeEntity extends Equatable {
   final String logo;
 
   const MakeEntity({
-     this.id = -1,
-     this.name = '',
-     this.logo = '',
+    this.id = -1,
+    this.name = '',
+    this.logo = '',
   });
 
   @override
@@ -30,5 +30,6 @@ class MakeEntityConverter
       MakeModel.fromJson(json ?? {});
 
   @override
-  Map<String, dynamic> toJson(MakeEntity object) => {};
+  Map<String, dynamic> toJson(MakeEntity object) =>
+      MakeModel(id: object.id, name: object.name, logo: object.logo).toJson();
 }
