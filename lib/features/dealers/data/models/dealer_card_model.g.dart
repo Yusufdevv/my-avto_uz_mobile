@@ -20,7 +20,10 @@ DealerCardModel _$DealerCardModelFromJson(Map<String, dynamic> json) =>
       longitude: (json['longitude'] as num?)?.toDouble() ?? 0.0,
       latitude: (json['latitude'] as num?)?.toDouble() ?? 0.0,
       carCount: json['car_count'] as int? ?? 0,
-      district: json['district'] as int? ?? 0,
+      district: json['district'] == null
+          ? const RegionEntity()
+          : const RegionConverter()
+              .fromJson(json['district'] as Map<String, dynamic>?),
     );
 
 Map<String, dynamic> _$DealerCardModelToJson(DealerCardModel instance) =>
@@ -37,5 +40,5 @@ Map<String, dynamic> _$DealerCardModelToJson(DealerCardModel instance) =>
       'longitude': instance.longitude,
       'latitude': instance.latitude,
       'car_count': instance.carCount,
-      'district': instance.district,
+      'district': const RegionConverter().toJson(instance.district),
     };

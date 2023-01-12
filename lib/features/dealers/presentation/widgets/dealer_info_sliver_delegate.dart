@@ -3,6 +3,7 @@ import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/dealers/presentation/widgets/animated_images.dart';
 import 'package:auto/generated/locale_keys.g.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -10,9 +11,14 @@ import 'package:flutter_svg/svg.dart';
 class SellerSliverDelegate extends SliverPersistentHeaderDelegate {
   final double minHeight;
   final String showroomOrPerson;
+  final String dealerName;
+  final String avatarImage;
 
   SellerSliverDelegate(
-      {required this.showroomOrPerson, required this.minHeight});
+      {required this.showroomOrPerson,
+      required this.minHeight,
+      required this.dealerName,
+      required this.avatarImage});
 
   final Duration _duration = const Duration(milliseconds: 80);
 
@@ -118,43 +124,63 @@ class SellerSliverDelegate extends SliverPersistentHeaderDelegate {
                               : CrossFadeState.showSecond,
                         ),
                         SizedBox(width: shrinkOffset >= 180 ? 12 : 0),
+                        // CircleAvatar(
+                        //   radius: shrinkOffset >= 180 ? 32 : 48,
+                        //   child: CachedNetworkImage(
+                        //     imageUrl: avatarImage,
+                        //     fit: BoxFit.cover,
+                        //   ),
+                        // ),
                         AnimatedContainer(
                           height: shrinkOffset >= 180 ? 32 : 48,
                           width: shrinkOffset >= 180 ? 32 : 48,
                           duration: _duration,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            border: Border.all(color: dividerColor),
+
+                          child: CachedNetworkImage(
+                            imageUrl: avatarImage,
+                            fit: BoxFit.cover,
+                            imageBuilder: (context, imageProvider) => Container(
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                image: DecorationImage(image: imageProvider),
+                                border: Border.all(color: dividerColor),
+                              ),
+                            ),
                           ),
                         ),
                         const SizedBox(width: 16),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            AnimatedDefaultTextStyle(
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              AnimatedDefaultTextStyle(
+                                  duration: _duration,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headline1!
+                                      .copyWith(
+                                          fontSize:
+                                              shrinkOffset >= 180 ? 14 : 16),
+                                  child: Text(
+                                    dealerName,
+                                    overflow: TextOverflow.ellipsis,
+                                  )),
+                              AnimatedDefaultTextStyle(
                                 duration: _duration,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headline1!
-                                    .copyWith(
-                                        fontSize:
-                                            shrinkOffset >= 180 ? 14 : 16),
-                                child: const Text('ORIENT MOTORS')),
-                            AnimatedDefaultTextStyle(
-                              duration: _duration,
-                              style: TextStyle(
-                                  fontSize: shrinkOffset >= 180 ? 12 : 14,
-                                  fontWeight: FontWeight.w400,
-                                  color: purple),
-                              child: showroomOrPerson == 'person'
-                                  ? Text(
-                                      LocaleKeys.private_person.tr(),
-                                    )
-                                  : Text(
-                                      LocaleKeys.autosalon.tr(),
-                                    ),
-                            ),
-                          ],
+                                style: TextStyle(
+                                    fontSize: shrinkOffset >= 180 ? 12 : 14,
+                                    fontWeight: FontWeight.w400,
+                                    color: purple),
+                                child: showroomOrPerson == 'person'
+                                    ? Text(
+                                        LocaleKeys.private_person.tr(),
+                                      )
+                                    : Text(
+                                        LocaleKeys.autosalon.tr(),
+                                      ),
+                              ),
+                            ],
+                          ),
                         )
                       ],
                     ),

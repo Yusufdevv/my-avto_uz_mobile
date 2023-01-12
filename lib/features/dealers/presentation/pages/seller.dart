@@ -8,6 +8,7 @@ import 'package:auto/features/dealers/domain/entities/marks_with_announcements.d
 import 'package:auto/features/dealers/domain/usecases/dealer_single_usecase.dart';
 import 'package:auto/features/dealers/presentation/blocs/dealer_single_bloc/dealer_single_bloc.dart';
 import 'package:auto/features/dealers/presentation/pages/all_marks_with_announcements.dart';
+import 'package:auto/features/dealers/presentation/widgets/automobile_card.dart';
 import 'package:auto/features/dealers/presentation/widgets/dealer_info.dart';
 import 'package:auto/features/dealers/presentation/widgets/dealer_info_sliver_delegate.dart';
 import 'package:auto/features/dealers/presentation/widgets/mark_with_announcement.dart';
@@ -19,7 +20,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-
 
 class Seller extends StatefulWidget {
   //final String dealerType;
@@ -72,137 +72,139 @@ class _SellerState extends State<Seller> {
           BlocProvider.value(value: dealerSingleBloc),
         ],
         child: Scaffold(
-          body: NestedScrollView(
-            headerSliverBuilder: (context, innerBoxIsScrolled) => <Widget>[
-              SliverPersistentHeader(
-                pinned: true,
-                delegate: SellerSliverDelegate(
-                    minHeight: MediaQuery.of(context).size.height * 0.11,
-                    showroomOrPerson: 'Avtasalon'),
-              ),
-            ],
-            body: SingleChildScrollView(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  BlocBuilder<DealerSingleBloc, DealerSingleState>(
-                    builder: (context, state) => SellerInfo(
+          body: BlocBuilder<DealerSingleBloc, DealerSingleState>(
+            builder: (context, state1) => NestedScrollView(
+              headerSliverBuilder: (context, innerBoxIsScrolled) => <Widget>[
+                SliverPersistentHeader(
+                  pinned: true,
+                  delegate: SellerSliverDelegate(
+                      avatarImage: state1.dealerSingleEntity.avatar,
+                      dealerName: state1.dealerSingleEntity.name,
+                      minHeight: MediaQuery.of(context).size.height * 0.11,
+                      showroomOrPerson: 'Avtasalon'),
+                ),
+              ],
+              body: SingleChildScrollView(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    SellerInfo(
                       //dealerType: dealerType,
-                      dealerName: state.dealerSingleEntity.name,
-                      quantityOfCars: state.dealerSingleEntity.carCount,
-                      contactFrom: state.dealerSingleEntity.contactFrom,
-                      contactTo: state.dealerSingleEntity.contactTo,
-                      contact: state.dealerSingleEntity.phoneNumber,
-                      additionalInfo: state.dealerSingleEntity.description,
-                      longitude: state.dealerSingleEntity.longitude,
-                      latitude: state.dealerSingleEntity.latitude,
+                      dealerName: state1.dealerSingleEntity.name,
+                      quantityOfCars: state1.dealerSingleEntity.carCount,
+                      contactFrom: state1.dealerSingleEntity.contactFrom,
+                      contactTo: state1.dealerSingleEntity.contactTo,
+                      contact: state1.dealerSingleEntity.phoneNumber,
+                      additionalInfo: state1.dealerSingleEntity.description,
+                      longitude: state1.dealerSingleEntity.longitude,
+                      latitude: state1.dealerSingleEntity.latitude,
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 16, bottom: 12),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: Text(
-                            LocaleKeys.all_brands_with_ads.tr(),
-                            style: const TextStyle(
-                              color: orange,
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
+                    Padding(
+                      padding: const EdgeInsets.only(top: 16, bottom: 12),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              LocaleKeys.all_brands_with_ads.tr(),
+                              style: const TextStyle(
+                                color: orange,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                              ),
                             ),
                           ),
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                fade(
-                                    page: AllMarksWithAnnouncements(
-                                        marks: marks)));
-                          },
-                          child: Row(
-                            children: [
-                              Text(
-                                LocaleKeys.all.tr(),
-                                style: const TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w400,
-                                    color: greyText),
-                              ),
-                              const SizedBox(
-                                width: 4,
-                              ),
-                              SvgPicture.asset(AppIcons.chevronRightBlack,
-                                  color: greyText)
-                            ],
-                          ),
-                        )
-                      ],
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  fade(
+                                      page: AllMarksWithAnnouncements(
+                                          marks: marks)));
+                            },
+                            child: Row(
+                              children: [
+                                Text(
+                                  LocaleKeys.all.tr(),
+                                  style: const TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400,
+                                      color: greyText),
+                                ),
+                                const SizedBox(
+                                  width: 4,
+                                ),
+                                SvgPicture.asset(AppIcons.chevronRightBlack,
+                                    color: greyText)
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
                     ),
-                  ),
-                  SingleChildScrollView(
-                    physics: const BouncingScrollPhysics(),
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: List.generate(
-                        marks.length,
-                        (index) => const MarksWithAnnouncements(
-                          quantity: 12,
-                          imageUrl: AppImages.placeHolder,
-                          mark: 'BMW',
+                    SingleChildScrollView(
+                      physics: const BouncingScrollPhysics(),
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: List.generate(
+                          marks.length,
+                          (index) => const MarksWithAnnouncements(
+                            quantity: 12,
+                            imageUrl: AppImages.placeHolder,
+                            mark: 'BMW',
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  // if (dealerType == 'showroom') ...{
-                  //   },
-                  Padding(
-                    padding: const EdgeInsets.only(top: 16, bottom: 12),
-                    child: Row(
-                      children: [
-                        const Expanded(
-                            child: Text('Автомобили от Orient Motors',
-                                style: TextStyle(
-                                    color: orange,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w600))),
-                        GestureDetector(
-                          onTap: () {},
-                          child: Row(
-                            children: [
-                              Text(
-                                LocaleKeys.all.tr(),
-                                style: const TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w400,
-                                    color: greyText),
-                              ),
-                              const SizedBox(
-                                width: 4,
-                              ),
-                              SvgPicture.asset(AppIcons.chevronRightBlack,
-                                  color: greyText)
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                  SingleChildScrollView(
-                    physics: const BouncingScrollPhysics(),
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: List.generate(
-                        marks.length,
-                        (index) => const AdsItem(adsEntity: AdsEntity()),
+                    // if (dealerType == 'showroom') ...{
+                    //   },
+                    Padding(
+                      padding: const EdgeInsets.only(top: 16, bottom: 12),
+                      child: Row(
+                        children: [
+                          const Expanded(
+                              child: Text('Автомобили от Orient Motors',
+                                  style: TextStyle(
+                                      color: orange,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w600))),
+                          GestureDetector(
+                            onTap: () {},
+                            child: Row(
+                              children: [
+                                Text(
+                                  LocaleKeys.all.tr(),
+                                  style: const TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400,
+                                      color: greyText),
+                                ),
+                                const SizedBox(
+                                  width: 4,
+                                ),
+                                SvgPicture.asset(AppIcons.chevronRightBlack,
+                                    color: greyText)
+                              ],
+                            ),
+                          )
+                        ],
                       ),
                     ),
-                  ),
-                  // const CarsCard(),
-                  // const CarsCard(),
-                  // const CarsCard(),
-                ],
+                    SingleChildScrollView(
+                      physics: const BouncingScrollPhysics(),
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: List.generate(
+                          marks.length,
+                          (index) =>  AdsItem(id:  2,image: '',name: 'BMW7',currency: 'UZS',description: 'One day it will be my new car!',isLiked: false,location: 'Tashkent',onTapLike: (){},price: '2308',)
+                        ),
+                      ),
+                    ),
+                    // const CarsCard(),
+                    // const CarsCard(),
+                    // const CarsCard(),
+                  ],
+                ),
               ),
             ),
           ),

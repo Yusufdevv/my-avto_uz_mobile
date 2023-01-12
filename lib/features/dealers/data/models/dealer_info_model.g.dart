@@ -26,7 +26,10 @@ DealerSingleModel _$DealerSingleModelFromJson(Map<String, dynamic> json) =>
       contactTo: json['contact_to'] as String? ?? '',
       contactFrom: json['contact_from'] as String? ?? '',
       carCount: json['car_count'] as int? ?? 0,
-      district: json['district'] as int? ?? 0,
+      district: json['district'] == null
+          ? const RegionEntity()
+          : const RegionConverter()
+              .fromJson(json['district'] as Map<String, dynamic>?),
       avatar: json['avatar'] as String? ?? '',
       locationUrl: json['location_url'] as String? ?? '',
     );
@@ -45,7 +48,7 @@ Map<String, dynamic> _$DealerSingleModelToJson(DealerSingleModel instance) =>
       'longitude': instance.longitude,
       'latitude': instance.latitude,
       'car_count': instance.carCount,
-      'district': instance.district,
+      'district': const RegionConverter().toJson(instance.district),
       'dealer_type': const DealerTypeConverter().toJson(instance.dealerType),
       'gallery': instance.gallery,
     };

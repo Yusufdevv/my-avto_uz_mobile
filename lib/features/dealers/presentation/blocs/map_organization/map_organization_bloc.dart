@@ -35,7 +35,6 @@ class MapOrganizationBloc extends Bloc<MapOrganizationEvent, MapOrganizationStat
     on<_ChangeRadius>((event, emit) {
       emit(state.copyWith(radius: event.radius));
     });
-
     on<_ChangeLatLong>((event, emit) {
       if (event.radius != null) {
         emit(state.copyWith(lat: event.lat, long: event.long, radius: event.radius!));
