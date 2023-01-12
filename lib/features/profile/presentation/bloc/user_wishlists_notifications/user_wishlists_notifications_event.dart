@@ -17,8 +17,8 @@ class GetMySearchesEvent extends UserWishListsEvent {}
 class NotificationAllReadEvent extends UserWishListsEvent {}
 
 class DeleteMySearchesEvent extends UserWishListsEvent {
-    final String id;
-  DeleteMySearchesEvent({required this.id});
+    final List<int> ids;
+  DeleteMySearchesEvent({required this.ids});
 }
 
 class GetNotificationSingleEvent extends UserWishListsEvent {

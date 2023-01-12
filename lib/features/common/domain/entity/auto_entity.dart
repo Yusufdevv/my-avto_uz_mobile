@@ -53,6 +53,7 @@ class AutoEntity extends Equatable {
     this.absoluteCarName = '',
     this.color = '',
     this.purchaseDate = '',
+    this.expiredAt = '',
     this.locationUrl = '',
     this.mileageImage = '',
     this.registrationVin = '',
@@ -110,6 +111,7 @@ class AutoEntity extends Equatable {
   final String currency;
   final List<String> gallery;
   final String publishedAt;
+  final String  expiredAt;
   final int viewsCount;
   final bool isWishlisted;
   final bool isComparison;
@@ -137,6 +139,7 @@ class AutoEntity extends Equatable {
         modificationType,
         region,
         district,
+        expiredAt,
         user,
         dealer,
         licenceType,
@@ -190,6 +193,7 @@ class AutoConverter
         generation: object.generation,
         moderationStatus: object.moderationStatus,
         make: object.make,
+        expiredAt: object.expiredAt,
         model: object.model,
         modificationType: object.modificationType,
         year: object.year,

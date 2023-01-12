@@ -70,7 +70,7 @@ class UserWishListsBloc extends Bloc<UserWishListsEvent, UserWishListsState> {
 
   Future<void> _onDeleteMySearchesEvent(
       DeleteMySearchesEvent event, Emitter<UserWishListsState> emit) async {
-    final result = await deleteMySearchesUseCase.call(event.id);
+    final result = await deleteMySearchesUseCase.call(event.ids);
     if (result.isRight) {
     }
   }

@@ -42,9 +42,9 @@ class _FavouritePageState extends State<FavouritePage> {
           endpoint: '/users/wishlist/announcement/list/'));
     super.initState();
   }
-
   List<AutoEntity> favorites = [];
   final listkey = GlobalKey<AnimatedListState>();
+  
   @override
   Widget build(BuildContext context) => BlocProvider.value(
         value: bloc,
