@@ -91,9 +91,8 @@ class _MainScreenState extends State<MainScreen> {
         context
             .read<AnnouncementListBloc>()
             .add(AnnouncementListEvent.getFilterClear());
-        Navigator.of(context).push(fade(page: AdsScreen(onBack: () {
-          Navigator.of(context).pop();
-        })));
+        Navigator.of(context, rootNavigator: true)
+            .push(fade(page: AdsScreen(isBack: false, onTap: () {})));
       },
       () async {
         /// for testing purpose
@@ -158,10 +157,14 @@ class _MainScreenState extends State<MainScreen> {
                     ),
                     BlocBuilder<GetMakesBloc, GetMakesState>(
                       builder: (context, state) => CarModelItem(
-                        onTapSelect: () => Navigator.of(context).push(
-                            fade(page: ChooseCarBrandComparison(onTap: () {
-                          Navigator.pop(context);
-                        }))).then((value) {
+                        onTapSelect: () =>
+                            Navigator.of(context, rootNavigator: true)
+                                .push(fade(
+                                    page: ChooseCarBrandComparison(
+                          onTap: () {},
+                          isbak: true,
+                        )))
+                                .then((value) {
                           context.read<AnnouncementListBloc>().add(
                               AnnouncementListEvent.getFilter(context
                                   .read<AnnouncementListBloc>()
@@ -178,10 +181,8 @@ class _MainScreenState extends State<MainScreen> {
                               .add(AnnouncementListEvent.getAnnouncementList());
                         }),
                         onTapShow: () {
-                          Navigator.of(context)
-                              .push(fade(page: AdsScreen(onBack: () {
-                            Navigator.of(context).pop();
-                          })));
+                          Navigator.of(context).push(fade(
+                              page: AdsScreen(isBack: false, onTap: () {})));
                         },
                         imageUrl: state.imageUrl,
                         title: state.name,

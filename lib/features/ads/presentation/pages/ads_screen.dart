@@ -19,8 +19,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 class AdsScreen extends StatefulWidget {
-  final VoidCallback onBack;
-  const AdsScreen({super.key, required this.onBack});
+  final bool isBack;
+  final VoidCallback onTap;
+  const AdsScreen({super.key, required this.isBack, required this.onTap});
 
   @override
   State<AdsScreen> createState() => _AdsScreenState();
@@ -95,7 +96,11 @@ class _AdsScreenState extends State<AdsScreen>
                   pinned: true,
                   automaticallyImplyLeading: false,
                   leading: WScaleAnimation(
-                    onTap: widget.onBack,
+                    onTap: widget.isBack
+                        ? widget.onTap
+                        : () {
+                            Navigator.pop(context);
+                          },
                     child: Padding(
                       padding: const EdgeInsets.only(left: 24, right: 16),
                       child: Align(
@@ -218,28 +223,22 @@ class _AdsScreenState extends State<AdsScreen>
               ],
             ),
             floatingActionButtonLocation:
-                crossFadeState == CrossFadeState.showFirst
-                    ? FloatingActionButtonLocation.centerFloat
-                    : FloatingActionButtonLocation.startFloat,
+                FloatingActionButtonLocation.startFloat,
             floatingActionButton: WScaleAnimation(
               onTap: () {},
               child: AnimatedContainer(
                 alignment: crossFadeState == CrossFadeState.showFirst
-                    ? Alignment.center
+                    ? const Alignment(-.2, 0)
                     : const Alignment(-.85, 0),
-                width: crossFadeState == CrossFadeState.showFirst ? 221 : 44,
+                width: crossFadeState == CrossFadeState.showFirst
+                    ? double.maxFinite
+                    : 44,
                 height: 44,
                 duration: fadeDuration,
                 child: Container(
                   decoration: BoxDecoration(
                       color: orange, borderRadius: BorderRadius.circular(22)),
-                  width: _scrollController.hasClients
-                      ? _scrollController.offset >= 70
-                          ? size.width * 0.5
-                          : _scrollController.offset >= 80
-                              ? size.width * 0.4
-                              : size.width * 0.6
-                      : size.width * 0.6,
+                  width: crossFadeState == CrossFadeState.showFirst ? 221 : 44,
                   height: 44,
                   child: AnimatedCrossFade(
                     alignment: Alignment.center,
@@ -252,7 +251,7 @@ class _AdsScreenState extends State<AdsScreen>
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           if (_scrollController.hasClients)
-                            _scrollController.offset <= 98
+                            _scrollController.offset <= 70
                                 ? const FittedBox(
                                     fit: BoxFit.cover,
                                     child: Text(
@@ -266,18 +265,14 @@ class _AdsScreenState extends State<AdsScreen>
                                   )
                                 : const Text('')
                           else
-                            const FittedBox(
-                              fit: BoxFit.cover,
-                              child: Text(
-                                'Сохранить поиск',
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w600,
-                                  color: white,
-                                ),
+                            const Text(
+                              'Сохранить поиск',
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
+                                color: white,
                               ),
                             ),
-                          const SizedBox(width: 12),
                           SvgPicture.asset(
                             AppIcons.searchWithHeartWhite,
                             height: 20,

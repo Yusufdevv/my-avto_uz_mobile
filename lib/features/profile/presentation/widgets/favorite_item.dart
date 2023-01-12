@@ -362,7 +362,6 @@ class _FavoriteItemState extends State<FavoriteItem> {
                       child: AddComparisonItem(
                         id: widget.id,
                         initialLike: widget.hasComparison,
-                        bloc: BlocProvider.of<ComparisonAddBloc>(context),
                       ),
                     ),
                     const SizedBox(width: 8),
