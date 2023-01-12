@@ -33,9 +33,7 @@ class BaseOnBoarding extends StatelessWidget {
                     color: solitude.withOpacity(.12)),
               ],
             ),
-            const SizedBox(
-              height: 8,
-            ),
+            const SizedBox(height: 8),
             Row(
               children: [
                 Expanded(
@@ -46,9 +44,7 @@ class BaseOnBoarding extends StatelessWidget {
                         .solitudeToDarkGray95,
                   ),
                 ),
-                const SizedBox(
-                  width: 4,
-                ),
+                const SizedBox(width: 4),
                 Text(
                   LocaleKeys.another_ways.tr(),
                   style: Theme.of(context)
@@ -56,9 +52,7 @@ class BaseOnBoarding extends StatelessWidget {
                       .bodyText1!
                       .copyWith(fontSize: 14),
                 ),
-                const SizedBox(
-                  width: 4,
-                ),
+                const SizedBox(width: 4),
                 Expanded(
                   child: Divider(
                     thickness: 1,
