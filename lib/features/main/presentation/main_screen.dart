@@ -163,6 +163,7 @@ class _MainScreenState extends State<MainScreen> {
                                     page: ChooseCarBrandComparison(
                           onTap: () {},
                           isbak: true,
+                          isClear: false,
                         )))
                                 .then((value) {
                           context.read<AnnouncementListBloc>().add(

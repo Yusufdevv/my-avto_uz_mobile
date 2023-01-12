@@ -113,6 +113,7 @@ class CommercialBodyScreen extends StatelessWidget {
           (index) => Padding(
             padding: const EdgeInsets.only(bottom: 12),
             child: InfoContainer(
+              index: index,
               avatarPicture: 'assets/images/car_single/car_single300kb.png',
               carModel: 'Mercedes-Benz Sprinter',
               hasDiscount: false,

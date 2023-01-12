@@ -180,6 +180,7 @@ class _AdsBodyScreenState extends State<AdsBodyScreen> {
                 (index) => Padding(
                   padding: const EdgeInsets.only(bottom: 12),
                   child: InfoContainer(
+                    index: index,
                     avatarPicture: state.announcementList[index].user.avatar,
                     carModel: state.announcementList[index].model,
                     hasDiscount: state.announcementList[index].discount != 0,
