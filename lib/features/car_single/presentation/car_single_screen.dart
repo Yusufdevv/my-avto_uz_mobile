@@ -8,9 +8,9 @@ import 'package:auto/features/car_single/domain/usecases/get_ads_usecase.dart';
 import 'package:auto/features/car_single/domain/usecases/other_ads_usecase.dart';
 import 'package:auto/features/car_single/presentation/bloc/car_single_bloc.dart';
 import 'package:auto/features/car_single/presentation/parts/car_seller_card.dart';
-import 'package:auto/features/car_single/presentation/parts/characteristics/car_characteristic.dart';
 import 'package:auto/features/car_single/presentation/parts/descriptions/seller_comment.dart';
 import 'package:auto/features/car_single/presentation/parts/owner_actions.dart';
+import 'package:auto/features/car_single/presentation/widgets/car_characteristic_image.dart';
 import 'package:auto/features/car_single/presentation/widgets/car_name_widget.dart';
 import 'package:auto/features/car_single/presentation/widgets/cars_characteristic.dart';
 import 'package:auto/features/car_single/presentation/widgets/dealer_time_botomsheet.dart';
@@ -18,17 +18,23 @@ import 'package:auto/features/car_single/presentation/widgets/more_actions_botto
 import 'package:auto/features/car_single/presentation/widgets/persistant_header.dart';
 import 'package:auto/features/car_single/presentation/widgets/sliver_images_item.dart';
 import 'package:auto/features/car_single/presentation/widgets/vin_soon_item.dart';
+import 'package:auto/features/common/bloc/wishlist_add/wishlist_add_bloc.dart';
+import 'package:auto/features/common/repository/add_wishlist_repository.dart';
+import 'package:auto/features/common/usecases/add_wishlist_usecase.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
-import 'package:auto/features/common/widgets/w_like.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
+import 'package:auto/features/dealers/presentation/dealers_main.dart';
 import 'package:auto/features/main/presentation/widgets/ads_item.dart';
+import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/pagination/presentation/paginator.dart';
+import 'package:auto/features/search/presentation/widgets/add_wishlist_item.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:auto/utils/my_functions.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:formz/formz.dart';
@@ -46,6 +52,7 @@ class _CarSingleScreenState extends State<CarSingleScreen>
     with SingleTickerProviderStateMixin {
   final Color color = white;
   late CarSingleBloc bloc;
+  late WishlistAddBloc wishlistAddBloc;
   late TabController _tabController;
   late bool isLike;
   late bool isDisable;
@@ -61,6 +68,7 @@ class _CarSingleScreenState extends State<CarSingleScreen>
   int currentindex = 0;
   int currentIndex = 0;
   double height = 36;
+  Brightness brightness = Brightness.light;
 
   void changeIndex(int index) {
     setState(() {
@@ -74,6 +82,11 @@ class _CarSingleScreenState extends State<CarSingleScreen>
     _tabController = TabController(length: 2, vsync: this);
     isDisable = true;
     isLike = false;
+    wishlistAddBloc = WishlistAddBloc(
+        useCase: AddWishlistUseCase(
+            repo: serviceLocator<AddWishlistRepositoryImpl>()),
+        removeWishlistUseCase: RemoveWishlistUseCase(
+            repo: serviceLocator<AddWishlistRepositoryImpl>()));
     bloc = CarSingleBloc(
         GetCarSingleUseCase(
             repository: serviceLocator<CarSingleRepositoryImpl>()),
@@ -99,6 +112,11 @@ class _CarSingleScreenState extends State<CarSingleScreen>
       } else {
         iconColor = white;
       }
+      if (_scrollController.offset > 240) {
+        brightness = Brightness.dark;
+      } else {
+        brightness = Brightness.light;
+      }
     });
     super.initState();
   }
@@ -110,8 +128,15 @@ class _CarSingleScreenState extends State<CarSingleScreen>
   }
 
   @override
-  Widget build(BuildContext context) => BlocProvider.value(
-        value: bloc,
+  Widget build(BuildContext context) => MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (c) => bloc,
+          ),
+          BlocProvider(
+            create: (c) => wishlistAddBloc,
+          ),
+        ],
         child: Scaffold(
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           body: BlocBuilder<CarSingleBloc, CarSingleState>(
@@ -125,6 +150,10 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                       controller: _scrollController,
                       slivers: [
                         SliverAppBar(
+                          systemOverlayStyle: SystemUiOverlayStyle(
+                            statusBarIconBrightness: brightness,
+                            statusBarColor: Colors.transparent,
+                          ),
                           elevation: 0,
                           pinned: true,
                           stretch: true,
@@ -164,8 +193,9 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                               Padding(
                                 padding:
                                     const EdgeInsets.only(left: 8, right: 8),
-                                child: WLike(
-                                  color: iconColor,
+                                child: AddWishlistItem(
+                                  bloc: wishlistAddBloc,
+                                  id: state.singleEntity.id,
                                 ),
                               ),
                               GestureDetector(
@@ -182,6 +212,13 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                                       position: state.singleEntity.userType,
                                       image:
                                           state.singleEntity.user.avatar ?? '',
+                                      onShare: () {
+                                        Share.share(
+                                          'https://panel.avto.uz/api/v1/car/announcement/${state.singleEntity.id}/detail/',
+                                        );
+                                      },
+                                      onCompare: () {},
+                                      onDealer: () {},
                                     ),
                                   );
                                 },
@@ -198,15 +235,20 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                         SliverToBoxAdapter(
                           child: CarNameWidget(
                             fullname: state.singleEntity.absoluteCarName,
-                            price: state.singleEntity.price,
+                            price: MyFunctions.getFormatCost(
+                              state.singleEntity.price,
+                            ),
                             date: state.singleEntity.publishedAt,
                             view: '${state.singleEntity.viewsCount}',
                             id: '${state.singleEntity.id}',
-                            currency: state.singleEntity.currency,
+                            currency: state.singleEntity.currency == 'usd'
+                                ? 'USD'
+                                : 'UZS',
                             onVin: () {},
                             onComparison: () {},
                             onShare: () {
-                              Share.share('Auto uz');
+                              Share.share(
+                                  'https://panel.avto.uz/api/v1/car/announcement/${state.singleEntity.id}/detail/');
                             },
                             year: '${state.singleEntity.year}',
                             mileage: '${state.singleEntity.distanceTraveled}',
@@ -280,8 +322,10 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                                       .singleEntity.modificationType.volume,
                                 ),
                         ),
-                        const SliverToBoxAdapter(
-                          child: CarCharacteristic(),
+                        SliverToBoxAdapter(
+                          child: CarCharacteristicImage(
+                            informAboutDoors: state.singleEntity.damagedParts,
+                          ),
                         ),
                         SliverToBoxAdapter(
                           child: state.elasticSearchEntity.isNotEmpty
@@ -446,66 +490,112 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                       child: Row(
                         children: [
                           Expanded(
-                            child: MyFunctions.enableForCalling(
-                                    callFrom:
-                                        state.singleEntity.contactAvailableFrom,
-                                    callTo:
-                                        state.singleEntity.contactAvailableTo)
-                                ? WButton(
-                                    onTap: () {
-                                      launchUrl(Uri.parse(
-                                          'tel://${state.singleEntity.user.phoneNumber}'));
-                                    },
-                                    height: 44,
-                                    borderRadius: 8,
-                                    color: const Color(0xff5ECC81),
-                                    text: LocaleKeys.call.tr(),
-                                    textColor: Colors.white,
-                                  )
-                                : WButton(
-                                    onTap: () {
-                                      showModalBottomSheet(
-                                        useRootNavigator: true,
-                                        isScrollControlled: false,
-                                        backgroundColor: Colors.transparent,
-                                        context: context,
-                                        builder: (context) => DealerTime(
-                                          timeTo: state
-                                              .singleEntity.contactAvailableTo,
-                                          timeFrom: state.singleEntity
-                                              .contactAvailableFrom,
-                                        ),
-                                      );
-                                    },
-                                    height: 44,
-                                    borderRadius: 8,
-                                    color: const Color(0xffB5B5BE),
-                                    text: LocaleKeys.call.tr(),
-                                    textColor: Colors.white,
-                                    child: Row(
-                                      children: [
-                                        const Spacer(),
-                                        SvgPicture.asset(
-                                          AppIcons.info,
-                                          color: white,
-                                        ),
-                                        const SizedBox(
-                                          width: 8,
-                                        ),
-                                        const Text(
-                                          'Позвонить',
-                                          style: TextStyle(color: border),
-                                        ),
-                                        const Spacer(),
-                                      ],
-                                    ),
-                                  ),
-                          ),
+                              child: state.singleEntity.contactAvailableFrom !=
+                                          null &&
+                                      state.singleEntity.contactAvailableTo !=
+                                          null
+                                  ? MyFunctions.enableForCalling(
+                                      callFrom: state
+                                          .singleEntity.contactAvailableFrom,
+                                      callTo:
+                                          state.singleEntity.contactAvailableTo,
+                                    )
+                                      ? WButton(
+                                          onTap: () {
+                                            launchUrl(Uri.parse(
+                                                'tel://${state.singleEntity.user.phoneNumber}'));
+                                          },
+                                          height: 44,
+                                          borderRadius: 8,
+                                          color: const Color(0xff5ECC81),
+                                          text: LocaleKeys.call.tr(),
+                                          textColor: Colors.white,
+                                        )
+                                      : WButton(
+                                          onTap: () {
+                                            showModalBottomSheet(
+                                              useRootNavigator: true,
+                                              isScrollControlled: false,
+                                              backgroundColor:
+                                                  Colors.transparent,
+                                              context: context,
+                                              builder: (context) => DealerTime(
+                                                timeTo: state.singleEntity
+                                                    .contactAvailableTo,
+                                                timeFrom: state.singleEntity
+                                                    .contactAvailableFrom,
+                                              ),
+                                            );
+                                          },
+                                          height: 44,
+                                          borderRadius: 8,
+                                          color: const Color(0xffB5B5BE),
+                                          text: LocaleKeys.call.tr(),
+                                          textColor: Colors.white,
+                                          child: Row(
+                                            children: [
+                                              const Spacer(),
+                                              SvgPicture.asset(
+                                                AppIcons.info,
+                                                color: white,
+                                              ),
+                                              const SizedBox(
+                                                width: 8,
+                                              ),
+                                              const Text(
+                                                'Позвонить',
+                                                style: TextStyle(color: border),
+                                              ),
+                                              const Spacer(),
+                                            ],
+                                          ),
+                                        )
+                                  : WButton(
+                                      onTap: () {
+                                        showModalBottomSheet(
+                                          useRootNavigator: true,
+                                          isScrollControlled: false,
+                                          backgroundColor: Colors.transparent,
+                                          context: context,
+                                          builder: (context) => DealerTime(
+                                            timeTo: state.singleEntity
+                                                .contactAvailableTo,
+                                            timeFrom: state.singleEntity
+                                                .contactAvailableFrom,
+                                          ),
+                                        );
+                                      },
+                                      height: 44,
+                                      borderRadius: 8,
+                                      color: const Color(0xffB5B5BE),
+                                      text: LocaleKeys.call.tr(),
+                                      textColor: Colors.white,
+                                      child: Row(
+                                        children: [
+                                          const Spacer(),
+                                          SvgPicture.asset(
+                                            AppIcons.info,
+                                            color: white,
+                                          ),
+                                          const SizedBox(
+                                            width: 8,
+                                          ),
+                                          const Text(
+                                            'Позвонить',
+                                            style: TextStyle(color: border),
+                                          ),
+                                          const Spacer(),
+                                        ],
+                                      ),
+                                    )),
                           const SizedBox(
                             width: 4,
                           ),
                           WScaleAnimation(
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.of(context)
+                                  .push(fade(page: const DealerScreen()));
+                            },
                             child: Container(
                               height: 44,
                               decoration: BoxDecoration(

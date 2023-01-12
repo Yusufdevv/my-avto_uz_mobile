@@ -4,18 +4,23 @@ import 'package:auto/features/car_single/presentation/widgets/dealer_item.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:share_plus/share_plus.dart';
 
 class MoreActions extends StatelessWidget {
   final String name;
   final String position;
   final String image;
+  final VoidCallback onShare;
+  final VoidCallback onCompare;
+  final VoidCallback onDealer;
 
   const MoreActions(
       {Key? key,
       required this.name,
       required this.position,
-      required this.image})
+      required this.image,
+      required this.onShare,
+      required this.onCompare,
+      required this.onDealer})
       : super(key: key);
 
   @override
@@ -97,16 +102,14 @@ class MoreActions extends StatelessWidget {
                           ),
                           Text(
                             'Отчет (VIN)',
-                            style: Theme.of(context)
-                                .textTheme
-                                .headline1!
-                                .copyWith(
-                                  color: const Color(
-                                    0xff171725,
-                                  ),
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 12,
-                                ),
+                            style:
+                                Theme.of(context).textTheme.headline1!.copyWith(
+                                      color: const Color(
+                                        0xff171725,
+                                      ),
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 12,
+                                    ),
                           ),
                         ],
                       ),
@@ -118,7 +121,7 @@ class MoreActions extends StatelessWidget {
                 ),
                 Expanded(
                   child: WScaleAnimation(
-                    onTap: () {},
+                    onTap: onCompare,
                     child: Container(
                       padding: const EdgeInsets.only(
                         top: 16,
@@ -162,7 +165,7 @@ class MoreActions extends StatelessWidget {
                 Expanded(
                   child: WScaleAnimation(
                     onTap: () {
-                      Share.share('Auto uz');
+                      onShare;
                     },
                     child: Container(
                       padding: const EdgeInsets.only(
@@ -213,7 +216,7 @@ class MoreActions extends StatelessWidget {
               image: image,
               name: name,
               position: position,
-              onTap: () {},
+              onTap: onDealer,
             ),
             // MoreActionItem(
             //   icon: AppIcons.refresh,

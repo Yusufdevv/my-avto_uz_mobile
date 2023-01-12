@@ -10,6 +10,7 @@ import 'package:auto/features/common/models/region.dart';
 import 'package:auto/features/dealers/data/models/dealer_card_model.dart';
 import 'package:auto/features/profile/domain/entities/dir_category_entity.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:jiffy/jiffy.dart';
 import 'package:yandex_mapkit/yandex_mapkit.dart';
@@ -18,6 +19,20 @@ import 'package:yandex_mapkit/yandex_mapkit.dart';
 class MyFunctions {
   static String getData(String data) =>
       Jiffy(data).format('dd-MM-yyyy').replaceAll('-', '/').toString();
+
+  // static String getFormatCost(String cost) {
+  //   String oldCost = cost;
+  //   if (cost.contains('.')) {
+  //     List<String> arr = cost.split('.');
+  //     oldCost = arr.first;
+  //   }
+  //   String newCost = "";
+  //   for (int i = 0; i < oldCost.length; i++) {
+  //     if ((oldCost.length - i) % 3 == 0) newCost += ' ';
+  //     newCost += oldCost[i];
+  //   }
+  //   return newCost.trimLeft();
+  // }
 
   static String phoneFormat(String phone) {
     //input: 904781717
@@ -111,12 +126,12 @@ class MyFunctions {
 
   static Future<Uint8List> getBytesFromCanvas(
       {required int width,
-      required int height,
-      required int placeCount,
-      required BuildContext context,
-      Offset? offset,
-      required String image,
-      bool shouldAddText = true}) async {
+        required int height,
+        required int placeCount,
+        required BuildContext context,
+        Offset? offset,
+        required String image,
+        bool shouldAddText = true}) async {
     final pictureRecorder = ui.PictureRecorder();
     final canvas = Canvas(pictureRecorder);
     final paint = Paint()..color = Colors.red;
@@ -127,17 +142,16 @@ class MyFunctions {
 
     if (shouldAddText) {
       final painter = TextPainter(textDirection: ui.TextDirection.ltr);
-      painter
-        ..text = TextSpan(
-          text: placeCount.toString(),
-          style: const TextStyle(fontSize: 100, color: Colors.white),
-        )
-        ..layout()
-        ..paint(
-          canvas,
-          Offset((width * 0.47) - painter.width * 0.2,
-              (height * 0.1) - painter.height * 0.1),
-        );
+      painter..text = TextSpan(
+        text: placeCount.toString(),
+        style: const TextStyle(fontSize: 100, color: Colors.white),
+      )
+      ..layout()
+      ..paint(
+        canvas,
+        Offset((width * 0.47) - painter.width * 0.2,
+            (height * 0.1) - painter.height * 0.1),
+      );
     }
 
     final img = await pictureRecorder.endRecording().toImage(width, height);
@@ -424,4 +438,68 @@ class MyFunctions {
 
   static bool isEmail(String email) =>
       RegExp(r'^[a-z0-9](\.?[a-z0-9]){5,}@g(oogle)?mail\.com$').hasMatch(email);
+
+  String getDoorName(String door) {
+    switch (door) {
+      case 'left_front_door':
+        return 'Левая передняя дверь';
+      case 'rigth_front_door':
+        return 'Правая передняя дверь';
+      case 'left_rear_door':
+        return 'Левая задняя дверь';
+      case 'right_rear_door':
+        return 'Правая задняя дверь';
+      case 'front_bumper':
+        return 'Передний бамфер';
+      case 'rear_bumper':
+        return 'Задний бамфер';
+      case 'front_left_fender':
+        return 'Переднее левое крыло';
+      case 'front_right_fender':
+        return 'Переднее правое крыло';
+      case 'rear_left_fender':
+        return 'Заднее левое крыло';
+      case 'rear_right_fender':
+        return 'Заднее правое крыло';
+      case 'roof':
+        return 'Крыша';
+      case 'hood':
+        return 'Капот';
+      case 'trunk':
+        return 'Багажник';
+    }
+    return '';
+  }
+
+  String getStatusTitle(String status) {
+    switch (status) {
+      case 'ideal':
+        return 'Идеальное';
+      case 'scratched':
+        return 'Повреждено';
+      case 'replaced':
+        return 'Заменено';
+      case 'with_dents':
+        return 'С вмятинами';
+      case 'requires_replacement':
+        return 'Требует замены';
+    }
+    return 'Не показано';
+  }
+
+  Widget getStatusIcon(String status) {
+    switch (status) {
+      case 'ideal':
+        return SvgPicture.asset(AppIcons.checkRounded, height: 20, width: 20);
+      case 'scratched':
+        return SvgPicture.asset(AppIcons.yellowWarning);
+      case 'replaced':
+        return SvgPicture.asset(AppIcons.bl_ch, height: 24, width: 24);
+      case 'with_dents':
+        return SvgPicture.asset(AppIcons.blueWarning);
+      case 'requires_replacement':
+        return SvgPicture.asset(AppIcons.redWarning);
+    }
+    return const SizedBox();
+  }
 }

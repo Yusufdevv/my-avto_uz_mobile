@@ -1,5 +1,6 @@
 import 'package:auto/features/ad/presentation/posting_ad_screen.dart';
 import 'package:auto/features/main/presentation/main_screen.dart';
+import 'package:auto/features/car_single/presentation/car_single_screen.dart';
 import 'package:auto/features/navigation/presentation/home.dart';
 import 'package:auto/features/profile/presentation/profile_screen.dart';
 import 'package:auto/features/reels/presentation/pages/reels_screen.dart';
@@ -59,7 +60,6 @@ class _TabNavigatorState extends State<TabNavigator>
     super.build(context);
     return Navigator(
       key: widget.navigatorKey,
-      
       initialRoute: TabNavigatorRoutes.root,
       onGenerateRoute: (routeSettings) {
         final routeBuilders =
