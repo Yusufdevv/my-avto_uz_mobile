@@ -1,23 +1,15 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
-//import 'package:auto/features/ad/presentation/bloc/car_selector/car_selector_bloc.dart';
 import 'package:auto/features/ad/presentation/bloc/choose_model/car_type_selector_bloc.dart';
-//import 'package:auto/features/ad/presentation/bloc/choose_model/model_selectro_bloc.dart';
-import 'package:auto/features/commercial/presentation/widgets/commercial_car_model_item.dart';
 import 'package:auto/features/commercial/presentation/widgets/info_container.dart';
 import 'package:auto/features/common/bloc/get_car_model/get_car_model_bloc.dart';
 import 'package:auto/features/common/bloc/get_makes_bloc/get_makes_bloc_bloc.dart';
 import 'package:auto/features/common/bloc/regions/regions_bloc.dart';
 import 'package:auto/features/common/models/region.dart';
 import 'package:auto/features/common/widgets/w_filter_button.dart';
-//import 'package:auto/features/comparison/presentation/bloc/filter_parameters_bloc/bloc/filter_parameters_bloc.dart';
-//import 'package:auto/features/comparison/presentation/pages/ads/ads.dart';
 import 'package:auto/features/comparison/presentation/pages/ads/filter_parameters.dart';
-import 'package:auto/features/comparison/presentation/pages/choose_car_brand.dart';
-import 'package:auto/features/comparison/presentation/pages/choose_model.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
-import 'package:auto/features/rent/domain/usecases/rent_usecase.dart';
 import 'package:auto/features/rent/presentation/bloc/rent_bloc/rent_bloc.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/rent_choose_region_bottom_sheet.dart';
 import 'package:flutter/material.dart';
@@ -192,7 +184,7 @@ class _AdsBodyScreenState extends State<AdsBodyScreen> {
               hasStatusInfo: hasDiscount[index],
               hasCallCard: hasDiscount[index],
               onTapComparsion: () {},
-              onTapFavorites: () {}, initialComparsions: false, id: 0,
+              onTapFavorites: () {}, initialComparsions: false, id: 0, index: index,
             ),
           ),
         )
