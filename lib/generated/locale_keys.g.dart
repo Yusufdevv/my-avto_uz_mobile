@@ -178,6 +178,7 @@ abstract class  LocaleKeys {
   static const my_profile = 'my_profile';
   static const number_dont_regist = 'number_dont_regist';
   static const about_app = 'about_app';
+  static const dev_language = 'dev_language';
   static const buy = 'buy';
   static const sale_period_left = 'sale_period_left';
   static const help_desk = 'help_desk';
