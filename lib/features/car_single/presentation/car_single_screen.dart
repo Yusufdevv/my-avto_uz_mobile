@@ -144,7 +144,6 @@ class _CarSingleScreenState extends State<CarSingleScreen>
               if (state.status != FormzStatus.submissionSuccess) {
                 return const Center(child: CupertinoActivityIndicator());
               } else {
-                print('DAMAGE PARTS -> ${state.singleEntity.damagedParts}');
                 return Stack(
                   children: [
                     CustomScrollView(
@@ -236,8 +235,9 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                         SliverToBoxAdapter(
                           child: CarNameWidget(
                             fullname: state.singleEntity.absoluteCarName,
-                            price: MyFunctions.getFormattedPrice(
-                                state.singleEntity.price, [3, 6, 9, 12]),
+                            price: MyFunctions.getFormatCost(
+                              state.singleEntity.price,
+                            ),
                             date: state.singleEntity.publishedAt,
                             view: '${state.singleEntity.viewsCount}',
                             id: '${state.singleEntity.id}',
