@@ -167,15 +167,14 @@ class _MySearchesPageState extends State<MySearchesPage> {
                                 betweenHeight: 36,
                                 onTap: () {
                                   isDeleted = !isDeleted;
+                                  bloc.add(DeleteMySearchesEvent(
+                                      ids: deletedIds(deletedList)));
+                                  setState(() {});
                                   mySearches.removeWhere(
                                       (e) => deletedList.contains(e));
                                   deletedList.clear();
                                   isToggled = false;
-
                                   Navigator.pop(context);
-                                  bloc.add(DeleteMySearchesEvent(
-                                      ids: deletedIds(deletedList)));
-                                  setState(() {});
                                 },
                               ),
                             )

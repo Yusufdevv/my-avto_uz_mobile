@@ -5,7 +5,7 @@ class MySearchesEntity {
     this.make,
     this.model,
     this.query,
-    this.queryData,
+    // this.queryData,
   });
 
   int? id;
@@ -13,7 +13,7 @@ class MySearchesEntity {
   Make? make;
   List<Model?>? model;
   String? query;
-  QueryData? queryData;
+  // QueryData? queryData;
 }
 
 class Make {
@@ -74,7 +74,7 @@ class QueryData {
   List<int?>? model;
 
   factory QueryData.fromJson(Map<String, dynamic> json) => QueryData(
-        make: json['make'],
+        make: int.parse(json['make']),
         model: json['model'] == null
             ? []
             : List<int?>.from(json['model']!.map((x) => x)),

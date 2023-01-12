@@ -62,6 +62,7 @@ class Usercountdata {
     this.announcementsCount,
     this.searchCount,
     this.reviewsCount,
+    this.filterHistoryCount
   });
 
   final int? id;
@@ -70,6 +71,7 @@ class Usercountdata {
   final int? announcementsCount;
   final int? searchCount;
   final int? reviewsCount;
+  final int? filterHistoryCount;
 
   factory Usercountdata.fromJson(Map<String, dynamic> json) => Usercountdata(
         id: json['id'],
@@ -78,5 +80,6 @@ class Usercountdata {
         announcementsCount: json['announcements_count'],
         searchCount: json['search_count'],
         reviewsCount: json['reviews_count'],
+        filterHistoryCount: json['filter_history_count'],
       );
 }
