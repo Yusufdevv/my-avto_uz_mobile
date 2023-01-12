@@ -32,7 +32,7 @@ class AnnouncementFilterModel extends Equatable {
       AnnouncementFilterModel(
         make: make ?? this.make,
         model: model ?? this.model,
-        isNew: isNew ?? this.isNew,
+        isNew: isNew,
         bodyType: bodyType ?? this.bodyType,
         gearboxType: gearboxType ?? this.gearboxType,
         driveType: driveType ?? this.driveType,

@@ -176,7 +176,8 @@ class _ComparisonState extends State<Comparison> {
                                   Navigator.of(context).push(
                                     fade(
                                       page: AdsScreen(
-                                        onBack: () {
+                                        isBack: true,
+                                        onTap: () {
                                           widget.comparisonBloc
                                               .add(GetComparableCars());
                                           Navigator.of(context).pop();

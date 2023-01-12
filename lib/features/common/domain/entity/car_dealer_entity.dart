@@ -1,3 +1,4 @@
+import 'package:auto/features/common/domain/entity/car_district_entity.dart';
 import 'package:auto/features/common/domain/model/car_dealer_model.dart';
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
@@ -13,7 +14,7 @@ class CarDealerEntity extends Equatable {
     this.contactTo = '',
     this.longitude = 0,
     this.latitude = 0,
-    this.district = 0,
+    this.district = const CarDistrictEntity(),
     this.carCount = 0,
     this.avatar = '',
   });
@@ -28,7 +29,8 @@ class CarDealerEntity extends Equatable {
   final String contactTo;
   final double longitude;
   final double latitude;
-  final int district;
+  @CarDistrictConverter()
+  final CarDistrictEntity district;
   final int carCount;
 
   @override
@@ -71,3 +73,4 @@ class CarDealerConverter
         carCount: object.carCount,
       ).toJson();
 }
+

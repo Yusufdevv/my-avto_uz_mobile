@@ -9,14 +9,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 class CommercialBodyScreen extends StatelessWidget {
   final ScrollController scrollController;
-
-  CommercialBodyScreen({required this.scrollController, super.key});
-
-  final List<bool> hasDiscount = [true, false];
-  final List<String> owner = ['Анвар Гулямов', 'ORIENT MOTORS'];
-  final List<String> ownerType = ['Частное лицо', 'Автосалон'];
-  final List<String> publishTime = ['Сегодня', '27 февраля'];
-  final List<String> sellType = ['Продажа Автомобиля', 'Аренда c выкупом'];
+  final bool? isNew;
+  const CommercialBodyScreen(
+      {required this.scrollController, this.isNew, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -38,8 +33,7 @@ class CommercialBodyScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             WButton(
-              onTap:
-                  () {} /* Navigator.push(context, fade(page: const FilterScreen()))*/,
+              onTap: () {},
               width: size.width * 0.45,
               borderRadius: 8,
               margin: const EdgeInsets.only(left: 16),
@@ -77,10 +71,7 @@ class CommercialBodyScreen extends StatelessWidget {
               ),
             ),
             WButton(
-              onTap:
-                  () {} /*() =>
-                  Navigator.push(context, fade(page: const FilterScreen()))*/
-              ,
+              onTap: () {},
               width: size.width * 0.45,
               borderRadius: 8,
               margin: const EdgeInsets.only(right: 16),
@@ -124,26 +115,30 @@ class CommercialBodyScreen extends StatelessWidget {
             child: InfoContainer(
               avatarPicture: 'assets/images/car_single/car_single300kb.png',
               carModel: 'Mercedes-Benz Sprinter',
-              hasDiscount: hasDiscount[index],
+              hasDiscount: false,
               location: 'г. Ташкент',
-              owner: owner[index],
-              ownerType: ownerType[index],
-              publishTime: publishTime[index],
+              owner: '',
+              ownerType: '',
+              publishTime: '',
               subtitle:
                   '\n\nMercedes-Benz Sprinter — семейство малотоннажных\nавтомобилей компании Mercedes-Benz. Существует...',
               year: 2020,
               price: '227 000 000 UZS',
               discountPrice: '270 000 000 UZS',
-              sellType: sellType[index],
-              hasStatusInfo: hasDiscount[index],
-              hasCallCard: hasDiscount[index],
+              sellType: 'b',
+              hasStatusInfo: true,
+              hasCallCard: true,
+              gallery: [],
+              currency: '',
+              initialLike: false,
               onTapFavorites: () {},
               onTapComparsion: () {},
               initialComparsions: false,
               id: -1,
             ),
           ),
-        )
+        ),
+        const SizedBox(height: 100)
       ],
     );
   }

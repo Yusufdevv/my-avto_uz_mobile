@@ -121,11 +121,13 @@ class _MySearchesPageState extends State<MySearchesPage> {
                                   context.read<AnnouncementListBloc>().add(
                                       AnnouncementListEvent
                                           .getAnnouncementList());
-                                  Navigator.push(context, fade(page: AdsScreen(
-                                    onBack: () {
-                                      Navigator.pop(context);
-                                    },
-                                  )));
+                                  Navigator.push(
+                                      context,
+                                      fade(
+                                          page: AdsScreen(
+                                        isBack: false,
+                                        onTap: () {},
+                                      )));
                                 }
                               },
                               child: MySearchItem(

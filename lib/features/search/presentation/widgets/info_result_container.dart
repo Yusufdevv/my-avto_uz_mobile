@@ -357,7 +357,6 @@ class _InfoResultContainerState extends State<InfoResultContainer> {
                     child: AddComparisonItem(
                       id: widget.id,
                       initialLike: widget.hasComparison,
-                      bloc: BlocProvider.of<ComparisonAddBloc>(context),
                     ),
                   ),
                   const SizedBox(width: 8),

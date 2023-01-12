@@ -6,11 +6,9 @@ import 'package:flutter_svg/svg.dart';
 
 class AddComparisonItem extends StatefulWidget {
   final bool? initialLike;
-  final ComparisonAddBloc bloc;
   final int id;
 
-  const AddComparisonItem(
-      {required this.bloc, required this.id, this.initialLike, Key? key})
+  const AddComparisonItem({required this.id, this.initialLike, Key? key})
       : super(key: key);
 
   @override
@@ -30,20 +28,20 @@ class _AddComparisonItemState extends State<AddComparisonItem> {
 
   @override
   Widget build(BuildContext context) => BlocProvider(
-        create: (context) => widget.bloc,
+        create: (context) => context.read<ComparisonAddBloc>(),
         child: SizedBox(
           height: 28,
           width: 28,
           child: BlocBuilder<ComparisonAddBloc, ComparisonAddState>(
-            bloc: widget.bloc,
+            bloc: context.read<ComparisonAddBloc>(),
             builder: (context, state) => GestureDetector(
               onTap: () {
                 if (!isLiked) {
-                  widget.bloc
+                  context.read<ComparisonAddBloc>()
                       .add(ComparisonAddEvent.postComparisonCars(widget.id));
                   isLiked = true;
                 } else {
-                  widget.bloc
+                  context.read<ComparisonAddBloc>()
                       .add(ComparisonAddEvent.deleteComparison(widget.id));
                   isLiked = false;
                 }

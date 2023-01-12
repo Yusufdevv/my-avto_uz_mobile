@@ -14,8 +14,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 class ChooseCarBrandComparison extends StatefulWidget {
+  final bool isbak;
   final VoidCallback onTap;
-  const ChooseCarBrandComparison({required this.onTap, Key? key})
+  const ChooseCarBrandComparison(
+      {required this.onTap, Key? key, this.isbak = false})
       : super(key: key);
 
   @override
@@ -194,7 +196,13 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
                   right: 16,
                   left: 16,
                   child: WButton(
-                    onTap: state.selectId == -1 ? () {} : widget.onTap,
+                    onTap: state.selectId == -1
+                        ? () {}
+                        : widget.isbak == true
+                            ? () {
+                                Navigator.pop(context);
+                              }
+                            : widget.onTap,
                     text: 'Далее',
                     shadow: [
                       BoxShadow(

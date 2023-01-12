@@ -306,7 +306,6 @@ class InfoContainer extends StatelessWidget {
                   AddComparisonItem(
                     id: id,
                     initialLike: initialComparsions,
-                    bloc: BlocProvider.of<ComparisonAddBloc>(context),
                   ),
                   const SizedBox(width: 8),
                   AddWishlistItem(
