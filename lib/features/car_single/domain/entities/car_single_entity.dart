@@ -98,6 +98,7 @@ class CarSingleEntity {
   @JsonKey(defaultValue: false)
   final bool isWishlisted;
 
+
   const CarSingleEntity({
     this.absoluteCarName = '',
     this.publishedAt = '',

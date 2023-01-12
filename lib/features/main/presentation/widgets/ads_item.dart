@@ -41,7 +41,7 @@ class AdsItem extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Navigator.of(context, rootNavigator: true)
-            .push(fade(page: const CarSingleScreen()));
+            .push(fade(page:  CarSingleScreen(id: id,)));
       },
       child: Container(
         height: 269,

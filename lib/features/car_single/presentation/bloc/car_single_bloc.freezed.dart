@@ -368,6 +368,7 @@ abstract class _GetAds implements CarSingleEvent {
 
 /// @nodoc
 mixin _$CarSingleState {
+  FormzStatus get adsStatus => throw _privateConstructorUsedError;
   FormzStatus get status => throw _privateConstructorUsedError;
   CarSingleEntity get singleEntity => throw _privateConstructorUsedError;
   List<ElasticSearchEntity> get elasticSearchEntity =>
@@ -386,7 +387,8 @@ abstract class $CarSingleStateCopyWith<$Res> {
       _$CarSingleStateCopyWithImpl<$Res, CarSingleState>;
   @useResult
   $Res call(
-      {FormzStatus status,
+      {FormzStatus adsStatus,
+      FormzStatus status,
       CarSingleEntity singleEntity,
       List<ElasticSearchEntity> elasticSearchEntity,
       dynamic fetchMore});
@@ -405,12 +407,17 @@ class _$CarSingleStateCopyWithImpl<$Res, $Val extends CarSingleState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? adsStatus = null,
     Object? status = null,
     Object? singleEntity = null,
     Object? elasticSearchEntity = null,
     Object? fetchMore = freezed,
   }) {
     return _then(_value.copyWith(
+      adsStatus: null == adsStatus
+          ? _value.adsStatus
+          : adsStatus // ignore: cast_nullable_to_non_nullable
+              as FormzStatus,
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -440,7 +447,8 @@ abstract class _$$_CarSingleStateCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {FormzStatus status,
+      {FormzStatus adsStatus,
+      FormzStatus status,
       CarSingleEntity singleEntity,
       List<ElasticSearchEntity> elasticSearchEntity,
       dynamic fetchMore});
@@ -457,12 +465,17 @@ class __$$_CarSingleStateCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? adsStatus = null,
     Object? status = null,
     Object? singleEntity = null,
     Object? elasticSearchEntity = null,
     Object? fetchMore = freezed,
   }) {
     return _then(_$_CarSingleState(
+      adsStatus: null == adsStatus
+          ? _value.adsStatus
+          : adsStatus // ignore: cast_nullable_to_non_nullable
+              as FormzStatus,
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -484,12 +497,16 @@ class __$$_CarSingleStateCopyWithImpl<$Res>
 
 class _$_CarSingleState implements _CarSingleState {
   const _$_CarSingleState(
-      {this.status = FormzStatus.pure,
+      {this.adsStatus = FormzStatus.pure,
+      this.status = FormzStatus.pure,
       this.singleEntity = const CarSingleEntity(),
       final List<ElasticSearchEntity> elasticSearchEntity = const [],
       this.fetchMore = false})
       : _elasticSearchEntity = elasticSearchEntity;
 
+  @override
+  @JsonKey()
+  final FormzStatus adsStatus;
   @override
   @JsonKey()
   final FormzStatus status;
@@ -512,7 +529,7 @@ class _$_CarSingleState implements _CarSingleState {
 
   @override
   String toString() {
-    return 'CarSingleState(status: $status, singleEntity: $singleEntity, elasticSearchEntity: $elasticSearchEntity, fetchMore: $fetchMore)';
+    return 'CarSingleState(adsStatus: $adsStatus, status: $status, singleEntity: $singleEntity, elasticSearchEntity: $elasticSearchEntity, fetchMore: $fetchMore)';
   }
 
   @override
@@ -520,6 +537,8 @@ class _$_CarSingleState implements _CarSingleState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_CarSingleState &&
+            (identical(other.adsStatus, adsStatus) ||
+                other.adsStatus == adsStatus) &&
             (identical(other.status, status) || other.status == status) &&
             (identical(other.singleEntity, singleEntity) ||
                 other.singleEntity == singleEntity) &&
@@ -531,6 +550,7 @@ class _$_CarSingleState implements _CarSingleState {
   @override
   int get hashCode => Object.hash(
       runtimeType,
+      adsStatus,
       status,
       singleEntity,
       const DeepCollectionEquality().hash(_elasticSearchEntity),
@@ -545,11 +565,14 @@ class _$_CarSingleState implements _CarSingleState {
 
 abstract class _CarSingleState implements CarSingleState {
   const factory _CarSingleState(
-      {final FormzStatus status,
+      {final FormzStatus adsStatus,
+      final FormzStatus status,
       final CarSingleEntity singleEntity,
       final List<ElasticSearchEntity> elasticSearchEntity,
       final dynamic fetchMore}) = _$_CarSingleState;
 
+  @override
+  FormzStatus get adsStatus;
   @override
   FormzStatus get status;
   @override
