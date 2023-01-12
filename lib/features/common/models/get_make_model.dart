@@ -1,6 +1,7 @@
+import 'package:auto/features/ad/domain/entities/types/make.dart';
 import 'package:auto/features/common/entities/makes_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:auto/features/ad/domain/entities/types/make.dart';
+
 part 'get_make_model.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake)

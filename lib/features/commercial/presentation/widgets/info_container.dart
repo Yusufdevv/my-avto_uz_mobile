@@ -4,7 +4,7 @@ import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/commercial/presentation/widgets/custom_chip.dart';
-import 'package:auto/features/common/bloc/comparison_add/bloc/comparison_add_bloc.dart';
+import 'package:auto/features/common/bloc/wishlist_add/wishlist_add_bloc.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/search/presentation/widgets/add_comparison_item.dart';
 import 'package:auto/features/search/presentation/widgets/add_wishlist_item.dart';
@@ -13,7 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class InfoContainer extends StatelessWidget {
+class InfoContainer extends StatefulWidget {
   const InfoContainer({
     required this.id,
     this.year,
@@ -37,12 +37,14 @@ class InfoContainer extends StatelessWidget {
     this.gallery,
     this.initialLike,
     this.phone,
+    required this.index,
     required this.initialComparsions,
   });
 
   final String? avatarPicture;
   final bool hasDiscount;
   final int? year;
+  final int index;
   final String? carModel;
   final String? subtitle;
   final String? owner;
@@ -64,6 +66,19 @@ class InfoContainer extends StatelessWidget {
   final int id;
 
   @override
+  State<InfoContainer> createState() => _InfoContainerState();
+}
+
+class _InfoContainerState extends State<InfoContainer> {
+  bool isLiked = false;
+
+  @override
+  void initState() {
+    isLiked = widget.initialLike!;
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) => Container(
         width: MediaQuery.of(context).size.width,
         padding: const EdgeInsets.only(top: 12, left: 16, bottom: 12),
@@ -76,21 +91,21 @@ class InfoContainer extends StatelessWidget {
               height: 201,
               child: PageView.builder(
                 pageSnapping: false,
-                itemCount: gallery!.length + 1,
+                itemCount: widget.gallery!.length + 1,
                 padEnds: false,
                 clipBehavior: Clip.antiAlias,
                 controller: PageController(viewportFraction: 0.75),
                 physics: const BouncingScrollPhysics(),
                 itemBuilder: (context, index) => Stack(
                   children: [
-                    if (index == gallery!.length)
+                    if (index == widget.gallery!.length)
                       WScaleAnimation(
                         onTap: () {},
                         child: Container(
                           height: 201,
                           decoration: BoxDecoration(
-                            color: ownerType == 'owner'
-                                ? hasCallCard
+                            color: widget.ownerType == 'owner'
+                                ? widget.hasCallCard
                                     ? green
                                     : red
                                 : red,
@@ -108,12 +123,14 @@ class InfoContainer extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               SvgPicture.asset(
-                                  ownerType == 'owner'
+                                  widget.ownerType == 'owner'
                                       ? AppIcons.phone
                                       : AppIcons.shopping,
                                   color: white),
                               Text(
-                                ownerType == 'owner' ? 'Позвонить' : 'Купить',
+                                widget.ownerType == 'owner'
+                                    ? 'Позвонить'
+                                    : 'Купить',
                                 style: Theme.of(context)
                                     .textTheme
                                     .headline4!
@@ -138,7 +155,7 @@ class InfoContainer extends StatelessWidget {
                         ),
                         margin: const EdgeInsets.symmetric(horizontal: 2),
                         child: CachedNetworkImage(
-                          imageUrl: gallery![index],
+                          imageUrl: widget.gallery![index],
                           fit: BoxFit.cover,
                           errorWidget: (context, url, error) => Image.asset(
                             AppImages.defaultPhoto,
@@ -150,9 +167,9 @@ class InfoContainer extends StatelessWidget {
                 ),
               ),
             ),
-            if (sellType!.isNotEmpty)
+            if (widget.sellType!.isNotEmpty)
               CustomChip(
-                label: sellType!,
+                label: widget.sellType!,
                 backgroundColor: Theme.of(context)
                     .extension<ThemedColors>()!
                     .seashellToCinnabar15,
@@ -169,13 +186,13 @@ class InfoContainer extends StatelessWidget {
             Row(
               children: [
                 Text(
-                  carModel ?? '',
+                  widget.carModel ?? '',
                   style: Theme.of(context).textTheme.headline2!.copyWith(
                       color: dark, fontSize: 14, fontWeight: FontWeight.w400),
                 ),
                 const SizedBox(width: 4),
                 CustomChip(
-                  label: '$year',
+                  label: '${widget.year}',
                   backgroundColor:
                       LightThemeColors.navBarIndicator.withOpacity(0.1),
                   borderRadius: 4,
@@ -204,13 +221,13 @@ class InfoContainer extends StatelessWidget {
               text: TextSpan(
                 children: [
                   TextSpan(
-                    text: discountPrice!.isEmpty
-                        ? '$price ${currency!.toUpperCase()}'
-                        : '${discountPrice!} ${currency!.toUpperCase()}',
+                    text: widget.discountPrice!.isEmpty
+                        ? '${widget.price} ${widget.currency!.toUpperCase()}'
+                        : '${widget.discountPrice!} ${widget.currency!.toUpperCase()}',
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w600,
-                      color: hasDiscount
+                      color: widget.hasDiscount
                           ? green
                           : Theme.of(context)
                               .extension<ThemedColors>()!
@@ -220,9 +237,9 @@ class InfoContainer extends StatelessWidget {
                   const WidgetSpan(child: SizedBox(width: 4)),
                   WidgetSpan(
                     child: Visibility(
-                      visible: hasDiscount,
+                      visible: widget.hasDiscount,
                       child: Text(
-                        discountPrice == null ? '' : price!,
+                        widget.discountPrice == null ? '' : widget.price!,
                         style: Theme.of(context).textTheme.headline2!.copyWith(
                               decoration: TextDecoration.lineThrough,
                               color: grey,
@@ -235,7 +252,7 @@ class InfoContainer extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             Text(
-              subtitle ?? '',
+              widget.subtitle ?? '',
               style: Theme.of(context).textTheme.headline2!.copyWith(
                     fontSize: 13,
                     color: grey,
@@ -251,7 +268,7 @@ class InfoContainer extends StatelessWidget {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(50),
                     child: CachedNetworkImage(
-                      imageUrl: avatarPicture!,
+                      imageUrl: widget.avatarPicture!,
                       fit: BoxFit.cover,
                       errorWidget: (context, url, error) => Image.asset(
                         AppImages.defaultPhoto,
@@ -265,15 +282,16 @@ class InfoContainer extends StatelessWidget {
                   text: TextSpan(
                     children: [
                       TextSpan(
-                        text: '$owner\n',
+                        text: '${widget.owner}\n',
                         style: Theme.of(context)
                             .textTheme
                             .headline2!
                             .copyWith(fontSize: 14),
                       ),
                       TextSpan(
-                        text:
-                            ownerType == 'owner' ? 'Частное лицо' : 'Автосалон',
+                        text: widget.ownerType == 'owner'
+                            ? 'Частное лицо'
+                            : 'Автосалон',
                         style: Theme.of(context)
                             .textTheme
                             .bodyText1!
@@ -296,7 +314,7 @@ class InfoContainer extends StatelessWidget {
               child: Row(
                 children: [
                   Text(
-                    '$location  •  $publishTime',
+                    '${widget.location}  •  ${widget.publishTime}',
                     style: Theme.of(context)
                         .textTheme
                         .bodyText1!
@@ -304,13 +322,26 @@ class InfoContainer extends StatelessWidget {
                   ),
                   const Spacer(),
                   AddComparisonItem(
-                    id: id,
-                    initialLike: initialComparsions,
+                    id: widget.id,
+                    initialLike: widget.initialComparsions,
                   ),
                   const SizedBox(width: 8),
                   AddWishlistItem(
-                    onTap: onTapFavorites,
-                    initialLike: initialLike!,
+                    onTap: () {
+                      if (!isLiked) {
+                        context.read<WishlistAddBloc>().add(
+                            WishlistAddEvent.addWishlist(
+                                widget.id, widget.index));
+                        isLiked = true;
+                      } else {
+                        context.read<WishlistAddBloc>().add(
+                            WishlistAddEvent.removeWishlist(
+                                widget.id, widget.index));
+                        isLiked = false;
+                      }
+                      setState(() {});
+                    },
+                    initialLike: isLiked,
                   ),
                 ],
               ),

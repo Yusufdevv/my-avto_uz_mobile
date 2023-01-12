@@ -15,9 +15,10 @@ import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 class ChooseCarBrandComparison extends StatefulWidget {
   final bool isbak;
+  final bool isClear;
   final VoidCallback onTap;
   const ChooseCarBrandComparison(
-      {required this.onTap, Key? key, this.isbak = false})
+      {required this.onTap, Key? key, this.isbak = false, this.isClear = true})
       : super(key: key);
 
   @override
@@ -37,8 +38,10 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
     searchController = TextEditingController();
     context.read<GetMakesBloc>().add(GetMakesBlocEvent.getSerched(''));
     context.read<GetMakesBloc>().add(GetMakesBlocEvent.getMakes());
-    context.read<GetMakesBloc>().add(
-        GetMakesBlocEvent.selectedCarItems(id: -1, name: '', imageUrl: ''));
+    if (widget.isClear) {
+      context.read<GetMakesBloc>().add(
+          GetMakesBlocEvent.selectedCarItems(id: -1, name: '', imageUrl: ''));
+    }
     scrollingBloc = ScrollingBloc();
     scrollController = ScrollController();
     scrollController.addListener(() {

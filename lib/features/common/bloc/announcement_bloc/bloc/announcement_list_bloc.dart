@@ -1,4 +1,3 @@
-import 'package:auto/core/usecases/usecase.dart';
 import 'package:auto/features/ad/data/models/announcement_filter.dart';
 import 'package:auto/features/ad/data/models/drive_type.dart';
 import 'package:auto/features/ad/domain/entities/types/body_type.dart';
