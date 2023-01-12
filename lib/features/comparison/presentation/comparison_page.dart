@@ -109,6 +109,9 @@ class _ComparisonPageState extends State<ComparisonPage> {
                                                   ),
                                             ),
                                           );
+                                      context.read<AnnouncementListBloc>().add(
+                                          AnnouncementListEvent
+                                              .getAnnouncementList());
                                       Navigator.of(context).push(
                                         fade(
                                           page: AdsScreen(

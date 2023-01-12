@@ -62,7 +62,7 @@ class _AddingPhotoScreenState extends State<AddingPhotoScreen> {
                   child: PageView(
                     physics: const NeverScrollableScrollPhysics(),
                     controller: pageController,
-                    onPageChanged: (int index) {
+                    onPageChanged: (index) {
                       setState(() {
                         currentIndex = index;
                       });
@@ -96,7 +96,7 @@ class _AddingPhotoScreenState extends State<AddingPhotoScreen> {
                             .extension<ThemedColors>()!
                             .ghostToEclipse,
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                          padding: const EdgeInsets.symmetric(horizontal: 12),
                           child: Row(
                             children: [
                               SvgPicture.asset(AppIcons.arrowLeft),
@@ -128,11 +128,11 @@ class _AddingPhotoScreenState extends State<AddingPhotoScreen> {
                               curve: Curves.linear);
                         },
                         child: Padding(
-                          padding: const EdgeInsets.all(12.0),
+                          padding: const EdgeInsets.all(12),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Spacer(),
+                             const Spacer(),
                               Text(
                                 'Далее',
                                 style: Theme.of(context)

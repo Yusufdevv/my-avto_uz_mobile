@@ -9,6 +9,7 @@ class FilterState extends Equatable {
   final int? idVal;
   final RangeValues yearValues;
   final RangeValues priceValues;
+  final bool ischeck;
 
   const FilterState({
     required this.priceValues,
@@ -19,6 +20,7 @@ class FilterState extends Equatable {
     this.carDriveType,
     this.gearboxType,
     this.idVal,
+    this.ischeck = false,
   });
 
   FilterState copyWith({
@@ -30,6 +32,7 @@ class FilterState extends Equatable {
     RangeValues? yearValues,
     RangeValues? priceValues,
     int? idVal,
+    bool? ischeck,
   }) =>
       FilterState(
         regions: regions ?? this.regions,
@@ -40,6 +43,7 @@ class FilterState extends Equatable {
         yearValues: yearValues ?? this.yearValues,
         priceValues: priceValues ?? this.priceValues,
         idVal: idVal ?? this.idVal,
+        ischeck: ischeck ?? this.ischeck,
       );
 
   @override
@@ -52,5 +56,6 @@ class FilterState extends Equatable {
         yearValues,
         priceValues,
         idVal,
+        ischeck
       ];
 }

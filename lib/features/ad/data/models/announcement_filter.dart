@@ -10,7 +10,7 @@ class AnnouncementFilterModel extends Equatable {
   final bool? isNew;
   final int? bodyType;
   final int? gearboxType;
-  final int? carDriveType;
+  final int? driveType;
 
   const AnnouncementFilterModel({
     this.make,
@@ -18,7 +18,7 @@ class AnnouncementFilterModel extends Equatable {
     this.isNew,
     this.bodyType,
     this.gearboxType,
-    this.carDriveType,
+    this.driveType,
   });
 
   AnnouncementFilterModel copyWith({
@@ -27,7 +27,7 @@ class AnnouncementFilterModel extends Equatable {
     bool? isNew,
     int? bodyType,
     int? gearboxType,
-    int? carDriveType,
+    int? driveType,
   }) =>
       AnnouncementFilterModel(
         make: make ?? this.make,
@@ -35,7 +35,7 @@ class AnnouncementFilterModel extends Equatable {
         isNew: isNew ?? this.isNew,
         bodyType: bodyType ?? this.bodyType,
         gearboxType: gearboxType ?? this.gearboxType,
-        carDriveType: carDriveType ?? this.carDriveType,
+        driveType: driveType ?? this.driveType,
       );
   factory AnnouncementFilterModel.fromJson(Map<String, dynamic> json) =>
       _$AnnouncementFilterModelFromJson(json);
@@ -48,6 +48,6 @@ class AnnouncementFilterModel extends Equatable {
         isNew,
         bodyType,
         gearboxType,
-        carDriveType,
+        driveType,
       ];
 }
