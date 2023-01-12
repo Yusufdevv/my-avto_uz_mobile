@@ -78,6 +78,7 @@ abstract class AdRemoteDataSource {
   Future<GenericPagination<AnnouncementListModel>> getAnnouncementList(
     AnnouncementFilterModel filter,
   );
+  Future<void> filterHistory();
 }
 
 class AdRemoteDataSourceImpl extends AdRemoteDataSource {
@@ -401,6 +402,38 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
         return GenericPagination.fromJson(response.data,
             (p0) => AnnouncementListModel.fromJson(p0 as Map<String, dynamic>));
+      } else {
+        throw ServerException(
+          statusCode: response.statusCode!,
+          errorMessage: response.data.toString(),
+        );
+      }
+    } on ServerException {
+      rethrow;
+    } on DioError {
+      throw DioException();
+    } on Exception catch (e) {
+      throw ParsingException(errorMessage: e.toString());
+    }
+  }
+
+  @override
+  Future<void> filterHistory() async {
+    try {
+      final response = await _dio.post('users/filter-history/create/',
+          data: {
+            'id': 0,
+            'make': 89,
+            'model': [4070],
+            'query': 'string',
+            'query_data': {}
+          },
+          options: Options(headers: {
+            'Authorization': 'Bearer ${StorageRepository.getString('token')}'
+          }));
+      if (response.statusCode != null &&
+          response.statusCode! >= 200 &&
+          response.statusCode! < 300) {
       } else {
         throw ServerException(
           statusCode: response.statusCode!,

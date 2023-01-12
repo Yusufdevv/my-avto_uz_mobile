@@ -253,22 +253,28 @@ class _AdsScreenState extends State<AdsScreen>
                         children: [
                           if (_scrollController.hasClients)
                             _scrollController.offset <= 98
-                                ? const Text(
-                                    'Сохранить поиск',
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w600,
-                                      color: white,
+                                ? const FittedBox(
+                                    fit: BoxFit.cover,
+                                    child: Text(
+                                      'Сохранить поиск',
+                                      style: TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w600,
+                                        color: white,
+                                      ),
                                     ),
                                   )
                                 : const Text('')
                           else
-                            const Text(
-                              'Сохранить поиск',
-                              style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w600,
-                                color: white,
+                            const FittedBox(
+                              fit: BoxFit.cover,
+                              child: Text(
+                                'Сохранить поиск',
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600,
+                                  color: white,
+                                ),
                               ),
                             ),
                           const SizedBox(width: 12),

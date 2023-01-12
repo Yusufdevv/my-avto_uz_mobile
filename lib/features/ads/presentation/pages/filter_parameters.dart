@@ -15,6 +15,7 @@ import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
 class FilterParameters extends StatefulWidget {
   final BodyTypeEntity? bodyType;
@@ -23,6 +24,7 @@ class FilterParameters extends StatefulWidget {
   final int? idVal;
   final RangeValues? yearValues;
   final RangeValues? priceValues;
+  final bool? ischek;
   final AnnouncementListBloc? bloc;
   const FilterParameters({
     super.key,
@@ -33,6 +35,7 @@ class FilterParameters extends StatefulWidget {
     this.priceValues,
     this.bloc,
     this.idVal,
+    this.ischek
   });
 
   @override
@@ -51,6 +54,7 @@ class _FilterParametersState extends State<FilterParameters> {
       priceValues: widget.priceValues,
       yearValues: widget.yearValues,
       idVal: widget.idVal,
+      ischek: widget.ischek,
     );
     super.initState();
   }
@@ -235,7 +239,7 @@ class _FilterParametersState extends State<FilterParameters> {
                         widget.bloc!.add(AnnouncementListEvent.getFilter(
                             widget.bloc!.state.filter.copyWith(
                           bodyType: state.bodyType?.id,
-                          carDriveType: state.carDriveType?.id,
+                          driveType: state.carDriveType?.id,
                           gearboxType: state.gearboxType?.id == -1
                               ? null
                               : state.gearboxType?.id,
@@ -250,7 +254,7 @@ class _FilterParametersState extends State<FilterParameters> {
                             yearValues: state.yearValues,
                             priceValues: state.priceValues,
                             idVal: state.idVal,
-                            isFilter: true,
+                            isFilter: state.ischeck,
                           ),
                         );
                         Navigator.of(context).pop();
