@@ -194,8 +194,7 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                                 padding:
                                     const EdgeInsets.only(left: 8, right: 8),
                                 child: AddWishlistItem(
-                                  bloc: wishlistAddBloc,
-                                  id: state.singleEntity.id,
+                                  onTap: () {  }, initialLike: false,
                                 ),
                               ),
                               GestureDetector(
