@@ -18,7 +18,7 @@ class BaseOnBoarding extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Container(
-        margin: const EdgeInsets.symmetric(horizontal: 32),
+        padding: const EdgeInsets.symmetric(horizontal: 32),
         child: Column(
           children: [
             WButton(

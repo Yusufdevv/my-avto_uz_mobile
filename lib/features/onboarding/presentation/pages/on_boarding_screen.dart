@@ -75,99 +75,78 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
     return Scaffold(
       body: Column(
         children: [
-          Expanded(
-            child: Stack(
+          Container(
+            margin: const EdgeInsets.only(top: 36 + kToolbarHeight),
+            padding: const EdgeInsets.symmetric(horizontal: 32),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                PageView(
-                  physics: const BouncingScrollPhysics(),
-                  onPageChanged: (page) {
-                    setState(() {
-                      currentIndex = page;
-                    });
+                WScaleAnimation(
+                  onTap: () {
+                    Navigator.of(context).pop();
                   },
-                  children: [
-                    OnBoardingItems(
-                        icon: AppImages.flash,
-                        title: LocaleKeys.easy_send.tr(),
-                        image: AppImages.firstImage),
-                    OnBoardingItems(
-                        icon: AppImages.done,
-                        title: LocaleKeys.trusted_car_dealers.tr(),
-                        image: AppImages.secondImage),
-                    OnBoardingItems(
-                      icon: AppImages.omg,
-                      hasSecondText: true,
-                      title: LocaleKeys.more_than.tr(),
-                      secondText: ' 10 000',
-                      image: AppImages.thirdImage,
-                      thirdText: ' offers',
-                    ),
-                  ],
+                  child: SvgPicture.asset(AppIcons.arrowLeft, color: black),
                 ),
-                Positioned(
-                    top: 36 + kToolbarHeight,
-                    left: 32,
-                    child: WScaleAnimation(
-                      onTap: () {
-                        Navigator.of(context).pop();
-                      },
-                      child: SvgPicture.asset(AppIcons.arrowLeft, color: black),
+                const Spacer(),
+                GestureDetector(
+                    onTap: () {
+                      Navigator.of(context)
+                          .pushReplacement(fade(page: const LoginScreen()));
+                    },
+                    child: Text(
+                      LocaleKeys.skip.tr(),
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline1!
+                          .copyWith(fontSize: 15, fontWeight: FontWeight.w400),
                     )),
-                if (currentIndex == 2)
-                  const SizedBox()
-                else
-                  Positioned(
-                    top: 36 + kToolbarHeight,
-                    right: 32,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        //  Spacer(),
-                        GestureDetector(
-                            onTap: () {
-                              Navigator.of(context).pushReplacement(
-                                  fade(page: const LoginScreen()));
-                            },
-                            child: Text(
-                              LocaleKeys.skip.tr(),
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline1!
-                                  .copyWith(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w400),
-                            )),
-                      ],
-                    ),
-                  )
               ],
             ),
           ),
-          Positioned(
-            bottom: 16 + MediaQuery.of(context).padding.bottom,
-            left: 0,
-            right: 0,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
+          SizedBox(
+            height: MediaQuery.of(context).size.height - 300,
+            child: PageView(
+              physics: const BouncingScrollPhysics(),
+              onPageChanged: (page) {
+                setState(() {
+                  currentIndex = page;
+                });
+              },
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 32),
-                  child: Row(
-                    children: buildIndicator(),
-                  ),
-                ),
-                const SizedBox(height: 15),
-                BaseOnBoarding(
-                  onTap: () => Navigator.pushAndRemoveUntil(context,
-                      fade(page: const LoginScreen()), (route) => false),
-                  color: currentIndex == 1 && currentIndex == 2
-                      ? Theme.of(context)
-                          .extension<ThemedColors>()!
-                          .veryLightGreyToEclipse
-                      : orange,
+                OnBoardingItems(
+                    icon: AppImages.flash,
+                    title: LocaleKeys.easy_send.tr(),
+                    image: AppImages.firstImage),
+                OnBoardingItems(
+                    icon: AppImages.done,
+                    title: LocaleKeys.trusted_car_dealers.tr(),
+                    image: AppImages.secondImage),
+                OnBoardingItems(
+                  icon: AppImages.omg,
+                  hasSecondText: true,
+                  title: LocaleKeys.more_than.tr(),
+                  secondText: ' 10 000',
+                  image: AppImages.thirdImage,
+                  thirdText: ' offers',
                 ),
               ],
             ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 32),
+            child: Row(
+              children: buildIndicator(),
+            ),
+          ),
+          const SizedBox(height: 15),
+          BaseOnBoarding(
+            onTap: () => Navigator.pushAndRemoveUntil(
+                context, fade(page: const LoginScreen()), (route) => false),
+            color: currentIndex == 1 && currentIndex == 2
+                ? Theme.of(context)
+                    .extension<ThemedColors>()!
+                    .veryLightGreyToEclipse
+                : orange,
           ),
         ],
       ),

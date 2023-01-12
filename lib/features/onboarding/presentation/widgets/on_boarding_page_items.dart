@@ -23,14 +23,9 @@ class OnBoardingItems extends StatelessWidget {
         mainAxisSize: MainAxisSize.max,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Spacer(flex: 92),
-          // SizedBox(height: 92),
-          Expanded(
-            flex: 384,
-            child: Image.asset(
-              image,
-              width: double.maxFinite,
-            ),
+          Image.asset(
+            image,
+            width: double.maxFinite,
           ),
           Padding(
             padding: const EdgeInsets.only(
@@ -62,7 +57,6 @@ class OnBoardingItems extends StatelessWidget {
               ]),
             ),
           ),
-          const Spacer(flex: 24)
         ],
       );
 }
