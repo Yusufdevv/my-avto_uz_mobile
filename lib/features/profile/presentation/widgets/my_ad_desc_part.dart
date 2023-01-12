@@ -46,8 +46,8 @@ class MyAdDesc extends StatelessWidget {
                         ),
                     children: [
                       TextSpan(
-                        text:
-                            ' ${DateTime.now().difference(DateTime.parse(item.purchaseDate))}',
+                        text: ' 4 дней ',
+                        // ' ${DateTime.now().difference(DateTime.parse(item.expiredAt))}',
                         style: Theme.of(context).textTheme.bodyText1!.copyWith(
                             fontWeight: FontWeight.w600, color: orange),
                       )

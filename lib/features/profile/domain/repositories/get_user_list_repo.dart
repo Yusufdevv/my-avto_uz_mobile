@@ -21,5 +21,5 @@ abstract class GetUserListRepository {
   Future<Either<ServerFailure, List<DirCategoryEntity>>> getDirCategory();
   Future<Either<ServerFailure, DirectoryEntity>> getDirectory(String id);
   Future<Either<ServerFailure, String>> notificationAllRead();
-  Future<Either<ServerFailure, String>> deleteMySearches(String id);
+  Future<Either<ServerFailure, String>> deleteMySearches(List<int> ids);
 }

@@ -5,9 +5,10 @@ import 'package:auto/features/common/domain/entity/car_make_entity.dart';
 import 'package:auto/features/common/domain/entity/car_model_entity.dart';
 import 'package:auto/features/common/domain/entity/car_modification_type_entity.dart';
 import 'package:auto/features/common/domain/entity/car_user_entity.dart';
-import 'package:auto/features/common/domain/entity/type_entity.dart';
 import 'package:auto/features/common/domain/entity/stats_entity.dart';
+import 'package:auto/features/common/domain/entity/type_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
+
 part 'auto_model.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake)
@@ -24,6 +25,7 @@ class AutoModel extends AutoEntity {
     required super.modificationType,
     required super.year,
     required super.contactEmail,
+    required super.expiredAt,
     required super.contactName,
     required super.contactPhone,
     required super.currency,

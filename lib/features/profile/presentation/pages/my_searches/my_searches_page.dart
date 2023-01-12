@@ -50,8 +50,8 @@ class _MySearchesPageState extends State<MySearchesPage> {
     super.initState();
   }
 
-  List mySearches = [];
-  List deletedList = [];
+  List<MySearchesEntity> mySearches = [];
+  List<MySearchesEntity> deletedList = [];
   bool isToggled = false;
   bool isDeleted = false;
   @override
@@ -96,7 +96,7 @@ class _MySearchesPageState extends State<MySearchesPage> {
                       ? ListView.builder(
                           itemCount: mySearches.length,
                           itemBuilder: (context, index) {
-                            final MySearchesEntity item = mySearches[index];
+                            final item = mySearches[index];
                             return GestureDetector(
                               onTap: () {
                                 if (isToggled) {
@@ -173,7 +173,8 @@ class _MySearchesPageState extends State<MySearchesPage> {
                                   isToggled = false;
 
                                   Navigator.pop(context);
-                                  // context.read<UserWishListsBloc>().add(DeleteMySearchesEvent(id: ));
+                                  bloc.add(DeleteMySearchesEvent(
+                                      ids: deletedIds(deletedList)));
                                   setState(() {});
                                 },
                               ),
@@ -187,4 +188,13 @@ class _MySearchesPageState extends State<MySearchesPage> {
           ),
         ),
       );
+
+  List<int> deletedIds(List<MySearchesEntity> list) {
+    List<int> result = <int>[];
+
+    for (var i = 0; i < list.length; i++) {
+      result.add(list[i].id!);
+    }
+    return result;
+  }
 }
