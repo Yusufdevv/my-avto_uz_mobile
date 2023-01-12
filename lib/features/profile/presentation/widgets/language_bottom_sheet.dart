@@ -13,10 +13,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 class LanguageBottomSheet extends StatefulWidget {
   const LanguageBottomSheet({
-    required this.onTap,
     Key? key,
   }) : super(key: key);
-  final Function() onTap;
 
   @override
   State<LanguageBottomSheet> createState() => LanguageBottomSheetState();
@@ -32,16 +30,13 @@ class LanguageBottomSheetState extends State<LanguageBottomSheet> {
     AppImages.russian,
   ];
   late int selectedLanguage;
-  late int oldLangIndex;
 
   @override
   void initState() {
     StorageRepository.getString('language') == 'uz'
         ? selectedLanguage = 0
         : selectedLanguage = 1;
-    StorageRepository.getString('language') == 'uz'
-        ? oldLangIndex = 0
-        : oldLangIndex = 1;
+
     super.initState();
   }
 
@@ -73,11 +68,7 @@ class LanguageBottomSheetState extends State<LanguageBottomSheet> {
                       height: 32,
                     ),
                     onTap: () {
-                      if (selectedLanguage!=oldLangIndex) {
-                        StorageRepository.putString(
-                            'language', oldLangIndex == 0 ? 'uz' : 'ru');
-                      } 
-                      Navigator.of(context).pop();
+                      Navigator.of(context).pop(-1);
                     }),
               ],
             ),
@@ -97,8 +88,6 @@ class LanguageBottomSheetState extends State<LanguageBottomSheet> {
                       img: img[index],
                       onTap: (value) {
                         selectedLanguage = index;
-                        StorageRepository.putString(
-                            'language', selectedLanguage == 0 ? 'uz' : 'ru');
                         setState(() {});
                       },
                       title: titleList[index],
@@ -115,7 +104,9 @@ class LanguageBottomSheetState extends State<LanguageBottomSheet> {
               ],
               margin: EdgeInsets.only(
                   top: 20, bottom: MediaQuery.of(context).padding.bottom),
-              onTap: widget.onTap,
+              onTap: () {
+                Navigator.pop(context, selectedLanguage == 0 ? 'uz' : 'ru');
+              },
               child: Text(
                 LocaleKeys.confirm.tr(),
                 style: Theme.of(context)

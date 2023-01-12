@@ -1,6 +1,7 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/features/common/widgets/cached_image.dart';
 import 'package:auto/features/navigation/domain/entities/navbar.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -11,9 +12,9 @@ class NavItemWidget extends StatelessWidget {
   //final Function onDoubleTap;
 
   const NavItemWidget({
-    this.avatar,
     required this.navBar,
     required this.currentIndex,
+    this.avatar,
     //required this.onDoubleTap,
     Key? key,
   }) : super(key: key);
@@ -78,7 +79,7 @@ class NavItemWidget extends StatelessWidget {
             Container(
               alignment: Alignment.bottomCenter,
               child: Text(
-                navBar.title,
+                navBar.title.tr(),
                 overflow: TextOverflow.ellipsis,
                 textAlign: TextAlign.center,
                 maxLines: 1,

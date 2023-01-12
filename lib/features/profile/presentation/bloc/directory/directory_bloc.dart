@@ -25,6 +25,7 @@ class DirectoryBloc extends Bloc<DirectoryEvent, DirectoryState> {
             selectedCategories: const <DirCategoryEntity>[],
             regions: '',
             directory: DirectoryEntity())) {
+    
     on<GetDirectoriesEvent>((event, emit) async {
       emit(state.copyWith(status: FormzStatus.submissionInProgress));
       final result = await getDirectoriesUseCase(Params(

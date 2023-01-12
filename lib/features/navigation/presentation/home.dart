@@ -1,10 +1,8 @@
 import 'package:auto/assets/constants/icons.dart';
-import 'package:auto/core/utils/size_config.dart';
 import 'package:auto/features/navigation/domain/entities/navbar.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/navigation/presentation/widgets/nav_bar_item.dart';
 import 'package:auto/generated/locale_keys.g.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 enum NavItemEnum { head, search, newPost, categories, profile }
@@ -31,32 +29,32 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   };
 
   final List<NavBar> lables = [
-    NavBar(
-      title: LocaleKeys.main.tr(),
+    const NavBar(
+      title: LocaleKeys.main,
       id: 0,
       icon: AppIcons.navBarMain,
       outlinedIcon: AppIcons.navBarMainOutline,
     ),
-    NavBar(
-      title: LocaleKeys.search.tr(),
+    const NavBar(
+      title: LocaleKeys.search,
       id: 1,
       icon: AppIcons.navBarSearch,
       outlinedIcon: AppIcons.navBarSearchOutline,
     ),
-    NavBar(
-      title: LocaleKeys.add.tr(),
+    const NavBar(
+      title: LocaleKeys.add,
       id: 2,
       icon: AppIcons.navBarPlus,
       outlinedIcon: AppIcons.navBarPlusOutline,
     ),
-    NavBar(
-      title: LocaleKeys.band.tr(),
+    const NavBar(
+      title: LocaleKeys.band,
       id: 3,
       icon: AppIcons.navBarRoad,
       outlinedIcon: AppIcons.navBarRoadOutline,
     ),
-    NavBar(
-      title: LocaleKeys.profile.tr(),
+    const NavBar(
+      title: LocaleKeys.profile,
       id: 4,
       icon: AppIcons.navBarUser,
       outlinedIcon: AppIcons.navBarUserOutline,
@@ -113,7 +111,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           child: Scaffold(
             resizeToAvoidBottomInset: true,
             bottomNavigationBar: Container(
-              height: SizeConfig.v(68) + MediaQuery.of(context).padding.bottom,
+              height: 70 + MediaQuery.of(context).padding.bottom,
               decoration: BoxDecoration(
                 borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(15),
