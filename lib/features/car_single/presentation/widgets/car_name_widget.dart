@@ -119,6 +119,7 @@ class CarNameWidget extends StatelessWidget {
                           ration: ration,
                           date: dateBsh,
                           percent: percent,
+                          currency: currency,
                         ),
                       );
                     },

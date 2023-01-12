@@ -12,29 +12,29 @@ class CarSellerCard extends StatelessWidget {
   final String image;
   final String name;
   final String position;
+  final bool isCrashed;
 
   const CarSellerCard(
       {Key? key,
       required this.image,
       required this.name,
-      required this.position})
+      required this.position,
+      required this.isCrashed})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) => Container(
-    decoration: BoxDecoration(
-      border: Border.all(
-        width: 1,
-        color: Theme.of(context)
-            .extension<ThemedColors>()!
-            .solitudeToDarkRider,
-      ),
-      color: Theme.of(context)
-          .extension<ThemedColors>()!
-          .whiteToDark,
-    ),
-    padding: const EdgeInsets.symmetric(horizontal: 16),
-    child: Container(
+        decoration: BoxDecoration(
+          border: Border.all(
+            width: 1,
+            color: Theme.of(context)
+                .extension<ThemedColors>()!
+                .solitudeToDarkRider,
+          ),
+          color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
+        ),
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: Container(
           color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
           padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
           child: Column(
@@ -100,8 +100,9 @@ class CarSellerCard extends StatelessWidget {
               Container(
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(12),
-                    color:
-                        Theme.of(context).extension<ThemedColors>()!.whiteToDark,
+                    color: Theme.of(context)
+                        .extension<ThemedColors>()!
+                        .whiteToDark,
                     border: Border.all(
                         color: Theme.of(context)
                             .extension<ThemedColors>()!
@@ -123,54 +124,92 @@ class CarSellerCard extends StatelessWidget {
                           const SizedBox(
                             width: 8,
                           ),
-                          Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(4),
-                              color: const Color(
-                                0xff5ECC81,
+                          if (isCrashed == true)
+                            Container(
+                              padding: const EdgeInsets.fromLTRB(12, 12, 0, 12),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(4),
+                                  color: const Color(
+                                    0xffC8534D,
+                                  ),
+                                ),
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 6, horizontal: 8),
+                                child: Row(
+                                  children: [
+                                    SvgPicture.asset(
+                                      AppIcons.dtp_red,
+                                      width: 16,
+                                      height: 16,
+                                    ),
+                                    const SizedBox(
+                                      width: 4,
+                                    ),
+                                    Text(
+                                      'Обнаружено',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headline1!
+                                          .copyWith(
+                                              fontWeight: FontWeight.w400,
+                                              fontSize: 14,
+                                              color: white),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            )
+                          else
+                            Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(4),
+                                color: const Color(
+                                  0xff5ECC81,
+                                ),
+                              ),
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 6, horizontal: 8),
+                              child: Row(
+                                children: [
+                                  SvgPicture.asset(
+                                    AppIcons.safe,
+                                    width: 16,
+                                    height: 16,
+                                  ),
+                                  const SizedBox(
+                                    width: 4,
+                                  ),
+                                  Text(
+                                    LocaleKeys.not_found.tr(),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headline1!
+                                        .copyWith(
+                                            fontWeight: FontWeight.w400,
+                                            fontSize: 14,
+                                            color: white),
+                                  ),
+                                ],
                               ),
                             ),
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 6, horizontal: 8),
-                            child: Row(
-                              children: [
-                                SvgPicture.asset(
-                                  AppIcons.safe,
-                                  width: 16,
-                                  height: 16,
-                                ),
-                                const SizedBox(
-                                  width: 4,
-                                ),
-                                Text(
-                                  LocaleKeys.not_found.tr(),
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headline1!
-                                      .copyWith(
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 14,
-                                          color: white),
-                                ),
-                              ],
-                            ),
-                          )
                         ],
                       ),
                     ),
                     Positioned(
-                        right: -15,
-                        bottom: -10,
-                        child: Image.asset(
-                          AppImages.carCrashed,
-                          width: 105,
-                          height: 48,
-                        )),
+                      right: -15,
+                      bottom: -10,
+                      child: Image.asset(
+                        AppImages.carCrashed,
+                        width: 105,
+                        height: 48,
+                      ),
+                    ),
                   ],
                 ),
-              )
+              ),
             ],
           ),
         ),
-  );
+      );
 }

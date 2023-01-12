@@ -4,11 +4,13 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/features/car_single/presentation/widgets/cars_price_controlling.dart';
+import 'package:auto/utils/my_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class CarPriceBottom extends StatelessWidget {
   final String price;
+  final String currency;
   final String middlePrice;
   final String ration;
   final String date;
@@ -20,7 +22,8 @@ class CarPriceBottom extends StatelessWidget {
       required this.middlePrice,
       required this.ration,
       required this.date,
-      required this.percent})
+      required this.percent,
+      required this.currency})
       : super(key: key);
 
   @override
@@ -39,15 +42,22 @@ class CarPriceBottom extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(left: 16, right: 16, top: 20),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    price,
+                    MyFunctions.getFormatCost(price),
                     style: Theme.of(context).textTheme.headline2!.copyWith(
                         fontWeight: FontWeight.w700,
                         fontSize: 24,
                         color: const Color(0xff171725)),
                   ),
+                  Text(
+                    currency == 'USD' ? ' USD' : ' UZS',
+                    style: Theme.of(context).textTheme.headline2!.copyWith(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 24,
+                        color: const Color(0xff171725)),
+                  ),
+                  const Spacer(),
                   GestureDetector(
                     onTap: () {
                       Navigator.pop(context);
@@ -66,6 +76,7 @@ class CarPriceBottom extends StatelessWidget {
             ),
             GestureDetector(
               onTap: () {
+                print('currency ${currency}');
                 Navigator.of(context).pop();
               },
               child: Container(
@@ -136,7 +147,7 @@ class CarPriceBottom extends StatelessWidget {
               indent: 16,
               endIndent: 16,
             ),
-             CarsPrice(
+            CarsPrice(
               date: 'Состояние рынка на ${date}',
               price: 'Средняя цена:',
               totalPrice: '≈ ${middlePrice}',

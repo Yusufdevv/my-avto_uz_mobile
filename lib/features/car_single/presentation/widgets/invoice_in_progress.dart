@@ -1,8 +1,6 @@
 import 'package:auto/assets/colors/color.dart';
-import 'package:auto/features/car_single/presentation/car_single_screen.dart';
 import 'package:auto/features/car_single/presentation/widgets/orange_button.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
-import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
@@ -56,8 +54,8 @@ class InvoiceInProgress extends StatelessWidget {
                                 .copyWith(
                                     fontSize: 14, fontWeight: FontWeight.w600)),
                         onTap: () {
-                          Navigator.of(context)
-                              .push(fade(page: const CarSingleScreen()));
+                          // Navigator.of(context)
+                          //     .push(fade(page: const CarSingleScreen()));
                         }),
                     SizedBox(
                       height: MediaQuery.of(context).padding.bottom + 16,
