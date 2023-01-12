@@ -11,12 +11,16 @@ CarUserModel _$CarUserModelFromJson(Map<String, dynamic> json) => CarUserModel(
       phoneNumber: json['phone_number'] as String? ?? '',
       image: json['image'] as String? ?? '',
       fullName: json['full_name'] as String? ?? '',
+      avatar: json['avatar'] as String? ?? '',
+      name: json['name'] as String? ?? '',
     );
 
 Map<String, dynamic> _$CarUserModelToJson(CarUserModel instance) =>
     <String, dynamic>{
       'id': instance.id,
       'phone_number': instance.phoneNumber,
+      'name': instance.name,
+      'avatar': instance.avatar,
       'full_name': instance.fullName,
       'image': instance.image,
     };

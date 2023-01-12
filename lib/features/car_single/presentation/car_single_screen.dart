@@ -194,7 +194,8 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                                 padding:
                                     const EdgeInsets.only(left: 8, right: 8),
                                 child: AddWishlistItem(
-                                  onTap: () {  }, initialLike: false,
+                                  onTap: () {},
+                                  initialLike: false,
                                 ),
                               ),
                               GestureDetector(
@@ -244,7 +245,9 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                                 ? 'USD'
                                 : 'UZS',
                             onVin: () {},
-                            onComparison: () {},
+                            onComparison: () {
+
+                            },
                             onShare: () {
                               Share.share(
                                   'https://panel.avto.uz/api/v1/car/announcement/${state.singleEntity.id}/detail/');
