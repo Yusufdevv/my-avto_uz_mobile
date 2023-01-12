@@ -14,7 +14,7 @@ AnnouncementFilterModel _$AnnouncementFilterModelFromJson(
       isNew: json['is_new'] as bool?,
       bodyType: json['body_type'] as int?,
       gearboxType: json['gearbox_type'] as int?,
-      carDriveType: json['car_drive_type'] as int?,
+      driveType: json['drive_type'] as int?,
     );
 
 Map<String, dynamic> _$AnnouncementFilterModelToJson(
@@ -25,5 +25,5 @@ Map<String, dynamic> _$AnnouncementFilterModelToJson(
       'is_new': instance.isNew,
       'body_type': instance.bodyType,
       'gearbox_type': instance.gearboxType,
-      'car_drive_type': instance.carDriveType,
+      'drive_type': instance.driveType,
     };

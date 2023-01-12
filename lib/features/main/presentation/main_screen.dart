@@ -88,6 +88,9 @@ class _MainScreenState extends State<MainScreen> {
             .add(GetCarModelEvent.selectedModelItem(id: -1, name: ''));
         context.read<GetMakesBloc>().add(
             GetMakesBlocEvent.selectedCarItems(id: -1, name: '', imageUrl: ''));
+        context
+            .read<AnnouncementListBloc>()
+            .add(AnnouncementListEvent.getFilterClear());
         Navigator.of(context).push(fade(page: AdsScreen(onBack: () {
           Navigator.of(context).pop();
         })));
@@ -174,7 +177,12 @@ class _MainScreenState extends State<MainScreen> {
                               .read<AnnouncementListBloc>()
                               .add(AnnouncementListEvent.getAnnouncementList());
                         }),
-                        onTapShow: () {},
+                        onTapShow: () {
+                          Navigator.of(context)
+                              .push(fade(page: AdsScreen(onBack: () {
+                            Navigator.of(context).pop();
+                          })));
+                        },
                         imageUrl: state.imageUrl,
                         title: state.name,
                         count: stateAnnounc.count,
