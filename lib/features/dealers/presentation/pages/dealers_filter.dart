@@ -75,6 +75,7 @@ class _DealersFilterState extends State<DealersFilter> {
                   children: [
                     if (!widget.isDirectoryPage)
                       Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(LocaleKeys.car_dealers.tr(),
                               style: TextStyle(

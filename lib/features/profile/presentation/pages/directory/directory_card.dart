@@ -56,14 +56,15 @@ class _DirectoryCardState extends State<DirectoryCard> {
             fade(
               page: Seller(
                 // dealerType: widget.dealerType,
-                dealerName: widget.dealerName,
-                phoneNumber: widget.phoneNumber,
-                dealerInfo: widget.dealerInfo,
-                latitude: widget.latitude,
-                longitude: widget.longitude,
-                carCount: widget.quantityOfCars,
-                contactFrom: widget.contactFrom,
-                contactTo: widget.contactTo,
+                // dealerName: widget.dealerName,
+                // phoneNumber: widget.phoneNumber,
+                // dealerInfo: widget.dealerInfo,
+                // latitude: widget.latitude,
+                // longitude: widget.longitude,
+                // carCount: widget.quantityOfCars,
+                // contactFrom: widget.contactFrom,
+                // contactTo: widget.contactTo,
+                slug: '',
               ),
             ),
           );
