@@ -1,5 +1,6 @@
 import 'package:auto/features/common/repository/auth.dart';
 import 'package:auto/features/comparison/presentation/comparison_page.dart';
+import 'package:auto/features/profile/domain/entities/profile_data_entity.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -53,18 +54,24 @@ class _ProfileScreenState extends State<ProfileScreen> {
     super.initState();
   }
 
+  late ProfileDataEntity profileData;
   @override
   Widget build(BuildContext context) => BlocProvider.value(
         value: profileBloc,
-        child: BlocBuilder<ProfileBloc, ProfileState>(
+        child: BlocConsumer<ProfileBloc, ProfileState>(
+          listener: (context, state) {
+            if (state.changeStatus.isSubmissionSuccess) {
+              profileData = state.profileEntity;
+            }
+          },
           builder: (context, state) {
             if (state.status.isSubmissionInProgress) {
               return const Center(child: CupertinoActivityIndicator());
             } else if (state.status.isSubmissionFailure) {
               return const Center(child: Text('Fail'));
             } else if (state.status.isSubmissionSuccess) {
-              final profileData = state.profileEntity;
-              final usercountData = profileData.usercountdata;
+              profileData = state.profileEntity;
+              var usercountData = profileData.usercountdata;
               return Scaffold(
                 appBar: WAppBar(
                     filledBackButton: true,
@@ -101,7 +108,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             },
                             fullName: profileData.fullName ?? '',
                             subTitle:
-                                '${usercountData?.announcementsCount ?? 0} ${LocaleKeys.how_many_ads.tr()}',
+                                '${usercountData.announcementsCount} ${LocaleKeys.how_many_ads.tr()}',
                             imageUrl: profileData.image ?? '',
                             margin: EdgeInsets.only(
                                 top: SizeConfig.v(16),
@@ -113,10 +120,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               name: LocaleKeys.favorites.tr(),
                               onTap: () {
                                 Navigator.push(
-                                    context, fade(page: const FavouritePage()));
+                                    context,
+                                    fade(
+                                        page: FavouritePage(
+                                      profileBloc: profileBloc,
+                                    )));
                               },
                               iconPath: AppIcons.heartBlue,
-                              count: usercountData?.announcementWishlistCount),
+                              count: usercountData.announcementWishlistCount),
                           const ProfileDivider(),
                           ProfileMenuTile(
                               name: LocaleKeys.comparisons.tr(),
@@ -136,7 +147,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     .push(fade(page: const MyAddsPage()));
                               },
                               iconPath: AppIcons.tabletNews,
-                              count: usercountData?.announcementsCount),
+                              count: usercountData.announcementsCount),
                           const ProfileDivider(),
                           ProfileMenuTile(
                               name: 'Мои поиски',
@@ -145,8 +156,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     .push(fade(page: const MySearchesPage()));
                               },
                               iconPath: AppIcons.mySearch,
-                              count: state
-                                  .profileEntity.usercountdata?.searchCount),
+                              count: state.profileEntity.usercountdata
+                                  .filterHistoryCount),
                           const ProfileDivider(),
                           ProfileMenuTile(
                               name: 'Мои отзывы',
@@ -156,7 +167,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               },
                               iconPath: AppIcons.message,
                               count: state
-                                  .profileEntity.usercountdata?.reviewsCount),
+                                  .profileEntity.usercountdata.reviewsCount),
                         ]),
 
                         //Дилеры - Справочник - Чат
@@ -172,8 +183,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ProfileMenuTile(
                               name: 'Справочник',
                               onTap: () {
-                                Navigator.of(context).push(fade(
-                                    page: const DirectoryPage()));
+                                Navigator.of(context)
+                                    .push(fade(page: const DirectoryPage()));
                               },
                               iconPath: AppIcons.direct),
                           const ProfileDivider(),

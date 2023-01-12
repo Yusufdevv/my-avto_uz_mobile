@@ -24,7 +24,7 @@ class UserWishListsBloc extends Bloc<UserWishListsEvent, UserWishListsState> {
   final GetMySearchesUseCase getMySearchesUseCase;
   NotificationAllReadUseCase notificationAllReadUseCase =
       NotificationAllReadUseCase();
-      DeleteMySearchesUseCase deleteMySearchesUseCase = DeleteMySearchesUseCase();
+  DeleteMySearchesUseCase deleteMySearchesUseCase = DeleteMySearchesUseCase();
   UserWishListsBloc({
     required this.profileFavoritesMyAdsUseCase,
     required this.getNotificationSingleUseCase,
@@ -46,6 +46,15 @@ class UserWishListsBloc extends Bloc<UserWishListsEvent, UserWishListsState> {
     on<GetNotificationSingleEvent>(_onGetNotificationSingle);
     on<NotificationAllReadEvent>(_onNotificationAllReadEvent);
     on<DeleteMySearchesEvent>(_onDeleteMySearchesEvent);
+    on<ChangeIsWishEvenet>(_onChangeIsWish);
+  }
+  // delete item from from list in state
+  void _onChangeIsWish(
+      ChangeIsWishEvenet event, Emitter<UserWishListsState> emit) {
+    final list = <AutoEntity>[...state.favorites];
+    // ignore: cascade_invocations
+    list.removeAt(event.index);
+    emit(state.copyWith(favorites: list));
   }
 
   Future<void> _onGetUserFavorites(
@@ -64,15 +73,13 @@ class UserWishListsBloc extends Bloc<UserWishListsEvent, UserWishListsState> {
   Future<void> _onNotificationAllReadEvent(
       NotificationAllReadEvent event, Emitter<UserWishListsState> emit) async {
     final result = await notificationAllReadUseCase.call(NoParams());
-    if (result.isRight) {
-    }
+    if (result.isRight) {}
   }
 
   Future<void> _onDeleteMySearchesEvent(
       DeleteMySearchesEvent event, Emitter<UserWishListsState> emit) async {
     final result = await deleteMySearchesUseCase.call(event.ids);
-    if (result.isRight) {
-    }
+    if (result.isRight) {}
   }
 
   Future<void> _onGetUserMyAds(

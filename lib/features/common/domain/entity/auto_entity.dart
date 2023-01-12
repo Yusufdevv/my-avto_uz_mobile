@@ -11,7 +11,7 @@ import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 class AutoEntity extends Equatable {
-  const AutoEntity({
+    AutoEntity({
     this.id = -1,
     this.make = const CarMakeEntity(),
     this.model = const CarModelEntity(),
@@ -113,7 +113,7 @@ class AutoEntity extends Equatable {
   final String publishedAt;
   final String  expiredAt;
   final int viewsCount;
-  final bool isWishlisted;
+    bool isWishlisted;
   final bool isComparison;
   final double discount;
   final String contactAvailableFrom;

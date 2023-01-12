@@ -8,6 +8,11 @@ class GetProfileEvent extends ProfileEvent {}
 
 class GetTermsOfUseEvent extends ProfileEvent {}
 
+class ChangeCountDataEvent extends ProfileEvent{
+  final bool adding;
+  ChangeCountDataEvent({required this.adding});
+}
+
 class LoginUser extends ProfileEvent {
   final String phone ;
   final String password ;

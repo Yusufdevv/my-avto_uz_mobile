@@ -13,7 +13,7 @@ part 'auto_model.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class AutoModel extends AutoEntity {
-  const AutoModel({
+    AutoModel({
     required super.id,
     required super.bodyType,
     required super.driveType,
