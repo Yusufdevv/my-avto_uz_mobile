@@ -210,6 +210,7 @@ class _MainScreenState extends State<MainScreen> {
                     const TopBrands(),
                     const TopAds(),
                     Favorites(),
+                    
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16),
                       child: SizedBox(

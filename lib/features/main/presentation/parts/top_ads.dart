@@ -1,7 +1,7 @@
 import 'package:auto/features/common/bloc/wishlist_add/wishlist_add_bloc.dart';
 import 'package:auto/features/main/presentation/bloc/top_ad/top_ad_bloc.dart';
 import 'package:auto/features/main/presentation/widgets/ads_item.dart';
-import 'package:auto/features/main/presentation/widgets/brand_shimmer_item.dart';
+import 'package:auto/features/main/presentation/widgets/ads_shimmer.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -40,13 +40,13 @@ class TopAds extends StatelessWidget {
                   }
                 },
                 builder: (context, stateWish) => SizedBox(
-                  height: MediaQuery.of(context).size.height*0.34,
+                 height: MediaQuery.of(context).size.height*0.34,
                   child: ListView.separated(
                     scrollDirection: Axis.horizontal,
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     itemBuilder: (context, index) =>
                         state.status.isSubmissionInProgress
-                            ? BrandShimmerItem()
+                            ? AdsShimmer()
                             : AdsItem(
                                 id: state.topAds[index].id,
                                 name: state.topAds[index].make,

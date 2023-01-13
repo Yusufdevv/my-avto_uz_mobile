@@ -2,6 +2,7 @@ import 'package:auto/features/common/bloc/wishlist_add/wishlist_add_bloc.dart';
 import 'package:auto/features/common/domain/entity/auto_entity.dart';
 import 'package:auto/features/main/presentation/bloc/top_ad/top_ad_bloc.dart';
 import 'package:auto/features/main/presentation/widgets/ads_item.dart';
+import 'package:auto/features/main/presentation/widgets/ads_shimmer.dart';
 import 'package:auto/features/main/presentation/widgets/brand_shimmer_item.dart';
 import 'package:auto/features/main/presentation/widgets/favourite_item.dart';
 import 'package:auto/generated/locale_keys.g.dart';
@@ -11,18 +12,19 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 
 class Favorites extends StatelessWidget {
-    Favorites({Key? key}) : super(key: key);
+  Favorites({Key? key}) : super(key: key);
 
   late List<AutoEntity> favorites;
   @override
   Widget build(BuildContext context) => BlocConsumer<TopAdBloc, TopAdState>(
-    listener: (context, state) {
-      favorites = state.favorites;
-    },
-        builder: (context, state) => Visibility(
+        listener: (context, state) {
+          favorites = state.favorites;
+        },
+        builder: (context, state) {
+                            favorites = state.favorites;
+          return Visibility(
           visible: state.favoritesStatus.isSubmissionInProgress ||
-              state.favoritesStatus.isSubmissionSuccess &&
-                  state.favorites.isNotEmpty,
+              state.favoritesStatus.isSubmissionSuccess,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -41,65 +43,61 @@ class Favorites extends StatelessWidget {
                 listener: (context, stateWish) {
                   if (stateWish.addStatus.isSubmissionSuccess) {
                     context.read<TopAdBloc>().add(TopAdEvent.deleteFavoriteItem(
-                         id: stateWish.id, adding: true));
+                        id: stateWish.id, adding: true));
                     context
                         .read<WishlistAddBloc>()
                         .add(WishlistAddEvent.clearState());
                   }
                   if (stateWish.removeStatus.isSubmissionSuccess) {
                     context.read<TopAdBloc>().add(TopAdEvent.deleteFavoriteItem(
-                         id: stateWish.id, adding: false));
+                        id: stateWish.id, adding: false));
                   }
-                  
                 },
-                builder: (context, stateWish) => SizedBox(
-                  height: (!state.favoritesStatus.isSubmissionInProgress &&
-                          state.favorites.isEmpty)
-                      ? null
-                      : MediaQuery.of(context).size.height * 0.34,
-                  child: ListView.separated(
-                    scrollDirection: Axis.horizontal,
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    itemBuilder: (context, index) => state
-                            .favoritesStatus.isSubmissionInProgress
-                        ? BrandShimmerItem()
-                        : state.favorites.isEmpty
-                            ? const FavouriteItem()
-                            // ignore: prefer_expression_function_bodies
-                            : Builder(builder: (context) {
-                              favorites = state.favorites;
-                                return AdsItem(
-                                  id: state.favorites[index].id,
-                                  name: state.favorites[index].make.name,
-                                  price:
-                                      state.favorites[index].price.toString(),
-                                  location: state.favorites[index].region.title,
-                                  description:
-                                      state.favorites[index].description,
-                                  image:
-                                      state.favorites[index].gallery.isNotEmpty
-                                          ? state.favorites[index].gallery.first
+                builder: (context, stateWish) => (state
+                            .favoritesStatus.isSubmissionSuccess &&
+                        state.favorites.isEmpty)
+                    ? const FavouriteItem()
+                    : SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.34,
+                        child: ListView.separated(
+                          scrollDirection: Axis.horizontal,
+                          padding: const EdgeInsets.symmetric(horizontal: 16),
+                          itemBuilder: (context, index) => state.favoritesStatus.isSubmissionInProgress
+                                ? AdsShimmer()
+                                // ignore: prefer_expression_function_bodies
+                                : Builder(builder: (context) {
+                                    final item = favorites[index];
+                                    return AdsItem(
+                                      id: item.id,
+                                      name: item.make.name,
+                                      price: item.price.toString(),
+                                      location: item.region.title,
+                                      description: item.description,
+                                      image: state.favorites[index].gallery
+                                              .isNotEmpty
+                                          ? item.gallery.first
                                           : '',
-                                  currency: state.favorites[index].currency,
-                                  isLiked: state.favorites[index].isWishlisted,
-                                  onTapLike: () {
-                                    context.read<WishlistAddBloc>().add(WishlistAddEvent.removeWishlist(
-                                            state.favorites[index].id, index)
-                                       );
-                                  },
-                                );
-                              }),
-                    itemCount: state.status.isSubmissionInProgress
-                        ? 5
-                        : state.favorites.length,
-                    separatorBuilder: (context, index) =>
-                        const SizedBox(width: 24),
-                  ),
-                ),
+                                      currency: item.currency,
+                                      isLiked: item.isWishlisted,
+                                      onTapLike: () {
+                                        context.read<WishlistAddBloc>().add(
+                                            WishlistAddEvent.removeWishlist(
+                                                item.id, index));
+                                      },
+                                    );
+                                  }),
+                          itemCount: state.status.isSubmissionInProgress
+                              ? 2
+                              : state.favorites.length,
+                          separatorBuilder: (context, index) =>
+                              const SizedBox(width: 24),
+                        ),
+                      ),
               ),
               const SizedBox(height: 16),
             ],
           ),
-        ),
+        );
+        },
       );
 }
