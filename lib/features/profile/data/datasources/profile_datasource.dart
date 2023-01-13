@@ -173,6 +173,18 @@ class ProfileDataSourceImpl extends ProfileDataSource {
       throw ParsingException(errorMessage: e.toString());
     }
   }
+
+  // if (result.data is List && (result.data as List).isNotEmpty) {
+  //         return Left(ServerFailure(
+  //             errorMessage: (result.data as List).first.toString(),
+  //             statusCode: 141));
+  //       }
+  //       var data = result.data[errorKey ?? 'detail'] ?? '';
+  //       if (data.isEmpty) {
+  //         data = result.data.toString();
+  //       }
+
+  //       return Left(ServerFailure(errorMessage: data, statusCode: 141));
   
   @override
   Future<List<TermsOfUseModel>> getTermsOfUseData() async {

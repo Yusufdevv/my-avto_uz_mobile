@@ -52,9 +52,11 @@ class UserWishListsBloc extends Bloc<UserWishListsEvent, UserWishListsState> {
   void _onChangeIsWish(
       ChangeIsWishEvenet event, Emitter<UserWishListsState> emit) {
     final list = <AutoEntity>[...state.favorites];
+    final item = list.firstWhere((element) => element.id==event.id);
     // ignore: cascade_invocations
-    list.removeAt(event.index);
+    list.remove(item);
     emit(state.copyWith(favorites: list));
+    
   }
 
   Future<void> _onGetUserFavorites(

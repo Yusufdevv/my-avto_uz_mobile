@@ -38,9 +38,9 @@ class FavoriteItem extends StatefulWidget {
       required this.discount,
       required this.id,
       required this.index,
+      required this.animation,
       this.onTap,
       this.sellType,
-     required this.animation,
       super.key});
 
   final List<String> gallery;
@@ -81,10 +81,11 @@ class _FavoriteItemState extends State<FavoriteItem> {
   }
 
   @override
-  Widget build(BuildContext context) => SizeTransition(
-    key: ValueKey(widget.id),
-    sizeFactor: widget.animation,
-    child: Container(
+  Widget build(BuildContext context) => SlideTransition(
+        key: ValueKey(widget.id),
+        position: Tween(begin: const Offset(-1, 0), end: Offset.zero).animate(
+            CurvedAnimation(parent: widget.animation, curve: Curves.easeInOut)),
+        child: Container(
           width: MediaQuery.of(context).size.width,
           padding: const EdgeInsets.only(top: 12, left: 16, bottom: 12),
           decoration: BoxDecoration(
@@ -186,7 +187,8 @@ class _FavoriteItemState extends State<FavoriteItem> {
                                         .copyWith(color: greyText),
                                   ),
                                   TextSpan(
-                                    text: '${widget.callFrom} - ${widget.callTo}',
+                                    text:
+                                        '${widget.callFrom} - ${widget.callTo}',
                                     style: Theme.of(context)
                                         .textTheme
                                         .headline2!
@@ -366,20 +368,21 @@ class _FavoriteItemState extends State<FavoriteItem> {
                     ),
                     const SizedBox(width: 8),
                     AddWishlistItem(
-                      onTap: widget.onTap ?? () {
-                        if (!isLiked) {
-                          context.read<WishlistAddBloc>().add(
-                              WishlistAddEvent.addWishlist(
-                                  widget.id, widget.index));
-                          isLiked = true;
-                        } else {
-                          context.read<WishlistAddBloc>().add(
-                              WishlistAddEvent.removeWishlist(
-                                  widget.id, widget.index));
-                          isLiked = false;
-                        }
-                        setState(() {});
-                      },
+                      onTap: widget.onTap ??
+                          () {
+                            if (!isLiked) {
+                              context.read<WishlistAddBloc>().add(
+                                  WishlistAddEvent.addWishlist(
+                                      widget.id, widget.index));
+                              isLiked = true;
+                            } else {
+                              context.read<WishlistAddBloc>().add(
+                                  WishlistAddEvent.removeWishlist(
+                                      widget.id, widget.index));
+                              isLiked = false;
+                            }
+                            setState(() {});
+                          },
                       initialLike: isLiked,
                     ),
                   ],
@@ -388,5 +391,5 @@ class _FavoriteItemState extends State<FavoriteItem> {
             ],
           ),
         ),
-  );
+      );
 }

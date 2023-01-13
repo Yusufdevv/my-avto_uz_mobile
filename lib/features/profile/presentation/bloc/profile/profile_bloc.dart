@@ -47,15 +47,22 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     on<ChangeCountDataEvent>(_onChangeIsWish);
   }
   void _onChangeIsWish(ChangeCountDataEvent event, Emitter<ProfileState> emit) {
+    emit(state.copyWith(changeStatus: FormzStatus.submissionInProgress));
+    // ignore: prefer_final_locals
     var profileData = state.profileEntity;
-    final announcementWishlistCount = event.adding
-        ? state.profileEntity.usercountdata.announcementWishlistCount + 1
-        : state.profileEntity.usercountdata.announcementWishlistCount - 1;
-    print('=======announcementWishlistCount ${announcementWishlistCount}');
+    var announcementWishlistCount =
+        profileData.usercountdata.announcementWishlistCount;
+    if (event.adding) {
+      announcementWishlistCount += 1;
+    } else {
+
+      announcementWishlistCount -= 1;
+    }
     profileData.usercountdata.announcementWishlistCount =
         announcementWishlistCount;
-    emit(state.copyWith(profileEntity: profileData, changeStatus: FormzStatus.submissionSuccess));
-
+    emit(state.copyWith(
+        profileEntity: profileData,
+        changeStatus: FormzStatus.submissionSuccess));
   }
 
   Future<void> _onGetProfile(
