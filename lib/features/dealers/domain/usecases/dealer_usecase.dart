@@ -14,10 +14,11 @@ class DealerUseCase
       DealerParams params) async {
     final map = <String, dynamic>{'search': params.search};
     return await repo.fetchMore(
-        url: '/users/dealers/',
-        fromJson: DealerCardModel.fromJson,
-        next: params.next,
-        query: map);
+      url: '/users/dealers/',
+      fromJson: DealerCardModel.fromJson,
+      next: params.next,
+      query: map,
+    );
   }
 }
 

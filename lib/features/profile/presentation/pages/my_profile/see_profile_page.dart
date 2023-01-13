@@ -116,7 +116,7 @@ class SeeProfilePage extends StatelessWidget {
                                   .copyWith(fontSize: 18)),
                         ),
                         Text(
-                            '${state.profileEntity.usercountdata?.announcementsCount ?? 0} ${LocaleKeys.how_many_ads.tr()}',
+                            '${state.profileEntity.usercountdata.announcementsCount} ${LocaleKeys.how_many_ads.tr()}',
                             style: Theme.of(context)
                                 .textTheme
                                 .headline2!

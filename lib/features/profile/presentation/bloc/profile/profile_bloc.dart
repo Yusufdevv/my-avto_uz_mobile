@@ -6,7 +6,6 @@ import 'package:auto/features/profile/domain/entities/terms_of_use_entity.dart';
 import 'package:auto/features/profile/domain/usecases/change_password_usecase.dart';
 import 'package:auto/features/profile/domain/usecases/edit_profile_usecase.dart';
 import 'package:auto/features/profile/domain/usecases/get_terms_of_use_usecase.dart';
-import 'package:auto/features/profile/domain/usecases/profil_favorites_usecase.dart';
 import 'package:auto/features/profile/domain/usecases/profile_usecase.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -31,25 +30,34 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     required this.changePasswordUseCase,
     required this.getTermsOfUseUseCase,
     required this.repository,
-
-    
   }) : super(
           ProfileState(
             changeStatus: FormzStatus.pure,
             editStatus: FormzStatus.pure,
             status: FormzStatus.pure,
-            profileEntity: ProfileDataEntity(),
+            profileEntity: ProfileDataEntity(usercountdata: Usercountdata()),
             termsOfUseEntity: const <TermsOfUseEntity>[],
           ),
-        ) { 
-          
+        ) {
     on<GetProfileEvent>(_onGetProfile);
     on<ChangePasswordEvent>(_onChangePassword);
     on<EditProfileEvent>(_onEditProfile);
     on<GetTermsOfUseEvent>(_onGetTermsOfUse);
     on<LoginUser>(_onLoginUser);
+    on<ChangeCountDataEvent>(_onChangeIsWish);
   }
-  
+  void _onChangeIsWish(ChangeCountDataEvent event, Emitter<ProfileState> emit) {
+    var profileData = state.profileEntity;
+    final announcementWishlistCount = event.adding
+        ? state.profileEntity.usercountdata.announcementWishlistCount + 1
+        : state.profileEntity.usercountdata.announcementWishlistCount - 1;
+    print('=======announcementWishlistCount ${announcementWishlistCount}');
+    profileData.usercountdata.announcementWishlistCount =
+        announcementWishlistCount;
+    emit(state.copyWith(profileEntity: profileData, changeStatus: FormzStatus.submissionSuccess));
+
+  }
+
   Future<void> _onGetProfile(
       GetProfileEvent event, Emitter<ProfileState> emit) async {
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
@@ -125,15 +133,11 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     }
   }
 
-  Future<void> _onLoginUser(LoginUser event,Emitter<ProfileState> emit) async {
-      final result = await repository.login(
-          login: event.phone, password: event.password);
-      if (result.isRight) {
-        print('auth good ');
-      } 
-
+  Future<void> _onLoginUser(LoginUser event, Emitter<ProfileState> emit) async {
+    final result =
+        await repository.login(login: event.phone, password: event.password);
+    if (result.isRight) {
+      print('auth good ');
     }
-
-
-  
+  }
 }

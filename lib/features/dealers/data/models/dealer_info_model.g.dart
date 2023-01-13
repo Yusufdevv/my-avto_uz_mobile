@@ -6,28 +6,49 @@ part of 'dealer_info_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-DealerInfoModel _$DealerInfoModelFromJson(Map<String, dynamic> json) =>
-    DealerInfoModel(
-      additionalInfo: json['additional_info'] as String,
-      contact: json['contact'] as String,
-      dealerImageUrl: json['dealer_image_url'] as String,
-      dealerName: json['dealer_name'] as String,
-      dealerType: json['dealer_type'] as String,
-      latitude: (json['latitude'] as num).toDouble(),
-      longitude: (json['longitude'] as num).toDouble(),
-      quantityOfCars: json['quantity_of_cars'] as int,
-      workingHours: json['working_hours'] as String,
+DealerSingleModel _$DealerSingleModelFromJson(Map<String, dynamic> json) =>
+    DealerSingleModel(
+      id: json['id'] as int? ?? 0,
+      name: json['name'] as String? ?? '',
+      slug: json['slug'] as String? ?? '',
+      description: json['description'] as String? ?? '',
+      dealerType: json['dealer_type'] == null
+          ? const DealerTypeEntity()
+          : const DealerTypeConverter()
+              .fromJson(json['dealer_type'] as Map<String, dynamic>?),
+      latitude: (json['latitude'] as num?)?.toDouble() ?? 0.0,
+      longitude: (json['longitude'] as num?)?.toDouble() ?? 0.0,
+      gallery: (json['gallery'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList() ??
+          const [],
+      phoneNumber: json['phone_number'] as String? ?? '',
+      contactTo: json['contact_to'] as String? ?? '',
+      contactFrom: json['contact_from'] as String? ?? '',
+      carCount: json['car_count'] as int? ?? 0,
+      district: json['district'] == null
+          ? const RegionEntity()
+          : const RegionConverter()
+              .fromJson(json['district'] as Map<String, dynamic>?),
+      avatar: json['avatar'] as String? ?? '',
+      locationUrl: json['location_url'] as String? ?? '',
     );
 
-Map<String, dynamic> _$DealerInfoModelToJson(DealerInfoModel instance) =>
+Map<String, dynamic> _$DealerSingleModelToJson(DealerSingleModel instance) =>
     <String, dynamic>{
-      'dealer_type': instance.dealerType,
-      'dealer_name': instance.dealerName,
-      'dealer_image_url': instance.dealerImageUrl,
-      'quantity_of_cars': instance.quantityOfCars,
-      'working_hours': instance.workingHours,
-      'contact': instance.contact,
-      'additional_info': instance.additionalInfo,
+      'id': instance.id,
+      'name': instance.name,
+      'slug': instance.slug,
+      'description': instance.description,
+      'phone_number': instance.phoneNumber,
+      'avatar': instance.avatar,
+      'contact_from': instance.contactFrom,
+      'contact_to': instance.contactTo,
+      'location_url': instance.locationUrl,
       'longitude': instance.longitude,
       'latitude': instance.latitude,
+      'car_count': instance.carCount,
+      'district': const RegionConverter().toJson(instance.district),
+      'dealer_type': const DealerTypeConverter().toJson(instance.dealerType),
+      'gallery': instance.gallery,
     };

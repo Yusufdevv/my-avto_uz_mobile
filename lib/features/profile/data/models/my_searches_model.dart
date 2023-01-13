@@ -7,7 +7,7 @@ class MySearchesModel extends MySearchesEntity {
     required super.make,
     required super.model,
     required super.query,
-    required super.queryData,
+    // required super.queryData,
   });
 
   factory MySearchesModel.fromJson(Map<String, dynamic> json) =>
@@ -19,7 +19,8 @@ class MySearchesModel extends MySearchesEntity {
               ? []
               : List<Model?>.from(json['model']!.map((x) => Model.fromJson(x))),
           query: json['query'],
-          queryData: json['query_data'] == null
-              ? null
-              : QueryData.fromJson(json['query_data']));
+          // queryData: json['query_data'] == null
+          //     ? null
+          //     : QueryData.fromJson(json['query_data'])
+              );
 }

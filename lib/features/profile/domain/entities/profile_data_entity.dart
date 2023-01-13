@@ -1,5 +1,8 @@
-class ProfileDataEntity {
+import 'package:equatable/equatable.dart';
+
+class ProfileDataEntity extends Equatable {
   ProfileDataEntity({
+    required this.usercountdata,
     this.id,
     this.username,
     this.firstName,
@@ -15,7 +18,6 @@ class ProfileDataEntity {
     this.isSuperuser,
     this.lastLogin,
     this.dateJoined,
-    this.usercountdata,
   });
 
   final int? id;
@@ -33,7 +35,22 @@ class ProfileDataEntity {
   final bool? isSuperuser;
   final String? lastLogin;
   final String? dateJoined;
-  final Usercountdata? usercountdata;
+  Usercountdata usercountdata;
+
+  @override
+  List<Object?> get props => [
+        id,
+        username,
+        firstName,
+        fullName,
+        email,
+        image,
+        region,
+        phoneNumber,
+        isDealer,
+        isActive,
+        isStaff, isSuperuser, lastLogin, dateJoined, usercountdata
+      ];
 }
 
 class Region {
@@ -55,21 +72,22 @@ class Region {
 }
 
 class Usercountdata {
-  Usercountdata({
-    this.id,
-    this.user,
-    this.announcementWishlistCount,
-    this.announcementsCount,
-    this.searchCount,
-    this.reviewsCount,
-  });
+  Usercountdata(
+      {this.id = -1,
+      this.user = -1,
+      this.announcementWishlistCount = 0,
+      this.announcementsCount = 0,
+      this.searchCount = 0,
+      this.reviewsCount = 0,
+      this.filterHistoryCount = 0});
 
-  final int? id;
-  final int? user;
-  final int? announcementWishlistCount;
-  final int? announcementsCount;
-  final int? searchCount;
-  final int? reviewsCount;
+  final int id;
+  final int user;
+  int announcementWishlistCount;
+  int announcementsCount;
+  int searchCount;
+  int reviewsCount;
+  int filterHistoryCount;
 
   factory Usercountdata.fromJson(Map<String, dynamic> json) => Usercountdata(
         id: json['id'],
@@ -78,5 +96,6 @@ class Usercountdata {
         announcementsCount: json['announcements_count'],
         searchCount: json['search_count'],
         reviewsCount: json['reviews_count'],
+        filterHistoryCount: json['filter_history_count'],
       );
 }

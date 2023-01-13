@@ -20,7 +20,7 @@ class CarSingleBloc extends Bloc<CarSingleEvent, CarSingleState> {
       emit(state.copyWith(status: FormzStatus.submissionInProgress));
       final result = await useCaseSingle.call(event.id);
       if (result.isRight) {
-    
+        add(_GetAds(result.right.model.id));
         emit(state.copyWith(
           singleEntity: result.right,
           status: FormzStatus.submissionSuccess,
@@ -30,13 +30,13 @@ class CarSingleBloc extends Bloc<CarSingleEvent, CarSingleState> {
       }
     });
     on<_GetAds>((event, emit) async {
-      emit(state.copyWith(status: FormzStatus.submissionInProgress));
+      emit(state.copyWith(adsStatus: FormzStatus.submissionInProgress));
       final result = await useCaseAds.call(event.id);
       if (result.isRight) {
         print('BLOC RESULT RIGHT => ${result.right}');
         emit(state.copyWith(
             elasticSearchEntity: result.right.results,
-            status: FormzStatus.submissionSuccess));
+            adsStatus: FormzStatus.submissionSuccess));
       } else {
         print('BLOC ERROR GET OTHER ADS');
       }

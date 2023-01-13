@@ -1,19 +1,19 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'make.dart';
+part of 'dealer_type_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-MakeModel _$MakeModelFromJson(Map<String, dynamic> json) => MakeModel(
-      id: json['id'] as int? ?? -1,
+DealerTypeModel _$DealerTypeModelFromJson(Map<String, dynamic> json) =>
+    DealerTypeModel(
+      id: json['id'] as int? ?? 0,
       name: json['name'] as String? ?? '',
-      logo: json['logo'] as String? ?? '',
     );
 
-Map<String, dynamic> _$MakeModelToJson(MakeModel instance) => <String, dynamic>{
+Map<String, dynamic> _$DealerTypeModelToJson(DealerTypeModel instance) =>
+    <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
-      'logo': instance.logo,
     };

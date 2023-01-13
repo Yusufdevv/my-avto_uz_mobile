@@ -108,9 +108,9 @@ class GetUserListRepoImpl extends GetUserListRepository {
   }
 
   @override
-  Future<Either<ServerFailure, String>> deleteMySearches(String id) async {
+  Future<Either<ServerFailure, String>> deleteMySearches(List<int> ids) async {
     try {
-      final result = await dataSource.deleteMySearches(id);
+      final result = await dataSource.deleteMySearches(ids);
       return Right(result);
     } on ServerException catch (error) {
       return Left(ServerFailure(

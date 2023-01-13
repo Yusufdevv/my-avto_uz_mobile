@@ -10,13 +10,14 @@ import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_divider.dart';
 import 'package:auto/features/login/presentation/pages/register_screen.dart';
-import 'package:auto/features/login/presentation/pages/send_phone_number_page.dart';
+import 'package:auto/features/login/presentation/pages/reset_password.dart';
 import 'package:auto/features/login/presentation/widgets/z_text_form_field.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/onboarding/presentation/widgets/social_media_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:formz/formz.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
@@ -34,12 +35,11 @@ class _LoginScreenState extends State<LoginScreen> {
   );
   late TextEditingController phoneController;
   late TextEditingController passwordController;
-  bool isToastShowing = false;
 
   @override
   void initState() {
-    phoneController = TextEditingController();
-    passwordController = TextEditingController();
+    phoneController = TextEditingController(text: '99 017 14 48');
+    passwordController = TextEditingController(text: '121212');
     super.initState();
   }
 
@@ -49,12 +49,6 @@ class _LoginScreenState extends State<LoginScreen> {
   //   passwordController.dispose();
   //   super.dispose();
   // }
-  void hidePopUp() {
-    if (isToastShowing) {
-      context.read<ShowPopUpBloc>().add(HidePopUp());
-      isToastShowing = false;
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -93,11 +87,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       width: 4,
                     ),
                     GestureDetector(
-                      onTap: () {
-                        hidePopUp();
-                        Navigator.push(
-                            context, fade(page: const RegisterScreen()));
-                      },
+                      onTap: () => Navigator.push(
+                          context, fade(page: const RegisterScreen())),
                       child: Text(
                         'Регистрация',
                         style: Theme.of(context).textTheme.headline3!.copyWith(
@@ -108,15 +99,13 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 const SizedBox(height: 36),
                 ZTextFormField(
-                  onTap: hidePopUp,
                   onChanged: (onChanged) {
                     setState(() {});
                   },
                   controller: phoneController,
                   prefixIcon: Row(
                     children: [
-                      const Text('🇺🇿'),
-                      // Image.asset(AppImages.flagUzb),
+                      Image.asset(AppImages.flagUzb),
                       const SizedBox(
                         width: 4,
                       ),
@@ -135,7 +124,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 const SizedBox(height: 30),
                 ZTextFormField(
-                  onTap: hidePopUp,
                   onChanged: (value) {
                     setState(() {});
                   },
@@ -146,9 +134,16 @@ class _LoginScreenState extends State<LoginScreen> {
                 const SizedBox(height: 16),
                 GestureDetector(
                   onTap: () {
-                    hidePopUp();
                     Navigator.of(context)
-                        .push(fade(page: const SendPhoneNumberPage()));
+                        .push(fade(page: const ForgotPasswordSendPhonePage()));
+                    //   Navigator.push(
+                    //   context,
+                    //   fade(
+                    //     page: PasswordRecoveryScreen(
+                    //       phone: phoneController.text,
+                    //     ),
+                    //   ),
+                    // );
                   },
                   child: Text(
                     'Забыли пароль?',
@@ -162,26 +157,22 @@ class _LoginScreenState extends State<LoginScreen> {
                 WButton(
                   isDisabled: !(passwordController.text.length >= 4 &&
                       phoneController.text.length == 12),
-                  isLoading: context.watch<AuthenticationBloc>().state.status ==
-                      AuthenticationStatus.loading,
                   onTap: passwordController.text.length >= 4 &&
                           phoneController.text.length == 12
                       ? () {
-                          hidePopUp();
                           context.read<AuthenticationBloc>().add(LoginUser(
                               onError: (text) {
-                                context.read<ShowPopUpBloc>().add(ShowPopUp(
-                                    message: text,
-                                    isSucces: false,
-                                    dismissible: false));
-                                isToastShowing = true;
+                                if (text.isNotEmpty) {
+                                  context.read<ShowPopUpBloc>().add(ShowPopUp(
+                                      message: text, isSucces: false));
+                                } else {}
                               },
                               password: passwordController.text,
                               userName: phoneController.text
                                   .replaceAll('+998', '')
                                   .replaceAll('', ' ')));
                         }
-                      : hidePopUp,
+                      : () {},
                   shadow: [
                     BoxShadow(
                         offset: const Offset(0, 4),

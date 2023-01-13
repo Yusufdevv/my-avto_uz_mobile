@@ -4,6 +4,8 @@ import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/dealers/presentation/pages/seller.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
+import 'package:auto/features/rent/domain/entities/region_entity.dart';
+import 'package:auto/features/search/presentation/widgets/add_comparison_item.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:auto/utils/my_functions.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -11,7 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class DealerCard extends StatefulWidget {
-  final String dealerType;
+  //final String dealerType;
   final String dealerInfo;
   final String dealerName;
   final String dealerImageUrl;
@@ -24,9 +26,11 @@ class DealerCard extends StatefulWidget {
   final double latitude;
   final double longitude;
   final bool isDirectoryPage;
+  //final String district;
+  final VoidCallback onTap;
 
   const DealerCard({
-    required this.dealerType,
+    //required this.dealerType,
     required this.dealerName,
     required this.dealerImageUrl,
     required this.quantityOfCars,
@@ -38,7 +42,9 @@ class DealerCard extends StatefulWidget {
     required this.latitude,
     required this.longitude,
     required this.phoneNumber,
+    required this.onTap,
     this.isDirectoryPage = false,
+    //required this.district,
     Key? key,
   }) : super(key: key);
 
@@ -51,24 +57,7 @@ class _DealerCardState extends State<DealerCard> {
 
   @override
   Widget build(BuildContext context) => GestureDetector(
-        onTap: () {
-          Navigator.push(
-            context,
-            fade(
-              page: Seller(
-                // dealerType: widget.dealerType,
-                dealerName: widget.dealerName,
-                phoneNumber: widget.phoneNumber,
-                dealerInfo: widget.dealerInfo,
-                latitude: widget.latitude,
-                longitude: widget.longitude,
-                carCount: widget.quantityOfCars,
-                contactFrom: widget.contactFrom,
-                contactTo: widget.contactTo,
-              )
-            ),
-          );
-        },
+        onTap: widget.onTap,
         child: Container(
           decoration: BoxDecoration(
               color: Theme.of(context).extension<ThemedColors>()!.whiteToNero,
@@ -136,7 +125,8 @@ class _DealerCardState extends State<DealerCard> {
                       style: Theme.of(context)
                           .textTheme
                           .headline1!
-                          .copyWith(fontSize: 14, fontWeight: FontWeight.w400))
+                          .copyWith(fontSize: 14, fontWeight: FontWeight.w400)),
+
                 ],
               ),
               const SizedBox(height: 10),

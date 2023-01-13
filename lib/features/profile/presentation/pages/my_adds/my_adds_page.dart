@@ -93,7 +93,7 @@ class _MyAddsPageState extends State<MyAddsPage> {
                 if (state.myAdsStatus.isSubmissionSuccess) {
                   final myAds = state.myAds;
                   final activeAds = myAds
-                      .where((e) => e.moderationStatus == 'active')
+                      .where((e) => e.expiredAt == 'active')
                       .toList();
                   final noActive = myAds
                       .where((e) => e.moderationStatus != 'active')
