@@ -18,7 +18,9 @@ class NotificationAllReadEvent extends UserWishListsEvent {}
 class ChangeIsWishEvenet extends UserWishListsEvent {
   final int index;
   final int id;
-  ChangeIsWishEvenet({required this.index, required this.id});
+    bool isAddWish;
+  bool isRemoveWish;
+  ChangeIsWishEvenet({required this.index, required this.id, this.isAddWish =false, this.isRemoveWish=false});
 }
 
 class DeleteMySearchesEvent extends UserWishListsEvent {

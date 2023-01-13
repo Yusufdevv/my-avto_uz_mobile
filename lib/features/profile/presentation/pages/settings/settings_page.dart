@@ -121,6 +121,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                 const LanguageBottomSheet()).then((value) {
                           if (value is String) {
                             context.setLocale(Locale(value.toString()));
+                            setState(() {});
                             serviceLocator<DioSettings>()
                                 .setBaseOptions(lang: value.toString());
                             StorageRepository.putString(
@@ -157,8 +158,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                           fontWeight: FontWeight.w600),
                                 ),
                                 const Spacer(),
-                                Text(
-                                    LocaleKeys.dev_language.tr(),
+                                Text(LocaleKeys.dev_language.tr(),
                                     style:
                                         Theme.of(context).textTheme.headline2),
                                 SizedBox(width: SizeConfig.h(12)),

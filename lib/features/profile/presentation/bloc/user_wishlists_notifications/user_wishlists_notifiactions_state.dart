@@ -1,13 +1,14 @@
 part of 'user_wishlists_notification_bloc.dart';
 
 class UserWishListsState extends Equatable {
-    List<AutoEntity> favorites;
+  List<AutoEntity> favorites;
   final List<AutoEntity> myAds;
   final List<NotificationsEntity> notifications;
-    List<MySearchesEntity> mySearches;
+  List<MySearchesEntity> mySearches;
   final NotificationsEntity notificationSingle;
   final FormzStatus favoritesStatus;
   final FormzStatus myAdsStatus;
+
 
     UserWishListsState({
     required this.favoritesStatus,
