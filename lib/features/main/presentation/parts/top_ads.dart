@@ -40,7 +40,7 @@ class TopAds extends StatelessWidget {
                   }
                 },
                 builder: (context, stateWish) => SizedBox(
-                  height: 276,
+                  height: MediaQuery.of(context).size.height*0.34,
                   child: ListView.separated(
                     scrollDirection: Axis.horizontal,
                     padding: const EdgeInsets.symmetric(horizontal: 16),

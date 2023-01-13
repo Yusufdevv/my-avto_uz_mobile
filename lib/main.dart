@@ -156,7 +156,6 @@ class _AppState extends State<App> {
                           ),
                         ),
                         (route) => false);
-
                     break;
                   case AuthenticationStatus.authenticated:
                     if (StorageRepository.getString('token').isEmpty) {

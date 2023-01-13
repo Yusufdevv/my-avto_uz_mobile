@@ -40,13 +40,14 @@ class AdsItem extends StatelessWidget {
     // print('object ${adsEntity.imageUrl}');
     return GestureDetector(
       onTap: () {
-        Navigator.of(context, rootNavigator: true)
-            .push(fade(page:  CarSingleScreen(id: id,)));
+        Navigator.of(context, rootNavigator: true).push(fade(
+            page: CarSingleScreen(
+          id: id,
+        )));
       },
       child: Container(
-        height: 269,
-        width: 225,
-        padding: const EdgeInsets.only(right: 4),
+        height: MediaQuery.of(context).size.height * 0.331,
+        width: MediaQuery.of(context).size.width * 0.6,
         decoration: BoxDecoration(
           boxShadow: [
             BoxShadow(
@@ -63,8 +64,8 @@ class AdsItem extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(
-              height: 126,
-              width: 225,
+              height: MediaQuery.of(context).size.height * 0.155,
+              width: MediaQuery.of(context).size.width * 0.6,
               child: ClipRRect(
                   borderRadius: const BorderRadius.only(
                     topRight: Radius.circular(12),
@@ -104,7 +105,7 @@ class AdsItem extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Text(
-                description,
+                description.isNotEmpty ? description : '\n',
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 style: Theme.of(context).textTheme.bodyText1!.copyWith(
@@ -126,21 +127,29 @@ class AdsItem extends StatelessWidget {
               padding: const EdgeInsets.only(right: 12, left: 16, bottom: 10),
               child: Row(
                 children: [
-                  Row(
-                    children: [
-                      SvgPicture.asset(AppIcons.location),
-                      const SizedBox(width: 4),
-                      Text(
-                        location,
-                        style: Theme.of(context).textTheme.headline6!.copyWith(
-                            fontSize: 12,
-                            color: Theme.of(context)
-                                .extension<ThemedColors>()!
-                                .dolphinToGreySuit),
-                      )
-                    ],
+                  Expanded(
+                    child: Row(
+                      children: [
+                        SvgPicture.asset(AppIcons.location),
+                        const SizedBox(width: 4),
+                        Expanded(
+                          child: Text(
+                            location,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline6!
+                                .copyWith(
+                                    fontSize: 12,
+                                    color: Theme.of(context)
+                                        .extension<ThemedColors>()!
+                                        .dolphinToGreySuit),
+                          ),
+                        )
+                      ],
+                    ),
                   ),
-                  const Spacer(),
                   AddWishlistItem(
                     onTap: onTapLike,
                     initialLike: isLiked,

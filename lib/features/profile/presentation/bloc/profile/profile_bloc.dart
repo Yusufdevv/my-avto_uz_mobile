@@ -55,7 +55,6 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     if (event.adding) {
       announcementWishlistCount += 1;
     } else {
-
       announcementWishlistCount -= 1;
     }
     profileData.usercountdata.announcementWishlistCount =

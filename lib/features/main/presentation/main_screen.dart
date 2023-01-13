@@ -15,6 +15,7 @@ import 'package:auto/features/main/domain/usecases/get_top_brand.dart';
 import 'package:auto/features/main/presentation/bloc/main_bloc.dart';
 import 'package:auto/features/main/presentation/bloc/top_ad/top_ad_bloc.dart';
 import 'package:auto/features/main/presentation/bloc/top_brand/top_brand_bloc.dart';
+import 'package:auto/features/main/presentation/parts/favorites.dart';
 import 'package:auto/features/main/presentation/parts/stories.dart';
 import 'package:auto/features/main/presentation/parts/top_ads.dart';
 import 'package:auto/features/main/presentation/parts/top_brands.dart';
@@ -75,7 +76,10 @@ class _MainScreenState extends State<MainScreen> {
   @override
   void initState() {
     mainBloc = MainBloc()..add(InitialEvent());
-    topAdBloc = TopAdBloc(GetTopAdsUseCase())..add(TopAdEvent.getTopAds());
+    topAdBloc = TopAdBloc(GetTopAdsUseCase())
+      ..add(TopAdEvent.getTopAds())
+      ..add(TopAdEvent.getFavorites(
+          endpoint: '/users/wishlist/announcement/list/'));
     topBrandBloc = TopBrandBloc(GetTopBrandUseCase())
       ..add(TopBrandEvent.getBrand());
     serviceTaps = [
@@ -205,17 +209,7 @@ class _MainScreenState extends State<MainScreen> {
                     ),
                     const TopBrands(),
                     const TopAds(),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: Text(
-                        LocaleKeys.favorites.tr(),
-                        style: Theme.of(context)
-                            .textTheme
-                            .headline1!
-                            .copyWith(fontSize: 18),
-                      ),
-                    ),
-                    const FavouriteItem(),
+                    Favorites(),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16),
                       child: SizedBox(
@@ -225,7 +219,9 @@ class _MainScreenState extends State<MainScreen> {
                           children: [
                             const YandexMap(),
                             WButton(
-                              onTap: () => Navigator.of(context,rootNavigator: true).push(
+                              onTap: () =>
+                                  Navigator.of(context, rootNavigator: true)
+                                      .push(
                                 MaterialPageRoute(
                                   builder: (_) => const DealerScreen(),
                                 ),

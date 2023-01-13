@@ -10,7 +10,7 @@ import 'package:auto/features/profile/domain/entities/notifications_entity.dart'
 import 'package:auto/features/profile/domain/repositories/get_user_list_repo.dart';
 
 class GetUserListRepoImpl extends GetUserListRepository {
-  final GetUserListDatasourceImpl dataSource;
+    GetUserListDatasourceImpl dataSource;
 
   GetUserListRepoImpl({required this.dataSource});
   @override

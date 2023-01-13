@@ -8,7 +8,6 @@ import 'package:auto/features/profile/domain/entities/my_searches_entity.dart';
 import 'package:auto/features/profile/domain/entities/notifications_entity.dart';
 
 abstract class GetUserListRepository {
-  const GetUserListRepository();
 
   Future<Either<ServerFailure, List<AutoEntity>>> getProfileFavorites(
       String endpoint);

@@ -56,6 +56,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   late ProfileDataEntity profileData;
+  
   @override
   Widget build(BuildContext context) => BlocProvider.value(
         value: profileBloc,

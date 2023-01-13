@@ -34,7 +34,7 @@ class _FavouritePageState extends State<FavouritePage> {
     final repo = serviceLocator<GetUserListRepoImpl>();
     bloc = UserWishListsBloc(
         profileFavoritesMyAdsUseCase:
-            GetUserFavoritesMyAdsUseCase(repository: repo),
+            GetUserFavoritesMyAdsUseCase(),
         getNotificationSingleUseCase:
             GetNotificationSingleUseCase(repository: repo),
         getNotificationsUseCase: GetNotificationsUseCase(repository: repo),
