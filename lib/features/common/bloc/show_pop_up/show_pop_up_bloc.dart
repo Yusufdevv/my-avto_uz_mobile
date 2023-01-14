@@ -17,14 +17,14 @@ class ShowPopUpBloc extends Bloc<ShowPopUpEvent, ShowPopUpState> {
     on<ShowPopUp>((event, emit) {
       emit(state.copyWith(
           message: event.message, showPopUp: true, isSucces: event.isSucces));
-      if (timer.isActive) {
-        timer.cancel();
-      }
-      timer = Timer(const Duration(seconds: 3), () {
-        if (event.dismissible) {
-          add(HidePopUp());
-        }
-      });
+      // if (timer.isActive) {
+      //   timer.cancel();
+      // }
+      // timer = Timer(const Duration(seconds: 3), () {
+      //   // if (event.dismissible) {
+      //   //   add(HidePopUp());
+      //   // }
+      // });
     });
     on<HidePopUp>((event, emit) {
       if (timer.isActive) {

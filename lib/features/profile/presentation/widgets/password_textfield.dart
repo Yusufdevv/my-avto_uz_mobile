@@ -5,12 +5,14 @@ import 'package:flutter/material.dart';
 class PasswordTextField extends StatefulWidget {
   final TextEditingController controller;
   final TextEditingController? secondController;
+  final TextEditingController? confirmController;
   final String hintText;
   final bool isOldPasword;
 
   const PasswordTextField({
     required this.controller,
     this.secondController,
+    this.confirmController,
     this.isOldPasword = false,
     Key? key,
     this.hintText = '',
@@ -30,7 +32,7 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
           return 'Parolni kiriting!';
         } else if (p0.isNotEmpty &&
             !widget.isOldPasword &&
-            widget.secondController != widget.controller) {
+            widget.secondController!.text != widget.controller.text) {
           if (widget.secondController != null &&
               (widget.secondController?.text != null &&
                   widget.secondController!.text.isNotEmpty)) {

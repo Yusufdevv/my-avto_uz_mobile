@@ -318,5 +318,6 @@
   "i_accept_rules2": " и ",
   "i_accept_rules3": "правила",
   "complete_registration": "Заполните поля для завершения регистрации",
-  "no_dealer": "Пока нет диллеров"
+  "no_dealer": "Пока нет диллеров",
+  "phone_number_changed_success" : "Номер телефона успешно изменен"
 }

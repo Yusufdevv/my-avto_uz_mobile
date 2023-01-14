@@ -217,10 +217,12 @@ class _PhoneVerifiyPageState extends State<PhoneVerifiyPage> {
                                     newPhoneNumber: '+998${widget.phone}',
                                     code: verificationController.text,
                                     onSuccess: () {
-                                      context.read<ShowPopUpBloc>().add(ShowPopUp(
-                                          message:
-                                              'Номер телефона успешно изменен',
-                                          isSucces: true));
+                                      context.read<ShowPopUpBloc>().add(
+                                          ShowPopUp(
+                                              message: LocaleKeys
+                                                  .phone_number_changed_success
+                                                  .tr(),
+                                              isSucces: true));
                                       context
                                           .read<ProfileBloc>()
                                           .add(GetProfileEvent());
