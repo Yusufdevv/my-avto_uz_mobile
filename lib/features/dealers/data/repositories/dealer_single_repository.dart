@@ -3,7 +3,6 @@ import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/core/utils/either.dart';
 import 'package:auto/features/dealers/data/datasource/dealer_single_datasource.dart';
 import 'package:auto/features/dealers/data/models/dealer_info_model.dart';
-import 'package:auto/features/dealers/domain/entities/dealer_info_entity.dart';
 
 
 abstract class DealerSingleRepository {

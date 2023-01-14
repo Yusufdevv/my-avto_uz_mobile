@@ -8,14 +8,15 @@ part of 'marks_with_ads_model.dart';
 
 MarksWithAdsModel _$MarksWithAdsModelFromJson(Map<String, dynamic> json) =>
     MarksWithAdsModel(
-      imageUrl: json['image_url'] as String,
-      mark: json['mark'] as String,
-      quantity: json['quantity'] as int,
+      carsCount: json['cars_count'] as int? ?? 0,
+      make: json['make'] == null
+          ? const MakeEntity()
+          : const MakeConverter()
+              .fromJson(json['make'] as Map<String, dynamic>?),
     );
 
 Map<String, dynamic> _$MarksWithAdsModelToJson(MarksWithAdsModel instance) =>
     <String, dynamic>{
-      'image_url': instance.imageUrl,
-      'mark': instance.mark,
-      'quantity': instance.quantity,
+      'make': const MakeConverter().toJson(instance.make),
+      'cars_count': instance.carsCount,
     };
