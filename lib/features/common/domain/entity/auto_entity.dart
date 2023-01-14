@@ -60,6 +60,7 @@ class AutoEntity extends Equatable {
     this.registrationPlate = '',
     this.registrationCertificate = '',
     this.registrationSerialNumber = '',
+    this.isExpired = false,
     this.stats =const StatsEntity(),
   });
 
@@ -112,6 +113,7 @@ class AutoEntity extends Equatable {
   final List<String> gallery;
   final String publishedAt;
   final String  expiredAt;
+  final bool  isExpired;
   final int viewsCount;
     bool isWishlisted;
   final bool isComparison;
@@ -140,6 +142,7 @@ class AutoEntity extends Equatable {
         region,
         district,
         expiredAt,
+        isExpired,
         user,
         dealer,
         licenceType,
@@ -193,6 +196,7 @@ class AutoConverter
         generation: object.generation,
         moderationStatus: object.moderationStatus,
         make: object.make,
+        isExpired: object.isExpired,
         expiredAt: object.expiredAt,
         model: object.model,
         modificationType: object.modificationType,

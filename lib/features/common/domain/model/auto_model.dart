@@ -26,6 +26,7 @@ class AutoModel extends AutoEntity {
     required super.year,
     required super.contactEmail,
     required super.expiredAt,
+    required super.isExpired,
     required super.contactName,
     required super.contactPhone,
     required super.currency,

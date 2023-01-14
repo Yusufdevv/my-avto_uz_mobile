@@ -93,10 +93,10 @@ class _MyAddsPageState extends State<MyAddsPage> {
                 if (state.myAdsStatus.isSubmissionSuccess) {
                   final myAds = state.myAds;
                   final activeAds = myAds
-                      .where((e) => e.expiredAt == 'active')
+                      .where((e) => !e.isExpired)
                       .toList();
                   final noActive = myAds
-                      .where((e) => e.moderationStatus != 'active')
+                      .where((e) => e.isExpired)
                       .toList();
                   return myAds.isNotEmpty
                       ? TabBarView(
