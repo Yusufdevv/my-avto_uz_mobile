@@ -78,7 +78,10 @@ class TopAdBloc extends Bloc<TopAdEvent, TopAdState> {
 
   void _onChangeIsWish(_ChangeIsWish event, Emitter<TopAdState> emit) {
     var list = <AdModel>[...state.topAds];
+    print('=======topads length ${list.length}');
+    print('=======event id ${event.id}');
     final item = list.firstWhere((element) => element.id==event.id);
+    print('=======item.id ${item.id}');
     final index = list.indexOf(item);
     list[index].isWishlisted = !list[index].isWishlisted;
     emit(state.copyWith(topAds: list));

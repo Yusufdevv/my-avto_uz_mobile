@@ -104,6 +104,7 @@ class _SearchScreenState extends State<SearchScreen> {
               appBar: PreferredSize(
                 preferredSize: const Size.fromHeight(76),
                 child: Container(
+                  alignment: Alignment.center,
                   decoration: BoxDecoration(
                     color: Theme.of(context)
                         .extension<ThemedColors>()!
@@ -122,6 +123,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     ],
                   ),
                   child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Expanded(
                         child: Focus(
@@ -176,8 +178,7 @@ class _SearchScreenState extends State<SearchScreen> {
                             enabledBorderColor: Theme.of(context)
                                 .extension<ThemedColors>()!
                                 .whiteSmoke2ToNightRider,
-                            height: 44,
-                            margin: const EdgeInsets.fromLTRB(16, 16, 8, 16),
+                            margin: const EdgeInsets.only(left: 16, top: 16),
                             borderRadius: 12,
                             controller: searchController,
                             hasSearch: true,
