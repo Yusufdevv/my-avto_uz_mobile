@@ -34,13 +34,13 @@ class TopAds extends StatelessWidget {
                 listener: (context, stateWish) {
                   if (stateWish.addStatus.isSubmissionSuccess ||
                       stateWish.removeStatus.isSubmissionSuccess) {
-                    context.read<TopAdBloc>().add(TopAdEvent.changeIsWish(
-                        index: stateWish.index, id: stateWish.id));
-                    context.read<WishlistAddBloc>().add(WishlistAddEvent.clearState());
+                    context
+                        .read<WishlistAddBloc>()
+                        .add(WishlistAddEvent.clearState());
                   }
                 },
                 builder: (context, stateWish) => SizedBox(
-                 height: MediaQuery.of(context).size.height*0.34,
+                  height: MediaQuery.of(context).size.height * 0.34,
                   child: ListView.separated(
                     scrollDirection: Axis.horizontal,
                     padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -65,6 +65,10 @@ class TopAds extends StatelessWidget {
                                               state.topAds[index].id, index)
                                           : WishlistAddEvent.addWishlist(
                                               state.topAds[index].id, index));
+                                  context.read<TopAdBloc>().add(
+                                      TopAdEvent.changeIsWish(
+                                          index: index,
+                                          id: state.topAds[index].id));
                                 },
                               ),
                     itemCount: state.status.isSubmissionInProgress
