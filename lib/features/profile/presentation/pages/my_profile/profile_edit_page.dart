@@ -16,10 +16,12 @@ import 'package:auto/features/profile/presentation/pages/my_profile/phone_number
 import 'package:auto/features/profile/presentation/widgets/widgets.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/rent_choose_region_bottom_sheet.dart';
 import 'package:auto/generated/locale_keys.g.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:formz/formz.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
@@ -149,17 +151,40 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                                         BlocBuilder<ImageBloc, ImageState>(
                                           builder: (context, stateImage) =>
                                               stateImage.image.path.isEmpty
-                                                  ? CachedImage(
-                                                      height: SizeConfig.v(80),
-                                                      width: SizeConfig.h(80),
+                                                  ? ClipRRect(
                                                       borderRadius:
                                                           BorderRadius.circular(
-                                                              SizeConfig.h(40)),
-                                                      fit: BoxFit.cover,
-                                                      imageUrl: stateProfile
-                                                              .profileEntity
-                                                              .image ??
-                                                          '',
+                                                              50),
+                                                      child: CachedNetworkImage(
+                                                          imageUrl:
+                                                              stateProfile
+                                                                  .profileEntity
+                                                                  .image!,
+                                                          width:
+                                                              SizeConfig.h(80),
+                                                          height:
+                                                              SizeConfig.v(80),
+                                                          fit: BoxFit.cover,
+                                                          errorWidget: (context,
+                                                                  url, error) =>
+                                                              SizedBox(
+                                                                  width:
+                                                                      SizeConfig
+                                                                          .h(
+                                                                              80),
+                                                                  height:
+                                                                      SizeConfig
+                                                                          .v(
+                                                                              80),
+                                                                  child:
+                                                                      ClipRRect(
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            50),
+                                                                    child: SvgPicture.asset(
+                                                                        AppIcons
+                                                                            .userAvatar),
+                                                                  ))),
                                                     )
                                                   : SizedBox(
                                                       height: SizeConfig.v(80),
@@ -169,7 +194,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                                                               BorderRadius
                                                                   .circular(
                                                                       SizeConfig.h(
-                                                                          40)),
+                                                                          50)),
                                                           child: Image.file(
                                                               stateImage.image,
                                                               fit: BoxFit

@@ -5,6 +5,7 @@ import 'package:auto/features/commercial/presentation/commercial_screen.dart';
 import 'package:auto/features/common/bloc/announcement_bloc/bloc/announcement_list_bloc.dart';
 import 'package:auto/features/common/bloc/get_car_model/get_car_model_bloc.dart';
 import 'package:auto/features/common/bloc/get_makes_bloc/get_makes_bloc_bloc.dart';
+import 'package:auto/features/common/bloc/wishlist_add/wishlist_add_bloc.dart';
 
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/comparison/presentation/pages/choose_car_brand.dart';
@@ -21,7 +22,7 @@ import 'package:auto/features/main/presentation/parts/top_ads.dart';
 import 'package:auto/features/main/presentation/parts/top_brands.dart';
 import 'package:auto/features/main/presentation/widgets/car_model_item.dart';
 import 'package:auto/features/main/presentation/widgets/deal_button.dart';
-import 'package:auto/features/main/presentation/widgets/favourite_item.dart';
+import 'package:auto/features/main/presentation/widgets/main_favourite_item.dart';
 import 'package:auto/features/main/presentation/widgets/main_app_bar.dart';
 import 'package:auto/features/main/presentation/widgets/service_item.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
@@ -209,8 +210,21 @@ class _MainScreenState extends State<MainScreen> {
                     ),
                     const TopBrands(),
                     const TopAds(),
-                    Favorites(),
-                    
+                    BlocListener<WishlistAddBloc, WishlistAddState>(
+                      listener: (context, stateWish) {
+                        if (stateWish.addStatus.isSubmissionSuccess ||
+                            stateWish.removeStatus.isSubmissionSuccess) {
+                          context.read<TopAdBloc>().add(TopAdEvent.changeIsWish(
+                              index: stateWish.index, id: stateWish.id));
+                          context.read<TopAdBloc>().add(TopAdEvent.getFavorites(
+                              endpoint: '/users/wishlist/announcement/list/'));
+                              context
+                        .read<WishlistAddBloc>()
+                        .add(WishlistAddEvent.clearState());
+                        }
+                      },
+                      child: Favorites(),
+                    ),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16),
                       child: SizedBox(

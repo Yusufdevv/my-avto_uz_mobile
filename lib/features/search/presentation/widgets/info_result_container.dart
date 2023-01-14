@@ -6,6 +6,7 @@ import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/bloc/comparison_add/bloc/comparison_add_bloc.dart';
 import 'package:auto/features/common/bloc/wishlist_add/wishlist_add_bloc.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
+import 'package:auto/features/search/presentation/bloc/search_results/search_bloc.dart';
 import 'package:auto/features/search/presentation/part/bottom_sheet_for_calling.dart';
 import 'package:auto/features/search/presentation/widgets/add_comparison_item.dart';
 import 'package:auto/features/search/presentation/widgets/add_wishlist_item.dart';
@@ -15,6 +16,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:formz/formz.dart';
 
 class InfoResultContainer extends StatefulWidget {
   const InfoResultContainer(
@@ -360,22 +362,33 @@ class _InfoResultContainerState extends State<InfoResultContainer> {
                     ),
                   ),
                   const SizedBox(width: 8),
-                  AddWishlistItem(
-                    onTap: () {
-                      if (!isLiked) {
-                        context.read<WishlistAddBloc>().add(
-                            WishlistAddEvent.addWishlist(
-                                widget.id, widget.index));
-                        isLiked = true;
-                      } else {
-                        context.read<WishlistAddBloc>().add(
-                            WishlistAddEvent.removeWishlist(
-                                widget.id, widget.index));
-                        isLiked = false;
+                  BlocListener<WishlistAddBloc, WishlistAddState>(
+                    listener: (context, stateWish) {
+                      if (stateWish.addStatus.isSubmissionSuccess ||
+                          stateWish.removeStatus.isSubmissionSuccess) {
+                        if (stateWish.id == widget.id) {
+                          isLiked = !isLiked;
+                          setState(() {});
+                        }
                       }
-                      setState(() {});
                     },
-                    initialLike: isLiked,
+                    child: AddWishlistItem(
+                      onTap: () {
+                        context
+                            .read<WishlistAddBloc>()
+                            .add(WishlistAddEvent.clearState());
+                        if (!isLiked) {
+                          context.read<WishlistAddBloc>().add(
+                              WishlistAddEvent.addWishlist(
+                                  widget.id, widget.index));
+                        } else {
+                          context.read<WishlistAddBloc>().add(
+                              WishlistAddEvent.removeWishlist(
+                                  widget.id, widget.index));
+                        }
+                      },
+                      initialLike: isLiked,
+                    ),
                   ),
                 ],
               ),

@@ -4,7 +4,7 @@ import 'package:auto/features/main/presentation/bloc/top_ad/top_ad_bloc.dart';
 import 'package:auto/features/main/presentation/widgets/ads_item.dart';
 import 'package:auto/features/main/presentation/widgets/ads_shimmer.dart';
 import 'package:auto/features/main/presentation/widgets/brand_shimmer_item.dart';
-import 'package:auto/features/main/presentation/widgets/favourite_item.dart';
+import 'package:auto/features/main/presentation/widgets/main_favourite_item.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -39,20 +39,7 @@ class Favorites extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 8),
-                BlocConsumer<WishlistAddBloc, WishlistAddState>(
-                  listener: (context, stateWish) {
-                    if (stateWish.addStatus.isSubmissionSuccess) {
-                      // context.read<TopAdBloc>().add(
-                      //     TopAdEvent.deleteFavoriteItem(
-                      //         id: stateWish.id, adding: true));
-
-                    }
-                    if (stateWish.removeStatus.isSubmissionSuccess) {
-                      context
-                          .read<WishlistAddBloc>()
-                          .add(WishlistAddEvent.clearState());
-                    }
-                  },
+                BlocBuilder<WishlistAddBloc, WishlistAddState>(
                   builder: (context, stateWish) => (state
                               .favoritesStatus.isSubmissionSuccess &&
                           state.favorites.isEmpty)
@@ -65,7 +52,6 @@ class Favorites extends StatelessWidget {
                             itemBuilder: (context, index) =>
                                 state.favoritesStatus.isSubmissionInProgress
                                     ? AdsShimmer()
-                                    // ignore: prefer_expression_function_bodies
                                     : Builder(builder: (context) {
                                         var item = favorites[index];
                                         return AdsItem(
@@ -81,13 +67,12 @@ class Favorites extends StatelessWidget {
                                           currency: item.currency,
                                           isLiked: item.isWishlisted,
                                           onTapLike: () {
+                                            context
+                          .read<WishlistAddBloc>()
+                          .add(WishlistAddEvent.clearState());
                                             context.read<WishlistAddBloc>().add(
                                                 WishlistAddEvent.removeWishlist(
                                                     item.id, index));
-                                            context.read<TopAdBloc>().add(
-                                                TopAdEvent.deleteFavoriteItem(
-                                                    id: item.id,
-                                                    adding: false));
                                           },
                                         );
                                       }),

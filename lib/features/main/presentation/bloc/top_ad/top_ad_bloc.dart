@@ -13,7 +13,8 @@ part 'top_ad_state.dart';
 
 class TopAdBloc extends Bloc<TopAdEvent, TopAdState> {
   final GetTopAdsUseCase getTopBrand;
-  final GetUserFavoritesMyAdsUseCase profileFavoritesMyAdsUseCase = GetUserFavoritesMyAdsUseCase( );
+  final GetUserFavoritesMyAdsUseCase profileFavoritesMyAdsUseCase =
+      GetUserFavoritesMyAdsUseCase();
 
   TopAdBloc(this.getTopBrand) : super(TopAdState()) {
     on<_GetTopAds>((event, emit) async {
@@ -45,45 +46,29 @@ class TopAdBloc extends Bloc<TopAdEvent, TopAdState> {
       }
     });
 
-
     on<_GetFavorites>((event, emit) async {
       emit(state.copyWith(favoritesStatus: FormzStatus.submissionInProgress));
-    final result = await profileFavoritesMyAdsUseCase.call(event.endpoint);
-    if (result.isRight) {
-      emit(state.copyWith(
-          favoritesStatus: FormzStatus.submissionSuccess,
-          favorites: result.right));
-    } else {
-      emit(state.copyWith(favoritesStatus: FormzStatus.submissionFailure));
-    }
+      final result = await profileFavoritesMyAdsUseCase.call(event.endpoint);
+      if (result.isRight) {
+        emit(state.copyWith(
+            favoritesStatus: FormzStatus.submissionSuccess,
+            favorites: result.right));
+      } else {
+        emit(state.copyWith(favoritesStatus: FormzStatus.submissionFailure));
+      }
     });
-   
-    on<_ChangeIsWish>(_onChangeIsWish);
-    on<_DeleteFavoriteItem>(_onDeleteFavoriteItem);
-  }
 
-  void _onDeleteFavoriteItem(
-      _DeleteFavoriteItem event, Emitter<TopAdState> emit) {
-    final list = <AutoEntity>[...state.favorites];
-    if (event.adding) {
-      // final item = state.topAds.firstWhere((element) => element.id==event.id);
-      // list.add(item);
-    } else {
-      final item = list.firstWhere((element) => element.id==event.id);
-    // ignore: cascade_invocations
-    list.remove(item);
-    }
-    emit(state.copyWith(favorites: list));
+    on<_ChangeIsWish>(_onChangeIsWish);
   }
 
   void _onChangeIsWish(_ChangeIsWish event, Emitter<TopAdState> emit) {
+    print('=======event.id ${event.id}');
     var list = <AdModel>[...state.topAds];
-    print('=======topads length ${list.length}');
-    print('=======event id ${event.id}');
-    final item = list.firstWhere((element) => element.id==event.id);
-    print('=======item.id ${item.id}');
+    final item = list.firstWhere((element) => element.id == event.id);
     final index = list.indexOf(item);
+    print('=======before ${list[index].isWishlisted}');
     list[index].isWishlisted = !list[index].isWishlisted;
+    print('=======after ${list[index].isWishlisted}');
     emit(state.copyWith(topAds: list));
   }
 }
