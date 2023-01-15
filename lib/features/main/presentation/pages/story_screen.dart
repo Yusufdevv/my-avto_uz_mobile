@@ -1,6 +1,4 @@
 // import 'package:another_transformer_page_view/another_transformer_page_view.dart';
-import 'dart:async';
-
 import 'package:another_transformer_page_view/another_transformer_page_view.dart';
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
@@ -51,12 +49,7 @@ class _StoryScreenState extends State<StoryScreen>
         initialPage: storyIndex, itemCount: widget.stories.length);
     animationController = AnimationController(vsync: this);
 
-    final last =
-        widget.stories[storyIndex].items[itemIndex].content.split('.').last;
-    isVideo = last == 'mp4' || last == 'mov';
-    if (isVideo) {
-      _loadStory();
-    }
+    _loadStory();
     animationController.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
         animationController
@@ -80,7 +73,7 @@ class _StoryScreenState extends State<StoryScreen>
       }
     });
     pageController.addListener(() {
-      animationController.stop(canceled: false);
+      animationController.stop(canceled: true);
     });
   }
 
@@ -101,26 +94,20 @@ class _StoryScreenState extends State<StoryScreen>
           onTapDown: _onTapDown,
           child: TransformerPageView(
             pageController: pageController,
+            physics: const NeverScrollableScrollPhysics(),
             transformer: ThreeDTransformer(),
             curve: Curves.linear,
             scrollDirection: Axis.horizontal,
             itemCount: widget.stories.length,
             itemBuilder: (context, index) {
-              final last =
-                  widget.stories[index].items[itemIndex].content.split('.').last;
-              final isVideo = last == 'mp4' || last == 'mov';
-              if(isVideo) {
-                itemIndex = 0;
-                storyIndex = index;
-                _loadStory();
-              }
-              print('itemIndex: $itemIndex');
-              print('storyIndex: $storyIndex');
-              print('index: $index');
-              print('isVideo: $isVideo');
+              final url = widget.stories[index].items[itemIndex].content;
+              final isVideo = url.contains('.mp4', url.length - 5) ||
+                  url.contains('.mov', url.length - 5);
               return Stack(
                 children: [
-                  if (isVideo && videoPlayerController.value.isInitialized)
+                  if (false &&
+                      isVideo &&
+                      videoPlayerController.value.isInitialized)
                     Positioned.fill(
                       child: ClipRRect(
                         borderRadius: const BorderRadius.vertical(
@@ -132,13 +119,13 @@ class _StoryScreenState extends State<StoryScreen>
                           ),
                         ),
                       ),
-                    )
-                  else
+                    ),
+                  if (!isVideo)
                     SizedBox(
                       height: double.infinity,
                       child: CachedNetworkImage(
                         imageUrl:
-                            widget.stories[index].items[itemIndex].content,
+                            widget.stories[storyIndex].items[itemIndex].content,
                         imageBuilder: (context, image) => Image(
                           image: image,
                           fit: BoxFit.cover,
@@ -162,77 +149,82 @@ class _StoryScreenState extends State<StoryScreen>
                         },
                       ),
                     ),
-                  // Positioned(
-                  //   top: MediaQuery.of(context).padding.top + 12,
-                  //   left: 16,
-                  //   right: 10,
-                  //   child: Row(
-                  //     children: widget.stories[index].items
-                  //         .asMap()
-                  //         .map(
-                  //           (i, e) => MapEntry(
-                  //             i,
-                  //             AnimatedBar(
-                  //               animationController: animationController,
-                  //               currentIndex: itemIndex,
-                  //               position: i,
-                  //             ),
-                  //           ),
-                  //         )
-                  //         .values
-                  //         .toList(),
-                  //   ),
-                  // ),
-                  // Container(
-                  //   decoration: BoxDecoration(
-                  //       gradient: LinearGradient(
-                  //           begin: Alignment.bottomCenter,
-                  //           end: Alignment.center,
-                  //           colors: [dark.withOpacity(1), dark.withOpacity(0)])),
-                  // ),
-                  // Positioned(
-                  //   bottom: MediaQuery.of(context).padding.bottom + 8,
-                  //   left: 16,
-                  //   right: 16,
-                  //   child: Column(
-                  //     crossAxisAlignment: CrossAxisAlignment.start,
-                  //     children: [
-                  //       Padding(
-                  //         padding: const EdgeInsets.symmetric(horizontal: 4),
-                  //         child: Text(
-                  //           widget.stories[index].items[itemIndex].title,
-                  //           style: Theme.of(context)
-                  //               .textTheme
-                  //               .headline4!
-                  //               .copyWith(fontWeight: FontWeight.w600),
-                  //         ),
-                  //       ),
-                  //       const SizedBox(height: 8),
-                  //       Padding(
-                  //         padding: const EdgeInsets.symmetric(horizontal: 4),
-                  //         child: Text(
-                  //           widget.stories[index].items[itemIndex].description,
-                  //           maxLines: 2,
-                  //           overflow: TextOverflow.ellipsis,
-                  //           style: Theme.of(context)
-                  //               .textTheme
-                  //               .subtitle2!
-                  //               .copyWith(
-                  //                   fontWeight: FontWeight.w400,
-                  //                   color: dividerColor),
-                  //         ),
-                  //       ),
-                  //       const SizedBox(height: 28),
-                  //       if (widget.stories[index].items[itemIndex].url.isNotEmpty)
-                  //         WButton(
-                  //           onTap: () {},
-                  //           text: LocaleKeys.more.tr(),
-                  //           textColor: white,
-                  //           color: white.withOpacity(.2),
-                  //         ),
-                  //     ],
-                  //   ),
-                  // ),
+                  Positioned(
+                    top: MediaQuery.of(context).padding.top + 12,
+                    left: 16,
+                    right: 10,
+                    child: Row(
+                      children: widget.stories[storyIndex].items
+                          .asMap()
+                          .map(
+                            (i, e) => MapEntry(
+                              i,
+                              AnimatedBar(
+                                animationController: animationController,
+                                currentIndex: itemIndex,
+                                position: i,
+                              ),
+                            ),
+                          )
+                          .values
+                          .toList(),
+                    ),
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                            begin: Alignment.bottomCenter,
+                            end: Alignment.center,
+                            colors: [
+                          dark.withOpacity(1),
+                          dark.withOpacity(0)
+                        ])),
+                  ),
+                  Positioned(
+                    bottom: MediaQuery.of(context).padding.bottom + 8,
+                    left: 16,
+                    right: 16,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 4),
+                          child: Text(
+                            widget.stories[storyIndex].items[itemIndex].title,
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline4!
+                                .copyWith(fontWeight: FontWeight.w600),
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 4),
+                          child: Text(
+                            widget.stories[storyIndex].items[itemIndex]
+                                .description,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            style: Theme.of(context)
+                                .textTheme
+                                .subtitle2!
+                                .copyWith(
+                                    fontWeight: FontWeight.w400,
+                                    color: dividerColor),
+                          ),
+                        ),
+                        const SizedBox(height: 28),
+                        if (widget.stories[storyIndex].items[itemIndex].url
+                            .isNotEmpty)
+                          WButton(
+                            onTap: () {},
+                            text: LocaleKeys.more.tr(),
+                            textColor: white,
+                            color: white.withOpacity(.2),
+                          ),
+                      ],
+                    ),
+                  ),
                   Positioned(
                     top: MediaQuery.of(context).padding.top + 28,
                     left: 20,
@@ -254,8 +246,8 @@ class _StoryScreenState extends State<StoryScreen>
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(40),
                               child: CachedNetworkImage(
-                                imageUrl: widget
-                                    .stories[index].coverImageThumbnail.crop,
+                                imageUrl: widget.stories[storyIndex]
+                                    .coverImageThumbnail.crop,
                                 fit: BoxFit.cover,
                                 placeholder: (context, url) => const Image(
                                   image: AssetImage(AppImages.defaultPhoto),
@@ -274,7 +266,7 @@ class _StoryScreenState extends State<StoryScreen>
                         Padding(
                           padding: const EdgeInsets.only(top: 10),
                           child: Text(
-                            widget.stories[index].name,
+                            widget.stories[storyIndex].name,
                             style: Theme.of(context)
                                 .textTheme
                                 .headline4!
@@ -296,11 +288,8 @@ class _StoryScreenState extends State<StoryScreen>
       );
 
   void _onTapDown(TapDownDetails details) {
-    return;
     final screenWidth = MediaQuery.of(context).size.width;
     final dx = details.globalPosition.dx;
-    print('itemIndex: $itemIndex');
-    print('storyIndex: $storyIndex');
     if (dx < screenWidth / 3) {
       setState(() {
         if (itemIndex == 0) {
@@ -337,16 +326,15 @@ class _StoryScreenState extends State<StoryScreen>
   }
 
   void _loadStory() {
-    print('itemIndex:1 $itemIndex');
-    print('storyIndex:1 $storyIndex');
+    print('loadStory: $storyIndex $itemIndex');
     final last =
         widget.stories[storyIndex].items[itemIndex].content.split('.').last;
     isVideo = last == 'mp4' || last == 'mov';
     if (isVideo) {
+      return;
       videoPlayerController = VideoPlayerController.network(
           widget.stories[storyIndex].items[itemIndex].content,
-          videoPlayerOptions:
-              VideoPlayerOptions(allowBackgroundPlayback: false))
+          videoPlayerOptions: VideoPlayerOptions(allowBackgroundPlayback: true))
         ..initialize().then((value) {
           setState(() {});
           videoPlayerController.play();
@@ -370,10 +358,6 @@ class _StoryScreenState extends State<StoryScreen>
         bloc.add(ReadEvent(widget.stories[storyIndex].items[itemIndex].id));
       }
     }
-  }
-
-  void _initializeVideo() {
-
   }
 
   void _animateToPage({required bool forward}) {
