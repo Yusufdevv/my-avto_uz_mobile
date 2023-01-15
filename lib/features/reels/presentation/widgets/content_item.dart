@@ -1,8 +1,8 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
-import 'package:auto/features/reels/domain/entities/content_entity.dart';
-import 'package:auto/features/reels/presentation/bloc/video_player_bloc.dart';
+import 'package:auto/features/reels/domain/entities/reel_entity.dart';
+import 'package:auto/features/reels/presentation/bloc/player_bloc/video_player_bloc.dart';
 import 'package:auto/features/reels/presentation/widgets/options_item.dart';
 import 'package:auto/utils/my_functions.dart';
 import 'package:flutter/material.dart';
@@ -11,9 +11,9 @@ import 'package:flutter_svg/svg.dart';
 import 'package:video_player/video_player.dart';
 
 class ContentItem extends StatefulWidget {
-  final ContentEntity contentEntity;
+  final ReelEntity reel;
 
-  const ContentItem({required this.contentEntity, Key? key}) : super(key: key);
+  const ContentItem({required this.reel, Key? key}) : super(key: key);
 
   @override
   State<ContentItem> createState() => _ContentItemState();
@@ -25,9 +25,9 @@ class _ContentItemState extends State<ContentItem> {
 
   @override
   void initState() {
+    print('widget.reel.content: ${widget.reel.content}');
     videoPlayerBloc = VideoPlayerBloc();
-    videoPlayerController = VideoPlayerController.network(
-        widget.contentEntity.url,
+    videoPlayerController = VideoPlayerController.network(widget.reel.content,
         videoPlayerOptions: VideoPlayerOptions(allowBackgroundPlayback: true))
       ..initialize().then((value) {
         videoPlayerBloc.add(InitializeVideoPlayerEvent(
@@ -78,7 +78,7 @@ class _ContentItemState extends State<ContentItem> {
               Positioned(
                 left: 16,
                 bottom: MediaQuery.of(context).padding.bottom + 93,
-                child: widget.contentEntity.isDiscount
+                child: widget.reel.hasDiscount
                     ? WButton(
                         onTap: () {},
                         padding: const EdgeInsets.fromLTRB(16, 12, 8, 16),
@@ -89,7 +89,7 @@ class _ContentItemState extends State<ContentItem> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              '${MyFunctions.getFormatCost(widget.contentEntity.oldPrice)} UZS',
+                              '${MyFunctions.getFormatCost(widget.reel.oldPrice)} ${widget.reel.announcement.currency}',
                               style: Theme.of(context)
                                   .textTheme
                                   .headline5!
@@ -102,7 +102,7 @@ class _ContentItemState extends State<ContentItem> {
                             Row(
                               children: [
                                 Text(
-                                  '${MyFunctions.getFormatCost(widget.contentEntity.price)} UZS',
+                                  '${MyFunctions.getFormatCost(widget.reel.announcement.price)} ${widget.reel.announcement.currency}',
                                   style: Theme.of(context)
                                       .textTheme
                                       .headline4!
@@ -121,7 +121,7 @@ class _ContentItemState extends State<ContentItem> {
                                       top: 8,
                                       bottom: 8,
                                       child: Text(
-                                        '-${widget.contentEntity.discountPercent}%',
+                                        '-${widget.reel.discountPercent}%',
                                         style: Theme.of(context)
                                             .textTheme
                                             .headline4!
@@ -151,7 +151,7 @@ class _ContentItemState extends State<ContentItem> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              '${MyFunctions.getFormatCost(widget.contentEntity.price)} UZS',
+                              '${MyFunctions.getFormatCost(widget.reel.announcement.price)} ${widget.reel.announcement.currency}',
                               style: Theme.of(context)
                                   .textTheme
                                   .headline4!
@@ -171,7 +171,7 @@ class _ContentItemState extends State<ContentItem> {
                 bottom: 58,
                 left: 16,
                 child: Text(
-                  widget.contentEntity.carName,
+                  widget.reel.title,
                   style: Theme.of(context)
                       .textTheme
                       .headline4!
@@ -195,7 +195,7 @@ class _ContentItemState extends State<ContentItem> {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(10),
                         child: Image.network(
-                          widget.contentEntity.profileImage,
+                          widget.reel.dealer.image,
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -204,7 +204,7 @@ class _ContentItemState extends State<ContentItem> {
                       width: 8,
                     ),
                     Text(
-                      widget.contentEntity.companyName,
+                      widget.reel.dealer.name,
                       style: Theme.of(context).textTheme.subtitle1!.copyWith(
                             color: white.withOpacity(.7),
                           ),
@@ -216,7 +216,7 @@ class _ContentItemState extends State<ContentItem> {
                 right: 11,
                 bottom: 31,
                 child: OptionsItem(
-                  shareUrl: widget.contentEntity.url,
+                  shareUrl: widget.reel.content,
                 ),
               ),
               Positioned(

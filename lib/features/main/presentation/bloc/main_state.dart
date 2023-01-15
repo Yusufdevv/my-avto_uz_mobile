@@ -19,5 +19,8 @@ class MainState extends Equatable {
       );
 
   @override
-  List<Object?> get props => [stories];
+  List<Object?> get props => [
+        stories,
+        statusStoriesGet,
+      ];
 }
