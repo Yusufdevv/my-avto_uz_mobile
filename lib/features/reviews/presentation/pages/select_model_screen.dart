@@ -1,8 +1,11 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/core/singletons/service_locator.dart';
+import 'package:auto/features/ad/data/repositories/ad_repository_impl.dart';
 import 'package:auto/features/ad/domain/entities/choose_model/car_type_entity.dart';
 import 'package:auto/features/ad/domain/entities/choose_model/model_item_entity.dart';
+import 'package:auto/features/ad/domain/usecases/get_car_model.dart';
 import 'package:auto/features/ad/presentation/bloc/choose_model/car_type_selector_bloc.dart';
 import 'package:auto/features/ad/presentation/pages/choose_model/widgets/car_type_item.dart';
 import 'package:auto/features/ad/presentation/pages/choose_model/widgets/persistant_header.dart';
@@ -27,11 +30,14 @@ class SelectModelScreen extends StatefulWidget {
 
 class _SelectModelScreenState extends State<SelectModelScreen> {
   late TextEditingController searchController;
-  late CarTypeSelectorBloc carTypeSelectorBloc;
+  late CarModelSelectorBloc carTypeSelectorBloc;
 
   @override
   void initState() {
-    carTypeSelectorBloc = CarTypeSelectorBloc();
+    carTypeSelectorBloc = CarModelSelectorBloc(
+        makeId: -1,
+        useCase:
+            GetCarModelUseCase(repository: serviceLocator<AdRepositoryImpl>()));
     searchController = TextEditingController();
     super.initState();
   }
@@ -203,20 +209,20 @@ class _SelectModelScreenState extends State<SelectModelScreen> {
                       color: Theme.of(context)
                           .extension<ThemedColors>()!
                           .whiteToDark,
-                      child: BlocBuilder<CarTypeSelectorBloc,
-                          CarTypeSelectorState>(
+                      child: BlocBuilder<CarModelSelectorBloc,
+                          CarModelSelectorState>(
                         builder: (context, state) => ListView.builder(
                           padding: const EdgeInsets.only(bottom: 50),
                           itemBuilder: (context, index) => CarTypeItem(
                             onTap: () => context
-                                .read<CarTypeSelectorBloc>()
+                                .read<CarModelSelectorBloc>()
                                 .add(SelectedCarTypeEvent(
                                     id: carTypes[index].id)),
                             title: carTypes[index].title,
                             isSelected: context
-                                    .watch<CarTypeSelectorBloc>()
+                                    .watch<CarModelSelectorBloc>()
                                     .state
-                                    .selectedId ==
+                                    .selectedModelId ==
                                 carTypes[index].id,
                           ),
                           itemCount: carTypes.length,
@@ -227,9 +233,10 @@ class _SelectModelScreenState extends State<SelectModelScreen> {
                   bottom: 16,
                   right: 16,
                   left: 16,
-                  child: BlocBuilder<CarTypeSelectorBloc, CarTypeSelectorState>(
+                  child:
+                      BlocBuilder<CarModelSelectorBloc, CarModelSelectorState>(
                     builder: (context, state) => WButton(
-                      onTap: state.selectedId == -1 ? () {} : widget.onTap,
+                      onTap: state.selectedModelId == -1 ? () {} : widget.onTap,
                       text: LocaleKeys.popular.tr(),
                       shadow: [
                         BoxShadow(

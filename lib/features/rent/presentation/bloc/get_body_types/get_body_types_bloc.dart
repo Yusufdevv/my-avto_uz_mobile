@@ -1,5 +1,6 @@
 import 'package:auto/core/usecases/usecase.dart';
 import 'package:auto/features/ad/domain/entities/types/body_type.dart';
+import 'package:auto/features/ad/domain/usecases/get_body_type.dart';
 import 'package:auto/features/rent/domain/usecases/get_body_types_usecase.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -16,11 +17,10 @@ class GetBodyTypesBloc extends Bloc<GetBodyTypesEvent, GetBodyTypesState> {
     on<GetBodyTypesSelectIndex>(
         (event, emit) => emit(state.copyWith(selected: event.index)));
     on<GetBodyTypesGetEvent>((event, emit) async {
+      print('=>=>=>=> get body types event triggerred <=<=<=<=');
       emit(state.copyWith(status: FormzStatus.submissionInProgress));
-      print("gettint body types");
       final result = await getBodyTypeUseCase.call(NoParams());
       if (result.isRight) {
-        // print("got result is right ${result.right.results.toString()}");
         emit(
           state.copyWith(
             selected: result.right.results

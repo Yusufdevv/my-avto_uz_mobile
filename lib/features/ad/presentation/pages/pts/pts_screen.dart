@@ -1,6 +1,7 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.dart';
 import 'package:auto/features/ad/presentation/bloc/pts/date_picker_bloc.dart';
 import 'package:auto/features/ad/presentation/pages/pts/widgets/pts_buttons.dart';
 import 'package:auto/features/ad/presentation/pages/pts/widgets/show_cupertino_date_picker.dart';
@@ -21,8 +22,6 @@ class PtsScreen extends StatefulWidget {
 class _PtsScreenState extends State<PtsScreen> {
   late DatePickerBloc bloc;
 
-  String currentId = '';
-  String ownerId = '';
   final List<String> documentList = [
     'Оригинал / Электронный ПТС',
     'Дубликат..',
@@ -48,84 +47,84 @@ class _PtsScreenState extends State<PtsScreen> {
           child: Scaffold(
             body: BaseWidget(
               headerText: 'ПТС',
-              child: SingleChildScrollView(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 25),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Тип документа',
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline6!
-                          .copyWith(color: greyText),
-                    ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    Wrap(
-                      spacing: 8,
-                      children: List.generate(
-                        documentList.length,
-                        (index) => PtsButtons(
-                          onTap: (id) => setState(() => currentId = id),
-                          id: index.toString(),
-                          isSelected: index.toString() == currentId,
-                          text: documentList[index],
+              child: BlocBuilder<PostingAdBloc, PostingAdState>(
+                builder: (context, state) => SingleChildScrollView(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 25),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Тип документа',
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline6!
+                            .copyWith(color: greyText),
+                      ),
+                      const SizedBox(height: 8),
+                      Wrap(
+                        spacing: 8,
+                        children: List.generate(
+                          documentList.length,
+                          (index) => PtsButtons(
+                            onTap: (id) => context.read<PostingAdBloc>().add(
+                                PostingAdChooseEvent(
+                                    typeDocument: documentList[index])),
+                            id: index.toString(),
+                            isSelected:
+                                state.typeDocument == documentList[index],
+                            text: documentList[index],
+                          ),
                         ),
                       ),
-                    ),
-                    const SizedBox(
-                      height: 41,
-                    ),
-                    Text(
-                      'Какой вы владелец?',
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyText1!
-                          .copyWith(fontWeight: FontWeight.w600, fontSize: 16),
-                    ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    Wrap(
-                      spacing: 8,
-                      children: List.generate(
-                        ownerList.length,
-                        (index) => PtsButtons(
-                          onTap: (id) => setState(() => ownerId = id),
-                          id: index.toString(),
-                          isSelected: index.toString() == ownerId,
-                          text: ownerList[index],
+                      const SizedBox(
+                        height: 41,
+                      ),
+                      Text(
+                        'Какой вы владелец?',
+                        style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                            fontWeight: FontWeight.w600, fontSize: 16),
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      Wrap(
+                        spacing: 8,
+                        children: List.generate(
+                          ownerList.length,
+                          (index) => PtsButtons(
+                            onTap: (id) => context.read<PostingAdBloc>().add(
+                                PostingAdChooseEvent(
+                                    ownerStep: ownerList[index])),
+                            id: index.toString(),
+                            isSelected: state.ownerStep == ownerList[index],
+                            text: ownerList[index],
+                          ),
                         ),
                       ),
-                    ),
-                    const SizedBox(
-                      height: 41,
-                    ),
-                    Text(
-                      'Когда был куплен автомобиль?',
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyText1!
-                          .copyWith(fontWeight: FontWeight.w600, fontSize: 16),
-                    ),
-                    const SizedBox(
-                      height: 17,
-                    ),
-                    BlocBuilder<DatePickerBloc, DatePickerState>(
-                      builder: (context, state) => WContainer(
+                      const SizedBox(
+                        height: 41,
+                      ),
+                      Text(
+                        'Когда был куплен автомобиль?',
+                        style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                            fontWeight: FontWeight.w600, fontSize: 16),
+                      ),
+                      const SizedBox(
+                        height: 17,
+                      ),
+                      WContainer(
                         onTap: () {
                           showCupertinoDatePicker(
                             context,
-                            (date) => context.read<DatePickerBloc>().add(
-                                  PickedDate(date: date.toString()),
+                            (date) => context.read<PostingAdBloc>().add(
+                                  PostingAdChooseEvent(boughtTime: '$date'),
                                 ),
                           );
                         },
-                        title: state.date.isNotEmpty
-                            ? MyFunctions.getData(state.date)
+                        title: state.boughtTime != null &&
+                                state.boughtTime!.isNotEmpty
+                            ? MyFunctions.getData(state.boughtTime!)
                             : 'Выберите дату',
                         trailingIcon: AppIcons.calendar,
                         border: Border.all(
@@ -134,11 +133,11 @@ class _PtsScreenState extends State<PtsScreen> {
                                 .extension<ThemedColors>()!
                                 .solitudeToDarkRider),
                       ),
-                    ),
-                    const SizedBox(
-                      height: 50,
-                    )
-                  ],
+                      const SizedBox(
+                        height: 50,
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),

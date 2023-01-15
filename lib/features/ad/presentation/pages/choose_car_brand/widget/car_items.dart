@@ -54,19 +54,25 @@ class ChangeCarItems extends StatelessWidget {
                       SizedBox(
                         height: 36,
                         width: 36,
-                        child: imageUrl.isEmpty
-                            ? SvgPicture.asset(
-                                AppImages.carImage,
-                                height: 40,
-                                fit: BoxFit.cover,
-                                color: Colors.red,
+                        child: 
+                        
+                        // imageUrl.isEmpty
+                        //     ?
+                            
+                             ClipRRect(
+                                borderRadius: BorderRadius.circular(8),
+                                child: Image.asset(
+                                  AppImages.defaultPhoto,
+                                  height: 40,
+                                  fit: BoxFit.cover,
+                                ),
                               )
-                            : CachedNetworkImage(
-                                imageUrl: imageUrl,
-                                height: 36,
-                                width: 36,
-                                fit: BoxFit.cover,
-                              ),
+                            // : CachedNetworkImage(
+                            //     imageUrl: imageUrl,
+                            //     height: 36,
+                            //     width: 36,
+                            //     fit: BoxFit.cover,
+                            //   ),
                       ),
                       const SizedBox(
                         width: 12,

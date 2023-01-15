@@ -1,4 +1,5 @@
 import 'package:auto/assets/colors/color.dart';
+import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/domain/entities/types/make.dart';
@@ -40,15 +41,16 @@ class CarBrandItem extends StatelessWidget {
         child: Column(
           children: [
             const SizedBox(height: 16),
-            Image.network(
-              carBrandEntity.logo,
-              width: 40,
-              height: 40,
-              errorBuilder: (ctx, object, stackTrace) =>
-                  Image.asset(AppImages.defaultPhoto),
-              loadingBuilder: (ctx, widget, chunkEvent) =>
-                  Image.asset(AppImages.defaultPhoto),
-            ),
+            Image.asset(AppImages.defaultPhoto),
+            // Image.network(
+            //   carBrandEntity.logo,
+            //   width: 40,
+            //   height: 40,
+            //   errorBuilder: (ctx, object, stackTrace) =>
+            //       Image.asset(AppImages.defaultPhoto),
+            //   loadingBuilder: (ctx, widget, chunkEvent) =>
+            //       Image.asset(AppImages.defaultPhoto),
+            // ),
             const SizedBox(height: 8),
             Expanded(
               child: Text(

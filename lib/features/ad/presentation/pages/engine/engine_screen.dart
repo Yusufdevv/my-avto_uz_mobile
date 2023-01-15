@@ -1,7 +1,12 @@
+import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.dart';
 import 'package:auto/features/ad/presentation/widgets/base_widget.dart';
+import 'package:auto/features/ad/presentation/widgets/pos_radio_item.dart';
 import 'package:auto/features/common/widgets/switcher_row.dart';
 import 'package:auto/features/common/widgets/w_radio_tile.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:formz/formz.dart';
 
 class EngineScreen extends StatefulWidget {
   const EngineScreen({Key? key}) : super(key: key);
@@ -11,44 +16,46 @@ class EngineScreen extends StatefulWidget {
 }
 
 class _EngineScreenState extends State<EngineScreen> {
-  int selectedIndex = 0;
-  final List<String> titleList = ['Бензиновый', 'Дизельный'];
-
   @override
   Widget build(BuildContext context) => Scaffold(
           body: BaseWidget(
-            headerText: 'EngineScreen',
+        headerText: 'Двигатель',
         padding: const EdgeInsets.only(top: 16),
-        child: Column(
-          children: [
-            ListView.builder(
-              itemBuilder: (context, index) => RadioItem(
-                  onTap: (value) {
-                    setState(() {
-                      selectedIndex = index;
-                    });
-                  },
-                  title: titleList[index],
-                  groupValue: index,
-                  value: selectedIndex),
-              itemCount: 2,
-              shrinkWrap: true,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Divider(
-                thickness: 1,
-                color: Theme.of(context).dividerColor,
+        child: BlocBuilder<PostingAdBloc, PostingAdState>(
+            builder: (context, state) {
+          if (state.status == FormzStatus.submissionInProgress) {
+            return const Center(child: CupertinoActivityIndicator());
+          }
+          return Column(
+            children: [
+              ListView.builder(
+                itemBuilder: (context, index) => PostingRadioItem(
+                  image: state.engines[index].logo,
+                  onTap: () => context
+                      .read<PostingAdBloc>()
+                      .add(PostingAdChooseEvent(engineId: state.engines[index].id)),
+                  title: state.engines[index].type,
+                  selected: state.engineId == state.engines[index].id,
+                ),
+                itemCount: state.engines.length,
+                shrinkWrap: true,
               ),
-            ),
-            const SizedBox(
-              height: 13,
-            ),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16),
-              child: SwitcherRow(title: 'Газобаллонное оборудование'),
-            ),
-          ],
-        ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Divider(
+                  thickness: 1,
+                  color: Theme.of(context).dividerColor,
+                ),
+              ),
+              const SizedBox(
+                height: 13,
+              ),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16),
+                child: SwitcherRow(title: 'Газобаллонное оборудование'),
+              ),
+            ],
+          );
+        }),
       ));
 }

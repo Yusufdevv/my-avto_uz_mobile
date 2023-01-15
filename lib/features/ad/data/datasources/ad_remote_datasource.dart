@@ -132,9 +132,11 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
                 }
               : {},
         ),
-        queryParameters: {
-          'search': name,
-        });
+        queryParameters: name == null
+            ? null
+            : {
+                'search': name,
+              });
     if (response.statusCode! >= 200 && response.statusCode! < 300) {
       return GetMakeModel.fromJson(response.data);
     } else {
@@ -173,6 +175,7 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
   }) async {
     final response = await _dio.get(
       '/car/$modelId/${year}generations/',
+      //    car/24/1992generations/
       options: Options(
         headers: StorageRepository.getString('token').isNotEmpty
             ? {'Authorization': 'Token ${StorageRepository.getString('token')}'}
@@ -261,20 +264,27 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
     required int engineTypeId,
     String? next,
   }) async {
-    final response = await _dio.get(
-      '/car/$generationId/$bodyTypeId/$engineTypeId/drive_type/',
-      options: Options(
-        headers: StorageRepository.getString('token').isNotEmpty
-            ? {'Authorization': 'Token ${StorageRepository.getString('token')}'}
-            : {},
-      ),
-    );
-    if (response.statusCode! >= 200 && response.statusCode! < 300) {
-      return GenericPagination.fromJson(response.data,
-          (p0) => DriveTypeModel.fromJson(p0 as Map<String, dynamic>));
-    } else {
-      throw ServerException(
-          statusCode: response.statusCode!, errorMessage: response.data);
+    try {
+      final response = await _dio.get(
+        '/car/$generationId/$bodyTypeId/$engineTypeId/drive_type/',
+        options: Options(
+          headers: StorageRepository.getString('token').isNotEmpty
+              ? {
+                  'Authorization':
+                      'Token ${StorageRepository.getString('token')}'
+                }
+              : {},
+        ),
+      );
+      if (response.statusCode! >= 200 && response.statusCode! < 300) {
+        return GenericPagination.fromJson(response.data,
+            (p0) => DriveTypeModel.fromJson(p0 as Map<String, dynamic>));
+      } else {
+        throw ServerException(
+            statusCode: response.statusCode!, errorMessage: response.data);
+      }
+    } catch (e) {
+      throw ServerException(statusCode: -1, errorMessage: '$e');
     }
   }
 

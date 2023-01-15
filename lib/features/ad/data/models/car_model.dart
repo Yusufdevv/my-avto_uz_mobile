@@ -10,7 +10,6 @@ class CarModel extends CarModelEntity {
     required super.name,
     required super.make,
   });
-
   factory CarModel.fromJson(Map<String, dynamic> json) =>
       _$CarModelFromJson(json);
 }

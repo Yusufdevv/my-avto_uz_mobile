@@ -1,7 +1,14 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
-import 'package:auto/features/ad/domain/entities/types/make.dart';
+import 'package:auto/core/singletons/service_locator.dart';
+import 'package:auto/features/ad/data/repositories/ad_repository_impl.dart';
+import 'package:auto/features/ad/domain/usecases/get_body_type.dart';
+import 'package:auto/features/ad/domain/usecases/get_car_model.dart';
+import 'package:auto/features/ad/domain/usecases/get_drive_type.dart';
+import 'package:auto/features/ad/domain/usecases/get_engine_type.dart';
+import 'package:auto/features/ad/domain/usecases/get_generation.dart';
+import 'package:auto/features/ad/domain/usecases/get_makes.dart';
 import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.dart';
 import 'package:auto/features/ad/presentation/pages/add_photo/add_photo_screen.dart';
 import 'package:auto/features/ad/presentation/pages/carcase/carcase_screen.dart';
@@ -28,10 +35,20 @@ import 'package:auto/features/ad/presentation/widgets/completion_bar.dart';
 import 'package:auto/features/ad/presentation/widgets/posting_ad_appbar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
+import 'package:auto/features/main/domain/usecases/get_top_brand.dart';
+import 'package:auto/features/navigation/presentation/home.dart';
+import 'package:auto/features/rent/domain/usecases/get_body_types_usecase.dart';
+import 'package:auto/features/rent/domain/usecases/get_gearboxess_usecase.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+// acura
+// CL
+// 2000
+// coupe
+//
+//
 
 class PostingAdScreen extends StatefulWidget {
   const PostingAdScreen({Key? key}) : super(key: key);
@@ -42,15 +59,94 @@ class PostingAdScreen extends StatefulWidget {
 
 class _PostingAdScreenState extends State<PostingAdScreen>
     with SingleTickerProviderStateMixin {
-  late TabController tabController;
+  late PageController pageController;
   late PostingAdBloc postingAdBloc;
-  int currentTabIndex = 0;
+  static int fake = 0;
+  int currentTabIndex = fake;
   final int tabLength = 21;
   @override
   void initState() {
-    postingAdBloc = PostingAdBloc();
-    tabController = TabController(length: tabLength, vsync: this);
+    pageController = PageController(initialPage: fake);
+    postingAdBloc = PostingAdBloc(
+      bodyTypesUseCase:
+          GetBodyTypeUseCase(repository: serviceLocator<AdRepositoryImpl>()),
+      gearboxUseCase:
+          GetGearBoxessUseCase(repository: serviceLocator<AdRepositoryImpl>()),
+      driveTypeUseCase:
+          GetDriveTypeUseCase(repository: serviceLocator<AdRepositoryImpl>()),
+      engineUseCase:
+          GetEngineTypeUseCase(repository: serviceLocator<AdRepositoryImpl>()),
+      modelsUseCase:
+          GetCarModelUseCase(repository: serviceLocator<AdRepositoryImpl>()),
+      generationUseCase:
+          GetGenerationUseCase(repository: serviceLocator<AdRepositoryImpl>()),
+      topMakesUseCase: GetTopBrandUseCase(),
+      makeUseCase:
+          GetMakesUseCase(repository: serviceLocator<AdRepositoryImpl>()),
+    )..add(PostingAdMakesEvent());
     super.initState();
+  }
+
+  bool _isDisabled(int page, PostingAdState state) {
+//     switch (page) {
+//       //make
+//       case 0:
+//         return state.makeId == null;
+// // model
+//       case 1:
+//         return state.modelId == null;
+//       // year
+//       case 2:
+//         return state.yearsEntity == null;
+//       // body type
+//       case 3:
+//         return state.bodyTypeId == null;
+//       // generation
+//       case 4:
+//         return state.generationId == null;
+//       // engine
+//       case 5:
+//         return state.engineId == null;
+//       // drive type
+//       case 6:
+//         return state.driveTypeId == null;
+//       // gearbox
+//       case 7:
+//         return state.gearboxId == null;
+//     }
+
+    return false;
+  }
+
+  void addEvent(int page, PostingAdState state) {
+    switch (page) {
+      case 0:
+        postingAdBloc.add(PostingAdMakesEvent());
+        break;
+      case 1:
+        postingAdBloc.add(PostingAdModelEvent());
+        break;
+      case 2:
+        break;
+      case 3:
+        postingAdBloc.add(PostingAdGenerationsEvent(modelId: state.modelId!));
+        break;
+      case 4:
+        postingAdBloc.add(PostingAdBodyTypesEvent());
+
+        break;
+      case 5:
+        postingAdBloc.add(PostingAdEnginesEvent());
+        break;
+      case 6:
+        postingAdBloc.add(PostingAdDriveTypesEvent());
+
+        break;
+      case 7:
+        postingAdBloc.add(PostingAdGearBoxesEvent());
+
+        break;
+    }
   }
 
   List<String> tabs = [
@@ -76,14 +172,6 @@ class _PostingAdScreenState extends State<PostingAdScreen>
     'СТС',
     'Предосмотор',
   ];
-  void onNextPressed() {
-    if (currentTabIndex < tabLength - 1) {
-      currentTabIndex++;
-
-      tabController.animateTo(currentTabIndex);
-      setState(() {});
-    }
-  }
 
   @override
   Widget build(BuildContext context) => AnnotatedRegion(
@@ -98,7 +186,7 @@ class _PostingAdScreenState extends State<PostingAdScreen>
           child: BlocBuilder<PostingAdBloc, PostingAdState>(
             builder: (context, state) => Scaffold(
               appBar: PreferredSize(
-                preferredSize: Size.fromHeight(state.hasAppBarShadow ? 55 : 52),
+                preferredSize: const Size.fromHeight(55),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -108,7 +196,10 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                       hasBackButton: currentTabIndex != 0,
                       onTapBack: () {
                         --currentTabIndex;
-                        tabController.animateTo(currentTabIndex);
+                        addEvent(currentTabIndex, state);
+                        pageController.animateToPage(currentTabIndex,
+                            duration: const Duration(milliseconds: 150),
+                            curve: Curves.linear);
                         setState(() {});
                       },
                       title:
@@ -129,61 +220,129 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                           const SizedBox()
                       ],
                     ),
-                    if (state.hasAppBarShadow) ...{
-                      CompletionBar(
-                        screenWidth: MediaQuery.of(context).size.width,
-                        totalSteps: 21,
-                        currentStep: currentTabIndex + 1,
-                        progressBarColor: orange,
-                      ),
-                    }
+                    CompletionBar(
+                      visibile: state.hasAppBarShadow,
+                      screenWidth: MediaQuery.of(context).size.width,
+                      totalSteps: 21,
+                      currentStep: currentTabIndex + 1,
+                      progressBarColor: orange,
+                    ),
                   ],
                 ),
               ),
               body: Stack(
                 children: [
-                  TabBarView(
-                    controller: tabController,
+                  // if (state.page == PostingAd.make) ...{
+                  //   ChooseCarBrand(bloc: postingAdBloc),
+                  // } else if (state.page == PostingAd.model) ...{
+                  //   ChooseCarModelScreen(makeId: state.selectedMakeId ?? -1)
+                  // },
+                  PageView(
+                    controller: pageController,
                     physics: const NeverScrollableScrollPhysics(),
                     children: [
+                      //0
                       ChooseCarBrand(bloc: postingAdBloc),
-                      const ChooseCarModelScreen(),
-                      const YearIssueScreen(modelId: 10),
-                      const CarcaseScreen(),
+                      //1
+                      ChooseCarModelScreen(makeId: state.makeId ?? -1),
+                      //2
+                      YearIssueScreen(modelId: state.modelId ?? -1),
+                      //3
                       const GenerationScreen(),
+                      //4
+                      CarcaseScreen(selectedBodyTypeId: state.bodyTypeId ?? -1),
+
+                      //5
                       const EngineScreen(),
+                      //6
                       const DriveTypeScreen(),
+                      //7
                       const GearboxScreen(),
+                      //8
                       const ModificationScreen(),
+                      //9
                       const ColorsScreen(),
+                      //10
                       const AddPhotoScreen(),
+                      //11
                       const PtsScreen(),
-                      const DescriptionScreen(),
+                      //12
+                      DescriptionScreen(initialText: state.descriptions ?? ''),
+                      //13
                       const EquipmentScreen(),
+                      //14
                       const DamageScreen(),
-                      const ContactScreen(),
+                      //15
+                      ContactScreen(
+                        initialEmail: state.ownerEmail ?? '',
+                        initialName: state.ownerName ?? '',
+                        initialPhone: state.ownerPhone ?? '',
+                      ),
+                      //16
                       const InspectionPlaceScreen(),
-                      const PriceScreen(),
-                      const MileageScreen(),
+                      //17
+                      PriceScreen(initialPrice: state.price ?? ''),
+                      //18
+                      MileageScreen(initialMilage: state.mileage ?? ''),
+                      //19
                       const StsScreen(),
+                      //20
                       PreviewScreen()
                     ],
                   ),
-                  Positioned(
-                    bottom: 16,
-                    right: 16,
-                    left: 16,
-                    child: WButton(
-                      onTap: onNextPressed,
-                      text: 'Далее',
-                      shadow: [
-                        BoxShadow(
-                            offset: const Offset(0, 4),
-                            blurRadius: 20,
-                            color: orange.withOpacity(0.2)),
-                      ],
+
+                  if (currentTabIndex < tabLength - 1) ...{
+                    Positioned(
+                      bottom: 16,
+                      right: 16,
+                      left: 16,
+                      child: WButton(
+                        disabledColor: disabledButton,
+                        isDisabled: _isDisabled(currentTabIndex, state),
+                        onTap: () {
+                          if (currentTabIndex < tabLength - 1) {
+                            currentTabIndex++;
+                            addEvent(currentTabIndex, state);
+                            pageController.animateToPage(currentTabIndex,
+                                duration: const Duration(milliseconds: 150),
+                                curve: Curves.linear);
+                            setState(() {});
+                          }
+                        },
+                        text: 'Далее',
+                        shadow: _isDisabled(currentTabIndex, state)
+                            ? null
+                            : [
+                                BoxShadow(
+                                    offset: const Offset(0, 4),
+                                    blurRadius: 20,
+                                    color: orange.withOpacity(0.2)),
+                              ],
+                      ),
                     ),
-                  ),
+                  } else ...{
+                    Positioned(
+                        bottom: MediaQuery.of(context).padding.bottom + 16,
+                        right: 16,
+                        left: 16,
+                        child: WButton(
+                          onTap: () async {
+                            Navigator.pop(context);
+                            HomeTabControllerProvider.of(context)
+                                .controller
+                                .animateTo(4);
+
+                            // await Navigator.push(context, fade(page: const MyAddsPage()));
+                          },
+                          text: 'Разместить бесплатно на 7 дней....',
+                          shadow: [
+                            BoxShadow(
+                                offset: const Offset(0, 4),
+                                blurRadius: 20,
+                                color: orange.withOpacity(0.2)),
+                          ],
+                        )),
+                  }
                 ],
               ),
             ),

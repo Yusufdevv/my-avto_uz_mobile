@@ -2,15 +2,19 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/assets/themes/theme_extensions/w_textfield_style.dart';
-import 'package:auto/features/common/widgets/w_button.dart';
-import 'package:auto/features/common/widgets/w_textfield.dart';
+import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.dart';
 import 'package:auto/features/ad/presentation/widgets/base_widget.dart';
+import 'package:auto/features/common/widgets/w_button.dart';
+import 'package:auto/features/common/widgets/w_scale.dart';
+import 'package:auto/features/common/widgets/w_textfield.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 class PriceScreen extends StatefulWidget {
-  const PriceScreen({Key? key}) : super(key: key);
+  final String initialPrice;
+  const PriceScreen({required this.initialPrice, Key? key}) : super(key: key);
 
   @override
   State<PriceScreen> createState() => _PriceScreenState();
@@ -21,7 +25,7 @@ class _PriceScreenState extends State<PriceScreen> {
 
   @override
   void initState() {
-    priceController = TextEditingController();
+    priceController = TextEditingController(text: widget.initialPrice);
     super.initState();
   }
 
@@ -38,7 +42,9 @@ class _PriceScreenState extends State<PriceScreen> {
                     maxLength: 7,
                     hideCounterText: true,
                     controller: priceController,
-                    onChanged: (value) {},
+                    onChanged: (value) => context
+                        .read<PostingAdBloc>()
+                        .add(PostingAdChooseEvent(price: value)),
                     title: 'Введите сумму',
                     keyBoardType: TextInputType.number,
                     borderRadius: 12,
@@ -52,38 +58,43 @@ class _PriceScreenState extends State<PriceScreen> {
                         .extension<WTextFieldStyle>()!
                         .fillColor,
                     suffixPadding: const EdgeInsets.all(0),
-                    suffix: Container(
-                      padding: const EdgeInsets.all(14),
-                      decoration: BoxDecoration(
-                          color: Theme.of(context)
-                              .extension<ThemedColors>()!
-                              .solitudeToEclipse,
-                          borderRadius: const BorderRadius.horizontal(
-                            right: Radius.circular(12),
+                    suffix: WScaleAnimation(
+                      onTap: (){
+                         print('=>=>=>=> suffix pressed <=<=<=<=');
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.all(14),
+                        decoration: BoxDecoration(
+                            color: Theme.of(context)
+                                .extension<ThemedColors>()!
+                                .solitudeToEclipse,
+                            borderRadius: const BorderRadius.horizontal(
+                              right: Radius.circular(12),
+                            ),
+                            border: Border.all(
+                                width: 1,
+                                color: Theme.of(context)
+                                    .extension<WTextFieldStyle>()!
+                                    .borderColor)),
+                        child: WButton(
+                          onTap: () {},
+                          color: Colors.transparent,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'y.e',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .subtitle1!
+                                    .copyWith(color: greyText),
+                              ),
+                              const SizedBox(
+                                width: 4,
+                              ),
+                              SvgPicture.asset(AppIcons.chevronDown)
+                            ],
                           ),
-                          border: Border.all(
-                              width: 1,
-                              color: Theme.of(context)
-                                  .extension<WTextFieldStyle>()!
-                                  .borderColor)),
-                      child: WButton(
-                        onTap: () {},
-                        color: Colors.transparent,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              'y.e',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .subtitle1!
-                                  .copyWith(color: greyText),
-                            ),
-                            const SizedBox(
-                              width: 4,
-                            ),
-                            SvgPicture.asset(AppIcons.chevronDown)
-                          ],
                         ),
                       ),
                     ),

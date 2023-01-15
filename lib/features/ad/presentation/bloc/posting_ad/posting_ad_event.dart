@@ -2,16 +2,97 @@ part of 'posting_ad_bloc.dart';
 
 abstract class PostingAdEvent {}
 
+class PostingAdBodyTypesEvent extends PostingAdEvent {
+  PostingAdBodyTypesEvent();
+}
+class PostingAdGearBoxesEvent extends PostingAdEvent {
+  PostingAdGearBoxesEvent();
+}
+
+class PostingAdModelEvent extends PostingAdEvent {
+  final String? name;
+  PostingAdModelEvent({this.name});
+}
+
+class PostingAdDriveTypesEvent extends PostingAdEvent {
+  PostingAdDriveTypesEvent();
+}
+
+class PostingAdEnginesEvent extends PostingAdEvent {
+  PostingAdEnginesEvent();
+}
+
+class PostingAdMakesEvent extends PostingAdEvent {
+  final String? name;
+  PostingAdMakesEvent({this.name});
+}
+
+class PostingAdTopMakesEvent extends PostingAdEvent {
+  final String? name;
+  PostingAdTopMakesEvent({this.name});
+}
+
+class PostingAdGenerationsEvent extends PostingAdEvent {
+  final int modelId;
+
+  PostingAdGenerationsEvent({required this.modelId});
+}
+
 class PostingAdChooseEvent extends PostingAdEvent {
-  final CarTypeEntity? carTypeEntity;
-  final String? letter;
+  final YearsEntity? yearsEntity;
+  final int? modelId;
+  final int? generationId;
+
   final int? popularTypeId;
-  final MakeEntity? makeEntity;
+  final int? makeId;
+  final int? engineId;
+  final int? selectedBodyTypeId;
+  final int? driveTypeId;
+  final int? gearboxId;
+  final String? letter;
+  final String? colorName;
+  final String? typeDocument;
+  final String? ownerStep;
+  final String? ownetEmail;
+  final String? ownetPhone;
+  final String? ownetName;
+  final String? boughtTime;
+  final String? description;
+  final String? city;
+  final String? region;
+  final String? price;
+  final String? currency;
+  final String? mileage;
+
+
+
+  final bool? isRastamojen;
+
   PostingAdChooseEvent({
-    this.carTypeEntity,
+    this.driveTypeId,
+    this.generationId,
+    this.selectedBodyTypeId,
+    this.yearsEntity,
+    this.modelId,
     this.letter,
-    this.makeEntity,
+    this.makeId,
     this.popularTypeId,
+    this.engineId,
+    this.gearboxId,
+    this.colorName,
+    this.typeDocument,
+    this.ownerStep,
+    this.boughtTime,
+    this.isRastamojen,
+    this.description,
+    this.ownetEmail,
+    this.ownetName,
+    this.ownetPhone,
+this.city,
+    this.region,
+    this.price,
+    this.currency,
+    this.mileage,
   });
 }
 

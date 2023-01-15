@@ -1,16 +1,26 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/assets/themes/theme_extensions/w_textfield_style.dart';
+import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.dart';
 import 'package:auto/features/common/widgets/switcher_row.dart';
 import 'package:auto/features/common/widgets/w_textfield.dart';
 import 'package:auto/features/ad/presentation/widgets/base_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 class ContactScreen extends StatefulWidget {
+  final String initialPhone;
+  final String initialEmail;
+  final String initialName;
 
-  const ContactScreen({ Key? key}) : super(key: key);
+  const ContactScreen(
+      {required this.initialEmail,
+      required this.initialName,
+      required this.initialPhone,
+      Key? key})
+      : super(key: key);
 
   @override
   State<ContactScreen> createState() => _ContactScreenState();
@@ -23,9 +33,9 @@ class _ContactScreenState extends State<ContactScreen> {
 
   @override
   void initState() {
-    numberController = TextEditingController();
-    nameController = TextEditingController();
-    emailController = TextEditingController();
+    numberController = TextEditingController(text: widget.initialPhone);
+    nameController = TextEditingController(text: widget.initialName);
+    emailController = TextEditingController(text: widget.initialEmail);
     super.initState();
   }
 
@@ -61,9 +71,14 @@ class _ContactScreenState extends State<ContactScreen> {
                       physics: const BouncingScrollPhysics(),
                       padding: const EdgeInsets.all(16),
                       children: [
+                        const SwitcherRow(
+                            title: 'Указать мои контактны данные'),
+                        const SizedBox(height: 16),
                         WTextField(
                           controller: nameController,
-                          onChanged: (value) {},
+                          onChanged: (value) => context
+                              .read<PostingAdBloc>()
+                              .add(PostingAdChooseEvent(ownetName: value)),
                           maxLength: 40,
                           hideCounterText: true,
                           title: 'Имя',
@@ -84,7 +99,9 @@ class _ContactScreenState extends State<ContactScreen> {
                         ),
                         WTextField(
                           controller: emailController,
-                          onChanged: (value) {},
+                          onChanged: (value) => context
+                              .read<PostingAdBloc>()
+                              .add(PostingAdChooseEvent(ownetEmail: value)),
                           title: 'E-mail',
                           maxLength: 40,
                           hideCounterText: true,
@@ -113,9 +130,9 @@ class _ContactScreenState extends State<ContactScreen> {
                           height: 16,
                         ),
                         WTextField(
-                          onChanged: (value) {
-                            setState(() {});
-                          },
+                          onChanged: (value) => context
+                              .read<PostingAdBloc>()
+                              .add(PostingAdChooseEvent(ownetPhone: value)),
                           title: 'Номер телефона',
                           controller: numberController,
                           prefix: Padding(

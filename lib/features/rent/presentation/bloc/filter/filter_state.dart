@@ -15,12 +15,12 @@ class FilterState extends Equatable {
     required this.priceValues,
     required this.yearValues,
     required this.regions,
+    required this.ischeck,
     this.maker,
     this.bodyType,
     this.carDriveType,
     this.gearboxType,
     this.idVal,
-    this.ischeck = false,
   });
 
   FilterState copyWith({

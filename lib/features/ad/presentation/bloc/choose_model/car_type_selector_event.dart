@@ -1,15 +1,20 @@
 part of 'car_type_selector_bloc.dart';
 
-abstract class CarTypeSelectorEvent extends Equatable {
-  const CarTypeSelectorEvent();
+abstract class CarModelSelectorEvent {
+  const CarModelSelectorEvent();
 }
 
-class SelectedCarTypeEvent extends CarTypeSelectorEvent {
+class SelectedCarTypeEvent extends CarModelSelectorEvent {
   final int id;
   const SelectedCarTypeEvent({required this.id});
-  @override
-  List<Object?> get props => [id];
 }
+
+class CarModelSelectorGetEvent extends CarModelSelectorEvent {
+  final String? searchPattern;
+  CarModelSelectorGetEvent({this.searchPattern});
+}
+
+
 
 // class ConfirmCarTypeEvent extends CarTypeSelectorEvent{
 //   const ConfirmCarTypeEvent();

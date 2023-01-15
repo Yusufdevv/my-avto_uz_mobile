@@ -48,8 +48,8 @@ class CarBrandContainer extends StatelessWidget {
           children: [
             const SizedBox(height: 16),
             if (imageUrl.isEmpty)
-              SvgPicture.asset(
-                AppImages.carImage,
+              Image.asset(
+                AppImages.defaultPhoto,
                 height: 40,
                 fit: BoxFit.cover,
               )
