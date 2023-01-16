@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:auto/assets/themes/theme_extensions/themed_icons.dart';
+import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/core/usecases/usecase.dart';
 import 'package:auto/features/ad/domain/entities/generation/generation.dart';
 import 'package:auto/features/ad/domain/entities/types/body_type.dart';
@@ -15,6 +16,7 @@ import 'package:auto/features/ad/domain/usecases/get_drive_type.dart';
 import 'package:auto/features/ad/domain/usecases/get_engine_type.dart';
 import 'package:auto/features/ad/domain/usecases/get_generation.dart';
 import 'package:auto/features/ad/domain/usecases/get_makes.dart';
+import 'package:auto/features/login/domain/usecases/send_code.dart';
 import 'package:auto/features/main/domain/usecases/get_top_brand.dart';
 import 'package:auto/features/rent/domain/usecases/get_gearboxess_usecase.dart';
 import 'package:bloc/bloc.dart';
@@ -60,6 +62,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
   }
 
   /// PostingAdState
+
   FutureOr<void> _bodyTypes(
       PostingAdBodyTypesEvent event, Emitter<PostingAdState> emit) async {
     emit(state.copyWith(status: FormzStatus.submissionInProgress));

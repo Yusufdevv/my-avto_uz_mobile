@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/features/login/domain/usecases/send_code.dart';
 import 'package:auto/features/login/domain/usecases/verify_code.dart';
 import 'package:bloc/bloc.dart';
@@ -27,7 +28,14 @@ class VerificationBloc extends Bloc<VerificationEvent, VerificationState> {
       emit(state.copyWith(
           status: FormzStatus.submissionSuccess, session: result.right));
     } else {
-      emit(state.copyWith(status: FormzStatus.submissionFailure));
+      var toastMessage = (result.left is ServerFailure)
+          ? (result.left as ServerFailure).errorMessage
+          : result.left.toString();
+      if (toastMessage == 'Wrong code!') {
+        toastMessage = 'Код подтверждения введен неверно';
+      }
+      emit(state.copyWith(
+          status: FormzStatus.submissionFailure, toastMessage: toastMessage));
     }
   }
 }
