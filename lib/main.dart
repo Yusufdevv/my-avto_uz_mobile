@@ -139,6 +139,7 @@ class _AppState extends State<App> {
             SizeConfig().init(context);
             return BlocListener<AuthenticationBloc, AuthenticationState>(
               listener: (context, state) {
+              
                 switch (state.status) {
                   case AuthenticationStatus.unauthenticated:
                     if (!StorageRepository.getBool('onboarding',

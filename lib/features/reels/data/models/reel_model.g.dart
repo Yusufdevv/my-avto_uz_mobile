@@ -20,6 +20,7 @@ ReelModel _$ReelModelFromJson(Map<String, dynamic> json) => ReelModel(
           ? const AnnouncementEntity()
           : const AnnouncementConverter()
               .fromJson(json['announcement'] as Map<String, dynamic>?),
+      isLiked: json['is_liked'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$ReelModelToJson(ReelModel instance) => <String, dynamic>{
@@ -31,4 +32,5 @@ Map<String, dynamic> _$ReelModelToJson(ReelModel instance) => <String, dynamic>{
       'dealer': const DealerConverter().toJson(instance.dealer),
       'announcement':
           const AnnouncementConverter().toJson(instance.announcement),
+      'is_liked': instance.isLiked,
     };

@@ -17,6 +17,7 @@ class ReelEntity extends Equatable {
   final bool hasDiscount;
   final String oldPrice;
   final int discountPercent;
+  final bool isLiked;
 
   const ReelEntity({
     this.id = -1,
@@ -29,6 +30,7 @@ class ReelEntity extends Equatable {
     this.hasDiscount = false,
     this.oldPrice = '0',
     this.discountPercent = 0,
+    this.isLiked = false,
   });
 
   @override
@@ -39,6 +41,7 @@ class ReelEntity extends Equatable {
         likeCount,
         shareCount,
         announcement,
+        isLiked,
       ];
 }
 
