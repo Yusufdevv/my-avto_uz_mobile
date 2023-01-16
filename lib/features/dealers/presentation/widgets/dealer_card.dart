@@ -1,5 +1,6 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/dealers/presentation/pages/seller.dart';
@@ -8,6 +9,7 @@ import 'package:auto/features/rent/domain/entities/region_entity.dart';
 import 'package:auto/features/search/presentation/widgets/add_comparison_item.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:auto/utils/my_functions.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -26,6 +28,7 @@ class DealerCard extends StatefulWidget {
   final double latitude;
   final double longitude;
   final bool isDirectoryPage;
+
   //final String district;
   final VoidCallback onTap;
 
@@ -79,8 +82,15 @@ class _DealerCardState extends State<DealerCard> {
                         shape: BoxShape.circle,
                         border: Border.all(color: dividerColor)),
                     child: ClipRRect(
-                        borderRadius: BorderRadius.circular(32),
-                        child: Image.network(widget.dealerImageUrl)),
+                      borderRadius: BorderRadius.circular(32),
+                      child: CachedNetworkImage(
+                        imageUrl: widget.dealerImageUrl,
+                        fit: BoxFit.cover,
+                        errorWidget: (context, url, error) => SvgPicture.asset(
+                          AppImages.autoUz,
+                        ),
+                      ),
+                    ),
                   ),
                   const SizedBox(width: 12),
                   Column(
@@ -126,7 +136,6 @@ class _DealerCardState extends State<DealerCard> {
                           .textTheme
                           .headline1!
                           .copyWith(fontSize: 14, fontWeight: FontWeight.w400)),
-
                 ],
               ),
               const SizedBox(height: 10),

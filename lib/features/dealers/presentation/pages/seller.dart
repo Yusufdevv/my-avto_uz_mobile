@@ -13,6 +13,7 @@ import 'package:auto/features/dealers/domain/usecases/marks_usecase.dart';
 import 'package:auto/features/dealers/presentation/blocs/cars_in_dealer_bloc/cars_in_dealer_bloc.dart';
 import 'package:auto/features/dealers/presentation/blocs/dealer_single_bloc/dealer_single_bloc.dart';
 import 'package:auto/features/dealers/presentation/blocs/marks_in_dealer_bloc/marks_in_dealers_bloc.dart';
+import 'package:auto/features/dealers/presentation/pages/all_cars_in_dealer_screen.dart';
 import 'package:auto/features/dealers/presentation/pages/all_marks_with_announcements.dart';
 import 'package:auto/features/dealers/presentation/widgets/dealer_info.dart';
 import 'package:auto/features/dealers/presentation/widgets/dealer_info_sliver_delegate.dart';
@@ -88,6 +89,7 @@ class _SellerState extends State<Seller> {
                 SliverPersistentHeader(
                   pinned: true,
                   delegate: SellerSliverDelegate(
+                      gallery: dealerSingleState.dealerSingleEntity.gallery,
                       avatarImage: dealerSingleState.dealerSingleEntity.avatar,
                       dealerName: dealerSingleState.dealerSingleEntity.name,
                       minHeight: MediaQuery.of(context).size.height * 0.11,
@@ -103,16 +105,20 @@ class _SellerState extends State<Seller> {
                     SellerInfo(
                       //dealerType: dealerType,
                       dealerName: dealerSingleState.dealerSingleEntity.name,
-                      quantityOfCars: dealerSingleState.dealerSingleEntity.carCount,
-                      contactFrom: dealerSingleState.dealerSingleEntity.contactFrom,
+                      quantityOfCars:
+                          dealerSingleState.dealerSingleEntity.carCount,
+                      contactFrom:
+                          dealerSingleState.dealerSingleEntity.contactFrom,
                       contactTo: dealerSingleState.dealerSingleEntity.contactTo,
                       contact: dealerSingleState.dealerSingleEntity.phoneNumber,
-                      additionalInfo: dealerSingleState.dealerSingleEntity.description,
+                      additionalInfo:
+                          dealerSingleState.dealerSingleEntity.description,
                       longitude: dealerSingleState.dealerSingleEntity.longitude,
                       latitude: dealerSingleState.dealerSingleEntity.latitude,
                     ),
                     BlocBuilder<MarksInDealersBloc, MarksInDealersState>(
-                      builder: (context, allMarksState) => allMarksState.marks.isNotEmpty
+                      builder: (context, allMarksState) => allMarksState
+                              .marks.isNotEmpty
                           ? Padding(
                               padding:
                                   const EdgeInsets.only(top: 16, bottom: 12),
@@ -161,70 +167,98 @@ class _SellerState extends State<Seller> {
                           : const SizedBox(),
                     ),
                     BlocBuilder<MarksInDealersBloc, MarksInDealersState>(
-                        builder: (context, marksInDealerState) => marksInDealerState.marks.isNotEmpty
-                            ? SingleChildScrollView(
-                                physics: const BouncingScrollPhysics(),
-                                scrollDirection: Axis.horizontal,
-                                child: Row(
-                                  children: List.generate(
-                                    marksInDealerState.marks.length,
-                                    (index) => MarksWithAnnouncements(
-                                      quantity: marksInDealerState.marks[index].carsCount,
-                                      imageUrl: marksInDealerState.marks[index].make.logo,
-                                      mark: marksInDealerState.marks[index].make.name,
+                        builder: (context, marksInDealerState) =>
+                            marksInDealerState.marks.isNotEmpty
+                                ? SingleChildScrollView(
+                                    physics: const BouncingScrollPhysics(),
+                                    scrollDirection: Axis.horizontal,
+                                    child: Row(
+                                      children: List.generate(
+                                        marksInDealerState.marks.length,
+                                        (index) => MarksWithAnnouncements(
+                                          quantity: marksInDealerState
+                                              .marks[index].carsCount,
+                                          imageUrl: marksInDealerState
+                                              .marks[index].make.logo,
+                                          mark: marksInDealerState
+                                              .marks[index].make.name,
+                                        ),
+                                      ),
                                     ),
-                                  ),
-                                ),
-                              )
-                            : const SizedBox()),
+                                  )
+                                : const SizedBox()),
                     BlocBuilder<CarsInDealerBloc, CarsInDealerState>(
-                      builder: (context, allCarsState) => allCarsState.cars.isNotEmpty?Padding(
-                        padding: const EdgeInsets.only(top: 16, bottom: 12),
-                        child: Row(
-                          children: [
-                            const Expanded(
-                                child: Text('Автомобили от Orient Motors',
-                                    style: TextStyle(
-                                        color: orange,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w600))),
-                            GestureDetector(
-                              onTap: () {},
+                      builder: (context, allCarsState) => allCarsState
+                              .cars.isNotEmpty
+                          ? Padding(
+                              padding:
+                                  const EdgeInsets.only(top: 16, bottom: 12),
                               child: Row(
                                 children: [
-                                  Text(
-                                    LocaleKeys.all.tr(),
-                                    style: const TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w400,
-                                        color: greyText),
-                                  ),
-                                  const SizedBox(
-                                    width: 4,
-                                  ),
-                                  SvgPicture.asset(AppIcons.chevronRightBlack,
-                                      color: greyText)
+                                  Expanded(
+                                      child: Text(
+                                          '${LocaleKeys.cars.tr()} от ${dealerSingleState.dealerSingleEntity.name}',
+                                          overflow: TextOverflow.ellipsis,
+                                          maxLines: 1,
+                                          style: const TextStyle(
+                                              color: orange,
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w600))),
+                                  GestureDetector(
+                                    onTap: () => Navigator.push(
+                                      context,
+                                      fade(
+                                        page: AllCarsInDealerScreen(slug: widget.slug),
+                                      ),
+                                    ),
+                                    child: Row(
+                                      children: [
+                                        Text(
+                                          LocaleKeys.all.tr(),
+                                          style: const TextStyle(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w400,
+                                              color: greyText),
+                                        ),
+                                        const SizedBox(
+                                          width: 4,
+                                        ),
+                                        SvgPicture.asset(
+                                            AppIcons.chevronRightBlack,
+                                            color: greyText)
+                                      ],
+                                    ),
+                                  )
                                 ],
                               ),
                             )
-                          ],
-                        ),
-                      ):const SizedBox(),
+                          : const SizedBox(),
                     ),
                     BlocBuilder<CarsInDealerBloc, CarsInDealerState>(
-                      builder: (context, carsInDealerState) => carsInDealerState.cars.isNotEmpty
+                      builder: (context, carsInDealerState) => carsInDealerState
+                              .cars.isNotEmpty
                           ? SizedBox(
-                              height: 263,
-                              child: ListView.builder(
+                              height: MediaQuery.of(context).size.height * 0.36,
+                              child: ListView.separated(
+                                separatorBuilder: (context, index) =>
+                                    const SizedBox(width: 16),
                                 scrollDirection: Axis.horizontal,
                                 itemBuilder: (context, index) => AdsItem(
                                   id: carsInDealerState.cars[index].id,
-                                  image: '',
-                                  name: carsInDealerState.cars[index].absoluteCarName,
-                                  currency: carsInDealerState.cars[index].currency,
-                                  description: carsInDealerState.cars[index].description,
+                                  image: carsInDealerState
+                                          .cars[index].gallery.isNotEmpty
+                                      ? carsInDealerState
+                                          .cars[index].gallery.first
+                                      : '',
+                                  name: carsInDealerState
+                                      .cars[index].absoluteCarName,
+                                  currency:
+                                      carsInDealerState.cars[index].currency,
+                                  description:
+                                      carsInDealerState.cars[index].description,
                                   isLiked: true,
-                                  location: carsInDealerState.cars[index].region.title,
+                                  location: carsInDealerState
+                                      .cars[index].region.title,
                                   onTapLike: () {},
                                   price: carsInDealerState.cars[index].price,
                                 ),

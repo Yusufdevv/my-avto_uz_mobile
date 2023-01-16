@@ -56,9 +56,9 @@ class _DealersListState extends State<DealersList> {
                       latitude: state.list[index].latitude,
                       longitude: state.list[index].longitude,
                       contractCode:
-                          '+998 ${state.list[index].phoneNumber.substring(0, 2)}',
+                          '+998 ${state.list[index].phoneNumber.substring(4, 6)}',
                       contractNumber:
-                          state.list[index].phoneNumber.substring(2, 9),
+                          state.list[index].phoneNumber.substring(6),
                       contactTo: state.list[index].contactTo,
                       contactFrom: state.list[index].contactFrom,
                       isDirectoryPage: widget.isDirectoryPage,

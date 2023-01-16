@@ -1,13 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'cars_in_dealer_model.dart';
+part of 'cars_in_marks_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-CarsInDealerModel _$CarsInDealerModelFromJson(Map<String, dynamic> json) =>
-    CarsInDealerModel(
+CarsInMarksModel _$CarsInMarksModelFromJson(Map<String, dynamic> json) =>
+    CarsInMarksModel(
       id: json['id'] as int? ?? 0,
       make: json['make'] as int? ?? 0,
       district: json['district'] as int? ?? 0,
@@ -70,7 +70,7 @@ CarsInDealerModel _$CarsInDealerModelFromJson(Map<String, dynamic> json) =>
       year: json['year'] as int? ?? 0,
     );
 
-Map<String, dynamic> _$CarsInDealerModelToJson(CarsInDealerModel instance) =>
+Map<String, dynamic> _$CarsInMarksModelToJson(CarsInMarksModel instance) =>
     <String, dynamic>{
       'id': instance.id,
       'views_count': instance.viewsCount,

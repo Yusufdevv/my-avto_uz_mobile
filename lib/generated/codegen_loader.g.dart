@@ -334,7 +334,8 @@ class CodegenLoader extends AssetLoader{
   "i_accept_rules2": " и ",
   "i_accept_rules3": "правила",
   "complete_registration": "Заполните поля для завершения регистрации",
-  "no_dealer": "Пока нет диллеров"
+  "no_dealer": "Пока нет диллеров",
+  "all_cars": "Все автомобили"
 };
 static const Map<String,dynamic> uz = {
   "price_of_similar_cars": "Средняя цена похожих автомобилей",

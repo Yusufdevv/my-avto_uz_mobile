@@ -1,5 +1,6 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/dealers/presentation/widgets/animated_images.dart';
 import 'package:auto/generated/locale_keys.g.dart';
@@ -13,12 +14,15 @@ class SellerSliverDelegate extends SliverPersistentHeaderDelegate {
   final String showroomOrPerson;
   final String dealerName;
   final String avatarImage;
+  final List<String> gallery;
 
-  SellerSliverDelegate(
-      {required this.showroomOrPerson,
-      required this.minHeight,
-      required this.dealerName,
-      required this.avatarImage});
+  SellerSliverDelegate({
+    required this.showroomOrPerson,
+    required this.minHeight,
+    required this.dealerName,
+    required this.avatarImage,
+    required this.gallery,
+  });
 
   final Duration _duration = const Duration(milliseconds: 80);
 
@@ -27,42 +31,58 @@ class SellerSliverDelegate extends SliverPersistentHeaderDelegate {
           BuildContext context, double shrinkOffset, bool overlapsContent) =>
       Stack(
         children: [
-          if (showroomOrPerson == 'showroom')
-            AnimatedOpacity(
-              duration: const Duration(milliseconds: 100),
-              opacity: shrinkOffset >= 20 && shrinkOffset <= 60
-                  ? 0.8
-                  : shrinkOffset >= 60 && shrinkOffset <= 80
-                      ? 0.6
-                      : shrinkOffset >= 80 && shrinkOffset <= 160
-                          ? 0.4
-                          : shrinkOffset >= 150
-                              ? 0.2
-                              : 1,
-              child: AnimatedImages(
-                screenWidth: MediaQuery.of(context).size.width,
-              ),
-            )
-          else
-            Stack(
-              children: [
-                Container(
-                  height: 260,
-                  color: green,
-                  width: MediaQuery.of(context).size.width,
-                ),
-                Positioned(
-                  bottom: 0,
-                  child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: 36,
-                    color: Theme.of(context)
-                        .extension<ThemedColors>()!
-                        .solitudeTo1Black,
-                  ),
-                ),
-              ],
+          // if (showroomOrPerson == 'showroom')
+          //   AnimatedOpacity(
+          //     duration: const Duration(milliseconds: 100),
+          //     opacity: shrinkOffset >= 20 && shrinkOffset <= 60
+          //         ? 0.8
+          //         : shrinkOffset >= 60 && shrinkOffset <= 80
+          //             ? 0.6
+          //             : shrinkOffset >= 80 && shrinkOffset <= 160
+          //                 ? 0.4
+          //                 : shrinkOffset >= 150
+          //                     ? 0.2
+          //                     : 1,
+          //     child: AnimatedImages(
+          //       screenWidth: MediaQuery.of(context).size.width,
+          //     ),
+          //   )
+          // else
+          //   Stack(
+          //     children: [
+          //       Container(
+          //         height: 260,
+          //         color: red,
+          //         width: MediaQuery.of(context).size.width,
+          //       ),
+          //       Positioned(
+          //         bottom: 0,
+          //         child: Container(
+          //           width: MediaQuery.of(context).size.width,
+          //           height: 36,
+          //           color: Theme.of(context)
+          //               .extension<ThemedColors>()!
+          //               .solitudeTo1Black,
+          //         ),
+          //       ),
+          //     ],
+          //   ),
+          AnimatedOpacity(
+            duration: const Duration(milliseconds: 100),
+            opacity: shrinkOffset >= 20 && shrinkOffset <= 60
+                ? 0.8
+                : shrinkOffset >= 60 && shrinkOffset <= 80
+                    ? 0.6
+                    : shrinkOffset >= 80 && shrinkOffset <= 160
+                        ? 0.4
+                        : shrinkOffset >= 150
+                            ? 0.2
+                            : 1,
+            child: AnimatedImages(
+              images: gallery,
+              screenWidth: MediaQuery.of(context).size.width,
             ),
+          ),
           Positioned(
               top: 60,
               left: 16,
@@ -135,10 +155,11 @@ class SellerSliverDelegate extends SliverPersistentHeaderDelegate {
                           height: shrinkOffset >= 180 ? 32 : 48,
                           width: shrinkOffset >= 180 ? 32 : 48,
                           duration: _duration,
-
                           child: CachedNetworkImage(
                             imageUrl: avatarImage,
                             fit: BoxFit.cover,
+                            errorWidget: (context, url, error) =>
+                                SvgPicture.asset(AppImages.autoUz),
                             imageBuilder: (context, imageProvider) => Container(
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,

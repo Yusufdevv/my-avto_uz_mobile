@@ -1,9 +1,9 @@
-import 'package:auto/features/dealers/data/models/cars_in_dealer_model.dart';
+import 'package:auto/features/dealers/data/models/cars_in_marks_model.dart';
 import 'package:auto/features/rent/domain/entities/region_entity.dart';
 import 'package:equatable/equatable.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:json_annotation/json_annotation.dart';
 
-class CarsInDealerEntity extends Equatable {
+class CarsInMarksEntity extends Equatable {
   final int id;
   final int viewsCount;
   final String createdAt;
@@ -57,7 +57,7 @@ class CarsInDealerEntity extends Equatable {
   final int user;
   final int dealer;
 
-  const CarsInDealerEntity({
+  const CarsInMarksEntity({
     this.id = 0,
     this.viewsCount = 0,
     this.createdAt = '',
@@ -168,13 +168,13 @@ class CarsInDealerEntity extends Equatable {
 }
 
 class CarsInDealerEntityConverter
-    implements JsonConverter<CarsInDealerEntity, Map<String, dynamic>?> {
+    implements JsonConverter<CarsInMarksEntity, Map<String, dynamic>?> {
   const CarsInDealerEntityConverter();
 
   @override
-  CarsInDealerEntity fromJson(Map<String, dynamic>? json) =>
-      CarsInDealerModel.fromJson(json ?? {});
+  CarsInMarksEntity fromJson(Map<String, dynamic>? json) =>
+      CarsInMarksModel.fromJson(json ?? {});
 
   @override
-  Map<String, dynamic> toJson(CarsInDealerEntity object) => {};
+  Map<String, dynamic> toJson(CarsInMarksEntity object) => {};
 }
