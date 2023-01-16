@@ -18,6 +18,7 @@ import 'package:formz/formz.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
+// https://panel.avto.uz/api/v1/users/detail/
 class ContactScreen extends StatefulWidget {
   final String initialPhone;
   final String initialEmail;
@@ -185,6 +186,7 @@ class _ContactScreenState extends State<ContactScreen> {
                                   if (v?.length != 12) {
                                     return 'Enter valid phone number';
                                   }
+                                  return null;
                                 },
                                 onTap: hidePopUp,
                                 onChanged: (value) => context
@@ -220,7 +222,10 @@ class _ContactScreenState extends State<ContactScreen> {
                                 suffix: WButton(
                                   isLoading: verificationState.status ==
                                       FormzStatus.submissionInProgress,
-                                  isDisabled:( postingAdState.ownerPhone?.length??0) != 12,
+                                  isDisabled:
+                                      (postingAdState.ownerPhone?.length ??
+                                              0) !=
+                                          12,
                                   onTap: () {
                                     if (_formKey.currentState!.validate()) {
                                       verificationBloc.add(
@@ -292,9 +297,7 @@ class _ContactScreenState extends State<ContactScreen> {
                                         PostingAdChooseEvent(
                                             isCallTimed: value));
                                   }),
-                              const SizedBox(
-                                height: 24,
-                              ),
+                              const SizedBox(height: 24),
                               Container(
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 12, vertical: 8),
