@@ -7,10 +7,12 @@ class RentToBuyState extends Equatable {
   final String? month;
   final String? monthlyPay;
   final int step;
+  final TextEditingController controller;
 
   const RentToBuyState({
     required this.step,
     required this.title,
+    required this.controller,
     this.month,
     this.monthlyPay,
     this.startingPay,
@@ -24,8 +26,10 @@ class RentToBuyState extends Equatable {
     String? month,
     String? monthlyPay,
     String? minimumSumma,
+    TextEditingController? controller,
   }) =>
       RentToBuyState(
+        controller: controller ?? this.controller,
         title: title,
         step: step ?? this.step,
         month: month ?? this.startingPay,
@@ -42,5 +46,6 @@ class RentToBuyState extends Equatable {
         monthlyPay,
         minimumSumma,
         title,
+        controller,
       ];
 }

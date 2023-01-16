@@ -4,11 +4,17 @@ class VerificationState extends Equatable {
   final FormzStatus status;
   final String? session;
   final String? toastMessage;
-  const VerificationState(
-      {required this.status, this.toastMessage, this.session});
+  const VerificationState({
+    required this.status,
+    this.toastMessage,
+    this.session,
+  });
 
   VerificationState copyWith(
-          {FormzStatus? status, String? session, String? toastMessage}) =>
+          {FormzStatus? status,
+          String? session,
+          String? toastMessage,
+          TextEditingController? controller}) =>
       VerificationState(
         status: status ?? this.status,
         session: session ?? this.session,

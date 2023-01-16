@@ -1,11 +1,8 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
-import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/features/ad/presentation/bloc/verification/verification_bloc.dart';
 import 'package:auto/features/car_single/presentation/widgets/orange_button.dart';
-import 'package:auto/features/login/domain/usecases/send_code.dart';
-import 'package:auto/features/login/domain/usecases/verify_code.dart';
 import 'package:auto/features/profile/presentation/widgets/refresh_button.dart';
 import 'package:auto/features/profile/presentation/widgets/time_counter.dart';
 import 'package:auto/generated/locale_keys.g.dart';
@@ -27,16 +24,11 @@ class SmsVerificationSheet extends StatefulWidget {
 }
 
 class _SmsVerificationSheetState extends State<SmsVerificationSheet> {
-  TextEditingController controller = TextEditingController();
-
+  late TextEditingController controller;
   bool timeComplete = false;
-  late VerificationBloc verificationBloc;
   @override
   void initState() {
-    verificationBloc = VerificationBloc(
-      sendCodeUseCase: SendCodeUseCase(),
-      verifyCodeUseCase: VerifyCodeUseCase(),
-    )..add(VerificationSendCodeEvent(phone: widget.phoneNumber));
+    controller = TextEditingController();
     super.initState();
   }
 
