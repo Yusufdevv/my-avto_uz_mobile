@@ -1,13 +1,12 @@
 import 'package:auto/assets/colors/color.dart';
-import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/presentation/bloc/add_photo/image_bloc.dart';
 import 'package:auto/features/ad/presentation/pages/add_photo/widgets/photo_item.dart';
+import 'package:auto/features/ad/presentation/pages/add_photo/widgets/plus_circle.dart';
 import 'package:auto/features/ad/presentation/widgets/base_widget.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
 
 class AddPhotoScreen extends StatefulWidget {
   const AddPhotoScreen({Key? key}) : super(key: key);
@@ -53,6 +52,7 @@ class _AddPhotoScreenState extends State<AddPhotoScreen> {
                 WScaleAnimation(
                   onTap: () {},
                   child: Container(
+                    alignment: Alignment.center,
                     height: 110,
                     width: double.infinity,
                     margin: const EdgeInsets.symmetric(
@@ -64,9 +64,7 @@ class _AddPhotoScreenState extends State<AddPhotoScreen> {
                           .extension<ThemedColors>()!
                           .ghostWhiteToUltramarine10,
                     ),
-                    child: Center(
-                      child: SvgPicture.asset(AppIcons.circlePlus),
-                    ),
+                    child:const  PlusCircle()
                   ),
                 )
               ],

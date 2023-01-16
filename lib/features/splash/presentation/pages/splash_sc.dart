@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:auto/assets/themes/theme_extensions/themed_icons.dart';
+import 'package:auto/features/ad/presentation/posting_ad_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lottie/lottie.dart';
@@ -17,15 +18,15 @@ class _SplashScState extends State<SplashSc> {
   @override
   void initState() {
     print('intstatega krdi');
-    // if (mounted) {
-    //   _timer = Timer(const Duration(seconds: 5), () async {
-    //     await Navigator.pushReplacement(context,
-    //         MaterialPageRoute(builder: (context) {
-    //            print('=>=>=>=> throvine to the first on boarding page <=<=<=<=');
-    //       return const FirstOnBoarding();
-    //     }));
-    //   });
-    // }
+    if (mounted) {
+      _timer = Timer(const Duration(seconds: 5), () async {
+        await Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) {
+               print('=>=>=>=> throvine to the first on boarding page <=<=<=<=');
+          return const PostingAdScreen();
+        }));
+      });
+    }
 
     super.initState();
 

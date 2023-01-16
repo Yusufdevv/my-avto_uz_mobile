@@ -30,50 +30,57 @@ class TopAds extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 8),
-              BlocConsumer<WishlistAddBloc, WishlistAddState>(
-                listener: (context, stateWish) {
-                  if (stateWish.addStatus.isSubmissionSuccess ||
-                      stateWish.removeStatus.isSubmissionSuccess) {
-                    context.read<TopAdBloc>().add(TopAdEvent.changeIsWish(
-                        index: stateWish.index, id: stateWish.id));
-                    context.read<WishlistAddBloc>().add(WishlistAddEvent.clearState());
-                  }
-                },
-                builder: (context, stateWish) => SizedBox(
-                 height: MediaQuery.of(context).size.height*0.34,
-                  child: ListView.separated(
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.34,
+                child: ListView.separated(
                     scrollDirection: Axis.horizontal,
                     padding: const EdgeInsets.symmetric(horizontal: 16),
-                    itemBuilder: (context, index) =>
-                        state.status.isSubmissionInProgress
-                            ? AdsShimmer()
-                            : AdsItem(
-                                id: state.topAds[index].id,
-                                name: state.topAds[index].make,
-                                price: state.topAds[index].price.toString(),
-                                location: state.topAds[index].region,
-                                description: state.topAds[index].description,
-                                image: state.topAds[index].gallery.isNotEmpty
-                                    ? state.topAds[index].gallery.first
-                                    : '',
-                                currency: state.topAds[index].currency,
-                                isLiked: state.topAds[index].isWishlisted,
-                                onTapLike: () {
-                                  context.read<WishlistAddBloc>().add(
-                                      state.topAds[index].isWishlisted
-                                          ? WishlistAddEvent.removeWishlist(
-                                              state.topAds[index].id, index)
-                                          : WishlistAddEvent.addWishlist(
-                                              state.topAds[index].id, index));
-                                },
-                              ),
+                    itemBuilder: (context, index) => state
+                            .status.isSubmissionInProgress
+                        ? AdsShimmer()
+                        : BlocConsumer<WishlistAddBloc, WishlistAddState>(
+                            listener: (context, stateWish) {
+                              if (stateWish.addStatus.isSubmissionSuccess ||
+                                  stateWish.removeStatus.isSubmissionSuccess) {
+                                    if (stateWish.id==state.topAds[index].id) {
+                                      context.read<TopAdBloc>().add(TopAdEvent.changeIsWish(
+                              index: stateWish.index, id: stateWish.id));
+                                    }
+                                context
+                                    .read<WishlistAddBloc>()
+                                    .add(WishlistAddEvent.clearState());
+                              }
+                            },
+                            builder: (context, stateWish) => AdsItem(
+                              id: state.topAds[index].id,
+                              name: state.topAds[index].make,
+                              price: state.topAds[index].price.toString(),
+                              location: state.topAds[index].region,
+                              description: state.topAds[index].description,
+                              image: state.topAds[index].gallery.isNotEmpty
+                                  ? state.topAds[index].gallery.first
+                                  : '',
+                              currency: state.topAds[index].currency,
+                              isLiked: state.topAds[index].isWishlisted,
+                              onTapLike: () {
+                                // context.read<TopAdBloc>().add(
+                                //     TopAdEvent.changeIsWish(
+                                //         index: stateWish.index,
+                                //         id: stateWish.id));
+                                context.read<WishlistAddBloc>().add(
+                                    state.topAds[index].isWishlisted
+                                        ? WishlistAddEvent.removeWishlist(
+                                            state.topAds[index].id, index)
+                                        : WishlistAddEvent.addWishlist(
+                                            state.topAds[index].id, index));
+                              },
+                            ),
+                          ),
                     itemCount: state.status.isSubmissionInProgress
                         ? 5
                         : state.topAds.length,
                     separatorBuilder: (context, index) =>
-                        const SizedBox(width: 24),
-                  ),
-                ),
+                        const SizedBox(width: 24)),
               ),
               const SizedBox(height: 16),
             ],

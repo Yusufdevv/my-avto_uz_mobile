@@ -10,6 +10,6 @@ class GetMakesUseCase extends UseCase<GetMakeEntity, String?> {
   GetMakesUseCase({required this.repository});
 
   @override
-  Future<Either<Failure, GetMakeEntity>> call(String? name) =>
-      repository.getMake(name: name);
+  Future<Either<Failure, GetMakeEntity>> call(String? params) =>
+      repository.getMake(name: params);
 }

@@ -4,7 +4,7 @@ part 'make_model.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class MakeModel extends MakeEntity {
-  MakeModel({
+  const MakeModel({
     required super.id,
     required super.logo,
     required super.name,

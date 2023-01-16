@@ -19,7 +19,7 @@ class AdsBodyScreen extends StatefulWidget {
   //final CarSelectorBloc carSelectorBloc;
   final GetMakesBloc getMakesBloc;
   final GetCarModelBloc getCarModelBloc;
-  final CarTypeSelectorBloc carTypeSelectorBloc;
+  // final CarTypeSelectorBloc carTypeSelectorBloc;
   //final ModelSelectorBloc modelSelectorBloc;
   //final FilterParametersBloc filterParametersBloc;
   const AdsBodyScreen({
@@ -27,7 +27,7 @@ class AdsBodyScreen extends StatefulWidget {
     //required this.carSelectorBloc,
     required this.getMakesBloc,
     required this.getCarModelBloc,
-    required this.carTypeSelectorBloc,
+    // required this.carTypeSelectorBloc,
     // required this.modelSelectorBloc,
     // required this.filterParametersBloc,
   });

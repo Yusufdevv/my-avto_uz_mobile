@@ -5,7 +5,6 @@ import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/core/utils/size_config.dart';
 import 'package:auto/features/ad/presentation/bloc/add_photo/image_bloc.dart';
 import 'package:auto/features/car_single/presentation/widgets/orange_button.dart';
-import 'package:auto/features/common/widgets/cached_image.dart';
 import 'package:auto/features/common/widgets/custom_screen.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
@@ -15,6 +14,7 @@ import 'package:auto/features/profile/presentation/bloc/profile/profile_bloc.dar
 import 'package:auto/features/profile/presentation/pages/my_profile/profile_edit_page.dart';
 import 'package:auto/features/profile/presentation/widgets/widgets.dart';
 import 'package:auto/generated/locale_keys.g.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -67,15 +67,23 @@ class SeeProfilePage extends StatelessWidget {
                           children: [
                             const Spacer(),
                             SizedBox(width: SizeConfig.h(44)),
-                            Center(
-                              child: CachedImage(
-                                width: SizeConfig.h(80),
-                                height: SizeConfig.v(80),
-                                borderRadius: BorderRadius.circular(50),
-                                border: Border.all(color: borderCircular),
-                                fit: BoxFit.cover,
-                                imageUrl: state.profileEntity.image ?? '',
-                              ),
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(50),
+                              child: CachedNetworkImage(
+                                  imageUrl: state.profileEntity.image!,
+                                  width: SizeConfig.h(80),
+                                  height: SizeConfig.v(80),
+                                  fit: BoxFit.cover,
+                                  errorWidget: (context, url, error) =>
+                                      SizedBox(
+                                          width: SizeConfig.h(80),
+                                          height: SizeConfig.v(80),
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(50),
+                                            child: SvgPicture.asset(
+                                                AppIcons.userAvatar),
+                                          ))),
                             ),
                             const Spacer(),
                             WScaleAnimation(

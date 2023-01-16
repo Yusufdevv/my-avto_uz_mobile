@@ -321,6 +321,7 @@ abstract class  LocaleKeys {
   static const i_accept_rules3 = 'i_accept_rules3';
   static const complete_registration = 'complete_registration';
   static const no_dealer = 'no_dealer';
+  static const phone_number_changed_success = 'phone_number_changed_success';
   static const all_cars = 'all_cars';
 
 }

@@ -56,13 +56,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   late ProfileDataEntity profileData;
-  
+
   @override
   Widget build(BuildContext context) => BlocProvider.value(
         value: profileBloc,
         child: BlocListener<WishlistAddBloc, WishlistAddState>(
           listener: (context, stateWish) {
-
             if (stateWish.addStatus.isSubmissionSuccess) {
               profileBloc.add(ChangeCountDataEvent(adding: true));
             }
@@ -123,7 +122,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               fullName: profileData.fullName ?? '',
                               subTitle:
                                   '${usercountData.announcementsCount} ${LocaleKeys.how_many_ads.tr()}',
-                              imageUrl: profileData.image ?? '',
+                              imageUrl: profileData.image!,
                               margin: EdgeInsets.only(
                                   top: SizeConfig.v(16),
                                   bottom: SizeConfig.v(12))),
@@ -208,11 +207,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       .push(
                                     fade(
                                         page: ChatPage(
-                                            phone: profileData.phoneNumber!,
-                                            userName: profileData.username ??
-                                                profileData.firstName,
-                                            hasChat: false,
-                                            imageBloc: imageBloc)),
+                                      phone: state.profileEntity.phoneNumber!,
+                                      userName: state.profileEntity.fullName!,
+                                    )
+                                        // ChatPage(
+                                        //     phone: profileData.phoneNumber!,
+                                        //     userName: profileData.username ??
+                                        //         profileData.firstName,
+                                        //     hasChat: false,
+                                        //     imageBloc: imageBloc),
+                                        ),
                                   );
                                 },
                                 iconPath: AppIcons.message),

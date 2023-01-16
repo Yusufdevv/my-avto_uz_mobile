@@ -75,9 +75,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   void onTabChange() {
     setState(() {
       _currentIndex = _controller.index;
-      _navigatorKeys[NavItemEnum.values[_currentIndex]]!
-          .currentState!
-          .popUntil((route) => route.isFirst);
+      _navigatorKeys[NavItemEnum.values[_currentIndex]]
+          ?.currentState
+          ?.popUntil((route) => route.isFirst);
     });
   }
 

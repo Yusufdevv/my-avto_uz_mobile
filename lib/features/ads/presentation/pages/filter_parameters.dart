@@ -15,7 +15,6 @@ import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 
 class FilterParameters extends StatefulWidget {
   final BodyTypeEntity? bodyType;
@@ -26,17 +25,16 @@ class FilterParameters extends StatefulWidget {
   final RangeValues? priceValues;
   final bool? ischek;
   final AnnouncementListBloc? bloc;
-  const FilterParameters({
-    super.key,
-    this.bodyType,
-    this.carDriveType,
-    this.gearboxType,
-    this.yearValues,
-    this.priceValues,
-    this.bloc,
-    this.idVal,
-    this.ischek
-  });
+  const FilterParameters(
+      {super.key,
+      this.bodyType,
+      this.carDriveType,
+      this.gearboxType,
+      this.yearValues,
+      this.priceValues,
+      this.bloc,
+      this.idVal,
+      this.ischek});
 
   @override
   State<FilterParameters> createState() => _FilterParametersState();
@@ -54,7 +52,7 @@ class _FilterParametersState extends State<FilterParameters> {
       priceValues: widget.priceValues,
       yearValues: widget.yearValues,
       idVal: widget.idVal,
-      ischek: widget.ischek,
+      ischek: widget.ischek ?? false,
     );
     super.initState();
   }

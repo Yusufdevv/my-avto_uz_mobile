@@ -1,3 +1,4 @@
+import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/core/usecases/usecase.dart';
 import 'package:auto/features/common/domain/entity/auto_entity.dart';
 import 'package:auto/features/common/repository/auth.dart';
@@ -126,7 +127,10 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
           event.onSuccess(result.right);
           emit(state.copyWith(changeStatus: FormzStatus.submissionSuccess));
         } else {
-          event.onError(result.left.toString());
+           var err = (result.left is ServerFailure)
+            ? (result.left as ServerFailure).errorMessage
+            : result.left.toString();
+        event.onError(err);
           emit(state.copyWith(changeStatus: FormzStatus.submissionFailure));
         }
       } else {
