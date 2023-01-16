@@ -336,6 +336,7 @@ class CodegenLoader extends AssetLoader{
   "complete_registration": "Заполните поля для завершения регистрации",
   "no_dealer": "Пока нет диллеров",
   "phone_number_changed_success": "Номер телефона успешно изменен",
+  "all_cars": "Все автомобили",
   "create_add": "Создать объявление",
   "show_all_dealers": "Показать всех дилеров"
 };
