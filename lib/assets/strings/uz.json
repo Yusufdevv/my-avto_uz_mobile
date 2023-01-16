@@ -316,6 +316,13 @@
   "phone_number_changed_success" : "Telefon raqam muvaffaqoyatli o'zgartirildi!",
   "all_cars": "Barcha avtomobillar",
   "create_add" : "E'lon yaratish",
-  "show_all_dealers" : "Barcha dilerlarni ko'rish"
+  "show_all_dealers" : "Barcha dilerlarni ko'rish",
+  "check" : "Tekshirish",
+  "carshering" : "Каршеринг",
+  "insurance" : "Страхование",
+  "commercial_vehicles" : "Коммерческий транспорт",
+  "rent_Car" : "RentCar"
+
+
 
 }
