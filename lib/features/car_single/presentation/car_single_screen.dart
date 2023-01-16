@@ -28,8 +28,10 @@ import 'package:share_plus/share_plus.dart';
 class CarSingleScreen extends StatefulWidget {
   final int id;
 
-  const CarSingleScreen({Key? key, required this.id, })
-      : super(key: key);
+  const CarSingleScreen({
+    Key? key,
+    required this.id,
+  }) : super(key: key);
 
   @override
   State<CarSingleScreen> createState() => _CarSingleScreenState();
@@ -74,7 +76,7 @@ class _CarSingleScreenState extends State<CarSingleScreen>
         OtherAdsUseCase(repository: serviceLocator<CarSingleRepositoryImpl>()))
       ..add(CarSingleEvent.getSingle(widget.id));
     _scrollController.addListener(() {
-      if (_scrollController.offset > 287 && isAppBarOffset != true) {
+      if (_scrollController.offset > 285 && isAppBarOffset != true) {
         actionState = CrossFadeState.showSecond;
         isAppBarOffset = true;
         setState(() {});
@@ -207,9 +209,12 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                               ? Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    SellerComment(
-                                      comment: state.singleEntity.description,
-                                    ),
+                                    if (state.singleEntity.description != null)
+                                      SellerComment(
+                                        comment: state.singleEntity.description,
+                                      )
+                                    else
+                                      SizedBox(),
                                     const VinSoonItem(),
                                   ],
                                 )
@@ -228,11 +233,12 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                                       .singleEntity.modificationType.volume,
                                 ),
                         ),
-                        SliverToBoxAdapter(
-                          child: CarCharacteristicImage(
-                            informAboutDoors: state.singleEntity.damagedParts,
+                        if (state.singleEntity.damagedParts.isNotEmpty)
+                          SliverToBoxAdapter(
+                            child: CarCharacteristicImage(
+                              informAboutDoors: state.singleEntity.damagedParts,
+                            ),
                           ),
-                        ),
                         SliverToBoxAdapter(
                           child: state.elasticSearchEntity.isNotEmpty
                               ? OtherAdsItem(
