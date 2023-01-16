@@ -82,7 +82,7 @@ class PostingAdState extends Equatable {
     this.callTimeTo,
     this.isCallTimed = false,
     this.showOwnerContacts,
-    this.isContactsVerified
+    this.isContactsVerified,
   });
   PostingAdState copyWith({
     FormzStatus? status,
@@ -119,12 +119,13 @@ class PostingAdState extends Equatable {
     String? gasBalloonType,
     String? callTimeFrom,
     String? callTimeTo,
+    String? session,
     bool? hasAppBarShadow,
     bool? isRastamojen,
     bool? isCallTimed,
     bool isSortByLetter = false,
     bool? showOwnerContacts,
-    bool ? isContactsVerified,
+    bool? isContactsVerified,
   }) =>
       PostingAdState(
         city: city ?? this.city,
@@ -166,7 +167,7 @@ class PostingAdState extends Equatable {
         callTimeTo: callTimeTo ?? this.callTimeTo,
         isCallTimed: isCallTimed ?? this.isCallTimed,
         showOwnerContacts: showOwnerContacts ?? this.showOwnerContacts,
-        isContactsVerified: isContactsVerified??this.isContactsVerified,
+        isContactsVerified: isContactsVerified ?? this.isContactsVerified,
       );
   @override
   List<Object?> get props => [
@@ -206,6 +207,6 @@ class PostingAdState extends Equatable {
         gasBalloonType,
         isCallTimed,
         showOwnerContacts,
-        isContactsVerified
+        isContactsVerified,
       ];
 }

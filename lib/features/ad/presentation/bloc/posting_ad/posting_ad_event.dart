@@ -6,6 +6,8 @@ class PostingAdBodyTypesEvent extends PostingAdEvent {
   PostingAdBodyTypesEvent();
 }
 
+
+
 class PostingAdGearBoxesEvent extends PostingAdEvent {
   PostingAdGearBoxesEvent();
 }
