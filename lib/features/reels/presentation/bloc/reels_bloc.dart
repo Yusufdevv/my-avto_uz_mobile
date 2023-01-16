@@ -26,7 +26,8 @@ class ReelsBloc extends Bloc<ReelsEvent, ReelsState> {
     await _getReels(event.offset, emit);
   }
 
-  Future _onChangeStatus(ChangeStatusEvent event, Emitter<ReelsState> emit) async {
+  Future _onChangeStatus(
+      ChangeStatusEvent event, Emitter<ReelsState> emit) async {
     emit(state.copWith(statusReelsGet: event.status));
   }
 
@@ -35,8 +36,9 @@ class ReelsBloc extends Bloc<ReelsEvent, ReelsState> {
     final result = await getReelsUseCase.call({'limit': 10, 'offset': offset});
     if (result.isRight) {
       emit(state.copWith(
-          reels: result.right.results,
-          statusReelsGet: FormzStatus.submissionSuccess));
+        reels: result.right.results,
+        statusReelsGet: FormzStatus.submissionSuccess,
+      ));
     } else {
       emit(state.copWith(statusReelsGet: FormzStatus.submissionFailure));
     }
