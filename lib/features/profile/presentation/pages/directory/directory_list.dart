@@ -37,6 +37,7 @@ class _DirectoryListState extends State<DirectoryList> {
                       itemBuilder: (context, index) {
                         final item = directories[index];
                         return DirectoryCard(
+                          slug: item.slug!,
                           region: item.region!,
                           dealerType: item.category!.name!,
                           dealerName: item.name!,
@@ -58,8 +59,8 @@ class _DirectoryListState extends State<DirectoryList> {
                     )
                   : const Center(
                       child: EmptyItemBody(
-                          title: 'Упс!',
-                          subtitle: 'По вашему запросу ничего не найдено.',
+                          title: 'Пока нет диллеров',
+                          subtitle: '',
                           image: AppIcons.emptyFolder),
                     );
             }

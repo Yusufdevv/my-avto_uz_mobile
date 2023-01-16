@@ -162,6 +162,7 @@ class SeeProfilePage extends StatelessWidget {
                           ),
                           onTap: () {
                             showModalBottomSheet(
+                                useRootNavigator: true,
                                 context: context,
                                 backgroundColor: Colors.transparent,
                                 builder: (context) => CustomProfileBottomsheet(

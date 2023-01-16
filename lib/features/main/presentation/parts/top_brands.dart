@@ -37,6 +37,7 @@ class TopBrands extends StatelessWidget {
                 color: Theme.of(context).dialogBackgroundColor,
                 height: 100,
                 child: ListView.separated(
+                  physics: const BouncingScrollPhysics(),
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (context, index) =>

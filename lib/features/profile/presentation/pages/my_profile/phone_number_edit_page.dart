@@ -65,7 +65,7 @@ class _PhoneNumberEditPageState extends State<PhoneNumberEditPage> {
                 appBar: const WAppBar(title: 'Номер телефона'),
                 body: Padding(
                   padding: const EdgeInsets.only(
-                      top: 50, left: 16, right: 16, bottom: 16),
+                      top: 50, left: 16, right: 16, bottom: 20),
                   child: Form(
                     key: _formKey,
                     child: Column(
@@ -91,10 +91,13 @@ class _PhoneNumberEditPageState extends State<PhoneNumberEditPage> {
                               return 'Iltimos, telefon nomerni kiriting';
                             } else if (value.length < 12) {
                               return "Telefon nomer 12 raqamdan iborat bo'lishi kerak";
+                            } else if (int.tryParse(value) == null) {
+                              return "To'gri telefon raqam kiriting!";
                             }
                             return null;
                           },
                           controller: phoneController,
+                          prefixPadding: EdgeInsets.only(bottom: 5),
                           prefixIcon: Row(
                             children: [
                               Image.asset(AppImages.flagUzb),
@@ -152,7 +155,6 @@ class _PhoneNumberEditPageState extends State<PhoneNumberEditPage> {
                                               ShowPopUp(
                                                   message: message,
                                                   isSucces: false));
-                                                  
                                         }));
                               }
                             },

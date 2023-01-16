@@ -1,4 +1,5 @@
 import 'package:auto/assets/colors/color.dart';
+import 'package:auto/assets/constants/images.dart';
 import 'package:auto/core/utils/size_config.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/profile/presentation/bloc/user_wishlists_notifications/user_wishlists_notification_bloc.dart';
@@ -25,16 +26,22 @@ class NotificationSinglePage extends StatelessWidget {
             }
             if (state.myAdsStatus.isSubmissionSuccess) {
               final notification = state.notificationSingle;
-              return Padding(
-                padding: EdgeInsets.only(top: SizeConfig.v(16)),
-                child: SingleChildScrollView(
+              return SingleChildScrollView(
+                child: Padding(
+                  padding: EdgeInsets.only(top: SizeConfig.v(16)),
                   child: Column(
                     children: [
-                      CachedNetworkImage(
-                        imageUrl: notification.cover!,
+                      SizedBox(
                         width: SizeConfig.h(375),
                         height: SizeConfig.v(219),
-                        fit: BoxFit.cover,
+                        child: CachedNetworkImage(
+                          imageUrl: notification.cover!,
+                          fit: BoxFit.cover,
+                          errorWidget: (context, url, error) => Image.asset(
+                            AppImages.carPlaceHolder,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
                       ),
                       Padding(
                         padding:

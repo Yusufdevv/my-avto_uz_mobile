@@ -86,6 +86,7 @@ class _MainScreenState extends State<MainScreen> {
     serviceTaps = [
       () {
         showModalBottomSheet(
+          backgroundColor: Colors.transparent,
           useRootNavigator: true,
           context: context,
           builder: (context) => CheckBottomsheet(onTap: () {}),

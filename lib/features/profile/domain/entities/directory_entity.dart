@@ -2,6 +2,7 @@ class DirectoryEntity {
   DirectoryEntity({
     this.id,
     this.name,
+    this.slug,
     this.category,
     this.address,
     this.region,
@@ -14,6 +15,7 @@ class DirectoryEntity {
 
   int? id;
   String? name;
+  String? slug;
   Category? category;
   String? address;
   String? region;
