@@ -37,22 +37,32 @@ class MyAdDesc extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              RichText(
-                text: TextSpan(
-                    text: LocaleKeys.sale_period_left.tr(),
-                    style: Theme.of(context).textTheme.headline2!.copyWith(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w600,
-                        ),
-                    children: [
-                      TextSpan(
-                        text: ' 4 дней ',
-                        // ' ${DateTime.now().difference(DateTime.parse(item.expiredAt))}',
-                        style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                            fontWeight: FontWeight.w600, color: orange),
-                      )
-                    ]),
-              ),
+              if (item.isExpired)
+                Text(
+                  'Бу элонингизнинг муддати тугаган. Унинг вактини чуздиришингиз мумкин.',
+                  style: Theme.of(context).textTheme.headline5?.copyWith(
+                      fontSize: 12, fontWeight: FontWeight.w400, height: 1.3),
+                )
+              else
+                RichText(
+                  text: TextSpan(
+                      text: LocaleKeys.sale_period_left.tr(),
+                      style: Theme.of(context).textTheme.headline2!.copyWith(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600,
+                          ),
+                      children: [
+                        TextSpan(
+                          text: ' 4 дней',
+                          // ' ${DateTime.now().difference(DateTime.parse(item.expiredAt))}',
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyText1!
+                              .copyWith(
+                                  fontWeight: FontWeight.w600, color: orange),
+                        )
+                      ]),
+                ),
               Padding(
                 padding: const EdgeInsets.only(top: 12),
                 child: Row(

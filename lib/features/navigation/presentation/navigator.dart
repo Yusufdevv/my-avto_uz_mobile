@@ -60,6 +60,7 @@ class _TabNavigatorState extends State<TabNavigator>
     super.build(context);
     return Navigator(
       key: widget.navigatorKey,
+      
       initialRoute: TabNavigatorRoutes.root,
       onGenerateRoute: (routeSettings) {
         final routeBuilders =

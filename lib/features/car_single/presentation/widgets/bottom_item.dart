@@ -32,7 +32,7 @@ class BottomItem extends StatelessWidget {
   Widget build(BuildContext context) => Row(
         children: [
           Expanded(
-            child: MyFunctions.enableForCalling(
+            child:callFrom != null && callTo!= null ? MyFunctions.enableForCalling(
               callFrom: callFrom,
               callTo: callTo,
             )
@@ -81,8 +81,17 @@ class BottomItem extends StatelessWidget {
                         const Spacer(),
                       ],
                     ),
-                  ),
-          ),
+                  ) : WButton(
+              onTap: () {
+                launchUrl(Uri.parse('tel://$phoneNumber'));
+              },
+              height: 44,
+              borderRadius: 8,
+              color: const Color(0xff5ECC81),
+              text: LocaleKeys.call.tr(),
+              textColor: Colors.white,
+            )
+          ) ,
           const SizedBox(
             width: 4,
           ),
