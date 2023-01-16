@@ -8,7 +8,7 @@ class ReelEntity extends Equatable {
   final int id;
   final String title;
   final String content;
-  final int likeCount;
+  int likeCount;
   final int shareCount;
   @DealerConverter()
   final DealerEntity dealer;
@@ -17,9 +17,9 @@ class ReelEntity extends Equatable {
   final bool hasDiscount;
   final String oldPrice;
   final int discountPercent;
-  final bool isLiked;
+  bool isLiked;
 
-  const ReelEntity({
+  ReelEntity({
     this.id = -1,
     this.title = '',
     this.content = '',

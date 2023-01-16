@@ -67,7 +67,9 @@ class _ReelsScreenState extends State<ReelsScreen> {
                       itemCount: state.reels.length,
                       itemBuilder: (context, index) => ContentItem(
                         reel: state.reels[index],
-                        onTapLike: () {},
+                        onTapLike: () {
+                          bloc.add(ReelsLike(state.reels[index].id, index));
+                        },
                         pageIndex: index,
                         currentPageIndex: _currentPage,
                         isPaused: _isOnPageTurning,

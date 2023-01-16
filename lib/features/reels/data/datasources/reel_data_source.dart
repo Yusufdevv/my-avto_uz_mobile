@@ -29,4 +29,19 @@ class ReelDataSource {
         (json) => ReelModel.fromJson(json as Map<String, dynamic>));
   }
 
+  Future reelsLike({
+    required int id,
+  }) async {
+    final result = await dio.post('reels/',
+        data: {'reel' : id},
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer ${StorageRepository.getString('token')}',
+          },
+        ));
+    return result;
+  }
+
 }
+
+

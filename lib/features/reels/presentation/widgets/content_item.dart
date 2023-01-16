@@ -210,7 +210,7 @@ class _ContentItemState extends State<ContentItem> {
           bottom: 31,
           child: OptionsItem(
             shareUrl: widget.reel.content,
-            onTap: widget.onTapLike,
+            onTapLike: widget.onTapLike,
             isLiked: widget.reel.isLiked,
             countLike: widget.reel.likeCount,
             countShare: widget.reel.shareCount,

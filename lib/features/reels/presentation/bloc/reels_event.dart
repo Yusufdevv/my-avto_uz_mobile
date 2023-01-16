@@ -27,3 +27,16 @@ class GetReelsEvent extends ReelsEvent {
   @override
   List<Object?> get props => [offset];
 }
+
+class ReelsLike extends ReelsEvent {
+  final int id;
+  final int index;
+
+  const ReelsLike(
+    this.id,
+    this.index,
+  );
+
+  @override
+  List<Object?> get props => [id];
+}
