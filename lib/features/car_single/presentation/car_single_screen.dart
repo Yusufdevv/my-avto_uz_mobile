@@ -129,7 +129,7 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                           iconColor: iconColor,
                           absoluteCarName: state.singleEntity.absoluteCarName,
                           actionState: actionState,
-                          likeId: state.singleEntity.id,
+                          isWishlisted: state.singleEntity.isWishlisted,
                           dealerName: state.singleEntity.user.name,
                           position: state.singleEntity.userType,
                           avatar: state.singleEntity.user.avatar ?? '',
@@ -138,6 +138,8 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                           images: state.singleEntity.gallery,
                           onDealer: () {},
                           onCompare: () {},
+                          onLike:  () {
+                          },
                         ),
                         SliverToBoxAdapter(
                           child: CarNameWidget(

@@ -1,11 +1,9 @@
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/features/car_single/presentation/widgets/more_actions_bottomsheet.dart';
 import 'package:auto/features/car_single/presentation/widgets/sliver_images_item.dart';
-import 'package:auto/features/common/bloc/wishlist_add/wishlist_add_bloc.dart';
 import 'package:auto/features/search/presentation/widgets/add_wishlist_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -14,7 +12,8 @@ class SliverAppBarItem extends StatefulWidget {
   final Color iconColor;
   final String absoluteCarName;
   final CrossFadeState actionState;
-  final int likeId;
+  final bool isWishlisted;
+  final VoidCallback onLike;
   final List images;
   final String dealerName;
   final String position;
@@ -29,7 +28,7 @@ class SliverAppBarItem extends StatefulWidget {
     required this.iconColor,
     required this.absoluteCarName,
     required this.actionState,
-    required this.likeId,
+    required this.isWishlisted,
     required this.dealerName,
     required this.position,
     required this.avatar,
@@ -37,6 +36,7 @@ class SliverAppBarItem extends StatefulWidget {
     required this.images,
     required this.onDealer,
     required this.onCompare,
+    required this.onLike,
   }) : super(key: key);
 
   @override
@@ -91,27 +91,8 @@ class _SliverAppBarItemState extends State<SliverAppBarItem> {
             Padding(
               padding: const EdgeInsets.only(left: 8, right: 8),
               child: AddWishlistItem(
-                onTap: () {
-                  if (!isLiked) {
-                    context.read<WishlistAddBloc>().add(
-                          WishlistAddEvent.addWishlist(
-                            widget.likeId,
-                            0,
-                          ),
-                        );
-                    isLiked = true;
-                  } else {
-                    context.read<WishlistAddBloc>().add(
-                          WishlistAddEvent.removeWishlist(
-                            widget.likeId,
-                            0,
-                          ),
-                        );
-                    isLiked = false;
-                  }
-                  setState(() {});
-                },
-                initialLike: isLiked,
+                onTap: widget.onLike,
+                initialLike: widget.isWishlisted,
               ),
             ),
             GestureDetector(
