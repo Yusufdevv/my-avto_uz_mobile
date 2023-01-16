@@ -132,6 +132,7 @@ class AppIcons {
   static const location = 'assets/icons/global/location.svg';
   static const location1 = 'assets/icons/profile/location1.svg';
   static const heart = 'assets/icons/global/heart.svg';
+  static const whitePlusCircle = 'assets/icons/global/white_plus_circle.svg';
   static const scale = 'assets/icons/global/scale.svg';
   static const heartWhite = 'assets/icons/global/heart_white.svg';
   static const closeWhite = 'assets/icons/global/close_white.svg';

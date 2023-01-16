@@ -1,4 +1,3 @@
-import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/features/ads/presentation/pages/ads_screen.dart';
 import 'package:auto/features/commercial/presentation/commercial_screen.dart';
@@ -7,7 +6,6 @@ import 'package:auto/features/common/bloc/get_car_model/get_car_model_bloc.dart'
 import 'package:auto/features/common/bloc/get_makes_bloc/get_makes_bloc_bloc.dart';
 import 'package:auto/features/common/bloc/wishlist_add/wishlist_add_bloc.dart';
 
-import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/comparison/presentation/pages/choose_car_brand.dart';
 import 'package:auto/features/dealers/presentation/dealers_main.dart';
 import 'package:auto/features/main/domain/entities/service_entity.dart';
@@ -16,25 +14,22 @@ import 'package:auto/features/main/domain/usecases/get_top_brand.dart';
 import 'package:auto/features/main/presentation/bloc/main_bloc.dart';
 import 'package:auto/features/main/presentation/bloc/top_ad/top_ad_bloc.dart';
 import 'package:auto/features/main/presentation/bloc/top_brand/top_brand_bloc.dart';
-import 'package:auto/features/main/presentation/parts/favorites.dart';
+import 'package:auto/features/main/presentation/parts/main_favorites.dart';
+import 'package:auto/features/main/presentation/parts/main_map_part.dart';
 import 'package:auto/features/main/presentation/parts/stories.dart';
 import 'package:auto/features/main/presentation/parts/top_ads.dart';
 import 'package:auto/features/main/presentation/parts/top_brands.dart';
 import 'package:auto/features/main/presentation/widgets/car_model_item.dart';
+import 'package:auto/features/main/presentation/widgets/create_ad_button.dart';
 import 'package:auto/features/main/presentation/widgets/deal_button.dart';
-import 'package:auto/features/main/presentation/widgets/main_favourite_item.dart';
 import 'package:auto/features/main/presentation/widgets/main_app_bar.dart';
 import 'package:auto/features/main/presentation/widgets/service_item.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/reels/presentation/pages/reels_screen.dart';
 import 'package:auto/features/rent/presentation/rent_screen.dart';
-import 'package:auto/generated/locale_keys.g.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:formz/formz.dart';
-import 'package:yandex_mapkit/yandex_mapkit.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -140,7 +135,7 @@ class _MainScreenState extends State<MainScreen> {
             appBar: const MainAppBar(),
             body: BlocBuilder<AnnouncementListBloc, AnnouncementListState>(
               builder: (context, stateAnnounc) => SingleChildScrollView(
-                padding: const EdgeInsets.symmetric(vertical: 20),
+                padding: const EdgeInsets.only(top: 20, bottom: 24),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -214,64 +209,17 @@ class _MainScreenState extends State<MainScreen> {
                       listener: (context, stateWish) {
                         if (stateWish.addStatus.isSubmissionSuccess ||
                             stateWish.removeStatus.isSubmissionSuccess) {
-                          // context.read<TopAdBloc>().add(TopAdEvent.changeIsWish(
-                          //     index: stateWish.index, id: stateWish.id));
                           context.read<TopAdBloc>().add(TopAdEvent.getFavorites(
                               endpoint: '/users/wishlist/announcement/list/'));
-                              context
-                        .read<WishlistAddBloc>()
-                        .add(WishlistAddEvent.clearState());
+                          context
+                              .read<WishlistAddBloc>()
+                              .add(WishlistAddEvent.clearState());
                         }
                       },
-                      child: Favorites(),
+                      child: MainFavorites(),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: SizedBox(
-                        height: 191,
-                        child: Stack(
-                          alignment: AlignmentDirectional.bottomStart,
-                          children: [
-                            const YandexMap(),
-                            WButton(
-                              onTap: () =>
-                                  Navigator.of(context, rootNavigator: true)
-                                      .push(
-                                MaterialPageRoute(
-                                  builder: (_) => const DealerScreen(),
-                                ),
-                              ),
-                              margin: const EdgeInsets.symmetric(
-                                  horizontal: 16, vertical: 15),
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 15),
-                              height: 44,
-                              color: white,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  SvgPicture.asset(
-                                    AppIcons.mapPin,
-                                    color: purple,
-                                    height: 15,
-                                    width: 13,
-                                  ),
-                                  const SizedBox(width: 12),
-                                  const Text(
-                                    'Показать всех дилеров',
-                                    style: TextStyle(
-                                      color: black,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
+                    const MainMapPart(),
+                  const  CreateAdButton(),
                   ],
                 ),
               ),
@@ -280,3 +228,4 @@ class _MainScreenState extends State<MainScreen> {
         ),
       );
 }
+

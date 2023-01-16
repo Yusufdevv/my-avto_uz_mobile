@@ -63,10 +63,6 @@ class TopAds extends StatelessWidget {
                               currency: state.topAds[index].currency,
                               isLiked: state.topAds[index].isWishlisted,
                               onTapLike: () {
-                                // context.read<TopAdBloc>().add(
-                                //     TopAdEvent.changeIsWish(
-                                //         index: stateWish.index,
-                                //         id: stateWish.id));
                                 context.read<WishlistAddBloc>().add(
                                     state.topAds[index].isWishlisted
                                         ? WishlistAddEvent.removeWishlist(

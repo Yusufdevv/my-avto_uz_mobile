@@ -9,14 +9,14 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-class FavouriteItem extends StatelessWidget {
-  const FavouriteItem({Key? key}) : super(key: key);
+class MainEmptyFavourite extends StatelessWidget {
+  const MainEmptyFavourite({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) => Container(
         height: MediaQuery.of(context).size.height * 0.16,
         width: double.maxFinite,
-        margin: const EdgeInsets.fromLTRB(16, 8, 16, 16),
+        margin: const EdgeInsets.fromLTRB(16, 8, 16, 0),
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
