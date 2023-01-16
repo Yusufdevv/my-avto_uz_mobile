@@ -5,6 +5,7 @@ import 'package:auto/features/login/domain/usecases/send_code.dart';
 import 'package:auto/features/login/domain/usecases/verify_code.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:formz/formz.dart';
 
 part 'verification_event.dart';
@@ -16,7 +17,8 @@ class VerificationBloc extends Bloc<VerificationEvent, VerificationState> {
   final VerifyCodeUseCase verifyCodeUseCase;
   VerificationBloc(
       {required this.sendCodeUseCase, required this.verifyCodeUseCase})
-      : super(const VerificationState(status: FormzStatus.pure)) {
+      : super(VerificationState(
+            status: FormzStatus.pure)) {
     on<VerificationSendCodeEvent>(_sendCode);
   }
   FutureOr<void> _sendCode(

@@ -76,6 +76,8 @@ class _AllMarksWithAnnouncementsState extends State<AllMarksWithAnnouncements> {
                             context,
                             fade(
                               page: SingleMarkAnnouncements(
+                                dealerSlug: widget.slug,
+                                markSlug: state.marks[index].make.slug,
                                 carMark: state.marks[index].make.name,
                               ),
                             ),

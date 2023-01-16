@@ -214,11 +214,6 @@ class _PostingAdScreenState extends State<PostingAdScreen>
               ),
               body: Stack(
                 children: [
-                  // if (state.page == PostingAd.make) ...{
-                  //   ChooseCarBrand(bloc: postingAdBloc),
-                  // } else if (state.page == PostingAd.model) ...{
-                  //   ChooseCarModelScreen(makeId: state.selectedMakeId ?? -1)
-                  // },
                   PageView(
                     controller: pageController,
                     physics: const NeverScrollableScrollPhysics(),
@@ -271,7 +266,6 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                       PreviewScreen()
                     ],
                   ),
-
                   if (currentTabIndex < tabLength - 1) ...{
                     Positioned(
                       bottom: 16,

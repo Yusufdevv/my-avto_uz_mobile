@@ -7,11 +7,14 @@ class RentToBuyEvent {
   final String? monthlyPay;
   final String title;
   final int step;
-  RentToBuyEvent(
-      {required this.step,
-      required this.title,
-      this.month,
-      this.monthlyPay,
-      this.startingPay,
-      this.minimumSumma});
+  TextEditingController controller;
+  RentToBuyEvent({
+    required this.step,
+    required this.title,
+    required this.controller,
+    this.month,
+    this.monthlyPay,
+    this.startingPay,
+    this.minimumSumma,
+  });
 }

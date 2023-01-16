@@ -18,7 +18,6 @@ class RentToBuySheet extends StatefulWidget {
 }
 
 class _RentToBuySheetState extends State<RentToBuySheet> {
-  TextEditingController controller = TextEditingController();
   late RentToBuyBloc rentToBuyBloc;
   @override
   void initState() {
@@ -93,7 +92,7 @@ class _RentToBuySheetState extends State<RentToBuySheet> {
                           .textTheme
                           .headline1!
                           .copyWith(fontSize: 24, fontWeight: FontWeight.w400),
-                      controller: controller,
+                      controller: state.controller,
                       decoration: InputDecoration(
                         errorBorder: _border(),
                         enabledBorder: _border(),
@@ -114,10 +113,13 @@ class _RentToBuySheetState extends State<RentToBuySheet> {
                             rentToBuyBloc.add(RentToBuyEvent(
                                 title: 'Срок аренды (в месяцах)',
                                 step: state.step + 1,
-                                startingPay: controller.text));
+                                controller: TextEditingController(),
+                                startingPay: state.controller.text));
                             break;
                           case 2:
                             rentToBuyBloc.add(RentToBuyEvent(
+                              monthlyPay: state.controller.text,
+                              controller: TextEditingController(),
                               title: 'Ежемесячная оплата',
                               step: state.step + 1,
                             ));
@@ -126,7 +128,7 @@ class _RentToBuySheetState extends State<RentToBuySheet> {
                         }
                         return;
                       }
-                      Navigator.of(context).pop(controller.text);
+                      Navigator.of(context).pop(state.controller.text);
                     },
                     content: Text(
                       'Продолжить',

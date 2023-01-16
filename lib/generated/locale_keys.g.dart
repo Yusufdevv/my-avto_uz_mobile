@@ -325,5 +325,10 @@ abstract class  LocaleKeys {
   static const all_cars = 'all_cars';
   static const create_add = 'create_add';
   static const show_all_dealers = 'show_all_dealers';
+  static const check = 'check';
+  static const carshering = 'carshering';
+  static const insurance = 'insurance';
+  static const commercial_vehicles = 'commercial_vehicles';
+  static const rent_Car = 'rent_Car';
 
 }
