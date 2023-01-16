@@ -29,7 +29,7 @@ class MainFavorites extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
+                  padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
                   child: Text(
                     LocaleKeys.favorites.tr(),
                     style: Theme.of(context)
@@ -46,6 +46,7 @@ class MainFavorites extends StatelessWidget {
                       : SizedBox(
                           height: MediaQuery.of(context).size.height * 0.34,
                           child: ListView.separated(
+                            physics: const BouncingScrollPhysics(),
                             scrollDirection: Axis.horizontal,
                             padding: const EdgeInsets.symmetric(horizontal: 16),
                             itemBuilder: (context, index) => state

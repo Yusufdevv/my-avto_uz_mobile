@@ -33,6 +33,7 @@ class TopAds extends StatelessWidget {
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.34,
                 child: ListView.separated(
+                    physics: const BouncingScrollPhysics(),
                     scrollDirection: Axis.horizontal,
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     itemBuilder: (context, index) => state
@@ -42,10 +43,12 @@ class TopAds extends StatelessWidget {
                             listener: (context, stateWish) {
                               if (stateWish.addStatus.isSubmissionSuccess ||
                                   stateWish.removeStatus.isSubmissionSuccess) {
-                                    if (stateWish.id==state.topAds[index].id) {
-                                      context.read<TopAdBloc>().add(TopAdEvent.changeIsWish(
-                              index: stateWish.index, id: stateWish.id));
-                                    }
+                                if (stateWish.id == state.topAds[index].id) {
+                                  context.read<TopAdBloc>().add(
+                                      TopAdEvent.changeIsWish(
+                                          index: stateWish.index,
+                                          id: stateWish.id));
+                                }
                                 context
                                     .read<WishlistAddBloc>()
                                     .add(WishlistAddEvent.clearState());

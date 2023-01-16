@@ -32,7 +32,7 @@ class ServiceItem extends StatelessWidget {
             children: [
               SvgPicture.asset(serviceEntity.icon),
               const SizedBox(
-                width: 8,
+                width: 8
               ),
               Text(
                 serviceEntity.title,

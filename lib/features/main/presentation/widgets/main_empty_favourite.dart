@@ -16,7 +16,7 @@ class MainEmptyFavourite extends StatelessWidget {
   Widget build(BuildContext context) => Container(
         height: MediaQuery.of(context).size.height * 0.16,
         width: double.maxFinite,
-        margin: const EdgeInsets.fromLTRB(16, 8, 16, 0),
+        margin: const EdgeInsets.fromLTRB(16, 0, 16, 0),
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
