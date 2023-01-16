@@ -135,7 +135,6 @@ class _AppState extends State<App> {
             SizeConfig().init(context);
             return BlocListener<AuthenticationBloc, AuthenticationState>(
               listener: (context, state) {
-              
                 switch (state.status) {
                   case AuthenticationStatus.unauthenticated:
                     if (!StorageRepository.getBool('onboarding',
@@ -153,8 +152,7 @@ class _AppState extends State<App> {
                               registerUseCase: RegisterUseCase(),
                               verifyCodeUseCase: VerifyCodeUseCase(),
                             ),
-                            child: const PostingAdScreen(),
-                            // child: const LoginScreen(),
+                            child: const LoginScreen(),
                           ),
                         ),
                         (route) => false);

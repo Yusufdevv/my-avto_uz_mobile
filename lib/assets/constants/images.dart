@@ -8,6 +8,9 @@ class AppImages {
   static const done = 'assets/images/global/done.png';
   static const omg = 'assets/images/global/omg.png';
   static const bmw = 'assets/images/global/bmw.png';
+  static const placeholderImage = 'assets/images/global/placeholder-image.jpg';
+  static const proverka = 'assets/images/global/proverka.png';
+  static const pl = 'assets/images/global/pl.png';
   static const audi = 'assets/images/global/audi.png';
   static const mainMap = 'assets/images/global/main_map.png';
   static const tahoe = 'assets/images/global/tahoe.png';

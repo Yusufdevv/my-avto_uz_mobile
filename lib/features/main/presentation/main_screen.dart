@@ -20,6 +20,7 @@ import 'package:auto/features/main/presentation/parts/stories.dart';
 import 'package:auto/features/main/presentation/parts/top_ads.dart';
 import 'package:auto/features/main/presentation/parts/top_brands.dart';
 import 'package:auto/features/main/presentation/widgets/car_model_item.dart';
+import 'package:auto/features/main/presentation/widgets/check_bottomsheet.dart';
 import 'package:auto/features/main/presentation/widgets/create_ad_button.dart';
 import 'package:auto/features/main/presentation/widgets/deal_button.dart';
 import 'package:auto/features/main/presentation/widgets/main_app_bar.dart';
@@ -80,7 +81,11 @@ class _MainScreenState extends State<MainScreen> {
       ..add(TopBrandEvent.getBrand());
     serviceTaps = [
       () {
-        Navigator.push(context, fade(page: const DealerScreen()));
+        showModalBottomSheet(
+          context: context,
+          builder: (context) => CheckBottomsheet(
+              onTap: () {}),
+        );
       },
       () {
         context
@@ -219,7 +224,7 @@ class _MainScreenState extends State<MainScreen> {
                       child: MainFavorites(),
                     ),
                     const MainMapPart(),
-                  const  CreateAdButton(),
+                    const CreateAdButton(),
                   ],
                 ),
               ),
@@ -228,4 +233,3 @@ class _MainScreenState extends State<MainScreen> {
         ),
       );
 }
-
