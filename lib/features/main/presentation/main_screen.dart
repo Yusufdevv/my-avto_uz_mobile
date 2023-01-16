@@ -28,6 +28,7 @@ import 'package:auto/features/main/presentation/widgets/service_item.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/reels/presentation/pages/reels_screen.dart';
 import 'package:auto/features/rent/presentation/rent_screen.dart';
+import 'package:auto/generated/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
@@ -47,24 +48,27 @@ class _MainScreenState extends State<MainScreen> {
 
   final List<ServiceEntity> serviceEntity = [
     const ServiceEntity(
-      title: 'Проверка',
+      title: LocaleKeys.check,
       icon: AppIcons.verification,
     ),
-    const ServiceEntity(title: 'Объявления', icon: AppIcons.ads),
     const ServiceEntity(
-      title: 'Каршеринг',
+      title: LocaleKeys.ads,
+      icon: AppIcons.ads,
+    ),
+    const ServiceEntity(
+      title: LocaleKeys.carshering,
       icon: AppIcons.carSharing,
     ),
     const ServiceEntity(
-      title: 'Страхование',
+      title: LocaleKeys.insurance,
       icon: AppIcons.insurance,
     ),
     const ServiceEntity(
-      title: 'Коммерческий транспорт',
+      title: LocaleKeys.commercial_vehicles,
       icon: AppIcons.commercialCar,
     ),
     const ServiceEntity(
-      title: 'RentCar',
+      title: LocaleKeys.rent_Car,
       icon: AppIcons.rentCar,
     ),
   ];
@@ -82,9 +86,9 @@ class _MainScreenState extends State<MainScreen> {
     serviceTaps = [
       () {
         showModalBottomSheet(
+          useRootNavigator: true,
           context: context,
-          builder: (context) => CheckBottomsheet(
-              onTap: () {}),
+          builder: (context) => CheckBottomsheet(onTap: () {}),
         );
       },
       () {

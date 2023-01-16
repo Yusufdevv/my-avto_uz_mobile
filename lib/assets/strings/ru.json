@@ -322,5 +322,11 @@
   "phone_number_changed_success" : "Номер телефона успешно изменен",
   "all_cars": "Все автомобили",
   "create_add" : "Создать объявление",
-  "show_all_dealers" : "Показать всех дилеров"
+  "show_all_dealers" : "Показать всех дилеров",
+  "check" : "Проверка",
+  "carshering" : "Каршеринг",
+  "insurance" : "Страхование",
+  "commercial_vehicles" : "Коммерческий транспорт",
+  "rent_Car" : "RentCar"
+
 }

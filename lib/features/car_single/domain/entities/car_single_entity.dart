@@ -9,8 +9,9 @@ import 'package:auto/features/rent/domain/entities/rent_car_generation_entity.da
 import 'package:auto/features/rent/domain/entities/rent_car_make_entity.dart';
 import 'package:auto/features/rent/domain/entities/rent_car_models_entity.dart';
 import 'package:auto/features/rent/domain/entities/rent_car_modification_entity.dart';
+import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
-class CarSingleEntity {
+class CarSingleEntity extends Equatable{
   @JsonKey(defaultValue: 0)
   final int id;
   @RentCarMakeConverter()
@@ -97,7 +98,6 @@ class CarSingleEntity {
   final String userType;
   @JsonKey(defaultValue: false)
   final bool isWishlisted;
-
 
   const CarSingleEntity({
     this.absoluteCarName = '',

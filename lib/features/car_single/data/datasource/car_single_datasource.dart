@@ -22,20 +22,16 @@ class CarSingleDataSourceImpl extends CarSingleDataSource {
   Future<CarSingleModel> getCarSingle({required int id}) async {
     try {
       final response = await _dio.get('/car/announcement/$id/detail/',
-          options: Options(
-              headers: StorageRepository.getString('token').isNotEmpty
-                  ? {
-                      'Authorization':
-                          'Token ${StorageRepository.getString('token')}'
-                    }
-                  : {}));
+          options: Options(headers: {
+          'Authorization': 'Bearer ${StorageRepository.getString('token')}'
+        }),);
       if (response.statusCode != null &&
           response.statusCode! >= 200 &&
           response.statusCode! < 300) {
-        print('SINGLE RESPONSE DATA SINGLE => ${response.data}');
+        print(
+            'SINGLE RESPONSE DATA SINGLE => from model ${CarSingleModel.fromJson(response.data).isWishlisted}');
         return CarSingleModel.fromJson(response.data);
       } else {
-
         throw ServerException(
             statusCode: response.statusCode!,
             errorMessage: response.data.toString());
@@ -59,10 +55,11 @@ class CarSingleDataSourceImpl extends CarSingleDataSource {
   }
 
   @override
-  Future<GenericPagination<ElasticSearchModel>> getOtherAds({required int id}) async {
+  Future<GenericPagination<ElasticSearchModel>> getOtherAds(
+      {required int id}) async {
     try {
       final response = await _dio.get('/es/AnnouncementElasticSearch/',
-          queryParameters: {'car_model':id},
+          queryParameters: {'car_model': id},
           options: Options(headers: {
             'Authorization': 'Token ${StorageRepository.getString('token')}'
           }));
@@ -71,15 +68,15 @@ class CarSingleDataSourceImpl extends CarSingleDataSource {
           response.statusCode! < 300) {
         print('DATA FROM DATASOURCE GET OTHER => ${response.data}');
         return GenericPagination.fromJson(response.data,
-                (p0) => ElasticSearchModel.fromJson(p0 as Map<String, dynamic>));
+            (p0) => ElasticSearchModel.fromJson(p0 as Map<String, dynamic>));
       } else if (response.data is Map) {
         throw ServerException(
             statusCode: response.statusCode!,
             errorMessage: ((response.data as Map).values.isNotEmpty
-                ? (response.data as Map).values.first
-                : 'error while get other ads')
+                    ? (response.data as Map).values.first
+                    : 'error while get other ads')
                 .toString());
-      }  else {
+      } else {
         print('DATASOURCE ERROR GET ADS');
         await StorageRepository.deleteString('token');
       }
