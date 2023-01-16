@@ -2,6 +2,7 @@ import 'package:auto/features/common/bloc/wishlist_add/wishlist_add_bloc.dart';
 import 'package:auto/features/common/repository/auth.dart';
 import 'package:auto/features/comparison/presentation/comparison_page.dart';
 import 'package:auto/features/profile/domain/entities/profile_data_entity.dart';
+import 'package:auto/features/profile/presentation/pages/chat/chat2.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -207,11 +208,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       .push(
                                     fade(
                                         page: ChatPage(
-                                            phone: profileData.phoneNumber!,
-                                            userName: profileData.username ??
-                                                profileData.firstName,
-                                            hasChat: false,
-                                            imageBloc: imageBloc)),
+                                      phone: state.profileEntity.phoneNumber!,
+                                      userName: state.profileEntity.fullName!,
+                                    )
+                                        // ChatPage(
+                                        //     phone: profileData.phoneNumber!,
+                                        //     userName: profileData.username ??
+                                        //         profileData.firstName,
+                                        //     hasChat: false,
+                                        //     imageBloc: imageBloc),
+                                        ),
                                   );
                                 },
                                 iconPath: AppIcons.message),

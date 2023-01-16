@@ -43,6 +43,10 @@ class TopAds extends StatelessWidget {
                             listener: (context, stateWish) {
                               if (stateWish.addStatus.isSubmissionSuccess ||
                                   stateWish.removeStatus.isSubmissionSuccess) {
+                                    if (stateWish.id==state.topAds[index].id) {
+                                      context.read<TopAdBloc>().add(TopAdEvent.changeIsWish(
+                              index: stateWish.index, id: stateWish.id));
+                                    }
                                 context
                                     .read<WishlistAddBloc>()
                                     .add(WishlistAddEvent.clearState());
@@ -60,10 +64,10 @@ class TopAds extends StatelessWidget {
                               currency: state.topAds[index].currency,
                               isLiked: state.topAds[index].isWishlisted,
                               onTapLike: () {
-                                context.read<TopAdBloc>().add(
-                                    TopAdEvent.changeIsWish(
-                                        index: stateWish.index,
-                                        id: stateWish.id));
+                                // context.read<TopAdBloc>().add(
+                                //     TopAdEvent.changeIsWish(
+                                //         index: stateWish.index,
+                                //         id: stateWish.id));
                                 context.read<WishlistAddBloc>().add(
                                     state.topAds[index].isWishlisted
                                         ? WishlistAddEvent.removeWishlist(

@@ -9,6 +9,7 @@ class AppImages {
   static const omg = 'assets/images/global/omg.png';
   static const bmw = 'assets/images/global/bmw.png';
   static const audi = 'assets/images/global/audi.png';
+  static const mainMap = 'assets/images/global/main_map.png';
   static const tahoe = 'assets/images/global/tahoe.png';
   static const clap = 'assets/images/global/clap.png';
   static const magic = 'assets/images/global/magic.png';
