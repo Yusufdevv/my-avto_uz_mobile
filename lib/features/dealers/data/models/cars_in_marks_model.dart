@@ -1,5 +1,7 @@
 import 'package:auto/features/dealers/domain/entities/cars_in_marks_entity.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:auto/features/rent/domain/entities/region_entity.dart';
+
 part 'cars_in_marks_model.g.dart';
 @JsonSerializable(fieldRename: FieldRename.snake)
 class CarsInMarksModel extends CarsInMarksEntity {
