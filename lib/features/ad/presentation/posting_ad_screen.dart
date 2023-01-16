@@ -56,7 +56,7 @@ class _PostingAdScreenState extends State<PostingAdScreen>
     with SingleTickerProviderStateMixin {
   late PageController pageController;
   late PostingAdBloc postingAdBloc;
-  static int initialPage = 15;
+  static int initialPage = 0;
   int currentTabIndex = initialPage;
   final int tabLength = 20;
   @override
@@ -281,6 +281,8 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                         disabledColor: disabledButton,
                         isDisabled: _isDisabled(currentTabIndex, state),
                         onTap: () {
+                          print(
+                              '=>=>=>=> ${currentTabIndex} / ${tabLength} /  <=<=<=<=');
                           if (currentTabIndex < tabLength - 1) {
                             currentTabIndex++;
                             addEvent(currentTabIndex, state);
@@ -308,7 +310,7 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                         left: 16,
                         child: WButton(
                           onTap: () async {
-                            Navigator.pop(context);
+                            // Navigator.pop(context);
                             HomeTabControllerProvider.of(context)
                                 .controller
                                 .animateTo(4);

@@ -76,6 +76,8 @@ class PostingAdChooseEvent extends PostingAdEvent {
   final bool? isCallTimed;
   final bool? showOwnerContacts;
   final bool? isContactsVerified;
+  final bool? rentToBuy;
+  final bool?isWithoutMileage;
 
   PostingAdChooseEvent({
     this.driveTypeId,
@@ -109,6 +111,8 @@ class PostingAdChooseEvent extends PostingAdEvent {
     this.isCallTimed,
     this.showOwnerContacts,
     this.isContactsVerified,
+    this.rentToBuy,
+    this.isWithoutMileage,
   });
 }
 

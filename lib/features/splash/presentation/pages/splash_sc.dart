@@ -18,15 +18,15 @@ class _SplashScState extends State<SplashSc> {
   @override
   void initState() {
     print('intstatega krdi');
-    if (mounted) {
-      _timer = Timer(const Duration(seconds: 5), () async {
-        await Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (context) {
-               print('=>=>=>=> throvine to the first on boarding page <=<=<=<=');
-          return const PostingAdScreen();
-        }));
-      });
-    }
+    // if (mounted) {
+    //   _timer = Timer(const Duration(seconds: 5), () async {
+    //     await Navigator.pushReplacement(context,
+    //         MaterialPageRoute(builder: (context) {
+    //            print('=>=>=>=> throvine to the first on boarding page <=<=<=<=');
+    //       return const PostingAdScreen();
+    //     }));
+    //   });
+    // }
 
     super.initState();
 

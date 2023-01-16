@@ -41,6 +41,8 @@ class PostingAdState extends Equatable {
   final bool isCallTimed;
   final bool? showOwnerContacts;
   final bool? isContactsVerified;
+  final bool? rentToBuy;
+  final bool? isWithoutMileage;
 
   const PostingAdState({
     required this.status,
@@ -83,6 +85,8 @@ class PostingAdState extends Equatable {
     this.isCallTimed = false,
     this.showOwnerContacts,
     this.isContactsVerified,
+    this.rentToBuy,
+    this.isWithoutMileage,
   });
   PostingAdState copyWith({
     FormzStatus? status,
@@ -126,6 +130,8 @@ class PostingAdState extends Equatable {
     bool isSortByLetter = false,
     bool? showOwnerContacts,
     bool? isContactsVerified,
+    bool? rentToBuy,
+    bool? isWithoutMileage,
   }) =>
       PostingAdState(
         city: city ?? this.city,
@@ -168,9 +174,13 @@ class PostingAdState extends Equatable {
         isCallTimed: isCallTimed ?? this.isCallTimed,
         showOwnerContacts: showOwnerContacts ?? this.showOwnerContacts,
         isContactsVerified: isContactsVerified ?? this.isContactsVerified,
+        rentToBuy: rentToBuy ?? this.rentToBuy,
+        isWithoutMileage: isWithoutMileage ?? this.isWithoutMileage,
       );
   @override
   List<Object?> get props => [
+        isWithoutMileage,
+        rentToBuy,
         callTimeTo,
         callTimeFrom,
         city,

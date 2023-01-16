@@ -12,7 +12,7 @@ class MileageImageBloc extends Bloc<MileageImageEvent, MileageImageState> {
   MileageImageBloc() : super(const MileageImageState(image: '')) {
     on<PickMileageImage>((event, emit) async {
       final image = await imagePicker.pickImage(source: ImageSource.camera);
-      if(image != null){
+      if (image != null) {
         emit(state.copyWith(image: image.path));
       }
     });

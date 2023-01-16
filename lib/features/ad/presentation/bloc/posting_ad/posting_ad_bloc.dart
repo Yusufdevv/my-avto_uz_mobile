@@ -250,6 +250,8 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
   void _choose(PostingAdChooseEvent event, Emitter<PostingAdState> emit) {
     emit(
       state.copyWith(
+        isWithoutMileage: event.isWithoutMileage,
+        rentToBuy: event.rentToBuy,
         isContactsVerified: event.isContactsVerified,
         showOwnerContacts: event.showOwnerContacts,
         isCallTimed: event.isCallTimed,
