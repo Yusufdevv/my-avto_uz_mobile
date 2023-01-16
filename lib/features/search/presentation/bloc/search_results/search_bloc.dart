@@ -67,14 +67,6 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
         );
       }
     });
-    on<_DeleteResultItem>(_onChangeIsWish);
-
   }
-  void _onChangeIsWish(_DeleteResultItem event, Emitter<SearchState> emit) {
-    var list = <AutoEntity>[...state.searchResults];
-    final item = list.firstWhere((element) => element.id==event.id);
-    final index = list.indexOf(item);
-    list[index].isWishlisted = !list[index].isWishlisted;
-    emit(state.copyWith(searchResults: list));
-  }
+  
 }

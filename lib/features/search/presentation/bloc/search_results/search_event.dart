@@ -20,6 +20,5 @@ class SearchEvent with _$SearchEvent {
       _SelectLocaleSuggestion;
 
   factory SearchEvent.changeStatus() = _ChangeStatus;
-  factory SearchEvent.deleteResultItem({required int id, required bool adding})=_DeleteResultItem;
   
 }

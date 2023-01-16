@@ -214,8 +214,8 @@ class _MainScreenState extends State<MainScreen> {
                       listener: (context, stateWish) {
                         if (stateWish.addStatus.isSubmissionSuccess ||
                             stateWish.removeStatus.isSubmissionSuccess) {
-                          context.read<TopAdBloc>().add(TopAdEvent.changeIsWish(
-                              index: stateWish.index, id: stateWish.id));
+                          // context.read<TopAdBloc>().add(TopAdEvent.changeIsWish(
+                          //     index: stateWish.index, id: stateWish.id));
                           context.read<TopAdBloc>().add(TopAdEvent.getFavorites(
                               endpoint: '/users/wishlist/announcement/list/'));
                               context
