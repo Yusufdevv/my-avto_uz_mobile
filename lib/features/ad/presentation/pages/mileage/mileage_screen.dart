@@ -50,27 +50,45 @@ class _MileageScreenState extends State<MileageScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      WTextField(
-                        maxLength: 6,
-                        hideCounterText: true,
-                        onChanged: (value) => context
-                            .read<PostingAdBloc>()
-                            .add(PostingAdChooseEvent(mileage: value)),
-                        title: 'Пробег',
-                        hintText: '0 km',
-                        borderRadius: 12,
-                        keyBoardType: TextInputType.number,
-                        controller: mileageController,
-                        fillColor: Theme.of(context)
-                            .extension<WTextFieldStyle>()!
-                            .fillColor,
-                        focusColor: Theme.of(context)
-                            .extension<WTextFieldStyle>()!
-                            .fillColor,
-                        disabledColor: Theme.of(context)
-                            .extension<WTextFieldStyle>()!
-                            .fillColor,
+                      SwitcherRow(
+                        title: 'Без пробега',
+                        value: context
+                                .watch<PostingAdBloc>()
+                                .state
+                                .isWithoutMileage ??
+                            false,
+                        onChanged: (v) => context.read<PostingAdBloc>().add(
+                              PostingAdChooseEvent(isWithoutMileage: v),
+                            ),
                       ),
+                      const SizedBox(height: 21),
+                      if (!(context
+                              .watch<PostingAdBloc>()
+                              .state
+                              .isWithoutMileage ??
+                          false)) ...{
+                        WTextField(
+                          maxLength: 6,
+                          hideCounterText: true,
+                          onChanged: (value) => context
+                              .read<PostingAdBloc>()
+                              .add(PostingAdChooseEvent(mileage: value)),
+                          title: 'Пробег',
+                          hintText: '0 km',
+                          borderRadius: 12,
+                          keyBoardType: TextInputType.number,
+                          controller: mileageController,
+                          fillColor: Theme.of(context)
+                              .extension<WTextFieldStyle>()!
+                              .fillColor,
+                          focusColor: Theme.of(context)
+                              .extension<WTextFieldStyle>()!
+                              .fillColor,
+                          disabledColor: Theme.of(context)
+                              .extension<WTextFieldStyle>()!
+                              .fillColor,
+                        ),
+                      },
                       const SizedBox(
                         height: 20,
                       ),
@@ -88,8 +106,6 @@ class _MileageScreenState extends State<MileageScreen> {
                       const SizedBox(
                         height: 20,
                       ),
-                      SwitcherRow(
-                          title: 'Без пробега', value: true, onChanged: (v) {}),
                     ],
                   ),
                 ),

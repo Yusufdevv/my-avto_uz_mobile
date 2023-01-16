@@ -64,32 +64,34 @@ class _EngineScreenState extends State<EngineScreen> {
               } else ...{
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: GestureDetector(
-                    onTap: () {
-                      showModalBottomSheet<String>(
-                        context: context,
-                        useRootNavigator: true,
-                        backgroundColor: LightThemeColors.appBarColor,
-                        shape: const RoundedRectangleBorder(
-                          borderRadius:
-                              BorderRadius.vertical(top: Radius.circular(20)),
-                        ),
-                        clipBehavior: Clip.hardEdge,
-                        builder: (context) => SelectGasBalloonTypeSheet(
-                          selected: state.gasBalloonType,
-                        ),
-                      ).then((value) {
-                        print('=>=>=>=> $value <=<=<=<=');
-                        context.read<PostingAdBloc>().add(PostingAdChooseEvent(
-                            hasGasBalloon: value != null && value.isNotEmpty,
-                            gasBalloonType: value));
-                      });
-                    },
-                    child: SwitcherRow(
-                        value: false,
-                        onChanged: (v) {},
-                        title: 'Газобаллонное оборудование'),
-                  ),
+                  child: SwitcherRow(
+                      value: false,
+                      onChanged: (v) => context
+                          .read<PostingAdBloc>()
+                          .add(PostingAdChooseEvent(hasGasBalloon: v)),
+                      onTap: () {
+                        showModalBottomSheet<String>(
+                          context: context,
+                          useRootNavigator: true,
+                          backgroundColor: LightThemeColors.appBarColor,
+                          shape: const RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.vertical(top: Radius.circular(20)),
+                          ),
+                          clipBehavior: Clip.hardEdge,
+                          builder: (context) => SelectGasBalloonTypeSheet(
+                            selected: state.gasBalloonType,
+                          ),
+                        ).then((value) {
+                          print('=>=>=>=> $value <=<=<=<=');
+                          context.read<PostingAdBloc>().add(
+                              PostingAdChooseEvent(
+                                  hasGasBalloon:
+                                      value != null && value.isNotEmpty,
+                                  gasBalloonType: value));
+                        });
+                      },
+                      title: 'Газобаллонное оборудование'),
                 )
               }
             ],

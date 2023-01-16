@@ -40,7 +40,15 @@ class PreviewScreen extends StatelessWidget {
             physics: const BouncingScrollPhysics(),
             padding: const EdgeInsets.only(bottom: 50),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 16, left: 16, bottom: 12),
+                  child: Text(
+                    'Финальный предосмотр',
+                    style: Theme.of(context).textTheme.headline1,
+                  ),
+                ),
                 ImageViewer(images: previews[0].images),
                 const SizedBox(height: 12),
                 CarModelText(text: previews[0].carModel),
@@ -50,46 +58,43 @@ class PreviewScreen extends StatelessWidget {
                 const SizedBox(height: 8),
                 IdRow(previews: previews),
                 Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: Divider(
-                    color: Theme.of(context).dividerColor,
-                  ),
-                ),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 16, vertical: 16),
+                    child: Divider(
+                        height: 1, color: Theme.of(context).dividerColor)),
                 CarInfoRow(
-                  title: 'Год выпуска',
-                  info: '${state.yearsEntity?.yearBegin}',
-                ),
+                    title: 'Год выпуска',
+                    info: '${state.yearsEntity?.yearBegin}'),
+                CarInfoRow(title: 'Пробег', info: '${state.mileage}'),
                 CarInfoRow(
-                  title: 'Пробег',
-                  info: '${state.mileage}',
-                ),
-                CarInfoRow(
-                  title: 'Кузов',
-                  info:
-                      state.bodyTypes.isEmpty?'not selected':state.bodyTypes.firstWhere((e) => e.id == state.bodyTypeId).type,
-                ),
+                    title: 'Кузов',
+                    info: state.bodyTypes.isEmpty
+                        ? 'not selected'
+                        : state.bodyTypes
+                            .firstWhere((e) => e.id == state.bodyTypeId)
+                            .type),
                 CarInfoRow(
                   title: 'Цвет',
                   info: '${state.colorName}',
                 ),
-                const CarInfoRow(
-                  title: 'Комплектация',
-                  info: 'hsergfd',
-                ),
+                const CarInfoRow(title: 'Комплектация', info: 'hsergfd'),
                 CarInfoRow(
                   title: 'Объем двигателя, л',
                   info: '${state.yearsEntity?.yearBegin ?? 'hsergfd'}',
                 ),
                 CarInfoRow(
                   title: 'Коробка передач',
-                  info:
-                      state.gearBoxes.isEmpty?'not selected':state.gearBoxes.firstWhere((e) => e.id == state.gearboxId).type,
+                  info: state.gearBoxes.isEmpty
+                      ? 'not selected'
+                      : state.gearBoxes
+                          .firstWhere((e) => e.id == state.gearboxId)
+                          .type,
                 ),
                 CarInfoRow(
                   title: 'Растаможен в Узбекистане',
                   info: state.isRastamojen ? 'Да' : 'Нет',
                 ),
-                const SizedBox(height: 200)
+                const SizedBox(height: 36)
               ],
             ),
           ),
