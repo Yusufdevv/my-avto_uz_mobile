@@ -1,5 +1,7 @@
+import 'package:auto/core/usecases/usecase.dart';
 import 'package:auto/features/ad/domain/entities/types/make.dart';
 import 'package:auto/features/ad/domain/usecases/get_makes.dart';
+import 'package:auto/features/ad/domain/usecases/get_top_makes.dart';
 import 'package:bloc/bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -9,10 +11,12 @@ part 'get_makes_bloc_state.dart';
 part 'get_makes_bloc_bloc.freezed.dart';
 
 class GetMakesBloc extends Bloc<GetMakesBlocEvent, GetMakesState> {
-  final int selectedMakeId;
   final GetMakesUseCase useCase;
-  GetMakesBloc({required this.useCase, required this.selectedMakeId})
-      : super(GetMakesState(selectId: selectedMakeId)) {
+  final GetTopMakesUseCase topUseCase;
+  GetMakesBloc({
+    required this.useCase,
+    required this.topUseCase,
+  }) : super(GetMakesState()) {
     on<_ChangeSelected>((event, emit) {
       emit(state.copyWith(selectId: event.id));
     });
@@ -37,6 +41,20 @@ class GetMakesBloc extends Bloc<GetMakesBlocEvent, GetMakesState> {
             status: FormzStatus.submissionSuccess,
             count: result.right.count,
             next: result.right.next,
+          ),
+        );
+      } else {
+        emit(state.copyWith(status: FormzStatus.submissionFailure));
+      }
+    });
+    on<_GetTopMakes>((event, emit) async {
+      emit(state.copyWith(statusTop: FormzStatus.submissionInProgress));
+      final result = await topUseCase.call('');
+      if (result.isRight) {
+        emit(
+          state.copyWith(
+            topMakes: result.right.results,
+            statusTop: FormzStatus.submissionSuccess,
           ),
         );
       } else {

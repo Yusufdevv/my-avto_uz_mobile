@@ -1,14 +1,13 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
-import 'package:auto/features/common/widgets/hight_light.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class CarBrandContainer extends StatelessWidget {
   final String title;
   final String imageUrl;
-  final String text;
   final bool hasShadow;
 
   const CarBrandContainer({
@@ -16,7 +15,6 @@ class CarBrandContainer extends StatelessWidget {
     Key? key,
     required this.title,
     required this.imageUrl,
-    required this.text,
   }) : super(key: key);
 
   @override
@@ -54,24 +52,17 @@ class CarBrandContainer extends StatelessWidget {
                 fit: BoxFit.cover,
               )
             else
-              Image.network(
-                imageUrl,
+              CachedNetworkImage(
+                imageUrl: imageUrl,
                 height: 40,
                 fit: BoxFit.cover,
               ),
             const SizedBox(height: 8),
-            HighlightedText(
-              allText: title,
-              highlightedText: '',
-              terms: text.split(' '),
+            Text(
+              title,
               maxLines: 2,
               textAlign: TextAlign.center,
-              highlightColor: const Color.fromARGB(255, 249, 228, 145),
-              textStyle: Theme.of(context)
-                  .textTheme
-                  .headline1!
-                  .copyWith(fontSize: 12, fontWeight: FontWeight.w400),
-              textStyleHighlight: Theme.of(context)
+              style: Theme.of(context)
                   .textTheme
                   .headline1!
                   .copyWith(fontSize: 12, fontWeight: FontWeight.w400),

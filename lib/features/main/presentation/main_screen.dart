@@ -215,7 +215,17 @@ class _MainScreenState extends State<MainScreen> {
                             .copyWith(fontSize: 18),
                       ),
                     ),
-                    const FavouriteItem(),
+                    FavouriteItem(
+                      currency: '',
+                      description: '',
+                      id: 0,
+                      image: '',
+                      isLiked: false,
+                      location: '',
+                      name: '',
+                      onTapLike: () {},
+                      price: '',
+                    ),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16),
                       child: SizedBox(

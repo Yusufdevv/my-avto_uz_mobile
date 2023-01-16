@@ -34,7 +34,7 @@ class TopBrands extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               Container(
-                color: Theme.of(context).scaffoldBackgroundColor,
+                color: Theme.of(context).dialogBackgroundColor,
                 height: 100,
                 child: ListView.separated(
                   padding: const EdgeInsets.symmetric(horizontal: 16),

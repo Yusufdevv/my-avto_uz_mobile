@@ -29,18 +29,20 @@ class TopAds extends StatelessWidget {
                       .copyWith(fontSize: 18),
                 ),
               ),
-              const SizedBox(height: 8),
+              const SizedBox(height: 12),
               BlocConsumer<WishlistAddBloc, WishlistAddState>(
                 listener: (context, stateWish) {
                   if (stateWish.addStatus.isSubmissionSuccess ||
                       stateWish.removeStatus.isSubmissionSuccess) {
                     context.read<TopAdBloc>().add(TopAdEvent.changeIsWish(
                         index: stateWish.index, id: stateWish.id));
-                    context.read<WishlistAddBloc>().add(WishlistAddEvent.clearState());
+                    context
+                        .read<WishlistAddBloc>()
+                        .add(WishlistAddEvent.clearState());
                   }
                 },
                 builder: (context, stateWish) => SizedBox(
-                  height: 276,
+                  height: 271,
                   child: ListView.separated(
                     scrollDirection: Axis.horizontal,
                     padding: const EdgeInsets.symmetric(horizontal: 16),

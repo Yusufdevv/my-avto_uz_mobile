@@ -6,6 +6,7 @@ import 'package:auto/features/ad/domain/entities/types/body_type.dart';
 import 'package:auto/features/ad/domain/entities/types/drive_type.dart';
 import 'package:auto/features/ad/domain/entities/types/engine_type.dart';
 import 'package:auto/features/ad/domain/entities/types/gearbox_type.dart';
+import 'package:auto/features/ad/domain/entities/types/make.dart';
 import 'package:auto/features/ad/domain/entities/types/modification_type.dart';
 import 'package:auto/features/ad/domain/entities/years/years.dart';
 import 'package:auto/features/common/entities/makes_entity.dart';
@@ -14,8 +15,8 @@ import 'package:auto/features/pagination/models/generic_pagination.dart';
 import 'package:dio/dio.dart';
 
 abstract class AdRepository {
-  // Future<Either<Failure, GenericPagination<MakeEntity>>> getTopMakes(
-  //     {String? next});
+  Future<Either<Failure, GenericPagination<MakeEntity>>> getTopMakes(
+      {String? next});
   Future<Either<Failure, GetMakeEntity>> getMake({String? name});
 
   Future<Either<Failure, GetMakeEntity>> getCarModel(int makeId,

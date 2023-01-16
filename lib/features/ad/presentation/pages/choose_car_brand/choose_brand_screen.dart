@@ -6,6 +6,7 @@ import 'package:auto/features/ad/data/repositories/ad_repository_impl.dart';
 import 'package:auto/features/ad/domain/entities/choose_car_brand/change_car_entity.dart';
 import 'package:auto/features/ad/domain/entities/types/make.dart';
 import 'package:auto/features/ad/domain/usecases/get_makes.dart';
+import 'package:auto/features/ad/domain/usecases/get_top_makes.dart';
 import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.dart';
 import 'package:auto/features/ad/presentation/pages/choose_car_brand/widget/car_items.dart';
 import 'package:auto/features/ad/presentation/pages/choose_car_brand/widget/persistant_header.dart';
@@ -46,11 +47,12 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
       ..add(TopBrandEvent.getBrand());
     searchController = TextEditingController();
     getMakesBloc = GetMakesBloc(
-        useCase: GetMakesUseCase(
-          repository: serviceLocator<AdRepositoryImpl>(),
-        ),
-        selectedMakeId: -1)
-      ..add(GetMakesBlocEvent.getMakes());
+      topUseCase:
+          GetTopMakesUseCase(repository: serviceLocator<AdRepositoryImpl>()),
+      useCase: GetMakesUseCase(
+        repository: serviceLocator<AdRepositoryImpl>(),
+      ),
+    )..add(GetMakesBlocEvent.getMakes());
     super.initState();
   }
 

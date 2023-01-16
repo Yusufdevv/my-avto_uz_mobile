@@ -129,11 +129,10 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
                               scrollDirection: Axis.horizontal,
                               itemBuilder: (context, index) =>
                                   CarBrandContainer(
-                                imageUrl: state.makes[index].logo,
-                                title: state.makes[index].name,
-                                text: state.search,
+                                imageUrl: state.topMakes[index].logo,
+                                title: state.topMakes[index].name,
                               ),
-                              itemCount: state.makes.length,
+                              itemCount: state.topMakes.length,
                             ),
                           ),
                         ),

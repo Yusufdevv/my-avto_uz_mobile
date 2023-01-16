@@ -1,91 +1,158 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
-import 'package:auto/features/common/widgets/w_button.dart';
-import 'package:auto/generated/locale_keys.g.dart';
-import 'package:easy_localization/easy_localization.dart';
+import 'package:auto/features/car_single/presentation/car_single_screen.dart';
+import 'package:auto/features/navigation/presentation/navigator.dart';
+import 'package:auto/features/search/presentation/widgets/add_wishlist_item.dart';
+import 'package:auto/utils/my_functions.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class FavouriteItem extends StatelessWidget {
-  const FavouriteItem({Key? key}) : super(key: key);
+  final int id;
+  final String name;
+  final String image;
+  final String price;
+  final String location;
+  final String description;
+  final String currency;
+  final bool isLiked;
+  final VoidCallback onTapLike;
+  const FavouriteItem({
+    required this.id,
+    required this.name,
+    required this.price,
+    required this.location,
+    required this.description,
+    required this.image,
+    required this.currency,
+    required this.isLiked,
+    required this.onTapLike,
+    Key? key,
+  }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => Container(
-        margin: const EdgeInsets.fromLTRB(16, 8, 16, 16),
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12),
-          color:
-              Theme.of(context).extension<ThemedColors>()!.whiteLilacToWhite4,
-          border: Border.all(
-            width: 1,
+  Widget build(BuildContext context) => GestureDetector(
+        onTap: () {
+          Navigator.of(context, rootNavigator: true)
+              .push(fade(page: const CarSingleScreen()));
+        },
+        child: Container(
+          height: 270,
+          width: 225,
+          padding: const EdgeInsets.only(right: 4),
+          decoration: BoxDecoration(
+            boxShadow: [
+              BoxShadow(
+                blurRadius: 19,
+                spreadRadius: 0,
+                offset: const Offset(0, 4),
+                color: dark.withOpacity(.04),
+              ),
+            ],
+            borderRadius: BorderRadius.circular(12),
             color:
-                Theme.of(context).extension<ThemedColors>()!.solitudeToDolphin8,
+                Theme.of(context).extension<ThemedColors>()!.whiteToSecondNero,
           ),
-        ),
-        child: Column(
-          children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(4),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(6),
-                      color: orange,
-                      boxShadow: [
-                        BoxShadow(
-                          offset: const Offset(2, 2),
-                          blurRadius: 3,
-                          color: white.withOpacity(.24),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: 126,
+                width: 225,
+                child: ClipRRect(
+                    borderRadius: const BorderRadius.only(
+                      topRight: Radius.circular(12),
+                      topLeft: Radius.circular(12),
+                    ),
+                    child: CachedNetworkImage(
+                      imageUrl: image,
+                      fit: BoxFit.cover,
+                      errorWidget: (context, url, error) => Image.asset(
+                        AppImages.defaultPhoto,
+                        fit: BoxFit.cover,
+                      ),
+                    )),
+              ),
+              const SizedBox(height: 12),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Text(
+                  name,
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline3
+                      ?.copyWith(fontWeight: FontWeight.w600, fontSize: 12),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Text(
+                  '${MyFunctions.getFormatCost(price)} $currency',
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline1
+                      ?.copyWith(fontSize: 16, fontWeight: FontWeight.w700),
+                ),
+              ),
+              const SizedBox(height: 8),
+              Container(
+                height: 32,
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Text(
+                  description,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                      color: Theme.of(context)
+                          .extension<ThemedColors>()
+                          ?.greySuitToWhite60),
+                ),
+              ),
+              Container(
+                height: 1,
+                margin: const EdgeInsets.only(left: 16, top: 12, bottom: 8),
+                color: Theme.of(context)
+                    .extension<ThemedColors>()!
+                    .solitudeToWhite35,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(right: 12, left: 16, bottom: 8),
+                child: Row(
+                  children: [
+                    Row(
+                      children: [
+                        SvgPicture.asset(
+                          AppIcons.location,
+                          height: 16,
+                          fit: BoxFit.cover,
                         ),
-                      ]),
-                  child: SvgPicture.asset(AppIcons.heartWhite),
+                        const SizedBox(width: 4),
+                        Text(
+                          location,
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline6!
+                              .copyWith(
+                                  fontSize: 12,
+                                  color: Theme.of(context)
+                                      .extension<ThemedColors>()!
+                                      .dolphinToGreySuit),
+                        )
+                      ],
+                    ),
+                    const Spacer(),
+                    AddWishlistItem(
+                      onTap: onTapLike,
+                      initialLike: isLiked,
+                    ),
+                  ],
                 ),
-                const SizedBox(width: 8),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width - 98,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        LocaleKeys.You_dont_have_favorites.tr(),
-                        style: Theme.of(context)
-                            .textTheme
-                            .headline1!
-                            .copyWith(fontSize: 14, fontWeight: FontWeight.w600),
-                      ),
-                      const SizedBox(height: 4),
-                      Text(
-                        LocaleKeys.Save_ads_hat_you_liked.tr(),
-                        style: Theme.of(context).textTheme.headline6!.copyWith(
-                            fontSize: 10,
-                            color: Theme.of(context)
-                                .extension<ThemedColors>()!
-                                .dolphinToWhite60),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 12),
-            WButton(
-              onTap: () {
-                // Navigator.push(context, fade(page: FavouritePage()));
-              },
-              text: LocaleKeys.go_search.tr(),
-              height: 36,
-              color: Theme.of(context)
-                  .extension<ThemedColors>()!
-                  .cinnabar12ToCinnabar,
-              textStyle: Theme.of(context)
-                  .textTheme
-                  .headline1!
-                  .copyWith(fontSize: 12, fontWeight: FontWeight.w600),
-            ),
-          ],
+              )
+            ],
+          ),
         ),
       );
 }

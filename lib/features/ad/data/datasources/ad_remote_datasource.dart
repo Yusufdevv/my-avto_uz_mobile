@@ -12,10 +12,11 @@ import 'package:auto/features/common/entities/makes_entity.dart';
 import 'package:auto/features/common/models/get_make_model.dart';
 import 'package:auto/features/comparison/data/models/announcement_list_model.dart';
 import 'package:auto/features/pagination/models/generic_pagination.dart';
+import 'package:auto/features/reviews/data/models/make_model.dart';
 import 'package:dio/dio.dart';
 
 abstract class AdRemoteDataSource {
-  // Future<GenericPagination<MakeModel>> getTopMakes({String? next});
+  Future<GenericPagination<MakeModel>> getTopMakes({String? next});
 
   Future<GetMakeEntity> getMake({String? name});
 
@@ -86,26 +87,26 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
 
   AdRemoteDataSourceImpl(this._dio);
 
-  // @override
-  // Future<GenericPagination<MakeModel>> getTopMakes({
-  //   String? next,
-  // }) async {
-  //   final response = await _dio.get(
-  //     '/car/makes/top/',
-  //     options: Options(
-  //       headers: StorageRepository.getString('token').isNotEmpty
-  //           ? {'Authorization': 'Token ${StorageRepository.getString('token')}'}
-  //           : {},
-  //     ),
-  //   );
-  //   if (response.statusCode! >= 200 && response.statusCode! < 300) {
-  //     return GenericPagination.fromJson(response.data,
-  //         (p0) => MakeModel.fromJson(p0 as Map<String, dynamic>));
-  //   } else {
-  //     throw ServerException(
-  //         statusCode: response.statusCode!, errorMessage: response.data);
-  //   }
-  // }
+  @override
+  Future<GenericPagination<MakeModel>> getTopMakes({
+    String? next,
+  }) async {
+    final response = await _dio.get(
+      '/car/makes/top/',
+      options: Options(
+        headers: StorageRepository.getString('token').isNotEmpty
+            ? {'Authorization': 'Token ${StorageRepository.getString('token')}'}
+            : {},
+      ),
+    );
+    if (response.statusCode! >= 200 && response.statusCode! < 300) {
+      return GenericPagination.fromJson(response.data,
+          (p0) => MakeModel.fromJson(p0 as Map<String, dynamic>));
+    } else {
+      throw ServerException(
+          statusCode: response.statusCode!, errorMessage: response.data);
+    }
+  }
 
   @override
   Future<GetMakeEntity> getMake({String? name}) async {

@@ -8,6 +8,7 @@ import 'package:auto/features/ad/domain/entities/types/body_type.dart';
 import 'package:auto/features/ad/domain/entities/types/drive_type.dart';
 import 'package:auto/features/ad/domain/entities/types/engine_type.dart';
 import 'package:auto/features/ad/domain/entities/types/gearbox_type.dart';
+import 'package:auto/features/ad/domain/entities/types/make.dart';
 import 'package:auto/features/ad/domain/entities/types/modification_type.dart';
 import 'package:auto/features/ad/domain/entities/years/years.dart';
 import 'package:auto/features/ad/domain/repositories/ad_repository.dart';
@@ -278,24 +279,24 @@ class AdRepositoryImpl extends AdRepository {
     }
   }
 
-  // @override
-  // Future<Either<Failure, GenericPagination<MakeEntity>>> getTopMakes({
-  //   String? next,
-  // }) async {
-  //   try {
-  //     final result = await remoteDataSource.getTopMakes(next: next);
-  //     return Right(result);
-  //   } on DioException {
-  //     return Left(DioFailure());
-  //   } on ParsingException catch (e) {
-  //     return Left(ParsingFailure(errorMessage: e.errorMessage));
-  //   } on ServerException catch (e) {
-  //     return Left(ServerFailure(
-  //       errorMessage: e.errorMessage,
-  //       statusCode: e.statusCode,
-  //     ));
-  //   }
-  // }
+  @override
+  Future<Either<Failure, GenericPagination<MakeEntity>>> getTopMakes({
+    String? next,
+  }) async {
+    try {
+      final result = await remoteDataSource.getTopMakes(next: next);
+      return Right(result);
+    } on DioException {
+      return Left(DioFailure());
+    } on ParsingException catch (e) {
+      return Left(ParsingFailure(errorMessage: e.errorMessage));
+    } on ServerException catch (e) {
+      return Left(ServerFailure(
+        errorMessage: e.errorMessage,
+        statusCode: e.statusCode,
+      ));
+    }
+  }
 
   @override
   Future<Either<Failure, GenericPagination<YearsEntity>>> getYears({
