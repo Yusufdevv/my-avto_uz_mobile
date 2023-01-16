@@ -5,7 +5,6 @@ import 'package:auto/features/profile/domain/entities/profile_entity.dart';
 import 'package:auto/features/profile/domain/entities/terms_of_use_entity.dart';
 
 abstract class ProfileRepository {
-  const ProfileRepository();
 
   Future<Either<ServerFailure, ProfileDataEntity>> getProfile();
 

@@ -1,3 +1,4 @@
+import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/features/profile/domain/usecases/change_phone_number_usecase.dart';
 import 'package:auto/features/profile/domain/usecases/send_sms_verifiaction_code_usecase.dart';
 import 'package:bloc/bloc.dart';
@@ -33,11 +34,13 @@ class ChangePhoneNumberBloc
           .call(ChangePhoneNumberParams(phoneNumber: event.newPhoneNumber));
       if (result.isRight) {
         emit(state.copyWith(status: FormzStatus.submissionSuccess));
-          event.onSuccess();
+        event.onSuccess();
         emit(state.copyWith(session: result.right));
-
       } else {
-        event.onError(result.left.toString());
+        var err = (result.left is ServerFailure)
+            ? (result.left as ServerFailure).errorMessage
+            : result.left.toString();
+        event.onError(err);
         emit(state.copyWith(status: FormzStatus.submissionFailure));
       }
     } else {
@@ -62,11 +65,14 @@ class ChangePhoneNumberBloc
         event.onSuccess();
         emit(state.copyWith(status: FormzStatus.submissionSuccess));
       } else {
-        event.onError(result.left.toString());
+        var err = (result.left is ServerFailure)
+            ? (result.left as ServerFailure).errorMessage
+            : result.left.toString();
+        event.onError(err);
         emit(state.copyWith(status: FormzStatus.submissionFailure));
       }
     } else {
-      event.onError('Telefon nomeringizni kiriting');
+      event.onError('Sms raqam xato');
       emit(state.copyWith(status: FormzStatus.submissionFailure));
     }
   }

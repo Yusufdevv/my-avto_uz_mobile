@@ -10,7 +10,7 @@ import 'package:auto/features/profile/domain/entities/notifications_entity.dart'
 import 'package:auto/features/profile/domain/repositories/get_user_list_repo.dart';
 
 class GetUserListRepoImpl extends GetUserListRepository {
-  final GetUserListDatasourceImpl dataSource;
+  GetUserListDatasourceImpl dataSource;
 
   GetUserListRepoImpl({required this.dataSource});
   @override
@@ -19,7 +19,8 @@ class GetUserListRepoImpl extends GetUserListRepository {
     try {
       final result = await dataSource.getProfileFavoritesMyAds(endpoint);
       return Right(result);
-    } on ServerException catch (error) {
+    } 
+    on ServerException catch (error) {
       return Left(ServerFailure(
           statusCode: error.statusCode, errorMessage: error.errorMessage));
     }
@@ -108,9 +109,9 @@ class GetUserListRepoImpl extends GetUserListRepository {
   }
 
   @override
-  Future<Either<ServerFailure, String>> deleteMySearches(String id) async {
+  Future<Either<ServerFailure, String>> deleteMySearches(List<int> ids) async {
     try {
-      final result = await dataSource.deleteMySearches(id);
+      final result = await dataSource.deleteMySearches(ids);
       return Right(result);
     } on ServerException catch (error) {
       return Left(ServerFailure(

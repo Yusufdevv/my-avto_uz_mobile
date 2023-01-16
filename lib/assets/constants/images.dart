@@ -9,6 +9,7 @@ class AppImages {
   static const omg = 'assets/images/global/omg.png';
   static const bmw = 'assets/images/global/bmw.png';
   static const audi = 'assets/images/global/audi.png';
+  static const mainMap = 'assets/images/global/main_map.png';
   static const tahoe = 'assets/images/global/tahoe.png';
   static const clap = 'assets/images/global/clap.png';
   static const magic = 'assets/images/global/magic.png';
@@ -32,7 +33,6 @@ class AppImages {
   static const none = 'assets/images/main/none.png';
   static const placeHolder = 'assets/icons/global/placeHolder.svg';
   static const placeHolder1 = 'assets/icons/global/car.svg';
-  static const carImage = 'assets/icons/global/car_image.svg';
   static const carCrashed = 'assets/images/car_single/car_crashed.png';
   static const carSingle = 'assets/images/car_single/car_single300kb.png';
   static const imagePlaceHolder = 'assets/images/global/place_holder.png';

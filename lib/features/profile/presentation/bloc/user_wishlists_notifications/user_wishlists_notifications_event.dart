@@ -15,10 +15,17 @@ class GetUserMyAdsEvent extends UserWishListsEvent {
 class GetMySearchesEvent extends UserWishListsEvent {}
 
 class NotificationAllReadEvent extends UserWishListsEvent {}
+class ChangeIsWishEvenet extends UserWishListsEvent {
+  final int index;
+  final int id;
+    bool isAddWish;
+  bool isRemoveWish;
+  ChangeIsWishEvenet({required this.index, required this.id, this.isAddWish =false, this.isRemoveWish=false});
+}
 
 class DeleteMySearchesEvent extends UserWishListsEvent {
-    final String id;
-  DeleteMySearchesEvent({required this.id});
+    final List<int> ids;
+  DeleteMySearchesEvent({required this.ids});
 }
 
 class GetNotificationSingleEvent extends UserWishListsEvent {

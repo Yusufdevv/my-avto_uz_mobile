@@ -3,7 +3,6 @@ import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class CarBrandContainer extends StatelessWidget {
   final String title;
@@ -46,8 +45,8 @@ class CarBrandContainer extends StatelessWidget {
           children: [
             const SizedBox(height: 16),
             if (imageUrl.isEmpty)
-              SvgPicture.asset(
-                AppImages.carImage,
+              Image.asset(
+                AppImages.defaultPhoto,
                 height: 40,
                 fit: BoxFit.cover,
               )

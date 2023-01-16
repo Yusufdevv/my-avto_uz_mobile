@@ -12,7 +12,6 @@ abstract class PopularSearchesDataSource {
 
 class PopularSearchesSourceImpl extends PopularSearchesDataSource {
   final Dio _dio;
-
   PopularSearchesSourceImpl(this._dio);
 
   @override

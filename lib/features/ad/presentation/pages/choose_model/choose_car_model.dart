@@ -1,19 +1,23 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
-import 'package:auto/features/ad/domain/entities/choose_model/car_type_entity.dart';
+import 'package:auto/core/singletons/service_locator.dart';
+import 'package:auto/features/ad/data/repositories/ad_repository_impl.dart';
+import 'package:auto/features/ad/domain/usecases/get_car_model.dart';
 import 'package:auto/features/ad/presentation/bloc/choose_model/car_type_selector_bloc.dart';
 import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.dart';
-import 'package:auto/features/ad/presentation/pages/choose_model/widgets/car_type_item.dart';
 import 'package:auto/features/ad/presentation/pages/choose_model/widgets/model_items.dart';
-import 'package:auto/features/ad/presentation/pages/choose_model/widgets/persistant_header.dart';
 import 'package:auto/features/ad/presentation/widgets/sliver_header_text.dart';
 import 'package:auto/features/common/widgets/w_textfield.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:formz/formz.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 class ChooseCarModelScreen extends StatefulWidget {
-  const ChooseCarModelScreen({Key? key}) : super(key: key);
+  final int makeId;
+  const ChooseCarModelScreen({required this.makeId, Key? key})
+      : super(key: key);
 
   @override
   State<ChooseCarModelScreen> createState() => _ChooseCarModelScreenState();
@@ -21,11 +25,15 @@ class ChooseCarModelScreen extends StatefulWidget {
 
 class _ChooseCarModelScreenState extends State<ChooseCarModelScreen> {
   late TextEditingController searchController;
-  late CarTypeSelectorBloc carTypeSelectorBloc;
+  late CarModelSelectorBloc carTypeSelectorBloc;
 
   @override
   void initState() {
-    carTypeSelectorBloc = CarTypeSelectorBloc();
+    carTypeSelectorBloc = CarModelSelectorBloc(
+        makeId: widget.makeId,
+        useCase:
+            GetCarModelUseCase(repository: serviceLocator<AdRepositoryImpl>()))
+      ..add(CarModelSelectorGetEvent(searchPattern: null));
     searchController = TextEditingController();
     super.initState();
   }
@@ -36,11 +44,6 @@ class _ChooseCarModelScreenState extends State<ChooseCarModelScreen> {
     super.dispose();
   }
 
-  final List<CarTypeEntity> carTypes = List.generate(
-      12,
-      (index) => CarTypeEntity(
-          title: '${index + 1} серия Coupe', id: index, logo: ''));
-
   @override
   Widget build(BuildContext context) => KeyboardDismisser(
         child: MultiBlocProvider(
@@ -50,153 +53,165 @@ class _ChooseCarModelScreenState extends State<ChooseCarModelScreen> {
             ),
           ],
           child: Scaffold(
-            body: CustomScrollView(
-              physics: const BouncingScrollPhysics(),
-              slivers: [
-                /// HEADER TEXT
-                const SliverHeaderText(text: 'Выберите модель'),
+            body: BlocBuilder<CarModelSelectorBloc, CarModelSelectorState>(
+              builder: (context, state) => CustomScrollView(
+                physics: const BouncingScrollPhysics(),
+                slivers: [
+                  /// HEADER TEXT
+                  const SliverHeaderText(text: 'Выберите модель'),
 
-                /// SEARCH FIELD
-                SliverToBoxAdapter(
-                  child: WTextField(
-                    fillColor: white,
-                    filled: true,
-                    margin: const EdgeInsets.symmetric(
-                        horizontal: 16, vertical: 14),
-                    onChanged: (value) => setState(() {}),
-                    borderRadius: 12,
-                    hasSearch: true,
-                    hintText: 'Поиск',
-                    height: 40,
-                    controller: searchController,
+                  /// SEARCH FIELD
+                  SliverToBoxAdapter(
+                    child: WTextField(
+                      fillColor: white,
+                      filled: true,
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 16, vertical: 14),
+                      onChanged: (value) => carTypeSelectorBloc.add(
+                          CarModelSelectorGetEvent(
+                              searchPattern: searchController.text)),
+                      borderRadius: 12,
+                      hasSearch: true,
+                      hintText: 'Поиск',
+                      height: 40,
+                      controller: searchController,
+                    ),
                   ),
-                ),
 
-                /// SIZED BOX
-                SliverToBoxAdapter(
-                  child: Transform.translate(
-                    offset: const Offset(0, 1),
+                  /// SIZED BOX
+                  SliverToBoxAdapter(
+                    child: Transform.translate(
+                      offset: const Offset(0, 1),
+                      child: Container(
+                        height: 20,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          color: Theme.of(context)
+                              .extension<ThemedColors>()!
+                              .whiteToDark,
+                          borderRadius: const BorderRadius.vertical(
+                            top: Radius.circular(20),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+
+                  /// POPULAR HEADER
+                  SliverToBoxAdapter(
                     child: Container(
-                      height: 20,
-                      width: double.infinity,
                       decoration: BoxDecoration(
                         color: Theme.of(context)
                             .extension<ThemedColors>()!
                             .whiteToDark,
-                        borderRadius: const BorderRadius.vertical(
-                          top: Radius.circular(20),
-                        ),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 16),
+                            child: Text(
+                              'Популярные',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline1!
+                                  .copyWith(
+                                      fontWeight: FontWeight.w600,
+                                      color: purple),
+                            ),
+                          ),
+                          const SizedBox(height: 10),
+                          Divider(
+                            thickness: 1,
+                            color: Theme.of(context).dividerColor,
+                          ),
+                        ],
                       ),
                     ),
                   ),
-                ),
 
-                /// POPULAR HEADER
-                SliverToBoxAdapter(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Theme.of(context)
-                          .extension<ThemedColors>()!
-                          .whiteToDark,
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16),
-                          child: Text(
-                            'Популярные',
-                            style: Theme.of(context)
-                                .textTheme
-                                .headline1!
-                                .copyWith(
-                                    fontWeight: FontWeight.w600, color: purple),
+                  /// POPULAR TYPES
+                  if (state.status == FormzStatus.submissionInProgress) ...{
+                    const SliverToBoxAdapter(
+                        child: Center(child: CupertinoActivityIndicator()))
+                  } else ...{
+                    SliverList(
+                      delegate: SliverChildBuilderDelegate(
+                        (context, index) => Container(
+                          color: Theme.of(context)
+                              .extension<ThemedColors>()!
+                              .whiteToDark,
+                          child: ModelItems(
+                            hasBorder: index != state.models.length - 1,
+                            onTap: () => context.read<PostingAdBloc>().add(
+                                PostingAdChooseEvent(
+                                    modelId: state.models[index].id)),
+                            entity: state.models[index].name,
+                            isSelected:
+                                context.watch<PostingAdBloc>().state.modelId ==
+                                    state.models[index].id,
+                            text: searchController.text,
                           ),
                         ),
-                        const SizedBox(height: 10),
-                        Divider(
-                          thickness: 1,
-                          color: Theme.of(context).dividerColor,
-                        ),
-                      ],
+                        childCount: state.models.length,
+                      ),
                     ),
-                  ),
-                ),
+                  },
 
-                /// POPULAR TYPES
-                SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                    (context, index) => Container(
+                  /// JUST CONTAINER
+                  SliverToBoxAdapter(
+                    child: Container(
+                      height: 10,
+                      width: double.infinity,
                       color: Theme.of(context)
                           .extension<ThemedColors>()!
                           .whiteToDark,
-                      child: ModelItems(
-                        hasBorder: index != 3,
-                        onTap: () => context
-                            .read<PostingAdBloc>()
-                            .add(PostingAdChooseEvent(popularTypeId: index)),
-                        entity: 'entity $index',
-                        selectedId: context
-                                .watch<PostingAdBloc>()
-                                .state
-                                .selectedPopularTypeId ??
-                            -1,
-                        id: index,
-                        text: 'text',
-                      ),
                     ),
-                    childCount: 4,
                   ),
-                ),
 
-                /// JUST CONTAINER
-                SliverToBoxAdapter(
-                  child: Container(
-                    height: 10,
-                    width: double.infinity,
-                    color: Theme.of(context)
-                        .extension<ThemedColors>()!
-                        .whiteToDark,
-                  ),
-                ),
+                  /// NUMBER BOX
+                  // SliverSafeArea(
+                  //   top: false,
+                  //   bottom: false,
+                  //   sliver: SliverPersistentHeader(
+                  //     delegate: ModelHeader(),
+                  //     pinned: true,
+                  //   ),
+                  // ),
 
-                /// NUMBER BOX
-                SliverSafeArea(
-                  top: false,
-                  bottom: false,
-                  sliver: SliverPersistentHeader(
-                    delegate: ModelHeader(),
-                    pinned: true,
-                  ),
-                ),
-
-                /// CAR TYPES
-                SliverList(
-                    delegate: SliverChildBuilderDelegate(
-                        (context, index) => Container(
-                              color: Theme.of(context)
-                                  .extension<ThemedColors>()!
-                                  .whiteToDark,
-                              child: BlocBuilder<CarTypeSelectorBloc,
-                                  CarTypeSelectorState>(
-                                builder: (context, state) => CarTypeItem(
-                                  onTap: () => context
-                                      .read<PostingAdBloc>()
-                                      .add(PostingAdChooseEvent(
-                                          carTypeEntity: carTypes[index])),
-                                  title: carTypes[index].title,
-                                  isSelected: (context
-                                              .watch<PostingAdBloc>()
-                                              .state
-                                              .carTypeEntity
-                                              ?.id ??
-                                          -1) ==
-                                      carTypes[index].id,
-                                ),
-                              ),
-                            ),
-                        childCount: carTypes.length)),
-              ],
+                  /// CAR TYPES
+                  // if (state.status == FormzStatus.submissionInProgress) ...{
+                  //   const SliverToBoxAdapter(
+                  //       child: Center(child: CupertinoActivityIndicator()))
+                  // } else ...{
+                  //   SliverList(
+                  //     delegate: SliverChildBuilderDelegate(
+                  //       (context, index) => Container(
+                  //         color: Theme.of(context)
+                  //             .extension<ThemedColors>()!
+                  //             .whiteToDark,
+                  //         child: CarTypeItem(
+                  //           onTap: () => context.read<PostingAdBloc>().add(
+                  //               PostingAdChooseEvent(
+                  //                   carTypeEntity: CarTypeEntity(
+                  //                       title: state.models[index].name,
+                  //                       id: state.models[index].id))),
+                  //           title: state.models[index].name,
+                  //           isSelected: (context
+                  //                       .watch<PostingAdBloc>()
+                  //                       .state
+                  //                       .carTypeEntity
+                  //                       ?.id ??
+                  //                   -1) ==
+                  //               state.models[index].id,
+                  //         ),
+                  //       ),
+                  //       childCount: state.models.length,
+                  //     ),
+                  //   ),
+                  // }
+                ],
+              ),
             ),
           ),
         ),

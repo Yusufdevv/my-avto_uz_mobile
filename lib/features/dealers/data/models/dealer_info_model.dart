@@ -1,22 +1,32 @@
 import 'package:auto/features/dealers/domain/entities/dealer_info_entity.dart';
+import 'package:auto/features/dealers/domain/entities/dealer_type_entity.dart';
+import 'package:auto/features/rent/domain/entities/region_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'dealer_info_model.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake)
-class DealerInfoModel extends DealerInfoEntity {
-  DealerInfoModel(
-      {required super.additionalInfo,
-      required super.contact,
-      required super.dealerImageUrl,
-      required super.dealerName,
-      required super.dealerType,
-      required super.latitude,
-      required super.longitude,
-      required super.quantityOfCars,
-      required super.workingHours});
-  factory DealerInfoModel.fromJson(Map<String, dynamic> json) =>
-      _$DealerInfoModelFromJson(json);
+class DealerSingleModel extends DealerSingleEntity {
+  const DealerSingleModel({
+    required super.id,
+    required super.name,
+    required super.slug,
+    required super.description,
+    required super.dealerType,
+    required super.latitude,
+    required super.longitude,
+    required super.gallery,
+    required super.phoneNumber,
+    required super.contactTo,
+    required super.contactFrom,
+    required super.carCount,
+    required super.district,
+    required super.avatar,
+    required super.locationUrl,
+  });
 
-  Map<String, dynamic> toJson() => _$DealerInfoModelToJson(this);
+  factory DealerSingleModel.fromJson(Map<String, dynamic> json) =>
+      _$DealerSingleModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$DealerSingleModelToJson(this);
 }

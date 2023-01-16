@@ -1,13 +1,20 @@
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:flutter/material.dart';
 
-class SingleMarkAnnouncements extends StatelessWidget {
-  const SingleMarkAnnouncements({Key? key}) : super(key: key);
+class SingleMarkAnnouncements extends StatefulWidget {
+  final String carMark;
+  const SingleMarkAnnouncements({Key? key, required this.carMark}) : super(key: key);
+
+  @override
+  State<SingleMarkAnnouncements> createState() => _SingleMarkAnnouncementsState();
+}
+
+class _SingleMarkAnnouncementsState extends State<SingleMarkAnnouncements> {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: WAppBar(
           extraActions: [
-            Text('Genesis',
+            Text(widget.carMark,
                 style: Theme.of(context)
                     .textTheme
                     .headline1!

@@ -7,18 +7,16 @@ import 'package:flutter_svg/svg.dart';
 
 class ModelItems extends StatelessWidget {
   final String entity;
-  final int id;
-  final int selectedId;
+  final bool isSelected;
   final String text;
   final VoidCallback onTap;
   final bool hasBorder;
   const ModelItems({
     required this.entity,
-    required this.selectedId,
-    required this.id,
+    required this.isSelected,
     required this.text,
     required this.onTap,
-   this.hasBorder = true,
+    this.hasBorder = true,
     Key? key,
   }) : super(key: key);
 
@@ -27,7 +25,7 @@ class ModelItems extends StatelessWidget {
         onTap: onTap,
         child: Container(
           padding: const EdgeInsets.only(left: 16),
-          color: id == selectedId
+          color: isSelected
               ? Theme.of(context).extension<ThemedColors>()!.snowToNightRider
               : Colors.transparent,
           child: Container(
@@ -66,7 +64,7 @@ class ModelItems extends StatelessWidget {
                                   fontWeight: FontWeight.w600,
                                 ),
                       ),
-                      if (id == selectedId)
+                      if (isSelected)
                         SvgPicture.asset(
                           AppIcons.check,
                           color: orange,

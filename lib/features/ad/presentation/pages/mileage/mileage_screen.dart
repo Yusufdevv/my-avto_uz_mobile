@@ -1,6 +1,7 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/themes/theme_extensions/w_textfield_style.dart';
 import 'package:auto/features/ad/presentation/bloc/mileage/mileage_image_bloc.dart';
+import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.dart';
 import 'package:auto/features/ad/presentation/pages/mileage/widgets/mileage_image.dart';
 import 'package:auto/features/common/widgets/switcher_row.dart';
 import 'package:auto/features/common/widgets/w_textfield.dart';
@@ -10,7 +11,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 class MileageScreen extends StatefulWidget {
-  const MileageScreen({Key? key}) : super(key: key);
+  final String initialMilage;
+  const MileageScreen({required this.initialMilage, Key? key})
+      : super(key: key);
 
   @override
   State<MileageScreen> createState() => _MileageScreenState();
@@ -23,7 +26,7 @@ class _MileageScreenState extends State<MileageScreen> {
   @override
   void initState() {
     mileageImageBloc = MileageImageBloc();
-    mileageController = TextEditingController();
+    mileageController = TextEditingController(text: widget.initialMilage);
 
     super.initState();
   }
@@ -42,7 +45,6 @@ class _MileageScreenState extends State<MileageScreen> {
             body: BlocBuilder<MileageImageBloc, MileageImageState>(
               builder: (context, state) => BaseWidget(
                 headerText: 'Пробег',
-               
                 child: Padding(
                   padding: const EdgeInsets.all(16),
                   child: Column(
@@ -51,7 +53,9 @@ class _MileageScreenState extends State<MileageScreen> {
                       WTextField(
                         maxLength: 6,
                         hideCounterText: true,
-                        onChanged: (value) {},
+                        onChanged: (value) => context
+                            .read<PostingAdBloc>()
+                            .add(PostingAdChooseEvent(mileage: value)),
                         title: 'Пробег',
                         hintText: '0 km',
                         borderRadius: 12,
@@ -84,7 +88,8 @@ class _MileageScreenState extends State<MileageScreen> {
                       const SizedBox(
                         height: 20,
                       ),
-                      const SwitcherRow(title: 'Без пробега'),
+                      SwitcherRow(
+                          title: 'Без пробега', value: true, onChanged: (v) {}),
                     ],
                   ),
                 ),

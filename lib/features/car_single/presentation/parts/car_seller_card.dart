@@ -12,165 +12,211 @@ class CarSellerCard extends StatelessWidget {
   final String image;
   final String name;
   final String position;
+  final bool isCrashed;
 
   const CarSellerCard(
       {Key? key,
       required this.image,
       required this.name,
-      required this.position})
+      required this.position,
+      required this.isCrashed})
       : super(key: key);
 
   @override
-  Widget build(BuildContext context) => Container(
-    decoration: BoxDecoration(
-      border: Border.all(
-        width: 1,
-        color: Theme.of(context)
-            .extension<ThemedColors>()!
-            .solitudeToDarkRider,
-      ),
-      color: Theme.of(context)
-          .extension<ThemedColors>()!
-          .whiteToDark,
-    ),
-    padding: const EdgeInsets.symmetric(horizontal: 16),
-    child: Container(
-          color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
-          padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                LocaleKeys.auto_seller.tr(),
-                style: Theme.of(context)
-                    .textTheme
-                    .headline1!
-                    .copyWith(fontWeight: FontWeight.w700, fontSize: 18),
+  Widget build(BuildContext context) => LayoutBuilder(
+    builder: (context, constraints) => Container(
+            decoration: BoxDecoration(
+              border: Border.all(
+                width: 1,
+                color: Theme.of(context)
+                    .extension<ThemedColors>()!
+                    .solitudeToDarkRider,
               ),
-              const SizedBox(
-                height: 16,
-              ),
-              Row(
+              color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
+            ),
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Container(
+              color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
+              padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(
-                    height: 44,
-                    width: 44,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(50),
-                      child: CachedNetworkImage(
-                        imageUrl: image,
-                        fit: BoxFit.cover,
-                        errorWidget: (context, url, error) => Image.asset(
-                          AppImages.defaultPhoto,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
+                  Text(
+                    LocaleKeys.auto_seller.tr(),
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline1!
+                        .copyWith(fontWeight: FontWeight.w700, fontSize: 18),
                   ),
                   const SizedBox(
-                    width: 8,
+                    height: 16,
                   ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  Row(
                     children: [
-                      Text(
-                        name,
-                        style: Theme.of(context).textTheme.headline2!.copyWith(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 16,
+                      SizedBox(
+                        height: 44,
+                        width: 44,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(50),
+                          child: CachedNetworkImage(
+                            imageUrl: image,
+                            fit: BoxFit.cover,
+                            errorWidget: (context, url, error) => Image.asset(
+                              AppImages.defaultPhoto,
+                              fit: BoxFit.cover,
                             ),
+                          ),
+                        ),
                       ),
                       const SizedBox(
-                        height: 2,
+                        width: 8,
                       ),
-                      Text(
-                        position,
-                        style: Theme.of(context).textTheme.headline2!.copyWith(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 12,
-                            color: const Color(0xff695CEA)),
-                      ),
-                    ],
-                  )
-                ],
-              ),
-              const SizedBox(
-                height: 18,
-              ),
-              Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12),
-                    color:
-                        Theme.of(context).extension<ThemedColors>()!.whiteToDark,
-                    border: Border.all(
-                        color: Theme.of(context)
-                            .extension<ThemedColors>()!
-                            .solitudeToDarkRider)),
-                child: Stack(
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.fromLTRB(12, 12, 0, 12),
-                      child: Row(
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            LocaleKeys.participation_in_accident.tr(),
-                            style: Theme.of(context)
-                                .textTheme
-                                .headline1!
-                                .copyWith(
-                                    fontWeight: FontWeight.w400, fontSize: 12),
+                          SizedBox(
+                            width: constraints.maxWidth - 120,
+                            child: Text(
+                              name,
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                              style: Theme.of(context).textTheme.headline2!.copyWith(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 16,
+                                  ),
+                            ),
                           ),
                           const SizedBox(
-                            width: 8,
+                            height: 2,
                           ),
-                          Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(4),
-                              color: const Color(
-                                0xff5ECC81,
-                              ),
-                            ),
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 6, horizontal: 8),
-                            child: Row(
-                              children: [
-                                SvgPicture.asset(
-                                  AppIcons.safe,
-                                  width: 16,
-                                  height: 16,
-                                ),
-                                const SizedBox(
-                                  width: 4,
-                                ),
-                                Text(
-                                  LocaleKeys.not_found.tr(),
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headline1!
-                                      .copyWith(
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 14,
-                                          color: white),
-                                ),
-                              ],
-                            ),
-                          )
+                          Text(
+                            position,
+                            style: Theme.of(context).textTheme.headline2!.copyWith(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 12,
+                                color: const Color(0xff695CEA)),
+                          ),
                         ],
-                      ),
+                      )
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 18,
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                        color: Theme.of(context)
+                            .extension<ThemedColors>()!
+                            .whiteToDark,
+                        border: Border.all(
+                            color: Theme.of(context)
+                                .extension<ThemedColors>()!
+                                .solitudeToDarkRider)),
+                    child: Stack(
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.fromLTRB(12, 12, 0, 12),
+                          child: Row(
+                            children: [
+                              Text(
+                                LocaleKeys.participation_in_accident.tr(),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline1!
+                                    .copyWith(
+                                        fontWeight: FontWeight.w400, fontSize: 12),
+                              ),
+                              const SizedBox(
+                                width: 8,
+                              ),
+                              if (isCrashed == true)
+                                Container(
+                                  padding: const EdgeInsets.fromLTRB(12, 12, 0, 12),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(4),
+                                      color: const Color(
+                                        0xffC8534D,
+                                      ),
+                                    ),
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 6, horizontal: 8),
+                                    child: Row(
+                                      children: [
+                                        SvgPicture.asset(
+                                          AppIcons.dtp_red,
+                                          width: 16,
+                                          height: 16,
+                                        ),
+                                        const SizedBox(
+                                          width: 4,
+                                        ),
+                                        Text(
+                                          'Обнаружено',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headline1!
+                                              .copyWith(
+                                                  fontWeight: FontWeight.w400,
+                                                  fontSize: 14,
+                                                  color: white),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                )
+                              else
+                                Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(4),
+                                    color: const Color(
+                                      0xff5ECC81,
+                                    ),
+                                  ),
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 6, horizontal: 8),
+                                  child: Row(
+                                    children: [
+                                      SvgPicture.asset(
+                                        AppIcons.safe,
+                                        width: 16,
+                                        height: 16,
+                                      ),
+                                      const SizedBox(
+                                        width: 4,
+                                      ),
+                                      Text(
+                                        LocaleKeys.not_found.tr(),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline1!
+                                            .copyWith(
+                                                fontWeight: FontWeight.w400,
+                                                fontSize: 14,
+                                                color: white),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                            ],
+                          ),
+                        ),
+                        Positioned(
+                          right: -15,
+                          bottom: -10,
+                          child: Image.asset(
+                            AppImages.carCrashed,
+                            width: 105,
+                            height: 48,
+                          ),
+                        ),
+                      ],
                     ),
-                    Positioned(
-                        right: -15,
-                        bottom: -10,
-                        child: Image.asset(
-                          AppImages.carCrashed,
-                          width: 105,
-                          height: 48,
-                        )),
-                  ],
-                ),
-              )
-            ],
-          ),
-        ),
+                  ),
+                ],
+              ),
+            ),
+          )
   );
 }

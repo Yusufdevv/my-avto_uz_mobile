@@ -166,8 +166,8 @@ class _ChooseCarModelComparison extends State<ChooseCarModelComparison> {
                               .whiteToDark,
                           child: ModelItems(
                             entity: state.model.results[index].name,
-                            selectedId: state.selectedId,
-                            id: state.model.results[index].id,
+                            isSelected: state.selectedId ==
+                                state.model.results[index].id,
                             text: state.search,
                             onTap: () {
                               print("Bu kelgan IdMake $id");

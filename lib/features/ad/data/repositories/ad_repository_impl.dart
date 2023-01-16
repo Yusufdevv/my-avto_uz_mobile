@@ -233,7 +233,7 @@ class AdRepositoryImpl extends AdRepository {
   @override
   Future<Either<Failure, GetMakeEntity>> getMake({String? name}) async {
     try {
-      final result = await remoteDataSource.getMake(name: name!);
+      final result = await remoteDataSource.getMake(name: name);
       return Right(result);
     } on DioException {
       return Left(DioFailure());

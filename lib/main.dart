@@ -7,6 +7,7 @@ import 'package:auto/features/ad/data/repositories/ad_repository_impl.dart';
 import 'package:auto/features/ad/domain/usecases/get_car_model.dart';
 import 'package:auto/features/ad/domain/usecases/get_makes.dart';
 import 'package:auto/features/ad/domain/usecases/get_top_makes.dart';
+import 'package:auto/features/ad/presentation/posting_ad_screen.dart';
 import 'package:auto/features/common/bloc/announcement_bloc/bloc/announcement_list_bloc.dart';
 import 'package:auto/features/common/bloc/auth/authentication_bloc.dart';
 import 'package:auto/features/common/bloc/comparison_add/bloc/comparison_add_bloc.dart';
@@ -138,6 +139,7 @@ class _AppState extends State<App> {
             SizeConfig().init(context);
             return BlocListener<AuthenticationBloc, AuthenticationState>(
               listener: (context, state) {
+              
                 switch (state.status) {
                   case AuthenticationStatus.unauthenticated:
                     if (!StorageRepository.getBool('onboarding',
@@ -155,12 +157,11 @@ class _AppState extends State<App> {
                               registerUseCase: RegisterUseCase(),
                               verifyCodeUseCase: VerifyCodeUseCase(),
                             ),
-                            // child: const PostingAdScreen(),
-                            child: const LoginScreen(),
+                            child: const PostingAdScreen(),
+                            // child: const LoginScreen(),
                           ),
                         ),
                         (route) => false);
-
                     break;
                   case AuthenticationStatus.authenticated:
                     if (StorageRepository.getString('token').isEmpty) {

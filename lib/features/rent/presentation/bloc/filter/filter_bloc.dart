@@ -17,7 +17,7 @@ class FilterBloc extends Bloc<FilterEvent, FilterState> {
   final DriveTypeEntity? carDriveType;
   final GearboxTypeEntity? gearboxType;
   final int? idVal;
-  final bool? ischek;
+  final bool ischek;
   final RangeValues? yearValues;
   final RangeValues? priceValues;
   FilterBloc({
@@ -29,7 +29,7 @@ class FilterBloc extends Bloc<FilterEvent, FilterState> {
     this.yearValues,
     this.priceValues,
     this.idVal,
-    this.ischek,
+    this.ischek = false,
   }) : super(FilterState(
           bodyType: bodyType,
           carDriveType: carDriveType,
@@ -39,7 +39,7 @@ class FilterBloc extends Bloc<FilterEvent, FilterState> {
           idVal: idVal,
           yearValues: yearValues ?? RangeValues(1960, DateTime.now().year + 0),
           priceValues: priceValues ?? const RangeValues(1000, 500000),
-          ischeck: ischek!,
+          ischeck: ischek,
         )) {
     on<FilterClearEvent>((event, emit) => emit(FilterState(
           ischeck: false,

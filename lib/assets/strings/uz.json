@@ -312,5 +312,9 @@
   "i_accept_rules1": "I accept the terms of use",
   "i_accept_rules2": " and ",
   "i_accept_rules3": "rules",
-  "complete_registration": "Fill in the fields to complete registration"
+  "complete_registration": "Fill in the fields to complete registration",
+  "phone_number_changed_success" : "Telefon raqam muvaffaqoyatli o'zgartirildi!",
+  "create_add" : "E'lon yaratish",
+  "show_all_dealers" : "Barcha dilerlarni ko'rish"
+
 }

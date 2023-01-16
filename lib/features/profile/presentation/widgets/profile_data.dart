@@ -1,10 +1,9 @@
-import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/assets/themes/theme_extensions/w_textfield_style.dart';
 import 'package:auto/core/utils/size_config.dart';
-import 'package:auto/features/common/widgets/cached_image.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -45,15 +44,24 @@ class ProfileDataWidget extends StatelessWidget {
             children: [
               Padding(
                 padding: EdgeInsets.all(SizeConfig.h(12)),
-                child: CachedImage(
-                    fit: BoxFit.cover,
-                    height: SizeConfig.v(48),
-                    width: SizeConfig.h(48),
-                    imageUrl: imageUrl,
-                    border: Border.all(color: borderCircular),
-                    borderRadius: BorderRadius.circular(
-                      SizeConfig.h(24),
-                    )),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(
+                    SizeConfig.h(24),
+                  ),
+                  child: CachedNetworkImage(
+                      imageUrl: imageUrl,
+                      height: SizeConfig.v(48),
+                      width: SizeConfig.h(48),
+                      fit: BoxFit.cover,
+                      errorWidget: (context, url, error) => SizedBox(
+                          height: SizeConfig.v(48),
+                          width: SizeConfig.h(48),
+                          child: ClipRRect(
+                              borderRadius: BorderRadius.circular(
+                                SizeConfig.h(24),
+                              ),
+                              child: SvgPicture.asset(AppIcons.userAvatar)))),
+                ),
               ),
               Expanded(
                 child: Column(

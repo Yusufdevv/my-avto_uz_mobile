@@ -19,7 +19,7 @@ abstract class GetUserListDatasource {
   Future<List<DirCategoryModel>> getDirCategory();
   Future<DirectoryModel> getDirectory(String id);
   Future<String> notificationAllRead();
-  Future<String> deleteMySearches(String id);
+  Future<String> deleteMySearches(List<int> ids);
   Future<NotificationsModel> getNotificationSingle(String id);
 }
 
@@ -235,16 +235,17 @@ class GetUserListDatasourceImpl extends GetUserListDatasource {
   }
 
   @override
-  Future<String> deleteMySearches(String id) async {
+  Future<String> deleteMySearches(List<int> ids) async {
     try {
       final response = await dio.delete(
-        '/users/filter-history/$id/',
+        '/users/filter-history/delete/',
+        data: {'ids_list': ids},
         options: Options(headers: {
           'Authorization': 'Bearer ${StorageRepository.getString('token')}'
         }),
       );
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
-        return response.data['message'];
+        return '';
       }
       throw ServerException(
           statusCode: response.statusCode ?? 0,

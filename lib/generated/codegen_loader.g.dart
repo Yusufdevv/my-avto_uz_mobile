@@ -333,7 +333,12 @@ class CodegenLoader extends AssetLoader{
   "i_accept_rules1": "условия использования",
   "i_accept_rules2": " и ",
   "i_accept_rules3": "правила",
-  "complete_registration": "Заполните поля для завершения регистрации"
+  "complete_registration": "Заполните поля для завершения регистрации",
+  "no_dealer": "Пока нет диллеров",
+  "phone_number_changed_success": "Номер телефона успешно изменен",
+  "all_cars": "Все автомобили",
+  "create_add": "Создать объявление",
+  "show_all_dealers": "Показать всех дилеров"
 };
 static const Map<String,dynamic> uz = {
   "price_of_similar_cars": "Средняя цена похожих автомобилей",
@@ -649,7 +654,10 @@ static const Map<String,dynamic> uz = {
   "i_accept_rules1": "I accept the terms of use",
   "i_accept_rules2": " and ",
   "i_accept_rules3": "rules",
-  "complete_registration": "Fill in the fields to complete registration"
+  "complete_registration": "Fill in the fields to complete registration",
+  "phone_number_changed_success": "Telefon raqam muvaffaqoyatli o'zgartirildi!",
+  "create_add": "E'lon yaratish",
+  "show_all_dealers": "Barcha dilerlarni ko'rish"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ru": ru, "uz": uz};
 }

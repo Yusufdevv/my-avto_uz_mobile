@@ -51,7 +51,7 @@ class RentSheetItem extends StatelessWidget {
                   .copyWith(fontWeight: FontWeight.w600, fontSize: 16),
             ),
             const Spacer(),
-            if (isChecked) ...{const MarkaCheckBox()}
+            if (isChecked) ...{const MarkaChecked()}
           ],
         ),
       );

@@ -1,5 +1,7 @@
+import 'package:auto/features/common/bloc/wishlist_add/wishlist_add_bloc.dart';
 import 'package:auto/features/common/repository/auth.dart';
 import 'package:auto/features/comparison/presentation/comparison_page.dart';
+import 'package:auto/features/profile/domain/entities/profile_data_entity.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -53,178 +55,206 @@ class _ProfileScreenState extends State<ProfileScreen> {
     super.initState();
   }
 
+  late ProfileDataEntity profileData;
+
   @override
   Widget build(BuildContext context) => BlocProvider.value(
         value: profileBloc,
-        child: BlocBuilder<ProfileBloc, ProfileState>(
-          builder: (context, state) {
-            if (state.status.isSubmissionInProgress) {
-              return const Center(child: CupertinoActivityIndicator());
-            } else if (state.status.isSubmissionFailure) {
-              return const Center(child: Text('Fail'));
-            } else if (state.status.isSubmissionSuccess) {
-              final profileData = state.profileEntity;
-              final usercountData = profileData.usercountdata;
-              return Scaffold(
-                appBar: WAppBar(
-                    filledBackButton: true,
-                    boxShadow: const [
-                      BoxShadow(
-                          offset: Offset(0, 0), blurRadius: 0, color: white),
-                    ],
-                    extraActions: [
-                      Padding(
-                        padding: EdgeInsets.only(right: SizeConfig.h(16)),
-                        child: GestureDetector(
-                          onTap: () =>
-                              Navigator.of(context, rootNavigator: true)
-                                  .push(fade(page: const NotificationPage())),
-                          child: SvgPicture.asset(
-                            AppIcons.bellWithCircle,
+        child: BlocListener<WishlistAddBloc, WishlistAddState>(
+          listener: (context, stateWish) {
+            if (stateWish.addStatus.isSubmissionSuccess) {
+              profileBloc.add(ChangeCountDataEvent(adding: true));
+            }
+            if (stateWish.removeStatus.isSubmissionSuccess) {
+              profileBloc.add(ChangeCountDataEvent(adding: false));
+            }
+          },
+          child: BlocConsumer<ProfileBloc, ProfileState>(
+            listener: (context, state) {
+              if (state.changeStatus.isSubmissionSuccess) {
+                profileData = state.profileEntity;
+              }
+            },
+            builder: (context, state) {
+              if (state.status.isSubmissionInProgress) {
+                return const Center(child: CupertinoActivityIndicator());
+              } else if (state.status.isSubmissionFailure) {
+                return const Center(child: Text('Fail'));
+              } else if (state.status.isSubmissionSuccess) {
+                profileData = state.profileEntity;
+                // ignore: prefer_final_locals
+                var usercountData = profileData.usercountdata;
+                return Scaffold(
+                  appBar: WAppBar(
+                      filledBackButton: true,
+                      boxShadow: const [
+                        BoxShadow(
+                            offset: Offset(0, 0), blurRadius: 0, color: white),
+                      ],
+                      extraActions: [
+                        Padding(
+                          padding: EdgeInsets.only(right: SizeConfig.h(16)),
+                          child: GestureDetector(
+                            onTap: () =>
+                                Navigator.of(context, rootNavigator: true)
+                                    .push(fade(page: const NotificationPage())),
+                            child: SvgPicture.asset(
+                              AppIcons.bellWithCircle,
+                            ),
                           ),
-                        ),
-                      )
-                    ],
-                    hasBackButton: false,
-                    textWithButton: LocaleKeys.my_profile.tr()),
-                body: SingleChildScrollView(
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: SizeConfig.h(16)),
-                    child: Column(
-                      children: [
-                        ProfileDataWidget(
-                            onTap: () {
-                              Navigator.of(context).push(fade(
-                                  page: SeeProfilePage(
-                                      profileBloc: profileBloc,
-                                      imageBloc: imageBloc)));
-                            },
-                            fullName: profileData.fullName ?? '',
-                            subTitle:
-                                '${usercountData?.announcementsCount ?? 0} ${LocaleKeys.how_many_ads.tr()}',
-                            imageUrl: profileData.image ?? '',
-                            margin: EdgeInsets.only(
-                                top: SizeConfig.v(16),
-                                bottom: SizeConfig.v(12))),
-
-                        // izbrannoe va sravnenie
-                        ProfilItemsBox(widgets: [
-                          ProfileMenuTile(
-                              name: LocaleKeys.favorites.tr(),
-                              onTap: () {
-                                Navigator.push(
-                                    context, fade(page: const FavouritePage()));
-                              },
-                              iconPath: AppIcons.heartBlue,
-                              count: usercountData?.announcementWishlistCount),
-                          const ProfileDivider(),
-                          ProfileMenuTile(
-                              name: LocaleKeys.comparisons.tr(),
-                              onTap: () {
-                                Navigator.of(context, rootNavigator: true)
-                                    .push(fade(page: const ComparisonPage()));
-                              },
-                              iconPath: AppIcons.scales),
-                        ]),
-
-                        // moi obnovleniya
-                        ProfilItemsBox(marginTop: SizeConfig.v(12), widgets: [
-                          ProfileMenuTile(
-                              name: LocaleKeys.my_ads.tr(),
-                              onTap: () {
-                                Navigator.of(context)
-                                    .push(fade(page: const MyAddsPage()));
-                              },
-                              iconPath: AppIcons.tabletNews,
-                              count: usercountData?.announcementsCount),
-                          const ProfileDivider(),
-                          ProfileMenuTile(
-                              name: 'Мои поиски',
-                              onTap: () {
-                                Navigator.of(context, rootNavigator: true)
-                                    .push(fade(page: const MySearchesPage()));
-                              },
-                              iconPath: AppIcons.mySearch,
-                              count: state
-                                  .profileEntity.usercountdata?.searchCount),
-                          const ProfileDivider(),
-                          ProfileMenuTile(
-                              name: 'Мои отзывы',
-                              onTap: () {
-                                Navigator.of(context)
-                                    .push(fade(page: const ReviewsScreen()));
-                              },
-                              iconPath: AppIcons.message,
-                              count: state
-                                  .profileEntity.usercountdata?.reviewsCount),
-                        ]),
-
-                        //Дилеры - Справочник - Чат
-                        ProfilItemsBox(marginTop: SizeConfig.v(12), widgets: [
-                          ProfileMenuTile(
-                              name: 'Дилеры',
-                              onTap: () {
-                                Navigator.of(context)
-                                    .push(fade(page: const DealerScreen()));
-                              },
-                              iconPath: AppIcons.dealers),
-                          const ProfileDivider(),
-                          ProfileMenuTile(
-                              name: 'Справочник',
+                        )
+                      ],
+                      hasBackButton: false,
+                      textWithButton: LocaleKeys.my_profile.tr()),
+                  body: SingleChildScrollView(
+                    child: Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: SizeConfig.h(16)),
+                      child: Column(
+                        children: [
+                          ProfileDataWidget(
                               onTap: () {
                                 Navigator.of(context).push(fade(
-                                    page: const DirectoryPage()));
+                                    page: SeeProfilePage(
+                                        profileBloc: profileBloc,
+                                        imageBloc: imageBloc)));
                               },
-                              iconPath: AppIcons.direct),
-                          const ProfileDivider(),
-                          ProfileMenuTile(
-                              name: 'Чат',
-                              onTap: () {
-                                Navigator.of(context, rootNavigator: true).push(
-                                  fade(
-                                      page: ChatPage(
-                                          phone: profileData.phoneNumber!,
-                                          userName: profileData.username ??
-                                              profileData.firstName,
-                                          hasChat: false,
-                                          imageBloc: imageBloc)),
-                                );
-                              },
-                              iconPath: AppIcons.message),
-                          const ProfileDivider(),
-                          ProfileMenuTile(
-                              name: LocaleKeys.settings.tr(),
-                              onTap: () {
-                                Navigator.of(context).push(
-                                  fade(
-                                      page: SettingsPage(
-                                          profileBloc: profileBloc)),
-                                );
-                              },
-                              iconPath: AppIcons.settings),
-                        ]),
-                        //
-                        ProfilItemsBox(
-                            marginBottom: SizeConfig.v(20),
-                            marginTop: SizeConfig.v(12),
-                            widgets: [
-                              ProfileMenuTile(
-                                  name: LocaleKeys.about_app.tr(),
-                                  onTap: () {
-                                    Navigator.of(context).push(fade(
-                                        page: AboutAppScreen(
-                                            profileBloc: profileBloc)));
-                                  },
-                                  iconPath: AppIcons.info),
-                            ]),
-                      ],
+                              fullName: profileData.fullName ?? '',
+                              subTitle:
+                                  '${usercountData.announcementsCount} ${LocaleKeys.how_many_ads.tr()}',
+                              imageUrl: profileData.image!,
+                              margin: EdgeInsets.only(
+                                  top: SizeConfig.v(16),
+                                  bottom: SizeConfig.v(12))),
+                          // izbrannoe va sravnenie
+                          ProfilItemsBox(widgets: [
+                            ProfileMenuTile(
+                                name: LocaleKeys.favorites.tr(),
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      fade(
+                                          page: FavouritePage(
+                                        profileBloc: profileBloc,
+                                      )));
+                                },
+                                iconPath: AppIcons.heartBlue,
+                                count: usercountData.announcementWishlistCount),
+                            const ProfileDivider(),
+                            ProfileMenuTile(
+                                name: LocaleKeys.comparisons.tr(),
+                                onTap: () {
+                                  Navigator.of(context, rootNavigator: true)
+                                      .push(fade(page: const ComparisonPage()));
+                                },
+                                iconPath: AppIcons.scales),
+                          ]),
+
+                          // moi obnovleniya
+                          ProfilItemsBox(marginTop: SizeConfig.v(12), widgets: [
+                            ProfileMenuTile(
+                                name: LocaleKeys.my_ads.tr(),
+                                onTap: () {
+                                  Navigator.of(context)
+                                      .push(fade(page: const MyAddsPage()));
+                                },
+                                iconPath: AppIcons.tabletNews,
+                                count: usercountData.announcementsCount),
+                            const ProfileDivider(),
+                            ProfileMenuTile(
+                                name: 'Мои поиски',
+                                onTap: () {
+                                  Navigator.of(context, rootNavigator: true)
+                                      .push(fade(page: const MySearchesPage()));
+                                },
+                                iconPath: AppIcons.mySearch,
+                                count: state.profileEntity.usercountdata
+                                    .filterHistoryCount),
+                            const ProfileDivider(),
+                            ProfileMenuTile(
+                                name: 'Мои отзывы',
+                                onTap: () {
+                                  Navigator.of(context)
+                                      .push(fade(page: const ReviewsScreen()));
+                                },
+                                iconPath: AppIcons.message,
+                                count: state
+                                    .profileEntity.usercountdata.reviewsCount),
+                          ]),
+
+                          //Дилеры - Справочник - Чат
+                          ProfilItemsBox(marginTop: SizeConfig.v(12), widgets: [
+                            ProfileMenuTile(
+                                name: 'Дилеры',
+                                onTap: () {
+                                  Navigator.of(context)
+                                      .push(fade(page: const DealerScreen()));
+                                },
+                                iconPath: AppIcons.dealers),
+                            const ProfileDivider(),
+                            ProfileMenuTile(
+                                name: 'Справочник',
+                                onTap: () {
+                                  Navigator.of(context)
+                                      .push(fade(page: const DirectoryPage()));
+                                },
+                                iconPath: AppIcons.direct),
+                            const ProfileDivider(),
+                            ProfileMenuTile(
+                                name: 'Чат',
+                                onTap: () {
+                                  Navigator.of(context, rootNavigator: true)
+                                      .push(
+                                    fade(
+                                        page: ChatPage(
+                                      phone: state.profileEntity.phoneNumber!,
+                                      userName: state.profileEntity.fullName!,
+                                    )
+                                        // ChatPage(
+                                        //     phone: profileData.phoneNumber!,
+                                        //     userName: profileData.username ??
+                                        //         profileData.firstName,
+                                        //     hasChat: false,
+                                        //     imageBloc: imageBloc),
+                                        ),
+                                  );
+                                },
+                                iconPath: AppIcons.message),
+                            const ProfileDivider(),
+                            ProfileMenuTile(
+                                name: LocaleKeys.settings.tr(),
+                                onTap: () {
+                                  Navigator.of(context).push(
+                                    fade(
+                                        page: SettingsPage(
+                                            profileBloc: profileBloc)),
+                                  );
+                                },
+                                iconPath: AppIcons.settings),
+                          ]),
+                          //
+                          ProfilItemsBox(
+                              marginBottom: SizeConfig.v(20),
+                              marginTop: SizeConfig.v(12),
+                              widgets: [
+                                ProfileMenuTile(
+                                    name: LocaleKeys.about_app.tr(),
+                                    onTap: () {
+                                      Navigator.of(context).push(fade(
+                                          page: AboutAppScreen(
+                                              profileBloc: profileBloc)));
+                                    },
+                                    iconPath: AppIcons.info),
+                              ]),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              );
-            }
-            return const Center(child: CupertinoActivityIndicator());
-          },
+                );
+              }
+              return const Center(child: CupertinoActivityIndicator());
+            },
+          ),
         ),
       );
 }

@@ -18,7 +18,7 @@ class YearIssueBloc extends Bloc<YearIssueEvent, YearIssueState> {
     on<YearsIssueGetEvent>((event, emit) async {
       emit(state.copyWith(status: FormzStatus.submissionInProgress));
       final result =
-          await getYearsUseCase.call(YearsParams(modelId: 10, next: ''));
+          await getYearsUseCase.call(YearsParams(modelId: modelId, next: ''));
       if (result.isRight) {
         result.right;
         emit(state.copyWith(yearsEntity: result.right.results,status: FormzStatus.submissionSuccess));

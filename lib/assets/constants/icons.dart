@@ -58,7 +58,6 @@ class AppIcons {
   static const bellWithCircle = 'assets/icons/profile/bell_with_circle.svg';
   static const ellipseRed = 'assets/icons/profile/ellipse_red.svg';
   static const eye = 'assets/icons/global/eye.svg';
-  static const circlePlus = 'assets/icons/profile/circle_plus.svg';
   static const closeSquare = 'assets/icons/global/close_square.svg';
   static const edit = 'assets/icons/global/edit.svg';
   static const check = 'assets/icons/global/check.svg';
@@ -133,6 +132,7 @@ class AppIcons {
   static const location = 'assets/icons/global/location.svg';
   static const location1 = 'assets/icons/profile/location1.svg';
   static const heart = 'assets/icons/global/heart.svg';
+  static const whitePlusCircle = 'assets/icons/global/white_plus_circle.svg';
   static const scale = 'assets/icons/global/scale.svg';
   static const heartWhite = 'assets/icons/global/heart_white.svg';
   static const closeWhite = 'assets/icons/global/close_white.svg';
@@ -250,4 +250,5 @@ class AppIcons {
   static const mercedes = 'assets/icons/car_single/benz.svg';
   static const eye2 = 'assets/icons/car_single/eye2.svg';
   static const bl_ch = 'assets/icons/car_single/bl_ch.svg';
+  static const dtp_red = 'assets/icons/car_single/dtp_red.svg';
 }

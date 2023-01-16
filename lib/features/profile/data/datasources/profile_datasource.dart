@@ -24,7 +24,6 @@ abstract class ProfileDataSource {
       required String code,
       required String session});
 
-
   Future<List<TermsOfUseModel>> getTermsOfUseData();
 }
 
@@ -115,7 +114,6 @@ class ProfileDataSourceImpl extends ProfileDataSource {
     }
   }
 //'/users/wishlist/announcement/list/'
-  
 
   @override
   Future<String> sendPhoneNumber({required String phoneNumber}) async {
@@ -131,10 +129,26 @@ class ProfileDataSourceImpl extends ProfileDataSource {
       );
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
         return response.data['session'];
+      } else if (response.statusCode != null &&
+          response.statusCode! >= 400 &&
+          response.statusCode! < 500) {
+        if (response.data is Map) {
+          throw ServerException(
+              statusCode: response.statusCode!,
+              errorMessage: ((response.data as Map).values.isNotEmpty
+                      ? (response.data as Map).values.first
+                      : 'Wrong number!')
+                  .toString());
+        } else {
+          throw ServerException(
+              statusCode: response.statusCode!,
+              errorMessage: response.data['phone']);
+        }
+      } else {
+        throw ServerException(
+            statusCode: response.statusCode!,
+            errorMessage: response.data.toString());
       }
-      throw ServerException(
-          statusCode: response.statusCode ?? 0,
-          errorMessage: response.statusMessage ?? '');
     } on ServerException {
       rethrow;
     } on DioError {
@@ -164,7 +178,7 @@ class ProfileDataSourceImpl extends ProfileDataSource {
       }
       throw ServerException(
           statusCode: response.statusCode ?? 0,
-          errorMessage: response.statusMessage ?? '');
+          errorMessage: response.data['code'] ?? '');
     } on ServerException {
       rethrow;
     } on DioError {
@@ -173,7 +187,19 @@ class ProfileDataSourceImpl extends ProfileDataSource {
       throw ParsingException(errorMessage: e.toString());
     }
   }
-  
+
+  // if (result.data is List && (result.data as List).isNotEmpty) {
+  //         return Left(ServerFailure(
+  //             errorMessage: (result.data as List).first.toString(),
+  //             statusCode: 141));
+  //       }
+  //       var data = result.data[errorKey ?? 'detail'] ?? '';
+  //       if (data.isEmpty) {
+  //         data = result.data.toString();
+  //       }
+
+  //       return Left(ServerFailure(errorMessage: data, statusCode: 141));
+
   @override
   Future<List<TermsOfUseModel>> getTermsOfUseData() async {
     try {
@@ -199,6 +225,5 @@ class ProfileDataSourceImpl extends ProfileDataSource {
     } on Exception catch (e) {
       throw ParsingException(errorMessage: e.toString());
     }
-    
   }
 }

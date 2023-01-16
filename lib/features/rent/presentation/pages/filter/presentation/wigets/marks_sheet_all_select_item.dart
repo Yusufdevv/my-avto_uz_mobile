@@ -31,7 +31,7 @@ class SheetSelectAllButton extends StatelessWidget {
                     .headline1!
                     .copyWith(fontWeight: FontWeight.w600, fontSize: 16),
               ),
-              if (isAllChecked) const MarkaCheckBox()
+              if (isAllChecked) const MarkaChecked()
             ],
           ),
         ),

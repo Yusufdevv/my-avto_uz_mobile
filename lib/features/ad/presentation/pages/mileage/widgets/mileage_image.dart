@@ -1,13 +1,12 @@
 import 'dart:io';
 
 import 'package:auto/assets/colors/color.dart';
-import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/presentation/bloc/mileage/mileage_image_bloc.dart';
+import 'package:auto/features/ad/presentation/pages/add_photo/widgets/plus_circle.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
 
 class MileageImageItem extends StatefulWidget {
   final String image;
@@ -26,6 +25,7 @@ class _MileageImageItemState extends State<MileageImageItem> {
             context.read<MileageImageBloc>().add(const PickMileageImage());
           },
           child: Container(
+            alignment: Alignment.center,
             height: 82,
             width: double.infinity,
             decoration: BoxDecoration(
@@ -35,9 +35,7 @@ class _MileageImageItemState extends State<MileageImageItem> {
                   .extension<ThemedColors>()!
                   .ghostWhiteToUltramarine10,
             ),
-            child: Center(
-              child: SvgPicture.asset(AppIcons.circlePlus),
-            ),
+            child: const PlusCircle(),
           ),
         )
       : Container(

@@ -25,11 +25,11 @@ class SearchedModelsItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Container(
+        padding: const EdgeInsets.symmetric(vertical: 10),
         color: white,
         child: WButton(
           color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 11),
-          height: 60,
+          padding: const EdgeInsets.symmetric(horizontal: 16),
           onTap: onTap,
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -59,6 +59,7 @@ class SearchedModelsItem extends StatelessWidget {
               Flexible(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     WHighlightedText(
                       overflow: TextOverflow.ellipsis,

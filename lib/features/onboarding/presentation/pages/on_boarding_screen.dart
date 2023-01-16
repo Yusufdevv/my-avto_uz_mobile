@@ -71,84 +71,87 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   @override
   Widget build(BuildContext context) {
     setOnboardingTrue();
-
-    return Scaffold(
-      body: Column(
-        children: [
-          Container(
-            margin: const EdgeInsets.only(top: 36 + kToolbarHeight),
-            padding: const EdgeInsets.symmetric(horizontal: 32),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                WScaleAnimation(
-                  onTap: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: SvgPicture.asset(AppIcons.arrowLeft, color: black),
-                ),
-                const Spacer(),
-                GestureDetector(
+    final height = MediaQuery.of(context).size.height - 265;
+    return SafeArea(
+      child: Scaffold(
+        body: Column(
+          children: [
+            Container(
+              margin: const EdgeInsets.only(top: 36),
+              padding: const EdgeInsets.symmetric(horizontal: 32),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  WScaleAnimation(
                     onTap: () {
-                      Navigator.of(context)
-                          .pushReplacement(fade(page: const LoginScreen()));
+                      Navigator.of(context).pop();
                     },
-                    child: Text(
-                      LocaleKeys.skip.tr(),
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline1!
-                          .copyWith(fontSize: 15, fontWeight: FontWeight.w400),
-                    )),
-              ],
+                    child: SvgPicture.asset(AppIcons.arrowLeft, color: black),
+                  ),
+                  const Spacer(),
+                  GestureDetector(
+                      onTap: () {
+                        Navigator.of(context)
+                            .pushReplacement(fade(page: const LoginScreen()));
+                      },
+                      child: Text(
+                        LocaleKeys.skip.tr(),
+                        style: Theme.of(context).textTheme.headline1!.copyWith(
+                            fontSize: 15, fontWeight: FontWeight.w400),
+                      )),
+                ],
+              ),
             ),
-          ),
-          SizedBox(
-            height: MediaQuery.of(context).size.height - 300,
-            child: PageView(
-              physics: const BouncingScrollPhysics(),
-              onPageChanged: (page) {
-                setState(() {
-                  currentIndex = page;
-                });
-              },
-              children: [
-                OnBoardingItems(
-                    icon: AppImages.flash,
-                    title: LocaleKeys.easy_send.tr(),
-                    image: AppImages.firstImage),
-                OnBoardingItems(
-                    icon: AppImages.done,
-                    title: LocaleKeys.trusted_car_dealers.tr(),
-                    image: AppImages.secondImage),
-                OnBoardingItems(
-                  icon: AppImages.omg,
-                  hasSecondText: true,
-                  title: LocaleKeys.more_than.tr(),
-                  secondText: ' 10 000',
-                  image: AppImages.thirdImage,
-                  thirdText: ' offers',
-                ),
-              ],
+            SizedBox(
+              height: height,
+              child: PageView(
+                physics: const BouncingScrollPhysics(),
+                onPageChanged: (page) {
+                  setState(() {
+                    currentIndex = page;
+                  });
+                },
+                children: [
+                  OnBoardingItems(
+                      height: height,
+                      icon: AppImages.flash,
+                      title: LocaleKeys.easy_send.tr(),
+                      image: AppImages.firstImage),
+                  OnBoardingItems(
+                      height: height,
+                      icon: AppImages.done,
+                      title: LocaleKeys.trusted_car_dealers.tr(),
+                      image: AppImages.secondImage),
+                  OnBoardingItems(
+                    height: height,
+                    icon: AppImages.omg,
+                    hasSecondText: true,
+                    title: LocaleKeys.more_than.tr(),
+                    secondText: ' 10 000',
+                    image: AppImages.thirdImage,
+                    thirdText: ' offers',
+                  ),
+                ],
+              ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 32),
-            child: Row(
-              children: buildIndicator(),
+            Padding(
+              padding: const EdgeInsets.only(left: 32),
+              child: Row(
+                children: buildIndicator(),
+              ),
             ),
-          ),
-          const SizedBox(height: 15),
-          BaseOnBoarding(
-            onTap: () => Navigator.pushAndRemoveUntil(
-                context, fade(page: const LoginScreen()), (route) => false),
-            color: currentIndex == 1 && currentIndex == 2
-                ? Theme.of(context)
-                    .extension<ThemedColors>()!
-                    .veryLightGreyToEclipse
-                : orange,
-          ),
-        ],
+            const SizedBox(height: 15),
+            BaseOnBoarding(
+              onTap: () => Navigator.pushAndRemoveUntil(
+                  context, fade(page: const LoginScreen()), (route) => false),
+              color: currentIndex == 1 && currentIndex == 2
+                  ? Theme.of(context)
+                      .extension<ThemedColors>()!
+                      .veryLightGreyToEclipse
+                  : orange,
+            ),
+          ],
+        ),
       ),
     );
   }

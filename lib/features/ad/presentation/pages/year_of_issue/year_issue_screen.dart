@@ -1,6 +1,7 @@
 import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/features/ad/data/repositories/ad_repository_impl.dart';
 import 'package:auto/features/ad/domain/usecases/get_years.dart';
+import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.dart';
 import 'package:auto/features/ad/presentation/bloc/year_of_issue/year_issue_bloc.dart';
 import 'package:auto/features/ad/presentation/pages/year_of_issue/widget/years_item.dart';
 import 'package:auto/features/ad/presentation/widgets/base_widget.dart';
@@ -40,13 +41,16 @@ class _YearIssueScreenState extends State<YearIssueScreen> {
               shrinkWrap: true,
               itemBuilder: (context, index) => GestureDetector(
                 onTap: () {
-                  context
-                      .read<YearIssueBloc>()
-                      .add(SelectedYearEvent(id: index));
+                  context.read<PostingAdBloc>().add(PostingAdChooseEvent(
+                      yearsEntity: state.yearsEntity[index]));
                 },
                 child: YearItem(
-                  year: state.yearsEntity[index].yearBegin,
-                  isSelected: state.selectedId == index,
+                  beginYear: '${state.yearsEntity[index].yearBegin}',
+                  endYear: '${state.yearsEntity[index].yearEnd}',
+                  isSelected:
+                      (context.watch<PostingAdBloc>().state.yearsEntity?.id ??
+                              -1) ==
+                          state.yearsEntity[index].id,
                 ),
               ),
               itemCount: state.yearsEntity.length,

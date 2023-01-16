@@ -13,6 +13,8 @@ import 'package:auto/features/profile/data/datasources/get_user_lists_datasource
 import 'package:auto/features/profile/data/datasources/profile_datasource.dart';
 import 'package:auto/features/profile/data/repositories/get_user_list_repo_impl.dart';
 import 'package:auto/features/profile/data/repositories/profile_repository_impl.dart';
+import 'package:auto/features/reels/data/datasources/reel_data_source.dart';
+import 'package:auto/features/reels/data/repositories/reel_repo_impl.dart';
 import 'package:get_it/get_it.dart';
 
 final serviceLocator = GetIt.I;
@@ -39,5 +41,7 @@ void setupLocator() {
     ..registerLazySingleton(
         () => AddWishlistDatasourceImpl(serviceLocator<DioSettings>().dio))
     ..registerLazySingleton(() => AddWishlistRepositoryImpl(
-        dataSource: serviceLocator<AddWishlistDatasourceImpl>()));
+        dataSource: serviceLocator<AddWishlistDatasourceImpl>()))
+    ..registerLazySingleton(ReelDataSource.new)
+    ..registerLazySingleton(ReelRepositoryImpl.new);
 }
