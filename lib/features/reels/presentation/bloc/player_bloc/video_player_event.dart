@@ -31,10 +31,11 @@ class SeekEvent extends VideoPlayerEvent {
   List<Object?> get props => [position];
 }
 
-class GetTotalLikes extends VideoPlayerEvent{
+class GetTotalLikes extends VideoPlayerEvent {
   final int incrementLikes;
+
   const GetTotalLikes({required this.incrementLikes});
+
   @override
   List<Object?> get props => [];
-
 }

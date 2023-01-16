@@ -4,7 +4,7 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/features/common/widgets/busy_sheet.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
-import 'package:auto/features/reels/presentation/bloc/video_player_bloc.dart';
+import 'package:auto/features/reels/presentation/bloc/player_bloc/video_player_bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

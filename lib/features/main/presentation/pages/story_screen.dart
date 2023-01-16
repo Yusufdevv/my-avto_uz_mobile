@@ -14,6 +14,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:video_player/video_player.dart';
 
 class StoryScreen extends StatefulWidget {
   final List<StoryEntity> stories;
@@ -34,15 +35,18 @@ class _StoryScreenState extends State<StoryScreen>
   late StoryBloc bloc;
   late TransformerPageController pageController;
   late AnimationController animationController;
+  late VideoPlayerController videoPlayerController;
   int storyIndex = 0;
   int itemIndex = 0;
+  bool isVideo = false;
 
   @override
   void initState() {
     super.initState();
     bloc = StoryBloc();
     storyIndex = widget.index;
-    pageController = TransformerPageController(initialPage: storyIndex, itemCount: widget.stories.length);
+    pageController = TransformerPageController(
+        initialPage: storyIndex, itemCount: widget.stories.length);
     animationController = AnimationController(vsync: this);
 
     _loadStory();
@@ -69,7 +73,7 @@ class _StoryScreenState extends State<StoryScreen>
       }
     });
     pageController.addListener(() {
-      animationController.stop(canceled: false);
+      animationController.stop(canceled: true);
     });
   }
 
@@ -77,6 +81,7 @@ class _StoryScreenState extends State<StoryScreen>
   void dispose() {
     pageController.dispose();
     animationController.dispose();
+    videoPlayerController.dispose();
     super.dispose();
   }
 
@@ -89,172 +94,195 @@ class _StoryScreenState extends State<StoryScreen>
           onTapDown: _onTapDown,
           child: TransformerPageView(
             pageController: pageController,
+            physics: const NeverScrollableScrollPhysics(),
             transformer: ThreeDTransformer(),
             curve: Curves.linear,
             scrollDirection: Axis.horizontal,
             itemCount: widget.stories.length,
-            itemBuilder: (context, index) => Stack(
-              children: [
-                SizedBox(
-                  height: double.infinity,
-                  child: CachedNetworkImage(
-                    imageUrl: widget.stories[index].items[itemIndex].content,
-                    imageBuilder: (context, image) => Image(
-                      image: image,
-                      fit: BoxFit.cover,
+            itemBuilder: (context, index) {
+              final url = widget.stories[index].items[itemIndex].content;
+              final isVideo = url.contains('.mp4', url.length - 5) ||
+                  url.contains('.mov', url.length - 5);
+              return Stack(
+                children: [
+                  if (false &&
+                      isVideo &&
+                      videoPlayerController.value.isInitialized)
+                    Positioned.fill(
+                      child: ClipRRect(
+                        borderRadius: const BorderRadius.vertical(
+                            top: Radius.circular(12)),
+                        child: AspectRatio(
+                          aspectRatio: videoPlayerController.value.aspectRatio,
+                          child: VideoPlayer(
+                            videoPlayerController,
+                          ),
+                        ),
+                      ),
                     ),
-                    progressIndicatorBuilder: (context, s, progress) {
-                      if (progress.totalSize != null &&
-                          progress.totalSize != progress.downloaded) {
-                        animationController.stop(canceled: false);
-                      }
-                      if (progress.totalSize == progress.downloaded ||
-                          progress.totalSize == null &&
-                              progress.downloaded == 0) {
-                        _loadStory();
-                      }
+                  if (!isVideo)
+                    SizedBox(
+                      height: double.infinity,
+                      child: CachedNetworkImage(
+                        imageUrl:
+                            widget.stories[storyIndex].items[itemIndex].content,
+                        imageBuilder: (context, image) => Image(
+                          image: image,
+                          fit: BoxFit.cover,
+                        ),
+                        progressIndicatorBuilder: (context, s, progress) {
+                          if (progress.totalSize != null &&
+                              progress.totalSize != progress.downloaded) {
+                            animationController.stop(canceled: false);
+                          }
+                          if ((progress.totalSize == progress.downloaded ||
+                                  progress.totalSize == null &&
+                                      progress.downloaded == 0) &&
+                              animationController.status !=
+                                  AnimationStatus.forward) {
+                            _loadStory();
+                          }
 
-                      return Expanded(
-                        child: Container(
-                          color: grey,
-                        ),
-                      );
-                    },
-                    errorWidget: (context, url, error) => const Image(
-                      image: AssetImage(AppImages.defaultPhoto),
-                      fit: BoxFit.cover,
+                          return Container(
+                            color: grey,
+                          );
+                        },
+                      ),
+                    ),
+                  Positioned(
+                    top: MediaQuery.of(context).padding.top + 12,
+                    left: 16,
+                    right: 10,
+                    child: Row(
+                      children: widget.stories[storyIndex].items
+                          .asMap()
+                          .map(
+                            (i, e) => MapEntry(
+                              i,
+                              AnimatedBar(
+                                animationController: animationController,
+                                currentIndex: itemIndex,
+                                position: i,
+                              ),
+                            ),
+                          )
+                          .values
+                          .toList(),
                     ),
                   ),
-                ),
-                Positioned(
-                  top: MediaQuery.of(context).padding.top + 12,
-                  left: 16,
-                  right: 10,
-                  child: Row(
-                    children: widget.stories[index].items
-                        .asMap()
-                        .map(
-                          (i, e) => MapEntry(
-                            i,
-                            AnimatedBar(
-                              animationController: animationController,
-                              currentIndex: itemIndex,
-                              position: i,
-                            ),
-                          ),
-                        )
-                        .values
-                        .toList(),
+                  Container(
+                    decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                            begin: Alignment.bottomCenter,
+                            end: Alignment.center,
+                            colors: [
+                          dark.withOpacity(1),
+                          dark.withOpacity(0)
+                        ])),
                   ),
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                          begin: Alignment.bottomCenter,
-                          end: Alignment.center,
-                          colors: [dark.withOpacity(1), dark.withOpacity(0)])),
-                ),
-                Positioned(
-                  bottom: MediaQuery.of(context).padding.bottom + 8,
-                  left: 16,
-                  right: 16,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 4),
-                        child: Text(
-                          widget
-                              .stories[index].items[itemIndex].description,
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline4!
-                              .copyWith(fontWeight: FontWeight.w600),
-                        ),
-                      ),
-                      const SizedBox(height: 8),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 4),
-                        child: Text(
-                          'description',
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                          style: Theme.of(context)
-                              .textTheme
-                              .subtitle2!
-                              .copyWith(
-                                  fontWeight: FontWeight.w400,
-                                  color: dividerColor),
-                        ),
-                      ),
-                      const SizedBox(height: 28),
-                      if (widget
-                          .stories[index].items[itemIndex].url.isNotEmpty)
-                        WButton(
-                          onTap: () {},
-                          text: LocaleKeys.more.tr(),
-                          textColor: white,
-                          color: white.withOpacity(.2),
-                        ),
-                    ],
-                  ),
-                ),
-                Positioned(
-                  top: MediaQuery.of(context).padding.top + 28,
-                  left: 20,
-                  right: 16,
-                  child: Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(top: 4),
-                        child: Container(
-                          height: 32,
-                          width: 32,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(40),
-                            border: Border.all(
-                              width: 1.5,
-                              color: white.withOpacity(.4),
-                            ),
+                  Positioned(
+                    bottom: MediaQuery.of(context).padding.bottom + 8,
+                    left: 16,
+                    right: 16,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 4),
+                          child: Text(
+                            widget.stories[storyIndex].items[itemIndex].title,
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline4!
+                                .copyWith(fontWeight: FontWeight.w600),
                           ),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(40),
-                            child: CachedNetworkImage(
-                              imageUrl: widget
-                                  .stories[index].coverImageThumbnail.crop,
-                              fit: BoxFit.cover,
-                              placeholder: (context, url) => const Image(
-                                image: AssetImage(AppImages.defaultPhoto),
-                                fit: BoxFit.cover,
+                        ),
+                        const SizedBox(height: 8),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 4),
+                          child: Text(
+                            widget.stories[storyIndex].items[itemIndex]
+                                .description,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            style: Theme.of(context)
+                                .textTheme
+                                .subtitle2!
+                                .copyWith(
+                                    fontWeight: FontWeight.w400,
+                                    color: dividerColor),
+                          ),
+                        ),
+                        const SizedBox(height: 28),
+                        if (widget.stories[storyIndex].items[itemIndex].url
+                            .isNotEmpty)
+                          WButton(
+                            onTap: () {},
+                            text: LocaleKeys.more.tr(),
+                            textColor: white,
+                            color: white.withOpacity(.2),
+                          ),
+                      ],
+                    ),
+                  ),
+                  Positioned(
+                    top: MediaQuery.of(context).padding.top + 28,
+                    left: 20,
+                    right: 16,
+                    child: Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(top: 4),
+                          child: Container(
+                            height: 32,
+                            width: 32,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(40),
+                              border: Border.all(
+                                width: 1.5,
+                                color: white.withOpacity(.4),
                               ),
-                              errorWidget: (context, url, error) => const Image(
-                                image: AssetImage(AppImages.defaultPhoto),
+                            ),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(40),
+                              child: CachedNetworkImage(
+                                imageUrl: widget.stories[storyIndex]
+                                    .coverImageThumbnail.crop,
                                 fit: BoxFit.cover,
+                                placeholder: (context, url) => const Image(
+                                  image: AssetImage(AppImages.defaultPhoto),
+                                  fit: BoxFit.cover,
+                                ),
+                                errorWidget: (context, url, error) =>
+                                    const Image(
+                                  image: AssetImage(AppImages.defaultPhoto),
+                                  fit: BoxFit.cover,
+                                ),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                      const SizedBox(width: 12),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 10),
-                        child: Text(
-                          widget.stories[index].name,
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline4!
-                              .copyWith(fontSize: 16),
+                        const SizedBox(width: 12),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 10),
+                          child: Text(
+                            widget.stories[storyIndex].name,
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline4!
+                                .copyWith(fontSize: 16),
+                          ),
                         ),
-                      ),
-                      const Spacer(),
-                      WScaleAnimation(
-                          child: SvgPicture.asset(AppIcons.closeWhite),
-                          onTap: () => Navigator.pop(context))
-                    ],
+                        const Spacer(),
+                        WScaleAnimation(
+                            child: SvgPicture.asset(AppIcons.closeWhite),
+                            onTap: () => Navigator.pop(context))
+                      ],
+                    ),
                   ),
-                ),
-              ],
-            ),
+                ],
+              );
+            },
           ),
         ),
       );
@@ -270,8 +298,6 @@ class _StoryScreenState extends State<StoryScreen>
           } else {
             storyIndex--;
             itemIndex = widget.stories[storyIndex].items.length - 1;
-            print('itemIndex: $itemIndex');
-            print('storyIndex: $storyIndex');
             _animateToPage(forward: false);
             _loadStory();
           }
@@ -296,17 +322,41 @@ class _StoryScreenState extends State<StoryScreen>
           _loadStory();
         }
       });
-    } else {}
+    }
   }
 
   void _loadStory() {
-    animationController
-      ..stop()
-      ..reset()
-      ..duration = const Duration(seconds: 5)
-      ..forward();
-    if (!widget.stories[storyIndex].items[itemIndex].isRead) {
-      bloc.add(ReadEvent(widget.stories[storyIndex].items[itemIndex].id));
+    print('loadStory: $storyIndex $itemIndex');
+    final last =
+        widget.stories[storyIndex].items[itemIndex].content.split('.').last;
+    isVideo = last == 'mp4' || last == 'mov';
+    if (isVideo) {
+      return;
+      videoPlayerController = VideoPlayerController.network(
+          widget.stories[storyIndex].items[itemIndex].content,
+          videoPlayerOptions: VideoPlayerOptions(allowBackgroundPlayback: true))
+        ..initialize().then((value) {
+          setState(() {});
+          videoPlayerController.play();
+          animationController
+            ..stop()
+            ..reset()
+            ..duration = videoPlayerController.value.duration
+            ..forward();
+          if (!widget.stories[storyIndex].items[itemIndex].isRead) {
+            bloc.add(ReadEvent(widget.stories[storyIndex].items[itemIndex].id));
+          }
+        })
+        ..setLooping(false);
+    } else {
+      animationController
+        ..stop()
+        ..reset()
+        ..duration = const Duration(seconds: 1000)
+        ..forward();
+      if (!widget.stories[storyIndex].items[itemIndex].isRead) {
+        bloc.add(ReadEvent(widget.stories[storyIndex].items[itemIndex].id));
+      }
     }
   }
 
@@ -314,11 +364,9 @@ class _StoryScreenState extends State<StoryScreen>
     print('animate: $forward');
     forward
         ? pageController.nextPage(
-        duration: const Duration(milliseconds: 500),
-        curve: Curves.linear)
+            duration: const Duration(milliseconds: 500), curve: Curves.linear)
         : pageController.previousPage(
-        duration: const Duration(milliseconds: 500),
-        curve: Curves.linear);
+            duration: const Duration(milliseconds: 500), curve: Curves.linear);
     // pageController.animateToPage(
     //   storyIndex,
     //   duration: const Duration(milliseconds: 500),
