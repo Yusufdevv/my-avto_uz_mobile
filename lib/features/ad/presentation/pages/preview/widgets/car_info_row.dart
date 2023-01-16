@@ -15,16 +15,26 @@ class CarInfoRow extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(title, style: Theme.of(context).textTheme.headline2),
             Expanded(
-                child: Container(
-                    margin: const EdgeInsets.only(top: 13),
-                    height: 1,
-                    color: Theme.of(context).textTheme.headline2!.color)),
-            Text(
-              info,
-              style: Theme.of(context).textTheme.headline2,
-              overflow: TextOverflow.ellipsis,
+              flex: 35,
+              child: Row(
+                children: [
+                  Text(title, style: Theme.of(context).textTheme.headline2),
+                  Expanded(
+                      child: Container(
+                          margin: const EdgeInsets.only(top: 13),
+                          height: 1,
+                          color: Theme.of(context).textTheme.headline2!.color)),
+                ],
+              ),
+            ),
+            Expanded(
+              flex: 20,
+              child: Text(info,
+                  style: Theme.of(context)
+                      .textTheme
+                      .caption!
+                      .copyWith(fontSize: 14, fontWeight: FontWeight.w400)),
             ),
           ],
         ),
