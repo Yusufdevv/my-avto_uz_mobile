@@ -119,10 +119,6 @@ class _CarSingleScreenState extends State<CarSingleScreen>
               if (state.status != FormzStatus.submissionSuccess) {
                 return const Center(child: CupertinoActivityIndicator());
               } else {
-                print(
-                    '==submissionSuccess===iswishlisted ${state.singleEntity.isWishlisted}');
-                print(
-                    '==submissionSuccess===isNew ${state.singleEntity.isNew}');
                 return Stack(
                   children: [
                     CustomScrollView(

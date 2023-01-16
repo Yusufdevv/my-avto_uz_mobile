@@ -28,8 +28,6 @@ class CarSingleDataSourceImpl extends CarSingleDataSource {
       if (response.statusCode != null &&
           response.statusCode! >= 200 &&
           response.statusCode! < 300) {
-        print(
-            'SINGLE RESPONSE DATA SINGLE => from model ${CarSingleModel.fromJson(response.data).isWishlisted}');
         return CarSingleModel.fromJson(response.data);
       } else {
         throw ServerException(
