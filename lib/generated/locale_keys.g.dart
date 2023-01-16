@@ -322,5 +322,7 @@ abstract class  LocaleKeys {
   static const complete_registration = 'complete_registration';
   static const no_dealer = 'no_dealer';
   static const phone_number_changed_success = 'phone_number_changed_success';
+  static const create_add = 'create_add';
+  static const show_all_dealers = 'show_all_dealers';
 
 }
