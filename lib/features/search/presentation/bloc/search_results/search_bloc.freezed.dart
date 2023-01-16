@@ -26,7 +26,6 @@ mixin _$SearchEvent {
     required TResult Function(String text) deleteLocaleSuggestion,
     required TResult Function(String text) selectSearchSuggestion,
     required TResult Function() changeStatus,
-    required TResult Function(int id, bool adding) deleteResultItem,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -39,7 +38,6 @@ mixin _$SearchEvent {
     TResult? Function(String text)? deleteLocaleSuggestion,
     TResult? Function(String text)? selectSearchSuggestion,
     TResult? Function()? changeStatus,
-    TResult? Function(int id, bool adding)? deleteResultItem,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -52,7 +50,6 @@ mixin _$SearchEvent {
     TResult Function(String text)? deleteLocaleSuggestion,
     TResult Function(String text)? selectSearchSuggestion,
     TResult Function()? changeStatus,
-    TResult Function(int id, bool adding)? deleteResultItem,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -68,7 +65,6 @@ mixin _$SearchEvent {
     required TResult Function(_SelectLocaleSuggestion value)
         selectSearchSuggestion,
     required TResult Function(_ChangeStatus value) changeStatus,
-    required TResult Function(_DeleteResultItem value) deleteResultItem,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -81,7 +77,6 @@ mixin _$SearchEvent {
     TResult? Function(_DeleteLocaleSuggestion value)? deleteLocaleSuggestion,
     TResult? Function(_SelectLocaleSuggestion value)? selectSearchSuggestion,
     TResult? Function(_ChangeStatus value)? changeStatus,
-    TResult? Function(_DeleteResultItem value)? deleteResultItem,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -94,7 +89,6 @@ mixin _$SearchEvent {
     TResult Function(_DeleteLocaleSuggestion value)? deleteLocaleSuggestion,
     TResult Function(_SelectLocaleSuggestion value)? selectSearchSuggestion,
     TResult Function(_ChangeStatus value)? changeStatus,
-    TResult Function(_DeleteResultItem value)? deleteResultItem,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -191,7 +185,6 @@ class _$_GetResults implements _GetResults {
     required TResult Function(String text) deleteLocaleSuggestion,
     required TResult Function(String text) selectSearchSuggestion,
     required TResult Function() changeStatus,
-    required TResult Function(int id, bool adding) deleteResultItem,
   }) {
     return getResults(searchText);
   }
@@ -207,7 +200,6 @@ class _$_GetResults implements _GetResults {
     TResult? Function(String text)? deleteLocaleSuggestion,
     TResult? Function(String text)? selectSearchSuggestion,
     TResult? Function()? changeStatus,
-    TResult? Function(int id, bool adding)? deleteResultItem,
   }) {
     return getResults?.call(searchText);
   }
@@ -223,7 +215,6 @@ class _$_GetResults implements _GetResults {
     TResult Function(String text)? deleteLocaleSuggestion,
     TResult Function(String text)? selectSearchSuggestion,
     TResult Function()? changeStatus,
-    TResult Function(int id, bool adding)? deleteResultItem,
     required TResult orElse(),
   }) {
     if (getResults != null) {
@@ -245,7 +236,6 @@ class _$_GetResults implements _GetResults {
     required TResult Function(_SelectLocaleSuggestion value)
         selectSearchSuggestion,
     required TResult Function(_ChangeStatus value) changeStatus,
-    required TResult Function(_DeleteResultItem value) deleteResultItem,
   }) {
     return getResults(this);
   }
@@ -261,7 +251,6 @@ class _$_GetResults implements _GetResults {
     TResult? Function(_DeleteLocaleSuggestion value)? deleteLocaleSuggestion,
     TResult? Function(_SelectLocaleSuggestion value)? selectSearchSuggestion,
     TResult? Function(_ChangeStatus value)? changeStatus,
-    TResult? Function(_DeleteResultItem value)? deleteResultItem,
   }) {
     return getResults?.call(this);
   }
@@ -277,7 +266,6 @@ class _$_GetResults implements _GetResults {
     TResult Function(_DeleteLocaleSuggestion value)? deleteLocaleSuggestion,
     TResult Function(_SelectLocaleSuggestion value)? selectSearchSuggestion,
     TResult Function(_ChangeStatus value)? changeStatus,
-    TResult Function(_DeleteResultItem value)? deleteResultItem,
     required TResult orElse(),
   }) {
     if (getResults != null) {
@@ -342,7 +330,6 @@ class _$_GetMoreResults implements _GetMoreResults {
     required TResult Function(String text) deleteLocaleSuggestion,
     required TResult Function(String text) selectSearchSuggestion,
     required TResult Function() changeStatus,
-    required TResult Function(int id, bool adding) deleteResultItem,
   }) {
     return getMoreResults();
   }
@@ -358,7 +345,6 @@ class _$_GetMoreResults implements _GetMoreResults {
     TResult? Function(String text)? deleteLocaleSuggestion,
     TResult? Function(String text)? selectSearchSuggestion,
     TResult? Function()? changeStatus,
-    TResult? Function(int id, bool adding)? deleteResultItem,
   }) {
     return getMoreResults?.call();
   }
@@ -374,7 +360,6 @@ class _$_GetMoreResults implements _GetMoreResults {
     TResult Function(String text)? deleteLocaleSuggestion,
     TResult Function(String text)? selectSearchSuggestion,
     TResult Function()? changeStatus,
-    TResult Function(int id, bool adding)? deleteResultItem,
     required TResult orElse(),
   }) {
     if (getMoreResults != null) {
@@ -396,7 +381,6 @@ class _$_GetMoreResults implements _GetMoreResults {
     required TResult Function(_SelectLocaleSuggestion value)
         selectSearchSuggestion,
     required TResult Function(_ChangeStatus value) changeStatus,
-    required TResult Function(_DeleteResultItem value) deleteResultItem,
   }) {
     return getMoreResults(this);
   }
@@ -412,7 +396,6 @@ class _$_GetMoreResults implements _GetMoreResults {
     TResult? Function(_DeleteLocaleSuggestion value)? deleteLocaleSuggestion,
     TResult? Function(_SelectLocaleSuggestion value)? selectSearchSuggestion,
     TResult? Function(_ChangeStatus value)? changeStatus,
-    TResult? Function(_DeleteResultItem value)? deleteResultItem,
   }) {
     return getMoreResults?.call(this);
   }
@@ -428,7 +411,6 @@ class _$_GetMoreResults implements _GetMoreResults {
     TResult Function(_DeleteLocaleSuggestion value)? deleteLocaleSuggestion,
     TResult Function(_SelectLocaleSuggestion value)? selectSearchSuggestion,
     TResult Function(_ChangeStatus value)? changeStatus,
-    TResult Function(_DeleteResultItem value)? deleteResultItem,
     required TResult orElse(),
   }) {
     if (getMoreResults != null) {
@@ -514,7 +496,6 @@ class _$_GetSuggestions implements _GetSuggestions {
     required TResult Function(String text) deleteLocaleSuggestion,
     required TResult Function(String text) selectSearchSuggestion,
     required TResult Function() changeStatus,
-    required TResult Function(int id, bool adding) deleteResultItem,
   }) {
     return getSuggestions(search);
   }
@@ -530,7 +511,6 @@ class _$_GetSuggestions implements _GetSuggestions {
     TResult? Function(String text)? deleteLocaleSuggestion,
     TResult? Function(String text)? selectSearchSuggestion,
     TResult? Function()? changeStatus,
-    TResult? Function(int id, bool adding)? deleteResultItem,
   }) {
     return getSuggestions?.call(search);
   }
@@ -546,7 +526,6 @@ class _$_GetSuggestions implements _GetSuggestions {
     TResult Function(String text)? deleteLocaleSuggestion,
     TResult Function(String text)? selectSearchSuggestion,
     TResult Function()? changeStatus,
-    TResult Function(int id, bool adding)? deleteResultItem,
     required TResult orElse(),
   }) {
     if (getSuggestions != null) {
@@ -568,7 +547,6 @@ class _$_GetSuggestions implements _GetSuggestions {
     required TResult Function(_SelectLocaleSuggestion value)
         selectSearchSuggestion,
     required TResult Function(_ChangeStatus value) changeStatus,
-    required TResult Function(_DeleteResultItem value) deleteResultItem,
   }) {
     return getSuggestions(this);
   }
@@ -584,7 +562,6 @@ class _$_GetSuggestions implements _GetSuggestions {
     TResult? Function(_DeleteLocaleSuggestion value)? deleteLocaleSuggestion,
     TResult? Function(_SelectLocaleSuggestion value)? selectSearchSuggestion,
     TResult? Function(_ChangeStatus value)? changeStatus,
-    TResult? Function(_DeleteResultItem value)? deleteResultItem,
   }) {
     return getSuggestions?.call(this);
   }
@@ -600,7 +577,6 @@ class _$_GetSuggestions implements _GetSuggestions {
     TResult Function(_DeleteLocaleSuggestion value)? deleteLocaleSuggestion,
     TResult Function(_SelectLocaleSuggestion value)? selectSearchSuggestion,
     TResult Function(_ChangeStatus value)? changeStatus,
-    TResult Function(_DeleteResultItem value)? deleteResultItem,
     required TResult orElse(),
   }) {
     if (getSuggestions != null) {
@@ -665,7 +641,6 @@ class _$_SetSuggestions implements _SetSuggestions {
     required TResult Function(String text) deleteLocaleSuggestion,
     required TResult Function(String text) selectSearchSuggestion,
     required TResult Function() changeStatus,
-    required TResult Function(int id, bool adding) deleteResultItem,
   }) {
     return setSuggestions();
   }
@@ -681,7 +656,6 @@ class _$_SetSuggestions implements _SetSuggestions {
     TResult? Function(String text)? deleteLocaleSuggestion,
     TResult? Function(String text)? selectSearchSuggestion,
     TResult? Function()? changeStatus,
-    TResult? Function(int id, bool adding)? deleteResultItem,
   }) {
     return setSuggestions?.call();
   }
@@ -697,7 +671,6 @@ class _$_SetSuggestions implements _SetSuggestions {
     TResult Function(String text)? deleteLocaleSuggestion,
     TResult Function(String text)? selectSearchSuggestion,
     TResult Function()? changeStatus,
-    TResult Function(int id, bool adding)? deleteResultItem,
     required TResult orElse(),
   }) {
     if (setSuggestions != null) {
@@ -719,7 +692,6 @@ class _$_SetSuggestions implements _SetSuggestions {
     required TResult Function(_SelectLocaleSuggestion value)
         selectSearchSuggestion,
     required TResult Function(_ChangeStatus value) changeStatus,
-    required TResult Function(_DeleteResultItem value) deleteResultItem,
   }) {
     return setSuggestions(this);
   }
@@ -735,7 +707,6 @@ class _$_SetSuggestions implements _SetSuggestions {
     TResult? Function(_DeleteLocaleSuggestion value)? deleteLocaleSuggestion,
     TResult? Function(_SelectLocaleSuggestion value)? selectSearchSuggestion,
     TResult? Function(_ChangeStatus value)? changeStatus,
-    TResult? Function(_DeleteResultItem value)? deleteResultItem,
   }) {
     return setSuggestions?.call(this);
   }
@@ -751,7 +722,6 @@ class _$_SetSuggestions implements _SetSuggestions {
     TResult Function(_DeleteLocaleSuggestion value)? deleteLocaleSuggestion,
     TResult Function(_SelectLocaleSuggestion value)? selectSearchSuggestion,
     TResult Function(_ChangeStatus value)? changeStatus,
-    TResult Function(_DeleteResultItem value)? deleteResultItem,
     required TResult orElse(),
   }) {
     if (setSuggestions != null) {
@@ -838,7 +808,6 @@ class _$_SaveLocaleSuggestion implements _SaveLocaleSuggestion {
     required TResult Function(String text) deleteLocaleSuggestion,
     required TResult Function(String text) selectSearchSuggestion,
     required TResult Function() changeStatus,
-    required TResult Function(int id, bool adding) deleteResultItem,
   }) {
     return saveLocaleSuggestion(text);
   }
@@ -854,7 +823,6 @@ class _$_SaveLocaleSuggestion implements _SaveLocaleSuggestion {
     TResult? Function(String text)? deleteLocaleSuggestion,
     TResult? Function(String text)? selectSearchSuggestion,
     TResult? Function()? changeStatus,
-    TResult? Function(int id, bool adding)? deleteResultItem,
   }) {
     return saveLocaleSuggestion?.call(text);
   }
@@ -870,7 +838,6 @@ class _$_SaveLocaleSuggestion implements _SaveLocaleSuggestion {
     TResult Function(String text)? deleteLocaleSuggestion,
     TResult Function(String text)? selectSearchSuggestion,
     TResult Function()? changeStatus,
-    TResult Function(int id, bool adding)? deleteResultItem,
     required TResult orElse(),
   }) {
     if (saveLocaleSuggestion != null) {
@@ -892,7 +859,6 @@ class _$_SaveLocaleSuggestion implements _SaveLocaleSuggestion {
     required TResult Function(_SelectLocaleSuggestion value)
         selectSearchSuggestion,
     required TResult Function(_ChangeStatus value) changeStatus,
-    required TResult Function(_DeleteResultItem value) deleteResultItem,
   }) {
     return saveLocaleSuggestion(this);
   }
@@ -908,7 +874,6 @@ class _$_SaveLocaleSuggestion implements _SaveLocaleSuggestion {
     TResult? Function(_DeleteLocaleSuggestion value)? deleteLocaleSuggestion,
     TResult? Function(_SelectLocaleSuggestion value)? selectSearchSuggestion,
     TResult? Function(_ChangeStatus value)? changeStatus,
-    TResult? Function(_DeleteResultItem value)? deleteResultItem,
   }) {
     return saveLocaleSuggestion?.call(this);
   }
@@ -924,7 +889,6 @@ class _$_SaveLocaleSuggestion implements _SaveLocaleSuggestion {
     TResult Function(_DeleteLocaleSuggestion value)? deleteLocaleSuggestion,
     TResult Function(_SelectLocaleSuggestion value)? selectSearchSuggestion,
     TResult Function(_ChangeStatus value)? changeStatus,
-    TResult Function(_DeleteResultItem value)? deleteResultItem,
     required TResult orElse(),
   }) {
     if (saveLocaleSuggestion != null) {
@@ -1017,7 +981,6 @@ class _$_DeleteLocaleSuggestion implements _DeleteLocaleSuggestion {
     required TResult Function(String text) deleteLocaleSuggestion,
     required TResult Function(String text) selectSearchSuggestion,
     required TResult Function() changeStatus,
-    required TResult Function(int id, bool adding) deleteResultItem,
   }) {
     return deleteLocaleSuggestion(text);
   }
@@ -1033,7 +996,6 @@ class _$_DeleteLocaleSuggestion implements _DeleteLocaleSuggestion {
     TResult? Function(String text)? deleteLocaleSuggestion,
     TResult? Function(String text)? selectSearchSuggestion,
     TResult? Function()? changeStatus,
-    TResult? Function(int id, bool adding)? deleteResultItem,
   }) {
     return deleteLocaleSuggestion?.call(text);
   }
@@ -1049,7 +1011,6 @@ class _$_DeleteLocaleSuggestion implements _DeleteLocaleSuggestion {
     TResult Function(String text)? deleteLocaleSuggestion,
     TResult Function(String text)? selectSearchSuggestion,
     TResult Function()? changeStatus,
-    TResult Function(int id, bool adding)? deleteResultItem,
     required TResult orElse(),
   }) {
     if (deleteLocaleSuggestion != null) {
@@ -1071,7 +1032,6 @@ class _$_DeleteLocaleSuggestion implements _DeleteLocaleSuggestion {
     required TResult Function(_SelectLocaleSuggestion value)
         selectSearchSuggestion,
     required TResult Function(_ChangeStatus value) changeStatus,
-    required TResult Function(_DeleteResultItem value) deleteResultItem,
   }) {
     return deleteLocaleSuggestion(this);
   }
@@ -1087,7 +1047,6 @@ class _$_DeleteLocaleSuggestion implements _DeleteLocaleSuggestion {
     TResult? Function(_DeleteLocaleSuggestion value)? deleteLocaleSuggestion,
     TResult? Function(_SelectLocaleSuggestion value)? selectSearchSuggestion,
     TResult? Function(_ChangeStatus value)? changeStatus,
-    TResult? Function(_DeleteResultItem value)? deleteResultItem,
   }) {
     return deleteLocaleSuggestion?.call(this);
   }
@@ -1103,7 +1062,6 @@ class _$_DeleteLocaleSuggestion implements _DeleteLocaleSuggestion {
     TResult Function(_DeleteLocaleSuggestion value)? deleteLocaleSuggestion,
     TResult Function(_SelectLocaleSuggestion value)? selectSearchSuggestion,
     TResult Function(_ChangeStatus value)? changeStatus,
-    TResult Function(_DeleteResultItem value)? deleteResultItem,
     required TResult orElse(),
   }) {
     if (deleteLocaleSuggestion != null) {
@@ -1196,7 +1154,6 @@ class _$_SelectLocaleSuggestion implements _SelectLocaleSuggestion {
     required TResult Function(String text) deleteLocaleSuggestion,
     required TResult Function(String text) selectSearchSuggestion,
     required TResult Function() changeStatus,
-    required TResult Function(int id, bool adding) deleteResultItem,
   }) {
     return selectSearchSuggestion(text);
   }
@@ -1212,7 +1169,6 @@ class _$_SelectLocaleSuggestion implements _SelectLocaleSuggestion {
     TResult? Function(String text)? deleteLocaleSuggestion,
     TResult? Function(String text)? selectSearchSuggestion,
     TResult? Function()? changeStatus,
-    TResult? Function(int id, bool adding)? deleteResultItem,
   }) {
     return selectSearchSuggestion?.call(text);
   }
@@ -1228,7 +1184,6 @@ class _$_SelectLocaleSuggestion implements _SelectLocaleSuggestion {
     TResult Function(String text)? deleteLocaleSuggestion,
     TResult Function(String text)? selectSearchSuggestion,
     TResult Function()? changeStatus,
-    TResult Function(int id, bool adding)? deleteResultItem,
     required TResult orElse(),
   }) {
     if (selectSearchSuggestion != null) {
@@ -1250,7 +1205,6 @@ class _$_SelectLocaleSuggestion implements _SelectLocaleSuggestion {
     required TResult Function(_SelectLocaleSuggestion value)
         selectSearchSuggestion,
     required TResult Function(_ChangeStatus value) changeStatus,
-    required TResult Function(_DeleteResultItem value) deleteResultItem,
   }) {
     return selectSearchSuggestion(this);
   }
@@ -1266,7 +1220,6 @@ class _$_SelectLocaleSuggestion implements _SelectLocaleSuggestion {
     TResult? Function(_DeleteLocaleSuggestion value)? deleteLocaleSuggestion,
     TResult? Function(_SelectLocaleSuggestion value)? selectSearchSuggestion,
     TResult? Function(_ChangeStatus value)? changeStatus,
-    TResult? Function(_DeleteResultItem value)? deleteResultItem,
   }) {
     return selectSearchSuggestion?.call(this);
   }
@@ -1282,7 +1235,6 @@ class _$_SelectLocaleSuggestion implements _SelectLocaleSuggestion {
     TResult Function(_DeleteLocaleSuggestion value)? deleteLocaleSuggestion,
     TResult Function(_SelectLocaleSuggestion value)? selectSearchSuggestion,
     TResult Function(_ChangeStatus value)? changeStatus,
-    TResult Function(_DeleteResultItem value)? deleteResultItem,
     required TResult orElse(),
   }) {
     if (selectSearchSuggestion != null) {
@@ -1348,7 +1300,6 @@ class _$_ChangeStatus implements _ChangeStatus {
     required TResult Function(String text) deleteLocaleSuggestion,
     required TResult Function(String text) selectSearchSuggestion,
     required TResult Function() changeStatus,
-    required TResult Function(int id, bool adding) deleteResultItem,
   }) {
     return changeStatus();
   }
@@ -1364,7 +1315,6 @@ class _$_ChangeStatus implements _ChangeStatus {
     TResult? Function(String text)? deleteLocaleSuggestion,
     TResult? Function(String text)? selectSearchSuggestion,
     TResult? Function()? changeStatus,
-    TResult? Function(int id, bool adding)? deleteResultItem,
   }) {
     return changeStatus?.call();
   }
@@ -1380,7 +1330,6 @@ class _$_ChangeStatus implements _ChangeStatus {
     TResult Function(String text)? deleteLocaleSuggestion,
     TResult Function(String text)? selectSearchSuggestion,
     TResult Function()? changeStatus,
-    TResult Function(int id, bool adding)? deleteResultItem,
     required TResult orElse(),
   }) {
     if (changeStatus != null) {
@@ -1402,7 +1351,6 @@ class _$_ChangeStatus implements _ChangeStatus {
     required TResult Function(_SelectLocaleSuggestion value)
         selectSearchSuggestion,
     required TResult Function(_ChangeStatus value) changeStatus,
-    required TResult Function(_DeleteResultItem value) deleteResultItem,
   }) {
     return changeStatus(this);
   }
@@ -1418,7 +1366,6 @@ class _$_ChangeStatus implements _ChangeStatus {
     TResult? Function(_DeleteLocaleSuggestion value)? deleteLocaleSuggestion,
     TResult? Function(_SelectLocaleSuggestion value)? selectSearchSuggestion,
     TResult? Function(_ChangeStatus value)? changeStatus,
-    TResult? Function(_DeleteResultItem value)? deleteResultItem,
   }) {
     return changeStatus?.call(this);
   }
@@ -1434,7 +1381,6 @@ class _$_ChangeStatus implements _ChangeStatus {
     TResult Function(_DeleteLocaleSuggestion value)? deleteLocaleSuggestion,
     TResult Function(_SelectLocaleSuggestion value)? selectSearchSuggestion,
     TResult Function(_ChangeStatus value)? changeStatus,
-    TResult Function(_DeleteResultItem value)? deleteResultItem,
     required TResult orElse(),
   }) {
     if (changeStatus != null) {
@@ -1446,194 +1392,6 @@ class _$_ChangeStatus implements _ChangeStatus {
 
 abstract class _ChangeStatus implements SearchEvent {
   factory _ChangeStatus() = _$_ChangeStatus;
-}
-
-/// @nodoc
-abstract class _$$_DeleteResultItemCopyWith<$Res> {
-  factory _$$_DeleteResultItemCopyWith(
-          _$_DeleteResultItem value, $Res Function(_$_DeleteResultItem) then) =
-      __$$_DeleteResultItemCopyWithImpl<$Res>;
-  @useResult
-  $Res call({int id, bool adding});
-}
-
-/// @nodoc
-class __$$_DeleteResultItemCopyWithImpl<$Res>
-    extends _$SearchEventCopyWithImpl<$Res, _$_DeleteResultItem>
-    implements _$$_DeleteResultItemCopyWith<$Res> {
-  __$$_DeleteResultItemCopyWithImpl(
-      _$_DeleteResultItem _value, $Res Function(_$_DeleteResultItem) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? id = null,
-    Object? adding = null,
-  }) {
-    return _then(_$_DeleteResultItem(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int,
-      adding: null == adding
-          ? _value.adding
-          : adding // ignore: cast_nullable_to_non_nullable
-              as bool,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$_DeleteResultItem implements _DeleteResultItem {
-  _$_DeleteResultItem({required this.id, required this.adding});
-
-  @override
-  final int id;
-  @override
-  final bool adding;
-
-  @override
-  String toString() {
-    return 'SearchEvent.deleteResultItem(id: $id, adding: $adding)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_DeleteResultItem &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.adding, adding) || other.adding == adding));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, id, adding);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$_DeleteResultItemCopyWith<_$_DeleteResultItem> get copyWith =>
-      __$$_DeleteResultItemCopyWithImpl<_$_DeleteResultItem>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(String searchText) getResults,
-    required TResult Function() getMoreResults,
-    required TResult Function(String search) getSuggestions,
-    required TResult Function() setSuggestions,
-    required TResult Function(String text) saveLocaleSuggestion,
-    required TResult Function(String text) deleteLocaleSuggestion,
-    required TResult Function(String text) selectSearchSuggestion,
-    required TResult Function() changeStatus,
-    required TResult Function(int id, bool adding) deleteResultItem,
-  }) {
-    return deleteResultItem(id, adding);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String searchText)? getResults,
-    TResult? Function()? getMoreResults,
-    TResult? Function(String search)? getSuggestions,
-    TResult? Function()? setSuggestions,
-    TResult? Function(String text)? saveLocaleSuggestion,
-    TResult? Function(String text)? deleteLocaleSuggestion,
-    TResult? Function(String text)? selectSearchSuggestion,
-    TResult? Function()? changeStatus,
-    TResult? Function(int id, bool adding)? deleteResultItem,
-  }) {
-    return deleteResultItem?.call(id, adding);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String searchText)? getResults,
-    TResult Function()? getMoreResults,
-    TResult Function(String search)? getSuggestions,
-    TResult Function()? setSuggestions,
-    TResult Function(String text)? saveLocaleSuggestion,
-    TResult Function(String text)? deleteLocaleSuggestion,
-    TResult Function(String text)? selectSearchSuggestion,
-    TResult Function()? changeStatus,
-    TResult Function(int id, bool adding)? deleteResultItem,
-    required TResult orElse(),
-  }) {
-    if (deleteResultItem != null) {
-      return deleteResultItem(id, adding);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_GetResults value) getResults,
-    required TResult Function(_GetMoreResults value) getMoreResults,
-    required TResult Function(_GetSuggestions value) getSuggestions,
-    required TResult Function(_SetSuggestions value) setSuggestions,
-    required TResult Function(_SaveLocaleSuggestion value) saveLocaleSuggestion,
-    required TResult Function(_DeleteLocaleSuggestion value)
-        deleteLocaleSuggestion,
-    required TResult Function(_SelectLocaleSuggestion value)
-        selectSearchSuggestion,
-    required TResult Function(_ChangeStatus value) changeStatus,
-    required TResult Function(_DeleteResultItem value) deleteResultItem,
-  }) {
-    return deleteResultItem(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_GetResults value)? getResults,
-    TResult? Function(_GetMoreResults value)? getMoreResults,
-    TResult? Function(_GetSuggestions value)? getSuggestions,
-    TResult? Function(_SetSuggestions value)? setSuggestions,
-    TResult? Function(_SaveLocaleSuggestion value)? saveLocaleSuggestion,
-    TResult? Function(_DeleteLocaleSuggestion value)? deleteLocaleSuggestion,
-    TResult? Function(_SelectLocaleSuggestion value)? selectSearchSuggestion,
-    TResult? Function(_ChangeStatus value)? changeStatus,
-    TResult? Function(_DeleteResultItem value)? deleteResultItem,
-  }) {
-    return deleteResultItem?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_GetResults value)? getResults,
-    TResult Function(_GetMoreResults value)? getMoreResults,
-    TResult Function(_GetSuggestions value)? getSuggestions,
-    TResult Function(_SetSuggestions value)? setSuggestions,
-    TResult Function(_SaveLocaleSuggestion value)? saveLocaleSuggestion,
-    TResult Function(_DeleteLocaleSuggestion value)? deleteLocaleSuggestion,
-    TResult Function(_SelectLocaleSuggestion value)? selectSearchSuggestion,
-    TResult Function(_ChangeStatus value)? changeStatus,
-    TResult Function(_DeleteResultItem value)? deleteResultItem,
-    required TResult orElse(),
-  }) {
-    if (deleteResultItem != null) {
-      return deleteResultItem(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _DeleteResultItem implements SearchEvent {
-  factory _DeleteResultItem(
-      {required final int id,
-      required final bool adding}) = _$_DeleteResultItem;
-
-  int get id;
-  bool get adding;
-  @JsonKey(ignore: true)
-  _$$_DeleteResultItemCopyWith<_$_DeleteResultItem> get copyWith =>
-      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
