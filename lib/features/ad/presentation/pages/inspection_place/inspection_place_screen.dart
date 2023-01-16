@@ -79,7 +79,9 @@ class _InspectionPlaceScreenState extends State<InspectionPlaceScreen> {
                   const SizedBox(
                     height: 17,
                   ),
-                  const SwitcherRow(title: 'Указать точную геопозицию'),
+                   SwitcherRow(title: 'Указать точную геопозицию',
+                            value: true,
+                            onChanged: (v) {}),
                 ],
               ),
             ),

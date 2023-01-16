@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:auto/assets/themes/theme_extensions/themed_icons.dart';
 import 'package:auto/core/usecases/usecase.dart';
 import 'package:auto/features/ad/domain/entities/generation/generation.dart';
 import 'package:auto/features/ad/domain/entities/types/body_type.dart';
@@ -43,7 +44,10 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     required this.gearboxUseCase,
     required this.bodyTypesUseCase,
   }) : super(const PostingAdState(status: FormzStatus.pure)) {
-    on<PostingAdChooseEvent>(_choose);
+    on
+
+        /// A generic type.
+        <PostingAdChooseEvent>(_choose);
     on<PostingAdMakesEvent>(_makes);
     on<PostingAdTopMakesEvent>(_topMakes);
     on<PostingAdChangeAppBarShadowEvent>(_changeAppBarShadow);
@@ -243,6 +247,11 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
   void _choose(PostingAdChooseEvent event, Emitter<PostingAdState> emit) {
     emit(
       state.copyWith(
+        isContactsVerified: event.isContactsVerified,
+        showOwnerContacts: event.showOwnerContacts,
+        isCallTimed: event.isCallTimed,
+        callTimeTo: event.callTimeTo,
+        callTimeFrom: event.callTimeFrom,
         mileage: event.mileage,
         ownerStep: event.ownerStep,
         typeDocument: event.typeDocument,
@@ -259,13 +268,14 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
         makeId: event.makeId,
         boughtTime: event.boughtTime,
         isRastamojen: event.isRastamojen,
-        ownerEmail: event.ownetEmail,
-        ownerName: event.ownetName,
-        ownerPhone: event.ownetName,
+        ownerEmail: event.ownerEmail,
+        ownerName: event.ownerName,
+        ownerPhone: event.ownerPhone,
         city: event.city,
         region: event.region,
         price: event.price,
         currency: event.currency,
+        gasBalloonType: event.gasBalloonType,
       ),
     );
   }

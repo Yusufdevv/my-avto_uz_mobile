@@ -5,6 +5,7 @@ abstract class PostingAdEvent {}
 class PostingAdBodyTypesEvent extends PostingAdEvent {
   PostingAdBodyTypesEvent();
 }
+
 class PostingAdGearBoxesEvent extends PostingAdEvent {
   PostingAdGearBoxesEvent();
 }
@@ -53,9 +54,9 @@ class PostingAdChooseEvent extends PostingAdEvent {
   final String? colorName;
   final String? typeDocument;
   final String? ownerStep;
-  final String? ownetEmail;
-  final String? ownetPhone;
-  final String? ownetName;
+  final String? ownerEmail;
+  final String? ownerPhone;
+  final String? ownerName;
   final String? boughtTime;
   final String? description;
   final String? city;
@@ -63,10 +64,16 @@ class PostingAdChooseEvent extends PostingAdEvent {
   final String? price;
   final String? currency;
   final String? mileage;
+  final String? gasBalloonType;
 
+  final String? callTimeFrom;
+  final String? callTimeTo;
 
-
+  final bool? hasGasBalloon;
   final bool? isRastamojen;
+  final bool? isCallTimed;
+  final bool? showOwnerContacts;
+  final bool? isContactsVerified;
 
   PostingAdChooseEvent({
     this.driveTypeId,
@@ -85,14 +92,21 @@ class PostingAdChooseEvent extends PostingAdEvent {
     this.boughtTime,
     this.isRastamojen,
     this.description,
-    this.ownetEmail,
-    this.ownetName,
-    this.ownetPhone,
-this.city,
+    this.ownerEmail,
+    this.ownerName,
+    this.ownerPhone,
+    this.city,
     this.region,
     this.price,
     this.currency,
     this.mileage,
+    this.hasGasBalloon,
+    this.gasBalloonType,
+    this.callTimeFrom,
+    this.callTimeTo,
+    this.isCallTimed,
+    this.showOwnerContacts,
+    this.isContactsVerified,
   });
 }
 

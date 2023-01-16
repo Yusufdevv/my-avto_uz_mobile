@@ -88,7 +88,8 @@ class _MileageScreenState extends State<MileageScreen> {
                       const SizedBox(
                         height: 20,
                       ),
-                      const SwitcherRow(title: 'Без пробега'),
+                      SwitcherRow(
+                          title: 'Без пробега', value: true, onChanged: (v) {}),
                     ],
                   ),
                 ),

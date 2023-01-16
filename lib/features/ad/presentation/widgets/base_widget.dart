@@ -3,14 +3,12 @@ import 'package:flutter/material.dart';
 
 class BaseWidget extends StatelessWidget {
   final String headerText;
-  final VoidCallback? onTap;
   final Widget child;
   final EdgeInsets? padding;
 
   const BaseWidget(
       {required this.headerText,
       required this.child,
-      this.onTap,
       this.padding,
       Key? key})
       : super(key: key);

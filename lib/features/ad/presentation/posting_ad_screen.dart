@@ -61,12 +61,12 @@ class _PostingAdScreenState extends State<PostingAdScreen>
     with SingleTickerProviderStateMixin {
   late PageController pageController;
   late PostingAdBloc postingAdBloc;
-  static int fake = 0;
-  int currentTabIndex = fake;
-  final int tabLength = 21;
+  static int initialPage = 15;
+  int currentTabIndex = initialPage;
+  final int tabLength = 20;
   @override
   void initState() {
-    pageController = PageController(initialPage: fake);
+    pageController = PageController(initialPage: initialPage);
     postingAdBloc = PostingAdBloc(
       bodyTypesUseCase:
           GetBodyTypeUseCase(repository: serviceLocator<AdRepositoryImpl>()),
@@ -113,6 +113,8 @@ class _PostingAdScreenState extends State<PostingAdScreen>
 //       // gearbox
 //       case 7:
 //         return state.gearboxId == null;
+//       case 15:
+//         return state.isContactsVerified??false;
 //     }
 
     return false;
@@ -204,26 +206,11 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                       },
                       title:
                           currentTabIndex == 0 ? '' : tabs[currentTabIndex - 1],
-                      extraActions: [
-                        if (currentTabIndex > 0)
-                          Padding(
-                            padding: const EdgeInsets.all(16),
-                            child: WScaleAnimation(
-                                child: SvgPicture.asset(
-                                  AppIcons.close,
-                                ),
-                                onTap: () {
-                                  // Navigator.pop(context);
-                                }),
-                          )
-                        else
-                          const SizedBox()
-                      ],
                     ),
                     CompletionBar(
                       visibile: state.hasAppBarShadow,
                       screenWidth: MediaQuery.of(context).size.width,
-                      totalSteps: 21,
+                      totalSteps: tabLength,
                       currentStep: currentTabIndex + 1,
                       progressBarColor: orange,
                     ),
@@ -251,7 +238,6 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                       const GenerationScreen(),
                       //4
                       CarcaseScreen(selectedBodyTypeId: state.bodyTypeId ?? -1),
-
                       //5
                       const EngineScreen(),
                       //6
@@ -284,9 +270,9 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                       PriceScreen(initialPrice: state.price ?? ''),
                       //18
                       MileageScreen(initialMilage: state.mileage ?? ''),
+                      // //19
+                      // const StsScreen(),
                       //19
-                      const StsScreen(),
-                      //20
                       PreviewScreen()
                     ],
                   ),

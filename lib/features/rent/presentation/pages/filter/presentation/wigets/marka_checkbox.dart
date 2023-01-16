@@ -5,8 +5,8 @@ import 'package:auto/assets/constants/icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class MarkaCheckBox extends StatelessWidget {
-  const MarkaCheckBox({
+class MarkaChecked extends StatelessWidget {
+  const MarkaChecked({
     Key? key,
   }) : super(key: key);
 

@@ -245,10 +245,8 @@ class _SearchScreenState extends State<SearchScreen> {
                     ? searchController.text.isEmpty
                         ? const SizedBox()
                         : Padding(
-                          
                             padding: const EdgeInsets.only(top: 16),
                             child: Paginator(
-                              
                               fetchMoreFunction: () {},
                               hasMoreToFetch:
                                   state.suggestionsFetchMore ?? false,

@@ -35,17 +35,7 @@ class _RentPeriodScreenState extends State<RentPeriodScreen> {
     _endDate = DateFormat('d.MM.y')
         .format(today.add(const Duration(days: 3)))
         .toString();
-    for (var i = 0; i <= 23; i++) {
-      if (i.toString().length == 2) {
-        list
-          ..add('$i : 00')
-          ..add('$i : 30');
-      } else {
-        list
-          ..add('0$i : 00')
-          ..add('0$i : 30');
-      }
-    }
+   
     super.initState();
   }
 

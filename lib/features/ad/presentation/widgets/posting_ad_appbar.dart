@@ -8,7 +8,6 @@ class PostingAdAppBar extends StatelessWidget implements PreferredSizeWidget {
   final VoidCallback onTapBack;
   final String title;
   final TextStyle? titleStyle;
-  final List<Widget> extraActions;
   final Color? backgroundColor;
   final Widget? childWithButton;
   final bool hasBackButton;
@@ -25,7 +24,6 @@ class PostingAdAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.backButtonSize = 20,
     this.backgroundColor,
     this.titleStyle,
-    this.extraActions = const [],
     this.childWithButton,
     Key? key,
   }) : super(key: key);
@@ -73,8 +71,6 @@ class PostingAdAppBar extends StatelessWidget implements PreferredSizeWidget {
                 ],
               ),
             ),
-            const Spacer(),
-            ...extraActions
           ],
         ),
       );

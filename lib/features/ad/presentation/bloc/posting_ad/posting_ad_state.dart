@@ -32,9 +32,15 @@ class PostingAdState extends Equatable {
   final String? price;
   final String? currency;
   final String? mileage;
+  final String? gasBalloonType;
+  final String? callTimeFrom;
+  final String? callTimeTo;
   final bool hasAppBarShadow;
   final bool isSortByLetter;
   final bool isRastamojen;
+  final bool isCallTimed;
+  final bool? showOwnerContacts;
+  final bool? isContactsVerified;
 
   const PostingAdState({
     required this.status,
@@ -71,6 +77,12 @@ class PostingAdState extends Equatable {
     this.price,
     this.currency,
     this.mileage,
+    this.gasBalloonType,
+    this.callTimeFrom,
+    this.callTimeTo,
+    this.isCallTimed = false,
+    this.showOwnerContacts,
+    this.isContactsVerified
   });
   PostingAdState copyWith({
     FormzStatus? status,
@@ -104,9 +116,15 @@ class PostingAdState extends Equatable {
     String? price,
     String? currency,
     String? mileage,
+    String? gasBalloonType,
+    String? callTimeFrom,
+    String? callTimeTo,
     bool? hasAppBarShadow,
     bool? isRastamojen,
+    bool? isCallTimed,
     bool isSortByLetter = false,
+    bool? showOwnerContacts,
+    bool ? isContactsVerified,
   }) =>
       PostingAdState(
         city: city ?? this.city,
@@ -140,10 +158,20 @@ class PostingAdState extends Equatable {
         ownerEmail: ownerEmail ?? this.ownerEmail,
         ownerName: ownerName ?? this.ownerName,
         ownerPhone: ownerPhone ?? this.ownerPhone,
-        mileage: mileage??this.mileage,
+        mileage: mileage ?? this.mileage,
+        currency: currency ?? this.currency,
+        gasBalloonType: gasBalloonType ?? this.gasBalloonType,
+        price: price ?? this.price,
+        callTimeFrom: callTimeFrom ?? this.callTimeFrom,
+        callTimeTo: callTimeTo ?? this.callTimeTo,
+        isCallTimed: isCallTimed ?? this.isCallTimed,
+        showOwnerContacts: showOwnerContacts ?? this.showOwnerContacts,
+        isContactsVerified: isContactsVerified??this.isContactsVerified,
       );
   @override
   List<Object?> get props => [
+        callTimeTo,
+        callTimeFrom,
         city,
         region,
         gearboxId,
@@ -175,5 +203,9 @@ class PostingAdState extends Equatable {
         price,
         currency,
         mileage,
+        gasBalloonType,
+        isCallTimed,
+        showOwnerContacts,
+        isContactsVerified
       ];
 }

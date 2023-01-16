@@ -109,15 +109,19 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
 
   @override
   Future<GetMakeEntity> getMake({String? name}) async {
-    final response = await _dio.get(
-      '/car/makes/',
-      queryParameters: {'search': name, 'limit': 100, 'offset': 0},
-    );
-    if (response.statusCode! >= 200 && response.statusCode! < 300) {
-      return GetMakeModel.fromJson(response.data);
-    } else {
-      throw ServerException(
-          statusCode: response.statusCode!, errorMessage: response.data);
+    try {
+      final response = await _dio.get(
+        '/car/makes/',
+        queryParameters: {'search': name, 'limit': 100, 'offset': 0},
+      );
+      if (response.statusCode! >= 200 && response.statusCode! < 300) {
+        return GetMakeModel.fromJson(response.data);
+      } else {
+        throw ServerException(
+            statusCode: response.statusCode!, errorMessage: response.data);
+      }
+    } catch (e) {
+      throw ServerException(statusCode: -1, errorMessage: e.toString());
     }
   }
 
@@ -173,21 +177,32 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
     required int year,
     String? next,
   }) async {
-    final response = await _dio.get(
-      '/car/$modelId/${year}generations/',
-      //    car/24/1992generations/
-      options: Options(
-        headers: StorageRepository.getString('token').isNotEmpty
-            ? {'Authorization': 'Token ${StorageRepository.getString('token')}'}
-            : {},
-      ),
-    );
-    if (response.statusCode! >= 200 && response.statusCode! < 300) {
-      return GenericPagination.fromJson(response.data,
-          (p0) => GenerationModel.fromJson(p0 as Map<String, dynamic>));
-    } else {
+    try {
+      final response = await _dio.get(
+        '/car/$modelId/${year}generations/',
+        //    car/24/1992generations/
+        options: Options(
+          headers: StorageRepository.getString('token').isNotEmpty
+              ? {
+                  'Authorization':
+                      'Token ${StorageRepository.getString('token')}'
+                }
+              : {},
+        ),
+      );
+      if (response.statusCode! >= 200 && response.statusCode! < 300) {
+        return GenericPagination.fromJson(response.data,
+            (p0) => GenerationModel.fromJson(p0 as Map<String, dynamic>));
+      }
       throw ServerException(
-          statusCode: response.statusCode!, errorMessage: response.data);
+          statusCode: response.statusCode ?? 0,
+          errorMessage: response.statusMessage ?? '');
+    } on ServerException {
+      rethrow;
+    } on DioError {
+      throw DioException();
+    } on Exception catch (e) {
+      throw ParsingException(errorMessage: e.toString());
     }
   }
 
@@ -196,20 +211,31 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
     required int generationId,
     String? next,
   }) async {
-    final response = await _dio.get(
-      '/car/$generationId/body-types/',
-      options: Options(
-        headers: StorageRepository.getString('token').isNotEmpty
-            ? {'Authorization': 'Token ${StorageRepository.getString('token')}'}
-            : {},
-      ),
-    );
-    if (response.statusCode! >= 200 && response.statusCode! < 300) {
-      return GenericPagination.fromJson(response.data,
-          (p0) => BodyTypeModel.fromJson(p0 as Map<String, dynamic>));
-    } else {
+    try {
+      final response = await _dio.get(
+        '/car/$generationId/body-types/',
+        options: Options(
+          headers: StorageRepository.getString('token').isNotEmpty
+              ? {
+                  'Authorization':
+                      'Token ${StorageRepository.getString('token')}'
+                }
+              : {},
+        ),
+      );
+      if (response.statusCode! >= 200 && response.statusCode! < 300) {
+        return GenericPagination.fromJson(response.data,
+            (p0) => BodyTypeModel.fromJson(p0 as Map<String, dynamic>));
+      }
       throw ServerException(
-          statusCode: response.statusCode!, errorMessage: response.data);
+          statusCode: response.statusCode ?? 0,
+          errorMessage: response.statusMessage ?? '');
+    } on ServerException {
+      rethrow;
+    } on DioError {
+      throw DioException();
+    } on Exception catch (e) {
+      throw ParsingException(errorMessage: e.toString());
     }
   }
 
@@ -217,20 +243,31 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
   Future<GenericPagination<BodyTypeModel>> bodyTypesGet({
     String? next,
   }) async {
-    final response = await _dio.get(
-      '/car/body-types/',
-      options: Options(
-        headers: StorageRepository.getString('token').isNotEmpty
-            ? {'Authorization': 'Token ${StorageRepository.getString('token')}'}
-            : {},
-      ),
-    );
-    if (response.statusCode! >= 200 && response.statusCode! < 300) {
-      return GenericPagination.fromJson(response.data,
-          (p0) => BodyTypeModel.fromJson(p0 as Map<String, dynamic>));
-    } else {
+    try {
+      final response = await _dio.get(
+        '/car/body-types/',
+        options: Options(
+          headers: StorageRepository.getString('token').isNotEmpty
+              ? {
+                  'Authorization':
+                      'Token ${StorageRepository.getString('token')}'
+                }
+              : {},
+        ),
+      );
+      if (response.statusCode! >= 200 && response.statusCode! < 300) {
+        return GenericPagination.fromJson(response.data,
+            (p0) => BodyTypeModel.fromJson(p0 as Map<String, dynamic>));
+      }
       throw ServerException(
-          statusCode: response.statusCode!, errorMessage: response.data);
+          statusCode: response.statusCode ?? 0,
+          errorMessage: response.statusMessage ?? '');
+    } on ServerException {
+      rethrow;
+    } on DioError {
+      throw DioException();
+    } on Exception catch (e) {
+      throw ParsingException(errorMessage: e.toString());
     }
   }
 
@@ -240,20 +277,31 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
     required int bodyTypeId,
     String? next,
   }) async {
-    final response = await _dio.get(
-      '/car/$generationId/$bodyTypeId/engine_type/',
-      options: Options(
-        headers: StorageRepository.getString('token').isNotEmpty
-            ? {'Authorization': 'Token ${StorageRepository.getString('token')}'}
-            : {},
-      ),
-    );
-    if (response.statusCode! >= 200 && response.statusCode! < 300) {
-      return GenericPagination.fromJson(response.data,
-          (p0) => EngineTypeModel.fromJson(p0 as Map<String, dynamic>));
-    } else {
+    try {
+      final response = await _dio.get(
+        '/car/$generationId/$bodyTypeId/engine_type/',
+        options: Options(
+          headers: StorageRepository.getString('token').isNotEmpty
+              ? {
+                  'Authorization':
+                      'Token ${StorageRepository.getString('token')}'
+                }
+              : {},
+        ),
+      );
+      if (response.statusCode! >= 200 && response.statusCode! < 300) {
+        return GenericPagination.fromJson(response.data,
+            (p0) => EngineTypeModel.fromJson(p0 as Map<String, dynamic>));
+      }
       throw ServerException(
-          statusCode: response.statusCode!, errorMessage: response.data);
+          statusCode: response.statusCode ?? 0,
+          errorMessage: response.statusMessage ?? '');
+    } on ServerException {
+      rethrow;
+    } on DioError {
+      throw DioException();
+    } on Exception catch (e) {
+      throw ParsingException(errorMessage: e.toString());
     }
   }
 
@@ -279,31 +327,46 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
         return GenericPagination.fromJson(response.data,
             (p0) => DriveTypeModel.fromJson(p0 as Map<String, dynamic>));
-      } else {
-        throw ServerException(
-            statusCode: response.statusCode!, errorMessage: response.data);
       }
-    } catch (e) {
-      throw ServerException(statusCode: -1, errorMessage: '$e');
+      throw ServerException(
+          statusCode: response.statusCode ?? 0,
+          errorMessage: response.statusMessage ?? '');
+    } on ServerException {
+      rethrow;
+    } on DioError {
+      throw DioException();
+    } on Exception catch (e) {
+      throw ParsingException(errorMessage: e.toString());
     }
   }
 
   @override
   Future<GenericPagination<DriveTypeModel>> driveTypesGet() async {
-    final response = await _dio.get(
-      '/car/drive-types/',
-      options: Options(
-        headers: StorageRepository.getString('token').isNotEmpty
-            ? {'Authorization': 'Token ${StorageRepository.getString('token')}'}
-            : {},
-      ),
-    );
-    if (response.statusCode! >= 200 && response.statusCode! < 300) {
-      return GenericPagination.fromJson(response.data,
-          (p0) => DriveTypeModel.fromJson(p0 as Map<String, dynamic>));
-    } else {
+    try {
+      final response = await _dio.get(
+        '/car/drive-types/',
+        options: Options(
+          headers: StorageRepository.getString('token').isNotEmpty
+              ? {
+                  'Authorization':
+                      'Token ${StorageRepository.getString('token')}'
+                }
+              : {},
+        ),
+      );
+      if (response.statusCode! >= 200 && response.statusCode! < 300) {
+        return GenericPagination.fromJson(response.data,
+            (p0) => DriveTypeModel.fromJson(p0 as Map<String, dynamic>));
+      }
       throw ServerException(
-          statusCode: response.statusCode!, errorMessage: response.data);
+          statusCode: response.statusCode ?? 0,
+          errorMessage: response.statusMessage ?? '');
+    } on ServerException {
+      rethrow;
+    } on DioError {
+      throw DioException();
+    } on Exception catch (e) {
+      throw ParsingException(errorMessage: e.toString());
     }
   }
 
@@ -315,39 +378,61 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
     required int driveTypeId,
     String? next,
   }) async {
-    final response = await _dio.get(
-      '/car/$generationId/$bodyTypeId/$engineTypeId/$driveTypeId/gearbox_type',
-      options: Options(
-        headers: StorageRepository.getString('token').isNotEmpty
-            ? {'Authorization': 'Token ${StorageRepository.getString('token')}'}
-            : {},
-      ),
-    );
-    if (response.statusCode! >= 200 && response.statusCode! < 300) {
-      return GenericPagination.fromJson(response.data,
-          (p0) => GearboxTypeModel.fromJson(p0 as Map<String, dynamic>));
-    } else {
+    try {
+      final response = await _dio.get(
+        '/car/$generationId/$bodyTypeId/$engineTypeId/$driveTypeId/gearbox_type',
+        options: Options(
+          headers: StorageRepository.getString('token').isNotEmpty
+              ? {
+                  'Authorization':
+                      'Token ${StorageRepository.getString('token')}'
+                }
+              : {},
+        ),
+      );
+      if (response.statusCode! >= 200 && response.statusCode! < 300) {
+        return GenericPagination.fromJson(response.data,
+            (p0) => GearboxTypeModel.fromJson(p0 as Map<String, dynamic>));
+      }
       throw ServerException(
-          statusCode: response.statusCode!, errorMessage: response.data);
+          statusCode: response.statusCode ?? 0,
+          errorMessage: response.statusMessage ?? '');
+    } on ServerException {
+      rethrow;
+    } on DioError {
+      throw DioException();
+    } on Exception catch (e) {
+      throw ParsingException(errorMessage: e.toString());
     }
   }
 
   @override
   Future<GenericPagination<GearboxTypeModel>> gearboxessGet() async {
-    final response = await _dio.get(
-      '/car/gearbox-types/',
-      options: Options(
-        headers: StorageRepository.getString('token').isNotEmpty
-            ? {'Authorization': 'Token ${StorageRepository.getString('token')}'}
-            : {},
-      ),
-    );
-    if (response.statusCode! >= 200 && response.statusCode! < 300) {
-      return GenericPagination.fromJson(response.data,
-          (p0) => GearboxTypeModel.fromJson(p0 as Map<String, dynamic>));
-    } else {
+    try {
+      final response = await _dio.get(
+        '/car/gearbox-types/',
+        options: Options(
+          headers: StorageRepository.getString('token').isNotEmpty
+              ? {
+                  'Authorization':
+                      'Token ${StorageRepository.getString('token')}'
+                }
+              : {},
+        ),
+      );
+      if (response.statusCode! >= 200 && response.statusCode! < 300) {
+        return GenericPagination.fromJson(response.data,
+            (p0) => GearboxTypeModel.fromJson(p0 as Map<String, dynamic>));
+      }
       throw ServerException(
-          statusCode: response.statusCode!, errorMessage: response.data);
+          statusCode: response.statusCode ?? 0,
+          errorMessage: response.statusMessage ?? '');
+    } on ServerException {
+      rethrow;
+    } on DioError {
+      throw DioException();
+    } on Exception catch (e) {
+      throw ParsingException(errorMessage: e.toString());
     }
   }
 
@@ -360,20 +445,31 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
     required int gearBoxTypeTypeId,
     String? next,
   }) async {
-    final response = await _dio.get(
-      '/car/$generationId/$bodyTypeId/$engineTypeId/$driveTypeId/$gearBoxTypeTypeId/modification-type/',
-      options: Options(
-        headers: StorageRepository.getString('token').isNotEmpty
-            ? {'Authorization': 'Token ${StorageRepository.getString('token')}'}
-            : {},
-      ),
-    );
-    if (response.statusCode! >= 200 && response.statusCode! < 300) {
-      return GenericPagination.fromJson(response.data,
-          (p0) => ModificationTypeModel.fromJson(p0 as Map<String, dynamic>));
-    } else {
+    try {
+      final response = await _dio.get(
+        '/car/$generationId/$bodyTypeId/$engineTypeId/$driveTypeId/$gearBoxTypeTypeId/modification-type/',
+        options: Options(
+          headers: StorageRepository.getString('token').isNotEmpty
+              ? {
+                  'Authorization':
+                      'Token ${StorageRepository.getString('token')}'
+                }
+              : {},
+        ),
+      );
+      if (response.statusCode! >= 200 && response.statusCode! < 300) {
+        return GenericPagination.fromJson(response.data,
+            (p0) => ModificationTypeModel.fromJson(p0 as Map<String, dynamic>));
+      }
       throw ServerException(
-          statusCode: response.statusCode!, errorMessage: response.data);
+          statusCode: response.statusCode ?? 0,
+          errorMessage: response.statusMessage ?? '');
+    } on ServerException {
+      rethrow;
+    } on DioError {
+      throw DioException();
+    } on Exception catch (e) {
+      throw ParsingException(errorMessage: e.toString());
     }
   }
 
@@ -381,19 +477,29 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
   Future<void> createAnnouncement({
     required FormData announcementFormData,
   }) async {
-    final response = await _dio.post(
-      '/car/announcement/create/',
-      data: announcementFormData,
-      options: Options(
-        headers: StorageRepository.getString('token').isNotEmpty
-            ? {'Authorization': 'Token ${StorageRepository.getString('token')}'}
-            : {},
-      ),
-    );
-    if (response.statusCode! >= 200 && response.statusCode! < 300) {
-    } else {
+    try {
+      final response = await _dio.post(
+        '/car/announcement/create/',
+        data: announcementFormData,
+        options: Options(
+          headers: StorageRepository.getString('token').isNotEmpty
+              ? {
+                  'Authorization':
+                      'Token ${StorageRepository.getString('token')}'
+                }
+              : {},
+        ),
+      );
+      if (response.statusCode! >= 200 && response.statusCode! < 300) {}
       throw ServerException(
-          statusCode: response.statusCode!, errorMessage: response.data);
+          statusCode: response.statusCode ?? 0,
+          errorMessage: response.statusMessage ?? '');
+    } on ServerException {
+      rethrow;
+    } on DioError {
+      throw DioException();
+    } on Exception catch (e) {
+      throw ParsingException(errorMessage: e.toString());
     }
   }
 

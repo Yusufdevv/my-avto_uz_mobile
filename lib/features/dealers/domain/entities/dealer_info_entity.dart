@@ -43,22 +43,22 @@ class DealerSingleEntity extends Equatable {
 
   @override
   List<Object?> get props => [
-    id,
-    name,
-    slug,
-    description,
-    phoneNumber,
-    avatar,
-    contactFrom,
-    contactTo,
-    locationUrl,
-    longitude,
-    latitude,
-    carCount,
-    district,
-    gallery,
-    dealerType,
-  ];
+        id,
+        name,
+        slug,
+        description,
+        phoneNumber,
+        avatar,
+        contactFrom,
+        contactTo,
+        locationUrl,
+        longitude,
+        latitude,
+        carCount,
+        district,
+        gallery,
+        dealerType,
+      ];
 }
 
 class DealerCardConvert

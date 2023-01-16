@@ -1,8 +1,10 @@
+import 'package:auto/assets/colors/light.dart';
 import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.dart';
 import 'package:auto/features/ad/presentation/widgets/base_widget.dart';
+import 'package:auto/features/ad/presentation/widgets/gas_balloon_sheet.dart';
 import 'package:auto/features/ad/presentation/widgets/pos_radio_item.dart';
 import 'package:auto/features/common/widgets/switcher_row.dart';
-import 'package:auto/features/common/widgets/w_radio_tile.dart';
+import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -31,9 +33,8 @@ class _EngineScreenState extends State<EngineScreen> {
               ListView.builder(
                 itemBuilder: (context, index) => PostingRadioItem(
                   image: state.engines[index].logo,
-                  onTap: () => context
-                      .read<PostingAdBloc>()
-                      .add(PostingAdChooseEvent(engineId: state.engines[index].id)),
+                  onTap: () => context.read<PostingAdBloc>().add(
+                      PostingAdChooseEvent(engineId: state.engines[index].id)),
                   title: state.engines[index].type,
                   selected: state.engineId == state.engines[index].id,
                 ),
@@ -50,10 +51,48 @@ class _EngineScreenState extends State<EngineScreen> {
               const SizedBox(
                 height: 13,
               ),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16),
-                child: SwitcherRow(title: 'Газобаллонное оборудование'),
-              ),
+              if (state.gasBalloonType?.isNotEmpty ?? false) ...{
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: SwitcherRow(
+                      value: true,
+                      onChanged: (v) => context.read<PostingAdBloc>().add(
+                            PostingAdChooseEvent(
+                                hasGasBalloon: true, gasBalloonType: ''),
+                          ),
+                      title: 'Газобаллонное оборудование'),
+                ),
+              } else ...{
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: GestureDetector(
+                    onTap: () {
+                      showModalBottomSheet<String>(
+                        context: context,
+                        useRootNavigator: true,
+                        backgroundColor: LightThemeColors.appBarColor,
+                        shape: const RoundedRectangleBorder(
+                          borderRadius:
+                              BorderRadius.vertical(top: Radius.circular(20)),
+                        ),
+                        clipBehavior: Clip.hardEdge,
+                        builder: (context) => SelectGasBalloonTypeSheet(
+                          selected: state.gasBalloonType,
+                        ),
+                      ).then((value) {
+                        print('=>=>=>=> $value <=<=<=<=');
+                        context.read<PostingAdBloc>().add(PostingAdChooseEvent(
+                            hasGasBalloon: value != null && value.isNotEmpty,
+                            gasBalloonType: value));
+                      });
+                    },
+                    child: SwitcherRow(
+                        value: false,
+                        onChanged: (v) {},
+                        title: 'Газобаллонное оборудование'),
+                  ),
+                )
+              }
             ],
           );
         }),
