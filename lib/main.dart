@@ -1,3 +1,4 @@
+import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/themes/dark.dart';
 import 'package:auto/assets/themes/light.dart';
 import 'package:auto/core/singletons/service_locator.dart';
@@ -126,8 +127,11 @@ class _AppState extends State<App> {
         ],
         child: AnnotatedRegion(
           value: const SystemUiOverlayStyle(
-              statusBarBrightness: Brightness.light,
-              systemNavigationBarIconBrightness: Brightness.dark),
+            statusBarColor: white,
+            systemNavigationBarColor: white,
+            statusBarBrightness: Brightness.light,
+            systemNavigationBarIconBrightness: Brightness.dark,
+          ),
           child: MaterialApp(
             supportedLocales: context.supportedLocales,
             localizationsDelegates: context.localizationDelegates,

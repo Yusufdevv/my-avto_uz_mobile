@@ -1,13 +1,17 @@
 import 'dart:math';
 
 import 'package:auto/assets/colors/color.dart';
+import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/assets/constants/images.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
+import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/main/domain/entities/story_entity.dart';
 import 'package:auto/features/main/presentation/widgets/animated_bar.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:video_player/video_player.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
@@ -20,6 +24,7 @@ class StoryContentItem extends StatefulWidget {
     required this.animate,
     required this.storiesCount,
     required this.read,
+    required this.didRead,
     Key? key,
   }) : super(key: key);
 
@@ -30,6 +35,7 @@ class StoryContentItem extends StatefulWidget {
   final int storiesCount;
   final Function({required bool forward}) animate;
   final Function(int id) read;
+  final bool didRead;
 
   @override
   State<StoryContentItem> createState() => _StoryContentItemState();
@@ -161,6 +167,59 @@ class _StoryContentItemState extends State<StoryContentItem>
                     textColor: white,
                     color: white.withOpacity(.2),
                   ),
+              ],
+            ),
+          ),
+          Positioned(
+            top: MediaQuery.of(context).padding.top + 28,
+            left: 20,
+            right: 16,
+            child: Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 4),
+                  child: Container(
+                    height: 32,
+                    width: 32,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(40),
+                      border: Border.all(
+                        width: 1.5,
+                        color: white.withOpacity(.4),
+                      ),
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(40),
+                      child: CachedNetworkImage(
+                        imageUrl: widget.story.coverImageThumbnail.crop,
+                        fit: BoxFit.cover,
+                        placeholder: (context, url) => const Image(
+                          image: AssetImage(AppImages.defaultPhoto),
+                          fit: BoxFit.cover,
+                        ),
+                        errorWidget: (context, url, error) => const Image(
+                          image: AssetImage(AppImages.defaultPhoto),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Padding(
+                  padding: const EdgeInsets.only(top: 10),
+                  child: Text(
+                    widget.story.name,
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline4!
+                        .copyWith(fontSize: 16),
+                  ),
+                ),
+                const Spacer(),
+                WScaleAnimation(
+                    child: SvgPicture.asset(AppIcons.closeWhite),
+                    onTap: () => Navigator.pop(context, widget.didRead))
               ],
             ),
           ),
