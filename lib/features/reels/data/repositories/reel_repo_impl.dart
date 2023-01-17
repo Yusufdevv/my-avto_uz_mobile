@@ -5,6 +5,7 @@ import 'package:auto/core/utils/either.dart';
 import 'package:auto/features/pagination/models/generic_pagination.dart';
 import 'package:auto/features/reels/data/datasources/reel_data_source.dart';
 import 'package:auto/features/reels/data/models/reel_model.dart';
+import 'package:auto/features/reels/domain/entities/reels_post_entity.dart';
 import 'package:auto/features/reels/domain/repositories/reel_repository.dart';
 import 'package:dio/dio.dart';
 
@@ -35,7 +36,7 @@ class ReelRepositoryImpl extends ReelRepository {
   }
 
   @override
-  Future<Either<Failure, dynamic>> getReelsLike({
+  Future<Either<Failure, ReelsPostEntity>> getReelsLike({
     required int id,
   }) async {
     try {
@@ -50,4 +51,23 @@ class ReelRepositoryImpl extends ReelRepository {
       return Left(DioFailure());
     }
   }
+
+  @override
+  Future<Either<Failure, ReelsPostEntity>> getReelsShare({
+    required int id,
+  }) async {
+    try {
+      final result = await dataSource.reelsShare(id: id);
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(
+          errorMessage: e.errorMessage, statusCode: e.statusCode));
+    } on DioException {
+      return Left(DioFailure());
+    } on DioError {
+      return Left(DioFailure());
+    }
+  }
+
+
 }

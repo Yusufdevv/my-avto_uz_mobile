@@ -86,7 +86,7 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
                       actions: [
                         Padding(
                           padding: const EdgeInsets.only(right: 16),
-                          child: InkWell(
+                          child: GestureDetector(
                             onTap: () {
                               Navigator.of(context).pop();
                               if (widget.isClear) {

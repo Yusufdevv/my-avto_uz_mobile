@@ -1,9 +1,12 @@
 import 'package:auto/assets/colors/color.dart';
+import 'package:auto/assets/colors/light.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/commercial/presentation/pages/commercial_body_screen.dart';
 import 'package:auto/features/commercial/presentation/widgets/commercial_tab.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
+import 'package:auto/features/search/presentation/search_screen.dart';
+import 'package:auto/features/search/presentation/widgets/sort_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -21,6 +24,7 @@ class _CommercialScreenState extends State<CommercialScreen>
   late ScrollController _scrollController;
   CrossFadeState crossFadeState = CrossFadeState.showFirst;
   late TabController tabController;
+  SortSearchResultStatus? sortingValue = SortSearchResultStatus.cheapest;
   double height = 130;
   void _scrollListener() {
     if (_isShrink) {
@@ -132,11 +136,7 @@ class _CommercialScreenState extends State<CommercialScreen>
                       padding: const EdgeInsets.only(right: 16),
                       child: WScaleAnimation(
                         onTap: () {
-                          crossFadeState =
-                              CrossFadeState.showFirst == crossFadeState
-                                  ? CrossFadeState.showSecond
-                                  : CrossFadeState.showFirst;
-                          setState(() {});
+                          filterBottomSheet(context);
                         },
                         child: Align(
                           alignment: Alignment.center,
@@ -183,12 +183,14 @@ class _CommercialScreenState extends State<CommercialScreen>
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.startFloat,
             floatingActionButton: WScaleAnimation(
-              onTap: (){},
+              onTap: () {},
               child: AnimatedContainer(
                 alignment: crossFadeState == CrossFadeState.showFirst
                     ? const Alignment(-.2, 0)
                     : const Alignment(-.85, 0),
-                width:crossFadeState == CrossFadeState.showFirst? double.maxFinite:44,
+                width: crossFadeState == CrossFadeState.showFirst
+                    ? double.maxFinite
+                    : 44,
                 height: 44,
                 duration: fadeDuration,
                 child: Container(
@@ -244,4 +246,38 @@ class _CommercialScreenState extends State<CommercialScreen>
       ),
     );
   }
+
+  Future<dynamic> filterBottomSheet(BuildContext context) =>
+      showModalBottomSheet(
+        context: context,
+        useRootNavigator: true,
+        backgroundColor: LightThemeColors.appBarColor,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+        ),
+        clipBehavior: Clip.hardEdge,
+        builder: (context) => SortBottomSheet(
+          title: 'Сортировка',
+          values: const [
+            SortSearchResultsModel(
+              title: 'По убыванию',
+              status: SortSearchResultStatus.cheapest,
+            ),
+            SortSearchResultsModel(
+              title: 'По возрастанию',
+              status: SortSearchResultStatus.expensive,
+            ),
+            SortSearchResultsModel(
+              title: 'Сначала старые',
+              status: SortSearchResultStatus.oldest,
+            ),
+            SortSearchResultsModel(
+              title: 'Сначала новые',
+              status: SortSearchResultStatus.newest,
+            ),
+          ],
+          onChanged: (value) => setState(() => sortingValue = value),
+          defaultValue: sortingValue,
+        ),
+      );
 }

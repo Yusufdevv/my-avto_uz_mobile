@@ -6,12 +6,12 @@ import 'package:auto/features/reels/data/repositories/reel_repo_impl.dart';
 import 'package:auto/features/reels/domain/entities/reels_post_entity.dart';
 import 'package:auto/features/reels/domain/repositories/reel_repository.dart';
 
-class ReelsLikeUsecase extends UseCase<ReelsPostEntity, int> {
+class ReelsShareUsecase extends UseCase<ReelsPostEntity, int> {
   final ReelRepository repository = serviceLocator<ReelRepositoryImpl>();
 
   @override
   Future<Either<Failure, ReelsPostEntity>> call(int params) async {
-    final v = await repository.getReelsLike(id: params);
+    final v = await repository.getReelsShare(id: params);
     return v;
   }
 }

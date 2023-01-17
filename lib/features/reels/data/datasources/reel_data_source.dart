@@ -3,6 +3,7 @@ import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/pagination/models/generic_pagination.dart';
 import 'package:auto/features/reels/data/models/reel_model.dart';
+import 'package:auto/features/reels/data/models/reels_post_model.dart';
 import 'package:dio/dio.dart';
 
 class ReelDataSource {
@@ -37,6 +38,17 @@ class ReelDataSource {
             'Authorization': 'Bearer ${StorageRepository.getString('token')}',
           },
         ));
-    return result;
+    return ReelsPostModel.fromJson(result.data);
+  }
+
+  Future reelsShare({required int id}) async {
+    final result = await dio.post('reels/share/',
+        data: {'reel': id},
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer ${StorageRepository.getString('token')}',
+          },
+        ));
+    return ReelsPostModel.fromJson(result.data);
   }
 }
