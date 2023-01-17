@@ -1,3 +1,4 @@
+import 'package:auto/assets/colors/color.dart';
 import 'package:auto/features/common/bloc/wishlist_add/wishlist_add_bloc.dart';
 import 'package:auto/features/main/presentation/bloc/top_ad/top_ad_bloc.dart';
 import 'package:auto/features/main/presentation/widgets/ads_item.dart';
@@ -20,29 +21,28 @@ class TopAds extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
-                child: Text(
-                  LocaleKeys.best_offers.tr(),
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline1!
-                      .copyWith(fontSize: 18),
-                ),
+                padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
+                child: Text(LocaleKeys.best_offers.tr(),
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline1!
+                        .copyWith(fontSize: 18)),
               ),
-              const SizedBox(height: 8),
               SizedBox(
-                height: MediaQuery.of(context).size.height * 0.34,
+                height: 293,
                 child: ListView.separated(
                     physics: const BouncingScrollPhysics(),
                     scrollDirection: Axis.horizontal,
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    padding: const EdgeInsets.only(
+                        top: 8, bottom: 16, right: 16, left: 16),
                     itemBuilder: (context, index) => state
                             .status.isSubmissionInProgress
                         ? AdsShimmer()
                         : BlocConsumer<WishlistAddBloc, WishlistAddState>(
                             listener: (context, stateWish) {
                               if (stateWish.addStatus.isSubmissionSuccess ||
-                                  stateWish.removeStatus.isSubmissionSuccess) {
+                                  stateWish
+                                      .removeStatus.isSubmissionSuccess) {
                                 if (stateWish.id == state.topAds[index].id) {
                                   context.read<TopAdBloc>().add(
                                       TopAdEvent.changeIsWish(
@@ -81,7 +81,6 @@ class TopAds extends StatelessWidget {
                     separatorBuilder: (context, index) =>
                         const SizedBox(width: 24)),
               ),
-              const SizedBox(height: 16),
             ],
           ),
         ),

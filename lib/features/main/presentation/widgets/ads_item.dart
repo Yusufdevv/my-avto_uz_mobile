@@ -37,17 +37,13 @@ class AdsItem extends StatelessWidget {
   @override
   // ignore: prefer_expression_function_bodies
   Widget build(BuildContext context) {
-    // print('object ${adsEntity.imageUrl}');
     return GestureDetector(
       onTap: () {
-        Navigator.of(context, rootNavigator: true).push(fade(
-            page: CarSingleScreen(
-          id: id,
-        )));
+        Navigator.of(context, rootNavigator: true)
+            .push(fade(page: CarSingleScreen(id: id)));
       },
       child: Container(
-        height: MediaQuery.of(context).size.height * 0.331,
-        width: MediaQuery.of(context).size.width * 0.6,
+        width: 225,
         decoration: BoxDecoration(
           boxShadow: [
             BoxShadow(
@@ -64,8 +60,8 @@ class AdsItem extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.155,
-              width: MediaQuery.of(context).size.width * 0.6,
+              height: 126,
+              width: 225,
               child: ClipRRect(
                   borderRadius: const BorderRadius.only(
                     topRight: Radius.circular(12),
@@ -83,23 +79,19 @@ class AdsItem extends StatelessWidget {
             const SizedBox(height: 12),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Text(
-                name,
-                style: Theme.of(context)
-                    .textTheme
-                    .headline3
-                    ?.copyWith(fontWeight: FontWeight.w600, fontSize: 12),
-              ),
+              child: Text(name,
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline3
+                      ?.copyWith(fontWeight: FontWeight.w600, fontSize: 12)),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Text(
-                '${MyFunctions.getFormatCost(price)} $currency',
-                style: Theme.of(context)
-                    .textTheme
-                    .headline1
-                    ?.copyWith(fontSize: 16, fontWeight: FontWeight.w700),
-              ),
+              child: Text('${MyFunctions.getFormatCost(price)} $currency',
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline1
+                      ?.copyWith(fontSize: 16, fontWeight: FontWeight.w700)),
             ),
             const SizedBox(height: 8),
             Padding(
@@ -124,31 +116,30 @@ class AdsItem extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             Padding(
-              padding: const EdgeInsets.only(right: 12, left: 16, bottom: 10),
+              padding: const EdgeInsets.only(
+                right: 12,
+                left: 16,
+              ),
               child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Expanded(
-                    child: Row(
-                      children: [
-                        SvgPicture.asset(AppIcons.location),
-                        const SizedBox(width: 4),
-                        Expanded(
-                          child: Text(
-                            location,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: Theme.of(context)
-                                .textTheme
-                                .headline6!
-                                .copyWith(
-                                    fontSize: 12,
-                                    color: Theme.of(context)
-                                        .extension<ThemedColors>()!
-                                        .dolphinToGreySuit),
-                          ),
-                        )
-                      ],
-                    ),
+                  Row(
+                    children: [
+                      SvgPicture.asset(AppIcons.location),
+                      const SizedBox(width: 4),
+                      Text(location,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline6!
+                              .copyWith(
+                                  fontSize: 12,
+                                  color: Theme.of(context)
+                                      .extension<ThemedColors>()!
+                                      .dolphinToGreySuit))
+                    ],
                   ),
                   AddWishlistItem(
                     onTap: onTapLike,

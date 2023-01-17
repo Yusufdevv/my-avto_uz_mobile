@@ -14,9 +14,8 @@ class MainEmptyFavourite extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Container(
-        height: MediaQuery.of(context).size.height * 0.16,
         width: double.maxFinite,
-        margin: const EdgeInsets.fromLTRB(16, 0, 16, 0),
+        margin: const EdgeInsets.fromLTRB(16, 8, 16, 16),
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
@@ -49,7 +48,6 @@ class MainEmptyFavourite extends StatelessWidget {
                 ),
                 const SizedBox(width: 8),
                 SizedBox(
-                  width: MediaQuery.of(context).size.width - 98,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -59,14 +57,15 @@ class MainEmptyFavourite extends StatelessWidget {
                             fontSize: 14, fontWeight: FontWeight.w600),
                       ),
                       const SizedBox(height: 4),
-                      Text(
-                        LocaleKeys.Save_ads_hat_you_liked.tr(),
-                        style: Theme.of(context).textTheme.headline6!.copyWith(
-                            fontSize: 10,
-                            color: Theme.of(context)
-                                .extension<ThemedColors>()!
-                                .dolphinToWhite60),
-                      ),
+                      Text(LocaleKeys.Save_ads_hat_you_liked.tr(),
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline6!
+                              .copyWith(
+                                  fontSize: 10,
+                                  color: Theme.of(context)
+                                      .extension<ThemedColors>()!
+                                      .dolphinToWhite60)),
                     ],
                   ),
                 ),
@@ -77,15 +76,14 @@ class MainEmptyFavourite extends StatelessWidget {
               onTap: () {
                 Navigator.push(context, fade(page: const SearchScreen()));
               },
-              text: LocaleKeys.go_search.tr(),
               height: 36,
+              padding: const EdgeInsets.symmetric(vertical: 10),
+              text: LocaleKeys.go_search.tr(),
               color: Theme.of(context)
                   .extension<ThemedColors>()!
                   .cinnabar12ToCinnabar,
-              textStyle: Theme.of(context)
-                  .textTheme
-                  .headline1!
-                  .copyWith(fontSize: 12, fontWeight: FontWeight.w600),
+              textStyle:
+                  Theme.of(context).textTheme.headline5!.copyWith(fontSize: 12),
             ),
           ],
         ),

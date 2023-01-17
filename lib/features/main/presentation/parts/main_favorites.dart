@@ -1,3 +1,4 @@
+import 'package:auto/assets/colors/color.dart';
 import 'package:auto/features/common/bloc/wishlist_add/wishlist_add_bloc.dart';
 import 'package:auto/features/common/domain/entity/auto_entity.dart';
 import 'package:auto/features/main/presentation/bloc/top_ad/top_ad_bloc.dart';
@@ -29,7 +30,7 @@ class MainFavorites extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
+                  padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
                   child: Text(
                     LocaleKeys.favorites.tr(),
                     style: Theme.of(context)
@@ -44,11 +45,12 @@ class MainFavorites extends StatelessWidget {
                           state.favorites.isEmpty)
                       ? const MainEmptyFavourite()
                       : SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.34,
+                          height: 293,
                           child: ListView.separated(
                             physics: const BouncingScrollPhysics(),
                             scrollDirection: Axis.horizontal,
-                            padding: const EdgeInsets.symmetric(horizontal: 16),
+                            padding: const EdgeInsets.only(
+                                top: 8, bottom: 16, right: 16, left: 16),
                             itemBuilder: (context, index) => state
                                     .favoritesStatus.isSubmissionInProgress
                                 ? AdsShimmer()
@@ -67,9 +69,8 @@ class MainFavorites extends StatelessWidget {
                                       currency: item.currency,
                                       isLiked: item.isWishlisted,
                                       onTapLike: () {
-                                        context
-                                            .read<WishlistAddBloc>()
-                                            .add(WishlistAddEvent.clearState());
+                                        context.read<WishlistAddBloc>().add(
+                                            WishlistAddEvent.clearState());
                                         context.read<WishlistAddBloc>().add(
                                             WishlistAddEvent.removeWishlist(
                                                 item.id, index));

@@ -35,6 +35,7 @@ import 'package:auto/features/splash/presentation/pages/splash_sc.dart';
 import 'package:auto/generated/codegen_loader.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() async {
@@ -42,6 +43,10 @@ void main() async {
   await EasyLocalization.ensureInitialized();
   setupLocator();
   await StorageRepository.getInstance();
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+      statusBarIconBrightness: Brightness.dark, // navigation bar color
+      statusBarBrightness: Brightness.light // status bar color
+      ));
   runApp(
     EasyLocalization(
         supportedLocales: const [
@@ -49,7 +54,7 @@ void main() async {
           Locale('uz'),
         ],
         path: 'lib/assets/strings',
-        fallbackLocale: const Locale('ru'),
+        fallbackLocale: const Locale('uz'),
         assetLoader: const CodegenLoader(),
         child: const AppProvider()),
   );
@@ -138,7 +143,6 @@ class _AppState extends State<App> {
             SizeConfig().init(context);
             return BlocListener<AuthenticationBloc, AuthenticationState>(
               listener: (context, state) {
-              
                 switch (state.status) {
                   case AuthenticationStatus.unauthenticated:
                     if (!StorageRepository.getBool('onboarding',

@@ -1,4 +1,5 @@
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ads/presentation/pages/ads_screen.dart';
 import 'package:auto/features/commercial/presentation/commercial_screen.dart';
 import 'package:auto/features/common/bloc/announcement_bloc/bloc/announcement_list_bloc.dart';
@@ -7,7 +8,6 @@ import 'package:auto/features/common/bloc/get_makes_bloc/get_makes_bloc_bloc.dar
 import 'package:auto/features/common/bloc/wishlist_add/wishlist_add_bloc.dart';
 
 import 'package:auto/features/comparison/presentation/pages/choose_car_brand.dart';
-import 'package:auto/features/dealers/presentation/dealers_main.dart';
 import 'package:auto/features/main/domain/entities/service_entity.dart';
 import 'package:auto/features/main/domain/usecases/get_top_ads.dart';
 import 'package:auto/features/main/domain/usecases/get_top_brand.dart';
@@ -141,7 +141,8 @@ class _MainScreenState extends State<MainScreen> {
         ],
         child: BlocBuilder<MainBloc, MainState>(
           builder: (context, state) => Scaffold(
-            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+            backgroundColor:
+                Theme.of(context).extension<ThemedColors>()!.whiteToDark,
             appBar: const MainAppBar(),
             body: BlocBuilder<AnnouncementListBloc, AnnouncementListState>(
               builder: (context, stateAnnounc) => SingleChildScrollView(
