@@ -12,6 +12,21 @@ class ReelRepositoryImpl extends ReelRepository {
   final ReelDataSource dataSource = serviceLocator<ReelDataSource>();
 
   @override
+  Future<Either<Failure, dynamic>> reelsLike({required int id}) async {
+    try {
+      final result = await dataSource.reelsLike(id: id);
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(
+          errorMessage: e.errorMessage, statusCode: e.statusCode));
+    } on DioException {
+      return Left(DioFailure());
+    } on DioError {
+      return Left(DioFailure());
+    }
+  }
+
+  @override
   Future<Either<Failure, GenericPagination<ReelModel>>> getReels({
     String? search,
     int? limit,
@@ -33,4 +48,6 @@ class ReelRepositoryImpl extends ReelRepository {
       return Left(DioFailure());
     }
   }
+
+
 }

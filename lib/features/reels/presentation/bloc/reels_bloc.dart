@@ -49,19 +49,24 @@ class ReelsBloc extends Bloc<ReelsEvent, ReelsState> {
   }
 
   Future _likeReels(ReelsLike event, Emitter<ReelsState> emit) async {
-    final result = await reelsLikeUseCase.call({'reels': event.id});
+    final result = await reelsLikeUseCase.call({'id': event.id});
     if(result.isRight){
+      print('bloc right');
       final reel = state.reels[event.index];
       if(reel.isLiked) {
+        print('unlike');
         reel.isLiked = false;
         reel.likeCount--;
       } else {
+        print('like');
         reel.isLiked = true;
         reel.likeCount++;
       }
-      final list = <ReelEntity>[...state.reels];
+      List<ReelEntity> list = [];
+      list.addAll(state.reels);
       list[event.index] = reel;
       emit(state.copWith(reels: list));
     }
+
   }
 }

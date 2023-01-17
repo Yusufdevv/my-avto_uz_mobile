@@ -14,7 +14,7 @@ abstract class ReelRepository {
     throw Exception('not implemented');
   }
 
-  Future<Either<Failure, int>> getReelsLike({
+  Future<Either<Failure, dynamic>> reelsLike({
     required int id,
   }) {
     throw Exception('not implemented');
