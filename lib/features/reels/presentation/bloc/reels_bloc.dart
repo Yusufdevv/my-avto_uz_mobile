@@ -13,6 +13,7 @@ class ReelsBloc extends Bloc<ReelsEvent, ReelsState> {
   GetReelsUseCase getReelsUseCase = GetReelsUseCase();
   ReelsLikeUsecase reelsLikeUseCase = ReelsLikeUsecase();
 
+  
   ReelsBloc() : super(const ReelsState()) {
     on<InitialEvent>(_onInit);
     on<GetReelsEvent>(_onGetReels);

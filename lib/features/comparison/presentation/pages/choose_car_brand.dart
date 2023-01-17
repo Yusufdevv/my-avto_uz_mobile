@@ -93,6 +93,9 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
                           child: InkWell(
                             onTap: () {
                               Navigator.of(context).pop();
+                              context.read<GetMakesBloc>().add(
+                                  GetMakesBlocEvent.selectedCarItems(
+                                      id: -1, name: '', imageUrl: ''));
                             },
                             child: SvgPicture.asset(AppIcons.close),
                           ),
