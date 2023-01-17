@@ -16,7 +16,6 @@ import 'package:auto/features/profile/presentation/widgets/widgets.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -44,9 +43,6 @@ class SeeProfilePage extends StatelessWidget {
             ),
             body: BlocBuilder<ProfileBloc, ProfileState>(
               builder: (context, state) {
-                if (state.status.isSubmissionInProgress) {
-                  return const Center(child: CupertinoActivityIndicator());
-                }
                 if (state.status.isSubmissionSuccess) {
                   return Container(
                     margin: EdgeInsets.only(top: SizeConfig.v(16)),
@@ -146,50 +142,50 @@ class SeeProfilePage extends StatelessWidget {
                             value: state.profileEntity.email ?? ''),
                         const Spacer(),
                         OrangeButton(
-                          content: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              SvgPicture.asset(AppIcons.logout),
-                              SizedBox(width: SizeConfig.h(8)),
-                              Text(
-                                'Выйти из аккаунта',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headline3!
-                                    .copyWith(color: red),
-                              ),
-                            ],
-                          ),
-                          onTap: () {
-                            showModalBottomSheet(
-                                useRootNavigator: true,
-                                context: context,
-                                backgroundColor: Colors.transparent,
-                                builder: (context) => CustomProfileBottomsheet(
-                                      title: 'Вы действительно \nхотите выйти?',
-                                      subTitle:
-                                          'После выхода из приложения, необходимо\nбудет заново пройти авторизацию чтобы\nвойти обратно в приложение.',
-                                      betweenHeight: 64,
-                                      onTap: () {
-                                        StorageRepository.deleteString('token');
-                                        Navigator.of(context,
-                                                rootNavigator: true)
-                                            .pushAndRemoveUntil(
-                                                fade(page: const LoginScreen()),
-                                                (route) => false);
-                                      },
-                                    ));
-                          },
-                          color: red.withOpacity(0.1),
-                          shadowColor: white,
-                        )
+                            content: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                SvgPicture.asset(AppIcons.logout),
+                                SizedBox(width: SizeConfig.h(8)),
+                                Text('Выйти из аккаунта',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headline3!
+                                        .copyWith(color: red))
+                              ],
+                            ),
+                            onTap: () {
+                              showModalBottomSheet(
+                                  useRootNavigator: true,
+                                  context: context,
+                                  backgroundColor: Colors.transparent,
+                                  builder: (context) =>
+                                      CustomProfileBottomsheet(
+                                        title:
+                                            'Вы действительно \nхотите выйти?',
+                                        subTitle:
+                                            'После выхода из приложения, необходимо\nбудет заново пройти авторизацию чтобы\nвойти обратно в приложение.',
+                                        betweenHeight: 64,
+                                        onTap: () {
+                                          StorageRepository.deleteString(
+                                              'token');
+                                          Navigator.of(context,
+                                                  rootNavigator: true)
+                                              .pushAndRemoveUntil(
+                                                  fade(
+                                                      page:
+                                                          const LoginScreen()),
+                                                  (route) => false);
+                                        },
+                                      ));
+                            },
+                            color: red.withOpacity(0.1),
+                            shadowColor: white)
                       ],
                     ),
                   );
                 }
-                return const Center(
-                  child: Text('Something went wrong'),
-                );
+                return const SizedBox();
               },
             ),
           ),

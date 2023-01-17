@@ -43,10 +43,6 @@ void main() async {
   await EasyLocalization.ensureInitialized();
   setupLocator();
   await StorageRepository.getInstance();
-  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-      statusBarIconBrightness: Brightness.dark, // navigation bar color
-      statusBarBrightness: Brightness.light // status bar color
-      ));
   runApp(
     EasyLocalization(
         supportedLocales: const [
@@ -128,46 +124,34 @@ class _AppState extends State<App> {
                       repositoryImpl: serviceLocator<AdRepositoryImpl>()))
                 ..add(AnnouncementListEvent.getAnnouncementList()))
         ],
-        child: MaterialApp(
-          supportedLocales: context.supportedLocales,
-          localizationsDelegates: context.localizationDelegates,
-          locale: context.locale,
-          debugShowCheckedModeBanner: false,
-          title: 'Auto.Uz',
-          theme: LightTheme.theme(),
-          darkTheme: DarkTheme.theme(),
-          themeMode: ThemeMode.light,
-          navigatorKey: _navigatorKey,
-          onGenerateRoute: (settings) => SplashSc.route(),
-          builder: (context, child) {
-            SizeConfig().init(context);
-            return BlocListener<AuthenticationBloc, AuthenticationState>(
-              listener: (context, state) {
-                switch (state.status) {
-                  case AuthenticationStatus.unauthenticated:
-                    if (!StorageRepository.getBool('onboarding',
-                        defValue: false)) {
-                      navigator.pushAndRemoveUntil(
-                          fade(page: const FirstOnBoarding()),
-                          (route) => false);
-                      break;
-                    }
-                    navigator.pushAndRemoveUntil(
-                        fade(
-                          page: BlocProvider(
-                            create: (c) => RegisterBloc(
-                              sendCodeUseCase: SendCodeUseCase(),
-                              registerUseCase: RegisterUseCase(),
-                              verifyCodeUseCase: VerifyCodeUseCase(),
-                            ),
-                            // child: const PostingAdScreen(),
-                            child: const LoginScreen(),
-                          ),
-                        ),
-                        (route) => false);
-                    break;
-                  case AuthenticationStatus.authenticated:
-                    if (StorageRepository.getString('token').isEmpty) {
+        child: AnnotatedRegion(
+          value: const SystemUiOverlayStyle(
+              statusBarBrightness: Brightness.light,
+              systemNavigationBarIconBrightness: Brightness.dark),
+          child: MaterialApp(
+            supportedLocales: context.supportedLocales,
+            localizationsDelegates: context.localizationDelegates,
+            locale: context.locale,
+            debugShowCheckedModeBanner: false,
+            title: 'Auto.Uz',
+            theme: LightTheme.theme(),
+            darkTheme: DarkTheme.theme(),
+            themeMode: ThemeMode.light,
+            navigatorKey: _navigatorKey,
+            onGenerateRoute: (settings) => SplashSc.route(),
+            builder: (context, child) {
+              SizeConfig().init(context);
+              return BlocListener<AuthenticationBloc, AuthenticationState>(
+                listener: (context, state) {
+                  switch (state.status) {
+                    case AuthenticationStatus.unauthenticated:
+                      if (!StorageRepository.getBool('onboarding',
+                          defValue: false)) {
+                        navigator.pushAndRemoveUntil(
+                            fade(page: const FirstOnBoarding()),
+                            (route) => false);
+                        break;
+                      }
                       navigator.pushAndRemoveUntil(
                           fade(
                             page: BlocProvider(
@@ -176,23 +160,40 @@ class _AppState extends State<App> {
                                 registerUseCase: RegisterUseCase(),
                                 verifyCodeUseCase: VerifyCodeUseCase(),
                               ),
+                              // child: const PostingAdScreen(),
                               child: const LoginScreen(),
                             ),
                           ),
                           (route) => false);
-                    } else {
-                      navigator.pushAndRemoveUntil(
-                          fade(page: const HomeScreen()), (route) => false);
-                    }
-                    break;
-                  case AuthenticationStatus.loading:
-                  case AuthenticationStatus.cancelLoading:
-                    break;
-                }
-              },
-              child: child,
-            );
-          },
+                      break;
+                    case AuthenticationStatus.authenticated:
+                      if (StorageRepository.getString('token').isEmpty) {
+                        navigator.pushAndRemoveUntil(
+                            fade(
+                              page: BlocProvider(
+                                create: (c) => RegisterBloc(
+                                  sendCodeUseCase: SendCodeUseCase(),
+                                  registerUseCase: RegisterUseCase(),
+                                  verifyCodeUseCase: VerifyCodeUseCase(),
+                                ),
+                                child: const LoginScreen(),
+                              ),
+                            ),
+                            (route) => false);
+                      } else {
+                        navigator.pushAndRemoveUntil(
+                            fade(page: const HomeScreen()), (route) => false);
+                      }
+                      break;
+                    case AuthenticationStatus.loading:
+                    case AuthenticationStatus.cancelLoading:
+                      break;
+                  }
+                },
+                child: child,
+              );
+            },
+          ),
         ),
       );
 }
