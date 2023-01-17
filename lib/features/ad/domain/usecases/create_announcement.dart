@@ -3,6 +3,7 @@
 // import 'package:auto/core/utils/either.dart';
 // import 'package:auto/features/ad/domain/entities/announcement/announcement.dart';
 // import 'package:auto/features/ad/domain/repositories/ad_repository.dart';
+// import 'package:auto/features/reels/domain/entities/announcement_entity.dart';
 // import 'package:dio/dio.dart';
 
 // class CreateAnnouncementUseCase extends UseCase<void, AnnouncementParams> {
@@ -67,7 +68,7 @@
 
 // class AnnouncementParams {
 //   final String? next;
-//   // final AnnouncementEntity announcementEntity;
+//   final AnnouncementEntity announcementEntity;
 
 //   AnnouncementParams({
 //     required this.announcementEntity,
