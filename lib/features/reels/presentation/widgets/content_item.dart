@@ -208,8 +208,8 @@ class _ContentItemState extends State<ContentItem> {
           ),
         ),
         Positioned(
-          right: 11,
-          bottom: 31,
+          right: 14,
+          bottom: 32,
           child: OptionsItem(
             shareUrl: widget.reel.content,
             onTapLike: widget.onTapLike,

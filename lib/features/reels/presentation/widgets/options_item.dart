@@ -66,89 +66,108 @@ class _OptionsItemState extends State<OptionsItem>
   }
 
   @override
-  Widget build(BuildContext context) => Column(
-        children: [
-          WScaleAnimation(
-            onTap: () {
-              context.read<ReelsBloc>().add(ReelsLike(
-                  context.read<ReelsBloc>().state.reels[widget.index].id,
-                  widget.index));
-              setState(() {
-                isLiked = !isLiked;
-                if (isLiked) {
-                  ++countLike;
-                } else {
-                  --countLike;
-                }
-              });
-            },
-            child: AnimatedSwitcher(
-              transitionBuilder: (child, anim) => ScaleTransition(
-                scale: anim,
-                child: child,
-              ),
-              duration: const Duration(milliseconds: 300),
-              child: isLiked
-                  ? SvgPicture.asset(
-                      AppIcons.liked,
-                      key: const ValueKey<int>(1),
-                      width: 28,
-                      height: 28,
-                    )
-                  : SvgPicture.asset(
-                      AppIcons.like,
-                      key: const ValueKey<int>(2),
-                      width: 28,
-                      height: 28,
+  Widget build(BuildContext context) => SizedBox(
+    width: 30,
+    child: Column(
+          children: [
+            WScaleAnimation(
+              onTap: () {
+                context.read<ReelsBloc>().add(ReelsLike(
+                    context.read<ReelsBloc>().state.reels[widget.index].id,
+                    widget.index));
+                setState(() {
+                  isLiked = !isLiked;
+                  if (isLiked) {
+                    ++countLike;
+                  } else {
+                    --countLike;
+                  }
+                });
+              },
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 10),
+                child: Column(
+                  children: [
+                    AnimatedSwitcher(
+                      transitionBuilder: (child, anim) => ScaleTransition(
+                        scale: anim,
+                        child: child,
+                      ),
+                      duration: const Duration(milliseconds: 300),
+                      child: isLiked
+                          ? SvgPicture.asset(
+                              AppIcons.liked,
+                              key: const ValueKey<int>(1),
+                              width: 28,
+                              height: 28,
+                            )
+                          : SvgPicture.asset(
+                              AppIcons.like,
+                              key: const ValueKey<int>(2),
+                              width: 28,
+                              height: 28,
+                            ),
                     ),
+                    const SizedBox(
+                      height: 2,
+                    ),
+                    Text(
+                      '$countLike',
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline4!
+                          .copyWith(fontSize: 12),
+                    ),
+                  ],
+                ),
+              ),
             ),
-          ),
-          const SizedBox(
-            height: 2,
-          ),
-          Text(
-            '$countLike',
-            style:
-                Theme.of(context).textTheme.headline4!.copyWith(fontSize: 12),
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          WScaleAnimation(
-              child: SvgPicture.asset(AppIcons.shareWhite),
+            WScaleAnimation(
+              child: Padding(
+                padding: const EdgeInsets.only(top: 10, bottom: 10),
+                child: Column(
+                  children: [
+                    SvgPicture.asset(AppIcons.shareWhite),
+                    const SizedBox(
+                      height: 2,
+                    ),
+                    Text(
+                      '${widget.countShare}',
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline4!
+                          .copyWith(fontSize: 12),
+                    ),
+                  ],
+                ),
+              ),
               onTap: () {
                 Share.share(widget.shareUrl);
                 context.read<ReelsBloc>().add(ReelsShare(
                     context.read<ReelsBloc>().state.reels[widget.index].id,
                     widget.index));
-              }),
-          const SizedBox(
-            height: 2,
-          ),
-          Text(
-            '${widget.countShare}',
-            style:
-                Theme.of(context).textTheme.headline4!.copyWith(fontSize: 12),
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          WScaleAnimation(
-            child: SvgPicture.asset(AppIcons.more),
-            onTap: () {
-              Platform.isIOS
-                  ? showCupertinoModalPopup(
-                      context: context,
-                      barrierColor: black.withOpacity(.6),
-                      builder: (context) => BusySheet(copyUrl: widget.shareUrl))
-                  : showModalBottomSheet(
-                      context: context,
-                      //backgroundColor: black.withOpacity(.6),
-                      backgroundColor: Colors.transparent,
-                      builder: (context) =>
-                          BusySheet(copyUrl: widget.shareUrl));
-            },
-          ),
-        ],
-      );
+              },
+            ),
+            WScaleAnimation(
+              child: Padding(
+                padding: const EdgeInsets.only(top: 10),
+                child: SvgPicture.asset(AppIcons.more),
+              ),
+              onTap: () {
+                Platform.isIOS
+                    ? showCupertinoModalPopup(
+                        context: context,
+                        barrierColor: black.withOpacity(.6),
+                        builder: (context) => BusySheet(copyUrl: widget.shareUrl))
+                    : showModalBottomSheet(
+                        context: context,
+                        //backgroundColor: black.withOpacity(.6),
+                        backgroundColor: Colors.transparent,
+                        builder: (context) =>
+                            BusySheet(copyUrl: widget.shareUrl));
+              },
+            ),
+          ],
+        ),
+  );
 }
