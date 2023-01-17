@@ -12,6 +12,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:video_player/video_player.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
@@ -101,6 +102,7 @@ class _StoryContentItemState extends State<StoryContentItem>
                     color: grey,
                   );
                 },
+                errorWidget: (context, url, error) => Container(),
               ),
             ),
           Positioned(
@@ -162,7 +164,9 @@ class _StoryContentItemState extends State<StoryContentItem>
                 const SizedBox(height: 28),
                 if (widget.story.items[itemIndex].url.isNotEmpty)
                   WButton(
-                    onTap: () {},
+                    onTap: () {
+                      launchUrl(Uri.parse(widget.story.items[itemIndex].url));
+                    },
                     text: LocaleKeys.more.tr(),
                     textColor: white,
                     color: white.withOpacity(.2),
