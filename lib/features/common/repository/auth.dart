@@ -54,7 +54,6 @@ class AuthRepository {
     } on Exception catch (e) {
       throw ParsingException(errorMessage: '$e catch error');
     }
-
   }
 
   Future<Either<Failure, TokenModel>> refreshToken() async {

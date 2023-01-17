@@ -126,12 +126,12 @@ class MyFunctions {
 
   static Future<Uint8List> getBytesFromCanvas(
       {required int width,
-        required int height,
-        required int placeCount,
-        required BuildContext context,
-        Offset? offset,
-        required String image,
-        bool shouldAddText = true}) async {
+      required int height,
+      required int placeCount,
+      required BuildContext context,
+      Offset? offset,
+      required String image,
+      bool shouldAddText = true}) async {
     final pictureRecorder = ui.PictureRecorder();
     final canvas = Canvas(pictureRecorder);
     final paint = Paint()..color = Colors.red;
@@ -142,16 +142,17 @@ class MyFunctions {
 
     if (shouldAddText) {
       final painter = TextPainter(textDirection: ui.TextDirection.ltr);
-      painter..text = TextSpan(
-        text: placeCount.toString(),
-        style: const TextStyle(fontSize: 100, color: Colors.white),
-      )
-      ..layout()
-      ..paint(
-        canvas,
-        Offset((width * 0.47) - painter.width * 0.2,
-            (height * 0.1) - painter.height * 0.1),
-      );
+      painter
+        ..text = TextSpan(
+          text: placeCount.toString(),
+          style: const TextStyle(fontSize: 100, color: Colors.white),
+        )
+        ..layout()
+        ..paint(
+          canvas,
+          Offset((width * 0.47) - painter.width * 0.2,
+              (height * 0.1) - painter.height * 0.1),
+        );
     }
 
     final img = await pictureRecorder.endRecording().toImage(width, height);
@@ -415,7 +416,6 @@ class MyFunctions {
 
   static bool enableForCalling(
       {required String callFrom, required String callTo}) {
-
     final now = DateTime.now();
 
     final dateFrom = DateTime(

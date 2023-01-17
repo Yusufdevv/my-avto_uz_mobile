@@ -33,7 +33,7 @@ class GlobalRequestRepository {
       }
     } catch (e) {
       print(e.toString());
-      return Left(ServerFailure(statusCode: 141, errorMessage: ''));
+      return Left(ServerFailure(statusCode: 141, errorMessage: '$e'));
     }
   }
 

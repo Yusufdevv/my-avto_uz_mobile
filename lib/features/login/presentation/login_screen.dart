@@ -129,6 +129,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     ],
                   ),
                   hintText: '91 234 56 78',
+                  hintTextStyle: Theme.of(context)
+                      .textTheme
+                      .subtitle1!
+                      .copyWith(fontSize: 15,color: warmerGrey),
                   keyBoardType: TextInputType.number,
                   textInputFormatters: [phoneFormatter],
                 ),

@@ -7,17 +7,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class SelectorItem extends StatelessWidget {
+class LoaderBox extends StatelessWidget {
   final String title;
   final String hintText;
   final VoidCallback onTap;
-  final bool hasArrowDown;
   final bool isLoading;
-  const SelectorItem(
+  const LoaderBox(
       {required this.onTap,
       required this.title,
       required this.hintText,
-      this.hasArrowDown = false,
       this.isLoading = false,
       Key? key})
       : super(key: key);
@@ -31,13 +29,12 @@ class SelectorItem extends StatelessWidget {
             style: Theme.of(context)
                 .textTheme
                 .headline2!
-                .copyWith(fontWeight: FontWeight.w400, color: grey),
+                .copyWith(fontWeight: FontWeight.w600,color: Theme.of(context).extension<ThemedColors>()!.greyToCinnabar),
           ),
           const SizedBox(height: 8),
           WScaleAnimation(
-            onTap: onTap,
+            onTap: isLoading ? () {} : onTap,
             child: Container(
-              margin: const EdgeInsets.only(bottom: 16),
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 13),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
@@ -56,14 +53,14 @@ class SelectorItem extends StatelessWidget {
                           hintText,
                           style: Theme.of(context)
                               .textTheme
-                              .subtitle1!
-                              .copyWith(color: grey),
+                              .headline6!
+                              .copyWith(
+                                  fontWeight: FontWeight.w400,
+                                  color: Theme.of(context).extension<ThemedColors>()!.greyToCinnabar),
                         ),
                         const Spacer(),
                         SvgPicture.asset(
-                          hasArrowDown
-                              ? AppIcons.chevronDownGrey
-                              : AppIcons.chevronRightBlack,
+                          AppIcons.chevronDownGrey,
                           color: greyText,
                         )
                       ],

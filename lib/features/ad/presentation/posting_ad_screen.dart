@@ -31,6 +31,7 @@ import 'package:auto/features/ad/presentation/pages/pts/pts_screen.dart';
 import 'package:auto/features/ad/presentation/pages/year_of_issue/year_issue_screen.dart';
 import 'package:auto/features/ad/presentation/widgets/completion_bar.dart';
 import 'package:auto/features/ad/presentation/widgets/posting_ad_appbar.dart';
+import 'package:auto/features/common/bloc/regions/regions_bloc.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/main/domain/usecases/get_top_brand.dart';
 import 'package:auto/features/navigation/presentation/home.dart';
@@ -56,7 +57,7 @@ class _PostingAdScreenState extends State<PostingAdScreen>
     with SingleTickerProviderStateMixin {
   late PageController pageController;
   late PostingAdBloc postingAdBloc;
-  static int initialPage = 0;
+  static int initialPage = 16;
   int currentTabIndex = initialPage;
   final int tabLength = 20;
   @override
