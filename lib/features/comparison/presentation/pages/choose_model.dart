@@ -80,6 +80,12 @@ class _ChooseCarModelComparison extends State<ChooseCarModelComparison> {
                             onTap: () {
                               Navigator.of(context).pop();
                               Navigator.of(context).pop();
+                              context.read<GetCarModelBloc>().add(
+                                  GetCarModelEvent.selectedModelItem(
+                                      id: -1, name: ''));
+                              context.read<GetMakesBloc>().add(
+                                  GetMakesBlocEvent.selectedCarItems(
+                                      id: -1, name: '', imageUrl: ''));
                             },
                             child: SvgPicture.asset(AppIcons.close),
                           ),

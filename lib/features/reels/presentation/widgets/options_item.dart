@@ -42,10 +42,7 @@ class _OptionsItemState extends State<OptionsItem>
   void didChangeAppLifecycleState(AppLifecycleState state) {
     switch (state) {
       case AppLifecycleState.resumed:
-        // bloc.add(GetPaymentEvent(
-        //   musofirId: widget.id ?? -1,
-        //   transactionId: bloc.state.transactionId,
-        // ));
+        
         break;
       case AppLifecycleState.inactive:
         break;
