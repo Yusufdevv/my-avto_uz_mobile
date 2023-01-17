@@ -8,13 +8,11 @@ class SwitcherRow extends StatelessWidget {
   final bool value;
   final VoidCallback? onTap;
   final ValueChanged<bool> onChanged;
-  final bool isAsButton;
   const SwitcherRow(
       {required this.value,
       required this.onChanged,
       required this.title,
       this.onTap,
-      this.isAsButton = false,
       Key? key})
       : super(key: key);
 

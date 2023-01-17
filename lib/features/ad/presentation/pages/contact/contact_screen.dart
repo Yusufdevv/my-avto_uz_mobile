@@ -1,17 +1,20 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/assets/themes/theme_extensions/w_textfield_style.dart';
+import 'package:auto/features/ad/presentation/bloc/contacts/contacts_bloc.dart';
 import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.dart';
-import 'package:auto/features/ad/presentation/bloc/verification/verification_bloc.dart';
 import 'package:auto/features/ad/presentation/widgets/base_widget.dart';
 import 'package:auto/features/ad/presentation/widgets/call_time_sheet.dart';
 import 'package:auto/features/ad/presentation/widgets/sms_verification_sheet.dart';
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
+import 'package:auto/features/common/repository/auth.dart';
 import 'package:auto/features/common/widgets/switcher_row.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_textfield.dart';
 import 'package:auto/features/login/domain/usecases/send_code.dart';
 import 'package:auto/features/login/domain/usecases/verify_code.dart';
+import 'package:auto/utils/my_functions.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
@@ -39,14 +42,15 @@ class _ContactScreenState extends State<ContactScreen> {
   late TextEditingController phoneController;
   late TextEditingController nameController;
   late TextEditingController emailController;
-  late VerificationBloc verificationBloc;
+  late ContactsBloc contactsBloc;
 
   @override
   void initState() {
     phoneController = TextEditingController(text: widget.initialPhone);
     nameController = TextEditingController(text: widget.initialName);
     emailController = TextEditingController(text: widget.initialEmail);
-    verificationBloc = VerificationBloc(
+    contactsBloc = ContactsBloc(
+      userRepository: AuthRepository(),
       sendCodeUseCase: SendCodeUseCase(),
       verifyCodeUseCase: VerifyCodeUseCase(),
     );
@@ -72,22 +76,36 @@ class _ContactScreenState extends State<ContactScreen> {
   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) => BlocProvider.value(
-        value: verificationBloc,
+        value: contactsBloc,
         child: KeyboardDismisser(
           child: BlocBuilder<PostingAdBloc, PostingAdState>(
             builder: (context, postingAdState) =>
-                BlocConsumer<VerificationBloc, VerificationState>(
-              listener: (context, verificationState) {
-                if (verificationState.status == FormzStatus.submissionFailure) {
+                BlocConsumer<ContactsBloc, ContactsState>(
+              listener: (context, state) {
+                if (state.userModel != null) {
+                  phoneController = TextEditingController(
+                      text: MyFunctions.phoneFormat(
+                          state.userModel?.phoneNumber.substring(4) ?? ''));
+                  emailController =
+                      TextEditingController(text: state.userModel?.email ?? '');
+                  nameController = TextEditingController(
+                      text: state.userModel?.fullName ?? '');
+                  context
+                      .read<PostingAdBloc>()
+                      .add(PostingAdChooseEvent(showOwnerContacts: true));
+                  setState(() {});
+                }
+                if (state.status == FormzStatus.submissionFailure ||
+                    state.getUserStatus == FormzStatus.submissionFailure) {
                   context.read<ShowPopUpBloc>().add(
                         ShowPopUp(
-                          message: verificationState.toastMessage ?? '',
+                          message: state.toastMessage ?? '',
                           isSucces: false,
                           dismissible: false,
                         ),
                       );
                 }
-                if (verificationState.status == FormzStatus.submissionSuccess) {
+                if (state.status == FormzStatus.submissionSuccess) {
                   showModalBottomSheet(
                       useRootNavigator: true,
                       isScrollControlled: true,
@@ -95,13 +113,13 @@ class _ContactScreenState extends State<ContactScreen> {
                       isDismissible: false,
                       context: context,
                       builder: (context) => BlocProvider.value(
-                            value: verificationBloc,
+                            value: contactsBloc,
                             child: SmsVerificationSheet(
                                 phoneNumber: phoneController.text),
                           ));
                 }
               },
-              builder: (context, verificationState) => Scaffold(
+              builder: (context, state) => Scaffold(
                 body: Form(
                   key: _formKey,
                   child: BaseWidget(
@@ -114,15 +132,28 @@ class _ContactScreenState extends State<ContactScreen> {
                             padding: const EdgeInsets.all(16),
                             children: [
                               SwitcherRow(
+                                  onTap: () {
+                                    contactsBloc.add(
+                                        ContactsGetUserInfoAsContactsEvent());
+                                  },
                                   title: 'Указать мои контактны данные',
                                   value:
                                       postingAdState.showOwnerContacts ?? false,
                                   onChanged: (value) {
+                                    if (!value) {
+                                      nameController = TextEditingController();
+                                      emailController = TextEditingController();
+                                      phoneController = TextEditingController();
+                                    }
                                     hidePopUp();
                                     context.read<PostingAdBloc>().add(
                                         PostingAdChooseEvent(
                                             showOwnerContacts: value));
                                   }),
+                              if (state.getUserStatus ==
+                                  FormzStatus.submissionInProgress) ...{
+                                const CupertinoActivityIndicator()
+                              },
                               const SizedBox(height: 16),
                               WTextField(
                                 onTap: hidePopUp,
@@ -220,7 +251,7 @@ class _ContactScreenState extends State<ContactScreen> {
                                     .fillColor,
                                 textInputFormatters: [phoneFormatter],
                                 suffix: WButton(
-                                  isLoading: verificationState.status ==
+                                  isLoading: state.status ==
                                       FormzStatus.submissionInProgress,
                                   isDisabled:
                                       (postingAdState.ownerPhone?.length ??
@@ -228,9 +259,8 @@ class _ContactScreenState extends State<ContactScreen> {
                                           12,
                                   onTap: () {
                                     if (_formKey.currentState!.validate()) {
-                                      verificationBloc.add(
-                                          VerificationSendCodeEvent(
-                                              phone: phoneController.text));
+                                      contactsBloc.add(ContactsSendCodeEvent(
+                                          phone: phoneController.text));
                                     }
                                   },
                                   child: Container(

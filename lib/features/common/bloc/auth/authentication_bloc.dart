@@ -56,7 +56,6 @@ class AuthenticationBloc
         add(AuthenticationStatusChanged(
             status: AuthenticationStatus.authenticated));
       } else {
-
         if (event.onError != null) {
           event.onError!((result.left as ServerFailure).errorMessage);
         }
