@@ -140,12 +140,13 @@ class _OptionsItemState extends State<OptionsItem>
                   ? showCupertinoModalPopup(
                       context: context,
                       barrierColor: black.withOpacity(.6),
-                      builder: (context) => const BusySheet())
+                      builder: (context) => BusySheet(copyUrl: widget.shareUrl))
                   : showModalBottomSheet(
                       context: context,
                       //backgroundColor: black.withOpacity(.6),
                       backgroundColor: Colors.transparent,
-                      builder: (context) => const BusySheet());
+                      builder: (context) =>
+                          BusySheet(copyUrl: widget.shareUrl));
             },
           ),
         ],
