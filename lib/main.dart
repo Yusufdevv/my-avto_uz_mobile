@@ -1,5 +1,6 @@
 import 'package:auto/assets/themes/dark.dart';
 import 'package:auto/assets/themes/light.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/core/utils/size_config.dart';
@@ -125,8 +126,9 @@ class _AppState extends State<App> {
                 ..add(AnnouncementListEvent.getAnnouncementList()))
         ],
         child: AnnotatedRegion(
-          value: const SystemUiOverlayStyle(
-              statusBarBrightness: Brightness.light,
+          value: SystemUiOverlayStyle(
+              statusBarColor:
+                  Theme.of(context).extension<ThemedColors>()?.whiteToDark,
               systemNavigationBarIconBrightness: Brightness.dark),
           child: MaterialApp(
             supportedLocales: context.supportedLocales,

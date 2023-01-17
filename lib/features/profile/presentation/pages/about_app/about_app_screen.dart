@@ -45,94 +45,65 @@ class _AboutAppScreenState extends State<AboutAppScreen> {
     setState(() {
       _packageInfo = info;
     });
-    rateMyApp = RateMyApp();
   }
 
-  late RateMyApp rateMyApp;
-
-  static const playStoreid = 'com.android.chrome';
-  static const appStoreId = 'com.apple.mobilesafari';
-
   @override
-  Widget build(BuildContext context) => RateMyAppBuilder(
-      rateMyApp: RateMyApp(
-          googlePlayIdentifier: playStoreid, appStoreIdentifier: appStoreId),
-      onInitialized: (context, rateMyApp) {
-        this.rateMyApp = rateMyApp;
-        setState(() {});
-      },
-      builder: (context) => Scaffold(
-            appBar:
-                const WAppBar(textWithButton: 'О приложении', boxShadow: []),
-            body: Column(
-              children: [
-                WScaleAnimation(
-                  onTap: () {
-                    widget.profileBloc.add(GetTermsOfUseEvent());
-                    Navigator.of(context).push(fade(
-                        page: TermsOfUsePage(profileBloc: widget.profileBloc)));
-                  },
-                  child: Container(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: SizeConfig.h(16),
-                        vertical: SizeConfig.v(12)),
-                    margin: EdgeInsets.fromLTRB(SizeConfig.h(16),
-                        SizeConfig.v(20), SizeConfig.h(16), SizeConfig.v(12)),
-                    decoration: BoxDecoration(
-                        border: Border.all(
-                            color: Theme.of(context)
-                                .extension<WTextFieldStyle>()!
-                                .borderColor),
-                        borderRadius: BorderRadius.circular(SizeConfig.h(12)),
+  Widget build(BuildContext context) => Scaffold(
+        appBar: const WAppBar(textWithButton: 'О приложении', boxShadow: []),
+        body: Column(
+          children: [
+            WScaleAnimation(
+              onTap: () {
+                widget.profileBloc.add(GetTermsOfUseEvent());
+                Navigator.of(context).push(fade(
+                    page: TermsOfUsePage(profileBloc: widget.profileBloc)));
+              },
+              child: Container(
+                padding: EdgeInsets.symmetric(
+                    horizontal: SizeConfig.h(16), vertical: SizeConfig.v(12)),
+                margin: EdgeInsets.fromLTRB(SizeConfig.h(16), SizeConfig.v(20),
+                    SizeConfig.h(16), SizeConfig.v(12)),
+                decoration: BoxDecoration(
+                    border: Border.all(
+                        color: Theme.of(context)
+                            .extension<WTextFieldStyle>()!
+                            .borderColor),
+                    borderRadius: BorderRadius.circular(SizeConfig.h(12)),
+                    color: Theme.of(context)
+                        .extension<ThemedColors>()!
+                        .whiteToNero1),
+                child: Row(
+                  children: [
+                    SvgPicture.asset(AppIcons.file,
                         color: Theme.of(context)
                             .extension<ThemedColors>()!
-                            .whiteToNero1),
-                    child: Row(
-                      children: [
-                        SvgPicture.asset(AppIcons.file,
-                            color: Theme.of(context)
-                                .extension<ThemedColors>()!
-                                .darkToGrey),
-                        SizedBox(width: SizeConfig.h(8)),
-                        Text(LocaleKeys.terms_use.tr(),
-                            style: Theme.of(context)
-                                .textTheme
-                                .headline1!
-                                .copyWith(
-                                    fontSize: 15, fontWeight: FontWeight.w600))
-                      ],
-                    ),
-                  ),
+                            .darkToGrey),
+                    SizedBox(width: SizeConfig.h(8)),
+                    Text(LocaleKeys.terms_use.tr(),
+                        style: Theme.of(context).textTheme.headline1!.copyWith(
+                            fontSize: 15, fontWeight: FontWeight.w600))
+                  ],
                 ),
-                //
-                Rate(
-                  rateMyApp: rateMyApp,
-                ),
-                const Spacer(),
-                //
-                SvgPicture.asset(
-                  Theme.of(context).extension<ThemedIcons>()!.autoUzLightDark,
-                ),
-                SizedBox(height: SizeConfig.v(12)),
-                Padding(
-                  padding: EdgeInsets.only(
-                      top: SizeConfig.v(2), bottom: SizeConfig.v(36)),
-                  child: Text(
-                    'Версия ${_packageInfo.version}',
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.headline2,
-                  ),
-                ),
-                // Padding(
-                //   padding: EdgeInsets.only(
-                //       top: SizeConfig.v(2), bottom: SizeConfig.v(36)),
-                //   child: Text(
-                //     'от 1 апреля 2022 г.',
-                //     textAlign: TextAlign.center,
-                //     style: Theme.of(context).textTheme.headline2
-                //   ),
-                // )
-              ],
+              ),
             ),
-          ));
+            //
+            const Rate(),
+            const Spacer(),
+            //
+            SvgPicture.asset(
+              Theme.of(context).extension<ThemedIcons>()!.autoUzLightDark,
+            ),
+            SizedBox(height: SizeConfig.v(12)),
+            Padding(
+              padding: EdgeInsets.only(
+                  top: SizeConfig.v(2), bottom: SizeConfig.v(36)),
+              child: Text(
+                'Версия ${_packageInfo.version}',
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.headline2
+              )
+            ),
+          ],
+        ),
+      );
 }
