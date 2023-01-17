@@ -80,26 +80,33 @@ class _AdsBodyScreenState extends State<AdsBodyScreen> {
                         context,
                         fade(
                             page: ChooseCarBrandComparison(
-                                onTap: () => Navigator.of(context).push(fade(
-                                        page:
-                                            ChooseCarModelComparison(onTap: () {
-                                      context
-                                          .read<AnnouncementListBloc>()
-                                          .add(AnnouncementListEvent.getFilter(
-                                            state.filter.copyWith(
-                                                make: context
-                                                    .read<GetMakesBloc>()
-                                                    .state
-                                                    .selectId,
-                                                model: context
-                                                    .read<GetCarModelBloc>()
-                                                    .state
-                                                    .selectedId),
-                                          ));
-                                      Navigator.pop(context);
-                                      Navigator.pop(context);
-                                    }))).then((value) {
-                                      print('===> ==> Buyaqa kirdi');
+                                isClear: false,
+                                onTap: () => Navigator.of(context)
+                                        .push(fade(
+                                            page: ChooseCarModelComparison(
+                                                isClear: false,
+                                                onTap: () {
+                                                  context
+                                                      .read<
+                                                          AnnouncementListBloc>()
+                                                      .add(AnnouncementListEvent
+                                                          .getFilter(
+                                                        state.filter.copyWith(
+                                                            make: context
+                                                                .read<
+                                                                    GetMakesBloc>()
+                                                                .state
+                                                                .selectId,
+                                                            model: context
+                                                                .read<
+                                                                    GetCarModelBloc>()
+                                                                .state
+                                                                .selectedId),
+                                                      ));
+                                                  Navigator.pop(context);
+                                                  Navigator.pop(context);
+                                                })))
+                                        .then((value) {
                                       context.read<AnnouncementListBloc>().add(
                                           AnnouncementListEvent
                                               .getAnnouncementList());
