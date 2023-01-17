@@ -98,27 +98,27 @@ class _StoryContentItemState extends State<StoryContentItem>
                 },
               ),
             ),
-          Positioned(
-            top: MediaQuery.of(context).padding.top + 12,
-            left: 16,
-            right: 10,
-            child: Row(
-              children: widget.story.items
-                  .asMap()
-                  .map(
-                    (i, e) => MapEntry(
-                      i,
-                      AnimatedBar(
-                        animationController: animationController,
-                        currentIndex: itemIndex,
-                        position: i,
-                      ),
-                    ),
-                  )
-                  .values
-                  .toList(),
-            ),
-          ),
+          // Positioned(
+          //   top: MediaQuery.of(context).padding.top + 12,
+          //   left: 16,
+          //   right: 10,
+          //   child: Row(
+          //     children: widget.story.items
+          //         .asMap()
+          //         .map(
+          //           (i, e) => MapEntry(
+          //             i,
+          //             AnimatedBar(
+          //               animationController: animationController,
+          //               currentIndex: itemIndex,
+          //               position: i,
+          //             ),
+          //           ),
+          //         )
+          //         .values
+          //         .toList(),
+          //   ),
+          // ),
           Container(
             decoration: BoxDecoration(
                 gradient: LinearGradient(
@@ -284,7 +284,7 @@ class _StoryContentItemState extends State<StoryContentItem>
 
     if (_videoPlayerController.value.position >=
         _videoPlayerController.value.duration) {
-      // on video end
+      print('on end video');
     }
   }
 

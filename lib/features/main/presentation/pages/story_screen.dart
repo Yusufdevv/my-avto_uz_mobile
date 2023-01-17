@@ -148,6 +148,7 @@ class _StoryScreenState extends State<StoryScreen> {
       );
 
   void _animateToPage({required bool forward}) {
+    print('animate: $forward');
     forward
         ? _pageController.nextPage(
             duration: const Duration(milliseconds: 500), curve: Curves.linear)
