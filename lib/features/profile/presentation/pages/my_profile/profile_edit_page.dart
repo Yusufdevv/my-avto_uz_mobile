@@ -155,35 +155,25 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                                                           BorderRadius.circular(
                                                               50),
                                                       child: CachedNetworkImage(
-                                                          imageUrl:
-                                                              stateProfile
-                                                                  .profileEntity
-                                                                  .image!,
+                                                          imageUrl: stateProfile
+                                                              .profileEntity
+                                                              .image!,
                                                           width:
                                                               SizeConfig.h(80),
                                                           height:
                                                               SizeConfig.v(80),
                                                           fit: BoxFit.cover,
-                                                          errorWidget: (context,
-                                                                  url, error) =>
-                                                              SizedBox(
-                                                                  width:
-                                                                      SizeConfig
-                                                                          .h(
-                                                                              80),
-                                                                  height:
-                                                                      SizeConfig
-                                                                          .v(
-                                                                              80),
-                                                                  child:
-                                                                      ClipRRect(
-                                                                    borderRadius:
-                                                                        BorderRadius.circular(
-                                                                            50),
-                                                                    child: SvgPicture.asset(
-                                                                        AppIcons
-                                                                            .userAvatar),
-                                                                  ))),
+                                                          errorWidget: (context, url, error) => SizedBox(
+                                                              width: SizeConfig.h(
+                                                                  80),
+                                                              height: SizeConfig.v(
+                                                                  80),
+                                                              child: ClipRRect(
+                                                                  borderRadius:
+                                                                      BorderRadius.circular(
+                                                                          50),
+                                                                  child: SvgPicture.asset(
+                                                                      AppIcons.userAvatar)))),
                                                     )
                                                   : SizedBox(
                                                       height: SizeConfig.v(80),

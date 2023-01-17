@@ -8,10 +8,11 @@ import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:rate_my_app/rate_my_app.dart';
 
 class Rate extends StatelessWidget {
-  const Rate({Key? key}) : super(key: key);
-
+  const Rate({required this.rateMyApp, Key? key}) : super(key: key);
+  final RateMyApp rateMyApp;
   @override
   Widget build(BuildContext context) => Container(
         margin: const EdgeInsets.symmetric(horizontal: 16),
@@ -57,9 +58,7 @@ class Rate extends StatelessWidget {
                   margin: const EdgeInsets.only(top: 12),
                   height: SizeConfig.v(36),
                   width: SizeConfig.h(150),
-                  // padding:
-                  //     const EdgeInsets.symmetric(vertical: 8, horizontal: 46),
-                  onTap: () {},
+                  onTap: () => rateMyApp.showRateDialog(context),
                   child: Text(
                     'Оценить',
                     style: Theme.of(context)
