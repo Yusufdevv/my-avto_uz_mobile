@@ -254,4 +254,7 @@ class AppIcons {
   static const eye2 = 'assets/icons/car_single/eye2.svg';
   static const bl_ch = 'assets/icons/car_single/bl_ch.svg';
   static const dtp_red = 'assets/icons/car_single/dtp_red.svg';
+  static const surface = 'assets/icons/car_single/surface.svg';
+  static const ellip = 'assets/icons/car_single/ellip.svg';
+  static const defalut = 'assets/icons/car_single/defalut.svg';
 }

@@ -34,7 +34,6 @@ class CarSellerCard extends StatelessWidget {
               ),
               color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
             ),
-            padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Container(
               color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
               padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
@@ -132,7 +131,7 @@ class CarSellerCard extends StatelessWidget {
                               ),
                               if (isCrashed == true)
                                 Container(
-                                  padding: const EdgeInsets.fromLTRB(12, 12, 0, 12),
+                                  padding: const EdgeInsets.fromLTRB(0, 12, 0, 12),
                                   child: Container(
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(4),

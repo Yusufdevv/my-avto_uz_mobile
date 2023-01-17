@@ -13,6 +13,8 @@ abstract class CarSingleDataSource {
   Future<GenericPagination<ElasticSearchModel>> getOtherAds({required int id});
 
   Future<CarSingleModel> payInvoice();
+
+  Future soldAd({required int id});
 }
 
 class CarSingleDataSourceImpl extends CarSingleDataSource {
@@ -21,10 +23,12 @@ class CarSingleDataSourceImpl extends CarSingleDataSource {
   @override
   Future<CarSingleModel> getCarSingle({required int id}) async {
     try {
-      final response = await _dio.get('/car/announcement/$id/detail/',
-          options: Options(headers: {
+      final response = await _dio.get(
+        '/car/announcement/$id/detail/',
+        options: Options(headers: {
           'Authorization': 'Bearer ${StorageRepository.getString('token')}'
-        }),);
+        }),
+      );
       if (response.statusCode != null &&
           response.statusCode! >= 200 &&
           response.statusCode! < 300) {
@@ -110,8 +114,6 @@ class CarSingleDataSourceImpl extends CarSingleDataSource {
           response.statusCode! >= 200 &&
           response.statusCode! < 300) {
         return CarSingleModel.fromJson(response.data);
-      } else {
-        await StorageRepository.deleteString('token');
       }
       if (response.data is Map) {
         throw ServerException(
@@ -121,6 +123,33 @@ class CarSingleDataSourceImpl extends CarSingleDataSource {
                     : 'Error get CarAds')
                 .toString());
       } else {
+        throw ServerException(
+            statusCode: response.statusCode!,
+            errorMessage: response.data.toString());
+      }
+    } on ServerException {
+      rethrow;
+    } on DioError {
+      throw DioException();
+    } on Exception catch (e) {
+      throw ParsingException(errorMessage: e.toString());
+    }
+  }
+
+  @override
+  Future soldAd({required int id}) async {
+    try {
+      final response = await _dio.post('/car/announcement/$id/sold/',
+          options: Options(headers: {
+            'Authorization': 'Bearer ${StorageRepository.getString('token')}'
+          }));
+      if (response.statusCode != null &&
+          response.statusCode! >= 200 &&
+          response.statusCode! < 300) {
+        print('datasource succ sold');
+        return response.data;
+      } else {
+        print('datasource fail sold');
         throw ServerException(
             statusCode: response.statusCode!,
             errorMessage: response.data.toString());
