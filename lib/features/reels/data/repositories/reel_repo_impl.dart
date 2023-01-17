@@ -33,4 +33,21 @@ class ReelRepositoryImpl extends ReelRepository {
       return Left(DioFailure());
     }
   }
+
+  @override
+  Future<Either<Failure, dynamic>> getReelsLike({
+    required int id,
+  }) async {
+    try {
+      final result = await dataSource.reelsLike(id: id);
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(
+          errorMessage: e.errorMessage, statusCode: e.statusCode));
+    } on DioException {
+      return Left(DioFailure());
+    } on DioError {
+      return Left(DioFailure());
+    }
+  }
 }

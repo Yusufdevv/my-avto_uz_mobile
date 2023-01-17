@@ -4,8 +4,10 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/features/common/widgets/busy_sheet.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
+import 'package:auto/features/reels/presentation/bloc/reels_bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -15,6 +17,7 @@ class OptionsItem extends StatefulWidget {
   final VoidCallback onTapLike;
   final int countLike;
   final int countShare;
+  final int index;
 
   const OptionsItem({
     required this.shareUrl,
@@ -22,6 +25,7 @@ class OptionsItem extends StatefulWidget {
     required this.onTapLike,
     required this.countLike,
     required this.countShare,
+    required this.index,
     Key? key,
   }) : super(key: key);
 
@@ -30,7 +34,9 @@ class OptionsItem extends StatefulWidget {
 }
 
 class _OptionsItemState extends State<OptionsItem>
-    with SingleTickerProviderStateMixin ,WidgetsBindingObserver{
+    with SingleTickerProviderStateMixin, WidgetsBindingObserver {
+  bool isLiked = false;
+  int countLike = 0;
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
@@ -53,6 +59,8 @@ class _OptionsItemState extends State<OptionsItem>
   @override
   void initState() {
     WidgetsBinding.instance.addObserver(this);
+    isLiked = widget.isLiked;
+    countLike = widget.countLike;
     super.initState();
   }
 
@@ -66,14 +74,26 @@ class _OptionsItemState extends State<OptionsItem>
   Widget build(BuildContext context) => Column(
         children: [
           WScaleAnimation(
-            onTap: widget.onTapLike,
+            onTap: () {
+              context.read<ReelsBloc>().add(ReelsLike(
+                  context.read<ReelsBloc>().state.reels[widget.index].id,
+                  widget.index));
+              setState(() {
+                isLiked = !isLiked;
+                if (isLiked) {
+                  ++countLike;
+                } else {
+                  --countLike;
+                }
+              });
+            },
             child: AnimatedSwitcher(
               transitionBuilder: (child, anim) => ScaleTransition(
                 scale: anim,
                 child: child,
               ),
               duration: const Duration(milliseconds: 300),
-              child: widget.isLiked
+              child: isLiked
                   ? SvgPicture.asset(
                       AppIcons.liked,
                       key: const ValueKey<int>(1),
@@ -92,7 +112,7 @@ class _OptionsItemState extends State<OptionsItem>
             height: 2,
           ),
           Text(
-            '${widget.countLike}',
+            '$countLike',
             style:
                 Theme.of(context).textTheme.headline4!.copyWith(fontSize: 12),
           ),
@@ -100,7 +120,7 @@ class _OptionsItemState extends State<OptionsItem>
             height: 20,
           ),
           WScaleAnimation(
-              child: SvgPicture.asset(AppIcons.share),
+              child: SvgPicture.asset(AppIcons.shareWhite),
               onTap: () {
                 Share.share(widget.shareUrl);
               }),

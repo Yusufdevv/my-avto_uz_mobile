@@ -81,6 +81,7 @@ class AppIcons {
   static const currentLocation = 'assets/icons/global/current_location.svg';
   static const currentLoc = 'assets/images/global/current_location.png';
   static const dealersLocIcon = 'assets/images/global/dealers_loc_icon.png';
+  static const shareWhite = 'assets/icons/global/share_white.svg';
 
   // PROFILE
   static const alert = 'assets/icons/profile/alert.svg';
