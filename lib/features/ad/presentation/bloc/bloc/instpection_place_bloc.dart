@@ -19,7 +19,6 @@ class InspectionPlaceBloc
   }
   FutureOr<void> _getCities(InstpectionPlaceGetCitiesEvent event,
       Emitter<InspectionPlaceState> emit) async {
-    print('=>=>=>=> get cities triggered <=<=<=<=');
     emit(state);
   }
 

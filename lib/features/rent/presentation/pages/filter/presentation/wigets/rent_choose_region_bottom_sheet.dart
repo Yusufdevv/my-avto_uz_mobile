@@ -84,13 +84,11 @@ class _RentChooseRegionBottomSheetState
                         WScaleAnimation(
                           onTap: () {
                             if (widget.isProfileEdit) {
-                              print('=>=>=>=> is profile edit <=<=<=<=');
                               checkStatus.removeWhere(
                                   (key, value) => key != widget.list[index].id);
                               checkStatus[widget.list[index].id] =
                                   widget.list[index];
                             } else {
-                              print('=>=>=>=> is isNOt <=<=<=<=');
                               if (checkStatus
                                   .containsKey(widget.list[index].id)) {
                                 checkStatus.remove(widget.list[index].id);

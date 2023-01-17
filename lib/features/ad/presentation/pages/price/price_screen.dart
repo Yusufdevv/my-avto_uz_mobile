@@ -5,6 +5,7 @@ import 'package:auto/assets/themes/theme_extensions/w_textfield_style.dart';
 import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.dart';
 import 'package:auto/features/ad/presentation/widgets/base_widget.dart';
 import 'package:auto/features/ad/presentation/widgets/rent_to_buy_sheet.dart';
+import 'package:auto/features/ad/presentation/widgets/rent_to_sale_info_box.dart';
 import 'package:auto/features/common/widgets/switcher_row.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
@@ -40,6 +41,7 @@ class _PriceScreenState extends State<PriceScreen> {
               child: Padding(
                 padding: const EdgeInsets.all(16),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     WTextField(
                       maxLength: 7,
@@ -63,7 +65,6 @@ class _PriceScreenState extends State<PriceScreen> {
                       suffixPadding: const EdgeInsets.all(0),
                       suffix: WScaleAnimation(
                         onTap: () {
-                          print('=>=>=>=> suffix pressed <=<=<=<=');
                         },
                         child: Container(
                           padding: const EdgeInsets.all(14),
@@ -102,9 +103,6 @@ class _PriceScreenState extends State<PriceScreen> {
                         ),
                       ),
                     ),
-                    const SizedBox(
-                      height: 16,
-                    ),
                     Container(
                       width: double.infinity,
                       padding: const EdgeInsets.symmetric(
@@ -137,29 +135,36 @@ class _PriceScreenState extends State<PriceScreen> {
                                 .headline1!
                                 .copyWith(
                                     fontWeight: FontWeight.w600, fontSize: 14),
-                          ),
-                          const SizedBox(height: 25),
-                          SwitcherRow(
-                            value: state.rentToBuy ?? false,
-                            onTap: () {
-                              showModalBottomSheet<String>(
-                                  useRootNavigator: true,
-                                  isScrollControlled: true,
-                                  backgroundColor: Colors.transparent,
-                                  isDismissible: false,
-                                  context: context,
-                                  builder: (context) => const RentToBuySheet(
-                                        step: 1
-                                      )).then((value) => context.read<PostingAdBloc>().add(PostingAdChooseEvent()));
-                            },
-                            onChanged: (v) => context
-                                .read<PostingAdBloc>()
-                                .add(PostingAdChooseEvent(rentToBuy: v)),
-                            title: 'Аренда с выкупом',
-                          ),
+                          )
                         ],
                       ),
                     ),
+                    const SizedBox(height: 25),
+                    SwitcherRow(
+                      value: state.rentToBuy ?? false,
+                      onTap: () {
+                        showModalBottomSheet<String>(
+                            useRootNavigator: true,
+                            isScrollControlled: true,
+                            backgroundColor: Colors.transparent,
+                            isDismissible: false,
+                            context: context,
+                            builder: (context) =>
+                                const RentToBuySheet(step: 1)).then((value) =>
+                            context
+                                .read<PostingAdBloc>()
+                                .add(PostingAdChooseEvent()));
+                      },
+                      onChanged: (v) => context
+                          .read<PostingAdBloc>()
+                          .add(PostingAdChooseEvent(rentToBuy: v)),
+                      title: 'Аренда с выкупом',
+                    ),
+                    const SizedBox(height: 16),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    RentToSaleDetailsBox(),
                   ],
                 ),
               ),

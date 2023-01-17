@@ -83,7 +83,6 @@ class _EngineScreenState extends State<EngineScreen> {
                             selected: state.gasBalloonType,
                           ),
                         ).then((value) {
-                          print('=>=>=>=> $value <=<=<=<=');
                           context.read<PostingAdBloc>().add(
                               PostingAdChooseEvent(
                                   hasGasBalloon:

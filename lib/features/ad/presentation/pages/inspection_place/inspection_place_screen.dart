@@ -59,7 +59,6 @@ class _InspectionPlaceScreenState extends State<InspectionPlaceScreen> {
                               list: state.regions,
                             ),
                           ).then((value) {
-                            print('=>=>=>=> region then value $value <=<=<=<=');
                             context
                                 .read<PostingAdBloc>()
                                 .add(PostingAdChooseEvent(region: value?[0]));

@@ -103,7 +103,6 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
       return;
     }
 
-    print('=>=>=>=> ddrive types event triggered <=<=<=<=');
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
     final result = await driveTypeUseCase.call(DriveTypeParams(
         generationId: state.generationId!,
@@ -135,7 +134,6 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     ));
 
     if (result.isRight) {
-      print('=>=>=>=> results length: ${result.right.results.length} <=<=<=<=');
       emit(state.copyWith(
           status: FormzStatus.submissionSuccess,
           engines: result.right.results));
@@ -169,12 +167,10 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
       return;
     }
 
-    print('=>=>=>=> posting add event triggered <=<=<=<=');
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
     final result = await generationUseCase.call(GenerationParams(
         modelId: state.modelId!, year: state.yearsEntity!.yearBegin));
     if (result.isRight) {
-      print('=>=>=>=> ${result.right.results} <=<=<=<=');
       emit(state.copyWith(
           generations: result.right.results,
           status: FormzStatus.submissionSuccess));
@@ -216,7 +212,6 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
 
   FutureOr<void> _makes(
       PostingAdMakesEvent event, Emitter<PostingAdState> emit) async {
-    print('=>=>=>=> makes event triggered <=<=<=<=');
 
     if (state.makeId != null && state.makes.isNotEmpty) {
       emit(state.copyWith(status: FormzStatus.submissionSuccess));

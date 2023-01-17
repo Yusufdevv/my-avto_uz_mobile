@@ -16,7 +16,6 @@ class GetBodyTypesBloc extends Bloc<GetBodyTypesEvent, GetBodyTypesState> {
     on<GetBodyTypesSelectIndex>(
         (event, emit) => emit(state.copyWith(selected: event.index)));
     on<GetBodyTypesGetEvent>((event, emit) async {
-      print('=>=>=>=> get body types event triggerred <=<=<=<=');
       emit(state.copyWith(status: FormzStatus.submissionInProgress));
       final result = await getBodyTypeUseCase.call(NoParams());
       if (result.isRight) {

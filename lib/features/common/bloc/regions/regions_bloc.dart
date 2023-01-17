@@ -15,7 +15,6 @@ class RegionsBloc extends Bloc<RegionsEvent, RegionsState> {
 
   RegionsBloc(this.getRegions) : super(RegionsState()) {
     on<_GetRegions>((event, emit) async {
-       print('=>=>=>=> get rigions event triggered <=<=<=<=');
       emit(state.copyWith(status: FormzStatus.submissionInProgress));
       final result = await getRegions('');
 
