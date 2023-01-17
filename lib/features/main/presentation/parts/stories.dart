@@ -28,12 +28,15 @@ class Stories extends StatelessWidget {
                   title: stories[index].name,
                   image: stories[index].coverImageThumbnail.square,
                   onTap: () async {
-                    await Navigator.of(context, rootNavigator: true).push(fade(
-                        page: StoryScreen(
+                    final res = await Navigator.of(context, rootNavigator: true)
+                        .push(fade(
+                            page: StoryScreen(
                       stories: stories,
                       index: index,
                     )));
-                    onBack();
+                    if (res is bool && res) {
+                      onBack();
+                    }
                   },
                   isRead: stories[index].isRead,
                 ),
