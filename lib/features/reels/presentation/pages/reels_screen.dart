@@ -67,6 +67,7 @@ class _ReelsScreenState extends State<ReelsScreen> {
                       itemCount: state.reels.length,
                       itemBuilder: (context, index) => ContentItem(
                         reel: state.reels[index],
+                        isLiked: state.reels[index].isLiked,
                         onTapLike: () {
                           bloc.add(ReelsLike(state.reels[index].id, index));
                         },

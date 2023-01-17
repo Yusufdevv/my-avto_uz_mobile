@@ -49,7 +49,7 @@ class ReelsBloc extends Bloc<ReelsEvent, ReelsState> {
   }
 
   Future _likeReels(ReelsLike event, Emitter<ReelsState> emit) async {
-    final result = await reelsLikeUseCase.call({'reels': event.id});
+    final result = await reelsLikeUseCase.call(event.id);
     if(result.isRight){
       final reel = state.reels[event.index];
       if(reel.isLiked) {
