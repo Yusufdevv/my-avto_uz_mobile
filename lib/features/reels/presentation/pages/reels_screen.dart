@@ -56,43 +56,46 @@ class _ReelsScreenState extends State<ReelsScreen> {
         child: BlocProvider(
           create: (context) => bloc,
           child: BlocBuilder<ReelsBloc, ReelsState>(
-            builder: (context, state) => Scaffold(
-              backgroundColor: Colors.transparent,
-              body: Stack(
-                children: [
-                  if (state.statusReelsGet.isSubmissionSuccess)
-                    PageView.builder(
-                      scrollDirection: Axis.vertical,
-                      controller: _pageController,
-                      itemCount: state.reels.length,
-                      itemBuilder: (context, index) => ContentItem(
-                        reel: state.reels[index],
-                        onTapLike: () {
-                          bloc.add(ReelsLike(state.reels[index].id, index));
-                        },
-                        pageIndex: index,
-                        currentPageIndex: _currentPage,
-                        isPaused: _isOnPageTurning,
+            builder: (context, state) {
+              print('state: ${state.reels}');
+              return Scaffold(
+                backgroundColor: Colors.transparent,
+                body: Stack(
+                  children: [
+                    if (state.statusReelsGet.isSubmissionSuccess)
+                      PageView.builder(
+                        scrollDirection: Axis.vertical,
+                        controller: _pageController,
+                        itemCount: state.reels.length,
+                        itemBuilder: (context, index) => ContentItem(
+                          reel: state.reels[index],
+                          onTapLike: () {
+                            bloc.add(ReelsLike(state.reels[index].id, index));
+                          },
+                          pageIndex: index,
+                          currentPageIndex: _currentPage,
+                          isPaused: _isOnPageTurning,
+                        ),
+                      ),
+                    Positioned(
+                      top: 16,
+                      right: 16,
+                      left: 16,
+                      child: Row(
+                        children: [
+                          WScaleAnimation(
+                            child: SvgPicture.asset(AppIcons.chevronLeftWhite),
+                            onTap: () => Navigator.pop(context),
+                          ),
+                          const Spacer(),
+                          SvgPicture.asset(AppIcons.whiteLogo),
+                        ],
                       ),
                     ),
-                  Positioned(
-                    top: 16,
-                    right: 16,
-                    left: 16,
-                    child: Row(
-                      children: [
-                        WScaleAnimation(
-                          child: SvgPicture.asset(AppIcons.chevronLeftWhite),
-                          onTap: () => Navigator.pop(context),
-                        ),
-                        const Spacer(),
-                        SvgPicture.asset(AppIcons.whiteLogo),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
+                  ],
+                ),
+              );
+            },
           ),
         ),
       );

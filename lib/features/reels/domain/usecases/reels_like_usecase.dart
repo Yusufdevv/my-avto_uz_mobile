@@ -10,7 +10,7 @@ class ReelsLikeUsecase extends UseCase<dynamic, Map<String, dynamic>> {
 
   @override
   Future<Either<Failure, dynamic>> call(Map<String, dynamic> params) async {
-    final v = await repository.getReelsLike(id: params['id']);
+    final v = await repository.reelsLike(id: params['id']);
 
     return v;
   }
