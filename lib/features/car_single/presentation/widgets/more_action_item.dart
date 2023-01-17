@@ -5,11 +5,12 @@ import 'package:flutter_svg/flutter_svg.dart';
 class MoreActionItem extends StatelessWidget {
   final String icon;
   final Color color;
+  final Color borderColor;
   final String text;
   final VoidCallback onTap;
 
   const MoreActionItem(
-      {Key? key, required this.icon, required this.text, required this.color, required this.onTap})
+      {Key? key, required this.icon, required this.text, required this.color, required this.onTap, required this.borderColor})
       : super(key: key);
 
   @override
@@ -23,9 +24,7 @@ class MoreActionItem extends StatelessWidget {
               12,
             ),
             border: Border.all(
-              color: const Color(
-                0xffF1F1F5,
-              ),
+              color: borderColor
             ),
           ),
           padding: const EdgeInsets.symmetric(

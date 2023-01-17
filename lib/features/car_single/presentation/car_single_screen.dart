@@ -1,8 +1,10 @@
 import 'package:auto/assets/colors/color.dart';
+import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/features/car_single/data/repository/car_single_repository_impl.dart';
 import 'package:auto/features/car_single/domain/usecases/get_ads_usecase.dart';
 import 'package:auto/features/car_single/domain/usecases/other_ads_usecase.dart';
+import 'package:auto/features/car_single/domain/usecases/sold_ads_usecase.dart';
 import 'package:auto/features/car_single/presentation/bloc/car_single_bloc.dart';
 import 'package:auto/features/car_single/presentation/parts/car_seller_card.dart';
 import 'package:auto/features/car_single/presentation/parts/descriptions/seller_comment.dart';
@@ -73,7 +75,8 @@ class _CarSingleScreenState extends State<CarSingleScreen>
     bloc = CarSingleBloc(
         GetCarSingleUseCase(
             repository: serviceLocator<CarSingleRepositoryImpl>()),
-        OtherAdsUseCase(repository: serviceLocator<CarSingleRepositoryImpl>()))
+        OtherAdsUseCase(repository: serviceLocator<CarSingleRepositoryImpl>()),
+        SoldAdsUseCase(repository: serviceLocator<CarSingleRepositoryImpl>()))
       ..add(CarSingleEvent.getSingle(widget.id));
     _scrollController.addListener(() {
       if (_scrollController.offset > 285 && isAppBarOffset != true) {
@@ -133,12 +136,21 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                           isWishlisted: state.singleEntity.isWishlisted,
                           dealerName: state.singleEntity.user.name,
                           position: state.singleEntity.userType,
-                          avatar: state.singleEntity.user.avatar ?? '',
+                          avatar: state.singleEntity.user.avatar ??
+                              AppIcons.defalut,
                           shareUrl:
                               'https://panel.avto.uz/api/v1/car/announcement/${state.singleEntity.id}/detail/',
                           images: state.singleEntity.gallery,
                           onDealer: () {},
                           onCompare: () {},
+                          isMine: state.singleEntity.isMine,
+                          status: state.soldStatus,
+                          onSold: () {
+                            print('bosildi');
+                            context
+                                .read<CarSingleBloc>()
+                                .add(CarSingleEvent.soldAds(widget.id));
+                          },
                         ),
                         SliverToBoxAdapter(
                           child: CarNameWidget(
@@ -174,6 +186,11 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                             ration: '30 000 000',
                             dateBsh: '25 mart',
                             percent: '5',
+                            isMine: state.singleEntity.isMine,
+                            saleDays: 5,
+                            addToFavorite: 4,
+                            callToNumber: 4,
+                            daysLeft: 8,
                           ),
                         ),
                         const SliverToBoxAdapter(

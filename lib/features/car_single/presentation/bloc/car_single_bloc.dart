@@ -2,6 +2,7 @@ import 'package:auto/features/car_single/domain/entities/car_single_entity.dart'
 import 'package:auto/features/car_single/domain/entities/elastic_search_entity.dart';
 import 'package:auto/features/car_single/domain/usecases/get_ads_usecase.dart';
 import 'package:auto/features/car_single/domain/usecases/other_ads_usecase.dart';
+import 'package:auto/features/car_single/domain/usecases/sold_ads_usecase.dart';
 import 'package:bloc/bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -13,8 +14,9 @@ part 'car_single_state.dart';
 class CarSingleBloc extends Bloc<CarSingleEvent, CarSingleState> {
   final GetCarSingleUseCase useCaseSingle;
   final OtherAdsUseCase useCaseAds;
+  final SoldAdsUseCase soldAdsUseCase;
 
-  CarSingleBloc(this.useCaseSingle, this.useCaseAds)
+  CarSingleBloc(this.useCaseSingle, this.useCaseAds, this.soldAdsUseCase)
       : super(const CarSingleState()) {
     on<_GetSingle>((event, emit) async {
       emit(state.copyWith(status: FormzStatus.submissionInProgress));
@@ -39,6 +41,17 @@ class CarSingleBloc extends Bloc<CarSingleEvent, CarSingleState> {
             adsStatus: FormzStatus.submissionSuccess));
       } else {
         print('BLOC ERROR GET OTHER ADS');
+      }
+    });
+    on<_SoldAds>((event, emit) async {
+      final result = await soldAdsUseCase.call(event.id);
+      emit(state.copyWith(soldStatus: FormzStatus.submissionSuccess));
+      if (result.isRight) {
+        print('BLOC RESULT RIGHT => ${result.right}');
+        emit(state.copyWith(
+            soldStatus: FormzStatus.submissionSuccess));
+      } else {
+        print('BLOC ERROR SOLD ADS');
       }
     });
   }

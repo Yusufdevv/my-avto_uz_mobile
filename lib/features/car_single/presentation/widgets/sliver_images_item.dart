@@ -1,7 +1,8 @@
-import 'package:auto/assets/constants/images.dart';
+import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/features/car_single/presentation/widgets/more_container.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class SingleImagePart extends StatefulWidget {
   final int count;
@@ -45,10 +46,7 @@ class _SingleImagePartState extends State<SingleImagePart> {
                         ),
                       ),
                       child: widget.images.isEmpty
-                          ? Image.asset(
-                              AppImages.defaultPhoto,
-                              fit: BoxFit.cover,
-                            )
+                          ? SvgPicture.asset(AppIcons.defalut)
                           : Image.network(
                               widget.images[index],
                               width: double.maxFinite,

@@ -10,4 +10,6 @@ abstract class CarSingleRepository {
   Future<Either<Failure, GenericPagination<ElasticSearchEntity>>> getOtherAds({required int id});
 
   Future<Either<Failure, CarSingleEntity>> payInvoice();
+
+  Future<Either<Failure,dynamic>> soldAds({required int id});
 }

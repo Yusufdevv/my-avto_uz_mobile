@@ -18,7 +18,6 @@ class InformationAboutDoors extends StatelessWidget {
   Widget build(BuildContext context) => Row(
         children: [
           MyFunctions().getStatusIcon(informAboutDoors[index].damageType),
-          const SizedBox(width: 10),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
