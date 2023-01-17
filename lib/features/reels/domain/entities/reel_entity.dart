@@ -30,7 +30,7 @@ class ReelEntity extends Equatable {
     this.hasDiscount = false,
     this.oldPrice = '0',
     this.discountPercent = 0,
-    this.isLiked = false,
+    this.isLiked = true,
   });
 
   @override
