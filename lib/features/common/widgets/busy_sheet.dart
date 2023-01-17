@@ -17,29 +17,29 @@ class BusySheet extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Container(
-            decoration: const BoxDecoration(
-              color: bottomSheetColor,
-              borderRadius: BorderRadius.vertical(top: Radius.circular(13)),
-            ),
-            child: CupertinoActionSheetAction(
-              child: Text(
-                LocaleKeys.Complain.tr(),
-                style: Theme.of(context)
-                    .textTheme
-                    .headline1!
-                    .copyWith(fontWeight: FontWeight.w400, color: red),
-              ),
-              onPressed: () {
-                Navigator.pop(context, LocaleKeys.Complain.tr());
-              },
-            ),
-          ),
-          Divider(
-            height: 0,
-            thickness: 1,
-            color: brightGrey.withOpacity(0.65),
-          ),
+          // Container(
+          //   decoration: const BoxDecoration(
+          //     color: bottomSheetColor,
+          //     borderRadius: BorderRadius.vertical(top: Radius.circular(13)),
+          //   ),
+          //   child: CupertinoActionSheetAction(
+          //     child: Text(
+          //       LocaleKeys.Complain.tr(),
+          //       style: Theme.of(context)
+          //           .textTheme
+          //           .headline1!
+          //           .copyWith(fontWeight: FontWeight.w400, color: red),
+          //     ),
+          //     onPressed: () {
+          //       Navigator.pop(context, LocaleKeys.Complain.tr());
+          //     },
+          //   ),
+          // ),
+          // Divider(
+          //   height: 0,
+          //   thickness: 1,
+          //   color: brightGrey.withOpacity(0.65),
+          // ),
           Container(
             decoration: const BoxDecoration(
               color: bottomSheetColor,
