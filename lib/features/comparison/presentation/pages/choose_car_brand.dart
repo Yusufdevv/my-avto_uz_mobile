@@ -38,10 +38,6 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
     searchController = TextEditingController();
     context.read<GetMakesBloc>().add(GetMakesBlocEvent.getSerched(''));
     context.read<GetMakesBloc>().add(GetMakesBlocEvent.getMakes());
-    if (widget.isClear) {
-      context.read<GetMakesBloc>().add(
-          GetMakesBlocEvent.selectedCarItems(id: -1, name: '', imageUrl: ''));
-    }
     scrollingBloc = ScrollingBloc();
     scrollController = ScrollController();
     scrollController.addListener(() {
@@ -93,9 +89,11 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
                           child: InkWell(
                             onTap: () {
                               Navigator.of(context).pop();
-                              context.read<GetMakesBloc>().add(
-                                  GetMakesBlocEvent.selectedCarItems(
-                                      id: -1, name: '', imageUrl: ''));
+                              if (widget.isClear) {
+                                context.read<GetMakesBloc>().add(
+                                    GetMakesBlocEvent.selectedCarItems(
+                                        id: -1, name: '', imageUrl: ''));
+                              }
                             },
                             child: SvgPicture.asset(AppIcons.close),
                           ),
