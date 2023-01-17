@@ -69,8 +69,8 @@ class WTextField extends StatefulWidget {
   final String hintNextToTitle;
 
   const WTextField(
-      {this.controller,
-      required this.onChanged,
+      {required this.onChanged,
+      this.controller,
       this.hasBorderColor,
       this.readOnly = false,
       this.disabledColor,
