@@ -50,17 +50,18 @@ class _StoryContentItemState extends State<StoryContentItem>
     super.initState();
     animationController = AnimationController(vsync: this);
     animationController.addStatusListener(_animationListener);
+    print('my log: init state');
     _loadStory();
   }
 
   @override
   Widget build(BuildContext context) {
     var isLandscape = false;
-    _pauseAndPlayVideo();
     if (initialized && _videoPlayerController.value.isInitialized) {
       isLandscape = _videoPlayerController.value.size.width >
           _videoPlayerController.value.size.height;
     }
+    print('my log: is video $isVideo');
     return GestureDetector(
       onLongPress: _onLongPress,
       onLongPressEnd: (e) => _onLongPress(isStopped: false),
@@ -98,27 +99,27 @@ class _StoryContentItemState extends State<StoryContentItem>
                 },
               ),
             ),
-          // Positioned(
-          //   top: MediaQuery.of(context).padding.top + 12,
-          //   left: 16,
-          //   right: 10,
-          //   child: Row(
-          //     children: widget.story.items
-          //         .asMap()
-          //         .map(
-          //           (i, e) => MapEntry(
-          //             i,
-          //             AnimatedBar(
-          //               animationController: animationController,
-          //               currentIndex: itemIndex,
-          //               position: i,
-          //             ),
-          //           ),
-          //         )
-          //         .values
-          //         .toList(),
-          //   ),
-          // ),
+          Positioned(
+            top: MediaQuery.of(context).padding.top + 12,
+            left: 16,
+            right: 10,
+            child: Row(
+              children: widget.story.items
+                  .asMap()
+                  .map(
+                    (i, e) => MapEntry(
+                      i,
+                      AnimatedBar(
+                        animationController: animationController,
+                        currentIndex: itemIndex,
+                        position: i,
+                      ),
+                    ),
+                  )
+                  .values
+                  .toList(),
+            ),
+          ),
           Container(
             decoration: BoxDecoration(
                 gradient: LinearGradient(
@@ -171,24 +172,11 @@ class _StoryContentItemState extends State<StoryContentItem>
   }
 
   void _animationListener(AnimationStatus status) {
-    if (status == AnimationStatus.completed) {
+    if (status == AnimationStatus.completed && !isVideo) {
       animationController
         ..stop()
         ..reset();
-      setState(() {
-        if (itemIndex + 1 == widget.story.items.length) {
-          if (widget.currentPageIndex + 1 == widget.storiesCount) {
-            Navigator.pop(context);
-          } else {
-            itemIndex = 0;
-            widget.animate(forward: true);
-            _loadStory();
-          }
-        } else {
-          itemIndex++;
-          _loadStory();
-        }
-      });
+      setState(nextStory);
     }
   }
 
@@ -196,82 +184,92 @@ class _StoryContentItemState extends State<StoryContentItem>
     final screenWidth = MediaQuery.of(context).size.width;
     final dx = details.globalPosition.dx;
     if (dx < screenWidth / 3) {
-      setState(() {
-        if (itemIndex == 0) {
-          if (widget.currentPageIndex == 0) {
-            Navigator.pop(context);
-          } else {
-            itemIndex = widget.story.items.length - 1;
-            widget.animate(forward: false);
-            _loadStory();
-          }
-        } else {
-          itemIndex--;
-          _loadStory();
-        }
-      });
+      setState(prevStory);
     } else if (dx > 2 * screenWidth / 3) {
-      setState(() {
-        if (itemIndex + 1 == widget.story.items.length) {
-          if (widget.currentPageIndex + 1 == widget.storiesCount) {
-            Navigator.pop(context);
-          } else {
-            itemIndex = 0;
-            widget.animate(forward: true);
-            _loadStory();
-          }
-        } else {
-          itemIndex++;
-          _loadStory();
-        }
-      });
+      setState(nextStory);
+    }
+  }
+
+  void prevStory() {
+    print('my log: prevStory');
+    if (itemIndex == 0) {
+      if (widget.currentPageIndex == 0) {
+        Navigator.pop(context);
+      } else {
+        itemIndex = widget.story.items.length - 1;
+        widget.animate(forward: false);
+        _loadStory();
+      }
+    } else {
+      itemIndex--;
+      _loadStory();
+    }
+  }
+
+  void nextStory() {
+    print('my log: nextStory');
+    if (itemIndex + 1 == widget.story.items.length) {
+      if (widget.currentPageIndex + 1 == widget.storiesCount) {
+        Navigator.pop(context);
+      } else {
+        itemIndex = 0;
+        widget.animate(forward: true);
+        _loadStory();
+      }
+    } else {
+      itemIndex++;
+      _loadStory();
     }
   }
 
   void _loadStory() {
-    print('loadStory: ${widget.currentPageIndex} $itemIndex');
+    print('my log: load story');
+    if (!(widget.pageIndex == widget.currentPageIndex && !widget.isPaused)) {
+      return;
+    }
     final last = widget.story.items[itemIndex].content.split('.').last;
     isVideo = last == 'mp4' || last == 'mov';
     if (isVideo) {
       _initVideoController();
+      _pauseAndPlayVideo();
     } else {
+      disposeVideo();
       animationController
         ..stop()
         ..reset()
-        ..duration = const Duration(seconds: 10)
+        ..duration = const Duration(seconds: 5)
         ..forward();
-      if (!widget.story.items[itemIndex].isRead) {
-        widget.read(widget.story.items[itemIndex].id);
-      }
+    }
+    if (!widget.story.items[itemIndex].isRead) {
+      widget.read(widget.story.items[itemIndex].id);
     }
   }
 
   void _onLongPress({bool isStopped = true}) {
     if (isStopped) {
+      if (isVideo) {
+        _videoPlayerController.pause();
+      }
       animationController.stop();
     } else {
+      if (isVideo) {
+        _videoPlayerController.play();
+      }
       animationController.forward();
     }
   }
 
-  @override
-  void dispose() {
-    animationController.dispose();
-    if (initialized) {
-      _videoPlayerController
-        ..removeListener(_videoListener)
-        ..dispose();
-    }
-
-    actualDisposed = true;
-    super.dispose();
-  }
-
   void _initVideoController() {
+    print('my log: init video');
     _videoPlayerController =
         VideoPlayerController.network(widget.story.items[itemIndex].content);
     _videoPlayerController.addListener(_videoListener);
     _videoPlayerController.initialize().then((_) {
+      animationController
+        ..stop()
+        ..reset()
+        ..duration = _videoPlayerController.value.duration
+        ..forward();
       setState(() {
         _videoPlayerController.setLooping(false);
         initialized = true;
@@ -284,11 +282,16 @@ class _StoryContentItemState extends State<StoryContentItem>
 
     if (_videoPlayerController.value.position >=
         _videoPlayerController.value.duration) {
-      print('on end video');
+      print('itemIndex: $itemIndex');
+      print('currentPageIndex: ${widget.currentPageIndex}');
+      print('pageIndex: ${widget.pageIndex}');
+      disposeVideo();
+      nextStory();
     }
   }
 
   void _pauseAndPlayVideo() {
+    print('my log: pause and play');
     if (initialized) {
       if (widget.pageIndex == widget.currentPageIndex &&
           !widget.isPaused &&
@@ -301,6 +304,7 @@ class _StoryContentItemState extends State<StoryContentItem>
   }
 
   Widget _renderLandscapeVideo() {
+    print('my log: _renderLandscapeVideo');
     if (!initialized) return Container();
     return Center(
       child: AspectRatio(
@@ -314,6 +318,7 @@ class _StoryContentItemState extends State<StoryContentItem>
   }
 
   Widget _renderPortraitVideo() {
+    print('my log: _renderPortraitVideo');
     if (!initialized) return Container();
 
     var tmp = MediaQuery.of(context).size;
@@ -344,6 +349,7 @@ class _StoryContentItemState extends State<StoryContentItem>
   }
 
   void _handleVisibilityDetector(VisibilityInfo info) {
+    print('my log: _handleVisibilityDetector');
     if (info.visibleFraction == 0) {
       if (!actualDisposed &&
           widget.pageIndex == widget.currentPageIndex &&
@@ -354,5 +360,23 @@ class _StoryContentItemState extends State<StoryContentItem>
     } else {
       _videoPlayerController.play().then((value) {});
     }
+  }
+
+  void disposeVideo() {
+    print('my log: dispose video');
+    if (initialized) {
+      _videoPlayerController
+        ..removeListener(_videoListener)
+        ..dispose();
+    }
+    initialized = false;
+    actualDisposed = true;
+  }
+
+  @override
+  void dispose() {
+    animationController.dispose();
+    disposeVideo();
+    super.dispose();
   }
 }

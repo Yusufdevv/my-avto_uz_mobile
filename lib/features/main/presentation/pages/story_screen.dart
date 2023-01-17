@@ -3,7 +3,6 @@ import 'package:another_transformer_page_view/another_transformer_page_view.dart
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/images.dart';
-import 'package:auto/core/utils/buildin_transformers.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/main/domain/entities/story_entity.dart';
 import 'package:auto/features/main/presentation/bloc/story_bloc/story_bloc.dart';
@@ -28,7 +27,7 @@ class StoryScreen extends StatefulWidget {
 
 class _StoryScreenState extends State<StoryScreen> {
   late StoryBloc bloc;
-  late TransformerPageController _pageController;
+  late PageController _pageController;
   int _currentPage = 0;
   bool _isOnPageTurning = false;
 
@@ -72,15 +71,14 @@ class _StoryScreenState extends State<StoryScreen> {
         backgroundColor: dark,
         body: Stack(
           children: [
-            TransformerPageView(
-              pageController: _pageController,
-              physics: const NeverScrollableScrollPhysics(),
-              transformer: ThreeDTransformer(),
-              curve: Curves.linear,
+            PageView.builder(
+              controller: _pageController,
+              // transformer: ThreeDTransformer(),
+              // curve: Curves.linear,
               itemCount: widget.stories.length,
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) => StoryContentItem(
-                story: widget.stories[index],
+                story: widget.stories[_currentPage],
                 pageIndex: index,
                 currentPageIndex: _currentPage,
                 isPaused: _isOnPageTurning,
@@ -151,9 +149,9 @@ class _StoryScreenState extends State<StoryScreen> {
     print('animate: $forward');
     forward
         ? _pageController.nextPage(
-            duration: const Duration(milliseconds: 500), curve: Curves.linear)
+            duration: const Duration(milliseconds: 200), curve: Curves.linear)
         : _pageController.previousPage(
-            duration: const Duration(milliseconds: 500), curve: Curves.linear);
+            duration: const Duration(milliseconds: 200), curve: Curves.linear);
   }
 
   void _read(int id) {
