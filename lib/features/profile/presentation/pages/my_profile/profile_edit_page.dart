@@ -201,68 +201,58 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                                                     ),
                                         ),
                                         SizedBox(height: SizeConfig.h(8)),
-                                        Text(
-                                          LocaleKeys.change_photo.tr(),
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headline2!
-                                              .copyWith(color: blue),
-                                        ),
+                                        Text(LocaleKeys.change_photo.tr(),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .headline2!
+                                                .copyWith(color: blue)),
                                       ],
                                     )),
                               ),
                               //
-                              TitleTextFieldTop(
-                                title: LocaleKeys.name.tr(),
-                              ),
+                              TitleTextFieldTop(title: LocaleKeys.name.tr()),
                               ProfilTextField(
-                                controller: nameController,
-                                isNameField: true,
-                              ),
+                                  controller: nameController,
+                                  isNameField: true),
                               //
-                              TitleTextFieldTop(
-                                title: LocaleKeys.surname.tr(),
-                              ),
+                              TitleTextFieldTop(title: LocaleKeys.surname.tr()),
                               ProfilTextField(controller: surNameController),
                               //
-                              TitleTextFieldTop(
-                                title: LocaleKeys.region.tr(),
-                              ),
+                              TitleTextFieldTop(title: LocaleKeys.region.tr()),
                               WScaleAnimation(
-                                onTap: () async {
-                                  await showModalBottomSheet<List<Region>>(
-                                    isDismissible: false,
-                                    context: context,
-                                    isScrollControlled: true,
-                                    backgroundColor: Colors.transparent,
-                                    builder: (c) => RentChooseRegionBottomSheet(
-                                        isProfileEdit: true,
-                                        list: context
-                                            .read<RegionsBloc>()
-                                            .state
-                                            .regions),
-                                  ).then((value) {
-                                    if (value != null && value.isNotEmpty) {
-                                      setState(() {
-                                        newRegion = value.first;
-                                      });
-                                    }
-                                  });
-                                },
-                                child: EditItemContainer(
-                                    icon: AppIcons.chevronRightBlack,
-                                    region: newRegion?.title ??
-                                        widget.profileBloc.state.profileEntity
-                                            .region?.title ??
-                                        ''),
-                              ),
+                                  onTap: () async {
+                                    await showModalBottomSheet<List<Region>>(
+                                        isDismissible: false,
+                                        context: context,
+                                        useRootNavigator: true,
+                                        isScrollControlled: true,
+                                        backgroundColor: Colors.transparent,
+                                        builder: (c) =>
+                                            RentChooseRegionBottomSheet(
+                                                isProfileEdit: true,
+                                                list: context
+                                                    .read<RegionsBloc>()
+                                                    .state
+                                                    .regions)).then((value) {
+                                      if (value != null && value.isNotEmpty) {
+                                        setState(() {
+                                          newRegion = value.first;
+                                        });
+                                      }
+                                    });
+                                  },
+                                  child: EditItemContainer(
+                                      icon: AppIcons.chevronRightBlack,
+                                      region: newRegion?.title ??
+                                          widget.profileBloc.state.profileEntity
+                                              .region?.title ??
+                                          '')),
                               //
                               const TitleTextFieldTop(title: 'Номер телефона'),
                               WScaleAnimation(
                                   onTap: () {
-                                    Navigator.push(
-                                        context,
-                                        fade(
+                                    Navigator.of(context, rootNavigator: true)
+                                        .push(fade(
                                             page: PhoneNumberEditPage(
                                                 profileBloc:
                                                     widget.profileBloc)));

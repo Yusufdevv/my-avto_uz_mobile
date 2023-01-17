@@ -9,7 +9,7 @@ export 'package:auto/features/profile/presentation/widgets/edit_item_container.d
 export 'package:auto/features/profile/presentation/widgets/favourite_item.dart';
 export 'package:auto/features/profile/presentation/widgets/information_item.dart';
 export 'package:auto/features/profile/presentation/widgets/language_bottom_sheet.dart';
-export 'package:auto/features/profile/presentation/widgets/log_out_bottomsheet.dart';
+export 'package:auto/features/profile/presentation/widgets/custom_profile_bottomsheet.dart';
 export 'package:auto/features/profile/presentation/widgets/notification_item.dart';
 export 'package:auto/features/profile/presentation/widgets/password_textfield.dart';
 export 'package:auto/features/profile/presentation/widgets/phone_container.dart';

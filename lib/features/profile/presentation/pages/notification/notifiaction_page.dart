@@ -33,8 +33,7 @@ class _NotificationPageState extends State<NotificationPage> {
   void initState() {
     final repo = serviceLocator<GetUserListRepoImpl>();
     bloc = UserWishListsBloc(
-        profileFavoritesMyAdsUseCase:
-            GetUserFavoritesMyAdsUseCase(),
+        profileFavoritesMyAdsUseCase: GetUserFavoritesMyAdsUseCase(),
         getNotificationSingleUseCase:
             GetNotificationSingleUseCase(repository: repo),
         getNotificationsUseCase: GetNotificationsUseCase(repository: repo),
@@ -63,7 +62,10 @@ class _NotificationPageState extends State<NotificationPage> {
                 },
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: SizeConfig.h(16)),
-                  child: SvgPicture.asset(AppIcons.checks, color: orange),
+                  child: SizedBox(
+                      height: 20,
+                      width: 20,
+                      child: SvgPicture.asset(AppIcons.checks, color: orange)),
                 ),
               )
             ],
@@ -80,25 +82,30 @@ class _NotificationPageState extends State<NotificationPage> {
                         itemCount: notifications.length,
                         itemBuilder: (context, index) {
                           final item = notifications[index];
+                          var isItemRead = item.isRead!;
                           return InkWell(
                             onTap: () {
-                              context.read<UserWishListsBloc>().add(
-                                  GetNotificationSingleEvent(
-                                      id: item.id.toString()));
+                              if (isItemRead == false) {
+                                isItemRead = true;
+                                setState(() {});
+                              }
+                               context.read<UserWishListsBloc>().add(
+                                    GetNotificationSingleEvent(
+                                        id: item.id.toString()));
                               Navigator.push(
                                   context,
                                   fade(
                                       page: BlocProvider.value(
-                                    value: bloc,
-                                    child: const NotificationSinglePage(),
-                                  )));
+                                          value: bloc,
+                                          child:
+                                              const NotificationSinglePage())));
                             },
                             child: NotificationItem(
                               currentIndex: index,
                               category:
                                   '#${item.category?.name} • 2 часа назад',
                               title: item.title!,
-                              isRead: isAllRead ? isAllRead : item.isRead!,
+                              isRead: isAllRead ? isAllRead : isItemRead,
                               image: item.cover!,
                             ),
                           );

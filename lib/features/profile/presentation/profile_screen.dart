@@ -209,14 +209,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         page: ChatPage(
                                       phone: state.profileEntity.phoneNumber!,
                                       userName: state.profileEntity.fullName!,
-                                    )
-                                        // ChatPage(
-                                        //     phone: profileData.phoneNumber!,
-                                        //     userName: profileData.username ??
-                                        //         profileData.firstName,
-                                        //     hasChat: false,
-                                        //     imageBloc: imageBloc),
-                                        ),
+                                    )),
                                   );
                                 },
                                 iconPath: AppIcons.message),

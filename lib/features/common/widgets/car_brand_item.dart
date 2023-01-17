@@ -2,6 +2,7 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/domain/entities/types/make.dart';
+import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:flutter/material.dart';
 
 class CarBrandItem extends StatelessWidget {
@@ -13,57 +14,60 @@ class CarBrandItem extends StatelessWidget {
       : super(key: key);
 
   @override
-  Widget build(BuildContext context) => Container(
-        height: 100,
-        width: 72,
-        padding: const EdgeInsets.symmetric(horizontal: 8),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12),
-          color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
-          border: Border.all(
-            width: 1,
-            color: Theme.of(context)
-                .extension<ThemedColors>()!
-                .solitudeToDarkRider,
+  Widget build(BuildContext context) => WScaleAnimation(
+        onTap: () {},
+        child: Container(
+          height: 100,
+          width: 72,
+          padding: const EdgeInsets.symmetric(horizontal: 8),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12),
+            color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
+            border: Border.all(
+              width: 1,
+              color: Theme.of(context)
+                  .extension<ThemedColors>()!
+                  .solitudeToDarkRider,
+            ),
+            boxShadow: [
+              if (hasShadow)
+                BoxShadow(
+                  offset: const Offset(0, 8),
+                  blurRadius: 19,
+                  color: dark.withOpacity(0.07),
+                )
+              else
+                const BoxShadow()
+            ],
           ),
-          boxShadow: [
-            if (hasShadow)
-              BoxShadow(
-                offset: const Offset(0, 8),
-                blurRadius: 19,
-                color: dark.withOpacity(0.07),
+          child: Column(
+            children: [
+              const SizedBox(height: 16),
+              Image.asset(AppImages.defaultPhoto),
+              // Image.network(
+              //   carBrandEntity.logo,
+              //   width: 40,
+              //   height: 40,
+              //   errorBuilder: (ctx, object, stackTrace) =>
+              //       Image.asset(AppImages.defaultPhoto),
+              //   loadingBuilder: (ctx, widget, chunkEvent) =>
+              //       Image.asset(AppImages.defaultPhoto),
+              // ),
+              const SizedBox(height: 8),
+              Expanded(
+                child: Text(
+                  carBrandEntity.name,
+                  textAlign: TextAlign.center,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline1!
+                      .copyWith(fontSize: 12, fontWeight: FontWeight.w600),
+                ),
               )
-            else
-              const BoxShadow()
-          ],
-        ),
-        child: Column(
-          children: [
-            const SizedBox(height: 16),
-            Image.asset(AppImages.defaultPhoto),
-            // Image.network(
-            //   carBrandEntity.logo,
-            //   width: 40,
-            //   height: 40,
-            //   errorBuilder: (ctx, object, stackTrace) =>
-            //       Image.asset(AppImages.defaultPhoto),
-            //   loadingBuilder: (ctx, widget, chunkEvent) =>
-            //       Image.asset(AppImages.defaultPhoto),
-            // ),
-            const SizedBox(height: 8),
-            Expanded(
-              child: Text(
-                carBrandEntity.name,
-                textAlign: TextAlign.center,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: Theme.of(context)
-                    .textTheme
-                    .headline1!
-                    .copyWith(fontSize: 12, fontWeight: FontWeight.w600),
-              ),
-            )
-          ],
+            ],
+          ),
         ),
       );
 }

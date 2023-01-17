@@ -41,6 +41,7 @@ class AppIcons {
   static const tablerInfo = 'assets/icons/global/tabler_info_circle.svg';
   static const tablerPhone = 'assets/icons/global/tabler_phone.svg';
   static const carIcon = 'assets/icons/global/car.png';
+  static const succesGreenIcon = 'assets/icons/global/succes_green.png';
   static const emptyFolder = 'assets/icons/profile/empty_folder.png';
   static const notification = 'assets/icons/profile/notification.png';
   static const smallClose = 'assets/icons/global/smallClose.svg';

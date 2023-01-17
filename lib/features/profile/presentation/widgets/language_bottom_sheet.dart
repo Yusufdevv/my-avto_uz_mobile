@@ -43,7 +43,7 @@ class LanguageBottomSheetState extends State<LanguageBottomSheet> {
   @override
   Widget build(BuildContext context) => Container(
         padding:
-            const EdgeInsets.only(left: 16, right: 16, top: 20, bottom: 12),
+            const EdgeInsets.only(left: 16, right: 16, top: 20, bottom: 20),
         decoration: BoxDecoration(
           borderRadius: const BorderRadius.only(
             topRight: Radius.circular(20),
@@ -102,8 +102,7 @@ class LanguageBottomSheetState extends State<LanguageBottomSheet> {
                   color: orange.withOpacity(0.2),
                 ),
               ],
-              margin: EdgeInsets.only(
-                  top: 20, bottom: MediaQuery.of(context).padding.bottom),
+              margin: const EdgeInsets.only(top: 20),
               onTap: () {
                 Navigator.pop(context, selectedLanguage == 0 ? 'uz' : 'ru');
               },

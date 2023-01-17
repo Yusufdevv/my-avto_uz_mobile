@@ -29,10 +29,13 @@ import 'package:flutter_svg/svg.dart';
 class Seller extends StatefulWidget {
   //final String dealerType;
   final String slug;
+  bool isDirectoryPage;
 
-  const Seller({
+
+    Seller({
     //required this.dealerType,
     required this.slug,
+    this.isDirectoryPage=false,
   });
 
   @override
@@ -63,7 +66,6 @@ class _SellerState extends State<Seller> {
             cars: CarsInDealerRepositoryImpl(
                 dataSource: CarsInDealerDataSource(DioSettings().dio))))
       ..add(CarsInDealerEvent.getResults(slug: widget.slug));
-    // TODO: implement initState
     super.initState();
   }
 
@@ -71,7 +73,6 @@ class _SellerState extends State<Seller> {
   void dispose() {
     dealerSingleBloc.close();
     marksBloc.close();
-    // TODO: implement dispose
     super.dispose();
   }
 

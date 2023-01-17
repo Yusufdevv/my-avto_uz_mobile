@@ -49,7 +49,7 @@ class NotificationItem extends StatelessWidget {
                 right: SizeConfig.h(0),
                 child: SvgPicture.asset(
                   AppIcons.ellipseRed,
-                  color: isRead ? null : warmerGrey,
+                  color: isRead ? warmerGrey : orange,
                 )),
             Row(
               children: [

@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class DirectoryCard extends StatefulWidget {
+  final String slug;
   final String dealerType;
   final String dealerInfo;
   final String dealerName;
@@ -25,6 +26,7 @@ class DirectoryCard extends StatefulWidget {
   final double longitude;
 
   const DirectoryCard({
+    required this.slug,
     required this.region,
     required this.dealerType,
     required this.dealerName,
@@ -46,28 +48,10 @@ class DirectoryCard extends StatefulWidget {
 }
 
 class _DirectoryCardState extends State<DirectoryCard> {
-  bool isSelected = false;
-
   @override
   Widget build(BuildContext context) => GestureDetector(
         onTap: () {
-          Navigator.push(
-            context,
-            fade(
-              page: Seller(
-                // dealerType: widget.dealerType,
-                // dealerName: widget.dealerName,
-                // phoneNumber: widget.phoneNumber,
-                // dealerInfo: widget.dealerInfo,
-                // latitude: widget.latitude,
-                // longitude: widget.longitude,
-                // carCount: widget.quantityOfCars,
-                // contactFrom: widget.contactFrom,
-                // contactTo: widget.contactTo,
-                slug: '',
-              ),
-            ),
-          );
+          Navigator.push(context, fade(page: Seller(slug: widget.slug)));
         },
         child: Container(
           decoration: BoxDecoration(
@@ -101,10 +85,10 @@ class _DirectoryCardState extends State<DirectoryCard> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(widget.dealerName,
-                            style:
-                                Theme.of(context).textTheme.headline1!.copyWith(
-                                      fontSize: 16,
-                                    ),
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline1!
+                                .copyWith(fontSize: 16),
                             overflow: TextOverflow.ellipsis,
                             maxLines: 1),
                         const SizedBox(height: 2),
@@ -138,8 +122,7 @@ class _DirectoryCardState extends State<DirectoryCard> {
                   SvgPicture.asset(AppIcons.clock),
                   const SizedBox(width: 8),
                   Text(
-                      //${LocaleKeys.every_day}
-                      'Каждый день, ${widget.contactFrom} - ${widget.contactTo}',
+                      '${LocaleKeys.every_day.tr()}, ${widget.contactFrom} - ${widget.contactTo}',
                       style: Theme.of(context)
                           .textTheme
                           .headline1!

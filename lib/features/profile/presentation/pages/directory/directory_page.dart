@@ -1,24 +1,22 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_textfield.dart';
 import 'package:auto/features/dealers/presentation/pages/dealers_map.dart';
 import 'package:auto/features/dealers/presentation/widgets/segmented_control.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
+import 'package:auto/features/profile/data/repositories/get_user_list_repo_impl.dart';
+import 'package:auto/features/profile/domain/usecases/get_dir_categories_usecase.dart';
+import 'package:auto/features/profile/domain/usecases/get_directories_usecase.dart';
 import 'package:auto/features/profile/presentation/bloc/directory/directory_bloc.dart';
 import 'package:auto/features/profile/presentation/pages/directory/directory_filter_page.dart';
 import 'package:auto/features/profile/presentation/pages/directory/directory_list.dart';
-import 'package:auto/generated/locale_keys.g.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:auto/core/singletons/service_locator.dart';
-import 'package:auto/features/profile/data/repositories/get_user_list_repo_impl.dart';
-import 'package:auto/features/profile/domain/usecases/get_dir_categories_usecase.dart';
-import 'package:auto/features/profile/domain/usecases/get_directories_usecase.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 class DirectoryPage extends StatefulWidget {

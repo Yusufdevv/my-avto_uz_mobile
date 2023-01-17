@@ -1,4 +1,5 @@
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/main/domain/entities/service_entity.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +13,7 @@ class ServiceItem extends StatelessWidget {
       : super(key: key);
 
   @override
-  Widget build(BuildContext context) => GestureDetector(
+  Widget build(BuildContext context) => WScaleAnimation(
         onTap: onTap,
         child: Container(
           margin: const EdgeInsets.only(left: 12),
@@ -31,9 +32,7 @@ class ServiceItem extends StatelessWidget {
           child: Row(
             children: [
               SvgPicture.asset(serviceEntity.icon),
-              const SizedBox(
-                width: 8
-              ),
+              const SizedBox(width: 8),
               Text(
                 serviceEntity.title.tr(),
                 style: Theme.of(context)

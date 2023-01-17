@@ -19,7 +19,7 @@ class CustomProfileBottomsheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Container(
-        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
+        padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
         decoration: const BoxDecoration(
             color: white,
             borderRadius: BorderRadius.only(
@@ -38,19 +38,16 @@ class CustomProfileBottomsheet extends StatelessWidget {
                       SvgPicture.asset(AppIcons.close, height: 32, width: 32)),
             ),
             const SizedBox(height: 12),
-            Text(
-              title,
-              style: Theme.of(context).textTheme.headline1,
-              textAlign: TextAlign.center,
-            ),
+            Text(title,
+                style: Theme.of(context).textTheme.headline1,
+                textAlign: TextAlign.center),
             const SizedBox(height: 8),
-            Text(
-              subTitle,
-              style: Theme.of(context)
-                  .textTheme
-                  .headline2!
-                  .copyWith(fontWeight: FontWeight.w400, fontSize: 16),
-            ),
+            Text(subTitle,
+                style: Theme.of(context)
+                    .textTheme
+                    .headline2!
+                    .copyWith(fontWeight: FontWeight.w400, fontSize: 16),
+                textAlign: TextAlign.center),
             SizedBox(height: betweenHeight.toDouble()),
             Row(
               children: [
@@ -64,11 +61,7 @@ class CustomProfileBottomsheet extends StatelessWidget {
                 const SizedBox(width: 12),
                 Expanded(
                   child: WButton(
-                    color: tutu,
-                    onTap: onTap,
-                    text: 'Да',
-                    textColor: red,
-                  ),
+                      color: tutu, onTap: onTap, text: 'Да', textColor: red),
                 ),
               ],
             )
