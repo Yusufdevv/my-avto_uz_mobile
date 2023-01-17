@@ -35,8 +35,6 @@ class ContactsBloc extends Bloc<ContactsEvent, ContactsState> {
     }
     final result = await userRepository.getUser();
     if (result.isRight) {
-      print('=>=>=>=> result dot right: ${result.right.firstName} <=<=<=<=');
-      print('=>=>=>=> result dot right: ${result.right.fullName} <=<=<=<=');
       emit(state.copyWith(
           getUserStatus: FormzStatus.submissionSuccess,
           userModel: result.right));

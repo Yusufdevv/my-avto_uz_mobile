@@ -28,7 +28,6 @@ class CarModelSelectorBloc
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
     final result = await useCase.call(makeId, name: event.searchPattern);
     if (result.isRight) {
-      print('=>=>=>=> right results : ${result.right.results} <=<=<=<=');
       emit(state.copyWith(
           status: FormzStatus.submissionSuccess, models: result.right.results));
     } else {

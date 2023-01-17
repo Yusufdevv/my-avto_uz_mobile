@@ -7,6 +7,8 @@ import 'package:auto/features/ad/data/repositories/ad_repository_impl.dart';
 import 'package:auto/features/ad/domain/usecases/get_car_model.dart';
 import 'package:auto/features/ad/domain/usecases/get_makes.dart';
 import 'package:auto/features/ad/domain/usecases/get_top_makes.dart';
+import 'package:auto/features/ad/presentation/pages/price/price_screen.dart';
+import 'package:auto/features/ad/presentation/posting_ad_screen.dart';
 import 'package:auto/features/common/bloc/announcement_bloc/bloc/announcement_list_bloc.dart';
 import 'package:auto/features/common/bloc/auth/authentication_bloc.dart';
 import 'package:auto/features/common/bloc/comparison_add/bloc/comparison_add_bloc.dart';
@@ -80,7 +82,10 @@ class _AppState extends State<App> {
   NavigatorState get navigator => _navigatorKey.currentState!;
 
   @override
-  Widget build(BuildContext context) => MultiBlocProvider(
+  Widget build(BuildContext context) => 
+
+
+   MultiBlocProvider(
         providers: [
           BlocProvider(
             create: (c) =>
@@ -128,7 +133,9 @@ class _AppState extends State<App> {
                       repositoryImpl: serviceLocator<AdRepositoryImpl>()))
                 ..add(AnnouncementListEvent.getAnnouncementList()))
         ],
-        child: MaterialApp(
+        child:
+
+         MaterialApp(
           supportedLocales: context.supportedLocales,
           localizationsDelegates: context.localizationDelegates,
           locale: context.locale,
@@ -139,6 +146,7 @@ class _AppState extends State<App> {
           themeMode: ThemeMode.light,
           navigatorKey: _navigatorKey,
           onGenerateRoute: (settings) => SplashSc.route(),
+
           builder: (context, child) {
             SizeConfig().init(context);
             return BlocListener<AuthenticationBloc, AuthenticationState>(
@@ -160,8 +168,8 @@ class _AppState extends State<App> {
                               registerUseCase: RegisterUseCase(),
                               verifyCodeUseCase: VerifyCodeUseCase(),
                             ),
-                            // child: const PostingAdScreen(),
-                            child: const LoginScreen(),
+                            child: const PostingAdScreen(),
+                            // child: const LoginScreen(),
                           ),
                         ),
                         (route) => false);
@@ -194,5 +202,5 @@ class _AppState extends State<App> {
             );
           },
         ),
-      );
+  );
 }
