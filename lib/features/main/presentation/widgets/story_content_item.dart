@@ -56,7 +56,6 @@ class _StoryContentItemState extends State<StoryContentItem>
   @override
   Widget build(BuildContext context) {
     var isLandscape = false;
-    _pauseAndPlayVideo();
     if (initialized && _videoPlayerController.value.isInitialized) {
       isLandscape = _videoPlayerController.value.size.width >
           _videoPlayerController.value.size.height;
@@ -171,24 +170,11 @@ class _StoryContentItemState extends State<StoryContentItem>
   }
 
   void _animationListener(AnimationStatus status) {
-    if (status == AnimationStatus.completed) {
+    if (status == AnimationStatus.completed && !isVideo) {
       animationController
         ..stop()
         ..reset();
-      setState(() {
-        if (itemIndex + 1 == widget.story.items.length) {
-          if (widget.currentPageIndex + 1 == widget.storiesCount) {
-            Navigator.pop(context);
-          } else {
-            itemIndex = 0;
-            widget.animate(forward: true);
-            _loadStory();
-          }
-        } else {
-          itemIndex++;
-          _loadStory();
-        }
-      });
+      setState(nextStory);
     }
   }
 
@@ -196,75 +182,76 @@ class _StoryContentItemState extends State<StoryContentItem>
     final screenWidth = MediaQuery.of(context).size.width;
     final dx = details.globalPosition.dx;
     if (dx < screenWidth / 3) {
-      setState(() {
-        if (itemIndex == 0) {
-          if (widget.currentPageIndex == 0) {
-            Navigator.pop(context);
-          } else {
-            itemIndex = widget.story.items.length - 1;
-            widget.animate(forward: false);
-            _loadStory();
-          }
-        } else {
-          itemIndex--;
-          _loadStory();
-        }
-      });
+      setState(prevStory);
     } else if (dx > 2 * screenWidth / 3) {
-      setState(() {
-        if (itemIndex + 1 == widget.story.items.length) {
-          if (widget.currentPageIndex + 1 == widget.storiesCount) {
-            Navigator.pop(context);
-          } else {
-            itemIndex = 0;
-            widget.animate(forward: true);
-            _loadStory();
-          }
-        } else {
-          itemIndex++;
-          _loadStory();
-        }
-      });
+      setState(nextStory);
+    }
+  }
+
+  void prevStory() {
+    if (itemIndex == 0) {
+      if (widget.currentPageIndex == 0) {
+        Navigator.pop(context);
+      } else {
+        itemIndex = widget.story.items.length - 1;
+        widget.animate(forward: false);
+        _loadStory();
+      }
+    } else {
+      itemIndex--;
+      _loadStory();
+    }
+  }
+
+  void nextStory() {
+    if (itemIndex + 1 == widget.story.items.length) {
+      if (widget.currentPageIndex + 1 == widget.storiesCount) {
+        Navigator.pop(context);
+      } else {
+        itemIndex = 0;
+        widget.animate(forward: true);
+        _loadStory();
+      }
+    } else {
+      itemIndex++;
+      _loadStory();
     }
   }
 
   void _loadStory() {
-    print('loadStory: ${widget.currentPageIndex} $itemIndex');
+    if (!(widget.pageIndex == widget.currentPageIndex && !widget.isPaused)) {
+      return;
+    }
     final last = widget.story.items[itemIndex].content.split('.').last;
     isVideo = last == 'mp4' || last == 'mov';
     if (isVideo) {
       _initVideoController();
+      _pauseAndPlayVideo();
     } else {
+      disposeVideo();
       animationController
         ..stop()
         ..reset()
-        ..duration = const Duration(seconds: 10)
+        ..duration = const Duration(seconds: 5)
         ..forward();
-      if (!widget.story.items[itemIndex].isRead) {
-        widget.read(widget.story.items[itemIndex].id);
-      }
+    }
+    if (!widget.story.items[itemIndex].isRead) {
+      widget.read(widget.story.items[itemIndex].id);
     }
   }
 
   void _onLongPress({bool isStopped = true}) {
     if (isStopped) {
+      if (isVideo) {
+        _videoPlayerController.pause();
+      }
       animationController.stop();
     } else {
+      if (isVideo) {
+        _videoPlayerController.play();
+      }
       animationController.forward();
     }
-  }
-
-  @override
-  void dispose() {
-    animationController.dispose();
-    if (initialized) {
-      _videoPlayerController
-        ..removeListener(_videoListener)
-        ..dispose();
-    }
-
-    actualDisposed = true;
-    super.dispose();
   }
 
   void _initVideoController() {
@@ -272,6 +259,11 @@ class _StoryContentItemState extends State<StoryContentItem>
         VideoPlayerController.network(widget.story.items[itemIndex].content);
     _videoPlayerController.addListener(_videoListener);
     _videoPlayerController.initialize().then((_) {
+      animationController
+        ..stop()
+        ..reset()
+        ..duration = _videoPlayerController.value.duration
+        ..forward();
       setState(() {
         _videoPlayerController.setLooping(false);
         initialized = true;
@@ -284,7 +276,8 @@ class _StoryContentItemState extends State<StoryContentItem>
 
     if (_videoPlayerController.value.position >=
         _videoPlayerController.value.duration) {
-      // on video end
+      disposeVideo();
+      nextStory();
     }
   }
 
@@ -354,5 +347,22 @@ class _StoryContentItemState extends State<StoryContentItem>
     } else {
       _videoPlayerController.play().then((value) {});
     }
+  }
+
+  void disposeVideo() {
+    if (initialized) {
+      _videoPlayerController
+        ..removeListener(_videoListener)
+        ..dispose();
+    }
+    initialized = false;
+    actualDisposed = true;
+  }
+
+  @override
+  void dispose() {
+    animationController.dispose();
+    disposeVideo();
+    super.dispose();
   }
 }

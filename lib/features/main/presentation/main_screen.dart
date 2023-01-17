@@ -157,6 +157,9 @@ class _MainScreenState extends State<MainScreen> {
                       child: Stories(
                         status: state.statusStoriesGet,
                         stories: state.stories,
+                        onBack: () {
+                          mainBloc.add(InitialEvent());
+                        },
                       ),
                     ),
                     const SizedBox(height: 16),
