@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
@@ -8,10 +7,10 @@ import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Rate extends StatelessWidget {
-  const Rate({Key? key}) : super(key: key);
-
+  const Rate({ Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) => Container(
         margin: const EdgeInsets.symmetric(horizontal: 16),
@@ -57,15 +56,20 @@ class Rate extends StatelessWidget {
                   margin: const EdgeInsets.only(top: 12),
                   height: SizeConfig.v(36),
                   width: SizeConfig.h(150),
-                  // padding:
-                  //     const EdgeInsets.symmetric(vertical: 8, horizontal: 46),
-                  onTap: () {},
+                  onTap: () {
+                if (Platform.isIOS) {
+                    launchUrl(Uri.parse('https://apps.apple.com/ru/app/tafsiri-hilol/id1130844977'));
+
+                } else if(Platform.isAndroid) {
+                    launchUrl(Uri.parse('https://play.google.com/store/search?q=tafsiri+hilol&c=apps&hl=en&gl=US'));
+                }
+                  },
                   child: Text(
                     'Оценить',
                     style: Theme.of(context)
                         .textTheme
                         .headline4!
-                        .copyWith(fontSize: 14, fontWeight: FontWeight.w600),
+                        .copyWith(fontSize: 14, fontWeight: FontWeight.w600)
                   ),
                 )
               ],
@@ -73,7 +77,7 @@ class Rate extends StatelessWidget {
             const Spacer(),
             Image.asset(
               AppImages.stars,
-              height: 136,
+              height: 136
             ),
           ],
         ),

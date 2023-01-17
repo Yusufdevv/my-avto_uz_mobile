@@ -1,7 +1,7 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
-import 'package:auto/features/ad/presentation/bloc/verification/verification_bloc.dart';
+import 'package:auto/features/ad/presentation/bloc/contacts/contacts_bloc.dart';
 import 'package:auto/features/car_single/presentation/widgets/orange_button.dart';
 import 'package:auto/features/profile/presentation/widgets/refresh_button.dart';
 import 'package:auto/features/profile/presentation/widgets/time_counter.dart';
@@ -34,7 +34,7 @@ class _SmsVerificationSheetState extends State<SmsVerificationSheet> {
 
   @override
   Widget build(BuildContext context) => KeyboardDismisser(
-        child: BlocBuilder<VerificationBloc, VerificationState>(
+        child: BlocBuilder<ContactsBloc, ContactsState>(
           builder: (context, state) {
             if (state.status == FormzStatus.submissionInProgress) {
               return const Center(child: CupertinoActivityIndicator());

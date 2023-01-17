@@ -42,6 +42,7 @@ class PostingAdGenerationsEvent extends PostingAdEvent {
 }
 
 class PostingAdChooseEvent extends PostingAdEvent {
+  final Region? region;
   final YearsEntity? yearsEntity;
   final int? modelId;
   final int? generationId;
@@ -62,7 +63,6 @@ class PostingAdChooseEvent extends PostingAdEvent {
   final String? boughtTime;
   final String? description;
   final String? city;
-  final String? region;
   final String? price;
   final String? currency;
   final String? mileage;

@@ -1,6 +1,7 @@
 part of 'posting_ad_bloc.dart';
 
 class PostingAdState extends Equatable {
+  final Region? region;
   final int? gearboxId;
   final List<GearboxTypeEntity> gearBoxes;
   final int? driveTypeId;
@@ -23,7 +24,6 @@ class PostingAdState extends Equatable {
   final String? ownerEmail;
   final String? ownerPhone;
   final String? city;
-  final String? region;
   final String? ownerStep;
   final String? boughtTime;
   final String? typeDocument;
@@ -89,6 +89,7 @@ class PostingAdState extends Equatable {
     this.isWithoutMileage,
   });
   PostingAdState copyWith({
+    Region? region,
     FormzStatus? status,
     int? gearboxId,
     List<GearboxTypeEntity>? gearBoxes,
@@ -116,7 +117,6 @@ class PostingAdState extends Equatable {
     String? boughtTime,
     String? descriptions,
     String? city,
-    String? region,
     String? price,
     String? currency,
     String? mileage,

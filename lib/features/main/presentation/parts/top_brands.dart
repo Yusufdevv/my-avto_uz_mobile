@@ -1,3 +1,4 @@
+import 'package:auto/assets/colors/color.dart';
 import 'package:auto/features/common/widgets/car_brand_item.dart';
 import 'package:auto/features/main/presentation/bloc/top_brand/top_brand_bloc.dart';
 import 'package:auto/features/main/presentation/widgets/brand_shimmer_item.dart';
@@ -23,22 +24,18 @@ class TopBrands extends StatelessWidget {
             children: [
               const SizedBox(height: 16),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: Text(
-                  LocaleKeys.top_marks.tr(),
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline1!
-                      .copyWith(fontSize: 18),
-                ),
-              ),
-              const SizedBox(height: 8),
-              Container(
-                color: Theme.of(context).dialogBackgroundColor,
-                height: 100,
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: Text(LocaleKeys.top_marks.tr(),
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline1!
+                          .copyWith(fontSize: 18))),
+              SizedBox(
+                height: 124,
                 child: ListView.separated(
                   physics: const BouncingScrollPhysics(),
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  padding: const EdgeInsets.only(
+                      left: 16, right: 16, top: 8, bottom: 16),
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (context, index) =>
                       state.status.isSubmissionInProgress

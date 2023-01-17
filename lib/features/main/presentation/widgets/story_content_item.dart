@@ -1,13 +1,18 @@
 import 'dart:math';
 
 import 'package:auto/assets/colors/color.dart';
+import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/assets/constants/images.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
+import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/main/domain/entities/story_entity.dart';
 import 'package:auto/features/main/presentation/widgets/animated_bar.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:video_player/video_player.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
@@ -20,6 +25,7 @@ class StoryContentItem extends StatefulWidget {
     required this.animate,
     required this.storiesCount,
     required this.read,
+    required this.didRead,
     Key? key,
   }) : super(key: key);
 
@@ -30,6 +36,7 @@ class StoryContentItem extends StatefulWidget {
   final int storiesCount;
   final Function({required bool forward}) animate;
   final Function(int id) read;
+  final bool didRead;
 
   @override
   State<StoryContentItem> createState() => _StoryContentItemState();
@@ -56,7 +63,6 @@ class _StoryContentItemState extends State<StoryContentItem>
   @override
   Widget build(BuildContext context) {
     var isLandscape = false;
-    _pauseAndPlayVideo();
     if (initialized && _videoPlayerController.value.isInitialized) {
       isLandscape = _videoPlayerController.value.size.width >
           _videoPlayerController.value.size.height;
@@ -96,6 +102,7 @@ class _StoryContentItemState extends State<StoryContentItem>
                     color: grey,
                   );
                 },
+                errorWidget: (context, url, error) => Container(),
               ),
             ),
           Positioned(
@@ -157,11 +164,66 @@ class _StoryContentItemState extends State<StoryContentItem>
                 const SizedBox(height: 28),
                 if (widget.story.items[itemIndex].url.isNotEmpty)
                   WButton(
-                    onTap: () {},
+                    onTap: () {
+                      launchUrl(Uri.parse(widget.story.items[itemIndex].url));
+                    },
                     text: LocaleKeys.more.tr(),
                     textColor: white,
                     color: white.withOpacity(.2),
                   ),
+              ],
+            ),
+          ),
+          Positioned(
+            top: MediaQuery.of(context).padding.top + 28,
+            left: 20,
+            right: 16,
+            child: Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 4),
+                  child: Container(
+                    height: 32,
+                    width: 32,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(40),
+                      border: Border.all(
+                        width: 1.5,
+                        color: white.withOpacity(.4),
+                      ),
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(40),
+                      child: CachedNetworkImage(
+                        imageUrl: widget.story.coverImageThumbnail.crop,
+                        fit: BoxFit.cover,
+                        placeholder: (context, url) => const Image(
+                          image: AssetImage(AppImages.defaultPhoto),
+                          fit: BoxFit.cover,
+                        ),
+                        errorWidget: (context, url, error) => const Image(
+                          image: AssetImage(AppImages.defaultPhoto),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Padding(
+                  padding: const EdgeInsets.only(top: 10),
+                  child: Text(
+                    widget.story.name,
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline4!
+                        .copyWith(fontSize: 16),
+                  ),
+                ),
+                const Spacer(),
+                WScaleAnimation(
+                    child: SvgPicture.asset(AppIcons.closeWhite),
+                    onTap: () => Navigator.pop(context, widget.didRead))
               ],
             ),
           ),
@@ -171,24 +233,11 @@ class _StoryContentItemState extends State<StoryContentItem>
   }
 
   void _animationListener(AnimationStatus status) {
-    if (status == AnimationStatus.completed) {
+    if (status == AnimationStatus.completed && !isVideo) {
       animationController
         ..stop()
         ..reset();
-      setState(() {
-        if (itemIndex + 1 == widget.story.items.length) {
-          if (widget.currentPageIndex + 1 == widget.storiesCount) {
-            Navigator.pop(context);
-          } else {
-            itemIndex = 0;
-            widget.animate(forward: true);
-            _loadStory();
-          }
-        } else {
-          itemIndex++;
-          _loadStory();
-        }
-      });
+      setState(nextStory);
     }
   }
 
@@ -196,75 +245,76 @@ class _StoryContentItemState extends State<StoryContentItem>
     final screenWidth = MediaQuery.of(context).size.width;
     final dx = details.globalPosition.dx;
     if (dx < screenWidth / 3) {
-      setState(() {
-        if (itemIndex == 0) {
-          if (widget.currentPageIndex == 0) {
-            Navigator.pop(context);
-          } else {
-            itemIndex = widget.story.items.length - 1;
-            widget.animate(forward: false);
-            _loadStory();
-          }
-        } else {
-          itemIndex--;
-          _loadStory();
-        }
-      });
+      setState(prevStory);
     } else if (dx > 2 * screenWidth / 3) {
-      setState(() {
-        if (itemIndex + 1 == widget.story.items.length) {
-          if (widget.currentPageIndex + 1 == widget.storiesCount) {
-            Navigator.pop(context);
-          } else {
-            itemIndex = 0;
-            widget.animate(forward: true);
-            _loadStory();
-          }
-        } else {
-          itemIndex++;
-          _loadStory();
-        }
-      });
+      setState(nextStory);
+    }
+  }
+
+  void prevStory() {
+    if (itemIndex == 0) {
+      if (widget.currentPageIndex == 0) {
+        Navigator.pop(context);
+      } else {
+        itemIndex = widget.story.items.length - 1;
+        widget.animate(forward: false);
+        _loadStory();
+      }
+    } else {
+      itemIndex--;
+      _loadStory();
+    }
+  }
+
+  void nextStory() {
+    if (itemIndex + 1 == widget.story.items.length) {
+      if (widget.currentPageIndex + 1 == widget.storiesCount) {
+        Navigator.pop(context);
+      } else {
+        itemIndex = 0;
+        widget.animate(forward: true);
+        _loadStory();
+      }
+    } else {
+      itemIndex++;
+      _loadStory();
     }
   }
 
   void _loadStory() {
-    print('loadStory: ${widget.currentPageIndex} $itemIndex');
+    if (!(widget.pageIndex == widget.currentPageIndex && !widget.isPaused)) {
+      return;
+    }
     final last = widget.story.items[itemIndex].content.split('.').last;
     isVideo = last == 'mp4' || last == 'mov';
     if (isVideo) {
       _initVideoController();
+      _pauseAndPlayVideo();
     } else {
+      disposeVideo();
       animationController
         ..stop()
         ..reset()
-        ..duration = const Duration(seconds: 10)
+        ..duration = const Duration(seconds: 5)
         ..forward();
-      if (!widget.story.items[itemIndex].isRead) {
-        widget.read(widget.story.items[itemIndex].id);
-      }
+    }
+    if (!widget.story.items[itemIndex].isRead) {
+      widget.read(widget.story.items[itemIndex].id);
     }
   }
 
   void _onLongPress({bool isStopped = true}) {
     if (isStopped) {
+      if (isVideo) {
+        _videoPlayerController.pause();
+      }
       animationController.stop();
     } else {
+      if (isVideo) {
+        _videoPlayerController.play();
+      }
       animationController.forward();
     }
-  }
-
-  @override
-  void dispose() {
-    animationController.dispose();
-    if (initialized) {
-      _videoPlayerController
-        ..removeListener(_videoListener)
-        ..dispose();
-    }
-
-    actualDisposed = true;
-    super.dispose();
   }
 
   void _initVideoController() {
@@ -272,6 +322,11 @@ class _StoryContentItemState extends State<StoryContentItem>
         VideoPlayerController.network(widget.story.items[itemIndex].content);
     _videoPlayerController.addListener(_videoListener);
     _videoPlayerController.initialize().then((_) {
+      animationController
+        ..stop()
+        ..reset()
+        ..duration = _videoPlayerController.value.duration
+        ..forward();
       setState(() {
         _videoPlayerController.setLooping(false);
         initialized = true;
@@ -284,7 +339,8 @@ class _StoryContentItemState extends State<StoryContentItem>
 
     if (_videoPlayerController.value.position >=
         _videoPlayerController.value.duration) {
-      // on video end
+      disposeVideo();
+      nextStory();
     }
   }
 
@@ -354,5 +410,22 @@ class _StoryContentItemState extends State<StoryContentItem>
     } else {
       _videoPlayerController.play().then((value) {});
     }
+  }
+
+  void disposeVideo() {
+    if (initialized) {
+      _videoPlayerController
+        ..removeListener(_videoListener)
+        ..dispose();
+    }
+    initialized = false;
+    actualDisposed = true;
+  }
+
+  @override
+  void dispose() {
+    animationController.dispose();
+    disposeVideo();
+    super.dispose();
   }
 }

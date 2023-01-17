@@ -23,7 +23,6 @@ class _GenerationScreenState extends State<GenerationScreen> {
         padding: const EdgeInsets.only(top: 16),
         child: BlocBuilder<PostingAdBloc, PostingAdState>(
           builder: (context, state) {
-             print('=>=>=>=> ${state.generations.length} <=<=<=<=');
             if (state.status == FormzStatus.submissionInProgress) {
               return const Center(child: CupertinoActivityIndicator());
             }

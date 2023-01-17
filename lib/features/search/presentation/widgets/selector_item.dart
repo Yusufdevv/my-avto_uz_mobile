@@ -3,6 +3,7 @@ import 'package:auto/assets/colors/light.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -11,11 +12,13 @@ class SelectorItem extends StatelessWidget {
   final String hintText;
   final VoidCallback onTap;
   final bool hasArrowDown;
+  final bool isLoading;
   const SelectorItem(
       {required this.onTap,
       required this.title,
       required this.hintText,
       this.hasArrowDown = false,
+      this.isLoading = false,
       Key? key})
       : super(key: key);
 
@@ -28,7 +31,7 @@ class SelectorItem extends StatelessWidget {
             style: Theme.of(context)
                 .textTheme
                 .headline2!
-                .copyWith(fontWeight: FontWeight.w400,color: grey),
+                .copyWith(fontWeight: FontWeight.w400, color: grey),
           ),
           const SizedBox(height: 8),
           WScaleAnimation(
@@ -45,24 +48,26 @@ class SelectorItem extends StatelessWidget {
                         .solitudeToDarkRider),
                 color: LightThemeColors.scaffoldBackground,
               ),
-              child: Row(
-                children: [
-                  Text(
-                    hintText,
-                    style: Theme.of(context)
-                        .textTheme
-                        .subtitle1!
-                        .copyWith(color: grey),
-                  ),
-                  const Spacer(),
-                  SvgPicture.asset(
-                    hasArrowDown
-                        ? AppIcons.chevronDownGrey
-                        : AppIcons.chevronRightBlack,
-                    color: greyText,
-                  )
-                ],
-              ),
+              child: isLoading
+                  ? const Center(child: CupertinoActivityIndicator())
+                  : Row(
+                      children: [
+                        Text(
+                          hintText,
+                          style: Theme.of(context)
+                              .textTheme
+                              .subtitle1!
+                              .copyWith(color: grey),
+                        ),
+                        const Spacer(),
+                        SvgPicture.asset(
+                          hasArrowDown
+                              ? AppIcons.chevronDownGrey
+                              : AppIcons.chevronRightBlack,
+                          color: greyText,
+                        )
+                      ],
+                    ),
             ),
           ),
         ],

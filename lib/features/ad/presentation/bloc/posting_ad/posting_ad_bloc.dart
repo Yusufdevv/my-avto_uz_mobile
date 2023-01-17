@@ -16,6 +16,7 @@ import 'package:auto/features/ad/domain/usecases/get_drive_type.dart';
 import 'package:auto/features/ad/domain/usecases/get_engine_type.dart';
 import 'package:auto/features/ad/domain/usecases/get_generation.dart';
 import 'package:auto/features/ad/domain/usecases/get_makes.dart';
+import 'package:auto/features/common/models/region.dart';
 import 'package:auto/features/login/domain/usecases/send_code.dart';
 import 'package:auto/features/main/domain/usecases/get_top_brand.dart';
 import 'package:auto/features/rent/domain/usecases/get_gearboxess_usecase.dart';
@@ -102,7 +103,6 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
       return;
     }
 
-    print('=>=>=>=> ddrive types event triggered <=<=<=<=');
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
     final result = await driveTypeUseCase.call(DriveTypeParams(
         generationId: state.generationId!,
@@ -134,7 +134,6 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     ));
 
     if (result.isRight) {
-      print('=>=>=>=> results length: ${result.right.results.length} <=<=<=<=');
       emit(state.copyWith(
           status: FormzStatus.submissionSuccess,
           engines: result.right.results));
@@ -168,12 +167,10 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
       return;
     }
 
-    print('=>=>=>=> posting add event triggered <=<=<=<=');
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
     final result = await generationUseCase.call(GenerationParams(
         modelId: state.modelId!, year: state.yearsEntity!.yearBegin));
     if (result.isRight) {
-      print('=>=>=>=> ${result.right.results} <=<=<=<=');
       emit(state.copyWith(
           generations: result.right.results,
           status: FormzStatus.submissionSuccess));
@@ -215,7 +212,6 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
 
   FutureOr<void> _makes(
       PostingAdMakesEvent event, Emitter<PostingAdState> emit) async {
-    print('=>=>=>=> makes event triggered <=<=<=<=');
 
     if (state.makeId != null && state.makes.isNotEmpty) {
       emit(state.copyWith(status: FormzStatus.submissionSuccess));
@@ -250,6 +246,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
   void _choose(PostingAdChooseEvent event, Emitter<PostingAdState> emit) {
     emit(
       state.copyWith(
+        
         isWithoutMileage: event.isWithoutMileage,
         rentToBuy: event.rentToBuy,
         isContactsVerified: event.isContactsVerified,

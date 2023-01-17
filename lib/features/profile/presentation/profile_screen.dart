@@ -43,7 +43,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   void initState() {
     final repo = serviceLocator<ProfileRepositoryImpl>();
-
     profileBloc = ProfileBloc(
         changePasswordUseCase: ChangePasswordUseCase(repository: repo),
         editProfileUseCase: EditProfileUseCase(repository: repo),
@@ -98,9 +97,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             onTap: () =>
                                 Navigator.of(context, rootNavigator: true)
                                     .push(fade(page: const NotificationPage())),
-                            child: SvgPicture.asset(
-                              AppIcons.bellWithCircle,
-                            ),
+                            child: SvgPicture.asset(AppIcons.bellWithCircle),
                           ),
                         )
                       ],
@@ -122,7 +119,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               fullName: profileData.fullName ?? '',
                               subTitle:
                                   '${usercountData.announcementsCount} ${LocaleKeys.how_many_ads.tr()}',
-                              imageUrl: profileData.image!,
+                              imageUrl: profileData.image ?? '',
                               margin: EdgeInsets.only(
                                   top: SizeConfig.v(16),
                                   bottom: SizeConfig.v(12))),
@@ -135,8 +132,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       context,
                                       fade(
                                           page: FavouritePage(
-                                        profileBloc: profileBloc,
-                                      )));
+                                              profileBloc: profileBloc)));
                                 },
                                 iconPath: AppIcons.heartBlue,
                                 count: usercountData.announcementWishlistCount),
@@ -207,9 +203,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       .push(
                                     fade(
                                         page: ChatPage(
-                                      phone: state.profileEntity.phoneNumber!,
-                                      userName: state.profileEntity.fullName!,
-                                    )),
+                                            phone: state
+                                                .profileEntity.phoneNumber ?? '',
+                                            userName:
+                                                state.profileEntity.fullName ?? '')),
                                   );
                                 },
                                 iconPath: AppIcons.message),

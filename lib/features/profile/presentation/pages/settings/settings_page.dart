@@ -38,14 +38,14 @@ class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) => WillPopScope(
         onWillPop: () async {
-          unawaited(Navigator.push(context, fade(page: const ProfileScreen())));
+          await Navigator.pushReplacement(context, fade(page: const ProfileScreen()));
           return false;
         },
         child: Scaffold(
           appBar: WAppBar(
             bottomRadius: 24,
             onTapBack: () {
-              Navigator.push(context, fade(page: const ProfileScreen()));
+              Navigator.pushReplacement(context, fade(page: const ProfileScreen()));
             },
             textWithButton: LocaleKeys.settings.tr(),
           ),

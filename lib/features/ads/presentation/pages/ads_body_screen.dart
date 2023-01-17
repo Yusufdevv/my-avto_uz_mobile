@@ -2,6 +2,7 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ads/presentation/pages/filter_parameters.dart';
+import 'package:auto/features/car_single/presentation/car_single_screen.dart';
 import 'package:auto/features/commercial/presentation/widgets/commercial_car_model_item.dart';
 import 'package:auto/features/commercial/presentation/widgets/info_container.dart';
 import 'package:auto/features/common/bloc/announcement_bloc/bloc/announcement_list_bloc.dart';
@@ -80,26 +81,33 @@ class _AdsBodyScreenState extends State<AdsBodyScreen> {
                         context,
                         fade(
                             page: ChooseCarBrandComparison(
-                                onTap: () => Navigator.of(context).push(fade(
-                                        page:
-                                            ChooseCarModelComparison(onTap: () {
-                                      context
-                                          .read<AnnouncementListBloc>()
-                                          .add(AnnouncementListEvent.getFilter(
-                                            state.filter.copyWith(
-                                                make: context
-                                                    .read<GetMakesBloc>()
-                                                    .state
-                                                    .selectId,
-                                                model: context
-                                                    .read<GetCarModelBloc>()
-                                                    .state
-                                                    .selectedId),
-                                          ));
-                                      Navigator.pop(context);
-                                      Navigator.pop(context);
-                                    }))).then((value) {
-                                      print('===> ==> Buyaqa kirdi');
+                                isClear: false,
+                                onTap: () => Navigator.of(context)
+                                        .push(fade(
+                                            page: ChooseCarModelComparison(
+                                                isClear: false,
+                                                onTap: () {
+                                                  context
+                                                      .read<
+                                                          AnnouncementListBloc>()
+                                                      .add(AnnouncementListEvent
+                                                          .getFilter(
+                                                        state.filter.copyWith(
+                                                            make: context
+                                                                .read<
+                                                                    GetMakesBloc>()
+                                                                .state
+                                                                .selectId,
+                                                            model: context
+                                                                .read<
+                                                                    GetCarModelBloc>()
+                                                                .state
+                                                                .selectedId),
+                                                      ));
+                                                  Navigator.pop(context);
+                                                  Navigator.pop(context);
+                                                })))
+                                        .then((value) {
                                       context.read<AnnouncementListBloc>().add(
                                           AnnouncementListEvent
                                               .getAnnouncementList());
@@ -179,38 +187,46 @@ class _AdsBodyScreenState extends State<AdsBodyScreen> {
                 state.announcementList.length,
                 (index) => Padding(
                   padding: const EdgeInsets.only(bottom: 12),
-                  child: InfoContainer(
-                    index: index,
-                    avatarPicture: state.announcementList[index].user.avatar,
-                    carModel: state.announcementList[index].model,
-                    hasDiscount: state.announcementList[index].discount != 0,
-                    location: state.announcementList[index].region,
-                    owner: state.announcementList[index].user.name.isNotEmpty
-                        ? state.announcementList[index].user.name
-                        : state.announcementList[index].user.fullName,
-                    ownerType: state.announcementList[index].userType,
-                    publishTime: MyFunctions.getDateNamedMonthEdit(
-                        state.announcementList[index].publishedAt),
-                    subtitle: state.announcementList[index].description,
-                    year: state.announcementList[index].year,
-                    price: state.announcementList[index].price.toString(),
-                    discountPrice: state.announcementList[index].discount == 0
-                        ? ''
-                        : state.announcementList[index].discount.toString(),
-                    sellType: '',
-                    hasStatusInfo: false,
-                    hasCallCard: MyFunctions.enableForCalling(
-                      callFrom:
-                          state.announcementList[index].contactAvailableFrom,
-                      callTo: state.announcementList[index].contactAvailableTo,
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.of(context, rootNavigator: true).push(fade(
+                          page: CarSingleScreen(
+                              id: state.announcementList[index].id)));
+                    },
+                    child: InfoContainer(
+                      index: index,
+                      avatarPicture: state.announcementList[index].user.avatar,
+                      carModel: state.announcementList[index].model,
+                      hasDiscount: state.announcementList[index].discount != 0,
+                      location: state.announcementList[index].region,
+                      owner: state.announcementList[index].user.name.isNotEmpty
+                          ? state.announcementList[index].user.name
+                          : state.announcementList[index].user.fullName,
+                      ownerType: state.announcementList[index].userType,
+                      publishTime: MyFunctions.getDateNamedMonthEdit(
+                          state.announcementList[index].publishedAt),
+                      subtitle: state.announcementList[index].description,
+                      year: state.announcementList[index].year,
+                      price: state.announcementList[index].price.toString(),
+                      discountPrice: state.announcementList[index].discount == 0
+                          ? ''
+                          : state.announcementList[index].discount.toString(),
+                      sellType: '',
+                      hasStatusInfo: false,
+                      hasCallCard: MyFunctions.enableForCalling(
+                        callFrom:
+                            state.announcementList[index].contactAvailableFrom,
+                        callTo:
+                            state.announcementList[index].contactAvailableTo,
+                      ),
+                      gallery: state.announcementList[index].gallery,
+                      currency: state.announcementList[index].currency,
+                      initialLike: list[index].isWishlisted,
+                      id: state.announcementList[index].id,
+                      onTapComparsion: () {},
+                      onTapFavorites: () {},
+                      initialComparsions: list[index].isComparison,
                     ),
-                    gallery: state.announcementList[index].gallery,
-                    currency: state.announcementList[index].currency,
-                    initialLike: list[index].isWishlisted,
-                    id: state.announcementList[index].id,
-                    onTapComparsion: () {},
-                    onTapFavorites: () {},
-                    initialComparsions: list[index].isComparison,
                   ),
                 ),
               ),

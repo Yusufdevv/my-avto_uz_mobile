@@ -13,7 +13,9 @@ import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 class ChooseCarModelComparison extends StatefulWidget {
   final VoidCallback onTap;
-  const ChooseCarModelComparison({required this.onTap, Key? key})
+  final bool isClear;
+  const ChooseCarModelComparison(
+      {required this.onTap, Key? key, this.isClear = false})
       : super(key: key);
 
   @override
@@ -30,9 +32,6 @@ class _ChooseCarModelComparison extends State<ChooseCarModelComparison> {
     context.read<GetCarModelBloc>().add(GetCarModelEvent.getSerched(''));
     context.read<GetCarModelBloc>().add(
           GetCarModelEvent.getCarModel(id),
-        );
-    context.read<GetCarModelBloc>().add(
-          GetCarModelEvent.selectedModelItem(id: -1, name: ''),
         );
     super.initState();
   }
@@ -80,6 +79,14 @@ class _ChooseCarModelComparison extends State<ChooseCarModelComparison> {
                             onTap: () {
                               Navigator.of(context).pop();
                               Navigator.of(context).pop();
+                              if (widget.isClear) {
+                                context.read<GetCarModelBloc>().add(
+                                    GetCarModelEvent.selectedModelItem(
+                                        id: -1, name: ''));
+                                context.read<GetMakesBloc>().add(
+                                    GetMakesBlocEvent.selectedCarItems(
+                                        id: -1, name: '', imageUrl: ''));
+                              }
                             },
                             child: SvgPicture.asset(AppIcons.close),
                           ),

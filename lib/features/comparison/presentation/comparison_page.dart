@@ -89,8 +89,6 @@ class _ComparisonPageState extends State<ComparisonPage> {
                                 fade(
                                   page: ChooseCarModelComparison(
                                     onTap: () {
-                                      print(
-                                          '===> ==> comparsin make ${context.read<GetMakesBloc>().state.selectId}');
                                       context.read<AnnouncementListBloc>().add(
                                             AnnouncementListEvent.getFilter(
                                               context

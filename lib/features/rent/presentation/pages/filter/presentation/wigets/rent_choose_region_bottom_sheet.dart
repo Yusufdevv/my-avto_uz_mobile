@@ -84,9 +84,10 @@ class _RentChooseRegionBottomSheetState
                         WScaleAnimation(
                           onTap: () {
                             if (widget.isProfileEdit) {
-                              checkStatus
-                                  .removeWhere((key, value) => key != index);
-                              checkStatus[index] = widget.list[index];
+                              checkStatus.removeWhere(
+                                  (key, value) => key != widget.list[index].id);
+                              checkStatus[widget.list[index].id] =
+                                  widget.list[index];
                             } else {
                               if (checkStatus
                                   .containsKey(widget.list[index].id)) {

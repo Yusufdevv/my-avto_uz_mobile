@@ -73,9 +73,11 @@ const snow = _snow;
 const seashell = _seashell;
 const yellowSea = _yellowSea;
 const disabledButton = _veryLightGrey;
+const whiteToGrey = _whiteToGrey;
 
 // Main palette (http://www.color-blindness.com/color-name-hue/).
 
+const _whiteToGrey = Color(0xFFFAFAFA);
 const _snow = Color(0xFFFFFCFB);
 const _yellowSea = Color(0xFFF4A937);
 const _seashell = Color(0xFFFFF8F5);

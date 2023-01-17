@@ -18,6 +18,7 @@ class ContentItem extends StatefulWidget {
   final int currentPageIndex;
   final bool isPaused;
   final bool loop;
+  final bool isLiked;
   final bool autoPlayNextVideo;
   final void Function()? videoEnded;
 
@@ -27,6 +28,7 @@ class ContentItem extends StatefulWidget {
     required this.pageIndex,
     required this.currentPageIndex,
     required this.isPaused,
+    required this.isLiked,
     Key? key,
     this.videoEnded,
     this.loop = false,
@@ -206,14 +208,15 @@ class _ContentItemState extends State<ContentItem> {
           ),
         ),
         Positioned(
-          right: 11,
-          bottom: 31,
+          right: 14,
+          bottom: 32,
           child: OptionsItem(
             shareUrl: widget.reel.content,
             onTapLike: widget.onTapLike,
-            isLiked: widget.reel.isLiked,
+            isLiked: widget.isLiked,
             countLike: widget.reel.likeCount,
             countShare: widget.reel.shareCount,
+            index: widget.pageIndex,
           ),
         ),
         Positioned(

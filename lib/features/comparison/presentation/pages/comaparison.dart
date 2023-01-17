@@ -239,10 +239,10 @@ class _ComparisonState extends State<Comparison> {
                       EngineParametersWidget(
                         onChanged: (integer) {
                           setState(() {
-                            currentValueOfComplectation = integer;
+                            currentValueOfCharacteristics = integer;
                           });
                         },
-                        selectedValue: currentValueOfComplectation,
+                        selectedValue: currentValueOfCharacteristics,
                         comparisonParameters: complectationParameters[1],
                         numberOfAddedCars: state.cars,
                         controller: scrollControllers[1],
