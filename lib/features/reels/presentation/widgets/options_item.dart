@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/features/common/widgets/busy_sheet.dart';
@@ -42,7 +41,6 @@ class _OptionsItemState extends State<OptionsItem>
   void didChangeAppLifecycleState(AppLifecycleState state) {
     switch (state) {
       case AppLifecycleState.resumed:
-        
         break;
       case AppLifecycleState.inactive:
         break;
@@ -120,6 +118,9 @@ class _OptionsItemState extends State<OptionsItem>
               child: SvgPicture.asset(AppIcons.shareWhite),
               onTap: () {
                 Share.share(widget.shareUrl);
+                context.read<ReelsBloc>().add(ReelsShare(
+                    context.read<ReelsBloc>().state.reels[widget.index].id,
+                    widget.index));
               }),
           const SizedBox(
             height: 2,

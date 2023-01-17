@@ -9,7 +9,7 @@ class ReelEntity extends Equatable {
   final String title;
   final String content;
   int likeCount;
-  final int shareCount;
+  int shareCount;
   @DealerConverter()
   final DealerEntity dealer;
   @AnnouncementConverter()

@@ -87,7 +87,7 @@ class _ReelsScreenState extends State<ReelsScreen> {
                           reel: state.reels[index],
                           isLiked: state.reels[index].isLiked,
                           onTapLike: () {
-                            bloc.add(ReelsLike(state.reels[index].id, index));
+                            // bloc.add(ReelsLike(state.reels[index].id, index));
                           },
                           pageIndex: index,
                           currentPageIndex: _currentPage,

@@ -40,3 +40,16 @@ class ReelsLike extends ReelsEvent {
   @override
   List<Object?> get props => [id];
 }
+
+class ReelsShare extends ReelsEvent {
+  final int id;
+  final int index;
+
+  const ReelsShare(
+    this.id,
+    this.index,
+  );
+
+  @override
+  List<Object?> get props => [id];
+}
