@@ -1,5 +1,4 @@
 // import 'package:another_transformer_page_view/another_transformer_page_view.dart';
-import 'package:another_transformer_page_view/another_transformer_page_view.dart';
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/images.dart';
@@ -36,7 +35,7 @@ class _StoryScreenState extends State<StoryScreen> {
     super.initState();
     bloc = StoryBloc();
     _currentPage = widget.index;
-    _pageController = TransformerPageController(
+    _pageController = PageController(
       initialPage: _currentPage,
       keepPage: true,
     );
@@ -146,7 +145,6 @@ class _StoryScreenState extends State<StoryScreen> {
       );
 
   void _animateToPage({required bool forward}) {
-    print('animate: $forward');
     forward
         ? _pageController.nextPage(
             duration: const Duration(milliseconds: 200), curve: Curves.linear)

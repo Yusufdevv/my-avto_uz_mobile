@@ -50,7 +50,6 @@ class _StoryContentItemState extends State<StoryContentItem>
     super.initState();
     animationController = AnimationController(vsync: this);
     animationController.addStatusListener(_animationListener);
-    print('my log: init state');
     _loadStory();
   }
 
@@ -61,7 +60,6 @@ class _StoryContentItemState extends State<StoryContentItem>
       isLandscape = _videoPlayerController.value.size.width >
           _videoPlayerController.value.size.height;
     }
-    print('my log: is video $isVideo');
     return GestureDetector(
       onLongPress: _onLongPress,
       onLongPressEnd: (e) => _onLongPress(isStopped: false),
@@ -191,7 +189,6 @@ class _StoryContentItemState extends State<StoryContentItem>
   }
 
   void prevStory() {
-    print('my log: prevStory');
     if (itemIndex == 0) {
       if (widget.currentPageIndex == 0) {
         Navigator.pop(context);
@@ -207,7 +204,6 @@ class _StoryContentItemState extends State<StoryContentItem>
   }
 
   void nextStory() {
-    print('my log: nextStory');
     if (itemIndex + 1 == widget.story.items.length) {
       if (widget.currentPageIndex + 1 == widget.storiesCount) {
         Navigator.pop(context);
@@ -223,7 +219,6 @@ class _StoryContentItemState extends State<StoryContentItem>
   }
 
   void _loadStory() {
-    print('my log: load story');
     if (!(widget.pageIndex == widget.currentPageIndex && !widget.isPaused)) {
       return;
     }
@@ -260,7 +255,6 @@ class _StoryContentItemState extends State<StoryContentItem>
   }
 
   void _initVideoController() {
-    print('my log: init video');
     _videoPlayerController =
         VideoPlayerController.network(widget.story.items[itemIndex].content);
     _videoPlayerController.addListener(_videoListener);
@@ -282,16 +276,12 @@ class _StoryContentItemState extends State<StoryContentItem>
 
     if (_videoPlayerController.value.position >=
         _videoPlayerController.value.duration) {
-      print('itemIndex: $itemIndex');
-      print('currentPageIndex: ${widget.currentPageIndex}');
-      print('pageIndex: ${widget.pageIndex}');
       disposeVideo();
       nextStory();
     }
   }
 
   void _pauseAndPlayVideo() {
-    print('my log: pause and play');
     if (initialized) {
       if (widget.pageIndex == widget.currentPageIndex &&
           !widget.isPaused &&
@@ -304,7 +294,6 @@ class _StoryContentItemState extends State<StoryContentItem>
   }
 
   Widget _renderLandscapeVideo() {
-    print('my log: _renderLandscapeVideo');
     if (!initialized) return Container();
     return Center(
       child: AspectRatio(
@@ -318,7 +307,6 @@ class _StoryContentItemState extends State<StoryContentItem>
   }
 
   Widget _renderPortraitVideo() {
-    print('my log: _renderPortraitVideo');
     if (!initialized) return Container();
 
     var tmp = MediaQuery.of(context).size;
@@ -349,7 +337,6 @@ class _StoryContentItemState extends State<StoryContentItem>
   }
 
   void _handleVisibilityDetector(VisibilityInfo info) {
-    print('my log: _handleVisibilityDetector');
     if (info.visibleFraction == 0) {
       if (!actualDisposed &&
           widget.pageIndex == widget.currentPageIndex &&
@@ -363,7 +350,6 @@ class _StoryContentItemState extends State<StoryContentItem>
   }
 
   void disposeVideo() {
-    print('my log: dispose video');
     if (initialized) {
       _videoPlayerController
         ..removeListener(_videoListener)
