@@ -4,14 +4,18 @@ abstract class ContactsEvent {}
 
 class ContactsSendCodeEvent extends ContactsEvent {
   final String phone;
-  ContactsSendCodeEvent({required this.phone});
+  final Function(String) onSuccess;
+  ContactsSendCodeEvent({required this.phone,required this.onSuccess});
 }
 
-class ContactsVerifyEvent extends ContactsEvent {
-  final String phone;
-  ContactsVerifyEvent({required this.phone});
-}
+
+
+
 
 class ContactsGetUserInfoAsContactsEvent extends ContactsEvent {
   ContactsGetUserInfoAsContactsEvent();
+}
+
+class ContactsRefreshControllersEvent extends ContactsEvent {
+  ContactsRefreshControllersEvent();
 }

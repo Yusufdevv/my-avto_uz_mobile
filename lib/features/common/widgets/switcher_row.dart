@@ -14,24 +14,12 @@ class SwitcherRow extends StatelessWidget {
       required this.title,
       this.onTap,
       Key? key})
-      : super(key: key);
-
+      : isAsButton = !(onTap == null || value),
+        super(key: key);
+  final bool isAsButton;
   @override
-  Widget build(BuildContext context) => onTap == null || value
-      ? Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              title,
-              style: Theme.of(context)
-                  .textTheme
-                  .headline6!
-                  .copyWith(color: greyText),
-            ),
-            WCupertinoSwitch(width: 40, isSwitched: value, onChange: onChanged),
-          ],
-        )
-      : GestureDetector(
+  Widget build(BuildContext context) => isAsButton
+      ? GestureDetector(
           onTap: onTap,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -77,5 +65,18 @@ class SwitcherRow extends StatelessWidget {
               ),
             ],
           ),
+        )
+      : Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              title,
+              style: Theme.of(context)
+                  .textTheme
+                  .headline6!
+                  .copyWith(color: greyText),
+            ),
+            WCupertinoSwitch(width: 40, isSwitched: value, onChange: onChanged),
+          ],
         );
 }

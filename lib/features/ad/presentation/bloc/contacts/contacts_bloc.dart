@@ -1,10 +1,11 @@
 import 'dart:async';
 
 import 'package:auto/core/exceptions/failures.dart';
+import 'package:auto/features/ad/domain/usecases/contacts_usecase.dart';
 import 'package:auto/features/common/domain/model/user.dart';
 import 'package:auto/features/common/repository/auth.dart';
-import 'package:auto/features/login/domain/usecases/send_code.dart';
 import 'package:auto/features/login/domain/usecases/verify_code.dart';
+import 'package:auto/utils/my_functions.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
@@ -15,29 +16,63 @@ part 'contacts_state.dart';
 
 class ContactsBloc extends Bloc<ContactsEvent, ContactsState> {
   final AuthRepository userRepository;
-  final SendCodeUseCase sendCodeUseCase;
+  final ContactsUseCase contactsUseCase;
   final VerifyCodeUseCase verifyCodeUseCase;
-  ContactsBloc(
-      {required this.userRepository,
-      required this.sendCodeUseCase,
-      required this.verifyCodeUseCase})
-      : super(const ContactsState(status: FormzStatus.pure)) {
+  ContactsBloc({
+    required this.userRepository,
+    required this.contactsUseCase,
+    required this.verifyCodeUseCase,
+    required String nameInitial,
+    required String phoneInitial,
+    required String emailInitial,
+  }) : super(ContactsState(
+          status: FormzStatus.pure,
+          emailController: TextEditingController(text: emailInitial),
+          nameController: TextEditingController(text: nameInitial),
+          phoneController: TextEditingController(text: phoneInitial),
+        )) {
     on<ContactsSendCodeEvent>(_sendCode);
+    on<ContactsRefreshControllersEvent>(_refreshControllers);
     on<ContactsGetUserInfoAsContactsEvent>(_getUserInfoAsContacts);
   }
+
+  FutureOr<void> _refreshControllers(ContactsRefreshControllersEvent event,
+      Emitter<ContactsState> emit) async {
+    emit(state.copyWith(
+      nameController: TextEditingController(),
+      emailController: TextEditingController(),
+      phoneController: TextEditingController(),
+    ));
+  }
+
   FutureOr<void> _getUserInfoAsContacts(
       ContactsGetUserInfoAsContactsEvent event,
       Emitter<ContactsState> emit) async {
     emit(state.copyWith(getUserStatus: FormzStatus.submissionInProgress));
     if (state.userModel != null) {
-      emit(state.copyWith(getUserStatus: FormzStatus.submissionSuccess));
+      emit(state.copyWith(
+        getUserStatus: FormzStatus.submissionSuccess,
+        nameController:
+            TextEditingController(text: state.userModel?.fullName ?? ''),
+        emailController:
+            TextEditingController(text: state.userModel?.email ?? ''),
+        phoneController: TextEditingController(
+            text: MyFunctions.phoneFormat(
+                state.userModel?.phone.substring(4) ?? '')),
+      ));
       return;
     }
     final result = await userRepository.getUser();
     if (result.isRight) {
       emit(state.copyWith(
-          getUserStatus: FormzStatus.submissionSuccess,
-          userModel: result.right));
+        getUserStatus: FormzStatus.submissionSuccess,
+        userModel: result.right,
+        nameController: TextEditingController(text: result.right.fullName),
+        emailController: TextEditingController(text: result.right.email),
+        phoneController: TextEditingController(
+            text:
+                MyFunctions.phoneFormat(result.right.phoneNumber.substring(4))),
+      ));
     } else {
       emit(
         state.copyWith(
@@ -50,11 +85,16 @@ class ContactsBloc extends Bloc<ContactsEvent, ContactsState> {
   FutureOr<void> _sendCode(
       ContactsSendCodeEvent event, Emitter<ContactsState> emit) async {
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
-    final result = await sendCodeUseCase.call(event.phone);
+    print('=>=>=>=> event phone: ${event.phone} <=<=<=<=');
+    final result =
+        await contactsUseCase.call('+998${event.phone.replaceAll(' ', '')}');
     if (result.isRight) {
+      print('=>=>=>=> send code result dot right: ${result.right} <=<=<=<=');
+      event.onSuccess(result.right);
       emit(state.copyWith(
           status: FormzStatus.submissionSuccess, session: result.right));
     } else {
+      print('=>=>=>=> send code result left: ${result.left} <=<=<=<=');
       emit(state.copyWith(
           status: FormzStatus.submissionFailure,
           toastMessage: getFailureMessage(result.left)));
