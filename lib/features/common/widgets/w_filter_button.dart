@@ -48,7 +48,7 @@ class WFilterButton extends StatelessWidget {
             ),
             const SizedBox(width: 8),
             SizedBox(
-              width: size.width * 0.3,
+              width: size.width * 0.22,
               child: Text(
                 name.isEmpty ? defaultTitle : name,
                 style: Theme.of(context)
