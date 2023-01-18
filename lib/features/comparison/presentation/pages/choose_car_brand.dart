@@ -2,8 +2,10 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/presentation/pages/choose_car_brand/widget/car_items.dart';
+import 'package:auto/features/common/bloc/announcement_bloc/bloc/announcement_list_bloc.dart';
 import 'package:auto/features/common/bloc/get_makes_bloc/get_makes_bloc_bloc.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
+import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/comparison/presentation/bloc/scroll-bloc/scrolling_bloc.dart';
 import 'package:auto/features/comparison/presentation/widgets/alphabetic_header.dart';
 import 'package:auto/features/comparison/presentation/widgets/card_brend_container.dart';
@@ -128,10 +130,29 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
                             child: ListView.builder(
                               physics: const BouncingScrollPhysics(),
                               scrollDirection: Axis.horizontal,
-                              itemBuilder: (context, index) =>
-                                  CarBrandContainer(
-                                imageUrl: state.topMakes[index].logo,
-                                title: state.topMakes[index].name,
+                              itemBuilder: (context, index) => WScaleAnimation(
+                                onTap: () {
+                                  // context.read<AnnouncementListBloc>().add(
+                                  //     AnnouncementListEvent.getFilter(context
+                                  //         .read<AnnouncementListBloc>()
+                                  //         .state
+                                  //         .filter
+                                  //         .copyWith(
+                                  //           make: state.topMakes[index].id,
+                                  //         )));
+                                  // Navigator.pop(context);
+                                  // context.read<GetMakesBloc>().add(
+                                  //       GetMakesBlocEvent.selectedCarItems(
+                                  //         id: state.topMakes[index].id,
+                                  //         name: state.topMakes[index].name,
+                                  //         imageUrl: state.topMakes[index].logo,
+                                  //       ),
+                                  //     );
+                                },
+                                child: CarBrandContainer(
+                                  imageUrl: state.topMakes[index].logo,
+                                  title: state.topMakes[index].name,
+                                ),
                               ),
                               itemCount: state.topMakes.length,
                             ),
