@@ -7,6 +7,7 @@ import 'package:auto/features/ad/presentation/widgets/base_widget.dart';
 import 'package:auto/features/ad/presentation/widgets/rent_to_buy_sheet.dart';
 import 'package:auto/features/ad/presentation/widgets/rent_to_sale_info_box.dart';
 import 'package:auto/features/common/widgets/switcher_row.dart';
+import 'package:auto/features/common/widgets/switcher_row_as_button_also.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/common/widgets/w_textfield.dart';
@@ -64,8 +65,7 @@ class _PriceScreenState extends State<PriceScreen> {
                           .fillColor,
                       suffixPadding: const EdgeInsets.all(0),
                       suffix: WScaleAnimation(
-                        onTap: () {
-                        },
+                        onTap: () {},
                         child: Container(
                           padding: const EdgeInsets.all(14),
                           decoration: BoxDecoration(
@@ -140,7 +140,7 @@ class _PriceScreenState extends State<PriceScreen> {
                       ),
                     ),
                     const SizedBox(height: 25),
-                    SwitcherRow(
+                    SwitcherRowAsButtonAlso(
                       value: state.rentToBuy ?? false,
                       onTap: () {
                         showModalBottomSheet<String>(

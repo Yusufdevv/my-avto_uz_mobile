@@ -50,7 +50,9 @@ class ContactsBloc extends Bloc<ContactsEvent, ContactsState> {
       Emitter<ContactsState> emit) async {
     emit(state.copyWith(getUserStatus: FormzStatus.submissionInProgress));
     if (state.userModel != null) {
+      print('=>=>=>=> controllers initializing <=<=<=<=');
       emit(state.copyWith(
+        isSubmitted: true,
         getUserStatus: FormzStatus.submissionSuccess,
         nameController:
             TextEditingController(text: state.userModel?.fullName ?? ''),
@@ -58,20 +60,21 @@ class ContactsBloc extends Bloc<ContactsEvent, ContactsState> {
             TextEditingController(text: state.userModel?.email ?? ''),
         phoneController: TextEditingController(
             text: MyFunctions.phoneFormat(
-                state.userModel?.phone.substring(4) ?? '')),
+                _substringPhone(state.userModel?.phoneNumber))),
       ));
       return;
     }
     final result = await userRepository.getUser();
     if (result.isRight) {
       emit(state.copyWith(
+        isSubmitted: true,
         getUserStatus: FormzStatus.submissionSuccess,
         userModel: result.right,
         nameController: TextEditingController(text: result.right.fullName),
         emailController: TextEditingController(text: result.right.email),
         phoneController: TextEditingController(
-            text:
-                MyFunctions.phoneFormat(result.right.phoneNumber.substring(4))),
+            text: MyFunctions.phoneFormat(
+                _substringPhone(result.right.phoneNumber))),
       ));
     } else {
       emit(
@@ -98,6 +101,14 @@ class ContactsBloc extends Bloc<ContactsEvent, ContactsState> {
       emit(state.copyWith(
           status: FormzStatus.submissionFailure,
           toastMessage: getFailureMessage(result.left)));
+    }
+  }
+
+  String _substringPhone(String? v) {
+    try {
+      return v?.substring(4) ?? '';
+    } catch (e) {
+      return '';
     }
   }
 }

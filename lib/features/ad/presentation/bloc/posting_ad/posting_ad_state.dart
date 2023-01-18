@@ -39,8 +39,8 @@ class PostingAdState extends Equatable {
   final bool isSortByLetter;
   final bool isRastamojen;
   final bool isCallTimed;
-  final bool? showOwnerContacts;
-  final bool? isContactsVerified;
+  final bool showOwnerContacts;
+  final bool isContactsVerified;
   final bool? rentToBuy;
   final bool? isWithoutMileage;
 
@@ -83,8 +83,8 @@ class PostingAdState extends Equatable {
     this.callTimeFrom,
     this.callTimeTo,
     this.isCallTimed = false,
-    this.showOwnerContacts,
-    this.isContactsVerified,
+    this.showOwnerContacts = false,
+    this.isContactsVerified = false,
     this.rentToBuy,
     this.isWithoutMileage,
   });
