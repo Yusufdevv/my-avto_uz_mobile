@@ -43,19 +43,33 @@ class CarBrandContainer extends StatelessWidget {
         ),
         child: Column(
           children: [
-            const SizedBox(height: 16),
-            if (imageUrl.isEmpty)
-              Image.asset(
-                AppImages.defaultPhoto,
-                height: 40,
-                fit: BoxFit.cover,
-              )
-            else
-              CachedNetworkImage(
-                imageUrl: imageUrl,
-                height: 40,
-                fit: BoxFit.cover,
+            const SizedBox(height: 8),
+            SizedBox(
+              height: 48,
+              width: 60,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: imageUrl.isEmpty
+                    ? Image.asset(
+                        AppImages.defaultPhoto,
+                        height: 48,
+                        width: 60,
+                        fit: BoxFit.cover,
+                      )
+                    : CachedNetworkImage(
+                        imageUrl: imageUrl,
+                        height: 48,
+                        width: 60,
+                        fit: BoxFit.cover,
+                        errorWidget: (context, url, error) => Image.asset(
+                          AppImages.defaultPhoto,
+                          height: 48,
+                          width: 60,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
               ),
+            ),
             const SizedBox(height: 8),
             Text(
               title,
