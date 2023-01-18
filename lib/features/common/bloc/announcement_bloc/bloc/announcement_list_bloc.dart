@@ -3,6 +3,7 @@ import 'package:auto/features/ad/data/models/drive_type.dart';
 import 'package:auto/features/ad/domain/entities/types/body_type.dart';
 import 'package:auto/features/ad/domain/entities/types/drive_type.dart';
 import 'package:auto/features/ad/domain/entities/types/gearbox_type.dart';
+import 'package:auto/features/common/models/region.dart';
 import 'package:auto/features/common/usecases/announcement_list_usecase.dart';
 import 'package:auto/features/comparison/domain/entities/announcement_list_entity.dart';
 import 'package:bloc/bloc.dart';
@@ -21,7 +22,6 @@ class AnnouncementListBloc
       : super(AnnouncementListState()) {
     on<_GetAnnouncementList>((event, emit) async {
       emit(state.copyWith(status: FormzStatus.submissionInProgress));
-      print('====> filter as string ${state.filter}');
       final result = await useCase.call(state.filter);
       if (result.isRight) {
         emit(
@@ -39,6 +39,7 @@ class AnnouncementListBloc
     on<_GetFilter>(
       (event, emit) => emit(state.copyWith(filter: event.filter)),
     );
+    on<_GetRegions>((event, emit) => emit(state.copyWith(regions: event.regions)),);
     on<_GetFilterClear>(
       (event, emit) =>
           emit(state.copyWith(filter: const AnnouncementFilterModel())),

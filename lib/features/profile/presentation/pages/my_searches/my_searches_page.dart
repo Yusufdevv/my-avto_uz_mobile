@@ -116,8 +116,8 @@ class _MySearchesPageState extends State<MySearchesPage> {
                                           .state
                                           .filter
                                           .copyWith(
-                                              make: item.make!.id,
-                                              model: item.model![0]!.id)));
+                                              make: item.make?.id,
+                                              model: item.model?[0]?.id)));
                                   context.read<AnnouncementListBloc>().add(
                                       AnnouncementListEvent
                                           .getAnnouncementList());
@@ -192,7 +192,9 @@ class _MySearchesPageState extends State<MySearchesPage> {
     List<int> result = <int>[];
 
     for (var i = 0; i < list.length; i++) {
-      result.add(list[i].id!);
+      if (list[i].id != null) {
+        result.add(list[i].id!);
+      }
     }
     return result;
   }

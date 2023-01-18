@@ -82,6 +82,12 @@ class AppIcons {
   static const currentLoc = 'assets/images/global/current_location.png';
   static const dealersLocIcon = 'assets/images/global/dealers_loc_icon.png';
   static const shareWhite = 'assets/icons/global/share_white.svg';
+  static const warningRed = 'assets/icons/global/warning_red.svg';
+  static const warningPuple = 'assets/icons/global/warning_puple.svg';
+  static const warningYellow = 'assets/icons/global/warning_yellow.svg';
+  static const warningOrang = 'assets/icons/global/warning_orang.svg';
+  static const warningGreen = 'assets/icons/global/warning_grean.svg';
+  static const warningBlue = 'assets/icons/global/warning_blue.svg';
 
   // PROFILE
   static const alert = 'assets/icons/profile/alert.svg';

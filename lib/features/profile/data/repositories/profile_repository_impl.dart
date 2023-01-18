@@ -44,12 +44,12 @@ class ProfileRepositoryImpl extends ProfileRepository {
           oldPassword: oldPassword, newPassword: newPassword);
       return Right(result);
     } on ServerException catch (error) {
+      print('======= ${error}');
+
       return Left(ServerFailure(
           statusCode: error.statusCode, errorMessage: error.errorMessage));
     }
   }
-
-  
 
   @override
   Future<Either<ServerFailure, String>> sendPhoneNumber(

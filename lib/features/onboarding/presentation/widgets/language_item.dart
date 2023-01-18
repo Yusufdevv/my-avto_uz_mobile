@@ -1,7 +1,11 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/core/singletons/dio_settings.dart';
+import 'package:auto/core/singletons/service_locator.dart';
+import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -23,6 +27,12 @@ class _LanguageItemState extends State<LanguageItem> {
                 setState(() {
                   isSelected = true;
                 });
+                context.setLocale(const Locale('ru'));
+                            setState(() {});
+                            serviceLocator<DioSettings>()
+                                .setBaseOptions(lang: 'ru');
+                            StorageRepository.putString(
+                                'language', 'ru');
               },
               color: isSelected
                   ? orange
@@ -73,6 +83,12 @@ class _LanguageItemState extends State<LanguageItem> {
                 setState(() {
                   isSelected = false;
                 });
+                 context.setLocale(const Locale('uz'));
+                            setState(() {});
+                            serviceLocator<DioSettings>()
+                                .setBaseOptions(lang: 'uz');
+                            StorageRepository.putString(
+                                'language', 'uz');
               },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,

@@ -25,11 +25,11 @@ class TopAds extends StatelessWidget {
                 child: Text(LocaleKeys.best_offers.tr(),
                     style: Theme.of(context)
                         .textTheme
-                        .headline1!
-                        .copyWith(fontSize: 18)),
+                        .headline1
+                        ?.copyWith(fontSize: 18)),
               ),
               SizedBox(
-                height: 293,
+                height: 298,
                 child: ListView.separated(
                     physics: const BouncingScrollPhysics(),
                     scrollDirection: Axis.horizontal,
@@ -41,8 +41,7 @@ class TopAds extends StatelessWidget {
                         : BlocConsumer<WishlistAddBloc, WishlistAddState>(
                             listener: (context, stateWish) {
                               if (stateWish.addStatus.isSubmissionSuccess ||
-                                  stateWish
-                                      .removeStatus.isSubmissionSuccess) {
+                                  stateWish.removeStatus.isSubmissionSuccess) {
                                 if (stateWish.id == state.topAds[index].id) {
                                   context.read<TopAdBloc>().add(
                                       TopAdEvent.changeIsWish(

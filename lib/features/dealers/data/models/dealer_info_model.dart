@@ -17,6 +17,8 @@ class DealerSingleModel extends DealerSingleEntity {
     required super.longitude,
     required super.gallery,
     required super.phoneNumber,
+    required super.phone,
+    required super.address,
     required super.contactTo,
     required super.contactFrom,
     required super.carCount,

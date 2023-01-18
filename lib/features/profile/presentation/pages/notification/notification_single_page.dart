@@ -35,7 +35,7 @@ class NotificationSinglePage extends StatelessWidget {
                         width: SizeConfig.h(375),
                         height: SizeConfig.v(219),
                         child: CachedNetworkImage(
-                          imageUrl: notification.cover!,
+                          imageUrl: notification.cover ?? '',
                           fit: BoxFit.cover,
                           errorWidget: (context, url, error) => Image.asset(
                             AppImages.carPlaceHolder,
@@ -57,6 +57,7 @@ class NotificationSinglePage extends StatelessWidget {
                                     .bodyText1
                                     ?.copyWith(color: greyText, fontSize: 13)),
                             SizedBox(height: SizeConfig.v(8)),
+                            if(notification.title!=null) 
                             Text(
                               notification.title!,
                               style: Theme.of(context).textTheme.headline1,

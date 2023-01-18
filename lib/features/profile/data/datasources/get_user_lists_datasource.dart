@@ -3,6 +3,7 @@ import 'package:auto/core/singletons/dio_settings.dart';
 import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/common/domain/model/auto_model.dart';
+import 'package:auto/features/dealers/data/models/dealer_info_model.dart';
 import 'package:auto/features/profile/data/models/dir_category_model.dart';
 import 'package:auto/features/profile/data/models/directory_model.dart';
 import 'package:auto/features/profile/data/models/my_searches_model.dart';
@@ -21,6 +22,8 @@ abstract class GetUserListDatasource {
   Future<String> notificationAllRead();
   Future<String> deleteMySearches(List<int> ids);
   Future<NotificationsModel> getNotificationSingle(String id);
+  Future<DealerSingleModel> getDirectorySingle( String params);
+
 }
 
 class GetUserListDatasourceImpl extends GetUserListDatasource {
@@ -150,6 +153,28 @@ class GetUserListDatasourceImpl extends GetUserListDatasource {
       throw ServerException(
           statusCode: response.statusCode ?? 0,
           errorMessage: response.statusMessage ?? '');
+    } on ServerException {
+      rethrow;
+    } on DioError {
+      throw DioException();
+    } on Exception catch (e) {
+      throw ParsingException(errorMessage: e.toString());
+    }
+  }
+
+  @override
+  Future<DealerSingleModel> getDirectorySingle( String params) async {
+    try {
+      final results = await dio.get('/car-place/$params/'
+          );
+
+      if (results.statusCode! >= 200 && results.statusCode! < 300) {
+        return DealerSingleModel.fromJson(results.data);
+      } else {
+        throw ServerException(
+            errorMessage: results.data.toString(),
+            statusCode: results.statusCode ?? 0);
+      }
     } on ServerException {
       rethrow;
     } on DioError {

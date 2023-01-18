@@ -2,6 +2,7 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ads/presentation/pages/filter_parameters.dart';
+import 'package:auto/features/car_single/presentation/car_single_screen.dart';
 import 'package:auto/features/commercial/presentation/widgets/commercial_car_model_item.dart';
 import 'package:auto/features/commercial/presentation/widgets/info_container.dart';
 import 'package:auto/features/common/bloc/announcement_bloc/bloc/announcement_list_bloc.dart';
@@ -42,11 +43,11 @@ class _AdsBodyScreenState extends State<AdsBodyScreen> {
   void initState() {
     rentBloc = RentBloc(rentUseCase: RentUseCase(), id: 5)
       ..add(RentGetResultsEvent(isRefresh: false));
-    print('===> ==> Bu yoda ishga tushdi');
     context.read<AnnouncementListBloc>().add(AnnouncementListEvent.getFilter(
         context.read<AnnouncementListBloc>().state.filter.copyWith(
               isNew: widget.isNew,
             )));
+    context.read<RegionsBloc>().add(RegionsEvent.getRegions());
     context
         .read<AnnouncementListBloc>()
         .add(AnnouncementListEvent.getAnnouncementList());
@@ -159,8 +160,10 @@ class _AdsBodyScreenState extends State<AdsBodyScreen> {
                       size: size,
                       theme: theme,
                       icon: AppIcons.location,
-                      name: 'г. Ташкент',
-                      claerA: true,
+                      name: state.regions.isNotEmpty
+                          ? state.regions[0].title
+                          : '',
+                      claerA: state.regions.isNotEmpty,
                       activeColor: dark,
                       defaultTitle: 'Все регионы',
                       onTap: () async {
@@ -170,13 +173,26 @@ class _AdsBodyScreenState extends State<AdsBodyScreen> {
                           isScrollControlled: true,
                           backgroundColor: Colors.transparent,
                           builder: (c) => RentChooseRegionBottomSheet(
-                              list: context.read<RegionsBloc>().state.regions),
+                            checkedRegions: state.regions.asMap(),
+                            list: context.read<RegionsBloc>().state.regions,
+                          ),
                         ).then((value) {
-                          rentBloc
-                              .add(RentSetParamFromFilterEvent(regions: value));
+                          context
+                              .read<AnnouncementListBloc>()
+                              .add(AnnouncementListEvent.getRegions(value!));
+                          context
+                              .read<AnnouncementListBloc>()
+                              .add(AnnouncementListEvent.getAnnouncementList());
                         });
                       },
-                      onTapClear: () {},
+                      onTapClear: () {
+                        context
+                            .read<AnnouncementListBloc>()
+                            .add(AnnouncementListEvent.getRegions([]));
+                        context
+                            .read<AnnouncementListBloc>()
+                            .add(AnnouncementListEvent.getAnnouncementList());
+                      },
                     ),
                   ],
                 ),
@@ -186,38 +202,46 @@ class _AdsBodyScreenState extends State<AdsBodyScreen> {
                 state.announcementList.length,
                 (index) => Padding(
                   padding: const EdgeInsets.only(bottom: 12),
-                  child: InfoContainer(
-                    index: index,
-                    avatarPicture: state.announcementList[index].user.avatar,
-                    carModel: state.announcementList[index].model,
-                    hasDiscount: state.announcementList[index].discount != 0,
-                    location: state.announcementList[index].region,
-                    owner: state.announcementList[index].user.name.isNotEmpty
-                        ? state.announcementList[index].user.name
-                        : state.announcementList[index].user.fullName,
-                    ownerType: state.announcementList[index].userType,
-                    publishTime: MyFunctions.getDateNamedMonthEdit(
-                        state.announcementList[index].publishedAt),
-                    subtitle: state.announcementList[index].description,
-                    year: state.announcementList[index].year,
-                    price: state.announcementList[index].price.toString(),
-                    discountPrice: state.announcementList[index].discount == 0
-                        ? ''
-                        : state.announcementList[index].discount.toString(),
-                    sellType: '',
-                    hasStatusInfo: false,
-                    hasCallCard: MyFunctions.enableForCalling(
-                      callFrom:
-                          state.announcementList[index].contactAvailableFrom,
-                      callTo: state.announcementList[index].contactAvailableTo,
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.of(context, rootNavigator: true).push(fade(
+                          page: CarSingleScreen(
+                              id: state.announcementList[index].id)));
+                    },
+                    child: InfoContainer(
+                      index: index,
+                      avatarPicture: state.announcementList[index].user.avatar,
+                      carModel: state.announcementList[index].model,
+                      hasDiscount: state.announcementList[index].discount != 0,
+                      location: state.announcementList[index].region,
+                      owner: state.announcementList[index].user.name.isNotEmpty
+                          ? state.announcementList[index].user.name
+                          : state.announcementList[index].user.fullName,
+                      ownerType: state.announcementList[index].userType,
+                      publishTime: MyFunctions.getDateNamedMonthEdit(
+                          state.announcementList[index].publishedAt),
+                      subtitle: state.announcementList[index].description,
+                      year: state.announcementList[index].year,
+                      price: state.announcementList[index].price.toString(),
+                      discountPrice: state.announcementList[index].discount == 0
+                          ? ''
+                          : state.announcementList[index].discount.toString(),
+                      sellType: '',
+                      hasStatusInfo: false,
+                      hasCallCard: MyFunctions.enableForCalling(
+                        callFrom:
+                            state.announcementList[index].contactAvailableFrom,
+                        callTo:
+                            state.announcementList[index].contactAvailableTo,
+                      ),
+                      gallery: state.announcementList[index].gallery,
+                      currency: state.announcementList[index].currency,
+                      initialLike: list[index].isWishlisted,
+                      id: state.announcementList[index].id,
+                      onTapComparsion: () {},
+                      onTapFavorites: () {},
+                      initialComparsions: list[index].isComparison,
                     ),
-                    gallery: state.announcementList[index].gallery,
-                    currency: state.announcementList[index].currency,
-                    initialLike: list[index].isWishlisted,
-                    id: state.announcementList[index].id,
-                    onTapComparsion: () {},
-                    onTapFavorites: () {},
-                    initialComparsions: list[index].isComparison,
                   ),
                 ),
               ),

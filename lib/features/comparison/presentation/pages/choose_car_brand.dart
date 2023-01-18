@@ -180,7 +180,6 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
                         name: state.makes[index].name,
                         text: state.search,
                         onTap: () {
-                          print('===> ==> Bu Boshida ${state.makes[index].id}');
                           context.read<GetMakesBloc>().add(
                                 GetMakesBlocEvent.selectedCarItems(
                                   id: state.makes[index].id,
@@ -188,7 +187,6 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
                                   imageUrl: state.makes[index].logo,
                                 ),
                               );
-                          print('===> ==> Bu stateda ${state.selectId}');
                         },
                       ),
                     ),
