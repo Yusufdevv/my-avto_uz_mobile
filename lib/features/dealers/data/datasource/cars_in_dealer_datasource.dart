@@ -12,7 +12,6 @@ class CarsInDealerDataSource {
       );
 
       if (results.statusCode! >= 200 && results.statusCode! < 300) {
-        print('++++++${results.data}');
         return GenericPagination.fromJson(results.data, (p0) => CarsInDealerModel.fromJson(p0 as Map<String, dynamic>));
       } else {
         throw ServerException(

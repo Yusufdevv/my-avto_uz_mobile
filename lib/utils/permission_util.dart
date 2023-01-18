@@ -9,19 +9,16 @@ import 'package:permission_handler/permission_handler.dart';
 class DownloadUtil {
   Future<bool> download(
       TargetPlatform? platform, String url, String filename) async {
-    bool downloaded = false;
-    var permissionReady = await checkPermission(platform);
+    var downloaded = false;
+    final permissionReady = await checkPermission(platform);
     if (permissionReady) {
-      var localPath = await prepareSaveDir(platform);
-      String savePath = "$localPath/$filename";
-      print("Downloading");
+      final localPath = await prepareSaveDir(platform);
+      final savePath = '$localPath/$filename';
       try {
         await Dio().download(url, savePath);
         await StorageRepository.putBool(key: url, value: true);
-        print("Download Completed.");
         downloaded = true;
       } catch (e) {
-        print("Download Failed.\n\n$e");
         downloaded = false;
       }
     }
@@ -46,22 +43,22 @@ class DownloadUtil {
   }
 
   Future<String> prepareSaveDir(TargetPlatform? platform) async {
-    var localPath = (await _findLocalPath(platform))!;
+    final localPath = (await _findLocalPath(platform))!;
 
-    Directory savedDir = Directory(localPath);
+    final savedDir = Directory(localPath);
     // ignore: avoid_slow_async_io
     final hasExisted = await savedDir.exists();
     if (!hasExisted) {
-      savedDir.create();
+      await savedDir.create();
     }
     return localPath;
   }
 
   Future<String?> _findLocalPath(TargetPlatform? platform) async {
     if (platform == TargetPlatform.android) {
-      return "/storage/emulated/0/Download/";
+      return '/storage/emulated/0/Download/';
     } else {
-      var directory = await getApplicationDocumentsDirectory();
+      final directory = await getApplicationDocumentsDirectory();
       return '${directory.path}${Platform.pathSeparator}Download';
     }
   }

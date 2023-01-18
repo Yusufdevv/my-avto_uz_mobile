@@ -47,6 +47,7 @@ class _OptionsItemState extends State<OptionsItem>
       case AppLifecycleState.paused:
         break;
       case AppLifecycleState.detached:
+      
         break;
     }
   }

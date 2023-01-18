@@ -7,8 +7,10 @@ import 'package:flutter_svg/svg.dart';
 class AddComparisonItem extends StatefulWidget {
   final bool? initialLike;
   final int id;
+  final Color? color;
 
-  const AddComparisonItem({required this.id, this.initialLike, Key? key})
+  const AddComparisonItem(
+      {required this.id, this.initialLike, Key? key, this.color})
       : super(key: key);
 
   @override
@@ -37,11 +39,13 @@ class _AddComparisonItemState extends State<AddComparisonItem> {
             builder: (context, state) => GestureDetector(
               onTap: () {
                 if (!isLiked) {
-                  context.read<ComparisonAddBloc>()
+                  context
+                      .read<ComparisonAddBloc>()
                       .add(ComparisonAddEvent.postComparisonCars(widget.id));
                   isLiked = true;
                 } else {
-                  context.read<ComparisonAddBloc>()
+                  context
+                      .read<ComparisonAddBloc>()
                       .add(ComparisonAddEvent.deleteComparison(widget.id));
                   isLiked = false;
                 }
@@ -58,6 +62,7 @@ class _AddComparisonItemState extends State<AddComparisonItem> {
                         AppIcons.scalesRed,
                         key: const ValueKey<int>(1),
                         fit: BoxFit.cover,
+                        color: widget.color,
                       )
                     : SvgPicture.asset(
                         AppIcons.scale,

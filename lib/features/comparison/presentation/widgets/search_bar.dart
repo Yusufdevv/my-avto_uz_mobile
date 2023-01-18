@@ -14,7 +14,7 @@ class WSerachBar extends SliverPersistentHeaderDelegate {
   double get maxExtent => 64;
 
   @override
-  bool shouldRebuild(WSerachBar oldChild) => controller != oldChild.controller;
+  bool shouldRebuild(WSerachBar oldDelegate) => controller != oldDelegate.controller;
   @override
   Widget build(
           BuildContext context, double shrinkOffset, bool overlapsContent) =>
