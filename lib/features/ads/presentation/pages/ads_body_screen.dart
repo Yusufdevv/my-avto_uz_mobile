@@ -43,11 +43,11 @@ class _AdsBodyScreenState extends State<AdsBodyScreen> {
   void initState() {
     rentBloc = RentBloc(rentUseCase: RentUseCase(), id: 5)
       ..add(RentGetResultsEvent(isRefresh: false));
-    print('===> ==> Bu yoda ishga tushdi');
     context.read<AnnouncementListBloc>().add(AnnouncementListEvent.getFilter(
         context.read<AnnouncementListBloc>().state.filter.copyWith(
               isNew: widget.isNew,
             )));
+    context.read<RegionsBloc>().add(RegionsEvent.getRegions());
     context
         .read<AnnouncementListBloc>()
         .add(AnnouncementListEvent.getAnnouncementList());
@@ -160,8 +160,10 @@ class _AdsBodyScreenState extends State<AdsBodyScreen> {
                       size: size,
                       theme: theme,
                       icon: AppIcons.location,
-                      name: 'г. Ташкент',
-                      claerA: true,
+                      name: state.regions.isNotEmpty
+                          ? state.regions[0].title
+                          : '',
+                      claerA: state.regions.isNotEmpty,
                       activeColor: dark,
                       defaultTitle: 'Все регионы',
                       onTap: () async {
@@ -171,13 +173,26 @@ class _AdsBodyScreenState extends State<AdsBodyScreen> {
                           isScrollControlled: true,
                           backgroundColor: Colors.transparent,
                           builder: (c) => RentChooseRegionBottomSheet(
-                              list: context.read<RegionsBloc>().state.regions),
+                            checkedRegions: state.regions.asMap(),
+                            list: context.read<RegionsBloc>().state.regions,
+                          ),
                         ).then((value) {
-                          rentBloc
-                              .add(RentSetParamFromFilterEvent(regions: value));
+                          context
+                              .read<AnnouncementListBloc>()
+                              .add(AnnouncementListEvent.getRegions(value!));
+                          context
+                              .read<AnnouncementListBloc>()
+                              .add(AnnouncementListEvent.getAnnouncementList());
                         });
                       },
-                      onTapClear: () {},
+                      onTapClear: () {
+                        context
+                            .read<AnnouncementListBloc>()
+                            .add(AnnouncementListEvent.getRegions([]));
+                        context
+                            .read<AnnouncementListBloc>()
+                            .add(AnnouncementListEvent.getAnnouncementList());
+                      },
                     ),
                   ],
                 ),

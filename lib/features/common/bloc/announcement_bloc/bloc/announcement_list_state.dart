@@ -8,6 +8,7 @@ class AnnouncementListState with _$AnnouncementListState {
     @Default('') String next,
     @Default('') String search,
     @Default(0) int count,
+    @Default([])List<Region> regions,
     @Default(false) bool isFilter,
     @Default([]) List<AnnouncementListEntity> announcementList,
     @Default(AnnouncementFilterModel()) AnnouncementFilterModel filter,

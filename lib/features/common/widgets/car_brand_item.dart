@@ -2,8 +2,14 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/domain/entities/types/make.dart';
+import 'package:auto/features/ads/presentation/pages/ads_screen.dart';
+import 'package:auto/features/common/bloc/announcement_bloc/bloc/announcement_list_bloc.dart';
+import 'package:auto/features/common/bloc/get_makes_bloc/get_makes_bloc_bloc.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
+import 'package:auto/features/navigation/presentation/navigator.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CarBrandItem extends StatelessWidget {
   final MakeEntity carBrandEntity;
@@ -15,7 +21,22 @@ class CarBrandItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => WScaleAnimation(
-        onTap: () {},
+        onTap: () {
+          context.read<AnnouncementListBloc>().add(
+              AnnouncementListEvent.getFilter(
+                  context.read<AnnouncementListBloc>().state.filter.copyWith(
+                        make: carBrandEntity.id,
+                      )));
+          Navigator.of(context, rootNavigator: true)
+              .push(fade(page: AdsScreen(isBack: false, onTap: () {})));
+          context.read<GetMakesBloc>().add(
+                GetMakesBlocEvent.selectedCarItems(
+                  id: carBrandEntity.id,
+                  name: carBrandEntity.name,
+                  imageUrl: carBrandEntity.logo,
+                ),
+              );
+        },
         child: Container(
           height: 100,
           width: 72,
@@ -42,19 +63,26 @@ class CarBrandItem extends StatelessWidget {
           ),
           child: Column(
             children: [
-              const SizedBox(height: 16),
+              const SizedBox(height: 8),
               ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: Image.asset(AppImages.defaultPhoto)),
-              // Image.network(
-              //   carBrandEntity.logo,
-              //   width: 40,
-              //   height: 40,
-              //   errorBuilder: (ctx, object, stackTrace) =>
-              //       Image.asset(AppImages.defaultPhoto),
-              //   loadingBuilder: (ctx, widget, chunkEvent) =>
-              //       Image.asset(AppImages.defaultPhoto),
-              // ),
+                borderRadius: BorderRadius.circular(10),
+                child: carBrandEntity.logo.isEmpty
+                    ? Image.asset(
+                        AppImages.defaultPhoto,
+                        height: 48,
+                        width: 60,
+                      )
+                    : CachedNetworkImage(
+                        imageUrl: carBrandEntity.logo,
+                        height: 48,
+                        width: 60,
+                        errorWidget: (context, url, error) => Image.asset(
+                          AppImages.defaultPhoto,
+                          height: 48,
+                          width: 60,
+                        ),
+                      ),
+              ),
               const SizedBox(height: 8),
               Expanded(
                 child: Text(

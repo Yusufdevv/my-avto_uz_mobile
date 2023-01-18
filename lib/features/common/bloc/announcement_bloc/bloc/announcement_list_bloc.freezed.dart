@@ -20,6 +20,7 @@ mixin _$AnnouncementListEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() getAnnouncementList,
     required TResult Function() getFilterClear,
+    required TResult Function(List<Region> regions) getRegions,
     required TResult Function(AnnouncementFilterModel filter) getFilter,
     required TResult Function(
             RangeValues? yearValues,
@@ -36,6 +37,7 @@ mixin _$AnnouncementListEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getAnnouncementList,
     TResult? Function()? getFilterClear,
+    TResult? Function(List<Region> regions)? getRegions,
     TResult? Function(AnnouncementFilterModel filter)? getFilter,
     TResult? Function(
             RangeValues? yearValues,
@@ -52,6 +54,7 @@ mixin _$AnnouncementListEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getAnnouncementList,
     TResult Function()? getFilterClear,
+    TResult Function(List<Region> regions)? getRegions,
     TResult Function(AnnouncementFilterModel filter)? getFilter,
     TResult Function(
             RangeValues? yearValues,
@@ -69,6 +72,7 @@ mixin _$AnnouncementListEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(_GetAnnouncementList value) getAnnouncementList,
     required TResult Function(_GetFilterClear value) getFilterClear,
+    required TResult Function(_GetRegions value) getRegions,
     required TResult Function(_GetFilter value) getFilter,
     required TResult Function(_GetInfo value) getInfo,
   }) =>
@@ -77,6 +81,7 @@ mixin _$AnnouncementListEvent {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetAnnouncementList value)? getAnnouncementList,
     TResult? Function(_GetFilterClear value)? getFilterClear,
+    TResult? Function(_GetRegions value)? getRegions,
     TResult? Function(_GetFilter value)? getFilter,
     TResult? Function(_GetInfo value)? getInfo,
   }) =>
@@ -85,6 +90,7 @@ mixin _$AnnouncementListEvent {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetAnnouncementList value)? getAnnouncementList,
     TResult Function(_GetFilterClear value)? getFilterClear,
+    TResult Function(_GetRegions value)? getRegions,
     TResult Function(_GetFilter value)? getFilter,
     TResult Function(_GetInfo value)? getInfo,
     required TResult orElse(),
@@ -151,6 +157,7 @@ class _$_GetAnnouncementList implements _GetAnnouncementList {
   TResult when<TResult extends Object?>({
     required TResult Function() getAnnouncementList,
     required TResult Function() getFilterClear,
+    required TResult Function(List<Region> regions) getRegions,
     required TResult Function(AnnouncementFilterModel filter) getFilter,
     required TResult Function(
             RangeValues? yearValues,
@@ -170,6 +177,7 @@ class _$_GetAnnouncementList implements _GetAnnouncementList {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getAnnouncementList,
     TResult? Function()? getFilterClear,
+    TResult? Function(List<Region> regions)? getRegions,
     TResult? Function(AnnouncementFilterModel filter)? getFilter,
     TResult? Function(
             RangeValues? yearValues,
@@ -189,6 +197,7 @@ class _$_GetAnnouncementList implements _GetAnnouncementList {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getAnnouncementList,
     TResult Function()? getFilterClear,
+    TResult Function(List<Region> regions)? getRegions,
     TResult Function(AnnouncementFilterModel filter)? getFilter,
     TResult Function(
             RangeValues? yearValues,
@@ -212,6 +221,7 @@ class _$_GetAnnouncementList implements _GetAnnouncementList {
   TResult map<TResult extends Object?>({
     required TResult Function(_GetAnnouncementList value) getAnnouncementList,
     required TResult Function(_GetFilterClear value) getFilterClear,
+    required TResult Function(_GetRegions value) getRegions,
     required TResult Function(_GetFilter value) getFilter,
     required TResult Function(_GetInfo value) getInfo,
   }) {
@@ -223,6 +233,7 @@ class _$_GetAnnouncementList implements _GetAnnouncementList {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetAnnouncementList value)? getAnnouncementList,
     TResult? Function(_GetFilterClear value)? getFilterClear,
+    TResult? Function(_GetRegions value)? getRegions,
     TResult? Function(_GetFilter value)? getFilter,
     TResult? Function(_GetInfo value)? getInfo,
   }) {
@@ -234,6 +245,7 @@ class _$_GetAnnouncementList implements _GetAnnouncementList {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetAnnouncementList value)? getAnnouncementList,
     TResult Function(_GetFilterClear value)? getFilterClear,
+    TResult Function(_GetRegions value)? getRegions,
     TResult Function(_GetFilter value)? getFilter,
     TResult Function(_GetInfo value)? getInfo,
     required TResult orElse(),
@@ -289,6 +301,7 @@ class _$_GetFilterClear implements _GetFilterClear {
   TResult when<TResult extends Object?>({
     required TResult Function() getAnnouncementList,
     required TResult Function() getFilterClear,
+    required TResult Function(List<Region> regions) getRegions,
     required TResult Function(AnnouncementFilterModel filter) getFilter,
     required TResult Function(
             RangeValues? yearValues,
@@ -308,6 +321,7 @@ class _$_GetFilterClear implements _GetFilterClear {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getAnnouncementList,
     TResult? Function()? getFilterClear,
+    TResult? Function(List<Region> regions)? getRegions,
     TResult? Function(AnnouncementFilterModel filter)? getFilter,
     TResult? Function(
             RangeValues? yearValues,
@@ -327,6 +341,7 @@ class _$_GetFilterClear implements _GetFilterClear {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getAnnouncementList,
     TResult Function()? getFilterClear,
+    TResult Function(List<Region> regions)? getRegions,
     TResult Function(AnnouncementFilterModel filter)? getFilter,
     TResult Function(
             RangeValues? yearValues,
@@ -350,6 +365,7 @@ class _$_GetFilterClear implements _GetFilterClear {
   TResult map<TResult extends Object?>({
     required TResult Function(_GetAnnouncementList value) getAnnouncementList,
     required TResult Function(_GetFilterClear value) getFilterClear,
+    required TResult Function(_GetRegions value) getRegions,
     required TResult Function(_GetFilter value) getFilter,
     required TResult Function(_GetInfo value) getInfo,
   }) {
@@ -361,6 +377,7 @@ class _$_GetFilterClear implements _GetFilterClear {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetAnnouncementList value)? getAnnouncementList,
     TResult? Function(_GetFilterClear value)? getFilterClear,
+    TResult? Function(_GetRegions value)? getRegions,
     TResult? Function(_GetFilter value)? getFilter,
     TResult? Function(_GetInfo value)? getInfo,
   }) {
@@ -372,6 +389,7 @@ class _$_GetFilterClear implements _GetFilterClear {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetAnnouncementList value)? getAnnouncementList,
     TResult Function(_GetFilterClear value)? getFilterClear,
+    TResult Function(_GetRegions value)? getRegions,
     TResult Function(_GetFilter value)? getFilter,
     TResult Function(_GetInfo value)? getInfo,
     required TResult orElse(),
@@ -385,6 +403,187 @@ class _$_GetFilterClear implements _GetFilterClear {
 
 abstract class _GetFilterClear implements AnnouncementListEvent {
   factory _GetFilterClear() = _$_GetFilterClear;
+}
+
+/// @nodoc
+abstract class _$$_GetRegionsCopyWith<$Res> {
+  factory _$$_GetRegionsCopyWith(
+          _$_GetRegions value, $Res Function(_$_GetRegions) then) =
+      __$$_GetRegionsCopyWithImpl<$Res>;
+  @useResult
+  $Res call({List<Region> regions});
+}
+
+/// @nodoc
+class __$$_GetRegionsCopyWithImpl<$Res>
+    extends _$AnnouncementListEventCopyWithImpl<$Res, _$_GetRegions>
+    implements _$$_GetRegionsCopyWith<$Res> {
+  __$$_GetRegionsCopyWithImpl(
+      _$_GetRegions _value, $Res Function(_$_GetRegions) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? regions = null,
+  }) {
+    return _then(_$_GetRegions(
+      null == regions
+          ? _value._regions
+          : regions // ignore: cast_nullable_to_non_nullable
+              as List<Region>,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_GetRegions implements _GetRegions {
+  _$_GetRegions(final List<Region> regions) : _regions = regions;
+
+  final List<Region> _regions;
+  @override
+  List<Region> get regions {
+    if (_regions is EqualUnmodifiableListView) return _regions;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_regions);
+  }
+
+  @override
+  String toString() {
+    return 'AnnouncementListEvent.getRegions(regions: $regions)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_GetRegions &&
+            const DeepCollectionEquality().equals(other._regions, _regions));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_regions));
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_GetRegionsCopyWith<_$_GetRegions> get copyWith =>
+      __$$_GetRegionsCopyWithImpl<_$_GetRegions>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() getAnnouncementList,
+    required TResult Function() getFilterClear,
+    required TResult Function(List<Region> regions) getRegions,
+    required TResult Function(AnnouncementFilterModel filter) getFilter,
+    required TResult Function(
+            RangeValues? yearValues,
+            RangeValues? priceValues,
+            BodyTypeEntity? bodyType,
+            DriveTypeEntity? carDriveType,
+            GearboxTypeEntity? gearboxType,
+            int? idVal,
+            bool? isFilter)
+        getInfo,
+  }) {
+    return getRegions(regions);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? getAnnouncementList,
+    TResult? Function()? getFilterClear,
+    TResult? Function(List<Region> regions)? getRegions,
+    TResult? Function(AnnouncementFilterModel filter)? getFilter,
+    TResult? Function(
+            RangeValues? yearValues,
+            RangeValues? priceValues,
+            BodyTypeEntity? bodyType,
+            DriveTypeEntity? carDriveType,
+            GearboxTypeEntity? gearboxType,
+            int? idVal,
+            bool? isFilter)?
+        getInfo,
+  }) {
+    return getRegions?.call(regions);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? getAnnouncementList,
+    TResult Function()? getFilterClear,
+    TResult Function(List<Region> regions)? getRegions,
+    TResult Function(AnnouncementFilterModel filter)? getFilter,
+    TResult Function(
+            RangeValues? yearValues,
+            RangeValues? priceValues,
+            BodyTypeEntity? bodyType,
+            DriveTypeEntity? carDriveType,
+            GearboxTypeEntity? gearboxType,
+            int? idVal,
+            bool? isFilter)?
+        getInfo,
+    required TResult orElse(),
+  }) {
+    if (getRegions != null) {
+      return getRegions(regions);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_GetAnnouncementList value) getAnnouncementList,
+    required TResult Function(_GetFilterClear value) getFilterClear,
+    required TResult Function(_GetRegions value) getRegions,
+    required TResult Function(_GetFilter value) getFilter,
+    required TResult Function(_GetInfo value) getInfo,
+  }) {
+    return getRegions(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetAnnouncementList value)? getAnnouncementList,
+    TResult? Function(_GetFilterClear value)? getFilterClear,
+    TResult? Function(_GetRegions value)? getRegions,
+    TResult? Function(_GetFilter value)? getFilter,
+    TResult? Function(_GetInfo value)? getInfo,
+  }) {
+    return getRegions?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetAnnouncementList value)? getAnnouncementList,
+    TResult Function(_GetFilterClear value)? getFilterClear,
+    TResult Function(_GetRegions value)? getRegions,
+    TResult Function(_GetFilter value)? getFilter,
+    TResult Function(_GetInfo value)? getInfo,
+    required TResult orElse(),
+  }) {
+    if (getRegions != null) {
+      return getRegions(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _GetRegions implements AnnouncementListEvent {
+  factory _GetRegions(final List<Region> regions) = _$_GetRegions;
+
+  List<Region> get regions;
+  @JsonKey(ignore: true)
+  _$$_GetRegionsCopyWith<_$_GetRegions> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -453,6 +652,7 @@ class _$_GetFilter implements _GetFilter {
   TResult when<TResult extends Object?>({
     required TResult Function() getAnnouncementList,
     required TResult Function() getFilterClear,
+    required TResult Function(List<Region> regions) getRegions,
     required TResult Function(AnnouncementFilterModel filter) getFilter,
     required TResult Function(
             RangeValues? yearValues,
@@ -472,6 +672,7 @@ class _$_GetFilter implements _GetFilter {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getAnnouncementList,
     TResult? Function()? getFilterClear,
+    TResult? Function(List<Region> regions)? getRegions,
     TResult? Function(AnnouncementFilterModel filter)? getFilter,
     TResult? Function(
             RangeValues? yearValues,
@@ -491,6 +692,7 @@ class _$_GetFilter implements _GetFilter {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getAnnouncementList,
     TResult Function()? getFilterClear,
+    TResult Function(List<Region> regions)? getRegions,
     TResult Function(AnnouncementFilterModel filter)? getFilter,
     TResult Function(
             RangeValues? yearValues,
@@ -514,6 +716,7 @@ class _$_GetFilter implements _GetFilter {
   TResult map<TResult extends Object?>({
     required TResult Function(_GetAnnouncementList value) getAnnouncementList,
     required TResult Function(_GetFilterClear value) getFilterClear,
+    required TResult Function(_GetRegions value) getRegions,
     required TResult Function(_GetFilter value) getFilter,
     required TResult Function(_GetInfo value) getInfo,
   }) {
@@ -525,6 +728,7 @@ class _$_GetFilter implements _GetFilter {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetAnnouncementList value)? getAnnouncementList,
     TResult? Function(_GetFilterClear value)? getFilterClear,
+    TResult? Function(_GetRegions value)? getRegions,
     TResult? Function(_GetFilter value)? getFilter,
     TResult? Function(_GetInfo value)? getInfo,
   }) {
@@ -536,6 +740,7 @@ class _$_GetFilter implements _GetFilter {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetAnnouncementList value)? getAnnouncementList,
     TResult Function(_GetFilterClear value)? getFilterClear,
+    TResult Function(_GetRegions value)? getRegions,
     TResult Function(_GetFilter value)? getFilter,
     TResult Function(_GetInfo value)? getInfo,
     required TResult orElse(),
@@ -690,6 +895,7 @@ class _$_GetInfo implements _GetInfo {
   TResult when<TResult extends Object?>({
     required TResult Function() getAnnouncementList,
     required TResult Function() getFilterClear,
+    required TResult Function(List<Region> regions) getRegions,
     required TResult Function(AnnouncementFilterModel filter) getFilter,
     required TResult Function(
             RangeValues? yearValues,
@@ -710,6 +916,7 @@ class _$_GetInfo implements _GetInfo {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getAnnouncementList,
     TResult? Function()? getFilterClear,
+    TResult? Function(List<Region> regions)? getRegions,
     TResult? Function(AnnouncementFilterModel filter)? getFilter,
     TResult? Function(
             RangeValues? yearValues,
@@ -730,6 +937,7 @@ class _$_GetInfo implements _GetInfo {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getAnnouncementList,
     TResult Function()? getFilterClear,
+    TResult Function(List<Region> regions)? getRegions,
     TResult Function(AnnouncementFilterModel filter)? getFilter,
     TResult Function(
             RangeValues? yearValues,
@@ -754,6 +962,7 @@ class _$_GetInfo implements _GetInfo {
   TResult map<TResult extends Object?>({
     required TResult Function(_GetAnnouncementList value) getAnnouncementList,
     required TResult Function(_GetFilterClear value) getFilterClear,
+    required TResult Function(_GetRegions value) getRegions,
     required TResult Function(_GetFilter value) getFilter,
     required TResult Function(_GetInfo value) getInfo,
   }) {
@@ -765,6 +974,7 @@ class _$_GetInfo implements _GetInfo {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetAnnouncementList value)? getAnnouncementList,
     TResult? Function(_GetFilterClear value)? getFilterClear,
+    TResult? Function(_GetRegions value)? getRegions,
     TResult? Function(_GetFilter value)? getFilter,
     TResult? Function(_GetInfo value)? getInfo,
   }) {
@@ -776,6 +986,7 @@ class _$_GetInfo implements _GetInfo {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetAnnouncementList value)? getAnnouncementList,
     TResult Function(_GetFilterClear value)? getFilterClear,
+    TResult Function(_GetRegions value)? getRegions,
     TResult Function(_GetFilter value)? getFilter,
     TResult Function(_GetInfo value)? getInfo,
     required TResult orElse(),
@@ -816,6 +1027,7 @@ mixin _$AnnouncementListState {
   String get next => throw _privateConstructorUsedError;
   String get search => throw _privateConstructorUsedError;
   int get count => throw _privateConstructorUsedError;
+  List<Region> get regions => throw _privateConstructorUsedError;
   bool get isFilter => throw _privateConstructorUsedError;
   List<AnnouncementListEntity> get announcementList =>
       throw _privateConstructorUsedError;
@@ -845,6 +1057,7 @@ abstract class $AnnouncementListStateCopyWith<$Res> {
       String next,
       String search,
       int count,
+      List<Region> regions,
       bool isFilter,
       List<AnnouncementListEntity> announcementList,
       AnnouncementFilterModel filter,
@@ -875,6 +1088,7 @@ class _$AnnouncementListStateCopyWithImpl<$Res,
     Object? next = null,
     Object? search = null,
     Object? count = null,
+    Object? regions = null,
     Object? isFilter = null,
     Object? announcementList = null,
     Object? filter = null,
@@ -906,6 +1120,10 @@ class _$AnnouncementListStateCopyWithImpl<$Res,
           ? _value.count
           : count // ignore: cast_nullable_to_non_nullable
               as int,
+      regions: null == regions
+          ? _value.regions
+          : regions // ignore: cast_nullable_to_non_nullable
+              as List<Region>,
       isFilter: null == isFilter
           ? _value.isFilter
           : isFilter // ignore: cast_nullable_to_non_nullable
@@ -960,6 +1178,7 @@ abstract class _$$_AnnouncementListCopyWith<$Res>
       String next,
       String search,
       int count,
+      List<Region> regions,
       bool isFilter,
       List<AnnouncementListEntity> announcementList,
       AnnouncementFilterModel filter,
@@ -987,6 +1206,7 @@ class __$$_AnnouncementListCopyWithImpl<$Res>
     Object? next = null,
     Object? search = null,
     Object? count = null,
+    Object? regions = null,
     Object? isFilter = null,
     Object? announcementList = null,
     Object? filter = null,
@@ -1018,6 +1238,10 @@ class __$$_AnnouncementListCopyWithImpl<$Res>
           ? _value.count
           : count // ignore: cast_nullable_to_non_nullable
               as int,
+      regions: null == regions
+          ? _value._regions
+          : regions // ignore: cast_nullable_to_non_nullable
+              as List<Region>,
       isFilter: null == isFilter
           ? _value.isFilter
           : isFilter // ignore: cast_nullable_to_non_nullable
@@ -1067,6 +1291,7 @@ class _$_AnnouncementList implements _AnnouncementList {
       this.next = '',
       this.search = '',
       this.count = 0,
+      final List<Region> regions = const [],
       this.isFilter = false,
       final List<AnnouncementListEntity> announcementList = const [],
       this.filter = const AnnouncementFilterModel(),
@@ -1077,7 +1302,8 @@ class _$_AnnouncementList implements _AnnouncementList {
           const GearboxTypeEntity(id: -1, type: '', logo: ''),
       this.bodyTypeEntity = const BodyTypeEntity(id: -1, type: '', logo: ''),
       this.driveTypeEntity = const DriveTypeModel(id: -1, type: '', logo: '')})
-      : _announcementList = announcementList;
+      : _regions = regions,
+        _announcementList = announcementList;
 
   @override
   @JsonKey()
@@ -1094,6 +1320,15 @@ class _$_AnnouncementList implements _AnnouncementList {
   @override
   @JsonKey()
   final int count;
+  final List<Region> _regions;
+  @override
+  @JsonKey()
+  List<Region> get regions {
+    if (_regions is EqualUnmodifiableListView) return _regions;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_regions);
+  }
+
   @override
   @JsonKey()
   final bool isFilter;
@@ -1131,7 +1366,7 @@ class _$_AnnouncementList implements _AnnouncementList {
 
   @override
   String toString() {
-    return 'AnnouncementListState(status: $status, selected: $selected, next: $next, search: $search, count: $count, isFilter: $isFilter, announcementList: $announcementList, filter: $filter, yearValues: $yearValues, priceValues: $priceValues, idVal: $idVal, gearboxTypeEntity: $gearboxTypeEntity, bodyTypeEntity: $bodyTypeEntity, driveTypeEntity: $driveTypeEntity)';
+    return 'AnnouncementListState(status: $status, selected: $selected, next: $next, search: $search, count: $count, regions: $regions, isFilter: $isFilter, announcementList: $announcementList, filter: $filter, yearValues: $yearValues, priceValues: $priceValues, idVal: $idVal, gearboxTypeEntity: $gearboxTypeEntity, bodyTypeEntity: $bodyTypeEntity, driveTypeEntity: $driveTypeEntity)';
   }
 
   @override
@@ -1145,6 +1380,7 @@ class _$_AnnouncementList implements _AnnouncementList {
             (identical(other.next, next) || other.next == next) &&
             (identical(other.search, search) || other.search == search) &&
             (identical(other.count, count) || other.count == count) &&
+            const DeepCollectionEquality().equals(other._regions, _regions) &&
             (identical(other.isFilter, isFilter) ||
                 other.isFilter == isFilter) &&
             const DeepCollectionEquality()
@@ -1171,6 +1407,7 @@ class _$_AnnouncementList implements _AnnouncementList {
       next,
       search,
       count,
+      const DeepCollectionEquality().hash(_regions),
       isFilter,
       const DeepCollectionEquality().hash(_announcementList),
       filter,
@@ -1195,6 +1432,7 @@ abstract class _AnnouncementList implements AnnouncementListState {
       final String next,
       final String search,
       final int count,
+      final List<Region> regions,
       final bool isFilter,
       final List<AnnouncementListEntity> announcementList,
       final AnnouncementFilterModel filter,
@@ -1215,6 +1453,8 @@ abstract class _AnnouncementList implements AnnouncementListState {
   String get search;
   @override
   int get count;
+  @override
+  List<Region> get regions;
   @override
   bool get isFilter;
   @override
