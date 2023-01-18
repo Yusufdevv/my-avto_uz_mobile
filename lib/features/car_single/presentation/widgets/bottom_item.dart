@@ -1,6 +1,7 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/images.dart';
+import 'package:auto/features/car_single/presentation/bloc/car_single_bloc.dart';
 import 'package:auto/features/car_single/presentation/widgets/dealer_time_botomsheet.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
@@ -11,12 +12,14 @@ import 'package:auto/utils/my_functions.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class BottomItem extends StatelessWidget {
   final String callFrom;
   final String callTo;
+  final int id;
   final String phoneNumber;
   final String? userAvatar;
 
@@ -25,7 +28,8 @@ class BottomItem extends StatelessWidget {
       required this.callFrom,
       required this.callTo,
       required this.phoneNumber,
-      required this.userAvatar})
+      required this.userAvatar,
+      required this.id})
       : super(key: key);
 
   @override
@@ -40,6 +44,9 @@ class BottomItem extends StatelessWidget {
                       ? WButton(
                           onTap: () {
                             launchUrl(Uri.parse('tel://$phoneNumber'));
+                            context
+                                .read<CarSingleBloc>()
+                                .add(CarSingleEvent.callCount(id));
                           },
                           height: 44,
                           borderRadius: 8,
@@ -55,11 +62,9 @@ class BottomItem extends StatelessWidget {
                               backgroundColor: Colors.transparent,
                               context: context,
                               builder: (context) => DealerTime(
-                                  timeTo: callTo,
-                                  // Jiffy(callTo).format('h-m').replaceAll('-', ':').toString(),
-                                  timeFrom: callFrom
-                                  // Jiffy(callFrom).format('h-m').replaceAll('-', ':').toString(),
-                                  ),
+                                timeTo: callTo.substring(0, 5),
+                                timeFrom: callFrom.substring(0, 5),
+                              ),
                             );
                           },
                           height: 44,

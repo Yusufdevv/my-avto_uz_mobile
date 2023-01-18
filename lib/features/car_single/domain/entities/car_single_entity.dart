@@ -103,8 +103,11 @@ class CarSingleEntity extends Equatable {
   final int wishlistCount;
   @JsonKey(defaultValue: 0)
   final int callCount;
+  @JsonKey(defaultValue: false)
+  final bool isComparison;
 
   const CarSingleEntity({
+    this.isComparison = false,
     this.wishlistCount = 0,
     this.callCount = 0,
     this.absoluteCarName = '',
@@ -195,6 +198,7 @@ class CarSingleEntity extends Equatable {
         isMine,
         callCount,
         isWishlisted,
+        isComparison,
       ];
 }
 

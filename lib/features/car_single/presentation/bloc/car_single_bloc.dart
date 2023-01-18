@@ -1,5 +1,6 @@
 import 'package:auto/features/car_single/domain/entities/car_single_entity.dart';
 import 'package:auto/features/car_single/domain/entities/elastic_search_entity.dart';
+import 'package:auto/features/car_single/domain/usecases/call_count_usecase.dart';
 import 'package:auto/features/car_single/domain/usecases/get_ads_usecase.dart';
 import 'package:auto/features/car_single/domain/usecases/other_ads_usecase.dart';
 import 'package:auto/features/car_single/domain/usecases/sold_ads_usecase.dart';
@@ -15,8 +16,9 @@ class CarSingleBloc extends Bloc<CarSingleEvent, CarSingleState> {
   final GetCarSingleUseCase useCaseSingle;
   final OtherAdsUseCase useCaseAds;
   final SoldAdsUseCase soldAdsUseCase;
+  final CallCount callCount;
 
-  CarSingleBloc(this.useCaseSingle, this.useCaseAds, this.soldAdsUseCase)
+  CarSingleBloc(this.useCaseSingle, this.useCaseAds, this.soldAdsUseCase, this.callCount)
       : super(const CarSingleState()) {
     on<_GetSingle>((event, emit) async {
       emit(state.copyWith(status: FormzStatus.submissionInProgress));
@@ -45,6 +47,17 @@ class CarSingleBloc extends Bloc<CarSingleEvent, CarSingleState> {
     });
     on<_SoldAds>((event, emit) async {
       final result = await soldAdsUseCase.call(event.id);
+      emit(state.copyWith(soldStatus: FormzStatus.submissionSuccess));
+      if (result.isRight) {
+        print('BLOC RESULT RIGHT => ${result.right}');
+        emit(state.copyWith(
+            soldStatus: FormzStatus.submissionSuccess));
+      } else {
+        print('BLOC ERROR SOLD ADS');
+      }
+    });
+    on<_CallCount>((event, emit) async {
+      final result = await callCount.call(event.id);
       emit(state.copyWith(soldStatus: FormzStatus.submissionSuccess));
       if (result.isRight) {
         print('BLOC RESULT RIGHT => ${result.right}');

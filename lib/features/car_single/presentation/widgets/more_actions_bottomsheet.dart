@@ -2,6 +2,7 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/features/car_single/presentation/widgets/dealer_item.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
+import 'package:auto/features/search/presentation/widgets/add_comparison_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -12,6 +13,8 @@ class MoreActions extends StatelessWidget {
   final VoidCallback onShare;
   final VoidCallback onCompare;
   final VoidCallback onDealer;
+  final int id;
+  final bool isCompare;
 
   const MoreActions(
       {Key? key,
@@ -20,7 +23,9 @@ class MoreActions extends StatelessWidget {
       required this.image,
       required this.onShare,
       required this.onCompare,
-      required this.onDealer})
+      required this.onDealer,
+      required this.id,
+      required this.isCompare})
       : super(key: key);
 
   @override
@@ -136,9 +141,9 @@ class MoreActions extends StatelessWidget {
                       child: Center(
                         child: Column(
                           children: [
-                            SvgPicture.asset(
-                              AppIcons.scale,
-                              color: green,
+                            AddComparisonItem(
+                              id: id,
+                              initialLike: isCompare,
                             ),
                             Text(
                               'Сравнить',

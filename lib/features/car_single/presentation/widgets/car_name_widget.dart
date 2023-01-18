@@ -26,10 +26,10 @@ class CarNameWidget extends StatelessWidget {
   final VoidCallback onVin;
   final VoidCallback onComparison;
   final VoidCallback onShare;
-  final int saleDays;
+  final String saleDays;
   final int addToFavorite;
   final int callToNumber;
-  final int daysLeft;
+  final String daysLeft;
   final String year;
   final String mileage;
   final String body;

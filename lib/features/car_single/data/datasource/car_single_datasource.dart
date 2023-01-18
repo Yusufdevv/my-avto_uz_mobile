@@ -15,6 +15,8 @@ abstract class CarSingleDataSource {
   Future<CarSingleModel> payInvoice();
 
   Future soldAd({required int id});
+
+  Future callCount({required int id});
 }
 
 class CarSingleDataSourceImpl extends CarSingleDataSource {
@@ -143,6 +145,31 @@ class CarSingleDataSourceImpl extends CarSingleDataSource {
           options: Options(headers: {
             'Authorization': 'Bearer ${StorageRepository.getString('token')}'
           }));
+      if (response.statusCode != null &&
+          response.statusCode! >= 200 &&
+          response.statusCode! < 300) {
+        print('datasource succ sold');
+        return response.data;
+      } else {
+        print('datasource fail sold');
+        throw ServerException(
+            statusCode: response.statusCode!,
+            errorMessage: response.data.toString());
+      }
+    } on ServerException {
+      rethrow;
+    } on DioError {
+      throw DioException();
+    } on Exception catch (e) {
+      throw ParsingException(errorMessage: e.toString());
+    }
+  }
+
+  @override
+  Future callCount({required int id}) async {
+    try {
+      final response =
+      await _dio.post('/car/announcement/call/', data: {"announcement": id});
       if (response.statusCode != null &&
           response.statusCode! >= 200 &&
           response.statusCode! < 300) {

@@ -22,6 +22,7 @@ mixin _$CarSingleEvent {
     required TResult Function(int id) getSingle,
     required TResult Function(int id) getOtherAds,
     required TResult Function(int id) soldAds,
+    required TResult Function(int id) callCount,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -29,6 +30,7 @@ mixin _$CarSingleEvent {
     TResult? Function(int id)? getSingle,
     TResult? Function(int id)? getOtherAds,
     TResult? Function(int id)? soldAds,
+    TResult? Function(int id)? callCount,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -36,6 +38,7 @@ mixin _$CarSingleEvent {
     TResult Function(int id)? getSingle,
     TResult Function(int id)? getOtherAds,
     TResult Function(int id)? soldAds,
+    TResult Function(int id)? callCount,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -44,6 +47,7 @@ mixin _$CarSingleEvent {
     required TResult Function(_GetSingle value) getSingle,
     required TResult Function(_GetAds value) getOtherAds,
     required TResult Function(_SoldAds value) soldAds,
+    required TResult Function(_CallCount value) callCount,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -51,6 +55,7 @@ mixin _$CarSingleEvent {
     TResult? Function(_GetSingle value)? getSingle,
     TResult? Function(_GetAds value)? getOtherAds,
     TResult? Function(_SoldAds value)? soldAds,
+    TResult? Function(_CallCount value)? callCount,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -58,6 +63,7 @@ mixin _$CarSingleEvent {
     TResult Function(_GetSingle value)? getSingle,
     TResult Function(_GetAds value)? getOtherAds,
     TResult Function(_SoldAds value)? soldAds,
+    TResult Function(_CallCount value)? callCount,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -169,6 +175,7 @@ class _$_GetSingle implements _GetSingle {
     required TResult Function(int id) getSingle,
     required TResult Function(int id) getOtherAds,
     required TResult Function(int id) soldAds,
+    required TResult Function(int id) callCount,
   }) {
     return getSingle(id);
   }
@@ -179,6 +186,7 @@ class _$_GetSingle implements _GetSingle {
     TResult? Function(int id)? getSingle,
     TResult? Function(int id)? getOtherAds,
     TResult? Function(int id)? soldAds,
+    TResult? Function(int id)? callCount,
   }) {
     return getSingle?.call(id);
   }
@@ -189,6 +197,7 @@ class _$_GetSingle implements _GetSingle {
     TResult Function(int id)? getSingle,
     TResult Function(int id)? getOtherAds,
     TResult Function(int id)? soldAds,
+    TResult Function(int id)? callCount,
     required TResult orElse(),
   }) {
     if (getSingle != null) {
@@ -203,6 +212,7 @@ class _$_GetSingle implements _GetSingle {
     required TResult Function(_GetSingle value) getSingle,
     required TResult Function(_GetAds value) getOtherAds,
     required TResult Function(_SoldAds value) soldAds,
+    required TResult Function(_CallCount value) callCount,
   }) {
     return getSingle(this);
   }
@@ -213,6 +223,7 @@ class _$_GetSingle implements _GetSingle {
     TResult? Function(_GetSingle value)? getSingle,
     TResult? Function(_GetAds value)? getOtherAds,
     TResult? Function(_SoldAds value)? soldAds,
+    TResult? Function(_CallCount value)? callCount,
   }) {
     return getSingle?.call(this);
   }
@@ -223,6 +234,7 @@ class _$_GetSingle implements _GetSingle {
     TResult Function(_GetSingle value)? getSingle,
     TResult Function(_GetAds value)? getOtherAds,
     TResult Function(_SoldAds value)? soldAds,
+    TResult Function(_CallCount value)? callCount,
     required TResult orElse(),
   }) {
     if (getSingle != null) {
@@ -310,6 +322,7 @@ class _$_GetAds implements _GetAds {
     required TResult Function(int id) getSingle,
     required TResult Function(int id) getOtherAds,
     required TResult Function(int id) soldAds,
+    required TResult Function(int id) callCount,
   }) {
     return getOtherAds(id);
   }
@@ -320,6 +333,7 @@ class _$_GetAds implements _GetAds {
     TResult? Function(int id)? getSingle,
     TResult? Function(int id)? getOtherAds,
     TResult? Function(int id)? soldAds,
+    TResult? Function(int id)? callCount,
   }) {
     return getOtherAds?.call(id);
   }
@@ -330,6 +344,7 @@ class _$_GetAds implements _GetAds {
     TResult Function(int id)? getSingle,
     TResult Function(int id)? getOtherAds,
     TResult Function(int id)? soldAds,
+    TResult Function(int id)? callCount,
     required TResult orElse(),
   }) {
     if (getOtherAds != null) {
@@ -344,6 +359,7 @@ class _$_GetAds implements _GetAds {
     required TResult Function(_GetSingle value) getSingle,
     required TResult Function(_GetAds value) getOtherAds,
     required TResult Function(_SoldAds value) soldAds,
+    required TResult Function(_CallCount value) callCount,
   }) {
     return getOtherAds(this);
   }
@@ -354,6 +370,7 @@ class _$_GetAds implements _GetAds {
     TResult? Function(_GetSingle value)? getSingle,
     TResult? Function(_GetAds value)? getOtherAds,
     TResult? Function(_SoldAds value)? soldAds,
+    TResult? Function(_CallCount value)? callCount,
   }) {
     return getOtherAds?.call(this);
   }
@@ -364,6 +381,7 @@ class _$_GetAds implements _GetAds {
     TResult Function(_GetSingle value)? getSingle,
     TResult Function(_GetAds value)? getOtherAds,
     TResult Function(_SoldAds value)? soldAds,
+    TResult Function(_CallCount value)? callCount,
     required TResult orElse(),
   }) {
     if (getOtherAds != null) {
@@ -452,6 +470,7 @@ class _$_SoldAds implements _SoldAds {
     required TResult Function(int id) getSingle,
     required TResult Function(int id) getOtherAds,
     required TResult Function(int id) soldAds,
+    required TResult Function(int id) callCount,
   }) {
     return soldAds(id);
   }
@@ -462,6 +481,7 @@ class _$_SoldAds implements _SoldAds {
     TResult? Function(int id)? getSingle,
     TResult? Function(int id)? getOtherAds,
     TResult? Function(int id)? soldAds,
+    TResult? Function(int id)? callCount,
   }) {
     return soldAds?.call(id);
   }
@@ -472,6 +492,7 @@ class _$_SoldAds implements _SoldAds {
     TResult Function(int id)? getSingle,
     TResult Function(int id)? getOtherAds,
     TResult Function(int id)? soldAds,
+    TResult Function(int id)? callCount,
     required TResult orElse(),
   }) {
     if (soldAds != null) {
@@ -486,6 +507,7 @@ class _$_SoldAds implements _SoldAds {
     required TResult Function(_GetSingle value) getSingle,
     required TResult Function(_GetAds value) getOtherAds,
     required TResult Function(_SoldAds value) soldAds,
+    required TResult Function(_CallCount value) callCount,
   }) {
     return soldAds(this);
   }
@@ -496,6 +518,7 @@ class _$_SoldAds implements _SoldAds {
     TResult? Function(_GetSingle value)? getSingle,
     TResult? Function(_GetAds value)? getOtherAds,
     TResult? Function(_SoldAds value)? soldAds,
+    TResult? Function(_CallCount value)? callCount,
   }) {
     return soldAds?.call(this);
   }
@@ -506,6 +529,7 @@ class _$_SoldAds implements _SoldAds {
     TResult Function(_GetSingle value)? getSingle,
     TResult Function(_GetAds value)? getOtherAds,
     TResult Function(_SoldAds value)? soldAds,
+    TResult Function(_CallCount value)? callCount,
     required TResult orElse(),
   }) {
     if (soldAds != null) {
@@ -523,6 +547,155 @@ abstract class _SoldAds implements CarSingleEvent {
   @override
   @JsonKey(ignore: true)
   _$$_SoldAdsCopyWith<_$_SoldAds> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_CallCountCopyWith<$Res>
+    implements $CarSingleEventCopyWith<$Res> {
+  factory _$$_CallCountCopyWith(
+          _$_CallCount value, $Res Function(_$_CallCount) then) =
+      __$$_CallCountCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({int id});
+}
+
+/// @nodoc
+class __$$_CallCountCopyWithImpl<$Res>
+    extends _$CarSingleEventCopyWithImpl<$Res, _$_CallCount>
+    implements _$$_CallCountCopyWith<$Res> {
+  __$$_CallCountCopyWithImpl(
+      _$_CallCount _value, $Res Function(_$_CallCount) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+  }) {
+    return _then(_$_CallCount(
+      null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_CallCount implements _CallCount {
+  _$_CallCount(this.id);
+
+  @override
+  final int id;
+
+  @override
+  String toString() {
+    return 'CarSingleEvent.callCount(id: $id)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_CallCount &&
+            (identical(other.id, id) || other.id == id));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, id);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_CallCountCopyWith<_$_CallCount> get copyWith =>
+      __$$_CallCountCopyWithImpl<_$_CallCount>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(int id) getSingle,
+    required TResult Function(int id) getOtherAds,
+    required TResult Function(int id) soldAds,
+    required TResult Function(int id) callCount,
+  }) {
+    return callCount(id);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(int id)? getSingle,
+    TResult? Function(int id)? getOtherAds,
+    TResult? Function(int id)? soldAds,
+    TResult? Function(int id)? callCount,
+  }) {
+    return callCount?.call(id);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(int id)? getSingle,
+    TResult Function(int id)? getOtherAds,
+    TResult Function(int id)? soldAds,
+    TResult Function(int id)? callCount,
+    required TResult orElse(),
+  }) {
+    if (callCount != null) {
+      return callCount(id);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_GetSingle value) getSingle,
+    required TResult Function(_GetAds value) getOtherAds,
+    required TResult Function(_SoldAds value) soldAds,
+    required TResult Function(_CallCount value) callCount,
+  }) {
+    return callCount(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetSingle value)? getSingle,
+    TResult? Function(_GetAds value)? getOtherAds,
+    TResult? Function(_SoldAds value)? soldAds,
+    TResult? Function(_CallCount value)? callCount,
+  }) {
+    return callCount?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetSingle value)? getSingle,
+    TResult Function(_GetAds value)? getOtherAds,
+    TResult Function(_SoldAds value)? soldAds,
+    TResult Function(_CallCount value)? callCount,
+    required TResult orElse(),
+  }) {
+    if (callCount != null) {
+      return callCount(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _CallCount implements CarSingleEvent {
+  factory _CallCount(final int id) = _$_CallCount;
+
+  @override
+  int get id;
+  @override
+  @JsonKey(ignore: true)
+  _$$_CallCountCopyWith<_$_CallCount> get copyWith =>
       throw _privateConstructorUsedError;
 }
 

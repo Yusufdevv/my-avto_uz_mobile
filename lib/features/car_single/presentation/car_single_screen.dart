@@ -2,6 +2,7 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/features/car_single/data/repository/car_single_repository_impl.dart';
+import 'package:auto/features/car_single/domain/usecases/call_count_usecase.dart';
 import 'package:auto/features/car_single/domain/usecases/get_ads_usecase.dart';
 import 'package:auto/features/car_single/domain/usecases/other_ads_usecase.dart';
 import 'package:auto/features/car_single/domain/usecases/sold_ads_usecase.dart';
@@ -77,7 +78,8 @@ class _CarSingleScreenState extends State<CarSingleScreen>
         GetCarSingleUseCase(
             repository: serviceLocator<CarSingleRepositoryImpl>()),
         OtherAdsUseCase(repository: serviceLocator<CarSingleRepositoryImpl>()),
-        SoldAdsUseCase(repository: serviceLocator<CarSingleRepositoryImpl>()))
+        SoldAdsUseCase(repository: serviceLocator<CarSingleRepositoryImpl>()),
+        CallCount(repository: serviceLocator<CarSingleRepositoryImpl>()))
       ..add(CarSingleEvent.getSingle(widget.id));
     _scrollController.addListener(() {
       if (_scrollController.offset > 285 && isAppBarOffset != true) {
@@ -105,6 +107,21 @@ class _CarSingleScreenState extends State<CarSingleScreen>
       }
     });
     super.initState();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    switch (state) {
+      case AppLifecycleState.resumed:
+        context.read<CarSingleBloc>().add(CarSingleEvent.callCount(widget.id));
+        break;
+      case AppLifecycleState.inactive:
+        break;
+      case AppLifecycleState.paused:
+        break;
+      case AppLifecycleState.detached:
+        break;
+    }
   }
 
   @override
@@ -152,6 +169,7 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                                 .read<CarSingleBloc>()
                                 .add(CarSingleEvent.soldAds(widget.id));
                           },
+                          isCompare: state.singleEntity.isComparison,
                         ),
                         SliverToBoxAdapter(
                           child: CarNameWidget(
@@ -169,14 +187,16 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                               showModalBottomSheet(
                                 context: context,
                                 backgroundColor: Colors.transparent,
-                                constraints: BoxConstraints(maxHeight: 369,minHeight: 369,),
+                                constraints: const BoxConstraints(
+                                  maxHeight: 369,
+                                  minHeight: 369,
+                                ),
                                 builder: (context) => InternetErrorBottomSheet(
                                   onTap: () {},
                                 ),
                               );
                             },
-                            onComparison: () {
-                            },
+                            onComparison: () {},
                             onShare: () {
                               Share.share(
                                   'https://panel.avto.uz/api/v1/car/announcement/${state.singleEntity.id}/detail/');
@@ -197,13 +217,15 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                             ration: '30 000 000',
                             dateBsh: '25 mart',
                             percent: '5',
-                            isMine: state.singleEntity.isMine,
-                            saleDays: 5,
+                            isMine: true,
+                            saleDays:
+                                '${DateTime.now().difference(DateTime.parse(state.singleEntity.publishedAt)).inDays}',
                             addToFavorite: state.singleEntity.wishlistCount,
-                            callToNumber: 4,
-                            daysLeft: 8,
+                            callToNumber: state.singleEntity.callCount,
+                            daysLeft:
+                                '${DateTime.now().difference(DateTime.parse(state.singleEntity.publishedAt)).inDays}',
                             compareId: state.singleEntity.id,
-                            isCompared: true,
+                            isCompared: state.singleEntity.isComparison,
                           ),
                         ),
                         const SliverToBoxAdapter(
@@ -321,6 +343,7 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                         callTo: state.singleEntity.contactAvailableTo,
                         phoneNumber: state.singleEntity.user.phoneNumber,
                         userAvatar: state.singleEntity.user.avatar,
+                        id: state.singleEntity.id,
                       ),
                     ),
                   ],

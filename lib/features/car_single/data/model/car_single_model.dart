@@ -60,6 +60,7 @@ class CarSingleModel extends CarSingleEntity {
       required super.viewsCount,
       required super.callCount,
       required super.wishlistCount,
+      required super.isComparison,
       required super.year});
 
   factory CarSingleModel.fromJson(Map<String, dynamic> json) =>
