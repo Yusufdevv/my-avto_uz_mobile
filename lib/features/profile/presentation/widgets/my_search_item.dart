@@ -53,7 +53,7 @@ class MySearchItem extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(SizeConfig.h(50)),
                 child: CachedNetworkImage(
-                  imageUrl: item.make!.logo ?? '',
+                  imageUrl: item.make?.logo ?? '',
                   errorWidget: (context, url, error) =>
                       Image.asset(AppImages.carPlaceHolder, fit: BoxFit.cover),
                 ),
@@ -64,13 +64,15 @@ class MySearchItem extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(item.make!.name!,
+                  if(item.make?.name!=null)
+                  Text(item.make?.name ?? '',
                       style: Theme.of(context)
                           .textTheme
                           .headline6
                           ?.copyWith(color: dark)),
                   SizedBox(height: SizeConfig.v(2)),
-                  Text('${item.make!.name!} • ${item.model![0]?.name!}',
+                  if(item.make?.name!=null && item.model?[0]?.name!=null)
+                  Text('${item.make?.name} • ${item.model?[0]?.name}',
                       style: Theme.of(context)
                           .textTheme
                           .headline2

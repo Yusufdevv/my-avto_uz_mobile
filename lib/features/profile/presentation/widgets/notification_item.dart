@@ -61,6 +61,8 @@ class NotificationItem extends StatelessWidget {
                     child: CachedNetworkImage(
                       imageUrl: image,
                       fit: BoxFit.cover,
+                      errorWidget: (context, url, error) =>
+                          Image.asset(AppIcons.car, fit: BoxFit.cover),
                     ),
                   ),
                 ),

@@ -97,7 +97,7 @@ class _PhoneNumberEditPageState extends State<PhoneNumberEditPage> {
                             return null;
                           },
                           controller: phoneController,
-                          prefixPadding: EdgeInsets.only(bottom: 5),
+                          prefixPadding:const EdgeInsets.only(bottom: 5),
                           prefixIcon: Row(
                             children: [
                               Image.asset(AppImages.flagUzb),

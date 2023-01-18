@@ -45,17 +45,16 @@ class AdsItem extends StatelessWidget {
       child: Container(
         width: 225,
         decoration: BoxDecoration(
-          boxShadow: [
-            BoxShadow(
-              blurRadius: 19,
-              spreadRadius: 0,
-              offset: const Offset(0, 4),
-              color: dark.withOpacity(.04),
-            ),
-          ],
-          borderRadius: BorderRadius.circular(12),
-          color: Theme.of(context).extension<ThemedColors>()!.whiteToSecondNero,
-        ),
+            boxShadow: [
+              BoxShadow(
+                  blurRadius: 19,
+                  spreadRadius: 0,
+                  offset: const Offset(0, 4),
+                  color: dark.withOpacity(.04)),
+            ],
+            borderRadius: BorderRadius.circular(12),
+            color:
+                Theme.of(context).extension<ThemedColors>()?.whiteToSecondNero),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -64,17 +63,14 @@ class AdsItem extends StatelessWidget {
               width: 225,
               child: ClipRRect(
                   borderRadius: const BorderRadius.only(
-                    topRight: Radius.circular(12),
-                    topLeft: Radius.circular(12),
-                  ),
+                      topRight: Radius.circular(12),
+                      topLeft: Radius.circular(12)),
                   child: CachedNetworkImage(
-                    imageUrl: image,
-                    fit: BoxFit.cover,
-                    errorWidget: (context, url, error) => Image.asset(
-                      AppImages.defaultPhoto,
+                      imageUrl: image,
                       fit: BoxFit.cover,
-                    ),
-                  )),
+                      errorWidget: (context, url, error) => Image.asset(
+                          AppImages.defaultPhoto,
+                          fit: BoxFit.cover))),
             ),
             const SizedBox(height: 12),
             Padding(
@@ -96,56 +92,51 @@ class AdsItem extends StatelessWidget {
             const SizedBox(height: 8),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Text(
-                description.isNotEmpty ? description : '\n',
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-                style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                    color: Theme.of(context)
-                        .extension<ThemedColors>()
-                        ?.greySuitToWhite60),
-              ),
+              child: Text(description.isNotEmpty ? description : ' \n ',
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                      color: Theme.of(context)
+                          .extension<ThemedColors>()
+                          ?.greySuitToWhite60)),
             ),
             const SizedBox(height: 10),
             Container(
-              height: 1,
-              margin: const EdgeInsets.only(left: 16),
-              color: Theme.of(context)
-                  .extension<ThemedColors>()!
-                  .solitudeToWhite35,
-            ),
-            const SizedBox(height: 10),
-            Padding(
-              padding: const EdgeInsets.only(
-                right: 12,
-                left: 16,
-              ),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      SvgPicture.asset(AppIcons.location),
-                      const SizedBox(width: 4),
-                      Text(location,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline6!
-                              .copyWith(
-                                  fontSize: 12,
-                                  color: Theme.of(context)
-                                      .extension<ThemedColors>()!
-                                      .dolphinToGreySuit))
-                    ],
-                  ),
-                  AddWishlistItem(
-                    onTap: onTapLike,
-                    initialLike: isLiked,
-                  ),
-                ],
+                height: 1,
+                margin: const EdgeInsets.only(left: 16),
+                color: Theme.of(context)
+                    .extension<ThemedColors>()
+                    ?.solitudeToWhite35),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.only(right: 12, left: 16),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        SvgPicture.asset(AppIcons.location),
+                        const SizedBox(width: 4),
+                        Text(location,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline6
+                                ?.copyWith(
+                                    fontSize: 12,
+                                    color: Theme.of(context)
+                                        .extension<ThemedColors>()
+                                        ?.dolphinToGreySuit))
+                      ],
+                    ),
+                    AddWishlistItem(
+                      onTap: onTapLike,
+                      initialLike: isLiked,
+                    ),
+                  ],
+                ),
               ),
             )
           ],
