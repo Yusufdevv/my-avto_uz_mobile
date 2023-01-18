@@ -153,6 +153,7 @@ class _MainScreenState extends State<MainScreen> {
               appBar: const MainAppBar(),
               body: BlocBuilder<AnnouncementListBloc, AnnouncementListState>(
                 builder: (context, stateAnnounc) => SingleChildScrollView(
+                  physics:const BouncingScrollPhysics(),
                   padding: const EdgeInsets.only(top: 20, bottom: 24),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
