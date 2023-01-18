@@ -63,10 +63,18 @@ class CarBrandItem extends StatelessWidget {
           ),
           child: Column(
             children: [
-              const SizedBox(height: 8),
-              ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: Image.asset(AppImages.defaultPhoto)),
+              const SizedBox(height: 16),
+              SizedBox(
+                width: 40,
+                height: 40,
+                child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: CachedNetworkImage(
+                      imageUrl: carBrandEntity.logo,
+                      errorWidget: (context, url, error) =>
+                          Image.asset(AppImages.defaultPhoto),
+                    )),
+              ),
               // Image.network(
               //   carBrandEntity.logo,
               //   width: 40,
