@@ -57,7 +57,7 @@ class _PostingAdScreenState extends State<PostingAdScreen>
     with SingleTickerProviderStateMixin {
   late PageController pageController;
   late PostingAdBloc postingAdBloc;
-  static int initialPage = 17;
+  static int initialPage = 0;
   int currentTabIndex = initialPage;
   final int tabLength = 20;
   @override

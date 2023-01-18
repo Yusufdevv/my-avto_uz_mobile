@@ -1,8 +1,7 @@
-import 'package:auto/features/ad/presentation/bloc/bloc/instpection_place_bloc.dart';
+import 'package:auto/features/ad/presentation/bloc/inspection_place/instpection_place_bloc.dart';
 import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.dart';
 import 'package:auto/features/ad/presentation/widgets/base_widget.dart';
 import 'package:auto/features/ad/presentation/widgets/loader_box.dart';
-import 'package:auto/features/common/bloc/regions/regions_bloc.dart';
 import 'package:auto/features/common/models/region.dart';
 import 'package:auto/features/common/usecases/get_regions.dart';
 import 'package:auto/features/common/widgets/switcher_row.dart';

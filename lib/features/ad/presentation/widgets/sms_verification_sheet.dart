@@ -1,13 +1,15 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
-import 'package:auto/features/ad/presentation/bloc/contacts/contacts_bloc.dart';
+import 'package:auto/core/singletons/service_locator.dart';
+import 'package:auto/features/ad/data/repositories/ad_repository_impl.dart';
+import 'package:auto/features/ad/domain/usecases/verify_contacts_usecase.dart';
+import 'package:auto/features/ad/presentation/bloc/virify_contacts/verify_contacts_bloc.dart';
 import 'package:auto/features/car_single/presentation/widgets/orange_button.dart';
 import 'package:auto/features/profile/presentation/widgets/refresh_button.dart';
 import 'package:auto/features/profile/presentation/widgets/time_counter.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -17,7 +19,9 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 
 class SmsVerificationSheet extends StatefulWidget {
   final String phoneNumber;
-  SmsVerificationSheet({required this.phoneNumber, super.key});
+  final String session;
+  const SmsVerificationSheet(
+      {required this.phoneNumber, required this.session, super.key});
 
   @override
   State<SmsVerificationSheet> createState() => _SmsVerificationSheetState();
@@ -26,20 +30,31 @@ class SmsVerificationSheet extends StatefulWidget {
 class _SmsVerificationSheetState extends State<SmsVerificationSheet> {
   late TextEditingController controller;
   bool timeComplete = false;
+  late VerifyContactsBloc verifyContactsBloc;
   @override
   void initState() {
+    verifyContactsBloc = VerifyContactsBloc(
+        phone: widget.phoneNumber,
+        session: widget.session,
+        useCase: VerifyContactsUseCase(
+            repository: serviceLocator<AdRepositoryImpl>()));
     controller = TextEditingController();
     super.initState();
   }
 
   @override
-  Widget build(BuildContext context) => KeyboardDismisser(
-        child: BlocBuilder<ContactsBloc, ContactsState>(
-          builder: (context, state) {
-            if (state.status == FormzStatus.submissionInProgress) {
-              return const Center(child: CupertinoActivityIndicator());
-            }
-            return Container(
+  Widget build(BuildContext context) => BlocProvider.value(
+        value: verifyContactsBloc,
+        child: KeyboardDismisser(
+          child: BlocConsumer<VerifyContactsBloc, VerifyContactsState>(
+            listener: (context, state) {
+              if (state.status == FormzStatus.submissionSuccess) {
+                Navigator.of(context).pop(true);
+              }
+              if (state.status == FormzStatus.submissionFailure) {
+              }
+            },
+            builder: (context, state) => Container(
               padding: EdgeInsets.only(
                 top: 20,
                 right: 16,
@@ -205,7 +220,9 @@ class _SmsVerificationSheetState extends State<SmsVerificationSheet> {
                     shadowColor: orange.withOpacity(0.2),
                     color: orange,
                     onTap: () {
-                      Navigator.of(context).pop();
+                      context
+                          .read<VerifyContactsBloc>()
+                          .add(VerifyContactsEvent(code: controller.text));
                     },
                     content: Text(
                       'Подтвердить',
@@ -216,8 +233,8 @@ class _SmsVerificationSheetState extends State<SmsVerificationSheet> {
                   ),
                 ],
               ),
-            );
-          },
+            ),
+          ),
         ),
       );
 }
