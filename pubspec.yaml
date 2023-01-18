@@ -29,7 +29,6 @@ dependencies:
   keyboard_dismisser: ^2.0.1
   jiffy: ^5.0.0
   mask_text_input_formatter: ^2.3.0
-  google_sign_in: ^5.4.2
   pin_code_fields: ^7.3.0
   share_plus: ^4.0.1
   url_launcher: ^6.0.20
@@ -43,10 +42,6 @@ dependencies:
   carousel_slider: ^4.1.1
   flutter_cupertino_datetime_picker: ^3.0.0
   lottie: ^1.4.1
-  qr_code_scanner:
-    git:
-      url: https://github.com/X-SLAYER/qr_code_scanner.git
-      ref: flutter-beta
   linked_scroll_controller: ^0.2.0
   shared_preferences: ^2.0.15
   percent_indicator: ^4.2.2
