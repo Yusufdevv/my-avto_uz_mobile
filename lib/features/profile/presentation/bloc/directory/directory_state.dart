@@ -2,7 +2,7 @@ part of 'directory_bloc.dart';
 
 class DirectoryState extends Equatable {
   final List<DirectoryEntity> directories;
-  final DirectoryEntity directory;
+  final DealerSingleEntity directory;
   final List<DirCategoryEntity> categories;
   final FormzStatus status;
  final List<DirCategoryEntity> selectedCategories;
@@ -19,7 +19,7 @@ class DirectoryState extends Equatable {
 
   DirectoryState copyWith(
           {List<DirectoryEntity>? directories,
-          DirectoryEntity? directory,
+          DealerSingleEntity? directory,
           FormzStatus? status,
           List<DirCategoryEntity>? categories,
           List<DirCategoryEntity>? selectedCategories,

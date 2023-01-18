@@ -9,9 +9,9 @@ class GetDirectoriesEvent extends DirectoryEvent {
   GetDirectoriesEvent({this.search = ''});
 }
 
-class GetDirectoryEvent extends DirectoryEvent {
-  final String id;
-  GetDirectoryEvent({required this.id});
+class GetDirectorySingleEvent extends DirectoryEvent {
+  final String slug;
+  GetDirectorySingleEvent({required this.slug});
 }
 
 class DirectoryFilterEvent extends DirectoryEvent {
