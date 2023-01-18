@@ -1,22 +1,33 @@
 part of 'instpection_place_bloc.dart';
 
 class InspectionPlaceState extends Equatable {
-  final FormzStatus status;
-  final FormzStatus cityStatus;
+  final FormzStatus getRegionsStatus;
+  final FormzStatus getDistrictsStatus;
   final List<Region> regions;
-  const InspectionPlaceState(
-      {required this.status,
-      required this.cityStatus,
-      this.regions = const <Region>[]});
+  final List<DistrictEntity> districts;
+  const InspectionPlaceState({
+    required this.getRegionsStatus,
+    required this.getDistrictsStatus,
+    this.regions = const <Region>[],
+    this.districts = const <DistrictEntity>[],
+  });
   InspectionPlaceState copyWith(
-          {FormzStatus? status,
-          FormzStatus? cityStatus,
-          List<Region>? regions}) =>
+          {FormzStatus? getRegionsStatus,
+          FormzStatus? getDistrictsStatus,
+          List<Region>? regions,
+          List<DistrictEntity>? districts,
+          int? selectedDistrictId}) =>
       InspectionPlaceState(
-        cityStatus: cityStatus ?? this.cityStatus,
+        districts: districts ?? this.districts,
+        getDistrictsStatus: getDistrictsStatus ?? this.getDistrictsStatus,
         regions: regions ?? this.regions,
-        status: status ?? this.status,
+        getRegionsStatus: getRegionsStatus ?? this.getRegionsStatus,
       );
   @override
-  List<Object?> get props => [status, regions, cityStatus];
+  List<Object?> get props => [
+        getRegionsStatus,
+        getDistrictsStatus,
+        regions,
+        districts,
+      ];
 }
