@@ -99,7 +99,7 @@ class _FavouritePageState extends State<FavouritePage> {
                                   context.read<UserWishListsBloc>().add(
                                       ChangeIsWishEvenet(
                                           index: index, id: item.id));
-                                  listkey.currentState!.removeItem(
+                                  listkey.currentState?.removeItem(
                                       index,
                                       (context, animation) => FavoriteItem(
                                           animation: animation,

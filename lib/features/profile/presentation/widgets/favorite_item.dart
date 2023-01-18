@@ -96,7 +96,7 @@ class _FavoriteItemState extends State<FavoriteItem> {
             width: MediaQuery.of(context).size.width,
             padding: const EdgeInsets.only(top: 12, left: 16, bottom: 12),
             decoration: BoxDecoration(
-                color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
+                color: Theme.of(context).extension<ThemedColors>()?.whiteToDark,
                 boxShadow: [
                   BoxShadow(
                     color: LightThemeColors.subTitle1.withOpacity(0.1),
@@ -156,8 +156,8 @@ class _FavoriteItemState extends State<FavoriteItem> {
                                 'Позвонить',
                                 style: Theme.of(context)
                                     .textTheme
-                                    .headline4!
-                                    .copyWith(fontSize: 24),
+                                    .headline4
+                                    ?.copyWith(fontSize: 24),
                               )
                             ],
                           ),
@@ -185,24 +185,24 @@ class _FavoriteItemState extends State<FavoriteItem> {
                                       text: 'Звонок не доступен\n',
                                       style: Theme.of(context)
                                           .textTheme
-                                          .headline1!
-                                          .copyWith(
+                                          .headline1
+                                          ?.copyWith(
                                               fontWeight: FontWeight.w600),
                                     ),
                                     TextSpan(
                                       text: 'Просим вас звонить в течении:\n',
                                       style: Theme.of(context)
                                           .textTheme
-                                          .headline2!
-                                          .copyWith(color: greyText),
+                                          .headline2
+                                          ?.copyWith(color: greyText),
                                     ),
                                     TextSpan(
                                       text:
                                           '${widget.callFrom} - ${widget.callTo}',
                                       style: Theme.of(context)
                                           .textTheme
-                                          .headline2!
-                                          .copyWith(color: secondary),
+                                          .headline2
+                                          ?.copyWith(color: secondary),
                                     ),
                                   ],
                                 ),
@@ -218,12 +218,12 @@ class _FavoriteItemState extends State<FavoriteItem> {
                   CustomChip(
                     label: widget.sellType!,
                     backgroundColor: Theme.of(context)
-                        .extension<ThemedColors>()!
-                        .seashellToCinnabar15,
+                        .extension<ThemedColors>()
+                        ?.seashellToCinnabar15,
                     labelPadding:
                         const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
                     margin: const EdgeInsets.only(top: 8, bottom: 12),
-                    labelStyle: Theme.of(context).textTheme.subtitle1!.copyWith(
+                    labelStyle: Theme.of(context).textTheme.subtitle1?.copyWith(
                           color: orange,
                           fontSize: 12,
                         ),
@@ -235,8 +235,8 @@ class _FavoriteItemState extends State<FavoriteItem> {
                       widget.carModelName,
                       style: Theme.of(context)
                           .textTheme
-                          .headline2!
-                          .copyWith(color: dark),
+                          .headline2
+                          ?.copyWith(color: dark),
                     ),
                     const SizedBox(width: 4),
                     CustomChip(
@@ -274,14 +274,14 @@ class _FavoriteItemState extends State<FavoriteItem> {
                           : '${widget.price.floor()} ${widget.currency.toUpperCase()}',
                       style: Theme.of(context)
                           .textTheme
-                          .headline5!
-                          .copyWith(color: green, fontWeight: FontWeight.w600),
+                          .headline5
+                          ?.copyWith(color: green, fontWeight: FontWeight.w600),
                     ),
                     const SizedBox(width: 4),
                     if (widget.discount > 0.0)
                       Text(
                         '${widget.price.floor()} ${widget.currency.toUpperCase()}',
-                        style: Theme.of(context).textTheme.headline2!.copyWith(
+                        style: Theme.of(context).textTheme.headline2?.copyWith(
                             decoration: TextDecoration.lineThrough,
                             color: grey),
                       )
@@ -292,7 +292,7 @@ class _FavoriteItemState extends State<FavoriteItem> {
                   widget.description,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
-                  style: Theme.of(context).textTheme.headline2!.copyWith(
+                  style: Theme.of(context).textTheme.headline2?.copyWith(
                         fontSize: 13,
                         color: grey,
                       ),
@@ -335,15 +335,15 @@ class _FavoriteItemState extends State<FavoriteItem> {
                             text: '${widget.userFullName}\n',
                             style: Theme.of(context)
                                 .textTheme
-                                .headline2!
-                                .copyWith(fontSize: 14),
+                                .headline2
+                                ?.copyWith(fontSize: 14),
                           ),
                           TextSpan(
                             text: widget.userType,
                             style: Theme.of(context)
                                 .textTheme
-                                .bodyText1!
-                                .copyWith(color: purple),
+                                .bodyText1
+                                ?.copyWith(color: purple),
                           ),
                         ],
                       ),
@@ -352,8 +352,8 @@ class _FavoriteItemState extends State<FavoriteItem> {
                 ),
                 Divider(
                     color: Theme.of(context)
-                        .extension<ThemedColors>()!
-                        .solitude2ToNightRider,
+                        .extension<ThemedColors>()
+                        ?.solitude2ToNightRider,
                     height: 32,
                     thickness: 1),
                 Padding(
@@ -366,8 +366,8 @@ class _FavoriteItemState extends State<FavoriteItem> {
                           '${widget.districtTitle} • ${MyFunctions.getAutoPublishDate(widget.publishedAt)}',
                           style: Theme.of(context)
                               .textTheme
-                              .bodyText1!
-                              .copyWith(color: grey),
+                              .bodyText1
+                              ?.copyWith(color: grey),
                         ),
                       ),
                       Padding(

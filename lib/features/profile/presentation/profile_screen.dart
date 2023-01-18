@@ -203,10 +203,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       .push(
                                     fade(
                                         page: ChatPage(
-                                            phone: state
-                                                .profileEntity.phoneNumber ?? '',
-                                            userName:
-                                                state.profileEntity.fullName ?? '')),
+                                            phone: state.profileEntity
+                                                    .phoneNumber ??
+                                                '',
+                                            userName: state
+                                                    .profileEntity.fullName ??
+                                                state.profileEntity.firstName ??
+                                                '')),
                                   );
                                 },
                                 iconPath: AppIcons.message),
@@ -214,11 +217,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             ProfileMenuTile(
                                 name: LocaleKeys.settings.tr(),
                                 onTap: () {
-                                  Navigator.of(context).push(
+                                  Navigator.of(context)
+                                      .push(
                                     fade(
                                         page: SettingsPage(
                                             profileBloc: profileBloc)),
-                                  );
+                                  )
+                                      .then((value) {
+                                    setState(() {});
+                                  });
                                 },
                                 iconPath: AppIcons.settings),
                           ]),

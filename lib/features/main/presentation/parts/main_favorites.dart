@@ -35,8 +35,8 @@ class MainFavorites extends StatelessWidget {
                     LocaleKeys.favorites.tr(),
                     style: Theme.of(context)
                         .textTheme
-                        .headline1!
-                        .copyWith(fontSize: 18),
+                        .headline1
+                        ?.copyWith(fontSize: 18),
                   ),
                 ),
                 BlocBuilder<WishlistAddBloc, WishlistAddState>(
@@ -45,7 +45,7 @@ class MainFavorites extends StatelessWidget {
                           state.favorites.isEmpty)
                       ? const MainEmptyFavourite()
                       : SizedBox(
-                          height: 293,
+                          height: 298,
                           child: ListView.separated(
                             physics: const BouncingScrollPhysics(),
                             scrollDirection: Axis.horizontal,
@@ -69,8 +69,9 @@ class MainFavorites extends StatelessWidget {
                                       currency: item.currency,
                                       isLiked: item.isWishlisted,
                                       onTapLike: () {
-                                        context.read<WishlistAddBloc>().add(
-                                            WishlistAddEvent.clearState());
+                                        context
+                                            .read<WishlistAddBloc>()
+                                            .add(WishlistAddEvent.clearState());
                                         context.read<WishlistAddBloc>().add(
                                             WishlistAddEvent.removeWishlist(
                                                 item.id, index));

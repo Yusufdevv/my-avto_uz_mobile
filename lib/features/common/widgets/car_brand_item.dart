@@ -65,24 +65,17 @@ class CarBrandItem extends StatelessWidget {
             children: [
               const SizedBox(height: 8),
               ClipRRect(
-                borderRadius: BorderRadius.circular(10),
-                child: carBrandEntity.logo.isEmpty
-                    ? Image.asset(
-                        AppImages.defaultPhoto,
-                        height: 48,
-                        width: 60,
-                      )
-                    : CachedNetworkImage(
-                        imageUrl: carBrandEntity.logo,
-                        height: 48,
-                        width: 60,
-                        errorWidget: (context, url, error) => Image.asset(
-                          AppImages.defaultPhoto,
-                          height: 48,
-                          width: 60,
-                        ),
-                      ),
-              ),
+                  borderRadius: BorderRadius.circular(10),
+                  child: Image.asset(AppImages.defaultPhoto)),
+              // Image.network(
+              //   carBrandEntity.logo,
+              //   width: 40,
+              //   height: 40,
+              //   errorBuilder: (ctx, object, stackTrace) =>
+              //       Image.asset(AppImages.defaultPhoto),
+              //   loadingBuilder: (ctx, widget, chunkEvent) =>
+              //       Image.asset(AppImages.defaultPhoto),
+              // ),
               const SizedBox(height: 8),
               Expanded(
                 child: Text(

@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Rate extends StatelessWidget {
-  const Rate({ Key? key}) : super(key: key);
+  const Rate({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) => Container(
         margin: const EdgeInsets.symmetric(horizontal: 16),
@@ -57,28 +57,28 @@ class Rate extends StatelessWidget {
                   height: SizeConfig.v(36),
                   width: SizeConfig.h(150),
                   onTap: () {
-                if (Platform.isIOS) {
-                    launchUrl(Uri.parse('https://apps.apple.com/ru/app/tafsiri-hilol/id1130844977'));
-
-                } else if(Platform.isAndroid) {
-                    launchUrl(Uri.parse('https://play.google.com/store/search?q=tafsiri+hilol&c=apps&hl=en&gl=US'));
-                }
+                    if (Platform.isIOS) {
+                      launchUrl(
+                          Uri.parse(
+                              'https://apps.apple.com/ru/app/tafsiri-hilol/id1130844977'),
+                          mode: LaunchMode.externalApplication);
+                    } else if (Platform.isAndroid) {
+                      launchUrl(
+                          Uri.parse(
+                              'https://play.google.com/store/search?q=tafsiri+hilol&c=apps&hl=en&gl=US'),
+                          mode: LaunchMode.externalApplication);
+                    }
                   },
-                  child: Text(
-                    'Оценить',
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline4!
-                        .copyWith(fontSize: 14, fontWeight: FontWeight.w600)
-                  ),
+                  child: Text('Оценить',
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline4!
+                          .copyWith(fontSize: 14, fontWeight: FontWeight.w600)),
                 )
               ],
             ),
             const Spacer(),
-            Image.asset(
-              AppImages.stars,
-              height: 136
-            ),
+            Image.asset(AppImages.stars, height: 136),
           ],
         ),
       );

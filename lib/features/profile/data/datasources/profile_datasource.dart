@@ -101,10 +101,26 @@ class ProfileDataSourceImpl extends ProfileDataSource {
       );
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
         return response.data;
+      } else if (response.statusCode != null &&
+          response.statusCode! >= 400 &&
+          response.statusCode! < 500) {
+        if (response.data is Map) {
+          throw ServerException(
+              statusCode: response.statusCode!,
+              errorMessage: ((response.data as Map).values.isNotEmpty
+                      ? ((response.data as Map).values.first as List)[0]
+                      : 'Wrong number!')
+                  .toString());
+        } else {
+          throw ServerException(
+              statusCode: response.statusCode!,
+              errorMessage: response.data['phone']);
+        }
+      } else {
+        throw ServerException(
+            statusCode: response.statusCode!,
+            errorMessage: response.data.toString());
       }
-      throw ServerException(
-          statusCode: response.statusCode ?? 0,
-          errorMessage: response.statusMessage ?? '');
     } on ServerException {
       rethrow;
     } on DioError {
