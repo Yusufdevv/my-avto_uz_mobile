@@ -46,8 +46,8 @@ class _PopularSearchesFieldState extends State<PopularSearchesField> {
                     widget.title,
                     style: Theme.of(context).textTheme.headline2!.copyWith(
                           fontSize: 13,
-                          color: LightThemeColors.darkGreyToWhite,
-                        ),
+                          color: LightThemeColors.darkGreyToWhite
+                        )
                   ),
                   if (widget.hasClearButtonInTitle)
                     WButton(
@@ -66,9 +66,9 @@ class _PopularSearchesFieldState extends State<PopularSearchesField> {
                         'Очистить',
                         style: Theme.of(context).textTheme.headline2!.copyWith(
                               fontSize: 13,
-                              color: blue,
-                            ),
-                      ),
+                              color: blue
+                            )
+                      )
                     )
                   else
                     const SizedBox(),
