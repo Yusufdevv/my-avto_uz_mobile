@@ -1,7 +1,8 @@
+import 'dart:async';
+
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/themes/dark.dart';
 import 'package:auto/assets/themes/light.dart';
-import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/core/utils/size_config.dart';
@@ -9,13 +10,12 @@ import 'package:auto/features/ad/data/repositories/ad_repository_impl.dart';
 import 'package:auto/features/ad/domain/usecases/get_car_model.dart';
 import 'package:auto/features/ad/domain/usecases/get_makes.dart';
 import 'package:auto/features/ad/domain/usecases/get_top_makes.dart';
-import 'package:auto/features/ad/presentation/pages/price/price_screen.dart';
-import 'package:auto/features/ad/presentation/posting_ad_screen.dart';
 import 'package:auto/features/common/bloc/announcement_bloc/bloc/announcement_list_bloc.dart';
 import 'package:auto/features/common/bloc/auth/authentication_bloc.dart';
 import 'package:auto/features/common/bloc/comparison_add/bloc/comparison_add_bloc.dart';
 import 'package:auto/features/common/bloc/get_car_model/get_car_model_bloc.dart';
 import 'package:auto/features/common/bloc/get_makes_bloc/get_makes_bloc_bloc.dart';
+import 'package:auto/features/common/bloc/internet_bloc/internet_bloc.dart';
 import 'package:auto/features/common/bloc/regions/regions_bloc.dart';
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
 import 'package:auto/features/common/bloc/wishlist_add/wishlist_add_bloc.dart';
@@ -41,6 +41,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -60,11 +61,25 @@ void main() async {
   );
 }
 
-class AppProvider extends StatelessWidget {
+class AppProvider extends StatefulWidget {
   const AppProvider({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => const App();
+  State<AppProvider> createState() => _AppProviderState();
+}
+
+class _AppProviderState extends State<AppProvider> {
+  late InternetBloc bloc;
+
+  @override
+  void initState() {
+    bloc = InternetBloc();
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) =>
+      BlocProvider.value(value: bloc, child: const App());
 }
 
 class App extends StatefulWidget {
@@ -78,10 +93,27 @@ class _AppState extends State<App> {
   final _navigatorKey = GlobalKey<NavigatorState>();
 
   NavigatorState get navigator => _navigatorKey.currentState!;
+  StreamSubscription? streamSubscription;
+  InternetBloc bloc = InternetBloc();
+
+  @override
+  void initState() {
+    bloc = InternetBloc();
+    streamSubscription = InternetConnectionChecker()
+        .onStatusChange
+        .listen((InternetConnectionStatus status) {
+      print('internet status ---- ${status}');
+
+      context.read<InternetBloc>().add(InternetEvent(
+          isConnected: status == InternetConnectionStatus.connected));
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) => MultiBlocProvider(
         providers: [
+          // BlocProvider(create: (c) => InternetBloc()),
           BlocProvider(
             create: (c) =>
                 AuthenticationBloc(AuthRepository())..add(CheckUser()),

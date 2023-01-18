@@ -87,6 +87,8 @@ CarSingleModel _$CarSingleModelFromJson(Map<String, dynamic> json) =>
               .fromJson(json['user'] as Map<String, dynamic>?),
       userType: json['user_type'] as String? ?? '',
       viewsCount: json['views_count'] as int? ?? 0,
+      callCount: json['call_count'] as int? ?? 0,
+      wishlistCount: json['wishlist_count'] as int? ?? 0,
       year: json['year'] as int? ?? 0,
     );
 
@@ -142,4 +144,6 @@ Map<String, dynamic> _$CarSingleModelToJson(CarSingleModel instance) =>
           .toList(),
       'user_type': instance.userType,
       'is_wishlisted': instance.isWishlisted,
+      'wishlist_count': instance.wishlistCount,
+      'call_count': instance.callCount,
     };

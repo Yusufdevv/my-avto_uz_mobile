@@ -11,7 +11,8 @@ import 'package:auto/features/rent/domain/entities/rent_car_models_entity.dart';
 import 'package:auto/features/rent/domain/entities/rent_car_modification_entity.dart';
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
-class CarSingleEntity extends Equatable{
+
+class CarSingleEntity extends Equatable {
   @JsonKey(defaultValue: 0)
   final int id;
   @RentCarMakeConverter()
@@ -98,8 +99,14 @@ class CarSingleEntity extends Equatable{
   final String userType;
   @JsonKey(defaultValue: false)
   final bool isWishlisted;
+  @JsonKey(defaultValue: 0)
+  final int wishlistCount;
+  @JsonKey(defaultValue: 0)
+  final int callCount;
 
   const CarSingleEntity({
+    this.wishlistCount = 0,
+    this.callCount = 0,
     this.absoluteCarName = '',
     this.publishedAt = '',
     this.contactAvailableFrom = '',
@@ -186,6 +193,8 @@ class CarSingleEntity extends Equatable{
         longitude,
         latitude,
         isMine,
+        callCount,
+        isWishlisted,
       ];
 }
 

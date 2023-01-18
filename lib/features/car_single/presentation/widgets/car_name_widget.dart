@@ -38,6 +38,8 @@ class CarNameWidget extends StatelessWidget {
   final String engineVolume;
   final String gearType;
   final String uzb;
+  final int compareId;
+  final bool isCompared;
 
   const CarNameWidget(
       {Key? key,
@@ -67,7 +69,9 @@ class CarNameWidget extends StatelessWidget {
       required this.saleDays,
       required this.addToFavorite,
       required this.callToNumber,
-      required this.daysLeft})
+      required this.daysLeft,
+      required this.compareId,
+      required this.isCompared})
       : super(key: key);
 
   @override
@@ -177,6 +181,8 @@ class CarNameWidget extends StatelessWidget {
               onVin: onVin,
               onComparison: onComparison,
               onShare: onShare,
+              id: compareId,
+              isComparised: isCompared,
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(

@@ -32,66 +32,69 @@ class BottomItem extends StatelessWidget {
   Widget build(BuildContext context) => Row(
         children: [
           Expanded(
-            child:callFrom != null && callTo!= null ? MyFunctions.enableForCalling(
-              callFrom: callFrom,
-              callTo: callTo,
-            )
-                ? WButton(
-                    onTap: () {
-                      launchUrl(Uri.parse('tel://$phoneNumber'));
-                    },
-                    height: 44,
-                    borderRadius: 8,
-                    color: const Color(0xff5ECC81),
-                    text: LocaleKeys.call.tr(),
-                    textColor: Colors.white,
-                  )
-                : WButton(
-                    onTap: () {
-                      showModalBottomSheet(
-                        useRootNavigator: true,
-                        isScrollControlled: false,
-                        backgroundColor: Colors.transparent,
-                        context: context,
-                        builder: (context) => DealerTime(
-                          timeTo: callTo,
-                          timeFrom: callFrom,
-                        ),
-                      );
-                    },
-                    height: 44,
-                    borderRadius: 8,
-                    color: const Color(0xffB5B5BE),
-                    text: LocaleKeys.call.tr(),
-                    textColor: Colors.white,
-                    child: Row(
-                      children: [
-                        const Spacer(),
-                        SvgPicture.asset(
-                          AppIcons.info,
-                          color: white,
-                        ),
-                        const SizedBox(
-                          width: 8,
-                        ),
-                        const Text(
-                          'Позвонить',
-                          style: TextStyle(color: border),
-                        ),
-                        const Spacer(),
-                      ],
-                    ),
-                  ) : WButton(
-              onTap: () {
-                launchUrl(Uri.parse('tel://$phoneNumber'));
-              },
-              height: 44,
-              borderRadius: 8,
-              color: const Color(0xff5ECC81),
-              text: LocaleKeys.call.tr(),
-              textColor: Colors.white,
-            )
-          ) ,
+              child: callFrom != null && callTo != null
+                  ? MyFunctions.enableForCalling(
+                      callFrom: callFrom,
+                      callTo: callTo,
+                    )
+                      ? WButton(
+                          onTap: () {
+                            launchUrl(Uri.parse('tel://$phoneNumber'));
+                          },
+                          height: 44,
+                          borderRadius: 8,
+                          color: const Color(0xff5ECC81),
+                          text: LocaleKeys.call.tr(),
+                          textColor: Colors.white,
+                        )
+                      : WButton(
+                          onTap: () {
+                            showModalBottomSheet(
+                              useRootNavigator: true,
+                              isScrollControlled: false,
+                              backgroundColor: Colors.transparent,
+                              context: context,
+                              builder: (context) => DealerTime(
+                                  timeTo: callTo,
+                                  // Jiffy(callTo).format('h-m').replaceAll('-', ':').toString(),
+                                  timeFrom: callFrom
+                                  // Jiffy(callFrom).format('h-m').replaceAll('-', ':').toString(),
+                                  ),
+                            );
+                          },
+                          height: 44,
+                          borderRadius: 8,
+                          color: const Color(0xffB5B5BE),
+                          text: LocaleKeys.call.tr(),
+                          textColor: Colors.white,
+                          child: Row(
+                            children: [
+                              const Spacer(),
+                              SvgPicture.asset(
+                                AppIcons.info,
+                                color: white,
+                              ),
+                              const SizedBox(
+                                width: 8,
+                              ),
+                              const Text(
+                                'Позвонить',
+                                style: TextStyle(color: border),
+                              ),
+                              const Spacer(),
+                            ],
+                          ),
+                        )
+                  : WButton(
+                      onTap: () {
+                        launchUrl(Uri.parse('tel://$phoneNumber'));
+                      },
+                      height: 44,
+                      borderRadius: 8,
+                      color: const Color(0xff5ECC81),
+                      text: LocaleKeys.call.tr(),
+                      textColor: Colors.white,
+                    )),
           const SizedBox(
             width: 4,
           ),

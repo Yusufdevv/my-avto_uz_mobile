@@ -225,6 +225,7 @@ class AppIcons {
   static const yellowWarning = 'assets/icons/car_single/yellow_warning.svg';
 
   static const greyPhoneCall = 'assets/icons/global/grey_phone_call.svg';
+  static const inet_error = 'assets/icons/global/inet_error.svg';
   static const flashOff = 'assets/icons/global/flash_off.svg';
   static const flashOn = 'assets/icons/global/flash_on.svg';
   static const chevronRound = 'assets/icons/car_single/chevron_right_round.svg';

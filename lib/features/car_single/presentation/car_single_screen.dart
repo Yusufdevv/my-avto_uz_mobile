@@ -17,6 +17,7 @@ import 'package:auto/features/car_single/presentation/widgets/cars_characteristi
 import 'package:auto/features/car_single/presentation/widgets/other_ads_item.dart';
 import 'package:auto/features/car_single/presentation/widgets/persistant_header.dart';
 import 'package:auto/features/car_single/presentation/widgets/vin_soon_item.dart';
+import 'package:auto/features/common/widgets/internet_error_bottomsheet.dart';
 import 'package:auto/features/main/presentation/widgets/ads_item.dart';
 import 'package:auto/features/pagination/presentation/paginator.dart';
 import 'package:auto/utils/my_functions.dart';
@@ -164,8 +165,18 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                             currency: state.singleEntity.currency == 'usd'
                                 ? 'USD'
                                 : 'UZS',
-                            onVin: () {},
-                            onComparison: () {},
+                            onVin: () {
+                              showModalBottomSheet(
+                                context: context,
+                                backgroundColor: Colors.transparent,
+                                constraints: BoxConstraints(maxHeight: 369,minHeight: 369,),
+                                builder: (context) => InternetErrorBottomSheet(
+                                  onTap: () {},
+                                ),
+                              );
+                            },
+                            onComparison: () {
+                            },
                             onShare: () {
                               Share.share(
                                   'https://panel.avto.uz/api/v1/car/announcement/${state.singleEntity.id}/detail/');
@@ -188,9 +199,11 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                             percent: '5',
                             isMine: state.singleEntity.isMine,
                             saleDays: 5,
-                            addToFavorite: 4,
+                            addToFavorite: state.singleEntity.wishlistCount,
                             callToNumber: 4,
                             daysLeft: 8,
+                            compareId: state.singleEntity.id,
+                            isCompared: true,
                           ),
                         ),
                         const SliverToBoxAdapter(
