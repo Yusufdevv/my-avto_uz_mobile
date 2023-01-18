@@ -362,11 +362,27 @@ class SortSearchResultsModel {
   const SortSearchResultsModel({required this.title, required this.status});
 }
 
+class BodyConditionResultsModel {
+  final String title;
+  final BodyConditionResultStatus status;
+
+  const BodyConditionResultsModel({required this.title, required this.status});
+}
+
 enum SortSearchResultStatus {
   cheapest,
   expensive,
   oldest,
   newest,
+}
+
+enum BodyConditionResultStatus {
+  redWarning,
+  pupleWarning,
+  yellowWarning,
+  blueWarning,
+  orangeWarning,
+  greenWarning,
 }
 
 enum SearchControllerStatus {

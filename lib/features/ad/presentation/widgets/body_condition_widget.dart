@@ -6,12 +6,12 @@ import 'package:auto/features/search/presentation/search_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class SortBottomSheet extends StatefulWidget {
+class BodyConditionBottomSheet extends StatefulWidget {
   final String title;
-  final ValueChanged<SortSearchResultStatus> onChanged;
-  final List<SortSearchResultsModel> values;
-  final SortSearchResultStatus? defaultValue;
-  const SortBottomSheet(
+  final ValueChanged<BodyConditionResultStatus> onChanged;
+  final List<BodyConditionResultsModel> values;
+  final BodyConditionResultStatus? defaultValue;
+  const BodyConditionBottomSheet(
       {required this.title,
       required this.values,
       required this.onChanged,
@@ -19,21 +19,21 @@ class SortBottomSheet extends StatefulWidget {
       super.key});
 
   @override
-  State<SortBottomSheet> createState() => _SortBottomSheetState();
+  State<BodyConditionBottomSheet> createState() =>
+      _BodyConditionBottomSheetState();
 }
 
-class _SortBottomSheetState extends State<SortBottomSheet> {
-  SortSearchResultStatus? groupValue;
+class _BodyConditionBottomSheetState extends State<BodyConditionBottomSheet> {
+  BodyConditionResultStatus? bodyCondition;
 
   @override
   void initState() {
-    groupValue = widget.defaultValue;
+    bodyCondition = widget.defaultValue;
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) => Column(
-        mainAxisSize: MainAxisSize.min,
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
@@ -62,30 +62,50 @@ class _SortBottomSheetState extends State<SortBottomSheet> {
             padding: const EdgeInsets.only(top: 16),
             color: white,
             child: Column(
-              mainAxisSize: MainAxisSize.min,
               children: [
+                const Text('Правая передняя дверь'),
                 ...List.generate(
                     widget.values.length,
                     (index) => GestureDetector(
                           behavior: HitTestBehavior.opaque,
-                          onTap: () => setState(
-                              () => groupValue = widget.values[index].status),
+                          onTap: () => setState(() =>
+                              bodyCondition = widget.values[index].status),
                           child: Container(
                             padding: const EdgeInsets.all(12),
                             margin: const EdgeInsets.only(
                                 left: 16, bottom: 10, right: 16),
                             decoration: BoxDecoration(
-                              color: widget.values[index].status == groupValue
-                                  ? purple.withOpacity(.1)
-                                  : null,
+                              color:
+                                  widget.values[index].status == bodyCondition
+                                      ? purple.withOpacity(.1)
+                                      : null,
                               borderRadius: BorderRadius.circular(12),
                             ),
                             child: Row(
                               children: [
+                                if (bodyCondition ==
+                                    BodyConditionResultStatus.blueWarning)
+                                  SvgPicture.asset(AppIcons.warningBlue),
+                                if (bodyCondition ==
+                                    BodyConditionResultStatus.redWarning)
+                                  SvgPicture.asset(AppIcons.warningRed),
+                                if (bodyCondition ==
+                                    BodyConditionResultStatus.greenWarning)
+                                  SvgPicture.asset(AppIcons.warningGreen),
+                                if (bodyCondition ==
+                                    BodyConditionResultStatus.orangeWarning)
+                                  SvgPicture.asset(AppIcons.warningOrang),
+                                if (bodyCondition ==
+                                    BodyConditionResultStatus.pupleWarning)
+                                  SvgPicture.asset(AppIcons.warningPuple),
+                                if (bodyCondition ==
+                                    BodyConditionResultStatus.yellowWarning)
+                                  SvgPicture.asset(AppIcons.warningYellow),
+                                const SizedBox(width: 8),
                                 Text(
                                   widget.values[index].title,
                                   style: widget.values[index].status ==
-                                          groupValue
+                                          bodyCondition
                                       ? Theme.of(context)
                                           .textTheme
                                           .subtitle1!
@@ -102,7 +122,7 @@ class _SortBottomSheetState extends State<SortBottomSheet> {
                                   child: SizedBox(
                                     height: 24,
                                     width: 24,
-                                    child: Radio<SortSearchResultStatus>(
+                                    child: Radio<BodyConditionResultStatus>(
                                       activeColor: purple,
                                       focusColor: red,
                                       visualDensity: const VisualDensity(
@@ -113,9 +133,9 @@ class _SortBottomSheetState extends State<SortBottomSheet> {
                                       materialTapTargetSize:
                                           MaterialTapTargetSize.shrinkWrap,
                                       value: widget.values[index].status,
-                                      groupValue: groupValue,
+                                      groupValue: bodyCondition,
                                       onChanged: (val) =>
-                                          setState(() => groupValue = val),
+                                          setState(() => bodyCondition = val),
                                       splashRadius: 0,
                                     ),
                                   ),
@@ -126,13 +146,13 @@ class _SortBottomSheetState extends State<SortBottomSheet> {
                         )),
                 WButton(
                   onTap: () {
-                    if (groupValue != null) {
-                      widget.onChanged(groupValue!);
+                    if (bodyCondition != null) {
+                      widget.onChanged(bodyCondition!);
                     }
                     Navigator.pop(context);
                   },
                   color: orange,
-                  text: 'Применить',
+                  text: 'Сохранить',
                   textStyle: Theme.of(context)
                       .textTheme
                       .subtitle1!
