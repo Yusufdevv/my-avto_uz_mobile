@@ -13,7 +13,7 @@ import 'package:auto/features/ad/presentation/widgets/sms_verification_sheet.dar
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
 import 'package:auto/features/common/repository/auth.dart';
 import 'package:auto/features/common/widgets/custom_screen.dart';
-import 'package:auto/features/common/widgets/switcher_row.dart';
+import 'package:auto/features/common/widgets/switcher_row_as_button_also.dart';
 import 'package:auto/features/common/widgets/w_textfield.dart';
 import 'package:auto/features/login/domain/usecases/verify_code.dart';
 import 'package:flutter/cupertino.dart';
@@ -79,12 +79,6 @@ class _ContactScreenState extends State<ContactScreen> {
               builder: (context, postingAdState) =>
                   BlocConsumer<ContactsBloc, ContactsState>(
                 listener: (context, state) {
-                  if (state.getUserStatus == FormzStatus.submissionSuccess) {
-                    context
-                        .read<PostingAdBloc>()
-                        .add(PostingAdChooseEvent(showOwnerContacts: true));
-                    setState(() {});
-                  }
                   if (state.status == FormzStatus.submissionFailure ||
                       state.getUserStatus == FormzStatus.submissionFailure) {
                     context.read<ShowPopUpBloc>().add(
@@ -108,23 +102,26 @@ class _ContactScreenState extends State<ContactScreen> {
                               physics: const BouncingScrollPhysics(),
                               padding: const EdgeInsets.all(16),
                               children: [
-                                SwitcherRow(
+                                SwitcherRowAsButtonAlso(
                                     onTap: () {
                                       contactsBloc.add(
                                           ContactsGetUserInfoAsContactsEvent());
                                     },
                                     title: 'Указать мои контактны данные',
-                                    value: postingAdState.showOwnerContacts ??
-                                        false,
+                                    value: postingAdState.showOwnerContacts,
                                     onChanged: (value) {
                                       if (!value) {
                                         contactsBloc.add(
                                             ContactsRefreshControllersEvent());
                                       }
+                                      print(
+                                          '=>=>=>=> onchanged after if $value <=<=<=<=');
                                       hidePopUp();
                                       context.read<PostingAdBloc>().add(
                                           PostingAdChooseEvent(
-                                              showOwnerContacts: value));
+                                              showOwnerContacts: value,
+                                              isContactsVerified:
+                                                  !value ? value : null));
                                     }),
                                 if (state.getUserStatus ==
                                     FormzStatus.submissionInProgress) ...{
@@ -227,8 +224,8 @@ class _ContactScreenState extends State<ContactScreen> {
                                   textInputFormatters: [phoneFormatter],
                                   suffix: ContactsPrefixButton(
                                       isSubmitted:
-                                          postingAdState.isContactsVerified ??
-                                              false,
+                                          postingAdState.isContactsVerified ||
+                                              postingAdState.showOwnerContacts,
                                       isLoading: state.status ==
                                           FormzStatus.submissionInProgress,
                                       isDisabled:
@@ -327,7 +324,7 @@ class _ContactScreenState extends State<ContactScreen> {
                                   suffixPadding: const EdgeInsets.all(5),
                                 ),
                                 const SizedBox(height: 16),
-                                SwitcherRow(
+                                SwitcherRowAsButtonAlso(
                                     title: 'Доступные часы',
                                     value: postingAdState.isCallTimed,
                                     onTap: () {

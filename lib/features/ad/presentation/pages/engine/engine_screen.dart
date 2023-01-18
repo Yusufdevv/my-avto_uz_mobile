@@ -4,6 +4,7 @@ import 'package:auto/features/ad/presentation/widgets/base_widget.dart';
 import 'package:auto/features/ad/presentation/widgets/gas_balloon_sheet.dart';
 import 'package:auto/features/ad/presentation/widgets/pos_radio_item.dart';
 import 'package:auto/features/common/widgets/switcher_row.dart';
+import 'package:auto/features/common/widgets/switcher_row_as_button_also.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -64,7 +65,7 @@ class _EngineScreenState extends State<EngineScreen> {
               } else ...{
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: SwitcherRow(
+                  child: SwitcherRowAsButtonAlso(
                       value: false,
                       onChanged: (v) => context
                           .read<PostingAdBloc>()

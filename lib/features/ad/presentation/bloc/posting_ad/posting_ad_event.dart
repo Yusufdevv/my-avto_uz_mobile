@@ -6,8 +6,6 @@ class PostingAdBodyTypesEvent extends PostingAdEvent {
   PostingAdBodyTypesEvent();
 }
 
-
-
 class PostingAdGearBoxesEvent extends PostingAdEvent {
   PostingAdGearBoxesEvent();
 }
@@ -77,7 +75,7 @@ class PostingAdChooseEvent extends PostingAdEvent {
   final bool? showOwnerContacts;
   final bool? isContactsVerified;
   final bool? rentToBuy;
-  final bool?isWithoutMileage;
+  final bool? isWithoutMileage;
 
   PostingAdChooseEvent({
     this.driveTypeId,

@@ -6,6 +6,7 @@ import 'package:auto/features/ad/data/repositories/ad_repository_impl.dart';
 import 'package:auto/features/ad/domain/usecases/verify_contacts_usecase.dart';
 import 'package:auto/features/ad/presentation/bloc/virify_contacts/verify_contacts_bloc.dart';
 import 'package:auto/features/car_single/presentation/widgets/orange_button.dart';
+import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/profile/presentation/widgets/refresh_button.dart';
 import 'package:auto/features/profile/presentation/widgets/time_counter.dart';
 import 'package:auto/generated/locale_keys.g.dart';
@@ -51,8 +52,7 @@ class _SmsVerificationSheetState extends State<SmsVerificationSheet> {
               if (state.status == FormzStatus.submissionSuccess) {
                 Navigator.of(context).pop(true);
               }
-              if (state.status == FormzStatus.submissionFailure) {
-              }
+              if (state.status == FormzStatus.submissionFailure) {}
             },
             builder: (context, state) => Container(
               padding: EdgeInsets.only(
@@ -216,20 +216,15 @@ class _SmsVerificationSheetState extends State<SmsVerificationSheet> {
                     ],
                   ),
                   const SizedBox(height: 40),
-                  OrangeButton(
-                    shadowColor: orange.withOpacity(0.2),
+                  WButton(
+                    isLoading: state.status == FormzStatus.submissionInProgress,
                     color: orange,
                     onTap: () {
                       context
                           .read<VerifyContactsBloc>()
                           .add(VerifyContactsEvent(code: controller.text));
                     },
-                    content: Text(
-                      'Подтвердить',
-                      style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                            color: white,
-                          ),
-                    ),
+                    text: 'Подтвердить',
                   ),
                 ],
               ),
