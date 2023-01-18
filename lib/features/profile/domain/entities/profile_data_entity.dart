@@ -49,7 +49,11 @@ class ProfileDataEntity extends Equatable {
         phoneNumber,
         isDealer,
         isActive,
-        isStaff, isSuperuser, lastLogin, dateJoined, usercountdata
+        isStaff,
+        isSuperuser,
+        lastLogin,
+        dateJoined,
+        usercountdata
       ];
 }
 

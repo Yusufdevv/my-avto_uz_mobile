@@ -4,4 +4,9 @@ abstract class InstpectionPlaceEvent {}
 
 class InstpectionPlaceGetRegionsEvent extends InstpectionPlaceEvent {}
 
+class InstpectionPlaceGetDistrictsEvent extends InstpectionPlaceEvent {
+  final int regionId;
+  InstpectionPlaceGetDistrictsEvent({required this.regionId});
+}
+
 class InstpectionPlaceGetCitiesEvent extends InstpectionPlaceEvent {}

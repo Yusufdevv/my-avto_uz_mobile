@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:auto/assets/themes/theme_extensions/themed_icons.dart';
 import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/core/usecases/usecase.dart';
+import 'package:auto/features/ad/domain/entities/district_entity.dart';
 import 'package:auto/features/ad/domain/entities/generation/generation.dart';
 import 'package:auto/features/ad/domain/entities/types/body_type.dart';
 import 'package:auto/features/ad/domain/entities/types/drive_type.dart';
@@ -212,7 +213,6 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
 
   FutureOr<void> _makes(
       PostingAdMakesEvent event, Emitter<PostingAdState> emit) async {
-
     if (state.makeId != null && state.makes.isNotEmpty) {
       emit(state.copyWith(status: FormzStatus.submissionSuccess));
       return;
@@ -246,7 +246,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
   void _choose(PostingAdChooseEvent event, Emitter<PostingAdState> emit) {
     emit(
       state.copyWith(
-        
+        showExactAddress: event.showExactAddress,
         isWithoutMileage: event.isWithoutMileage,
         rentToBuy: event.rentToBuy,
         isContactsVerified: event.isContactsVerified,
@@ -278,6 +278,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
         price: event.price,
         currency: event.currency,
         gasBalloonType: event.gasBalloonType,
+        district: event.district,
       ),
     );
   }

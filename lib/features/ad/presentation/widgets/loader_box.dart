@@ -26,10 +26,11 @@ class LoaderBox extends StatelessWidget {
         children: [
           Text(
             title,
-            style: Theme.of(context)
-                .textTheme
-                .headline2!
-                .copyWith(fontWeight: FontWeight.w600,color: Theme.of(context).extension<ThemedColors>()!.greyToCinnabar),
+            style: Theme.of(context).textTheme.headline2!.copyWith(
+                fontWeight: FontWeight.w600,
+                color: Theme.of(context)
+                    .extension<ThemedColors>()!
+                    .greyToCinnabar),
           ),
           const SizedBox(height: 8),
           WScaleAnimation(
@@ -56,7 +57,9 @@ class LoaderBox extends StatelessWidget {
                               .headline6!
                               .copyWith(
                                   fontWeight: FontWeight.w400,
-                                  color: Theme.of(context).extension<ThemedColors>()!.greyToCinnabar),
+                                  color: Theme.of(context)
+                                      .extension<ThemedColors>()!
+                                      .greyToCinnabar),
                         ),
                         const Spacer(),
                         SvgPicture.asset(
