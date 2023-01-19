@@ -82,9 +82,10 @@ class _NotificationPageState extends State<NotificationPage> {
                         itemCount: notifications.length,
                         itemBuilder: (context, index) {
                           final item = notifications[index];
+                          // ignore: prefer_typing_uninitialized_variables
                           var isItemRead;
                           if (item.isRead!=null) {
-                            isItemRead = item.isRead!;
+                            isItemRead = item.isRead;
                           }
                           return InkWell(
                             onTap: () {

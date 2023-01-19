@@ -37,7 +37,8 @@ class _AnimatedImagesState extends State<AnimatedImages>
     screenWidth = widget.screenWidth;
     leftSideOfPageView = screenWidth / 3;
     rightSideOfPageView = screenWidth * 2 / 3;
-    widthOfIndicator = (screenWidth - 4 * widget.images.length - 44) / widget.images.length;
+    widthOfIndicator =
+        (screenWidth - 4 * widget.images.length - 44) / widget.images.length;
     _animationController = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 2000));
     animation =
@@ -101,22 +102,24 @@ class _AnimatedImagesState extends State<AnimatedImages>
               child: PageView(
                 onPageChanged: (integer) {
                   page = integer;
-                  _animationController.forward(from: 0.0);
+                  _animationController.forward(from: 0);
                 },
                 controller: _pageController,
                 children: List.generate(
                   widget.images.length,
-                    (index)=>CachedNetworkImage(
-                      imageUrl: widget.images[index],
-                      imageBuilder: (context, imageProvider) => Container(
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                              image: imageProvider, fit: BoxFit.cover),
-                        ),
+                  (index) => CachedNetworkImage(
+                    imageUrl: widget.images[index],
+                    imageBuilder: (context, imageProvider) => Container(
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                            image: imageProvider, fit: BoxFit.cover),
                       ),
-                      placeholder: (context, url) => const CircularProgressIndicator(),
-                      errorWidget: (context, url, error) => SvgPicture.asset(AppImages.autoUz),
                     ),
+                    placeholder: (context, url) =>
+                        const CircularProgressIndicator(),
+                    errorWidget: (context, url, error) =>
+                        SvgPicture.asset(AppImages.autoUz),
+                  ),
                   // (index) => Container(
                   //   decoration: BoxDecoration(
                   //     shape: BoxShape.rectangle,
@@ -126,6 +129,36 @@ class _AnimatedImagesState extends State<AnimatedImages>
                 ),
               ),
             ),
+            // PageView.builder(
+            //       controller: _pageController,
+            //       scrollDirection: Axis.horizontal,
+            //       onPageChanged: (value) => setState(() {
+            //             currentIndex = value;
+            //           }),
+            //       itemCount: widget.images.isEmpty ? 1 : widget.images.length,
+            //       itemBuilder: (context, index) => Container(
+            //             foregroundDecoration: BoxDecoration(
+            //               gradient: LinearGradient(
+            //                 begin: Alignment.topCenter,
+            //                 end: Alignment.center,
+            //                 colors: [
+            //                   Colors.black,
+            //                   Colors.black.withOpacity(0),
+            //                 ],
+            //               ),
+            //             ),
+            //             child: widget.images.isEmpty
+            //                 ? Image.asset(
+            //                     AppImages.defaultPhoto,
+            //                     fit: BoxFit.cover,
+            //                   )
+            //                 : Image.network(
+            //                     widget.images[index],
+            //                     width: double.maxFinite,
+            //                     height: 340,
+            //                     fit: BoxFit.cover,
+            //                   ),
+            //           )),
             Positioned(
               bottom: 0,
               child: Container(
