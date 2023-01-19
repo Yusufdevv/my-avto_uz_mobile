@@ -6,6 +6,7 @@ import 'package:auto/features/car_single/presentation/widgets/dealer_time_botoms
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/dealers/presentation/dealers_main.dart';
+import 'package:auto/features/dealers/presentation/pages/seller.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:auto/utils/my_functions.dart';
@@ -16,11 +17,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class BottomItem extends StatelessWidget {
+class BottomItem extends StatefulWidget {
   final String callFrom;
+  final String usertype;
   final String callTo;
   final int id;
   final String phoneNumber;
+  final String slug;
   final String? userAvatar;
 
   const BottomItem(
@@ -29,24 +32,51 @@ class BottomItem extends StatelessWidget {
       required this.callTo,
       required this.phoneNumber,
       required this.userAvatar,
-      required this.id})
+      required this.id,
+      required this.usertype,
+      required this.slug})
       : super(key: key);
+
+  @override
+  State<BottomItem> createState() => _BottomItemState();
+}
+
+class _BottomItemState extends State<BottomItem>
+    with SingleTickerProviderStateMixin, WidgetsBindingObserver {
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    switch (state) {
+      case AppLifecycleState.resumed:
+        context.read<CarSingleBloc>().add(CarSingleEvent.callCount(widget.id));
+        print('----${AppLifecycleState.resumed}');
+        break;
+      case AppLifecycleState.inactive:
+        break;
+      case AppLifecycleState.paused:
+        break;
+      case AppLifecycleState.detached:
+        break;
+    }
+  }
+
+  @override
+  void initState() {
+    WidgetsBinding.instance.addObserver(this);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) => Row(
         children: [
           Expanded(
-              child: callFrom != null && callTo != null
+              child: widget.callFrom != null && widget.callTo != null
                   ? MyFunctions.enableForCalling(
-                      callFrom: callFrom,
-                      callTo: callTo,
+                      callFrom: widget.callFrom,
+                      callTo: widget.callTo,
                     )
                       ? WButton(
                           onTap: () {
-                            launchUrl(Uri.parse('tel://$phoneNumber'));
-                            context
-                                .read<CarSingleBloc>()
-                                .add(CarSingleEvent.callCount(id));
+                            launchUrl(Uri.parse('tel://${widget.phoneNumber}'));
                           },
                           height: 44,
                           borderRadius: 8,
@@ -62,8 +92,8 @@ class BottomItem extends StatelessWidget {
                               backgroundColor: Colors.transparent,
                               context: context,
                               builder: (context) => DealerTime(
-                                timeTo: callTo.substring(0, 5),
-                                timeFrom: callFrom.substring(0, 5),
+                                timeTo: widget.callTo.substring(0, 5),
+                                timeFrom: widget.callFrom.substring(0, 5),
                               ),
                             );
                           },
@@ -92,7 +122,7 @@ class BottomItem extends StatelessWidget {
                         )
                   : WButton(
                       onTap: () {
-                        launchUrl(Uri.parse('tel://$phoneNumber'));
+                        launchUrl(Uri.parse('tel://${widget.phoneNumber}'));
                       },
                       height: 44,
                       borderRadius: 8,
@@ -105,7 +135,10 @@ class BottomItem extends StatelessWidget {
           ),
           WScaleAnimation(
             onTap: () {
-              Navigator.of(context).push(fade(page: const DealerScreen()));
+              widget.usertype == 'owner'
+                  ? Navigator.of(context).push(fade(page: const DealerScreen()))
+                  : Navigator.of(context)
+                      .push(fade(page: Seller(slug: widget.slug)));
             },
             child: Container(
               height: 44,
@@ -116,7 +149,7 @@ class BottomItem extends StatelessWidget {
                 child: CachedNetworkImage(
                   fit: BoxFit.cover,
                   width: 44,
-                  imageUrl: userAvatar ?? '',
+                  imageUrl: widget.userAvatar ?? '',
                   errorWidget: (context, url, error) => Image.asset(
                     AppImages.defaultPhoto,
                     fit: BoxFit.cover,

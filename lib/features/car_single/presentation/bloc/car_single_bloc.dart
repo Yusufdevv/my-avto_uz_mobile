@@ -1,3 +1,4 @@
+import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/features/car_single/domain/entities/car_single_entity.dart';
 import 'package:auto/features/car_single/domain/entities/elastic_search_entity.dart';
 import 'package:auto/features/car_single/domain/usecases/call_count_usecase.dart';
@@ -18,7 +19,8 @@ class CarSingleBloc extends Bloc<CarSingleEvent, CarSingleState> {
   final SoldAdsUseCase soldAdsUseCase;
   final CallCount callCount;
 
-  CarSingleBloc(this.useCaseSingle, this.useCaseAds, this.soldAdsUseCase, this.callCount)
+  CarSingleBloc(
+      this.useCaseSingle, this.useCaseAds, this.soldAdsUseCase, this.callCount)
       : super(const CarSingleState()) {
     on<_GetSingle>((event, emit) async {
       emit(state.copyWith(status: FormzStatus.submissionInProgress));
@@ -46,25 +48,31 @@ class CarSingleBloc extends Bloc<CarSingleEvent, CarSingleState> {
       }
     });
     on<_SoldAds>((event, emit) async {
+      print('sold called');
       final result = await soldAdsUseCase.call(event.id);
-      emit(state.copyWith(soldStatus: FormzStatus.submissionSuccess));
+      emit(state.copyWith(soldStatus: FormzStatus.submissionInProgress));
       if (result.isRight) {
-        print('BLOC RESULT RIGHT => ${result.right}');
+        print('BLOC RESULT RIGHT SOLD => ${result.right}');
+        event.onSucc('SUCCES');
         emit(state.copyWith(
-            soldStatus: FormzStatus.submissionSuccess));
+            soldStatus: FormzStatus.submissionSuccess, succMessage: 'suuces'));
       } else {
+        event.onError((result.left as ServerFailure).errorMessage);
+        emit(state.copyWith(
+            soldStatus: FormzStatus.submissionFailure,
+            errorMessage: (result.left as ServerFailure).errorMessage));
         print('BLOC ERROR SOLD ADS');
       }
     });
     on<_CallCount>((event, emit) async {
+      print('event called');
       final result = await callCount.call(event.id);
-      emit(state.copyWith(soldStatus: FormzStatus.submissionSuccess));
+      emit(state.copyWith(soldStatus: FormzStatus.submissionInProgress));
       if (result.isRight) {
-        print('BLOC RESULT RIGHT => ${result.right}');
-        emit(state.copyWith(
-            soldStatus: FormzStatus.submissionSuccess));
+        print('BLOC RESULT RIGHT CALL => ${result.right}');
+        emit(state.copyWith(soldStatus: FormzStatus.submissionSuccess));
       } else {
-        print('BLOC ERROR SOLD ADS');
+        print('BLOC ERROR CALL COUNT');
       }
     });
   }

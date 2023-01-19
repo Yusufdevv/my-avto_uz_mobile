@@ -216,7 +216,7 @@ class CarNameWidget extends StatelessWidget {
                 leftDays: daysLeft,
               )
             else
-              SizedBox()
+              const SizedBox()
           ],
         ),
       );

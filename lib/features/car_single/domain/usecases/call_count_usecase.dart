@@ -9,6 +9,6 @@ class CallCount implements UseCase<dynamic, int> {
   CallCount({required this.repository});
 
   @override
-  Future<Either<Failure, dynamic>> call(params) async =>
+  Future<Either<Failure, dynamic>> call(int params) async =>
       repository.callCount(id: params);
 }

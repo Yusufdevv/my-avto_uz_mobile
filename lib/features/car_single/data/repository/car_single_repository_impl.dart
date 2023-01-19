@@ -83,7 +83,7 @@ class CarSingleRepositoryImpl extends CarSingleRepository {
   Future<Either<Failure, dynamic>> callCount({required int id}) async {
     try {
       final result = await dataSource.callCount(id: id);
-      print('repo succ sold');
+      print('REPO ---- SUCC CALL');
       return Right(result);
     } on DioException {
       return Left(DioFailure());

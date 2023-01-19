@@ -105,9 +105,18 @@ class CarSingleEntity extends Equatable {
   final int callCount;
   @JsonKey(defaultValue: false)
   final bool isComparison;
+  @JsonKey(defaultValue: false)
+  final bool isRentWithPurchase;
+  @JsonKey(defaultValue: false)
+  final bool isExpired;
+  @JsonKey(defaultValue: 'false')
+  final String expiredAt;
 
   const CarSingleEntity({
     this.isComparison = false,
+    this.isRentWithPurchase = false,
+    this.isExpired = false,
+    this.expiredAt = '',
     this.wishlistCount = 0,
     this.callCount = 0,
     this.absoluteCarName = '',

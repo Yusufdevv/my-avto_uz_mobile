@@ -1,12 +1,13 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/features/car_single/presentation/widgets/dealer_item.dart';
+import 'package:auto/features/common/bloc/comparison_add/bloc/comparison_add_bloc.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
-import 'package:auto/features/search/presentation/widgets/add_comparison_item.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class MoreActions extends StatelessWidget {
+class MoreActions extends StatefulWidget {
   final String name;
   final String position;
   final String image;
@@ -14,7 +15,7 @@ class MoreActions extends StatelessWidget {
   final VoidCallback onCompare;
   final VoidCallback onDealer;
   final int id;
-  final bool isCompare;
+  final bool? isCompare;
 
   const MoreActions(
       {Key? key,
@@ -27,6 +28,21 @@ class MoreActions extends StatelessWidget {
       required this.id,
       required this.isCompare})
       : super(key: key);
+
+  @override
+  State<MoreActions> createState() => _MoreActionsState();
+}
+
+class _MoreActionsState extends State<MoreActions> {
+  bool isLiked = false;
+
+  @override
+  void initState() {
+    if (widget.isCompare != null) {
+      isLiked = widget.isCompare!;
+    }
+    widget.isCompare ?? super.initState();
+  }
 
   @override
   Widget build(BuildContext context) => Container(
@@ -126,7 +142,18 @@ class MoreActions extends StatelessWidget {
                 ),
                 Expanded(
                   child: WScaleAnimation(
-                    onTap: onCompare,
+                    onTap: () {
+                      if (!isLiked) {
+                        context.read<ComparisonAddBloc>().add(
+                            ComparisonAddEvent.postComparisonCars(widget.id));
+                        isLiked = true;
+                      } else {
+                        context.read<ComparisonAddBloc>().add(
+                            ComparisonAddEvent.deleteComparison(widget.id));
+                        isLiked = false;
+                      }
+                      setState(() {});
+                    },
                     child: Container(
                       padding: const EdgeInsets.only(
                         top: 16,
@@ -141,9 +168,23 @@ class MoreActions extends StatelessWidget {
                       child: Center(
                         child: Column(
                           children: [
-                            AddComparisonItem(
-                              id: id,
-                              initialLike: isCompare,
+                            AnimatedSwitcher(
+                              duration: const Duration(milliseconds: 300),
+                              transitionBuilder: (child, animation) => ScaleTransition(
+                                scale: animation,
+                                child: child,
+                              ),
+                              child: isLiked
+                                  ? SvgPicture.asset(
+                                AppIcons.scalesRed,
+                                key: const ValueKey<int>(1),
+                                fit: BoxFit.cover,
+                              )
+                                  : SvgPicture.asset(
+                                AppIcons.scale,
+                                fit: BoxFit.cover,
+                                key: const ValueKey<int>(2),
+                              ),
                             ),
                             Text(
                               'Сравнить',
@@ -170,7 +211,7 @@ class MoreActions extends StatelessWidget {
                 Expanded(
                   child: WScaleAnimation(
                     onTap: () {
-                      onShare;
+                      widget.onShare;
                     },
                     child: Container(
                       padding: const EdgeInsets.only(
@@ -218,10 +259,10 @@ class MoreActions extends StatelessWidget {
               ],
             ),
             DealerItem(
-              image: image,
-              name: name,
-              position: position,
-              onTap: onDealer,
+              image: widget.image,
+              name: widget.name,
+              position: widget.position,
+              onTap: widget.onDealer,
             ),
             // MoreActionItem(
             //   icon: AppIcons.refresh,

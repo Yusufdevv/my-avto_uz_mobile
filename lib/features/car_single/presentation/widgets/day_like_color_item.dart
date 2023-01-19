@@ -50,7 +50,7 @@ class DayLikeCallItem extends StatelessWidget {
             Container(
               width: double.infinity,
               padding: const EdgeInsets.only(left: 12, top: 8, bottom: 8),
-              margin: EdgeInsets.only(top: 16, bottom: 16),
+              margin: const EdgeInsets.only(top: 16, bottom: 16),
               decoration: BoxDecoration(
                 color: const Color(0xffFFFBFA),
                 borderRadius: BorderRadius.circular(12),
