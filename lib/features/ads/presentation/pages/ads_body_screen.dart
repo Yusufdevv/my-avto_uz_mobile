@@ -109,6 +109,13 @@ class _AdsBodyScreenState extends State<AdsBodyScreen> {
                                                 })))
                                         .then((value) {
                                       context.read<AnnouncementListBloc>().add(
+                                          AnnouncementListEvent.getIsHistory(
+                                              context
+                                                      .read<GetMakesBloc>()
+                                                      .state
+                                                      .selectId <=
+                                                  0));
+                                      context.read<AnnouncementListBloc>().add(
                                           AnnouncementListEvent
                                               .getAnnouncementList());
                                     }))));
@@ -128,22 +135,20 @@ class _AdsBodyScreenState extends State<AdsBodyScreen> {
                       activeColor: orange,
                       defaultTitle: 'Параметры',
                       onTap: () {
-                        Navigator.of(context)
-                            .push(
-                              fade(
-                                page: FilterParameters(
-                                  bloc: context.read<AnnouncementListBloc>(),
-                                  bodyType: state.bodyTypeEntity,
-                                  gearboxType: state.gearboxTypeEntity,
-                                  carDriveType: state.driveTypeEntity,
-                                  yearValues: state.yearValues,
-                                  priceValues: state.priceValues,
-                                  idVal: state.idVal,
-                                  ischek: state.isFilter,
-                                ),
-                              ),
-                            )
-                            .then((value) => null);
+                        Navigator.of(context).push(
+                          fade(
+                            page: FilterParameters(
+                              bloc: context.read<AnnouncementListBloc>(),
+                              bodyType: state.bodyTypeEntity,
+                              gearboxType: state.gearboxTypeEntity,
+                              carDriveType: state.driveTypeEntity,
+                              yearValues: state.yearValues,
+                              priceValues: state.priceValues,
+                              idVal: state.idVal,
+                              ischek: state.isFilter,
+                            ),
+                          ),
+                        );
                       },
                       onTapClear: () {
                         context.read<AnnouncementListBloc>().add(

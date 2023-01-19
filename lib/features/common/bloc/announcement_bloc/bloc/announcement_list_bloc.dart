@@ -39,7 +39,10 @@ class AnnouncementListBloc
     on<_GetFilter>(
       (event, emit) => emit(state.copyWith(filter: event.filter)),
     );
-    on<_GetRegions>((event, emit) => emit(state.copyWith(regions: event.regions)),);
+    on<_GetRegions>(
+        (event, emit) => emit(state.copyWith(regions: event.regions)));
+    on<_GetIsHistory>(
+        (event, emit) => emit(state.copyWith(isHistory: event.isHistory)));
     on<_GetFilterClear>(
       (event, emit) =>
           emit(state.copyWith(filter: const AnnouncementFilterModel())),
