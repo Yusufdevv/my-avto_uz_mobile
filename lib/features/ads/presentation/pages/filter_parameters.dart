@@ -230,6 +230,7 @@ class _FilterParametersState extends State<FilterParameters> {
                       endValue: 500000,
                       startValue: 1000,
                       isForPrice: true,
+                      description: state.idVal == 1 ? 'сум' : 'у.е.',
                     ),
                     const Spacer(),
                     WButton(

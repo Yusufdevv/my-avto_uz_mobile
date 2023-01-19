@@ -7,6 +7,7 @@ class GetMakesBlocEvent with _$GetMakesBlocEvent {
   factory GetMakesBlocEvent.getSerched(String naem) = _GetSerched;
   factory GetMakesBlocEvent.changeSelected(int id) = _ChangeSelected;
   factory GetMakesBlocEvent.sortMakes(String letter) = _SortMakes;
+  factory GetMakesBlocEvent.getIsCheck() = _GetIsCheck;
 
   factory GetMakesBlocEvent.selectedCarItems(
       {required int id,

@@ -13,9 +13,10 @@ class CarModelItem extends StatelessWidget {
     required this.count,
     required this.onTapSelect,
     required this.onTapShow,
-    Key? key,
+    required this.isCheck,
     required this.imageUrl,
     required this.title,
+    Key? key,
   }) : super(key: key);
 
   final int count;
@@ -23,6 +24,7 @@ class CarModelItem extends StatelessWidget {
   final VoidCallback onTapShow;
   final String imageUrl;
   final String title;
+  final bool isCheck;
 
   @override
   Widget build(BuildContext context) => Container(
@@ -89,7 +91,7 @@ class CarModelItem extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             WButton(
-              onTap: onTapShow,
+              onTap:title.isNotEmpty && count > 0 ? onTapShow : () {},
               color: Theme.of(context)
                   .extension<ThemedColors>()!
                   .lightSlateBlue12ToLightSlateBlue,
@@ -100,7 +102,11 @@ class CarModelItem extends StatelessWidget {
                     .solitudeToPayneGrey,
               ),
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-              text: '${LocaleKeys.show.tr()} $count ${LocaleKeys.offers1.tr()}',
+              text: title.isEmpty
+                  ? LocaleKeys.choose_brand.tr()
+                  : count > 0
+                      ? '${LocaleKeys.show.tr()} $count ${LocaleKeys.offers1.tr()}'
+                      : 'Предложений нет',
               textStyle: Theme.of(context).textTheme.headline6!.copyWith(
                   fontSize: 14,
                   color: Theme.of(context)

@@ -41,13 +41,15 @@ class _OptionsItemState extends State<OptionsItem>
   void didChangeAppLifecycleState(AppLifecycleState state) {
     switch (state) {
       case AppLifecycleState.resumed:
+        context.read<ReelsBloc>().add(ReelsShare(
+            context.read<ReelsBloc>().state.reels[widget.index].id,
+            widget.index));
         break;
       case AppLifecycleState.inactive:
         break;
       case AppLifecycleState.paused:
         break;
       case AppLifecycleState.detached:
-      
         break;
     }
   }
@@ -68,8 +70,8 @@ class _OptionsItemState extends State<OptionsItem>
 
   @override
   Widget build(BuildContext context) => SizedBox(
-    width: 30,
-    child: Column(
+        width: 30,
+        child: Column(
           children: [
             WScaleAnimation(
               onTap: () {
@@ -144,9 +146,6 @@ class _OptionsItemState extends State<OptionsItem>
               ),
               onTap: () {
                 Share.share(widget.shareUrl);
-                context.read<ReelsBloc>().add(ReelsShare(
-                    context.read<ReelsBloc>().state.reels[widget.index].id,
-                    widget.index));
               },
             ),
             WScaleAnimation(
@@ -159,7 +158,8 @@ class _OptionsItemState extends State<OptionsItem>
                     ? showCupertinoModalPopup(
                         context: context,
                         barrierColor: black.withOpacity(.6),
-                        builder: (context) => BusySheet(copyUrl: widget.shareUrl))
+                        builder: (context) =>
+                            BusySheet(copyUrl: widget.shareUrl))
                     : showModalBottomSheet(
                         context: context,
                         //backgroundColor: black.withOpacity(.6),
@@ -170,5 +170,5 @@ class _OptionsItemState extends State<OptionsItem>
             ),
           ],
         ),
-  );
+      );
 }
