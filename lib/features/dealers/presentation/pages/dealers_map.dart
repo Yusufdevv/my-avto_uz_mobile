@@ -1,6 +1,7 @@
 import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
 import 'package:auto/features/common/widgets/custom_screen.dart';
+import 'package:auto/features/dealers/data/models/map_model.dart';
 import 'package:auto/features/dealers/domain/usecases/get_map_dealers.dart';
 import 'package:auto/features/dealers/presentation/blocs/map_organization/map_organization_bloc.dart';
 import 'package:auto/features/dealers/presentation/widgets/map_controller_buttons.dart';
@@ -18,11 +19,8 @@ class MapScreen extends StatefulWidget {
 
 class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin, WidgetsBindingObserver {
   late YandexMapController _mapController;
-  //late TabController _controller;
-  late TextEditingController _searchFieldController;
   final List<MapObject<dynamic>> _mapObjects = [];
   late MapOrganizationBloc mapOrganizationBloc;
-  //late SpecializationBloc specBloc;
 
   double latitude = 0;
   double longitude = 0;
@@ -37,12 +35,7 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin, Wi
   void initState() {
     mapOrganizationBloc = MapOrganizationBloc(
       GetMapDealersUseCase(),
-    //specBloc = SpecializationBloc(GetSpecializationUseCase())..add(SpecializationEvent.getSpecs());
-      // GetMapDoctorUseCase(),
-      // getTypesUseCase: GetTypesUseCase(repository: serviceLocator<MapRepositoryImpl>()),
     );
-    //_controller = TabController(length: 2, vsync: this);
-    _searchFieldController = TextEditingController();
     myPoint = const Point(latitude: 0, longitude: 0);
     WidgetsBinding.instance.addObserver(this);
     super.initState();
@@ -53,16 +46,12 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin, Wi
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
-
   @override
   Widget build(BuildContext context) => MultiBlocProvider(
       providers: [
         BlocProvider.value(
           value: mapOrganizationBloc,
         ),
-        // BlocProvider.value(
-        //   value: specBloc,
-        // ),
       ],
       child: CustomScreen(
         child: Scaffold(
@@ -72,6 +61,7 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin, Wi
               return isBuild;
             },
             listener: (context, state) {
+              print(' map delaers ${state.dealers}');
               setState(() {
                 MyFunctions.addDealer(state.dealers, context, _mapObjects, _mapController, myPoint, accuracy);
               });
@@ -116,7 +106,7 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin, Wi
                       context.read<MapOrganizationBloc>().add(
                         MapOrganizationEvent.getCurrentLocation(
                           onError: (message) {
-                            context.read<ShowPopUpBloc>().add(ShowPopUp(message: message, isSucces: false));
+                            context.read<ShowPopUpBloc>().add(ShowPopUp(message: message, isSucces: false,));
                           },
                           onSuccess: (position) async {
                             myPoint = Point(latitude: position.latitude, longitude: position.longitude);
@@ -133,7 +123,7 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin, Wi
                               ),
                               animation: const MapAnimation(duration: 0.15, type: MapAnimationType.smooth),
                             );
-                            //print('lat:${position.latitude} and long${position.longitude}');
+                            print('lat:${position.latitude} and long${position.longitude}');
                             mapOrganizationBloc..add(
                               MapOrganizationEvent.changeLatLong(
                                 lat: position.latitude,
@@ -151,20 +141,6 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin, Wi
                     },
                   ),
                 ),
-                // Positioned(
-                //   right: 0,
-                //   left: 0,
-                //   top: 0,
-                //   child: Container(
-                //     height: MediaQuery.of(context).padding.top + 84,
-                //     decoration: BoxDecoration(
-                //       gradient: LinearGradient(
-                //           colors: [white.withOpacity(0.65), white.withOpacity(0)],
-                //           begin: Alignment.topCenter,
-                //           end: Alignment.bottomCenter),
-                //     ),
-                //   ),
-                // ),
                 Positioned(
                   right: 0,
                   bottom: 110,
@@ -222,14 +198,6 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin, Wi
                     ),
                   ),
                 ),
-                // Positioned(
-                //   right: 0,
-                //   left: 0,
-                //   top: 0,
-                //   child: Container(
-                //     height: MediaQuery.of(context).padding.top + 84,
-                //   ),
-                // )
               ],
             ),
           ),

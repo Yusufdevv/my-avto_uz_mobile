@@ -1,6 +1,5 @@
-import 'dart:async';
 import 'package:auto/core/exceptions/exceptions.dart';
-import 'package:auto/features/dealers/data/models/dealer_card_model.dart';
+import 'package:auto/features/dealers/data/models/map_model.dart';
 import 'package:auto/features/dealers/domain/entities/map_parameter.dart';
 import 'package:auto/features/dealers/domain/usecases/get_map_dealers.dart';
 import 'package:auto/utils/my_functions.dart';
@@ -21,12 +20,13 @@ class MapOrganizationBloc extends Bloc<MapOrganizationEvent, MapOrganizationStat
       : super(MapOrganizationState()) {
     on<_GetDealers>((event, emit) async {
       emit(state.copyWith(status: FormzStatus.submissionInProgress));
-      final result = await getDealers('',
+      final result = await getDealers(state.searchText,
           param: MapParameter(
               lat: event.latitude ?? state.lat,
               long: event.longitude ?? state.long,
               radius: event.radius?.floor() ?? state.radius));
       if (result.isRight) {
+        print('here is result${result.right}');
         emit(state.copyWith(dealers: result.right, status: FormzStatus.submissionSuccess));
       } else {
         emit(state.copyWith(status: FormzStatus.submissionFailure));

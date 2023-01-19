@@ -5,9 +5,11 @@ import 'dart:ui' as ui;
 
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/assets/constants/images.dart';
 import 'package:auto/core/exceptions/exceptions.dart';
 import 'package:auto/features/common/models/region.dart';
 import 'package:auto/features/dealers/data/models/dealer_card_model.dart';
+import 'package:auto/features/dealers/data/models/map_model.dart';
 import 'package:auto/features/profile/domain/entities/dir_category_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -114,8 +116,8 @@ class MyFunctions {
     return buffer.toString();
   }
 
-  static Future<ImageInfo> getImageInfo(
-      BuildContext context, String image) async {
+  static Future<ImageInfo> getImageInfo(BuildContext context,
+      String image) async {
     final assetImage = AssetImage(image);
     final stream = assetImage.resolve(createLocalImageConfiguration(context));
     final completer = Completer<ImageInfo>();
@@ -124,17 +126,17 @@ class MyFunctions {
     return completer.future;
   }
 
-  static Future<Uint8List> getBytesFromCanvas(
-      {required int width,
-        required int height,
-        required int placeCount,
-        required BuildContext context,
-        Offset? offset,
-        required String image,
-        bool shouldAddText = true}) async {
+  static Future<Uint8List> getBytesFromCanvas({required int width,
+    required int height,
+    required int placeCount,
+    required BuildContext context,
+    Offset? offset,
+    required String image,
+    bool shouldAddText = true}) async {
     final pictureRecorder = ui.PictureRecorder();
     final canvas = Canvas(pictureRecorder);
-    final paint = Paint()..color = Colors.red;
+    final paint = Paint()
+      ..color = Colors.red;
     canvas.drawImage(
         await getImageInfo(context, image).then((value) => value.image),
         offset ?? const Offset(0, 3),
@@ -142,16 +144,17 @@ class MyFunctions {
 
     if (shouldAddText) {
       final painter = TextPainter(textDirection: ui.TextDirection.ltr);
-      painter..text = TextSpan(
-        text: placeCount.toString(),
-        style: const TextStyle(fontSize: 100, color: Colors.white),
-      )
-      ..layout()
-      ..paint(
-        canvas,
-        Offset((width * 0.47) - painter.width * 0.2,
-            (height * 0.1) - painter.height * 0.1),
-      );
+      painter
+        ..text = TextSpan(
+          text: placeCount.toString(),
+          style: const TextStyle(fontSize: 100, color: Colors.white),
+        )
+        ..layout()
+        ..paint(
+          canvas,
+          Offset((width * 0.47) - painter.width * 0.2,
+              (height * 0.1) - painter.height * 0.1),
+        );
     }
 
     final img = await pictureRecorder.endRecording().toImage(width, height);
@@ -159,8 +162,8 @@ class MyFunctions {
     return data?.buffer.asUint8List() ?? Uint8List(0);
   }
 
-  static Future<MapObject<dynamic>> getMyPoint(
-      Point point, BuildContext context) async {
+  static Future<MapObject<dynamic>> getMyPoint(Point point,
+      BuildContext context) async {
     final myIconData = await getBytesFromCanvas(
         placeCount: 0,
         image: AppIcons.currentLoc,
@@ -182,24 +185,24 @@ class MyFunctions {
 
   static const clusterId = MapObjectId('big_cluster_id');
 
-  static Future<void> addDealer(
-      List<DealerCardModel> points,
+  static Future<void> addDealer(List<MapModel> points,
       BuildContext context,
       List<MapObject<dynamic>> mapObjects,
       YandexMapController controller,
       Point point,
       double accuracy) async {
     final iconData = await getBytesFromCanvas(
-        placeCount: 0,
-        image: AppIcons.dealersLocIcon,
-        width: 170,
-        //offset: const Offset(0, -30),
-        height: 410,
-        context: context,
-        shouldAddText: false);
+      placeCount: 0,
+      image: AppIcons.dealersLocIcon,
+      width: 170,
+      offset: const Offset(0, -30),
+      height: 410,
+      context: context,
+      shouldAddText: false);
     final placeMarks = points
         .map(
-          (e) => PlacemarkMapObject(
+          (e) =>
+          PlacemarkMapObject(
             opacity: 1,
             mapId: MapObjectId(e.latitude.toString()),
             point: Point(latitude: e.latitude, longitude: e.longitude),
@@ -212,30 +215,30 @@ class MyFunctions {
                   ),
                 ),
               );
-              showModalBottomSheet(
-                barrierColor: Colors.transparent,
-                context: context,
-                isScrollControlled: true,
-                useRootNavigator: true,
-                backgroundColor: Colors.transparent,
-                builder: (context) => const SizedBox(
-                  height: 40,
-                  width: 100,
-                  child: Text('Shu locationga bosdingiz'),
-                ),
-                // builder: (context) => HospitalSingleBottomSheet(
-                //   id: e.id,
-                //   isHospital: true,
-                //   slug: e.slug,
-                //   title: e.title,
-                //   phone: e.phoneNumber,
-                //   logo: e.logo.middle,
-                //   address: e.address,
-                //   images: e.images.map((e) => e.middle).toList(),
-                //   location: Point(latitude: e.latitude, longitude: e.longitude),
-                //   rating: e.rating,
-                // ),
-              );
+              // showModalBottomSheet(
+              //   barrierColor: Colors.transparent,
+              //   context: context,
+              //   isScrollControlled: true,
+              //   useRootNavigator: true,
+              //   backgroundColor: Colors.transparent,
+              //   builder: (context) => const SizedBox(
+              //     height: 40,
+              //     width: 100,
+              //     child: Text('Shu locationga bosdingiz'),
+              //   ),
+              //   // builder: (context) => HospitalSingleBottomSheet(
+              //   //   id: e.id,
+              //   //   isHospital: true,
+              //   //   slug: e.slug,
+              //   //   title: e.title,
+              //   //   phone: e.phoneNumber,
+              //   //   logo: e.logo.middle,
+              //   //   address: e.address,
+              //   //   images: e.images.map((e) => e.middle).toList(),
+              //   //   location: Point(latitude: e.latitude, longitude: e.longitude),
+              //   //   rating: e.rating,
+              //   // ),
+              // );
             },
             icon: PlacemarkIcon.single(
               PlacemarkIconStyle(
@@ -244,8 +247,14 @@ class MyFunctions {
               ),
             ),
           ),
-        )
+    )
         .toList();
+
+    print(points.map((point) => [point.latitude, point.longitude, point.name]));
+
+    print('poins');
+    print(points.length);
+    print(points);
     final myPoint = await getMyPoint(point, context);
     final clusterItem = ClusterizedPlacemarkCollection(
       mapId: clusterId,
@@ -260,25 +269,26 @@ class MyFunctions {
             zoom: 15)));
       },
       onTap: (collection, point) {},
-      // onClusterAdded: (collection, cluster) async => cluster.copyWith(
-      //   appearance: cluster.appearance.copyWith(
-      //     opacity: 1,
-      //     icon: PlacemarkIcon.single(
-      //       PlacemarkIconStyle(
-      //         image: BitmapDescriptor.fromBytes(
-      //           await getBytesFromCanvas(
-      //               image: AppImages.hospitalCluster,
-      //               width: 170,
-      //               height: 410,
-      //               placeCount: cluster.placemarks.length,
-      //               context: context,
-      //               shouldAddText: true),
-      //         ),
-      //         scale: 0.6,
-      //       ),
-      //     ),
-      //   ),
-      // ),
+      onClusterAdded: (collection, cluster) async =>
+          cluster.copyWith(
+            appearance: cluster.appearance.copyWith(
+              opacity: 1,
+              icon: PlacemarkIcon.single(
+                PlacemarkIconStyle(
+                  image: BitmapDescriptor.fromBytes(
+                    await getBytesFromCanvas(
+                        image: AppImages.audi,
+                        width: 170,
+                        height: 410,
+                        placeCount: cluster.placemarks.length,
+                        context: context,
+                        shouldAddText: true),
+                  ),
+                  scale: 0.6,
+                ),
+              ),
+            ),
+          ),
     );
 
     mapObjects
@@ -379,7 +389,8 @@ class MyFunctions {
   static String getDateNamedMonth(String data) {
     final list = data.substring(0, 10).split('-');
 
-    return '${list[2]} ${getMonthByIndex(int.tryParse(list[1]) ?? -1)}, ${list[0]} г.';
+    return '${list[2]} ${getMonthByIndex(
+        int.tryParse(list[1]) ?? -1)}, ${list[0]} г.';
   }
 
   static String getDateNamedMonthEdit(String data) {
@@ -390,10 +401,12 @@ class MyFunctions {
           date.day == int.tryParse(list[2])) {
         return 'Сегодня';
       } else {
-        return '${int.tryParse(list[2])} ${getMonthByIndex(int.tryParse(list[1]) ?? -1)}';
+        return '${int.tryParse(list[2])} ${getMonthByIndex(
+            int.tryParse(list[1]) ?? -1)}';
       }
     } else {
-      return '${int.tryParse(list[2])} ${getMonthByIndex(int.tryParse(list[1]) ?? -1)}, ${list[0]} г.';
+      return '${int.tryParse(list[2])} ${getMonthByIndex(
+          int.tryParse(list[1]) ?? -1)}, ${list[0]} г.';
     }
   }
 
@@ -415,7 +428,6 @@ class MyFunctions {
 
   static bool enableForCalling(
       {required String callFrom, required String callTo}) {
-
     final now = DateTime.now();
 
     final dateFrom = DateTime(

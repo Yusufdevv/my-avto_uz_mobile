@@ -252,6 +252,7 @@ class _SellerState extends State<Seller> {
                                       : '',
                                   name: carsInDealerState
                                       .cars[index].absoluteCarName,
+
                                   currency:
                                       carsInDealerState.cars[index].currency,
                                   description:
