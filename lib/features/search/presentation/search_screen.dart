@@ -284,39 +284,35 @@ class _SearchScreenState extends State<SearchScreen> {
                             ),
                           )
                     : textControllerStatus == SearchControllerStatus.completed
-                        ? Column(
-                            children: [
-                              if (state.status != FormzStatus.submissionSuccess)
-                                const LoadingScreen()
-                              else
-                                state.searchResults.isEmpty
-                                    ? const Center(
-                                        child: NothingFoundScreen(),
-                                      )
-                                    : Paginator(
-                                        hasMoreToFetch: state.moreFetch,
-                                        fetchMoreFunction: () {},
-                                        itemCount: state.count,
-                                        paginatorStatus: state.status,
-                                        errorWidget: const SearchItemShimmer(
-                                            slideImageCount: 2),
-                                        separatorBuilder: (context, index) =>
-                                            Divider(
-                                          height: 12,
-                                          thickness: 0,
-                                          color: Theme.of(context)
-                                              .extension<ThemedColors>()!
-                                              .borderGreyToDark,
-                                        ),
-                                        itemBuilder: (context, index) =>
-                                            SortResultsCard(
-                                          searchResults: state.searchResults,
-                                          index: index,
-                                          status: sortingValue,
-                                        ),
-                                      ),
-                            ],
-                          )
+                        ? state.status != FormzStatus.submissionSuccess ?
+                          const LoadingScreen()
+                        :
+                          state.searchResults.isEmpty
+                              ? const Center(
+                                  child: NothingFoundScreen(),
+                                )
+                              : Paginator(
+                                  hasMoreToFetch: state.moreFetch,
+                                  fetchMoreFunction: () {},
+                                  itemCount: state.count,
+                                  paginatorStatus: state.status,
+                                  errorWidget: const SearchItemShimmer(
+                                      slideImageCount: 2),
+                                  separatorBuilder: (context, index) =>
+                                      Divider(
+                                    height: 12,
+                                    thickness: 0,
+                                    color: Theme.of(context)
+                                        .extension<ThemedColors>()!
+                                        .borderGreyToDark,
+                                  ),
+                                  itemBuilder: (context, index) =>
+                                      SortResultsCard(
+                                    searchResults: state.searchResults,
+                                    index: index,
+                                    status: sortingValue,
+                                  ),
+                                )
                         : LastPopularSearchesScreen(
                             searchController: searchController,
                             focusNode: focusNode,

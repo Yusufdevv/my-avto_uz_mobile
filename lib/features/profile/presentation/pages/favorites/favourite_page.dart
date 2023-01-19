@@ -68,7 +68,7 @@ class _FavouritePageState extends State<FavouritePage> {
                       initialItemCount: state.favorites.length,
                       itemBuilder: (context, index, animation) {
                         final item = state.favorites[index];
-                        DealerFavEntity dealer =
+                        final dealer =
                             DealerFavEntity.fromJson(item.dealer);
                         return Padding(
                             padding: EdgeInsets.only(

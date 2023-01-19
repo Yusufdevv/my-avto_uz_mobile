@@ -1,5 +1,6 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/core/utils/size_config.dart';
@@ -75,8 +76,7 @@ class SeeProfilePage extends StatelessWidget {
                                     height: SizeConfig.v(80),
                                     child: ClipRRect(
                                         borderRadius: BorderRadius.circular(50),
-                                        child: SvgPicture.asset(
-                                            AppIcons.userAvatar))),
+                                        child:Image.asset(AppImages.defaultPhoto, fit: BoxFit.cover))),
                               ),
                             ),
                             const Spacer(),

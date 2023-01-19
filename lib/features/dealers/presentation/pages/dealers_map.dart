@@ -19,7 +19,6 @@ class MapScreen extends StatefulWidget {
 class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin, WidgetsBindingObserver {
   late YandexMapController _mapController;
   //late TabController _controller;
-  late TextEditingController _searchFieldController;
   final List<MapObject<dynamic>> _mapObjects = [];
   late MapOrganizationBloc mapOrganizationBloc;
   //late SpecializationBloc specBloc;
@@ -42,7 +41,6 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin, Wi
       // getTypesUseCase: GetTypesUseCase(repository: serviceLocator<MapRepositoryImpl>()),
     );
     //_controller = TabController(length: 2, vsync: this);
-    _searchFieldController = TextEditingController();
     myPoint = const Point(latitude: 0, longitude: 0);
     WidgetsBinding.instance.addObserver(this);
     super.initState();

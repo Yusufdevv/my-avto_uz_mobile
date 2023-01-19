@@ -1,4 +1,5 @@
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/assets/themes/theme_extensions/w_textfield_style.dart';
 import 'package:auto/core/utils/size_config.dart';
@@ -60,7 +61,7 @@ class ProfileDataWidget extends StatelessWidget {
                               borderRadius: BorderRadius.circular(
                                 SizeConfig.h(24),
                               ),
-                              child: SvgPicture.asset(AppIcons.userAvatar)))),
+                              child: Image.asset(AppImages.defaultPhoto, fit: BoxFit.cover)))),
                 ),
               ),
               Expanded(

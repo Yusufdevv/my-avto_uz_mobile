@@ -1,5 +1,6 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/assets/constants/images.dart';
 import 'package:auto/core/utils/size_config.dart';
 import 'package:auto/features/ad/presentation/bloc/add_photo/image_bloc.dart';
 import 'package:auto/features/common/bloc/regions/regions_bloc.dart';
@@ -180,15 +181,20 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                                                                   url, error) =>
                                                               SizedBox(
                                                                   width:
-                                                                      SizeConfig.h(
-                                                                          80),
+                                                                      SizeConfig
+                                                                          .h(
+                                                                              80),
                                                                   height:
-                                                                      SizeConfig.v(
-                                                                          80),
+                                                                      SizeConfig
+                                                                          .v(80),
                                                                   child: ClipRRect(
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(50),
-                                                                      child: SvgPicture.asset(AppIcons.userAvatar)))),
+                                                                      borderRadius: BorderRadius.circular(50),
+                                                                      child: Image.asset(
+                                                                        AppImages
+                                                                            .defaultPhoto,
+                                                                        fit: BoxFit
+                                                                            .cover,
+                                                                      )))),
                                                     )
                                                   : SizedBox(
                                                       height: SizeConfig.v(80),
