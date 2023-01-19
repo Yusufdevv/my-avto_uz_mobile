@@ -185,15 +185,16 @@ class MyFunctions {
 
   static const clusterId = MapObjectId('big_cluster_id');
 
-  static Future<void> addDealer(List<MapModel> points,
-      BuildContext context,
-      List<MapObject<dynamic>> mapObjects,
-      YandexMapController controller,
-      Point point,
-      double accuracy) async {
+  static Future<void> addDealer({required List<MapModel> points,
+      required BuildContext context,
+      required List<MapObject<dynamic>> mapObjects,
+      required YandexMapController controller,
+      required Point point,
+      required double accuracy,
+      required bool isDirectoryPage}) async {
     final iconData = await getBytesFromCanvas(
       placeCount: 0,
-      image: AppIcons.dealersLocIcon,
+      image:isDirectoryPage ? AppIcons.directoryPoint :  AppIcons.dealersLocIcon,
       width: 170,
       offset: const Offset(0, -30),
       height: 410,

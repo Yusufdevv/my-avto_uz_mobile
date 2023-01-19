@@ -1,7 +1,6 @@
 import 'package:auto/features/dealers/domain/entities/map_entity.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:auto/features/rent/domain/entities/region_entity.dart';
-
+import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'map_model.g.dart';
 

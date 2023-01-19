@@ -127,7 +127,7 @@ class _DirectoryPageState extends State<DirectoryPage> {
                         physics: NeverScrollableScrollPhysics(),
                         children: [
                           DirectoryList(),
-                          MapScreen(),
+                          MapScreen(isDirectoryPage: true),
                         ],
                       ),
                     ),

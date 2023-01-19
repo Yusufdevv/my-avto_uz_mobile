@@ -136,6 +136,7 @@ class _AppState extends State<App> {
             supportedLocales: context.supportedLocales,
             localizationsDelegates: context.localizationDelegates,
             locale: context.locale,
+            
             debugShowCheckedModeBanner: false,
             title: 'Auto.Uz',
             theme: LightTheme.theme(),

@@ -102,6 +102,7 @@ class AppIcons {
   static const heartBlue = 'assets/icons/profile/heart.svg';
   static const refresh = 'assets/icons/profile/refresh.svg';
   static const empty = 'assets/icons/profile/empty.svg';
+  static const directoryPoint = 'assets/icons/profile/directory_point.png';
   static const refresh1 = 'assets/icons/profile/refresh1.svg';
   static const share = 'assets/icons/profile/share.svg';
   static const editProfile = 'assets/icons/profile/edit.svg';

@@ -7,7 +7,7 @@ import 'package:auto/features/dealers/data/models/map_model.dart';
 import 'package:auto/features/dealers/domain/entities/map_parameter.dart';
 
 
-class GetMapDealersUseCase extends UseCase<List<MapModel>, String> {
+class GetDirectoriesMapPointUseCase extends UseCase<List<MapModel>, String> {
   final GlobalRequestRepository repo = GlobalRequestRepository();
 
   @override
@@ -24,9 +24,9 @@ class GetMapDealersUseCase extends UseCase<List<MapModel>, String> {
       });
     }
     return repo.getList<MapModel>(
-        endpoint: '/users/dealers-map/',
+        endpoint: '/car-place/car-place-map/',
         fromJson: MapModel.fromJson,
-        query: query,
+        query: query, 
         responseDataKey: 'results',
         sendToken: StorageRepository.getString('token').isNotEmpty);
   }
