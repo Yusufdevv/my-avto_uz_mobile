@@ -7,9 +7,12 @@ import 'package:auto/features/pagination/models/generic_pagination.dart';
 abstract class CarSingleRepository {
   Future<Either<Failure, CarSingleEntity>> getCarSingle({required int id});
 
-  Future<Either<Failure, GenericPagination<ElasticSearchEntity>>> getOtherAds({required int id});
+  Future<Either<Failure, GenericPagination<ElasticSearchEntity>>> getOtherAds(
+      {required int id});
 
   Future<Either<Failure, CarSingleEntity>> payInvoice();
 
-  Future<Either<Failure,dynamic>> soldAds({required int id});
+  Future<Either<Failure, dynamic>> soldAds({required int id});
+
+  Future<Either<Failure, dynamic>> callCount({required int id});
 }

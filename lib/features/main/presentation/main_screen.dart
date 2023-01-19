@@ -7,7 +7,6 @@ import 'package:auto/features/common/bloc/announcement_bloc/bloc/announcement_li
 import 'package:auto/features/common/bloc/get_car_model/get_car_model_bloc.dart';
 import 'package:auto/features/common/bloc/get_makes_bloc/get_makes_bloc_bloc.dart';
 import 'package:auto/features/common/bloc/wishlist_add/wishlist_add_bloc.dart';
-
 import 'package:auto/features/comparison/presentation/pages/choose_car_brand.dart';
 import 'package:auto/features/main/domain/entities/service_entity.dart';
 import 'package:auto/features/main/domain/usecases/get_top_ads.dart';

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/themes/dark.dart';
 import 'package:auto/assets/themes/light.dart';
@@ -13,6 +15,7 @@ import 'package:auto/features/common/bloc/auth/authentication_bloc.dart';
 import 'package:auto/features/common/bloc/comparison_add/bloc/comparison_add_bloc.dart';
 import 'package:auto/features/common/bloc/get_car_model/get_car_model_bloc.dart';
 import 'package:auto/features/common/bloc/get_makes_bloc/get_makes_bloc_bloc.dart';
+import 'package:auto/features/common/bloc/internet_bloc/internet_bloc.dart';
 import 'package:auto/features/common/bloc/regions/regions_bloc.dart';
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
 import 'package:auto/features/common/bloc/wishlist_add/wishlist_add_bloc.dart';
@@ -38,6 +41,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -57,11 +61,25 @@ void main() async {
   );
 }
 
-class AppProvider extends StatelessWidget {
+class AppProvider extends StatefulWidget {
   const AppProvider({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => const App();
+  State<AppProvider> createState() => _AppProviderState();
+}
+
+class _AppProviderState extends State<AppProvider> {
+  late InternetBloc bloc;
+
+  @override
+  void initState() {
+    bloc = InternetBloc();
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) =>
+      BlocProvider.value(value: bloc, child: const App());
 }
 
 class App extends StatefulWidget {
@@ -75,10 +93,27 @@ class _AppState extends State<App> {
   final _navigatorKey = GlobalKey<NavigatorState>();
 
   NavigatorState get navigator => _navigatorKey.currentState!;
+  StreamSubscription? streamSubscription;
+  InternetBloc bloc = InternetBloc();
+
+  @override
+  void initState() {
+    bloc = InternetBloc();
+    streamSubscription = InternetConnectionChecker()
+        .onStatusChange
+        .listen((InternetConnectionStatus status) {
+      print('internet status ---- ${status}');
+
+      context.read<InternetBloc>().add(InternetEvent(
+          isConnected: status == InternetConnectionStatus.connected));
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) => MultiBlocProvider(
         providers: [
+          // BlocProvider(create: (c) => InternetBloc()),
           BlocProvider(
             create: (c) =>
                 AuthenticationBloc(AuthRepository())..add(CheckUser()),

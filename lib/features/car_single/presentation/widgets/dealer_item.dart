@@ -57,7 +57,7 @@ class DealerItem extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 8,
               ),
               Column(

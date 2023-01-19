@@ -6,6 +6,8 @@ class CarSingleState with _$CarSingleState {
     @Default(FormzStatus.pure) FormzStatus adsStatus,
     @Default(FormzStatus.pure) FormzStatus soldStatus,
     @Default(FormzStatus.pure) FormzStatus status,
+    @Default('') String succMessage,
+    @Default('') String errorMessage,
     @Default(CarSingleEntity()) CarSingleEntity singleEntity,
     @Default([]) List<ElasticSearchEntity> elasticSearchEntity,
     @Default(false) fetchMore,

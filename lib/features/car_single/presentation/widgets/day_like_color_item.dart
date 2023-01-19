@@ -3,10 +3,10 @@ import 'package:auto/features/car_single/presentation/widgets/call_like_item.dar
 import 'package:flutter/material.dart';
 
 class DayLikeCallItem extends StatelessWidget {
-  final int days;
+  final String days;
   final int likes;
   final int calls;
-  final int leftDays;
+  final String leftDays;
 
   const DayLikeCallItem(
       {Key? key, required this.days, required this.likes, required this.calls, required this.leftDays})
@@ -50,7 +50,7 @@ class DayLikeCallItem extends StatelessWidget {
             Container(
               width: double.infinity,
               padding: const EdgeInsets.only(left: 12, top: 8, bottom: 8),
-              margin: EdgeInsets.only(top: 16, bottom: 16),
+              margin: const EdgeInsets.only(top: 16, bottom: 16),
               decoration: BoxDecoration(
                 color: const Color(0xffFFFBFA),
                 borderRadius: BorderRadius.circular(12),

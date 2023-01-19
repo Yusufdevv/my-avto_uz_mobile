@@ -129,9 +129,7 @@ class MineMoreBottomSheet extends StatelessWidget {
                 ),
                 Expanded(
                   child: WScaleAnimation(
-                    onTap: () {
-                      onShare;
-                    },
+                    onTap: onShare,
                     child: Container(
                       padding: const EdgeInsets.only(
                         top: 16,

@@ -78,4 +78,20 @@ class CarSingleRepositoryImpl extends CarSingleRepository {
           errorMessage: e.errorMessage, statusCode: e.statusCode));
     }
   }
+
+  @override
+  Future<Either<Failure, dynamic>> callCount({required int id}) async {
+    try {
+      final result = await dataSource.callCount(id: id);
+      print('REPO ---- SUCC CALL');
+      return Right(result);
+    } on DioException {
+      return Left(DioFailure());
+    } on ParsingException catch (e) {
+      return Left(ParsingFailure(errorMessage: e.errorMessage));
+    } on ServerException catch (e) {
+      return Left(ServerFailure(
+          errorMessage: e.errorMessage, statusCode: e.statusCode));
+    }
+  }
 }

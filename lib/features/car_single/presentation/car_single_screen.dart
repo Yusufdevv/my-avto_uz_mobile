@@ -1,7 +1,7 @@
 import 'package:auto/assets/colors/color.dart';
-import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/features/car_single/data/repository/car_single_repository_impl.dart';
+import 'package:auto/features/car_single/domain/usecases/call_count_usecase.dart';
 import 'package:auto/features/car_single/domain/usecases/get_ads_usecase.dart';
 import 'package:auto/features/car_single/domain/usecases/other_ads_usecase.dart';
 import 'package:auto/features/car_single/domain/usecases/sold_ads_usecase.dart';
@@ -14,9 +14,13 @@ import 'package:auto/features/car_single/presentation/widgets/bottom_item.dart';
 import 'package:auto/features/car_single/presentation/widgets/car_characteristic_image.dart';
 import 'package:auto/features/car_single/presentation/widgets/car_name_widget.dart';
 import 'package:auto/features/car_single/presentation/widgets/cars_characteristic.dart';
+import 'package:auto/features/car_single/presentation/widgets/confirm_bottomsheet.dart';
 import 'package:auto/features/car_single/presentation/widgets/other_ads_item.dart';
 import 'package:auto/features/car_single/presentation/widgets/persistant_header.dart';
 import 'package:auto/features/car_single/presentation/widgets/vin_soon_item.dart';
+import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
+import 'package:auto/features/common/widgets/custom_screen.dart';
+import 'package:auto/features/common/widgets/internet_error_bottomsheet.dart';
 import 'package:auto/features/main/presentation/widgets/ads_item.dart';
 import 'package:auto/features/pagination/presentation/paginator.dart';
 import 'package:auto/utils/my_functions.dart';
@@ -76,7 +80,8 @@ class _CarSingleScreenState extends State<CarSingleScreen>
         GetCarSingleUseCase(
             repository: serviceLocator<CarSingleRepositoryImpl>()),
         OtherAdsUseCase(repository: serviceLocator<CarSingleRepositoryImpl>()),
-        SoldAdsUseCase(repository: serviceLocator<CarSingleRepositoryImpl>()))
+        SoldAdsUseCase(repository: serviceLocator<CarSingleRepositoryImpl>()),
+        CallCount(repository: serviceLocator<CarSingleRepositoryImpl>()))
       ..add(CarSingleEvent.getSingle(widget.id));
     _scrollController.addListener(() {
       if (_scrollController.offset > 285 && isAppBarOffset != true) {
@@ -107,6 +112,21 @@ class _CarSingleScreenState extends State<CarSingleScreen>
   }
 
   @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    switch (state) {
+      case AppLifecycleState.resumed:
+        context.read<CarSingleBloc>().add(CarSingleEvent.callCount(widget.id));
+        break;
+      case AppLifecycleState.inactive:
+        break;
+      case AppLifecycleState.paused:
+        break;
+      case AppLifecycleState.detached:
+        break;
+    }
+  }
+
+  @override
   void dispose() {
     _scrollController.dispose();
     super.dispose();
@@ -115,205 +135,270 @@ class _CarSingleScreenState extends State<CarSingleScreen>
   @override
   Widget build(BuildContext context) => BlocProvider.value(
         value: bloc,
-        child: Scaffold(
-          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-          body: BlocBuilder<CarSingleBloc, CarSingleState>(
-            builder: (context, state) {
-              if (state.status != FormzStatus.submissionSuccess) {
-                return const Center(child: CupertinoActivityIndicator());
-              } else {
-                return Stack(
-                  children: [
-                    CustomScrollView(
-                      controller: _scrollController,
-                      slivers: [
-                        SliverAppBarItem(
-                          id: state.singleEntity.id,
-                          brightness: brightness,
-                          iconColor: iconColor,
-                          absoluteCarName: state.singleEntity.absoluteCarName,
-                          actionState: actionState,
-                          isWishlisted: state.singleEntity.isWishlisted,
-                          dealerName: state.singleEntity.user.name,
-                          position: state.singleEntity.userType,
-                          avatar: state.singleEntity.user.avatar ??
-                              AppIcons.defalut,
-                          shareUrl:
-                              'https://panel.avto.uz/api/v1/car/announcement/${state.singleEntity.id}/detail/',
-                          images: state.singleEntity.gallery,
-                          onDealer: () {},
-                          onCompare: () {},
-                          isMine: state.singleEntity.isMine,
-                          status: state.soldStatus,
-                          onSold: () {
-                            print('bosildi');
-                            context
-                                .read<CarSingleBloc>()
-                                .add(CarSingleEvent.soldAds(widget.id));
-                          },
-                        ),
-                        SliverToBoxAdapter(
-                          child: CarNameWidget(
-                            fullname: state.singleEntity.absoluteCarName,
-                            price: MyFunctions.getFormatCost(
-                              state.singleEntity.price,
-                            ),
-                            date: state.singleEntity.publishedAt,
-                            view: '${state.singleEntity.viewsCount}',
-                            id: '${state.singleEntity.id}',
-                            currency: state.singleEntity.currency == 'usd'
-                                ? 'USD'
-                                : 'UZS',
-                            onVin: () {},
-                            onComparison: () {},
-                            onShare: () {
-                              Share.share(
-                                  'https://panel.avto.uz/api/v1/car/announcement/${state.singleEntity.id}/detail/');
-                            },
-                            year: '${state.singleEntity.year}',
-                            mileage: '${state.singleEntity.distanceTraveled}',
-                            body: state.singleEntity.bodyType.type,
-                            color: state.singleEntity.color,
-                            complectation: '',
-                            engineVolume:
-                                state.singleEntity.modificationType.volume,
-                            gearType: state.singleEntity.gearboxType.type,
-                            uzb: state.singleEntity.isRegisteredLocally
-                                ? 'Да'
-                                : 'Нет',
-                            priceBsh: state.singleEntity.price,
-                            middlePrice: '400 00 00',
-                            ration: '30 000 000',
-                            dateBsh: '25 mart',
-                            percent: '5',
-                            isMine: state.singleEntity.isMine,
-                            saleDays: 5,
-                            addToFavorite: 4,
-                            callToNumber: 4,
-                            daysLeft: 8,
-                          ),
-                        ),
-                        const SliverToBoxAdapter(
-                          child: OwnerActions(),
-                        ),
-                        SliverToBoxAdapter(
-                          child: CarSellerCard(
-                            image: state.singleEntity.userType == 'dealer'
-                                ? state.singleEntity.user.avatar ?? ''
-                                : state.singleEntity.user.image ?? '',
-                            name: state.singleEntity.userType == 'dealer'
-                                ? state.singleEntity.user.name
-                                : state.singleEntity.user.fullName,
+        child: CustomScreen(
+          child: Scaffold(
+            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+            body: BlocBuilder<CarSingleBloc, CarSingleState>(
+              builder: (context, state) {
+                if (state.status != FormzStatus.submissionSuccess) {
+                  return const Center(child: CupertinoActivityIndicator());
+                } else {
+                  return Stack(
+                    children: [
+                      CustomScrollView(
+                        controller: _scrollController,
+                        slivers: [
+                          SliverAppBarItem(
+                            id: state.singleEntity.id,
+                            brightness: brightness,
+                            iconColor: iconColor,
+                            absoluteCarName: state.singleEntity.absoluteCarName,
+                            actionState: actionState,
+                            isWishlisted: state.singleEntity.isWishlisted,
+                            dealerName: state.singleEntity.userType == 'owner'
+                                ? state.singleEntity.user.fullName
+                                : state.singleEntity.user.name,
                             position: state.singleEntity.userType,
-                            isCrashed: false,
-                          ),
-                        ),
-                        SliverPersistentHeader(
-                          pinned: true,
-                          delegate: DescriptionHeader(
-                            controller: _tabController,
-                            onTap: (integer) {
-                              changeIndex(integer);
-                              setState(
-                                () {
-                                  currentindex = integer;
-                                },
-                              );
-                            },
-                          ),
-                        ),
-                        SliverToBoxAdapter(
-                          child: (currentindex == 0)
-                              ? Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    if (state.singleEntity.description != null)
-                                      SellerComment(
-                                        comment: state.singleEntity.description,
-                                      )
-                                    else
-                                      SizedBox(),
-                                    const VinSoonItem(),
-                                  ],
-                                )
-                              : CarCharacteristicItem(
-                                  bodyType: state.singleEntity.bodyType.type,
-                                  milleage:
-                                      '${state.singleEntity.distanceTraveled}',
-                                  driveType: state.singleEntity.driveType.type,
-                                  engineType:
-                                      state.singleEntity.engineType.type,
-                                  gearboxType:
-                                      state.singleEntity.gearboxType.type,
-                                  enginePower:
-                                      state.singleEntity.modificationType.power,
-                                  engineVolume: state
-                                      .singleEntity.modificationType.volume,
+                            avatar: state.singleEntity.userType == 'owner'
+                                ? state.singleEntity.user.fullName
+                                : state.singleEntity.user.avatar,
+                            shareUrl:
+                                'https://panel.avto.uz/api/v1/car/announcement/${state.singleEntity.id}/detail/',
+                            images: state.singleEntity.gallery,
+                            onDealer: () {},
+                            onCompare: () {},
+                            isMine: false,
+                            status: state.soldStatus,
+                            onSold: () {
+                              showModalBottomSheet(
+                                context: context,
+                                builder: (context) => const ConfirmBottomSheet(
+                                  title:
+                                      'Вы действительно хотите\nзавершить объявление?',
+                                  subTitle: '',
+                                  betweenHeight: 0,
                                 ),
-                        ),
-                        if (state.singleEntity.damagedParts.isNotEmpty)
+                              ).then((value) {
+                                if (value == true) {
+                                  print('FALSE VALUE IS --> ${value}');
+                                  Navigator.pop(context);
+                                  bloc.add(
+                                    CarSingleEvent.soldAds(
+                                      widget.id,
+                                      (message) {
+                                        context.read<ShowPopUpBloc>().add(
+                                            ShowPopUp(
+                                                message: state.succMessage,
+                                                isSucces: true));
+                                      },
+                                      (errorMessage) {
+                                        print('popup --error');
+                                        context.read<ShowPopUpBloc>().add(
+                                            ShowPopUp(
+                                                message: state.errorMessage,
+                                                isSucces: false));
+                                      },
+                                    ),
+                                  );
+                                }
+                              });
+                            },
+                            isCompare: state.singleEntity.isComparison,
+                          ),
                           SliverToBoxAdapter(
-                            child: CarCharacteristicImage(
-                              informAboutDoors: state.singleEntity.damagedParts,
+                            child: CarNameWidget(
+                              fullname: state.singleEntity.absoluteCarName,
+                              price: MyFunctions.getFormatCost(
+                                state.singleEntity.price,
+                              ),
+                              date: state.singleEntity.publishedAt,
+                              view: '${state.singleEntity.viewsCount}',
+                              id: '${state.singleEntity.id}',
+                              currency: state.singleEntity.currency == 'usd'
+                                  ? 'USD'
+                                  : 'UZS',
+                              onVin: () {
+                                showModalBottomSheet(
+                                  context: context,
+                                  backgroundColor: Colors.transparent,
+                                  constraints: const BoxConstraints(
+                                    maxHeight: 369,
+                                    minHeight: 369,
+                                  ),
+                                  builder: (context) =>
+                                      InternetErrorBottomSheet(
+                                    onTap: () {},
+                                  ),
+                                );
+                              },
+                              onComparison: () {},
+                              onShare: () {
+                                Share.share(
+                                    'https://panel.avto.uz/api/v1/car/announcement/${state.singleEntity.id}/detail/');
+                              },
+                              year: '${state.singleEntity.year}',
+                              mileage: '${state.singleEntity.distanceTraveled}',
+                              body: state.singleEntity.bodyType.type,
+                              color: state.singleEntity.color,
+                              complectation: '',
+                              engineVolume:
+                                  state.singleEntity.modificationType.volume,
+                              gearType: state.singleEntity.gearboxType.type,
+                              uzb: state.singleEntity.isRegisteredLocally
+                                  ? 'Да'
+                                  : 'Нет',
+                              priceBsh: state.singleEntity.price,
+                              middlePrice: '400 00 00',
+                              ration: '30 000 000',
+                              dateBsh: '25 mart',
+                              percent: '5',
+                              isMine: true,
+                              saleDays:
+                                  '${DateTime.now().difference(DateTime.parse(state.singleEntity.publishedAt)).inDays + 1}',
+                              addToFavorite: state.singleEntity.wishlistCount,
+                              callToNumber: state.singleEntity.callCount,
+                              daysLeft: state.singleEntity.expiredAt != null &&
+                                      state.singleEntity.publishedAt != null
+                                  ? '${DateTime.parse(state.singleEntity.expiredAt).difference(DateTime.parse(state.singleEntity.publishedAt)).inDays + 1}'
+                                  : 'Не указано',
+                              compareId: state.singleEntity.id,
+                              isCompared: state.singleEntity.isComparison,
                             ),
                           ),
-                        SliverToBoxAdapter(
-                          child: state.elasticSearchEntity.isNotEmpty
-                              ? OtherAdsItem(
-                                  makeName: state.singleEntity.make.name,
-                                  imageUrl: '${state.singleEntity.make.logo}',
-                                  status: state.status,
-                                  widget: Paginator(
-                                    scrollDirection: Axis.horizontal,
-                                    paginatorStatus: state.status,
-                                    itemBuilder: (context, index) => AdsItem(
-                                      id: state.elasticSearchEntity[index].id,
-                                      name: state.elasticSearchEntity[index]
-                                          .carModel.name,
-                                      price:
-                                          '${state.elasticSearchEntity[index].price}',
-                                      location: state.elasticSearchEntity[index]
-                                          .region.title,
-                                      description: state
-                                          .elasticSearchEntity[index]
-                                          .description,
-                                      image: state.elasticSearchEntity[index]
-                                          .gallery[0],
-                                      currency: state
-                                          .elasticSearchEntity[index].currency,
-                                      isLiked: false,
-                                      onTapLike: () {},
-                                    ),
-                                    itemCount: state.elasticSearchEntity.length,
-                                    fetchMoreFunction: () {},
-                                    hasMoreToFetch: state.fetchMore,
-                                    errorWidget: Container(),
-                                  ),
-                                )
-                              : const SizedBox(),
-                        ),
-                        const SliverToBoxAdapter(
-                          child: SizedBox(
-                            height: 70,
+                          const SliverToBoxAdapter(
+                            child: OwnerActions(),
                           ),
-                        ),
-                      ],
-                    ),
-                    Positioned(
-                      left: 16,
-                      right: 16,
-                      bottom: 16,
-                      child: BottomItem(
-                        callFrom: state.singleEntity.contactAvailableFrom,
-                        callTo: state.singleEntity.contactAvailableTo,
-                        phoneNumber: state.singleEntity.user.phoneNumber,
-                        userAvatar: state.singleEntity.user.avatar,
+                          SliverToBoxAdapter(
+                            child: CarSellerCard(
+                              image: state.singleEntity.userType == 'dealer'
+                                  ? state.singleEntity.user.avatar ?? ''
+                                  : state.singleEntity.user.image ?? '',
+                              name: state.singleEntity.userType == 'dealer'
+                                  ? state.singleEntity.user.name
+                                  : state.singleEntity.user.fullName,
+                              position: state.singleEntity.userType,
+                              isCrashed: false,
+                            ),
+                          ),
+                          SliverPersistentHeader(
+                            pinned: true,
+                            delegate: DescriptionHeader(
+                              controller: _tabController,
+                              onTap: (integer) {
+                                changeIndex(integer);
+                                setState(
+                                  () {
+                                    currentindex = integer;
+                                  },
+                                );
+                              },
+                            ),
+                          ),
+                          SliverToBoxAdapter(
+                            child: (currentindex == 0)
+                                ? Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      if (state.singleEntity.description !=
+                                          null)
+                                        SellerComment(
+                                          comment:
+                                              state.singleEntity.description,
+                                        )
+                                      else
+                                        const SizedBox(),
+                                      const VinSoonItem(),
+                                    ],
+                                  )
+                                : CarCharacteristicItem(
+                                    bodyType: state.singleEntity.bodyType.type,
+                                    milleage:
+                                        '${state.singleEntity.distanceTraveled}',
+                                    driveType:
+                                        state.singleEntity.driveType.type,
+                                    engineType:
+                                        state.singleEntity.engineType.type,
+                                    gearboxType:
+                                        state.singleEntity.gearboxType.type,
+                                    enginePower: state
+                                        .singleEntity.modificationType.power,
+                                    engineVolume: state
+                                        .singleEntity.modificationType.volume,
+                                  ),
+                          ),
+                          if (state.singleEntity.damagedParts.isNotEmpty)
+                            SliverToBoxAdapter(
+                              child: CarCharacteristicImage(
+                                informAboutDoors:
+                                    state.singleEntity.damagedParts,
+                              ),
+                            ),
+                          SliverToBoxAdapter(
+                            child: state.elasticSearchEntity.isNotEmpty
+                                ? OtherAdsItem(
+                                    makeName: state.singleEntity.make.name,
+                                    imageUrl: '${state.singleEntity.make.logo}',
+                                    status: state.status,
+                                    widget: Paginator(
+                                      scrollDirection: Axis.horizontal,
+                                      paginatorStatus: state.status,
+                                      itemBuilder: (context, index) => AdsItem(
+                                        id: state.elasticSearchEntity[index].id,
+                                        name: state.elasticSearchEntity[index]
+                                            .carModel.name,
+                                        price:
+                                            '${state.elasticSearchEntity[index].price}',
+                                        location: state
+                                            .elasticSearchEntity[index]
+                                            .region
+                                            .title,
+                                        description: state
+                                            .elasticSearchEntity[index]
+                                            .description,
+                                        image: state.elasticSearchEntity[index]
+                                            .gallery[0],
+                                        currency: state
+                                            .elasticSearchEntity[index]
+                                            .currency,
+                                        isLiked: false,
+                                        onTapLike: () {},
+                                      ),
+                                      itemCount:
+                                          state.elasticSearchEntity.length,
+                                      fetchMoreFunction: () {},
+                                      hasMoreToFetch: state.fetchMore,
+                                      errorWidget: Container(),
+                                    ),
+                                  )
+                                : const SizedBox(),
+                          ),
+                          const SliverToBoxAdapter(
+                            child: SizedBox(
+                              height: 70,
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                  ],
-                );
-              }
-            },
+                      Positioned(
+                        left: 16,
+                        right: 16,
+                        bottom: 16,
+                        child: BottomItem(
+                          callFrom: state.singleEntity.contactAvailableFrom,
+                          callTo: state.singleEntity.contactAvailableTo,
+                          phoneNumber: state.singleEntity.user.phoneNumber,
+                          userAvatar: state.singleEntity.user.avatar,
+                          id: state.singleEntity.id,
+                          usertype: state.singleEntity.userType,
+                          slug: state.singleEntity.user.slug,
+                        ),
+                      ),
+                    ],
+                  );
+                }
+              },
+            ),
           ),
         ),
       );

@@ -28,6 +28,7 @@ class SliverAppBarItem extends StatefulWidget {
   final VoidCallback onCompare;
   final VoidCallback onSold;
   final bool isMine;
+  final bool isCompare;
 
   const SliverAppBarItem({
     required this.brightness,
@@ -45,7 +46,9 @@ class SliverAppBarItem extends StatefulWidget {
     required this.onCompare,
     Key? key,
     required this.isMine,
-    required this.status, required this.onSold,
+    required this.status,
+    required this.onSold,
+    required this.isCompare,
   }) : super(key: key);
 
   @override
@@ -149,7 +152,7 @@ class _SliverAppBarItemState extends State<SliverAppBarItem> {
                           onDealer: () {},
                           id: widget.id,
                           status: widget.status,
-                    onSold:widget.onSold,
+                          onSold: widget.onSold,
                         )
                       : MoreActions(
                           name: widget.dealerName,
@@ -162,6 +165,8 @@ class _SliverAppBarItemState extends State<SliverAppBarItem> {
                           },
                           onCompare: widget.onCompare,
                           onDealer: widget.onDealer,
+                          id: widget.id,
+                          isCompare: widget.isCompare,
                         ),
                 );
               },
