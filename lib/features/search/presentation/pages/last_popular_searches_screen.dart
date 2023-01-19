@@ -23,7 +23,7 @@ class _LastPopularSearchesScreenState extends State<LastPopularSearchesScreen> {
       BlocBuilder<UserSearchesBloc, UserSearchesState>(
         builder: (context, state) =>
             state.status != FormzStatus.submissionSuccess
-                ? const Expanded(child:  Center(child: LoadingScreen()))
+                ? const Center(child: LoadingScreen())
                 : ListView(
                     physics: const BouncingScrollPhysics(),
                     children: [

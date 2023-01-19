@@ -227,13 +227,11 @@ class _SearchScreenState extends State<SearchScreen> {
                         borderRadius: 12,
                         margin: const EdgeInsets.only(left: 10, right: 16),
                         color: lavender,
-                        child: SvgPicture.asset(
-                          AppIcons.arrowsSort,
-                          height: 24,
-                          width: 24,
-                          fit: BoxFit.cover,
-                          color: purple,
-                        ),
+                        child: SvgPicture.asset(AppIcons.arrowsSort,
+                            height: 24,
+                            width: 24,
+                            fit: BoxFit.cover,
+                            color: purple),
                       ),
                     ],
                   ),
@@ -286,43 +284,35 @@ class _SearchScreenState extends State<SearchScreen> {
                             ),
                           )
                     : textControllerStatus == SearchControllerStatus.completed
-                        ? Column(
-                            children: [
-                              Expanded(
-                                child: state.status !=
-                                        FormzStatus.submissionSuccess
-                                    ? const LoadingScreen()
-                                    : state.searchResults.isEmpty
-                                        ? const Center(
-                                            child: NothingFoundScreen(),
-                                          )
-                                        : Paginator(
-                                            hasMoreToFetch: state.moreFetch,
-                                            fetchMoreFunction: () {},
-                                            itemCount: state.count,
-                                            paginatorStatus: state.status,
-                                            errorWidget:
-                                                const SearchItemShimmer(
-                                                    slideImageCount: 2),
-                                            separatorBuilder:
-                                                (context, index) => Divider(
-                                              height: 12,
-                                              thickness: 0,
-                                              color: Theme.of(context)
-                                                  .extension<ThemedColors>()!
-                                                  .borderGreyToDark,
-                                            ),
-                                            itemBuilder: (context, index) =>
-                                                SortResultsCard(
-                                              searchResults:
-                                                  state.searchResults,
-                                              index: index,
-                                              status: sortingValue,
-                                            ),
-                                          ),
-                              ),
-                            ],
-                          )
+                        ? state.status != FormzStatus.submissionSuccess ?
+                          const LoadingScreen()
+                        :
+                          state.searchResults.isEmpty
+                              ? const Center(
+                                  child: NothingFoundScreen(),
+                                )
+                              : Paginator(
+                                  hasMoreToFetch: state.moreFetch,
+                                  fetchMoreFunction: () {},
+                                  itemCount: state.count,
+                                  paginatorStatus: state.status,
+                                  errorWidget: const SearchItemShimmer(
+                                      slideImageCount: 2),
+                                  separatorBuilder: (context, index) =>
+                                      Divider(
+                                    height: 12,
+                                    thickness: 0,
+                                    color: Theme.of(context)
+                                        .extension<ThemedColors>()!
+                                        .borderGreyToDark,
+                                  ),
+                                  itemBuilder: (context, index) =>
+                                      SortResultsCard(
+                                    searchResults: state.searchResults,
+                                    index: index,
+                                    status: sortingValue,
+                                  ),
+                                )
                         : LastPopularSearchesScreen(
                             searchController: searchController,
                             focusNode: focusNode,
@@ -362,11 +352,27 @@ class SortSearchResultsModel {
   const SortSearchResultsModel({required this.title, required this.status});
 }
 
+class BodyConditionResultsModel {
+  final String title;
+  final BodyConditionResultStatus status;
+
+  const BodyConditionResultsModel({required this.title, required this.status});
+}
+
 enum SortSearchResultStatus {
   cheapest,
   expensive,
   oldest,
   newest,
+}
+
+enum BodyConditionResultStatus {
+  redWarning,
+  pupleWarning,
+  yellowWarning,
+  blueWarning,
+  orangeWarning,
+  greenWarning,
 }
 
 enum SearchControllerStatus {

@@ -16,6 +16,9 @@ import 'package:auto/features/reviews/data/models/make_model.dart';
 import 'package:dio/dio.dart';
 
 abstract class AdRemoteDataSource {
+  Future<bool> verify(Map<String, String> params);
+  Future<String> sendCode({required String phone});
+
   Future<GenericPagination<MakeModel>> getTopMakes({String? next});
 
   Future<GetMakeEntity> getMake({String? name});
@@ -137,11 +140,8 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
                 }
               : {},
         ),
-        queryParameters: name == null
-            ? null
-            : {
-                'search': name,
-              });
+        queryParameters:
+            name == null ? null : {'search': name, 'limit': 50, 'offset': 0});
     if (response.statusCode! >= 200 && response.statusCode! < 300) {
       return GetMakeModel.fromJson(response.data);
     } else {
@@ -557,6 +557,70 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
           errorMessage: response.data.toString(),
         );
       }
+    } on ServerException {
+      rethrow;
+    } on DioError {
+      throw DioException();
+    } on Exception catch (e) {
+      throw ParsingException(errorMessage: e.toString());
+    }
+  }
+
+  @override
+  Future<String> sendCode({required String phone}) async {
+    try {
+      final response = await _dio.post(
+        '/car/announcement/sms-verification/entrypoint/',
+        data: {'phone_number': phone},
+        options: Options(
+          headers: StorageRepository.getString('token').isNotEmpty
+              ? {
+                  'Authorization':
+                      'Token ${StorageRepository.getString('token')}'
+                }
+              : {},
+        ),
+      );
+      if (response.statusCode! >= 200 && response.statusCode! < 300) {
+        try {
+          return response.data['session'];
+        } catch (e) {
+          return e.toString();
+        }
+      }
+      throw ServerException(
+          statusCode: response.statusCode ?? 0,
+          errorMessage: response.statusMessage ?? '');
+    } on ServerException {
+      rethrow;
+    } on DioError {
+      throw DioException();
+    } on Exception catch (e) {
+      throw ParsingException(errorMessage: e.toString());
+    }
+  }
+
+  @override
+  Future<bool> verify(Map<String, String> params) async {
+    try {
+      final response = await _dio.post(
+        '/car/announcement/sms-verification/verify',
+        data: params,
+        options: Options(
+          headers: StorageRepository.getString('token').isNotEmpty
+              ? {
+                  'Authorization':
+                      'Token ${StorageRepository.getString('token')}'
+                }
+              : {},
+        ),
+      );
+      if (response.statusCode! >= 200 && response.statusCode! < 300) {
+        return response.data['verified'];
+      }
+      throw ServerException(
+          statusCode: response.statusCode ?? 0,
+          errorMessage: response.statusMessage ?? '');
     } on ServerException {
       rethrow;
     } on DioError {

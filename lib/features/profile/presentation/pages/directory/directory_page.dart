@@ -8,6 +8,7 @@ import 'package:auto/features/dealers/presentation/pages/dealers_map.dart';
 import 'package:auto/features/dealers/presentation/widgets/segmented_control.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/profile/data/repositories/get_user_list_repo_impl.dart';
+import 'package:auto/features/profile/domain/usecases/directory_single_usecase.dart';
 import 'package:auto/features/profile/domain/usecases/get_dir_categories_usecase.dart';
 import 'package:auto/features/profile/domain/usecases/get_directories_usecase.dart';
 import 'package:auto/features/profile/presentation/bloc/directory/directory_bloc.dart';
@@ -35,7 +36,9 @@ class _DirectoryPageState extends State<DirectoryPage> {
     final repo = serviceLocator<GetUserListRepoImpl>();
     bloc = DirectoryBloc(
         getDirCategoriesUseCase: GetDirCategoriesUseCase(repository: repo),
-        getDirectoriesUseCase: GetDirectoriesUseCase(repository: repo));
+        getDirectoriesUseCase: GetDirectoriesUseCase(repository: repo),
+        directorySingleSingleUseCase: DirectorySingleSingleUseCase(repository: repo)
+        );
     super.initState();
   }
 
@@ -124,7 +127,7 @@ class _DirectoryPageState extends State<DirectoryPage> {
                         physics: NeverScrollableScrollPhysics(),
                         children: [
                           DirectoryList(),
-                          MapScreen(),
+                          MapScreen(isDirectoryPage: true),
                         ],
                       ),
                     ),

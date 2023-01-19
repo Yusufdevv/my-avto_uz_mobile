@@ -6,8 +6,6 @@ class PostingAdBodyTypesEvent extends PostingAdEvent {
   PostingAdBodyTypesEvent();
 }
 
-
-
 class PostingAdGearBoxesEvent extends PostingAdEvent {
   PostingAdGearBoxesEvent();
 }
@@ -44,6 +42,7 @@ class PostingAdGenerationsEvent extends PostingAdEvent {
 class PostingAdChooseEvent extends PostingAdEvent {
   final Region? region;
   final YearsEntity? yearsEntity;
+  final DistrictEntity? district;
   final int? modelId;
   final int? generationId;
 
@@ -77,9 +76,12 @@ class PostingAdChooseEvent extends PostingAdEvent {
   final bool? showOwnerContacts;
   final bool? isContactsVerified;
   final bool? rentToBuy;
-  final bool?isWithoutMileage;
+  final bool? isWithoutMileage;
+  final bool? showExactAddress;
 
   PostingAdChooseEvent({
+    this.showExactAddress,
+    this.district,
     this.driveTypeId,
     this.generationId,
     this.selectedBodyTypeId,

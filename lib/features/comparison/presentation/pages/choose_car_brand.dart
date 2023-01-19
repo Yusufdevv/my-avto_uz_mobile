@@ -4,6 +4,7 @@ import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/presentation/pages/choose_car_brand/widget/car_items.dart';
 import 'package:auto/features/common/bloc/get_makes_bloc/get_makes_bloc_bloc.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
+import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/comparison/presentation/bloc/scroll-bloc/scrolling_bloc.dart';
 import 'package:auto/features/comparison/presentation/widgets/alphabetic_header.dart';
 import 'package:auto/features/comparison/presentation/widgets/card_brend_container.dart';
@@ -115,6 +116,18 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
                             context
                                 .read<GetMakesBloc>()
                                 .add(GetMakesBlocEvent.getMakes());
+                            setState(() {});
+                          },
+                          onClear: () {
+                            context.read<GetMakesBloc>().add(
+                                  GetMakesBlocEvent.getSerched(
+                                    searchController.text,
+                                  ),
+                                );
+                            context
+                                .read<GetMakesBloc>()
+                                .add(GetMakesBlocEvent.getMakes());
+                            setState(() {});
                           },
                         ),
                         pinned: true,
@@ -128,10 +141,22 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
                             child: ListView.builder(
                               physics: const BouncingScrollPhysics(),
                               scrollDirection: Axis.horizontal,
-                              itemBuilder: (context, index) =>
-                                  CarBrandContainer(
-                                imageUrl: state.topMakes[index].logo,
-                                title: state.topMakes[index].name,
+                              itemBuilder: (context, index) => WScaleAnimation(
+                                onTap: () {
+                                  context.read<GetMakesBloc>().add(
+                                        GetMakesBlocEvent.selectedCarItems(
+                                          id: state.topMakes[index].id,
+                                          name: state.topMakes[index].name,
+                                          imageUrl: state.topMakes[index].logo,
+                                        ),
+                                      );
+                                },
+                                child: CarBrandContainer(
+                                  imageUrl: state.topMakes[index].logo,
+                                  title: state.topMakes[index].name,
+                                  isCheck: state.topMakes[index].id ==
+                                      state.selectId,
+                                ),
                               ),
                               itemCount: state.topMakes.length,
                             ),
@@ -180,7 +205,6 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
                         name: state.makes[index].name,
                         text: state.search,
                         onTap: () {
-                          print('===> ==> Bu Boshida ${state.makes[index].id}');
                           context.read<GetMakesBloc>().add(
                                 GetMakesBlocEvent.selectedCarItems(
                                   id: state.makes[index].id,
@@ -188,7 +212,6 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
                                   imageUrl: state.makes[index].logo,
                                 ),
                               );
-                          print('===> ==> Bu stateda ${state.selectId}');
                         },
                       ),
                     ),

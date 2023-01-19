@@ -20,6 +20,7 @@ class PasswordChangingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) => CustomScreen(
         child: Scaffold(
+          backgroundColor: white,
           appBar: WAppBar(
             textWithButton: LocaleKeys.settings.tr(),
           ),

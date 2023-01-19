@@ -62,6 +62,10 @@ class GlobalRequestRepository {
       // print(result.data);
       List<S> list = [];
 
+      print('hreererer');
+
+      print(result.data);
+      print(result.data.runtimeType);
       if (result.statusCode! >= 200 && result.statusCode! < 300) {
         if (responseDataKey != null && responseDataKey.isNotEmpty) {
           var data = result.data[responseDataKey] as List<dynamic>;
@@ -71,8 +75,12 @@ class GlobalRequestRepository {
           list = data.map((e) => fromJson(e)).toList();
         }
 
+
+        print('hreererer');
         return Right(list);
       } else {
+
+        print('hreererer');
         return Left(ServerFailure(errorMessage: '', statusCode: 141));
       }
     } catch (e) {

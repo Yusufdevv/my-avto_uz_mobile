@@ -1,3 +1,4 @@
+import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ads/presentation/pages/ads_screen.dart';
@@ -144,97 +145,114 @@ class _MainScreenState extends State<MainScreen> {
             backgroundColor:
                 Theme.of(context).extension<ThemedColors>()!.whiteToDark,
             appBar: const MainAppBar(),
-            body: BlocBuilder<AnnouncementListBloc, AnnouncementListState>(
-              builder: (context, stateAnnounc) => SingleChildScrollView(
-                padding: const EdgeInsets.only(top: 20, bottom: 24),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Visibility(
-                      visible: state.statusStoriesGet.isSubmissionInProgress ||
-                          state.statusStoriesGet.isSubmissionSuccess &&
-                              state.stories.isNotEmpty,
-                      child: Stories(
-                        status: state.statusStoriesGet,
-                        stories: state.stories,
-                        onBack: () {
-                          mainBloc.add(InitialEvent());
-                        },
-                      ),
-                    ),
-                    const SizedBox(height: 16),
-                    DealButton(
-                      onTap: () {
-                        Navigator.of(context, rootNavigator: true)
-                            .push(fade(page: const ReelsScreen()));
-                      },
-                    ),
-                    BlocBuilder<GetMakesBloc, GetMakesState>(
-                      builder: (context, state) => CarModelItem(
-                        onTapSelect: () =>
-                            Navigator.of(context, rootNavigator: true)
-                                .push(fade(
-                                    page: ChooseCarBrandComparison(
-                          onTap: () {},
-                          isbak: true,
-                          isClear: true,
-                        )))
-                                .then((value) {
-                          context.read<AnnouncementListBloc>().add(
-                              AnnouncementListEvent.getFilter(context
-                                  .read<AnnouncementListBloc>()
-                                  .state
-                                  .filter
-                                  .copyWith(
-                                    make: context
-                                        .read<GetMakesBloc>()
-                                        .state
-                                        .selectId,
-                                  )));
-                          context
-                              .read<AnnouncementListBloc>()
-                              .add(AnnouncementListEvent.getAnnouncementList());
-                        }),
-                        onTapShow: () {
-                          Navigator.of(context).push(fade(
-                              page: AdsScreen(isBack: false, onTap: () {})));
-                        },
-                        imageUrl: state.imageUrl,
-                        title: state.name,
-                        count: stateAnnounc.count,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 48,
-                      child: ListView.builder(
-                        physics: const BouncingScrollPhysics(),
-                        padding: const EdgeInsets.only(right: 12),
-                        itemBuilder: (context, index) => ServiceItem(
-                          serviceEntity: serviceEntity[index],
-                          onTap: serviceTaps[index],
+            body: RefreshIndicator(
+              color: purple,
+              onRefresh: () async {
+                mainBloc.add(InitialEvent());
+                topBrandBloc.add(TopBrandEvent.getBrand());
+                topAdBloc
+                  ..add(TopAdEvent.getTopAds())
+                  ..add(TopAdEvent.getFavorites(
+                      endpoint: '/users/wishlist/announcement/list/'));
+              },
+              child: BlocBuilder<AnnouncementListBloc, AnnouncementListState>(
+                builder: (context, stateAnnounc) => SingleChildScrollView(
+                  physics: const BouncingScrollPhysics(),
+                  padding: const EdgeInsets.only(top: 20, bottom: 24),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Visibility(
+                        visible:
+                            state.statusStoriesGet.isSubmissionInProgress ||
+                                state.statusStoriesGet.isSubmissionSuccess &&
+                                    state.stories.isNotEmpty,
+                        child: Stories(
+                          status: state.statusStoriesGet,
+                          stories: state.stories,
+                          onBack: () {
+                            mainBloc.add(InitialEvent());
+                          },
                         ),
-                        itemCount: serviceEntity.length,
-                        scrollDirection: Axis.horizontal,
                       ),
-                    ),
-                    const TopBrands(),
-                    const TopAds(),
-                    BlocListener<WishlistAddBloc, WishlistAddState>(
-                      listener: (context, stateWish) {
-                        if (stateWish.addStatus.isSubmissionSuccess ||
-                            stateWish.removeStatus.isSubmissionSuccess) {
-                          context.read<TopAdBloc>().add(TopAdEvent.getFavorites(
-                              endpoint: '/users/wishlist/announcement/list/'));
-                          context
-                              .read<WishlistAddBloc>()
-                              .add(WishlistAddEvent.clearState());
-                        }
-                      },
-                      child: MainFavorites(),
-                    ),
-                    const MainMapPart(),
-                    const CreateAdButton(),
-                  ],
+                      const SizedBox(height: 16),
+                      DealButton(
+                        onTap: () {
+                          Navigator.of(context, rootNavigator: true)
+                              .push(fade(page: const ReelsScreen()));
+                        },
+                      ),
+                      BlocBuilder<GetMakesBloc, GetMakesState>(
+                        builder: (context, state) => CarModelItem(
+                          onTapSelect: () =>
+                              Navigator.of(context, rootNavigator: true)
+                                  .push(fade(
+                                      page: ChooseCarBrandComparison(
+                            onTap: () {},
+                            isbak: true,
+                            isClear: true,
+                          )))
+                                  .then((value) {
+                            context.read<AnnouncementListBloc>().add(
+                                AnnouncementListEvent.getFilter(context
+                                    .read<AnnouncementListBloc>()
+                                    .state
+                                    .filter
+                                    .copyWith(
+                                      make: context
+                                          .read<GetMakesBloc>()
+                                          .state
+                                          .selectId,
+                                    )));
+                            context
+                                .read<AnnouncementListBloc>()
+                                .add(AnnouncementListEvent.getAnnouncementList());
+                            
+                          }),
+                          onTapShow: () {
+                            Navigator.of(context).push(fade(
+                                page: AdsScreen(isBack: false, onTap: () {})));
+                          },
+                          imageUrl: state.imageUrl,
+                          title: state.name,
+                          count: stateAnnounc.count,
+                          isCheck: state.ischeck,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 48,
+                        child: ListView.builder(
+                          physics: const BouncingScrollPhysics(),
+                          padding: const EdgeInsets.only(right: 12),
+                          itemBuilder: (context, index) => ServiceItem(
+                            serviceEntity: serviceEntity[index],
+                            onTap: serviceTaps[index],
+                          ),
+                          itemCount: serviceEntity.length,
+                          scrollDirection: Axis.horizontal,
+                        ),
+                      ),
+                      const TopBrands(),
+                      const TopAds(),
+                      BlocListener<WishlistAddBloc, WishlistAddState>(
+                        listener: (context, stateWish) {
+                          if (stateWish.addStatus.isSubmissionSuccess ||
+                              stateWish.removeStatus.isSubmissionSuccess) {
+                            context.read<TopAdBloc>().add(
+                                TopAdEvent.getFavorites(
+                                    endpoint:
+                                        '/users/wishlist/announcement/list/'));
+                            context
+                                .read<WishlistAddBloc>()
+                                .add(WishlistAddEvent.clearState());
+                          }
+                        },
+                        child: MainFavorites(),
+                      ),
+                      const MainMapPart(),
+                      const CreateAdButton(),
+                    ],
+                  ),
                 ),
               ),
             ),

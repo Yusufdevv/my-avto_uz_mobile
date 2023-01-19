@@ -79,9 +79,8 @@ class SellerSliverDelegate extends SliverPersistentHeaderDelegate {
                             ? 0.2
                             : 1,
             child: AnimatedImages(
-              images: gallery,
-              screenWidth: MediaQuery.of(context).size.width,
-            ),
+                images: gallery,
+                screenWidth: MediaQuery.of(context).size.width),
           ),
           Positioned(
               top: 60,
@@ -155,16 +154,22 @@ class SellerSliverDelegate extends SliverPersistentHeaderDelegate {
                           height: shrinkOffset >= 180 ? 32 : 48,
                           width: shrinkOffset >= 180 ? 32 : 48,
                           duration: _duration,
-                          child: CachedNetworkImage(
-                            imageUrl: avatarImage,
-                            fit: BoxFit.cover,
-                            errorWidget: (context, url, error) =>
-                                SvgPicture.asset(AppImages.autoUz),
-                            imageBuilder: (context, imageProvider) => Container(
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                image: DecorationImage(image: imageProvider),
-                                border: Border.all(color: dividerColor),
+                          child: CircleAvatar(
+                            child: CachedNetworkImage(
+                              imageUrl: avatarImage,
+                              fit: BoxFit.cover,
+                              errorWidget: (context, url, error) => Image.asset(
+                                AppImages.autoUz,
+                                fit: BoxFit.cover,
+                              ),
+                              imageBuilder: (context, imageProvider) =>
+                                  Container(
+                                decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    image: DecorationImage(
+                                        image: imageProvider,
+                                        fit: BoxFit.cover),
+                                    border: Border.all(color: dividerColor)),
                               ),
                             ),
                           ),
@@ -182,24 +187,17 @@ class SellerSliverDelegate extends SliverPersistentHeaderDelegate {
                                       .copyWith(
                                           fontSize:
                                               shrinkOffset >= 180 ? 14 : 16),
-                                  child: Text(
-                                    dealerName,
-                                    overflow: TextOverflow.ellipsis,
-                                  )),
+                                  child: Text(dealerName,
+                                      overflow: TextOverflow.ellipsis)),
                               AnimatedDefaultTextStyle(
-                                duration: _duration,
-                                style: TextStyle(
-                                    fontSize: shrinkOffset >= 180 ? 12 : 14,
-                                    fontWeight: FontWeight.w400,
-                                    color: purple),
-                                child: showroomOrPerson == 'person'
-                                    ? Text(
-                                        LocaleKeys.private_person.tr(),
-                                      )
-                                    : Text(
-                                        LocaleKeys.autosalon.tr(),
-                                      ),
-                              ),
+                                  duration: _duration,
+                                  style: TextStyle(
+                                      fontSize: shrinkOffset >= 180 ? 12 : 14,
+                                      fontWeight: FontWeight.w400,
+                                      color: purple),
+                                  child: showroomOrPerson != 'person'
+                                      ? Text(LocaleKeys.autosalon.tr())
+                                      : Text(LocaleKeys.private_person.tr())),
                             ],
                           ),
                         )
@@ -224,11 +222,9 @@ class SellerSliverDelegate extends SliverPersistentHeaderDelegate {
       );
 
   @override
-  // TODO: implement maxExtent
   double get maxExtent => 260;
 
   @override
-  // TODO: implement minExtent
   double get minExtent => minHeight;
 
   @override

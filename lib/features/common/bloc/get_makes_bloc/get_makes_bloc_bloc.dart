@@ -1,4 +1,3 @@
-import 'package:auto/core/usecases/usecase.dart';
 import 'package:auto/features/ad/domain/entities/types/make.dart';
 import 'package:auto/features/ad/domain/usecases/get_makes.dart';
 import 'package:auto/features/ad/domain/usecases/get_top_makes.dart';
@@ -31,6 +30,7 @@ class GetMakesBloc extends Bloc<GetMakesBlocEvent, GetMakesState> {
               ? state.makes
               : [...firstMakes, ...secondMakes]));
     });
+    on<_GetIsCheck>((event, emit) => emit(state.copyWith(ischeck: true)));
     on<_GetMakes>((event, emit) async {
       emit(state.copyWith(status: FormzStatus.submissionInProgress));
       final result = await useCase.call(state.search);
@@ -63,12 +63,11 @@ class GetMakesBloc extends Bloc<GetMakesBlocEvent, GetMakesState> {
     });
     on<_GetSerched>((event, emit) => emit(state.copyWith(search: event.naem)));
     on<_SelectedCarItems>((event, emit) {
-      print('======   select card item event triggere');
-      print('======   id: ${event.id}');
-      print('======   ${event.name}');
-      print('======   ${event.imageUrl}');
       emit(state.copyWith(
-          selectId: event.id, name: event.name, imageUrl: event.imageUrl));
+          selectId: event.id,
+          name: event.name,
+          imageUrl: event.imageUrl,
+          ischeck: event.id == -1 ? false : true));
     });
     on<_ConfirmCarOption>((event, emit) {
       emit(state.copyWith(confirmId: state.selectId));

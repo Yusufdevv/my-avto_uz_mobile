@@ -336,4 +336,35 @@ class AdRepositoryImpl extends AdRepository {
       ));
     }
   }
+
+  @override
+  Future<Either<Failure, String>> sendCode({required String phone}) async {
+    try {
+      final result = await remoteDataSource.sendCode(phone: phone);
+      return Right(result);
+    } on DioException {
+      return Left(DioFailure());
+    } on ParsingException catch (e) {
+      return Left(ParsingFailure(errorMessage: e.errorMessage));
+    } on ServerException catch (e) {
+      return Left(ServerFailure(
+          errorMessage: e.errorMessage, statusCode: e.statusCode));
+    }
+  }
+
+  @override
+  Future<Either<Failure, bool>> verify(
+      {required Map<String, String> params}) async {
+    try {
+      final result = await remoteDataSource.verify(params);
+      return Right(result);
+    } on DioException {
+      return Left(DioFailure());
+    } on ParsingException catch (e) {
+      return Left(ParsingFailure(errorMessage: e.errorMessage));
+    } on ServerException catch (e) {
+      return Left(ServerFailure(
+          errorMessage: e.errorMessage, statusCode: e.statusCode));
+    }
+  }
 }

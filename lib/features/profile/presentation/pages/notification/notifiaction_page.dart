@@ -82,7 +82,11 @@ class _NotificationPageState extends State<NotificationPage> {
                         itemCount: notifications.length,
                         itemBuilder: (context, index) {
                           final item = notifications[index];
-                          var isItemRead = item.isRead!;
+                          // ignore: prefer_typing_uninitialized_variables
+                          var isItemRead;
+                          if (item.isRead!=null) {
+                            isItemRead = item.isRead;
+                          }
                           return InkWell(
                             onTap: () {
                               if (isItemRead == false) {
@@ -104,9 +108,9 @@ class _NotificationPageState extends State<NotificationPage> {
                               currentIndex: index,
                               category:
                                   '#${item.category?.name} • 2 часа назад',
-                              title: item.title!,
+                              title: item.title ?? '',
                               isRead: isAllRead ? isAllRead : isItemRead,
-                              image: item.cover!,
+                              image: item.cover ?? '',
                             ),
                           );
                         },

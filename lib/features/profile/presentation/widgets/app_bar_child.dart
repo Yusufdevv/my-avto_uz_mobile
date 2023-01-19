@@ -22,9 +22,7 @@ class WAppBarChild extends StatelessWidget implements PreferredSizeWidget {
               width: 40,
               decoration: const BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage(
-                    AppImages.autoUzCircle,
-                  ),
+                  image: AssetImage(AppImages.autoUzCircle),
                 ),
               ),
             ),
@@ -59,7 +57,7 @@ class WAppBarChild extends StatelessWidget implements PreferredSizeWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
               color:
-                    Theme.of(context).extension<ThemedColors>()!.greyToDarkRider,
+                  Theme.of(context).extension<ThemedColors>()!.greyToDarkRider,
             ),
             child: SvgPicture.asset(AppIcons.phoneCall),
           ),

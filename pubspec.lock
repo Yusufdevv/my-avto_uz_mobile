@@ -36,13 +36,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.9.0"
-  azlistview:
-    dependency: "direct main"
-    description:
-      name: azlistview
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.0.0"
   bloc:
     dependency: transitive
     description:
@@ -341,7 +334,7 @@ packages:
     source: hosted
     version: "2.0.7"
   flutter_rating_bar:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: flutter_rating_bar
       url: "https://pub.dartlang.org"
@@ -448,48 +441,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.1"
-  google_fonts:
-    dependency: "direct main"
-    description:
-      name: google_fonts
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "3.0.1"
-  google_sign_in:
-    dependency: "direct main"
-    description:
-      name: google_sign_in
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "5.4.2"
-  google_sign_in_android:
-    dependency: transitive
-    description:
-      name: google_sign_in_android
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "6.1.4"
-  google_sign_in_ios:
-    dependency: transitive
-    description:
-      name: google_sign_in_ios
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "5.5.1"
-  google_sign_in_platform_interface:
-    dependency: transitive
-    description:
-      name: google_sign_in_platform_interface
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.3.0"
-  google_sign_in_web:
-    dependency: transitive
-    description:
-      name: google_sign_in_web
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.10.2"
   graphs:
     dependency: transitive
     description:
@@ -497,13 +448,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.2.0"
-  grouped_list:
-    dependency: "direct main"
-    description:
-      name: grouped_list
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "5.1.2"
   html:
     dependency: transitive
     description:
@@ -568,7 +512,7 @@ packages:
     source: hosted
     version: "2.6.2"
   intl:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: intl
       url: "https://pub.dartlang.org"
@@ -910,22 +854,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.2.1"
-  qr_code_scanner:
-    dependency: "direct main"
-    description:
-      path: "."
-      ref: flutter-beta
-      resolved-ref: "5c8a34b848e4e1bad6b4c987d89634b90fd3ab9e"
-      url: "https://github.com/X-SLAYER/qr_code_scanner.git"
-    source: git
-    version: "0.7.0"
-  quiver:
-    dependency: transitive
-    description:
-      name: quiver
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "3.2.1"
   rate_my_app:
     dependency: "direct main"
     description:
@@ -940,13 +868,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.27.7"
-  scrollable_positioned_list:
-    dependency: transitive
-    description:
-      name: scrollable_positioned_list
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.2.3"
   sensors_plus:
     dependency: "direct main"
     description:
@@ -1114,7 +1035,7 @@ packages:
     source: hosted
     version: "1.9.0"
   sqflite:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: sqflite
       url: "https://pub.dartlang.org"
@@ -1166,13 +1087,6 @@ packages:
     dependency: "direct main"
     description:
       name: syncfusion_flutter_datepicker
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "20.4.38"
-  syncfusion_flutter_sliders:
-    dependency: "direct main"
-    description:
-      name: syncfusion_flutter_sliders
       url: "https://pub.dartlang.org"
     source: hosted
     version: "20.4.38"
@@ -1372,13 +1286,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.1.3"
-  workmanager:
-    dependency: "direct main"
-    description:
-      name: workmanager
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.5.1"
   xdg_directories:
     dependency: transitive
     description:

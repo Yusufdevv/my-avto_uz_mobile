@@ -8,12 +8,14 @@ class CarBrandContainer extends StatelessWidget {
   final String title;
   final String imageUrl;
   final bool hasShadow;
+  final bool isCheck;
 
   const CarBrandContainer({
-    this.hasShadow = false,
-    Key? key,
     required this.title,
     required this.imageUrl,
+    required this.isCheck,
+    this.hasShadow = false,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -24,7 +26,9 @@ class CarBrandContainer extends StatelessWidget {
         margin: const EdgeInsets.only(left: 12, top: 16, bottom: 16),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
-          color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
+          color: isCheck
+              ? Theme.of(context).extension<ThemedColors>()!.snowToNightRider
+              : Theme.of(context).extension<ThemedColors>()!.whiteToDark,
           border: Border.all(
               width: 1,
               color: Theme.of(context)
@@ -43,19 +47,33 @@ class CarBrandContainer extends StatelessWidget {
         ),
         child: Column(
           children: [
-            const SizedBox(height: 16),
-            if (imageUrl.isEmpty)
-              Image.asset(
-                AppImages.defaultPhoto,
-                height: 40,
-                fit: BoxFit.cover,
-              )
-            else
-              CachedNetworkImage(
-                imageUrl: imageUrl,
-                height: 40,
-                fit: BoxFit.cover,
+            const SizedBox(height: 8),
+            SizedBox(
+              height: 48,
+              width: 60,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: imageUrl.isEmpty
+                    ? Image.asset(
+                        AppImages.defaultPhoto,
+                        height: 48,
+                        width: 60,
+                        fit: BoxFit.cover,
+                      )
+                    : CachedNetworkImage(
+                        imageUrl: imageUrl,
+                        height: 48,
+                        width: 60,
+                        fit: BoxFit.cover,
+                        errorWidget: (context, url, error) => Image.asset(
+                          AppImages.defaultPhoto,
+                          height: 48,
+                          width: 60,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
               ),
+            ),
             const SizedBox(height: 8),
             Text(
               title,

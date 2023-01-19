@@ -4,6 +4,7 @@ import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/hight_light.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -35,7 +36,6 @@ class ChangeCarItems extends StatelessWidget {
           child: Container(
             padding: const EdgeInsets.only(right: 16, top: 5, bottom: 5),
             decoration: BoxDecoration(
-              color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
               border: Border(
                 bottom: BorderSide(
                   width: 1,
@@ -53,25 +53,27 @@ class ChangeCarItems extends StatelessWidget {
                       SizedBox(
                         height: 36,
                         width: 36,
-                        child: 
-                        
-                        // imageUrl.isEmpty
-                        //     ?
-                            
-                             ClipRRect(
-                                borderRadius: BorderRadius.circular(8),
-                                child: Image.asset(
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(8),
+                          child: imageUrl.isEmpty
+                              ? Image.asset(
                                   AppImages.defaultPhoto,
-                                  height: 40,
+                                  height: 36,
                                   fit: BoxFit.cover,
+                                )
+                              : CachedNetworkImage(
+                                  imageUrl: imageUrl,
+                                  height: 36,
+                                  width: 36,
+                                  fit: BoxFit.cover,
+                                  errorWidget: (context, url, error) =>
+                                      Image.asset(
+                                    AppImages.defaultPhoto,
+                                    height: 36,
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
-                              )
-                            // : CachedNetworkImage(
-                            //     imageUrl: imageUrl,
-                            //     height: 36,
-                            //     width: 36,
-                            //     fit: BoxFit.cover,
-                            //   ),
+                        ),
                       ),
                       const SizedBox(
                         width: 12,

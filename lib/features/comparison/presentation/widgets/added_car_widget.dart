@@ -73,16 +73,15 @@ class AddedCar extends StatelessWidget {
                           topRight: Radius.circular(12),
                         ),
                         child: imageUrl.isEmpty
-                            ? Center(
-                                child: SvgPicture.asset(
-                                  AppImages.placeHolder,
-                                  fit: BoxFit.cover,
-                                  height: 112,
-                                ),
+                            ? Image.asset(
+                                AppImages.defaultPhoto,
+                                fit: BoxFit.cover,
                               )
                             : CachedNetworkImage(
                                 imageUrl: imageUrl[0],
                                 fit: BoxFit.cover,
+                                errorWidget: (context, url, error) =>
+                                    Image.asset(AppImages.defaultPhoto),
                               ),
                       ),
                     ),

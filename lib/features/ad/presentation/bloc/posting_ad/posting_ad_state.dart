@@ -19,6 +19,7 @@ class PostingAdState extends Equatable {
   final List<BodyTypeEntity> bodyTypes;
   final FormzStatus status;
   final YearsEntity? yearsEntity;
+  final DistrictEntity? district;
   final String? letter;
   final String? ownerName;
   final String? ownerEmail;
@@ -39,8 +40,9 @@ class PostingAdState extends Equatable {
   final bool isSortByLetter;
   final bool isRastamojen;
   final bool isCallTimed;
-  final bool? showOwnerContacts;
-  final bool? isContactsVerified;
+  final bool showOwnerContacts;
+  final bool isContactsVerified;
+  final bool showExactAddress;
   final bool? rentToBuy;
   final bool? isWithoutMileage;
 
@@ -71,6 +73,7 @@ class PostingAdState extends Equatable {
     this.isSortByLetter = false,
     this.hasAppBarShadow = true,
     this.isRastamojen = false,
+    this.showExactAddress = false,
     this.ownerName,
     this.ownerEmail,
     this.ownerPhone,
@@ -83,12 +86,14 @@ class PostingAdState extends Equatable {
     this.callTimeFrom,
     this.callTimeTo,
     this.isCallTimed = false,
-    this.showOwnerContacts,
-    this.isContactsVerified,
+    this.showOwnerContacts = false,
+    this.isContactsVerified = false,
     this.rentToBuy,
     this.isWithoutMileage,
+    this.district,
   });
   PostingAdState copyWith({
+    DistrictEntity? district,
     Region? region,
     FormzStatus? status,
     int? gearboxId,
@@ -132,8 +137,11 @@ class PostingAdState extends Equatable {
     bool? isContactsVerified,
     bool? rentToBuy,
     bool? isWithoutMileage,
+    bool? showExactAddress,
   }) =>
       PostingAdState(
+        showExactAddress: showExactAddress ?? this.showExactAddress,
+        district: district ?? this.district,
         city: city ?? this.city,
         region: region ?? this.region,
         gearboxId: gearboxId ?? this.gearboxId,
@@ -179,6 +187,8 @@ class PostingAdState extends Equatable {
       );
   @override
   List<Object?> get props => [
+        showExactAddress,
+        district,
         isWithoutMileage,
         rentToBuy,
         callTimeTo,

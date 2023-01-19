@@ -180,67 +180,68 @@ class _CommercialScreenState extends State<CommercialScreen>
                 ),
               ],
             ),
-            floatingActionButtonLocation:
-                FloatingActionButtonLocation.startFloat,
-            floatingActionButton: WScaleAnimation(
-              onTap: () {},
-              child: AnimatedContainer(
-                alignment: crossFadeState == CrossFadeState.showFirst
-                    ? const Alignment(-.2, 0)
-                    : const Alignment(-.85, 0),
-                width: crossFadeState == CrossFadeState.showFirst
-                    ? double.maxFinite
-                    : 44,
-                height: 44,
-                duration: fadeDuration,
-                child: Container(
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                      color: orange, borderRadius: BorderRadius.circular(22)),
-                  width: crossFadeState == CrossFadeState.showFirst ? 221 : 44,
-                  height: 44,
-                  child: AnimatedCrossFade(
-                    duration: fadeDuration,
-                    crossFadeState: crossFadeState,
-                    firstChild: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        if (_scrollController.hasClients)
-                          _scrollController.offset <= 70
-                              ? const FittedBox(
-                                  fit: BoxFit.cover,
-                                  child: Text(
-                                    'Сохранить поиск',
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w600,
-                                      color: white,
-                                    ),
-                                  ),
-                                )
-                              : const Text('')
-                        else
-                          const Text(
-                            'Сохранить поиск',
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600,
-                              color: white,
-                            ),
-                          ),
-                        SvgPicture.asset(
-                          AppIcons.searchWithHeartWhite,
-                        ),
-                      ],
-                    ),
-                    secondChild: SvgPicture.asset(
-                      AppIcons.searchWithHeartWhite,
-                    ),
-                  ),
-                ),
-              ),
-            ),
+            // floatingActionButtonLocation:
+            //     FloatingActionButtonLocation.startFloat,
+            // floatingActionButton: WScaleAnimation(
+            //   onTap: () {},
+            //   child: AnimatedContainer(
+            //     alignment: crossFadeState == CrossFadeState.showFirst
+            //         ? const Alignment(-.2, 0)
+            //         : const Alignment(-.85, 0),
+            //     width: crossFadeState == CrossFadeState.showFirst
+            //         ? double.maxFinite
+            //         : 44,
+            //     height: 44,
+            //     duration: fadeDuration,
+            //     child: Container(
+            //       alignment: Alignment.center,
+            //       decoration: BoxDecoration(
+            //           color: orange, borderRadius: BorderRadius.circular(22)),
+            //       width: crossFadeState == CrossFadeState.showFirst ? 221 : 44,
+            //       height: 44,
+            //       child: AnimatedCrossFade(
+            //         duration: fadeDuration,
+            //         crossFadeState: crossFadeState,
+            //         firstChild: Row(
+            //           crossAxisAlignment: CrossAxisAlignment.center,
+            //           mainAxisAlignment: MainAxisAlignment.center,
+            //           children: [
+            //             if (_scrollController.hasClients)
+            //               _scrollController.offset <= 70
+            //                   ? const FittedBox(
+            //                       fit: BoxFit.cover,
+            //                       child: Text(
+            //                         'Сохранить поиск',
+            //                         style: TextStyle(
+            //                           fontSize: 14,
+            //                           fontWeight: FontWeight.w600,
+            //                           color: white,
+            //                         ),
+            //                       ),
+            //                     )
+            //                   : const Text('')
+            //             else
+            //               const Text(
+            //                 'Сохранить поиск',
+            //                 style: TextStyle(
+            //                   fontSize: 14,
+            //                   fontWeight: FontWeight.w600,
+            //                   color: white,
+            //                 ),
+            //               ),
+            //             SvgPicture.asset(
+            //               AppIcons.searchWithHeartWhite,
+            //             ),
+            //           ],
+            //         ),
+            //         secondChild: SvgPicture.asset(
+            //           AppIcons.searchWithHeartWhite,
+            //         ),
+            //       ),
+            //     ),
+            //   ),
+            // ),
+          
           ),
         ),
       ),

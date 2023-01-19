@@ -58,6 +58,7 @@ class AppIcons {
   static const bell = 'assets/icons/global/bell.svg';
   static const bellWithCircle = 'assets/icons/profile/bell_with_circle.svg';
   static const ellipseRed = 'assets/icons/profile/ellipse_red.svg';
+  static const phoneCall1 = 'assets/icons/profile/phone-call.svg';
   static const eye = 'assets/icons/global/eye.svg';
   static const closeSquare = 'assets/icons/global/close_square.svg';
   static const edit = 'assets/icons/global/edit.svg';
@@ -82,6 +83,12 @@ class AppIcons {
   static const currentLoc = 'assets/images/global/current_location.png';
   static const dealersLocIcon = 'assets/images/global/dealers_loc_icon.png';
   static const shareWhite = 'assets/icons/global/share_white.svg';
+  static const warningRed = 'assets/icons/global/warning_red.svg';
+  static const warningPuple = 'assets/icons/global/warning_puple.svg';
+  static const warningYellow = 'assets/icons/global/warning_yellow.svg';
+  static const warningOrang = 'assets/icons/global/warning_orang.svg';
+  static const warningGreen = 'assets/icons/global/warning_grean.svg';
+  static const warningBlue = 'assets/icons/global/warning_blue.svg';
 
   // PROFILE
   static const alert = 'assets/icons/profile/alert.svg';
@@ -95,6 +102,7 @@ class AppIcons {
   static const heartBlue = 'assets/icons/profile/heart.svg';
   static const refresh = 'assets/icons/profile/refresh.svg';
   static const empty = 'assets/icons/profile/empty.svg';
+  static const directoryPoint = 'assets/icons/profile/directory_point.png';
   static const refresh1 = 'assets/icons/profile/refresh1.svg';
   static const share = 'assets/icons/profile/share.svg';
   static const editProfile = 'assets/icons/profile/edit.svg';

@@ -96,7 +96,7 @@ class _SortBottomSheetState extends State<SortBottomSheet> {
                                           .copyWith(
                                               color: LightThemeColors.smoky),
                                 ),
-                                Spacer(),
+                                const Spacer(),
                                 Transform.scale(
                                   scale: 1.3,
                                   child: SizedBox(

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 class WRangeSlider extends StatefulWidget {
   final String title;
+  final String description;
   final double startValue;
   final double endValue;
   final bool isForPrice;
@@ -16,6 +17,7 @@ class WRangeSlider extends StatefulWidget {
     required this.valueChanged,
     required this.endValue,
     required this.startValue,
+    this.description = '',
     this.isForPrice = false,
     Key? key,
   }) : super(key: key);
@@ -39,7 +41,7 @@ class _WRangeSliderState extends State<WRangeSlider> {
                     .copyWith(fontWeight: FontWeight.w400),
                 children: [
                   TextSpan(
-                    text: ' (USD)',
+                    text: ' (${widget.description})',
                     style: Theme.of(context)
                         .textTheme
                         .headline3!
@@ -85,7 +87,7 @@ class _WRangeSliderState extends State<WRangeSlider> {
               children: [
                 Text(
                     widget.isForPrice
-                        ? '${MyFunctions.getFormatCost(widget.values.start.toInt().toString())} \$'
+                        ? '${MyFunctions.getFormatCost(widget.values.start.toInt().toString())} ${widget.description}'
                         : widget.values.start.toInt().toString(),
                     style: Theme.of(context)
                         .textTheme
@@ -93,7 +95,7 @@ class _WRangeSliderState extends State<WRangeSlider> {
                         .copyWith(fontWeight: FontWeight.w600)),
                 Text(
                     widget.isForPrice
-                        ? '${MyFunctions.getFormatCost(widget.values.end.toInt().toString())} \$'
+                        ? '${MyFunctions.getFormatCost(widget.values.end.toInt().toString())} ${widget.description}'
                         : widget.values.end.toInt().toString(),
                     style: Theme.of(context)
                         .textTheme

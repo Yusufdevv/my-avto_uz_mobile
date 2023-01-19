@@ -1,6 +1,11 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/images.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/core/singletons/dio_settings.dart';
+import 'package:auto/core/singletons/service_locator.dart';
+import 'package:auto/core/singletons/storage.dart';
+import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/onboarding/presentation/pages/on_boarding_screen.dart';
@@ -18,6 +23,7 @@ class OnBoardingBottom extends StatefulWidget {
 }
 
 class _OnBoardingBottomState extends State<OnBoardingBottom> {
+  int index = 0;
   @override
   Widget build(BuildContext context) => Stack(
         children: [
@@ -70,15 +76,131 @@ class _OnBoardingBottomState extends State<OnBoardingBottom> {
                 const SizedBox(
                   height: 35,
                 ),
-                const LanguageItem()
+                Row(
+                  children: [
+                    Expanded(
+                      child: WButton(
+                        onTap: () {
+                          setState(() {
+                            index = 0;
+                          });
+
+                          context.setLocale(const Locale('uz'));
+                          serviceLocator<DioSettings>()
+                              .setBaseOptions(lang: 'uz');
+                          StorageRepository.putString('language', 'uz');
+                        },
+                        color: index == 0
+                            ? orange
+                            : Theme.of(context)
+                                .extension<ThemedColors>()!
+                                .solitudeToCharcoal,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(20),
+                              child: SvgPicture.asset(
+                                AppIcons.russia,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 4,
+                            ),
+                            Text(
+                              'O‘zbekcha',
+                              style: index == 0
+                                  ? Theme.of(context)
+                                      .textTheme
+                                      .bodyText1!
+                                      .copyWith(
+                                          fontWeight: FontWeight.w600,
+                                          color: white)
+                                  : Theme.of(context)
+                                      .textTheme
+                                      .bodyText1!
+                                      .copyWith(
+                                          fontWeight: FontWeight.w600,
+                                          color: Theme.of(context)
+                                              .extension<ThemedColors>()!
+                                              .greySuitToWhite),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 16,
+                    ),
+                    Expanded(
+                      child: WButton(
+                        color: index == 1
+                            ? Theme.of(context)
+                                .extension<ThemedColors>()!
+                                .solitudeToCharcoal
+                            : orange,
+                        onTap: () {
+                          setState(() {
+                            index = 1;
+                          });
+                          context.setLocale(const Locale('ru'));
+                          serviceLocator<DioSettings>()
+                              .setBaseOptions(lang: 'ru');
+                          StorageRepository.putString('language', 'ru');
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(20),
+                              child: SvgPicture.asset(
+                                AppIcons.uzbekistan,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 4,
+                            ),
+                            Text(
+                              'Русский',
+                              style: index == 1
+                                  ? Theme.of(context)
+                                      .textTheme
+                                      .bodyText1!
+                                      .copyWith(
+                                          fontWeight: FontWeight.w600,
+                                          color: Theme.of(context)
+                                              .extension<ThemedColors>()!
+                                              .greySuitToWhite)
+                                  : Theme.of(context)
+                                      .textTheme
+                                      .bodyText1!
+                                      .copyWith(
+                                          fontWeight: FontWeight.w600,
+                                          color: white),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ],
             ),
           ),
           Positioned(
             right: 0,
             child: WScaleAnimation(
-              onTap: () => Navigator.of(context)
-                  .push(fade(page: const OnBoardingScreen())),
+              onTap: () {
+                if (index == 0) {
+                  context.setLocale(const Locale('uz'));
+                  serviceLocator<DioSettings>().setBaseOptions(lang: 'uz');
+                  StorageRepository.putString('language', 'uz');
+                }
+                Navigator.of(context)
+                    .push(fade(page: const OnBoardingScreen()));
+              },
               child: Stack(
                 children: [
                   SvgPicture.asset(AppIcons.orangePolygon),

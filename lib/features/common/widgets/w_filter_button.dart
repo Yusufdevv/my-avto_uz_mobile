@@ -47,12 +47,16 @@ class WFilterButton extends StatelessWidget {
               fit: BoxFit.cover,
             ),
             const SizedBox(width: 8),
-            Text(
-              name.isEmpty ? defaultTitle : name,
-              style: Theme.of(context)
-                  .textTheme
-                  .subtitle1!
-                  .copyWith(color: claerA ? activeColor : null),
+            SizedBox(
+              width: size.width * 0.22,
+              child: Text(
+                name.isEmpty ? defaultTitle : name,
+                style: Theme.of(context)
+                    .textTheme
+                    .subtitle1!
+                    .copyWith(color: claerA ? activeColor : null),
+                overflow: TextOverflow.ellipsis,
+              ),
             ),
             const Spacer(),
             if (claerA)

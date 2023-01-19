@@ -23,6 +23,8 @@ DealerSingleModel _$DealerSingleModelFromJson(Map<String, dynamic> json) =>
               .toList() ??
           const [],
       phoneNumber: json['phone_number'] as String? ?? '',
+      phone: json['phone'] as String? ?? '',
+      address: json['address'] as String? ?? '',
       contactTo: json['contact_to'] as String? ?? '',
       contactFrom: json['contact_from'] as String? ?? '',
       carCount: json['car_count'] as int? ?? 0,
@@ -41,7 +43,9 @@ Map<String, dynamic> _$DealerSingleModelToJson(DealerSingleModel instance) =>
       'slug': instance.slug,
       'description': instance.description,
       'phone_number': instance.phoneNumber,
+      'phone': instance.phone,
       'avatar': instance.avatar,
+      'address': instance.address,
       'contact_from': instance.contactFrom,
       'contact_to': instance.contactTo,
       'location_url': instance.locationUrl,

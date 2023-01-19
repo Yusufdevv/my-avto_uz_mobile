@@ -35,8 +35,8 @@ class MainFavorites extends StatelessWidget {
                     LocaleKeys.favorites.tr(),
                     style: Theme.of(context)
                         .textTheme
-                        .headline1!
-                        .copyWith(fontSize: 18),
+                        .headline1
+                        ?.copyWith(fontSize: 18),
                   ),
                 ),
                 BlocBuilder<WishlistAddBloc, WishlistAddState>(
@@ -45,7 +45,7 @@ class MainFavorites extends StatelessWidget {
                           state.favorites.isEmpty)
                       ? const MainEmptyFavourite()
                       : SizedBox(
-                          height: 293,
+                          height: 298,
                           child: ListView.separated(
                             physics: const BouncingScrollPhysics(),
                             scrollDirection: Axis.horizontal,
@@ -57,23 +57,24 @@ class MainFavorites extends StatelessWidget {
                                 : Builder(builder: (context) {
                                     var item = favorites[index];
                                     return AdsItem(
-                                      id: item.id,
-                                      name: item.make.name,
-                                      price: item.price.toString(),
-                                      location: item.region.title,
-                                      description: item.description,
+                                      id:favorites[index].id,
+                                      name:favorites[index].make.name,
+                                      price:favorites[index].price.toString(),
+                                      location:favorites[index].region.title,
+                                      description:favorites[index].description,
                                       image: state.favorites[index].gallery
                                               .isNotEmpty
-                                          ? item.gallery.first
+                                          ?favorites[index].gallery.first
                                           : '',
-                                      currency: item.currency,
-                                      isLiked: item.isWishlisted,
+                                      currency:favorites[index].currency,
+                                      isLiked:favorites[index].isWishlisted,
                                       onTapLike: () {
-                                        context.read<WishlistAddBloc>().add(
-                                            WishlistAddEvent.clearState());
+                                        context
+                                            .read<WishlistAddBloc>()
+                                            .add(WishlistAddEvent.clearState());
                                         context.read<WishlistAddBloc>().add(
                                             WishlistAddEvent.removeWishlist(
-                                                item.id, index));
+                                               favorites[index].id, index));
                                       },
                                     );
                                   }),

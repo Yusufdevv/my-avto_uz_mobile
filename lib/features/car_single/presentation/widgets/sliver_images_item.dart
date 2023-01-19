@@ -1,6 +1,5 @@
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/features/car_single/presentation/widgets/more_container.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -9,9 +8,9 @@ class SingleImagePart extends StatefulWidget {
   final List images;
 
   const SingleImagePart({
-    Key? key,
     required this.count,
     required this.images,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -26,7 +25,7 @@ class _SingleImagePartState extends State<SingleImagePart> {
   @override
   Widget build(BuildContext context) => Stack(
         children: [
-          Container(
+          SizedBox(
             child: PageView.builder(
                 controller: pageController,
                 scrollDirection: Axis.horizontal,
@@ -34,7 +33,7 @@ class _SingleImagePartState extends State<SingleImagePart> {
                       currentIndex = value;
                     }),
                 itemCount: widget.images.isEmpty ? 1 : widget.images.length,
-                itemBuilder: (BuildContext context, int index) => Container(
+                itemBuilder: (context, index) => Container(
                       foregroundDecoration: BoxDecoration(
                         gradient: LinearGradient(
                           begin: Alignment.topCenter,

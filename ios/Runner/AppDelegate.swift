@@ -1,7 +1,6 @@
 import UIKit
 import Flutter
 import YandexMapsMobile
-import workmanager
 
 @UIApplicationMain
 @objc class AppDelegate: FlutterAppDelegate {
