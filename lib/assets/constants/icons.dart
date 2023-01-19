@@ -58,6 +58,7 @@ class AppIcons {
   static const bell = 'assets/icons/global/bell.svg';
   static const bellWithCircle = 'assets/icons/profile/bell_with_circle.svg';
   static const ellipseRed = 'assets/icons/profile/ellipse_red.svg';
+  static const phoneCall1 = 'assets/icons/profile/phone-call.svg';
   static const eye = 'assets/icons/global/eye.svg';
   static const closeSquare = 'assets/icons/global/close_square.svg';
   static const edit = 'assets/icons/global/edit.svg';

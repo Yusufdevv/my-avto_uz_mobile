@@ -6,8 +6,12 @@ import 'package:auto/features/profile/domain/usecases/directory_single_usecase.d
 import 'package:auto/features/profile/domain/usecases/get_dir_categories_usecase.dart';
 import 'package:auto/features/profile/domain/usecases/get_directories_usecase.dart';
 import 'package:auto/features/profile/presentation/bloc/directory/directory_bloc.dart';
+import 'package:auto/features/profile/presentation/pages/directory/directory_info_part.dart';
+import 'package:auto/features/profile/presentation/pages/directory/directory_sliver_delegete.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:formz/formz.dart';
 
 class DirectorySinglePage extends StatefulWidget {
   final String slug;
@@ -40,38 +44,44 @@ class _DirectorySinglePageState extends State<DirectorySinglePage> {
         value: bloc,
         child: Scaffold(
           body: BlocBuilder<DirectoryBloc, DirectoryState>(
-            builder: (context, state) => NestedScrollView(
-              headerSliverBuilder: (context, innerBoxIsScrolled) => <Widget>[
-                SliverPersistentHeader(
-                  pinned: true,
-                  delegate: SellerSliverDelegate(
-                      gallery: [state.directory.avatar],
-                      avatarImage: state.directory.avatar,
-                      dealerName: state.directory.name,
-                      minHeight: MediaQuery.of(context).size.height * 0.11,
-                      showroomOrPerson: 'Avtasalon'),
-                ),
-              ],
-              body: SingleChildScrollView(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    SellerInfo(
-                      dealerName: state.directory.name,
-                      quantityOfCars: state.directory.carCount,
-                      contactFrom: state.directory.contactFrom,
-                      contactTo: state.directory.contactTo,
-                      contact: state.directory.phone,
-                      additionalInfo: state.directory.description,
-                      longitude: state.directory.longitude,
-                      latitude: state.directory.latitude,
-                    ),
+            builder: (context, state) {
+              if (state.status.isSubmissionSuccess) {
+                final directory = state.directory;
+                return NestedScrollView(
+                  headerSliverBuilder: (context, innerBoxIsScrolled) =>
+                      <Widget>[
+                    SliverPersistentHeader(
+                        pinned: true,
+                        delegate: DirectorySliverDelegate(
+                            gallery: [directory.avatar, directory.avatar],
+                            avatarImage: directory.avatar,
+                            name: directory.name,
+                            minHeight:
+                                MediaQuery.of(context).size.height * 0.11,
+                            category: directory.name)),
                   ],
-                ),
-              ),
-            ),
+                  body: SingleChildScrollView(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        DirectoryInfoPart(
+                            address: directory.address,
+                            phone: directory.phone,
+                            name: directory.name,
+                            contactFrom: directory.contactFrom,
+                            contactTo: directory.contactTo,
+                            description: directory.description,
+                            longitude: directory.longitude,
+                            latitude: directory.latitude),
+                      ],
+                    ),
+                  ),
+                );
+              }
+              return const Center(child: CupertinoActivityIndicator());
+            },
           ),
         ),
       );

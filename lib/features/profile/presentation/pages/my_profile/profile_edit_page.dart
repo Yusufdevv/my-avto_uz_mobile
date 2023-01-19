@@ -56,6 +56,13 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
     super.initState();
   }
 
+  bool isChanged({required String oldname, required String oldsurname}) {
+    final result = (oldname != nameController) ||
+        (oldsurname != surNameController) ||
+        widget.imageBloc.state.image.path.isNotEmpty;
+    return result;
+  }
+
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
@@ -77,13 +84,18 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                   textWithButton: LocaleKeys.my_profile.tr(),
                 ),
                 bottomNavigationBar: WButton(
+                  color: isChanged(
+                          oldname: stateProfile.profileEntity.firstName ?? '',
+                          oldsurname: stateProfile.profileEntity.lastName ?? '')
+                      ? orange
+                      : grey,
                   isLoading: stateProfile.editStatus.isSubmissionInProgress,
                   margin: EdgeInsets.fromLTRB(
                       SizeConfig.h(16),
                       SizeConfig.v(0),
                       SizeConfig.h(16),
                       SizeConfig.v(8) + mediaQuery.padding.bottom),
-                  text: 'Подтвердить',
+                  text: 'Сохранить',
                   onTap: () {
                     if (_formKey.currentState!.validate()) {
                       context.read<ProfileBloc>().add(
@@ -156,24 +168,27 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                                                               50),
                                                       child: CachedNetworkImage(
                                                           imageUrl: stateProfile
-                                                              .profileEntity
-                                                              .image!,
+                                                                  .profileEntity
+                                                                  .image ??
+                                                              '',
                                                           width:
                                                               SizeConfig.h(80),
                                                           height:
                                                               SizeConfig.v(80),
                                                           fit: BoxFit.cover,
-                                                          errorWidget: (context, url, error) => SizedBox(
-                                                              width: SizeConfig.h(
-                                                                  80),
-                                                              height: SizeConfig.v(
-                                                                  80),
-                                                              child: ClipRRect(
-                                                                  borderRadius:
-                                                                      BorderRadius.circular(
-                                                                          50),
-                                                                  child: SvgPicture.asset(
-                                                                      AppIcons.userAvatar)))),
+                                                          errorWidget: (context,
+                                                                  url, error) =>
+                                                              SizedBox(
+                                                                  width:
+                                                                      SizeConfig.h(
+                                                                          80),
+                                                                  height:
+                                                                      SizeConfig.v(
+                                                                          80),
+                                                                  child: ClipRRect(
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(50),
+                                                                      child: SvgPicture.asset(AppIcons.userAvatar)))),
                                                     )
                                                   : SizedBox(
                                                       height: SizeConfig.v(80),

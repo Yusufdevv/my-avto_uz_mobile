@@ -198,7 +198,7 @@ class _FavoriteItemState extends State<FavoriteItem> {
                                     ),
                                     TextSpan(
                                       text:
-                                          '${widget.callFrom} - ${widget.callTo}',
+                                          '${widget.callFrom.substring(0, 5)} - ${widget.callTo.substring(0, 5)}',
                                       style: Theme.of(context)
                                           .textTheme
                                           .headline2
@@ -301,32 +301,30 @@ class _FavoriteItemState extends State<FavoriteItem> {
                 Row(
                   children: [
                     CachedNetworkImage(
-                      imageBuilder: (context, imageProvider) => Container(
-                        height: 36,
-                        width: 36,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(150),
-                          image: DecorationImage(
-                              image: imageProvider, fit: BoxFit.cover),
-                        ),
-                      ),
-                      errorWidget: (context, url, error) => Container(
-                        padding: const EdgeInsets.all(8),
-                        height: 36,
-                        width: 36,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(150),
-                          color: warmerGrey,
-                          border: Border.all(
-                            color: dividerColor,
-                            width: 1,
-                          ),
-                        ),
-                        child: SvgPicture.asset(AppIcons.userAvatar),
-                      ),
-                      imageUrl: widget.userImage,
-                      fit: BoxFit.cover,
-                    ),
+                        imageBuilder: (context, imageProvider) => Container(
+                              height: 36,
+                              width: 36,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(150),
+                                image: DecorationImage(
+                                    image: imageProvider, fit: BoxFit.cover),
+                              ),
+                            ),
+                        errorWidget: (context, url, error) => Container(
+                              height: 36,
+                              width: 36,
+                              decoration: BoxDecoration(
+                                image: const DecorationImage(
+                                    image: AssetImage(
+                                      AppImages.defaultPhoto,
+                                    ),
+                                    fit: BoxFit.cover),
+                                borderRadius: BorderRadius.circular(150),
+                                color: warmerGrey,
+                              ),
+                            ),
+                        imageUrl: widget.userImage,
+                        fit: BoxFit.cover),
                     const SizedBox(width: 8),
                     RichText(
                       text: TextSpan(

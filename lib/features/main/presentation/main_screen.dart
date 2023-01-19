@@ -1,3 +1,4 @@
+import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ads/presentation/pages/ads_screen.dart';
@@ -139,29 +140,33 @@ class _MainScreenState extends State<MainScreen> {
             value: topAdBloc,
           ),
         ],
-        child: RefreshIndicator(
-          onRefresh: () async{
-            mainBloc.add(InitialEvent());
-            topBrandBloc.add(TopBrandEvent.getBrand());
-            topAdBloc..add(TopAdEvent.getTopAds())
-            ..add(TopAdEvent.getFavorites(endpoint: '/users/wishlist/announcement/list/'));
-          },
-          child: BlocBuilder<MainBloc, MainState>(
-            builder: (context, state) => Scaffold(
-              backgroundColor:
-                  Theme.of(context).extension<ThemedColors>()!.whiteToDark,
-              appBar: const MainAppBar(),
-              body: BlocBuilder<AnnouncementListBloc, AnnouncementListState>(
+        child: BlocBuilder<MainBloc, MainState>(
+          builder: (context, state) => Scaffold(
+            backgroundColor:
+                Theme.of(context).extension<ThemedColors>()!.whiteToDark,
+            appBar: const MainAppBar(),
+            body: RefreshIndicator(
+              color: purple,
+              onRefresh: () async {
+                mainBloc.add(InitialEvent());
+                topBrandBloc.add(TopBrandEvent.getBrand());
+                topAdBloc
+                  ..add(TopAdEvent.getTopAds())
+                  ..add(TopAdEvent.getFavorites(
+                      endpoint: '/users/wishlist/announcement/list/'));
+              },
+              child: BlocBuilder<AnnouncementListBloc, AnnouncementListState>(
                 builder: (context, stateAnnounc) => SingleChildScrollView(
-                  physics:const BouncingScrollPhysics(),
+                  physics: const BouncingScrollPhysics(),
                   padding: const EdgeInsets.only(top: 20, bottom: 24),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Visibility(
-                        visible: state.statusStoriesGet.isSubmissionInProgress ||
-                            state.statusStoriesGet.isSubmissionSuccess &&
-                                state.stories.isNotEmpty,
+                        visible:
+                            state.statusStoriesGet.isSubmissionInProgress ||
+                                state.statusStoriesGet.isSubmissionSuccess &&
+                                    state.stories.isNotEmpty,
                         child: Stories(
                           status: state.statusStoriesGet,
                           stories: state.stories,
@@ -199,9 +204,8 @@ class _MainScreenState extends State<MainScreen> {
                                           .state
                                           .selectId,
                                     )));
-                            context
-                                .read<AnnouncementListBloc>()
-                                .add(AnnouncementListEvent.getAnnouncementList());
+                            context.read<AnnouncementListBloc>().add(
+                                AnnouncementListEvent.getAnnouncementList());
                           }),
                           onTapShow: () {
                             Navigator.of(context).push(fade(
@@ -231,8 +235,10 @@ class _MainScreenState extends State<MainScreen> {
                         listener: (context, stateWish) {
                           if (stateWish.addStatus.isSubmissionSuccess ||
                               stateWish.removeStatus.isSubmissionSuccess) {
-                            context.read<TopAdBloc>().add(TopAdEvent.getFavorites(
-                                endpoint: '/users/wishlist/announcement/list/'));
+                            context.read<TopAdBloc>().add(
+                                TopAdEvent.getFavorites(
+                                    endpoint:
+                                        '/users/wishlist/announcement/list/'));
                             context
                                 .read<WishlistAddBloc>()
                                 .add(WishlistAddEvent.clearState());

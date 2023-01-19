@@ -66,20 +66,18 @@ class SeeProfilePage extends StatelessWidget {
                             ClipRRect(
                               borderRadius: BorderRadius.circular(50),
                               child: CachedNetworkImage(
-                                  imageUrl: state.profileEntity.image!,
-                                  width: SizeConfig.h(80),
-                                  height: SizeConfig.v(80),
-                                  fit: BoxFit.cover,
-                                  errorWidget: (context, url, error) =>
-                                      SizedBox(
-                                          width: SizeConfig.h(80),
-                                          height: SizeConfig.v(80),
-                                          child: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(50),
-                                            child: SvgPicture.asset(
-                                                AppIcons.userAvatar),
-                                          ))),
+                                imageUrl: state.profileEntity.image ?? '',
+                                width: SizeConfig.h(80),
+                                height: SizeConfig.v(80),
+                                fit: BoxFit.cover,
+                                errorWidget: (context, url, error) => SizedBox(
+                                    width: SizeConfig.h(80),
+                                    height: SizeConfig.v(80),
+                                    child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(50),
+                                        child: SvgPicture.asset(
+                                            AppIcons.userAvatar))),
+                              ),
                             ),
                             const Spacer(),
                             WScaleAnimation(
@@ -101,10 +99,9 @@ class SeeProfilePage extends StatelessWidget {
                               onTap: () {
                                 Navigator.of(context).push(
                                   fade(
-                                    page: ProfileEditPage(
-                                        profileBloc: profileBloc,
-                                        imageBloc: imageBloc),
-                                  ),
+                                      page: ProfileEditPage(
+                                          profileBloc: profileBloc,
+                                          imageBloc: imageBloc)),
                                 );
                               },
                             ),
