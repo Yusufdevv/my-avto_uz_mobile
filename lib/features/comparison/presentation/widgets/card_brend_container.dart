@@ -8,12 +8,14 @@ class CarBrandContainer extends StatelessWidget {
   final String title;
   final String imageUrl;
   final bool hasShadow;
+  final bool isCheck;
 
   const CarBrandContainer({
-    this.hasShadow = false,
-    Key? key,
     required this.title,
     required this.imageUrl,
+    required this.isCheck,
+    this.hasShadow = false,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -24,7 +26,9 @@ class CarBrandContainer extends StatelessWidget {
         margin: const EdgeInsets.only(left: 12, top: 16, bottom: 16),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
-          color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
+          color: isCheck
+              ? Theme.of(context).extension<ThemedColors>()!.snowToNightRider
+              : Theme.of(context).extension<ThemedColors>()!.whiteToDark,
           border: Border.all(
               width: 1,
               color: Theme.of(context)

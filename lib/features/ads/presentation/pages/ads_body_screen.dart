@@ -227,7 +227,7 @@ class _AdsBodyScreenState extends State<AdsBodyScreen> {
                           ? ''
                           : state.announcementList[index].discount.toString(),
                       sellType: '',
-                      hasStatusInfo: false,
+                      hasStatusInfo: state.announcementList[index].isNew,
                       hasCallCard: MyFunctions.enableForCalling(
                         callFrom:
                             state.announcementList[index].contactAvailableFrom,

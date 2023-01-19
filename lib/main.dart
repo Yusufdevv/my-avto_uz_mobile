@@ -130,6 +130,7 @@ class _AppState extends State<App> {
             statusBarColor: white,
             systemNavigationBarColor: white,
             statusBarBrightness: Brightness.light,
+            statusBarIconBrightness: Brightness.dark,
             systemNavigationBarIconBrightness: Brightness.dark,
           ),
           child: MaterialApp(

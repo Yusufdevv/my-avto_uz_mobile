@@ -203,17 +203,19 @@ class _InfoContainerState extends State<InfoContainer> {
                   ),
                 ),
                 const SizedBox(width: 4),
-                CustomChip(
-                  leading: SvgPicture.asset(AppIcons.checkCurly),
-                  label: 'Новый',
-                  backgroundColor: emerald.withOpacity(0.1),
-                  borderRadius: 4,
-                  labelStyle: const TextStyle(
-                    fontSize: 10,
-                    fontWeight: FontWeight.w600,
-                    color: emerald,
-                  ),
+                if (widget.hasStatusInfo
                 )
+                  CustomChip(
+                    leading: SvgPicture.asset(AppIcons.checkCurly),
+                    label: 'Новый',
+                    backgroundColor: emerald.withOpacity(0.1),
+                    borderRadius: 4,
+                    labelStyle: const TextStyle(
+                      fontSize: 10,
+                      fontWeight: FontWeight.w600,
+                      color: emerald,
+                    ),
+                  )
               ],
             ),
             const SizedBox(height: 4),

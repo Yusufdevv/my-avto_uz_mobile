@@ -143,26 +143,19 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
                               scrollDirection: Axis.horizontal,
                               itemBuilder: (context, index) => WScaleAnimation(
                                 onTap: () {
-                                  // context.read<AnnouncementListBloc>().add(
-                                  //     AnnouncementListEvent.getFilter(context
-                                  //         .read<AnnouncementListBloc>()
-                                  //         .state
-                                  //         .filter
-                                  //         .copyWith(
-                                  //           make: state.topMakes[index].id,
-                                  //         )));
-                                  // Navigator.pop(context);
-                                  // context.read<GetMakesBloc>().add(
-                                  //       GetMakesBlocEvent.selectedCarItems(
-                                  //         id: state.topMakes[index].id,
-                                  //         name: state.topMakes[index].name,
-                                  //         imageUrl: state.topMakes[index].logo,
-                                  //       ),
-                                  //     );
+                                  context.read<GetMakesBloc>().add(
+                                        GetMakesBlocEvent.selectedCarItems(
+                                          id: state.topMakes[index].id,
+                                          name: state.topMakes[index].name,
+                                          imageUrl: state.topMakes[index].logo,
+                                        ),
+                                      );
                                 },
                                 child: CarBrandContainer(
                                   imageUrl: state.topMakes[index].logo,
                                   title: state.topMakes[index].name,
+                                  isCheck: state.topMakes[index].id ==
+                                      state.selectId,
                                 ),
                               ),
                               itemCount: state.topMakes.length,
