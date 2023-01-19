@@ -132,7 +132,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   hintTextStyle: Theme.of(context)
                       .textTheme
                       .subtitle1!
-                      .copyWith(fontSize: 15,color: warmerGrey),
+                      .copyWith(fontSize: 15, color: warmerGrey),
                   keyBoardType: TextInputType.number,
                   textInputFormatters: [phoneFormatter],
                 ),

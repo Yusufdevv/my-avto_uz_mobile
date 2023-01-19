@@ -52,7 +52,6 @@ class _ChatPageState extends State<ChatPage> {
             }
         })(document, "script");
         window.\$chatwoot?.setUser("id", {
-            // email: "elzodxon@gmail.com ",
             name: "$userName",
             phone_number: "$phone",
         });
@@ -74,7 +73,7 @@ class _ChatPageState extends State<ChatPage> {
     // ignore: cascade_invocations
     controller
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
-      ..loadHtmlString(htmlCode(widget.phone, widget.userName));
+      ..loadFlutterAsset('assets/www/index.html');
     webViewController = controller;
     // webViewController.loadHtmlString(htmlCode(widget.phone, widget.userName));
 
@@ -89,11 +88,3 @@ class _ChatPageState extends State<ChatPage> {
         ),
       );
 }
-  // void loadLocalHtml() async {
-  //   final url = Uri.dataFromString(
-  //     htmlCode(chatwoot, widget.phone, widget.userName),
-  //     mimeType: 'text/html',
-  //     encoding: Encoding.getByName('utf-8')
-  //   ).toString();
-  //   _controller.loadUrl(url);
-  // }

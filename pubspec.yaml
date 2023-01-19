@@ -66,6 +66,7 @@ flutter:
 
   assets:
     - assets/
+    - assets/index.html
     - assets/icons/
     - assets/icons/splash/
     - assets/icons/reviews/
