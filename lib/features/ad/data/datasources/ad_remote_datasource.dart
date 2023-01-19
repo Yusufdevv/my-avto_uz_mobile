@@ -140,11 +140,8 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
                 }
               : {},
         ),
-        queryParameters: name == null
-            ? null
-            : {
-                'search': name,
-              });
+        queryParameters:
+            name == null ? null : {'search': name, 'limit': 50, 'offset': 0});
     if (response.statusCode! >= 200 && response.statusCode! < 300) {
       return GetMakeModel.fromJson(response.data);
     } else {

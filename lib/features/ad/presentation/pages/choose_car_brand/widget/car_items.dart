@@ -36,7 +36,6 @@ class ChangeCarItems extends StatelessWidget {
           child: Container(
             padding: const EdgeInsets.only(right: 16, top: 5, bottom: 5),
             decoration: BoxDecoration(
-              color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
               border: Border(
                 bottom: BorderSide(
                   width: 1,

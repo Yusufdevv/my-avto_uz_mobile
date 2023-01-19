@@ -2,7 +2,6 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/presentation/pages/choose_car_brand/widget/car_items.dart';
-import 'package:auto/features/common/bloc/announcement_bloc/bloc/announcement_list_bloc.dart';
 import 'package:auto/features/common/bloc/get_makes_bloc/get_makes_bloc_bloc.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
@@ -117,6 +116,18 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
                             context
                                 .read<GetMakesBloc>()
                                 .add(GetMakesBlocEvent.getMakes());
+                            setState(() {});
+                          },
+                          onClear: () {
+                            context.read<GetMakesBloc>().add(
+                                  GetMakesBlocEvent.getSerched(
+                                    searchController.text,
+                                  ),
+                                );
+                            context
+                                .read<GetMakesBloc>()
+                                .add(GetMakesBlocEvent.getMakes());
+                            setState(() {});
                           },
                         ),
                         pinned: true,

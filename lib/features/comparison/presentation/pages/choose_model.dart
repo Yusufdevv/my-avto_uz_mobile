@@ -109,62 +109,20 @@ class _ChooseCarModelComparison extends State<ChooseCarModelComparison> {
                                 .read<GetCarModelBloc>()
                                 .add(GetCarModelEvent.getCarModel(id));
                           },
+                          onClear: () {
+                            context.read<GetCarModelBloc>().add(
+                                  GetCarModelEvent.getSerched(
+                                    searchController.text,
+                                  ),
+                                );
+                            context
+                                .read<GetCarModelBloc>()
+                                .add(GetCarModelEvent.getCarModel(id));
+                          },
                         ),
                         pinned: true,
                       ),
                     ),
-                    const SliverPadding(
-                      padding: EdgeInsets.symmetric(vertical: 16),
-                    ),
-                    if (state.search.isEmpty)
-                      SliverToBoxAdapter(
-                        child: Transform.translate(
-                          offset: const Offset(0, 1),
-                          child: Container(
-                            height: 20,
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                              color: Theme.of(context)
-                                  .extension<ThemedColors>()!
-                                  .whiteToDark,
-                              borderRadius: const BorderRadius.vertical(
-                                top: Radius.circular(20),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    if (state.search.isEmpty)
-                      SliverToBoxAdapter(
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: Theme.of(context)
-                                .extension<ThemedColors>()!
-                                .whiteToDark,
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 16),
-                                child: Text(
-                                  'Популярные',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headline1!
-                                      .copyWith(
-                                          fontWeight: FontWeight.w600,
-                                          color: purple),
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
                     SliverList(
                       delegate: SliverChildBuilderDelegate(
                         (context, index) => Container(
@@ -177,15 +135,10 @@ class _ChooseCarModelComparison extends State<ChooseCarModelComparison> {
                                 state.model.results[index].id,
                             text: state.search,
                             onTap: () {
-                              print("Bu kelgan IdMake $id");
-                              print(
-                                  'clicked Bu id ${state.model.results[index].id} Bu ${state.selectedId}');
                               context.read<GetCarModelBloc>().add(
                                   GetCarModelEvent.selectedModelItem(
                                       id: state.model.results[index].id,
                                       name: state.model.results[index].name));
-                              print(
-                                  'clicked Bu keyingi ${state.model.results[index].id} Bu ${state.selectedId}');
                               setState(() {});
                             },
                           ),

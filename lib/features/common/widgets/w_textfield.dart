@@ -55,6 +55,7 @@ class WTextField extends StatefulWidget {
   final Function? onTapSuffix;
   final Function()? onEditCompleted;
   final Function()? onTap;
+  final Function()? onClear;
   final bool autoFocus;
   final Color? disabledColor;
   final double? suffixRightPosition;
@@ -116,6 +117,7 @@ class WTextField extends StatefulWidget {
       Key? key,
       this.onEditCompleted,
       this.onTap,
+      this.onClear,
       this.suffixRightPosition,
       this.suffixSize,
       this.maxLines = 1,
@@ -386,6 +388,7 @@ class _WTextFieldState extends State<WTextField>
                                 onTap: () {
                                   widget.controller!.clear();
                                   setState(() {});
+                                  widget.onClear!();
                                 },
                                 child: Padding(
                                   padding:

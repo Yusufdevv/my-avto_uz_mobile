@@ -204,8 +204,10 @@ class _MainScreenState extends State<MainScreen> {
                                           .state
                                           .selectId,
                                     )));
-                            context.read<AnnouncementListBloc>().add(
-                                AnnouncementListEvent.getAnnouncementList());
+                            context
+                                .read<AnnouncementListBloc>()
+                                .add(AnnouncementListEvent.getAnnouncementList());
+                            
                           }),
                           onTapShow: () {
                             Navigator.of(context).push(fade(
@@ -214,6 +216,7 @@ class _MainScreenState extends State<MainScreen> {
                           imageUrl: state.imageUrl,
                           title: state.name,
                           count: stateAnnounc.count,
+                          isCheck: state.ischeck,
                         ),
                       ),
                       SizedBox(
