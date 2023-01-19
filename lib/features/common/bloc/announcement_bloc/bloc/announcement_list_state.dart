@@ -10,6 +10,7 @@ class AnnouncementListState with _$AnnouncementListState {
     @Default(0) int count,
     @Default([])List<Region> regions,
     @Default(false) bool isFilter,
+    @Default(false)bool isHistory,
     @Default([]) List<AnnouncementListEntity> announcementList,
     @Default(AnnouncementFilterModel()) AnnouncementFilterModel filter,
     @Default(RangeValues(1960, 2023)) RangeValues yearValues,
