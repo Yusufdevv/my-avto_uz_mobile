@@ -781,7 +781,7 @@ abstract class _ChangeLatLong implements MapOrganizationEvent {
 
 /// @nodoc
 mixin _$MapOrganizationState {
-  List<DealerCardModel> get dealers => throw _privateConstructorUsedError;
+  List<MapModel> get dealers => throw _privateConstructorUsedError;
   int get radius => throw _privateConstructorUsedError;
   FormzStatus get status => throw _privateConstructorUsedError;
   FormzStatus get getCurrentLocationStatus =>
@@ -790,6 +790,7 @@ mixin _$MapOrganizationState {
   double get long => throw _privateConstructorUsedError;
   double get currentLat => throw _privateConstructorUsedError;
   double get currentLong => throw _privateConstructorUsedError;
+  String get searchText => throw _privateConstructorUsedError;
   bool get fetchMore => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -804,7 +805,7 @@ abstract class $MapOrganizationStateCopyWith<$Res> {
       _$MapOrganizationStateCopyWithImpl<$Res, MapOrganizationState>;
   @useResult
   $Res call(
-      {List<DealerCardModel> dealers,
+      {List<MapModel> dealers,
       int radius,
       FormzStatus status,
       FormzStatus getCurrentLocationStatus,
@@ -812,6 +813,7 @@ abstract class $MapOrganizationStateCopyWith<$Res> {
       double long,
       double currentLat,
       double currentLong,
+      String searchText,
       bool fetchMore});
 }
 
@@ -837,13 +839,14 @@ class _$MapOrganizationStateCopyWithImpl<$Res,
     Object? long = null,
     Object? currentLat = null,
     Object? currentLong = null,
+    Object? searchText = null,
     Object? fetchMore = null,
   }) {
     return _then(_value.copyWith(
       dealers: null == dealers
           ? _value.dealers
           : dealers // ignore: cast_nullable_to_non_nullable
-              as List<DealerCardModel>,
+              as List<MapModel>,
       radius: null == radius
           ? _value.radius
           : radius // ignore: cast_nullable_to_non_nullable
@@ -872,6 +875,10 @@ class _$MapOrganizationStateCopyWithImpl<$Res,
           ? _value.currentLong
           : currentLong // ignore: cast_nullable_to_non_nullable
               as double,
+      searchText: null == searchText
+          ? _value.searchText
+          : searchText // ignore: cast_nullable_to_non_nullable
+              as String,
       fetchMore: null == fetchMore
           ? _value.fetchMore
           : fetchMore // ignore: cast_nullable_to_non_nullable
@@ -889,7 +896,7 @@ abstract class _$$_MapOrganizationStateCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {List<DealerCardModel> dealers,
+      {List<MapModel> dealers,
       int radius,
       FormzStatus status,
       FormzStatus getCurrentLocationStatus,
@@ -897,6 +904,7 @@ abstract class _$$_MapOrganizationStateCopyWith<$Res>
       double long,
       double currentLat,
       double currentLong,
+      String searchText,
       bool fetchMore});
 }
 
@@ -919,13 +927,14 @@ class __$$_MapOrganizationStateCopyWithImpl<$Res>
     Object? long = null,
     Object? currentLat = null,
     Object? currentLong = null,
+    Object? searchText = null,
     Object? fetchMore = null,
   }) {
     return _then(_$_MapOrganizationState(
       dealers: null == dealers
           ? _value._dealers
           : dealers // ignore: cast_nullable_to_non_nullable
-              as List<DealerCardModel>,
+              as List<MapModel>,
       radius: null == radius
           ? _value.radius
           : radius // ignore: cast_nullable_to_non_nullable
@@ -954,6 +963,10 @@ class __$$_MapOrganizationStateCopyWithImpl<$Res>
           ? _value.currentLong
           : currentLong // ignore: cast_nullable_to_non_nullable
               as double,
+      searchText: null == searchText
+          ? _value.searchText
+          : searchText // ignore: cast_nullable_to_non_nullable
+              as String,
       fetchMore: null == fetchMore
           ? _value.fetchMore
           : fetchMore // ignore: cast_nullable_to_non_nullable
@@ -966,7 +979,7 @@ class __$$_MapOrganizationStateCopyWithImpl<$Res>
 
 class _$_MapOrganizationState implements _MapOrganizationState {
   _$_MapOrganizationState(
-      {final List<DealerCardModel> dealers = const [],
+      {final List<MapModel> dealers = const [],
       this.radius = 0,
       this.status = FormzStatus.pure,
       this.getCurrentLocationStatus = FormzStatus.pure,
@@ -974,13 +987,14 @@ class _$_MapOrganizationState implements _MapOrganizationState {
       this.long = 0,
       this.currentLat = 0,
       this.currentLong = 0,
+      this.searchText = '',
       this.fetchMore = false})
       : _dealers = dealers;
 
-  final List<DealerCardModel> _dealers;
+  final List<MapModel> _dealers;
   @override
   @JsonKey()
-  List<DealerCardModel> get dealers {
+  List<MapModel> get dealers {
     if (_dealers is EqualUnmodifiableListView) return _dealers;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_dealers);
@@ -1009,11 +1023,14 @@ class _$_MapOrganizationState implements _MapOrganizationState {
   final double currentLong;
   @override
   @JsonKey()
+  final String searchText;
+  @override
+  @JsonKey()
   final bool fetchMore;
 
   @override
   String toString() {
-    return 'MapOrganizationState(dealers: $dealers, radius: $radius, status: $status, getCurrentLocationStatus: $getCurrentLocationStatus, lat: $lat, long: $long, currentLat: $currentLat, currentLong: $currentLong, fetchMore: $fetchMore)';
+    return 'MapOrganizationState(dealers: $dealers, radius: $radius, status: $status, getCurrentLocationStatus: $getCurrentLocationStatus, lat: $lat, long: $long, currentLat: $currentLat, currentLong: $currentLong, searchText: $searchText, fetchMore: $fetchMore)';
   }
 
   @override
@@ -1033,6 +1050,8 @@ class _$_MapOrganizationState implements _MapOrganizationState {
                 other.currentLat == currentLat) &&
             (identical(other.currentLong, currentLong) ||
                 other.currentLong == currentLong) &&
+            (identical(other.searchText, searchText) ||
+                other.searchText == searchText) &&
             (identical(other.fetchMore, fetchMore) ||
                 other.fetchMore == fetchMore));
   }
@@ -1048,6 +1067,7 @@ class _$_MapOrganizationState implements _MapOrganizationState {
       long,
       currentLat,
       currentLong,
+      searchText,
       fetchMore);
 
   @JsonKey(ignore: true)
@@ -1060,7 +1080,7 @@ class _$_MapOrganizationState implements _MapOrganizationState {
 
 abstract class _MapOrganizationState implements MapOrganizationState {
   factory _MapOrganizationState(
-      {final List<DealerCardModel> dealers,
+      {final List<MapModel> dealers,
       final int radius,
       final FormzStatus status,
       final FormzStatus getCurrentLocationStatus,
@@ -1068,10 +1088,11 @@ abstract class _MapOrganizationState implements MapOrganizationState {
       final double long,
       final double currentLat,
       final double currentLong,
+      final String searchText,
       final bool fetchMore}) = _$_MapOrganizationState;
 
   @override
-  List<DealerCardModel> get dealers;
+  List<MapModel> get dealers;
   @override
   int get radius;
   @override
@@ -1086,6 +1107,8 @@ abstract class _MapOrganizationState implements MapOrganizationState {
   double get currentLat;
   @override
   double get currentLong;
+  @override
+  String get searchText;
   @override
   bool get fetchMore;
   @override
