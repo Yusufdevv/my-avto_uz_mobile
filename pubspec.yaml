@@ -97,16 +97,16 @@ flutter:
           weight: 900
         - asset: assets/fonts/averta_cy/AvertaCY-Bold.otf
           weight: 700
-        - asset: assets/fonts/averta_cy/AvertaCY-ExtraBold.otf
-          weight: 800
+        # - asset: assets/fonts/averta_cy/AvertaCY-ExtraBold.otf
+        #   weight: 800
         - asset: assets/fonts/averta_cy/AvertaCY-Extrathin.otf
           weight: 200
         - asset: assets/fonts/averta_cy/AvertaCY-Light.otf
           weight: 300
         - asset: assets/fonts/averta_cy/AvertaCY-Regular.otf
           weight: 400
-        - asset: assets/fonts/averta_cy/AvertaCY-SemiBold.otf
-          weight: 600
+        # - asset: assets/fonts/averta_cy/AvertaCY-SemiBold.otf
+          # weight: 600
         - asset: assets/fonts/averta_cy/AvertaCY-Thin.otf
           weight: 100
 

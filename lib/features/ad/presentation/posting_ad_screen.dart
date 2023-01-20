@@ -57,7 +57,7 @@ class _PostingAdScreenState extends State<PostingAdScreen>
     with SingleTickerProviderStateMixin {
   late PageController pageController;
   late PostingAdBloc postingAdBloc;
-  static int initialPage = 16;
+  static int initialPage = 0;
   int currentTabIndex = initialPage;
   final int tabLength = 20;
   @override
@@ -240,7 +240,11 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                       //9
                       const ColorsScreen(),
                       //10
-                      const AddPhotoScreen(),
+                      AddPhotoScreen(onImageChanged: (v) {
+                        print(
+                            '=> => => =>  changing photos:   $v    <= <= <= <=');
+                        postingAdBloc.add(PostingAdChooseEvent(gallery: v));
+                      }),
                       //11
                       const PtsScreen(),
                       //12

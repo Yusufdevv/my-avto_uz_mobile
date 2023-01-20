@@ -40,6 +40,7 @@ class PostingAdGenerationsEvent extends PostingAdEvent {
 }
 
 class PostingAdChooseEvent extends PostingAdEvent {
+  List<String>? gallery;
   final Region? region;
   final YearsEntity? yearsEntity;
   final DistrictEntity? district;
@@ -80,6 +81,7 @@ class PostingAdChooseEvent extends PostingAdEvent {
   final bool? showExactAddress;
 
   PostingAdChooseEvent({
+    this.gallery,
     this.showExactAddress,
     this.district,
     this.driveTypeId,

@@ -70,6 +70,7 @@ class _PhotoItemState extends State<PhotoItem> {
                     .add(PickImage(source: ImageSource.camera));
               },
               child: Container(
+                alignment: Alignment.center,
                 height: 110,
                 width: 110,
                 decoration: BoxDecoration(

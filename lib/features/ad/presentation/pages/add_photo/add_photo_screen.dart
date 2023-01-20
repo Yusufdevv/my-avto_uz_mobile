@@ -9,7 +9,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AddPhotoScreen extends StatefulWidget {
-  const AddPhotoScreen({Key? key}) : super(key: key);
+  final Function(List<String>) onImageChanged;
+  const AddPhotoScreen({required this.onImageChanged, Key? key})
+      : super(key: key);
 
   @override
   State<AddPhotoScreen> createState() => _AddPhotoScreenState();
@@ -33,7 +35,9 @@ class _AddPhotoScreenState extends State<AddPhotoScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                BlocBuilder<ImageBloc, ImageState>(
+                BlocConsumer<ImageBloc, ImageState>(
+                  listener: (context, state) =>
+                      widget.onImageChanged(state.images),
                   builder: (context, state) => PhotoItem(images: state.images),
                 ),
                 const SizedBox(
@@ -52,20 +56,19 @@ class _AddPhotoScreenState extends State<AddPhotoScreen> {
                 WScaleAnimation(
                   onTap: () {},
                   child: Container(
-                    alignment: Alignment.center,
-                    height: 110,
-                    width: double.infinity,
-                    margin: const EdgeInsets.symmetric(
-                        horizontal: 20, vertical: 16),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      border: Border.all(width: 1, color: purple),
-                      color: Theme.of(context)
-                          .extension<ThemedColors>()!
-                          .ghostWhiteToUltramarine10,
-                    ),
-                    child:const  PlusCircle()
-                  ),
+                      alignment: Alignment.center,
+                      height: 110,
+                      width: double.infinity,
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 16),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        border: Border.all(width: 1, color: purple),
+                        color: Theme.of(context)
+                            .extension<ThemedColors>()!
+                            .ghostWhiteToUltramarine10,
+                      ),
+                      child: const PlusCircle()),
                 )
               ],
             ),

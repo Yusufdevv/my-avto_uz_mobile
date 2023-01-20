@@ -20,6 +20,7 @@ class PostingAdState extends Equatable {
   final FormzStatus status;
   final YearsEntity? yearsEntity;
   final DistrictEntity? district;
+  final List<String> gallery;
   final String? letter;
   final String? ownerName;
   final String? ownerEmail;
@@ -63,6 +64,8 @@ class PostingAdState extends Equatable {
     this.generations = const <GenerationEntity>[],
     this.bodyTypeId,
     this.bodyTypes = const <BodyTypeEntity>[],
+
+    this.gallery = const <String>[],
     this.yearsEntity,
     this.letter,
     this.colorName,
@@ -111,6 +114,7 @@ class PostingAdState extends Equatable {
     int? makeId,
     List<MakeEntity>? makes,
     List<MakeEntity>? topMakes,
+    List<String>? gallery,
     YearsEntity? yearsEntity,
     String? letter,
     String? colorName,
@@ -184,9 +188,11 @@ class PostingAdState extends Equatable {
         isContactsVerified: isContactsVerified ?? this.isContactsVerified,
         rentToBuy: rentToBuy ?? this.rentToBuy,
         isWithoutMileage: isWithoutMileage ?? this.isWithoutMileage,
+        gallery: gallery??this.gallery,
       );
   @override
   List<Object?> get props => [
+    gallery,
         showExactAddress,
         district,
         isWithoutMileage,
