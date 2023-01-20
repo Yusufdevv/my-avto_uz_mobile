@@ -33,7 +33,7 @@ class BaseOnBoarding extends StatelessWidget {
                     color: solitude.withOpacity(.12)),
               ],
             ),
-            const SizedBox(height: 8),
+            const SizedBox(height: 16),
             Row(
               children: [
                 Expanded(

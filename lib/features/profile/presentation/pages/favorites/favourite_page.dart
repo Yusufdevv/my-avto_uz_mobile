@@ -2,7 +2,6 @@ import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/features/common/bloc/wishlist_add/wishlist_add_bloc.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
-import 'package:auto/features/dealers/domain/entities/dealer_type_entity.dart';
 import 'package:auto/features/profile/data/repositories/get_user_list_repo_impl.dart';
 import 'package:auto/features/profile/domain/entities/dealer_type_entity.dart';
 import 'package:auto/features/profile/domain/usecases/get_my_searches_usecase.dart';
