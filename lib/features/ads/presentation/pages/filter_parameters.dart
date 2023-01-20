@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_bool_literals_in_conditional_expressions
+
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/features/ad/domain/entities/types/body_type.dart';
 import 'package:auto/features/ad/domain/entities/types/drive_type.dart';
@@ -116,30 +118,33 @@ class _FilterParametersState extends State<FilterParameters> {
                               ? LocaleKeys.choose_body.tr()
                               : state.bodyType!.type,
                       title: LocaleKeys.body_type.tr(),
-                      hasArrowDown: true,
+                      hasArrowDown: state.bodyType?.type == null
+                          ? true
+                          : state.bodyType!.type.isEmpty,
                     ),
                     SelectorItem(
-                      onTap: () async {
-                        await showModalBottomSheet<DriveTypeEntity>(
-                          isDismissible: false,
-                          context: context,
-                          isScrollControlled: true,
-                          backgroundColor: Colors.transparent,
-                          builder: (c) => ChooseDriveType(
-                              selectedId: state.carDriveType?.id ?? -1),
-                        ).then((value) {
-                          filterBloc
-                              .add(FilterSelectEvent(carDriveType: value));
-                        });
-                      },
-                      hintText: state.carDriveType?.type == null
-                          ? LocaleKeys.choose_body.tr()
-                          : state.carDriveType!.type.isEmpty
-                              ? LocaleKeys.choose_drive_type.tr()
-                              : state.carDriveType!.type,
-                      title: LocaleKeys.drive_unit.tr(),
-                      hasArrowDown: true,
-                    ),
+                        onTap: () async {
+                          await showModalBottomSheet<DriveTypeEntity>(
+                            isDismissible: false,
+                            context: context,
+                            isScrollControlled: true,
+                            backgroundColor: Colors.transparent,
+                            builder: (c) => ChooseDriveType(
+                                selectedId: state.carDriveType?.id ?? -1),
+                          ).then((value) {
+                            filterBloc
+                                .add(FilterSelectEvent(carDriveType: value));
+                          });
+                        },
+                        hintText: state.carDriveType?.type == null
+                            ? LocaleKeys.choose_body.tr()
+                            : state.carDriveType!.type.isEmpty
+                                ? LocaleKeys.choose_drive_type.tr()
+                                : state.carDriveType!.type,
+                        title: LocaleKeys.drive_unit.tr(),
+                        hasArrowDown: state.carDriveType?.type == null
+                            ? true
+                            : state.carDriveType!.type.isEmpty),
                     SelectorItem(
                       onTap: () async {
                         await showModalBottomSheet<GearboxTypeEntity>(
@@ -159,7 +164,9 @@ class _FilterParametersState extends State<FilterParameters> {
                               ? LocaleKeys.choose_box_type.tr()
                               : state.gearboxType!.type,
                       title: LocaleKeys.box.tr(),
-                      hasArrowDown: true,
+                      hasArrowDown: state.gearboxType?.type == null
+                          ? true
+                          : state.gearboxType!.type.isEmpty,
                     ),
                     Text(
                       'Выберите валюту',
