@@ -50,7 +50,7 @@ class BaseOnBoarding extends StatelessWidget {
                   style: Theme.of(context)
                       .textTheme
                       .bodyText1!
-                      .copyWith(fontSize: 14),
+                      .copyWith(color: greyText),
                 ),
                 const SizedBox(width: 4),
                 Expanded(

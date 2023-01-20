@@ -111,15 +111,15 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                     });
                   },
                   children: [
-                    OnBoardingItems(
+                    OnBoardingPageItems(
                         icon: AppImages.flash,
                         title: LocaleKeys.easy_send.tr(),
                         image: AppImages.firstImage),
-                    OnBoardingItems(
+                    OnBoardingPageItems(
                         icon: AppImages.done,
                         title: LocaleKeys.trusted_car_dealers.tr(),
                         image: AppImages.secondImage),
-                    OnBoardingItems(
+                    OnBoardingPageItems(
                       icon: AppImages.omg,
                       hasSecondText: true,
                       title: LocaleKeys.more_than.tr(),
@@ -131,13 +131,14 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                 ),
               ),
             ),
+            const SizedBox(height: 24),
             Padding(
               padding: const EdgeInsets.only(left: 32),
               child: Row(
                 children: buildIndicator(),
               ),
             ),
-            const SizedBox(height: 15),
+            const SizedBox(height: 32),
             BaseOnBoarding(
               onTap: () => Navigator.pushAndRemoveUntil(
                   context, fade(page: const LoginScreen()), (route) => false),

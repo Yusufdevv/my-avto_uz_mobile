@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class OnBoardingItems extends StatelessWidget {
+class OnBoardingPageItems extends StatelessWidget {
   final String image;
   final String title;
   final String icon;
@@ -8,7 +8,7 @@ class OnBoardingItems extends StatelessWidget {
   final String secondText;
   final String thirdText;
 
-  const OnBoardingItems({
+  const OnBoardingPageItems({
     required this.icon,
     required this.title,
     required this.image,
@@ -25,16 +25,18 @@ class OnBoardingItems extends StatelessWidget {
         children: [
           Expanded(
             child: Center(
-              child: Image.asset(
-                image,
-              ),
+              child: Image.asset(image),
             ),
           ),
           Padding(
             padding: const EdgeInsets.only(left: 32),
             child: RichText(
               text: TextSpan(children: [
-                WidgetSpan(child: Image.asset(icon)),
+                WidgetSpan(
+                    child: Padding(
+                  padding: const EdgeInsets.only(right: 8),
+                  child: Image.asset(icon),
+                )),
                 TextSpan(
                   text: title,
                   style: Theme.of(context)
