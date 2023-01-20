@@ -5,5 +5,5 @@ export 'favorites/favourite_page.dart';
 export 'my_adds/my_adds_page.dart';
 export 'my_profile/see_profile_page.dart';
 export 'my_searches/my_searches_page.dart';
-export 'notification/notifiaction_page.dart';
+export 'notification/notifiactions_page.dart';
 export 'settings/settings_page.dart';

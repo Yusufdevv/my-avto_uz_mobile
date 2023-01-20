@@ -75,11 +75,9 @@ class _OnBoardingBottomState extends State<OnBoardingBottom> {
                 const SizedBox(
                   height: 35,
                 ),
-
                 Row(
                   children: [
-
-                //O‘zbekcha btn
+                    //O‘zbekcha btn
                     Expanded(
                       child: WButton(
                         onTap: () {
@@ -102,7 +100,7 @@ class _OnBoardingBottomState extends State<OnBoardingBottom> {
                             ClipRRect(
                               borderRadius: BorderRadius.circular(20),
                               child: SvgPicture.asset(
-                                AppIcons.russia,
+                                AppIcons.uzbekistan,
                                 fit: BoxFit.cover,
                               ),
                             ),
@@ -135,12 +133,12 @@ class _OnBoardingBottomState extends State<OnBoardingBottom> {
                       width: 16,
                     ),
 
-                //O‘zbekcha btn
+                    //O‘zbekcha btn
                     Expanded(
                       child: WButton(
                         color: index == 1
                             ? orange
-                            :  Theme.of(context)
+                            : Theme.of(context)
                                 .extension<ThemedColors>()!
                                 .solitudeToCharcoal,
                         onTap: () {
@@ -158,7 +156,7 @@ class _OnBoardingBottomState extends State<OnBoardingBottom> {
                             ClipRRect(
                               borderRadius: BorderRadius.circular(20),
                               child: SvgPicture.asset(
-                                AppIcons.uzbekistan,
+                                AppIcons.russia,
                                 fit: BoxFit.cover,
                               ),
                             ),
@@ -174,7 +172,7 @@ class _OnBoardingBottomState extends State<OnBoardingBottom> {
                                       .copyWith(
                                           fontWeight: FontWeight.w600,
                                           color: white)
-                                  :  Theme.of(context)
+                                  : Theme.of(context)
                                       .textTheme
                                       .bodyText1!
                                       .copyWith(

@@ -3,7 +3,7 @@ import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_icons.dart';
 import 'package:auto/features/common/bloc/auth/authentication_bloc.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
-import 'package:auto/features/profile/presentation/pages/notification/notifiaction_page.dart';
+import 'package:auto/features/profile/presentation/pages/notification/notifiactions_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';

@@ -9,6 +9,7 @@ import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/onboarding/presentation/widgets/base_onboarding.dart';
 import 'package:auto/features/onboarding/presentation/widgets/indicator.dart';
 import 'package:auto/features/onboarding/presentation/widgets/on_boarding_page_items.dart';
+import 'package:auto/features/onboarding/presentation/widgets/uz_on_boarding_item.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -68,6 +69,11 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
     });
   }
 
+  bool isLangRus() {
+    final res = StorageRepository.getString('language') == 'ru' ? true : false;
+    return res;
+  }
+
   @override
   Widget build(BuildContext context) {
     setOnboardingTrue();
@@ -88,16 +94,20 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                     child: SvgPicture.asset(AppIcons.arrowLeft, color: black),
                   ),
                   const Spacer(),
-                  GestureDetector(
-                      onTap: () {
-                        Navigator.of(context)
-                            .pushReplacement(fade(page: const LoginScreen()));
-                      },
-                      child: Text(
-                        LocaleKeys.skip.tr(),
-                        style: Theme.of(context).textTheme.headline1!.copyWith(
-                            fontSize: 15, fontWeight: FontWeight.w400),
-                      )),
+                  if (currentIndex != 2)
+                    GestureDetector(
+                        onTap: () {
+                          Navigator.of(context)
+                              .pushReplacement(fade(page: const LoginScreen()));
+                        },
+                        child: Text(
+                          LocaleKeys.skip.tr(),
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline1!
+                              .copyWith(
+                                  fontSize: 15, fontWeight: FontWeight.w400),
+                        )),
                 ],
               ),
             ),
@@ -119,14 +129,21 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                         icon: AppImages.done,
                         title: LocaleKeys.trusted_car_dealers.tr(),
                         image: AppImages.secondImage),
-                    OnBoardingPageItems(
-                      icon: AppImages.omg,
-                      hasSecondText: true,
-                      title: LocaleKeys.more_than.tr(),
-                      secondText: ' 10 000',
-                      image: AppImages.thirdImage,
-                      thirdText: ' offers',
-                    ),
+                    if (isLangRus())
+                      OnBoardingPageItems(
+                        icon: AppImages.omg,
+                        title: LocaleKeys.more_than.tr(),
+                        secondText: ' 10 000 ',
+                        image: AppImages.thirdImage,
+                        thirdText: LocaleKeys.offers.tr(),
+                      )
+                    else
+                      UzOnBoardingPageItems(
+                          icon: AppImages.omg,
+                          title: LocaleKeys.more_than.tr(),
+                          image: AppImages.thirdImage,
+                          secondText: '10 000 ',
+                          thirdText: LocaleKeys.offers.tr()),
                   ],
                 ),
               ),

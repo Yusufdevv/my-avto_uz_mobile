@@ -14,6 +14,7 @@ import 'package:auto/features/profile/presentation/bloc/user_wishlists_notificat
 import 'package:auto/features/profile/presentation/pages/notification/notification_single_page.dart';
 import 'package:auto/features/profile/presentation/widgets/empty_item_body.dart';
 import 'package:auto/features/profile/presentation/widgets/widgets.dart';
+import 'package:auto/utils/my_functions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -83,7 +84,7 @@ class _NotificationPageState extends State<NotificationPage> {
                         itemBuilder: (context, index) {
                           final item = notifications[index];
                           // ignore: prefer_typing_uninitialized_variables
-                          var isItemRead;
+                          bool? isItemRead;
                           if (item.isRead!=null) {
                             isItemRead = item.isRead;
                           }
@@ -107,9 +108,9 @@ class _NotificationPageState extends State<NotificationPage> {
                             child: NotificationItem(
                               currentIndex: index,
                               category:
-                                  '#${item.category?.name} • 2 часа назад',
+                                  '#${item.category?.name} • ${MyFunctions.getAutoPublishDate(item.createdAt!)}',
                               title: item.title ?? '',
-                              isRead: isAllRead ? isAllRead : isItemRead,
+                              isRead: isAllRead ? isAllRead : isItemRead!,
                               image: item.cover ?? '',
                             ),
                           );
