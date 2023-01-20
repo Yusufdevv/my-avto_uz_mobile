@@ -93,6 +93,7 @@ class _AppState extends State<App> {
   final _navigatorKey = GlobalKey<NavigatorState>();
 
   NavigatorState get navigator => _navigatorKey.currentState!;
+  // ignore: cancel_subscriptions
   StreamSubscription? streamSubscription;
   InternetBloc bloc = InternetBloc();
 
@@ -101,8 +102,7 @@ class _AppState extends State<App> {
     bloc = InternetBloc();
     streamSubscription = InternetConnectionChecker()
         .onStatusChange
-        .listen((InternetConnectionStatus status) {
-      print('internet status ---- ${status}');
+        .listen((status) {
 
       context.read<InternetBloc>().add(InternetEvent(
           isConnected: status == InternetConnectionStatus.connected));
