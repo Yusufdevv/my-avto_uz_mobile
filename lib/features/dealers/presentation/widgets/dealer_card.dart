@@ -144,7 +144,7 @@ class _DealerCardState extends State<DealerCard> {
                   SvgPicture.asset(AppIcons.clock),
                   const SizedBox(width: 8),
                   Text(
-                      '${LocaleKeys.every_day}, ${widget.contactFrom} - ${widget.contactTo}',
+                      '${LocaleKeys.every_day.tr()}, ${widget.contactFrom} - ${widget.contactTo}',
                       style: Theme.of(context)
                           .textTheme
                           .headline1!

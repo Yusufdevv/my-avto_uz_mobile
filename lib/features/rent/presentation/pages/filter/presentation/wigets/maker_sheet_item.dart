@@ -27,21 +27,21 @@ class RentSheetItem extends StatelessWidget {
         child: Row(
           children: [
             const SizedBox(width: 2),
-            SizedBox(
-                height: 32,
-                width: 32,
-                child: logo.endsWith('.svg')
-                    ? SvgPicture.asset(
-                        logo,
-                      )
-                    : CachedNetworkImage(
-                        errorWidget: (context, url, error) => Image.asset(
-                          AppImages.defaultPhoto,
-                          fit: BoxFit.contain,
-                        ),
-                        imageUrl: logo,
-                        fit: BoxFit.contain,
-                      )),
+            // SizedBox(
+            //     height: 32,
+            //     width: 32,
+            //     child: logo.endsWith('.svg')
+            //         ? SvgPicture.asset(
+            //             logo,
+            //           )
+            //         : CachedNetworkImage(
+            //             errorWidget: (context, url, error) => Image.asset(
+            //               AppImages.defaultPhoto,
+            //               fit: BoxFit.contain,
+            //             ),
+            //             imageUrl: logo,
+            //             fit: BoxFit.contain,
+            //           )),
             const SizedBox(width: 10),
             Text(
               title,

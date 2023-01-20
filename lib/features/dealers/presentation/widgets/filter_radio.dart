@@ -6,9 +6,9 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class FilterRadio extends StatelessWidget {
-  final Category value;
-  final ValueChanged<Category> onChanged;
-  final Category currentValue;
+  final String value;
+  final ValueChanged<String> onChanged;
+  final String currentValue;
 
   const FilterRadio(
       {required this.value,
@@ -17,14 +17,15 @@ class FilterRadio extends StatelessWidget {
       Key? key})
       : super(key: key);
 
-  String getCategory(Category category) {
+  String? getCategory(String category) {
     switch (category) {
-      case Category.all:
+      case 'all':
         return LocaleKeys.all.tr();
-      case Category.news:
+      case 'new':
         return LocaleKeys.news.tr();
-      case Category.withMileage:
+      case 'used':
         return LocaleKeys.with_Mileage.tr();
+
     }
   }
 
@@ -61,11 +62,11 @@ class FilterRadio extends StatelessWidget {
                   activeColor: purple,
                   value: value,
                   groupValue: currentValue,
-                  onChanged: (Category? radioValue) {
+                  onChanged: (String? radioValue) {
                     onChanged(radioValue ?? value);
                   }),
               Text(
-                getCategory(value),
+                getCategory(value) ?? '',
                 style: TextStyle(
                     fontWeight: FontWeight.w600,
                     fontSize: 14,
