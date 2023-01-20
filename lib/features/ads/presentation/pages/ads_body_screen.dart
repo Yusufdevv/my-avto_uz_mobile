@@ -227,7 +227,9 @@ class _AdsBodyScreenState extends State<AdsBodyScreen> {
                           state.announcementList[index].publishedAt),
                       subtitle: state.announcementList[index].description,
                       year: state.announcementList[index].year,
-                      price: state.announcementList[index].price.toString(),
+                      price: MyFunctions.getFormatCost(
+                        state.announcementList[index].price.toString(),
+                      ),
                       discountPrice: state.announcementList[index].discount == 0
                           ? ''
                           : state.announcementList[index].discount.toString(),
