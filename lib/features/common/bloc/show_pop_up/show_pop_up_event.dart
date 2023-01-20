@@ -1,4 +1,4 @@
-part of 'show_pop_up_bloc.dart';
+  part of 'show_pop_up_bloc.dart';
 
 @immutable
 abstract class ShowPopUpEvent {}

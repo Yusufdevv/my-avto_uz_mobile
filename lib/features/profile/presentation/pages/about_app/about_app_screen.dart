@@ -14,7 +14,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:rate_my_app/rate_my_app.dart';
 
 class AboutAppScreen extends StatefulWidget {
   const AboutAppScreen({required this.profileBloc, Key? key}) : super(key: key);

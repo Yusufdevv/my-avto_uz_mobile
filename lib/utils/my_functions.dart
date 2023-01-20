@@ -8,7 +8,6 @@ import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/core/exceptions/exceptions.dart';
 import 'package:auto/features/common/models/region.dart';
-import 'package:auto/features/dealers/data/models/dealer_card_model.dart';
 import 'package:auto/features/dealers/data/models/map_model.dart';
 import 'package:auto/features/profile/domain/entities/dir_category_entity.dart';
 import 'package:flutter/material.dart';
@@ -447,6 +446,7 @@ class MyFunctions {
     );
     return now.isAfter(dateFrom) && now.isBefore(dateTo);
   }
+
 
   static bool isEmail(String email) =>
       RegExp(r'^[a-z0-9](\.?[a-z0-9]){5,}@g(oogle)?mail\.com$').hasMatch(email);

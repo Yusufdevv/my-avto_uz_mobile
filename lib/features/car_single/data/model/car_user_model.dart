@@ -12,6 +12,7 @@ class CarUserModel extends CarUserEntity {
     required super.fullName,
     required super.avatar,
     required super.name,
+    required super.slug,
   });
 
   factory CarUserModel.fromJson(Map<String, dynamic> json) =>

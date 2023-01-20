@@ -233,6 +233,7 @@ class AppIcons {
   static const yellowWarning = 'assets/icons/car_single/yellow_warning.svg';
 
   static const greyPhoneCall = 'assets/icons/global/grey_phone_call.svg';
+  static const inet_error = 'assets/icons/global/inet_error.svg';
   static const flashOff = 'assets/icons/global/flash_off.svg';
   static const flashOn = 'assets/icons/global/flash_on.svg';
   static const chevronRound = 'assets/icons/car_single/chevron_right_round.svg';
@@ -262,4 +263,7 @@ class AppIcons {
   static const eye2 = 'assets/icons/car_single/eye2.svg';
   static const bl_ch = 'assets/icons/car_single/bl_ch.svg';
   static const dtp_red = 'assets/icons/car_single/dtp_red.svg';
+  static const surface = 'assets/icons/car_single/surface.svg';
+  static const ellip = 'assets/icons/car_single/ellip.svg';
+  static const defalut = 'assets/icons/car_single/defalut.svg';
 }

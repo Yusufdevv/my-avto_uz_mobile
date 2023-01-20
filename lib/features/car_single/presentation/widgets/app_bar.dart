@@ -1,4 +1,5 @@
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/features/car_single/presentation/widgets/mine_more_bottomsheet.dart';
 import 'package:auto/features/car_single/presentation/widgets/more_actions_bottomsheet.dart';
 import 'package:auto/features/car_single/presentation/widgets/sliver_images_item.dart';
 import 'package:auto/features/common/bloc/wishlist_add/wishlist_add_bloc.dart';
@@ -21,9 +22,13 @@ class SliverAppBarItem extends StatefulWidget {
   final String position;
   final String? avatar;
   final String shareUrl;
+  final FormzStatus status;
   final int id;
   final VoidCallback onDealer;
   final VoidCallback onCompare;
+  final VoidCallback onSold;
+  final bool isMine;
+  final bool isCompare;
 
   const SliverAppBarItem({
     required this.brightness,
@@ -40,6 +45,10 @@ class SliverAppBarItem extends StatefulWidget {
     required this.onDealer,
     required this.onCompare,
     Key? key,
+    required this.isMine,
+    required this.status,
+    required this.onSold,
+    required this.isCompare,
   }) : super(key: key);
 
   @override
@@ -48,6 +57,7 @@ class SliverAppBarItem extends StatefulWidget {
 
 class _SliverAppBarItemState extends State<SliverAppBarItem> {
   bool? isLiked;
+
   @override
   void initState() {
     isLiked = widget.isWishlisted;
@@ -128,18 +138,36 @@ class _SliverAppBarItemState extends State<SliverAppBarItem> {
                   backgroundColor: Colors.transparent,
                   isScrollControlled: false,
                   context: context,
-                  builder: (context) => MoreActions(
-                    name: widget.dealerName,
-                    position: widget.position,
-                    image: widget.avatar ?? '',
-                    onShare: () {
-                      Share.share(
-                        widget.shareUrl,
-                      );
-                    },
-                    onCompare: widget.onCompare,
-                    onDealer: widget.onDealer,
-                  ),
+                  builder: (context) => widget.isMine == true
+                      ? MineMoreBottomSheet(
+                          name: widget.dealerName,
+                          position: widget.position,
+                          image: widget.avatar ?? '',
+                          onShare: () {
+                            Share.share(
+                              widget.shareUrl,
+                            );
+                          },
+                          onCompare: () {},
+                          onDealer: () {},
+                          id: widget.id,
+                          status: widget.status,
+                          onSold: widget.onSold,
+                        )
+                      : MoreActions(
+                          name: widget.dealerName,
+                          position: widget.position,
+                          image: widget.avatar ?? '',
+                          onShare: () {
+                            Share.share(
+                              widget.shareUrl,
+                            );
+                          },
+                          onCompare: widget.onCompare,
+                          onDealer: widget.onDealer,
+                          id: widget.id,
+                          isCompare: widget.isCompare,
+                        ),
                 );
               },
             ),

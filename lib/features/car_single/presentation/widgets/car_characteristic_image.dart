@@ -83,49 +83,64 @@ class CarCharacteristicImage extends StatelessWidget {
             const SizedBox(height: 15),
             Row(
               children: [
+                const SizedBox(
+                  width: 29,
+                ),
                 Expanded(
                   child: Stack(
                     children: [
-                      Image.asset(AppImages.carFromOpposite),
+                      Image.asset(
+                        AppImages.car_from_opposite,
+                        width: double.infinity,
+                      ),
                       CarStatusIconInPicture(
                         informAboutDoors: informAboutDoors,
                         doorName: 'front_bumper',
-                        bottom: 1,
-                        left: 83,
+                        bottom: 5,
+                        left: MediaQuery.of(context).size.width * 0.225,
                       ),
                       CarStatusIconInPicture(
                         informAboutDoors: informAboutDoors,
                         doorName: 'hood',
                         top: 20,
-                        left: 83,
+                        left: MediaQuery.of(context).padding.left + 50,
                       ),
                       CarStatusIconInPicture(
                         informAboutDoors: informAboutDoors,
                         doorName: 'roof',
                         top: -2,
-                        left: 83,
+                        left: MediaQuery.of(context).padding.left + 50,
                       ),
                     ],
                   ),
                 ),
+                const SizedBox(
+                  width: 28,
+                ),
                 Expanded(
                   child: Stack(
                     children: [
-                      Image.asset(AppImages.carFromBack),
+                      Image.asset(
+                        AppImages.car_from_back,
+                        width: double.infinity,
+                      ),
                       CarStatusIconInPicture(
                         informAboutDoors: informAboutDoors,
                         doorName: 'rear_bumper',
                         bottom: 7,
-                        left: 83,
+                        left: MediaQuery.of(context).padding.right + 50,
                       ),
                       CarStatusIconInPicture(
                         informAboutDoors: informAboutDoors,
                         doorName: 'trunk',
                         top: 7,
-                        left: 83,
+                        left: MediaQuery.of(context).padding.right + 50,
                       ),
                     ],
                   ),
+                ),
+                const SizedBox(
+                  width: 29,
                 ),
               ],
             ),

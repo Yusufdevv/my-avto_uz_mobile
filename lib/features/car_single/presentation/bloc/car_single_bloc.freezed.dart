@@ -21,18 +21,30 @@ mixin _$CarSingleEvent {
   TResult when<TResult extends Object?>({
     required TResult Function(int id) getSingle,
     required TResult Function(int id) getOtherAds,
+    required TResult Function(int id, dynamic Function(String) onSucc,
+            dynamic Function(String) onError)
+        soldAds,
+    required TResult Function(int id) callCount,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(int id)? getSingle,
     TResult? Function(int id)? getOtherAds,
+    TResult? Function(int id, dynamic Function(String) onSucc,
+            dynamic Function(String) onError)?
+        soldAds,
+    TResult? Function(int id)? callCount,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(int id)? getSingle,
     TResult Function(int id)? getOtherAds,
+    TResult Function(int id, dynamic Function(String) onSucc,
+            dynamic Function(String) onError)?
+        soldAds,
+    TResult Function(int id)? callCount,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -40,18 +52,24 @@ mixin _$CarSingleEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(_GetSingle value) getSingle,
     required TResult Function(_GetAds value) getOtherAds,
+    required TResult Function(_SoldAds value) soldAds,
+    required TResult Function(_CallCount value) callCount,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetSingle value)? getSingle,
     TResult? Function(_GetAds value)? getOtherAds,
+    TResult? Function(_SoldAds value)? soldAds,
+    TResult? Function(_CallCount value)? callCount,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetSingle value)? getSingle,
     TResult Function(_GetAds value)? getOtherAds,
+    TResult Function(_SoldAds value)? soldAds,
+    TResult Function(_CallCount value)? callCount,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -162,6 +180,10 @@ class _$_GetSingle implements _GetSingle {
   TResult when<TResult extends Object?>({
     required TResult Function(int id) getSingle,
     required TResult Function(int id) getOtherAds,
+    required TResult Function(int id, dynamic Function(String) onSucc,
+            dynamic Function(String) onError)
+        soldAds,
+    required TResult Function(int id) callCount,
   }) {
     return getSingle(id);
   }
@@ -171,6 +193,10 @@ class _$_GetSingle implements _GetSingle {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(int id)? getSingle,
     TResult? Function(int id)? getOtherAds,
+    TResult? Function(int id, dynamic Function(String) onSucc,
+            dynamic Function(String) onError)?
+        soldAds,
+    TResult? Function(int id)? callCount,
   }) {
     return getSingle?.call(id);
   }
@@ -180,6 +206,10 @@ class _$_GetSingle implements _GetSingle {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(int id)? getSingle,
     TResult Function(int id)? getOtherAds,
+    TResult Function(int id, dynamic Function(String) onSucc,
+            dynamic Function(String) onError)?
+        soldAds,
+    TResult Function(int id)? callCount,
     required TResult orElse(),
   }) {
     if (getSingle != null) {
@@ -193,6 +223,8 @@ class _$_GetSingle implements _GetSingle {
   TResult map<TResult extends Object?>({
     required TResult Function(_GetSingle value) getSingle,
     required TResult Function(_GetAds value) getOtherAds,
+    required TResult Function(_SoldAds value) soldAds,
+    required TResult Function(_CallCount value) callCount,
   }) {
     return getSingle(this);
   }
@@ -202,6 +234,8 @@ class _$_GetSingle implements _GetSingle {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetSingle value)? getSingle,
     TResult? Function(_GetAds value)? getOtherAds,
+    TResult? Function(_SoldAds value)? soldAds,
+    TResult? Function(_CallCount value)? callCount,
   }) {
     return getSingle?.call(this);
   }
@@ -211,6 +245,8 @@ class _$_GetSingle implements _GetSingle {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetSingle value)? getSingle,
     TResult Function(_GetAds value)? getOtherAds,
+    TResult Function(_SoldAds value)? soldAds,
+    TResult Function(_CallCount value)? callCount,
     required TResult orElse(),
   }) {
     if (getSingle != null) {
@@ -297,6 +333,10 @@ class _$_GetAds implements _GetAds {
   TResult when<TResult extends Object?>({
     required TResult Function(int id) getSingle,
     required TResult Function(int id) getOtherAds,
+    required TResult Function(int id, dynamic Function(String) onSucc,
+            dynamic Function(String) onError)
+        soldAds,
+    required TResult Function(int id) callCount,
   }) {
     return getOtherAds(id);
   }
@@ -306,6 +346,10 @@ class _$_GetAds implements _GetAds {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(int id)? getSingle,
     TResult? Function(int id)? getOtherAds,
+    TResult? Function(int id, dynamic Function(String) onSucc,
+            dynamic Function(String) onError)?
+        soldAds,
+    TResult? Function(int id)? callCount,
   }) {
     return getOtherAds?.call(id);
   }
@@ -315,6 +359,10 @@ class _$_GetAds implements _GetAds {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(int id)? getSingle,
     TResult Function(int id)? getOtherAds,
+    TResult Function(int id, dynamic Function(String) onSucc,
+            dynamic Function(String) onError)?
+        soldAds,
+    TResult Function(int id)? callCount,
     required TResult orElse(),
   }) {
     if (getOtherAds != null) {
@@ -328,6 +376,8 @@ class _$_GetAds implements _GetAds {
   TResult map<TResult extends Object?>({
     required TResult Function(_GetSingle value) getSingle,
     required TResult Function(_GetAds value) getOtherAds,
+    required TResult Function(_SoldAds value) soldAds,
+    required TResult Function(_CallCount value) callCount,
   }) {
     return getOtherAds(this);
   }
@@ -337,6 +387,8 @@ class _$_GetAds implements _GetAds {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetSingle value)? getSingle,
     TResult? Function(_GetAds value)? getOtherAds,
+    TResult? Function(_SoldAds value)? soldAds,
+    TResult? Function(_CallCount value)? callCount,
   }) {
     return getOtherAds?.call(this);
   }
@@ -346,6 +398,8 @@ class _$_GetAds implements _GetAds {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetSingle value)? getSingle,
     TResult Function(_GetAds value)? getOtherAds,
+    TResult Function(_SoldAds value)? soldAds,
+    TResult Function(_CallCount value)? callCount,
     required TResult orElse(),
   }) {
     if (getOtherAds != null) {
@@ -367,9 +421,343 @@ abstract class _GetAds implements CarSingleEvent {
 }
 
 /// @nodoc
+abstract class _$$_SoldAdsCopyWith<$Res>
+    implements $CarSingleEventCopyWith<$Res> {
+  factory _$$_SoldAdsCopyWith(
+          _$_SoldAds value, $Res Function(_$_SoldAds) then) =
+      __$$_SoldAdsCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {int id,
+      dynamic Function(String) onSucc,
+      dynamic Function(String) onError});
+}
+
+/// @nodoc
+class __$$_SoldAdsCopyWithImpl<$Res>
+    extends _$CarSingleEventCopyWithImpl<$Res, _$_SoldAds>
+    implements _$$_SoldAdsCopyWith<$Res> {
+  __$$_SoldAdsCopyWithImpl(_$_SoldAds _value, $Res Function(_$_SoldAds) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? onSucc = null,
+    Object? onError = null,
+  }) {
+    return _then(_$_SoldAds(
+      null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      null == onSucc
+          ? _value.onSucc
+          : onSucc // ignore: cast_nullable_to_non_nullable
+              as dynamic Function(String),
+      null == onError
+          ? _value.onError
+          : onError // ignore: cast_nullable_to_non_nullable
+              as dynamic Function(String),
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_SoldAds implements _SoldAds {
+  _$_SoldAds(this.id, this.onSucc, this.onError);
+
+  @override
+  final int id;
+  @override
+  final dynamic Function(String) onSucc;
+  @override
+  final dynamic Function(String) onError;
+
+  @override
+  String toString() {
+    return 'CarSingleEvent.soldAds(id: $id, onSucc: $onSucc, onError: $onError)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_SoldAds &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.onSucc, onSucc) || other.onSucc == onSucc) &&
+            (identical(other.onError, onError) || other.onError == onError));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, id, onSucc, onError);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_SoldAdsCopyWith<_$_SoldAds> get copyWith =>
+      __$$_SoldAdsCopyWithImpl<_$_SoldAds>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(int id) getSingle,
+    required TResult Function(int id) getOtherAds,
+    required TResult Function(int id, dynamic Function(String) onSucc,
+            dynamic Function(String) onError)
+        soldAds,
+    required TResult Function(int id) callCount,
+  }) {
+    return soldAds(id, onSucc, onError);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(int id)? getSingle,
+    TResult? Function(int id)? getOtherAds,
+    TResult? Function(int id, dynamic Function(String) onSucc,
+            dynamic Function(String) onError)?
+        soldAds,
+    TResult? Function(int id)? callCount,
+  }) {
+    return soldAds?.call(id, onSucc, onError);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(int id)? getSingle,
+    TResult Function(int id)? getOtherAds,
+    TResult Function(int id, dynamic Function(String) onSucc,
+            dynamic Function(String) onError)?
+        soldAds,
+    TResult Function(int id)? callCount,
+    required TResult orElse(),
+  }) {
+    if (soldAds != null) {
+      return soldAds(id, onSucc, onError);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_GetSingle value) getSingle,
+    required TResult Function(_GetAds value) getOtherAds,
+    required TResult Function(_SoldAds value) soldAds,
+    required TResult Function(_CallCount value) callCount,
+  }) {
+    return soldAds(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetSingle value)? getSingle,
+    TResult? Function(_GetAds value)? getOtherAds,
+    TResult? Function(_SoldAds value)? soldAds,
+    TResult? Function(_CallCount value)? callCount,
+  }) {
+    return soldAds?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetSingle value)? getSingle,
+    TResult Function(_GetAds value)? getOtherAds,
+    TResult Function(_SoldAds value)? soldAds,
+    TResult Function(_CallCount value)? callCount,
+    required TResult orElse(),
+  }) {
+    if (soldAds != null) {
+      return soldAds(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _SoldAds implements CarSingleEvent {
+  factory _SoldAds(final int id, final dynamic Function(String) onSucc,
+      final dynamic Function(String) onError) = _$_SoldAds;
+
+  @override
+  int get id;
+  dynamic Function(String) get onSucc;
+  dynamic Function(String) get onError;
+  @override
+  @JsonKey(ignore: true)
+  _$$_SoldAdsCopyWith<_$_SoldAds> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_CallCountCopyWith<$Res>
+    implements $CarSingleEventCopyWith<$Res> {
+  factory _$$_CallCountCopyWith(
+          _$_CallCount value, $Res Function(_$_CallCount) then) =
+      __$$_CallCountCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({int id});
+}
+
+/// @nodoc
+class __$$_CallCountCopyWithImpl<$Res>
+    extends _$CarSingleEventCopyWithImpl<$Res, _$_CallCount>
+    implements _$$_CallCountCopyWith<$Res> {
+  __$$_CallCountCopyWithImpl(
+      _$_CallCount _value, $Res Function(_$_CallCount) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+  }) {
+    return _then(_$_CallCount(
+      null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_CallCount implements _CallCount {
+  _$_CallCount(this.id);
+
+  @override
+  final int id;
+
+  @override
+  String toString() {
+    return 'CarSingleEvent.callCount(id: $id)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_CallCount &&
+            (identical(other.id, id) || other.id == id));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, id);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_CallCountCopyWith<_$_CallCount> get copyWith =>
+      __$$_CallCountCopyWithImpl<_$_CallCount>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(int id) getSingle,
+    required TResult Function(int id) getOtherAds,
+    required TResult Function(int id, dynamic Function(String) onSucc,
+            dynamic Function(String) onError)
+        soldAds,
+    required TResult Function(int id) callCount,
+  }) {
+    return callCount(id);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(int id)? getSingle,
+    TResult? Function(int id)? getOtherAds,
+    TResult? Function(int id, dynamic Function(String) onSucc,
+            dynamic Function(String) onError)?
+        soldAds,
+    TResult? Function(int id)? callCount,
+  }) {
+    return callCount?.call(id);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(int id)? getSingle,
+    TResult Function(int id)? getOtherAds,
+    TResult Function(int id, dynamic Function(String) onSucc,
+            dynamic Function(String) onError)?
+        soldAds,
+    TResult Function(int id)? callCount,
+    required TResult orElse(),
+  }) {
+    if (callCount != null) {
+      return callCount(id);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_GetSingle value) getSingle,
+    required TResult Function(_GetAds value) getOtherAds,
+    required TResult Function(_SoldAds value) soldAds,
+    required TResult Function(_CallCount value) callCount,
+  }) {
+    return callCount(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetSingle value)? getSingle,
+    TResult? Function(_GetAds value)? getOtherAds,
+    TResult? Function(_SoldAds value)? soldAds,
+    TResult? Function(_CallCount value)? callCount,
+  }) {
+    return callCount?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetSingle value)? getSingle,
+    TResult Function(_GetAds value)? getOtherAds,
+    TResult Function(_SoldAds value)? soldAds,
+    TResult Function(_CallCount value)? callCount,
+    required TResult orElse(),
+  }) {
+    if (callCount != null) {
+      return callCount(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _CallCount implements CarSingleEvent {
+  factory _CallCount(final int id) = _$_CallCount;
+
+  @override
+  int get id;
+  @override
+  @JsonKey(ignore: true)
+  _$$_CallCountCopyWith<_$_CallCount> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 mixin _$CarSingleState {
   FormzStatus get adsStatus => throw _privateConstructorUsedError;
+  FormzStatus get soldStatus => throw _privateConstructorUsedError;
   FormzStatus get status => throw _privateConstructorUsedError;
+  String get succMessage => throw _privateConstructorUsedError;
+  String get errorMessage => throw _privateConstructorUsedError;
   CarSingleEntity get singleEntity => throw _privateConstructorUsedError;
   List<ElasticSearchEntity> get elasticSearchEntity =>
       throw _privateConstructorUsedError;
@@ -388,7 +776,10 @@ abstract class $CarSingleStateCopyWith<$Res> {
   @useResult
   $Res call(
       {FormzStatus adsStatus,
+      FormzStatus soldStatus,
       FormzStatus status,
+      String succMessage,
+      String errorMessage,
       CarSingleEntity singleEntity,
       List<ElasticSearchEntity> elasticSearchEntity,
       dynamic fetchMore});
@@ -408,7 +799,10 @@ class _$CarSingleStateCopyWithImpl<$Res, $Val extends CarSingleState>
   @override
   $Res call({
     Object? adsStatus = null,
+    Object? soldStatus = null,
     Object? status = null,
+    Object? succMessage = null,
+    Object? errorMessage = null,
     Object? singleEntity = null,
     Object? elasticSearchEntity = null,
     Object? fetchMore = freezed,
@@ -418,10 +812,22 @@ class _$CarSingleStateCopyWithImpl<$Res, $Val extends CarSingleState>
           ? _value.adsStatus
           : adsStatus // ignore: cast_nullable_to_non_nullable
               as FormzStatus,
+      soldStatus: null == soldStatus
+          ? _value.soldStatus
+          : soldStatus // ignore: cast_nullable_to_non_nullable
+              as FormzStatus,
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as FormzStatus,
+      succMessage: null == succMessage
+          ? _value.succMessage
+          : succMessage // ignore: cast_nullable_to_non_nullable
+              as String,
+      errorMessage: null == errorMessage
+          ? _value.errorMessage
+          : errorMessage // ignore: cast_nullable_to_non_nullable
+              as String,
       singleEntity: null == singleEntity
           ? _value.singleEntity
           : singleEntity // ignore: cast_nullable_to_non_nullable
@@ -448,7 +854,10 @@ abstract class _$$_CarSingleStateCopyWith<$Res>
   @useResult
   $Res call(
       {FormzStatus adsStatus,
+      FormzStatus soldStatus,
       FormzStatus status,
+      String succMessage,
+      String errorMessage,
       CarSingleEntity singleEntity,
       List<ElasticSearchEntity> elasticSearchEntity,
       dynamic fetchMore});
@@ -466,7 +875,10 @@ class __$$_CarSingleStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? adsStatus = null,
+    Object? soldStatus = null,
     Object? status = null,
+    Object? succMessage = null,
+    Object? errorMessage = null,
     Object? singleEntity = null,
     Object? elasticSearchEntity = null,
     Object? fetchMore = freezed,
@@ -476,10 +888,22 @@ class __$$_CarSingleStateCopyWithImpl<$Res>
           ? _value.adsStatus
           : adsStatus // ignore: cast_nullable_to_non_nullable
               as FormzStatus,
+      soldStatus: null == soldStatus
+          ? _value.soldStatus
+          : soldStatus // ignore: cast_nullable_to_non_nullable
+              as FormzStatus,
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as FormzStatus,
+      succMessage: null == succMessage
+          ? _value.succMessage
+          : succMessage // ignore: cast_nullable_to_non_nullable
+              as String,
+      errorMessage: null == errorMessage
+          ? _value.errorMessage
+          : errorMessage // ignore: cast_nullable_to_non_nullable
+              as String,
       singleEntity: null == singleEntity
           ? _value.singleEntity
           : singleEntity // ignore: cast_nullable_to_non_nullable
@@ -498,7 +922,10 @@ class __$$_CarSingleStateCopyWithImpl<$Res>
 class _$_CarSingleState implements _CarSingleState {
   const _$_CarSingleState(
       {this.adsStatus = FormzStatus.pure,
+      this.soldStatus = FormzStatus.pure,
       this.status = FormzStatus.pure,
+      this.succMessage = '',
+      this.errorMessage = '',
       this.singleEntity = const CarSingleEntity(),
       final List<ElasticSearchEntity> elasticSearchEntity = const [],
       this.fetchMore = false})
@@ -509,7 +936,16 @@ class _$_CarSingleState implements _CarSingleState {
   final FormzStatus adsStatus;
   @override
   @JsonKey()
+  final FormzStatus soldStatus;
+  @override
+  @JsonKey()
   final FormzStatus status;
+  @override
+  @JsonKey()
+  final String succMessage;
+  @override
+  @JsonKey()
+  final String errorMessage;
   @override
   @JsonKey()
   final CarSingleEntity singleEntity;
@@ -529,7 +965,7 @@ class _$_CarSingleState implements _CarSingleState {
 
   @override
   String toString() {
-    return 'CarSingleState(adsStatus: $adsStatus, status: $status, singleEntity: $singleEntity, elasticSearchEntity: $elasticSearchEntity, fetchMore: $fetchMore)';
+    return 'CarSingleState(adsStatus: $adsStatus, soldStatus: $soldStatus, status: $status, succMessage: $succMessage, errorMessage: $errorMessage, singleEntity: $singleEntity, elasticSearchEntity: $elasticSearchEntity, fetchMore: $fetchMore)';
   }
 
   @override
@@ -539,7 +975,13 @@ class _$_CarSingleState implements _CarSingleState {
             other is _$_CarSingleState &&
             (identical(other.adsStatus, adsStatus) ||
                 other.adsStatus == adsStatus) &&
+            (identical(other.soldStatus, soldStatus) ||
+                other.soldStatus == soldStatus) &&
             (identical(other.status, status) || other.status == status) &&
+            (identical(other.succMessage, succMessage) ||
+                other.succMessage == succMessage) &&
+            (identical(other.errorMessage, errorMessage) ||
+                other.errorMessage == errorMessage) &&
             (identical(other.singleEntity, singleEntity) ||
                 other.singleEntity == singleEntity) &&
             const DeepCollectionEquality()
@@ -551,7 +993,10 @@ class _$_CarSingleState implements _CarSingleState {
   int get hashCode => Object.hash(
       runtimeType,
       adsStatus,
+      soldStatus,
       status,
+      succMessage,
+      errorMessage,
       singleEntity,
       const DeepCollectionEquality().hash(_elasticSearchEntity),
       const DeepCollectionEquality().hash(fetchMore));
@@ -566,7 +1011,10 @@ class _$_CarSingleState implements _CarSingleState {
 abstract class _CarSingleState implements CarSingleState {
   const factory _CarSingleState(
       {final FormzStatus adsStatus,
+      final FormzStatus soldStatus,
       final FormzStatus status,
+      final String succMessage,
+      final String errorMessage,
       final CarSingleEntity singleEntity,
       final List<ElasticSearchEntity> elasticSearchEntity,
       final dynamic fetchMore}) = _$_CarSingleState;
@@ -574,7 +1022,13 @@ abstract class _CarSingleState implements CarSingleState {
   @override
   FormzStatus get adsStatus;
   @override
+  FormzStatus get soldStatus;
+  @override
   FormzStatus get status;
+  @override
+  String get succMessage;
+  @override
+  String get errorMessage;
   @override
   CarSingleEntity get singleEntity;
   @override

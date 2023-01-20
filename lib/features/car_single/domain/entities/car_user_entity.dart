@@ -11,10 +11,12 @@ class CarUserEntity extends Equatable {
   final String? avatar;
   final String fullName;
   final String? image;
+  final String slug;
 
   const CarUserEntity({
     this.id = 0,
     this.fullName = '',
+    this.slug = '',
     this.image = '',
     this.phoneNumber = '',
     this.name = '',
@@ -29,6 +31,7 @@ class CarUserEntity extends Equatable {
         avatar,
         name,
         image,
+        slug,
       ];
 }
 
