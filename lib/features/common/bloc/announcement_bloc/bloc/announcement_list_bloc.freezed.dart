@@ -1253,7 +1253,7 @@ mixin _$AnnouncementListState {
   AnnouncementFilterModel get filter => throw _privateConstructorUsedError;
   RangeValues get yearValues => throw _privateConstructorUsedError;
   RangeValues get priceValues => throw _privateConstructorUsedError;
-  int? get idVal => throw _privateConstructorUsedError;
+  int get idVal => throw _privateConstructorUsedError;
   GearboxTypeEntity? get gearboxTypeEntity =>
       throw _privateConstructorUsedError;
   BodyTypeEntity? get bodyTypeEntity => throw _privateConstructorUsedError;
@@ -1283,7 +1283,7 @@ abstract class $AnnouncementListStateCopyWith<$Res> {
       AnnouncementFilterModel filter,
       RangeValues yearValues,
       RangeValues priceValues,
-      int? idVal,
+      int idVal,
       GearboxTypeEntity? gearboxTypeEntity,
       BodyTypeEntity? bodyTypeEntity,
       DriveTypeEntity? driveTypeEntity});
@@ -1315,7 +1315,7 @@ class _$AnnouncementListStateCopyWithImpl<$Res,
     Object? filter = null,
     Object? yearValues = null,
     Object? priceValues = null,
-    Object? idVal = freezed,
+    Object? idVal = null,
     Object? gearboxTypeEntity = freezed,
     Object? bodyTypeEntity = freezed,
     Object? driveTypeEntity = freezed,
@@ -1369,10 +1369,10 @@ class _$AnnouncementListStateCopyWithImpl<$Res,
           ? _value.priceValues
           : priceValues // ignore: cast_nullable_to_non_nullable
               as RangeValues,
-      idVal: freezed == idVal
+      idVal: null == idVal
           ? _value.idVal
           : idVal // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as int,
       gearboxTypeEntity: freezed == gearboxTypeEntity
           ? _value.gearboxTypeEntity
           : gearboxTypeEntity // ignore: cast_nullable_to_non_nullable
@@ -1410,7 +1410,7 @@ abstract class _$$_AnnouncementListCopyWith<$Res>
       AnnouncementFilterModel filter,
       RangeValues yearValues,
       RangeValues priceValues,
-      int? idVal,
+      int idVal,
       GearboxTypeEntity? gearboxTypeEntity,
       BodyTypeEntity? bodyTypeEntity,
       DriveTypeEntity? driveTypeEntity});
@@ -1439,7 +1439,7 @@ class __$$_AnnouncementListCopyWithImpl<$Res>
     Object? filter = null,
     Object? yearValues = null,
     Object? priceValues = null,
-    Object? idVal = freezed,
+    Object? idVal = null,
     Object? gearboxTypeEntity = freezed,
     Object? bodyTypeEntity = freezed,
     Object? driveTypeEntity = freezed,
@@ -1493,10 +1493,10 @@ class __$$_AnnouncementListCopyWithImpl<$Res>
           ? _value.priceValues
           : priceValues // ignore: cast_nullable_to_non_nullable
               as RangeValues,
-      idVal: freezed == idVal
+      idVal: null == idVal
           ? _value.idVal
           : idVal // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as int,
       gearboxTypeEntity: freezed == gearboxTypeEntity
           ? _value.gearboxTypeEntity
           : gearboxTypeEntity // ignore: cast_nullable_to_non_nullable
@@ -1588,7 +1588,7 @@ class _$_AnnouncementList implements _AnnouncementList {
   final RangeValues priceValues;
   @override
   @JsonKey()
-  final int? idVal;
+  final int idVal;
   @override
   @JsonKey()
   final GearboxTypeEntity? gearboxTypeEntity;
@@ -1677,7 +1677,7 @@ abstract class _AnnouncementList implements AnnouncementListState {
       final AnnouncementFilterModel filter,
       final RangeValues yearValues,
       final RangeValues priceValues,
-      final int? idVal,
+      final int idVal,
       final GearboxTypeEntity? gearboxTypeEntity,
       final BodyTypeEntity? bodyTypeEntity,
       final DriveTypeEntity? driveTypeEntity}) = _$_AnnouncementList;
@@ -1707,7 +1707,7 @@ abstract class _AnnouncementList implements AnnouncementListState {
   @override
   RangeValues get priceValues;
   @override
-  int? get idVal;
+  int get idVal;
   @override
   GearboxTypeEntity? get gearboxTypeEntity;
   @override

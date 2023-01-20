@@ -94,13 +94,9 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
   Future<GenericPagination<MakeModel>> getTopMakes({
     String? next,
   }) async {
+    print('===> ==> Bu kelagan Next Ekan $next');
     final response = await _dio.get(
-      '/car/makes/top/',
-      options: Options(
-        headers: StorageRepository.getString('token').isNotEmpty
-            ? {'Authorization': 'Token ${StorageRepository.getString('token')}'}
-            : {},
-      ),
+      next!.isEmpty ? '/car/makes/top/' : next,
     );
     if (response.statusCode! >= 200 && response.statusCode! < 300) {
       return GenericPagination.fromJson(response.data,
@@ -116,7 +112,7 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
     try {
       final response = await _dio.get(
         '/car/makes/',
-        queryParameters: {'search': name, 'limit': 100, 'offset': 0},
+        queryParameters: {'search': name, 'limit': 1000, 'offset': 0},
       );
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
         return GetMakeModel.fromJson(response.data);
@@ -141,7 +137,7 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
               : {},
         ),
         queryParameters:
-            name == null ? null : {'search': name, 'limit': 50, 'offset': 0});
+            name == null ? null : {'search': name, 'limit': 100, 'offset': 0});
     if (response.statusCode! >= 200 && response.statusCode! < 300) {
       return GetMakeModel.fromJson(response.data);
     } else {

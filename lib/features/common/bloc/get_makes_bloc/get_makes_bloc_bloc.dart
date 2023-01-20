@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_bool_literals_in_conditional_expressions
+
 import 'package:auto/features/ad/domain/entities/types/make.dart';
 import 'package:auto/features/ad/domain/usecases/get_makes.dart';
 import 'package:auto/features/ad/domain/usecases/get_top_makes.dart';
@@ -54,13 +56,32 @@ class GetMakesBloc extends Bloc<GetMakesBlocEvent, GetMakesState> {
         emit(
           state.copyWith(
             topMakes: result.right.results,
+            next: result.right.next,
             statusTop: FormzStatus.submissionSuccess,
           ),
         );
       } else {
-        emit(state.copyWith(status: FormzStatus.submissionFailure));
+        emit(state.copyWith(statusTop: FormzStatus.submissionFailure));
       }
     });
+    on<_GetNextTop>((event, emit) async {
+      if (state.next != null) {
+        final result =
+            await topUseCase.call(state.next == null ? '' : state.next!);
+        if (result.isRight) {
+          emit(
+            state.copyWith(
+              topMakes: [...state.topMakes, ...result.right.results],
+              next: result.right.next,
+              statusTop: FormzStatus.submissionSuccess,
+            ),
+          );
+        } else {
+          emit(state.copyWith(statusTop: FormzStatus.submissionFailure));
+        }
+      }
+    });
+
     on<_GetSerched>((event, emit) => emit(state.copyWith(search: event.naem)));
     on<_SelectedCarItems>((event, emit) {
       emit(state.copyWith(

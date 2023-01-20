@@ -5,9 +5,9 @@ class GetMakesState with _$GetMakesState {
   factory GetMakesState({
     @Default(FormzStatus.pure) FormzStatus status,
     @Default(FormzStatus.pure) FormzStatus statusTop,
-    @Default(<MakeEntity>[]) List<MakeEntity> makes,
-    @Default(<MakeEntity>[])List<MakeEntity> topMakes,
-    @Default('') next,
+    @Default([]) List<MakeEntity> makes,
+    @Default([]) List<MakeEntity> topMakes,
+    @Default('') String? next,
     @Default(false) bool ischeck,
     @Default('') search,
     @Default(0) count,
