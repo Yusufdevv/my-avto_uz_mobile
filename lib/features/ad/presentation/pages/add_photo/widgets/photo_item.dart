@@ -6,7 +6,6 @@ import 'package:auto/features/ad/presentation/bloc/add_photo/image_bloc.dart';
 import 'package:auto/features/ad/presentation/pages/add_photo/widgets/image_item.dart';
 import 'package:auto/features/ad/presentation/pages/add_photo/widgets/plus_circle.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
-import 'package:auto/utils/permission_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
@@ -36,11 +35,6 @@ class _PhotoItemState extends State<PhotoItem> {
   Widget build(BuildContext context) => widget.images.isEmpty
       ? WScaleAnimation(
           onTap: () async {
-            final permissionReady =
-                await DownloadUtil().checkPermission(platform);
-            if (!permissionReady) {
-              return;
-            }
             context
                 .read<ImageBloc>()
                 .add(const PickImage(source: ImageSource.camera));
