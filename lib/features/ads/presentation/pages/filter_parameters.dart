@@ -72,6 +72,8 @@ class _FilterParametersState extends State<FilterParameters> {
                     onPressed: () {
                       widget.bloc!
                           .add(AnnouncementListEvent.getInfo(isFilter: false));
+                      widget.bloc!
+                          .add(AnnouncementListEvent.getIsHistory(true));
                       widget.bloc!.add(AnnouncementListEvent.getFilterClear());
                       widget.bloc!
                           .add(AnnouncementListEvent.getAnnouncementList());
@@ -245,6 +247,8 @@ class _FilterParametersState extends State<FilterParameters> {
                         )));
                         widget.bloc!
                             .add(AnnouncementListEvent.getAnnouncementList());
+                        widget.bloc!.add(
+                            AnnouncementListEvent.getIsHistory(!state.ischeck));
                         widget.bloc!.add(
                           AnnouncementListEvent.getInfo(
                             bodyType: state.bodyType,
