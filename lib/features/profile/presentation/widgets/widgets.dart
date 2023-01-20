@@ -1,6 +1,6 @@
 export 'package:auto/features/profile/presentation/widgets/advertising.dart';
 export 'package:auto/features/profile/presentation/widgets/all_ads.dart';
-export 'package:auto/features/profile/presentation/widgets/app_bar_child.dart';
+export 'package:auto/features/profile/presentation/widgets/chat_app_bar.dart';
 export 'package:auto/features/profile/presentation/widgets/auth_header.dart';
 export 'package:auto/features/profile/presentation/widgets/bottomsheet_region.dart';
 export 'package:auto/features/profile/presentation/widgets/camera_bottom_sheet.dart';

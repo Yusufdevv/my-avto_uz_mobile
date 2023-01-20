@@ -114,27 +114,22 @@ class AdsItem extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Row(
-                      children: [
-                        SvgPicture.asset(AppIcons.location),
-                        const SizedBox(width: 4),
-                        Text(location,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: Theme.of(context)
-                                .textTheme
-                                .headline6
-                                ?.copyWith(
-                                    fontSize: 12,
-                                    color: Theme.of(context)
-                                        .extension<ThemedColors>()
-                                        ?.dolphinToGreySuit))
-                      ],
+                    SvgPicture.asset(AppIcons.location),
+                    const SizedBox(width: 4),
+                    Expanded(
+                      child: Text(location,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline6
+                              ?.copyWith(
+                                  fontSize: 12,
+                                  color: Theme.of(context)
+                                      .extension<ThemedColors>()
+                                      ?.dolphinToGreySuit)),
                     ),
-                    AddWishlistItem(
-                      onTap: onTapLike,
-                      initialLike: isLiked,
-                    ),
+                    AddWishlistItem(onTap: onTapLike, initialLike: isLiked),
                   ],
                 ),
               ),
