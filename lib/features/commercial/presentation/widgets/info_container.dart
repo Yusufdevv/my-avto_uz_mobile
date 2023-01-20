@@ -6,6 +6,7 @@ import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/commercial/presentation/widgets/custom_chip.dart';
 import 'package:auto/features/common/bloc/wishlist_add/wishlist_add_bloc.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
+import 'package:auto/features/search/presentation/part/bottom_sheet_for_calling.dart';
 import 'package:auto/features/search/presentation/widgets/add_comparison_item.dart';
 import 'package:auto/features/search/presentation/widgets/add_wishlist_item.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -15,6 +16,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 class InfoContainer extends StatefulWidget {
   const InfoContainer({
+    required this.onTapComparsion,
+    required this.onTapFavorites,
+    required this.index,
+    required this.initialComparsions,
     required this.id,
     this.year,
     this.avatarPicture,
@@ -30,15 +35,11 @@ class InfoContainer extends StatefulWidget {
     this.sellType,
     this.hasStatusInfo = true,
     this.hasCallCard = true,
-    required this.onTapComparsion,
-    required this.onTapFavorites,
     super.key,
     this.currency,
     this.gallery,
     this.initialLike,
     this.phone,
-    required this.index,
-    required this.initialComparsions,
   });
 
   final String? avatarPicture;
@@ -100,7 +101,12 @@ class _InfoContainerState extends State<InfoContainer> {
                   children: [
                     if (index == widget.gallery!.length)
                       WScaleAnimation(
-                        onTap: () {},
+                        onTap: () {
+                          bottomSheetForCalling(
+                            context,
+                            widget.phone!,
+                          );
+                        },
                         child: Container(
                           height: 201,
                           decoration: BoxDecoration(
@@ -203,8 +209,7 @@ class _InfoContainerState extends State<InfoContainer> {
                   ),
                 ),
                 const SizedBox(width: 4),
-                if (widget.hasStatusInfo
-                )
+                if (widget.hasStatusInfo)
                   CustomChip(
                     leading: SvgPicture.asset(AppIcons.checkCurly),
                     label: 'Новый',

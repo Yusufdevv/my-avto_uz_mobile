@@ -215,6 +215,9 @@ class _AdsBodyScreenState extends State<AdsBodyScreen> {
                     },
                     child: InfoContainer(
                       index: index,
+                      phone: state.announcementList[index].userType == 'owner'
+                          ? state.announcementList[index].user.phoneNumber
+                          : state.announcementList[index].dealer.phoneNumber,
                       avatarPicture: state.announcementList[index].user.avatar,
                       carModel: state.announcementList[index].model,
                       hasDiscount: state.announcementList[index].discount != 0,
@@ -228,19 +231,12 @@ class _AdsBodyScreenState extends State<AdsBodyScreen> {
                       subtitle: state.announcementList[index].description,
                       year: state.announcementList[index].year,
                       price: MyFunctions.getFormatCost(
-                        state.announcementList[index].price.toString(),
-                      ),
+                          state.announcementList[index].price.toString()),
                       discountPrice: state.announcementList[index].discount == 0
                           ? ''
                           : state.announcementList[index].discount.toString(),
                       sellType: '',
                       hasStatusInfo: state.announcementList[index].isNew,
-                      hasCallCard: MyFunctions.enableForCalling(
-                        callFrom:
-                            state.announcementList[index].contactAvailableFrom,
-                        callTo:
-                            state.announcementList[index].contactAvailableTo,
-                      ),
                       gallery: state.announcementList[index].gallery,
                       currency: state.announcementList[index].currency,
                       initialLike: list[index].isWishlisted,

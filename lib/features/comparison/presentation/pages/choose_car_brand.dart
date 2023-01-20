@@ -9,6 +9,7 @@ import 'package:auto/features/comparison/presentation/bloc/scroll-bloc/scrolling
 import 'package:auto/features/comparison/presentation/widgets/alphabetic_header.dart';
 import 'package:auto/features/comparison/presentation/widgets/card_brend_container.dart';
 import 'package:auto/features/comparison/presentation/widgets/search_bar.dart';
+import 'package:auto/features/pagination/presentation/paginator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -31,9 +32,11 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
   late TextEditingController searchController;
 
   late ScrollController scrollController;
+  late ScrollController _scrollControllerTop;
   late ScrollingBloc scrollingBloc;
   Color color = Colors.transparent;
   bool isSerach = false;
+
   @override
   void initState() {
     searchController = TextEditingController();
@@ -135,31 +138,36 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
                     ),
                     if (state.search.isEmpty)
                       SliverToBoxAdapter(
-                        child: BlocBuilder<GetMakesBloc, GetMakesState>(
-                          builder: (context, state) => SizedBox(
-                            height: 132,
-                            child: ListView.builder(
-                              physics: const BouncingScrollPhysics(),
-                              scrollDirection: Axis.horizontal,
-                              itemBuilder: (context, index) => WScaleAnimation(
-                                onTap: () {
-                                  context.read<GetMakesBloc>().add(
-                                        GetMakesBlocEvent.selectedCarItems(
-                                          id: state.topMakes[index].id,
-                                          name: state.topMakes[index].name,
-                                          imageUrl: state.topMakes[index].logo,
-                                        ),
-                                      );
-                                },
-                                child: CarBrandContainer(
-                                  imageUrl: state.topMakes[index].logo,
-                                  title: state.topMakes[index].name,
-                                  isCheck: state.topMakes[index].id ==
-                                      state.selectId,
-                                ),
+                        child: SizedBox(
+                          height: 132,
+                          child: Paginator(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: state.topMakes.length,
+                            itemBuilder: (context, index) => WScaleAnimation(
+                              onTap: () {
+                                context.read<GetMakesBloc>().add(
+                                      GetMakesBlocEvent.selectedCarItems(
+                                        id: state.topMakes[index].id,
+                                        name: state.topMakes[index].name,
+                                        imageUrl: state.topMakes[index].logo,
+                                      ),
+                                    );
+                              },
+                              child: CarBrandContainer(
+                                imageUrl: state.topMakes[index].logo,
+                                title: state.topMakes[index].name,
+                                isCheck:
+                                    state.topMakes[index].id == state.selectId,
                               ),
-                              itemCount: state.topMakes.length,
                             ),
+                            errorWidget: const SizedBox(),
+                            fetchMoreFunction: () {
+                              context
+                                  .read<GetMakesBloc>()
+                                  .add(GetMakesBlocEvent.getNextTop());
+                            },
+                            hasMoreToFetch: state.next != null,
+                            paginatorStatus: state.statusTop,
                           ),
                         ),
                       ),
