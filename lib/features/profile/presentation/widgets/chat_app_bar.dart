@@ -8,9 +8,11 @@ import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-class WAppBarChild extends StatelessWidget implements PreferredSizeWidget {
-  const WAppBarChild({Key? key}) : super(key: key);
+class ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
+  const ChatAppBar({required this.phone, Key? key}) : super(key: key);
+  final String phone;
 
   @override
   Widget build(BuildContext context) => WAppBar(
@@ -50,7 +52,9 @@ class WAppBarChild extends StatelessWidget implements PreferredSizeWidget {
           ],
         ),
         child: WScaleAnimation(
-          onTap: () {},
+          onTap: () {
+            launchUrl(Uri.parse('tel://$phone'));
+          },
           child: Container(
             margin: const EdgeInsets.only(right: 16, top: 11),
             padding: const EdgeInsets.all(8),
