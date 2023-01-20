@@ -1,30 +1,30 @@
 part of 'dealer_filter_bloc.dart';
 
 class DealerFilterState extends Equatable {
-  final List<Region> regions;
+  final List<Region> region;
   final MakeEntity? maker;
-  final bool car_type;
+  final String? car_type;
 
   const DealerFilterState({
     required this.car_type,
-    required this.regions,
+    required this.region,
     this.maker,
   });
 
   DealerFilterState copyWith({
-    List<Region>? regions,
+    List<Region>? region,
     MakeEntity? maker,
-    bool? car_type,
+    String? car_type,
   }) =>
       DealerFilterState(
-        regions: regions ?? this.regions,
+        region: region??this.region,
         maker: maker ?? this.maker,
         car_type: car_type?? this.car_type,
       );
 
   @override
   List<Object?> get props => [
-    regions,
+    region,
     maker,
     car_type,
   ];

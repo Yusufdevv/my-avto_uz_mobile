@@ -1,5 +1,8 @@
+import 'package:auto/features/ad/domain/entities/types/make.dart';
+import 'package:auto/features/common/models/region.dart';
 import 'package:auto/features/dealers/domain/entities/dealer_card_entity.dart';
 import 'package:auto/features/dealers/domain/usecases/dealer_usecase.dart';
+import 'package:auto/features/rent/domain/entities/region_entity.dart';
 import 'package:auto/features/rent/presentation/bloc/rent_list_bloc/rent_list_bloc.dart';
 import 'package:bloc/bloc.dart';
 import 'package:formz/formz.dart';
@@ -40,6 +43,28 @@ class DealerCardBloc extends Bloc<DealerCardEvent, DealerCardState> {
             count: result.right.count,
             next: result.right.next));
       } else {
+        emit(state.copyWith(status: FormzStatus.submissionFailure));
+      }
+    });
+    on<_GetFilter>((event, emit) async {
+      print('jjjjjjjj');
+      final result = await dealerUseCase(DealerParams(
+          filter: DealerFilterParams(
+              mark: event.mark,
+              car_type: event.carType,
+              regionId: event.regionId)));
+
+       if(result.isRight){
+        print('jushkin: ${result.right.count}');
+        emit(
+          state.copyWith(
+            list: result.right.results,
+            count: result.right.count,
+            next: result.right.next,
+          )
+        );
+      }else{
+         print('aaaaaaa  ${result.left}');
         emit(state.copyWith(status: FormzStatus.submissionFailure));
       }
     });

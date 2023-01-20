@@ -5,12 +5,12 @@ import 'package:equatable/equatable.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 class MarksInDealerEntity extends Equatable {
-  @MakeConverter()
-  final MakeEntity make;
+  @DealerMakeConverter()
+  final DealerMakeEntity make;
   final int carsCount;
 
    const MarksInDealerEntity({
-    this.make = const MakeEntity(),
+    this.make = const DealerMakeEntity(),
     this.carsCount = 0,
   });
 

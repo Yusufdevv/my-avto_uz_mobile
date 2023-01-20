@@ -12,7 +12,7 @@ class Region {
   final String title;
   @JsonKey(name: 'name')
   final String name ;
-  Region({this.id=0,this.title='',this.name=''});
+  const Region({this.id=0,this.title='',this.name=''});
 
   factory Region.fromJson(Map<String,dynamic> json)=>_$RegionFromJson(json);
 }

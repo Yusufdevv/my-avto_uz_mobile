@@ -1,18 +1,15 @@
 part of 'dealer_filter_bloc.dart';
 
 abstract class DealerFilterEvent {}
-class  DealerFilterClearEvent  extends DealerFilterEvent  {
-
-
-}
+class  DealerFilterClearEvent  extends DealerFilterEvent  {}
 
 class DealerFilterSelectEvent extends DealerFilterEvent {
-  List<Region>? regions;
+  List<Region>? region;
   final MakeEntity? maker;
-  final bool? car_type;
+  final String? car_type;
   DealerFilterSelectEvent({
     this.maker,
-    this.regions,
+    this.region,
     this.car_type,
       });
 }
