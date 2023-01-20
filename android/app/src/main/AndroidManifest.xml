@@ -6,7 +6,7 @@
    <application
         android:label="auto"
         android:name=".MyApp"
-       android:hardwareAccelerated="true"
+        android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
         android:usesCleartextTraffic="true">
         <activity
