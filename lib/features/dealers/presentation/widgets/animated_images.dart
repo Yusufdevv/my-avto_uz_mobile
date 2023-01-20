@@ -99,66 +99,69 @@ class _AnimatedImagesState extends State<AnimatedImages>
                       builder: (context) => const ImageInFullScreen()));
                 }
               },
-              child: PageView(
-                onPageChanged: (integer) {
-                  page = integer;
-                  _animationController.forward(from: 0);
-                },
-                controller: _pageController,
-                children: List.generate(
-                  widget.images.length,
-                  (index) => CachedNetworkImage(
-                    imageUrl: widget.images[index],
-                    imageBuilder: (context, imageProvider) => Container(
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                            image: imageProvider, fit: BoxFit.cover),
-                      ),
-                    ),
-                    placeholder: (context, url) =>
-                        const CircularProgressIndicator(),
-                    errorWidget: (context, url, error) =>
-                        SvgPicture.asset(AppImages.autoUz),
-                  ),
-                  // (index) => Container(
-                  //   decoration: BoxDecoration(
-                  //     shape: BoxShape.rectangle,
+              child:
+                  //   child: PageView(
+                  //     onPageChanged: (integer) {
+                  //       page = integer;
+                  //       _animationController.forward(from: 0);
+                  //     },
+                  //     controller: _pageController,
+                  //     children: List.generate(
+                  //       widget.images.length,
+                  //       (index) => CachedNetworkImage(
+                  //         imageUrl: widget.images[index],
+                  //         imageBuilder: (context, imageProvider) => Container(
+                  //           decoration: BoxDecoration(
+                  //             image: DecorationImage(
+                  //                 image: imageProvider, fit: BoxFit.cover),
+                  //           ),
+                  //         ),
+                  //         placeholder: (context, url) =>
+                  //             const CircularProgressIndicator(),
+                  //         errorWidget: (context, url, error) =>
+                  //             SvgPicture.asset(AppImages.autoUz),
+                  //       ),
+                  //       // (index) => Container(
+                  //       //   decoration: BoxDecoration(
+                  //       //     shape: BoxShape.rectangle,
+                  //       //   ),
+                  //       //   color: images[index],
+                  //       // ),
+                  //     ),
                   //   ),
-                  //   color: images[index],
                   // ),
-                ),
-              ),
+                  PageView.builder(
+                      controller: _pageController,
+                      scrollDirection: Axis.horizontal,
+                      onPageChanged: (value) => setState(() {
+                            page = value;
+                          }),
+                      itemCount:
+                          widget.images.isEmpty ? 1 : widget.images.length,
+                      itemBuilder: (context, index) => Container(
+                            foregroundDecoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                begin: Alignment.topCenter,
+                                end: Alignment.center,
+                                colors: [
+                                  Colors.black,
+                                  Colors.black.withOpacity(0),
+                                ],
+                              ),
+                            ),
+                            child: widget.images.isEmpty
+                                ? Image.asset(
+                                    AppImages.defaultPhoto,
+                                    fit: BoxFit.cover,
+                                  )
+                                : Image.network(
+                                    widget.images[index],
+                                    width: double.maxFinite,
+                                    height: 340,
+                                    fit: BoxFit.cover,
+                                  ),
+                          )),
             ),
-            // PageView.builder(
-            //       controller: _pageController,
-            //       scrollDirection: Axis.horizontal,
-            //       onPageChanged: (value) => setState(() {
-            //             currentIndex = value;
-            //           }),
-            //       itemCount: widget.images.isEmpty ? 1 : widget.images.length,
-            //       itemBuilder: (context, index) => Container(
-            //             foregroundDecoration: BoxDecoration(
-            //               gradient: LinearGradient(
-            //                 begin: Alignment.topCenter,
-            //                 end: Alignment.center,
-            //                 colors: [
-            //                   Colors.black,
-            //                   Colors.black.withOpacity(0),
-            //                 ],
-            //               ),
-            //             ),
-            //             child: widget.images.isEmpty
-            //                 ? Image.asset(
-            //                     AppImages.defaultPhoto,
-            //                     fit: BoxFit.cover,
-            //                   )
-            //                 : Image.network(
-            //                     widget.images[index],
-            //                     width: double.maxFinite,
-            //                     height: 340,
-            //                     fit: BoxFit.cover,
-            //                   ),
-            //           )),
             Positioned(
               bottom: 0,
               child: Container(

@@ -73,7 +73,7 @@ class _ChatPageState extends State<ChatPage> {
     // ignore: cascade_invocations
     controller
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
-      ..loadFlutterAsset('assets/www/index.html');
+      ..loadFlutterAsset('assets/index.html');
     webViewController = controller;
     // webViewController.loadHtmlString(htmlCode(widget.phone, widget.userName));
 

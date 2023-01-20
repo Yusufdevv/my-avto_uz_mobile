@@ -57,95 +57,89 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
               appBar: WAppBar(
                 title: LocaleKeys.security.tr(),
               ),
-              body: Padding(
-                padding: const EdgeInsets.all(16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Expanded(
-                      child: ListView(
-                        children: [
-                          LoginHeader(
-                            title: LocaleKeys.new_password.tr(),
-                            description: LocaleKeys.create_password.tr(),
-                          ),
-                          const SizedBox(
-                            height: 36,
-                          ),
-                          ZTextFormField(
-                            onTap: hidePopUp,
-                            onChanged: (value) {
-                              setState(() {});
-                            },
-                            isObscure: true,
-                            hintText: LocaleKeys.new_password.tr(),
-                            controller: newPasswordController,
-                          ),
-                          const SizedBox(
-                            height: 16,
-                          ),
-                          ZTextFormField(
-                            onTap: hidePopUp,
-                            onChanged: (value) {
-                              setState(() {});
-                            },
-                            isObscure: true,
-                            hintText: LocaleKeys.confirm_password.tr(),
-                            controller: confirmPasswordController,
-                          ),
-                          const SizedBox(height: 36),
-                          WButton(
-                            isDisabled: newPasswordController.text.isEmpty ||
-                                confirmPasswordController.text.isEmpty,
-                            isLoading: state.registerStatus ==
-                                FormzStatus.submissionInProgress,
-                            onTap: () {
-                              print('tap');
-                              if ((newPasswordController.text.length >= 6 &&
-                                      confirmPasswordController.text.length >=
-                                          6) &&
-                                  newPasswordController.text ==
-                                      confirmPasswordController.text) {
-                                widget.onSubmit(newPasswordController.text,
-                                    confirmPasswordController.text);
-                              } else {
-                                context.read<ShowPopUpBloc>().add(
-                                      ShowPopUp(
-                                        message:
-                                            'Пароли не совпали, повторите попытку еще раз',
-                                        isSucces: false,
-                                        dismissible: false,
-                                      ),
-                                    );
-                                isShowingToast = true;
-                              }
-                            },
-                            shadow: [
-                              BoxShadow(
-                                  offset: const Offset(0, 4),
-                                  blurRadius: 20,
-                                  color: solitude.withOpacity(.12)),
-                            ],
-                            margin: EdgeInsets.only(
-                                bottom:
-                                    4 + MediaQuery.of(context).padding.bottom),
-                            color: orange,
-                            disabledColor: Theme.of(context)
+              body: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: ListView(
+                      padding: const EdgeInsets.all(16),
+                      physics:const BouncingScrollPhysics(),
+                      children: [
+                        LoginHeader(
+                          title: LocaleKeys.new_password.tr(),
+                          description: LocaleKeys.create_password.tr(),
+                        ),
+                        const SizedBox(
+                          height: 36,
+                        ),
+                        ZTextFormField(
+                          onTap: hidePopUp,
+                          onChanged: (value) {},
+                          isObscure: true,
+                          hintText: LocaleKeys.new_password.tr(),
+                          controller: newPasswordController,
+                        ),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        ZTextFormField(
+                          onTap: hidePopUp,
+                          onChanged: (value) {},
+                          isObscure: true,
+                          hintText: LocaleKeys.confirm_password.tr(),
+                          controller: confirmPasswordController,
+                        ),
+                        const SizedBox(height: 36),
+                        WButton(
+                          isDisabled: newPasswordController.text.isEmpty ||
+                              confirmPasswordController.text.isEmpty,
+                          isLoading: state.registerStatus ==
+                              FormzStatus.submissionInProgress,
+                          onTap: () {
+                            if ((newPasswordController.text.length >= 6 &&
+                                    confirmPasswordController.text.length >=
+                                        6) &&
+                                newPasswordController.text ==
+                                    confirmPasswordController.text) {
+                              widget.onSubmit(newPasswordController.text,
+                                  confirmPasswordController.text);
+                            } else {
+                              context.read<ShowPopUpBloc>().add(
+                                    ShowPopUp(
+                                      message:
+                                          'Пароли не совпали, повторите попытку еще раз',
+                                      isSucces: false,
+                                      dismissible: false,
+                                    ),
+                                  );
+                              isShowingToast = true;
+                            }
+                          },
+                          shadow: [
+                            BoxShadow(
+                                offset: const Offset(0, 4),
+                                blurRadius: 20,
+                                color: solitude.withOpacity(.12)),
+                          ],
+                          margin: EdgeInsets.only(
+                              bottom:
+                                  4 + MediaQuery.of(context).padding.bottom),
+                          color: orange,
+                          disabledColor: Theme.of(context)
+                              .extension<ThemedColors>()!
+                              .veryLightGreyToEclipse,
+                          text: LocaleKeys.continuee.tr(),
+                          border: Border.all(
+                            width: 1,
+                            color: Theme.of(context)
                                 .extension<ThemedColors>()!
-                                .veryLightGreyToEclipse,
-                            text: LocaleKeys.continuee.tr(),
-                            border: Border.all(
-                              width: 1,
-                              color: Theme.of(context)
-                                  .extension<ThemedColors>()!
-                                  .whiteToDolphin,
-                            ),
+                                .whiteToDolphin,
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ),

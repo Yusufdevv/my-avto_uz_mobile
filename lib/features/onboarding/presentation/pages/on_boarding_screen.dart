@@ -71,7 +71,6 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   @override
   Widget build(BuildContext context) {
     setOnboardingTrue();
-    final height = MediaQuery.of(context).size.height - 265;
     return SafeArea(
       child: Scaffold(
         body: Column(
@@ -102,36 +101,34 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                 ],
               ),
             ),
-            SizedBox(
-              height: height,
-              child: PageView(
-                physics: const BouncingScrollPhysics(),
-                onPageChanged: (page) {
-                  setState(() {
-                    currentIndex = page;
-                  });
-                },
-                children: [
-                  OnBoardingItems(
-                      height: height,
-                      icon: AppImages.flash,
-                      title: LocaleKeys.easy_send.tr(),
-                      image: AppImages.firstImage),
-                  OnBoardingItems(
-                      height: height,
-                      icon: AppImages.done,
-                      title: LocaleKeys.trusted_car_dealers.tr(),
-                      image: AppImages.secondImage),
-                  OnBoardingItems(
-                    height: height,
-                    icon: AppImages.omg,
-                    hasSecondText: true,
-                    title: LocaleKeys.more_than.tr(),
-                    secondText: ' 10 000',
-                    image: AppImages.thirdImage,
-                    thirdText: ' offers',
-                  ),
-                ],
+            Expanded(
+              child: SizedBox(
+                child: PageView(
+                  physics: const BouncingScrollPhysics(),
+                  onPageChanged: (page) {
+                    setState(() {
+                      currentIndex = page;
+                    });
+                  },
+                  children: [
+                    OnBoardingItems(
+                        icon: AppImages.flash,
+                        title: LocaleKeys.easy_send.tr(),
+                        image: AppImages.firstImage),
+                    OnBoardingItems(
+                        icon: AppImages.done,
+                        title: LocaleKeys.trusted_car_dealers.tr(),
+                        image: AppImages.secondImage),
+                    OnBoardingItems(
+                      icon: AppImages.omg,
+                      hasSecondText: true,
+                      title: LocaleKeys.more_than.tr(),
+                      secondText: ' 10 000',
+                      image: AppImages.thirdImage,
+                      thirdText: ' offers',
+                    ),
+                  ],
+                ),
               ),
             ),
             Padding(

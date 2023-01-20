@@ -7,13 +7,11 @@ class OnBoardingItems extends StatelessWidget {
   final bool hasSecondText;
   final String secondText;
   final String thirdText;
-  final double height;
 
   const OnBoardingItems({
     required this.icon,
     required this.title,
     required this.image,
-    required this.height,
     this.secondText = '',
     this.thirdText = '',
     this.hasSecondText = false,
@@ -25,10 +23,11 @@ class OnBoardingItems extends StatelessWidget {
         mainAxisSize: MainAxisSize.max,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Center(
-            child: Image.asset(
-              image,
-              height: height - 94,
+          Expanded(
+            child: Center(
+              child: Image.asset(
+                image,
+              ),
             ),
           ),
           Padding(

@@ -25,6 +25,12 @@ class AddPhotoItem extends StatefulWidget {
 }
 
 class _AddPhotoItemState extends State<AddPhotoItem> {
+  @override
+  void initState() {
+    context.read<RegisterBloc>().add(RegisterEvent.changeImage(path: ''));
+    super.initState();
+  }
+
   final ImagePicker _picker = ImagePicker();
 
   void showImageBottomSheet(
