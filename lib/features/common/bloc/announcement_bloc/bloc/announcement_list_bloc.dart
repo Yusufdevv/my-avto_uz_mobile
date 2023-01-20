@@ -57,7 +57,7 @@ class AnnouncementListBloc
           priceValues: event.priceValues == null
               ? const RangeValues(1000, 500000)
               : event.priceValues!,
-          idVal: event.idVal,
+          idVal: event.idVal!,
           isFilter: event.isFilter!,
         )));
   }

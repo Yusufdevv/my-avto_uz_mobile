@@ -1,3 +1,4 @@
+import 'package:auto/features/common/bloc/auth/authentication_bloc.dart';
 import 'package:auto/features/common/bloc/wishlist_add/wishlist_add_bloc.dart';
 import 'package:auto/features/common/repository/auth.dart';
 import 'package:auto/features/comparison/presentation/comparison_page.dart';
@@ -81,6 +82,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 return const Center(child: Text('Fail'));
               } else if (state.status.isSubmissionSuccess) {
                 profileData = state.profileEntity;
+                print(
+                    '=======notiAllread ${context.read<AuthenticationBloc>().state.user.isNotificationAllRead}');
                 // ignore: prefer_final_locals
                 var usercountData = profileData.usercountdata;
                 return Scaffold(
@@ -97,7 +100,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             onTap: () =>
                                 Navigator.of(context, rootNavigator: true)
                                     .push(fade(page: const NotificationPage())),
-                            child: SvgPicture.asset(AppIcons.bellWithCircle),
+                            child: SvgPicture.asset(context
+                                    .read<AuthenticationBloc>()
+                                    .state
+                                    .user
+                                    .isNotificationAllRead
+                                ? AppIcons.bell
+                                : AppIcons.bellWithCircle),
                           ),
                         )
                       ],

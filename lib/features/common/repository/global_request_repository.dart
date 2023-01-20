@@ -14,7 +14,6 @@ class GlobalRequestRepository {
       required S Function(Map<String, dynamic>) fromJson,
       bool sendToken = true}) async {
     try {
-      // print(StorageRepository.getString('token', defValue: ''));
       final result = await dio.get(endpoint,
           queryParameters: query,
           options: Options(
@@ -24,15 +23,12 @@ class GlobalRequestRepository {
                           "Bearer ${StorageRepository.getString('token', defValue: '')}"
                     }
                   : {}));
-      // print(result.realUri);
-      // print("====  ${result.data}  =====");
       if (result.statusCode! >= 200 && result.statusCode! < 300) {
         return Right(fromJson(result.data));
       } else {
         return Left(ServerFailure(errorMessage: '', statusCode: 141));
       }
     } catch (e) {
-      print(e.toString());
       return Left(ServerFailure(statusCode: 141, errorMessage: '$e'));
     }
   }
@@ -64,8 +60,6 @@ class GlobalRequestRepository {
 
       print('hreererer');
 
-      print(result.data);
-      print(result.data.runtimeType);
       if (result.statusCode! >= 200 && result.statusCode! < 300) {
         if (responseDataKey != null && responseDataKey.isNotEmpty) {
           var data = result.data[responseDataKey] as List<dynamic>;
@@ -84,7 +78,6 @@ class GlobalRequestRepository {
         return Left(ServerFailure(errorMessage: '', statusCode: 141));
       }
     } catch (e) {
-      print(e.toString());
       return Left(ServerFailure(statusCode: 141, errorMessage: ''));
     }
   }

@@ -1,10 +1,11 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_icons.dart';
-import 'package:auto/features/common/widgets/w_app_bar.dart';
+import 'package:auto/features/common/bloc/auth/authentication_bloc.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/profile/presentation/pages/notification/notifiaction_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -35,12 +36,13 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
                 onTap: () => Navigator.of(context, rootNavigator: true)
                     .push(fade(page: const NotificationPage())),
                 child: SvgPicture.asset(
-                  AppIcons.bellWithCircle,
+                   context.read<AuthenticationBloc>().state.user.isNotificationAllRead ? AppIcons.bell :  
+                  AppIcons.bellWithCircle
                 ),
               ),
             )
           ],
-          title: SvgPicture.asset(
+          title:SvgPicture.asset(
             Theme.of(context).extension<ThemedIcons>()!.imageUrl,
           ),
         ),

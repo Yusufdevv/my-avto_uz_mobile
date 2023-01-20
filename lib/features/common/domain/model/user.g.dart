@@ -17,6 +17,7 @@ UserModel _$UserModelFromJson(Map<String, dynamic> json) => UserModel(
       lastName: json['last_name'] as String? ?? '',
       fullName: json['full_name'] as String? ?? '',
       userName: json['username'] as String? ?? '',
+      isNotificationAllRead: json['isNotificationAllRead'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$UserModelToJson(UserModel instance) => <String, dynamic>{
@@ -30,4 +31,5 @@ Map<String, dynamic> _$UserModelToJson(UserModel instance) => <String, dynamic>{
       'image': instance.image,
       'region': instance.region,
       'phone_number': instance.phoneNumber,
+      'isNotificationAllRead': instance.isNotificationAllRead,
     };

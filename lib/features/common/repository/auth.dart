@@ -26,8 +26,6 @@ class AuthRepository {
 
   Future<Either<Failure, TokenModel>> login(
       {required String login, required String password}) async {
-    // print('$login\n');
-    // print(password);
     try {
       final result = await repo.postAndSingle<TokenModel>(
         endpoint: '/users/login/',
@@ -39,12 +37,10 @@ class AuthRepository {
         },
       );
       if (result.isRight) {
-        print('tokenize ${result.right.access}');
         await StorageRepository.putString('token', result.right.access);
         await StorageRepository.putString('refresh', result.right.refresh);
         return Right(result.right);
       } else {
-        print('errorize');
         return Left(result.left);
       }
     } on ServerException {
