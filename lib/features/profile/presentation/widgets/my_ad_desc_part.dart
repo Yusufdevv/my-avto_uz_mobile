@@ -32,14 +32,14 @@ class MyAdDesc extends StatelessWidget {
           '${item.stats.viewsCount}',
           '${item.stats.wishlistCount}'
         ]),
-        const Divider(height: 24),
+        if (item.moderationStatus != 'sold') const Divider(height: 24),
         if (item.moderationStatus == 'active')
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               if (item.isExpired)
                 Text(
-                  'Бу элонингизнинг муддати тугаган. Унинг вактини чуздиришингиз мумкин.',
+                  "Bu e'lonning muddati tugagan, uni cho'zdirishingiz mumkin",
                   style: Theme.of(context).textTheme.headline5?.copyWith(
                       fontSize: 12, fontWeight: FontWeight.w400, height: 1.3),
                 )

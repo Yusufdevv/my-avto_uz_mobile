@@ -76,15 +76,17 @@ class _OnBoardingBottomState extends State<OnBoardingBottom> {
                 const SizedBox(
                   height: 35,
                 ),
+
                 Row(
                   children: [
+
+                //O‘zbekcha btn
                     Expanded(
                       child: WButton(
                         onTap: () {
                           setState(() {
                             index = 0;
                           });
-
                           context.setLocale(const Locale('uz'));
                           serviceLocator<DioSettings>()
                               .setBaseOptions(lang: 'uz');
@@ -133,13 +135,15 @@ class _OnBoardingBottomState extends State<OnBoardingBottom> {
                     const SizedBox(
                       width: 16,
                     ),
+
+                //O‘zbekcha btn
                     Expanded(
                       child: WButton(
                         color: index == 1
-                            ? Theme.of(context)
+                            ? orange
+                            :  Theme.of(context)
                                 .extension<ThemedColors>()!
-                                .solitudeToCharcoal
-                            : orange,
+                                .solitudeToCharcoal,
                         onTap: () {
                           setState(() {
                             index = 1;
@@ -170,15 +174,15 @@ class _OnBoardingBottomState extends State<OnBoardingBottom> {
                                       .bodyText1!
                                       .copyWith(
                                           fontWeight: FontWeight.w600,
-                                          color: Theme.of(context)
-                                              .extension<ThemedColors>()!
-                                              .greySuitToWhite)
-                                  : Theme.of(context)
+                                          color: white)
+                                  :  Theme.of(context)
                                       .textTheme
                                       .bodyText1!
                                       .copyWith(
                                           fontWeight: FontWeight.w600,
-                                          color: white),
+                                          color: Theme.of(context)
+                                              .extension<ThemedColors>()!
+                                              .greySuitToWhite),
                             ),
                           ],
                         ),

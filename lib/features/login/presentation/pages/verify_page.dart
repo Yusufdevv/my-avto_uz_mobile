@@ -52,12 +52,6 @@ class _VerifySmsCodePageState extends State<VerifySmsCodePage> {
   }
 
   @override
-  void dispose() {
-    passwordRecoveryController.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) => CustomScreen(
         child: KeyboardDismisser(
           child: BlocProvider.value(
