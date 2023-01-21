@@ -17,7 +17,7 @@ class InformationAboutDoors extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Row(
         children: [
-          MyFunctions().getStatusIcon(informAboutDoors[index].damageType),
+          MyFunctions.getStatusIcon(informAboutDoors[index].damageType),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -30,8 +30,7 @@ class InformationAboutDoors extends StatelessWidget {
                 ),
               ),
               Text(
-                MyFunctions
-                    .getStatusTitle(informAboutDoors[index].damageType),
+                MyFunctions.getStatusTitle(informAboutDoors[index].damageType),
                 style: TextStyle(
                   color:
                       Theme.of(context).extension<ThemedColors>()!.darkToWhite,

@@ -1,17 +1,19 @@
 part of 'posting_ad_bloc.dart';
 
 abstract class PostingAdEvent {}
+class PostingAdDamageEvent extends PostingAdEvent{
+  final DamagedParts part;
+  final DamageType type;
 
-class PostingAdCreateEvent extends PostingAdEvent {
-  PostingAdCreateEvent();
+  PostingAdDamageEvent({required this.part,required this.type});
 }
 
+class PostingAdCreateEvent extends PostingAdEvent {
+}
 class PostingAdBodyTypesEvent extends PostingAdEvent {
-  PostingAdBodyTypesEvent();
 }
 
 class PostingAdGearBoxesEvent extends PostingAdEvent {
-  PostingAdGearBoxesEvent();
 }
 
 class PostingAdModelEvent extends PostingAdEvent {
@@ -49,7 +51,7 @@ class PostingAdChooseEvent extends PostingAdEvent {
   final YearsEntity? yearsEntity;
   final DistrictEntity? district;
   final List<RentWithPurchaseEntity>? rentWithPurchaseConditions;
-  final List<DamagedPartEntity>? damagedParts;
+  final Map<DamagedParts, DamageType>? damagedParts;
   final int? modelId;
   final int? generationId;
 

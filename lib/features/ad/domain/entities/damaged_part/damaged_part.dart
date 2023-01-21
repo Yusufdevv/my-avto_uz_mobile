@@ -29,5 +29,7 @@ class DamagedPartEntityConverter
       DamagedPartModel.fromJson(json ?? {});
 
   @override
-  Map<String, dynamic> toJson(DamagedPartEntity object) => {};
+  Map<String, dynamic> toJson(DamagedPartEntity object) =>
+      DamagedPartModel(damageType: object.damageType, part: object.part)
+          .toJson();
 }

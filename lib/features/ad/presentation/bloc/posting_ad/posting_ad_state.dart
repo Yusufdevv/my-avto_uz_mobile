@@ -22,7 +22,7 @@ class PostingAdState extends Equatable {
   final DistrictEntity? district;
   final List<String> gallery;
   final List<RentWithPurchaseEntity> rentWithPurchaseConditions;
-  final List<DamagedPartEntity> damagedParts;
+  final Map<DamagedParts, DamageType> damagedParts;
   final String? letter;
   final String? ownerName;
   final String? ownerEmail;
@@ -68,7 +68,7 @@ class PostingAdState extends Equatable {
     this.bodyTypes = const <BodyTypeEntity>[],
     this.gallery = const <String>[],
     this.rentWithPurchaseConditions = const <RentWithPurchaseEntity>[],
-    this.damagedParts = const <DamagedPartEntity>[],
+    this.damagedParts = const <DamagedParts, DamageType>{},
     this.yearsEntity,
     this.letter,
     this.colorName,
@@ -99,7 +99,7 @@ class PostingAdState extends Equatable {
     this.district,
   });
   PostingAdState copyWith({
-    List<DamagedPartEntity>? damagedParts,
+    Map<DamagedParts, DamageType>? damagedParts,
     List<RentWithPurchaseEntity>? rentWithPurchaseConditions,
     DistrictEntity? district,
     Region? region,
@@ -121,7 +121,6 @@ class PostingAdState extends Equatable {
     List<MakeEntity>? topMakes,
     List<String>? gallery,
     YearsEntity? yearsEntity,
-    Map<DamagedParts, DamageType>? parts,
     String? letter,
     String? colorName,
     String? typeDocument,

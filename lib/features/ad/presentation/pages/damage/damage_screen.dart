@@ -33,8 +33,8 @@ class _DamageScreenState extends State<DamageScreen>
     super.initState();
   }
 
-  _showChoosDamageTypeSheet(DamagedParts part) async {
-    await showModalBottomSheet<DamageType>(
+  void _showChoosDamageTypeSheet(DamagedParts part) {
+    showModalBottomSheet<DamageType>(
       useRootNavigator: true,
       isDismissible: false,
       context: context,
@@ -50,10 +50,9 @@ class _DamageScreenState extends State<DamageScreen>
       ),
     ).then((value) {
       if (value != null) {
-        context.read<PostingAdBloc>().add(PostingAdChooseEvent(damagedParts: [
-              DamagedPartEntity(damageType: value.name, part: part.value),
-              ...context.watch<PostingAdBloc>().state.damagedParts
-            ]));
+        context
+            .read<PostingAdBloc>()
+            .add(PostingAdDamageEvent(part: part, type: value));
       }
     });
   }
@@ -64,136 +63,113 @@ class _DamageScreenState extends State<DamageScreen>
       body: BaseWidget(
         headerText: 'Состояние кузова',
         child: SingleChildScrollView(
-          padding: const EdgeInsets.fromLTRB(16, 16, 16, 50),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Покупатели чаще звонят по объявлениям, в которых указана комплектация',
-                style: Theme.of(context).textTheme.headline6!.copyWith(
-                    fontSize: 14,
-                    color: Theme.of(context)
-                        .extension<ThemedColors>()!
-                        .aluminumToDolphin),
+            padding: const EdgeInsets.fromLTRB(16, 16, 16, 50),
+            child: BlocBuilder<PostingAdBloc, PostingAdState>(
+              builder: (context, state) => Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Покупатели чаще звонят по объявлениям, в которых указана комплектация',
+                    style: Theme.of(context).textTheme.headline6!.copyWith(
+                        fontSize: 14,
+                        color: Theme.of(context)
+                            .extension<ThemedColors>()!
+                            .aluminumToDolphin),
+                  ),
+                  const SizedBox(height: 32),
+                  DamageCarsItem(
+                    onLeftFender: _showChoosDamageTypeSheet,
+                    onLeftFrontDoor: _showChoosDamageTypeSheet,
+                    onLeftRearDoor: _showChoosDamageTypeSheet,
+                    onFrontBumper: _showChoosDamageTypeSheet,
+                    onFrontRightFender: _showChoosDamageTypeSheet,
+                    onHood: _showChoosDamageTypeSheet,
+                    onRearBumper: _showChoosDamageTypeSheet,
+                    onRearLetfFender: _showChoosDamageTypeSheet,
+                    onRearRightFender: _showChoosDamageTypeSheet,
+                    onRightRearDoor: _showChoosDamageTypeSheet,
+                    onRigthFrontDoor: _showChoosDamageTypeSheet,
+                    onRoof: _showChoosDamageTypeSheet,
+                    onTrunk: _showChoosDamageTypeSheet,
+                  ),
+                  const SizedBox(height: 32),
+                  CustomTabBar(
+                      title: 'Дверь',
+                      tabController: doorController,
+                      firstTab: 'Левая',
+                      secondTab: 'Правая'),
+                  SizedBox(
+                    height: 100,
+                    child: TabBarView(
+                      controller: doorController,
+                      children: const [
+                        SituationItem(
+                            position: 'Правая передняя дверь',
+                            situation: 'Идеальное'),
+                        SituationItem(
+                            position: 'Правая задняя дверь',
+                            situation: 'Идеальное'),
+                      ],
+                    ),
+                  ),
+                  CustomTabBar(
+                      title: 'Бамфер',
+                      tabController: bumperController,
+                      firstTab: 'Задний',
+                      secondTab: 'Передний'),
+                  SizedBox(
+                    height: 100,
+                    child: TabBarView(
+                      controller: bumperController,
+                      children: const [
+                        SituationItem(
+                            position: 'Правая передняя дверь',
+                            situation: 'Идеальное'),
+                        SituationItem(
+                            position: 'Правая задняя дверь',
+                            situation: 'Идеальное'),
+                      ],
+                    ),
+                  ),
+                  CustomTabBar(
+                      title: 'Крыло',
+                      tabController: wingController,
+                      firstTab: 'Заднее',
+                      secondTab: 'Переднее'),
+                  SizedBox(
+                    height: 100,
+                    child: TabBarView(
+                      controller: wingController,
+                      children: const [
+                        SituationItem(
+                            position: 'Правая передняя дверь',
+                            situation: 'Идеальное'),
+                        SituationItem(
+                            position: 'Правая задняя дверь',
+                            situation: 'Идеальное'),
+                      ],
+                    ),
+                  ),
+                  const SituationTitleItem(
+                    title: 'Крыша',
+                    situation: 'Идеальное',
+                  ),
+                  const SizedBox(
+                    height: 24,
+                  ),
+                  const SituationTitleItem(
+                    title: 'Капот',
+                    situation: 'Идеальное',
+                  ),
+                  const SizedBox(
+                    height: 24,
+                  ),
+                  const SituationTitleItem(
+                    title: 'Багажник',
+                    situation: 'Идеальное.',
+                  ),
+                ],
               ),
-              const SizedBox(height: 32),
-              DamageCarsItem(
-                onLeftFender: _showChoosDamageTypeSheet,
-                onLeftFrontDoor: (damagedPart) {
-                  print('=> => => =>     onLeftFrontDoor    <= <= <= <=');
-                },
-                onLeftRearDoor: (damagedPart) {
-                  print('=> => => =>     onLeftRearDoor    <= <= <= <=');
-                },
-                onFrontBumper: (damagedPart) {
-                  print('=> => => =>     onFrontBumper    <= <= <= <=');
-                },
-                onFrontRightFender: (damagedPart) {
-                  print('=> => => =>     onFrontRightFender    <= <= <= <=');
-                },
-                onHood: (damagedPart) {
-                  print('=> => => =>     onHood    <= <= <= <=');
-                },
-                onRearBumper: (damagedPart) {
-                  print('=> => => =>     onRearBumper    <= <= <= <=');
-                },
-                onRearLetfFender: (damagedPart) {
-                  print('=> => => =>     onRearLetfFender    <= <= <= <=');
-                },
-                onRearRightFender: (damagedPart) {
-                  print('=> => => =>     onRearRightFender    <= <= <= <=');
-                },
-                onRightRearDoor: (damagedPart) {
-                  print('=> => => =>     onRightRearDoor    <= <= <= <=');
-                },
-                onRigthFrontDoor: (damagedPart) {
-                  print('=> => => =>     onRigthFrontDoor    <= <= <= <=');
-                },
-                onRoof: (damagedPart) {
-                  print('=> => => =>     onRoof    <= <= <= <=');
-                },
-                onTrunk: (damagedPart) {
-                  print('=> => => =>     onTrunk    <= <= <= <=');
-                },
-              ),
-              const SizedBox(height: 32),
-              CustomTabBar(
-                  title: 'Дверь',
-                  tabController: doorController,
-                  firstTab: 'Левая',
-                  secondTab: 'Правая'),
-              SizedBox(
-                height: 100,
-                child: TabBarView(
-                  controller: doorController,
-                  children: const [
-                    SituationItem(
-                        position: 'Правая передняя дверь',
-                        situation: 'Идеальное'),
-                    SituationItem(
-                        position: 'Правая задняя дверь',
-                        situation: 'Идеальное'),
-                  ],
-                ),
-              ),
-              CustomTabBar(
-                  title: 'Бамфер',
-                  tabController: bumperController,
-                  firstTab: 'Задний',
-                  secondTab: 'Передний'),
-              SizedBox(
-                height: 100,
-                child: TabBarView(
-                  controller: bumperController,
-                  children: const [
-                    SituationItem(
-                        position: 'Правая передняя дверь',
-                        situation: 'Идеальное'),
-                    SituationItem(
-                        position: 'Правая задняя дверь',
-                        situation: 'Идеальное'),
-                  ],
-                ),
-              ),
-              CustomTabBar(
-                  title: 'Крыло',
-                  tabController: wingController,
-                  firstTab: 'Заднее',
-                  secondTab: 'Переднее'),
-              SizedBox(
-                height: 100,
-                child: TabBarView(
-                  controller: wingController,
-                  children: const [
-                    SituationItem(
-                        position: 'Правая передняя дверь',
-                        situation: 'Идеальное'),
-                    SituationItem(
-                        position: 'Правая задняя дверь',
-                        situation: 'Идеальное'),
-                  ],
-                ),
-              ),
-              const SituationTitleItem(
-                title: 'Крыша',
-                situation: 'Идеальное',
-              ),
-              const SizedBox(
-                height: 24,
-              ),
-              const SituationTitleItem(
-                title: 'Капот',
-                situation: 'Идеальное',
-              ),
-              const SizedBox(
-                height: 24,
-              ),
-              const SituationTitleItem(
-                title: 'Багажник',
-                situation: 'Идеальное.',
-              ),
-            ],
-          ),
-        ),
+            )),
       ));
 }

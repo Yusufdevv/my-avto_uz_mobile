@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:auto/core/usecases/usecase.dart';
 import 'package:auto/features/ad/const/constants.dart';
+import 'package:auto/features/ad/data/models/announcement_to_post_model.dart';
 import 'package:auto/features/ad/domain/entities/announcement/announcement_entity_to_post.dart';
 import 'package:auto/features/ad/domain/entities/damaged_part/damaged_part.dart';
 import 'package:auto/features/ad/domain/entities/district_entity.dart';
@@ -20,6 +21,7 @@ import 'package:auto/features/ad/domain/usecases/get_drive_type.dart';
 import 'package:auto/features/ad/domain/usecases/get_engine_type.dart';
 import 'package:auto/features/ad/domain/usecases/get_generation.dart';
 import 'package:auto/features/ad/domain/usecases/get_makes.dart';
+import 'package:auto/features/ad/presentation/pages/damage/widgets/cars_item.dart';
 import 'package:auto/features/common/models/region.dart';
 import 'package:auto/features/main/domain/usecases/get_top_brand.dart';
 import 'package:auto/features/rent/domain/usecases/get_gearboxess_usecase.dart';
@@ -52,10 +54,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     required this.bodyTypesUseCase,
     required this.createUseCase,
   }) : super(const PostingAdState(status: FormzStatus.pure)) {
-    on
-
-        /// A generic type.
-        <PostingAdChooseEvent>(_choose);
+    on<PostingAdChooseEvent>(_choose);
     on<PostingAdMakesEvent>(_makes);
     on<PostingAdTopMakesEvent>(_topMakes);
     on<PostingAdChangeAppBarShadowEvent>(_changeAppBarShadow);
@@ -66,9 +65,20 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     on<PostingAdGearBoxesEvent>(_gearBoxes);
     on<PostingAdBodyTypesEvent>(_bodyTypes);
     on<PostingAdCreateEvent>(_create);
+    on<PostingAdDamageEvent>(_damage);
   }
 
-  /// PostingAdState
+  FutureOr<void> _damage(
+      PostingAdDamageEvent event, Emitter<PostingAdState> emit) {
+    print('=> => => =>     ${event.part} / ${event.type}    <= <= <= <=');
+    final damages =
+        state.damagedParts.map((key, value) => MapEntry(key, value));
+    print('=> => => => initialized by state    $damages    <= <= <= <=');
+    damages[event.part] = event.type;
+    print('=> => => => after ad     $damages    <= <= <= <=');
+    emit(state.copyWith(damagedParts: damages));
+  }
+
   FutureOr<void> _create(
       PostingAdCreateEvent event, Emitter<PostingAdState> emit) async {
     print(
@@ -80,7 +90,8 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     print('=> => => =>  ownerStep:   ${state.currency}    <= <= <= <=');
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
     final result = await createUseCase.call(
-      AnnouncementToPostEntity(
+      AnnouncementToPostModel(
+        id: -1,
         bodyType: state.bodyTypeId!,
         color: state.colorName,
         contactAvailableFrom: state.callTimeFrom!.replaceAll(' ', ''),
@@ -89,12 +100,10 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
         contactName: state.ownerName!,
         contactPhone: state.ownerPhone!,
         currency: state.currency!,
-        damagedParts: const [
-          DamagedPartEntity(part: 'rigth_front_door', damageType: 'with_dents'),
-          DamagedPartEntity(
-              part: 'rear_left_fender', damageType: 'requires_replacement'),
-          DamagedPartEntity(part: 'roof', damageType: 'replaced'),
-        ],
+        damagedParts: state.damagedParts.entries
+            .map((e) =>
+                DamagedPartEntity(damageType: e.value.value, part: e.key.value))
+            .toList(),
         description: state.descriptions,
         distanceTraveled: int.tryParse(state.mileage ?? '1000') ?? 1000,
         district: state.district!.id,
@@ -260,13 +269,6 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
 
     final result = await topMakesUseCase.call(event.name);
     if (result.isRight) {
-      // List<MakeEntity> v = <MakeEntity>[];
-      // if (result.right.results.length > 10) {
-      //   v = result.right.results.getRange(0,10).toList();
-      // } else {
-      //   v = result.right.results;
-      // }
-
       emit(state.copyWith(
         status: FormzStatus.submissionSuccess,
         topMakes: result.right.results,

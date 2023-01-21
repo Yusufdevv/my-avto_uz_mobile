@@ -7,6 +7,7 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/core/exceptions/exceptions.dart';
+import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/common/models/region.dart';
 import 'package:auto/features/dealers/data/models/map_model.dart';
 import 'package:auto/features/profile/domain/entities/dir_category_entity.dart';
@@ -115,8 +116,8 @@ class MyFunctions {
     return buffer.toString();
   }
 
-  static Future<ImageInfo> getImageInfo(BuildContext context,
-      String image) async {
+  static Future<ImageInfo> getImageInfo(
+      BuildContext context, String image) async {
     final assetImage = AssetImage(image);
     final stream = assetImage.resolve(createLocalImageConfiguration(context));
     final completer = Completer<ImageInfo>();
@@ -125,17 +126,17 @@ class MyFunctions {
     return completer.future;
   }
 
-  static Future<Uint8List> getBytesFromCanvas({required int width,
-    required int height,
-    required int placeCount,
-    required BuildContext context,
-    Offset? offset,
-    required String image,
-    bool shouldAddText = true}) async {
+  static Future<Uint8List> getBytesFromCanvas(
+      {required int width,
+      required int height,
+      required int placeCount,
+      required BuildContext context,
+      Offset? offset,
+      required String image,
+      bool shouldAddText = true}) async {
     final pictureRecorder = ui.PictureRecorder();
     final canvas = Canvas(pictureRecorder);
-    final paint = Paint()
-      ..color = Colors.red;
+    final paint = Paint()..color = Colors.red;
     canvas.drawImage(
         await getImageInfo(context, image).then((value) => value.image),
         offset ?? const Offset(0, 3),
@@ -161,8 +162,8 @@ class MyFunctions {
     return data?.buffer.asUint8List() ?? Uint8List(0);
   }
 
-  static Future<MapObject<dynamic>> getMyPoint(Point point,
-      BuildContext context) async {
+  static Future<MapObject<dynamic>> getMyPoint(
+      Point point, BuildContext context) async {
     final myIconData = await getBytesFromCanvas(
         placeCount: 0,
         image: AppIcons.currentLoc,
@@ -184,7 +185,8 @@ class MyFunctions {
 
   static const clusterId = MapObjectId('big_cluster_id');
 
-  static Future<void> addDealer({required List<MapModel> points,
+  static Future<void> addDealer(
+      {required List<MapModel> points,
       required BuildContext context,
       required List<MapObject<dynamic>> mapObjects,
       required YandexMapController controller,
@@ -192,17 +194,17 @@ class MyFunctions {
       required double accuracy,
       required bool isDirectoryPage}) async {
     final iconData = await getBytesFromCanvas(
-      placeCount: 0,
-      image:isDirectoryPage ? AppIcons.directoryPoint :  AppIcons.dealersLocIcon,
-      width: 170,
-      offset: const Offset(0, -30),
-      height: 410,
-      context: context,
-      shouldAddText: false);
+        placeCount: 0,
+        image:
+            isDirectoryPage ? AppIcons.directoryPoint : AppIcons.dealersLocIcon,
+        width: 170,
+        offset: const Offset(0, -30),
+        height: 410,
+        context: context,
+        shouldAddText: false);
     final placeMarks = points
         .map(
-          (e) =>
-          PlacemarkMapObject(
+          (e) => PlacemarkMapObject(
             opacity: 1,
             mapId: MapObjectId(e.latitude.toString()),
             point: Point(latitude: e.latitude, longitude: e.longitude),
@@ -247,7 +249,7 @@ class MyFunctions {
               ),
             ),
           ),
-    )
+        )
         .toList();
 
     print(points.map((point) => [point.latitude, point.longitude, point.name]));
@@ -269,26 +271,25 @@ class MyFunctions {
             zoom: 15)));
       },
       onTap: (collection, point) {},
-      onClusterAdded: (collection, cluster) async =>
-          cluster.copyWith(
-            appearance: cluster.appearance.copyWith(
-              opacity: 1,
-              icon: PlacemarkIcon.single(
-                PlacemarkIconStyle(
-                  image: BitmapDescriptor.fromBytes(
-                    await getBytesFromCanvas(
-                        image: AppImages.audi,
-                        width: 170,
-                        height: 410,
-                        placeCount: cluster.placemarks.length,
-                        context: context,
-                        shouldAddText: true),
-                  ),
-                  scale: 0.6,
-                ),
+      onClusterAdded: (collection, cluster) async => cluster.copyWith(
+        appearance: cluster.appearance.copyWith(
+          opacity: 1,
+          icon: PlacemarkIcon.single(
+            PlacemarkIconStyle(
+              image: BitmapDescriptor.fromBytes(
+                await getBytesFromCanvas(
+                    image: AppImages.audi,
+                    width: 170,
+                    height: 410,
+                    placeCount: cluster.placemarks.length,
+                    context: context,
+                    shouldAddText: true),
               ),
+              scale: 0.6,
             ),
           ),
+        ),
+      ),
     );
 
     mapObjects
@@ -425,7 +426,6 @@ class MyFunctions {
 
   static bool enableForCalling(
       {required String callFrom, required String callTo}) {
-
     final now = DateTime.now();
 
     final dateFrom = DateTime(
@@ -447,11 +447,10 @@ class MyFunctions {
     return now.isAfter(dateFrom) && now.isBefore(dateTo);
   }
 
-
   static bool isEmail(String email) =>
       RegExp(r'^[a-z0-9](\.?[a-z0-9]){5,}@g(oogle)?mail\.com$').hasMatch(email);
 
- static String getDoorName(String door) {
+  static String getDoorName(String door) {
     switch (door) {
       case 'left_front_door':
         return 'Левая передняя дверь';
@@ -483,7 +482,7 @@ class MyFunctions {
     return '';
   }
 
- static String getStatusTitle(String status) {
+  static String getStatusTitle(String status) {
     switch (status) {
       case 'ideal':
         return 'Идеальное';
@@ -499,7 +498,7 @@ class MyFunctions {
     return 'Не показано';
   }
 
-  Widget getStatusIcon(String status) {
+  static Widget getStatusIcon(String status) {
     switch (status) {
       case 'ideal':
         return SvgPicture.asset(AppIcons.checkRounded, height: 20, width: 20);
@@ -513,5 +512,20 @@ class MyFunctions {
         return SvgPicture.asset(AppIcons.redWarning);
     }
     return const SizedBox();
+  }
+
+  static Color getStatusColor(DamageType status) {
+    switch (status) {
+      case DamageType.ideal:
+        return emerald;
+      case DamageType.withDents:
+        return const Color(0xffF0CB49);
+      case DamageType.scratched:
+        return const Color(0xffF08149);
+      case DamageType.replaced:
+        return const Color(0xff695CEA);
+      case DamageType.requiresReplacement:
+        return const Color(0xffE00B00);
+    }
   }
 }

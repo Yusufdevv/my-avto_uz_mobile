@@ -36,7 +36,7 @@ class CarStatusIconInPicture extends StatelessWidget {
           top: top,
           left: left,
           bottom: bottom,
-          child: MyFunctions().getStatusIcon(informAboutDoors[
+          child: MyFunctions.getStatusIcon(informAboutDoors[
                   informAboutDoors
                       .indexWhere((element) => element.part == doorName)]
               .damageType),

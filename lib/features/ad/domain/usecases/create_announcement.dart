@@ -7,16 +7,15 @@ import 'package:auto/features/ad/domain/repositories/ad_repository.dart';
 import 'package:auto/features/reels/domain/entities/announcement_entity.dart';
 import 'package:dio/dio.dart';
 
-class CreateAnnouncementUseCase
-    extends UseCase<void, AnnouncementToPostEntity> {
+class CreateAnnouncementUseCase extends UseCase<void, AnnouncementToPostModel> {
   final AdRepository repository;
 
   CreateAnnouncementUseCase({required this.repository});
 
   @override
-  Future<Either<Failure, void>> call(AnnouncementToPostEntity params) async {
-    print('=> => => => PARAMS:    ${(params as AnnouncementToPostModel).toJson()}    <= <= <= <=');
-
+  Future<Either<Failure, void>> call(AnnouncementToPostModel params) async {
+    print('=> => => => PARAMS:    ${params.toJson()}    <= <= <= <=');
+    await Future.delayed(Duration(milliseconds: 1000));
     List<MultipartFile> images = [];
 
     for (final element in params.gallery) {
@@ -26,6 +25,12 @@ class CreateAnnouncementUseCase
       images.add(multiParFile);
     }
     print('=> => => => images:    $images    <= <= <= <=');
+
+    Map<String, dynamic> damages = <String, dynamic>{};
+
+    for (int i = 0; i < params.damagedParts.length; i++) {
+      damages[params.damagedParts[i].part] = params.damagedParts[i].damageType;
+    }
     final announcementFields = <String, dynamic>{
       'make': params.make,
       'model': params.model,
@@ -60,14 +65,15 @@ class CreateAnnouncementUseCase
       'ownership': params.ownership,
       'location_url': params.locationUrl,
       'gallery': images,
-      'damaged_parts': [
-        {"part": "rigth_front_door", "damage_type": "ideal"}
-        
-      ]
+      'damaged_parts': damages,
     };
 
     final announcementFormData = FormData.fromMap(announcementFields);
+print('=> => => =>  boundary:   ${announcementFormData.boundary}    <= <= <= <=');
+print('=> => => =>   filds:   ${announcementFormData.fields}    <= <= <= <=');
 
+print('=> => => =>  files length:   ${announcementFormData.files.length}    <= <= <= <=');
+print('=> => => =>   length:   ${announcementFormData.length}    <= <= <= <=');
     return repository.createAnnouncement(
       announcementFormData: announcementFormData,
     );
