@@ -64,4 +64,5 @@ class AppImages {
   static const bad_one = 'assets/images/car_single/bad_one.png';
   static const bad_two = 'assets/images/car_single/bad_two.png';
   static const bad_three = 'assets/images/car_single/bad_three.png';
+  static const price_cases = 'assets/images/car_single/price_case.png';
 }

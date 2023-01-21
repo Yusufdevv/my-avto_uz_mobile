@@ -20,7 +20,6 @@ import 'package:auto/features/car_single/presentation/widgets/persistant_header.
 import 'package:auto/features/car_single/presentation/widgets/vin_soon_item.dart';
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
 import 'package:auto/features/common/widgets/custom_screen.dart';
-import 'package:auto/features/common/widgets/internet_error_bottomsheet.dart';
 import 'package:auto/features/main/presentation/widgets/ads_item.dart';
 import 'package:auto/features/pagination/presentation/paginator.dart';
 import 'package:auto/utils/my_functions.dart';
@@ -82,7 +81,7 @@ class _CarSingleScreenState extends State<CarSingleScreen>
         OtherAdsUseCase(repository: serviceLocator<CarSingleRepositoryImpl>()),
         SoldAdsUseCase(repository: serviceLocator<CarSingleRepositoryImpl>()),
         CallCount(repository: serviceLocator<CarSingleRepositoryImpl>()))
-      ..add(CarSingleEvent.getSingle(widget.id));
+      ..add(CarSingleEvent.getSingle(widget.id  ));
     _scrollController.addListener(() {
       if (_scrollController.offset > 285 && isAppBarOffset != true) {
         actionState = CrossFadeState.showSecond;
@@ -167,10 +166,11 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                             images: state.singleEntity.gallery,
                             onDealer: () {},
                             onCompare: () {},
-                            isMine: false,
+                            isMine: true,
                             status: state.soldStatus,
                             onSold: () {
                               showModalBottomSheet(
+                                backgroundColor: Colors.transparent,
                                 context: context,
                                 builder: (context) => const ConfirmBottomSheet(
                                   title:
@@ -217,20 +217,7 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                               currency: state.singleEntity.currency == 'usd'
                                   ? 'USD'
                                   : 'UZS',
-                              onVin: () {
-                                showModalBottomSheet(
-                                  context: context,
-                                  backgroundColor: Colors.transparent,
-                                  constraints: const BoxConstraints(
-                                    maxHeight: 369,
-                                    minHeight: 369,
-                                  ),
-                                  builder: (context) =>
-                                      InternetErrorBottomSheet(
-                                    onTap: () {},
-                                  ),
-                                );
-                              },
+                              onVin: () {},
                               onComparison: () {},
                               onShare: () {
                                 Share.share(
@@ -248,21 +235,26 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                                   ? 'Да'
                                   : 'Нет',
                               priceBsh: state.singleEntity.price,
-                              middlePrice: '400 00 00',
-                              ration: '30 000 000',
+                              middlePrice: state
+                                  .singleEntity.priceAnalytics.averagePrice,
+                              ration: state
+                                  .singleEntity.priceAnalytics.priceDifference,
                               dateBsh: '25 mart',
-                              percent: '5',
+                              percent: MyFunctions.getFormatCost(
+                                  '${state.singleEntity.priceAnalytics.percentage}'),
                               isMine: true,
                               saleDays:
                                   '${DateTime.now().difference(DateTime.parse(state.singleEntity.publishedAt)).inDays + 1}',
                               addToFavorite: state.singleEntity.wishlistCount,
                               callToNumber: state.singleEntity.callCount,
-                              daysLeft: state.singleEntity.expiredAt != null &&
-                                      state.singleEntity.publishedAt != null
+                              daysLeft: state.singleEntity.expiredAt != '' &&
+                                      state.singleEntity.publishedAt != ''
                                   ? '${DateTime.parse(state.singleEntity.expiredAt).difference(DateTime.parse(state.singleEntity.publishedAt)).inDays + 1}'
                                   : 'Не указано',
                               compareId: state.singleEntity.id,
                               isCompared: state.singleEntity.isComparison,
+                              percenti:
+                                  state.singleEntity.priceAnalytics.percentage,
                             ),
                           ),
                           const SliverToBoxAdapter(

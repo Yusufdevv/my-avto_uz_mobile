@@ -1,7 +1,16 @@
 part of 'internet_bloc.dart';
 
-class InternetEvent {
+abstract class InternetEvent {}
+
+class GlobalCheck extends InternetEvent {
   final bool isConnected;
 
-  const InternetEvent({required this.isConnected});
+  GlobalCheck({required this.isConnected});
+}
+
+class TapCheck extends InternetEvent {
+  final bool isConnected;
+
+
+  TapCheck({required this.isConnected});
 }

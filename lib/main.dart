@@ -101,10 +101,8 @@ class _AppState extends State<App> {
     bloc = InternetBloc();
     streamSubscription = InternetConnectionChecker()
         .onStatusChange
-        .listen((InternetConnectionStatus status) {
-      print('internet status ---- ${status}');
-
-      context.read<InternetBloc>().add(InternetEvent(
+        .listen((status) {
+      context.read<InternetBloc>().add(GlobalCheck(
           isConnected: status == InternetConnectionStatus.connected));
     });
     super.initState();
@@ -181,10 +179,17 @@ class _AppState extends State<App> {
             onGenerateRoute: (settings) => SplashSc.route(),
             builder: (context, child) {
               SizeConfig().init(context);
+
               return BlocListener<AuthenticationBloc, AuthenticationState>(
                 listener: (context, state) {
                   switch (state.status) {
                     case AuthenticationStatus.unauthenticated:
+                      if(StorageRepository.getString('token',
+                          defValue: '').isNotEmpty) {
+                        navigator.pushAndRemoveUntil(
+                            fade(page: const HomeScreen()), (route) => false);
+                        break;
+                      }
                       if (!StorageRepository.getBool('onboarding',
                           defValue: false)) {
                         navigator.pushAndRemoveUntil(

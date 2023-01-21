@@ -92,8 +92,12 @@ CarSingleModel _$CarSingleModelFromJson(Map<String, dynamic> json) =>
       isComparison: json['is_comparison'] as bool? ?? false,
       year: json['year'] as int? ?? 0,
       isExpired: json['is_expired'] as bool? ?? false,
-      expiredAt: json['expired_at'] as String? ?? 'false',
+      expiredAt: json['expired_at'] as String? ?? '',
       isRentWithPurchase: json['is_rent_with_purchase'] as bool? ?? false,
+      priceAnalytics: json['price_analytics'] == null
+          ? const PriceAnalyticsEntity()
+          : const PriceAnalyticsConverter()
+              .fromJson(json['price_analytics'] as Map<String, dynamic>?),
     );
 
 Map<String, dynamic> _$CarSingleModelToJson(CarSingleModel instance) =>
@@ -154,4 +158,6 @@ Map<String, dynamic> _$CarSingleModelToJson(CarSingleModel instance) =>
       'is_rent_with_purchase': instance.isRentWithPurchase,
       'is_expired': instance.isExpired,
       'expired_at': instance.expiredAt,
+      'price_analytics':
+          const PriceAnalyticsConverter().toJson(instance.priceAnalytics),
     };

@@ -13,13 +13,14 @@ import 'package:flutter_svg/flutter_svg.dart';
 class CarNameWidget extends StatelessWidget {
   final String priceBsh;
   final bool isMine;
-  final String middlePrice;
-  final String ration;
+  final double middlePrice;
+  final double ration;
   final String dateBsh;
   final String percent;
   final String fullname;
   final String price;
   final String date;
+  final double percenti;
   final String currency;
   final String view;
   final String id;
@@ -71,7 +72,8 @@ class CarNameWidget extends StatelessWidget {
       required this.callToNumber,
       required this.daysLeft,
       required this.compareId,
-      required this.isCompared})
+      required this.isCompared,
+      required this.percenti})
       : super(key: key);
 
   @override
@@ -134,6 +136,7 @@ class CarNameWidget extends StatelessWidget {
                           date: dateBsh,
                           percent: percent,
                           currency: currency,
+                          percenti: percenti,
                         ),
                       );
                     },

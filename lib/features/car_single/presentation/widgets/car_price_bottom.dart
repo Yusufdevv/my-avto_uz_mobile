@@ -13,20 +13,22 @@ import 'package:flutter_svg/svg.dart';
 class CarPriceBottom extends StatelessWidget {
   final String price;
   final String currency;
-  final String middlePrice;
-  final String ration;
+  final double middlePrice;
+  final double ration;
   final String date;
   final String percent;
+  final double percenti;
 
-  const CarPriceBottom(
-      {Key? key,
-      required this.price,
-      required this.middlePrice,
-      required this.ration,
-      required this.date,
-      required this.percent,
-      required this.currency})
-      : super(key: key);
+  const CarPriceBottom({
+    Key? key,
+    required this.price,
+    required this.middlePrice,
+    required this.ration,
+    required this.date,
+    required this.percent,
+    required this.currency,
+    required this.percenti,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) => Container(
@@ -108,7 +110,9 @@ class CarPriceBottom extends StatelessWidget {
                 ),
               ),
             ),
-            const PriceStatisticItem(),
+            PriceStatisticItem(
+              percent: percenti, price: price,
+            ),
             CarsPrice(
               date: 'Соотношение',
               price: 'Дешевле с.ц:',
@@ -160,7 +164,7 @@ class CarPriceBottom extends StatelessWidget {
                   ],
                 ),
               ),
-            )
+            ),
           ],
         ),
       );
