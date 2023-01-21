@@ -63,12 +63,13 @@ class _FavouritePageState extends State<FavouritePage> {
             if (state.favoritesStatus.isSubmissionSuccess) {
               return state.favorites.isNotEmpty
                   ? AnimatedList(
+                      physics: const
+                       BouncingScrollPhysics(),
                       key: listkey,
                       initialItemCount: state.favorites.length,
                       itemBuilder: (context, index, animation) {
                         final item = state.favorites[index];
-                        final dealer =
-                            DealerFavEntity.fromJson(item.dealer);
+                        final dealer = DealerFavEntity.fromJson(item.dealer);
                         return Padding(
                             padding: EdgeInsets.only(
                                 top: index == 0 ? 16 : 0, bottom: 12),
