@@ -121,8 +121,10 @@ class _InfoResultContainerState extends State<InfoResultContainer> {
                         ),
                       ),
                     ),
-                  if (MyFunctions.enableForCalling(
-                      callFrom: widget.callFrom, callTo: widget.callTo))
+                  if (widget.callFrom.isNotEmpty &&
+                      widget.callTo.isNotEmpty &&
+                      MyFunctions.enableForCalling(
+                          callFrom: widget.callFrom, callTo: widget.callTo))
                     WButton(
                       onTap: () {
                         bottomSheetForCalling(context, widget.contactPhone);
