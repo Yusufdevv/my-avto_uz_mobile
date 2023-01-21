@@ -17,16 +17,16 @@ class AddedCar extends StatelessWidget {
   final String carSalary;
   final bool hasCallCard;
   final String ownerType;
-  const AddedCar(
-      {Key? key,
-      required this.hasCallCard,
-      required this.onTabClose,
-      required this.onTabCall,
-      required this.imageUrl,
-      required this.carName,
-      required this.carSalary,
-      required this.ownerType})
-      : super(key: key);
+  const AddedCar({
+    required this.hasCallCard,
+    required this.onTabClose,
+    required this.onTabCall,
+    required this.imageUrl,
+    required this.carName,
+    required this.carSalary,
+    required this.ownerType,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) => Container(
@@ -144,13 +144,13 @@ class AddedCar extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       SvgPicture.asset(
-                          ownerType == 'first'
+                          ownerType != 'first'
                               ? AppIcons.tablerInfo
                               : AppIcons.tablerPhone,
                           color: white),
                       const SizedBox(width: 4),
                       Text(
-                        ownerType == 'first' ? 'Купить' : LocaleKeys.call.tr(),
+                        ownerType != 'first' ? 'Купить' : LocaleKeys.call.tr(),
                         style: const TextStyle(
                           fontWeight: FontWeight.w600,
                           fontSize: 14,

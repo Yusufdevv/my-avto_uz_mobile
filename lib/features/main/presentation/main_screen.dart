@@ -187,8 +187,7 @@ class _MainScreenState extends State<MainScreen> {
                             onTap: () {},
                             isbak: true,
                             isClear: true,
-                          )))
-                                  .then((value) {
+                          ))).then((value) {
                             context.read<AnnouncementListBloc>().add(
                                 AnnouncementListEvent.getFilter(context
                                     .read<AnnouncementListBloc>()
@@ -200,10 +199,8 @@ class _MainScreenState extends State<MainScreen> {
                                           .state
                                           .selectId,
                                     )));
-                            context
-                                .read<AnnouncementListBloc>()
-                                .add(AnnouncementListEvent.getAnnouncementList());
-                            
+                            context.read<AnnouncementListBloc>().add(
+                                AnnouncementListEvent.getAnnouncementList());
                           }),
                           onTapShow: () {
                             Navigator.of(context).push(fade(
@@ -228,7 +225,11 @@ class _MainScreenState extends State<MainScreen> {
                           scrollDirection: Axis.horizontal,
                         ),
                       ),
-                      const TopBrands(),
+                      TopBrands(
+                        onTap: () => Navigator.of(context, rootNavigator: true)
+                            .push(fade(
+                                page: AdsScreen(isBack: false, onTap: () {}))),
+                      ),
                       const TopAds(),
                       BlocListener<WishlistAddBloc, WishlistAddState>(
                         listener: (context, stateWish) {

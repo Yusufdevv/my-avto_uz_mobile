@@ -122,7 +122,7 @@ class _InfoContainerState extends State<InfoContainer> {
                                 bottomLeft:
                                     Radius.circular(index == 0 ? 8 : 0)),
                           ),
-                          margin: const EdgeInsets.only(left: 2, right: 16),
+                          margin: const EdgeInsets.only(right: 16),
                           width: 264,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -149,6 +149,7 @@ class _InfoContainerState extends State<InfoContainer> {
                     else
                       Container(
                         height: 201,
+                        width: 280,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.only(
                             topLeft: index == 0
@@ -159,7 +160,6 @@ class _InfoContainerState extends State<InfoContainer> {
                                 : Radius.zero,
                           ),
                         ),
-                        margin: const EdgeInsets.symmetric(horizontal: 2),
                         child: CachedNetworkImage(
                           imageUrl: widget.gallery![index],
                           fit: BoxFit.cover,

@@ -10,7 +10,9 @@ import 'package:formz/formz.dart';
 
 class TopBrands extends StatelessWidget {
   final bool isText;
+  final Function() onTap;
   const TopBrands({
+    required this.onTap,
     this.isText = true,
     Key? key,
   }) : super(key: key);
@@ -38,12 +40,14 @@ class TopBrands extends StatelessWidget {
                 child: Paginator(
                   separatorBuilder: (context, index) =>
                       const SizedBox(width: 12),
-                  padding: const EdgeInsets.only(left: 16, right: 16, top: 8,bottom: 16),
+                  padding: const EdgeInsets.only(
+                      left: 16, right: 16, top: 8, bottom: 16),
                   scrollDirection: Axis.horizontal,
                   paginatorStatus: state.status,
                   itemBuilder: (context, index) => CarBrandItem(
                     carBrandEntity: state.brands[index],
                     hasShadow: true,
+                    onTap: onTap,
                   ),
                   itemCount: state.brands.length,
                   fetchMoreFunction: () {
@@ -63,7 +67,6 @@ class TopBrands extends StatelessWidget {
                   ),
                 ),
               ),
-              
             ],
           ),
         ),

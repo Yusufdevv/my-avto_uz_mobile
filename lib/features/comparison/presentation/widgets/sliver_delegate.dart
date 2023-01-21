@@ -120,23 +120,23 @@ class SliverWidget extends SliverPersistentHeaderDelegate {
                                                     .id)));
                                   },
                                   child: AddedCar(
-                                    ownerType: '',
-                                    // ownerType: comparisonBloc
-                                    //     .state.cars[index].announcement.ownership,
-                                    hasCallCard: MyFunctions.enableForCalling(
-                                      callFrom: comparisonBloc
-                                          .state
-                                          .cars[index]
-                                          .announcement
-                                          .mainData
-                                          .contactAvailableFrom,
-                                      callTo: comparisonBloc
-                                          .state
-                                          .cars[index]
-                                          .announcement
-                                          .mainData
-                                          .contactAvailableTo,
-                                    ),
+                                    ownerType: comparisonBloc.state.cars[index]
+                                        .announcement.ownership,
+                                    hasCallCard: true,
+                                    // hasCallCard: MyFunctions.enableForCalling(
+                                    //   callFrom: comparisonBloc
+                                    //       .state
+                                    //       .cars[index]
+                                    //       .announcement
+                                    //       .mainData
+                                    //       .contactAvailableFrom,
+                                    //   callTo: comparisonBloc
+                                    //       .state
+                                    //       .cars[index]
+                                    //       .announcement
+                                    //       .mainData
+                                    //       .contactAvailableTo,
+                                    // ),
                                     carName: comparisonBloc.state.cars[index]
                                         .announcement.mainData.model,
                                     carSalary:

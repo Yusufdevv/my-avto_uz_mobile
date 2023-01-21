@@ -30,7 +30,6 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
   late TextEditingController searchController;
 
   late ScrollController scrollController;
-  late ScrollController _scrollControllerTop;
   late ScrollingBloc scrollingBloc;
   Color color = Colors.transparent;
   bool isSerach = false;
@@ -57,7 +56,6 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
   @override
   Widget build(BuildContext context) => KeyboardDismisser(
         child: BlocBuilder<GetMakesBloc, GetMakesState>(
-          bloc: context.read<GetMakesBloc>(),
           builder: (context, state) => Scaffold(
             resizeToAvoidBottomInset: false,
             body: Stack(
@@ -135,7 +133,16 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
                       ),
                     ),
                     if (state.search.isEmpty)
-                      const SliverToBoxAdapter(child: TopBrands(isText: false)),
+                      SliverToBoxAdapter(
+                        child: TopBrands(
+                          onTap: widget.isbak == true
+                              ? () {
+                                  Navigator.pop(context);
+                                }
+                              : widget.onTap,
+                          isText: false,
+                        ),
+                      ),
                     if (state.search.isEmpty)
                       SliverToBoxAdapter(
                         child: Transform.translate(
@@ -195,13 +202,11 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
                   right: 16,
                   left: 16,
                   child: WButton(
-                    onTap: state.selectId == -1
-                        ? () {}
-                        : widget.isbak == true
-                            ? () {
-                                Navigator.pop(context);
-                              }
-                            : widget.onTap,
+                    onTap: widget.isbak == true
+                        ? () {
+                            Navigator.pop(context);
+                          }
+                        : widget.onTap,
                     text: 'Далее',
                     shadow: [
                       BoxShadow(
