@@ -2,6 +2,7 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/features/ad/data/repositories/ad_repository_impl.dart';
+import 'package:auto/features/ad/domain/usecases/create_announcement.dart';
 import 'package:auto/features/ad/domain/usecases/get_body_type.dart';
 import 'package:auto/features/ad/domain/usecases/get_car_model.dart';
 import 'package:auto/features/ad/domain/usecases/get_drive_type.dart';
@@ -39,6 +40,7 @@ import 'package:auto/features/rent/domain/usecases/get_gearboxess_usecase.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:formz/formz.dart';
 // acura
 // CL
 // 2000
@@ -64,6 +66,8 @@ class _PostingAdScreenState extends State<PostingAdScreen>
   void initState() {
     pageController = PageController(initialPage: initialPage);
     postingAdBloc = PostingAdBloc(
+      createUseCase: CreateAnnouncementUseCase(
+          repository: serviceLocator<AdRepositoryImpl>()),
       bodyTypesUseCase:
           GetBodyTypeUseCase(repository: serviceLocator<AdRepositoryImpl>()),
       gearboxUseCase:
@@ -220,7 +224,17 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                     physics: const NeverScrollableScrollPhysics(),
                     children: [
                       //0
-                      ChooseCarBrand(bloc: postingAdBloc),
+                      ChooseCarBrand(
+                        bloc: postingAdBloc,
+                        onTopBrandPressed: () {
+                          currentTabIndex++;
+                          addEvent(currentTabIndex, state);
+                          pageController.animateToPage(currentTabIndex,
+                              duration: const Duration(milliseconds: 150),
+                              curve: Curves.linear);
+                          setState(() {});
+                        },
+                      ),
                       //1
                       ChooseCarModelScreen(makeId: state.makeId ?? -1),
                       //2
@@ -308,11 +322,14 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                         right: 16,
                         left: 16,
                         child: WButton(
+                          isLoading:
+                              state.status == FormzStatus.submissionInProgress,
                           onTap: () async {
+                            postingAdBloc.add(PostingAdCreateEvent());
                             // Navigator.pop(context);
-                            HomeTabControllerProvider.of(context)
-                                .controller
-                                .animateTo(4);
+                            // HomeTabControllerProvider.of(context)
+                            //     .controller
+                            //     .animateTo(4);
 
                             // await Navigator.push(context, fade(page: const MyAddsPage()));
                           },

@@ -29,7 +29,7 @@ class AdRepositoryImpl extends AdRepository {
     required FormData announcementFormData,
   }) async {
     try {
-      await remoteDataSource.createAnnouncement(
+      await remoteDataSource.createAnnouncementBrrrrrr(
         announcementFormData: announcementFormData,
       );
       return Right('success');

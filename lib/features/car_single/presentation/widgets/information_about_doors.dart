@@ -17,12 +17,12 @@ class InformationAboutDoors extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Row(
         children: [
-          MyFunctions().getStatusIcon(informAboutDoors[index].damageType),
+          MyFunctions.getStatusIcon(informAboutDoors[index].damageType),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                MyFunctions().getDoorName(informAboutDoors[index].part),
+                MyFunctions.getDoorName(informAboutDoors[index].part),
                 style: const TextStyle(
                   color: grey,
                   fontWeight: FontWeight.w400,
@@ -30,8 +30,7 @@ class InformationAboutDoors extends StatelessWidget {
                 ),
               ),
               Text(
-                MyFunctions()
-                    .getStatusTitle(informAboutDoors[index].damageType),
+                MyFunctions.getStatusTitle(informAboutDoors[index].damageType),
                 style: TextStyle(
                   color:
                       Theme.of(context).extension<ThemedColors>()!.darkToWhite,

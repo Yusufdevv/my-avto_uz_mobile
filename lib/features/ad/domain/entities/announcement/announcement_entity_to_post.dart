@@ -3,29 +3,7 @@
 import 'package:auto/features/ad/domain/entities/damaged_part/damaged_part.dart';
 import 'package:equatable/equatable.dart';
 
-enum Ownership { original, duplicate }
 
-enum PurchaseDate { first, second, third, other }
-
-enum Currency { uzs, usd, euro }
-
-enum DamagePart {
-  rigth_front_door,
-  right_rear_door,
-  left_front_door,
-  left_rear_door,
-  front_bumper,
-  rear_bumper,
-  front_left_fender,
-  front_right_fender,
-  rear_left_fender,
-  rear_right_fender,
-  roof,
-  hood,
-  trunk
-}
-
-enum DamageType { ideal, with_dents, scratched, replaced, requires_replacement }
 
 class AnnouncementToPostEntity extends Equatable {
   final int id;

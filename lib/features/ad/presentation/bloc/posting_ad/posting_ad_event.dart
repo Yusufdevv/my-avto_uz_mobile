@@ -1,13 +1,19 @@
 part of 'posting_ad_bloc.dart';
 
 abstract class PostingAdEvent {}
+class PostingAdDamageEvent extends PostingAdEvent{
+  final DamagedParts part;
+  final DamageType type;
 
+  PostingAdDamageEvent({required this.part,required this.type});
+}
+
+class PostingAdCreateEvent extends PostingAdEvent {
+}
 class PostingAdBodyTypesEvent extends PostingAdEvent {
-  PostingAdBodyTypesEvent();
 }
 
 class PostingAdGearBoxesEvent extends PostingAdEvent {
-  PostingAdGearBoxesEvent();
 }
 
 class PostingAdModelEvent extends PostingAdEvent {
@@ -44,6 +50,8 @@ class PostingAdChooseEvent extends PostingAdEvent {
   final Region? region;
   final YearsEntity? yearsEntity;
   final DistrictEntity? district;
+  final List<RentWithPurchaseEntity>? rentWithPurchaseConditions;
+  final Map<DamagedParts, DamageType>? damagedParts;
   final int? modelId;
   final int? generationId;
 
@@ -60,7 +68,7 @@ class PostingAdChooseEvent extends PostingAdEvent {
   final String? ownerEmail;
   final String? ownerPhone;
   final String? ownerName;
-  final String? boughtTime;
+  final String? purchasedDate;
   final String? description;
   final String? city;
   final String? price;
@@ -79,8 +87,12 @@ class PostingAdChooseEvent extends PostingAdEvent {
   final bool? rentToBuy;
   final bool? isWithoutMileage;
   final bool? showExactAddress;
+  final bool? isNew;
 
   PostingAdChooseEvent({
+    this.damagedParts,
+    this.isNew,
+    this.rentWithPurchaseConditions,
     this.gallery,
     this.showExactAddress,
     this.district,
@@ -97,7 +109,7 @@ class PostingAdChooseEvent extends PostingAdEvent {
     this.colorName,
     this.typeDocument,
     this.ownerStep,
-    this.boughtTime,
+    this.purchasedDate,
     this.isRastamojen,
     this.description,
     this.ownerEmail,

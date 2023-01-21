@@ -23,7 +23,7 @@ class CarStatusIconInPicture extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Visibility(
-        visible: MyFunctions().getStatusTitle(informAboutDoors[
+        visible: MyFunctions.getStatusTitle(informAboutDoors[
                     informAboutDoors
                         .indexWhere((element) {
                           print(informAboutDoors.indexOf(element));
@@ -36,7 +36,7 @@ class CarStatusIconInPicture extends StatelessWidget {
           top: top,
           left: left,
           bottom: bottom,
-          child: MyFunctions().getStatusIcon(informAboutDoors[
+          child: MyFunctions.getStatusIcon(informAboutDoors[
                   informAboutDoors
                       .indexWhere((element) => element.part == doorName)]
               .damageType),

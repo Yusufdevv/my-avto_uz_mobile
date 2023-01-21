@@ -75,7 +75,7 @@ abstract class AdRemoteDataSource {
     String? next,
   });
 
-  Future<void> createAnnouncement({
+  Future<void> createAnnouncementBrrrrrr({
     required FormData announcementFormData,
   });
 
@@ -471,7 +471,7 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
   }
 
   @override
-  Future<void> createAnnouncement({
+  Future<void> createAnnouncementBrrrrrr({
     required FormData announcementFormData,
   }) async {
     try {
@@ -482,7 +482,7 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
           headers: StorageRepository.getString('token').isNotEmpty
               ? {
                   'Authorization':
-                      'Token ${StorageRepository.getString('token')}'
+                      'Bearer ${StorageRepository.getString('token')}'
                 }
               : {},
         ),

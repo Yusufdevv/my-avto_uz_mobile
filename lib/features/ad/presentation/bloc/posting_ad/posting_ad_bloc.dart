@@ -1,24 +1,28 @@
 import 'dart:async';
 
-import 'package:auto/assets/themes/theme_extensions/themed_icons.dart';
-import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/core/usecases/usecase.dart';
+import 'package:auto/features/ad/const/constants.dart';
+import 'package:auto/features/ad/data/models/announcement_to_post_model.dart';
+import 'package:auto/features/ad/domain/entities/announcement/announcement_entity_to_post.dart';
+import 'package:auto/features/ad/domain/entities/damaged_part/damaged_part.dart';
 import 'package:auto/features/ad/domain/entities/district_entity.dart';
 import 'package:auto/features/ad/domain/entities/generation/generation.dart';
+import 'package:auto/features/ad/domain/entities/rent_with_purchase/rent_with_purchase_entity.dart';
 import 'package:auto/features/ad/domain/entities/types/body_type.dart';
 import 'package:auto/features/ad/domain/entities/types/drive_type.dart';
 import 'package:auto/features/ad/domain/entities/types/engine_type.dart';
 import 'package:auto/features/ad/domain/entities/types/gearbox_type.dart';
 import 'package:auto/features/ad/domain/entities/types/make.dart';
 import 'package:auto/features/ad/domain/entities/years/years.dart';
+import 'package:auto/features/ad/domain/usecases/create_announcement.dart';
 import 'package:auto/features/ad/domain/usecases/get_body_type.dart';
 import 'package:auto/features/ad/domain/usecases/get_car_model.dart';
 import 'package:auto/features/ad/domain/usecases/get_drive_type.dart';
 import 'package:auto/features/ad/domain/usecases/get_engine_type.dart';
 import 'package:auto/features/ad/domain/usecases/get_generation.dart';
 import 'package:auto/features/ad/domain/usecases/get_makes.dart';
+import 'package:auto/features/ad/presentation/pages/damage/widgets/cars_item.dart';
 import 'package:auto/features/common/models/region.dart';
-import 'package:auto/features/login/domain/usecases/send_code.dart';
 import 'package:auto/features/main/domain/usecases/get_top_brand.dart';
 import 'package:auto/features/rent/domain/usecases/get_gearboxess_usecase.dart';
 import 'package:bloc/bloc.dart';
@@ -29,6 +33,7 @@ part 'posting_ad_event.dart';
 part 'posting_ad_state.dart';
 
 class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
+  final CreateAnnouncementUseCase createUseCase;
   final GetGearBoxessUseCase gearboxUseCase;
   final GetDriveTypeUseCase driveTypeUseCase;
   final GetEngineTypeUseCase engineUseCase;
@@ -47,11 +52,9 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     required this.driveTypeUseCase,
     required this.gearboxUseCase,
     required this.bodyTypesUseCase,
+    required this.createUseCase,
   }) : super(const PostingAdState(status: FormzStatus.pure)) {
-    on
-
-        /// A generic type.
-        <PostingAdChooseEvent>(_choose);
+    on<PostingAdChooseEvent>(_choose);
     on<PostingAdMakesEvent>(_makes);
     on<PostingAdTopMakesEvent>(_topMakes);
     on<PostingAdChangeAppBarShadowEvent>(_changeAppBarShadow);
@@ -61,9 +64,84 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     on<PostingAdDriveTypesEvent>(_driveTypes);
     on<PostingAdGearBoxesEvent>(_gearBoxes);
     on<PostingAdBodyTypesEvent>(_bodyTypes);
+    on<PostingAdCreateEvent>(_create);
+    on<PostingAdDamageEvent>(_damage);
   }
 
-  /// PostingAdState
+  FutureOr<void> _damage(
+      PostingAdDamageEvent event, Emitter<PostingAdState> emit) {
+    print('=> => => =>     ${event.part} / ${event.type}    <= <= <= <=');
+    final damages =
+        state.damagedParts.map((key, value) => MapEntry(key, value));
+    print('=> => => => initialized by state    $damages    <= <= <= <=');
+    damages[event.part] = event.type;
+    print('=> => => => after ad     $damages    <= <= <= <=');
+    emit(state.copyWith(damagedParts: damages));
+  }
+
+  FutureOr<void> _create(
+      PostingAdCreateEvent event, Emitter<PostingAdState> emit) async {
+    print(
+        '=> => => => purchase date:  ${state.purchasedDate!.substring(0, 10)}    <= <= <= <=');
+    print('=> => => =>  gallery:   ${state.gallery}    <= <= <= <=');
+    print('=> => => =>  typeDocument:   ${state.typeDocument}    <= <= <= <=');
+    print('=> => => =>  ownerStep:   ${state.ownerStep}    <= <= <= <=');
+
+    print('=> => => =>  ownerStep:   ${state.currency}    <= <= <= <=');
+    emit(state.copyWith(status: FormzStatus.submissionInProgress));
+    final result = await createUseCase.call(
+      AnnouncementToPostModel(
+        id: -1,
+        bodyType: state.bodyTypeId!,
+        color: state.colorName,
+        contactAvailableFrom: state.callTimeFrom!.replaceAll(' ', ''),
+        contactAvailableTo: state.callTimeTo!.replaceAll(' ', ''),
+        contactEmail: state.ownerEmail,
+        contactName: state.ownerName!,
+        contactPhone: state.ownerPhone!,
+        currency: state.currency!,
+        damagedParts: state.damagedParts.entries
+            .map((e) =>
+                DamagedPartEntity(damageType: e.value.value, part: e.key.value))
+            .toList(),
+        description: state.descriptions,
+        distanceTraveled: int.tryParse(state.mileage ?? '1000') ?? 1000,
+        district: state.district!.id,
+        driveType: state.driveTypeId!,
+        engineType: state.engineId!,
+        gallery: state.gallery,
+        gearboxType: state.gearboxId!,
+        generation: state.generationId!,
+        isNew: state.isWithoutMileage,
+        isRegisteredLocally: state.registeredInUzbekistan,
+        licenceType: state.typeDocument ?? 'original',
+        locationUrl:
+            'https://www.google.com/maps/place/Grand+Mir+Hotel/@41.2965807,69.275822,15z/data=!4m8!3m7!1s0x38ae8adce9ab4089:0x3f74710c22b9462e!5m2!4m1!1i2!8m2!3d41.296393!4d69.267908',
+        make: state.makeId!,
+        model: state.modelId!,
+        modificationType: 2,
+        ownership: state.ownerStep!,
+        price: state.price!,
+        purchaseDate: '2022-11-23',
+        //             2018-01-20 22:02:42.000
+        region: state.region!.id,
+        registeredInUzbekistan: true,
+        registrationCertificate: 'KENTEKENMEWIJS',
+        registrationPlate: 'KENTEKENMEWIJS',
+        registrationSerialNumber: '234524523423452435',
+        registrationVin: 'KENTEKENMEWIJS',
+        year: state.yearsEntity!.id,
+      ),
+    );
+    if (result.isRight) {
+      print('=> => => =>     RIGHT RIGHT RIGHT RIGHT       <= <= <= <=');
+      emit(state.copyWith(status: FormzStatus.pure));
+    } else {
+      print(
+          '=> => => =>     LEFT LEFT LEFT LEFT LEFT   ${result.left}  <= <= <= <=');
+      emit(state.copyWith(status: FormzStatus.pure));
+    }
+  }
 
   FutureOr<void> _bodyTypes(
       PostingAdBodyTypesEvent event, Emitter<PostingAdState> emit) async {
@@ -191,13 +269,6 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
 
     final result = await topMakesUseCase.call(event.name);
     if (result.isRight) {
-      // List<MakeEntity> v = <MakeEntity>[];
-      // if (result.right.results.length > 10) {
-      //   v = result.right.results.getRange(0,10).toList();
-      // } else {
-      //   v = result.right.results;
-      // }
-
       emit(state.copyWith(
         status: FormzStatus.submissionSuccess,
         topMakes: result.right.results,
@@ -246,6 +317,8 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
   void _choose(PostingAdChooseEvent event, Emitter<PostingAdState> emit) {
     emit(
       state.copyWith(
+        damagedParts: event.damagedParts,
+        rentWithPurchaseConditions: event.rentWithPurchaseConditions,
         gallery: event.gallery,
         showExactAddress: event.showExactAddress,
         isWithoutMileage: event.isWithoutMileage,
@@ -269,8 +342,8 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
         modelId: event.modelId,
         letter: event.letter,
         makeId: event.makeId,
-        boughtTime: event.boughtTime,
-        isRastamojen: event.isRastamojen,
+        purchasedDate: event.purchasedDate,
+        registeredInUzbekistan: event.isRastamojen,
         ownerEmail: event.ownerEmail,
         ownerName: event.ownerName,
         ownerPhone: event.ownerPhone,

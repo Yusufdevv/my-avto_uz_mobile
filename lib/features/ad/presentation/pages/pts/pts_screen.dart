@@ -1,6 +1,8 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/features/ad/const/constants.dart';
+import 'package:auto/features/ad/domain/entities/announcement/announcement_entity_to_post.dart';
 import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.dart';
 import 'package:auto/features/ad/presentation/bloc/pts/date_picker_bloc.dart';
 import 'package:auto/features/ad/presentation/pages/pts/widgets/pts_buttons.dart';
@@ -69,25 +71,22 @@ class _PtsScreenState extends State<PtsScreen> {
                           (index) => PtsButtons(
                             onTap: (id) => context.read<PostingAdBloc>().add(
                                 PostingAdChooseEvent(
-                                    typeDocument: documentList[index])),
+                                    typeDocument:
+                                        LicenceType.values[index].name)),
                             id: index.toString(),
-                            isSelected:
-                                state.typeDocument == documentList[index],
+                            isSelected: state.typeDocument ==
+                                LicenceType.values[index].name,
                             text: documentList[index],
                           ),
                         ),
                       ),
-                      const SizedBox(
-                        height: 41,
-                      ),
+                      const SizedBox(height: 41),
                       Text(
                         'Какой вы владелец?',
                         style: Theme.of(context).textTheme.bodyText1!.copyWith(
                             fontWeight: FontWeight.w600, fontSize: 16),
                       ),
-                      const SizedBox(
-                        height: 8,
-                      ),
+                      const SizedBox(height: 8),
                       Wrap(
                         spacing: 8,
                         children: List.generate(
@@ -95,16 +94,15 @@ class _PtsScreenState extends State<PtsScreen> {
                           (index) => PtsButtons(
                             onTap: (id) => context.read<PostingAdBloc>().add(
                                 PostingAdChooseEvent(
-                                    ownerStep: ownerList[index])),
+                                    ownerStep: Ownership.values[index].name)),
                             id: index.toString(),
-                            isSelected: state.ownerStep == ownerList[index],
+                            isSelected:
+                                state.ownerStep == Ownership.values[index].name,
                             text: ownerList[index],
                           ),
                         ),
                       ),
-                      const SizedBox(
-                        height: 41,
-                      ),
+                      const SizedBox(height: 41),
                       Text(
                         'Когда был куплен автомобиль?',
                         style: Theme.of(context).textTheme.bodyText1!.copyWith(
@@ -118,13 +116,13 @@ class _PtsScreenState extends State<PtsScreen> {
                           showCupertinoDatePicker(
                             context,
                             (date) => context.read<PostingAdBloc>().add(
-                                  PostingAdChooseEvent(boughtTime: '$date'),
+                                  PostingAdChooseEvent(purchasedDate: '$date'),
                                 ),
                           );
                         },
-                        title: state.boughtTime != null &&
-                                state.boughtTime!.isNotEmpty
-                            ? MyFunctions.getData(state.boughtTime!)
+                        title: state.purchasedDate != null &&
+                                state.purchasedDate!.isNotEmpty
+                            ? MyFunctions.getData(state.purchasedDate!)
                             : 'Выберите дату',
                         trailingIcon: AppIcons.calendar,
                         border: Border.all(

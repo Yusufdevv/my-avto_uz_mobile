@@ -79,6 +79,15 @@ class _ContactScreenState extends State<ContactScreen> {
               builder: (context, postingAdState) =>
                   BlocConsumer<ContactsBloc, ContactsState>(
                 listener: (context, state) {
+                  if (state.isSubmitted) {
+                    context.read<PostingAdBloc>().add(PostingAdChooseEvent(
+                      
+                          ownerEmail: state.userModel!.email,
+                          ownerName: state.userModel!.fullName,
+                          ownerPhone: state.userModel!.phoneNumber,
+                        ));
+                  }
+
                   if (state.status == FormzStatus.submissionFailure ||
                       state.getUserStatus == FormzStatus.submissionFailure) {
                     context.read<ShowPopUpBloc>().add(
