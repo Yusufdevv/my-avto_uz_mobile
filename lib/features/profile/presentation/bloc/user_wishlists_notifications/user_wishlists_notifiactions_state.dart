@@ -1,5 +1,6 @@
 part of 'user_wishlists_notification_bloc.dart';
 
+// ignore: must_be_immutable
 class UserWishListsState extends Equatable {
   List<AutoEntity> favorites;
   final List<AutoEntity> myAds;

@@ -108,8 +108,13 @@ class _LoginScreenState extends State<LoginScreen> {
                 const SizedBox(height: 36),
                 ZTextFormField(
                   onTap: hidePopUp,
-                  onChanged: (onChanged) {
+                  onChanged: (value) {
+                    print('=======value ${value}');
                     setState(() {});
+                    print('=======phone length ${phoneController.text.length}');
+                    print('=======pas  ${passwordController.text.length >= 4}');
+                    print(
+                        '======= ${(passwordController.text.length >= 4 && phoneController.text.length > 11)}');
                   },
                   controller: phoneController,
                   prefixIcon: Row(
@@ -132,7 +137,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   hintTextStyle: Theme.of(context)
                       .textTheme
                       .subtitle1!
-                      .copyWith(fontSize: 15,color: warmerGrey),
+                      .copyWith(fontSize: 15, color: warmerGrey),
                   keyBoardType: TextInputType.number,
                   textInputFormatters: [phoneFormatter],
                 ),
@@ -141,6 +146,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   onTap: hidePopUp,
                   onChanged: (value) {
                     setState(() {});
+                    print(
+                        '======= ${(passwordController.text.length >= 4 && phoneController.text.length > 11)}');
                   },
                   hintText: 'Пароль',
                   controller: passwordController,
@@ -163,8 +170,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 const SizedBox(height: 24),
                 WButton(
-                  isDisabled: !(passwordController.text.length >= 4 &&
-                      phoneController.text.length == 12),
                   isLoading: context.watch<AuthenticationBloc>().state.status ==
                       AuthenticationStatus.loading,
                   onTap: passwordController.text.length >= 4 &&
@@ -192,8 +197,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   ],
                   margin: EdgeInsets.only(
                     bottom: 20 + MediaQuery.of(context).padding.bottom,
-                    right: 16,
-                    left: 16,
                   ),
                   text: 'Продолжить',
                   border: Border.all(
@@ -202,6 +205,10 @@ class _LoginScreenState extends State<LoginScreen> {
                         .extension<ThemedColors>()!
                         .whiteToDolphin,
                   ),
+                  color: (passwordController.text.length >= 4 &&
+                          phoneController.text.length > 11)
+                      ? orange
+                      : warmerGrey,
                 ),
               ],
             ),

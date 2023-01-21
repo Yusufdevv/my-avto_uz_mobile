@@ -32,21 +32,31 @@ class _DirectoryPageState extends State<DirectoryPage> {
   late TextEditingController controller;
   @override
   void initState() {
-    controller =TextEditingController();
+    controller = TextEditingController();
     final repo = serviceLocator<GetUserListRepoImpl>();
     bloc = DirectoryBloc(
         getDirCategoriesUseCase: GetDirCategoriesUseCase(repository: repo),
         getDirectoriesUseCase: GetDirectoriesUseCase(repository: repo),
-        directorySingleSingleUseCase: DirectorySingleSingleUseCase(repository: repo)
-        );
+        directorySingleSingleUseCase:
+            DirectorySingleSingleUseCase(repository: repo));
+
     super.initState();
   }
 
   @override
-  Widget build(BuildContext context) => BlocProvider.value(
-        value: bloc,
-        child: AnnotatedRegion(
-          value: const SystemUiOverlayStyle(statusBarColor: Colors.transparent),
+  Widget build(BuildContext context) {
+    print('=======.state.selectedCategories ${bloc.state.selectedCategories}');
+
+    return BlocProvider.value(
+      value: bloc,
+      child: AnnotatedRegion(
+        value: const SystemUiOverlayStyle(statusBarColor: Colors.transparent),
+        child: WillPopScope(
+          onWillPop: () async {
+            bloc.add(DirectoryFilterEvent(
+                regions: '', regionId: '', selectedCategories: []));
+            return true;
+          },
           child: KeyboardDismisser(
             child: Scaffold(
               body: DefaultTabController(
@@ -67,7 +77,13 @@ class _DirectoryPageState extends State<DirectoryPage> {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             GestureDetector(
-                              onTap: () => Navigator.pop(context),
+                              onTap: () {
+                                bloc.add(DirectoryFilterEvent(
+                                    regions: '',
+                                    regionId: '',
+                                    selectedCategories: []));
+                                Navigator.pop(context);
+                              },
                               child: SvgPicture.asset(AppIcons.chevronLeft),
                             ),
                             const SizedBox(width: 20),
@@ -95,17 +111,17 @@ class _DirectoryPageState extends State<DirectoryPage> {
                                 borderRadius: 8,
                               ),
                             ),
-                            const SizedBox(width: 11),
+                            const SizedBox(width: 12),
                             WButton(
                                 onTap: () {
                                   FocusScope.of(context).unfocus();
-                                  controller.text='';
+                                  controller.text = '';
                                   Navigator.of(context, rootNavigator: true)
-                                        .push(fade(
-                                            page: BlocProvider.value(
-                                      value: bloc,
-                                      child: DirectoryFilterPage(bloc: bloc),
-                                    )));
+                                      .push(fade(
+                                          page: BlocProvider.value(
+                                    value: bloc,
+                                    child: DirectoryFilterPage(bloc: bloc),
+                                  )));
                                 },
                                 borderRadius: 12,
                                 color: Theme.of(context)
@@ -137,5 +153,7 @@ class _DirectoryPageState extends State<DirectoryPage> {
             ),
           ),
         ),
-      );
+      ),
+    );
+  }
 }

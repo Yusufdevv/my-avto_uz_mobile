@@ -36,7 +36,7 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
                 onTap: () => Navigator.of(context, rootNavigator: true)
                     .push(fade(page: const NotificationPage())),
                 child: SvgPicture.asset(
-                   context.read<AuthenticationBloc>().state.user.isNotificationAllRead ? AppIcons.bell :  
+                   context.read<AuthenticationBloc>().state.user.isReadAllNotifications ? AppIcons.bell :  
                   AppIcons.bellWithCircle
                 ),
               ),

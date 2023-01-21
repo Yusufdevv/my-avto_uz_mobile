@@ -3,6 +3,7 @@ import 'package:auto/assets/constants/images.dart';
 import 'package:auto/core/utils/size_config.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/profile/presentation/bloc/user_wishlists_notifications/user_wishlists_notification_bloc.dart';
+import 'package:auto/utils/my_functions.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -51,17 +52,17 @@ class NotificationSinglePage extends StatelessWidget {
                           children: [
                             SizedBox(height: SizeConfig.v(16)),
                             Text(
-                                '#${notification.category?.name} • 2 часа назад',
+                                '#${notification.category?.name} • ${MyFunctions.getAutoPublishDate(notification.createdAt!)}',
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyText1
                                     ?.copyWith(color: greyText, fontSize: 13)),
                             SizedBox(height: SizeConfig.v(8)),
-                            if(notification.title!=null) 
-                            Text(
-                              notification.title!,
-                              style: Theme.of(context).textTheme.headline1,
-                            ),
+                            if (notification.title != null)
+                              Text(
+                                notification.title!,
+                                style: Theme.of(context).textTheme.headline1,
+                              ),
                             SizedBox(height: SizeConfig.v(6)),
                             const Divider(height: 12),
                           ],

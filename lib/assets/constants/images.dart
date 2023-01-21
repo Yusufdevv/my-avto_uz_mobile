@@ -16,6 +16,7 @@ class AppImages {
   static const tahoe = 'assets/images/global/tahoe.png';
   static const clap = 'assets/images/global/clap.png';
   static const magic = 'assets/images/global/magic.png';
+  static const carLogo = 'assets/images/global/car_logo.svg';
   static const orangePolygon = 'assets/images/global/orange_polygon.png';
   static const chevrolet = 'assets/images/global/chevrolet.png';
   static const carcase = 'assets/images/global/carcase.png';
