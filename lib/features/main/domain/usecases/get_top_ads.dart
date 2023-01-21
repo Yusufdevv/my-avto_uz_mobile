@@ -9,11 +9,10 @@ class GetTopAdsUseCase extends UseCase<GenericPagination<AdModel>, String> {
   final PaginationRepository repo = PaginationRepository();
 
   @override
-  Future<Either<Failure, GenericPagination<AdModel>>> call(String params) =>
+  Future<Either<Failure, GenericPagination<AdModel>>> call(String? params) =>
       repo.fetchMore(
         url: '/car/top-announcements/',
-        next: '',
+        next: params,
         fromJson: AdModel.fromJson,
-        query: {'limit': 10},
       );
 }

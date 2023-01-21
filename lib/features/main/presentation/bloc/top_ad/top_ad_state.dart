@@ -7,7 +7,7 @@ class TopAdState with _$TopAdState {
     @Default(FormzStatus.pure) FormzStatus favoritesStatus,
     @Default([]) List<AdModel> topAds,
     @Default([]) List<AutoEntity> favorites,
-    @Default('') String next,
+    String? next,
     @Default(0) int count,
   }) = _TopAdState;
 }
