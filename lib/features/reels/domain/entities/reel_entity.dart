@@ -33,7 +33,7 @@ class ReelEntity extends Equatable {
     this.isLiked = true,
   });
 
-  @override
+  @override 
   List<Object?> get props => [
         id,
         title,

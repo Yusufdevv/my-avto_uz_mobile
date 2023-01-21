@@ -270,7 +270,7 @@ class _FavoriteItemState extends State<FavoriteItem> {
                   children: [
                     Text(
                       widget.discount > 0.0
-                          ? '${widget.discount.floor()} ${widget.currency.toUpperCase()}'
+                          ? '${(widget.price-widget.discount).floor()} ${widget.currency.toUpperCase()}'
                           : '${widget.price.floor()} ${widget.currency.toUpperCase()}',
                       style: Theme.of(context)
                           .textTheme

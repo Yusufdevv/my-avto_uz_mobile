@@ -76,7 +76,7 @@ class _ContentItemState extends State<ContentItem> {
         Positioned(
           left: 16,
           bottom: MediaQuery.of(context).padding.bottom + 93,
-          child: widget.reel.hasDiscount
+          child: double.parse(widget.reel.announcement.discount) > 0.0
               ? WButton(
                   onTap: () {},
                   padding: const EdgeInsets.fromLTRB(16, 12, 8, 16),
@@ -87,8 +87,8 @@ class _ContentItemState extends State<ContentItem> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        '${MyFunctions.getFormatCost(widget.reel.oldPrice)} '
-                        '${widget.reel.announcement.currency}',
+                        '${MyFunctions.getFormatCost((double.parse(widget.reel.announcement.price) - double.parse(widget.reel.announcement.discount)).toString())} '
+                        '${(widget.reel.announcement.currency).toUpperCase()}',
                         style: Theme.of(context).textTheme.headline5!.copyWith(
                               decoration: TextDecoration.lineThrough,
                               color: black.withOpacity(.5),
@@ -99,7 +99,7 @@ class _ContentItemState extends State<ContentItem> {
                         children: [
                           Text(
                             '${MyFunctions.getFormatCost(widget.reel.announcement.price)} '
-                            '${widget.reel.announcement.currency}',
+                            '${(widget.reel.announcement.currency).toUpperCase()}',
                             style: Theme.of(context)
                                 .textTheme
                                 .headline4!
@@ -147,8 +147,8 @@ class _ContentItemState extends State<ContentItem> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        '${MyFunctions.getFormatCost(widget.reel.announcement.price)} '
-                        '${widget.reel.announcement.currency}',
+                        '${MyFunctions.getFormatCost((widget.reel.announcement.price).toString())} '
+                        '${(widget.reel.announcement.currency).toUpperCase()}',
                         style: Theme.of(context)
                             .textTheme
                             .headline4!
