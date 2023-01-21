@@ -52,6 +52,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
         repository: AuthRepository())
       ..add(GetProfileEvent());
     imageBloc = ImageBloc();
+    print('=======profile isread ${context
+                                    .read<AuthenticationBloc>()
+                                    .state
+                                    .user
+                                    .isReadAllNotifications}');
     super.initState();
   }
 
@@ -82,8 +87,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 return const Center(child: Text('Fail'));
               } else if (state.status.isSubmissionSuccess) {
                 profileData = state.profileEntity;
-                print(
-                    '=======notiAllread ${context.read<AuthenticationBloc>().state.user.isNotificationAllRead}');
                 // ignore: prefer_final_locals
                 var usercountData = profileData.usercountdata;
                 return Scaffold(
@@ -104,7 +107,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     .read<AuthenticationBloc>()
                                     .state
                                     .user
-                                    .isNotificationAllRead
+                                    .isReadAllNotifications
                                 ? AppIcons.bell
                                 : AppIcons.bellWithCircle),
                           ),

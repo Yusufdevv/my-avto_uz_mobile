@@ -16,6 +16,7 @@ class GetDirectorySingleEvent extends DirectoryEvent {
 
 class DirectoryFilterEvent extends DirectoryEvent {
   String? regions;
+  String? regionId;
   List<DirCategoryEntity>? selectedCategories;
-  DirectoryFilterEvent({this.regions, this.selectedCategories});
+  DirectoryFilterEvent({this.regions, this.selectedCategories, this.regionId});
 }

@@ -1,4 +1,3 @@
-import 'package:auto/assets/colors/color.dart';
 import 'package:auto/features/common/widgets/car_brand_item.dart';
 import 'package:auto/features/main/presentation/bloc/top_brand/top_brand_bloc.dart';
 import 'package:auto/features/main/presentation/widgets/brand_shimmer_item.dart';

@@ -19,7 +19,7 @@ class DirectoryFilterCategory extends StatefulWidget {
 }
 
 class _DirectoryFilterCategoryState extends State<DirectoryFilterCategory> {
-  final List<DirCategoryEntity> _selectedIndexes = [];
+  List<DirCategoryEntity> _selectedIndexes = [];
 
   @override
   Widget build(BuildContext context) => Column(

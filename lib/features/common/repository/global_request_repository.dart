@@ -16,13 +16,10 @@ class GlobalRequestRepository {
     try {
       final result = await dio.get(endpoint,
           queryParameters: query,
-          options: Options(
-              headers: sendToken
-                  ? {
-                      'Authorization':
-                          "Bearer ${StorageRepository.getString('token', defValue: '')}"
-                    }
-                  : {}));
+          options: Options(headers: {
+            'Authorization':
+                "Bearer ${StorageRepository.getString('token')}"
+          }));
       if (result.statusCode! >= 200 && result.statusCode! < 300) {
         return Right(fromJson(result.data));
       } else {
@@ -69,11 +66,9 @@ class GlobalRequestRepository {
           list = data.map((e) => fromJson(e)).toList();
         }
 
-
         print('hreererer');
         return Right(list);
       } else {
-
         print('hreererer');
         return Left(ServerFailure(errorMessage: '', statusCode: 141));
       }

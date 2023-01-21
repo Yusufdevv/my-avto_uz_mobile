@@ -16,7 +16,6 @@ class AuthRepository {
       StreamController.broadcast(sync: true);
 
   Future<Either<Failure, UserModel>> getUser() async {
-    // await  StorageRepository.putString('token', '');
     final result = await repo.getSingle(
       endpoint: '/users/detail/',
       fromJson: UserModel.fromJson,

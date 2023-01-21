@@ -33,4 +33,9 @@ class GetNotificationSingleEvent extends UserWishListsEvent {
   GetNotificationSingleEvent({required this.id});
 }
 
+class ChangeReadEvent extends UserWishListsEvent {
+  final int id;
+  ChangeReadEvent({required this.id});
+}
+
 class GetNotificationsEvent extends UserWishListsEvent {}

@@ -10,6 +10,7 @@ import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class CarBrandItem extends StatelessWidget {
   final MakeEntity carBrandEntity;
@@ -64,16 +65,21 @@ class CarBrandItem extends StatelessWidget {
           child: Column(
             children: [
               const SizedBox(height: 16),
-              SizedBox(
-                width: 40,
-                height: 40,
-                child: ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: CachedNetworkImage(
-                      imageUrl: carBrandEntity.logo,
-                      errorWidget: (context, url, error) =>
-                          Image.asset(AppImages.defaultPhoto),
-                    )),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                child: SizedBox(
+                  height: 36,
+                  width: 40,
+                  child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: CachedNetworkImage(
+                        imageUrl: carBrandEntity.logo,
+                        errorWidget: (context, url, error) => SvgPicture.asset(
+                          AppImages.carLogo,
+                          fit: BoxFit.cover,
+                        ),
+                      )),
+                ),
               ),
               // Image.network(
               //   carBrandEntity.logo,

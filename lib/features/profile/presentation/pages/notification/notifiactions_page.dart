@@ -54,7 +54,8 @@ class _NotificationPageState extends State<NotificationPage> {
             title: 'Уведомления',
             centerTitle: true,
             extraActions: [
-              WScaleAnimation(
+              GestureDetector(
+                behavior: HitTestBehavior.opaque,
                 onTap: () {
                   setState(() {
                     isAllRead = true;
@@ -83,20 +84,11 @@ class _NotificationPageState extends State<NotificationPage> {
                         itemCount: notifications.length,
                         itemBuilder: (context, index) {
                           final item = notifications[index];
-                          // ignore: prefer_typing_uninitialized_variables
-                          bool? isItemRead;
-                          if (item.isRead!=null) {
-                            isItemRead = item.isRead;
-                          }
                           return InkWell(
                             onTap: () {
-                              if (isItemRead == false) {
-                                isItemRead = true;
-                                setState(() {});
-                              }
-                               context.read<UserWishListsBloc>().add(
-                                    GetNotificationSingleEvent(
-                                        id: item.id.toString()));
+                              context.read<UserWishListsBloc>().add(
+                                  GetNotificationSingleEvent(
+                                      id: item.id.toString()));
                               Navigator.push(
                                   context,
                                   fade(
@@ -104,14 +96,22 @@ class _NotificationPageState extends State<NotificationPage> {
                                           value: bloc,
                                           child:
                                               const NotificationSinglePage())));
+                                 context.read<UserWishListsBloc>().add(
+                                  ChangeReadEvent(
+                                      id: item.id!));
                             },
-                            child: NotificationItem(
-                              currentIndex: index,
-                              category:
-                                  '#${item.category?.name} • ${MyFunctions.getAutoPublishDate(item.createdAt!)}',
-                              title: item.title ?? '',
-                              isRead: isAllRead ? isAllRead : isItemRead!,
-                              image: item.cover ?? '',
+                            child: BlocConsumer<UserWishListsBloc, UserWishListsState>(
+                              listener: (context, state) {
+
+                              },
+                              builder: (context, state) => NotificationItem(
+                                  currentIndex: index,
+                                  category:
+                                      '#${item.category?.name} • ${MyFunctions.getAutoPublishDate(item.createdAt!)}',
+                                  title: item.title ?? '',
+                                  isRead: isAllRead ? isAllRead : item.isRead!,
+                                  image: item.cover ?? '',
+                                ),
                             ),
                           );
                         },

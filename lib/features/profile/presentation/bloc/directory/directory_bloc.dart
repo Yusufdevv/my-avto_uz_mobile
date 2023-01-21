@@ -2,11 +2,9 @@ import 'package:auto/core/usecases/usecase.dart';
 import 'package:auto/features/dealers/domain/entities/dealer_info_entity.dart';
 import 'package:auto/features/profile/domain/entities/dir_category_entity.dart';
 import 'package:auto/features/profile/domain/entities/directory_entity.dart';
-import 'package:auto/features/profile/domain/entities/profile_data_entity.dart';
 import 'package:auto/features/profile/domain/usecases/directory_single_usecase.dart';
 import 'package:auto/features/profile/domain/usecases/get_dir_categories_usecase.dart';
 import 'package:auto/features/profile/domain/usecases/get_directories_usecase.dart';
-import 'package:auto/features/reels/domain/entities/dealer_entity.dart';
 import 'package:auto/utils/my_functions.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -23,18 +21,20 @@ class DirectoryBloc extends Bloc<DirectoryEvent, DirectoryState> {
     required this.getDirCategoriesUseCase,
     required this.getDirectoriesUseCase,
     required this.directorySingleSingleUseCase,
-  }) : super(const DirectoryState(
-            status: FormzStatus.pure,
-            directories: <DirectoryEntity>[],
-            categories: <DirCategoryEntity>[],
-            selectedCategories: <DirCategoryEntity>[],
-            regions: '',
-            directory:DealerSingleEntity(),)) {
+  }) : super(DirectoryState(
+          status: FormzStatus.pure,
+          directories: const <DirectoryEntity>[],
+          categories: const <DirCategoryEntity>[],
+          selectedCategories: const <DirCategoryEntity>[],
+          regions: '',
+          regionId: '',
+          directory: const DealerSingleEntity(),
+        )) {
     on<GetDirectoriesEvent>((event, emit) async {
       emit(state.copyWith(status: FormzStatus.submissionInProgress));
       final result = await getDirectoriesUseCase(Params(
           search: event.search,
-          regions: state.regions,
+          regions: state.regionId,
           categories:
               MyFunctions.textForDirCategory(state.selectedCategories)));
       if (result.isRight) {
@@ -62,8 +62,10 @@ class DirectoryBloc extends Bloc<DirectoryEvent, DirectoryState> {
 
     on<DirectoryFilterEvent>((event, emit) {
       emit(state.copyWith(
-          regions: event.regions,
-          selectedCategories: event.selectedCategories));
+          regions: event.regions ?? state.regions,
+          regionId: event.regionId ?? state.regionId,
+          selectedCategories:
+              event.selectedCategories ?? state.selectedCategories));
     });
 
     on<GetDirectorySingleEvent>((event, emit) async {

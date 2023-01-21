@@ -26,8 +26,6 @@ class DirectoryFilterPage extends StatefulWidget {
 }
 
 class _DirectoryFilterPageState extends State<DirectoryFilterPage> {
-  List<Region>? newRegion;
-
   @override
   void initState() {
     context.read<RegionsBloc>().add(RegionsEvent.getRegions());
@@ -53,9 +51,8 @@ class _DirectoryFilterPageState extends State<DirectoryFilterPage> {
           ),
           WScaleAnimation(
             onTap: () {
-              newRegion = null;
-              context.read<DirectoryBloc>().state.selectedCategories.clear();
-              setState(() {});
+              context.read<DirectoryBloc>().add(DirectoryFilterEvent(
+                  regions: '', regionId: '', selectedCategories: []));
             },
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -104,28 +101,30 @@ class _DirectoryFilterPageState extends State<DirectoryFilterPage> {
                                     context.read<RegionsBloc>().state.regions),
                           ).then((value) {
                             if (value != null && value.isNotEmpty) {
-                              setState(() {
-                                newRegion = value;
-                                context
-                                    .read<DirectoryBloc>()
-                                    .add(DirectoryFilterEvent(
-                                        regions: MyFunctions.text(
-                                      newRegion!,
-                                    )));
-                              });
+                              final regionsId = MyFunctions.text(value);
+                              final regions = MyFunctions.text(value, true);
+                              context.read<DirectoryBloc>().add(
+                                  DirectoryFilterEvent(
+                                      regionId: regionsId, regions: regions));
                             }
                           });
                         },
                         child: EditItemContainer(
                             isOtherPage: true,
                             icon: AppIcons.chevronRightBlack,
-                            region: newRegion == null
+                            region: context
+                                    .read<DirectoryBloc>()
+                                    .state
+                                    .regions
+                                    .isEmpty
                                 ? 'Выберите регион'
-                                : MyFunctions.text(newRegion!, true)),
+                                : context.read<DirectoryBloc>().state.regions),
                       ),
                       const SizedBox(height: 16),
                       //Категории
-                      DirectoryFilterCategory(category: state.categories)
+                      DirectoryFilterCategory(
+                        category: state.categories,
+                      ),
                     ],
                   ),
                 ),
@@ -135,8 +134,6 @@ class _DirectoryFilterPageState extends State<DirectoryFilterPage> {
                   onTap: () {
                     context.read<DirectoryBloc>().add(GetDirectoriesEvent());
                     Navigator.pop(context);
-                    context.read<DirectoryBloc>().add(DirectoryFilterEvent(
-                        selectedCategories: [], regions: ''));
                   },
                   text: LocaleKeys.apply.tr(),
                 ),

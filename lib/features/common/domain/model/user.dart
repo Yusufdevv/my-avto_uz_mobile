@@ -24,8 +24,8 @@ class UserModel {
   final int region;
   @JsonKey(name: 'phone_number',)
   final String phoneNumber;
-  @JsonKey(name: 'isNotificationAllRead',)
-  final bool isNotificationAllRead;
+  @JsonKey(name: 'is_read_all_notifications',)
+  final bool isReadAllNotifications;
 
 
 
@@ -40,7 +40,7 @@ class UserModel {
         this.lastName='',
         this.fullName='',
         this.userName='',
-        this.isNotificationAllRead=false,
+        this.isReadAllNotifications=false,
         });
 
   factory UserModel.fromJson(Map<String, dynamic> json) =>
