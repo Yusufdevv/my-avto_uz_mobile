@@ -20,11 +20,10 @@ class TopAdBloc extends Bloc<TopAdEvent, TopAdState> {
     on<_GetTopAds>((event, emit) async {
       emit(state.copyWith(status: FormzStatus.submissionInProgress));
       final result = await getTopBrand('');
-
       if (result.isRight) {
         emit(state.copyWith(
-            next: state.next,
-            count: state.count,
+            next: result.right.next,
+            count: result.right.count,
             status: FormzStatus.submissionSuccess,
             topAds: result.right.results));
       } else {
@@ -33,17 +32,14 @@ class TopAdBloc extends Bloc<TopAdEvent, TopAdState> {
     });
 
     on<_GetMoreTopAds>((event, emit) async {
-      emit(state.copyWith(status: FormzStatus.submissionInProgress));
-      final result = await getTopBrand('');
+      final result = await getTopBrand(state.next);
       if (result.isRight) {
         emit(state.copyWith(
-            next: state.next,
-            count: state.count,
-            status: FormzStatus.submissionSuccess,
-            topAds: result.right.results));
-      } else {
-        emit(state.copyWith(status: FormzStatus.submissionFailure));
-      }
+          topAds: [...state.topAds, ...result.right.results],
+          next: result.right.next,
+          count: result.right.count,
+        ));
+      } else {}
     });
 
     on<_GetFavorites>((event, emit) async {

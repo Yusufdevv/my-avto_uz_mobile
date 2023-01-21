@@ -814,7 +814,7 @@ mixin _$TopAdState {
   FormzStatus get favoritesStatus => throw _privateConstructorUsedError;
   List<AdModel> get topAds => throw _privateConstructorUsedError;
   List<AutoEntity> get favorites => throw _privateConstructorUsedError;
-  String get next => throw _privateConstructorUsedError;
+  String? get next => throw _privateConstructorUsedError;
   int get count => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -833,7 +833,7 @@ abstract class $TopAdStateCopyWith<$Res> {
       FormzStatus favoritesStatus,
       List<AdModel> topAds,
       List<AutoEntity> favorites,
-      String next,
+      String? next,
       int count});
 }
 
@@ -854,7 +854,7 @@ class _$TopAdStateCopyWithImpl<$Res, $Val extends TopAdState>
     Object? favoritesStatus = null,
     Object? topAds = null,
     Object? favorites = null,
-    Object? next = null,
+    Object? next = freezed,
     Object? count = null,
   }) {
     return _then(_value.copyWith(
@@ -874,10 +874,10 @@ class _$TopAdStateCopyWithImpl<$Res, $Val extends TopAdState>
           ? _value.favorites
           : favorites // ignore: cast_nullable_to_non_nullable
               as List<AutoEntity>,
-      next: null == next
+      next: freezed == next
           ? _value.next
           : next // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       count: null == count
           ? _value.count
           : count // ignore: cast_nullable_to_non_nullable
@@ -899,7 +899,7 @@ abstract class _$$_TopAdStateCopyWith<$Res>
       FormzStatus favoritesStatus,
       List<AdModel> topAds,
       List<AutoEntity> favorites,
-      String next,
+      String? next,
       int count});
 }
 
@@ -918,7 +918,7 @@ class __$$_TopAdStateCopyWithImpl<$Res>
     Object? favoritesStatus = null,
     Object? topAds = null,
     Object? favorites = null,
-    Object? next = null,
+    Object? next = freezed,
     Object? count = null,
   }) {
     return _then(_$_TopAdState(
@@ -938,10 +938,10 @@ class __$$_TopAdStateCopyWithImpl<$Res>
           ? _value._favorites
           : favorites // ignore: cast_nullable_to_non_nullable
               as List<AutoEntity>,
-      next: null == next
+      next: freezed == next
           ? _value.next
           : next // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       count: null == count
           ? _value.count
           : count // ignore: cast_nullable_to_non_nullable
@@ -958,7 +958,7 @@ class _$_TopAdState implements _TopAdState {
       this.favoritesStatus = FormzStatus.pure,
       final List<AdModel> topAds = const [],
       final List<AutoEntity> favorites = const [],
-      this.next = '',
+      this.next,
       this.count = 0})
       : _topAds = topAds,
         _favorites = favorites;
@@ -988,8 +988,7 @@ class _$_TopAdState implements _TopAdState {
   }
 
   @override
-  @JsonKey()
-  final String next;
+  final String? next;
   @override
   @JsonKey()
   final int count;
@@ -1037,7 +1036,7 @@ abstract class _TopAdState implements TopAdState {
       final FormzStatus favoritesStatus,
       final List<AdModel> topAds,
       final List<AutoEntity> favorites,
-      final String next,
+      final String? next,
       final int count}) = _$_TopAdState;
 
   @override
@@ -1049,7 +1048,7 @@ abstract class _TopAdState implements TopAdState {
   @override
   List<AutoEntity> get favorites;
   @override
-  String get next;
+  String? get next;
   @override
   int get count;
   @override
