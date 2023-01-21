@@ -96,16 +96,16 @@ class _AppState extends State<App> {
   final _navigatorKey = GlobalKey<NavigatorState>();
 
   NavigatorState get navigator => _navigatorKey.currentState!;
-  // ignore: cancel_subscriptions
   StreamSubscription? streamSubscription;
   InternetBloc bloc = InternetBloc();
 
   @override
   void initState() {
     bloc = InternetBloc();
-    streamSubscription =
-        InternetConnectionChecker().onStatusChange.listen((status) {
-      context.read<InternetBloc>().add(InternetEvent(
+    streamSubscription = InternetConnectionChecker()
+        .onStatusChange
+        .listen((status) {
+      context.read<InternetBloc>().add(GlobalCheck(
           isConnected: status == InternetConnectionStatus.connected));
     });
     super.initState();
@@ -136,10 +136,6 @@ class _AppState extends State<App> {
             )
               ..add(GetMakesBlocEvent.getMakes())
               ..add(GetMakesBlocEvent.getTopMakes()),
-          ),
-          BlocProvider(
-            create: (context) => TopBrandBloc(GetTopBrandUseCase())
-              ..add(TopBrandEvent.getBrand()),
           ),
           BlocProvider(
               create: (context) => GetCarModelBloc(
@@ -186,10 +182,17 @@ class _AppState extends State<App> {
             onGenerateRoute: (settings) => SplashSc.route(),
             builder: (context, child) {
               SizeConfig().init(context);
+
               return BlocListener<AuthenticationBloc, AuthenticationState>(
                 listener: (context, state) {
                   switch (state.status) {
                     case AuthenticationStatus.unauthenticated:
+                      if(StorageRepository.getString('token',
+                          defValue: '').isNotEmpty) {
+                        navigator.pushAndRemoveUntil(
+                            fade(page: const HomeScreen()), (route) => false);
+                        break;
+                      }
                       if (!StorageRepository.getBool('onboarding',
                           defValue: false)) {
                         navigator.pushAndRemoveUntil(

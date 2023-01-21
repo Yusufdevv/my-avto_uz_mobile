@@ -79,14 +79,19 @@ class _SliverAppBarItemState extends State<SliverAppBarItem> {
         title: Row(
           children: [
             GestureDetector(
+              behavior: HitTestBehavior.opaque,
+
               onTap: () {
                 Navigator.pop(context);
               },
-              child: SvgPicture.asset(
-                AppIcons.chevronLeft,
-                width: 24,
-                height: 24,
-                color: widget.iconColor,
+              child: Padding(
+                padding: const EdgeInsets.only(right: 16,bottom: 8),
+                child: SvgPicture.asset(
+                  AppIcons.chevronLeft,
+                  width: 24,
+                  height: 24,
+                  color: widget.iconColor,
+                ),
               ),
             ),
             Expanded(
@@ -108,26 +113,33 @@ class _SliverAppBarItemState extends State<SliverAppBarItem> {
             ),
             Padding(
               padding: const EdgeInsets.only(left: 8, right: 8),
-              child: AddWishlistItem(
-                onTap: () {
-                  context
-                      .read<WishlistAddBloc>()
-                      .add(WishlistAddEvent.clearState());
-                  if (!isLiked!) {
-                    context
-                        .read<WishlistAddBloc>()
-                        .add(WishlistAddEvent.addWishlist(widget.id, 0));
-                    isLiked = true;
-                  } else {
-                    context
-                        .read<WishlistAddBloc>()
-                        .add(WishlistAddEvent.removeWishlist(widget.id, 0));
-                    isLiked = false;
-                  }
-                  setState(() {});
-                },
-                initialLike: isLiked!,
-              ),
+              child: widget.isMine
+                  ? GestureDetector(
+                      onTap: () {},
+                      child: SvgPicture.asset(
+                        AppIcons.edit_single,
+                        color: widget.iconColor,
+                      ),
+                    )
+                  : AddWishlistItem(
+                      onTap: () {
+                        context
+                            .read<WishlistAddBloc>()
+                            .add(WishlistAddEvent.clearState());
+                        if (!isLiked!) {
+                          context
+                              .read<WishlistAddBloc>()
+                              .add(WishlistAddEvent.addWishlist(widget.id, 0));
+                          isLiked = true;
+                        } else {
+                          context.read<WishlistAddBloc>().add(
+                              WishlistAddEvent.removeWishlist(widget.id, 0));
+                          isLiked = false;
+                        }
+                        setState(() {});
+                      },
+                      initialLike: isLiked!,
+                    ),
             ),
             GestureDetector(
               child: SvgPicture.asset(AppIcons.moreVertical,

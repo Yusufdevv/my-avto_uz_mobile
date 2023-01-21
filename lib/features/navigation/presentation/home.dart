@@ -84,8 +84,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     });
   }
 
-  Widget _buildPageNavigator(NavItemEnum tabItem) =>
-      TabNavigator(
+  Widget _buildPageNavigator(NavItemEnum tabItem) => TabNavigator(
         navigatorKey: _navigatorKeys[tabItem]!,
         tabItem: tabItem,
       );
@@ -96,15 +95,14 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   }
 
   @override
-  Widget build(BuildContext context) =>
-      HomeTabControllerProvider(
+  Widget build(BuildContext context) => HomeTabControllerProvider(
         controller: _controller,
         child: WillPopScope(
           onWillPop: () async {
             final isFirstRouteInCurrentTab =
-            !await _navigatorKeys[NavItemEnum.values[_currentIndex]]!
-                .currentState!
-                .maybePop();
+                !await _navigatorKeys[NavItemEnum.values[_currentIndex]]!
+                    .currentState!
+                    .maybePop();
             if (isFirstRouteInCurrentTab) {
               if (NavItemEnum.values[_currentIndex] != NavItemEnum.head) {
                 changePage(0);
@@ -119,35 +117,37 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 if (!state.isConnected) {
                   print('internet yoqqqqqqqqqq');
                   showModalBottomSheet(
-                      context: context,
-                      builder: (context) =>
-                          InternetErrorBottomSheet(
-                            onTap: () {},
-                          ));
-                  // WidgetsBinding.instance.addPostFrameCallback((_){
-                  //
-                  // });
-
+                    isDismissible: false,
+                    constraints: const BoxConstraints(
+                      maxHeight: 369,
+                      minHeight: 369,
+                    ),
+                    enableDrag: false,
+                    backgroundColor: Colors.transparent,
+                    context: context,
+                    builder: (context) => InternetErrorBottomSheet(
+                      onTap: () {
+                        context.read<InternetBloc>().add(
+                              GlobalCheck(isConnected: state.isConnected),
+                            );
+                      },
+                    ),
+                  );
+                } else {
+                  Navigator.of(context).pop();
                 }
               });
               print('internet listen ---> ${state.isConnected}');
-
             },
             child: Scaffold(
               resizeToAvoidBottomInset: true,
               bottomNavigationBar: Container(
-                height: 70 + MediaQuery
-                    .of(context)
-                    .padding
-                    .bottom,
+                height: 70 + MediaQuery.of(context).padding.bottom,
                 decoration: BoxDecoration(
                   borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(15),
                       topRight: Radius.circular(15)),
-                  color: Theme
-                      .of(context)
-                      .appBarTheme
-                      .backgroundColor,
+                  color: Theme.of(context).appBarTheme.backgroundColor,
                   boxShadow: [
                     BoxShadow(
                       color: const Color(0xFF171725).withOpacity(0.05),
@@ -249,7 +249,7 @@ class HomeTabControllerProvider extends InheritedWidget {
 
   static HomeTabControllerProvider of(BuildContext context) {
     final result =
-    context.dependOnInheritedWidgetOfExactType<HomeTabControllerProvider>();
+        context.dependOnInheritedWidgetOfExactType<HomeTabControllerProvider>();
     assert(result != null, 'No HomeTabControllerProvider found in context');
     return result!;
   }

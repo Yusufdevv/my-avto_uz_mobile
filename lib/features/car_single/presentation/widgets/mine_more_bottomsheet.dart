@@ -2,7 +2,6 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/features/car_single/presentation/widgets/more_action_item.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:formz/formz.dart';
@@ -242,9 +241,7 @@ class MineMoreBottomSheet extends StatelessWidget {
                 ),
                 margin: const EdgeInsets.only(top: 8, right: 16, left: 16),
                 child: Center(
-                  child: status.isSubmissionInProgress
-                      ? const CupertinoActivityIndicator()
-                      : Row(
+                  child: Row(
                           children: [
                             SvgPicture.asset(
                               AppIcons.surface,

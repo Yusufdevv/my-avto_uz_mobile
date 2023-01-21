@@ -4,6 +4,7 @@ import 'package:auto/features/car_single/domain/entities/damaged_parts_entity.da
 import 'package:auto/features/car_single/domain/entities/drive_type_entity.dart';
 import 'package:auto/features/car_single/domain/entities/engine_type_entity.dart';
 import 'package:auto/features/car_single/domain/entities/gearbox_type_entity.dart';
+import 'package:auto/features/car_single/domain/entities/price_analytics_entity.dart';
 import 'package:auto/features/rent/domain/entities/rent_car_bodytype_entity.dart';
 import 'package:auto/features/rent/domain/entities/rent_car_generation_entity.dart';
 import 'package:auto/features/rent/domain/entities/rent_car_make_entity.dart';
@@ -109,8 +110,10 @@ class CarSingleEntity extends Equatable {
   final bool isRentWithPurchase;
   @JsonKey(defaultValue: false)
   final bool isExpired;
-  @JsonKey(defaultValue: 'false')
+  @JsonKey(defaultValue: '')
   final String expiredAt;
+  @PriceAnalyticsConverter()
+  final PriceAnalyticsEntity priceAnalytics;
 
   const CarSingleEntity({
     this.isComparison = false,
@@ -139,6 +142,7 @@ class CarSingleEntity extends Equatable {
     this.engineType = const RentCarEngineTypeEntity(),
     this.gearboxType = const RentCarGearboxTypeEntity(),
     this.modificationType = const RentCarModificationEntity(),
+    this.priceAnalytics = const PriceAnalyticsEntity(),
     this.licenceType = '',
     this.ownership = '',
     this.purchaseDate = '',
@@ -208,6 +212,7 @@ class CarSingleEntity extends Equatable {
         callCount,
         isWishlisted,
         isComparison,
+        priceAnalytics,
       ];
 }
 

@@ -29,11 +29,13 @@ class _SingleImagePartState extends State<SingleImagePart> {
   @override
   Widget build(BuildContext context) => GestureDetector(
         onTap: () {
-          Navigator.of(context).push(fade(
-              page: ImagesPage(
-            count: widget.count,
-            images: widget.images,
-          )));
+          widget.images.isNotEmpty
+              ? Navigator.of(context).push(fade(
+                  page: ImagesPage(
+                  count: widget.count,
+                  images: widget.images,
+                )))
+              : () {};
         },
         child: Stack(
           children: [
@@ -45,7 +47,7 @@ class _SingleImagePartState extends State<SingleImagePart> {
                   currentIndex = value;
                 }),
                 itemCount: widget.images.isEmpty ? 1 : widget.images.length,
-                itemBuilder: (BuildContext context, int index) => Container(
+                itemBuilder: (context, index) => Container(
                   foregroundDecoration: BoxDecoration(
                     gradient: LinearGradient(
                       begin: Alignment.topCenter,

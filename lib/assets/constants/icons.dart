@@ -266,4 +266,6 @@ class AppIcons {
   static const surface = 'assets/icons/car_single/surface.svg';
   static const ellip = 'assets/icons/car_single/ellip.svg';
   static const defalut = 'assets/icons/car_single/defalut.svg';
+  static const edit_single = 'assets/icons/car_single/edit_single.svg';
+  static const crug = 'assets/icons/car_single/crug.svg';
 }
