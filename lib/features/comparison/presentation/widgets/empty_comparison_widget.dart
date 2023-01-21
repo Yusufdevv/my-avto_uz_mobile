@@ -18,13 +18,18 @@ class EmptyComparison extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
+                  height: 92,
                   padding: const EdgeInsets.all(20),
                   decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       color: Theme.of(context)
                           .extension<ThemedColors>()!
                           .solitude1ToNero),
-                  child: Image.asset(AppIcons.carIcon),
+                  child: Image.asset(
+                    AppIcons.carIcon,
+                    height: 92,
+                    fit: BoxFit.cover,
+                  ),
                 ),
                 const SizedBox(height: 24),
                 Padding(

@@ -38,7 +38,6 @@ class CarBrandItem extends StatelessWidget {
               );
         },
         child: Container(
-          height: 100,
           width: 72,
           padding: const EdgeInsets.symmetric(horizontal: 8),
           decoration: BoxDecoration(

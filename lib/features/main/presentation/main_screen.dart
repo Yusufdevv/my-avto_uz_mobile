@@ -133,9 +133,6 @@ class _MainScreenState extends State<MainScreen> {
             value: mainBloc,
           ),
           BlocProvider.value(
-            value: topBrandBloc,
-          ),
-          BlocProvider.value(
             value: topAdBloc,
           ),
         ],

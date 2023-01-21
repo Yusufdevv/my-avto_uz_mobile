@@ -33,6 +33,7 @@ import 'package:auto/features/login/domain/usecases/send_code.dart';
 import 'package:auto/features/login/domain/usecases/verify_code.dart';
 import 'package:auto/features/login/presentation/bloc/register/register_bloc.dart';
 import 'package:auto/features/login/presentation/login_screen.dart';
+import 'package:auto/features/main/domain/usecases/get_top_brand.dart';
 import 'package:auto/features/navigation/presentation/home.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/onboarding/presentation/first_onboarding.dart';
@@ -43,6 +44,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
+
+import 'features/main/presentation/bloc/top_brand/top_brand_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -134,6 +137,10 @@ class _AppState extends State<App> {
             )
               ..add(GetMakesBlocEvent.getMakes())
               ..add(GetMakesBlocEvent.getTopMakes()),
+          ),
+          BlocProvider(
+            create: (context) => TopBrandBloc(GetTopBrandUseCase())
+              ..add(TopBrandEvent.getBrand()),
           ),
           BlocProvider(
               create: (context) => GetCarModelBloc(

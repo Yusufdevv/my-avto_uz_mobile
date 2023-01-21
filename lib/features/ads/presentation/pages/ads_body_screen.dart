@@ -203,52 +203,88 @@ class _AdsBodyScreenState extends State<AdsBodyScreen> {
                 ),
               ),
               const SizedBox(height: 16),
-              ...List.generate(
-                state.announcementList.length,
-                (index) => Padding(
-                  padding: const EdgeInsets.only(bottom: 12),
-                  child: GestureDetector(
-                    onTap: () {
-                      Navigator.of(context, rootNavigator: true).push(fade(
-                          page: CarSingleScreen(
-                              id: state.announcementList[index].id)));
-                    },
-                    child: InfoContainer(
-                      index: index,
-                      phone: state.announcementList[index].userType == 'owner'
-                          ? state.announcementList[index].user.phoneNumber
-                          : state.announcementList[index].dealer.phoneNumber,
-                      avatarPicture: state.announcementList[index].user.avatar,
-                      carModel: state.announcementList[index].model,
-                      hasDiscount: state.announcementList[index].discount != 0,
-                      location: state.announcementList[index].region,
-                      owner: state.announcementList[index].user.name.isNotEmpty
-                          ? state.announcementList[index].user.name
-                          : state.announcementList[index].user.fullName,
-                      ownerType: state.announcementList[index].userType,
-                      publishTime: MyFunctions.getDateNamedMonthEdit(
-                          state.announcementList[index].publishedAt),
-                      subtitle: state.announcementList[index].description,
-                      year: state.announcementList[index].year,
-                      price: MyFunctions.getFormatCost(
-                          state.announcementList[index].price.toString()),
-                      discountPrice: state.announcementList[index].discount == 0
-                          ? ''
-                          : state.announcementList[index].discount.toString(),
-                      sellType: '',
-                      hasStatusInfo: state.announcementList[index].isNew,
-                      gallery: state.announcementList[index].gallery,
-                      currency: state.announcementList[index].currency,
-                      initialLike: list[index].isWishlisted,
-                      id: state.announcementList[index].id,
-                      onTapComparsion: () {},
-                      onTapFavorites: () {},
-                      initialComparsions: list[index].isComparison,
+              if (state.announcementList.isNotEmpty)
+                ...List.generate(
+                  state.announcementList.length,
+                  (index) => Padding(
+                    padding: const EdgeInsets.only(bottom: 12),
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.of(context, rootNavigator: true).push(fade(
+                            page: CarSingleScreen(
+                                id: state.announcementList[index].id)));
+                      },
+                      child: InfoContainer(
+                        index: index,
+                        phone: state.announcementList[index].userType == 'owner'
+                            ? state.announcementList[index].user.phoneNumber
+                            : state.announcementList[index].dealer.phoneNumber,
+                        avatarPicture:
+                            state.announcementList[index].user.avatar,
+                        carModel: state.announcementList[index].model,
+                        hasDiscount:
+                            state.announcementList[index].discount != 0,
+                        location: state.announcementList[index].region,
+                        owner:
+                            state.announcementList[index].user.name.isNotEmpty
+                                ? state.announcementList[index].user.name
+                                : state.announcementList[index].user.fullName,
+                        ownerType: state.announcementList[index].userType,
+                        publishTime: MyFunctions.getDateNamedMonthEdit(
+                            state.announcementList[index].publishedAt),
+                        subtitle: state.announcementList[index].description,
+                        year: state.announcementList[index].year,
+                        price: MyFunctions.getFormatCost(
+                            state.announcementList[index].price.toString()),
+                        discountPrice: state.announcementList[index].discount ==
+                                0
+                            ? ''
+                            : state.announcementList[index].discount.toString(),
+                        sellType: '',
+                        hasStatusInfo: state.announcementList[index].isNew,
+                        gallery: state.announcementList[index].gallery,
+                        currency: state.announcementList[index].currency,
+                        initialLike: list[index].isWishlisted,
+                        id: state.announcementList[index].id,
+                        onTapComparsion: () {},
+                        onTapFavorites: () {},
+                        initialComparsions: list[index].isComparison,
+                      ),
                     ),
                   ),
                 ),
-              ),
-              const SizedBox(height: 90)
+              const SizedBox(height: 90),
+              if (state.announcementList.isEmpty)
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                        AppIcons.carIcon,
+                        height: 92,
+                        fit: BoxFit.cover,
+                      ),
+                      const SizedBox(height: 24),
+                      Text(
+                        'Нет результатов',
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline1!
+                            .copyWith(fontSize: 16),
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        'К соэалению, по вашему запросу результаты не найдены',
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyText1!
+                            .copyWith(fontSize: 14, color: greyText),
+                      ),
+                    ],
+                  ),
+                ),
             ],
           );
         }
