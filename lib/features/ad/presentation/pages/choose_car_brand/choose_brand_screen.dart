@@ -1,6 +1,5 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
-import 'package:auto/features/ad/domain/entities/choose_car_brand/change_car_entity.dart';
 import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.dart';
 import 'package:auto/features/ad/presentation/pages/choose_car_brand/widget/car_items.dart';
 import 'package:auto/features/ad/presentation/pages/choose_car_brand/widget/persistant_header.dart';
@@ -15,9 +14,11 @@ import 'package:formz/formz.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 class ChooseCarBrand extends StatefulWidget {
+  final VoidCallback onTopBrandPressed;
   final PostingAdBloc bloc;
   const ChooseCarBrand({
     required this.bloc,
+    required this.onTopBrandPressed,
     Key? key,
   }) : super(key: key);
 
@@ -36,13 +37,7 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
     _scrollController = ScrollController()..addListener(_scrollListener);
 
     searchController = TextEditingController();
-    // getMakesBloc = GetMakesBloc(
-    //   topUseCase:
-    //       GetTopMakesUseCase(repository: serviceLocator<AdRepositoryImpl>()),
-    //   useCase: GetMakesUseCase(
-    //     repository: serviceLocator<AdRepositoryImpl>(),
-    //   ),
-    // )..add(GetMakesBlocEvent.getMakes());
+
     super.initState();
   }
 
@@ -71,57 +66,6 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
     searchController.dispose();
     super.dispose();
   }
-
-  final List<ChangeCarEntity> carList = [
-    ChangeCarEntity(
-        title: 'Volkswagen',
-        icon:
-            'https://seeklogo.com/images/V/Volkswagen-logo-FAE94F013E-seeklogo.com.png'),
-    ChangeCarEntity(
-        title: 'Volkswagen',
-        icon:
-            'https://seeklogo.com/images/V/Volkswagen-logo-FAE94F013E-seeklogo.com.png'),
-    ChangeCarEntity(
-        title: 'Volkswagen',
-        icon:
-            'https://seeklogo.com/images/V/Volkswagen-logo-FAE94F013E-seeklogo.com.png'),
-    ChangeCarEntity(
-        title: 'Volkswagen',
-        icon:
-            'https://seeklogo.com/images/V/Volkswagen-logo-FAE94F013E-seeklogo.com.png'),
-    ChangeCarEntity(
-        title: 'Volkswagen',
-        icon:
-            'https://seeklogo.com/images/V/Volkswagen-logo-FAE94F013E-seeklogo.com.png'),
-    ChangeCarEntity(
-        title: 'Volkswagen',
-        icon:
-            'https://seeklogo.com/images/V/Volkswagen-logo-FAE94F013E-seeklogo.com.png'),
-    ChangeCarEntity(
-        title: 'Volkswagen',
-        icon:
-            'https://seeklogo.com/images/V/Volkswagen-logo-FAE94F013E-seeklogo.com.png'),
-    ChangeCarEntity(
-        title: 'Volkswagen',
-        icon:
-            'https://seeklogo.com/images/V/Volkswagen-logo-FAE94F013E-seeklogo.com.png'),
-    ChangeCarEntity(
-        title: 'Volkswagen',
-        icon:
-            'https://seeklogo.com/images/V/Volkswagen-logo-FAE94F013E-seeklogo.com.png'),
-    ChangeCarEntity(
-        title: 'Volkswagen',
-        icon:
-            'https://seeklogo.com/images/V/Volkswagen-logo-FAE94F013E-seeklogo.com.png'),
-    ChangeCarEntity(
-        title: 'Volkswagen',
-        icon:
-            'https://seeklogo.com/images/V/Volkswagen-logo-FAE94F013E-seeklogo.com.png'),
-    ChangeCarEntity(
-        title: 'Volkswagen',
-        icon:
-            'https://seeklogo.com/images/V/Volkswagen-logo-FAE94F013E-seeklogo.com.png'),
-  ];
 
   @override
   Widget build(BuildContext context) => KeyboardDismisser(
@@ -183,7 +127,14 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
                               physics: const BouncingScrollPhysics(),
                               scrollDirection: Axis.horizontal,
                               itemBuilder: (context, index) => GestureDetector(
-                                    onTap: () {},
+                                    onTap: () {
+                                      print('=> => => =>     asdf    <= <= <= <=');
+                                      context.read<PostingAdBloc>().add(
+                                          PostingAdChooseEvent(
+                                              makeId:
+                                                  state.topMakes[index].id));
+                                      widget.onTopBrandPressed();
+                                    },
                                     child: CarBrandItem(
                                       carBrandEntity: state.topMakes[index],
                                     ),

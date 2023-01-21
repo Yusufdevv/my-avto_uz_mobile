@@ -4,11 +4,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class RentToSaleDetailsBox extends StatelessWidget {
+  final String prePayment;
+  final String monthlyPayment;
+  final int rentalPeriod;
   const RentToSaleDetailsBox({
+    required this.monthlyPayment,
+    required this.prePayment,
+    required this.rentalPeriod,
     Key? key,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) => Container(
+        margin: const EdgeInsets.only(bottom: 16),
         padding: const EdgeInsets.only(left: 12, top: 16, bottom: 16),
         decoration: BoxDecoration(
             color: whiteToGrey, borderRadius: BorderRadius.circular(12)),
@@ -30,23 +37,23 @@ class RentToSaleDetailsBox extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 16),
-            const TextInRow(
+            TextInRow(
               title: 'Предоплата',
-              info: '12 000',
+              info: prePayment,
             ),
             const SizedBox(height: 12),
             const Divider(color: border, height: 1),
             const SizedBox(height: 8),
-            const TextInRow(
+            TextInRow(
               title: 'Срок аренды в месяцах',
-              info: '12 000',
+              info: '$rentalPeriod',
             ),
             const SizedBox(height: 12),
             const Divider(color: border, height: 1),
             const SizedBox(height: 8),
-            const TextInRow(
+            TextInRow(
               title: 'Платеж в меяц',
-              info: '12 000',
+              info: monthlyPayment,
             ),
           ],
         ),

@@ -117,9 +117,11 @@ class _InspectionPlaceScreenState extends State<InspectionPlaceScreen> {
                                 districts: state.districts,
                               ),
                             ).then((value) {
-                              context
-                                  .read<PostingAdBloc>()
-                                  .add(PostingAdChooseEvent(district: value));
+                              if (value != null) {
+                                context
+                                    .read<PostingAdBloc>()
+                                    .add(PostingAdChooseEvent(district: value));
+                              }
                             });
                           },
                           hintText: postingAdState.district?.title ??

@@ -94,8 +94,7 @@ class _SelectGasBalloonTypeSheetState extends State<SelectGasBalloonTypeSheet> {
                     ),
                     child: Row(
                       children: [
-                        const SizedBox(width: 2),
-                        const SizedBox(width: 10),
+                        const SizedBox(width: 12),
                         Text(
                           values[1],
                           style: Theme.of(context)

@@ -21,13 +21,15 @@ class PostingAdState extends Equatable {
   final YearsEntity? yearsEntity;
   final DistrictEntity? district;
   final List<String> gallery;
+  final List<RentWithPurchaseEntity> rentWithPurchaseConditions;
+  final Map<DamagedParts, DamageType> parts;
   final String? letter;
   final String? ownerName;
   final String? ownerEmail;
   final String? ownerPhone;
   final String? city;
   final String? ownerStep;
-  final String? boughtTime;
+  final String? purchasedDate;
   final String? typeDocument;
   final String? colorName;
   final String? descriptions;
@@ -39,7 +41,7 @@ class PostingAdState extends Equatable {
   final String? callTimeTo;
   final bool hasAppBarShadow;
   final bool isSortByLetter;
-  final bool isRastamojen;
+  final bool registeredInUzbekistan;
   final bool isCallTimed;
   final bool showOwnerContacts;
   final bool isContactsVerified;
@@ -49,6 +51,7 @@ class PostingAdState extends Equatable {
 
   const PostingAdState({
     required this.status,
+    required this.parts,
     this.gearboxId,
     this.gearBoxes = const <GearboxTypeEntity>[],
     this.driveTypeId,
@@ -64,18 +67,18 @@ class PostingAdState extends Equatable {
     this.generations = const <GenerationEntity>[],
     this.bodyTypeId,
     this.bodyTypes = const <BodyTypeEntity>[],
-
     this.gallery = const <String>[],
+    this.rentWithPurchaseConditions = const <RentWithPurchaseEntity>[],
     this.yearsEntity,
     this.letter,
     this.colorName,
     this.typeDocument,
     this.ownerStep,
-    this.boughtTime,
+    this.purchasedDate,
     this.descriptions,
     this.isSortByLetter = false,
     this.hasAppBarShadow = true,
-    this.isRastamojen = false,
+    this.registeredInUzbekistan = false,
     this.showExactAddress = false,
     this.ownerName,
     this.ownerEmail,
@@ -96,6 +99,7 @@ class PostingAdState extends Equatable {
     this.district,
   });
   PostingAdState copyWith({
+    List<RentWithPurchaseEntity>? rentWithPurchaseConditions,
     DistrictEntity? district,
     Region? region,
     FormzStatus? status,
@@ -116,6 +120,7 @@ class PostingAdState extends Equatable {
     List<MakeEntity>? topMakes,
     List<String>? gallery,
     YearsEntity? yearsEntity,
+    Map<DamagedParts, DamageType>? parts,
     String? letter,
     String? colorName,
     String? typeDocument,
@@ -123,7 +128,7 @@ class PostingAdState extends Equatable {
     String? ownerName,
     String? ownerPhone,
     String? ownerEmail,
-    String? boughtTime,
+    String? purchasedDate,
     String? descriptions,
     String? city,
     String? price,
@@ -134,7 +139,7 @@ class PostingAdState extends Equatable {
     String? callTimeTo,
     String? session,
     bool? hasAppBarShadow,
-    bool? isRastamojen,
+    bool? registeredInUzbekistan,
     bool? isCallTimed,
     bool isSortByLetter = false,
     bool? showOwnerContacts,
@@ -144,6 +149,9 @@ class PostingAdState extends Equatable {
     bool? showExactAddress,
   }) =>
       PostingAdState(
+        parts: parts ?? this.parts,
+        rentWithPurchaseConditions:
+            rentWithPurchaseConditions ?? this.rentWithPurchaseConditions,
         showExactAddress: showExactAddress ?? this.showExactAddress,
         district: district ?? this.district,
         city: city ?? this.city,
@@ -171,8 +179,9 @@ class PostingAdState extends Equatable {
         colorName: colorName ?? this.colorName,
         typeDocument: typeDocument ?? this.typeDocument,
         ownerStep: ownerStep ?? this.ownerStep,
-        boughtTime: boughtTime ?? this.boughtTime,
-        isRastamojen: isRastamojen ?? this.isRastamojen,
+        purchasedDate: purchasedDate ?? this.purchasedDate,
+        registeredInUzbekistan:
+            registeredInUzbekistan ?? this.registeredInUzbekistan,
         descriptions: descriptions ?? this.descriptions,
         ownerEmail: ownerEmail ?? this.ownerEmail,
         ownerName: ownerName ?? this.ownerName,
@@ -188,11 +197,13 @@ class PostingAdState extends Equatable {
         isContactsVerified: isContactsVerified ?? this.isContactsVerified,
         rentToBuy: rentToBuy ?? this.rentToBuy,
         isWithoutMileage: isWithoutMileage ?? this.isWithoutMileage,
-        gallery: gallery??this.gallery,
+        gallery: gallery ?? this.gallery,
       );
   @override
   List<Object?> get props => [
-    gallery,
+    parts,
+        rentWithPurchaseConditions,
+        gallery,
         showExactAddress,
         district,
         isWithoutMileage,
@@ -220,9 +231,9 @@ class PostingAdState extends Equatable {
         colorName,
         typeDocument,
         ownerStep,
-        boughtTime,
+        purchasedDate,
         bodyTypeId,
-        isRastamojen,
+        registeredInUzbekistan,
         descriptions,
         ownerEmail,
         ownerName,

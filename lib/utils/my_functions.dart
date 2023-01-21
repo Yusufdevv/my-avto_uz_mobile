@@ -451,7 +451,7 @@ class MyFunctions {
   static bool isEmail(String email) =>
       RegExp(r'^[a-z0-9](\.?[a-z0-9]){5,}@g(oogle)?mail\.com$').hasMatch(email);
 
-  String getDoorName(String door) {
+ static String getDoorName(String door) {
     switch (door) {
       case 'left_front_door':
         return 'Левая передняя дверь';
@@ -483,7 +483,7 @@ class MyFunctions {
     return '';
   }
 
-  String getStatusTitle(String status) {
+ static String getStatusTitle(String status) {
     switch (status) {
       case 'ideal':
         return 'Идеальное';

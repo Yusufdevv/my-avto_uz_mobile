@@ -1,16 +1,22 @@
 import 'dart:async';
+import 'dart:ffi';
 
 import 'package:auto/assets/themes/theme_extensions/themed_icons.dart';
 import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/core/usecases/usecase.dart';
+import 'package:auto/features/ad/const/constants.dart';
+import 'package:auto/features/ad/domain/entities/announcement/announcement_entity_to_post.dart';
+import 'package:auto/features/ad/domain/entities/damaged_part/damaged_part.dart';
 import 'package:auto/features/ad/domain/entities/district_entity.dart';
 import 'package:auto/features/ad/domain/entities/generation/generation.dart';
+import 'package:auto/features/ad/domain/entities/rent_with_purchase/rent_with_purchase_entity.dart';
 import 'package:auto/features/ad/domain/entities/types/body_type.dart';
 import 'package:auto/features/ad/domain/entities/types/drive_type.dart';
 import 'package:auto/features/ad/domain/entities/types/engine_type.dart';
 import 'package:auto/features/ad/domain/entities/types/gearbox_type.dart';
 import 'package:auto/features/ad/domain/entities/types/make.dart';
 import 'package:auto/features/ad/domain/entities/years/years.dart';
+import 'package:auto/features/ad/domain/usecases/create_announcement.dart';
 import 'package:auto/features/ad/domain/usecases/get_body_type.dart';
 import 'package:auto/features/ad/domain/usecases/get_car_model.dart';
 import 'package:auto/features/ad/domain/usecases/get_drive_type.dart';
@@ -29,6 +35,7 @@ part 'posting_ad_event.dart';
 part 'posting_ad_state.dart';
 
 class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
+  final CreateAnnouncementUseCase createUseCase;
   final GetGearBoxessUseCase gearboxUseCase;
   final GetDriveTypeUseCase driveTypeUseCase;
   final GetEngineTypeUseCase engineUseCase;
@@ -39,6 +46,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
   final GetBodyTypeUseCase bodyTypesUseCase;
 
   PostingAdBloc({
+    
     required this.makeUseCase,
     required this.topMakesUseCase,
     required this.generationUseCase,
@@ -47,7 +55,8 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     required this.driveTypeUseCase,
     required this.gearboxUseCase,
     required this.bodyTypesUseCase,
-  }) : super(const PostingAdState(status: FormzStatus.pure)) {
+    required this.createUseCase,
+  }) : super(const PostingAdState(status: FormzStatus.pure,)) {
     on
 
         /// A generic type.
@@ -61,9 +70,74 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     on<PostingAdDriveTypesEvent>(_driveTypes);
     on<PostingAdGearBoxesEvent>(_gearBoxes);
     on<PostingAdBodyTypesEvent>(_bodyTypes);
+    on<PostingAdCreateEvent>(_create);
   }
 
   /// PostingAdState
+  FutureOr<void> _create(
+      PostingAdCreateEvent event, Emitter<PostingAdState> emit) async {
+    print(
+        '=> => => => purchase date:  ${state.purchasedDate!.substring(0, 10)}    <= <= <= <=');
+    print('=> => => =>  gallery:   ${state.gallery}    <= <= <= <=');
+    print('=> => => =>  typeDocument:   ${state.typeDocument}    <= <= <= <=');
+    print('=> => => =>  ownerStep:   ${state.ownerStep}    <= <= <= <=');
+
+    print('=> => => =>  ownerStep:   ${state.currency}    <= <= <= <=');
+    emit(state.copyWith(status: FormzStatus.submissionInProgress));
+    final result = await createUseCase.call(
+      AnnouncementToPostEntity(
+        bodyType: state.bodyTypeId!,
+        color: state.colorName,
+        contactAvailableFrom: state.callTimeFrom!.replaceAll(' ', ''),
+        contactAvailableTo: state.callTimeTo!.replaceAll(' ', ''),
+        contactEmail: state.ownerEmail,
+        contactName: state.ownerName!,
+        contactPhone: state.ownerPhone!,
+        currency: state.currency!,
+        damagedParts: const [
+          DamagedPartEntity(part: 'rigth_front_door', damageType: 'with_dents'),
+          DamagedPartEntity(
+              part: 'rear_left_fender', damageType: 'requires_replacement'),
+          DamagedPartEntity(part: 'roof', damageType: 'replaced'),
+        ],
+        description: state.descriptions,
+        distanceTraveled: int.tryParse(state.mileage ?? '1000') ?? 1000,
+        district: state.district!.id,
+        driveType: state.driveTypeId!,
+        engineType: state.engineId!,
+        gallery: state.gallery,
+        gearboxType: state.gearboxId!,
+        generation: state.generationId!,
+        isNew: state.isWithoutMileage,
+        isRegisteredLocally: state.registeredInUzbekistan,
+        licenceType: state.typeDocument ?? 'original',
+        locationUrl:
+            'https://www.google.com/maps/place/Grand+Mir+Hotel/@41.2965807,69.275822,15z/data=!4m8!3m7!1s0x38ae8adce9ab4089:0x3f74710c22b9462e!5m2!4m1!1i2!8m2!3d41.296393!4d69.267908',
+        make: state.makeId!,
+        model: state.modelId!,
+        modificationType: 2,
+        ownership: state.ownerStep!,
+        price: state.price!,
+        purchaseDate: '2022-11-23',
+        //             2018-01-20 22:02:42.000
+        region: state.region!.id,
+        registeredInUzbekistan: true,
+        registrationCertificate: 'KENTEKENMEWIJS',
+        registrationPlate: 'KENTEKENMEWIJS',
+        registrationSerialNumber: '234524523423452435',
+        registrationVin: 'KENTEKENMEWIJS',
+        year: state.yearsEntity!.id,
+      ),
+    );
+    if (result.isRight) {
+      print('=> => => =>     RIGHT RIGHT RIGHT RIGHT       <= <= <= <=');
+      emit(state.copyWith(status: FormzStatus.pure));
+    } else {
+      print(
+          '=> => => =>     LEFT LEFT LEFT LEFT LEFT   ${result.left}  <= <= <= <=');
+      emit(state.copyWith(status: FormzStatus.pure));
+    }
+  }
 
   FutureOr<void> _bodyTypes(
       PostingAdBodyTypesEvent event, Emitter<PostingAdState> emit) async {
@@ -246,6 +320,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
   void _choose(PostingAdChooseEvent event, Emitter<PostingAdState> emit) {
     emit(
       state.copyWith(
+        rentWithPurchaseConditions: event.rentWithPurchaseConditions,
         gallery: event.gallery,
         showExactAddress: event.showExactAddress,
         isWithoutMileage: event.isWithoutMileage,
@@ -269,8 +344,8 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
         modelId: event.modelId,
         letter: event.letter,
         makeId: event.makeId,
-        boughtTime: event.boughtTime,
-        isRastamojen: event.isRastamojen,
+        purchasedDate: event.purchasedDate,
+        registeredInUzbekistan: event.isRastamojen,
         ownerEmail: event.ownerEmail,
         ownerName: event.ownerName,
         ownerPhone: event.ownerPhone,

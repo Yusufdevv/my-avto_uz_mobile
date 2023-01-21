@@ -92,7 +92,7 @@ class PreviewScreen extends StatelessWidget {
                 ),
                 CarInfoRow(
                   title: 'Растаможен в Узбекистане',
-                  info: state.isRastamojen ? 'Да' : 'Нет',
+                  info: state.registeredInUzbekistan ? 'Да' : 'Нет',
                 ),
                 const SizedBox(height: 36)
               ],

@@ -1,6 +1,8 @@
 import 'package:auto/features/ad/domain/entities/announcement/announcement_entity_to_post.dart';
+import 'package:auto/features/ad/domain/entities/damaged_part/damaged_part.dart';
 import 'package:json_annotation/json_annotation.dart';
 part 'announcement_to_post_model.g.dart';
+
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class AnnouncementToPostModel extends AnnouncementToPostEntity {

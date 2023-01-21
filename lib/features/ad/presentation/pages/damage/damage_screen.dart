@@ -1,9 +1,11 @@
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/ad/presentation/pages/damage/widgets/cars_item.dart';
 import 'package:auto/features/ad/presentation/pages/damage/widgets/custom_tabbar.dart';
 import 'package:auto/features/ad/presentation/pages/damage/widgets/situation_item.dart';
 import 'package:auto/features/ad/presentation/pages/damage/widgets/situation_with_title.dart';
 import 'package:auto/features/ad/presentation/widgets/base_widget.dart';
+import 'package:auto/features/ad/presentation/widgets/damage_type_sheet.dart';
 import 'package:flutter/material.dart';
 
 class DamageScreen extends StatefulWidget {
@@ -18,6 +20,7 @@ class _DamageScreenState extends State<DamageScreen>
   late TabController doorController;
   late TabController bumperController;
   late TabController wingController;
+  Map<DamagedParts, DamageType> damages = {};
 
   @override
   void initState() {
@@ -25,6 +28,24 @@ class _DamageScreenState extends State<DamageScreen>
     bumperController = TabController(length: 2, vsync: this);
     wingController = TabController(length: 2, vsync: this);
     super.initState();
+  }
+
+  _showChoosDamageTypeSheet(DamagedParts type) async {
+    await showModalBottomSheet<String>(
+      useRootNavigator: true,
+      isDismissible: false,
+      context: context,
+      isScrollControlled: true,
+      barrierColor: Colors.black.withOpacity(.5),
+      backgroundColor: Colors.transparent,
+      builder: (c) => DamageTypeChooseSheet(
+        title: 'Pravaya perdnaya dver',
+        initialType: DamageType.ideal,
+        onSubmitted: (v) {
+          print('=> => => =>     $v    <= <= <= <=');
+        },
+      ),
+    );
   }
 
   @override
@@ -38,20 +59,54 @@ class _DamageScreenState extends State<DamageScreen>
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Покупатели чаще звонят по объявлениям,  в которых указана комплектация',
+                'Покупатели чаще звонят по объявлениям, в которых указана комплектация',
                 style: Theme.of(context).textTheme.headline6!.copyWith(
                     fontSize: 14,
                     color: Theme.of(context)
                         .extension<ThemedColors>()!
                         .aluminumToDolphin),
               ),
-              const SizedBox(
-                height: 32,
+              const SizedBox(height: 32),
+              DamageCarsItem(
+                onLeftFender: _showChoosDamageTypeSheet,
+                onLeftFrontDoor: (damagedPart) {
+                  print('=> => => =>     onLeftFrontDoor    <= <= <= <=');
+                },
+                onLeftRearDoor: (damagedPart) {
+                  print('=> => => =>     onLeftRearDoor    <= <= <= <=');
+                },
+                onFrontBumper: (damagedPart) {
+                  print('=> => => =>     onFrontBumper    <= <= <= <=');
+                },
+                onFrontRightFender: (damagedPart) {
+                  print('=> => => =>     onFrontRightFender    <= <= <= <=');
+                },
+                onHood: (damagedPart) {
+                  print('=> => => =>     onHood    <= <= <= <=');
+                },
+                onRearBumper: (damagedPart) {
+                  print('=> => => =>     onRearBumper    <= <= <= <=');
+                },
+                onRearLetfFender: (damagedPart) {
+                  print('=> => => =>     onRearLetfFender    <= <= <= <=');
+                },
+                onRearRightFender: (damagedPart) {
+                  print('=> => => =>     onRearRightFender    <= <= <= <=');
+                },
+                onRightRearDoor: (damagedPart) {
+                  print('=> => => =>     onRightRearDoor    <= <= <= <=');
+                },
+                onRigthFrontDoor: (damagedPart) {
+                  print('=> => => =>     onRigthFrontDoor    <= <= <= <=');
+                },
+                onRoof: (damagedPart) {
+                  print('=> => => =>     onRoof    <= <= <= <=');
+                },
+                onTrunk: (damagedPart) {
+                  print('=> => => =>     onTrunk    <= <= <= <=');
+                },
               ),
-              const DamageCarsItem(),
-              const SizedBox(
-                height: 32,
-              ),
+              const SizedBox(height: 32),
               CustomTabBar(
                   title: 'Дверь',
                   tabController: doorController,

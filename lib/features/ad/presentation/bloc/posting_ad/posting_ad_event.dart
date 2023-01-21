@@ -2,6 +2,10 @@ part of 'posting_ad_bloc.dart';
 
 abstract class PostingAdEvent {}
 
+class PostingAdCreateEvent extends PostingAdEvent {
+  PostingAdCreateEvent();
+}
+
 class PostingAdBodyTypesEvent extends PostingAdEvent {
   PostingAdBodyTypesEvent();
 }
@@ -44,6 +48,7 @@ class PostingAdChooseEvent extends PostingAdEvent {
   final Region? region;
   final YearsEntity? yearsEntity;
   final DistrictEntity? district;
+  final List<RentWithPurchaseEntity>? rentWithPurchaseConditions;
   final int? modelId;
   final int? generationId;
 
@@ -60,7 +65,7 @@ class PostingAdChooseEvent extends PostingAdEvent {
   final String? ownerEmail;
   final String? ownerPhone;
   final String? ownerName;
-  final String? boughtTime;
+  final String? purchasedDate;
   final String? description;
   final String? city;
   final String? price;
@@ -79,8 +84,11 @@ class PostingAdChooseEvent extends PostingAdEvent {
   final bool? rentToBuy;
   final bool? isWithoutMileage;
   final bool? showExactAddress;
+  final bool? isNew;
 
   PostingAdChooseEvent({
+    this.isNew,
+    this.rentWithPurchaseConditions,
     this.gallery,
     this.showExactAddress,
     this.district,
@@ -97,7 +105,7 @@ class PostingAdChooseEvent extends PostingAdEvent {
     this.colorName,
     this.typeDocument,
     this.ownerStep,
-    this.boughtTime,
+    this.purchasedDate,
     this.isRastamojen,
     this.description,
     this.ownerEmail,

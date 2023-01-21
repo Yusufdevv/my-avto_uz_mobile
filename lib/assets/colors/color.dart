@@ -91,6 +91,7 @@ const _darkGray = Color(0xffA4A4A4);
 const _nero3 = Color(0xff1D1D1D);
 const _cinnabar = Color(0xffEA5930);
 const _mediumSlateBlue = Color(0xff695CEA);
+
 const _havelockBlue = Color(0xff4D88C8);
 const _fuzzyWuzzyBrown = Color(0xffC8534D);
 const _ghost = Color(0xffB5B5BE);

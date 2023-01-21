@@ -44,6 +44,9 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
                   children: [
                     Expanded(
                         child: ListView(
+                      padding: EdgeInsets.only(
+                          bottom:
+                              MediaQuery.of(context).viewInsets.bottom + 60),
                       children: [
                         Text(
                           'Пожалуйста, не указывайте ссылки, цену, контактные данные и не предлагайте услуги — такое объявление не пройдет модерацию',
@@ -94,11 +97,12 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
                         GestureDetector(
                             onTap: () => context.read<PostingAdBloc>().add(
                                 PostingAdChooseEvent(
-                                    isRastamojen: !state.isRastamojen)),
+                                    isRastamojen:
+                                        !state.registeredInUzbekistan)),
                             child: Row(
                               children: [
                                 WCheckBox(
-                                    isChecked: state.isRastamojen,
+                                    isChecked: state.registeredInUzbekistan,
                                     checkBoxColor: purple),
                                 const SizedBox(
                                   width: 10,

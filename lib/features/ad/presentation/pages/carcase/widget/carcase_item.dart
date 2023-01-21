@@ -36,9 +36,7 @@ class CarCaseItem extends StatelessWidget {
                 borderRadius: BorderRadius.circular(8),
               ),
             },
-            const SizedBox(
-              width: 12,
-            ),
+            const SizedBox(width: 12),
             Text(
               title,
               style: Theme.of(context)
