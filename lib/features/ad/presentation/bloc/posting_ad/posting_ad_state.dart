@@ -22,7 +22,7 @@ class PostingAdState extends Equatable {
   final DistrictEntity? district;
   final List<String> gallery;
   final List<RentWithPurchaseEntity> rentWithPurchaseConditions;
-  final Map<DamagedParts, DamageType> parts;
+  final List<DamagedPartEntity> damagedParts;
   final String? letter;
   final String? ownerName;
   final String? ownerEmail;
@@ -51,7 +51,6 @@ class PostingAdState extends Equatable {
 
   const PostingAdState({
     required this.status,
-    required this.parts,
     this.gearboxId,
     this.gearBoxes = const <GearboxTypeEntity>[],
     this.driveTypeId,
@@ -69,6 +68,7 @@ class PostingAdState extends Equatable {
     this.bodyTypes = const <BodyTypeEntity>[],
     this.gallery = const <String>[],
     this.rentWithPurchaseConditions = const <RentWithPurchaseEntity>[],
+    this.damagedParts = const <DamagedPartEntity>[],
     this.yearsEntity,
     this.letter,
     this.colorName,
@@ -99,6 +99,7 @@ class PostingAdState extends Equatable {
     this.district,
   });
   PostingAdState copyWith({
+    List<DamagedPartEntity>? damagedParts,
     List<RentWithPurchaseEntity>? rentWithPurchaseConditions,
     DistrictEntity? district,
     Region? region,
@@ -149,7 +150,7 @@ class PostingAdState extends Equatable {
     bool? showExactAddress,
   }) =>
       PostingAdState(
-        parts: parts ?? this.parts,
+        damagedParts: damagedParts ?? this.damagedParts,
         rentWithPurchaseConditions:
             rentWithPurchaseConditions ?? this.rentWithPurchaseConditions,
         showExactAddress: showExactAddress ?? this.showExactAddress,
@@ -201,7 +202,7 @@ class PostingAdState extends Equatable {
       );
   @override
   List<Object?> get props => [
-    parts,
+        damagedParts,
         rentWithPurchaseConditions,
         gallery,
         showExactAddress,

@@ -1,8 +1,5 @@
 import 'dart:async';
-import 'dart:ffi';
 
-import 'package:auto/assets/themes/theme_extensions/themed_icons.dart';
-import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/core/usecases/usecase.dart';
 import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/ad/domain/entities/announcement/announcement_entity_to_post.dart';
@@ -24,7 +21,6 @@ import 'package:auto/features/ad/domain/usecases/get_engine_type.dart';
 import 'package:auto/features/ad/domain/usecases/get_generation.dart';
 import 'package:auto/features/ad/domain/usecases/get_makes.dart';
 import 'package:auto/features/common/models/region.dart';
-import 'package:auto/features/login/domain/usecases/send_code.dart';
 import 'package:auto/features/main/domain/usecases/get_top_brand.dart';
 import 'package:auto/features/rent/domain/usecases/get_gearboxess_usecase.dart';
 import 'package:bloc/bloc.dart';
@@ -46,7 +42,6 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
   final GetBodyTypeUseCase bodyTypesUseCase;
 
   PostingAdBloc({
-    
     required this.makeUseCase,
     required this.topMakesUseCase,
     required this.generationUseCase,
@@ -56,7 +51,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     required this.gearboxUseCase,
     required this.bodyTypesUseCase,
     required this.createUseCase,
-  }) : super(const PostingAdState(status: FormzStatus.pure,)) {
+  }) : super(const PostingAdState(status: FormzStatus.pure)) {
     on
 
         /// A generic type.
@@ -320,6 +315,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
   void _choose(PostingAdChooseEvent event, Emitter<PostingAdState> emit) {
     emit(
       state.copyWith(
+        damagedParts: event.damagedParts,
         rentWithPurchaseConditions: event.rentWithPurchaseConditions,
         gallery: event.gallery,
         showExactAddress: event.showExactAddress,

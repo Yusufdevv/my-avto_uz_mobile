@@ -49,6 +49,7 @@ class PostingAdChooseEvent extends PostingAdEvent {
   final YearsEntity? yearsEntity;
   final DistrictEntity? district;
   final List<RentWithPurchaseEntity>? rentWithPurchaseConditions;
+  final List<DamagedPartEntity>? damagedParts;
   final int? modelId;
   final int? generationId;
 
@@ -87,6 +88,7 @@ class PostingAdChooseEvent extends PostingAdEvent {
   final bool? isNew;
 
   PostingAdChooseEvent({
+    this.damagedParts,
     this.isNew,
     this.rentWithPurchaseConditions,
     this.gallery,

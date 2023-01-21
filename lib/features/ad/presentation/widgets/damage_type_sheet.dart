@@ -117,10 +117,7 @@ class _DamageTypeChooseSheetState extends State<DamageTypeChooseSheet> {
                     )),
             WButton(
               onTap: () {
-                if (selected != null) {
-                  widget.onSubmitted(selected);
-                }
-                Navigator.pop(context);
+                Navigator.of(context).pop(selected);
               },
               color: orange,
               text: 'Сохранить',

@@ -1,5 +1,7 @@
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/const/constants.dart';
+import 'package:auto/features/ad/domain/entities/damaged_part/damaged_part.dart';
+import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.dart';
 import 'package:auto/features/ad/presentation/pages/damage/widgets/cars_item.dart';
 import 'package:auto/features/ad/presentation/pages/damage/widgets/custom_tabbar.dart';
 import 'package:auto/features/ad/presentation/pages/damage/widgets/situation_item.dart';
@@ -7,6 +9,7 @@ import 'package:auto/features/ad/presentation/pages/damage/widgets/situation_wit
 import 'package:auto/features/ad/presentation/widgets/base_widget.dart';
 import 'package:auto/features/ad/presentation/widgets/damage_type_sheet.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DamageScreen extends StatefulWidget {
   const DamageScreen({Key? key}) : super(key: key);
@@ -30,8 +33,8 @@ class _DamageScreenState extends State<DamageScreen>
     super.initState();
   }
 
-  _showChoosDamageTypeSheet(DamagedParts type) async {
-    await showModalBottomSheet<String>(
+  _showChoosDamageTypeSheet(DamagedParts part) async {
+    await showModalBottomSheet<DamageType>(
       useRootNavigator: true,
       isDismissible: false,
       context: context,
@@ -40,12 +43,19 @@ class _DamageScreenState extends State<DamageScreen>
       backgroundColor: Colors.transparent,
       builder: (c) => DamageTypeChooseSheet(
         title: 'Pravaya perdnaya dver',
-        initialType: DamageType.ideal,
+        initialType: null,
         onSubmitted: (v) {
           print('=> => => =>     $v    <= <= <= <=');
         },
       ),
-    );
+    ).then((value) {
+      if (value != null) {
+        context.read<PostingAdBloc>().add(PostingAdChooseEvent(damagedParts: [
+              DamagedPartEntity(damageType: value.name, part: part.value),
+              ...context.watch<PostingAdBloc>().state.damagedParts
+            ]));
+      }
+    });
   }
 
   @override
