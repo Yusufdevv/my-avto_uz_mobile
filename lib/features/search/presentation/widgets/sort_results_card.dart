@@ -1,4 +1,5 @@
 import 'package:auto/features/common/domain/entity/auto_entity.dart';
+import 'package:auto/features/profile/domain/entities/dealer_type_entity.dart';
 import 'package:auto/features/search/presentation/search_screen.dart';
 import 'package:auto/features/search/presentation/widgets/info_result_container.dart';
 import 'package:flutter/material.dart';
@@ -94,7 +95,7 @@ class SortResultsCard extends StatelessWidget {
       price: newList[index].price,
       publishedAt: newList[index].publishedAt,
       userFullName: newList[index].user.fullName,
-      userImage: newList[index].user.image,
+      userImage:newList[index].userType!='owner' ? DealerFavEntity.fromJson(newList[index].dealer).avatar ?? '' :  newList[index].user.image  ,
       userType: newList[index].userType,
       hasComparison: newList[index].isComparison,
       id: newList[index].id,
