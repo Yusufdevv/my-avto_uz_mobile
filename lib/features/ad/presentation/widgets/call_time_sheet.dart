@@ -72,7 +72,7 @@ class _CallTimeSheetState extends State<CallTimeSheet> {
               ],
             ),
             const SizedBox(
-              height: 27,
+              height: 27
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -80,11 +80,13 @@ class _CallTimeSheetState extends State<CallTimeSheet> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   HourPickerWidget(
+                    defaultHour: 8,
                       initialItem: widget.timeFrom,
                       title: 'от',
                       onChanged: (value) => setState(() => from = value)),
                   Container(width: 1, height: 120, color: border),
                   HourPickerWidget(
+                    defaultHour: 17,
                       initialItem: widget.timeTo,
                       title: 'до',
                       onChanged: (value) => setState(() => to = value)),
@@ -96,6 +98,8 @@ class _CallTimeSheetState extends State<CallTimeSheet> {
               shadowColor: orange.withOpacity(0.2),
               color: orange,
               onTap: () {
+                if(from.isEmpty) from = '08 : 00';
+                if(to.isEmpty) to = '17 : 00';
                 Navigator.of(context).pop([from, to]);
               },
               content: Text(

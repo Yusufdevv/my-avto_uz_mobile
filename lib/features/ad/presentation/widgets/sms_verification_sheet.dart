@@ -5,6 +5,7 @@ import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/features/ad/data/repositories/ad_repository_impl.dart';
 import 'package:auto/features/ad/domain/usecases/verify_contacts_usecase.dart';
 import 'package:auto/features/ad/presentation/bloc/virify_contacts/verify_contacts_bloc.dart';
+import 'package:auto/features/ad/presentation/widgets/edit_box_widget.dart';
 import 'package:auto/features/car_single/presentation/widgets/orange_button.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/profile/presentation/widgets/refresh_button.dart';
@@ -108,35 +109,11 @@ class _SmsVerificationSheetState extends State<SmsVerificationSheet> {
                   const SizedBox(
                     height: 12,
                   ),
-                  Container(
-                    padding: const EdgeInsets.only(
-                        right: 4, left: 8, top: 4, bottom: 4),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      color: border,
-                    ),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text(
-                          '+998 ${widget.phoneNumber.replaceAll(' ', '')}',
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline6!
-                              .copyWith(
-                                  fontWeight: FontWeight.w400, fontSize: 14),
-                        ),
-                        const SizedBox(width: 12),
-                        Container(
-                            padding: const EdgeInsets.all(5),
-                            decoration: BoxDecoration(
-                                color: Theme.of(context)
-                                    .extension<ThemedColors>()!
-                                    .solitudeToBastille,
-                                borderRadius: BorderRadius.circular(4)),
-                            child: SvgPicture.asset(AppIcons.edit))
-                      ],
-                    ),
+                  EditBoxWidget(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    text: '+998 ${widget.phoneNumber.replaceAll(' ', '')}',
                   ),
                   const SizedBox(height: 42),
                   PinCodeTextField(

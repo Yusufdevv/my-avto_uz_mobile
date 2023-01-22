@@ -6,10 +6,12 @@ class HourPickerWidget extends StatefulWidget {
   final String initialItem;
   final String title;
   final ValueChanged<String> onChanged;
-  HourPickerWidget({
+  final int defaultHour;
+  const HourPickerWidget({
     required this.onChanged,
     required this.title,
     required this.initialItem,
+    required this.defaultHour,
     Key? key,
   }) : super(key: key);
 
@@ -32,8 +34,9 @@ class _HourPickerWidgetState extends State<HourPickerWidget> {
       }
     }
     final v = values.indexOf(widget.initialItem);
-    currentIndex = v > 0 ? v : 8;
+    currentIndex = v > 0 ? v : widget.defaultHour;
     controller = FixedExtentScrollController(initialItem: currentIndex);
+
     super.initState();
   }
 
