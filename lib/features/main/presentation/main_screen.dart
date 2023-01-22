@@ -206,7 +206,7 @@ class _MainScreenState extends State<MainScreen> {
                                 AnnouncementListEvent.getAnnouncementList());
                           }),
                           onTapShow: () {
-                            Navigator.of(context).push(fade(
+                            Navigator.of(context,rootNavigator: true).push(fade(
                                 page: AdsScreen(isBack: false, onTap: () {})));
                           },
                           imageUrl: state.imageUrl,
