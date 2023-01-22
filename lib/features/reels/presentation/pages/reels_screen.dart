@@ -10,8 +10,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:formz/formz.dart';
 
 class ReelsScreen extends StatefulWidget {
-  const ReelsScreen({Key? key}) : super(key: key);
-
+  ReelsScreen({Key? key, this.isFromMain = false}) : super(key: key);
+  bool isFromMain;
   @override
   State<ReelsScreen> createState() => _ReelsScreenState();
 }
@@ -100,10 +100,12 @@ class _ReelsScreenState extends State<ReelsScreen> {
                       left: 16,
                       child: Row(
                         children: [
-                          WScaleAnimation(
-                            child: SvgPicture.asset(AppIcons.chevronLeftWhite),
-                            onTap: () => Navigator.pop(context),
-                          ),
+                          if (widget.isFromMain)
+                            WScaleAnimation(
+                              child:
+                                  SvgPicture.asset(AppIcons.chevronLeftWhite),
+                              onTap: () => Navigator.pop(context),
+                            ),
                           const Spacer(),
                           SvgPicture.asset(AppIcons.whiteLogo),
                         ],

@@ -175,7 +175,7 @@ class _MainScreenState extends State<MainScreen> {
                       DealButton(
                         onTap: () {
                           Navigator.of(context, rootNavigator: true)
-                              .push(fade(page: const ReelsScreen()));
+                              .push(fade(page: ReelsScreen(isFromMain: true)));
                         },
                       ),
                       BlocBuilder<GetMakesBloc, GetMakesState>(
@@ -209,7 +209,7 @@ class _MainScreenState extends State<MainScreen> {
                           imageUrl: state.imageUrl,
                           title: state.name,
                           count: stateAnnounc.count,
-                          isCheck: state.ischeck,
+                          isCheck: state.ischeck
                         ),
                       ),
                       SizedBox(
@@ -222,7 +222,7 @@ class _MainScreenState extends State<MainScreen> {
                             onTap: serviceTaps[index],
                           ),
                           itemCount: serviceEntity.length,
-                          scrollDirection: Axis.horizontal,
+                          scrollDirection: Axis.horizontal
                         ),
                       ),
                       TopBrands(

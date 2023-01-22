@@ -2,10 +2,13 @@ import 'dart:math';
 
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/assets/constants/images.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
+import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/reels/domain/entities/reel_entity.dart';
 import 'package:auto/features/reels/presentation/widgets/options_item.dart';
 import 'package:auto/utils/my_functions.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:video_player/video_player.dart';
@@ -74,70 +77,82 @@ class _ContentItemState extends State<ContentItem> {
                   colors: [dark.withOpacity(1), dark.withOpacity(0)])),
         ),
         Positioned(
+          bottom: 26,
           left: 16,
-          bottom: MediaQuery.of(context).padding.bottom + 93,
-          child: double.parse(widget.reel.announcement.discount) > 0.0
-              ? WButton(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              if (double.parse(widget.reel.announcement.discount) > 0.0)
+                WScaleAnimation(
                   onTap: () {},
-                  padding: const EdgeInsets.fromLTRB(16, 12, 8, 16),
-                  borderRadius: 16,
-                  //height: 83,
-                  color: white.withOpacity(.38),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        '${MyFunctions.getFormatCost((double.parse(widget.reel.announcement.price) - double.parse(widget.reel.announcement.discount)).toString())} '
-                        '${(widget.reel.announcement.currency).toUpperCase()}',
-                        style: Theme.of(context).textTheme.headline5!.copyWith(
-                              decoration: TextDecoration.lineThrough,
-                              color: black.withOpacity(.5),
+                  child: Container(
+                    padding: const EdgeInsets.fromLTRB(16, 12, 8, 16),
+                    decoration: BoxDecoration(
+                      color: white.withOpacity(.6),
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          '${MyFunctions.getFormatCost((double.parse(widget.reel.announcement.price) - double.parse(widget.reel.announcement.discount)).toString())} '
+                          '${(widget.reel.announcement.currency).toUpperCase()}',
+                          style:
+                              Theme.of(context).textTheme.headline5!.copyWith(
+                                    decoration: TextDecoration.lineThrough,
+                                    color: black.withOpacity(.5),
+                                  ),
+                        ),
+                        const SizedBox(height: 2),
+                        Row(
+                          children: [
+                            Text(
+                              '${MyFunctions.getFormatCost(widget.reel.announcement.price)} '
+                              '${(widget.reel.announcement.currency).toUpperCase()}',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline4!
+                                  .copyWith(fontSize: 24, color: dark),
                             ),
-                      ),
-                      const SizedBox(height: 2),
-                      Row(
-                        children: [
-                          Text(
-                            '${MyFunctions.getFormatCost(widget.reel.announcement.price)} '
-                            '${(widget.reel.announcement.currency).toUpperCase()}',
-                            style: Theme.of(context)
-                                .textTheme
-                                .headline4!
-                                .copyWith(fontSize: 24, color: dark),
-                          ),
-                          const SizedBox(
-                            width: 6,
-                          ),
-                          Stack(
-                            children: [
-                              SvgPicture.asset(AppIcons.discountContainer),
-                              Positioned(
-                                left: 3,
-                                right: 3,
-                                top: 8,
-                                bottom: 8,
-                                child: Text(
-                                  '-${widget.reel.discountPercent}%',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headline4!
-                                      .copyWith(
-                                          fontSize: 8,
-                                          fontWeight: FontWeight.w600),
-                                ),
-                              )
-                            ],
-                          ),
-                          // const SizedBox(width: 3),
-                          SvgPicture.asset(
-                            AppIcons.chevronRight2,
-                          )
-                        ],
-                      ),
-                    ],
+                            const SizedBox(
+                              width: 6,
+                            ),
+                            SizedBox(
+                              height: 27,
+                              width: 27,
+                              child: Stack(
+                                children: [
+                                  SvgPicture.asset(AppIcons.discountContainer),
+                                  Positioned(
+                                    left: 3,
+                                    right: 3,
+                                    top: 8,
+                                    bottom: 8,
+                                    child: Text(
+                                      '-${(double.parse(widget.reel.announcement.discount) / double.parse(widget.reel.announcement.discount)) * 100}%',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headline4!
+                                          .copyWith(
+                                              fontSize: 8,
+                                              fontWeight: FontWeight.w600),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                            const SizedBox(width: 8),
+                            SvgPicture.asset(
+                              AppIcons.chevronRight2,
+                            )
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 )
-              : WButton(
+              else
+                WButton(
                   onTap: () {},
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   height: 55,
@@ -163,50 +178,48 @@ class _ContentItemState extends State<ContentItem> {
                     ],
                   ),
                 ),
-        ),
-        Positioned(
-          bottom: 58,
-          left: 16,
-          child: Text(
-            widget.reel.title,
-            style:
-                Theme.of(context).textTheme.headline4!.copyWith(fontSize: 20),
-          ),
-        ),
-        Positioned(
-          bottom: 26,
-          left: 16,
-          child: Row(
-            children: [
-              Container(
-                height: 20,
-                width: 20,
-                decoration: BoxDecoration(
-                    border: Border.all(
-                      width: 1.5,
-                      color: white.withOpacity(.5),
-                    ),
-                    borderRadius: BorderRadius.circular(10)),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: Image.network(
-                    widget.reel.dealer.image,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-              const SizedBox(
-                width: 8,
-              ),
+              const SizedBox(height: 20),
               Text(
-                widget.reel.dealer.name,
-                style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                      color: white.withOpacity(.7),
+                widget.reel.title,
+                style: Theme.of(context)
+                    .textTheme
+                    .headline4!
+                    .copyWith(fontSize: 20),
+              ),
+              const SizedBox(height: 10),
+              Row(
+                children: [
+                  Container(
+                    height: 20,
+                    width: 20,
+                    decoration: BoxDecoration(
+                        border: Border.all(
+                            width: 1.5, color: white.withOpacity(.5)),
+                        borderRadius: BorderRadius.circular(10)),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: CachedNetworkImage(
+                          imageUrl: widget.reel.dealer.image,
+                          fit: BoxFit.cover,
+                          errorWidget: (context, url, error) => Image.asset(
+                              AppImages.carPlaceHolder,
+                              fit: BoxFit.cover)),
                     ),
+                  ),
+                  const SizedBox(width: 8),
+                  Text(
+                    widget.reel.dealer.name,
+                    style: Theme.of(context)
+                        .textTheme
+                        .subtitle1!
+                        .copyWith(color: white.withOpacity(.7)),
+                  ),
+                ],
               ),
             ],
           ),
         ),
+        //
         Positioned(
           right: 14,
           bottom: 32,
