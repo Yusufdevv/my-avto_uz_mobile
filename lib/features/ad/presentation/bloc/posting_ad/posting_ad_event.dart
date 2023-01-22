@@ -1,20 +1,26 @@
 part of 'posting_ad_bloc.dart';
 
 abstract class PostingAdEvent {}
-class PostingAdDamageEvent extends PostingAdEvent{
+
+class PostingAdDamageEvent extends PostingAdEvent {
   final DamagedParts part;
   final DamageType type;
 
-  PostingAdDamageEvent({required this.part,required this.type});
+  PostingAdDamageEvent({required this.part, required this.type});
 }
 
-class PostingAdCreateEvent extends PostingAdEvent {
-}
-class PostingAdBodyTypesEvent extends PostingAdEvent {
+class PostingAdGetRegionsEvent extends PostingAdEvent {}
+
+class PostingAdGetDistritsEvent extends PostingAdEvent {
+  final int regionId;
+  PostingAdGetDistritsEvent({required this.regionId});
 }
 
-class PostingAdGearBoxesEvent extends PostingAdEvent {
-}
+class PostingAdCreateEvent extends PostingAdEvent {}
+
+class PostingAdBodyTypesEvent extends PostingAdEvent {}
+
+class PostingAdGearBoxesEvent extends PostingAdEvent {}
 
 class PostingAdModelEvent extends PostingAdEvent {
   final String? name;

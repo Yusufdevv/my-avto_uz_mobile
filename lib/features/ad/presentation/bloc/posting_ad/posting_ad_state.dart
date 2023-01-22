@@ -1,7 +1,6 @@
 part of 'posting_ad_bloc.dart';
 
 class PostingAdState extends Equatable {
-  final Region? region;
   final int? gearboxId;
   final List<GearboxTypeEntity> gearBoxes;
   final int? driveTypeId;
@@ -17,12 +16,18 @@ class PostingAdState extends Equatable {
   final List<GenerationEntity> generations;
   final int? bodyTypeId;
   final List<BodyTypeEntity> bodyTypes;
+
+  final Region? region;
+  final List<Region> regions;
+  final List<DistrictEntity> districts;
   final FormzStatus status;
+  final FormzStatus getDistrictsStatus;
   final YearsEntity? yearsEntity;
   final DistrictEntity? district;
   final List<String> gallery;
   final List<RentWithPurchaseEntity> rentWithPurchaseConditions;
   final Map<DamagedParts, DamageType> damagedParts;
+
   final String? letter;
   final String? ownerName;
   final String? ownerEmail;
@@ -68,6 +73,7 @@ class PostingAdState extends Equatable {
     this.bodyTypes = const <BodyTypeEntity>[],
     this.gallery = const <String>[],
     this.rentWithPurchaseConditions = const <RentWithPurchaseEntity>[],
+    this.regions = const <Region>[],
     this.damagedParts = const <DamagedParts, DamageType>{},
     this.yearsEntity,
     this.letter,
@@ -97,6 +103,8 @@ class PostingAdState extends Equatable {
     this.rentToBuy,
     this.isWithoutMileage,
     this.district,
+    this.districts = const <DistrictEntity>[],
+    this.getDistrictsStatus = FormzStatus.pure,
   });
   PostingAdState copyWith({
     Map<DamagedParts, DamageType>? damagedParts,
@@ -104,6 +112,7 @@ class PostingAdState extends Equatable {
     DistrictEntity? district,
     Region? region,
     FormzStatus? status,
+    FormzStatus? getDistrictsStatus,
     int? gearboxId,
     List<GearboxTypeEntity>? gearBoxes,
     int? driveTypeId,
@@ -118,7 +127,9 @@ class PostingAdState extends Equatable {
     List<BodyTypeEntity>? bodyTypes,
     int? makeId,
     List<MakeEntity>? makes,
+    List<Region>? regions,
     List<MakeEntity>? topMakes,
+    List<DistrictEntity>? districts,
     List<String>? gallery,
     YearsEntity? yearsEntity,
     String? letter,
@@ -147,60 +158,69 @@ class PostingAdState extends Equatable {
     bool? rentToBuy,
     bool? isWithoutMileage,
     bool? showExactAddress,
-  }) =>
-      PostingAdState(
-        damagedParts: damagedParts ?? this.damagedParts,
-        rentWithPurchaseConditions:
-            rentWithPurchaseConditions ?? this.rentWithPurchaseConditions,
-        showExactAddress: showExactAddress ?? this.showExactAddress,
-        district: district ?? this.district,
-        city: city ?? this.city,
-        region: region ?? this.region,
-        gearboxId: gearboxId ?? this.gearboxId,
-        gearBoxes: gearBoxes ?? this.gearBoxes,
-        driveTypeId: driveTypeId ?? this.driveTypeId,
-        driveTypes: driveTypes ?? this.driveTypes,
-        engineId: engineId ?? this.engineId,
-        engines: engines ?? this.engines,
-        models: models ?? this.models,
-        generationId: generationId ?? this.generationId,
-        generations: generations ?? this.generations,
-        bodyTypeId: bodyTypeId ?? this.bodyTypeId,
-        topMakes: topMakes ?? this.topMakes,
-        makes: makes ?? this.makes,
-        status: status ?? this.status,
-        bodyTypes: bodyTypes ?? this.bodyTypes,
-        yearsEntity: yearsEntity ?? this.yearsEntity,
-        hasAppBarShadow: hasAppBarShadow ?? this.hasAppBarShadow,
-        isSortByLetter: isSortByLetter,
-        modelId: modelId ?? this.modelId,
-        makeId: makeId ?? this.makeId,
-        letter: letter,
-        colorName: colorName ?? this.colorName,
-        typeDocument: typeDocument ?? this.typeDocument,
-        ownerStep: ownerStep ?? this.ownerStep,
-        purchasedDate: purchasedDate ?? this.purchasedDate,
-        registeredInUzbekistan:
-            registeredInUzbekistan ?? this.registeredInUzbekistan,
-        descriptions: descriptions ?? this.descriptions,
-        ownerEmail: ownerEmail ?? this.ownerEmail,
-        ownerName: ownerName ?? this.ownerName,
-        ownerPhone: ownerPhone ?? this.ownerPhone,
-        mileage: mileage ?? this.mileage,
-        currency: currency ?? this.currency,
-        gasBalloonType: gasBalloonType ?? this.gasBalloonType,
-        price: price ?? this.price,
-        callTimeFrom: callTimeFrom ?? this.callTimeFrom,
-        callTimeTo: callTimeTo ?? this.callTimeTo,
-        isCallTimed: isCallTimed ?? this.isCallTimed,
-        showOwnerContacts: showOwnerContacts ?? this.showOwnerContacts,
-        isContactsVerified: isContactsVerified ?? this.isContactsVerified,
-        rentToBuy: rentToBuy ?? this.rentToBuy,
-        isWithoutMileage: isWithoutMileage ?? this.isWithoutMileage,
-        gallery: gallery ?? this.gallery,
-      );
+  }) {
+    print('==== returning district id: ${district?.title}  ====');
+    return PostingAdState(
+      getDistrictsStatus: getDistrictsStatus ?? this.getDistrictsStatus,
+      districts: districts ?? this.districts,
+      damagedParts: damagedParts ?? this.damagedParts,
+      rentWithPurchaseConditions:
+          rentWithPurchaseConditions ?? this.rentWithPurchaseConditions,
+      showExactAddress: showExactAddress ?? this.showExactAddress,
+      district: district ?? this.district,
+      city: city ?? this.city,
+      region: region ?? this.region,
+      gearboxId: gearboxId ?? this.gearboxId,
+      gearBoxes: gearBoxes ?? this.gearBoxes,
+      driveTypeId: driveTypeId ?? this.driveTypeId,
+      driveTypes: driveTypes ?? this.driveTypes,
+      engineId: engineId ?? this.engineId,
+      engines: engines ?? this.engines,
+      models: models ?? this.models,
+      generationId: generationId ?? this.generationId,
+      generations: generations ?? this.generations,
+      bodyTypeId: bodyTypeId ?? this.bodyTypeId,
+      topMakes: topMakes ?? this.topMakes,
+      makes: makes ?? this.makes,
+      status: status ?? this.status,
+      bodyTypes: bodyTypes ?? this.bodyTypes,
+      yearsEntity: yearsEntity ?? this.yearsEntity,
+      hasAppBarShadow: hasAppBarShadow ?? this.hasAppBarShadow,
+      isSortByLetter: isSortByLetter,
+      modelId: modelId ?? this.modelId,
+      makeId: makeId ?? this.makeId,
+      letter: letter,
+      colorName: colorName ?? this.colorName,
+      typeDocument: typeDocument ?? this.typeDocument,
+      ownerStep: ownerStep ?? this.ownerStep,
+      purchasedDate: purchasedDate ?? this.purchasedDate,
+      registeredInUzbekistan:
+          registeredInUzbekistan ?? this.registeredInUzbekistan,
+      descriptions: descriptions ?? this.descriptions,
+      ownerEmail: ownerEmail ?? this.ownerEmail,
+      ownerName: ownerName ?? this.ownerName,
+      ownerPhone: ownerPhone ?? this.ownerPhone,
+      mileage: mileage ?? this.mileage,
+      currency: currency ?? this.currency,
+      gasBalloonType: gasBalloonType ?? this.gasBalloonType,
+      price: price ?? this.price,
+      callTimeFrom: callTimeFrom ?? this.callTimeFrom,
+      callTimeTo: callTimeTo ?? this.callTimeTo,
+      isCallTimed: isCallTimed ?? this.isCallTimed,
+      showOwnerContacts: showOwnerContacts ?? this.showOwnerContacts,
+      isContactsVerified: isContactsVerified ?? this.isContactsVerified,
+      rentToBuy: rentToBuy ?? this.rentToBuy,
+      isWithoutMileage: isWithoutMileage ?? this.isWithoutMileage,
+      gallery: gallery ?? this.gallery,
+      regions: regions ?? this.regions,
+    );
+  }
+
   @override
   List<Object?> get props => [
+        getDistrictsStatus,
+        districts,
+        regions,
         damagedParts,
         rentWithPurchaseConditions,
         gallery,

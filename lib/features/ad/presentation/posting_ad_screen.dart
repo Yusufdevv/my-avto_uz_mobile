@@ -33,6 +33,8 @@ import 'package:auto/features/ad/presentation/pages/year_of_issue/year_issue_scr
 import 'package:auto/features/ad/presentation/widgets/completion_bar.dart';
 import 'package:auto/features/ad/presentation/widgets/posting_ad_appbar.dart';
 import 'package:auto/features/common/bloc/regions/regions_bloc.dart';
+import 'package:auto/features/common/usecases/get_districts_usecase.dart';
+import 'package:auto/features/common/usecases/get_regions.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/main/domain/usecases/get_top_brand.dart';
 import 'package:auto/features/navigation/presentation/home.dart';
@@ -53,7 +55,9 @@ class _PostingAdScreenState extends State<PostingAdScreen>
     with SingleTickerProviderStateMixin {
   late PageController pageController;
   late PostingAdBloc postingAdBloc;
-  static int initialPage = //0
+  static int initialPage = 
+  
+  0;
       // ChooseCarBrand,
       //1
       // ChooseCarModelScreen(makeId: state.makeId ?? -1),
@@ -85,15 +89,15 @@ class _PostingAdScreenState extends State<PostingAdScreen>
       // DescriptionScreen(initialText: state.descriptions ?? ''),
       //13
       // const EquipmentScreen(),
-      14;
+      // 14;
       // const DamageScreen(),
       // 15;
-  // ContactScreen(
-  //   initialEmail: state.ownerEmail ?? '',
-  //   initialName: state.ownerName ?? '',
-  //   initialPhone: state.ownerPhone ?? '',
-  // ),
-  //16
+      // ContactScreen(
+      //   initialEmail: state.ownerEmail ?? '',
+      //   initialName: state.ownerName ?? '',
+      //   initialPhone: state.ownerPhone ?? '',
+      // ),
+      // 16;
   // const InspectionPlaceScreen(),
   //17
   // PriceScreen(initialPrice: state.price ?? ''),
@@ -109,6 +113,8 @@ class _PostingAdScreenState extends State<PostingAdScreen>
   void initState() {
     pageController = PageController(initialPage: initialPage);
     postingAdBloc = PostingAdBloc(
+      districtUseCase: GetDistrictsUseCase(),
+      regionsUseCase: GetRegionsUseCase(),
       createUseCase: CreateAnnouncementUseCase(
           repository: serviceLocator<AdRepositoryImpl>()),
       bodyTypesUseCase:
@@ -190,6 +196,11 @@ class _PostingAdScreenState extends State<PostingAdScreen>
       case 7:
         postingAdBloc.add(PostingAdGearBoxesEvent());
 
+        break;
+        case 16:
+        postingAdBloc.add(PostingAdGetRegionsEvent());
+        
+        
         break;
     }
   }

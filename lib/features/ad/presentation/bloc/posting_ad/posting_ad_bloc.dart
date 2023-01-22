@@ -23,6 +23,8 @@ import 'package:auto/features/ad/domain/usecases/get_generation.dart';
 import 'package:auto/features/ad/domain/usecases/get_makes.dart';
 import 'package:auto/features/ad/presentation/pages/damage/widgets/cars_item.dart';
 import 'package:auto/features/common/models/region.dart';
+import 'package:auto/features/common/usecases/get_districts_usecase.dart';
+import 'package:auto/features/common/usecases/get_regions.dart';
 import 'package:auto/features/main/domain/usecases/get_top_brand.dart';
 import 'package:auto/features/rent/domain/usecases/get_gearboxess_usecase.dart';
 import 'package:bloc/bloc.dart';
@@ -33,6 +35,8 @@ part 'posting_ad_event.dart';
 part 'posting_ad_state.dart';
 
 class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
+  final GetRegionsUseCase regionsUseCase;
+  final GetDistrictsUseCase districtUseCase;
   final CreateAnnouncementUseCase createUseCase;
   final GetGearBoxessUseCase gearboxUseCase;
   final GetDriveTypeUseCase driveTypeUseCase;
@@ -44,6 +48,8 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
   final GetBodyTypeUseCase bodyTypesUseCase;
 
   PostingAdBloc({
+    required this.regionsUseCase,
+    required this.districtUseCase,
     required this.makeUseCase,
     required this.topMakesUseCase,
     required this.generationUseCase,
@@ -66,13 +72,46 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     on<PostingAdBodyTypesEvent>(_bodyTypes);
     on<PostingAdCreateEvent>(_create);
     on<PostingAdDamageEvent>(_damage);
+    on<PostingAdGetRegionsEvent>(_getRegions);
+    on<PostingAdGetDistritsEvent>(_getDistricts);
+  }
+  FutureOr<void> _getDistricts(
+      PostingAdGetDistritsEvent event, Emitter<PostingAdState> emit) async {
+    emit(state.copyWith(getDistrictsStatus: FormzStatus.submissionInProgress));
+    final result = await districtUseCase.call(event.regionId);
+    if (result.isRight) {
+      emit(
+        state.copyWith(
+          getDistrictsStatus: FormzStatus.submissionSuccess,
+          districts: result.right.results,
+        ),
+      );
+    } else {
+      emit(state.copyWith(getDistrictsStatus: FormzStatus.submissionFailure));
+    }
+  }
+
+  FutureOr<void> _getRegions(
+      PostingAdGetRegionsEvent event, Emitter<PostingAdState> emit) async {
+    emit(state.copyWith(status: FormzStatus.submissionInProgress));
+    final result = await regionsUseCase.call('');
+    if (result.isRight) {
+      emit(
+        state.copyWith(
+          status: FormzStatus.submissionSuccess,
+          regions: result.right.results,
+          districts: <DistrictEntity>[],
+        ),
+      );
+    } else {
+      emit(state.copyWith(status: FormzStatus.submissionFailure));
+    }
   }
 
   FutureOr<void> _damage(
       PostingAdDamageEvent event, Emitter<PostingAdState> emit) {
     print('=> => => =>     ${event.part} / ${event.type}    <= <= <= <=');
-    final damages =
-        state.damagedParts.map((key, value) => MapEntry(key, value));
+    final damages = state.damagedParts.map(MapEntry.new);
     print('=> => => => initialized by state    $damages    <= <= <= <=');
     damages[event.part] = event.type;
     print('=> => => => after ad     $damages    <= <= <= <=');
@@ -316,8 +355,15 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
   }
 
   void _choose(PostingAdChooseEvent event, Emitter<PostingAdState> emit) {
+    // if (event.region != null) {
+    //   print('====  i region is not null  ====');
+    //   add(PostingAdGetDistritsEvent(regionId: event.region!.id));
+    // }
+    // print('====  ifdan keyin  ====');
+    // print('==== district in choose:  ${event.district?.title}  ====');
     emit(
       state.copyWith(
+        
         damagedParts: event.damagedParts,
         rentWithPurchaseConditions: event.rentWithPurchaseConditions,
         gallery: event.gallery,
