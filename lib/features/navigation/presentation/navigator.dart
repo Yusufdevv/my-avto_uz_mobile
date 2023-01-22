@@ -45,7 +45,7 @@ class _TabNavigatorState extends State<TabNavigator>
         };
       case NavItemEnum.categories:
         return {
-          TabNavigatorRoutes.root: (context) => const ReelsScreen(),
+          TabNavigatorRoutes.root: (context) =>   ReelsScreen(),
         };
       case NavItemEnum.profile:
         return {
