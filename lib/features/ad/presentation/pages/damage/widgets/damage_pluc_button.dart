@@ -2,22 +2,21 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/const/constants.dart';
-import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/utils/my_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class DamageButton extends StatelessWidget {
   final DamageType? damageType;
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
   const DamageButton({
-    required this.onTap,
+    this.onTap,
     this.damageType,
     Key? key,
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => WScaleAnimation(
+  Widget build(BuildContext context) => GestureDetector(
         onTap: onTap,
         child: damageType == null
             ? Container(
@@ -42,7 +41,7 @@ class DamageButton extends StatelessWidget {
                 padding: const EdgeInsets.all(4),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(9),
-                  color: MyFunctions.getStatusColor(damageType!),
+                  color: MyFunctions.getStatusColor(damageType),
                 ),
                 child: damageType == DamageType.ideal
                     ? Center(
