@@ -95,8 +95,12 @@ class _AnimatedImagesState extends State<AnimatedImages>
                         curve: Curves.bounceOut);
                   }
                 } else {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const ImageInFullScreen()));
+                  if (widget.images.isNotEmpty) {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => ImageInFullScreen(
+                              images: widget.images,
+                            )));
+                  }
                 }
               },
               child:
@@ -131,6 +135,7 @@ class _AnimatedImagesState extends State<AnimatedImages>
                   //   ),
                   // ),
                   PageView.builder(
+                      physics: const BouncingScrollPhysics(),
                       controller: _pageController,
                       scrollDirection: Axis.horizontal,
                       onPageChanged: (value) => setState(() {
@@ -154,12 +159,11 @@ class _AnimatedImagesState extends State<AnimatedImages>
                                     AppImages.defaultPhoto,
                                     fit: BoxFit.cover,
                                   )
-                                : Image.network(
-                                    widget.images[index],
+                                : CachedNetworkImage(
+                                    imageUrl: widget.images[index],
                                     width: double.maxFinite,
                                     height: 340,
-                                    fit: BoxFit.cover,
-                                  ),
+                                    fit: BoxFit.cover),
                           )),
             ),
             Positioned(

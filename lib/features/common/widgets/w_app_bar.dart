@@ -116,7 +116,7 @@ class WAppBar extends StatelessWidget implements PreferredSizeWidget {
                                 Navigator.pop(context);
                               },
                           child: Padding(
-                            padding: const EdgeInsets.only(left: 16),
+                            padding: const EdgeInsets.only(left: 16, right: 8),
                             child: SvgPicture.asset(AppIcons.chevronLeft),
                           ),
                         ),
@@ -125,7 +125,7 @@ class WAppBar extends StatelessWidget implements PreferredSizeWidget {
                       const SizedBox(),
                     Container(
                       alignment: Alignment.center,
-                      padding: const EdgeInsets.only(left: 8),
+                      // padding: const EdgeInsets.only(left: 8),
                       child: Text(
                         textWithButton,
                         style: titleStyle ??

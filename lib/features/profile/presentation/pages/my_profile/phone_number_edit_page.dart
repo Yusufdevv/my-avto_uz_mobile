@@ -97,10 +97,13 @@ class _PhoneNumberEditPageState extends State<PhoneNumberEditPage> {
                             return null;
                           },
                           controller: phoneController,
-                          prefixPadding:const EdgeInsets.only(bottom: 5),
+                          prefixPadding: const EdgeInsets.only(bottom: 5),
                           prefixIcon: Row(
                             children: [
-                              Image.asset(AppImages.flagUzb),
+                              SizedBox(
+                                  height: 20,
+                                  width: 20,
+                                  child: Image.asset(AppImages.flagUzb2)),
                               const SizedBox(width: 4),
                               Text('+998',
                                   style: Theme.of(context)

@@ -97,14 +97,14 @@ class _DirectoryInfoPartState extends State<DirectoryInfoPart> {
                 rotateGesturesEnabled: false,
                 onMapCreated: (controller) async {
                   controller = controller;
-                  maxZoomLevel = await controller.getMaxZoom();
-                  minZoomLevel = await controller.getMinZoom();
-                  final camera = await controller.getCameraPosition();
-                  final position = Point(
-                      latitude: StorageRepository.getDouble('lat',
-                          defValue: 41.310990),
-                      longitude: StorageRepository.getDouble('long',
-                          defValue: 69.281997));
+                  // maxZoomLevel = await controller.getMaxZoom();
+                  // minZoomLevel = await controller.getMinZoom();
+                  // final camera = await controller.getCameraPosition();
+                  // final position = Point(
+                  //     latitude: StorageRepository.getDouble('lat',
+                  //         defValue: 41.310990),
+                  //     longitude: StorageRepository.getDouble('long',
+                  //         defValue: 69.281997));
                   await controller.moveCamera(
                     CameraUpdate.newCameraPosition(
                       CameraPosition(
@@ -168,11 +168,13 @@ class _DirectoryInfoPartState extends State<DirectoryInfoPart> {
                       SvgPicture.asset(AppIcons.phoneCall1),
                       const SizedBox(width: 8),
                       Text(
-                        MyFunctions.phoneFormatter(
-                            widget.phone, [5, 7, 10, 12]),
-                        style: Theme.of(context).textTheme.headline1!.copyWith(
-                            fontSize: 16, fontWeight: FontWeight.w600)
-                      ),
+                          MyFunctions.phoneFormatter(
+                              widget.phone, [5, 7, 10, 12]),
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline1!
+                              .copyWith(
+                                  fontSize: 16, fontWeight: FontWeight.w600)),
                     ],
                   ),
                 ),

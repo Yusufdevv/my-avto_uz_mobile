@@ -1,5 +1,6 @@
 class AppImages {
   static const flagUzb = 'assets/images/global/flag_uzb.png';
+  static const flagUzb2 = 'assets/images/global/flagUzb2.png';
   static const unknownUser = 'assets/images/global/unknown_user.png';
   static const firstImage = 'assets/images/global/first_image.png';
   static const secondImage = 'assets/images/global/second_image.png';

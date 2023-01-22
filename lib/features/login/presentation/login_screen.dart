@@ -1,5 +1,6 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_icons.dart';
 import 'package:auto/features/common/bloc/auth/authentication_bloc.dart';
@@ -109,28 +110,23 @@ class _LoginScreenState extends State<LoginScreen> {
                 ZTextFormField(
                   onTap: hidePopUp,
                   onChanged: (value) {
-                    print('=======value ${value}');
                     setState(() {});
-                    print('=======phone length ${phoneController.text.length}');
-                    print('=======pas  ${passwordController.text.length >= 4}');
-                    print(
-                        '======= ${(passwordController.text.length >= 4 && phoneController.text.length > 11)}');
                   },
                   controller: phoneController,
                   prefixIcon: Row(
                     children: [
-                      const Text('🇺🇿'),
-                      // Image.asset(AppImages.flagUzb),
+                      SizedBox(
+                          height: 20,
+                          width: 20,
+                          child: Image.asset(AppImages.flagUzb2)),
                       const SizedBox(
                         width: 4,
                       ),
-                      Text(
-                        '+998',
-                        style: Theme.of(context)
-                            .textTheme
-                            .subtitle1!
-                            .copyWith(fontSize: 15),
-                      ),
+                      Text('+998',
+                          style: Theme.of(context)
+                              .textTheme
+                              .subtitle1!
+                              .copyWith(fontSize: 15)),
                     ],
                   ),
                   hintText: '91 234 56 78',

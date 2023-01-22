@@ -52,11 +52,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
         repository: AuthRepository())
       ..add(GetProfileEvent());
     imageBloc = ImageBloc();
-    print('=======profile isread ${context
-                                    .read<AuthenticationBloc>()
-                                    .state
-                                    .user
-                                    .isReadAllNotifications}');
     super.initState();
   }
 
@@ -97,12 +92,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             offset: Offset(0, 0), blurRadius: 0, color: white),
                       ],
                       extraActions: [
-                        Padding(
-                          padding: EdgeInsets.only(right: SizeConfig.h(16)),
-                          child: GestureDetector(
-                            onTap: () =>
-                                Navigator.of(context, rootNavigator: true)
-                                    .push(fade(page: const NotificationPage())),
+                        GestureDetector(
+                          behavior: HitTestBehavior.opaque,
+                          onTap: () =>
+                              Navigator.of(context, rootNavigator: true)
+                                  .push(fade(page: const NotificationPage())),
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: SizeConfig.h(16)),
                             child: SvgPicture.asset(context
                                     .read<AuthenticationBloc>()
                                     .state
