@@ -270,7 +270,7 @@ class _FavoriteItemState extends State<FavoriteItem> {
                   children: [
                     Text(
                       widget.discount > 0.0
-                          ? '${(widget.price-widget.discount).floor()} ${widget.currency.toUpperCase()}'
+                          ? '${(widget.price - widget.discount).floor()} ${widget.currency.toUpperCase()}'
                           : '${widget.price.floor()} ${widget.currency.toUpperCase()}',
                       style: Theme.of(context)
                           .textTheme
@@ -300,31 +300,31 @@ class _FavoriteItemState extends State<FavoriteItem> {
                 const SizedBox(height: 12),
                 Row(
                   children: [
-                    CachedNetworkImage(
-                        imageBuilder: (context, imageProvider) => Container(
-                              height: 36,
-                              width: 36,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(150),
-                                image: DecorationImage(
-                                    image: imageProvider, fit: BoxFit.cover),
+                    SizedBox(
+                      height: 36,
+                      width: 36,
+                      child: CachedNetworkImage(
+                          imageBuilder: (context, imageProvider) => Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(150),
+                                  image: DecorationImage(
+                                      image: imageProvider, fit: BoxFit.cover),
+                                ),
                               ),
-                            ),
-                        errorWidget: (context, url, error) => Container(
-                              height: 36,
-                              width: 36,
-                              decoration: BoxDecoration(
-                                image: const DecorationImage(
-                                    image: AssetImage(
-                                      AppImages.defaultPhoto,
-                                    ),
-                                    fit: BoxFit.cover),
-                                borderRadius: BorderRadius.circular(150),
-                                color: warmerGrey,
+                          errorWidget: (context, url, error) => Container(
+                                decoration: BoxDecoration(
+                                  image: const DecorationImage(
+                                      image: AssetImage(
+                                        AppImages.defaultPhoto,
+                                      ),
+                                      fit: BoxFit.cover),
+                                  borderRadius: BorderRadius.circular(150),
+                                  color: warmerGrey,
+                                ),
                               ),
-                            ),
-                        imageUrl: widget.userImage,
-                        fit: BoxFit.cover),
+                          imageUrl: widget.userImage,
+                          fit: BoxFit.cover),
+                    ),
                     const SizedBox(width: 8),
                     RichText(
                       text: TextSpan(

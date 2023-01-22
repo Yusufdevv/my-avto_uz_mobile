@@ -1,15 +1,14 @@
 export 'package:auto/features/profile/presentation/widgets/advertising.dart';
 export 'package:auto/features/profile/presentation/widgets/all_ads.dart';
-export 'package:auto/features/profile/presentation/widgets/chat_app_bar.dart';
 export 'package:auto/features/profile/presentation/widgets/auth_header.dart';
 export 'package:auto/features/profile/presentation/widgets/bottomsheet_region.dart';
 export 'package:auto/features/profile/presentation/widgets/camera_bottom_sheet.dart';
+export 'package:auto/features/profile/presentation/widgets/chat_app_bar.dart';
+export 'package:auto/features/profile/presentation/widgets/custom_profile_bottomsheet.dart';
 export 'package:auto/features/profile/presentation/widgets/custom_tab.dart';
 export 'package:auto/features/profile/presentation/widgets/edit_item_container.dart';
-export 'package:auto/features/profile/presentation/widgets/favourite_item.dart';
 export 'package:auto/features/profile/presentation/widgets/information_item.dart';
 export 'package:auto/features/profile/presentation/widgets/language_bottom_sheet.dart';
-export 'package:auto/features/profile/presentation/widgets/custom_profile_bottomsheet.dart';
 export 'package:auto/features/profile/presentation/widgets/notification_item.dart';
 export 'package:auto/features/profile/presentation/widgets/password_textfield.dart';
 export 'package:auto/features/profile/presentation/widgets/phone_container.dart';

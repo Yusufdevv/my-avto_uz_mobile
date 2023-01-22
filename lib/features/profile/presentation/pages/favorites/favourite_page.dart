@@ -63,8 +63,7 @@ class _FavouritePageState extends State<FavouritePage> {
             if (state.favoritesStatus.isSubmissionSuccess) {
               return state.favorites.isNotEmpty
                   ? AnimatedList(
-                      physics: const
-                       BouncingScrollPhysics(),
+                      physics: const BouncingScrollPhysics(),
                       key: listkey,
                       initialItemCount: state.favorites.length,
                       itemBuilder: (context, index, animation) {
@@ -113,29 +112,37 @@ class _FavouritePageState extends State<FavouritePage> {
                                   listkey.currentState?.removeItem(
                                       index,
                                       (context, animation) => FavoriteItem(
-                                          animation: animation,
-                                          gallery: item.gallery,
-                                          carModelName: item.model.name,
-                                          carYear: item.year,
-                                          contactPhone: item.contactPhone,
-                                          description: item.description,
-                                          districtTitle: item.district.title,
-                                          isNew: item.isNew,
-                                          isWishlisted: item.isWishlisted,
-                                          price: item.price,
-                                          currency: item.currency,
-                                          publishedAt: item.publishedAt,
-                                          userFullName: item.user.fullName,
-                                          userImage: item.userType == 'owner'
-                                              ? item.dealer
-                                              : item.user.image,
-                                          userType: item.userType,
-                                          hasComparison: item.isComparison,
-                                          callFrom: item.contactAvailableFrom,
-                                          callTo: item.contactAvailableTo,
-                                          discount: item.discount,
-                                          id: item.id,
-                                          index: index),
+                                            animation: animation,
+                                            gallery: item.gallery,
+                                            carModelName: item.model.name,
+                                            carYear: item.year,
+                                            contactPhone: item.contactPhone,
+                                            description: item.description,
+                                            districtTitle: item.district.title,
+                                            isNew: item.isNew,
+                                            isWishlisted: item.isWishlisted,
+                                            price: item.price,
+                                            currency: item.currency,
+                                            publishedAt: item.publishedAt,
+                                            userFullName:
+                                                item.userType == 'owner'
+                                                    ? item.user.fullName
+                                                    : dealer.name ?? '',
+                                            userImage: item.userType == 'owner'
+                                                ? item.user.image
+                                                : dealer.avatar ?? '',
+                                            userType: item.userType,
+                                            hasComparison: item.isComparison,
+                                            callFrom: item.userType == 'owner'
+                                                ? item.contactAvailableFrom
+                                                : dealer.contactFrom ?? '',
+                                            callTo: item.userType == 'owner'
+                                                ? item.contactAvailableTo
+                                                : dealer.contactTo ?? '',
+                                            discount: item.discount,
+                                            id: item.id,
+                                            index: index,
+                                          ),
                                       duration:
                                           const Duration(milliseconds: 600));
                                 }));
