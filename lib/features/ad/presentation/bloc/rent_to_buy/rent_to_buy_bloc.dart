@@ -14,17 +14,6 @@ class RentToBuyBloc extends Bloc<RentToBuyEvent, RentToBuyState> {
             title: 'Предоплата',
             controller: TextEditingController())) {
     on<RentToBuyEvent>((event, emit) {
-      print(
-          '=> => => => event controller :  ${event.controller}    <= <= <= <=');
-      print(
-          '=> => => => event  minimumSumma:  ${event.minimumMonthlyPay}    <= <= <= <=');
-      print('=> => => => event month:   ${event.rentalPeriod}    <= <= <= <=');
-      print(
-          '=> => => => event monthlyPayment:   ${event.monthlyPayment}    <= <= <= <=');
-      print(
-          '=> => => => event prepayment:   ${event.prepayment}    <= <= <= <=');
-      print('=> => => => event step:   ${event.step}    <= <= <= <=');
-      print('=> => => => event title:   ${event.title}    <= <= <= <=');
       emit(
         state.copyWith(
           title: event.title,

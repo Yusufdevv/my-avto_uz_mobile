@@ -28,9 +28,7 @@ class _CurrencyChooseSheetState extends State<CurrencyChooseSheet> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    print('=> => => =>     select currency    <= <= <= <=');
-    return Container(
+  Widget build(BuildContext context) => Container(
       decoration: const BoxDecoration(
         color: white,
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
@@ -91,5 +89,4 @@ class _CurrencyChooseSheetState extends State<CurrencyChooseSheet> {
         ],
       ),
     );
-  }
 }

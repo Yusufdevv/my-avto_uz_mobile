@@ -43,7 +43,6 @@ class MapOrganizationBloc extends Bloc<MapOrganizationEvent, MapOrganizationStat
               long: event.longitude ?? state.long,
               radius: event.radius?.floor() ?? state.radius));
       if (result.isRight) {
-        print('=======result directoriespoints ${result.right}');
         emit(state.copyWith(directoriesPoints: result.right, status: FormzStatus.submissionSuccess));
       } else {
         emit(state.copyWith(status: FormzStatus.submissionFailure));

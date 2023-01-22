@@ -45,12 +45,9 @@ class _DamageScreenState extends State<DamageScreen>
       isScrollControlled: true,
       barrierColor: Colors.black.withOpacity(.5),
       backgroundColor: Colors.transparent,
-      builder: (c) => DamageTypeChooseSheet(
+      builder: (c) => const DamageTypeChooseSheet(
         title: 'Pravaya perdnaya dver',
         initialType: null,
-        onSubmitted: (v) {
-          print('=> => => =>     $v    <= <= <= <=');
-        },
       ),
     ).then((value) {
       if (value != null) {

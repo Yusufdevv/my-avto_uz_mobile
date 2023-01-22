@@ -158,9 +158,7 @@ class PostingAdState extends Equatable {
     bool? rentToBuy,
     bool? isWithoutMileage,
     bool? showExactAddress,
-  }) {
-    print('==== returning district id: ${district?.title}  ====');
-    return PostingAdState(
+  }) => PostingAdState(
       getDistrictsStatus: getDistrictsStatus ?? this.getDistrictsStatus,
       districts: districts ?? this.districts,
       damagedParts: damagedParts ?? this.damagedParts,
@@ -214,7 +212,6 @@ class PostingAdState extends Equatable {
       gallery: gallery ?? this.gallery,
       regions: regions ?? this.regions,
     );
-  }
 
   @override
   List<Object?> get props => [

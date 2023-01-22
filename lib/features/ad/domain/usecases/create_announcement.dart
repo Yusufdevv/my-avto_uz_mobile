@@ -2,9 +2,7 @@ import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/core/usecases/usecase.dart';
 import 'package:auto/core/utils/either.dart';
 import 'package:auto/features/ad/data/models/announcement_to_post_model.dart';
-import 'package:auto/features/ad/domain/entities/announcement/announcement_entity_to_post.dart';
 import 'package:auto/features/ad/domain/repositories/ad_repository.dart';
-import 'package:auto/features/reels/domain/entities/announcement_entity.dart';
 import 'package:dio/dio.dart';
 
 class CreateAnnouncementUseCase extends UseCase<void, AnnouncementToPostModel> {
@@ -14,8 +12,6 @@ class CreateAnnouncementUseCase extends UseCase<void, AnnouncementToPostModel> {
 
   @override
   Future<Either<Failure, void>> call(AnnouncementToPostModel params) async {
-    print('=> => => => PARAMS:    ${params.toJson()}    <= <= <= <=');
-    await Future.delayed(Duration(milliseconds: 1000));
     List<MultipartFile> images = [];
 
     for (final element in params.gallery) {
@@ -24,7 +20,6 @@ class CreateAnnouncementUseCase extends UseCase<void, AnnouncementToPostModel> {
       );
       images.add(multiParFile);
     }
-    print('=> => => => images:    $images    <= <= <= <=');
 
     Map<String, dynamic> damages = <String, dynamic>{};
 

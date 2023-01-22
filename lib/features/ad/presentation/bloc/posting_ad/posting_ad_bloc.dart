@@ -110,23 +110,13 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
 
   FutureOr<void> _damage(
       PostingAdDamageEvent event, Emitter<PostingAdState> emit) {
-    print('=> => => =>     ${event.part} / ${event.type}    <= <= <= <=');
     final damages = state.damagedParts.map(MapEntry.new);
-    print('=> => => => initialized by state    $damages    <= <= <= <=');
     damages[event.part] = event.type;
-    print('=> => => => after ad     $damages    <= <= <= <=');
     emit(state.copyWith(damagedParts: damages));
   }
 
   FutureOr<void> _create(
       PostingAdCreateEvent event, Emitter<PostingAdState> emit) async {
-    print(
-        '=> => => => purchase date:  ${state.purchasedDate!.substring(0, 10)}    <= <= <= <=');
-    print('=> => => =>  gallery:   ${state.gallery}    <= <= <= <=');
-    print('=> => => =>  typeDocument:   ${state.typeDocument}    <= <= <= <=');
-    print('=> => => =>  ownerStep:   ${state.ownerStep}    <= <= <= <=');
-
-    print('=> => => =>  ownerStep:   ${state.currency}    <= <= <= <=');
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
     final result = await createUseCase.call(
       AnnouncementToPostModel(
@@ -289,7 +279,6 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     final result = await generationUseCase.call(GenerationParams(
         modelId: state.modelId!, year: state.yearsEntity!.yearBegin));
     if (result.isRight) {
-      print('==== generation results:  ${result.right.results}  ====');
       emit(state.copyWith(
           generations: result.right.results,
           status: FormzStatus.submissionSuccess));
@@ -355,12 +344,9 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
   }
 
   void _choose(PostingAdChooseEvent event, Emitter<PostingAdState> emit) {
-    // if (event.region != null) {
-    //   print('====  i region is not null  ====');
-    //   add(PostingAdGetDistritsEvent(regionId: event.region!.id));
-    // }
-    // print('====  ifdan keyin  ====');
-    // print('==== district in choose:  ${event.district?.title}  ====');
+    if (event.region != null) {
+      add(PostingAdGetDistritsEvent(regionId: event.region!.id));
+    }
     emit(
       state.copyWith(
         

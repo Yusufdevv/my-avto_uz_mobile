@@ -70,7 +70,6 @@ class _InspectionPlaceScreenState extends State<InspectionPlaceScreen> {
                     ),
                     const SizedBox(height: 16),
                     WButton(onTap: () {
-                      print('====  ${state.district?.title}  ====');
                       context.read<PostingAdBloc>().add(PostingAdGetDistritsEvent(regionId: state.region!.id));
                     }),
                     LoaderBox(

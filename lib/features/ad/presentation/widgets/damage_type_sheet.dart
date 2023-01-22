@@ -11,13 +11,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 class DamageTypeChooseSheet extends StatefulWidget {
   final String title;
-  final Function(DamageType?) onSubmitted;
   final DamageType? initialType;
   const DamageTypeChooseSheet(
-      {required this.onSubmitted,
-      required this.title,
-      required this.initialType,
-      super.key});
+      {required this.title, required this.initialType, super.key});
 
   @override
   State<DamageTypeChooseSheet> createState() => _DamageTypeChooseSheetState();
@@ -93,7 +89,8 @@ class _DamageTypeChooseSheetState extends State<DamageTypeChooseSheet> {
                         child: Row(
                           children: [
                             WarningCircleWidget(
-                               damageType: DamageType.values[index],),
+                              damageType: DamageType.values[index],
+                            ),
                             const SizedBox(width: 8),
                             Text(
                               MyFunctions.getStatusTitle(
