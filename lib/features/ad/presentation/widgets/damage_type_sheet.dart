@@ -93,7 +93,9 @@ class _DamageTypeChooseSheetState extends State<DamageTypeChooseSheet> {
                         ),
                         child: Row(
                           children: [
-                            const WarningCircleWidget(color: purple),
+                            WarningCircleWidget(
+                                color: MyFunctions.getStatusColor(
+                                    DamageType.values[index])),
                             const SizedBox(width: 8),
                             Text(
                               MyFunctions.getStatusTitle(

@@ -1,6 +1,5 @@
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/const/constants.dart';
-import 'package:auto/features/ad/domain/entities/damaged_part/damaged_part.dart';
 import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.dart';
 import 'package:auto/features/ad/presentation/pages/damage/widgets/cars_item.dart';
 import 'package:auto/features/ad/presentation/pages/damage/widgets/custom_tabbar.dart';
