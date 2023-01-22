@@ -135,6 +135,9 @@ class _MainScreenState extends State<MainScreen> {
           BlocProvider.value(
             value: topAdBloc,
           ),
+          BlocProvider.value(
+            value: topBrandBloc,
+          ),
         ],
         child: BlocBuilder<MainBloc, MainState>(
           builder: (context, state) => Scaffold(

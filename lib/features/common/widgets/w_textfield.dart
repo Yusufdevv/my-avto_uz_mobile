@@ -386,9 +386,13 @@ class _WTextFieldState extends State<WTextField>
                                 widget.controller!.text.isNotEmpty
                             ? GestureDetector(
                                 onTap: () {
-                                  widget.controller!.clear();
+                                  if (widget.controller!=null) {
+                                  widget.controller?.clear();
                                   setState(() {});
+                                  }
+                                  if (widget.onClear !=null) {
                                   widget.onClear!();
+                                  }
                                 },
                                 child: Padding(
                                   padding:
