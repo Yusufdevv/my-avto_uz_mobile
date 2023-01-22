@@ -130,7 +130,7 @@ class _SearchScreenState extends State<SearchScreen> {
                           focusNode: focusNode,
                           onFocusChange: (value) {
                             isFocused = value;
-
+                            print('=======val ${value}');
                             if (!value) {
                               if (searchController.text.isEmpty) {
                                 textControllerStatus =
@@ -241,10 +241,8 @@ class _SearchScreenState extends State<SearchScreen> {
               body: BlocBuilder<SearchBloc, SearchState>(
                 builder: (context, state) => textControllerStatus ==
                         SearchControllerStatus.typing
-                    ? searchController.text.isEmpty
-                        ? const Center(
-                            child: NothingFoundScreen(),
-                          )
+                    ? searchController.text.isEmpty || state.suggestions.isEmpty
+                        ? const NothingFoundScreen()
                         : Padding(
                             padding: const EdgeInsets.only(top: 16),
                             child: Paginator(
@@ -330,20 +328,21 @@ void addSearchToStorage(String text) {
   if (StorageRepository.getList('last_searches').isEmpty) {
     StorageRepository.putList('last_searches', [text]);
   } else {
-    StorageRepository.getList('last_searches').map((e) {
-      if (text.toLowerCase() != e.toLowerCase()) {
-        if (StorageRepository.getList('last_searches').length >= 5) {
-          final newList = StorageRepository.getList('last_searches')
-            ..removeAt(0);
-          StorageRepository.putList('last_searches', [...newList, text]);
-        } else {
-          StorageRepository.putList(
-            'last_searches',
-            [...StorageRepository.getList('last_searches'), text],
-          );
-        }
+    final list = StorageRepository.getList('last_searches');
+    if (!list.contains(text)) {
+      if (list.length >= 5) {
+        final newList = StorageRepository.getList('last_searches')..removeAt(0);
+        StorageRepository.putList('last_searches', [...newList, text]);
+      } else {
+        StorageRepository.putList(
+          'last_searches',
+          [...StorageRepository.getList('last_searches'), text],
+        );
       }
-    });
+    } else {
+      final newList = StorageRepository.getList('last_searches')..remove(text);
+      StorageRepository.putList('last_searches', [...newList, text]);
+    }
   }
 }
 

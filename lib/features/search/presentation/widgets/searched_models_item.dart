@@ -34,25 +34,29 @@ class SearchedModelsItem extends StatelessWidget {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              CachedNetworkImage(
-                imageUrl: imageUrl,
-                imageBuilder: (context, imageProvider) => Container(
-                  decoration: BoxDecoration(
-                    image: DecorationImage(image: imageProvider),
+              SizedBox(
+                height: 32,
+                width: 32,
+                child: CachedNetworkImage(
+                  imageUrl: imageUrl,
+                  imageBuilder: (context, imageProvider) => Container(
+                    decoration: BoxDecoration(
+                      image: DecorationImage(image: imageProvider),
+                    ),
+                    height: 32,
+                    width: 32,
+                    padding: const EdgeInsets.all(4),
                   ),
-                  height: 32,
-                  width: 32,
-                  padding: const EdgeInsets.all(4),
-                ),
-                errorWidget: (context, url, error) => Container(
-                  height: 32,
-                  padding: const EdgeInsets.all(4),
-                  width: 32,
-                  decoration: BoxDecoration(
-                    border: Border.all(color: dividerColor),
-                    borderRadius: BorderRadius.circular(150),
+                  errorWidget: (context, url, error) => Container(
+                    height: 32,
+                    padding: const EdgeInsets.all(4),
+                    width: 32,
+                    decoration: BoxDecoration(
+                      border: Border.all(color: dividerColor),
+                      borderRadius: BorderRadius.circular(150),
+                    ),
+                    child: SvgPicture.asset(AppIcons.car),
                   ),
-                  child: SvgPicture.asset(AppIcons.car),
                 ),
               ),
               const SizedBox(width: 12),
