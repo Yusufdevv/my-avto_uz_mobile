@@ -514,7 +514,9 @@ class MyFunctions {
     return const SizedBox();
   }
 
-  static Color getStatusColor(DamageType status) {
+  static Color getStatusColor(DamageType? status) {
+    if (status == null) return Colors.amber;
+
     switch (status) {
       case DamageType.ideal:
         return emerald;

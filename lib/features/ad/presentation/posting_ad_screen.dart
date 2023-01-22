@@ -85,9 +85,9 @@ class _PostingAdScreenState extends State<PostingAdScreen>
       // DescriptionScreen(initialText: state.descriptions ?? ''),
       //13
       // const EquipmentScreen(),
-      //14
+      14;
       // const DamageScreen(),
-      15;
+      // 15;
   // ContactScreen(
   //   initialEmail: state.ownerEmail ?? '',
   //   initialName: state.ownerName ?? '',

@@ -7,6 +7,7 @@ import 'package:auto/features/ad/presentation/pages/damage/widgets/situation_ite
 import 'package:auto/features/ad/presentation/pages/damage/widgets/situation_with_title.dart';
 import 'package:auto/features/ad/presentation/widgets/base_widget.dart';
 import 'package:auto/features/ad/presentation/widgets/damage_type_sheet.dart';
+import 'package:auto/utils/my_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -58,11 +59,11 @@ class _DamageScreenState extends State<DamageScreen>
 
   @override
   Widget build(BuildContext context) => Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: BaseWidget(
-        headerText: 'Состояние кузова',
-        child: SingleChildScrollView(
-            padding: const EdgeInsets.fromLTRB(16, 16, 16, 50),
+        resizeToAvoidBottomInset: false,
+        body: BaseWidget(
+          headerText: 'Состояние кузова',
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.fromLTRB(16, 16, 16, 70),
             child: BlocBuilder<PostingAdBloc, PostingAdState>(
               builder: (context, state) => Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -77,40 +78,63 @@ class _DamageScreenState extends State<DamageScreen>
                   ),
                   const SizedBox(height: 32),
                   DamageCarsItem(
-                    onLeftFender: _showChoosDamageTypeSheet,
-                    onLeftFrontDoor: _showChoosDamageTypeSheet,
-                    onLeftRearDoor: _showChoosDamageTypeSheet,
-                    onFrontBumper: _showChoosDamageTypeSheet,
-                    onFrontRightFender: _showChoosDamageTypeSheet,
-                    onHood: _showChoosDamageTypeSheet,
-                    onRearBumper: _showChoosDamageTypeSheet,
-                    onRearLetfFender: _showChoosDamageTypeSheet,
-                    onRearRightFender: _showChoosDamageTypeSheet,
-                    onRightRearDoor: _showChoosDamageTypeSheet,
-                    onRigthFrontDoor: _showChoosDamageTypeSheet,
-                    onRoof: _showChoosDamageTypeSheet,
-                    onTrunk: _showChoosDamageTypeSheet,
+                    onPressed: _showChoosDamageTypeSheet,
                   ),
                   const SizedBox(height: 32),
+                  // DOOR
                   CustomTabBar(
                       title: 'Дверь',
                       tabController: doorController,
                       firstTab: 'Левая',
                       secondTab: 'Правая'),
                   SizedBox(
-                    height: 100,
+                    height: 180,
                     child: TabBarView(
                       controller: doorController,
-                      children: const [
-                        SituationItem(
+                      children: [
+                        Column(children: [
+                          SituationItem(
+                            onTap: () {
+                              _showChoosDamageTypeSheet(
+                                  DamagedParts.leftFrontDoor);
+                            },
+                            position: 'Левая передняя дверь',
+                            damageType:
+                                state.damagedParts[DamagedParts.leftFrontDoor],
+                          ),
+                          SituationItem(
+                              onTap: () {
+                                _showChoosDamageTypeSheet(
+                                    DamagedParts.leftRearDoor);
+                              },
+                              position: 'Левая задняя дверь',
+                              damageType: state
+                                  .damagedParts[DamagedParts.leftRearDoor]),
+                        ]),
+                        Column(children: [
+                          SituationItem(
+                            onTap: () {
+                              _showChoosDamageTypeSheet(
+                                  DamagedParts.rightFrontDoor);
+                            },
                             position: 'Правая передняя дверь',
-                            situation: 'Идеальное'),
-                        SituationItem(
+                            damageType:
+                                state.damagedParts[DamagedParts.rightFrontDoor],
+                          ),
+                          SituationItem(
+                            onTap: () {
+                              _showChoosDamageTypeSheet(
+                                  DamagedParts.rightRearDoor);
+                            },
                             position: 'Правая задняя дверь',
-                            situation: 'Идеальное'),
+                            damageType:
+                                state.damagedParts[DamagedParts.rightRearDoor],
+                          ),
+                        ]),
                       ],
                     ),
                   ),
+                  // BUMPER
                   CustomTabBar(
                       title: 'Бамфер',
                       tabController: bumperController,
@@ -120,55 +144,111 @@ class _DamageScreenState extends State<DamageScreen>
                     height: 100,
                     child: TabBarView(
                       controller: bumperController,
-                      children: const [
+                      children: [
                         SituationItem(
-                            position: 'Правая передняя дверь',
-                            situation: 'Идеальное'),
+                            onTap: () {
+                              _showChoosDamageTypeSheet(
+                                  DamagedParts.frontBumper);
+                            },
+                            position: 'Передний бамфер',
+                            damageType:
+                                state.damagedParts[DamagedParts.frontBumper]),
                         SituationItem(
-                            position: 'Правая задняя дверь',
-                            situation: 'Идеальное'),
+                            onTap: () {
+                              _showChoosDamageTypeSheet(
+                                  DamagedParts.rearBumper);
+                            },
+                            position: 'Задняя бамфер',
+                            damageType:
+                                state.damagedParts[DamagedParts.rearBumper]),
                       ],
                     ),
                   ),
+
+                  // FENDER
                   CustomTabBar(
                       title: 'Крыло',
                       tabController: wingController,
                       firstTab: 'Заднее',
                       secondTab: 'Переднее'),
                   SizedBox(
-                    height: 100,
+                    height: 180,
                     child: TabBarView(
                       controller: wingController,
-                      children: const [
-                        SituationItem(
-                            position: 'Правая передняя дверь',
-                            situation: 'Идеальное'),
-                        SituationItem(
-                            position: 'Правая задняя дверь',
-                            situation: 'Идеальное'),
+                      children: [
+                        Column(
+                          children: [
+                            SituationItem(
+                                onTap: () {
+                                  _showChoosDamageTypeSheet(
+                                      DamagedParts.rearLeftFender);
+                                },
+                                position: 'Задняя левое крыло',
+                                damageType: state
+                                    .damagedParts[DamagedParts.rearLeftFender]),
+                            SituationItem(
+                                onTap: () {
+                                  _showChoosDamageTypeSheet(
+                                      DamagedParts.rearRightFender);
+                                },
+                                position: 'Задняя правое крыло',
+                                damageType: state.damagedParts[
+                                    DamagedParts.rearRightFender]),
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            SituationItem(
+                                onTap: () {
+                                  _showChoosDamageTypeSheet(
+                                      DamagedParts.frontLeftFender);
+                                },
+                                position: 'Переднее левое крыло',
+                                damageType: state.damagedParts[
+                                    DamagedParts.frontLeftFender]),
+                            SituationItem(
+                                onTap: () {
+                                  _showChoosDamageTypeSheet(
+                                      DamagedParts.frontRightFender);
+                                },
+                                position: 'Переднее правое крыло',
+                                damageType: state.damagedParts[
+                                    DamagedParts.frontRightFender]),
+                          ],
+                        ),
                       ],
                     ),
                   ),
-                  const SituationTitleItem(
-                    title: 'Крыша',
-                    situation: 'Идеальное',
-                  ),
-                  const SizedBox(
-                    height: 24,
-                  ),
-                  const SituationTitleItem(
+
+                  //  ROOF
+                  SituationTitleItem(
+                      onTap: () {
+                        _showChoosDamageTypeSheet(DamagedParts.roof);
+                      },
+                      title: 'Крыша',
+                      damageType: state.damagedParts[DamagedParts.roof]),
+                  const SizedBox(height: 24),
+                  // HOOD
+                  SituationTitleItem(
+                    onTap: () {
+                      _showChoosDamageTypeSheet(DamagedParts.hood);
+                    },
                     title: 'Капот',
-                    situation: 'Идеальное',
+                    damageType: state.damagedParts[DamagedParts.hood],
                   ),
-                  const SizedBox(
-                    height: 24,
-                  ),
-                  const SituationTitleItem(
+                  const SizedBox(height: 24),
+                  // TRUNK
+                  SituationTitleItem(
+                    onTap: () {
+                      _showChoosDamageTypeSheet(DamagedParts.trunk);
+                    },
                     title: 'Багажник',
-                    situation: 'Идеальное.',
+                    damageType: state.damagedParts[DamagedParts.trunk],
                   ),
                 ],
               ),
-            )),
-      ));
+            ),
+          ),
+        ),
+      );
 }
