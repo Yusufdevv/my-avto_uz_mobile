@@ -44,14 +44,26 @@ class TopAdBloc extends Bloc<TopAdEvent, TopAdState> {
 
     on<_GetFavorites>((event, emit) async {
       emit(state.copyWith(favoritesStatus: FormzStatus.submissionInProgress));
-      final result = await profileFavoritesMyAdsUseCase.call(event.endpoint);
+      final result = await profileFavoritesMyAdsUseCase.call(state.nextF);
       if (result.isRight) {
         emit(state.copyWith(
-            favoritesStatus: FormzStatus.submissionSuccess,
-            favorites: result.right));
+          favoritesStatus: FormzStatus.submissionSuccess,
+          favorites: result.right.results,
+          nextF: result.right.next          
+        ));
       } else {
         emit(state.copyWith(favoritesStatus: FormzStatus.submissionFailure));
       }
+    });
+
+    on<_GetMoreFavorite>((event, emit) async {
+      final result = await profileFavoritesMyAdsUseCase(state.nextF);
+      if (result.isRight) {
+        emit(state.copyWith(
+          favorites: [...state.favorites, ...result.right.results],
+          nextF: result.right.next,
+        ));
+      } else {}
     });
 
     on<_ChangeIsWish>(_onChangeIsWish);

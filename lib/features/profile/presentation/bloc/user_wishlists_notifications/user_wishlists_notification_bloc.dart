@@ -73,7 +73,7 @@ class UserWishListsBloc extends Bloc<UserWishListsEvent, UserWishListsState> {
     if (result.isRight) {
       emit(state.copyWith(
           favoritesStatus: FormzStatus.submissionSuccess,
-          favorites: result.right));
+          favorites: result.right.results));
     } else {
       emit(state.copyWith(favoritesStatus: FormzStatus.submissionFailure));
     }
@@ -97,7 +97,7 @@ class UserWishListsBloc extends Bloc<UserWishListsEvent, UserWishListsState> {
     final result = await profileFavoritesMyAdsUseCase.call(event.endpoint);
     if (result.isRight) {
       emit(state.copyWith(
-          myAdsStatus: FormzStatus.submissionSuccess, myAds: result.right));
+          myAdsStatus: FormzStatus.submissionSuccess, myAds: result.right.results));
     } else {
       emit(state.copyWith(myAdsStatus: FormzStatus.submissionFailure));
     }
