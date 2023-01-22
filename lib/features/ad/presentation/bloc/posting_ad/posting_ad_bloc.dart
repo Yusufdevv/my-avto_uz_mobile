@@ -250,6 +250,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     final result = await generationUseCase.call(GenerationParams(
         modelId: state.modelId!, year: state.yearsEntity!.yearBegin));
     if (result.isRight) {
+      print('==== generation results:  ${result.right.results}  ====');
       emit(state.copyWith(
           generations: result.right.results,
           status: FormzStatus.submissionSuccess));
