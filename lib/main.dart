@@ -102,9 +102,8 @@ class _AppState extends State<App> {
   @override
   void initState() {
     bloc = InternetBloc();
-    streamSubscription = InternetConnectionChecker()
-        .onStatusChange
-        .listen((status) {
+    streamSubscription =
+        InternetConnectionChecker().onStatusChange.listen((status) {
       context.read<InternetBloc>().add(GlobalCheck(
           isConnected: status == InternetConnectionStatus.connected));
     });
@@ -187,8 +186,8 @@ class _AppState extends State<App> {
                 listener: (context, state) {
                   switch (state.status) {
                     case AuthenticationStatus.unauthenticated:
-                      if(StorageRepository.getString('token',
-                          defValue: '').isNotEmpty) {
+                      if (StorageRepository.getString('token', defValue: '')
+                          .isNotEmpty) {
                         navigator.pushAndRemoveUntil(
                             fade(page: const HomeScreen()), (route) => false);
                         break;
@@ -208,9 +207,7 @@ class _AppState extends State<App> {
                                 registerUseCase: RegisterUseCase(),
                                 verifyCodeUseCase: VerifyCodeUseCase(),
                               ),
-                              child:
-                                  // PostingAdScreen()
-                                  const LoginScreen(),
+                              child: const LoginScreen(),
                             ),
                           ),
                           (route) => false);

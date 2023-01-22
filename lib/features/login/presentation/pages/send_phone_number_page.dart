@@ -108,7 +108,10 @@ class _SendPhoneNumberPageState extends State<SendPhoneNumberPage> {
                         controller: phoneController,
                         prefixIcon: Row(
                           children: [
-                            Image.asset(AppImages.flagUzb),
+                            SizedBox(
+                          height: 20,
+                          width: 20,
+                          child: Image.asset(AppImages.flagUzb2)),
                             const SizedBox(width: 4),
                             Text(
                               '+998',

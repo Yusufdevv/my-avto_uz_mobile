@@ -4,8 +4,12 @@ import 'package:auto/core/utils/size_config.dart';
 import 'package:flutter/material.dart';
 
 class EmptyItemBody extends StatelessWidget {
-  const EmptyItemBody(
-      {required this.subtitle, this.title, required this.image, super.key});
+  const EmptyItemBody({
+    required this.subtitle,
+    required this.image,
+    this.title,
+    super.key,
+  });
   final String subtitle;
   final String? title;
   final String image;
@@ -23,10 +27,7 @@ class EmptyItemBody extends StatelessWidget {
                 color: Theme.of(context)
                     .extension<ThemedColors>()!
                     .solitude1ToNero),
-            child: Image.asset(
-              image,
-              fit: BoxFit.cover
-            ),
+            child: Image.asset(image, fit: BoxFit.cover),
           ),
           const SizedBox(height: 24),
           if (title != null)

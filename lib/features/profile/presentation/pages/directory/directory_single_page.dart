@@ -1,6 +1,4 @@
 import 'package:auto/core/singletons/service_locator.dart';
-import 'package:auto/features/dealers/presentation/widgets/dealer_info.dart';
-import 'package:auto/features/dealers/presentation/widgets/dealer_info_sliver_delegate.dart';
 import 'package:auto/features/profile/data/repositories/get_user_list_repo_impl.dart';
 import 'package:auto/features/profile/domain/usecases/directory_single_usecase.dart';
 import 'package:auto/features/profile/domain/usecases/get_dir_categories_usecase.dart';
@@ -53,7 +51,7 @@ class _DirectorySinglePageState extends State<DirectorySinglePage> {
                     SliverPersistentHeader(
                         pinned: true,
                         delegate: DirectorySliverDelegate(
-                            gallery: [directory.avatar, directory.avatar],
+                            gallery: directory.gallery,
                             avatarImage: directory.avatar,
                             name: directory.name,
                             minHeight:
@@ -61,6 +59,7 @@ class _DirectorySinglePageState extends State<DirectorySinglePage> {
                             category: directory.name)),
                   ],
                   body: SingleChildScrollView(
+                    physics: const BouncingScrollPhysics(),
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
