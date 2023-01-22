@@ -53,7 +53,56 @@ class _PostingAdScreenState extends State<PostingAdScreen>
     with SingleTickerProviderStateMixin {
   late PageController pageController;
   late PostingAdBloc postingAdBloc;
-  static int initialPage =14;
+  static int initialPage = //0
+      // ChooseCarBrand,
+      //1
+      // ChooseCarModelScreen(makeId: state.makeId ?? -1),
+      //2
+      // YearIssueScreen(modelId: state.modelId ?? -1),
+      //3
+      // const GenerationScreen(),
+      //4
+      // CarcaseScreen(selectedBodyTypeId: state.bodyTypeId ?? -1),
+      //5
+      // const EngineScreen(),
+      //6
+      // const DriveTypeScreen(),
+      //7
+      // const GearboxScreen(),
+      //8
+      // const ModificationScreen(),
+      //9
+      // const ColorsScreen(),
+      //10
+      // AddPhotoScreen(onImageChanged: (v) {
+      //   print(
+      //       '=> => => =>  changing photos:   $v    <= <= <= <=');
+      //   postingAdBloc.add(PostingAdChooseEvent(gallery: v));
+      // }),
+      //11
+      // const PtsScreen(),
+      //12
+      // DescriptionScreen(initialText: state.descriptions ?? ''),
+      //13
+      // const EquipmentScreen(),
+      //14
+      // const DamageScreen(),
+      15;
+  // ContactScreen(
+  //   initialEmail: state.ownerEmail ?? '',
+  //   initialName: state.ownerName ?? '',
+  //   initialPhone: state.ownerPhone ?? '',
+  // ),
+  //16
+  // const InspectionPlaceScreen(),
+  //17
+  // PriceScreen(initialPrice: state.price ?? ''),
+  //18
+  // MileageScreen(initialMilage: state.mileage ?? ''),
+  // //19
+  // const StsScreen(),
+  //19
+  // PreviewScreen();
   int currentTabIndex = initialPage;
   final int tabLength = 20;
   @override
