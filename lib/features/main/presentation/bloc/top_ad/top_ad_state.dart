@@ -8,6 +8,7 @@ class TopAdState with _$TopAdState {
     @Default([]) List<AdModel> topAds,
     @Default([]) List<AutoEntity> favorites,
     String? next,
+    String? nextF,
     @Default(0) int count,
   }) = _TopAdState;
 }

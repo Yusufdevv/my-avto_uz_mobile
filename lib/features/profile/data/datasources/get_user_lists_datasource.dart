@@ -1,9 +1,11 @@
 import 'package:auto/core/exceptions/exceptions.dart';
+import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/core/singletons/dio_settings.dart';
 import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/core/singletons/storage.dart';
-import 'package:auto/features/common/domain/model/auto_model.dart';
+import 'package:auto/core/utils/either.dart';
 import 'package:auto/features/dealers/data/models/dealer_info_model.dart';
+import 'package:auto/features/pagination/models/generic_pagination.dart';
 import 'package:auto/features/profile/data/models/dir_category_model.dart';
 import 'package:auto/features/profile/data/models/directory_model.dart';
 import 'package:auto/features/profile/data/models/my_searches_model.dart';
@@ -11,7 +13,10 @@ import 'package:auto/features/profile/data/models/notifications_model.dart';
 import 'package:dio/dio.dart';
 
 abstract class GetUserListDatasource {
-  Future<List<AutoModel>> getProfileFavoritesMyAds(String endpoint);
+  Future<Either<Failure, GenericPagination<T>>> getProfileFavoritesMyAds<T>(
+      {required String url,
+      required T Function(Map<String, dynamic>) fromJson,
+      String? next});
 
   Future<List<NotificationsModel>> getNotifications();
   Future<List<MySearchesModel>> getMySearches();
@@ -22,27 +27,28 @@ abstract class GetUserListDatasource {
   Future<String> notificationAllRead();
   Future<String> deleteMySearches(List<int> ids);
   Future<NotificationsModel> getNotificationSingle(String id);
-  Future<DealerSingleModel> getDirectorySingle( String params);
-
+  Future<DealerSingleModel> getDirectorySingle(String params);
 }
 
 class GetUserListDatasourceImpl extends GetUserListDatasource {
   final dio = serviceLocator<DioSettings>().dio;
 
   @override
-  Future<List<AutoModel>> getProfileFavoritesMyAds(String endpoint) async {
+  Future<Either<Failure, GenericPagination<T>>> getProfileFavoritesMyAds<T>(
+      {required String url,
+      required T Function(Map<String, dynamic>) fromJson,
+      String? next}) async {
     try {
       final response = await dio.get(
-        endpoint,
+        next != null && next.isNotEmpty ? next : url,
         options: Options(headers: {
           'Authorization': 'Bearer ${StorageRepository.getString('token')}'
         }),
       );
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
-        return (response.data['results'] as List)
-            // ignore: unnecessary_lambdas
-            .map((e) => AutoModel.fromJson(e))
-            .toList();
+        final data = GenericPagination<T>.fromJson(
+            response.data!, (data) => fromJson(data as Map<String, dynamic>));
+        return Right(data);
       }
       throw ServerException(
           statusCode: response.statusCode ?? 0,
@@ -163,10 +169,9 @@ class GetUserListDatasourceImpl extends GetUserListDatasource {
   }
 
   @override
-  Future<DealerSingleModel> getDirectorySingle( String params) async {
+  Future<DealerSingleModel> getDirectorySingle(String params) async {
     try {
-      final results = await dio.get('/car-place/$params/'
-          );
+      final results = await dio.get('/car-place/$params/');
 
       if (results.statusCode! >= 200 && results.statusCode! < 300) {
         return DealerSingleModel.fromJson(results.data);
