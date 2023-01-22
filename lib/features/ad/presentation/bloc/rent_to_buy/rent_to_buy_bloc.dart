@@ -17,7 +17,7 @@ class RentToBuyBloc extends Bloc<RentToBuyEvent, RentToBuyState> {
       print(
           '=> => => => event controller :  ${event.controller}    <= <= <= <=');
       print(
-          '=> => => => event  minimumSumma:  ${event.minimumSumma}    <= <= <= <=');
+          '=> => => => event  minimumSumma:  ${event.minimumMonthlyPay}    <= <= <= <=');
       print('=> => => => event month:   ${event.rentalPeriod}    <= <= <= <=');
       print(
           '=> => => => event monthlyPayment:   ${event.monthlyPayment}    <= <= <= <=');
@@ -28,7 +28,7 @@ class RentToBuyBloc extends Bloc<RentToBuyEvent, RentToBuyState> {
       emit(
         state.copyWith(
           title: event.title,
-          minimumSumma: event.minimumSumma,
+          minimumSumma: event.minimumMonthlyPay,
           prepayment: event.prepayment,
           rentalPeriod: event.rentalPeriod,
           monthlyPayment: event.monthlyPayment,

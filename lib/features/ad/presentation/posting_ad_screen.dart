@@ -41,12 +41,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
-// acura
-// CL
-// 2000
-// coupe
-//
-//
 
 class PostingAdScreen extends StatefulWidget {
   const PostingAdScreen({Key? key}) : super(key: key);
@@ -59,7 +53,7 @@ class _PostingAdScreenState extends State<PostingAdScreen>
     with SingleTickerProviderStateMixin {
   late PageController pageController;
   late PostingAdBloc postingAdBloc;
-  static int initialPage = 0;
+  static int initialPage = 17;
   int currentTabIndex = initialPage;
   final int tabLength = 20;
   @override

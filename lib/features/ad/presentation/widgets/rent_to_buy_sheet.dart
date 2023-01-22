@@ -2,6 +2,7 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/domain/entities/rent_with_purchase/rent_with_purchase_entity.dart';
+import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.dart';
 import 'package:auto/features/ad/presentation/bloc/rent_to_buy/rent_to_buy_bloc.dart';
 import 'package:auto/features/car_single/presentation/widgets/orange_button.dart';
 import 'package:flutter/material.dart';
@@ -11,8 +12,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 class RentToBuySheet extends StatefulWidget {
+  final int price;
   final int step;
-  const RentToBuySheet({required this.step, super.key});
+  const RentToBuySheet({required this.step, required this.price, super.key});
 
   @override
   State<RentToBuySheet> createState() => _RentToBuySheetState();
@@ -99,9 +101,32 @@ class _RentToBuySheetState extends State<RentToBuySheet> {
                               MediaQuery.of(context).size.width / 3 - 32),
                       child: TextFormField(
                         validator: (v) {
-                          if (v!.isEmpty) {
-                            return 'Must filled';
+                          final value = int.tryParse(v ?? '0') ?? 0;
+                          switch (state.step) {
+                            case 1:
+                              {
+                                if (value > widget.price) {
+                                  return 'Could not be > ${widget.price}';
+                                }
+                              }
+                              break;
+                            case 2:
+                              {
+                                if (v?.isEmpty ?? true) {
+                                  return 'Must filled';
+                                }
+                              }
+                              break;
+                            case 3:
+                              {
+                                if (!((int.tryParse(v ?? '0') ?? 0) >=
+                                    state.minimumSumma!)) {
+                                  return 'Must be >= ${state.minimumSumma}';
+                                }
+                              }
+                              break;
                           }
+
                           return null;
                         },
                         autofocus: true,
@@ -139,7 +164,7 @@ class _RentToBuySheetState extends State<RentToBuySheet> {
                                       fontSize: 13,
                                     )),
                             TextSpan(
-                                text: '  >= 512',
+                                text: '  >= ${state.minimumSumma}',
                                 style: Theme.of(context).textTheme.headline5)
                           ],
                         ),
@@ -161,12 +186,23 @@ class _RentToBuySheetState extends State<RentToBuySheet> {
                                     prepayment: state.controller.text));
                                 break;
                               case 2:
-                                rentToBuyBloc.add(RentToBuyEvent(
-                                  rentalPeriod: state.controller.text,
-                                  controller: TextEditingController(),
-                                  title: 'Ежемесячная оплата',
-                                  step: state.step + 1,
-                                ));
+                                {
+                                  final prePayment =
+                                      int.tryParse(state.prepayment ?? '0') ??
+                                          0;
+                                  final rentalPeriod =
+                                      int.tryParse(state.controller.text) ?? 0;
+
+                                  rentToBuyBloc.add(RentToBuyEvent(
+                                      rentalPeriod: state.controller.text,
+                                      controller: TextEditingController(),
+                                      title: 'Ежемесячная оплата',
+                                      step: state.step + 1,
+                                      minimumMonthlyPay: widget.price > 0
+                                          ? (widget.price - prePayment) ~/
+                                              rentalPeriod
+                                          : 0));
+                                }
                                 break;
                               default:
                             }

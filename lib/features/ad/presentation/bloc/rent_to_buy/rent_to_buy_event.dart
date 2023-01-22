@@ -1,7 +1,7 @@
 part of 'rent_to_buy_bloc.dart';
 
 class RentToBuyEvent {
-  final String? minimumSumma;
+  final int? minimumMonthlyPay;
   final String? prepayment;
   final String? rentalPeriod;
   final String? monthlyPayment;
@@ -15,6 +15,6 @@ class RentToBuyEvent {
     this.rentalPeriod,
     this.monthlyPayment,
     this.prepayment,
-    this.minimumSumma,
+    this.minimumMonthlyPay,
   });
 }

@@ -2,7 +2,7 @@ part of 'rent_to_buy_bloc.dart';
 
 class RentToBuyState extends Equatable {
   final String title;
-  final String? minimumSumma;
+  final int? minimumSumma;
   final String? prepayment;
   final String? rentalPeriod;
   final String? monthlyPayment;
@@ -26,7 +26,7 @@ class RentToBuyState extends Equatable {
     String? monthlyPayment,
     String? prepayment,
     String? rentalPeriod,
-    String? minimumSumma,
+    int? minimumSumma,
     TextEditingController? controller,
     FormzStatus? status,
   }) =>
