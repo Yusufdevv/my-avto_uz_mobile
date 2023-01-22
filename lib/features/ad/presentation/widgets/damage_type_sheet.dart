@@ -9,7 +9,6 @@ import 'package:auto/utils/my_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-// InformationAboutDoors
 class DamageTypeChooseSheet extends StatefulWidget {
   final String title;
   final Function(DamageType?) onSubmitted;
@@ -94,8 +93,7 @@ class _DamageTypeChooseSheetState extends State<DamageTypeChooseSheet> {
                         child: Row(
                           children: [
                             WarningCircleWidget(
-                                color: MyFunctions.getStatusColor(
-                                    DamageType.values[index])),
+                               damageType: DamageType.values[index],),
                             const SizedBox(width: 8),
                             Text(
                               MyFunctions.getStatusTitle(

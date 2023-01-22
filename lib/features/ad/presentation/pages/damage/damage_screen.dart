@@ -1,13 +1,17 @@
+import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.dart';
 import 'package:auto/features/ad/presentation/pages/damage/widgets/cars_item.dart';
 import 'package:auto/features/ad/presentation/pages/damage/widgets/custom_tabbar.dart';
+import 'package:auto/features/ad/presentation/pages/damage/widgets/damage_pluc_button.dart';
+import 'package:auto/features/ad/presentation/pages/damage/widgets/damage_type_info_sheet.dart';
 import 'package:auto/features/ad/presentation/pages/damage/widgets/situation_item.dart';
 import 'package:auto/features/ad/presentation/pages/damage/widgets/situation_with_title.dart';
 import 'package:auto/features/ad/presentation/widgets/base_widget.dart';
 import 'package:auto/features/ad/presentation/widgets/damage_type_sheet.dart';
 import 'package:auto/utils/my_functions.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -61,6 +65,26 @@ class _DamageScreenState extends State<DamageScreen>
   Widget build(BuildContext context) => Scaffold(
         resizeToAvoidBottomInset: false,
         body: BaseWidget(
+          extraAction: Container(
+            height: 28,
+            width: 28,
+            margin: const EdgeInsets.only(right: 16),
+            decoration:
+                const BoxDecoration(shape: BoxShape.circle, color: border),
+            padding: const EdgeInsets.all(4),
+            child: DamageButton(
+                damageType: DamageType.replaced,
+                onTap: () {
+                  showModalBottomSheet<DamageType>(
+                    useRootNavigator: true,
+                    context: context,
+                    isScrollControlled: true,
+                    barrierColor: Colors.black.withOpacity(.5),
+                    backgroundColor: Colors.transparent,
+                    builder: (c) => DamageTypeInfoSheet(),
+                  );
+                }),
+          ),
           headerText: 'Состояние кузова',
           child: SingleChildScrollView(
             padding: const EdgeInsets.fromLTRB(16, 16, 16, 70),

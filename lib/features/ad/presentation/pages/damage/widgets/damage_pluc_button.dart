@@ -40,7 +40,7 @@ class DamageButton extends StatelessWidget {
                 width: 18,
                 padding: const EdgeInsets.all(4),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(9),
+                  shape: BoxShape.circle,
                   color: MyFunctions.getStatusColor(damageType),
                 ),
                 child: damageType == DamageType.ideal

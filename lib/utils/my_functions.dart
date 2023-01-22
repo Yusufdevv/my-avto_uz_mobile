@@ -515,7 +515,7 @@ class MyFunctions {
   }
 
   static Color getStatusColor(DamageType? status) {
-    if (status == null) return Colors.amber;
+    if (status == null) return emerald;
 
     switch (status) {
       case DamageType.ideal:

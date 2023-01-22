@@ -1,6 +1,6 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/features/ad/const/constants.dart';
-import 'package:auto/features/ad/presentation/pages/damage/widgets/damage_pluc_button.dart';
+import 'package:auto/features/ad/presentation/widgets/warning_circle_widget.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/utils/my_functions.dart';
 import 'package:flutter/material.dart';
@@ -32,7 +32,7 @@ class SituationTitleItem extends StatelessWidget {
             onTap: onTap,
             child: Row(
               children: [
-                DamageButton(damageType: damageType),
+                WarningCircleWidget(damageType: damageType),
                 const SizedBox(
                   width: 10,
                 ),
