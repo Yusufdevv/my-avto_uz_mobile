@@ -73,11 +73,7 @@ class _InspectionPlaceScreenState extends State<InspectionPlaceScreen> {
                         title: 'Район',
                       ),
                       const SizedBox(height: 16),
-                      WButton(onTap: () {
-                        context.read<PostingAdBloc>().add(
-                            PostingAdGetDistritsEvent(
-                                regionId: state.region!.id));
-                      }),
+
                       // CHOOSE DISTRICT
                       LoaderBox(
                         isLoading: state.getDistrictsStatus ==
@@ -109,12 +105,17 @@ class _InspectionPlaceScreenState extends State<InspectionPlaceScreen> {
                               print('====  ${value.title}  ====');
                               context
                                   .read<PostingAdBloc>()
-                                  .add(PostingAdChooseEvent(district: value));
+                                  .add(PostingAdChooseEvent(
+                                    district: value,
+                                  ));
                             }
                             setState(() {});
                           });
                         },
-                        hintText: state.district?.title ?? 'Выберите район',
+                        hintText:
+                            state.district == null || state.districts.isEmpty
+                                ? 'Выберите район'
+                                : state.district!.title,
                         title: 'Район / город',
                       ),
                       const SizedBox(height: 17),
