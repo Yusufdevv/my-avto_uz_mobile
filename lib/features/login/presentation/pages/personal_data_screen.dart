@@ -63,6 +63,7 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
           child: BlocProvider.value(
             value: imageBloc,
             child: Scaffold(
+              extendBody: true,
               appBar: WAppBar(
                 title: LocaleKeys.register.tr(),
               ),

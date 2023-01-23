@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_catches_without_on_clauses, always_put_required_named_parameters_first, omit_local_variable_types
+
 import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/core/singletons/dio_settings.dart';
 import 'package:auto/core/singletons/service_locator.dart';
@@ -8,17 +10,17 @@ import 'package:dio/dio.dart';
 class GlobalRequestRepository {
   final dio = serviceLocator<DioSettings>().dio;
 
-  Future<Either<Failure, S>> getSingle<S>(
-      {required String endpoint,
-      Map<String, dynamic>? query,
-      required S Function(Map<String, dynamic>) fromJson,
-      bool sendToken = true}) async {
+  Future<Either<Failure, S>> getSingle<S>({
+    required S Function(Map<String, dynamic>) fromJson,
+    required String endpoint,
+    Map<String, dynamic>? query,
+    bool sendToken = true,
+  }) async {
     try {
       final result = await dio.get(endpoint,
           queryParameters: query,
           options: Options(headers: {
-            'Authorization':
-                "Bearer ${StorageRepository.getString('token')}"
+            'Authorization': "Bearer ${StorageRepository.getString('token')}"
           }));
       if (result.statusCode! >= 200 && result.statusCode! < 300) {
         return Right(fromJson(result.data));
@@ -51,25 +53,19 @@ class GlobalRequestRepository {
                     }
                   : {}));
 
-      // print(result.realUri);
-      // print(result.data);
       List<S> list = [];
-
-      print('hreererer');
 
       if (result.statusCode! >= 200 && result.statusCode! < 300) {
         if (responseDataKey != null && responseDataKey.isNotEmpty) {
-          var data = result.data[responseDataKey] as List<dynamic>;
+          final data = result.data[responseDataKey] as List<dynamic>;
           list = data.map((e) => fromJson(e)).toList();
         } else {
-          var data = result.data as List<dynamic>;
+          final data = result.data as List<dynamic>;
           list = data.map((e) => fromJson(e)).toList();
         }
 
-        print('hreererer');
         return Right(list);
       } else {
-        print('hreererer');
         return Left(ServerFailure(errorMessage: '', statusCode: 141));
       }
     } catch (e) {
@@ -78,15 +74,16 @@ class GlobalRequestRepository {
   }
 
   /// Use for any kind of post map endpoint that retrieves response with single model , not a list
-  Future<Either<Failure, S>> postAndSingle<S>(
-      {required String endpoint,
-      Map<String, dynamic>? query,
-      required S Function(Map<String, dynamic>) fromJson,
-      FormData? formData,
-      String? responseDataKey,
-      Map<String, dynamic>? data,
-      String? errorKey,
-      bool sendToken = true}) async {
+  Future<Either<Failure, S>> postAndSingle<S>({
+    required S Function(Map<String, dynamic>) fromJson,
+    required String endpoint,
+    Map<String, dynamic>? query,
+    FormData? formData,
+    String? responseDataKey,
+    Map<String, dynamic>? data,
+    String? errorKey,
+    bool sendToken = true,
+  }) async {
     try {
       final result = await dio.post(endpoint,
           queryParameters: query,
@@ -98,9 +95,6 @@ class GlobalRequestRepository {
                           "Bearer ${StorageRepository.getString('token', defValue: '')}"
                     }
                   : {}));
-      // print(result.realUri);
-      // print(result.data);
-      // print(result.statusCode);
       if (result.statusCode! >= 200 && result.statusCode! < 300) {
         if (responseDataKey != null && responseDataKey.isNotEmpty) {
           return Right(fromJson(result.data[responseDataKey]));
@@ -129,13 +123,14 @@ class GlobalRequestRepository {
   }
 
   /// Use for any kind of post map endpoint that retrieves response List of Model , not a single model
-  Future<Either<Failure, List<S>>> postAndList<S>(
-      {required String endpoint,
-      Map<String, dynamic>? query,
-      required Map<String, dynamic>? data,
-      required S Function(Map<String, dynamic>) fromJson,
-      String? responseDataKey,
-      bool sendToken = true}) async {
+  Future<Either<Failure, List<S>>> postAndList<S>({
+    required String endpoint,
+    required S Function(Map<String, dynamic>) fromJson,
+    required Map<String, dynamic>? data,
+    Map<String, dynamic>? query,
+    String? responseDataKey,
+    bool sendToken = true,
+  }) async {
     try {
       final result = await dio.post(endpoint,
           queryParameters: query,
@@ -147,8 +142,6 @@ class GlobalRequestRepository {
                           "Bearer ${StorageRepository.getString('token', defValue: '')}"
                     }
                   : {}));
-      // print(result.realUri);
-      // print(result.data);
       var list = <S>[];
 
       if (result.statusCode! >= 200 && result.statusCode! < 300) {
