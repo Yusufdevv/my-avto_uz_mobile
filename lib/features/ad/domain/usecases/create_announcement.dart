@@ -25,9 +25,13 @@ class CreateAnnouncementUseCase extends UseCase<void, AnnouncementToPostModel> {
 
     for (var i = 0; i < params.damagedParts.length; i++) {
       // damages[params.damagedParts[i].part] = params.damagedParts[i].damageType;
-      damages.add(
-          {params.damagedParts[i].part: params.damagedParts[i].damageType});
+      damages.add({
+        'part': params.damagedParts[i].part,
+        'damage_type': params.damagedParts[i].damageType
+      });
     }
+    print('=> => => =>   lenth  ${damages.length}    <= <= <= <=');
+    print('=> => => => damages    ${damages}    <= <= <= <=');
     final announcementFields = <String, dynamic>{
       'make': params.make,
       'model': params.model,
@@ -71,15 +75,15 @@ class CreateAnnouncementUseCase extends UseCase<void, AnnouncementToPostModel> {
     };
 
     final announcementFormData = FormData.fromMap(announcementFields);
-    print(
-        '=> => => =>  boundary:   ${announcementFormData.boundary}    <= <= <= <=');
-    print(
-        '=> => => =>   filds:   ${announcementFormData.fields}    <= <= <= <=');
+    // print(
+    //     '=> => => =>  boundary:   ${announcementFormData.boundary}    <= <= <= <=');
+    // print(
+    //     '=> => => =>   filds:   ${announcementFormData.fields}    <= <= <= <=');
 
-    print(
-        '=> => => =>  files length:   ${announcementFormData.files.length}    <= <= <= <=');
-    print(
-        '=> => => =>   length:   ${announcementFormData.length}    <= <= <= <=');
+    // print(
+    //     '=> => => =>  files length:   ${announcementFormData.files.length}    <= <= <= <=');
+    // print(
+    //     '=> => => =>   length:   ${announcementFormData.length}    <= <= <= <=');
     return repository.createAnnouncement(
       announcementFormData: announcementFormData,
     );

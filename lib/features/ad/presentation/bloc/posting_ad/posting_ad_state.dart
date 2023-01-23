@@ -1,6 +1,10 @@
 part of 'posting_ad_bloc.dart';
 
 class PostingAdState extends Equatable {
+  final TextEditingController phoneController;
+
+  final TextEditingController emailController;
+  final TextEditingController nameController;
   final int? gearboxId;
   final List<GearboxTypeEntity> gearBoxes;
   final int? driveTypeId;
@@ -27,7 +31,8 @@ class PostingAdState extends Equatable {
   final List<String> gallery;
   final List<RentWithPurchaseEntity> rentWithPurchaseConditions;
   final Map<DamagedParts, DamageType> damagedParts;
-
+  final UserModel? userModel;
+  final num minimumPrice;
   final String? letter;
   final String? ownerName;
   final String? ownerEmail;
@@ -44,11 +49,12 @@ class PostingAdState extends Equatable {
   final String? gasBalloonType;
   final String? callTimeFrom;
   final String? callTimeTo;
+  final String? toastMessage;
   final bool hasAppBarShadow;
   final bool isSortByLetter;
   final bool registeredInUzbekistan;
   final bool isCallTimed;
-  final bool showOwnerContactss;
+  final bool showOwnerContacts;
   final bool isContactsVerified;
   final bool showExactAddress;
   final bool? rentToBuy;
@@ -56,6 +62,10 @@ class PostingAdState extends Equatable {
 
   const PostingAdState({
     required this.status,
+    required this.phoneController,
+    required this.emailController,
+    required this.nameController,
+    this.minimumPrice = 0,
     this.gearboxId,
     this.gearBoxes = const <GearboxTypeEntity>[],
     this.driveTypeId,
@@ -98,13 +108,15 @@ class PostingAdState extends Equatable {
     this.callTimeFrom,
     this.callTimeTo,
     this.isCallTimed = false,
-    this.showOwnerContactss = false,
+    this.showOwnerContacts = false,
     this.isContactsVerified = false,
     this.rentToBuy,
     this.isWithoutMileage,
     this.districtId,
     this.districts = const <DistrictEntity>[],
     this.getDistrictsStatus = FormzStatus.pure,
+    this.toastMessage,
+    this.userModel,
   });
 
   String get districtTitle {
@@ -117,6 +129,9 @@ class PostingAdState extends Equatable {
   }
 
   PostingAdState copyWith({
+    TextEditingController? phoneController,
+    TextEditingController? emailController,
+    TextEditingController? nameController,
     Map<DamagedParts, DamageType>? damagedParts,
     List<RentWithPurchaseEntity>? rentWithPurchaseConditions,
     int? districtId,
@@ -142,6 +157,8 @@ class PostingAdState extends Equatable {
     List<DistrictEntity>? districts,
     List<String>? gallery,
     YearsEntity? yearsEntity,
+    UserModel? userModel,
+    num? minimumPrice,
     String? letter,
     String? colorName,
     String? typeDocument,
@@ -159,6 +176,7 @@ class PostingAdState extends Equatable {
     String? callTimeFrom,
     String? callTimeTo,
     String? session,
+    String? toastMessage,
     bool? hasAppBarShadow,
     bool? registeredInUzbekistan,
     bool? isCallTimed,
@@ -169,9 +187,14 @@ class PostingAdState extends Equatable {
     bool? isWithoutMileage,
     bool? showExactAddress,
   }) {
-    print('====   ACTUALLY IN STATE:  ${this.districts}  ====');
-    print('==== INCOMING DISTRICT TO COPYWITH:  ${districts}  ====');
+    // print('====   ACTUALLY IN STATE:  ${this.districts}  ====');
+    // print('==== INCOMING DISTRICT TO COPYWITH:  ${districts}  ====');
     final newState = PostingAdState(
+      phoneController: phoneController ?? this.phoneController,
+      emailController: emailController ?? this.emailController,
+      nameController: nameController ?? this.nameController,
+      userModel: userModel ?? this.userModel,
+      minimumPrice: minimumPrice ?? this.minimumPrice,
       getDistrictsStatus: getDistrictsStatus ?? this.getDistrictsStatus,
       districts: districts ?? this.districts,
       damagedParts: damagedParts ?? this.damagedParts,
@@ -218,21 +241,28 @@ class PostingAdState extends Equatable {
       callTimeFrom: callTimeFrom ?? this.callTimeFrom,
       callTimeTo: callTimeTo ?? this.callTimeTo,
       isCallTimed: isCallTimed ?? this.isCallTimed,
-      showOwnerContactss: showOwnerContacts ?? this.showOwnerContactss,
+      showOwnerContacts: showOwnerContacts ?? this.showOwnerContacts,
       isContactsVerified: isContactsVerified ?? this.isContactsVerified,
       rentToBuy: rentToBuy ?? this.rentToBuy,
       isWithoutMileage: isWithoutMileage ?? this.isWithoutMileage,
       gallery: gallery ?? this.gallery,
       regions: regions ?? this.regions,
+      toastMessage: toastMessage ?? this.toastMessage,
     );
 
-    print(
-        '====   OUTCOMINT DISTRICT FROM COPY WITH:  ${newState.districts}  ====');
+    // print(
+    //     '====   OUTCOMINT DISTRICT FROM COPY WITH:  ${newState.districts}  ====');
     return newState;
   }
 
   @override
   List<Object?> get props => [
+        phoneController,
+        emailController,
+        nameController,
+        userModel,
+        toastMessage,
+        minimumPrice,
         getDistrictsStatus,
         districts,
         regions,
@@ -278,7 +308,7 @@ class PostingAdState extends Equatable {
         mileage,
         gasBalloonType,
         isCallTimed,
-        showOwnerContactss,
+        showOwnerContacts,
         isContactsVerified,
       ];
 }

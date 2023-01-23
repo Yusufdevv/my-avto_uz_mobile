@@ -2,6 +2,7 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/features/ad/data/repositories/ad_repository_impl.dart';
+import 'package:auto/features/ad/domain/usecases/contacts_usecase.dart';
 import 'package:auto/features/ad/domain/usecases/create_announcement.dart';
 import 'package:auto/features/ad/domain/usecases/get_body_type.dart';
 import 'package:auto/features/ad/domain/usecases/get_car_model.dart';
@@ -9,6 +10,7 @@ import 'package:auto/features/ad/domain/usecases/get_drive_type.dart';
 import 'package:auto/features/ad/domain/usecases/get_engine_type.dart';
 import 'package:auto/features/ad/domain/usecases/get_generation.dart';
 import 'package:auto/features/ad/domain/usecases/get_makes.dart';
+import 'package:auto/features/ad/domain/usecases/minimum_price_usecase.dart';
 import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.dart';
 import 'package:auto/features/ad/presentation/pages/add_photo/add_photo_screen.dart';
 import 'package:auto/features/ad/presentation/pages/carcase/carcase_screen.dart';
@@ -34,9 +36,11 @@ import 'package:auto/features/ad/presentation/widgets/completion_bar.dart';
 import 'package:auto/features/ad/presentation/widgets/posting_ad_appbar.dart';
 import 'package:auto/features/car_single/data/repository/car_single_repository_impl.dart';
 import 'package:auto/features/car_single/domain/usecases/get_ads_usecase.dart';
+import 'package:auto/features/common/repository/auth.dart';
 import 'package:auto/features/common/usecases/get_districts_usecase.dart';
 import 'package:auto/features/common/usecases/get_regions.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
+import 'package:auto/features/login/domain/usecases/verify_code.dart';
 import 'package:auto/features/main/domain/usecases/get_top_brand.dart';
 import 'package:auto/features/rent/domain/usecases/get_gearboxess_usecase.dart';
 import 'package:flutter/material.dart';
@@ -112,6 +116,12 @@ class _PostingAdScreenState extends State<PostingAdScreen>
   void initState() {
     pageController = PageController(initialPage: initialPage);
     postingAdBloc = PostingAdBloc(
+      userRepository: AuthRepository(),
+      contactsUseCase:
+          ContactsUseCase(repository: serviceLocator<AdRepositoryImpl>()),
+      verifyCodeUseCase: VerifyCodeUseCase(),
+      minimumPriceUseCase: GetMinimumPriceUseCase(
+          repository: serviceLocator<AdRepositoryImpl>()),
       announcementUseCase: GetCarSingleUseCase(
           repository: serviceLocator<CarSingleRepositoryImpl>()),
       districtUseCase: GetDistrictsUseCase(),
@@ -191,22 +201,21 @@ class _PostingAdScreenState extends State<PostingAdScreen>
         break;
       case 4:
         postingAdBloc.add(PostingAdBodyTypesEvent());
-
         break;
       case 5:
         postingAdBloc.add(PostingAdEnginesEvent());
         break;
       case 6:
         postingAdBloc.add(PostingAdDriveTypesEvent());
-
         break;
       case 7:
         postingAdBloc.add(PostingAdGearBoxesEvent());
-
         break;
       case 16:
         postingAdBloc.add(PostingAdGetRegionsEvent());
-
+        break;
+      case 17:
+        postingAdBloc.add(PostingAdGetMinimumPriceEvent());
         break;
     }
   }
@@ -315,8 +324,6 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                       const ColorsScreen(),
                       //10
                       AddPhotoScreen(onImageChanged: (v) {
-                        print(
-                            '=> => => =>  changing photos:   $v    <= <= <= <=');
                         postingAdBloc.add(PostingAdChooseEvent(gallery: v));
                       }),
                       //11
@@ -354,8 +361,8 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                         disabledColor: disabledButton,
                         isDisabled: _isDisabled(currentTabIndex, state),
                         onTap: () {
-                          print(
-                              '=>=>=>=> ${currentTabIndex} / ${tabLength} /  <=<=<=<=');
+                          // print(
+                          //     '=>=>=>=> ${currentTabIndex} / ${tabLength} /  <=<=<=<=');
                           if (currentTabIndex < tabLength - 1) {
                             currentTabIndex++;
                             addEvent(currentTabIndex, state);

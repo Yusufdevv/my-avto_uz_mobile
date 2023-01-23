@@ -369,7 +369,7 @@ class AdRepositoryImpl extends AdRepository {
   }
   
   @override
-  Future<Either<Failure, String>> getMinimumPrice({required Map<String, dynamic> params}) async{
+  Future<Either<Failure, num>> getMinimumPrice({required Map<String, dynamic> params}) async{
     try {
       final result = await remoteDataSource.getMinimumPrice(params);
       return Right(result);

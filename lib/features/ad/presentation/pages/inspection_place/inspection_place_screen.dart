@@ -32,10 +32,7 @@ class _InspectionPlaceScreenState extends State<InspectionPlaceScreen> {
             child: Padding(
               padding: const EdgeInsets.all(16),
               child: BlocBuilder<PostingAdBloc, PostingAdState>(
-                builder: (context, state) {
-                  print(
-                      '==== districts length: ${state.districts.length}  ====');
-                  return Column(
+                builder: (context, state) => Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       // CHOOSE REGION
@@ -121,8 +118,7 @@ class _InspectionPlaceScreenState extends State<InspectionPlaceScreen> {
                         },
                       ),
                     ],
-                  );
-                },
+                  ),
               ),
             ),
           ),

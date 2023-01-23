@@ -136,6 +136,10 @@ class PASingleton {
     }
 
     return PostingAdState(
+      phoneController: TextEditingController(text: phone ?? v.user.phoneNumber),
+      emailController: TextEditingController(),
+      nameController: TextEditingController(
+          text: v.user.name.isEmpty ? v.user.fullName : v.user.name),
       status: FormzStatus.submissionSuccess,
       bodyTypeId: v.bodyType.id,
       callTimeFrom: v.contactAvailableFrom.trim().substring(0, 5),
@@ -162,43 +166,58 @@ class PASingleton {
   }
 
   static PostingAdState choose(
-          PostingAdState state, PostingAdChooseEvent event) =>
-      state.copyWith(
-        damagedParts: event.damagedParts,
-        rentWithPurchaseConditions: event.rentWithPurchaseConditions,
-        gallery: event.gallery,
-        showExactAddress: event.showExactAddress,
-        isWithoutMileage: event.isWithoutMileage,
-        rentToBuy: event.rentToBuy,
-        isContactsVerified: event.isContactsVerified,
-        showOwnerContacts: event.showOwnerContacts,
-        isCallTimed: event.isCallTimed,
-        callTimeTo: event.callTimeTo,
-        callTimeFrom: event.callTimeFrom,
-        mileage: event.mileage,
-        ownerStep: event.ownerStep,
-        typeDocument: event.typeDocument,
-        colorName: event.colorName,
-        gearboxId: event.gearboxId,
-        driveTypeId: event.driveTypeId,
-        engineId: event.engineId,
-        generationId: event.generationId,
-        bodyTypeId: event.selectedBodyTypeId,
-        yearsEntity: event.yearsEntity,
-        isSortByLetter: event.letter != state.letter,
-        modelId: event.modelId,
-        letter: event.letter,
-        makeId: event.makeId,
-        purchasedDate: event.purchasedDate,
-        registeredInUzbekistan: event.isRastamojen,
-        ownerEmail: event.ownerEmail,
-        ownerName: event.ownerName,
-        ownerPhone: event.ownerPhone,
-        city: event.city,
-        region: event.region,
-        price: event.price,
-        currency: event.currency,
-        gasBalloonType: event.gasBalloonType,
-        districtId: event.districtId,
-      );
+      PostingAdState state, PostingAdChooseEvent event) {
+    print(
+        '=> => => =>   IS CONTACTS VERIFIED IN CHOOSE:   ${event.isContactsVerified}    <= <= <= <=');
+    final v = state.copyWith(
+
+      toastMessage: event.toastMessage,
+      damagedParts: event.damagedParts,
+      rentWithPurchaseConditions: event.rentWithPurchaseConditions,
+      gallery: event.gallery,
+      showExactAddress: event.showExactAddress,
+      isWithoutMileage: event.isWithoutMileage,
+      rentToBuy: event.rentToBuy,
+      isContactsVerified: event.isContactsVerified,
+      showOwnerContacts: event.showOwnerContacts,
+      isCallTimed: event.isCallTimed,
+      callTimeTo: event.callTimeTo,
+      callTimeFrom: event.callTimeFrom,
+      mileage: event.mileage,
+      ownerStep: event.ownerStep,
+      typeDocument: event.typeDocument,
+      colorName: event.colorName,
+      gearboxId: event.gearboxId,
+      driveTypeId: event.driveTypeId,
+      engineId: event.engineId,
+      generationId: event.generationId,
+      bodyTypeId: event.selectedBodyTypeId,
+      yearsEntity: event.yearsEntity,
+      isSortByLetter: event.letter != state.letter,
+      modelId: event.modelId,
+      letter: event.letter,
+      makeId: event.makeId,
+      purchasedDate: event.purchasedDate,
+      registeredInUzbekistan: event.isRastamojen,
+      ownerEmail: event.ownerEmail,
+      ownerName: event.ownerName,
+      ownerPhone: event.ownerPhone,
+      city: event.city,
+      region: event.region,
+      price: event.price,
+      currency: event.currency,
+      gasBalloonType: event.gasBalloonType,
+      districtId: event.districtId,
+
+
+phoneController:event.phoneController,
+emailController:event.emailController,
+nameController:event.nameController,
+
+      
+    );
+    print(
+        '=> => => =>  outcoming is verified contacts:   ${v.isContactsVerified}    <= <= <= <=');
+    return v;
+  }
 }

@@ -2,9 +2,7 @@ import 'dart:async';
 
 import 'package:auto/core/usecases/usecase.dart';
 import 'package:auto/features/ad/const/constants.dart';
-import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/ad/data/models/announcement_to_post_model.dart';
-import 'package:auto/features/ad/domain/entities/announcement/announcement_entity_to_post.dart';
 import 'package:auto/features/ad/domain/entities/damaged_part/damaged_part.dart';
 import 'package:auto/features/ad/domain/entities/district_entity.dart';
 import 'package:auto/features/ad/domain/entities/generation/generation.dart';
@@ -15,6 +13,7 @@ import 'package:auto/features/ad/domain/entities/types/engine_type.dart';
 import 'package:auto/features/ad/domain/entities/types/gearbox_type.dart';
 import 'package:auto/features/ad/domain/entities/types/make.dart';
 import 'package:auto/features/ad/domain/entities/years/years.dart';
+import 'package:auto/features/ad/domain/usecases/contacts_usecase.dart';
 import 'package:auto/features/ad/domain/usecases/create_announcement.dart';
 import 'package:auto/features/ad/domain/usecases/get_body_type.dart';
 import 'package:auto/features/ad/domain/usecases/get_car_model.dart';
@@ -22,18 +21,22 @@ import 'package:auto/features/ad/domain/usecases/get_drive_type.dart';
 import 'package:auto/features/ad/domain/usecases/get_engine_type.dart';
 import 'package:auto/features/ad/domain/usecases/get_generation.dart';
 import 'package:auto/features/ad/domain/usecases/get_makes.dart';
+import 'package:auto/features/ad/domain/usecases/minimum_price_usecase.dart';
 import 'package:auto/features/car_single/domain/entities/car_single_entity.dart';
 import 'package:auto/features/car_single/domain/entities/damaged_parts_entity.dart';
 import 'package:auto/features/car_single/domain/usecases/get_ads_usecase.dart';
+import 'package:auto/features/common/domain/model/user.dart';
 import 'package:auto/features/common/models/region.dart';
+import 'package:auto/features/common/repository/auth.dart';
 import 'package:auto/features/common/usecases/get_districts_usecase.dart';
 import 'package:auto/features/common/usecases/get_regions.dart';
+import 'package:auto/features/login/domain/usecases/verify_code.dart';
 import 'package:auto/features/main/domain/usecases/get_top_brand.dart';
-import 'package:auto/features/profile/presentation/pages/settings/password_changing_page.dart';
 import 'package:auto/features/rent/domain/usecases/get_gearboxess_usecase.dart';
 import 'package:auto/utils/my_functions.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:formz/formz.dart';
 
 part 'posting_ad_event.dart';
@@ -41,6 +44,10 @@ part 'posting_ad_state.dart';
 part 'singleton_of_posting_ad_bloc.dart';
 
 class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
+  final AuthRepository userRepository;
+  final VerifyCodeUseCase verifyCodeUseCase;
+  final ContactsUseCase contactsUseCase;
+  final GetMinimumPriceUseCase minimumPriceUseCase;
   final GetCarSingleUseCase announcementUseCase;
   final GetRegionsUseCase regionsUseCase;
   final GetDistrictsUseCase districtUseCase;
@@ -55,6 +62,10 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
   final GetBodyTypeUseCase bodyTypesUseCase;
 
   PostingAdBloc({
+    required this.userRepository,
+    required this.verifyCodeUseCase,
+    required this.contactsUseCase,
+    required this.minimumPriceUseCase,
     required this.announcementUseCase,
     required this.regionsUseCase,
     required this.districtUseCase,
@@ -67,7 +78,12 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     required this.gearboxUseCase,
     required this.bodyTypesUseCase,
     required this.createUseCase,
-  }) : super(const PostingAdState(status: FormzStatus.pure)) {
+  }) : super(PostingAdState(
+          status: FormzStatus.pure,
+          phoneController: TextEditingController(),
+          emailController: TextEditingController(),
+          nameController: TextEditingController(),
+        )) {
     on<PostingAdChooseEvent>(_choose);
     on<PostingAdMakesEvent>(_makes);
     on<PostingAdTopMakesEvent>(_topMakes);
@@ -84,6 +100,90 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     on<PostingAdGetRegionsEvent>(_getRegions);
     on<PostingAdGetDistritsEvent>(_getDistricts);
     on<PostingAdGetAnnouncementEvent>(_getAnnouncement);
+    on<PostingAdGetMinimumPriceEvent>(_getMinimumPrice);
+    on<PostingAdSendCodeEvent>(_sendCode);
+    on<PostingAdGetUserDataEvent>(_getUserInfoAsContacts);
+    on<PostingAdClearControllersEvent>(_clearControllers);
+  }
+
+  FutureOr<void> _clearControllers(PostingAdClearControllersEvent event,
+      Emitter<PostingAdState> emit) async {
+    emit(state.copyWith(
+      phoneController: TextEditingController(),
+      emailController: TextEditingController(),
+      nameController: TextEditingController(),
+    ));
+  }
+
+  FutureOr<void> _getUserInfoAsContacts(
+      PostingAdGetUserDataEvent event, Emitter<PostingAdState> emit) async {
+    emit(state.copyWith(status: FormzStatus.submissionInProgress));
+    if (state.userModel != null) {
+      emit(state.copyWith(
+          phoneController: TextEditingController(
+              text: MyFunctions.phoneFormat(
+                  state.userModel!.phoneNumber.substring(4))),
+          emailController: TextEditingController(text: state.userModel!.email),
+          nameController:
+              TextEditingController(text: state.userModel!.fullName),
+          isContactsVerified: true,
+          status: FormzStatus.submissionSuccess));
+      return;
+    }
+    final result = await userRepository.getUser();
+    if (result.isRight) {
+      emit(state.copyWith(
+        isContactsVerified: true,
+        status: FormzStatus.submissionSuccess,
+        phoneController: TextEditingController(
+            text:
+                MyFunctions.phoneFormat(result.right.phoneNumber.substring(4))),
+        emailController: TextEditingController(text: result.right.email),
+        nameController: TextEditingController(text: result.right.fullName),
+        userModel: result.right,
+      ));
+    } else {
+      emit(
+        state.copyWith(
+            status: FormzStatus.submissionFailure,
+            toastMessage: MyFunctions.getErrorMessage(result.left)),
+      );
+    }
+  }
+
+  FutureOr<void> _sendCode(
+      PostingAdSendCodeEvent event, Emitter<PostingAdState> emit) async {
+    emit(state.copyWith(status: FormzStatus.submissionInProgress));
+
+    final result =
+        await contactsUseCase.call('+998${event.phone.replaceAll(' ', '')}');
+    if (result.isRight) {
+      event.onSuccess(result.right);
+      emit(state.copyWith(
+          status: FormzStatus.submissionSuccess, session: result.right));
+    } else {
+      emit(state.copyWith(
+          status: FormzStatus.submissionFailure,
+          toastMessage: MyFunctions.getErrorMessage(result.left)));
+    }
+  }
+
+  FutureOr<void> _getMinimumPrice(
+      PostingAdGetMinimumPriceEvent event, Emitter<PostingAdState> emit) async {
+    emit(state.copyWith(status: FormzStatus.submissionInProgress));
+    final result = await minimumPriceUseCase.call({
+      'make': state.makeId,
+      'model': state.modelId,
+      'currency': state.currency
+    });
+
+    if (result.isRight) {
+      emit(state.copyWith(
+          status: FormzStatus.submissionSuccess, minimumPrice: result.right));
+    } else {
+      emit(state.copyWith(
+          status: FormzStatus.submissionFailure, minimumPrice: 0));
+    }
   }
 
   FutureOr<void> _getAnnouncement(
@@ -238,9 +338,6 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
     final result = await modelsUseCase.call(state.makeId!);
     if (result.isRight) {
-      print(
-          '=> => => =>  MODEL ID:   ${result.right.results.first.id}    <= <= <= <=');
-
       emit(state.copyWith(
         status: FormzStatus.submissionSuccess,
         models: result.right.results,
@@ -256,9 +353,6 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     final result = await generationUseCase.call(GenerationParams(
         modelId: state.modelId!, year: state.yearsEntity!.yearBegin));
     if (result.isRight) {
-      // 2863
-      print(
-          '=> => => =>  GENERATION:   ${result.right.results[0].id}    <= <= <= <=');
       emit(state.copyWith(
           generations: result.right.results,
           status: FormzStatus.submissionSuccess));
@@ -294,9 +388,6 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
   FutureOr<void> _makes(
       PostingAdMakesEvent event, Emitter<PostingAdState> emit) async {
     if (state.makeId != null && state.makes.isNotEmpty) {
-       print(
-          '=> => => =>  MAKE ID:   ${state.makes.first.id}    <= <= <= <=');
-     
       emit(state.copyWith(status: FormzStatus.submissionSuccess));
       return;
     }
@@ -305,8 +396,6 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
 
     final result = await makeUseCase.call(event.name);
     if (result.isRight) {
-      print(
-          '=> => => =>  MAKE ID:   ${result.right.results.first.id}    <= <= <= <=');
       emit(
         state.copyWith(
           status: FormzStatus.submissionSuccess,
@@ -331,6 +420,9 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
   void _choose(PostingAdChooseEvent event, Emitter<PostingAdState> emit) {
     if (event.region != null) {
       add(PostingAdGetDistritsEvent(regionId: event.region!.id));
+    }
+    if (event.currency != null) {
+      add(PostingAdGetMinimumPriceEvent());
     }
     emit(PASingleton.choose(state, event));
   }
