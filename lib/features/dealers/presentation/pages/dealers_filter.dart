@@ -53,6 +53,7 @@ class _DealersFilterState extends State<DealersFilter> {
 
   @override
   void initState() {
+    print('car_type: ${widget.car_type}');
     selectedCategory = widget.car_type ?? 'all';
     filterBloc = DealerFilterBloc(
       car_type: widget.car_type,
@@ -150,16 +151,16 @@ class _DealersFilterState extends State<DealersFilter> {
                         isScrollControlled: true,
                         backgroundColor: Colors.transparent,
                         builder: (c) => RentChooseRegionBottomSheet(
-                            checkedRegions: state.region.asMap(),
+                            checkedRegions: state.region!.asMap(),
                             list: context.read<RegionsBloc>().state.regions),
                       ).then((value) {
                         filterBloc.add(DealerFilterSelectEvent(region: value));
-                        print('regions: ${state.region.first}');
+                        print('regions: ${state.region!.first}');
                       });
                     },
-                    hintText: (state.region.isEmpty)
+                    hintText: (state.region!.isEmpty)
                         ? LocaleKeys.choose_region.tr()
-                        : state.region.first.title,
+                        : state.region!.first.title,
                     title: LocaleKeys.region.tr(),
                     hasArrowDown: true,
                   ),
@@ -185,10 +186,19 @@ class _DealersFilterState extends State<DealersFilter> {
                     textStyle: const TextStyle(
                         fontWeight: FontWeight.w600, fontSize: 14),
                     onTap: () {
-                      widget.dealerBloc.add(DealerCardEvent.getFilterResult(
-                        regionId: state.region.single.id.toString(),mark: state.maker!.name,carType: selectedCategory,
+                      filterBloc.add(DealerFilterSelectEvent(
+                        region: state.region,
+                        maker: state.maker,
+                        car_type: selectedCategory,
                       ));
-                      print('kkkkkkkk${state.maker!.name}');
+
+                      widget.dealerBloc.add(DealerCardEvent.getFilterResult(
+                        regionId: state.region.isEmpty
+                            ? ''
+                            : state.region.single.id.toString(),
+                        mark: state.maker?.slug,
+                        carType: selectedCategory,
+                      ));
                       Navigator.pop(context);
                     },
                     text: LocaleKeys.apply.tr(),

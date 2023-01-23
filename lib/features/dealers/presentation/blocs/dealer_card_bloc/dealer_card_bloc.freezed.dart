@@ -22,8 +22,7 @@ mixin _$DealerCardEvent {
     required TResult Function(
             bool? isRefresh, String? mark, String? regionId, String? carType)
         getFilterResult,
-    required TResult Function(
-            List<Region>? regions, MakeEntity? maker, String? carType)
+    required TResult Function(String? regions, String? maker, String? carType)
         getFilterParams,
     required TResult Function() getMoreResults,
   }) =>
@@ -34,8 +33,7 @@ mixin _$DealerCardEvent {
     TResult? Function(
             bool? isRefresh, String? mark, String? regionId, String? carType)?
         getFilterResult,
-    TResult? Function(
-            List<Region>? regions, MakeEntity? maker, String? carType)?
+    TResult? Function(String? regions, String? maker, String? carType)?
         getFilterParams,
     TResult? Function()? getMoreResults,
   }) =>
@@ -46,7 +44,7 @@ mixin _$DealerCardEvent {
     TResult Function(
             bool? isRefresh, String? mark, String? regionId, String? carType)?
         getFilterResult,
-    TResult Function(List<Region>? regions, MakeEntity? maker, String? carType)?
+    TResult Function(String? regions, String? maker, String? carType)?
         getFilterParams,
     TResult Function()? getMoreResults,
     required TResult orElse(),
@@ -174,8 +172,7 @@ class _$_GetResults implements _GetResults {
     required TResult Function(
             bool? isRefresh, String? mark, String? regionId, String? carType)
         getFilterResult,
-    required TResult Function(
-            List<Region>? regions, MakeEntity? maker, String? carType)
+    required TResult Function(String? regions, String? maker, String? carType)
         getFilterParams,
     required TResult Function() getMoreResults,
   }) {
@@ -189,8 +186,7 @@ class _$_GetResults implements _GetResults {
     TResult? Function(
             bool? isRefresh, String? mark, String? regionId, String? carType)?
         getFilterResult,
-    TResult? Function(
-            List<Region>? regions, MakeEntity? maker, String? carType)?
+    TResult? Function(String? regions, String? maker, String? carType)?
         getFilterParams,
     TResult? Function()? getMoreResults,
   }) {
@@ -204,7 +200,7 @@ class _$_GetResults implements _GetResults {
     TResult Function(
             bool? isRefresh, String? mark, String? regionId, String? carType)?
         getFilterResult,
-    TResult Function(List<Region>? regions, MakeEntity? maker, String? carType)?
+    TResult Function(String? regions, String? maker, String? carType)?
         getFilterParams,
     TResult Function()? getMoreResults,
     required TResult orElse(),
@@ -360,8 +356,7 @@ class _$_GetFilter implements _GetFilter {
     required TResult Function(
             bool? isRefresh, String? mark, String? regionId, String? carType)
         getFilterResult,
-    required TResult Function(
-            List<Region>? regions, MakeEntity? maker, String? carType)
+    required TResult Function(String? regions, String? maker, String? carType)
         getFilterParams,
     required TResult Function() getMoreResults,
   }) {
@@ -375,8 +370,7 @@ class _$_GetFilter implements _GetFilter {
     TResult? Function(
             bool? isRefresh, String? mark, String? regionId, String? carType)?
         getFilterResult,
-    TResult? Function(
-            List<Region>? regions, MakeEntity? maker, String? carType)?
+    TResult? Function(String? regions, String? maker, String? carType)?
         getFilterParams,
     TResult? Function()? getMoreResults,
   }) {
@@ -390,7 +384,7 @@ class _$_GetFilter implements _GetFilter {
     TResult Function(
             bool? isRefresh, String? mark, String? regionId, String? carType)?
         getFilterResult,
-    TResult Function(List<Region>? regions, MakeEntity? maker, String? carType)?
+    TResult Function(String? regions, String? maker, String? carType)?
         getFilterParams,
     TResult Function()? getMoreResults,
     required TResult orElse(),
@@ -461,7 +455,7 @@ abstract class _$$_GetFilterParamsCopyWith<$Res> {
           _$_GetFilterParams value, $Res Function(_$_GetFilterParams) then) =
       __$$_GetFilterParamsCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<Region>? regions, MakeEntity? maker, String? carType});
+  $Res call({String? regions, String? maker, String? carType});
 }
 
 /// @nodoc
@@ -481,13 +475,13 @@ class __$$_GetFilterParamsCopyWithImpl<$Res>
   }) {
     return _then(_$_GetFilterParams(
       regions: freezed == regions
-          ? _value._regions
+          ? _value.regions
           : regions // ignore: cast_nullable_to_non_nullable
-              as List<Region>?,
+              as String?,
       maker: freezed == maker
           ? _value.maker
           : maker // ignore: cast_nullable_to_non_nullable
-              as MakeEntity?,
+              as String?,
       carType: freezed == carType
           ? _value.carType
           : carType // ignore: cast_nullable_to_non_nullable
@@ -499,21 +493,12 @@ class __$$_GetFilterParamsCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_GetFilterParams implements _GetFilterParams {
-  _$_GetFilterParams({final List<Region>? regions, this.maker, this.carType})
-      : _regions = regions;
-
-  final List<Region>? _regions;
-  @override
-  List<Region>? get regions {
-    final value = _regions;
-    if (value == null) return null;
-    if (_regions is EqualUnmodifiableListView) return _regions;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
-  }
+  _$_GetFilterParams({this.regions, this.maker, this.carType});
 
   @override
-  final MakeEntity? maker;
+  final String? regions;
+  @override
+  final String? maker;
   @override
   final String? carType;
 
@@ -527,14 +512,13 @@ class _$_GetFilterParams implements _GetFilterParams {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_GetFilterParams &&
-            const DeepCollectionEquality().equals(other._regions, _regions) &&
+            (identical(other.regions, regions) || other.regions == regions) &&
             (identical(other.maker, maker) || other.maker == maker) &&
             (identical(other.carType, carType) || other.carType == carType));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType,
-      const DeepCollectionEquality().hash(_regions), maker, carType);
+  int get hashCode => Object.hash(runtimeType, regions, maker, carType);
 
   @JsonKey(ignore: true)
   @override
@@ -549,8 +533,7 @@ class _$_GetFilterParams implements _GetFilterParams {
     required TResult Function(
             bool? isRefresh, String? mark, String? regionId, String? carType)
         getFilterResult,
-    required TResult Function(
-            List<Region>? regions, MakeEntity? maker, String? carType)
+    required TResult Function(String? regions, String? maker, String? carType)
         getFilterParams,
     required TResult Function() getMoreResults,
   }) {
@@ -564,8 +547,7 @@ class _$_GetFilterParams implements _GetFilterParams {
     TResult? Function(
             bool? isRefresh, String? mark, String? regionId, String? carType)?
         getFilterResult,
-    TResult? Function(
-            List<Region>? regions, MakeEntity? maker, String? carType)?
+    TResult? Function(String? regions, String? maker, String? carType)?
         getFilterParams,
     TResult? Function()? getMoreResults,
   }) {
@@ -579,7 +561,7 @@ class _$_GetFilterParams implements _GetFilterParams {
     TResult Function(
             bool? isRefresh, String? mark, String? regionId, String? carType)?
         getFilterResult,
-    TResult Function(List<Region>? regions, MakeEntity? maker, String? carType)?
+    TResult Function(String? regions, String? maker, String? carType)?
         getFilterParams,
     TResult Function()? getMoreResults,
     required TResult orElse(),
@@ -630,12 +612,12 @@ class _$_GetFilterParams implements _GetFilterParams {
 
 abstract class _GetFilterParams implements DealerCardEvent {
   factory _GetFilterParams(
-      {final List<Region>? regions,
-      final MakeEntity? maker,
+      {final String? regions,
+      final String? maker,
       final String? carType}) = _$_GetFilterParams;
 
-  List<Region>? get regions;
-  MakeEntity? get maker;
+  String? get regions;
+  String? get maker;
   String? get carType;
   @JsonKey(ignore: true)
   _$$_GetFilterParamsCopyWith<_$_GetFilterParams> get copyWith =>
@@ -684,8 +666,7 @@ class _$_GetMoreResults implements _GetMoreResults {
     required TResult Function(
             bool? isRefresh, String? mark, String? regionId, String? carType)
         getFilterResult,
-    required TResult Function(
-            List<Region>? regions, MakeEntity? maker, String? carType)
+    required TResult Function(String? regions, String? maker, String? carType)
         getFilterParams,
     required TResult Function() getMoreResults,
   }) {
@@ -699,8 +680,7 @@ class _$_GetMoreResults implements _GetMoreResults {
     TResult? Function(
             bool? isRefresh, String? mark, String? regionId, String? carType)?
         getFilterResult,
-    TResult? Function(
-            List<Region>? regions, MakeEntity? maker, String? carType)?
+    TResult? Function(String? regions, String? maker, String? carType)?
         getFilterParams,
     TResult? Function()? getMoreResults,
   }) {
@@ -714,7 +694,7 @@ class _$_GetMoreResults implements _GetMoreResults {
     TResult Function(
             bool? isRefresh, String? mark, String? regionId, String? carType)?
         getFilterResult,
-    TResult Function(List<Region>? regions, MakeEntity? maker, String? carType)?
+    TResult Function(String? regions, String? maker, String? carType)?
         getFilterParams,
     TResult Function()? getMoreResults,
     required TResult orElse(),
@@ -772,8 +752,8 @@ mixin _$DealerCardState {
   List<DealerCardEntity> get list => throw _privateConstructorUsedError;
   FormzStatus get status => throw _privateConstructorUsedError;
   FormzStatus get paginationStatus => throw _privateConstructorUsedError;
-  MakeEntity get maker => throw _privateConstructorUsedError;
-  List<Region> get region => throw _privateConstructorUsedError;
+  String get maker => throw _privateConstructorUsedError;
+  String get region => throw _privateConstructorUsedError;
   String get carType => throw _privateConstructorUsedError;
   String? get next => throw _privateConstructorUsedError;
   int get count => throw _privateConstructorUsedError;
@@ -793,8 +773,8 @@ abstract class $DealerCardStateCopyWith<$Res> {
       {List<DealerCardEntity> list,
       FormzStatus status,
       FormzStatus paginationStatus,
-      MakeEntity maker,
-      List<Region> region,
+      String maker,
+      String region,
       String carType,
       String? next,
       int count});
@@ -838,11 +818,11 @@ class _$DealerCardStateCopyWithImpl<$Res, $Val extends DealerCardState>
       maker: null == maker
           ? _value.maker
           : maker // ignore: cast_nullable_to_non_nullable
-              as MakeEntity,
+              as String,
       region: null == region
           ? _value.region
           : region // ignore: cast_nullable_to_non_nullable
-              as List<Region>,
+              as String,
       carType: null == carType
           ? _value.carType
           : carType // ignore: cast_nullable_to_non_nullable
@@ -871,8 +851,8 @@ abstract class _$$_DealerCardStateCopyWith<$Res>
       {List<DealerCardEntity> list,
       FormzStatus status,
       FormzStatus paginationStatus,
-      MakeEntity maker,
-      List<Region> region,
+      String maker,
+      String region,
       String carType,
       String? next,
       int count});
@@ -914,11 +894,11 @@ class __$$_DealerCardStateCopyWithImpl<$Res>
       maker: null == maker
           ? _value.maker
           : maker // ignore: cast_nullable_to_non_nullable
-              as MakeEntity,
+              as String,
       region: null == region
-          ? _value._region
+          ? _value.region
           : region // ignore: cast_nullable_to_non_nullable
-              as List<Region>,
+              as String,
       carType: null == carType
           ? _value.carType
           : carType // ignore: cast_nullable_to_non_nullable
@@ -942,13 +922,12 @@ class _$_DealerCardState implements _DealerCardState {
       {final List<DealerCardEntity> list = const [],
       this.status = FormzStatus.pure,
       this.paginationStatus = FormzStatus.pure,
-      this.maker = const MakeEntity(),
-      final List<Region> region = const [],
+      this.maker = '',
+      this.region = '',
       this.carType = '',
       this.next,
       this.count = 0})
-      : _list = list,
-        _region = region;
+      : _list = list;
 
   final List<DealerCardEntity> _list;
   @override
@@ -967,16 +946,10 @@ class _$_DealerCardState implements _DealerCardState {
   final FormzStatus paginationStatus;
   @override
   @JsonKey()
-  final MakeEntity maker;
-  final List<Region> _region;
+  final String maker;
   @override
   @JsonKey()
-  List<Region> get region {
-    if (_region is EqualUnmodifiableListView) return _region;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_region);
-  }
-
+  final String region;
   @override
   @JsonKey()
   final String carType;
@@ -1001,7 +974,7 @@ class _$_DealerCardState implements _DealerCardState {
             (identical(other.paginationStatus, paginationStatus) ||
                 other.paginationStatus == paginationStatus) &&
             (identical(other.maker, maker) || other.maker == maker) &&
-            const DeepCollectionEquality().equals(other._region, _region) &&
+            (identical(other.region, region) || other.region == region) &&
             (identical(other.carType, carType) || other.carType == carType) &&
             (identical(other.next, next) || other.next == next) &&
             (identical(other.count, count) || other.count == count));
@@ -1014,7 +987,7 @@ class _$_DealerCardState implements _DealerCardState {
       status,
       paginationStatus,
       maker,
-      const DeepCollectionEquality().hash(_region),
+      region,
       carType,
       next,
       count);
@@ -1031,8 +1004,8 @@ abstract class _DealerCardState implements DealerCardState {
       {final List<DealerCardEntity> list,
       final FormzStatus status,
       final FormzStatus paginationStatus,
-      final MakeEntity maker,
-      final List<Region> region,
+      final String maker,
+      final String region,
       final String carType,
       final String? next,
       final int count}) = _$_DealerCardState;
@@ -1044,9 +1017,9 @@ abstract class _DealerCardState implements DealerCardState {
   @override
   FormzStatus get paginationStatus;
   @override
-  MakeEntity get maker;
+  String get maker;
   @override
-  List<Region> get region;
+  String get region;
   @override
   String get carType;
   @override

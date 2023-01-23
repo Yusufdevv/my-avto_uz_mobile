@@ -8,6 +8,7 @@ class MakeModel extends MakeEntity {
     required super.id,
     required super.logo,
     required super.name,
+    required super.slug,
   });
 
   factory MakeModel.fromJson(Map<String, dynamic> json) =>

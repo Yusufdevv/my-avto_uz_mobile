@@ -84,57 +84,57 @@ class _SellerInfoState extends State<SellerInfo> {
                     'Каждый день, ${widget.contactFrom} - ${widget.contactTo}',
                 icon: AppIcons.clock),
             const SizedBox(height: 20),
-            // Container(
-            //   decoration: BoxDecoration(
-            //     borderRadius: BorderRadius.circular(6),
-            //     color: warmerGrey,
-            //   ),
-            //   padding: const EdgeInsets.all(1),
-            //   height: 110,
-            //   child: ClipRRect(
-            //     borderRadius: BorderRadius.circular(6),
-            //     child: YandexMap(
-            //       rotateGesturesEnabled: false,
-            //       onMapCreated: (controller) async {
-            //         controller = controller;
-            //         maxZoomLevel = await controller.getMaxZoom();
-            //         minZoomLevel = await controller.getMinZoom();
-            //         final camera = await controller.getCameraPosition();
-            //         final position = Point(
-            //             latitude: StorageRepository.getDouble('lat',
-            //                 defValue: 41.310990),
-            //             longitude: StorageRepository.getDouble('long',
-            //                 defValue: 69.281997));
-            //         await controller.moveCamera(
-            //           CameraUpdate.newCameraPosition(
-            //             CameraPosition(
-            //               target: Point(
-            //                   latitude: widget.latitude,
-            //                   longitude: widget.longitude),
-            //             ),
-            //           ),
-            //           animation: const MapAnimation(
-            //               duration: 0.15, type: MapAnimationType.smooth),
-            //         );
-            //       },
-            //       mapObjects: [
-            //         PlacemarkMapObject(
-            //           icon: PlacemarkIcon.single(
-            //             PlacemarkIconStyle(
-            //               scale: 0.6,
-            //               image: BitmapDescriptor.fromAssetImage(
-            //                   AppIcons.currentLoc),
-            //             ),
-            //           ),
-            //           mapId: MapObjectId(widget.latitude.toString()),
-            //           point: Point(
-            //               latitude: widget.latitude,
-            //               longitude: widget.longitude),
-            //         ),
-            //       ],
-            //     ),
-            //   ),
-            // ),
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(6),
+                color: warmerGrey,
+              ),
+              padding: const EdgeInsets.all(1),
+              height: 110,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(6),
+                child: YandexMap(
+                  rotateGesturesEnabled: false,
+                  onMapCreated: (controller) async {
+                    controller = controller;
+                    maxZoomLevel = await controller.getMaxZoom();
+                    minZoomLevel = await controller.getMinZoom();
+                    final camera = await controller.getCameraPosition();
+                    final position = Point(
+                        latitude: StorageRepository.getDouble('lat',
+                            defValue: 41.310990),
+                        longitude: StorageRepository.getDouble('long',
+                            defValue: 69.281997));
+                    await controller.moveCamera(
+                      CameraUpdate.newCameraPosition(
+                        CameraPosition(
+                          target: Point(
+                              latitude: widget.latitude,
+                              longitude: widget.longitude),
+                        ),
+                      ),
+                      animation: const MapAnimation(
+                          duration: 0.15, type: MapAnimationType.smooth),
+                    );
+                  },
+                  mapObjects: [
+                    PlacemarkMapObject(
+                      icon: PlacemarkIcon.single(
+                        PlacemarkIconStyle(
+                          scale: 0.6,
+                          image: BitmapDescriptor.fromAssetImage(
+                              AppIcons.currentLoc),
+                        ),
+                      ),
+                      mapId: MapObjectId(widget.latitude.toString()),
+                      point: Point(
+                          latitude: widget.latitude,
+                          longitude: widget.longitude),
+                    ),
+                  ],
+                ),
+              ),
+            ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 20),
               child: Info(
