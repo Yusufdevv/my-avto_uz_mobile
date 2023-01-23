@@ -18,6 +18,7 @@ class CarPriceBottom extends StatelessWidget {
   final String date;
   final String percent;
   final double percenti;
+  final double procent;
 
   const CarPriceBottom({
     Key? key,
@@ -28,6 +29,7 @@ class CarPriceBottom extends StatelessWidget {
     required this.percent,
     required this.currency,
     required this.percenti,
+    required this.procent,
   }) : super(key: key);
 
   @override
@@ -111,7 +113,8 @@ class CarPriceBottom extends StatelessWidget {
               ),
             ),
             PriceStatisticItem(
-              percent: percenti, price: price,
+              percent: percenti,
+              price: price,
             ),
             CarsPrice(
               date: 'Соотношение',

@@ -81,7 +81,7 @@ class _CarSingleScreenState extends State<CarSingleScreen>
         OtherAdsUseCase(repository: serviceLocator<CarSingleRepositoryImpl>()),
         SoldAdsUseCase(repository: serviceLocator<CarSingleRepositoryImpl>()),
         CallCount(repository: serviceLocator<CarSingleRepositoryImpl>()))
-      ..add(CarSingleEvent.getSingle(widget.id  ));
+      ..add(CarSingleEvent.getSingle(widget.id));
     _scrollController.addListener(() {
       if (_scrollController.offset > 285 && isAppBarOffset != true) {
         actionState = CrossFadeState.showSecond;
@@ -241,7 +241,7 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                                   .singleEntity.priceAnalytics.priceDifference,
                               dateBsh: '25 mart',
                               percent: MyFunctions.getFormatCost(
-                                  '${state.singleEntity.priceAnalytics.percentage}'),
+                                  '${100 - state.singleEntity.priceAnalytics.percentage}'),
                               isMine: true,
                               saleDays:
                                   '${DateTime.now().difference(DateTime.parse(state.singleEntity.publishedAt)).inDays + 1}',
@@ -254,6 +254,8 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                               compareId: state.singleEntity.id,
                               isCompared: state.singleEntity.isComparison,
                               percenti:
+                                  state.singleEntity.priceAnalytics.percentage,
+                              procent:
                                   state.singleEntity.priceAnalytics.percentage,
                             ),
                           ),
