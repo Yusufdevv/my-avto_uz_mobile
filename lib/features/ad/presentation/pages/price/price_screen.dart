@@ -12,7 +12,6 @@ import 'package:auto/features/common/widgets/switcher_row_as_button_also.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/common/widgets/w_textfield.dart';
-import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/rent_choose_region_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -100,7 +99,7 @@ class _PriceScreenState extends State<PriceScreen> {
                                   barrierColor: Colors.black.withOpacity(.5),
                                   backgroundColor: Colors.transparent,
                                   builder: (c) => CurrencyChooseSheet(
-                                    selected: state.currency ?? '',
+                                    selected: state.currency,
                                   ),
                                 ).then((value) => context
                                     .read<PostingAdBloc>()
@@ -112,7 +111,7 @@ class _PriceScreenState extends State<PriceScreen> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                    state.currency ?? 'y.e',
+                                    state.currency ,
                                     style: Theme.of(context)
                                         .textTheme
                                         .subtitle1!

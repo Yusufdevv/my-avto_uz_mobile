@@ -2,6 +2,12 @@ part of 'posting_ad_bloc.dart';
 
 abstract class PostingAdEvent {}
 
+class PostingAdGetAnnouncementEvent extends PostingAdEvent {
+  final int id;
+
+  PostingAdGetAnnouncementEvent({required this.id});
+}
+
 class PostingAdDamageEvent extends PostingAdEvent {
   final DamagedParts part;
   final DamageType type;

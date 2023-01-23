@@ -33,7 +33,8 @@ class _HourPickerWidgetState extends State<HourPickerWidget> {
         values.add('0$i : 00');
       }
     }
-    final v = values.indexOf(widget.initialItem);
+    final v = values.indexWhere(
+        (element) => element.replaceAll(' ', '') == widget.initialItem);
     currentIndex = v > 0 ? v : widget.defaultHour;
     controller = FixedExtentScrollController(initialItem: currentIndex);
 

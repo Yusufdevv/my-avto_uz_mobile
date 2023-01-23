@@ -182,6 +182,18 @@ class _AdsBodyScreenState extends State<AdsBodyScreen> {
                             list: context.read<RegionsBloc>().state.regions,
                           ),
                         ).then((value) {
+                          if (value != null && value.isNotEmpty) {
+                            context.read<AnnouncementListBloc>().add(
+                                AnnouncementListEvent.getFilter(context
+                                    .read<AnnouncementListBloc>()
+                                    .state
+                                    .filter
+                                    .copyWith(
+                                        regions: value
+                                            .map((e) => '${e.id}')
+                                            .toList()
+                                            .join(','))));
+                          }
                           context
                               .read<AnnouncementListBloc>()
                               .add(AnnouncementListEvent.getRegions(value!));

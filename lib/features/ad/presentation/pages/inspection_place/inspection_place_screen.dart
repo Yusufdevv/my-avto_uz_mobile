@@ -48,11 +48,9 @@ class _InspectionPlaceScreenState extends State<InspectionPlaceScreen> {
                             isDismissible: false,
                             context: context,
                             isScrollControlled: true,
-                            barrierColor: Colors.amber,
                             backgroundColor: Colors.transparent,
                             builder: (c) => RentChooseRegionBottomSheet(
-                              isOtherPage: true,
-                              isProfileEdit: true,
+                              isMultiChoice: false,
                               checkedRegions: state.region == null
                                   ? <int, Region>{}
                                   : {0: state.region!},
@@ -108,7 +106,7 @@ class _InspectionPlaceScreenState extends State<InspectionPlaceScreen> {
                             }
                           });
                         },
-                        hintText:state.districtTitle ,
+                        hintText: state.districtTitle,
                         title: 'Район / город',
                       ),
                       const SizedBox(height: 17),
