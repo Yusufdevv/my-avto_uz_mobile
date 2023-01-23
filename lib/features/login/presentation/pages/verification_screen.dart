@@ -37,7 +37,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
   late TextEditingController verificationController;
   bool timeComplete = false;
   bool isToastShowing = false;
-
+  String? session;
   @override
   void initState() {
     verificationController = TextEditingController();
@@ -47,6 +47,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
   @override
   void dispose() {
     // verificationController.dispose();
+    session = widget.session;
     super.dispose();
   }
 
@@ -71,14 +72,11 @@ class _VerificationScreenState extends State<VerificationScreen> {
                       height: 12,
                     ),
                     Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 8, vertical: 4),
+                      padding: const EdgeInsets.only(
+                          left: 8, right: 4, top: 4, bottom: 4),
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        color: Theme.of(context)
-                            .extension<ThemedColors>()!
-                            .solitudeToBastille,
-                      ),
+                          borderRadius: BorderRadius.circular(8),
+                          color: border),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
@@ -90,19 +88,20 @@ class _VerificationScreenState extends State<VerificationScreen> {
                                 .copyWith(
                                     fontWeight: FontWeight.w400, fontSize: 14),
                           ),
-                          const SizedBox(
-                            width: 12,
-                          ),
+                          const SizedBox(width: 12),
                           WButton(
                             onTap: () {
                               Navigator.pop(context);
                             },
-                            padding: const EdgeInsets.all(4),
+                            borderRadius: 4,
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 4, vertical: 4),
                             color: Theme.of(context)
                                 .extension<ThemedColors>()!
                                 .solitudeToSolitude14,
                             height: 24,
-                            child: SvgPicture.asset(AppIcons.edit),
+                            width: 24,
+                            child: SvgPicture.asset(AppIcons.edit, color: grey),
                           )
                         ],
                       ),
@@ -134,7 +133,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
                         fieldHeight: 44,
                         fieldWidth: 50,
                       ),
-                      cursorColor: white,
+                      cursorColor: black,
                       keyboardType: TextInputType.number,
                       enableActiveFill: false,
                       textStyle: Theme.of(context)
@@ -148,9 +147,6 @@ class _VerificationScreenState extends State<VerificationScreen> {
                       appContext: context,
                       showCursor: true,
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    ),
-                    const SizedBox(
-                      height: 18,
                     ),
                     Row(
                       children: [
@@ -175,6 +171,26 @@ class _VerificationScreenState extends State<VerificationScreen> {
                                 setState(() {
                                   timeComplete = false;
                                 });
+                                context.read<RegisterBloc>().add(
+                                        RegisterEvent.sendCode(widget.phone,
+                                            onError: (text) {
+                                      if (text.isNotEmpty) {
+                                        context.read<ShowPopUpBloc>().add(
+                                            ShowPopUp(
+                                                message: text,
+                                                isSucces: false,
+                                                dismissible: false));
+                                      } else {
+                                        context.read<ShowPopUpBloc>().add(
+                                            ShowPopUp(
+                                                message: 'something went wrong',
+                                                isSucces: false,
+                                                dismissible: false));
+                                      }
+                                      isToastShowing = true;
+                                    }, onSuccess: (sessionn) {
+                                      session = sessionn;
+                                    }));
                               },
                             ),
                           )
@@ -207,8 +223,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
                                       VerifyParam(
                                           code: verificationController.text,
                                           phone: widget.phone,
-                                          session: widget.session),
-                                      onError: (text) {
+                                          session: session!), onError: (text) {
                                 context.read<ShowPopUpBloc>().add(ShowPopUp(
                                     message: text,
                                     isSucces: false,

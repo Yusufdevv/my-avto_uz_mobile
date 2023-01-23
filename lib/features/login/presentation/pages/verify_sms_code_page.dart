@@ -8,6 +8,7 @@ import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/login/domain/usecases/change_password.dart';
 import 'package:auto/features/login/domain/usecases/verify_code.dart';
 import 'package:auto/features/login/domain/usecases/verify_recovery.dart';
+import 'package:auto/features/login/presentation/bloc/send_phone/send_phone_bloc.dart';
 import 'package:auto/features/login/presentation/bloc/verify/verify_bloc.dart';
 import 'package:auto/features/login/presentation/pages/login_new_password_page.dart';
 import 'package:auto/features/login/presentation/widgets/SignIn_with_socials.dart';
@@ -190,6 +191,9 @@ class _VerifySmsCodePageState extends State<VerifySmsCodePage> {
                                   setState(() {
                                     timeComplete = false;
                                   });
+                                  context
+                                      .read<SendPhoneBloc>()
+                                      .add(SendPhoneEvent(phone: widget.phone));
                                 },
                               ),
                             )
@@ -221,7 +225,10 @@ class _VerifySmsCodePageState extends State<VerifySmsCodePage> {
                                 param: VerifyParam(
                                   phone: widget.phone,
                                   code: passwordRecoveryController.text,
-                                  session: widget.session,
+                                  session: context
+                                      .read<SendPhoneBloc>()
+                                      .state
+                                      .session,
                                 ),
                               ),
                             );
