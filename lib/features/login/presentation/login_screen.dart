@@ -9,6 +9,7 @@ import 'package:auto/features/common/widgets/custom_screen.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_divider.dart';
+import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/login/presentation/pages/register_screen.dart';
 import 'package:auto/features/login/presentation/pages/send_phone_number_page.dart';
 import 'package:auto/features/login/presentation/widgets/z_text_form_field.dart';
@@ -92,7 +93,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     const SizedBox(
                       width: 4,
                     ),
-                    GestureDetector(
+                    WScaleAnimation(
                       onTap: () {
                         hidePopUp();
                         Navigator.push(
@@ -142,15 +143,13 @@ class _LoginScreenState extends State<LoginScreen> {
                   onTap: hidePopUp,
                   onChanged: (value) {
                     setState(() {});
-                    print(
-                        '======= ${(passwordController.text.length >= 4 && phoneController.text.length > 11)}');
                   },
                   hintText: 'Пароль',
                   controller: passwordController,
                   isObscure: true,
                 ),
                 const SizedBox(height: 16),
-                GestureDetector(
+                WScaleAnimation(
                   onTap: () {
                     hidePopUp();
                     Navigator.of(context)

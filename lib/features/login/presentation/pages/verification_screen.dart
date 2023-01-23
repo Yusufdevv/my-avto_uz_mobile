@@ -37,18 +37,13 @@ class _VerificationScreenState extends State<VerificationScreen> {
   late TextEditingController verificationController;
   bool timeComplete = false;
   bool isToastShowing = false;
-  String? session;
+  late String session;
   @override
   void initState() {
     verificationController = TextEditingController();
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    // verificationController.dispose();
     session = widget.session;
-    super.dispose();
+
+    super.initState();
   }
 
   @override
@@ -212,7 +207,6 @@ class _VerificationScreenState extends State<VerificationScreen> {
                       ],
                     ),
                     const SizedBox(height: 24),
-                    //  const Spacer(),
                     WButton(
                       isLoading: state.verifyStatus ==
                           FormzStatus.submissionInProgress,
@@ -223,7 +217,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
                                       VerifyParam(
                                           code: verificationController.text,
                                           phone: widget.phone,
-                                          session: session!), onError: (text) {
+                                          session: session), onError: (text) {
                                 context.read<ShowPopUpBloc>().add(ShowPopUp(
                                     message: text,
                                     isSucces: false,
