@@ -57,6 +57,8 @@ class _StoryContentItemState extends State<StoryContentItem>
     super.initState();
     animationController = AnimationController(vsync: this);
     animationController.addStatusListener(_animationListener);
+    print('app log: init state\npageIndex: ${widget.pageIndex}\ncurrentPageIndex: ${widget.currentPageIndex}'
+        '\nisPaused: ${widget.isPaused}');
     _loadStory();
   }
 
@@ -87,16 +89,21 @@ class _StoryContentItemState extends State<StoryContentItem>
                   fit: BoxFit.cover,
                 ),
                 progressIndicatorBuilder: (context, s, progress) {
-                  if (progress.totalSize != null &&
-                      progress.totalSize != progress.downloaded) {
-                    animationController.stop(canceled: false);
-                  }
-                  if ((progress.totalSize == progress.downloaded ||
-                          progress.totalSize == null &&
-                              progress.downloaded == 0) &&
-                      animationController.status != AnimationStatus.forward) {
-                    _loadStory();
-                  }
+                  print('progress.downloaded: ${progress.downloaded}');
+                  print('progress.progress: ${progress.progress}');
+                  print('progress.totalSize: ${progress.totalSize}');
+
+                  // if (progress.totalSize != null &&
+                  //     progress.progress != 1.0 &&
+                  //     animationController.status == AnimationStatus.forward) {
+                  //   animationController.stop(canceled: false);
+                  // }
+                  // if ((progress.progress == 1.0 ||
+                  //         progress.totalSize == null &&
+                  //             progress.downloaded == 0) &&
+                  //     animationController.status != AnimationStatus.forward) {
+                  //   animationController.forward(from: 0);
+                  // }
 
                   return Container(
                     color: grey,
@@ -282,11 +289,13 @@ class _StoryContentItemState extends State<StoryContentItem>
   }
 
   void _loadStory() {
+    print('app log: itemIndex $itemIndex');
     if (!(widget.pageIndex == widget.currentPageIndex && !widget.isPaused)) {
       return;
     }
     final last = widget.story.items[itemIndex].content.split('.').last;
     isVideo = last == 'mp4' || last == 'mov';
+    print('app log: isVideo $isVideo');
     if (isVideo) {
       _initVideoController();
       _pauseAndPlayVideo();
