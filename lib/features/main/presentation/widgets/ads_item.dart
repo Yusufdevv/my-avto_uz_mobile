@@ -43,6 +43,7 @@ class AdsItem extends StatelessWidget {
             .push(fade(page: CarSingleScreen(id: id)));
       },
       child: Container(
+        height: 269,
         width: 225,
         decoration: BoxDecoration(
             boxShadow: [

@@ -28,6 +28,7 @@ class CarModelItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Container(
+        height: 132,
         margin: const EdgeInsets.all(16),
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
@@ -42,6 +43,7 @@ class CarModelItem extends StatelessWidget {
         child: Column(
           children: [
             WButton(
+              height: 40,
               onTap: onTapSelect,
               color: Theme.of(context)
                   .extension<ThemedColors>()!
@@ -91,7 +93,8 @@ class CarModelItem extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             WButton(
-              onTap:title.isNotEmpty && count > 0 ? onTapShow : () {},
+              height: 44,
+              onTap: title.isNotEmpty && count > 0 ? onTapShow : () {},
               color: Theme.of(context)
                   .extension<ThemedColors>()!
                   .lightSlateBlue12ToLightSlateBlue,

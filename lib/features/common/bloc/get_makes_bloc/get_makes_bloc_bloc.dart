@@ -96,5 +96,13 @@ class GetMakesBloc extends Bloc<GetMakesBlocEvent, GetMakesState> {
     on<_RevertCarOption>((event, emit) {
       emit(state.copyWith(selectId: state.confirmId));
     });
+    on<_GetIndex>((event, emit) {
+      emit(state.copyWith(selectChar: event.index));
+      final inde = state.makes
+          .indexWhere((element) => element.name.startsWith(event.index));
+      if (inde >= 0) {
+        emit(state.copyWith(index: inde));
+      }
+    });
   }
 }

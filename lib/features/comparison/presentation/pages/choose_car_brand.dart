@@ -32,6 +32,7 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
   late TextEditingController searchController;
   late TopBrandBloc topBrandBloc;
   late ScrollController scrollController;
+  late ScrollController controllerScroll;
   late ScrollingBloc scrollingBloc;
   Color color = Colors.transparent;
   bool isSerach = false;
@@ -45,9 +46,7 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
     context.read<GetMakesBloc>().add(GetMakesBlocEvent.getMakes());
     scrollingBloc = ScrollingBloc();
     scrollController = ScrollController();
-    scrollController.addListener(() {
-      scrollingBloc.add(ChangeColorEvent(offset: scrollController.offset));
-    });
+    controllerScroll = ScrollController();
     super.initState();
   }
 
@@ -61,169 +60,181 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
   Widget build(BuildContext context) => KeyboardDismisser(
         child: BlocProvider.value(
           value: topBrandBloc,
-          child: BlocBuilder<GetMakesBloc, GetMakesState>(
-            builder: (context, state) => Scaffold(
-              resizeToAvoidBottomInset: false,
-              body: Stack(
-                children: [
-                  NestedScrollView(
-                    controller: scrollController,
-                    headerSliverBuilder: (context, innerBoxIsScrolled) => [
-                      SliverAppBar(
-                        elevation: 0,
-                        pinned: true,
-                        leadingWidth: 36,
-                        leading: GestureDetector(
-                          onTap: () => Navigator.pop(context),
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 16),
-                            child: SvgPicture.asset(AppIcons.chevronLeft),
-                          ),
-                        ),
-                        titleSpacing: 4,
-                        title: const Text(
-                          'Выберите марку автомобиля',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w700,
-                            color: dark,
-                          ),
-                        ),
-                        actions: [
-                          Padding(
-                            padding: const EdgeInsets.only(right: 16),
-                            child: GestureDetector(
-                              onTap: () {
-                                Navigator.of(context).pop();
-                                if (widget.isClear) {
-                                  context.read<GetMakesBloc>().add(
-                                      GetMakesBlocEvent.selectedCarItems(
-                                          id: -1, name: '', imageUrl: ''));
-                                }
-                              },
-                              child: SvgPicture.asset(AppIcons.close),
+          child: BlocListener<GetMakesBloc, GetMakesState>(
+            listener: (context, state) {
+              scrollController.animateTo(state.index.toDouble() * 54,
+                  duration: const Duration(milliseconds: 500),
+                  curve: Curves.ease);
+            },
+            child: BlocBuilder<GetMakesBloc, GetMakesState>(
+              builder: (context, state) => Scaffold(
+                resizeToAvoidBottomInset: false,
+                body: Stack(
+                  children: [
+                    NestedScrollView(
+                      controller: controllerScroll,
+                      headerSliverBuilder: (context, innerBoxIsScrolled) => [
+                        SliverAppBar(
+                          elevation: 0,
+                          pinned: true,
+                          leadingWidth: 36,
+                          leading: GestureDetector(
+                            onTap: () => Navigator.pop(context),
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 16),
+                              child: SvgPicture.asset(AppIcons.chevronLeft),
                             ),
                           ),
-                        ],
-                      ),
-                      SliverSafeArea(
-                        top: false,
-                        bottom: true,
-                        sliver: SliverPersistentHeader(
-                          delegate: WSerachBar(
-                            controller: searchController,
-                            onChanged: () {
-                              context.read<GetMakesBloc>().add(
-                                    GetMakesBlocEvent.getSerched(
-                                      searchController.text,
-                                    ),
-                                  );
-                              context
-                                  .read<GetMakesBloc>()
-                                  .add(GetMakesBlocEvent.getMakes());
-                              setState(() {});
-                            },
-                            onClear: () {
-                              context.read<GetMakesBloc>().add(
-                                    GetMakesBlocEvent.getSerched(
-                                      searchController.text,
-                                    ),
-                                  );
-                              context
-                                  .read<GetMakesBloc>()
-                                  .add(GetMakesBlocEvent.getMakes());
-                              setState(() {});
-                            },
+                          titleSpacing: 4,
+                          title: const Text(
+                            'Выберите марку автомобиля',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w700,
+                              color: dark,
+                            ),
                           ),
-                          pinned: true,
-                        ),
-                      ),
-                      if (state.search.isEmpty)
-                        SliverToBoxAdapter(
-                          child: TopBrands(
-                            onTap: widget.isbak == true
-                                ? () {
-                                    Navigator.pop(context);
+                          actions: [
+                            Padding(
+                              padding: const EdgeInsets.only(right: 16),
+                              child: GestureDetector(
+                                onTap: () {
+                                  Navigator.of(context).pop();
+                                  if (widget.isClear) {
+                                    context.read<GetMakesBloc>().add(
+                                        GetMakesBlocEvent.selectedCarItems(
+                                            id: -1, name: '', imageUrl: ''));
                                   }
-                                : widget.onTap,
-                            isText: false,
+                                },
+                                child: SvgPicture.asset(AppIcons.close),
+                              ),
+                            ),
+                          ],
+                        ),
+                        SliverSafeArea(
+                          top: false,
+                          bottom: true,
+                          sliver: SliverPersistentHeader(
+                            delegate: WSerachBar(
+                              controller: searchController,
+                              onChanged: () {
+                                context.read<GetMakesBloc>().add(
+                                      GetMakesBlocEvent.getSerched(
+                                        searchController.text,
+                                      ),
+                                    );
+                                context
+                                    .read<GetMakesBloc>()
+                                    .add(GetMakesBlocEvent.getMakes());
+                                setState(() {});
+                              },
+                              onClear: () {
+                                context.read<GetMakesBloc>().add(
+                                      GetMakesBlocEvent.getSerched(
+                                        searchController.text,
+                                      ),
+                                    );
+                                context
+                                    .read<GetMakesBloc>()
+                                    .add(GetMakesBlocEvent.getMakes());
+                                setState(() {});
+                              },
+                            ),
+                            pinned: true,
                           ),
                         ),
-                      if (state.search.isEmpty)
-                        SliverToBoxAdapter(
-                          child: Transform.translate(
-                            offset: const Offset(0, 1),
-                            child: Container(
-                              height: 20,
-                              width: double.infinity,
-                              decoration: BoxDecoration(
-                                color: Theme.of(context)
-                                    .extension<ThemedColors>()!
-                                    .whiteToDark,
-                                borderRadius: const BorderRadius.vertical(
-                                  top: Radius.circular(20),
+                        if (state.search.isEmpty)
+                          SliverToBoxAdapter(
+                            child: TopBrands(
+                              onTap: widget.isbak == true
+                                  ? () {
+                                      Navigator.pop(context);
+                                    }
+                                  : widget.onTap,
+                              isText: false,
+                            ),
+                          ),
+                        if (state.search.isEmpty)
+                          SliverToBoxAdapter(
+                            child: Transform.translate(
+                              offset: const Offset(0, 1),
+                              child: Container(
+                                height: 20,
+                                width: double.infinity,
+                                decoration: BoxDecoration(
+                                  color: Theme.of(context)
+                                      .extension<ThemedColors>()!
+                                      .whiteToDark,
+                                  borderRadius: const BorderRadius.vertical(
+                                    top: Radius.circular(20),
+                                  ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
-                      if (state.search.isEmpty)
-                        SliverSafeArea(
-                          top: false,
-                          bottom: false,
-                          sliver: SliverPersistentHeader(
-                            delegate: AlphabeticHeader(color: color),
-                            pinned: true,
+                        if (state.search.isEmpty)
+                          SliverSafeArea(
+                            top: false,
+                            bottom: false,
+                            sliver: SliverPersistentHeader(
+                              delegate: AlphabeticHeader(
+                                color: color,
+                                controller: controllerScroll,
+                              ),
+                              pinned: true,
+                            ),
                           ),
-                        ),
-                    ],
-                    body: ListView.builder(
-                      padding: const EdgeInsets.only(bottom: 60),
-                      itemCount: state.makes.length,
-                      itemBuilder: (context, index) => Container(
-                        color: Theme.of(context)
-                            .extension<ThemedColors>()!
-                            .whiteToDark,
-                        child: ChangeCarItems(
-                          selectedId: state.selectId,
-                          id: state.makes[index].id,
-                          imageUrl: state.makes[index].logo,
-                          name: state.makes[index].name,
-                          text: state.search,
-                          onTap: () {
-                            context.read<GetMakesBloc>().add(
-                                  GetMakesBlocEvent.selectedCarItems(
-                                    id: state.makes[index].id,
-                                    name: state.makes[index].name,
-                                    imageUrl: state.makes[index].logo,
-                                  ),
-                                );
-                          },
+                      ],
+                      body: ListView.builder(
+                        padding: const EdgeInsets.only(bottom: 60),
+                        itemCount: state.makes.length,
+                        controller: scrollController,
+                        itemBuilder: (context, index) => Container(
+                          height: 54,
+                          color: Theme.of(context)
+                              .extension<ThemedColors>()!
+                              .whiteToDark,
+                          child: ChangeCarItems(
+                            selectedId: state.selectId,
+                            id: state.makes[index].id,
+                            imageUrl: state.makes[index].logo,
+                            name: state.makes[index].name,
+                            text: state.search,
+                            onTap: () {
+                              context.read<GetMakesBloc>().add(
+                                    GetMakesBlocEvent.selectedCarItems(
+                                      id: state.makes[index].id,
+                                      name: state.makes[index].name,
+                                      imageUrl: state.makes[index].logo,
+                                    ),
+                                  );
+                            },
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  Positioned(
-                    bottom: 16,
-                    right: 16,
-                    left: 16,
-                    child: WButton(
-                      onTap: widget.isbak == true
-                          ? () {
-                              Navigator.pop(context);
-                            }
-                          : widget.onTap,
-                      text: 'Далее',
-                      shadow: [
-                        BoxShadow(
-                          offset: const Offset(0, 4),
-                          blurRadius: 20,
-                          color: orange.withOpacity(0.2),
-                        ),
-                      ],
+                    Positioned(
+                      bottom: 16,
+                      right: 16,
+                      left: 16,
+                      child: WButton(
+                        onTap: widget.isbak == true
+                            ? () {
+                                Navigator.pop(context);
+                              }
+                            : widget.onTap,
+                        text: 'Далее',
+                        shadow: [
+                          BoxShadow(
+                            offset: const Offset(0, 4),
+                            blurRadius: 20,
+                            color: orange.withOpacity(0.2),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
