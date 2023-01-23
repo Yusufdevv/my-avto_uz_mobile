@@ -7,7 +7,6 @@ import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
 import 'package:auto/features/common/models/region.dart';
 import 'package:auto/features/common/widgets/custom_screen.dart';
 import 'package:auto/features/common/widgets/switcher_row.dart';
-import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/rent_choose_region_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -35,7 +34,7 @@ class _InspectionPlaceScreenState extends State<InspectionPlaceScreen> {
               child: BlocBuilder<PostingAdBloc, PostingAdState>(
                 builder: (context, state) {
                   print(
-                      '==== district title in state: ${state.district?.title}  ====');
+                      '==== districts length: ${state.districts.length}  ====');
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -96,26 +95,20 @@ class _InspectionPlaceScreenState extends State<InspectionPlaceScreen> {
                             isScrollControlled: true,
                             backgroundColor: Colors.transparent,
                             builder: (c) => ChooseDistrictSheet(
-                              selectedId: state.district?.id ?? -1,
+                              selectedId: state.districtId ?? -1,
                               districts: state.districts,
                             ),
                           ).then((value) {
-                            // fsdf
                             if (value != null) {
-                              print('====  ${value.title}  ====');
                               context
                                   .read<PostingAdBloc>()
                                   .add(PostingAdChooseEvent(
-                                    district: value,
+                                    districtId: value.id,
                                   ));
                             }
-                            setState(() {});
                           });
                         },
-                        hintText:
-                            state.district == null || state.districts.isEmpty
-                                ? 'Выберите район'
-                                : state.district!.title,
+                        hintText:state.districtTitle ,
                         title: 'Район / город',
                       ),
                       const SizedBox(height: 17),
