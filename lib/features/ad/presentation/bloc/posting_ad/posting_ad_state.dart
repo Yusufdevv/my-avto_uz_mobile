@@ -23,7 +23,7 @@ class PostingAdState extends Equatable {
   final FormzStatus status;
   final FormzStatus getDistrictsStatus;
   final YearsEntity? yearsEntity;
-  final DistrictEntity? district;
+  final int? districtId;
   final List<String> gallery;
   final List<RentWithPurchaseEntity> rentWithPurchaseConditions;
   final Map<DamagedParts, DamageType> damagedParts;
@@ -102,14 +102,24 @@ class PostingAdState extends Equatable {
     this.isContactsVerified = false,
     this.rentToBuy,
     this.isWithoutMileage,
-    this.district,
+    this.districtId,
     this.districts = const <DistrictEntity>[],
     this.getDistrictsStatus = FormzStatus.pure,
   });
+
+  String get districtTitle {
+    final index =
+        districts.indexWhere((element) => element.id == (districtId ?? -1));
+    if (index >= 0) {
+      return districts[index].title;
+    }
+    return 'Выберите район';
+  }
+
   PostingAdState copyWith({
     Map<DamagedParts, DamageType>? damagedParts,
     List<RentWithPurchaseEntity>? rentWithPurchaseConditions,
-    DistrictEntity? districtt,
+    int? districtId,
     Region? region,
     FormzStatus? status,
     FormzStatus? getDistrictsStatus,
@@ -158,17 +168,17 @@ class PostingAdState extends Equatable {
     bool? rentToBuy,
     bool? isWithoutMileage,
     bool? showExactAddress,
-  }){
-    print('====   ACTUALLY IN STATE:  ${district?.title}  ====');
-    print('==== INCOMING DISTRICT TO COPYWITH:  ${districtt?.title}  ====');
-    final newState=  PostingAdState(
+  }) {
+    print('====   ACTUALLY IN STATE:  ${this.districts}  ====');
+    print('==== INCOMING DISTRICT TO COPYWITH:  ${districts}  ====');
+    final newState = PostingAdState(
       getDistrictsStatus: getDistrictsStatus ?? this.getDistrictsStatus,
       districts: districts ?? this.districts,
       damagedParts: damagedParts ?? this.damagedParts,
       rentWithPurchaseConditions:
           rentWithPurchaseConditions ?? this.rentWithPurchaseConditions,
       showExactAddress: showExactAddress ?? this.showExactAddress,
-      district: districtt ?? this.district,
+      districtId: districtId ?? this.districtId,
       city: city ?? this.city,
       region: region ?? this.region,
       gearboxId: gearboxId ?? this.gearboxId,
@@ -216,7 +226,8 @@ class PostingAdState extends Equatable {
       regions: regions ?? this.regions,
     );
 
-    print('====   OUTCOMINT DISTRICT FROM COPY WITH:  ${newState.district?.title}  ====');
+    print(
+        '====   OUTCOMINT DISTRICT FROM COPY WITH:  ${newState.districts}  ====');
     return newState;
   }
 
@@ -229,7 +240,7 @@ class PostingAdState extends Equatable {
         rentWithPurchaseConditions,
         gallery,
         showExactAddress,
-        district,
+        districtId,
         isWithoutMileage,
         rentToBuy,
         callTimeTo,

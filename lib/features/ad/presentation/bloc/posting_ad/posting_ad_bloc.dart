@@ -135,7 +135,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
             .toList(),
         description: state.descriptions,
         distanceTraveled: int.tryParse(state.mileage ?? '1000') ?? 1000,
-        district: state.district!.id,
+        district: state.districtId!,
         driveType: state.driveTypeId!,
         engineType: state.engineId!,
         gallery: state.gallery,
@@ -350,7 +350,6 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     print('set district');
     emit(
       state.copyWith(
-        
         damagedParts: event.damagedParts,
         rentWithPurchaseConditions: event.rentWithPurchaseConditions,
         gallery: event.gallery,
@@ -386,7 +385,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
         price: event.price,
         currency: event.currency,
         gasBalloonType: event.gasBalloonType,
-        districtt: event.district,
+        districtId: event.districtId,
       ),
     );
   }

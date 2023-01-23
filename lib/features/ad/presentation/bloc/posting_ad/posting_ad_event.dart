@@ -55,7 +55,7 @@ class PostingAdChooseEvent extends PostingAdEvent {
   List<String>? gallery;
   final Region? region;
   final YearsEntity? yearsEntity;
-  final DistrictEntity? district;
+  final int? districtId;
   final List<RentWithPurchaseEntity>? rentWithPurchaseConditions;
   final Map<DamagedParts, DamageType>? damagedParts;
   final int? modelId;
@@ -101,7 +101,7 @@ class PostingAdChooseEvent extends PostingAdEvent {
     this.rentWithPurchaseConditions,
     this.gallery,
     this.showExactAddress,
-    this.district,
+    this.districtId,
     this.driveTypeId,
     this.generationId,
     this.selectedBodyTypeId,
