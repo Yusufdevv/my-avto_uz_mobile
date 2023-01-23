@@ -3,6 +3,50 @@ part of 'posting_ad_bloc.dart';
 /// PostingAd
 class PASingleton {
   PASingleton._();
+  static AnnouncementToPostModel create(PostingAdState state) =>
+      AnnouncementToPostModel(
+        id: -1,
+        bodyType: state.bodyTypeId!,
+        color: state.colorName,
+        contactAvailableFrom: state.callTimeFrom!,
+        contactAvailableTo: state.callTimeTo!,
+        contactEmail: state.ownerEmail,
+        contactName: state.ownerName!,
+        contactPhone: state.ownerPhone!,
+        currency: state.currency,
+        damagedParts: state.damagedParts.entries
+            .map((e) =>
+                DamagedPartEntity(damageType: e.value.value, part: e.key.value))
+            .toList(),
+        description: state.description,
+        distanceTraveled: int.tryParse(state.mileage ?? '1000') ?? 1000,
+        district: state.districtId!,
+        driveType: state.driveTypeId!,
+        engineType: state.engineId!,
+        gallery: state.gallery,
+        gearboxType: state.gearboxId!,
+        generation: state.generationId!,
+        isNew: state.isWithoutMileage,
+        isRegisteredLocally: state.registeredInUzbekistan,
+        licenceType: state.typeDocument ?? 'original',
+        locationUrl:
+            'https://www.google.com/maps/place/Grand+Mir+Hotel/@41.2965807,69.275822,15z/data=!4m8!3m7!1s0x38ae8adce9ab4089:0x3f74710c22b9462e!5m2!4m1!1i2!8m2!3d41.296393!4d69.267908',
+        make: state.makeId!,
+        model: state.modelId!,
+        modificationType: 2,
+        ownership: state.ownerStep!,
+        price: state.price!,
+        purchaseDate: '2022-11-23',
+        //             2018-01-20 22:02:42.000
+        region: state.region!.id,
+        registeredInUzbekistan: true,
+        registrationCertificate: 'KENTEKENMEWIJS',
+        registrationPlate: 'KENTEKENMEWIJS',
+        registrationSerialNumber: '234524523423452435',
+        registrationVin: 'KENTEKENMEWIJS',
+        year: state.yearsEntity!.id,
+      );
+
   static Map<DamagedParts, DamageType> damagedPartAdopter(
       List<DamagedPartsEntity> damages) {
     var result = <DamagedParts, DamageType>{};
@@ -94,8 +138,8 @@ class PASingleton {
     return PostingAdState(
       status: FormzStatus.submissionSuccess,
       bodyTypeId: v.bodyType.id,
-      callTimeFrom: v.contactAvailableFrom.trim().substring(0,5),
-      callTimeTo: v.contactAvailableTo.trim().substring(0,5),
+      callTimeFrom: v.contactAvailableFrom.trim().substring(0, 5),
+      callTimeTo: v.contactAvailableTo.trim().substring(0, 5),
       colorName: v.color,
       damagedParts: damagedPartAdopter(v.damagedParts),
       currency: v.currency,

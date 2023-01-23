@@ -78,6 +78,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     on<PostingAdDriveTypesEvent>(_driveTypes);
     on<PostingAdGearBoxesEvent>(_gearBoxes);
     on<PostingAdBodyTypesEvent>(_bodyTypes);
+    // CREATE
     on<PostingAdCreateEvent>(_create);
     on<PostingAdDamageEvent>(_damage);
     on<PostingAdGetRegionsEvent>(_getRegions);
@@ -139,50 +140,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
   FutureOr<void> _create(
       PostingAdCreateEvent event, Emitter<PostingAdState> emit) async {
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
-    final result = await createUseCase.call(
-      AnnouncementToPostModel(
-        id: -1,
-        bodyType: state.bodyTypeId!,
-        color: state.colorName,
-        contactAvailableFrom: state.callTimeFrom!,
-        contactAvailableTo: state.callTimeTo!,
-        contactEmail: state.ownerEmail,
-        contactName: state.ownerName!,
-        contactPhone: state.ownerPhone!,
-        currency: state.currency,
-        damagedParts: state.damagedParts.entries
-            .map((e) =>
-                DamagedPartEntity(damageType: e.value.value, part: e.key.value))
-            .toList(),
-        description: state.description,
-        distanceTraveled: int.tryParse(state.mileage ?? '1000') ?? 1000,
-        district: state.districtId!,
-        driveType: state.driveTypeId!,
-        engineType: state.engineId!,
-        gallery: state.gallery,
-        gearboxType: state.gearboxId!,
-        generation: state.generationId!,
-        isNew: state.isWithoutMileage,
-        isRegisteredLocally: state.registeredInUzbekistan,
-        licenceType: state.typeDocument ?? 'original',
-        locationUrl:
-            'https://www.google.com/maps/place/Grand+Mir+Hotel/@41.2965807,69.275822,15z/data=!4m8!3m7!1s0x38ae8adce9ab4089:0x3f74710c22b9462e!5m2!4m1!1i2!8m2!3d41.296393!4d69.267908',
-        make: state.makeId!,
-        model: state.modelId!,
-        modificationType: 2,
-        ownership: state.ownerStep!,
-        price: state.price!,
-        purchaseDate: '2022-11-23',
-        //             2018-01-20 22:02:42.000
-        region: state.region!.id,
-        registeredInUzbekistan: true,
-        registrationCertificate: 'KENTEKENMEWIJS',
-        registrationPlate: 'KENTEKENMEWIJS',
-        registrationSerialNumber: '234524523423452435',
-        registrationVin: 'KENTEKENMEWIJS',
-        year: state.yearsEntity!.id,
-      ),
-    );
+    final result = await createUseCase.call(PASingleton.create(state));
     if (result.isRight) {
       print('=> => => =>     RIGHT RIGHT RIGHT RIGHT       <= <= <= <=');
       emit(state.copyWith(status: FormzStatus.pure));
@@ -280,6 +238,9 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
     final result = await modelsUseCase.call(state.makeId!);
     if (result.isRight) {
+      print(
+          '=> => => =>  MODEL ID:   ${result.right.results.first.id}    <= <= <= <=');
+
       emit(state.copyWith(
         status: FormzStatus.submissionSuccess,
         models: result.right.results,
@@ -333,6 +294,9 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
   FutureOr<void> _makes(
       PostingAdMakesEvent event, Emitter<PostingAdState> emit) async {
     if (state.makeId != null && state.makes.isNotEmpty) {
+       print(
+          '=> => => =>  MAKE ID:   ${state.makes.first.id}    <= <= <= <=');
+     
       emit(state.copyWith(status: FormzStatus.submissionSuccess));
       return;
     }
@@ -341,6 +305,8 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
 
     final result = await makeUseCase.call(event.name);
     if (result.isRight) {
+      print(
+          '=> => => =>  MAKE ID:   ${result.right.results.first.id}    <= <= <= <=');
       emit(
         state.copyWith(
           status: FormzStatus.submissionSuccess,

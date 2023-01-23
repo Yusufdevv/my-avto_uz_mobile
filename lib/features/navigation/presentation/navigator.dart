@@ -38,7 +38,7 @@ class _TabNavigatorState extends State<TabNavigator>
       case NavItemEnum.newPost:
         return {
           TabNavigatorRoutes.root: (context) => 
-          const PostingAdScreen( announcementId: 9),
+          const PostingAdScreen( ),
         //  const SizedBox(
         //         child:  Center(child: Text('Tez orada'))
         //       ),
