@@ -29,7 +29,7 @@ class TopAds extends StatelessWidget {
                         ?.copyWith(fontSize: 18)),
               ),
               SizedBox(
-                height: 298,
+                height: 293,
                 child: Paginator(
                   scrollDirection: Axis.horizontal,
                   padding: const EdgeInsets.only(

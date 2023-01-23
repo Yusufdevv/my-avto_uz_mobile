@@ -11,6 +11,8 @@ class GetMakesState with _$GetMakesState {
     @Default(false) bool ischeck,
     @Default('') search,
     @Default(0) count,
+    @Default(0) int index,
+    @Default('A') String selectChar,
     @Default(-1) int selectId,
     @Default(0) int confirmId,
     @Default('') String name,

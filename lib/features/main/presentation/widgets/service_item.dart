@@ -16,7 +16,7 @@ class ServiceItem extends StatelessWidget {
   Widget build(BuildContext context) => WScaleAnimation(
         onTap: onTap,
         child: Container(
-          margin: const EdgeInsets.only(left: 12),
+          margin: const EdgeInsets.only(left: 16),
           decoration: BoxDecoration(
             border: Border.all(
                 width: 1,
