@@ -25,11 +25,11 @@ class UserModel {
   @JsonKey(name: 'phone_number',)
   final String phoneNumber;
   @JsonKey(name: 'is_read_all_notifications',)
-  final bool isReadAllNotifications;
+   bool isReadAllNotifications;
 
 
 
-  const UserModel(
+    UserModel(
       { this.phone='',
         this.phoneNumber='',
         this.region=0,

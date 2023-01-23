@@ -1,11 +1,7 @@
 import 'package:auto/assets/colors/color.dart';
-import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_icons.dart';
-import 'package:auto/features/common/bloc/auth/authentication_bloc.dart';
-import 'package:auto/features/navigation/presentation/navigator.dart';
-import 'package:auto/features/profile/presentation/pages/notification/notifiactions_page.dart';
+import 'package:auto/features/common/widgets/notification_button.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -29,23 +25,10 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
         ),
         child: AppBar(
           elevation: 0,
-          actions: [
-            GestureDetector(
-              behavior: HitTestBehavior.opaque,
-              onTap: () => Navigator.of(context, rootNavigator: true)
-                  .push(fade(page: const NotificationPage())),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: SvgPicture.asset(context
-                        .read<AuthenticationBloc>()
-                        .state
-                        .user
-                        .isReadAllNotifications
-                    ? AppIcons.bell
-                    : AppIcons.bellWithCircle),
-              ),
-            )
+          actions:const [
+            NotificationButton()
           ],
+          centerTitle: false,
           title: SvgPicture.asset(
             Theme.of(context).extension<ThemedIcons>()!.imageUrl,
           ),
@@ -55,3 +38,5 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Size get preferredSize => AppBar().preferredSize;
 }
+
+

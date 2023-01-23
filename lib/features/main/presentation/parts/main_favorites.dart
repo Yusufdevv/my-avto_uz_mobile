@@ -25,7 +25,8 @@ class MainFavorites extends StatelessWidget {
           favorites = state.favorites;
           return Visibility(
             visible: state.favoritesStatus.isSubmissionInProgress ||
-                state.favoritesStatus.isSubmissionSuccess,
+                state.favoritesStatus.isSubmissionSuccess &&
+                    state.favorites.isNotEmpty,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -50,30 +51,28 @@ class MainFavorites extends StatelessWidget {
                             scrollDirection: Axis.horizontal,
                             padding: const EdgeInsets.only(
                                 top: 8, bottom: 16, right: 16, left: 16),
-                            itemBuilder: (context, index) =>
-                                Builder(builder: (context) {
-                              var item = favorites[index];
-                              return AdsItem(
-                                id: favorites[index].id,
-                                name: favorites[index].make.name,
-                                price: favorites[index].price.toString(),
-                                location: favorites[index].region.title,
-                                description: favorites[index].description,
-                                image: state.favorites[index].gallery.isNotEmpty
-                                    ? favorites[index].gallery.first
-                                    : '',
-                                currency: favorites[index].currency,
-                                isLiked: favorites[index].isWishlisted,
-                                onTapLike: () {
-                                  context
-                                      .read<WishlistAddBloc>()
-                                      .add(WishlistAddEvent.clearState());
-                                  context.read<WishlistAddBloc>().add(
-                                      WishlistAddEvent.removeWishlist(
-                                          favorites[index].id, index));
-                                },
-                              );
-                            }),
+                            itemBuilder: (context, index) => Builder(
+                                builder: (context) => AdsItem(
+                                      id: favorites[index].id,
+                                      name: favorites[index].make.name,
+                                      price: favorites[index].price.toString(),
+                                      location: favorites[index].region.title,
+                                      description: favorites[index].description,
+                                      image: state.favorites[index].gallery
+                                              .isNotEmpty
+                                          ? favorites[index].gallery.first
+                                          : '',
+                                      currency: favorites[index].currency,
+                                      isLiked: favorites[index].isWishlisted,
+                                      onTapLike: () {
+                                        context
+                                            .read<WishlistAddBloc>()
+                                            .add(WishlistAddEvent.clearState());
+                                        context.read<WishlistAddBloc>().add(
+                                            WishlistAddEvent.removeWishlist(
+                                                favorites[index].id, index));
+                                      },
+                                    )),
                             itemCount: state.favorites.length,
                             separatorBuilder: (context, index) =>
                                 const SizedBox(width: 24),
