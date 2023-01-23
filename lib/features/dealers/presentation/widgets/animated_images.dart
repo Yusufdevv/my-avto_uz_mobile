@@ -156,7 +156,7 @@ class _AnimatedImagesState extends State<AnimatedImages>
                             ),
                             child: widget.images.isEmpty
                                 ? Image.asset(
-                                    AppImages.defaultPhoto,
+                                    AppImages.diler,
                                     fit: BoxFit.cover,
                                   )
                                 : CachedNetworkImage(
