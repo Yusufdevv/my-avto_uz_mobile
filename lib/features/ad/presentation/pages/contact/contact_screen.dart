@@ -1,10 +1,6 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/assets/themes/theme_extensions/w_textfield_style.dart';
-import 'package:auto/core/singletons/service_locator.dart';
-import 'package:auto/features/ad/data/repositories/ad_repository_impl.dart';
-import 'package:auto/features/ad/domain/usecases/contacts_usecase.dart';
-import 'package:auto/features/ad/presentation/bloc/contacts/contacts_bloc.dart';
 import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.dart';
 import 'package:auto/features/ad/presentation/widgets/base_widget.dart';
 import 'package:auto/features/ad/presentation/widgets/call_time_sheet.dart';
@@ -12,11 +8,9 @@ import 'package:auto/features/ad/presentation/widgets/contacts_prefix_button.dar
 import 'package:auto/features/ad/presentation/widgets/edit_box_widget.dart';
 import 'package:auto/features/ad/presentation/widgets/sms_verification_sheet.dart';
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
-import 'package:auto/features/common/repository/auth.dart';
 import 'package:auto/features/common/widgets/custom_screen.dart';
 import 'package:auto/features/common/widgets/switcher_row_as_button_also.dart';
 import 'package:auto/features/common/widgets/w_textfield.dart';
-import 'package:auto/features/login/domain/usecases/verify_code.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -41,19 +35,8 @@ class ContactScreen extends StatefulWidget {
 }
 
 class _ContactScreenState extends State<ContactScreen> {
-  late ContactsBloc contactsBloc;
-
   @override
   void initState() {
-    contactsBloc = ContactsBloc(
-      emailInitial: widget.initialEmail,
-      nameInitial: widget.initialName,
-      phoneInitial: widget.initialPhone,
-      userRepository: AuthRepository(),
-      contactsUseCase:
-          ContactsUseCase(repository: serviceLocator<AdRepositoryImpl>()),
-      verifyCodeUseCase: VerifyCodeUseCase(),
-    );
     super.initState();
   }
 
@@ -98,253 +81,233 @@ class _ContactScreenState extends State<ContactScreen> {
   }
 
   @override
-  Widget build(BuildContext context) => BlocProvider.value(
-        value: contactsBloc,
-        child: CustomScreen(
-          child: KeyboardDismisser(
-            child: BlocBuilder<PostingAdBloc, PostingAdState>(
-              builder: (context, postingAdState) =>
-                  BlocConsumer<ContactsBloc, ContactsState>(
-                listener: (context, state) {
-                  if (state.isSubmitted) {
-                    context.read<PostingAdBloc>().add(PostingAdChooseEvent(
-                          ownerEmail: state.userModel!.email,
-                          ownerName: state.userModel!.fullName,
-                          ownerPhone: state.userModel!.phoneNumber,
-                        ));
-                  }
+  Widget build(BuildContext context) => CustomScreen(
+        child: KeyboardDismisser(
+          child: BlocConsumer<PostingAdBloc, PostingAdState>(
+              listener: (context, state) {
+            if (state.toastMessage != null && state.toastMessage!.isNotEmpty) {
+              context.read<ShowPopUpBloc>().add(
+                    ShowPopUp(
+                      message: state.toastMessage ?? '',
+                      isSucces: false,
+                      dismissible: false,
+                    ),
+                  );
+            }
+          }, builder: (context, postingAdState) {
+            print(
+                '=> => => =>  is contacts verified in builder:   ${postingAdState.isContactsVerified}    <= <= <= <=');
 
-                  if (state.status == FormzStatus.submissionFailure ||
-                      state.getUserStatus == FormzStatus.submissionFailure) {
-                    context.read<ShowPopUpBloc>().add(
-                          ShowPopUp(
-                            message: state.toastMessage ?? '',
-                            isSucces: false,
-                            dismissible: false,
-                          ),
-                        );
-                  }
-                },
-                builder: (context, state) => Scaffold(
-                  body: Form(
-                    key: _formKey,
-                    child: BaseWidget(
-                      headerText: 'Контактные данные',
-                      child: SingleChildScrollView(
-                        padding: const EdgeInsets.all(16),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SwitcherRowAsButtonAlso(
-                                onTap: () {
-                                  contactsBloc.add(
-                                      ContactsGetUserInfoAsContactsEvent());
-                                },
-                                title: 'Указать мои контактны данные',
-                                value: postingAdState.showOwnerContactss,
-                                onChanged: (value) {
-                                  if (!value) {
-                                    contactsBloc
-                                        .add(ContactsRefreshControllersEvent());
-                                  }
-                                  print(
-                                      '=>=>=>=> onchanged after if $value <=<=<=<=');
-                                  hidePopUp();
-                                  context.read<PostingAdBloc>().add(
-                                      PostingAdChooseEvent(
-                                          showOwnerContacts: value,
-                                          isContactsVerified:
-                                              !value ? value : null));
-                                }),
-                            if (state.getUserStatus ==
-                                FormzStatus.submissionInProgress) ...{
-                              const CupertinoActivityIndicator()
+            return Scaffold(
+              body: Form(
+                key: _formKey,
+                child: BaseWidget(
+                  headerText: 'Контактные данные',
+                  child: SingleChildScrollView(
+                    padding: const EdgeInsets.all(16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SwitcherRowAsButtonAlso(
+                            onTap: () {
+                              print('=> => => =>     on tap presed    <= <= <= <=');
+                              context
+                                  .read<PostingAdBloc>()
+                                  .add(PostingAdGetUserDataEvent());
                             },
-                            const SizedBox(height: 16),
-                            WTextField(
-                              onTap: () {
-                                if (postingAdState.isContactsVerified) {
-                                  context.read<PostingAdBloc>().add(
-                                      PostingAdChooseEvent(
-                                          isContactsVerified: false));
-                                }
-                                hidePopUp();
-                              },
-                              controller: state.nameController,
-                              onChanged: (value) {
-                                final v = postingAdState.isContactsVerified
-                                    ? false
-                                    : null;
+                            title: 'Указать мои контактны данные',
+                            value: postingAdState.showOwnerContacts,
+                            onChanged: (value) {
+                              print(
+                                  '=> => => => on changed  value  ${value}    <= <= <= <=');
+                              if (!value) {
                                 context
                                     .read<PostingAdBloc>()
-                                    .add(PostingAdChooseEvent(
-                                      ownerName: value,
-                                      isContactsVerified: v,
-                                      showOwnerContacts: v,
-                                    ));
-                              },
-                              maxLength: 40,
-                              hideCounterText: true,
-                              title: 'Имя',
-                              hintText: 'Введите имя',
-                              borderRadius: 12,
-                              borderColor: Theme.of(context)
-                                  .extension<WTextFieldStyle>()!
-                                  .borderColor,
-                              fillColor: Theme.of(context)
-                                  .extension<WTextFieldStyle>()!
-                                  .fillColor,
-                              focusColor: Theme.of(context)
-                                  .extension<WTextFieldStyle>()!
-                                  .fillColor,
+                                    .add(PostingAdClearControllersEvent());
+                              }
+                              print(
+                                  '=>=>=>=> onchanged after if $value <=<=<=<=');
+                              hidePopUp();
+                              context.read<PostingAdBloc>().add(
+                                    PostingAdChooseEvent(
+                                      showOwnerContacts: value,
+                                      isContactsVerified: value,
+                                    ),
+                                  );
+                            }),
+                        if (postingAdState.status ==
+                            FormzStatus.submissionInProgress) ...{
+                          const CupertinoActivityIndicator()
+                        },
+                        const SizedBox(height: 16),
+                        WTextField(
+                          onTap: hidePopUp,
+                          controller: postingAdState.nameController,
+                          onChanged: (value) {
+                            final v = postingAdState.isContactsVerified
+                                ? false
+                                : null;
+                            context
+                                .read<PostingAdBloc>()
+                                .add(PostingAdChooseEvent(
+                                  ownerName: value,
+                                  isContactsVerified: v,
+                                  showOwnerContacts: v,
+                                ));
+                          },
+                          maxLength: 40,
+                          hideCounterText: true,
+                          title: 'Имя',
+                          hintText: 'Введите имя',
+                          borderRadius: 12,
+                          borderColor: Theme.of(context)
+                              .extension<WTextFieldStyle>()!
+                              .borderColor,
+                          fillColor: Theme.of(context)
+                              .extension<WTextFieldStyle>()!
+                              .fillColor,
+                          focusColor: Theme.of(context)
+                              .extension<WTextFieldStyle>()!
+                              .fillColor,
+                        ),
+                        const SizedBox(height: 16),
+                        WTextField(
+                          onTap: hidePopUp,
+                          controller: postingAdState.emailController,
+                          onChanged: (value) => context
+                              .read<PostingAdBloc>()
+                              .add(PostingAdChooseEvent(ownerEmail: value)),
+                          title: 'E-mail',
+                          maxLength: 40,
+                          hideCounterText: true,
+                          hintText: 'Введите электронную почту',
+                          borderRadius: 12,
+                          validate: (value) {
+                            if ((value?.isNotEmpty ?? false) &&
+                                (value == null ||
+                                    value.isEmpty ||
+                                    !value.contains('@') ||
+                                    !value.contains('.'))) {
+                              return 'Invalid Email';
+                            }
+                            return null;
+                          },
+                          borderColor: Theme.of(context)
+                              .extension<WTextFieldStyle>()!
+                              .borderColor,
+                          fillColor: Theme.of(context)
+                              .extension<WTextFieldStyle>()!
+                              .fillColor,
+                          focusColor: Theme.of(context)
+                              .extension<WTextFieldStyle>()!
+                              .fillColor,
+                        ),
+                        const SizedBox(height: 16),
+                        WTextField(
+                          validate: (v) {
+                            if (v?.length != 12) {
+                              return 'Enter valid phone number';
+                            }
+                            return null;
+                          },
+                          onTap: hidePopUp,
+                          onChanged: (value) {
+                            final v = postingAdState.isContactsVerified
+                                ? false
+                                : null;
+                            context.read<PostingAdBloc>().add(
+                                  PostingAdChooseEvent(
+                                    ownerName: value,
+                                    isContactsVerified: v,
+                                    showOwnerContacts: v,
+                                  ),
+                                );
+                          },
+                          title: 'Номер телефона',
+                          controller: postingAdState.phoneController,
+                          prefix: Padding(
+                            padding: const EdgeInsets.only(
+                                left: 16, right: 8, top: 13),
+                            child: Text(
+                              '+998',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline2!
+                                  .copyWith(fontWeight: FontWeight.w400),
                             ),
-                            const SizedBox(height: 16),
-                            WTextField(
-                              onTap: hidePopUp,
-                              controller: state.emailController,
-                              onChanged: (value) => context
-                                  .read<PostingAdBloc>()
-                                  .add(PostingAdChooseEvent(ownerEmail: value)),
-                              title: 'E-mail',
-                              maxLength: 40,
-                              hideCounterText: true,
-                              hintText: 'Введите электронную почту',
-                              borderRadius: 12,
-                              validate: (value) {
-                                if ((value?.isNotEmpty ?? false) &&
-                                    (value == null ||
-                                        value.isEmpty ||
-                                        !value.contains('@') ||
-                                        !value.contains('.'))) {
-                                  return 'Invalid Email';
-                                }
-                                return null;
-                              },
-                              borderColor: Theme.of(context)
-                                  .extension<WTextFieldStyle>()!
-                                  .borderColor,
-                              fillColor: Theme.of(context)
-                                  .extension<WTextFieldStyle>()!
-                                  .fillColor,
-                              focusColor: Theme.of(context)
-                                  .extension<WTextFieldStyle>()!
-                                  .fillColor,
-                            ),
-                            const SizedBox(height: 16),
-                            WTextField(
-                              validate: (v) {
-                                if (v?.length != 12) {
-                                  return 'Enter valid phone number';
-                                }
-                                return null;
-                              },
-                              onTap: hidePopUp,
-                              onChanged: (value) {
-                                final v = postingAdState.isContactsVerified
-                                    ? false
-                                    : null;
-                                context.read<PostingAdBloc>().add(
-                                      PostingAdChooseEvent(
-                                        ownerName: value,
-                                        isContactsVerified: v,
-                                        showOwnerContacts: v,
-                                      ),
-                                    );
-                              },
-                              title: 'Номер телефона',
-                              controller: state.phoneController,
-                              prefix: Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 16, right: 8, top: 13),
-                                child: Text(
-                                  '+998',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headline2!
-                                      .copyWith(fontWeight: FontWeight.w400),
-                                ),
-                              ),
-                              hintText: '_ _  _ _ _  _ _  _ _',
-                              borderRadius: 12,
-                              borderColor: Theme.of(context)
-                                  .extension<WTextFieldStyle>()!
-                                  .borderColor,
-                              keyBoardType: TextInputType.number,
-                              fillColor: Theme.of(context)
-                                  .extension<WTextFieldStyle>()!
-                                  .fillColor,
-                              focusColor: Theme.of(context)
-                                  .extension<WTextFieldStyle>()!
-                                  .fillColor,
-                              textInputFormatters: [phoneFormatter],
-                              suffix: ContactsPrefixButton(
-                                  isSubmitted:
-                                      postingAdState.isContactsVerified,
-                                  isLoading: state.status ==
-                                      FormzStatus.submissionInProgress,
-                                  isDisabled:
-                                      state.phoneController.text.length != 12,
-                                  onTap: () {
-                                    print(
-                                        '=>=>=>=> send code pressed <=<=<=<=');
-                                    if (_formKey.currentState!.validate()) {
-                                      contactsBloc.add(ContactsSendCodeEvent(
-                                          phone: state.phoneController.text,
+                          ),
+                          hintText: '_ _  _ _ _  _ _  _ _',
+                          borderRadius: 12,
+                          borderColor: Theme.of(context)
+                              .extension<WTextFieldStyle>()!
+                              .borderColor,
+                          keyBoardType: TextInputType.number,
+                          fillColor: Theme.of(context)
+                              .extension<WTextFieldStyle>()!
+                              .fillColor,
+                          focusColor: Theme.of(context)
+                              .extension<WTextFieldStyle>()!
+                              .fillColor,
+                          textInputFormatters: [phoneFormatter],
+                          suffix: ContactsPrefixButton(
+                              isSubmitted: postingAdState.isContactsVerified,
+                              isLoading: postingAdState.status ==
+                                  FormzStatus.submissionInProgress,
+                              isDisabled:
+                                  postingAdState.phoneController.text.length != 12,
+                              onTap: () {
+                                if (_formKey.currentState!.validate()) {
+                                  context
+                                      .read<PostingAdBloc>()
+                                      .add(PostingAdSendCodeEvent(
+                                          phone: postingAdState.phoneController.text,
                                           onSuccess: (session) {
                                             showModalBottomSheet<dynamic>(
-                                                useRootNavigator: true,
-                                                isScrollControlled: true,
-                                                backgroundColor:
-                                                    Colors.transparent,
-                                                isDismissible: false,
-                                                context: context,
-                                                builder: (context) =>
-                                                    BlocProvider.value(
-                                                      value: contactsBloc,
-                                                      child: SmsVerificationSheet(
-                                                          session: session,
-                                                          phoneNumber: state
-                                                              .phoneController
-                                                              .text),
-                                                    )).then((value) {
-                                              print(
-                                                  '=>=>=>=> then triggered <=<=<=<=');
+                                                    useRootNavigator: true,
+                                                    isScrollControlled: true,
+                                                    backgroundColor:
+                                                        Colors.transparent,
+                                                    isDismissible: false,
+                                                    context: context,
+                                                    builder: (context) =>
+                                                        SmsVerificationSheet(
+                                                            session: session,
+                                                            phoneNumber: postingAdState
+                                                                .phoneController
+                                                                .text))
+                                                .then((value) {
                                               if (value is bool) {
-                                                print(
-                                                    '=>=>=>=> is bool <=<=<=<=');
                                                 context
                                                     .read<PostingAdBloc>()
                                                     .add(
                                                       PostingAdChooseEvent(
                                                         isContactsVerified:
                                                             value,
-                                                        ownerEmail: state
+                                                        ownerEmail: postingAdState
                                                             .emailController
                                                             .text,
-                                                        ownerName: state
+                                                        ownerName: postingAdState
                                                             .nameController
                                                             .text,
-                                                        ownerPhone: state
+                                                        ownerPhone: postingAdState
                                                             .phoneController
                                                             .text,
                                                       ),
                                                     );
                                               } else if (value is String) {
-                                                print(
-                                                    '=>=>=>=> is string <=<=<=<=');
                                                 context
                                                     .read<PostingAdBloc>()
                                                     .add(
                                                       PostingAdChooseEvent(
                                                         isContactsVerified:
                                                             false,
-                                                        ownerEmail: state
+                                                        ownerEmail: postingAdState
                                                             .emailController
                                                             .text,
-                                                        ownerName: state
+                                                        ownerName: postingAdState
                                                             .nameController
                                                             .text,
-                                                        ownerPhone: state
+                                                        ownerPhone: postingAdState
                                                             .phoneController
                                                             .text,
                                                       ),
@@ -357,74 +320,68 @@ class _ContactScreenState extends State<ContactScreen> {
                                                         isSucces: false,
                                                         dismissible: false));
                                               }
-                                              print(
-                                                  '=>=>=>=> then completed <=<=<=<=');
                                             });
                                           }));
-                                    }
-                                  }),
-                              suffixPadding: const EdgeInsets.all(5),
-                            ),
-                            const SizedBox(height: 16),
-                            SwitcherRowAsButtonAlso(
-                                title: 'Доступные часы',
-                                value: postingAdState.isCallTimed,
-                                onTap: () {
-                                  if (postingAdState.callTimeFrom != null &&
-                                      postingAdState.callTimeTo != null) {
-                                    context.read<PostingAdBloc>().add(
-                                        PostingAdChooseEvent(
-                                            isCallTimed: true));
-                                    return;
-                                  }
-                                  _onAvailableHoursPressed(postingAdState);
-                                },
-                                onChanged: (value) {
-                                  hidePopUp();
-                                  print('=>=>=>=> onChangeTriggered <=<=<=<=');
-                                  context.read<PostingAdBloc>().add(
-                                      PostingAdChooseEvent(isCallTimed: value));
-                                }),
-                            if (postingAdState.isCallTimed) ...{
-                              const SizedBox(height: 4),
-                              EditBoxWidget(
-                                  text:
-                                      '${postingAdState.callTimeFrom}-${postingAdState.callTimeTo}',
-                                  onTap: () {
-                                    _onAvailableHoursPressed(postingAdState);
-                                  }),
+                                }
+                              }),
+                          suffixPadding: const EdgeInsets.all(5),
+                        ),
+                        const SizedBox(height: 16),
+                        SwitcherRowAsButtonAlso(
+                            title: 'Доступные часы',
+                            value: postingAdState.isCallTimed,
+                            onTap: () {
+                              if (postingAdState.callTimeFrom != null &&
+                                  postingAdState.callTimeTo != null) {
+                                context.read<PostingAdBloc>().add(
+                                    PostingAdChooseEvent(isCallTimed: true));
+                                return;
+                              }
+                              _onAvailableHoursPressed(postingAdState);
                             },
-                            const SizedBox(height: 24),
-                            Container(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 12, vertical: 8),
-                              decoration: BoxDecoration(
+                            onChanged: (value) {
+                              hidePopUp();
+                              context.read<PostingAdBloc>().add(
+                                  PostingAdChooseEvent(isCallTimed: value));
+                            }),
+                        if (postingAdState.isCallTimed) ...{
+                          const SizedBox(height: 4),
+                          EditBoxWidget(
+                              text:
+                                  '${postingAdState.callTimeFrom}-${postingAdState.callTimeTo}',
+                              onTap: () {
+                                _onAvailableHoursPressed(postingAdState);
+                              }),
+                        },
+                        const SizedBox(height: 24),
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 12, vertical: 8),
+                          decoration: BoxDecoration(
+                              color: Theme.of(context)
+                                  .extension<ThemedColors>()!
+                                  .snowToNero,
+                              border: Border.all(
+                                  width: 1,
                                   color: Theme.of(context)
                                       .extension<ThemedColors>()!
-                                      .snowToNero,
-                                  border: Border.all(
-                                      width: 1,
-                                      color: Theme.of(context)
-                                          .extension<ThemedColors>()!
-                                          .transparentToNightRider),
-                                  borderRadius: BorderRadius.circular(12)),
-                              child: Text(
-                                'Если вы включаете этот режим ваш контакный номер не будеть отображаться в объявление',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headline2!
-                                    .copyWith(color: grey),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
+                                      .transparentToNightRider),
+                              borderRadius: BorderRadius.circular(12)),
+                          child: Text(
+                            'Если вы включаете этот режим ваш контакный номер не будеть отображаться в объявление',
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline2!
+                                .copyWith(color: grey),
+                          ),
+                        )
+                      ],
                     ),
                   ),
                 ),
               ),
-            ),
-          ),
+            );
+          }),
         ),
       );
 }

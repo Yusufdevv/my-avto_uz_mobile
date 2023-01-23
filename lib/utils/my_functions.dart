@@ -7,6 +7,7 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/core/exceptions/exceptions.dart';
+import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/common/models/region.dart';
 import 'package:auto/features/dealers/data/models/map_model.dart';
@@ -498,6 +499,15 @@ class MyFunctions {
         return 'Требует замены';
     }
     return 'Не показано';
+  }
+
+  static String getErrorMessage(Failure failure) {
+    var err =
+        (failure is ServerFailure) ? failure.errorMessage : failure.toString();
+    if (err == 'Wrong code!') {
+      err = 'Код подтверждения введен неверно';
+    }
+    return err;
   }
 
   static Widget getStatusIcon(String status) {

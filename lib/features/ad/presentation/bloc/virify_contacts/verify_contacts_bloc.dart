@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:auto/features/ad/domain/usecases/verify_contacts_usecase.dart';
-import 'package:auto/features/ad/presentation/bloc/contacts/contacts_bloc.dart';
+import 'package:auto/utils/my_functions.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:formz/formz.dart';
@@ -22,9 +22,7 @@ class VerifyContactsBloc
   FutureOr<void> _verify(
       VerifyContactsEvent event, Emitter<VerifyContactsState> emit) async {
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
-    print('=>=>=>=> phhone: $phone <=<=<=<=');
-    print('=>=>=>=> code:  ${event.code} <=<=<=<=');
-    print('=>=>=>=> session: $session <=<=<=<=');
+
     final result = await useCase.call({
       'phone_number': '+998${phone.replaceAll(' ', '')}',
       'code': event.code,
@@ -37,7 +35,7 @@ class VerifyContactsBloc
     } else {
       emit(
         state.copyWith(
-          toastMessage: getFailureMessage(result.left),
+          toastMessage: MyFunctions.getErrorMessage(result.left),
           status: FormzStatus.submissionFailure,
         ),
       );

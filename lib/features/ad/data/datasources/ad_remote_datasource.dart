@@ -16,7 +16,7 @@ import 'package:auto/features/reviews/data/models/make_model.dart';
 import 'package:dio/dio.dart';
 
 abstract class AdRemoteDataSource {
-  Future<String> getMinimumPrice(Map<String, dynamic> params);
+  Future<num> getMinimumPrice(Map<String, dynamic> params);
   Future<bool> verify(Map<String, String> params);
   Future<String> sendCode({required String phone});
 
@@ -628,7 +628,7 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
   }
 
   @override
-  Future<String> getMinimumPrice(Map<String, dynamic> params) async {
+  Future<num> getMinimumPrice(Map<String, dynamic> params) async {
     try {
       final response = await _dio.post(
         '/car/min-car-price/',
@@ -643,7 +643,7 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
         ),
       );
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
-        return response.data['minimum_price'];
+        return response.data['min_price'];
       }
       throw ServerException(
           statusCode: response.statusCode ?? 0,
