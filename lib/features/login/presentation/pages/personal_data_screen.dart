@@ -71,47 +71,40 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Expanded(
-                      child: ListView(
-                        physics: const BouncingScrollPhysics(),
-                        children: [
-                          LoginHeader(
-                            title: LocaleKeys.personal_data.tr(),
-                            description: LocaleKeys.create_password.tr(),
-                            hasSizedBox: false,
-                          ),
-                          const SizedBox(height: 36),
-                          AddPhotoItem(
-                            onTap: hidePopUp,
-                          ),
-                          PersonalDataItemm(
-                            isRequired: true,
-                            onTap: hidePopUp,
-                            title: LocaleKeys.name.tr(),
-                            controller: nameController,
-                            hintText: 'Имя и фамилия',
-                            onChanged: (value) {
-                              setState(() {});
-                            },
-                          ),
-                          RegionButton(
-                            onTap: hidePopUp,
-                            title: '',
-                          ),
-                          PersonalDataItemm(
-                            isRequired: true,
-                            onTap: hidePopUp,
-                            title: 'Email',
-                            controller: emailController,
-                            hintText: 'example@auto.uz',
-                            onChanged: (value) {
-                              setState(() {});
-                            },
-                          ),
-                          const SizedBox(height: 10)
-                        ],
-                      ),
+                    LoginHeader(
+                      title: LocaleKeys.personal_data.tr(),
+                      description: LocaleKeys.create_password.tr(),
+                      hasSizedBox: false,
                     ),
+                    const SizedBox(height: 36),
+                    AddPhotoItem(
+                      onTap: hidePopUp,
+                    ),
+                    PersonalDataItemm(
+                      isRequired: true,
+                      onTap: hidePopUp,
+                      title: LocaleKeys.name.tr(),
+                      controller: nameController,
+                      hintText: 'Имя и фамилия',
+                      onChanged: (value) {
+                        setState(() {});
+                      },
+                    ),
+                    RegionButton(
+                      onTap: hidePopUp,
+                      title: '',
+                    ),
+                    PersonalDataItemm(
+                      isRequired: true,
+                      onTap: hidePopUp,
+                      title: 'Email',
+                      controller: emailController,
+                      hintText: 'example@auto.uz',
+                      onChanged: (value) {
+                        setState(() {});
+                      },
+                    ),
+                    const SizedBox(height: 24),
                     WButton(
                       onTap: () {
                         if (nameController.text.isNotEmpty &&
