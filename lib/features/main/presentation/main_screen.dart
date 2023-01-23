@@ -72,7 +72,6 @@ class _MainScreenState extends State<MainScreen> {
       icon: AppIcons.rentCar,
     ),
   ];
-  int n = 10;
 
   @override
   void initState() {
