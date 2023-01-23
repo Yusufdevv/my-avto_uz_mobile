@@ -347,6 +347,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     if (event.region != null) {
       add(PostingAdGetDistritsEvent(regionId: event.region!.id));
     }
+    print('set district');
     emit(
       state.copyWith(
         
@@ -385,7 +386,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
         price: event.price,
         currency: event.currency,
         gasBalloonType: event.gasBalloonType,
-        district: event.district,
+        districtt: event.district,
       ),
     );
   }
