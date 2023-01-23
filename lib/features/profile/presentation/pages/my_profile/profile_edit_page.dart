@@ -240,7 +240,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                                         backgroundColor: Colors.transparent,
                                         builder: (c) =>
                                             RentChooseRegionBottomSheet(
-                                                isProfileEdit: true,
+                                                isMultiChoice: true,
                                                 list: context
                                                     .read<RegionsBloc>()
                                                     .state

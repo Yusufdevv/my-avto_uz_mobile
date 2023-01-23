@@ -37,9 +37,9 @@ class PostingAdState extends Equatable {
   final String? purchasedDate;
   final String? typeDocument;
   final String? colorName;
-  final String? descriptions;
+  final String? description;
   final String? price;
-  final String? currency;
+  final String currency;
   final String? mileage;
   final String? gasBalloonType;
   final String? callTimeFrom;
@@ -48,7 +48,7 @@ class PostingAdState extends Equatable {
   final bool isSortByLetter;
   final bool registeredInUzbekistan;
   final bool isCallTimed;
-  final bool showOwnerContacts;
+  final bool showOwnerContactss;
   final bool isContactsVerified;
   final bool showExactAddress;
   final bool? rentToBuy;
@@ -81,7 +81,7 @@ class PostingAdState extends Equatable {
     this.typeDocument,
     this.ownerStep,
     this.purchasedDate,
-    this.descriptions,
+    this.description,
     this.isSortByLetter = false,
     this.hasAppBarShadow = true,
     this.registeredInUzbekistan = false,
@@ -92,13 +92,13 @@ class PostingAdState extends Equatable {
     this.city,
     this.region,
     this.price,
-    this.currency,
+    this.currency = 'usd',
     this.mileage,
     this.gasBalloonType,
     this.callTimeFrom,
     this.callTimeTo,
     this.isCallTimed = false,
-    this.showOwnerContacts = false,
+    this.showOwnerContactss = false,
     this.isContactsVerified = false,
     this.rentToBuy,
     this.isWithoutMileage,
@@ -150,7 +150,7 @@ class PostingAdState extends Equatable {
     String? ownerPhone,
     String? ownerEmail,
     String? purchasedDate,
-    String? descriptions,
+    String? description,
     String? city,
     String? price,
     String? currency,
@@ -207,7 +207,7 @@ class PostingAdState extends Equatable {
       purchasedDate: purchasedDate ?? this.purchasedDate,
       registeredInUzbekistan:
           registeredInUzbekistan ?? this.registeredInUzbekistan,
-      descriptions: descriptions ?? this.descriptions,
+      description: description ?? this.description,
       ownerEmail: ownerEmail ?? this.ownerEmail,
       ownerName: ownerName ?? this.ownerName,
       ownerPhone: ownerPhone ?? this.ownerPhone,
@@ -218,7 +218,7 @@ class PostingAdState extends Equatable {
       callTimeFrom: callTimeFrom ?? this.callTimeFrom,
       callTimeTo: callTimeTo ?? this.callTimeTo,
       isCallTimed: isCallTimed ?? this.isCallTimed,
-      showOwnerContacts: showOwnerContacts ?? this.showOwnerContacts,
+      showOwnerContactss: showOwnerContacts ?? this.showOwnerContactss,
       isContactsVerified: isContactsVerified ?? this.isContactsVerified,
       rentToBuy: rentToBuy ?? this.rentToBuy,
       isWithoutMileage: isWithoutMileage ?? this.isWithoutMileage,
@@ -269,7 +269,7 @@ class PostingAdState extends Equatable {
         purchasedDate,
         bodyTypeId,
         registeredInUzbekistan,
-        descriptions,
+        description,
         ownerEmail,
         ownerName,
         ownerPhone,
@@ -278,7 +278,7 @@ class PostingAdState extends Equatable {
         mileage,
         gasBalloonType,
         isCallTimed,
-        showOwnerContacts,
+        showOwnerContactss,
         isContactsVerified,
       ];
 }

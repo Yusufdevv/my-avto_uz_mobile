@@ -46,9 +46,9 @@ class _ContactScreenState extends State<ContactScreen> {
   @override
   void initState() {
     contactsBloc = ContactsBloc(
-      emailInitial: widget.initialPhone,
+      emailInitial: widget.initialEmail,
       nameInitial: widget.initialName,
-      phoneInitial: widget.initialEmail,
+      phoneInitial: widget.initialPhone,
       userRepository: AuthRepository(),
       contactsUseCase:
           ContactsUseCase(repository: serviceLocator<AdRepositoryImpl>()),
@@ -141,7 +141,7 @@ class _ContactScreenState extends State<ContactScreen> {
                                       ContactsGetUserInfoAsContactsEvent());
                                 },
                                 title: 'Указать мои контактны данные',
-                                value: postingAdState.showOwnerContacts,
+                                value: postingAdState.showOwnerContactss,
                                 onChanged: (value) {
                                   if (!value) {
                                     contactsBloc
@@ -162,11 +162,27 @@ class _ContactScreenState extends State<ContactScreen> {
                             },
                             const SizedBox(height: 16),
                             WTextField(
-                              onTap: hidePopUp,
+                              onTap: () {
+                                if (postingAdState.isContactsVerified) {
+                                  context.read<PostingAdBloc>().add(
+                                      PostingAdChooseEvent(
+                                          isContactsVerified: false));
+                                }
+                                hidePopUp();
+                              },
                               controller: state.nameController,
-                              onChanged: (value) => context
-                                  .read<PostingAdBloc>()
-                                  .add(PostingAdChooseEvent(ownerName: value)),
+                              onChanged: (value) {
+                                final v = postingAdState.isContactsVerified
+                                    ? false
+                                    : null;
+                                context
+                                    .read<PostingAdBloc>()
+                                    .add(PostingAdChooseEvent(
+                                      ownerName: value,
+                                      isContactsVerified: v,
+                                      showOwnerContacts: v,
+                                    ));
+                              },
                               maxLength: 40,
                               hideCounterText: true,
                               title: 'Имя',
@@ -195,10 +211,11 @@ class _ContactScreenState extends State<ContactScreen> {
                               hintText: 'Введите электронную почту',
                               borderRadius: 12,
                               validate: (value) {
-                                if (value == null ||
-                                    value.isEmpty ||
-                                    !value.contains('@') ||
-                                    !value.contains('.')) {
+                                if ((value?.isNotEmpty ?? false) &&
+                                    (value == null ||
+                                        value.isEmpty ||
+                                        !value.contains('@') ||
+                                        !value.contains('.'))) {
                                   return 'Invalid Email';
                                 }
                                 return null;
@@ -222,9 +239,18 @@ class _ContactScreenState extends State<ContactScreen> {
                                 return null;
                               },
                               onTap: hidePopUp,
-                              onChanged: (value) => context
-                                  .read<PostingAdBloc>()
-                                  .add(PostingAdChooseEvent(ownerName: value)),
+                              onChanged: (value) {
+                                final v = postingAdState.isContactsVerified
+                                    ? false
+                                    : null;
+                                context.read<PostingAdBloc>().add(
+                                      PostingAdChooseEvent(
+                                        ownerName: value,
+                                        isContactsVerified: v,
+                                        showOwnerContacts: v,
+                                      ),
+                                    );
+                              },
                               title: 'Номер телефона',
                               controller: state.phoneController,
                               prefix: Padding(
@@ -253,8 +279,7 @@ class _ContactScreenState extends State<ContactScreen> {
                               textInputFormatters: [phoneFormatter],
                               suffix: ContactsPrefixButton(
                                   isSubmitted:
-                                      postingAdState.isContactsVerified ||
-                                          postingAdState.showOwnerContacts,
+                                      postingAdState.isContactsVerified,
                                   isLoading: state.status ==
                                       FormzStatus.submissionInProgress,
                                   isDisabled:

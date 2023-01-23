@@ -32,12 +32,12 @@ import 'package:auto/features/ad/presentation/pages/pts/pts_screen.dart';
 import 'package:auto/features/ad/presentation/pages/year_of_issue/year_issue_screen.dart';
 import 'package:auto/features/ad/presentation/widgets/completion_bar.dart';
 import 'package:auto/features/ad/presentation/widgets/posting_ad_appbar.dart';
-import 'package:auto/features/common/bloc/regions/regions_bloc.dart';
+import 'package:auto/features/car_single/data/repository/car_single_repository_impl.dart';
+import 'package:auto/features/car_single/domain/usecases/get_ads_usecase.dart';
 import 'package:auto/features/common/usecases/get_districts_usecase.dart';
 import 'package:auto/features/common/usecases/get_regions.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/main/domain/usecases/get_top_brand.dart';
-import 'package:auto/features/navigation/presentation/home.dart';
 import 'package:auto/features/rent/domain/usecases/get_gearboxess_usecase.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -45,7 +45,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 
 class PostingAdScreen extends StatefulWidget {
-  const PostingAdScreen({Key? key}) : super(key: key);
+  final int? announcementId;
+  const PostingAdScreen({this.announcementId, Key? key}) : super(key: key);
 
   @override
   State<PostingAdScreen> createState() => _PostingAdScreenState();
@@ -55,49 +56,47 @@ class _PostingAdScreenState extends State<PostingAdScreen>
     with SingleTickerProviderStateMixin {
   late PageController pageController;
   late PostingAdBloc postingAdBloc;
-  static int initialPage = 
-  
-  0;
-      // ChooseCarBrand,
-      //1
-      // ChooseCarModelScreen(makeId: state.makeId ?? -1),
-      //2
-      // YearIssueScreen(modelId: state.modelId ?? -1),
-      //3
-      // const GenerationScreen(),
-      //4
-      // CarcaseScreen(selectedBodyTypeId: state.bodyTypeId ?? -1),
-      //5
-      // const EngineScreen(),
-      //6
-      // const DriveTypeScreen(),
-      //7
-      // const GearboxScreen(),
-      //8
-      // const ModificationScreen(),
-      //9
-      // const ColorsScreen(),
-      //10
-      // AddPhotoScreen(onImageChanged: (v) {
-      //   print(
-      //       '=> => => =>  changing photos:   $v    <= <= <= <=');
-      //   postingAdBloc.add(PostingAdChooseEvent(gallery: v));
-      // }),
-      //11
-      // const PtsScreen(),
-      //12
-      // DescriptionScreen(initialText: state.descriptions ?? ''),
-      //13
-      // const EquipmentScreen(),
-      // 14;
-      // const DamageScreen(),
-      // 15;
-      // ContactScreen(
-      //   initialEmail: state.ownerEmail ?? '',
-      //   initialName: state.ownerName ?? '',
-      //   initialPhone: state.ownerPhone ?? '',
-      // ),
-      // 16;
+  static int initialPage = 0;
+  // ChooseCarBrand,
+  //1
+  // ChooseCarModelScreen(makeId: state.makeId ?? -1),
+  //2
+  // YearIssueScreen(modelId: state.modelId ?? -1),
+  //3
+  // const GenerationScreen(),
+  //4
+  // CarcaseScreen(selectedBodyTypeId: state.bodyTypeId ?? -1),
+  //5
+  // const EngineScreen(),
+  //6
+  // const DriveTypeScreen(),
+  //7
+  // const GearboxScreen(),
+  //8
+  // const ModificationScreen(),
+  //9
+  // const ColorsScreen(),
+  //10
+  // AddPhotoScreen(onImageChanged: (v) {
+  //   print(
+  //       '=> => => =>  changing photos:   $v    <= <= <= <=');
+  //   postingAdBloc.add(PostingAdChooseEvent(gallery: v));
+  // }),
+  //11
+  // const PtsScreen(),
+  //12
+  // DescriptionScreen(initialText: state.descriptions ?? ''),
+  //13
+  // const EquipmentScreen(),
+  // 14;
+  // const DamageScreen(),
+  // 15;
+  // ContactScreen(
+  //   initialEmail: state.ownerEmail ?? '',
+  //   initialName: state.ownerName ?? '',
+  //   initialPhone: state.ownerPhone ?? '',
+  // ),
+  // 16;
   // const InspectionPlaceScreen(),
   //17
   // PriceScreen(initialPrice: state.price ?? ''),
@@ -113,6 +112,8 @@ class _PostingAdScreenState extends State<PostingAdScreen>
   void initState() {
     pageController = PageController(initialPage: initialPage);
     postingAdBloc = PostingAdBloc(
+      announcementUseCase: GetCarSingleUseCase(
+          repository: serviceLocator<CarSingleRepositoryImpl>()),
       districtUseCase: GetDistrictsUseCase(),
       regionsUseCase: GetRegionsUseCase(),
       createUseCase: CreateAnnouncementUseCase(
@@ -132,7 +133,13 @@ class _PostingAdScreenState extends State<PostingAdScreen>
       topMakesUseCase: GetTopBrandUseCase(),
       makeUseCase:
           GetMakesUseCase(repository: serviceLocator<AdRepositoryImpl>()),
-    )..add(PostingAdMakesEvent());
+    );
+    if (widget.announcementId == null) {
+      postingAdBloc.add(PostingAdMakesEvent());
+    } else {
+      postingAdBloc
+          .add(PostingAdGetAnnouncementEvent(id: widget.announcementId!));
+    }
     super.initState();
   }
 
@@ -197,10 +204,9 @@ class _PostingAdScreenState extends State<PostingAdScreen>
         postingAdBloc.add(PostingAdGearBoxesEvent());
 
         break;
-        case 16:
+      case 16:
         postingAdBloc.add(PostingAdGetRegionsEvent());
-        
-        
+
         break;
     }
   }
@@ -316,7 +322,7 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                       //11
                       const PtsScreen(),
                       //12
-                      DescriptionScreen(initialText: state.descriptions ?? ''),
+                      DescriptionScreen(initialText: state.description ?? ''),
                       //13
                       const EquipmentScreen(),
                       //14
