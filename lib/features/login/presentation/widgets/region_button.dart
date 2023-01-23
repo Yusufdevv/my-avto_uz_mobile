@@ -26,6 +26,7 @@ class _RegionButtonState extends State<RegionButton> {
 
   @override
   Widget build(BuildContext context) => GestureDetector(
+        behavior: HitTestBehavior.opaque,
         onTap: () {
           widget.onTap();
           showRegionsBottomSheet(
@@ -42,7 +43,7 @@ class _RegionButtonState extends State<RegionButton> {
         },
         child: BlocBuilder<RegionsBloc, RegionsState>(
           builder: (context, state) => Container(
-            padding: const EdgeInsets.only(right: 8, top: 16),
+            padding: const EdgeInsets.only(top: 29),
             child: Row(
               children: [
                 Expanded(
