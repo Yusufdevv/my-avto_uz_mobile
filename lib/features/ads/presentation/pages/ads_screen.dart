@@ -21,7 +21,11 @@ import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 class AdsScreen extends StatefulWidget {
   final bool isBack;
   final VoidCallback onTap;
-  const AdsScreen({super.key, required this.isBack, required this.onTap});
+  const AdsScreen({
+    required this.isBack,
+    required this.onTap,
+    super.key,
+  });
 
   @override
   State<AdsScreen> createState() => _AdsScreenState();
@@ -69,17 +73,10 @@ class _AdsScreenState extends State<AdsScreen>
   }
 
   final Duration fadeDuration = const Duration(milliseconds: 300);
-  final _maxsie = 100;
-  double _persent = 0;
+
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    if (_scrollController.hasClients) {
-      if (_scrollController.offset <= 100 && _scrollController.hasClients) {
-        final _persen = _scrollController.offset / _maxsie;
-        _persent = _persen;
-      }
-    }
     return BlocBuilder<AnnouncementListBloc, AnnouncementListState>(
       builder: (context, state) => KeyboardDismisser(
         child: AnnotatedRegion(
