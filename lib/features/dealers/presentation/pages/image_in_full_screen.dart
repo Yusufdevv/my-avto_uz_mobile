@@ -1,10 +1,26 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-class ImageInFullScreen extends StatelessWidget {
-  const ImageInFullScreen({Key? key}) : super(key: key);
+class ImageInFullScreen extends StatefulWidget {
+  const ImageInFullScreen({required this.images, Key? key}) : super(key: key);
+  final List<String> images;
+
+  @override
+  State<ImageInFullScreen> createState() => _ImageInFullScreenState();
+}
+
+class _ImageInFullScreenState extends State<ImageInFullScreen> {
+  late PageController _pageController;
+  int page = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _pageController = PageController();
+  }
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -16,10 +32,8 @@ class ImageInFullScreen extends StatelessWidget {
               GestureDetector(
                 child: Padding(
                   padding: const EdgeInsets.only(top: 12, left: 16),
-                  child: SvgPicture.asset(
-                    AppIcons.chevronLeft,
-                    color: solitude,
-                  ),
+                  child:
+                      SvgPicture.asset(AppIcons.chevronLeft, color: solitude),
                 ),
                 onTap: () => Navigator.pop(context),
               ),
@@ -29,13 +43,31 @@ class ImageInFullScreen extends StatelessWidget {
               Stack(children: [
                 SizedBox(
                   height: MediaQuery.of(context).size.width,
-                  child: PageView(
-                    children: [
-                      Container(
-                        color: white,
-                      )
-                    ],
-                  ),
+                  child: PageView.builder(
+                    physics: const BouncingScrollPhysics(),
+                      controller: _pageController,
+                      scrollDirection: Axis.horizontal,
+                      onPageChanged: (value) => setState(() {
+                            page = value;
+                          }),
+                      itemCount:
+                          widget.images.isEmpty ? 1 : widget.images.length,
+                      itemBuilder: (context, index) => Container(
+                            foregroundDecoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                begin: Alignment.topCenter,
+                                end: Alignment.center,
+                                colors: [
+                                  Colors.black,
+                                  Colors.black.withOpacity(0),
+                                ],
+                              ),
+                            ),
+                            child: CachedNetworkImage(
+                                imageUrl: widget.images[index],
+                                width: double.maxFinite,
+                                fit: BoxFit.cover),
+                          )),
                 ),
                 Positioned(
                     right: MediaQuery.of(context).size.width * 0.45,
@@ -46,9 +78,9 @@ class ImageInFullScreen extends StatelessWidget {
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(12),
                           color: black.withOpacity(0.2)),
-                      child: const Text(
-                        '1/12',
-                        style: TextStyle(
+                      child: Text(
+                        '${page + 1}/${widget.images.length}',
+                        style: const TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w600,
                             color: white),

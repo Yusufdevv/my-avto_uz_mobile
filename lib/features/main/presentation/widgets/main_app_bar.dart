@@ -30,25 +30,28 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
         child: AppBar(
           elevation: 0,
           actions: [
-            Padding(
-              padding: const EdgeInsets.only(right: 16),
-              child: GestureDetector(
-                onTap: () => Navigator.of(context, rootNavigator: true)
-                    .push(fade(page: const NotificationPage())),
-                child: SvgPicture.asset(
-                   context.read<AuthenticationBloc>().state.user.isReadAllNotifications ? AppIcons.bell :  
-                  AppIcons.bellWithCircle
-                ),
+            GestureDetector(
+              behavior: HitTestBehavior.opaque,
+              onTap: () => Navigator.of(context, rootNavigator: true)
+                  .push(fade(page: const NotificationPage())),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: SvgPicture.asset(context
+                        .read<AuthenticationBloc>()
+                        .state
+                        .user
+                        .isReadAllNotifications
+                    ? AppIcons.bell
+                    : AppIcons.bellWithCircle),
               ),
             )
           ],
-          title:SvgPicture.asset(
+          title: SvgPicture.asset(
             Theme.of(context).extension<ThemedIcons>()!.imageUrl,
           ),
         ),
       );
 
-      
   @override
   Size get preferredSize => AppBar().preferredSize;
 }

@@ -1,4 +1,5 @@
 import 'package:auto/assets/colors/color.dart';
+import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
 import 'package:auto/features/common/widgets/custom_screen.dart';
@@ -7,6 +8,7 @@ import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/login/domain/usecases/change_password.dart';
 import 'package:auto/features/login/domain/usecases/verify_code.dart';
 import 'package:auto/features/login/domain/usecases/verify_recovery.dart';
+import 'package:auto/features/login/presentation/bloc/send_phone/send_phone_bloc.dart';
 import 'package:auto/features/login/presentation/bloc/verify/verify_bloc.dart';
 import 'package:auto/features/login/presentation/pages/login_new_password_page.dart';
 import 'package:auto/features/login/presentation/widgets/SignIn_with_socials.dart';
@@ -19,6 +21,7 @@ import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:formz/formz.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
@@ -91,30 +94,45 @@ class _VerifySmsCodePageState extends State<VerifySmsCodePage> {
                         title: LocaleKeys.recovery_password.tr(),
                         description: LocaleKeys.enter_password_sms.tr(),
                       ),
-                      const SizedBox(
-                        height: 12,
-                      ),
+                      const SizedBox(height: 12),
                       Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 8, vertical: 4),
+                        padding: const EdgeInsets.only(
+                            left: 8, right: 4, top: 4, bottom: 4),
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
-                          color: Theme.of(context)
-                              .extension<ThemedColors>()!
-                              .solitudeToBastille,
-                        ),
-                        child: Text(
-                          '+998 ${widget.phone.replaceAll(' ', '')}',
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline6!
-                              .copyWith(
-                                  fontWeight: FontWeight.w400, fontSize: 14),
+                            borderRadius: BorderRadius.circular(8),
+                            color: border),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              '+998 ${widget.phone}',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline6!
+                                  .copyWith(
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 14),
+                            ),
+                            const SizedBox(width: 12),
+                            WButton(
+                              onTap: () {
+                                Navigator.pop(context);
+                              },
+                              borderRadius: 4,
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 4, vertical: 4),
+                              color: Theme.of(context)
+                                  .extension<ThemedColors>()!
+                                  .solitudeToSolitude14,
+                              height: 24,
+                              width: 24,
+                              child:
+                                  SvgPicture.asset(AppIcons.edit, color: grey),
+                            )
+                          ],
                         ),
                       ),
-                      const SizedBox(
-                        height: 35,
-                      ),
+                      const SizedBox(height: 35),
                       PinCodeTextField(
                         onChanged: (value) {
                           setState(() {});
@@ -133,7 +151,7 @@ class _VerifySmsCodePageState extends State<VerifySmsCodePage> {
                           fieldHeight: 44,
                           fieldWidth: 50,
                         ),
-                        cursorColor: white,
+                        cursorColor: black,
                         keyboardType: TextInputType.number,
                         enableActiveFill: false,
                         textStyle: Theme.of(context)
@@ -147,9 +165,6 @@ class _VerifySmsCodePageState extends State<VerifySmsCodePage> {
                         appContext: context,
                         showCursor: true,
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      ),
-                      const SizedBox(
-                        height: 18,
                       ),
                       Row(
                         children: [
@@ -176,6 +191,9 @@ class _VerifySmsCodePageState extends State<VerifySmsCodePage> {
                                   setState(() {
                                     timeComplete = false;
                                   });
+                                  context
+                                      .read<SendPhoneBloc>()
+                                      .add(SendPhoneEvent(phone: widget.phone));
                                 },
                               ),
                             )
@@ -207,7 +225,10 @@ class _VerifySmsCodePageState extends State<VerifySmsCodePage> {
                                 param: VerifyParam(
                                   phone: widget.phone,
                                   code: passwordRecoveryController.text,
-                                  session: widget.session,
+                                  session: context
+                                      .read<SendPhoneBloc>()
+                                      .state
+                                      .session,
                                 ),
                               ),
                             );

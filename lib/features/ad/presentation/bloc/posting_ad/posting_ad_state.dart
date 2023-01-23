@@ -109,7 +109,7 @@ class PostingAdState extends Equatable {
   PostingAdState copyWith({
     Map<DamagedParts, DamageType>? damagedParts,
     List<RentWithPurchaseEntity>? rentWithPurchaseConditions,
-    DistrictEntity? district,
+    DistrictEntity? districtt,
     Region? region,
     FormzStatus? status,
     FormzStatus? getDistrictsStatus,
@@ -158,14 +158,17 @@ class PostingAdState extends Equatable {
     bool? rentToBuy,
     bool? isWithoutMileage,
     bool? showExactAddress,
-  }) => PostingAdState(
+  }){
+    print('====   ACTUALLY IN STATE:  ${district?.title}  ====');
+    print('==== INCOMING DISTRICT TO COPYWITH:  ${districtt?.title}  ====');
+    final newState=  PostingAdState(
       getDistrictsStatus: getDistrictsStatus ?? this.getDistrictsStatus,
       districts: districts ?? this.districts,
       damagedParts: damagedParts ?? this.damagedParts,
       rentWithPurchaseConditions:
           rentWithPurchaseConditions ?? this.rentWithPurchaseConditions,
       showExactAddress: showExactAddress ?? this.showExactAddress,
-      district: district ?? this.district,
+      district: districtt ?? this.district,
       city: city ?? this.city,
       region: region ?? this.region,
       gearboxId: gearboxId ?? this.gearboxId,
@@ -212,6 +215,10 @@ class PostingAdState extends Equatable {
       gallery: gallery ?? this.gallery,
       regions: regions ?? this.regions,
     );
+
+    print('====   OUTCOMINT DISTRICT FROM COPY WITH:  ${newState.district?.title}  ====');
+    return newState;
+  }
 
   @override
   List<Object?> get props => [

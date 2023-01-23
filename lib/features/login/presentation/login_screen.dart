@@ -1,5 +1,6 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_icons.dart';
 import 'package:auto/features/common/bloc/auth/authentication_bloc.dart';
@@ -8,6 +9,7 @@ import 'package:auto/features/common/widgets/custom_screen.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_divider.dart';
+import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/login/presentation/pages/register_screen.dart';
 import 'package:auto/features/login/presentation/pages/send_phone_number_page.dart';
 import 'package:auto/features/login/presentation/widgets/z_text_form_field.dart';
@@ -91,7 +93,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     const SizedBox(
                       width: 4,
                     ),
-                    GestureDetector(
+                    WScaleAnimation(
                       onTap: () {
                         hidePopUp();
                         Navigator.push(
@@ -109,28 +111,23 @@ class _LoginScreenState extends State<LoginScreen> {
                 ZTextFormField(
                   onTap: hidePopUp,
                   onChanged: (value) {
-                    print('=======value ${value}');
                     setState(() {});
-                    print('=======phone length ${phoneController.text.length}');
-                    print('=======pas  ${passwordController.text.length >= 4}');
-                    print(
-                        '======= ${(passwordController.text.length >= 4 && phoneController.text.length > 11)}');
                   },
                   controller: phoneController,
                   prefixIcon: Row(
                     children: [
-                      const Text('🇺🇿'),
-                      // Image.asset(AppImages.flagUzb),
+                      SizedBox(
+                          height: 20,
+                          width: 20,
+                          child: Image.asset(AppImages.flagUzb2)),
                       const SizedBox(
                         width: 4,
                       ),
-                      Text(
-                        '+998',
-                        style: Theme.of(context)
-                            .textTheme
-                            .subtitle1!
-                            .copyWith(fontSize: 15),
-                      ),
+                      Text('+998',
+                          style: Theme.of(context)
+                              .textTheme
+                              .subtitle1!
+                              .copyWith(fontSize: 15)),
                     ],
                   ),
                   hintText: '91 234 56 78',
@@ -146,15 +143,13 @@ class _LoginScreenState extends State<LoginScreen> {
                   onTap: hidePopUp,
                   onChanged: (value) {
                     setState(() {});
-                    print(
-                        '======= ${(passwordController.text.length >= 4 && phoneController.text.length > 11)}');
                   },
                   hintText: 'Пароль',
                   controller: passwordController,
                   isObscure: true,
                 ),
                 const SizedBox(height: 16),
-                GestureDetector(
+                WScaleAnimation(
                   onTap: () {
                     hidePopUp();
                     Navigator.of(context)

@@ -45,7 +45,7 @@ class _RentChooseRegionBottomSheetState
   Widget build(BuildContext context) {
     final isAllChecked = checkStatus.length == widget.list.length;
     return Container(
-      margin: EdgeInsets.only(top: SizeConfig.v(24)),
+      margin: EdgeInsets.only(top: SizeConfig.v(48)),
       decoration: const BoxDecoration(
         color: white,
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),

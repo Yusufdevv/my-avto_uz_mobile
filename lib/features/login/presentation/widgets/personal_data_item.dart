@@ -22,7 +22,7 @@ class PersonalDataItemm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Padding(
-        padding: const EdgeInsets.only(right: 8, top: 16),
+        padding: const EdgeInsets.only(top: 16),
         child: Row(
           children: [
             Expanded(
@@ -53,10 +53,13 @@ class PersonalDataItemm extends StatelessWidget {
             Expanded(
                 flex: 3,
                 child: ZTextFormField(
+                  contentPadding:
+                      const EdgeInsets.only(top: 12, right: 12, bottom: 12),
                   onTap: onTap,
                   onChanged: onChanged,
                   controller: controller,
                   hintText: hintText,
+                  hintTextStyle: Theme.of(context).textTheme.headline2,
                 )),
           ],
         ),

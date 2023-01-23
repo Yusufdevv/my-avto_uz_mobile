@@ -6,7 +6,7 @@ import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/login/domain/usecases/send_recovery_code.dart';
 import 'package:auto/features/login/presentation/bloc/send_phone/send_phone_bloc.dart';
-import 'package:auto/features/login/presentation/pages/verify_page.dart';
+import 'package:auto/features/login/presentation/pages/verify_sms_code_page.dart';
 import 'package:auto/features/login/presentation/widgets/z_text_form_field.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:flutter/material.dart';
@@ -65,9 +65,12 @@ class _SendPhoneNumberPageState extends State<SendPhoneNumberPage> {
                   Navigator.push(
                     context,
                     fade(
-                      page: VerifySmsCodePage(
-                        phone: phoneController.text,
-                        session: state.session,
+                      page: BlocProvider.value(
+                        value: sendPhoneBloc,
+                        child: VerifySmsCodePage(
+                          phone: phoneController.text,
+                          session: state.session,
+                        ),
                       ),
                     ),
                   );
@@ -108,7 +111,10 @@ class _SendPhoneNumberPageState extends State<SendPhoneNumberPage> {
                         controller: phoneController,
                         prefixIcon: Row(
                           children: [
-                            Image.asset(AppImages.flagUzb),
+                            SizedBox(
+                                height: 20,
+                                width: 20,
+                                child: Image.asset(AppImages.flagUzb2)),
                             const SizedBox(width: 4),
                             Text(
                               '+998',

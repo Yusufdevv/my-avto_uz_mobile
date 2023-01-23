@@ -100,23 +100,23 @@ class SellerSliverDelegate extends SliverPersistentHeaderDelegate {
                 children: [
                   AnimatedContainer(
                     decoration: BoxDecoration(
-                        borderRadius: shrinkOffset >= 180
+                        borderRadius: shrinkOffset >= 150
                             ? BorderRadius.zero
                             : BorderRadius.circular(12),
-                        color: shrinkOffset >= 180
+                        color: shrinkOffset >= 150
                             ? Theme.of(context)
                                 .extension<ThemedColors>()!
                                 .whiteToNero
                             : Theme.of(context)
                                 .extension<ThemedColors>()!
                                 .whiteWithOpacity90ToNero,
-                        border: shrinkOffset >= 180
+                        border: shrinkOffset >= 150
                             ? null
                             : Border.all(
                                 color: Theme.of(context)
                                     .extension<ThemedColors>()!
                                     .whiteSmoke2ToNightRider)),
-                    padding: shrinkOffset >= 180
+                    padding: shrinkOffset >= 150
                         ? EdgeInsets.only(
                             top: MediaQuery.of(context).padding.top +
                                 MediaQuery.of(context).size.height * 0.02,
@@ -124,7 +124,7 @@ class SellerSliverDelegate extends SliverPersistentHeaderDelegate {
                             bottom: 16,
                           )
                         : const EdgeInsets.all(12),
-                    margin: shrinkOffset >= 180
+                    margin: shrinkOffset >= 150
                         ? EdgeInsets.zero
                         : const EdgeInsets.symmetric(horizontal: 20),
                     duration: _duration,
@@ -138,21 +138,21 @@ class SellerSliverDelegate extends SliverPersistentHeaderDelegate {
                             child: SvgPicture.asset(AppIcons.chevronLeft),
                           ),
                           secondChild: const SizedBox(),
-                          crossFadeState: shrinkOffset >= 180
+                          crossFadeState: shrinkOffset >= 150
                               ? CrossFadeState.showFirst
                               : CrossFadeState.showSecond,
                         ),
-                        SizedBox(width: shrinkOffset >= 180 ? 12 : 0),
+                        SizedBox(width: shrinkOffset >= 150 ? 12 : 0),
                         // CircleAvatar(
-                        //   radius: shrinkOffset >= 180 ? 32 : 48,
+                        //   radius: shrinkOffset >= 150 ? 32 : 48,
                         //   child: CachedNetworkImage(
                         //     imageUrl: avatarImage,
                         //     fit: BoxFit.cover,
                         //   ),
                         // ),
                         AnimatedContainer(
-                          height: shrinkOffset >= 180 ? 32 : 48,
-                          width: shrinkOffset >= 180 ? 32 : 48,
+                          height: shrinkOffset >= 150 ? 32 : 48,
+                          width: shrinkOffset >= 150 ? 32 : 48,
                           duration: _duration,
                           child: CircleAvatar(
                             child: CachedNetworkImage(
@@ -186,13 +186,13 @@ class SellerSliverDelegate extends SliverPersistentHeaderDelegate {
                                       .headline1!
                                       .copyWith(
                                           fontSize:
-                                              shrinkOffset >= 180 ? 14 : 16),
+                                              shrinkOffset >= 150 ? 14 : 16),
                                   child: Text(dealerName,
                                       overflow: TextOverflow.ellipsis)),
                               AnimatedDefaultTextStyle(
                                   duration: _duration,
                                   style: TextStyle(
-                                      fontSize: shrinkOffset >= 180 ? 12 : 14,
+                                      fontSize: shrinkOffset >= 150 ? 12 : 14,
                                       fontWeight: FontWeight.w400,
                                       color: purple),
                                   child: showroomOrPerson != 'person'
@@ -209,7 +209,7 @@ class SellerSliverDelegate extends SliverPersistentHeaderDelegate {
                       height: 1,
                     ),
                     secondChild: const SizedBox(),
-                    crossFadeState: shrinkOffset >= 180
+                    crossFadeState: shrinkOffset >= 150
                         ? CrossFadeState.showFirst
                         : CrossFadeState.showSecond,
                     duration: _duration,
