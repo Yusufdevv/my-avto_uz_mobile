@@ -13,8 +13,8 @@ class DealerCardEvent with _$DealerCardEvent {
     String? carType,
 }) = _GetFilter;
   factory DealerCardEvent.getFilterParams({
-    List<Region>? regions,
-    MakeEntity? maker,
+    String? regions,
+    String? maker,
     String? carType,
 }) = _GetFilterParams;
 

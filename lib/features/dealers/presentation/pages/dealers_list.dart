@@ -67,7 +67,7 @@ class _DealersListState extends State<DealersList> {
             itemCount: state.count,
           );
         } else {
-          return dealersEmptyState();
+          return const EmptyState();
         }
       }
     }),

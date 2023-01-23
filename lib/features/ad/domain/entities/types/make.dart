@@ -6,11 +6,13 @@ class MakeEntity extends Equatable {
   final int id;
   final String name;
   final String logo;
+  final String slug;
 
   const MakeEntity({
     this.id = -1,
     this.name = '',
     this.logo = '',
+    this.slug = '',
   });
 
   @override
@@ -18,6 +20,7 @@ class MakeEntity extends Equatable {
         id,
         name,
         logo,
+        slug,
       ];
 }
 
@@ -31,5 +34,5 @@ class MakeEntityConverter
 
   @override
   Map<String, dynamic> toJson(MakeEntity object) =>
-      MakeModel(id: object.id, name: object.name, logo: object.logo).toJson();
+      MakeModel(id: object.id, name: object.name, logo: object.logo, slug: object.slug).toJson();
 }
