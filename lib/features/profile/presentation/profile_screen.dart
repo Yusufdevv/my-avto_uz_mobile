@@ -1,6 +1,7 @@
 import 'package:auto/features/common/bloc/auth/authentication_bloc.dart';
 import 'package:auto/features/common/bloc/wishlist_add/wishlist_add_bloc.dart';
 import 'package:auto/features/common/repository/auth.dart';
+import 'package:auto/features/common/widgets/notification_button.dart';
 import 'package:auto/features/comparison/presentation/comparison_page.dart';
 import 'package:auto/features/profile/domain/entities/profile_data_entity.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -91,25 +92,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         BoxShadow(
                             offset: Offset(0, 0), blurRadius: 0, color: white),
                       ],
-                      extraActions: [
-                        GestureDetector(
-                          behavior: HitTestBehavior.opaque,
-                          onTap: () =>
-                              Navigator.of(context, rootNavigator: true)
-                                  .push(fade(page: const NotificationPage())),
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: SizeConfig.h(16)),
-                            child: SvgPicture.asset(context
-                                    .read<AuthenticationBloc>()
-                                    .state
-                                    .user
-                                    .isReadAllNotifications
-                                ? AppIcons.bell
-                                : AppIcons.bellWithCircle),
-                          ),
-                        )
-                      ],
+                      extraActions: const [NotificationButton()],
                       hasBackButton: false,
                       textWithButton: LocaleKeys.my_profile.tr()),
                   body: SingleChildScrollView(

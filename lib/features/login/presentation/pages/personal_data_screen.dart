@@ -63,7 +63,7 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
           child: BlocProvider.value(
             value: imageBloc,
             child: Scaffold(
-              extendBody: true,
+              resizeToAvoidBottomInset: false,
               appBar: WAppBar(
                 title: LocaleKeys.register.tr(),
               ),
@@ -182,8 +182,7 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
                             blurRadius: 20,
                             color: solitude.withOpacity(.12)),
                       ],
-                      margin: EdgeInsets.only(
-                          bottom: 4 + MediaQuery.of(context).padding.bottom),
+                      margin: EdgeInsets.only(bottom: 4),
                       color: (nameController.text.isNotEmpty &&
                               emailController.text.isNotEmpty)
                           ? orange
