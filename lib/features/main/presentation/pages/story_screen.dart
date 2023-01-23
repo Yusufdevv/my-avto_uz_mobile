@@ -40,6 +40,7 @@ class _StoryScreenState extends State<StoryScreen> {
   }
 
   void _scrollListener() {
+    print('app log: page view scrolling');
     if (_isOnPageTurning &&
         _pageController.page == _pageController.page!.roundToDouble()) {
       setState(() {

@@ -54,12 +54,14 @@ class _StoryContentItemState extends State<StoryContentItem>
 
   @override
   void initState() {
-    super.initState();
     animationController = AnimationController(vsync: this);
     animationController.addStatusListener(_animationListener);
-    print('app log: init state\npageIndex: ${widget.pageIndex}\ncurrentPageIndex: ${widget.currentPageIndex}'
+    print('app log: '
+        'init state'
+        '\npageIndex: ${widget.pageIndex}\ncurrentPageIndex: ${widget.currentPageIndex}'
         '\nisPaused: ${widget.isPaused}');
     _loadStory();
+    super.initState();
   }
 
   @override
@@ -89,9 +91,9 @@ class _StoryContentItemState extends State<StoryContentItem>
                   fit: BoxFit.cover,
                 ),
                 progressIndicatorBuilder: (context, s, progress) {
-                  print('progress.downloaded: ${progress.downloaded}');
-                  print('progress.progress: ${progress.progress}');
-                  print('progress.totalSize: ${progress.totalSize}');
+                  // print('progress.downloaded: ${progress.downloaded}');
+                  // print('progress.progress: ${progress.progress}');
+                  // print('progress.totalSize: ${progress.totalSize}');
 
                   // if (progress.totalSize != null &&
                   //     progress.progress != 1.0 &&
@@ -274,15 +276,19 @@ class _StoryContentItemState extends State<StoryContentItem>
   }
 
   void nextStory() {
+    print('app log: next story');
     if (itemIndex + 1 == widget.story.items.length) {
       if (widget.currentPageIndex + 1 == widget.storiesCount) {
+        print('app log: pop');
         Navigator.pop(context);
       } else {
+        print('app log: animate');
         itemIndex = 0;
         widget.animate(forward: true);
         _loadStory();
       }
     } else {
+      print('app log: next item');
       itemIndex++;
       _loadStory();
     }
@@ -290,6 +296,10 @@ class _StoryContentItemState extends State<StoryContentItem>
 
   void _loadStory() {
     print('app log: itemIndex $itemIndex');
+    print('app log: '
+        '\npageIndex: ${widget.pageIndex}\ncurrentPageIndex: ${widget.currentPageIndex}'
+        '\nisPaused: ${widget.isPaused}');
+
     if (!(widget.pageIndex == widget.currentPageIndex && !widget.isPaused)) {
       return;
     }
