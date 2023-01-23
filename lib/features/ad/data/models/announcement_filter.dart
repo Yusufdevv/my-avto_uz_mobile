@@ -11,7 +11,11 @@ class AnnouncementFilterModel extends Equatable {
   final int? bodyType;
   final int? gearboxType;
   final int? driveType;
-  final String? regions;
+  final int? priceFrom;
+  final int? priceTo;
+  final int? yearFrom;
+  final int? yearTo;
+  final String? region__in;
 
   const AnnouncementFilterModel({
     this.make,
@@ -20,7 +24,11 @@ class AnnouncementFilterModel extends Equatable {
     this.bodyType,
     this.gearboxType,
     this.driveType,
-    this.regions,
+    this.priceFrom,
+    this.priceTo,
+    this.yearFrom,
+    this.yearTo,
+    this.region__in,
   });
 
   AnnouncementFilterModel copyWith({
@@ -30,7 +38,11 @@ class AnnouncementFilterModel extends Equatable {
     int? bodyType,
     int? gearboxType,
     int? driveType,
-    String? regions,
+    int? priceFrom,
+    int? priceTo,
+    int? yearFrom,
+    int? yearTo,
+    String? region__in,
   }) =>
       AnnouncementFilterModel(
         make: make ?? this.make,
@@ -39,7 +51,11 @@ class AnnouncementFilterModel extends Equatable {
         bodyType: bodyType ?? this.bodyType,
         gearboxType: gearboxType ?? this.gearboxType,
         driveType: driveType ?? this.driveType,
-        regions: regions ?? this.regions,
+        priceFrom: priceFrom ?? this.priceFrom,
+        priceTo: priceTo ?? this.priceTo,
+        yearFrom: yearFrom ?? this.yearFrom,
+        yearTo: yearTo ?? this.yearTo,
+        region__in: region__in ?? this.region__in,
       );
   factory AnnouncementFilterModel.fromJson(Map<String, dynamic> json) =>
       _$AnnouncementFilterModelFromJson(json);
@@ -53,5 +69,10 @@ class AnnouncementFilterModel extends Equatable {
         bodyType,
         gearboxType,
         driveType,
+        region__in,
+        priceFrom,
+        priceTo,
+        yearFrom,
+        yearTo
       ];
 }

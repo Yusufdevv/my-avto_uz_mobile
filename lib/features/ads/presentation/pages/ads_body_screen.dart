@@ -28,9 +28,9 @@ class AdsBodyScreen extends StatefulWidget {
   final ScrollController scrollController;
   final bool? isNew;
   const AdsBodyScreen({
-    super.key,
     required this.scrollController,
     this.isNew,
+    super.key,
   });
 
   @override
@@ -182,21 +182,12 @@ class _AdsBodyScreenState extends State<AdsBodyScreen> {
                             list: context.read<RegionsBloc>().state.regions,
                           ),
                         ).then((value) {
-                          if (value != null && value.isNotEmpty) {
-                            context.read<AnnouncementListBloc>().add(
-                                AnnouncementListEvent.getFilter(context
-                                    .read<AnnouncementListBloc>()
-                                    .state
-                                    .filter
-                                    .copyWith(
-                                        regions: value
-                                            .map((e) => '${e.id}')
-                                            .toList()
-                                            .join(','))));
-                          }
+                          print(
+                              '===> ==> Bu Valu ${value!.map((e) => '${e.id}').toList().join(',')}');
+
                           context
                               .read<AnnouncementListBloc>()
-                              .add(AnnouncementListEvent.getRegions(value!));
+                              .add(AnnouncementListEvent.getRegions(value));
                           context
                               .read<AnnouncementListBloc>()
                               .add(AnnouncementListEvent.getAnnouncementList());

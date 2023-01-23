@@ -23,6 +23,7 @@ class AnnouncementListBloc
     on<_GetAnnouncementList>((event, emit) async {
       emit(state.copyWith(status: FormzStatus.submissionInProgress));
       final result = await useCase.call(state.filter);
+      print('===> ==> Buni qara ${state.filter}');
       if (result.isRight) {
         emit(
           state.copyWith(
@@ -39,13 +40,29 @@ class AnnouncementListBloc
     on<_GetFilter>(
       (event, emit) => emit(state.copyWith(filter: event.filter)),
     );
-    on<_GetRegions>(
-        (event, emit) => emit(state.copyWith(regions: event.regions)));
+    on<_GetRegions>((event, emit) {
+      emit(state.copyWith(
+          filter: state.filter.copyWith(
+              region__in:
+                  event.regions.map((e) => '${e.id}').toList().join(','))));
+      emit(state.copyWith(regions: event.regions));
+    });
     on<_GetIsHistory>(
         (event, emit) => emit(state.copyWith(isHistory: event.isHistory)));
     on<_GetFilterClear>(
-      (event, emit) =>
-          emit(state.copyWith(filter: const AnnouncementFilterModel())),
+      (event, emit) => emit(
+        state.copyWith(
+          filter: state.filter.copyWith(
+            gearboxType: null,
+            bodyType: null,
+            driveType: null,
+            priceFrom: 1000,
+            priceTo: 500000,
+            yearFrom: 1960,
+            yearTo: 2023
+          ),
+        ),
+      ),
     );
     on<_GetInfo>((event, emit) => emit(state.copyWith(
           bodyTypeEntity: event.bodyType,

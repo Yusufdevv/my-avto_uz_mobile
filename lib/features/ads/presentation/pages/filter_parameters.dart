@@ -246,8 +246,16 @@ class _FilterParametersState extends State<FilterParameters> {
                       onTap: () {
                         widget.bloc!.add(AnnouncementListEvent.getFilter(
                             widget.bloc!.state.filter.copyWith(
-                          bodyType: state.bodyType?.id,
-                          driveType: state.carDriveType?.id,
+                          priceFrom: state.priceValues.start.toInt(),
+                          priceTo: state.priceValues.end.toInt(),
+                          yearFrom: state.yearValues.start.toInt(),
+                          yearTo: state.yearValues.end.toInt(),
+                          bodyType: state.bodyType?.id == -1
+                              ? null
+                              : state.bodyType?.id,
+                          driveType: state.carDriveType?.id == -1
+                              ? null
+                              : state.carDriveType?.id,
                           gearboxType: state.gearboxType?.id == -1
                               ? null
                               : state.gearboxType?.id,
