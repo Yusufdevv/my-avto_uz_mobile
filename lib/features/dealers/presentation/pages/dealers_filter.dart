@@ -29,12 +29,12 @@ class DealersFilter extends StatefulWidget {
   final List<Region>? regions;
   final MakeEntity? maker;
   final DealerCardBloc dealerBloc;
-  final String? car_type;
+  final String? carType;
 
   const DealersFilter(
       {required this.dealerBloc,
       this.maker,
-      this.car_type,
+      this.carType,
       this.regions,
       this.isDirectoryPage = false,
       Key? key})
@@ -53,10 +53,9 @@ class _DealersFilterState extends State<DealersFilter> {
 
   @override
   void initState() {
-    print('car_type: ${widget.car_type}');
-    selectedCategory = widget.car_type ?? 'all';
+    selectedCategory = widget.carType ?? 'all';
     filterBloc = DealerFilterBloc(
-      car_type: widget.car_type,
+      car_type: widget.carType,
       maker: widget.maker,
       region: widget.regions,
     );
@@ -151,16 +150,15 @@ class _DealersFilterState extends State<DealersFilter> {
                         isScrollControlled: true,
                         backgroundColor: Colors.transparent,
                         builder: (c) => RentChooseRegionBottomSheet(
-                            checkedRegions: state.region!.asMap(),
+                            checkedRegions: state.region.asMap(),
                             list: context.read<RegionsBloc>().state.regions),
                       ).then((value) {
                         filterBloc.add(DealerFilterSelectEvent(region: value));
-                        print('regions: ${state.region!.first}');
                       });
                     },
-                    hintText: (state.region!.isEmpty)
+                    hintText: (state.region.isEmpty)
                         ? LocaleKeys.choose_region.tr()
-                        : state.region!.first.title,
+                        : state.region.first.title,
                     title: LocaleKeys.region.tr(),
                     hasArrowDown: true,
                   ),

@@ -115,7 +115,7 @@ class _DealerScreenState extends State<DealerScreen> {
                                             dealerBloc: bloc,
                                             maker: filterState.maker,
                                             regions: filterState.region,
-                                            car_type: filterState.car_type == ''
+                                            carType: filterState.car_type == ''
                                                 ? 'all'
                                                 : state.carType,
                                           )));
