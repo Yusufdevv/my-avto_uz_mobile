@@ -16,6 +16,8 @@ import 'package:dio/dio.dart';
 
 abstract class AdRepository {
   Future<Either<Failure, bool>> verify({required Map<String, String> params});
+
+  Future<Either<Failure, String>> getMinimumPrice({required Map<String, dynamic> params});
   Future<Either<Failure, String>> sendCode({required String phone});
   Future<Either<Failure, GenericPagination<MakeEntity>>> getTopMakes(
       {String? next});

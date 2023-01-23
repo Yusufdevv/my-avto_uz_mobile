@@ -367,4 +367,20 @@ class AdRepositoryImpl extends AdRepository {
           errorMessage: e.errorMessage, statusCode: e.statusCode));
     }
   }
+  
+  @override
+  Future<Either<Failure, String>> getMinimumPrice({required Map<String, dynamic> params}) async{
+    try {
+      final result = await remoteDataSource.getMinimumPrice(params);
+      return Right(result);
+    } on DioException {
+      return Left(DioFailure());
+    } on ParsingException catch (e) {
+      return Left(ParsingFailure(errorMessage: e.errorMessage));
+    } on ServerException catch (e) {
+      return Left(ServerFailure(
+          errorMessage: e.errorMessage, statusCode: e.statusCode));
+    }
+  }
+  
 }
