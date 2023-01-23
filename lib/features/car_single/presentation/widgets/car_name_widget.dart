@@ -41,6 +41,7 @@ class CarNameWidget extends StatelessWidget {
   final String uzb;
   final int compareId;
   final bool isCompared;
+  final double procent;
 
   const CarNameWidget(
       {Key? key,
@@ -73,7 +74,7 @@ class CarNameWidget extends StatelessWidget {
       required this.daysLeft,
       required this.compareId,
       required this.isCompared,
-      required this.percenti})
+      required this.percenti, required this.procent})
       : super(key: key);
 
   @override
@@ -137,6 +138,7 @@ class CarNameWidget extends StatelessWidget {
                           percent: percent,
                           currency: currency,
                           percenti: percenti,
+                          procent: procent,
                         ),
                       );
                     },
