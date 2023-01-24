@@ -8,8 +8,6 @@ part 'car_choice_state.dart';
 
 class CarChoiceBloc extends Bloc<CarChoiceEvent, CarChoiceState> {
   CarChoiceBloc() : super(CarChoiceInitial()) {
-    on<CarChoiceEvent>((event, emit) {
-      // TODO: implement event handler
-    });
+    on<CarChoiceEvent>((event, emit) {});
   }
 }

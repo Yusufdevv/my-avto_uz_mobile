@@ -12,8 +12,8 @@ class InternetErrorBottomSheet extends StatefulWidget {
   final VoidCallback onTap;
 
   const InternetErrorBottomSheet({
-    Key? key,
     required this.onTap,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -84,10 +84,11 @@ class _InternetErrorBottomSheetState extends State<InternetErrorBottomSheet> {
                   setState(() {
                     isLoading = false;
                   });
-                  if(res) {
-                    context.read<InternetBloc>().add(GlobalCheck(isConnected: res));
+                  if (res) {
+                    context
+                        .read<InternetBloc>()
+                        .add(GlobalCheck(isConnected: res));
                   }
-
                 },
                 color: orange,
                 child: Center(

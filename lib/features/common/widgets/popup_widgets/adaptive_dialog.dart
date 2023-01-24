@@ -6,25 +6,25 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-
 class AdaptiveDialog extends StatelessWidget {
   final String title;
   final String? positiveButtonTitle;
   final String bodyText;
   final VoidCallback onTapPositive;
 
-  const AdaptiveDialog(
-      {Key? key,
-      this.positiveButtonTitle,
-      required this.title,
-      required this.bodyText,
-      required this.onTapPositive})
-      : super(key: key);
+  const AdaptiveDialog({
+    required this.title,
+    required this.bodyText,
+    required this.onTapPositive,
+    this.positiveButtonTitle,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     if (Platform.isAndroid) {
-      return AlertDialog(backgroundColor: Colors.white,
+      return AlertDialog(
+        backgroundColor: Colors.white,
         title: Text(
           title,
           style: Theme.of(context).textTheme.headline1!.copyWith(
@@ -47,7 +47,7 @@ class AdaptiveDialog extends StatelessWidget {
                 onTap: () {
                   Navigator.pop(context);
                 },
-                child: Container(
+                child: SizedBox(
                     height: 44,
                     child: Center(
                         child: Text(
@@ -67,7 +67,7 @@ class AdaptiveDialog extends StatelessWidget {
                     height: 44,
                     child: Center(
                         child: Text(
-                     positiveButtonTitle ??'Leave',
+                      positiveButtonTitle ?? 'Leave',
                       style: Theme.of(context).textTheme.headline1!.copyWith(
                           fontSize: 17,
                           fontWeight: FontWeight.w600,
@@ -90,7 +90,6 @@ class AdaptiveDialog extends StatelessWidget {
                 fontSize: 17,
               ),
         ),
-
         content: Text(
           bodyText,
           style: Theme.of(context).textTheme.headline1!.copyWith(
@@ -103,15 +102,13 @@ class AdaptiveDialog extends StatelessWidget {
             onTap: () {
               Navigator.pop(context);
             },
-            child: Container(
+            child: SizedBox(
                 height: 44,
                 child: Center(
                     child: Text(
                   LocaleKeys.cancel.tr(),
                   style: Theme.of(context).textTheme.headline1!.copyWith(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 17,
-                      color: blue),
+                      fontWeight: FontWeight.w600, fontSize: 17, color: blue),
                 ))),
           ),
           GestureDetector(
@@ -120,7 +117,7 @@ class AdaptiveDialog extends StatelessWidget {
                 height: 44,
                 child: Center(
                     child: Text(
-                      positiveButtonTitle ?? 'Continue',
+                  positiveButtonTitle ?? 'Continue',
                   style: Theme.of(context).textTheme.headline1!.copyWith(
                       fontSize: 17, fontWeight: FontWeight.w600, color: red),
                 ))),

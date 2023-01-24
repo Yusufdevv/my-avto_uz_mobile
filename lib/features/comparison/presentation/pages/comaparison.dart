@@ -20,9 +20,9 @@ class Comparison extends StatefulWidget {
   final bool isSticky;
   final ComparisonBloc comparisonBloc;
   const Comparison({
-    Key? key,
     required this.isSticky,
     required this.comparisonBloc,
+    Key? key,
   }) : super(key: key);
 
   @override

@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_catches_without_on_clauses
+
 import 'package:auto/core/exceptions/exceptions.dart';
 import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/ad/data/models/announcement_filter.dart';
@@ -95,7 +97,6 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
   Future<GenericPagination<MakeModel>> getTopMakes({
     String? next,
   }) async {
-    print('===> ==> Bu kelagan Next Ekan $next');
     final response = await _dio.get(
       next!.isEmpty ? '/car/makes/top/' : next,
     );

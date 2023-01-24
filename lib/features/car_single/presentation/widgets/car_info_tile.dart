@@ -5,8 +5,11 @@ class CarInfoTile extends StatelessWidget {
   final String text;
   final String value;
 
-  const CarInfoTile({Key? key, required this.text, required this.value})
-      : super(key: key);
+  const CarInfoTile({
+    required this.text,
+    required this.value,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) => Container(
@@ -19,7 +22,7 @@ class CarInfoTile extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Text(
-                    text + ' ',
+                    '$text ',
                     style: Theme.of(context).textTheme.headline1!.copyWith(
                         fontWeight: FontWeight.w400, fontSize: 14, color: grey),
                   ),
@@ -36,7 +39,7 @@ class CarInfoTile extends StatelessWidget {
             Expanded(
               flex: 2,
               child: Text(
-                ' ' + value,
+                ' $value',
                 style: Theme.of(context).textTheme.headline1!.copyWith(
                     fontWeight: FontWeight.w600, fontSize: 14, color: grey),
               ),

@@ -132,7 +132,7 @@ class _AppState extends State<App> {
               useCase: GetMakesUseCase(
                 repository: serviceLocator<AdRepositoryImpl>(),
               ),
-            )..add(GetMakesBlocEvent.getMakes()),
+            ),
           ),
           BlocProvider(
               create: (context) => GetCarModelBloc(

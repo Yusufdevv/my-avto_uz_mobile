@@ -44,11 +44,11 @@ class SliverAppBarItem extends StatefulWidget {
     required this.images,
     required this.onDealer,
     required this.onCompare,
-    Key? key,
     required this.isMine,
     required this.status,
     required this.onSold,
     required this.isCompare,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -80,12 +80,11 @@ class _SliverAppBarItemState extends State<SliverAppBarItem> {
           children: [
             GestureDetector(
               behavior: HitTestBehavior.opaque,
-
               onTap: () {
                 Navigator.pop(context);
               },
               child: Padding(
-                padding: const EdgeInsets.only(right: 16,bottom: 8),
+                padding: const EdgeInsets.only(right: 16, bottom: 8),
                 child: SvgPicture.asset(
                   AppIcons.chevronLeft,
                   width: 24,

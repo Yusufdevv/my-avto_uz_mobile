@@ -17,17 +17,17 @@ class MoreActions extends StatefulWidget {
   final int id;
   final bool? isCompare;
 
-  const MoreActions(
-      {Key? key,
-      required this.name,
-      required this.position,
-      required this.image,
-      required this.onShare,
-      required this.onCompare,
-      required this.onDealer,
-      required this.id,
-      required this.isCompare})
-      : super(key: key);
+  const MoreActions({
+    required this.name,
+    required this.position,
+    required this.image,
+    required this.onShare,
+    required this.onCompare,
+    required this.onDealer,
+    required this.id,
+    required this.isCompare,
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<MoreActions> createState() => _MoreActionsState();
@@ -170,21 +170,22 @@ class _MoreActionsState extends State<MoreActions> {
                           children: [
                             AnimatedSwitcher(
                               duration: const Duration(milliseconds: 300),
-                              transitionBuilder: (child, animation) => ScaleTransition(
+                              transitionBuilder: (child, animation) =>
+                                  ScaleTransition(
                                 scale: animation,
                                 child: child,
                               ),
                               child: isLiked
                                   ? SvgPicture.asset(
-                                AppIcons.scalesRed,
-                                key: const ValueKey<int>(1),
-                                fit: BoxFit.cover,
-                              )
+                                      AppIcons.scalesRed,
+                                      key: const ValueKey<int>(1),
+                                      fit: BoxFit.cover,
+                                    )
                                   : SvgPicture.asset(
-                                AppIcons.scale,
-                                fit: BoxFit.cover,
-                                key: const ValueKey<int>(2),
-                              ),
+                                      AppIcons.scale,
+                                      fit: BoxFit.cover,
+                                      key: const ValueKey<int>(2),
+                                    ),
                             ),
                             Text(
                               'Сравнить',
