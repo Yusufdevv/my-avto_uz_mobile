@@ -23,10 +23,6 @@ class DayLikeCallItem extends StatelessWidget {
         ),
         child: Column(
           children: [
-            const Divider(),
-            const SizedBox(
-              height: 10,
-            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
