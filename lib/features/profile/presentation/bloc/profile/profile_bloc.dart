@@ -97,9 +97,8 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       EditProfileEvent event, Emitter<ProfileState> emit) async {
     emit(state.copyWith(editStatus: FormzStatus.submissionInProgress));
     final result = await editProfileUseCase.call(EditProfileParams(
-      surName: event.surName,
       region: event.region,
-      name: event.name,
+      fullName: event.fullName,
       image: event.image,
     ));
     if (result.isRight) {

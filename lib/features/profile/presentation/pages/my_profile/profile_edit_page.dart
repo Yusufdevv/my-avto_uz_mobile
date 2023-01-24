@@ -21,7 +21,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:formz/formz.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
@@ -40,17 +39,15 @@ class ProfileEditPage extends StatefulWidget {
 }
 
 class _ProfileEditPageState extends State<ProfileEditPage> {
-  late TextEditingController nameController;
-  late TextEditingController surNameController;
+  late TextEditingController _fullNameController;
   Region? newRegion;
   final GlobalKey<FormState> _formKey = GlobalKey();
 
   @override
   void initState() {
-    nameController = TextEditingController(
-        text: widget.profileBloc.state.profileEntity.firstName);
-    surNameController = TextEditingController(
-        text: widget.profileBloc.state.profileEntity.lastName);
+    _fullNameController = TextEditingController(
+        text: widget.profileBloc.state.profileEntity.fullName);
+   
     context.read<RegionsBloc>().add(RegionsEvent.getRegions());
     widget.imageBloc
         .add(DeleteImage(imageUrl: widget.imageBloc.state.image.path));
@@ -58,8 +55,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
   }
 
   bool isChanged({required String oldname, required String oldsurname}) {
-    final result = (oldname != nameController) ||
-        (oldsurname != surNameController) ||
+    final result = (oldname != _fullNameController) ||
         widget.imageBloc.state.image.path.isNotEmpty;
     return result;
   }
@@ -101,8 +97,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                     if (_formKey.currentState!.validate()) {
                       context.read<ProfileBloc>().add(
                             EditProfileEvent(
-                              name: nameController.text,
-                              surName: surNameController.text,
+                              fullName: _fullNameController.text,
                               image:
                                   widget.imageBloc.state.image.path.isNotEmpty
                                       ? widget.imageBloc.state.image.path
@@ -221,13 +216,10 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                                     )),
                               ),
                               //
-                              TitleTextFieldTop(title: LocaleKeys.name.tr()),
+                            const  TitleTextFieldTop(title: 'ФИО'),
                               ProfilTextField(
-                                  controller: nameController,
+                                  controller: _fullNameController,
                                   isNameField: true),
-                              //
-                              TitleTextFieldTop(title: LocaleKeys.surname.tr()),
-                              ProfilTextField(controller: surNameController),
                               //
                               TitleTextFieldTop(title: LocaleKeys.region.tr()),
                               WScaleAnimation(
