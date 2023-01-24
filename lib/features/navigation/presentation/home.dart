@@ -93,6 +93,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     setState(() => _currentIndex = index);
     _controller.animateTo(index);
   }
+  bool isBtmSheetOpened = false;
 
   @override
   Widget build(BuildContext context) => HomeTabControllerProvider(
@@ -115,6 +116,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             listener: (context, state) {
               WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
                 if (!state.isConnected) {
+                  isBtmSheetOpened = true;
                   print('internet yoqqqqqqqqqq');
                   showModalBottomSheet(
                     isDismissible: false,
@@ -133,7 +135,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                       },
                     ),
                   );
-                } else {
+                } else  if(isBtmSheetOpened){
+                  isBtmSheetOpened = false;
                   Navigator.of(context).pop();
                 }
               });

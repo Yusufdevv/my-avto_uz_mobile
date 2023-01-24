@@ -51,16 +51,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
     phoneController.dispose();
     super.dispose();
   }
+   // register screen -1 
 
   @override
   Widget build(BuildContext context) => CustomScreen(
         child: BlocProvider.value(
           value: registerBloc,
           child: BlocBuilder<RegisterBloc, RegisterState>(
-            builder: (context, state) {
-              print(
-                  '=>=>=>=> send code status name:  ${state.sendCodeStatus.name} <=<=<=<=');
-              return Scaffold(
+            builder: (context, state) => Scaffold(
                 appBar: WAppBar(
                   title: LocaleKeys.register.tr(),
                 ),
@@ -180,8 +178,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ],
                   ),
                 ),
-              );
-            },
+              ),
           ),
         ),
       );

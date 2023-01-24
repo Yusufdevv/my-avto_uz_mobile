@@ -63,7 +63,7 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                   Expanded(
                     child: ListView(
                       padding: const EdgeInsets.all(16),
-                      physics:const BouncingScrollPhysics(),
+                      physics: const BouncingScrollPhysics(),
                       children: [
                         LoginHeader(
                           title: LocaleKeys.new_password.tr(),
@@ -74,7 +74,9 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                         ),
                         ZTextFormField(
                           onTap: hidePopUp,
-                          onChanged: (value) {},
+                          onChanged: (value) {
+                            setState(() {});
+                          },
                           isObscure: true,
                           hintText: LocaleKeys.new_password.tr(),
                           controller: newPasswordController,
@@ -84,7 +86,9 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                         ),
                         ZTextFormField(
                           onTap: hidePopUp,
-                          onChanged: (value) {},
+                          onChanged: (value) {
+                            setState(() {});
+                          },
                           isObscure: true,
                           hintText: LocaleKeys.confirm_password.tr(),
                           controller: confirmPasswordController,

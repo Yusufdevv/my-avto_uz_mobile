@@ -173,9 +173,10 @@ class _LoginScreenState extends State<LoginScreen> {
                           context.read<AuthenticationBloc>().add(LoginUser(
                               onError: (text) {
                                 context.read<ShowPopUpBloc>().add(ShowPopUp(
-                                    message: text,
-                                    isSucces: false,
-                                    dismissible: false));
+                                      message: text,
+                                      isSucces: false,
+                                      dismissible: false,
+                                    ));
                                 isToastShowing = true;
                               },
                               password: passwordController.text,

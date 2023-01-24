@@ -32,10 +32,7 @@ class _InspectionPlaceScreenState extends State<InspectionPlaceScreen> {
             child: Padding(
               padding: const EdgeInsets.all(16),
               child: BlocBuilder<PostingAdBloc, PostingAdState>(
-                builder: (context, state) {
-                  print(
-                      '==== districts length: ${state.districts.length}  ====');
-                  return Column(
+                builder: (context, state) => Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       // CHOOSE REGION
@@ -48,11 +45,9 @@ class _InspectionPlaceScreenState extends State<InspectionPlaceScreen> {
                             isDismissible: false,
                             context: context,
                             isScrollControlled: true,
-                            barrierColor: Colors.amber,
                             backgroundColor: Colors.transparent,
                             builder: (c) => RentChooseRegionBottomSheet(
-                              isOtherPage: true,
-                              isProfileEdit: true,
+                              isMultiChoice: false,
                               checkedRegions: state.region == null
                                   ? <int, Region>{}
                                   : {0: state.region!},
@@ -108,7 +103,7 @@ class _InspectionPlaceScreenState extends State<InspectionPlaceScreen> {
                             }
                           });
                         },
-                        hintText:state.districtTitle ,
+                        hintText: state.districtTitle,
                         title: 'Район / город',
                       ),
                       const SizedBox(height: 17),
@@ -123,8 +118,7 @@ class _InspectionPlaceScreenState extends State<InspectionPlaceScreen> {
                         },
                       ),
                     ],
-                  );
-                },
+                  ),
               ),
             ),
           ),

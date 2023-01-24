@@ -132,9 +132,7 @@ class _AppState extends State<App> {
               useCase: GetMakesUseCase(
                 repository: serviceLocator<AdRepositoryImpl>(),
               ),
-            )
-              ..add(GetMakesBlocEvent.getMakes())
-              ..add(GetMakesBlocEvent.getTopMakes()),
+            )..add(GetMakesBlocEvent.getMakes()),
           ),
           BlocProvider(
               create: (context) => GetCarModelBloc(
@@ -157,8 +155,7 @@ class _AppState extends State<App> {
           BlocProvider(
               create: (context) => AnnouncementListBloc(
                   useCase: AnnouncementListUseCase(
-                      repositoryImpl: serviceLocator<AdRepositoryImpl>()))
-                ..add(AnnouncementListEvent.getAnnouncementList()))
+                      repositoryImpl: serviceLocator<AdRepositoryImpl>())))
         ],
         child: AnnotatedRegion(
           value: const SystemUiOverlayStyle(

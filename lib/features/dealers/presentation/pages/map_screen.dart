@@ -66,7 +66,6 @@ class _MapScreenState extends State<MapScreen>
                 return isBuild;
               },
               listener: (context, state) {
-                print(' map delaers ${state.dealers}');
                 setState(() {
                   MyFunctions.addDealer(
                     points: widget.isDirectoryPage
@@ -161,8 +160,6 @@ class _MapScreenState extends State<MapScreen>
                                         duration: 0.15,
                                         type: MapAnimationType.smooth),
                                   );
-                                  print(
-                                      'lat:${position.latitude} and long${position.longitude}');
                                   mapOrganizationBloc.add(
                                     MapOrganizationEvent.changeLatLong(
                                       lat: position.latitude,

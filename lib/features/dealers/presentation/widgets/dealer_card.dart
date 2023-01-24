@@ -3,7 +3,7 @@ import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
-import 'package:auto/features/dealers/presentation/pages/seller.dart';
+import 'package:auto/features/dealers/presentation/pages/dealer_single_page.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/rent/domain/entities/region_entity.dart';
 import 'package:auto/features/search/presentation/widgets/add_comparison_item.dart';

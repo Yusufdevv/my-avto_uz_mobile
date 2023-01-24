@@ -35,6 +35,7 @@ class AppImages {
   static const autoUzCircle = 'assets/images/global/auto_uz_circle.png';
   static const hello = 'assets/images/global/hello.png';
   static const bmwModel = 'assets/images/global/bmw_model.png';
+  static const diler = 'assets/images/global/diler.png';
   static const none = 'assets/images/main/none.png';
   static const placeHolder = 'assets/icons/global/placeHolder.svg';
   static const placeHolder1 = 'assets/icons/global/car.svg';

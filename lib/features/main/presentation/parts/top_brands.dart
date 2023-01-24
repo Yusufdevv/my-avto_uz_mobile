@@ -36,12 +36,12 @@ class TopBrands extends StatelessWidget {
                             .headline1!
                             .copyWith(fontSize: 18))),
               SizedBox(
-                height: 116,
+                height: isText ? 124 : 132,
                 child: Paginator(
                   separatorBuilder: (context, index) =>
                       const SizedBox(width: 12),
-                  padding: const EdgeInsets.only(
-                      left: 16, right: 16, top: 8, bottom: 16),
+                  padding: EdgeInsets.only(
+                      left: 16, right: 16, top: isText ? 8 : 16, bottom: 16),
                   scrollDirection: Axis.horizontal,
                   paginatorStatus: state.status,
                   itemBuilder: (context, index) => CarBrandItem(
@@ -61,7 +61,8 @@ class TopBrands extends StatelessWidget {
                     scrollDirection: Axis.horizontal,
                     separatorBuilder: (context, index) =>
                         const SizedBox(width: 12),
-                    padding: const EdgeInsets.only(left: 16, right: 16, top: 8),
+                    padding: EdgeInsets.only(
+                        left: 16, right: 16, top: isText ? 8 : 16, bottom: 16),
                     itemCount: 5,
                     itemBuilder: (context, index) => BrandShimmerItem(),
                   ),

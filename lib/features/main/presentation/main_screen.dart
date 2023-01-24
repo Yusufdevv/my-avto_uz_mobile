@@ -76,6 +76,9 @@ class _MainScreenState extends State<MainScreen> {
   @override
   void initState() {
     mainBloc = MainBloc()..add(InitialEvent());
+    context
+        .read<AnnouncementListBloc>()
+        .add(AnnouncementListEvent.getAnnouncementList());
     topAdBloc = TopAdBloc(GetTopAdsUseCase())
       ..add(TopAdEvent.getTopAds())
       ..add(TopAdEvent.getFavorites(
@@ -182,50 +185,52 @@ class _MainScreenState extends State<MainScreen> {
                       ),
                       BlocBuilder<GetMakesBloc, GetMakesState>(
                         builder: (context, state) => CarModelItem(
-                          onTapSelect: () =>
-                              Navigator.of(context, rootNavigator: true)
-                                  .push(fade(
-                                      page: ChooseCarBrandComparison(
-                            onTap: () {},
-                            isbak: true,
-                            isClear: true,
-                          ))).then((value) {
-                            context.read<AnnouncementListBloc>().add(
-                                AnnouncementListEvent.getFilter(context
-                                    .read<AnnouncementListBloc>()
-                                    .state
-                                    .filter
-                                    .copyWith(
-                                      make: context
-                                          .read<GetMakesBloc>()
+                            onTapSelect: () =>
+                                Navigator.of(context, rootNavigator: true)
+                                    .push(fade(
+                                        page: ChooseCarBrandComparison(
+                                  onTap: () {},
+                                  isbak: true,
+                                  isClear: true,
+                                )))
+                                    .then((value) {
+                                  context.read<AnnouncementListBloc>().add(
+                                      AnnouncementListEvent.getFilter(context
+                                          .read<AnnouncementListBloc>()
                                           .state
-                                          .selectId,
-                                    )));
-                            context.read<AnnouncementListBloc>().add(
-                                AnnouncementListEvent.getAnnouncementList());
-                          }),
-                          onTapShow: () {
-                            Navigator.of(context).push(fade(
-                                page: AdsScreen(isBack: false, onTap: () {})));
-                          },
-                          imageUrl: state.imageUrl,
-                          title: state.name,
-                          count: stateAnnounc.count,
-                          isCheck: state.ischeck
-                        ),
+                                          .filter
+                                          .copyWith(
+                                            make: context
+                                                .read<GetMakesBloc>()
+                                                .state
+                                                .selectId,
+                                          )));
+                                  context.read<AnnouncementListBloc>().add(
+                                      AnnouncementListEvent
+                                          .getAnnouncementList());
+                                }),
+                            onTapShow: () {
+                              Navigator.of(context, rootNavigator: true).push(
+                                  fade(
+                                      page: AdsScreen(
+                                          isBack: false, onTap: () {})));
+                            },
+                            imageUrl: state.imageUrl,
+                            title: state.name,
+                            count: stateAnnounc.count,
+                            isCheck: state.ischeck),
                       ),
                       SizedBox(
                         height: 48,
                         child: ListView.builder(
-                          physics: const BouncingScrollPhysics(),
-                          padding: const EdgeInsets.only(right: 12),
-                          itemBuilder: (context, index) => ServiceItem(
-                            serviceEntity: serviceEntity[index],
-                            onTap: serviceTaps[index],
-                          ),
-                          itemCount: serviceEntity.length,
-                          scrollDirection: Axis.horizontal
-                        ),
+                            physics: const BouncingScrollPhysics(),
+                            padding: const EdgeInsets.only(right: 12),
+                            itemBuilder: (context, index) => ServiceItem(
+                                  serviceEntity: serviceEntity[index],
+                                  onTap: serviceTaps[index],
+                                ),
+                            itemCount: serviceEntity.length,
+                            scrollDirection: Axis.horizontal),
                       ),
                       TopBrands(
                         onTap: () => Navigator.of(context, rootNavigator: true)

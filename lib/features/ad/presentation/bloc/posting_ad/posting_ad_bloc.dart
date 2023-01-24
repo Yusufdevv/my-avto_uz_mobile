@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:auto/core/usecases/usecase.dart';
 import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/ad/data/models/announcement_to_post_model.dart';
-import 'package:auto/features/ad/domain/entities/announcement/announcement_entity_to_post.dart';
 import 'package:auto/features/ad/domain/entities/damaged_part/damaged_part.dart';
 import 'package:auto/features/ad/domain/entities/district_entity.dart';
 import 'package:auto/features/ad/domain/entities/generation/generation.dart';
@@ -14,6 +13,7 @@ import 'package:auto/features/ad/domain/entities/types/engine_type.dart';
 import 'package:auto/features/ad/domain/entities/types/gearbox_type.dart';
 import 'package:auto/features/ad/domain/entities/types/make.dart';
 import 'package:auto/features/ad/domain/entities/years/years.dart';
+import 'package:auto/features/ad/domain/usecases/contacts_usecase.dart';
 import 'package:auto/features/ad/domain/usecases/create_announcement.dart';
 import 'package:auto/features/ad/domain/usecases/get_body_type.dart';
 import 'package:auto/features/ad/domain/usecases/get_car_model.dart';
@@ -21,20 +21,34 @@ import 'package:auto/features/ad/domain/usecases/get_drive_type.dart';
 import 'package:auto/features/ad/domain/usecases/get_engine_type.dart';
 import 'package:auto/features/ad/domain/usecases/get_generation.dart';
 import 'package:auto/features/ad/domain/usecases/get_makes.dart';
-import 'package:auto/features/ad/presentation/pages/damage/widgets/cars_item.dart';
+import 'package:auto/features/ad/domain/usecases/minimum_price_usecase.dart';
+import 'package:auto/features/car_single/domain/entities/car_single_entity.dart';
+import 'package:auto/features/car_single/domain/entities/damaged_parts_entity.dart';
+import 'package:auto/features/car_single/domain/usecases/get_ads_usecase.dart';
+import 'package:auto/features/common/domain/model/user.dart';
 import 'package:auto/features/common/models/region.dart';
+import 'package:auto/features/common/repository/auth.dart';
 import 'package:auto/features/common/usecases/get_districts_usecase.dart';
 import 'package:auto/features/common/usecases/get_regions.dart';
+import 'package:auto/features/login/domain/usecases/verify_code.dart';
 import 'package:auto/features/main/domain/usecases/get_top_brand.dart';
 import 'package:auto/features/rent/domain/usecases/get_gearboxess_usecase.dart';
+import 'package:auto/utils/my_functions.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:formz/formz.dart';
 
 part 'posting_ad_event.dart';
 part 'posting_ad_state.dart';
+part 'singleton_of_posting_ad_bloc.dart';
 
 class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
+  final AuthRepository userRepository;
+  final VerifyCodeUseCase verifyCodeUseCase;
+  final ContactsUseCase contactsUseCase;
+  final GetMinimumPriceUseCase minimumPriceUseCase;
+  final GetCarSingleUseCase announcementUseCase;
   final GetRegionsUseCase regionsUseCase;
   final GetDistrictsUseCase districtUseCase;
   final CreateAnnouncementUseCase createUseCase;
@@ -48,6 +62,11 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
   final GetBodyTypeUseCase bodyTypesUseCase;
 
   PostingAdBloc({
+    required this.userRepository,
+    required this.verifyCodeUseCase,
+    required this.contactsUseCase,
+    required this.minimumPriceUseCase,
+    required this.announcementUseCase,
     required this.regionsUseCase,
     required this.districtUseCase,
     required this.makeUseCase,
@@ -59,7 +78,12 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     required this.gearboxUseCase,
     required this.bodyTypesUseCase,
     required this.createUseCase,
-  }) : super(const PostingAdState(status: FormzStatus.pure)) {
+  }) : super(PostingAdState(
+          status: FormzStatus.pure,
+          phoneController: TextEditingController(),
+          emailController: TextEditingController(),
+          nameController: TextEditingController(),
+        )) {
     on<PostingAdChooseEvent>(_choose);
     on<PostingAdMakesEvent>(_makes);
     on<PostingAdTopMakesEvent>(_topMakes);
@@ -70,11 +94,109 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     on<PostingAdDriveTypesEvent>(_driveTypes);
     on<PostingAdGearBoxesEvent>(_gearBoxes);
     on<PostingAdBodyTypesEvent>(_bodyTypes);
+    // CREATE
     on<PostingAdCreateEvent>(_create);
     on<PostingAdDamageEvent>(_damage);
     on<PostingAdGetRegionsEvent>(_getRegions);
     on<PostingAdGetDistritsEvent>(_getDistricts);
+    on<PostingAdGetAnnouncementEvent>(_getAnnouncement);
+    on<PostingAdGetMinimumPriceEvent>(_getMinimumPrice);
+    on<PostingAdSendCodeEvent>(_sendCode);
+    on<PostingAdGetUserDataEvent>(_getUserInfoAsContacts);
+    on<PostingAdClearControllersEvent>(_clearControllers);
   }
+
+  FutureOr<void> _clearControllers(PostingAdClearControllersEvent event,
+      Emitter<PostingAdState> emit) async {
+    emit(state.copyWith(
+      phoneController: TextEditingController(),
+      emailController: TextEditingController(),
+      nameController: TextEditingController(),
+    ));
+  }
+
+  FutureOr<void> _getUserInfoAsContacts(
+      PostingAdGetUserDataEvent event, Emitter<PostingAdState> emit) async {
+    emit(state.copyWith(status: FormzStatus.submissionInProgress));
+    if (state.userModel != null) {
+      emit(state.copyWith(
+          phoneController: TextEditingController(
+              text: MyFunctions.phoneFormat(
+                  state.userModel!.phoneNumber.substring(4))),
+          emailController: TextEditingController(text: state.userModel!.email),
+          nameController:
+              TextEditingController(text: state.userModel!.fullName),
+          isContactsVerified: true,
+          status: FormzStatus.submissionSuccess));
+      return;
+    }
+    final result = await userRepository.getUser();
+    if (result.isRight) {
+      emit(state.copyWith(
+        isContactsVerified: true,
+        status: FormzStatus.submissionSuccess,
+        phoneController: TextEditingController(
+            text:
+                MyFunctions.phoneFormat(result.right.phoneNumber.substring(4))),
+        emailController: TextEditingController(text: result.right.email),
+        nameController: TextEditingController(text: result.right.fullName),
+        userModel: result.right,
+      ));
+    } else {
+      emit(
+        state.copyWith(
+            status: FormzStatus.submissionFailure,
+            toastMessage: MyFunctions.getErrorMessage(result.left)),
+      );
+    }
+  }
+
+  FutureOr<void> _sendCode(
+      PostingAdSendCodeEvent event, Emitter<PostingAdState> emit) async {
+    emit(state.copyWith(status: FormzStatus.submissionInProgress));
+
+    final result =
+        await contactsUseCase.call('+998${event.phone.replaceAll(' ', '')}');
+    if (result.isRight) {
+      event.onSuccess(result.right);
+      emit(state.copyWith(
+          status: FormzStatus.submissionSuccess, session: result.right));
+    } else {
+      emit(state.copyWith(
+          status: FormzStatus.submissionFailure,
+          toastMessage: MyFunctions.getErrorMessage(result.left)));
+    }
+  }
+
+  FutureOr<void> _getMinimumPrice(
+      PostingAdGetMinimumPriceEvent event, Emitter<PostingAdState> emit) async {
+    emit(state.copyWith(status: FormzStatus.submissionInProgress));
+    final result = await minimumPriceUseCase.call({
+      'make': state.makeId,
+      'model': state.modelId,
+      'currency': state.currency
+    });
+
+    if (result.isRight) {
+      emit(state.copyWith(
+          status: FormzStatus.submissionSuccess, minimumPrice: result.right));
+    } else {
+      emit(state.copyWith(
+          status: FormzStatus.submissionFailure, minimumPrice: 0));
+    }
+  }
+
+  FutureOr<void> _getAnnouncement(
+      PostingAdGetAnnouncementEvent event, Emitter<PostingAdState> emit) async {
+    emit(state.copyWith(status: FormzStatus.submissionInProgress));
+    final result = await announcementUseCase.call(event.id);
+    if (result.isRight) {
+      emit(PASingleton.stateForEdit(result.right));
+    } else {
+      emit(state.copyWith(status: FormzStatus.submissionFailure));
+    }
+  }
+
   FutureOr<void> _getDistricts(
       PostingAdGetDistritsEvent event, Emitter<PostingAdState> emit) async {
     emit(state.copyWith(getDistrictsStatus: FormzStatus.submissionInProgress));
@@ -118,50 +240,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
   FutureOr<void> _create(
       PostingAdCreateEvent event, Emitter<PostingAdState> emit) async {
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
-    final result = await createUseCase.call(
-      AnnouncementToPostModel(
-        id: -1,
-        bodyType: state.bodyTypeId!,
-        color: state.colorName,
-        contactAvailableFrom: state.callTimeFrom!,
-        contactAvailableTo: state.callTimeTo!,
-        contactEmail: state.ownerEmail,
-        contactName: state.ownerName!,
-        contactPhone: state.ownerPhone!,
-        currency: state.currency!,
-        damagedParts: state.damagedParts.entries
-            .map((e) =>
-                DamagedPartEntity(damageType: e.value.value, part: e.key.value))
-            .toList(),
-        description: state.descriptions,
-        distanceTraveled: int.tryParse(state.mileage ?? '1000') ?? 1000,
-        district: state.districtId!,
-        driveType: state.driveTypeId!,
-        engineType: state.engineId!,
-        gallery: state.gallery,
-        gearboxType: state.gearboxId!,
-        generation: state.generationId!,
-        isNew: state.isWithoutMileage,
-        isRegisteredLocally: state.registeredInUzbekistan,
-        licenceType: state.typeDocument ?? 'original',
-        locationUrl:
-            'https://www.google.com/maps/place/Grand+Mir+Hotel/@41.2965807,69.275822,15z/data=!4m8!3m7!1s0x38ae8adce9ab4089:0x3f74710c22b9462e!5m2!4m1!1i2!8m2!3d41.296393!4d69.267908',
-        make: state.makeId!,
-        model: state.modelId!,
-        modificationType: 2,
-        ownership: state.ownerStep!,
-        price: state.price!,
-        purchaseDate: '2022-11-23',
-        //             2018-01-20 22:02:42.000
-        region: state.region!.id,
-        registeredInUzbekistan: true,
-        registrationCertificate: 'KENTEKENMEWIJS',
-        registrationPlate: 'KENTEKENMEWIJS',
-        registrationSerialNumber: '234524523423452435',
-        registrationVin: 'KENTEKENMEWIJS',
-        year: state.yearsEntity!.id,
-      ),
-    );
+    final result = await createUseCase.call(PASingleton.create(state));
     if (result.isRight) {
       print('=> => => =>     RIGHT RIGHT RIGHT RIGHT       <= <= <= <=');
       emit(state.copyWith(status: FormzStatus.pure));
@@ -270,11 +349,6 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
 
   FutureOr<void> _generations(
       PostingAdGenerationsEvent event, Emitter<PostingAdState> emit) async {
-    if (state.generationId != null && state.generations.isNotEmpty) {
-      emit(state.copyWith(status: FormzStatus.submissionSuccess));
-      return;
-    }
-
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
     final result = await generationUseCase.call(GenerationParams(
         modelId: state.modelId!, year: state.yearsEntity!.yearBegin));
@@ -347,46 +421,9 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     if (event.region != null) {
       add(PostingAdGetDistritsEvent(regionId: event.region!.id));
     }
-    print('set district');
-    emit(
-      state.copyWith(
-        damagedParts: event.damagedParts,
-        rentWithPurchaseConditions: event.rentWithPurchaseConditions,
-        gallery: event.gallery,
-        showExactAddress: event.showExactAddress,
-        isWithoutMileage: event.isWithoutMileage,
-        rentToBuy: event.rentToBuy,
-        isContactsVerified: event.isContactsVerified,
-        showOwnerContacts: event.showOwnerContacts,
-        isCallTimed: event.isCallTimed,
-        callTimeTo: event.callTimeTo,
-        callTimeFrom: event.callTimeFrom,
-        mileage: event.mileage,
-        ownerStep: event.ownerStep,
-        typeDocument: event.typeDocument,
-        colorName: event.colorName,
-        gearboxId: event.gearboxId,
-        driveTypeId: event.driveTypeId,
-        engineId: event.engineId,
-        generationId: event.generationId,
-        bodyTypeId: event.selectedBodyTypeId,
-        yearsEntity: event.yearsEntity,
-        isSortByLetter: event.letter != state.letter,
-        modelId: event.modelId,
-        letter: event.letter,
-        makeId: event.makeId,
-        purchasedDate: event.purchasedDate,
-        registeredInUzbekistan: event.isRastamojen,
-        ownerEmail: event.ownerEmail,
-        ownerName: event.ownerName,
-        ownerPhone: event.ownerPhone,
-        city: event.city,
-        region: event.region,
-        price: event.price,
-        currency: event.currency,
-        gasBalloonType: event.gasBalloonType,
-        districtId: event.districtId,
-      ),
-    );
+    if (event.currency != null) {
+      add(PostingAdGetMinimumPriceEvent());
+    }
+    emit(PASingleton.choose(state, event));
   }
 }

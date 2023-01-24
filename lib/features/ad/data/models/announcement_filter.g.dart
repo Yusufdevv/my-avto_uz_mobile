@@ -15,7 +15,11 @@ AnnouncementFilterModel _$AnnouncementFilterModelFromJson(
       bodyType: json['body_type'] as int?,
       gearboxType: json['gearbox_type'] as int?,
       driveType: json['drive_type'] as int?,
-      regions: json['regions'] as String?,
+      priceFrom: json['price_from'] as int?,
+      priceTo: json['price_to'] as int?,
+      yearFrom: json['year_from'] as int?,
+      yearTo: json['year_to'] as int?,
+      region__in: json['region__in'] as String?,
     );
 
 Map<String, dynamic> _$AnnouncementFilterModelToJson(
@@ -27,5 +31,9 @@ Map<String, dynamic> _$AnnouncementFilterModelToJson(
       'body_type': instance.bodyType,
       'gearbox_type': instance.gearboxType,
       'drive_type': instance.driveType,
-      'regions': instance.regions,
+      'price_from': instance.priceFrom,
+      'price_to': instance.priceTo,
+      'year_from': instance.yearFrom,
+      'year_to': instance.yearTo,
+      'region__in': instance.region__in,
     };

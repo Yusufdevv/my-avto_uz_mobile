@@ -12,16 +12,16 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+///
+
 class RentChooseRegionBottomSheet extends StatefulWidget {
   final List<Region> list;
-  final bool isProfileEdit;
-  final bool isOtherPage;
-  Map<int, Region> checkedRegions;
+  final bool isMultiChoice;
+  final Map<int, Region> checkedRegions;
 
-  RentChooseRegionBottomSheet({
+  const RentChooseRegionBottomSheet({
     required this.list,
-    this.isProfileEdit = false,
-    this.isOtherPage = false,
+    this.isMultiChoice = true,
     this.checkedRegions = const <int, Region>{},
     super.key,
   }) : super();
@@ -64,10 +64,9 @@ class _RentChooseRegionBottomSheetState
               physics: const BouncingScrollPhysics(),
               child: Column(
                 children: [
-                  if (!widget.isProfileEdit)
+                  if (widget.isMultiChoice)
                     RegionSelectAllItem(
                       isAllChecked: isAllChecked,
-                      isOtherPage: widget.isOtherPage,
                       onTap: () {
                         if (isAllChecked) {
                           checkStatus = {};
@@ -85,7 +84,7 @@ class _RentChooseRegionBottomSheetState
                       children: [
                         WScaleAnimation(
                           onTap: () {
-                            if (widget.isProfileEdit) {
+                            if (!widget.isMultiChoice) {
                               checkStatus.removeWhere(
                                   (key, value) => key != widget.list[index].id);
                               checkStatus[widget.list[index].id] =
@@ -102,8 +101,6 @@ class _RentChooseRegionBottomSheetState
                             setState(() {});
                           },
                           child: RegionSheetItem(
-                            isOtherPage: widget.isOtherPage,
-                            isProfileEdit: widget.isProfileEdit,
                             title: widget.list[index].title,
                             hasBorder: index == widget.list.length - 1,
                             isChecked:
@@ -133,18 +130,6 @@ class _RentChooseRegionBottomSheetState
                 onTap: () {
                   Navigator.of(context)
                       .pop(checkStatus.entries.map((e) => e.value).toList());
-                  context.read<AnnouncementListBloc>().add(
-                      AnnouncementListEvent.getFilter(context
-                          .read<AnnouncementListBloc>()
-                          .state
-                          .filter
-                          .copyWith(
-                              regions: checkStatus.entries
-                                  .map((e) => e.value)
-                                  .toList()
-                                  .first
-                                  .id
-                                  .toString())));
                 },
                 color: orange,
                 text: 'Применить'),

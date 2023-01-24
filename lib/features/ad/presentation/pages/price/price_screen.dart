@@ -12,7 +12,7 @@ import 'package:auto/features/common/widgets/switcher_row_as_button_also.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/common/widgets/w_textfield.dart';
-import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/rent_choose_region_bottom_sheet.dart';
+import 'package:auto/utils/my_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -100,7 +100,7 @@ class _PriceScreenState extends State<PriceScreen> {
                                   barrierColor: Colors.black.withOpacity(.5),
                                   backgroundColor: Colors.transparent,
                                   builder: (c) => CurrencyChooseSheet(
-                                    selected: state.currency ?? '',
+                                    selected: state.currency,
                                   ),
                                 ).then((value) => context
                                     .read<PostingAdBloc>()
@@ -112,7 +112,7 @@ class _PriceScreenState extends State<PriceScreen> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                    state.currency ?? 'y.e',
+                                    state.currency,
                                     style: Theme.of(context)
                                         .textTheme
                                         .subtitle1!
@@ -126,43 +126,45 @@ class _PriceScreenState extends State<PriceScreen> {
                           ),
                         ),
                       ),
-                      Container(
-                        width: double.infinity,
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 12, vertical: 8),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
-                          color: Theme.of(context)
-                              .extension<ThemedColors>()!
-                              .snowToNero,
-                          border: Border.all(
-                              width: 1,
-                              color: Theme.of(context)
-                                  .extension<ThemedColors>()!
-                                  .transparentToNightRider),
+                      if (state.minimumPrice > 0) ...{
+                        Container(
+                          width: double.infinity,
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 12, vertical: 8),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12),
+                            color: Theme.of(context)
+                                .extension<ThemedColors>()!
+                                .snowToNero,
+                            border: Border.all(
+                                width: 1,
+                                color: Theme.of(context)
+                                    .extension<ThemedColors>()!
+                                    .transparentToNightRider),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Стоимость такого же авто начинается с:',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline2!
+                                    .copyWith(color: grey),
+                              ),
+                              Text(
+                                '≈ ${state.minimumPrice} ${state.currency}',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline1!
+                                    .copyWith(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 14),
+                              )
+                            ],
+                          ),
                         ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Стоимость такого же авто начинается с:',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline2!
-                                  .copyWith(color: grey),
-                            ),
-                            Text(
-                              '≈ 270 000 у.е',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline1!
-                                  .copyWith(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 14),
-                            )
-                          ],
-                        ),
-                      ),
+                      },
                       const SizedBox(height: 25),
                       SwitcherRowAsButtonAlso(
                         value: state.rentToBuy ?? false,
@@ -173,8 +175,11 @@ class _PriceScreenState extends State<PriceScreen> {
                               backgroundColor: Colors.transparent,
                               isDismissible: false,
                               context: context,
-                              builder: (context) =>
-                                   RentToBuySheet(step: 1,price: int.tryParse(state.price??'0')??0,)).then((value) {
+                              builder: (context) => RentToBuySheet(
+                                    step: 1,
+                                    price:
+                                        int.tryParse(state.price ?? '0') ?? 0,
+                                  )).then((value) {
                             if (value != null) {
                               context.read<PostingAdBloc>().add(
                                       PostingAdChooseEvent(
@@ -206,14 +211,17 @@ class _PriceScreenState extends State<PriceScreen> {
                         WScaleAnimation(
                             onTap: () {
                               showModalBottomSheet<RentWithPurchaseEntity>(
-                                      useRootNavigator: true,
-                                      isScrollControlled: true,
-                                      backgroundColor: Colors.transparent,
-                                      isDismissible: false,
-                                      context: context,
-                                      builder: (context) =>
-                                           RentToBuySheet(step: 1,price: int.tryParse(state.price??'0')??0,))
-                                  .then((value) {
+                                  useRootNavigator: true,
+                                  isScrollControlled: true,
+                                  backgroundColor: Colors.transparent,
+                                  isDismissible: false,
+                                  context: context,
+                                  builder: (context) => RentToBuySheet(
+                                        step: 1,
+                                        price:
+                                            int.tryParse(state.price ?? '0') ??
+                                                0,
+                                      )).then((value) {
                                 if (value != null) {
                                   context.read<PostingAdBloc>().add(
                                           PostingAdChooseEvent(

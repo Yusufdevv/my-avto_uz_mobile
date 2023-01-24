@@ -7,6 +7,7 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/core/exceptions/exceptions.dart';
+import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/common/models/region.dart';
 import 'package:auto/features/dealers/data/models/map_model.dart';
@@ -319,26 +320,28 @@ class MyFunctions {
     LocationPermission permission;
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
-      throw const ParsingException(errorMessage: 'location_services_disabled');
-    }
-    permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
+      // throw const ParsingException(errorMessage: 'location_services_disabled');
+      permission = await Geolocator.checkPermission();
       if (permission == LocationPermission.denied) {
-        throw const ParsingException(
-            errorMessage: 'location_permission_disabled');
+        permission = await Geolocator.requestPermission();
+        if (permission == LocationPermission.denied) {
+          throw const ParsingException(
+              errorMessage: 'location_permission_disabled');
+        }
+      }
+
+      if (permission == LocationPermission.deniedForever) {
+        permission = await Geolocator.requestPermission();
+        if (permission == LocationPermission.denied) {
+          throw const ParsingException(
+              errorMessage: 'location_permission_disabled');
+        } else if (permission == LocationPermission.deniedForever) {
+          throw const ParsingException(
+              errorMessage: 'location_permission_permanent_disabled');
+        }
       }
     }
-    if (permission == LocationPermission.deniedForever) {
-      permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied) {
-        throw const ParsingException(
-            errorMessage: 'location_permission_disabled');
-      } else if (permission == LocationPermission.deniedForever) {
-        throw const ParsingException(
-            errorMessage: 'location_permission_permanent_disabled');
-      }
-    }
+
     return await Geolocator.getCurrentPosition();
   }
 
@@ -496,6 +499,15 @@ class MyFunctions {
         return 'Требует замены';
     }
     return 'Не показано';
+  }
+
+  static String getErrorMessage(Failure failure) {
+    var err =
+        (failure is ServerFailure) ? failure.errorMessage : failure.toString();
+    if (err == 'Wrong code!') {
+      err = 'Код подтверждения введен неверно';
+    }
+    return err;
   }
 
   static Widget getStatusIcon(String status) {

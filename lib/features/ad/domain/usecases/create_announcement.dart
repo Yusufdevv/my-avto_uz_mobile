@@ -21,11 +21,17 @@ class CreateAnnouncementUseCase extends UseCase<void, AnnouncementToPostModel> {
       images.add(multiParFile);
     }
 
-    Map<String, dynamic> damages = <String, dynamic>{};
+    List<Map<String, dynamic>> damages = <Map<String, dynamic>>[];
 
-    for (int i = 0; i < params.damagedParts.length; i++) {
-      damages[params.damagedParts[i].part] = params.damagedParts[i].damageType;
+    for (var i = 0; i < params.damagedParts.length; i++) {
+      // damages[params.damagedParts[i].part] = params.damagedParts[i].damageType;
+      damages.add({
+        'part': params.damagedParts[i].part,
+        'damage_type': params.damagedParts[i].damageType
+      });
     }
+    print('=> => => =>   lenth  ${damages.length}    <= <= <= <=');
+    print('=> => => => damages    ${damages}    <= <= <= <=');
     final announcementFields = <String, dynamic>{
       'make': params.make,
       'model': params.model,
@@ -59,16 +65,25 @@ class CreateAnnouncementUseCase extends UseCase<void, AnnouncementToPostModel> {
       'licence_type': params.licenceType,
       'ownership': params.ownership,
       'location_url': params.locationUrl,
-      'gallery': images,
+      'gallery': [
+        'https://panel.avto.uz/media/cars/Announcement/2023/01/06/bug.jpeg',
+        'https://panel.avto.uz/media/cars/Announcement/2023/01/06/buga.jpeg',
+        'https://panel.avto.uz/media/cars/Announcement/2023/01/06/bugat.jpeg',
+        'https://panel.avto.uz/media/cars/Announcement/2023/01/06/damas.jpeg',
+      ],
       'damaged_parts': damages,
     };
 
     final announcementFormData = FormData.fromMap(announcementFields);
-print('=> => => =>  boundary:   ${announcementFormData.boundary}    <= <= <= <=');
-print('=> => => =>   filds:   ${announcementFormData.fields}    <= <= <= <=');
+    // print(
+    //     '=> => => =>  boundary:   ${announcementFormData.boundary}    <= <= <= <=');
+    // print(
+    //     '=> => => =>   filds:   ${announcementFormData.fields}    <= <= <= <=');
 
-print('=> => => =>  files length:   ${announcementFormData.files.length}    <= <= <= <=');
-print('=> => => =>   length:   ${announcementFormData.length}    <= <= <= <=');
+    // print(
+    //     '=> => => =>  files length:   ${announcementFormData.files.length}    <= <= <= <=');
+    // print(
+    //     '=> => => =>   length:   ${announcementFormData.length}    <= <= <= <=');
     return repository.createAnnouncement(
       announcementFormData: announcementFormData,
     );

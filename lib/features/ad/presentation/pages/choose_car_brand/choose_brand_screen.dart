@@ -130,8 +130,6 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
                               scrollDirection: Axis.horizontal,
                               itemBuilder: (context, index) => GestureDetector(
                                     onTap: () {
-                                      print(
-                                          '=> => => =>     asdf    <= <= <= <=');
                                       context.read<PostingAdBloc>().add(
                                           PostingAdChooseEvent(
                                               makeId:
@@ -195,9 +193,7 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
                         padding: const EdgeInsets.only(bottom: 50),
                         itemBuilder: (context, index) => ChangeCarItems(
                           onTap: () {
-                            print(
-                                '=>=>=>=> imageUrl isEmpty: ${state.makes[index].logo} <=<=<=<=');
-                            context.read<PostingAdBloc>().add(
+                           context.read<PostingAdBloc>().add(
                                 PostingAdChooseEvent(
                                     makeId: state.makes[index].id));
                           },

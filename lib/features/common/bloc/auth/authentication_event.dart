@@ -18,3 +18,6 @@ class CheckUser extends AuthenticationEvent {
 }
 class RefreshToken extends AuthenticationEvent {
 }
+class ChangeNotificationAllRead extends AuthenticationEvent {
+  
+}

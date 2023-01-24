@@ -9,7 +9,7 @@ import 'package:auto/features/dealers/presentation/blocs/dealer_card_bloc/dealer
 import 'package:auto/features/dealers/presentation/blocs/filter_bloc/dealer_filter_bloc.dart';
 import 'package:auto/features/dealers/presentation/pages/dealers_filter.dart';
 import 'package:auto/features/dealers/presentation/pages/dealers_list.dart';
-import 'package:auto/features/dealers/presentation/pages/dealers_map.dart';
+import 'package:auto/features/dealers/presentation/pages/map_screen.dart';
 import 'package:auto/features/dealers/presentation/widgets/segmented_control.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/profile/domain/entities/favourite_entity.dart';

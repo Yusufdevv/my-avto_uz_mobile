@@ -1,12 +1,12 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/features/comparison/presentation/widgets/characters.dart';
 import 'package:flutter/material.dart';
-
-import 'characters.dart';
 
 class AlphabeticHeader extends SliverPersistentHeaderDelegate {
   final Color color;
-  AlphabeticHeader({required this.color});
+  final ScrollController controller;
+  AlphabeticHeader({required this.color, required this.controller});
   @override
   double get minExtent => 38;
 
@@ -14,7 +14,7 @@ class AlphabeticHeader extends SliverPersistentHeaderDelegate {
   double get maxExtent => 38;
 
   @override
-  bool shouldRebuild(AlphabeticHeader oldChild) => color != oldChild.color;
+  bool shouldRebuild(AlphabeticHeader oldDelegate) => color != oldDelegate.color;
   final List<String> letters = [
     'A',
     'B',
@@ -70,6 +70,7 @@ class AlphabeticHeader extends SliverPersistentHeaderDelegate {
                 itemBuilder: (context, index) => CharactersList(
                   letter: letters[index],
                   color: white,
+                  controller: controller,
                 ),
                 itemCount: letters.length,
                 shrinkWrap: true,

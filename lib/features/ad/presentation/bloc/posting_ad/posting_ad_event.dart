@@ -2,6 +2,24 @@ part of 'posting_ad_bloc.dart';
 
 abstract class PostingAdEvent {}
 
+class PostingAdClearControllersEvent extends PostingAdEvent{}
+
+class PostingAdGetUserDataEvent extends PostingAdEvent {}
+
+class PostingAdSendCodeEvent extends PostingAdEvent {
+  final String phone;
+  final Function(String) onSuccess;
+  PostingAdSendCodeEvent({required this.phone, required this.onSuccess});
+}
+
+class PostingAdGetMinimumPriceEvent extends PostingAdEvent {}
+
+class PostingAdGetAnnouncementEvent extends PostingAdEvent {
+  final int id;
+
+  PostingAdGetAnnouncementEvent({required this.id});
+}
+
 class PostingAdDamageEvent extends PostingAdEvent {
   final DamagedParts part;
   final DamageType type;
@@ -52,6 +70,9 @@ class PostingAdGenerationsEvent extends PostingAdEvent {
 }
 
 class PostingAdChooseEvent extends PostingAdEvent {
+  final TextEditingController? phoneController;
+  final TextEditingController? emailController;
+  final TextEditingController? nameController;
   List<String>? gallery;
   final Region? region;
   final YearsEntity? yearsEntity;
@@ -84,6 +105,8 @@ class PostingAdChooseEvent extends PostingAdEvent {
 
   final String? callTimeFrom;
   final String? callTimeTo;
+  final String? where;
+  final String? toastMessage;
 
   final bool? hasGasBalloon;
   final bool? isRastamojen;
@@ -96,6 +119,11 @@ class PostingAdChooseEvent extends PostingAdEvent {
   final bool? isNew;
 
   PostingAdChooseEvent({
+    this.phoneController,
+    this.emailController,
+    this.nameController,
+    this.toastMessage,
+    this.where,
     this.damagedParts,
     this.isNew,
     this.rentWithPurchaseConditions,

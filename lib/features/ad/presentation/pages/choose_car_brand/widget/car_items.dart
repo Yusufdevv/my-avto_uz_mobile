@@ -29,6 +29,7 @@ class ChangeCarItems extends StatelessWidget {
   Widget build(BuildContext context) => GestureDetector(
         onTap: onTap,
         child: Container(
+          height: 54,
           padding: const EdgeInsets.only(left: 16),
           color: id == selectedId
               ? Theme.of(context).extension<ThemedColors>()!.snowToNightRider
@@ -44,7 +45,7 @@ class ChangeCarItems extends StatelessWidget {
               ),
             ),
             child: SizedBox(
-              height: 50,
+              height: 54,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
