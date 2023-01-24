@@ -3,10 +3,6 @@ import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
-import 'package:auto/features/dealers/presentation/pages/dealer_single_page.dart';
-import 'package:auto/features/navigation/presentation/navigator.dart';
-import 'package:auto/features/rent/domain/entities/region_entity.dart';
-import 'package:auto/features/search/presentation/widgets/add_comparison_item.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:auto/utils/my_functions.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -98,29 +94,26 @@ class _DealerCardState extends State<DealerCard> {
                     children: [
                       SizedBox(
                         width: 200,
-                        child: Text(
-                          widget.dealerName,
-                          style:
-                              Theme.of(context).textTheme.headline1!.copyWith(
-                                    fontSize: 16,
-                                  ),
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 1,
-                        ),
+                        child: Text(widget.dealerName,
+                            style:
+                                Theme.of(context).textTheme.headline1!.copyWith(
+                                      fontSize: 16,
+                                    ),
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1),
                       ),
                       const SizedBox(height: 2),
                       const SizedBox(
                         width: 120,
                         child: Text(
-                          //widget.dealerType,
-                          'Avtosalon',
-                          style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400,
-                              color: purple),
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 1,
-                        ),
+                            //widget.dealerType,
+                            'Avtosalon',
+                            style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                                color: purple),
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1),
                       )
                     ],
                   )
@@ -131,7 +124,10 @@ class _DealerCardState extends State<DealerCard> {
                 children: [
                   SvgPicture.asset(AppIcons.vehicleCar),
                   const SizedBox(width: 8),
-                  Text('${widget.quantityOfCars} ${LocaleKeys.carses.tr()}',
+                  Text(
+                      widget.quantityOfCars == 0
+                          ? 'Нет автомобилей'
+                          : '${widget.quantityOfCars} ${LocaleKeys.carses.tr()}',
                       style: Theme.of(context)
                           .textTheme
                           .headline1!
@@ -144,7 +140,7 @@ class _DealerCardState extends State<DealerCard> {
                   SvgPicture.asset(AppIcons.clock),
                   const SizedBox(width: 8),
                   Text(
-                      '${LocaleKeys.every_day.tr()}, ${widget.contactFrom} - ${widget.contactTo}',
+                      '${LocaleKeys.every_day.tr()}, ${widget.contactFrom.substring(0, 5)} - ${widget.contactTo.substring(0, 5)}',
                       style: Theme.of(context)
                           .textTheme
                           .headline1!
@@ -152,76 +148,70 @@ class _DealerCardState extends State<DealerCard> {
                 ],
               ),
               //
-              if (!widget.isDirectoryPage)
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(height: 18),
-                    Row(
-                      children: [
-                        Expanded(
-                            child: Text(
-                          LocaleKeys.contacts.tr(),
-                          style: const TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 13,
-                              color: warmerGrey),
-                        )),
-                        Text(
-                          widget.contractCode,
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline1!
-                              .copyWith(
-                                  fontSize: 16, fontWeight: FontWeight.w600),
-                        ),
-                        if (isSelected)
-                          const SizedBox(width: 3)
-                        else
-                          const SizedBox(width: 9),
-                        WScaleAnimation(
-                          onTap: () {
-                            setState(() => isSelected = true);
-                          },
-                          child: isSelected
-                              ? Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(0, 5, 16, 5),
-                                  child: Text(
-                                    MyFunctions.phoneFormatter(
-                                        widget.contractNumber, [
-                                      4,
-                                      6,
-                                    ]),
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headline1!
-                                        .copyWith(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w600),
-                                  ),
-                                )
-                              : Container(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 16, vertical: 5),
-                                  decoration: BoxDecoration(
-                                    color: green,
-                                    borderRadius: BorderRadius.circular(4),
-                                  ),
-                                  child: Text(
-                                    LocaleKeys.show_contact.tr(),
-                                    style: const TextStyle(
-                                        color: white,
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 14),
-                                  ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(height: 18),
+                  Row(
+                    children: [
+                      Expanded(
+                          child: Text(
+                        LocaleKeys.contacts.tr(),
+                        style: const TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 13,
+                            color: warmerGrey),
+                      )),
+                      Text(
+                        widget.contractCode,
+                        style: Theme.of(context).textTheme.headline1!.copyWith(
+                            fontSize: 16, fontWeight: FontWeight.w600),
+                      ),
+                      if (isSelected)
+                        const SizedBox(width: 3)
+                      else
+                        const SizedBox(width: 9),
+                      WScaleAnimation(
+                        onTap: () {
+                          setState(() => isSelected = true);
+                        },
+                        child: isSelected
+                            ? Padding(
+                                padding: const EdgeInsets.fromLTRB(0, 5, 16, 5),
+                                child: Text(
+                                  MyFunctions.phoneFormatter(
+                                      widget.contractNumber, [
+                                    4,
+                                    6,
+                                  ]),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headline1!
+                                      .copyWith(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w600),
                                 ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              // const SizedBox(height: 12),
+                              )
+                            : Container(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 16, vertical: 5),
+                                decoration: BoxDecoration(
+                                  color: green,
+                                  borderRadius: BorderRadius.circular(4),
+                                ),
+                                child: Text(
+                                  LocaleKeys.show_contact.tr(),
+                                  style: const TextStyle(
+                                      color: white,
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 14),
+                                ),
+                              ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ],
           ),
         ),
