@@ -12,7 +12,7 @@ abstract class ProfileDataSource {
   Future<ProfileDataModel> getProfile();
 
   Future<ProfileModel> editProfile(
-      {String? image, String? name, String? surName, int? region});
+      {String? image, String? fullName, int? region});
 
   Future<String> changePassword(
       {required String oldPassword, required String newPassword});
@@ -56,11 +56,9 @@ class ProfileDataSourceImpl extends ProfileDataSource {
 
   @override
   Future<ProfileModel> editProfile(
-      {String? image, String? name, String? surName, int? region}) async {
+      {String? image, String? fullName, int? region}) async {
     final data = FormData.fromMap({
-      'first_name': name,
-      'last_name': surName,
-      'full_name': '$name $surName',
+      'full_name': '$fullName',
       'image': image != null ? await MultipartFile.fromFile(image) : null,
       'region': region
     });

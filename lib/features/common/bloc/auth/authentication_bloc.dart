@@ -7,7 +7,6 @@ import 'package:auto/features/common/repository/auth.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:formz/formz.dart';
 
 part 'authentication_event.dart';
 
@@ -94,9 +93,12 @@ class AuthenticationBloc
     on<ChangeNotificationAllRead>(
       (event, emit) {
         // ignore: prefer_final_locals
+        print('=======berfore ${state.user.isReadAllNotifications}');
         var user = state.user;
         // ignore: cascade_invocations
         user.isReadAllNotifications = true;
+        print('=======after ${state.user.isReadAllNotifications}');
+
         emit(state.copyWith(user: user));
       },
     );

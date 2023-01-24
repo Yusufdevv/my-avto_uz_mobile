@@ -1,12 +1,6 @@
-import 'package:auto/assets/colors/color.dart';
-import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
-import 'package:auto/features/commercial/presentation/widgets/commercial_car_model_item.dart';
-import 'package:auto/features/commercial/presentation/widgets/info_container.dart';
-import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class CommercialBodyScreen extends StatelessWidget {
   final ScrollController scrollController;

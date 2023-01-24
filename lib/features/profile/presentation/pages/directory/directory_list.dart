@@ -32,6 +32,7 @@ class _DirectoryListState extends State<DirectoryList> {
               final directories = state.directories;
               return directories.isNotEmpty
                   ? ListView.separated(
+                      physics: const BouncingScrollPhysics(),
                       padding: const EdgeInsets.only(
                           left: 16, right: 16, top: 20, bottom: 20),
                       itemBuilder: (context, index) {

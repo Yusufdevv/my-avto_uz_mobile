@@ -222,6 +222,7 @@ class _WTextFieldState extends State<WTextField>
                     borderRadius: widget.detailedBorderRadius ??
                         BorderRadius.circular(widget.borderRadius),
                     child: TextFormField(
+                      
                       autovalidateMode: widget.autoValidateMode,
                       validator: widget.validate,
                       maxLines: widget.maxLines,

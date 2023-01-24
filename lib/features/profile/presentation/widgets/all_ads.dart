@@ -24,8 +24,6 @@ class AllAds extends StatelessWidget {
                 itemCount: autoEntity.length,
                 itemBuilder: (context, index) {
                   final item = autoEntity[index];
-                  print('=======index $index');
-                  print('=======moderationStatus ${item.moderationStatus}');
                   return Padding(
                     padding: EdgeInsets.only(
                         bottom: SizeConfig.v(12),
@@ -49,7 +47,7 @@ class AllAds extends StatelessWidget {
                                 MyAdCarDescPart(item: item),
                                 //
                                 if (item.moderationStatus != 'blocked')
-                                  Builder(builder: (context) => MyAdDesc(item: item))
+                                 MyAdDesc(item: item)
                                 else
                                   ReSendPart(item: item)
                               ],

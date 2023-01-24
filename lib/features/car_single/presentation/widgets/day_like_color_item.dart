@@ -8,9 +8,13 @@ class DayLikeCallItem extends StatelessWidget {
   final int calls;
   final String leftDays;
 
-  const DayLikeCallItem(
-      {Key? key, required this.days, required this.likes, required this.calls, required this.leftDays})
-      : super(key: key);
+  const DayLikeCallItem({
+    required this.days,
+    required this.likes,
+    required this.calls,
+    required this.leftDays,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) => Container(
@@ -19,26 +23,22 @@ class DayLikeCallItem extends StatelessWidget {
         ),
         child: Column(
           children: [
-            const Divider(),
-            const SizedBox(
-              height: 10,
-            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 CallLikeItem(
                   icon: AppIcons.calendar,
-                  number: '${days}',
+                  number: days,
                   text: '    Дней \nв продаже',
                 ),
                 CallLikeItem(
                   icon: AppIcons.heart,
-                  number: '${likes}',
+                  number: '$likes',
                   text: ' Добавили в  \n  избранное',
                 ),
                 CallLikeItem(
                   icon: AppIcons.phoneCall,
-                  number: '${calls}',
+                  number: '$calls',
                   text: 'Позвонили по \n    телефону',
                 ),
               ],
@@ -75,7 +75,7 @@ class DayLikeCallItem extends StatelessWidget {
                             color: const Color(0xff92929D)),
                       ),
                       Text(
-                        '${leftDays} дня',
+                        '$leftDays дня',
                         style: Theme.of(context).textTheme.headline1!.copyWith(
                             fontWeight: FontWeight.w600,
                             fontSize: 16,

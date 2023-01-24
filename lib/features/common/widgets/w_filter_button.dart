@@ -7,7 +7,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 class WFilterButton extends StatelessWidget {
   const WFilterButton({
-    Key? key,
     required this.size,
     required this.theme,
     required this.icon,
@@ -17,6 +16,7 @@ class WFilterButton extends StatelessWidget {
     required this.activeColor,
     required this.onTap,
     required this.onTapClear,
+    Key? key,
   }) : super(key: key);
 
   final Size size;

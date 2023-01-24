@@ -63,9 +63,7 @@ class _FilterParametersState extends State<FilterParameters> {
   Widget build(BuildContext context) => BlocProvider.value(
         value: filterBloc,
         child: BlocBuilder<FilterBloc, FilterState>(
-          builder: (context, state) {
-            var size = MediaQuery.of(context).size;
-            return Scaffold(
+          builder: (context, state) => Scaffold(
               appBar: WAppBar(
                 title: 'Параметры',
                 centerTitle: false,
@@ -282,8 +280,7 @@ class _FilterParametersState extends State<FilterParameters> {
                   ],
                 ),
               ),
-            );
-          },
+            ),
         ),
       );
 }

@@ -17,18 +17,18 @@ class MineMoreBottomSheet extends StatelessWidget {
   final VoidCallback onDealer;
   final VoidCallback onSold;
 
-  const MineMoreBottomSheet(
-      {Key? key,
-      required this.name,
-      required this.position,
-      required this.image,
-      required this.onShare,
-      required this.onCompare,
-      required this.onDealer,
-      required this.id,
-      required this.status,
-      required this.onSold})
-      : super(key: key);
+  const MineMoreBottomSheet({
+    required this.name,
+    required this.position,
+    required this.image,
+    required this.onShare,
+    required this.onCompare,
+    required this.onDealer,
+    required this.id,
+    required this.status,
+    required this.onSold,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) => Container(
@@ -242,28 +242,25 @@ class MineMoreBottomSheet extends StatelessWidget {
                 margin: const EdgeInsets.only(top: 8, right: 16, left: 16),
                 child: Center(
                   child: Row(
-                          children: [
-                            SvgPicture.asset(
-                              AppIcons.surface,
+                    children: [
+                      SvgPicture.asset(
+                        AppIcons.surface,
+                      ),
+                      const SizedBox(
+                        width: 8,
+                      ),
+                      Text(
+                        'Завершить объявление',
+                        style: Theme.of(context).textTheme.headline1!.copyWith(
+                              color: const Color(
+                                0xff171725,
+                              ),
+                              fontWeight: FontWeight.w400,
+                              fontSize: 16,
                             ),
-                            const SizedBox(
-                              width: 8,
-                            ),
-                            Text(
-                              'Завершить объявление',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline1!
-                                  .copyWith(
-                                    color: const Color(
-                                      0xff171725,
-                                    ),
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 16,
-                                  ),
-                            ),
-                          ],
-                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),

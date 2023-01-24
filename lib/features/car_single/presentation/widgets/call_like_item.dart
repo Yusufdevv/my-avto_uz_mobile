@@ -7,13 +7,16 @@ class CallLikeItem extends StatelessWidget {
   final String number;
   final String text;
 
-  const CallLikeItem(
-      {Key? key, required this.icon, required this.number, required this.text})
-      : super(key: key);
+  const CallLikeItem({
+    required this.icon,
+    required this.number,
+    required this.text,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) => Column(
-    crossAxisAlignment: CrossAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Row(

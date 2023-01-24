@@ -8,8 +8,6 @@ part 'comercial_bloc.freezed.dart';
 
 class ComercialBloc extends Bloc<ComercialEvent, ComercialState> {
   ComercialBloc() : super(ComercialState()) {
-    on<ComercialEvent>((event, emit) {
-      // TODO: implement event handler
-    });
+    on<ComercialEvent>((event, emit) {});
   }
 }

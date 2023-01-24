@@ -9,6 +9,8 @@ import 'package:auto/features/login/presentation/bloc/send_phone/send_phone_bloc
 import 'package:auto/features/login/presentation/pages/verify_sms_code_page.dart';
 import 'package:auto/features/login/presentation/widgets/z_text_form_field.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
@@ -77,8 +79,8 @@ class _SendPhoneNumberPageState extends State<SendPhoneNumberPage> {
                 }
               },
               builder: (context, state) => Scaffold(
-                appBar: const WAppBar(
-                  title: 'Забыли пароль',
+                appBar: WAppBar(
+                  title: LocaleKeys.forgot_password.tr(),
                 ),
                 body: Padding(
                   padding: const EdgeInsets.fromLTRB(16, 64, 16, 0),

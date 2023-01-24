@@ -25,7 +25,6 @@ import 'package:auto/features/pagination/presentation/paginator.dart';
 import 'package:auto/utils/my_functions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:share_plus/share_plus.dart';
@@ -34,8 +33,8 @@ class CarSingleScreen extends StatefulWidget {
   final int id;
 
   const CarSingleScreen({
-    Key? key,
     required this.id,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -166,7 +165,7 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                             images: state.singleEntity.gallery,
                             onDealer: () {},
                             onCompare: () {},
-                            isMine: true,
+                            isMine: state.singleEntity.isMine,
                             status: state.soldStatus,
                             onSold: () {
                               showModalBottomSheet(
@@ -242,7 +241,7 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                               dateBsh: '25 mart',
                               percent: MyFunctions.getFormatCost(
                                   '${100 - state.singleEntity.priceAnalytics.percentage}'),
-                              isMine: true,
+                              isMine: state.singleEntity.isMine,
                               saleDays:
                                   '${DateTime.now().difference(DateTime.parse(state.singleEntity.publishedAt)).inDays + 1}',
                               addToFavorite: state.singleEntity.wishlistCount,
@@ -259,9 +258,10 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                                   state.singleEntity.priceAnalytics.percentage,
                             ),
                           ),
-                          const SliverToBoxAdapter(
-                            child: OwnerActions(),
-                          ),
+                          if (state.singleEntity.isMine)
+                            const SliverToBoxAdapter(
+                              child: OwnerActions(),
+                            ),
                           SliverToBoxAdapter(
                             child: CarSellerCard(
                               image: state.singleEntity.userType == 'dealer'

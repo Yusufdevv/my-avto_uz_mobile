@@ -58,12 +58,12 @@ class _PasswordRecoveryScreenState extends State<PasswordRecoveryScreen> {
   }
 
   /// comment to
-
+bool isError = false;
   @override
   Widget build(BuildContext context) => KeyboardDismisser(
         child: Scaffold(
-          appBar: const WAppBar(
-            title: 'Забыли пароль',
+          appBar:   WAppBar(
+            title:  LocaleKeys.forgot_password.tr(),
           ),
           body: Padding(
             padding: const EdgeInsets.all(16),
@@ -108,9 +108,9 @@ class _PasswordRecoveryScreenState extends State<PasswordRecoveryScreen> {
                         .extension<ThemedColors>()!
                         .solitudeToWhite35,
                     errorBorderColor: red,
-                    activeColor: purple,
-                    activeFillColor: purple,
-                    selectedColor: purple,
+                    activeColor:isError ? red : purple,
+                    activeFillColor:isError ? red : purple,
+                    selectedColor:isError ? red : purple,
                     shape: PinCodeFieldShape.underline,
                     fieldHeight: 44,
                     fieldWidth: 50,

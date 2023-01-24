@@ -5,7 +5,7 @@ import 'package:auto/features/car_single/presentation/bloc/car_single_bloc.dart'
 import 'package:auto/features/car_single/presentation/widgets/dealer_time_botomsheet.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
-import 'package:auto/features/dealers/presentation/dealers_main.dart';
+import 'package:auto/features/dealers/presentation/dealers_screen.dart';
 import 'package:auto/features/dealers/presentation/pages/dealer_single_page.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/generated/locale_keys.g.dart';
@@ -26,16 +26,16 @@ class BottomItem extends StatefulWidget {
   final String slug;
   final String? userAvatar;
 
-  const BottomItem(
-      {Key? key,
-      required this.callFrom,
-      required this.callTo,
-      required this.phoneNumber,
-      required this.userAvatar,
-      required this.id,
-      required this.usertype,
-      required this.slug})
-      : super(key: key);
+  const BottomItem({
+    required this.callFrom,
+    required this.callTo,
+    required this.phoneNumber,
+    required this.userAvatar,
+    required this.id,
+    required this.usertype,
+    required this.slug,
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<BottomItem> createState() => _BottomItemState();

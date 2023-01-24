@@ -55,6 +55,9 @@ class _VerifySmsCodePageState extends State<VerifySmsCodePage> {
     super.initState();
   }
 
+  bool isError = false;
+
+
   @override
   Widget build(BuildContext context) => CustomScreen(
         child: KeyboardDismisser(
@@ -63,6 +66,7 @@ class _VerifySmsCodePageState extends State<VerifySmsCodePage> {
             child: BlocConsumer<VerifyBloc, VerifyState>(
               listener: (context, state) {
                 if (state.status == FormzStatus.submissionCanceled) {
+                  isError = true;
                   context.read<ShowPopUpBloc>().add(
                       ShowPopUp(message: state.toastMessage, isSucces: false));
                 }
@@ -144,9 +148,9 @@ class _VerifySmsCodePageState extends State<VerifySmsCodePage> {
                               .extension<ThemedColors>()!
                               .solitudeToWhite35,
                           errorBorderColor: red,
-                          activeColor: purple,
-                          activeFillColor: purple,
-                          selectedColor: purple,
+                          activeColor: isError ? red : purple,
+                          activeFillColor: isError ? red : purple,
+                          selectedColor: isError ? red : purple,
                           shape: PinCodeFieldShape.underline,
                           fieldHeight: 44,
                           fieldWidth: 50,

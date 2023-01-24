@@ -8,8 +8,11 @@ class OwnerActionBox extends StatelessWidget {
 
   final OwnerActionEntity entity;
 
-  const OwnerActionBox({Key? key, required this.color, required this.entity})
-      : super(key: key);
+  const OwnerActionBox({
+    required this.color,
+    required this.entity,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) => Container(
@@ -30,11 +33,11 @@ class OwnerActionBox extends StatelessWidget {
               height: 7,
             ),
             Text(
-              entity.title,textAlign: TextAlign.center,maxLines: 2,
-              style: Theme.of(context)
-                  .textTheme
-                  .headline1!
-                  .copyWith(fontSize: 11, fontWeight: FontWeight.w400,color: dark),
+              entity.title,
+              textAlign: TextAlign.center,
+              maxLines: 2,
+              style: Theme.of(context).textTheme.headline1!.copyWith(
+                  fontSize: 11, fontWeight: FontWeight.w400, color: dark),
             )
           ],
         ),

@@ -20,7 +20,7 @@ class DescriptionHeader extends SliverPersistentHeaderDelegate {
   double get maxExtent => 68;
 
   @override
-  bool shouldRebuild(SliverPersistentHeaderDelegate _) => true;
+  bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) => true;
 
   @override
   Widget build(

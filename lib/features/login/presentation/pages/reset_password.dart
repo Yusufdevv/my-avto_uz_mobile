@@ -14,7 +14,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
-
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 class ForgotPasswordSendPhonePage extends StatefulWidget {
   const ForgotPasswordSendPhonePage({Key? key}) : super(key: key);
 
@@ -69,8 +70,8 @@ class _ForgotPasswordSendPhonePageState
                 }
               },
               builder: (context, state) => Scaffold(
-                appBar: const WAppBar(
-                  title: 'Забыли пароль',
+                appBar:   WAppBar(
+                  title: LocaleKeys.forgot_password.tr(),
                 ),
                 body: Padding(
                   padding: const EdgeInsets.fromLTRB(16, 64, 16, 0),

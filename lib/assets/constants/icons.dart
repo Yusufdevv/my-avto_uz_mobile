@@ -32,6 +32,7 @@ class AppIcons {
   static const chevronTop = 'assets/icons/global/chevron_top.svg';
   static const search = 'assets/icons/global/search.svg';
   static const rentFilter = 'assets/icons/global/rent_filter.svg';
+  static const delaerFilter = 'assets/icons/global/delaer_filter.svg';
   static const engine = 'assets/icons/global/engine.svg';
   static const cancelRound = 'assets/icons/global/cancel_round.svg';
   static const filter = 'assets/icons/global/filter.svg';
@@ -251,10 +252,10 @@ class AppIcons {
   static const draftIcon = 'assets/icons/reviews/drat_icon.svg';
   static const delete = 'assets/icons/reviews/delete.svg';
 
-  static const payme = 'assets/images/car_single/payme.svg';
-  static const apelsin = 'assets/images/car_single/apelsin.svg';
-  static const click = 'assets/images/car_single/click.svg';
-  static const upay = 'assets/images/car_single/upay.svg';
+  static const payme = 'assets/icons/global/payme.svg';
+  static const apelsin = 'assets/icons/global/apelsin.svg';
+  static const click = 'assets/icons/global/click.svg';
+  static const kpay = 'assets/icons/global/kpay.svg';
 
   static const succes = 'assets/images/car_single/succes.svg';
   static const unsucc = 'assets/images/car_single/unsucc.svg';

@@ -8,8 +8,11 @@ class DealerTime extends StatelessWidget {
   final String timeFrom;
   final String timeTo;
 
-  const DealerTime({Key? key, required this.timeFrom, required this.timeTo})
-      : super(key: key);
+  const DealerTime({
+    required this.timeFrom,
+    required this.timeTo,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) => Container(
@@ -76,7 +79,7 @@ class DealerTime extends StatelessWidget {
                       ),
                     ),
                     child: Text(
-                      "от ${timeFrom}" + ' - до ${timeTo}',
+                      'от $timeFrom' ' - до $timeTo',
                       style: Theme.of(context).textTheme.headline2!.copyWith(
                           fontWeight: FontWeight.w400,
                           fontSize: 12,

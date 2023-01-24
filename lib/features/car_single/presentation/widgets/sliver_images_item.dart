@@ -3,7 +3,6 @@ import 'package:auto/features/car_single/presentation/parts/images_page.dart';
 import 'package:auto/features/car_single/presentation/widgets/more_container.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -12,9 +11,9 @@ class SingleImagePart extends StatefulWidget {
   final List images;
 
   const SingleImagePart({
-    Key? key,
     required this.count,
     required this.images,
+    Key? key,
   }) : super(key: key);
 
   @override

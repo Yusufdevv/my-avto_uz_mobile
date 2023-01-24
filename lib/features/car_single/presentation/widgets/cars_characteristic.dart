@@ -12,16 +12,16 @@ class CarCharacteristicItem extends StatefulWidget {
   final String enginePower;
   final String engineVolume;
 
-  const CarCharacteristicItem(
-      {Key? key,
-      required this.bodyType,
-      required this.milleage,
-      required this.driveType,
-      required this.engineType,
-      required this.gearboxType,
-      required this.enginePower,
-      required this.engineVolume})
-      : super(key: key);
+  const CarCharacteristicItem({
+    required this.bodyType,
+    required this.milleage,
+    required this.driveType,
+    required this.engineType,
+    required this.gearboxType,
+    required this.enginePower,
+    required this.engineVolume,
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<CarCharacteristicItem> createState() => _CarCharacteristicItemState();
@@ -68,7 +68,7 @@ class _CarCharacteristicItemState extends State<CarCharacteristicItem>
                 widget.driveType,
                 widget.engineType,
                 widget.gearboxType,
-                "${widget.enginePower} л.с",
+                '${widget.enginePower} л.с',
                 '${widget.engineVolume} л',
                 widget.milleage,
               ],

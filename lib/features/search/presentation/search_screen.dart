@@ -130,7 +130,6 @@ class _SearchScreenState extends State<SearchScreen> {
                           focusNode: focusNode,
                           onFocusChange: (value) {
                             isFocused = value;
-                            print('=======val ${value}');
                             if (!value) {
                               if (searchController.text.isEmpty) {
                                 textControllerStatus =
@@ -147,7 +146,6 @@ class _SearchScreenState extends State<SearchScreen> {
                               searchBloc.add(SearchEvent.getSuggestions(
                                   search: searchController.text));
                             }
-
                             setState(() {});
                           },
                           child: WTextField(
@@ -241,49 +239,54 @@ class _SearchScreenState extends State<SearchScreen> {
               body: BlocBuilder<SearchBloc, SearchState>(
                 builder: (context, state) => textControllerStatus ==
                         SearchControllerStatus.typing
-                    ? searchController.text.isEmpty || state.suggestions.isEmpty
-                        ? const NothingFoundScreen()
-                        : Padding(
-                            padding: const EdgeInsets.only(top: 16),
-                            child: Paginator(
-                              fetchMoreFunction: () {},
-                              hasMoreToFetch:
-                                  state.suggestionsFetchMore ?? false,
-                              paginatorStatus: state.suggestionsStatus,
-                              separatorBuilder: (context, index) =>
-                                  (index != state.suggestionsCount - 1)
-                                      ? const Divider(height: 1)
-                                      : const SizedBox(),
-                              errorWidget: const SizedBox(),
-                              padding: EdgeInsets.zero,
-                              itemCount: state.suggestionsCount,
-                              itemBuilder: (context, index) =>
-                                  SearchedModelsItem(
-                                imageUrl: state
-                                    .suggestions[index].source.carMake.logo,
-                                vehicleType:
-                                    state.suggestions[index].source.vehicleType,
-                                fullText: state
-                                    .suggestions[index].source.absoluteCarName,
-                                searchText: searchController.text,
-                                onTap: () {
-                                  searchController
-                                    ..text = state.suggestions[index].text
-                                    ..selection = TextSelection.fromPosition(
-                                      TextPosition(
-                                          offset: searchController.text.length),
-                                    );
-                                  searchBloc.add(
-                                    SearchEvent.getResults(
-                                        searchText: searchController.text),
-                                  );
-                                  addSearchToStorage(searchController.text);
-                                  focusNode.unfocus();
-                                  setState(() {});
-                                },
-                              ),
-                            ),
-                          )
+                    ? searchController.text.isEmpty
+                        ? const SizedBox()
+                        : searchController.text.isNotEmpty &&
+                                state.suggestions.isEmpty
+                            ? const NothingFoundScreen()
+                            : Padding(
+                                padding: const EdgeInsets.only(top: 16),
+                                child: Paginator(
+                                  fetchMoreFunction: () {},
+                                  hasMoreToFetch:
+                                      state.suggestionsFetchMore ?? false,
+                                  paginatorStatus: state.suggestionsStatus,
+                                  separatorBuilder: (context, index) =>
+                                      (index != state.suggestionsCount - 1)
+                                          ? const Divider(height: 1)
+                                          : const SizedBox(),
+                                  errorWidget: const SizedBox(),
+                                  padding: EdgeInsets.zero,
+                                  itemCount: state.suggestionsCount,
+                                  itemBuilder: (context, index) =>
+                                      SearchedModelsItem(
+                                    imageUrl: state
+                                        .suggestions[index].source.carMake.logo,
+                                    vehicleType: state
+                                        .suggestions[index].source.vehicleType,
+                                    fullText: state.suggestions[index].source
+                                        .absoluteCarName,
+                                    searchText: searchController.text,
+                                    onTap: () {
+                                      searchController
+                                        ..text = state.suggestions[index].text
+                                        ..selection =
+                                            TextSelection.fromPosition(
+                                          TextPosition(
+                                              offset:
+                                                  searchController.text.length),
+                                        );
+                                      searchBloc.add(
+                                        SearchEvent.getResults(
+                                            searchText: searchController.text),
+                                      );
+                                      addSearchToStorage(searchController.text);
+                                      focusNode.unfocus();
+                                      setState(() {});
+                                    },
+                                  ),
+                                ),
+                              )
                     : textControllerStatus == SearchControllerStatus.completed
                         ? state.status != FormzStatus.submissionSuccess
                             ? const LoadingScreen()

@@ -84,9 +84,9 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
                     PersonalDataItemm(
                       isRequired: true,
                       onTap: hidePopUp,
-                      title: LocaleKeys.name.tr(),
+                      title: 'ФИО',
                       controller: nameController,
-                      hintText: 'Имя и фамилия',
+                      hintText: 'Введите ФИО',
                       onChanged: (value) {
                         setState(() {});
                       },
