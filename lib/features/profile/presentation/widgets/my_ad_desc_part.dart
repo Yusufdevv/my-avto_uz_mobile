@@ -2,8 +2,10 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/core/utils/size_config.dart';
+import 'package:auto/features/ad/presentation/posting_ad_screen.dart';
 import 'package:auto/features/common/domain/entity/auto_entity.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
+import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/profile/presentation/widgets/information_item.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -110,7 +112,13 @@ class MyAdDesc extends StatelessWidget {
                       borderRadius: 12,
                       padding: const EdgeInsets.symmetric(
                           vertical: 10, horizontal: 11),
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            fade(
+                                page:
+                                    PostingAdScreen(announcementId: item.id)));
+                      },
                       child: SvgPicture.asset(AppIcons.editProfile,
                           color: Theme.of(context)
                               .extension<ThemedColors>()!
@@ -171,7 +179,13 @@ class MyAdDesc extends StatelessWidget {
                       borderRadius: 12,
                       padding: const EdgeInsets.symmetric(
                           vertical: 10, horizontal: 11),
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            fade(
+                                page:
+                                    PostingAdScreen(announcementId: item.id)));
+                      },
                       child: Row(
                         children: [
                           SvgPicture.asset(AppIcons.editProfile,
