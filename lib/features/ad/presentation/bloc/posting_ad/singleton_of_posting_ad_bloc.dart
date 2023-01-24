@@ -36,8 +36,7 @@ class PASingleton {
       'is_new': v.registeredInUzbekistan,
       'licence_type': v.typeDocument,
       'ownership': v.ownerStep,
-      'location_url':
-          'https://www.google.com/maps/place/Grand+Mir+Hotel/@41.2965807,69.275822,15z/data=!4m8!3m7!1s0x38ae8adce9ab4089:0x3f74710c22b9462e!5m2!4m1!1i2!8m2!3d41.296393!4d69.267908',
+      'location_url': v.locationUrl,
     };
 
     var i = -1;
@@ -189,49 +188,52 @@ class PASingleton {
   }
 
   static PostingAdState choose(
-      PostingAdState state, PostingAdChooseEvent event) {
-   final v = state.copyWith(
-      toastMessage: event.toastMessage,
-      damagedParts: event.damagedParts,
-      rentWithPurchaseConditions: event.rentWithPurchaseConditions,
-      gallery: event.gallery,
-      showExactAddress: event.showExactAddress,
-      isWithoutMileage: event.isWithoutMileage,
-      rentToBuy: event.rentToBuy,
-      isContactsVerified: event.isContactsVerified,
-      showOwnerContacts: event.showOwnerContacts,
-      isCallTimed: event.isCallTimed,
-      callTimeTo: event.callTimeTo,
-      callTimeFrom: event.callTimeFrom,
-      mileage: event.mileage,
-      ownerStep: event.ownerStep,
-      typeDocument: event.typeDocument,
-      colorName: event.colorName,
-      gearboxId: event.gearboxId,
-      driveTypeId: event.driveTypeId,
-      engineId: event.engineId,
-      generationId: event.generationId,
-      bodyTypeId: event.selectedBodyTypeId,
-      yearsEntity: event.yearsEntity,
-      isSortByLetter: event.letter != state.letter,
-      modelId: event.modelId,
-      letter: event.letter,
-      makeId: event.makeId,
-      purchasedDate: event.purchasedDate,
-      registeredInUzbekistan: event.isRastamojen,
-      ownerEmail: event.ownerEmail,
-      ownerName: event.ownerName,
-      ownerPhone: event.ownerPhone,
-      city: event.city,
-      region: event.region,
-      price: event.price,
-      currency: event.currency,
-      gasBalloonType: event.gasBalloonType,
-      districtId: event.districtId,
-      phoneController: event.phoneController,
-      emailController: event.emailController,
-      nameController: event.nameController,
-    );
-    return v;
-  }
+          PostingAdState state, PostingAdChooseEvent event) {
+            
+            
+            print('=> => => => LOCATION URL    ${event.locationUrl}    <= <= <= <=');
+            return state.copyWith(
+        locationUrl: event.locationUrl,
+        toastMessage: event.toastMessage,
+        damagedParts: event.damagedParts,
+        rentWithPurchaseConditions: event.rentWithPurchaseConditions,
+        gallery: event.gallery,
+        showExactAddress: event.showExactAddress,
+        isWithoutMileage: event.isWithoutMileage,
+        rentToBuy: event.rentToBuy,
+        isContactsVerified: event.isContactsVerified,
+        showOwnerContacts: event.showOwnerContacts,
+        isCallTimed: event.isCallTimed,
+        callTimeTo: event.callTimeTo,
+        callTimeFrom: event.callTimeFrom,
+        mileage: event.mileage,
+        ownerStep: event.ownerStep,
+        typeDocument: event.typeDocument,
+        colorName: event.colorName,
+        gearboxId: event.gearboxId,
+        driveTypeId: event.driveTypeId,
+        engineId: event.engineId,
+        generationId: event.generationId,
+        bodyTypeId: event.selectedBodyTypeId,
+        yearsEntity: event.yearsEntity,
+        isSortByLetter: event.letter != state.letter,
+        modelId: event.modelId,
+        letter: event.letter,
+        makeId: event.makeId,
+        purchasedDate: event.purchasedDate,
+        registeredInUzbekistan: event.isRastamojen,
+        ownerEmail: event.ownerEmail,
+        ownerName: event.ownerName,
+        ownerPhone: event.ownerPhone,
+        city: event.city,
+        region: event.region,
+        price: event.price,
+        currency: event.currency,
+        gasBalloonType: event.gasBalloonType,
+        districtId: event.districtId,
+        phoneController: event.phoneController,
+        emailController: event.emailController,
+        nameController: event.nameController,
+      );}
+      
 }

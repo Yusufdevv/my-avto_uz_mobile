@@ -46,7 +46,7 @@ import 'package:auto/features/main/domain/usecases/get_top_brand.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/rent/domain/entities/rent_list_entity.dart';
 import 'package:auto/features/rent/domain/usecases/get_gearboxess_usecase.dart';
-import 'package:auto/features/ad/presentation/pages/map_screen/presentation/pages/map_screen.dart';
+import 'package:auto/features/ad/presentation/pages/map_screen/map_screen_posting_ad.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -348,7 +348,15 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                       InspectionPlaceScreen(
                         onToMapPressed: () {
                           Navigator.push(
-                              context, fade(page:const  MapScreenPostingAd()));
+                            context,
+                            fade(
+                              page: MapScreenPostingAd(
+                                onMapTap: (url) => postingAdBloc.add(
+                                  PostingAdChooseEvent(locationUrl: url),
+                                ),
+                              ),
+                            ),
+                          );
                         },
                       ),
                       //17

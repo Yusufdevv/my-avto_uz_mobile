@@ -2,7 +2,7 @@ part of 'posting_ad_bloc.dart';
 
 abstract class PostingAdEvent {}
 
-class PostingAdClearControllersEvent extends PostingAdEvent{}
+class PostingAdClearControllersEvent extends PostingAdEvent {}
 
 class PostingAdGetUserDataEvent extends PostingAdEvent {}
 
@@ -107,6 +107,7 @@ class PostingAdChooseEvent extends PostingAdEvent {
   final String? callTimeTo;
   final String? where;
   final String? toastMessage;
+  final String? locationUrl;
 
   final bool? hasGasBalloon;
   final bool? isRastamojen;
@@ -119,6 +120,7 @@ class PostingAdChooseEvent extends PostingAdEvent {
   final bool? isNew;
 
   PostingAdChooseEvent({
+    this.locationUrl,
     this.phoneController,
     this.emailController,
     this.nameController,

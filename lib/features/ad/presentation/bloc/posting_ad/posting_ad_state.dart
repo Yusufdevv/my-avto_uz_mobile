@@ -50,6 +50,7 @@ class PostingAdState extends Equatable {
   final String? callTimeFrom;
   final String? callTimeTo;
   final String? toastMessage;
+  final String? locationUrl;
   final bool hasAppBarShadow;
   final bool isSortByLetter;
   final bool registeredInUzbekistan;
@@ -117,6 +118,7 @@ class PostingAdState extends Equatable {
     this.getDistrictsStatus = FormzStatus.pure,
     this.toastMessage,
     this.userModel,
+    this.locationUrl,
   });
 
   String get districtTitle {
@@ -177,6 +179,7 @@ class PostingAdState extends Equatable {
     String? callTimeTo,
     String? session,
     String? toastMessage,
+    String? locationUrl,
     bool? hasAppBarShadow,
     bool? registeredInUzbekistan,
     bool? isCallTimed,
@@ -190,6 +193,7 @@ class PostingAdState extends Equatable {
     // print('====   ACTUALLY IN STATE:  ${this.districts}  ====');
     // print('==== INCOMING DISTRICT TO COPYWITH:  ${districts}  ====');
     final newState = PostingAdState(
+      locationUrl: locationUrl ?? this.locationUrl,
       phoneController: phoneController ?? this.phoneController,
       emailController: emailController ?? this.emailController,
       nameController: nameController ?? this.nameController,
@@ -257,6 +261,7 @@ class PostingAdState extends Equatable {
 
   @override
   List<Object?> get props => [
+        locationUrl,
         phoneController,
         emailController,
         nameController,
