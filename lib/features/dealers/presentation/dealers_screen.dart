@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_literals_to_create_immutables
+
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
@@ -12,7 +14,6 @@ import 'package:auto/features/dealers/presentation/pages/dealers_list.dart';
 import 'package:auto/features/dealers/presentation/pages/map_screen.dart';
 import 'package:auto/features/dealers/presentation/widgets/segmented_control.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
-import 'package:auto/features/profile/domain/entities/favourite_entity.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -22,9 +23,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 class DealerScreen extends StatefulWidget {
-  const DealerScreen({Key? key, this.isDirectoryPage = false})
-      : super(key: key);
-  final bool isDirectoryPage;
+  const DealerScreen({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<DealerScreen> createState() => _DealerScreenState();
@@ -72,10 +73,14 @@ class _DealerScreenState extends State<DealerScreen> {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               GestureDetector(
+                                behavior: HitTestBehavior.opaque,
                                 onTap: () => Navigator.pop(context),
-                                child: SvgPicture.asset(AppIcons.chevronLeft),
+                                child: Padding(
+                                  padding: const EdgeInsets.only(right: 5),
+                                  child: SvgPicture.asset(AppIcons.chevronLeft),
+                                ),
                               ),
-                              const SizedBox(width: 20),
+                              const SizedBox(width: 7),
                               Expanded(
                                 child: WTextField(
                                   borderColor: Theme.of(context)
@@ -101,43 +106,34 @@ class _DealerScreenState extends State<DealerScreen> {
                                   borderRadius: 8,
                                 ),
                               ),
-                              const SizedBox(width: 11),
+                              const SizedBox(width: 12),
                               BlocBuilder<DealerFilterBloc, DealerFilterState>(
                                 builder: (context, filterState) => WButton(
-                                    onTap: () {
-                                      context
-                                          .read<RegionsBloc>()
-                                          .add(RegionsEvent.getRegions());
-                                      Navigator.push(
-                                          context,
-                                          fade(
-                                              page: DealersFilter(
-                                            dealerBloc: bloc,
-                                            maker: filterState.maker,
-                                            regions: filterState.region,
-                                            carType: filterState.car_type == ''
-                                                ? 'all'
-                                                : state.carType,
-                                          )));
-                                      // Navigator.of(context, rootNavigator: true)
-                                      //     .push(fade(
-                                      //     page: DealersFilter(
-                                      //       isDirectoryPage: widget.isDirectoryPage,
-                                      //       dealerBloc: bloc,
-                                      //     )));
-                                    },
-                                    borderRadius: 12,
-                                    color: Theme.of(context)
-                                        .extension<ThemedColors>()!
-                                        .whiteSmokeToNightRider,
-                                    padding: const EdgeInsets.all(12),
-                                    child: widget.isDirectoryPage
-                                        ? SvgPicture.asset(AppIcons.filter)
-                                        : SvgPicture.asset(
-                                            AppIcons.rentFilter,
-                                            color: purple,
-                                          ),
+                                  onTap: () {
+                                    context
+                                        .read<RegionsBloc>()
+                                        .add(RegionsEvent.getRegions());
+                                    Navigator.push(
+                                        context,
+                                        fade(
+                                            page: DealersFilter(
+                                          dealerBloc: bloc,
+                                          maker: filterState.maker,
+                                          regions: filterState.region,
+                                          carType: filterState.car_type == ''
+                                              ? 'all'
+                                              : state.carType,
+                                        )));
+                                  },
+                                  borderRadius: 12,
+                                  color: Theme.of(context)
+                                      .extension<ThemedColors>()!
+                                      .whiteSmokeToNightRider,
+                                  padding: const EdgeInsets.all(12),
+                                  child: SvgPicture.asset(
+                                    AppIcons.delaerFilter,
                                   ),
+                                ),
                               ),
                             ],
                           ),
@@ -148,14 +144,12 @@ class _DealerScreenState extends State<DealerScreen> {
                         delegate:
                             SegmentedControl(maxHeight: 64, minHeight: 64),
                       ),
-                      SliverFillRemaining(
+                      const SliverFillRemaining(
                         child: TabBarView(
-                          physics: const NeverScrollableScrollPhysics(),
+                          physics: NeverScrollableScrollPhysics(),
                           children: [
-                            DealersList(
-                              isDirectoryPage: widget.isDirectoryPage,
-                            ),
-                            const MapScreen(),
+                            DealersList(),
+                            MapScreen(),
                           ],
                         ),
                       ),

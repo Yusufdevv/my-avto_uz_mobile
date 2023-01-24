@@ -18,7 +18,7 @@ import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/core/utils/size_config.dart';
 import 'package:auto/features/ad/presentation/bloc/add_photo/image_bloc.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
-import 'package:auto/features/dealers/presentation/dealers_main.dart';
+import 'package:auto/features/dealers/presentation/dealers_screen.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/profile/data/repositories/profile_repository_impl.dart';
 import 'package:auto/features/profile/domain/usecases/change_password_usecase.dart';

@@ -1,4 +1,3 @@
-import 'package:auto/features/dealers/domain/usecases/dealer_usecase.dart';
 import 'package:auto/features/dealers/presentation/blocs/dealer_card_bloc/dealer_card_bloc.dart';
 import 'package:auto/features/dealers/presentation/pages/dealer_single_page.dart';
 import 'package:auto/features/dealers/presentation/widgets/dealer_card.dart';
@@ -19,8 +18,8 @@ class DealersList extends StatefulWidget {
 
 class _DealersListState extends State<DealersList> {
   void onTap(String slug) {
-    print('ontap');
-    Navigator.push(context, fade(page: DealerSinglePage(slug: slug)));
+    Navigator.of(context, rootNavigator: true)
+        .push(fade(page: DealerSinglePage(slug: slug)));
   }
 
   @override
@@ -42,6 +41,7 @@ class _DealersListState extends State<DealersList> {
           } else {
             if (state.list.isNotEmpty) {
               return ListView.builder(
+                physics: const BouncingScrollPhysics(),
                 padding: const EdgeInsets.only(left: 16, right: 16, top: 20),
                 itemBuilder: (context, index) => Padding(
                   padding: const EdgeInsets.only(bottom: 16),

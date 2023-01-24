@@ -3,8 +3,6 @@ import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-
 
 class MarksWithAnnouncements extends StatelessWidget {
   final String mark;
@@ -22,6 +20,7 @@ class MarksWithAnnouncements extends StatelessWidget {
         margin: const EdgeInsets.only(right: 12),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Container(
               width: 96,
@@ -32,10 +31,13 @@ class MarksWithAnnouncements extends StatelessWidget {
               ),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(8),
-                child: CachedNetworkImage(imageUrl: imageUrl,errorWidget: (context, url, error) => Image.asset(AppImages.autoUz),),
+                child: CachedNetworkImage(
+                  imageUrl: imageUrl,
+                  errorWidget: (context, url, error) =>
+                      Image.asset(AppImages.autoUz),
+                ),
               ),
             ),
-            const SizedBox(height: 8),
             Row(
               children: [
                 Text(

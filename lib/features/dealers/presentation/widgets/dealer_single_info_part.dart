@@ -43,7 +43,7 @@ class _DealerSingleInfoPartState extends State<DealerSingleInfoPart> {
 
   @override
   Widget build(BuildContext context) => Container(
-      margin: const EdgeInsets.only(top: 20),
+      margin: const EdgeInsets.only(top: 20, left: 16, right: 16),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
         color: Theme.of(context).extension<ThemedColors>()!.whiteToNero,
@@ -65,12 +65,13 @@ class _DealerSingleInfoPartState extends State<DealerSingleInfoPart> {
             style: const TextStyle(
                 color: orange, fontSize: 16, fontWeight: FontWeight.w600),
           ),
-          const SizedBox(
-            height: 16,
-          ),
+          const SizedBox(height: 16),
           Info(
-              icon: AppIcons.vehicleCar,
-              text: '${widget.quantityOfCars} автомобиля'),
+            icon: AppIcons.vehicleCar,
+            text: widget.quantityOfCars == 0
+                ? 'Нет автомобилей'
+                : '${widget.quantityOfCars} ${LocaleKeys.carses.tr()}',
+          ),
           const SizedBox(
             height: 16,
           ),
@@ -79,8 +80,8 @@ class _DealerSingleInfoPartState extends State<DealerSingleInfoPart> {
           // },
 
           Info(
-              //${LocaleKeys.every_day.tr()}
-              text: 'Каждый день, ${widget.contactFrom} - ${widget.contactTo}',
+              text:
+                  '${LocaleKeys.every_day.tr()}, ${widget.contactFrom.substring(0, 5)} - ${widget.contactTo.substring(0, 5)}',
               icon: AppIcons.clock),
           const SizedBox(height: 20),
           Container(

@@ -51,7 +51,8 @@ class _DirectoryCardState extends State<DirectoryCard> {
   @override
   Widget build(BuildContext context) => GestureDetector(
         onTap: () {
-          Navigator.push(context, fade(page: DirectorySinglePage(slug: widget.slug)));
+          Navigator.of(context)
+              .push(fade(page: DirectorySinglePage(slug: widget.slug)));
         },
         child: Container(
           decoration: BoxDecoration(
