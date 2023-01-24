@@ -5,7 +5,7 @@ import 'package:auto/features/car_single/presentation/bloc/car_single_bloc.dart'
 import 'package:auto/features/car_single/presentation/widgets/dealer_time_botomsheet.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
-import 'package:auto/features/dealers/presentation/dealers_main.dart';
+import 'package:auto/features/dealers/presentation/dealers_screen.dart';
 import 'package:auto/features/dealers/presentation/pages/dealer_single_page.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/generated/locale_keys.g.dart';

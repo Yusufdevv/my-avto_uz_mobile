@@ -32,6 +32,7 @@ class AppIcons {
   static const chevronTop = 'assets/icons/global/chevron_top.svg';
   static const search = 'assets/icons/global/search.svg';
   static const rentFilter = 'assets/icons/global/rent_filter.svg';
+  static const delaerFilter = 'assets/icons/global/delaer_filter.svg';
   static const engine = 'assets/icons/global/engine.svg';
   static const cancelRound = 'assets/icons/global/cancel_round.svg';
   static const filter = 'assets/icons/global/filter.svg';
