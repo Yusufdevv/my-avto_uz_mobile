@@ -94,9 +94,12 @@ class AuthenticationBloc
     on<ChangeNotificationAllRead>(
       (event, emit) {
         // ignore: prefer_final_locals
+        print('=======berfore ${state.user.isReadAllNotifications}');
         var user = state.user;
         // ignore: cascade_invocations
         user.isReadAllNotifications = true;
+        print('=======after ${state.user.isReadAllNotifications}');
+
         emit(state.copyWith(user: user));
       },
     );

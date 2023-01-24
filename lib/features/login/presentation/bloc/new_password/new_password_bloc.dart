@@ -1,3 +1,4 @@
+import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/features/login/domain/usecases/change_password.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -20,7 +21,7 @@ class NewPasswordBloc extends Bloc<NewPasswordEvent, NewPasswordState> {
       } else {
         emit(state.copyWith(
             status: FormzStatus.submissionCanceled,
-            toastMessage: result.left.toString()));
+            toastMessage: (result.left as ServerFailure).errorMessage));
       }
     });
   }

@@ -9,10 +9,11 @@ import 'package:auto/features/login/presentation/widgets/SignIn_with_socials.dar
 // import 'package:auto/features/login/presentation/widgets/SignIn_with_socials.dart';
 import 'package:auto/features/login/presentation/widgets/z_text_form_field.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
-
 class LoginScreen1 extends StatefulWidget {
   const LoginScreen1({Key? key}) : super(key: key);
 
@@ -45,9 +46,9 @@ class _LoginScreenState1 extends State<LoginScreen1> {
   @override
   Widget build(BuildContext context) => KeyboardDismisser(
       child: Scaffold(
-          appBar: const WAppBar(
+          appBar:   WAppBar(
             hasBackButton: true,
-            title: 'Забыли пароль',
+            title:  LocaleKeys.forgot_password.tr(),
           ),
           body: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),

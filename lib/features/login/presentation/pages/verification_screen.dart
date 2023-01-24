@@ -46,14 +46,14 @@ class _VerificationScreenState extends State<VerificationScreen> {
     super.initState();
   }
 
+  bool isError = false;
+
   @override
   Widget build(BuildContext context) => KeyboardDismisser(
         child: CustomScreen(
           child: BlocBuilder<RegisterBloc, RegisterState>(
             builder: (context, state) => Scaffold(
-              appBar: const WAppBar(
-                title: 'Регистрация',
-              ),
+              appBar: WAppBar(title: LocaleKeys.register.tr()),
               body: Padding(
                 padding: const EdgeInsets.all(16),
                 child: Column(
@@ -121,9 +121,9 @@ class _VerificationScreenState extends State<VerificationScreen> {
                             .extension<ThemedColors>()!
                             .solitudeToWhite35,
                         errorBorderColor: red,
-                        activeColor: purple,
-                        activeFillColor: purple,
-                        selectedColor: purple,
+                        activeColor: isError ? red : purple,
+                        activeFillColor: isError ? red : purple,
+                        selectedColor: isError ? red : purple,
                         shape: PinCodeFieldShape.underline,
                         fieldHeight: 44,
                         fieldWidth: 50,
@@ -178,7 +178,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
                                       } else {
                                         context.read<ShowPopUpBloc>().add(
                                             ShowPopUp(
-                                                message: 'something went wrong',
+                                                message: 'Something went wrong',
                                                 isSucces: false,
                                                 dismissible: false));
                                       }
@@ -212,16 +212,24 @@ class _VerificationScreenState extends State<VerificationScreen> {
                           FormzStatus.submissionInProgress,
                       onTap: () => verificationController.text.isNotEmpty &&
                               verificationController.text.length == 6
-                          ? context.read<RegisterBloc>().add(
-                                  RegisterEvent.registerVerifyCode(
-                                      VerifyParam(
-                                          code: verificationController.text,
-                                          phone: widget.phone,
-                                          session: session), onError: (text) {
-                                context.read<ShowPopUpBloc>().add(ShowPopUp(
-                                    message: text,
-                                    isSucces: false,
-                                    dismissible: false));
+                          ? context
+                              .read<RegisterBloc>()
+                              .add(RegisterEvent.registerVerifyCode(
+                                  VerifyParam(
+                                    code: verificationController.text,
+                                    phone: widget.phone,
+                                    session: session,
+                                  ), onError: (text) {
+                                isError = true;
+                                setState(() {});
+
+                                context.read<ShowPopUpBloc>().add(
+                                      ShowPopUp(
+                                        message: text,
+                                        isSucces: false,
+                                        dismissible: false,
+                                      ),
+                                    );
                                 isToastShowing = true;
                               }, onSuccess: () {
                                 Navigator.pushReplacement(

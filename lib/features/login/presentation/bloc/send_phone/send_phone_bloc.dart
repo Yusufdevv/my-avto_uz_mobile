@@ -19,10 +19,10 @@ class SendPhoneBloc extends Bloc<SendPhoneEvent, SendPhoneState> {
         emit(state.copyWith(
             status: FormzStatus.submissionSuccess, session: result.right));
       } else {
+        final error = (result.left as ServerFailure).errorMessage;
        emit(state.copyWith(
             status: FormzStatus.submissionCanceled,
-            toastMessage:
-                'Номер телефона или парольвведены неверно'));
+            toastMessage: error));
       }
     });
   }

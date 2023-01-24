@@ -28,7 +28,6 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
       emit(state.copyWith(verifyStatus: FormzStatus.submissionInProgress));
       final result = await verifyCodeUseCase(event.param);
       if (result.isRight) {
-        // print(result.right + 'from Bloc');
         emit(state.copyWith(
           registerModel:
               state.registerModel.copyWith(phoneNumber: result.right),
@@ -39,12 +38,9 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
         }
       } else {
         if (event.onError != null) {
-          var err = (result.left is ServerFailure)
+          final err = (result.left is ServerFailure)
               ? (result.left as ServerFailure).errorMessage
               : result.left.toString();
-          if (err == 'Wrong code!') {
-            err = 'Код подтверждения введен неверно';
-          }
           event.onError!(err);
         }
         emit(state.copyWith(verifyStatus: FormzStatus.submissionFailure));
