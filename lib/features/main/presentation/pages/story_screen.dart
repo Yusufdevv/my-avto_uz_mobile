@@ -46,12 +46,14 @@ class _StoryScreenState extends State<StoryScreen> {
       setState(() {
         _currentPage = _pageController.page!.toInt();
         _isOnPageTurning = false;
+        print('app log: set state 1');
       });
     } else if (!_isOnPageTurning &&
         _currentPage.toDouble() != _pageController.page) {
       if ((_currentPage.toDouble() - _pageController.page!).abs() > 0.7) {
         setState(() {
           _isOnPageTurning = true;
+          print('app log: set state 2');
         });
       }
     }
@@ -92,9 +94,8 @@ class _StoryScreenState extends State<StoryScreen> {
               itemCount: widget.stories.length,
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) => StoryContentItem(
-                story: widget.stories[_currentPage],
+                story: widget.stories[index],
                 pageIndex: index,
-                currentPageIndex: _currentPage,
                 isPaused: _isOnPageTurning,
                 animate: _animateToPage,
                 storiesCount: widget.stories.length,

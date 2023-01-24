@@ -20,7 +20,6 @@ class StoryContentItem extends StatefulWidget {
   const StoryContentItem({
     required this.story,
     required this.pageIndex,
-    required this.currentPageIndex,
     required this.isPaused,
     required this.animate,
     required this.storiesCount,
@@ -31,7 +30,6 @@ class StoryContentItem extends StatefulWidget {
 
   final StoryEntity story;
   final int pageIndex;
-  final int currentPageIndex;
   final bool isPaused;
   final int storiesCount;
   final Function({required bool forward}) animate;
@@ -56,10 +54,6 @@ class _StoryContentItemState extends State<StoryContentItem>
   void initState() {
     animationController = AnimationController(vsync: this);
     animationController.addStatusListener(_animationListener);
-    print('app log: '
-        'init state'
-        '\npageIndex: ${widget.pageIndex}\ncurrentPageIndex: ${widget.currentPageIndex}'
-        '\nisPaused: ${widget.isPaused}');
     _loadStory();
     super.initState();
   }
@@ -262,7 +256,7 @@ class _StoryContentItemState extends State<StoryContentItem>
 
   void prevStory() {
     if (itemIndex == 0) {
-      if (widget.currentPageIndex == 0) {
+      if (widget.pageIndex == 0) {
         Navigator.pop(context);
       } else {
         itemIndex = widget.story.items.length - 1;
@@ -276,36 +270,26 @@ class _StoryContentItemState extends State<StoryContentItem>
   }
 
   void nextStory() {
-    print('app log: next story');
     if (itemIndex + 1 == widget.story.items.length) {
-      if (widget.currentPageIndex + 1 == widget.storiesCount) {
-        print('app log: pop');
+      if (widget.pageIndex + 1 == widget.storiesCount) {
         Navigator.pop(context);
       } else {
-        print('app log: animate');
         itemIndex = 0;
         widget.animate(forward: true);
         _loadStory();
       }
     } else {
-      print('app log: next item');
       itemIndex++;
       _loadStory();
     }
   }
 
   void _loadStory() {
-    print('app log: itemIndex $itemIndex');
-    print('app log: '
-        '\npageIndex: ${widget.pageIndex}\ncurrentPageIndex: ${widget.currentPageIndex}'
-        '\nisPaused: ${widget.isPaused}');
-
-    if (!(widget.pageIndex == widget.currentPageIndex && !widget.isPaused)) {
+    if (!(widget.pageIndex == widget.pageIndex && !widget.isPaused)) {
       return;
     }
     final last = widget.story.items[itemIndex].content.split('.').last;
     isVideo = last == 'mp4' || last == 'mov';
-    print('app log: isVideo $isVideo');
     if (isVideo) {
       _initVideoController();
       _pauseAndPlayVideo();
@@ -365,9 +349,7 @@ class _StoryContentItemState extends State<StoryContentItem>
 
   void _pauseAndPlayVideo() {
     if (initialized) {
-      if (widget.pageIndex == widget.currentPageIndex &&
-          !widget.isPaused &&
-          initialized) {
+      if (!widget.isPaused && initialized) {
         _videoPlayerController.play().then((value) {});
       } else {
         _videoPlayerController.pause().then((value) {});
@@ -382,7 +364,7 @@ class _StoryContentItemState extends State<StoryContentItem>
         aspectRatio: _videoPlayerController.value.aspectRatio,
         child: VisibilityDetector(
             onVisibilityChanged: _handleVisibilityDetector,
-            key: Key('key_${widget.currentPageIndex}'),
+            key: Key('key_${widget.pageIndex}'),
             child: VideoPlayer(_videoPlayerController)),
       ),
     );
@@ -412,7 +394,7 @@ class _StoryContentItemState extends State<StoryContentItem>
             : screenW,
         child: VisibilityDetector(
             onVisibilityChanged: _handleVisibilityDetector,
-            key: Key('key_${widget.currentPageIndex}'),
+            key: Key('key_${widget.pageIndex}'),
             child: VideoPlayer(_videoPlayerController)),
       ),
     );
@@ -421,7 +403,7 @@ class _StoryContentItemState extends State<StoryContentItem>
   void _handleVisibilityDetector(VisibilityInfo info) {
     if (info.visibleFraction == 0) {
       if (!actualDisposed &&
-          widget.pageIndex == widget.currentPageIndex &&
+          widget.pageIndex == widget.pageIndex &&
           !widget.isPaused &&
           initialized) {
         _videoPlayerController.pause().then((value) {});
