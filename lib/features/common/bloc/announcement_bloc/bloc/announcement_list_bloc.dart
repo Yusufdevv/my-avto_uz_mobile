@@ -23,16 +23,33 @@ class AnnouncementListBloc
     on<_GetAnnouncementList>((event, emit) async {
       emit(state.copyWith(status: FormzStatus.submissionInProgress));
       final result = await useCase.call(state.filter);
-      print('===> ==> Buni qara ${state.filter}');
       if (result.isRight) {
-        emit(
-          state.copyWith(
-            announcementList: result.right.results,
-            status: FormzStatus.submissionSuccess,
-            count: result.right.count,
-            next: result.right.next ?? '',
-          ),
-        );
+        if (state.filter.isNew == true) {
+          emit(
+            state.copyWith(
+              announcementListNew: result.right.results,
+              status: FormzStatus.submissionSuccess,
+              nextNew: result.right.next ?? '',
+            ),
+          );
+        } else if (state.filter.isNew == false) {
+          emit(
+            state.copyWith(
+              announcementListOld: result.right.results,
+              status: FormzStatus.submissionSuccess,
+              nextOld: result.right.next ?? '',
+            ),
+          );
+        } else {
+          emit(
+            state.copyWith(
+              announcementList: result.right.results,
+              status: FormzStatus.submissionSuccess,
+              count: result.right.count,
+              next: result.right.next ?? '',
+            ),
+          );
+        }
       } else {
         emit(state.copyWith(status: FormzStatus.submissionFailure));
       }
@@ -53,14 +70,13 @@ class AnnouncementListBloc
       (event, emit) => emit(
         state.copyWith(
           filter: state.filter.copyWith(
-            gearboxType: null,
-            bodyType: null,
-            driveType: null,
-            priceFrom: 1000,
-            priceTo: 500000,
-            yearFrom: 1960,
-            yearTo: 2023
-          ),
+              gearboxType: null,
+              bodyType: null,
+              driveType: null,
+              priceFrom: 1000,
+              priceTo: 500000,
+              yearFrom: 1960,
+              yearTo: 2023),
         ),
       ),
     );

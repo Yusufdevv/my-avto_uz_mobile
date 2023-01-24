@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/features/car_single/presentation/widgets/about_price_bottomsheet.dart';
@@ -21,7 +19,6 @@ class CarPriceBottom extends StatelessWidget {
   final double procent;
 
   const CarPriceBottom({
-    Key? key,
     required this.price,
     required this.middlePrice,
     required this.ration,
@@ -30,6 +27,7 @@ class CarPriceBottom extends StatelessWidget {
     required this.currency,
     required this.percenti,
     required this.procent,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -119,7 +117,7 @@ class CarPriceBottom extends StatelessWidget {
             CarsPrice(
               date: 'Соотношение',
               price: 'Дешевле с.ц:',
-              totalPrice: 'на ${ration} (${percent} %)',
+              totalPrice: 'на $ration ($percent %)',
               textColor: const Color(0xff5ECC81),
             ),
             const Divider(

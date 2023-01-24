@@ -11,11 +11,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 class CommercialCarModelItem extends StatelessWidget {
   CommercialCarModelItem({
     required this.title,
+    required this.onTap,
+    required this.imageUrl,
     this.centerTitle = false,
     this.subtitle,
     super.key,
-    required this.onTap,
-    required this.imageUrl,
   });
   bool centerTitle;
   String title;

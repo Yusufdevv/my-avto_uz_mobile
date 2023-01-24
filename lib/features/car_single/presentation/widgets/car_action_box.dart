@@ -7,12 +7,12 @@ class CarActionsBox extends StatelessWidget {
   final Widget widget;
   final VoidCallback onTap;
 
-  const CarActionsBox(
-      {required this.onTap,
-      Key? key,
-      required this.carStatistic,
-      required this.widget})
-      : super(key: key);
+  const CarActionsBox({
+    required this.onTap,
+    required this.carStatistic,
+    required this.widget,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) => WScaleAnimation(

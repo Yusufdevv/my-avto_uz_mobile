@@ -58,18 +58,9 @@ class _CommercialScreenState extends State<CommercialScreen>
   }
 
   final Duration fadeDuration = const Duration(milliseconds: 300);
-  final _maxsie = 100;
-  double _persent = 0.0;
+
   @override
-  Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
-    if (_scrollController.hasClients) {
-      if (_scrollController.offset <= 100 && _scrollController.hasClients) {
-        final _persen = _scrollController.offset / _maxsie;
-        _persent = _persen;
-      }
-    }
-    return KeyboardDismisser(
+  Widget build(BuildContext context) => KeyboardDismisser(
       child: AnnotatedRegion(
         value: SystemUiOverlayStyle(
           statusBarColor:
@@ -241,12 +232,10 @@ class _CommercialScreenState extends State<CommercialScreen>
             //     ),
             //   ),
             // ),
-          
           ),
         ),
       ),
     );
-  }
 
   Future<dynamic> filterBottomSheet(BuildContext context) =>
       showModalBottomSheet(

@@ -28,7 +28,6 @@ class GetCarModelBloc extends Bloc<GetCarModelEvent, GetCarModelState> {
     on<_GetMakeId>((event, emit) => emit(state.copyWith(getId: event.id)));
     on<_GetSerched>((event, emit) => emit(state.copyWith(search: event.naem)));
     on<_SelectedModelItem>((event, emit) {
-      print('===> ==> Hullas ${event.id}');
       emit(state.copyWith(selectedId: event.id, name: event.name));
     });
     on<_ConfirmModel>((event, emit) {

@@ -10,8 +10,8 @@ class SliverTabBarDelegate extends SliverPersistentHeaderDelegate {
   final double? height;
 
   const SliverTabBarDelegate({
-    this.color = white,
     required this.child,
+    this.color = white,
     this.padding,
     this.backgroundColor,
     this.tabBarMargin,

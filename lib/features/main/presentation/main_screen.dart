@@ -76,9 +76,7 @@ class _MainScreenState extends State<MainScreen> {
   @override
   void initState() {
     mainBloc = MainBloc()..add(InitialEvent());
-    context
-        .read<AnnouncementListBloc>()
-        .add(AnnouncementListEvent.getAnnouncementList());
+    context.read<GetMakesBloc>().add(GetMakesBlocEvent.getMakes());
     topAdBloc = TopAdBloc(GetTopAdsUseCase())
       ..add(TopAdEvent.getTopAds())
       ..add(TopAdEvent.getFavorites(

@@ -6,8 +6,11 @@ class PriceStatisticItem extends StatelessWidget {
   final double percent;
   final String price;
 
-  PriceStatisticItem({Key? key, required this.percent, required this.price})
-      : super(key: key);
+  PriceStatisticItem({
+    required this.percent,
+    required this.price,
+    Key? key,
+  }) : super(key: key);
 
   CrossAxisAlignment alighment = CrossAxisAlignment.start;
   Color itemColor = Colors.green;

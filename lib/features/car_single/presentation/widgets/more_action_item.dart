@@ -9,23 +9,26 @@ class MoreActionItem extends StatelessWidget {
   final String text;
   final VoidCallback onTap;
 
-  const MoreActionItem(
-      {Key? key, required this.icon, required this.text, required this.color, required this.onTap, required this.borderColor})
-      : super(key: key);
+  const MoreActionItem({
+    required this.icon,
+    required this.text,
+    required this.color,
+    required this.onTap,
+    required this.borderColor,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) => WScaleAnimation(
-    onTap:onTap,
-    child: Container(
+        onTap: onTap,
+        child: Container(
           height: 52,
           decoration: BoxDecoration(
             color: color,
             borderRadius: BorderRadius.circular(
               12,
             ),
-            border: Border.all(
-              color: borderColor
-            ),
+            border: Border.all(color: borderColor),
           ),
           padding: const EdgeInsets.symmetric(
             vertical: 12,
@@ -55,5 +58,5 @@ class MoreActionItem extends StatelessWidget {
             ),
           ),
         ),
-  );
+      );
 }

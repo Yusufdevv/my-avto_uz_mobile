@@ -8,13 +8,14 @@ class WLike extends StatefulWidget {
   final Widget? inActiveIcon;
   final Color color;
   final BoxFit? fit;
-  const WLike(
-      {this.initialLike,
-      this.activeIcon,
-      this.inActiveIcon,
-      this.fit,
-      Key? key, required this.color})
-      : super(key: key);
+  const WLike({
+    required this.color,
+    this.initialLike,
+    this.activeIcon,
+    this.inActiveIcon,
+    this.fit,
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<WLike> createState() => _WLikeState();
@@ -34,11 +35,9 @@ class _WLikeState extends State<WLike> {
   @override
   Widget build(BuildContext context) => GestureDetector(
         onTap: () {
-
           setState(() {
             isLiked = !isLiked;
           });
-
         },
         child: AnimatedSwitcher(
           duration: const Duration(milliseconds: 300),
