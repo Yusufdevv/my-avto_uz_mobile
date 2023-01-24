@@ -242,7 +242,7 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                               dateBsh: '25 mart',
                               percent: MyFunctions.getFormatCost(
                                   '${100 - state.singleEntity.priceAnalytics.percentage}'),
-                              isMine: true,
+                              isMine: state.singleEntity.isMine,
                               saleDays:
                                   '${DateTime.now().difference(DateTime.parse(state.singleEntity.publishedAt)).inDays + 1}',
                               addToFavorite: state.singleEntity.wishlistCount,
@@ -259,9 +259,10 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                                   state.singleEntity.priceAnalytics.percentage,
                             ),
                           ),
-                          const SliverToBoxAdapter(
-                            child: OwnerActions(),
-                          ),
+                          if (state.singleEntity.isMine)
+                            const SliverToBoxAdapter(
+                              child: OwnerActions(),
+                            ),
                           SliverToBoxAdapter(
                             child: CarSellerCard(
                               image: state.singleEntity.userType == 'dealer'
