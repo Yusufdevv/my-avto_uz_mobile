@@ -56,24 +56,28 @@ class ChangeCarItems extends StatelessWidget {
                         width: 36,
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(8),
-                          child: imageUrl.isEmpty
-                              ? Image.asset(
+                          child: 
+                          
+                          // imageUrl.isEmpty
+                          //     ? 
+                              
+                              Image.asset(
                                   AppImages.defaultPhoto,
                                   height: 36,
                                   fit: BoxFit.cover,
                                 )
-                              : CachedNetworkImage(
-                                  imageUrl: imageUrl,
-                                  height: 36,
-                                  width: 36,
-                                  fit: BoxFit.cover,
-                                  errorWidget: (context, url, error) =>
-                                      Image.asset(
-                                    AppImages.defaultPhoto,
-                                    height: 36,
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
+                              // : CachedNetworkImage(
+                              //     imageUrl: imageUrl,
+                              //     height: 36,
+                              //     width: 36,
+                              //     fit: BoxFit.cover,
+                              //     errorWidget: (context, url, error) =>
+                              //         Image.asset(
+                              //       AppImages.defaultPhoto,
+                              //       height: 36,
+                              //       fit: BoxFit.cover,
+                              //     ),
+                              //   ),
                         ),
                       ),
                       const SizedBox(
