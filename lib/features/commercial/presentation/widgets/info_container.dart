@@ -115,12 +115,6 @@ class _InfoContainerState extends State<InfoContainer> {
                                     ? green
                                     : red
                                 : red,
-                            borderRadius: BorderRadius.only(
-                                topRight: const Radius.circular(8),
-                                bottomRight: const Radius.circular(8),
-                                topLeft: Radius.circular(index == 0 ? 8 : 0),
-                                bottomLeft:
-                                    Radius.circular(index == 0 ? 8 : 0)),
                           ),
                           margin: const EdgeInsets.only(right: 16),
                           width: 264,
@@ -147,19 +141,9 @@ class _InfoContainerState extends State<InfoContainer> {
                         ),
                       )
                     else
-                      Container(
+                      SizedBox(
                         height: 201,
                         width: 280,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.only(
-                            topLeft: index == 0
-                                ? const Radius.circular(8)
-                                : Radius.zero,
-                            bottomLeft: index == 0
-                                ? const Radius.circular(8)
-                                : Radius.zero,
-                          ),
-                        ),
                         child: CachedNetworkImage(
                           imageUrl: widget.gallery![index],
                           fit: BoxFit.cover,
