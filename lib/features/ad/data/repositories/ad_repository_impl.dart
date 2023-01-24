@@ -29,7 +29,7 @@ class AdRepositoryImpl extends AdRepository {
     required FormData announcementFormData,
   }) async {
     try {
-      await remoteDataSource.createAnnouncementBrrrrrr(
+      await remoteDataSource.createAnnouncement(
         announcementFormData: announcementFormData,
       );
       return Right('success');
@@ -367,9 +367,10 @@ class AdRepositoryImpl extends AdRepository {
           errorMessage: e.errorMessage, statusCode: e.statusCode));
     }
   }
-  
+
   @override
-  Future<Either<Failure, num>> getMinimumPrice({required Map<String, dynamic> params}) async{
+  Future<Either<Failure, num>> getMinimumPrice(
+      {required Map<String, dynamic> params}) async {
     try {
       final result = await remoteDataSource.getMinimumPrice(params);
       return Right(result);
@@ -382,5 +383,4 @@ class AdRepositoryImpl extends AdRepository {
           errorMessage: e.errorMessage, statusCode: e.statusCode));
     }
   }
-  
 }

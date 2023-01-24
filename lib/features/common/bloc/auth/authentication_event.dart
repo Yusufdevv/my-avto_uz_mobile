@@ -11,6 +11,7 @@ class AuthenticationStatusChanged extends AuthenticationEvent {
 class LoginUser extends AuthenticationEvent {
   final String userName ;
   final String password ;
+  
   final Function(String)? onError;
   LoginUser({required this.password,required this.userName,this.onError});
 }

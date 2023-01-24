@@ -94,11 +94,7 @@ class _ContactScreenState extends State<ContactScreen> {
                     ),
                   );
             }
-          }, builder: (context, postingAdState) {
-            print(
-                '=> => => =>  is contacts verified in builder:   ${postingAdState.isContactsVerified}    <= <= <= <=');
-
-            return Scaffold(
+          }, builder: (context, postingAdState) => Scaffold(
               body: Form(
                 key: _formKey,
                 child: BaseWidget(
@@ -110,7 +106,7 @@ class _ContactScreenState extends State<ContactScreen> {
                       children: [
                         SwitcherRowAsButtonAlso(
                             onTap: () {
-                              print('=> => => =>     on tap presed    <= <= <= <=');
+                        
                               context
                                   .read<PostingAdBloc>()
                                   .add(PostingAdGetUserDataEvent());
@@ -118,16 +114,12 @@ class _ContactScreenState extends State<ContactScreen> {
                             title: 'Указать мои контактны данные',
                             value: postingAdState.showOwnerContacts,
                             onChanged: (value) {
-                              print(
-                                  '=> => => => on changed  value  ${value}    <= <= <= <=');
-                              if (!value) {
+                             if (!value) {
                                 context
                                     .read<PostingAdBloc>()
                                     .add(PostingAdClearControllersEvent());
                               }
-                              print(
-                                  '=>=>=>=> onchanged after if $value <=<=<=<=');
-                              hidePopUp();
+                             hidePopUp();
                               context.read<PostingAdBloc>().add(
                                     PostingAdChooseEvent(
                                       showOwnerContacts: value,
@@ -380,8 +372,7 @@ class _ContactScreenState extends State<ContactScreen> {
                   ),
                 ),
               ),
-            );
-          }),
+            )),
         ),
       );
 }

@@ -170,6 +170,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   onTap: passwordController.text.length >= 4 &&
                           phoneController.text.length == 12
                       ? () {
+                          hidePopUp();
                           context.read<AuthenticationBloc>().add(LoginUser(
                               onError: (text) {
                                 context.read<ShowPopUpBloc>().add(ShowPopUp(

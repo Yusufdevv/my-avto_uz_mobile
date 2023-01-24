@@ -40,9 +40,13 @@ import 'package:auto/features/common/repository/auth.dart';
 import 'package:auto/features/common/usecases/get_districts_usecase.dart';
 import 'package:auto/features/common/usecases/get_regions.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
+import 'package:auto/features/dealers/presentation/pages/map_screen.dart';
 import 'package:auto/features/login/domain/usecases/verify_code.dart';
 import 'package:auto/features/main/domain/usecases/get_top_brand.dart';
+import 'package:auto/features/navigation/presentation/navigator.dart';
+import 'package:auto/features/rent/domain/entities/rent_list_entity.dart';
 import 'package:auto/features/rent/domain/usecases/get_gearboxess_usecase.dart';
+import 'package:auto/features/ad/presentation/pages/map_screen/presentation/pages/map_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -60,7 +64,7 @@ class _PostingAdScreenState extends State<PostingAdScreen>
     with SingleTickerProviderStateMixin {
   late PageController pageController;
   late PostingAdBloc postingAdBloc;
-  static int initialPage = 0;
+  static int initialPage = 16;
   // ChooseCarBrand,
   //1
   // ChooseCarModelScreen(makeId: state.makeId ?? -1),
@@ -110,7 +114,7 @@ class _PostingAdScreenState extends State<PostingAdScreen>
   // const StsScreen(),
   //19
   // PreviewScreen();
-  int currentTabIndex = initialPage;
+  int currentTabIndex = 0;
   final int tabLength = 20;
   @override
   void initState() {
@@ -241,6 +245,7 @@ class _PostingAdScreenState extends State<PostingAdScreen>
     'Цена',
     'Пробег',
     'Предосмотор',
+    'map'
   ];
 
   @override
@@ -340,7 +345,12 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                         initialPhone: state.ownerPhone ?? '',
                       ),
                       //16
-                      const InspectionPlaceScreen(),
+                      InspectionPlaceScreen(
+                        onToMapPressed: () {
+                          Navigator.push(
+                              context, fade(page:const  MapScreenPostingAd()));
+                        },
+                      ),
                       //17
                       PriceScreen(initialPrice: state.price ?? ''),
                       //18
@@ -348,7 +358,7 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                       // //19
                       // const StsScreen(),
                       //19
-                      PreviewScreen()
+                      PreviewScreen(),
                     ],
                   ),
                   if (currentTabIndex < tabLength - 1) ...{
