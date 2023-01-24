@@ -76,7 +76,7 @@ abstract class AdRemoteDataSource {
     String? next,
   });
 
-  Future<void> createAnnouncementBrrrrrr({
+  Future<void> createAnnouncement({
     required FormData announcementFormData,
   });
 
@@ -472,7 +472,7 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
   }
 
   @override
-  Future<void> createAnnouncementBrrrrrr({
+  Future<void> createAnnouncement({
     required FormData announcementFormData,
   }) async {
     try {
@@ -488,7 +488,9 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
               : {},
         ),
       );
-      if (response.statusCode! >= 200 && response.statusCode! < 300) {}
+      if (response.statusCode! >= 200 && response.statusCode! < 300) {
+        return;
+      }
       throw ServerException(
           statusCode: response.statusCode ?? 0,
           errorMessage: response.statusMessage ?? '');

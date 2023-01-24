@@ -116,7 +116,8 @@ class _PtsScreenState extends State<PtsScreen> {
                           showCupertinoDatePicker(
                             context,
                             (date) => context.read<PostingAdBloc>().add(
-                                  PostingAdChooseEvent(purchasedDate: '$date'),
+                                  PostingAdChooseEvent(
+                                      purchasedDate: '$date'.substring(0, 10)),
                                 ),
                           );
                         },

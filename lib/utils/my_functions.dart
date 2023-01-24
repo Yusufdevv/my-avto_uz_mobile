@@ -319,28 +319,36 @@ class MyFunctions {
     bool serviceEnabled;
     LocationPermission permission;
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    print('=> => => =>  serivce enabled   ${serviceEnabled}    <= <= <= <=');
     if (!serviceEnabled) {
+      print('=> => => =>     service enabled not    <= <= <= <=');
       // throw const ParsingException(errorMessage: 'location_services_disabled');
       permission = await Geolocator.checkPermission();
       if (permission == LocationPermission.denied) {
+        print('=> => => =>     permission deniyed    <= <= <= <=');
         permission = await Geolocator.requestPermission();
         if (permission == LocationPermission.denied) {
+          print('=> => => =>     permisson again denied    <= <= <= <=');
           throw const ParsingException(
               errorMessage: 'location_permission_disabled');
         }
       }
 
       if (permission == LocationPermission.deniedForever) {
+        print('=> => => =>     permission denied forever    <= <= <= <=');
         permission = await Geolocator.requestPermission();
         if (permission == LocationPermission.denied) {
+          print('=> => => =>     permission denied again forever    <= <= <= <=');
           throw const ParsingException(
               errorMessage: 'location_permission_disabled');
         } else if (permission == LocationPermission.deniedForever) {
+          print('=> => => =>     dennied again ageain    <= <= <= <=');
           throw const ParsingException(
               errorMessage: 'location_permission_permanent_disabled');
         }
       }
     }
+    print('=> => => =>     REturning    <= <= <= <=');
 
     return await Geolocator.getCurrentPosition();
   }

@@ -35,6 +35,7 @@ import 'package:auto/features/main/domain/usecases/get_top_brand.dart';
 import 'package:auto/features/rent/domain/usecases/get_gearboxess_usecase.dart';
 import 'package:auto/utils/my_functions.dart';
 import 'package:bloc/bloc.dart';
+import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:formz/formz.dart';
@@ -44,6 +45,7 @@ part 'posting_ad_state.dart';
 part 'singleton_of_posting_ad_bloc.dart';
 
 class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
+  final CreateAnnouncementUseCase createUseCase;
   final AuthRepository userRepository;
   final VerifyCodeUseCase verifyCodeUseCase;
   final ContactsUseCase contactsUseCase;
@@ -51,7 +53,6 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
   final GetCarSingleUseCase announcementUseCase;
   final GetRegionsUseCase regionsUseCase;
   final GetDistrictsUseCase districtUseCase;
-  final CreateAnnouncementUseCase createUseCase;
   final GetGearBoxessUseCase gearboxUseCase;
   final GetDriveTypeUseCase driveTypeUseCase;
   final GetEngineTypeUseCase engineUseCase;
@@ -102,7 +103,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     on<PostingAdGetAnnouncementEvent>(_getAnnouncement);
     on<PostingAdGetMinimumPriceEvent>(_getMinimumPrice);
     on<PostingAdSendCodeEvent>(_sendCode);
-    on<PostingAdGetUserDataEvent>(_getUserInfoAsContacts);
+    on<PostingAdGetUserDataEvent>(_getUser);
     on<PostingAdClearControllersEvent>(_clearControllers);
   }
 
@@ -115,7 +116,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     ));
   }
 
-  FutureOr<void> _getUserInfoAsContacts(
+  FutureOr<void> _getUser(
       PostingAdGetUserDataEvent event, Emitter<PostingAdState> emit) async {
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
     if (state.userModel != null) {
@@ -126,12 +127,26 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
           emailController: TextEditingController(text: state.userModel!.email),
           nameController:
               TextEditingController(text: state.userModel!.fullName),
+          ownerEmail: state.userModel?.email,
+          ownerName: state.userModel?.fullName,
+          ownerPhone: state.userModel?.phone.substring(4),
           isContactsVerified: true,
           status: FormzStatus.submissionSuccess));
       return;
     }
     final result = await userRepository.getUser();
     if (result.isRight) {
+      print('the users fullname:${result.right.fullName}');
+
+      print('the users first:${result.right.firstName}');
+
+      print('the users last:${result.right.lastName}');
+
+      print('the users plhone:${result.right.phone}');
+
+      print('the users phone number:${result.right.phoneNumber}');
+
+      print('the users fullname:${result.right.email}');
       emit(state.copyWith(
         isContactsVerified: true,
         status: FormzStatus.submissionSuccess,
@@ -140,6 +155,9 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
                 MyFunctions.phoneFormat(result.right.phoneNumber.substring(4))),
         emailController: TextEditingController(text: result.right.email),
         nameController: TextEditingController(text: result.right.fullName),
+        ownerEmail: result.right.email,
+        ownerName: result.right.fullName,
+        ownerPhone: result.right.phoneNumber.substring(4),
         userModel: result.right,
       ));
     } else {
@@ -240,7 +258,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
   FutureOr<void> _create(
       PostingAdCreateEvent event, Emitter<PostingAdState> emit) async {
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
-    final result = await createUseCase.call(PASingleton.create(state));
+    final result = await createUseCase.call(await PASingleton.create(state));
     if (result.isRight) {
       print('=> => => =>     RIGHT RIGHT RIGHT RIGHT       <= <= <= <=');
       emit(state.copyWith(status: FormzStatus.pure));
