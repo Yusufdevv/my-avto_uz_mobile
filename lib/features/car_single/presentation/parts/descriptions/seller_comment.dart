@@ -10,7 +10,10 @@ String text =
 class SellerComment extends StatelessWidget {
   final String comment;
 
-  const SellerComment({Key? key, required this.comment}) : super(key: key);
+  const SellerComment({
+    required this.comment,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) => Container(

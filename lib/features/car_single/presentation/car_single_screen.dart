@@ -258,9 +258,10 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                                   state.singleEntity.priceAnalytics.percentage,
                             ),
                           ),
-                          const SliverToBoxAdapter(
-                            child: OwnerActions(),
-                          ),
+                          if (state.singleEntity.isMine)
+                            const SliverToBoxAdapter(
+                              child: OwnerActions(),
+                            ),
                           SliverToBoxAdapter(
                             child: CarSellerCard(
                               image: state.singleEntity.userType == 'dealer'

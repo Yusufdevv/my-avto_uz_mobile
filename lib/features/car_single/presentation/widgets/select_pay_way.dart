@@ -32,8 +32,7 @@ class SelectPaymentItem extends StatelessWidget {
           decoration: BoxDecoration(
             color: color,
             borderRadius: BorderRadius.circular(8),
-            border:
-                Border.all(width: 1, color: borderColor),
+            border: Border.all(width: 1, color: borderColor),
           ),
           child: Row(
             children: [

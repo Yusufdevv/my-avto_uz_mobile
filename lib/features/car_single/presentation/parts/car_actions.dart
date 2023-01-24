@@ -14,56 +14,56 @@ class CarActions extends StatelessWidget {
   final int id;
   final bool isComparised;
 
-  const CarActions(
-      {Key? key,
-      required this.onVin,
-      required this.onComparison,
-      required this.onShare,
-      required this.id,
-      required this.isComparised})
-      : super(key: key);
+  const CarActions({
+    required this.onVin,
+    required this.onComparison,
+    required this.onShare,
+    required this.id,
+    required this.isComparised,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) => Row(
-    mainAxisAlignment: MainAxisAlignment.spaceAround,
-    children: [
-      CarActionsBox(
-        onTap: onVin,
-        carStatistic: CarStatistic(
-            valueText: LocaleKeys.report_vin.tr(), icon: AppIcons.file),
-        widget: SvgPicture.asset(
-          AppIcons.vin_soon,
-          height: 28,
-          width: 28,
-        ),
-      ),
-      Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          AddComparisonItem(
-            id: id,
-            initialLike: isComparised,
+          CarActionsBox(
+            onTap: onVin,
+            carStatistic: CarStatistic(
+                valueText: LocaleKeys.report_vin.tr(), icon: AppIcons.file),
+            widget: SvgPicture.asset(
+              AppIcons.vin_soon,
+              height: 28,
+              width: 28,
+            ),
           ),
-          Text(
-            'Сравнить',
-            style: Theme.of(context).textTheme.headline1!.copyWith(
-                  fontWeight: FontWeight.w600,
-                  fontSize: 12,
-                  color: const Color(0xff696974),
-                ),
+          Column(
+            children: [
+              AddComparisonItem(
+                id: id,
+                initialLike: isComparised,
+              ),
+              Text(
+                'Сравнить',
+                style: Theme.of(context).textTheme.headline1!.copyWith(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 12,
+                      color: const Color(0xff696974),
+                    ),
+              ),
+            ],
+          ),
+          CarActionsBox(
+            onTap: onShare,
+            carStatistic: CarStatistic(
+                valueText: LocaleKeys.share.tr(), icon: AppIcons.share),
+            widget: SvgPicture.asset(
+              AppIcons.share,
+              height: 28,
+              width: 28,
+              color: const Color(0xff696974),
+            ),
           ),
         ],
-      ),
-      CarActionsBox(
-        onTap: onShare,
-        carStatistic: CarStatistic(
-            valueText: LocaleKeys.share.tr(), icon: AppIcons.share),
-        widget: SvgPicture.asset(
-          AppIcons.share,
-          height: 28,
-          width: 28,
-          color: const Color(0xff696974),
-        ),
-      ),
-    ],
-  );
+      );
 }
