@@ -20,6 +20,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -63,9 +65,9 @@ class _LoginScreenState extends State<LoginScreen> {
     return KeyboardDismisser(
       child: CustomScreen(
         child: Scaffold(
-          appBar: const WAppBar(
+          appBar:   WAppBar(
             hasBackButton: false,
-            title: 'Войти',
+            title:LocaleKeys.enter.tr(),
           ),
           body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -74,7 +76,7 @@ class _LoginScreenState extends State<LoginScreen> {
               children: [
                 const SizedBox(height: 48),
                 Text(
-                  'Войти в существуюущий аккаунт',
+                  LocaleKeys.enter_to_account.tr(),
                   style: Theme.of(context)
                       .textTheme
                       .headline1!
@@ -84,7 +86,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 Row(
                   children: [
                     Text(
-                      'У вас нету аккаунта?',
+                      LocaleKeys.d_y_h_account.tr(),
                       style: Theme.of(context)
                           .textTheme
                           .headline6!
@@ -100,7 +102,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             context, fade(page: const RegisterScreen()));
                       },
                       child: Text(
-                        'Регистрация',
+                        LocaleKeys.register.tr(),
                         style: Theme.of(context).textTheme.headline3!.copyWith(
                             fontWeight: FontWeight.w600, fontSize: 13),
                       ),
@@ -144,7 +146,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   onChanged: (value) {
                     setState(() {});
                   },
-                  hintText: 'Пароль',
+                  hintText: LocaleKeys.password.tr(),
                   controller: passwordController,
                   isObscure: true,
                 ),
@@ -156,7 +158,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         .push(fade(page: const SendPhoneNumberPage()));
                   },
                   child: Text(
-                    'Забыли пароль?',
+                    LocaleKeys.forgot_password.tr(),
                     style: Theme.of(context)
                         .textTheme
                         .headline3!
@@ -195,7 +197,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   margin: EdgeInsets.only(
                     bottom: 20 + MediaQuery.of(context).padding.bottom,
                   ),
-                  text: 'Продолжить',
+                  text: LocaleKeys.continuee.tr(),
                   border: Border.all(
                     width: 1,
                     color: Theme.of(context)
@@ -223,7 +225,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 4),
                     child: Text(
-                      'Другие способы входа',
+                      LocaleKeys.another_ways.tr(),
                       style: Theme.of(context).textTheme.headline6!.copyWith(
                             fontWeight: FontWeight.w400,
                             fontSize: 12,

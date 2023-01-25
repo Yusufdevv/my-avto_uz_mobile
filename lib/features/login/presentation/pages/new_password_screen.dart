@@ -111,7 +111,7 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                               context.read<ShowPopUpBloc>().add(
                                     ShowPopUp(
                                       message:
-                                          'Пароли не совпали, повторите попытку еще раз',
+                                          LocaleKeys.passwords_didnt_match.tr(),
                                       isSucces: false,
                                       dismissible: false,
                                     ),

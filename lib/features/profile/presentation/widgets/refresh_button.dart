@@ -35,6 +35,7 @@ class _RefreshButtonState extends State<RefreshButton>
 
   @override
   Widget build(BuildContext context) => GestureDetector(
+    behavior: HitTestBehavior.opaque,
         onTap: () {
           Timer(const Duration(milliseconds: 1000), () {
             _controller.stop();
@@ -43,9 +44,12 @@ class _RefreshButtonState extends State<RefreshButton>
         },
         child: RotationTransition(
           turns: Tween(begin: 0.0, end: 1.0).animate(_controller),
-          child: SvgPicture.asset(
-            AppIcons.refreshSmall,
-            color: Theme.of(context).extension<ThemedColors>()!.greyToCinnabar,
+          child: Padding(
+            padding: const EdgeInsets.only(left: 6),
+            child: SvgPicture.asset(
+              AppIcons.refreshSmall,
+              color: Theme.of(context).extension<ThemedColors>()!.greyToCinnabar,
+            ),
           ),
         ),
       );
