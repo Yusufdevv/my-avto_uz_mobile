@@ -60,7 +60,6 @@ class _ContentItemState extends State<ContentItem> {
           _videoPlayerController.value.size.height;
     }
     return Stack(
-      // fit: StackFit.expand,
       children: [
         if (initialized)
           isLandscape ? _renderLandscapeVideo() : _renderPortraitVideo(),

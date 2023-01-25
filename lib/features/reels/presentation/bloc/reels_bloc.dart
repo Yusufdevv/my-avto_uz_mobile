@@ -50,6 +50,7 @@ class ReelsBloc extends Bloc<ReelsEvent, ReelsState> {
       emit(state.copWith(
         reels: result.right.results,
         statusReelsGet: FormzStatus.submissionSuccess,
+        hasNext: result.right.next != null,
       ));
     } else {
       emit(state.copWith(statusReelsGet: FormzStatus.submissionFailure));
