@@ -16,6 +16,10 @@ CarsInDealerModel _$CarsInDealerModelFromJson(Map<String, dynamic> json) =>
       longitude: json['longitude'] as int? ?? 0,
       price: json['price'] as String? ?? '',
       locationUrl: json['location_url'] as String? ?? '',
+      gallery: (json['gallery'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList() ??
+          const [],
       color: json['color'] as String? ?? '',
       absoluteCarName: json['absolute_car_name'] as String? ?? '',
       bodyType: json['body_type'] as int? ?? 0,
@@ -73,6 +77,7 @@ Map<String, dynamic> _$CarsInDealerModelToJson(CarsInDealerModel instance) =>
       'created_at': instance.createdAt,
       'updated_at': instance.updatedAt,
       'moderation_status': instance.moderationStatus,
+      'gallery': instance.gallery,
       'year': instance.year,
       'absolute_car_name': instance.absoluteCarName,
       'licence_type': instance.licenceType,

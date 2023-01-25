@@ -10,13 +10,13 @@ MarksWithAdsModel _$MarksWithAdsModelFromJson(Map<String, dynamic> json) =>
     MarksWithAdsModel(
       carsCount: json['cars_count'] as int? ?? 0,
       make: json['make'] == null
-          ? const MakeEntity()
-          : const MakeConverter()
+          ? const DealerMakeEntity()
+          : const DealerMakeConverter()
               .fromJson(json['make'] as Map<String, dynamic>?),
     );
 
 Map<String, dynamic> _$MarksWithAdsModelToJson(MarksWithAdsModel instance) =>
     <String, dynamic>{
-      'make': const MakeConverter().toJson(instance.make),
+      'make': const DealerMakeConverter().toJson(instance.make),
       'cars_count': instance.carsCount,
     };

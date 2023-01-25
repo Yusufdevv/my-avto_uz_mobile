@@ -1,13 +1,18 @@
+import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/dealers/presentation/pages/image_in_full_screen.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class AnimatedImages extends StatefulWidget {
   final double screenWidth;
+  final List<String> images;
 
   const AnimatedImages({
     required this.screenWidth,
+    required this.images,
     Key? key,
   }) : super(key: key);
 
@@ -25,16 +30,6 @@ class _AnimatedImagesState extends State<AnimatedImages>
   late double screenWidth;
   late double widthOfIndicator;
   late Animation<double> animation;
-  List<Color> images = [
-    Colors.green,
-    Colors.black,
-    Colors.green,
-    Colors.red,
-    Colors.yellow,
-    Colors.orange,
-    Colors.white10,
-    Colors.greenAccent,
-  ];
 
   @override
   void initState() {
@@ -42,7 +37,8 @@ class _AnimatedImagesState extends State<AnimatedImages>
     screenWidth = widget.screenWidth;
     leftSideOfPageView = screenWidth / 3;
     rightSideOfPageView = screenWidth * 2 / 3;
-    widthOfIndicator = (screenWidth - 4 * images.length - 44) / images.length;
+    widthOfIndicator =
+        (screenWidth - 4 * widget.images.length - 44) / widget.images.length;
     _animationController = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 2000));
     animation =
@@ -52,13 +48,13 @@ class _AnimatedImagesState extends State<AnimatedImages>
       ..addStatusListener((status) {
         if (status == AnimationStatus.completed) {
           _animationController.forward();
-          if (page < images.length - 1) {
+          if (page < widget.images.length - 1) {
             _pageController.nextPage(
-                duration: const Duration(milliseconds: 50),
+                duration: const Duration(milliseconds: 200),
                 curve: Curves.linear);
           } else {
             _pageController.animateToPage(0,
-                duration: const Duration(milliseconds: 50),
+                duration: const Duration(milliseconds: 200),
                 curve: Curves.bounceOut);
           }
         }
@@ -89,7 +85,7 @@ class _AnimatedImagesState extends State<AnimatedImages>
                         curve: Curves.linear);
                   }
                 } else if (details.localPosition.dx > rightSideOfPageView) {
-                  if (page < images.length - 1) {
+                  if (page < widget.images.length - 1) {
                     _pageController.nextPage(
                         duration: const Duration(milliseconds: 50),
                         curve: Curves.linear);
@@ -99,23 +95,76 @@ class _AnimatedImagesState extends State<AnimatedImages>
                         curve: Curves.bounceOut);
                   }
                 } else {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const ImageInFullScreen()));
+                  if (widget.images.isNotEmpty) {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => ImageInFullScreen(
+                              images: widget.images,
+                            )));
+                  }
                 }
               },
-              child: PageView(
-                onPageChanged: (integer) {
-                  page = integer;
-                  _animationController.forward(from: 0.0);
-                },
-                controller: _pageController,
-                children: List.generate(
-                  images.length,
-                  (index) => Container(
-                    color: images[index],
-                  ),
-                ),
-              ),
+              child:
+                  //   child: PageView(
+                  //     onPageChanged: (integer) {
+                  //       page = integer;
+                  //       _animationController.forward(from: 0);
+                  //     },
+                  //     controller: _pageController,
+                  //     children: List.generate(
+                  //       widget.images.length,
+                  //       (index) => CachedNetworkImage(
+                  //         imageUrl: widget.images[index],
+                  //         imageBuilder: (context, imageProvider) => Container(
+                  //           decoration: BoxDecoration(
+                  //             image: DecorationImage(
+                  //                 image: imageProvider, fit: BoxFit.cover),
+                  //           ),
+                  //         ),
+                  //         placeholder: (context, url) =>
+                  //             const CircularProgressIndicator(),
+                  //         errorWidget: (context, url, error) =>
+                  //             SvgPicture.asset(AppImages.autoUz),
+                  //       ),
+                  //       // (index) => Container(
+                  //       //   decoration: BoxDecoration(
+                  //       //     shape: BoxShape.rectangle,
+                  //       //   ),
+                  //       //   color: images[index],
+                  //       // ),
+                  //     ),
+                  //   ),
+                  // ),
+                  PageView.builder(
+                      physics: const BouncingScrollPhysics(),
+                      controller: _pageController,
+                      scrollDirection: Axis.horizontal,
+                      onPageChanged: (value) => setState(() {
+                            page = value;
+                          }),
+                      itemCount:
+                          widget.images.isEmpty ? 1 : widget.images.length,
+                      itemBuilder: (context, index) => Container(
+                            foregroundDecoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                begin: Alignment.topCenter,
+                                end: Alignment.center,
+                                colors: [
+                                  Colors.black,
+                                  Colors.black.withOpacity(0),
+                                ],
+                              ),
+                            ),
+                            child: widget.images.isEmpty
+                                ? Image.asset(
+                                    AppImages.diler,
+                                    fit: BoxFit.cover,
+                                  )
+                                : CachedNetworkImage(
+                                    imageUrl: widget.images[index],
+                                    width: double.maxFinite,
+                                    height: 340,
+                                    fit: BoxFit.cover),
+                          )),
             ),
             Positioned(
               bottom: 0,
@@ -132,7 +181,7 @@ class _AnimatedImagesState extends State<AnimatedImages>
               left: 20,
               child: Row(
                 children: List.generate(
-                  images.length,
+                  widget.images.length,
                   (index) => Stack(
                     children: [
                       Container(

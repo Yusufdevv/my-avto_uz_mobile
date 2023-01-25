@@ -12,4 +12,6 @@ class DamagedPartModel extends DamagedPartEntity {
 
   factory DamagedPartModel.fromJson(Map<String, dynamic> json) =>
       _$DamagedPartModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$DamagedPartModelToJson(this);
 }

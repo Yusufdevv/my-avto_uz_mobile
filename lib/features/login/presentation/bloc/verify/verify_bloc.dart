@@ -33,12 +33,9 @@ class VerifyBloc extends Bloc<VerifyEvent, VerifyState> {
         status: FormzStatus.submissionSuccess,
       ));
     } else {
-      var error = result.left is ServerFailure
+      final error = result.left is ServerFailure
           ? (result.left as ServerFailure).errorMessage
           : result.left.toString();
-      if (error == 'Wrong code!') {
-        error = 'Код подтверждения введен неверно';
-      }
       emit(
         state.copyWith(
           status: FormzStatus.submissionCanceled,

@@ -12,13 +12,13 @@ class DealerItem extends StatelessWidget {
   final String position;
   final VoidCallback onTap;
 
-  const DealerItem(
-      {Key? key,
-      required this.image,
-      required this.name,
-      required this.position,
-      required this.onTap})
-      : super(key: key);
+  const DealerItem({
+    required this.image,
+    required this.name,
+    required this.position,
+    required this.onTap,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) => WScaleAnimation(
@@ -38,9 +38,9 @@ class DealerItem extends StatelessWidget {
                 decoration: BoxDecoration(
                   boxShadow: [
                     BoxShadow(
-                        offset: Offset(0, 4),
+                        offset: const Offset(0, 4),
                         blurRadius: 12,
-                        color: Color(0xff171725).withOpacity(0.18))
+                        color: const Color(0xff171725).withOpacity(0.18))
                   ],
                   borderRadius: BorderRadius.circular(30),
                   border: Border.all(color: white, width: 1),
@@ -57,7 +57,7 @@ class DealerItem extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 8,
               ),
               Column(

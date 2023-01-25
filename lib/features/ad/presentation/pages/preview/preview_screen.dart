@@ -1,14 +1,18 @@
-import 'package:auto/assets/colors/color.dart';
 import 'package:auto/features/ad/domain/entities/preview/preview_entity.dart';
-import 'package:auto/features/ad/presentation/pages/preview/widgets/preview_item.dart';
-import 'package:auto/features/common/widgets/w_button.dart';
-import 'package:auto/features/navigation/presentation/home.dart';
+import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.dart';
+import 'package:auto/features/ad/presentation/pages/preview/widgets/car_info_row.dart';
+import 'package:auto/features/ad/presentation/pages/preview/widgets/car_model_price_text.dart';
+import 'package:auto/features/ad/presentation/pages/preview/widgets/car_model_text.dart';
+import 'package:auto/features/ad/presentation/pages/preview/widgets/date_and_views_row.dart';
+import 'package:auto/features/ad/presentation/pages/preview/widgets/id_row.dart';
+import 'package:auto/features/ad/presentation/pages/preview/widgets/image_viewer.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class PreviewScreen extends StatelessWidget {
   PreviewScreen({Key? key}) : super(key: key);
 
-  final List<PreviewEntity> preview = [
+  final List<PreviewEntity> previews = [
     PreviewEntity(
         carModel:
             'Mercedes-Benz CLS 400 II (C218) AMG Рестайлинг Mercedes-Benz CLS 400 II (C218) AMG',
@@ -31,30 +35,69 @@ class PreviewScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-          body: Stack(
-        children: [
-          PreviewItem(
-            previewEntity: preview[0],
+        body: BlocBuilder<PostingAdBloc, PostingAdState>(
+          builder: (context, state) => SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
+            padding: const EdgeInsets.only(bottom: 50),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 16, left: 16, bottom: 12),
+                  child: Text(
+                    'Финальный предосмотр',
+                    style: Theme.of(context).textTheme.headline1,
+                  ),
+                ),
+                ImageViewer(images: previews[0].images),
+                const SizedBox(height: 12),
+                CarModelText(text: previews[0].carModel),
+                CarPriceText(text: previews[0].price),
+                const SizedBox(height: 12),
+                DateAndViewsRow(previews: previews),
+                const SizedBox(height: 8),
+                IdRow(previews: previews),
+                Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 16, vertical: 16),
+                    child: Divider(
+                        height: 1, color: Theme.of(context).dividerColor)),
+                CarInfoRow(
+                    title: 'Год выпуска',
+                    info: '${state.yearsEntity?.yearBegin}'),
+                CarInfoRow(title: 'Пробег', info: '${state.mileage}'),
+                CarInfoRow(
+                    title: 'Кузов',
+                    info: state.bodyTypes.isEmpty
+                        ? 'not selected'
+                        : state.bodyTypes
+                            .firstWhere((e) => e.id == state.bodyTypeId)
+                            .type),
+                CarInfoRow(
+                  title: 'Цвет',
+                  info: '${state.colorName}',
+                ),
+                const CarInfoRow(title: 'Комплектация', info: 'hsergfd'),
+                CarInfoRow(
+                  title: 'Объем двигателя, л',
+                  info: '${state.yearsEntity?.yearBegin ?? 'hsergfd'}',
+                ),
+                CarInfoRow(
+                  title: 'Коробка передач',
+                  info: state.gearBoxes.isEmpty
+                      ? 'not selected'
+                      : state.gearBoxes
+                          .firstWhere((e) => e.id == state.gearboxId)
+                          .type,
+                ),
+                CarInfoRow(
+                  title: 'Растаможен в Узбекистане',
+                  info: state.registeredInUzbekistan ? 'Да' : 'Нет',
+                ),
+                const SizedBox(height: 36)
+              ],
+            ),
           ),
-          Positioned(
-              bottom: MediaQuery.of(context).padding.bottom + 16,
-              right: 16,
-              left: 16,
-              child: WButton(
-                onTap: () async {
-                  Navigator.pop(context);
-                  HomeTabControllerProvider.of(context).controller.animateTo(4);
-
-                  // await Navigator.push(context, fade(page: const MyAddsPage()));
-                },
-                text: 'Разместить бесплатно на 7 дней....',
-                shadow: [
-                  BoxShadow(
-                      offset: const Offset(0, 4),
-                      blurRadius: 20,
-                      color: orange.withOpacity(0.2)),
-                ],
-              )),
-        ],
-      ));
+        ),
+      );
 }

@@ -5,7 +5,10 @@ import 'package:flutter_svg/svg.dart';
 class VinInfoTile extends StatelessWidget {
   final OwnerActionEntity entity;
 
-  const VinInfoTile({Key? key, required this.entity}) : super(key: key);
+  const VinInfoTile({
+    required this.entity,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) => Container(

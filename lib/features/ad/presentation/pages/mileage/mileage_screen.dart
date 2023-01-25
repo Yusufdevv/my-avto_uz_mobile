@@ -1,6 +1,7 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/themes/theme_extensions/w_textfield_style.dart';
 import 'package:auto/features/ad/presentation/bloc/mileage/mileage_image_bloc.dart';
+import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.dart';
 import 'package:auto/features/ad/presentation/pages/mileage/widgets/mileage_image.dart';
 import 'package:auto/features/common/widgets/switcher_row.dart';
 import 'package:auto/features/common/widgets/w_textfield.dart';
@@ -10,7 +11,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 class MileageScreen extends StatefulWidget {
-  const MileageScreen({Key? key}) : super(key: key);
+  final String initialMilage;
+  const MileageScreen({required this.initialMilage, Key? key})
+      : super(key: key);
 
   @override
   State<MileageScreen> createState() => _MileageScreenState();
@@ -23,7 +26,7 @@ class _MileageScreenState extends State<MileageScreen> {
   @override
   void initState() {
     mileageImageBloc = MileageImageBloc();
-    mileageController = TextEditingController();
+    mileageController = TextEditingController(text: widget.initialMilage);
 
     super.initState();
   }
@@ -42,31 +45,50 @@ class _MileageScreenState extends State<MileageScreen> {
             body: BlocBuilder<MileageImageBloc, MileageImageState>(
               builder: (context, state) => BaseWidget(
                 headerText: 'Пробег',
-               
                 child: Padding(
                   padding: const EdgeInsets.all(16),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      WTextField(
-                        maxLength: 6,
-                        hideCounterText: true,
-                        onChanged: (value) {},
-                        title: 'Пробег',
-                        hintText: '0 km',
-                        borderRadius: 12,
-                        keyBoardType: TextInputType.number,
-                        controller: mileageController,
-                        fillColor: Theme.of(context)
-                            .extension<WTextFieldStyle>()!
-                            .fillColor,
-                        focusColor: Theme.of(context)
-                            .extension<WTextFieldStyle>()!
-                            .fillColor,
-                        disabledColor: Theme.of(context)
-                            .extension<WTextFieldStyle>()!
-                            .fillColor,
+                      SwitcherRow(
+                        title: 'Без пробега',
+                        value: context
+                                .watch<PostingAdBloc>()
+                                .state
+                                .isWithoutMileage ??
+                            false,
+                        onChanged: (v) => context.read<PostingAdBloc>().add(
+                              PostingAdChooseEvent(isWithoutMileage: v),
+                            ),
                       ),
+                      const SizedBox(height: 21),
+                      if (!(context
+                              .watch<PostingAdBloc>()
+                              .state
+                              .isWithoutMileage ??
+                          false)) ...{
+                        WTextField(
+                          maxLength: 6,
+                          hideCounterText: true,
+                          onChanged: (value) => context
+                              .read<PostingAdBloc>()
+                              .add(PostingAdChooseEvent(mileage: value)),
+                          title: 'Пробег',
+                          hintText: '0 km',
+                          borderRadius: 12,
+                          keyBoardType: TextInputType.number,
+                          controller: mileageController,
+                          fillColor: Theme.of(context)
+                              .extension<WTextFieldStyle>()!
+                              .fillColor,
+                          focusColor: Theme.of(context)
+                              .extension<WTextFieldStyle>()!
+                              .fillColor,
+                          disabledColor: Theme.of(context)
+                              .extension<WTextFieldStyle>()!
+                              .fillColor,
+                        ),
+                      },
                       const SizedBox(
                         height: 20,
                       ),
@@ -84,7 +106,6 @@ class _MileageScreenState extends State<MileageScreen> {
                       const SizedBox(
                         height: 20,
                       ),
-                      const SwitcherRow(title: 'Без пробега'),
                     ],
                   ),
                 ),

@@ -3,6 +3,7 @@ import 'package:auto/features/login/data/models/register.dart';
 import 'package:auto/features/login/domain/usecases/register_user.dart';
 import 'package:auto/features/login/domain/usecases/send_code.dart';
 import 'package:auto/features/login/domain/usecases/verify_code.dart';
+import 'package:auto/utils/my_functions.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:formz/formz.dart';
@@ -28,7 +29,6 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
       emit(state.copyWith(verifyStatus: FormzStatus.submissionInProgress));
       final result = await verifyCodeUseCase(event.param);
       if (result.isRight) {
-        // print(result.right + 'from Bloc');
         emit(state.copyWith(
           registerModel:
               state.registerModel.copyWith(phoneNumber: result.right),
@@ -39,13 +39,11 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
         }
       } else {
         if (event.onError != null) {
-          var err = (result.left is ServerFailure)
-              ? (result.left as ServerFailure).errorMessage
-              : result.left.toString();
-          if (err == 'Wrong code!') {
-            err = 'Код подтверждения введен неверно';
-          }
-          event.onError!(err);
+          event.onError!(MyFunctions.getErrorMessage(result.left));
+          // final err = (result.left is ServerFailure)
+          //     ? (result.left as ServerFailure).errorMessage
+          //     : result.left.toString();
+          // event.onError!(err);
         }
         emit(state.copyWith(verifyStatus: FormzStatus.submissionFailure));
       }

@@ -6,24 +6,6 @@ part 'generic_pagination.g.dart';
 class GenericPagination<T> {
   @JsonKey(name: 'next')
   final String? next;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
   @JsonKey(name: 'previous')
   final String? previous;
   @JsonKey(name: 'results', defaultValue: [])

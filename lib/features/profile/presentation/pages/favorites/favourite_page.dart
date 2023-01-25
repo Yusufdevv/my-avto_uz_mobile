@@ -3,6 +3,7 @@ import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/features/common/bloc/wishlist_add/wishlist_add_bloc.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/profile/data/repositories/get_user_list_repo_impl.dart';
+import 'package:auto/features/profile/domain/entities/dealer_type_entity.dart';
 import 'package:auto/features/profile/domain/usecases/get_my_searches_usecase.dart';
 import 'package:auto/features/profile/domain/usecases/get_notification_single.dart';
 import 'package:auto/features/profile/domain/usecases/get_notification_usecase.dart';
@@ -33,8 +34,7 @@ class _FavouritePageState extends State<FavouritePage> {
   void initState() {
     final repo = serviceLocator<GetUserListRepoImpl>();
     bloc = UserWishListsBloc(
-        profileFavoritesMyAdsUseCase:
-            GetUserFavoritesMyAdsUseCase(),
+        profileFavoritesMyAdsUseCase: GetUserFavoritesMyAdsUseCase(),
         getNotificationSingleUseCase:
             GetNotificationSingleUseCase(repository: repo),
         getNotificationsUseCase: GetNotificationsUseCase(repository: repo),
@@ -63,10 +63,12 @@ class _FavouritePageState extends State<FavouritePage> {
             if (state.favoritesStatus.isSubmissionSuccess) {
               return state.favorites.isNotEmpty
                   ? AnimatedList(
+                      physics: const BouncingScrollPhysics(),
                       key: listkey,
                       initialItemCount: state.favorites.length,
                       itemBuilder: (context, index, animation) {
                         final item = state.favorites[index];
+                        final dealer = DealerFavEntity.fromJson(item.dealer);
                         return Padding(
                             padding: EdgeInsets.only(
                                 top: index == 0 ? 16 : 0, bottom: 12),
@@ -83,12 +85,20 @@ class _FavouritePageState extends State<FavouritePage> {
                                 price: item.price,
                                 currency: item.currency,
                                 publishedAt: item.publishedAt,
-                                userFullName: item.user.fullName,
-                                userImage: item.user.image,
+                                userFullName: item.userType == 'owner'
+                                    ? item.user.fullName
+                                    : dealer.name ?? '',
+                                userImage: item.userType == 'owner'
+                                    ? item.user.image
+                                    : dealer.avatar ?? '',
                                 userType: item.userType,
                                 hasComparison: item.isComparison,
-                                callFrom: item.contactAvailableFrom,
-                                callTo: item.contactAvailableTo,
+                                callFrom: item.userType == 'owner'
+                                    ? item.contactAvailableFrom
+                                    : dealer.contactFrom ?? '',
+                                callTo: item.userType == 'owner'
+                                    ? item.contactAvailableTo
+                                    : dealer.contactTo ?? '',
                                 discount: item.discount,
                                 id: item.id,
                                 index: index,
@@ -99,30 +109,40 @@ class _FavouritePageState extends State<FavouritePage> {
                                   context.read<UserWishListsBloc>().add(
                                       ChangeIsWishEvenet(
                                           index: index, id: item.id));
-                                  listkey.currentState!.removeItem(
+                                  listkey.currentState?.removeItem(
                                       index,
                                       (context, animation) => FavoriteItem(
-                                          animation: animation,
-                                          gallery: item.gallery,
-                                          carModelName: item.model.name,
-                                          carYear: item.year,
-                                          contactPhone: item.contactPhone,
-                                          description: item.description,
-                                          districtTitle: item.district.title,
-                                          isNew: item.isNew,
-                                          isWishlisted: item.isWishlisted,
-                                          price: item.price,
-                                          currency: item.currency,
-                                          publishedAt: item.publishedAt,
-                                          userFullName: item.user.fullName,
-                                          userImage: item.user.image,
-                                          userType: item.userType,
-                                          hasComparison: item.isComparison,
-                                          callFrom: item.contactAvailableFrom,
-                                          callTo: item.contactAvailableTo,
-                                          discount: item.discount,
-                                          id: item.id,
-                                          index: index),
+                                            animation: animation,
+                                            gallery: item.gallery,
+                                            carModelName: item.model.name,
+                                            carYear: item.year,
+                                            contactPhone: item.contactPhone,
+                                            description: item.description,
+                                            districtTitle: item.district.title,
+                                            isNew: item.isNew,
+                                            isWishlisted: item.isWishlisted,
+                                            price: item.price,
+                                            currency: item.currency,
+                                            publishedAt: item.publishedAt,
+                                            userFullName:
+                                                item.userType == 'owner'
+                                                    ? item.user.fullName
+                                                    : dealer.name ?? '',
+                                            userImage: item.userType == 'owner'
+                                                ? item.user.image
+                                                : dealer.avatar ?? '',
+                                            userType: item.userType,
+                                            hasComparison: item.isComparison,
+                                            callFrom: item.userType == 'owner'
+                                                ? item.contactAvailableFrom
+                                                : dealer.contactFrom ?? '',
+                                            callTo: item.userType == 'owner'
+                                                ? item.contactAvailableTo
+                                                : dealer.contactTo ?? '',
+                                            discount: item.discount,
+                                            id: item.id,
+                                            index: index,
+                                          ),
                                       duration:
                                           const Duration(milliseconds: 600));
                                 }));

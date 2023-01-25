@@ -1,7 +1,7 @@
 import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/core/usecases/usecase.dart';
-import 'package:auto/features/common/repository/global_request_repository.dart';
 import 'package:auto/core/utils/either.dart';
+import 'package:auto/features/common/repository/global_request_repository.dart';
 
 class SendRecoveryCodeUseCase extends UseCase<String, String> {
   final GlobalRequestRepository repo = GlobalRequestRepository();

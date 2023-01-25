@@ -270,7 +270,7 @@
   "write_message": "Введите сообщение...",
   "there_you_can": "Здесь вы сможете получить ответы на любые интересующие вас вопросы.",
   "change_password": "Смена пароля",
-  "create_unfoget": "Придумайте новый пароль \nи постарайтесь не забыть",
+  "create_unfoget": "Придумайте новый пароль\nи постарайтесь не забыть",
   "old_password": "Старый пароль",
   "write_old_password": "Введите старый пароль",
   "write_again": "Введите пароль ещё раз",
@@ -319,5 +319,14 @@
   "i_accept_rules3": "правила",
   "complete_registration": "Заполните поля для завершения регистрации",
   "no_dealer": "Пока нет диллеров",
-  "phone_number_changed_success" : "Номер телефона успешно изменен"
+  "phone_number_changed_success" : "Номер телефона успешно изменен",
+  "all_cars": "Все автомобили",
+  "create_add" : "Создать объявление",
+  "show_all_dealers" : "Показать всех дилеров",
+  "check" : "Проверка",
+  "carshering" : "Каршеринг",
+  "insurance" : "Страхование",
+  "commercial_vehicles" : "Коммерческий транспорт",
+  "rent_Car" : "RentCar"
+
 }

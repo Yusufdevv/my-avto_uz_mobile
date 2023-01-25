@@ -14,25 +14,22 @@ class EditProfileUseCase extends UseCase<ProfileEntity, EditProfileParams> {
   Future<Either<Failure, ProfileEntity>> call(EditProfileParams params) async =>
       await repository.editProfile(
         image: params.image,
-        name: params.name,
+        fullName: params.fullName,
         region: params.region,
-        surName: params.surName,
       );
 }
 
 class EditProfileParams extends Equatable {
-  final String? name;
-  final String? surName;
+  final String? fullName;
   final int? region;
   final String? image;
 
   const EditProfileParams({
-    this.surName,
     this.image,
     this.region,
-    this.name,
+    this.fullName,
   });
 
   @override
-  List<Object?> get props => [name, surName, region, image];
+  List<Object?> get props => [fullName, region, image];
 }

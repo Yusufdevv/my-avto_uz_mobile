@@ -25,10 +25,10 @@ class ProfileRepositoryImpl extends ProfileRepository {
 
   @override
   Future<Either<ServerFailure, ProfileEntity>> editProfile(
-      {String? image, String? name, String? surName, int? region}) async {
+      {String? image, String? fullName,int? region}) async {
     try {
       final result = await dataSource.editProfile(
-          image: image, name: name, surName: surName, region: region);
+          image: image, fullName: fullName,  region: region);
       return Right(result);
     } on ServerException catch (error) {
       return Left(ServerFailure(
@@ -44,12 +44,12 @@ class ProfileRepositoryImpl extends ProfileRepository {
           oldPassword: oldPassword, newPassword: newPassword);
       return Right(result);
     } on ServerException catch (error) {
+      print('======= ${error}');
+
       return Left(ServerFailure(
           statusCode: error.statusCode, errorMessage: error.errorMessage));
     }
   }
-
-  
 
   @override
   Future<Either<ServerFailure, String>> sendPhoneNumber(

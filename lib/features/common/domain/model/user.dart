@@ -24,9 +24,12 @@ class UserModel {
   final int region;
   @JsonKey(name: 'phone_number',)
   final String phoneNumber;
+  @JsonKey(name: 'is_read_all_notifications',)
+   bool isReadAllNotifications;
 
 
-  const UserModel(
+
+    UserModel(
       { this.phone='',
         this.phoneNumber='',
         this.region=0,
@@ -36,8 +39,9 @@ class UserModel {
         this.id=0,
         this.lastName='',
         this.fullName='',
-
-        this.userName=''});
+        this.userName='',
+        this.isReadAllNotifications=false,
+        });
 
   factory UserModel.fromJson(Map<String, dynamic> json) =>
       _$UserModelFromJson(json);

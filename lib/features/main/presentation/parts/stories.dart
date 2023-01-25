@@ -10,10 +10,12 @@ class Stories extends StatelessWidget {
   const Stories({
     required this.status,
     required this.stories,
+    required this.onBack,
     Key? key,
   }) : super(key: key);
   final FormzStatus status;
   final List<StoryEntity> stories;
+  final Function() onBack;
 
   @override
   Widget build(BuildContext context) => SizedBox(
@@ -25,12 +27,16 @@ class Stories extends StatelessWidget {
               : StoryItem(
                   title: stories[index].name,
                   image: stories[index].coverImageThumbnail.square,
-                  onTap: () {
-                    Navigator.of(context, rootNavigator: true).push(fade(
-                        page: StoryScreen(
+                  onTap: () async {
+                    final res = await Navigator.of(context, rootNavigator: true)
+                        .push(fade(
+                            page: StoryScreen(
                       stories: stories,
                       index: index,
                     )));
+                    if (res is bool && res) {
+                      onBack();
+                    }
                   },
                   isRead: stories[index].isRead,
                 ),

@@ -4,16 +4,16 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'mark_in_dealer_model.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake)
-class MakeModel extends MakeEntity {
-  const MakeModel({
+class DealerMakeModel extends DealerMakeEntity {
+  const DealerMakeModel({
     required super.id,
     required super.logo,
     required super.slug,
     required super.name,
   });
 
-  factory MakeModel.fromJson(Map<String, dynamic> json) =>
-      _$MakeModelFromJson(json);
+  factory DealerMakeModel.fromJson(Map<String, dynamic> json) =>
+      _$DealerMakeModelFromJson(json);
 
-  Map<String, dynamic> toJson() => _$MakeModelToJson(this);
+  Map<String, dynamic> toJson() => _$DealerMakeModelToJson(this);
 }

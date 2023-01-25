@@ -13,6 +13,10 @@ abstract class CarSingleDataSource {
   Future<GenericPagination<ElasticSearchModel>> getOtherAds({required int id});
 
   Future<CarSingleModel> payInvoice();
+
+  Future soldAd({required int id});
+
+  Future callCount({required int id});
 }
 
 class CarSingleDataSourceImpl extends CarSingleDataSource {
@@ -21,21 +25,17 @@ class CarSingleDataSourceImpl extends CarSingleDataSource {
   @override
   Future<CarSingleModel> getCarSingle({required int id}) async {
     try {
-      final response = await _dio.get('/car/announcement/$id/detail/',
-          options: Options(
-              headers: StorageRepository.getString('token').isNotEmpty
-                  ? {
-                      'Authorization':
-                          'Token ${StorageRepository.getString('token')}'
-                    }
-                  : {}));
+      final response = await _dio.get(
+        '/car/announcement/$id/detail/',
+        options: Options(headers: {
+          'Authorization': 'Bearer ${StorageRepository.getString('token')}'
+        }),
+      );
       if (response.statusCode != null &&
           response.statusCode! >= 200 &&
           response.statusCode! < 300) {
-        print('SINGLE RESPONSE DATA SINGLE => ${response.data}');
         return CarSingleModel.fromJson(response.data);
       } else {
-
         throw ServerException(
             statusCode: response.statusCode!,
             errorMessage: response.data.toString());
@@ -59,10 +59,11 @@ class CarSingleDataSourceImpl extends CarSingleDataSource {
   }
 
   @override
-  Future<GenericPagination<ElasticSearchModel>> getOtherAds({required int id}) async {
+  Future<GenericPagination<ElasticSearchModel>> getOtherAds(
+      {required int id}) async {
     try {
       final response = await _dio.get('/es/AnnouncementElasticSearch/',
-          queryParameters: {'car_model':id},
+          queryParameters: {'car_model': id},
           options: Options(headers: {
             'Authorization': 'Token ${StorageRepository.getString('token')}'
           }));
@@ -71,15 +72,15 @@ class CarSingleDataSourceImpl extends CarSingleDataSource {
           response.statusCode! < 300) {
         print('DATA FROM DATASOURCE GET OTHER => ${response.data}');
         return GenericPagination.fromJson(response.data,
-                (p0) => ElasticSearchModel.fromJson(p0 as Map<String, dynamic>));
+            (p0) => ElasticSearchModel.fromJson(p0 as Map<String, dynamic>));
       } else if (response.data is Map) {
         throw ServerException(
             statusCode: response.statusCode!,
             errorMessage: ((response.data as Map).values.isNotEmpty
-                ? (response.data as Map).values.first
-                : 'error while get other ads')
+                    ? (response.data as Map).values.first
+                    : 'error while get other ads')
                 .toString());
-      }  else {
+      } else {
         print('DATASOURCE ERROR GET ADS');
         await StorageRepository.deleteString('token');
       }
@@ -115,8 +116,6 @@ class CarSingleDataSourceImpl extends CarSingleDataSource {
           response.statusCode! >= 200 &&
           response.statusCode! < 300) {
         return CarSingleModel.fromJson(response.data);
-      } else {
-        await StorageRepository.deleteString('token');
       }
       if (response.data is Map) {
         throw ServerException(
@@ -126,6 +125,73 @@ class CarSingleDataSourceImpl extends CarSingleDataSource {
                     : 'Error get CarAds')
                 .toString());
       } else {
+        throw ServerException(
+            statusCode: response.statusCode!,
+            errorMessage: response.data.toString());
+      }
+    } on ServerException {
+      rethrow;
+    } on DioError {
+      throw DioException();
+    } on Exception catch (e) {
+      throw ParsingException(errorMessage: e.toString());
+    }
+  }
+
+  @override
+  Future soldAd({required int id}) async {
+    try {
+      final response = await _dio.post('/car/announcement/$id/sold/',
+          options: Options(headers: {
+            'Authorization': 'Bearer ${StorageRepository.getString('token')}'
+          }));
+      if (response.statusCode != null &&
+          response.statusCode! >= 200 &&
+          response.statusCode! < 300) {
+        print('datasource succ sold');
+        return response.data;
+      } else if (response.statusCode != null &&
+          response.statusCode! >= 400 &&
+          response.statusCode! < 500) {
+        if (response.data is Map) {
+          throw ServerException(
+              statusCode: response.statusCode!,
+              errorMessage: ((response.data as Map).values.isNotEmpty
+                      ? (response.data as Map).values.first
+                      : 'Failed')
+                  .toString());
+        }
+      } else {
+        print('datasource fail sold');
+        throw ServerException(
+            statusCode: response.statusCode!,
+            errorMessage: response.data.toString());
+      }
+    } on ServerException {
+      rethrow;
+    } on DioError {
+      throw DioException();
+    } on Exception catch (e) {
+      throw ParsingException(errorMessage: e.toString());
+    }
+  }
+
+  @override
+  Future callCount({required int id}) async {
+    try {
+      final response = await _dio.post('/car/announcement/call/',
+          data: {'announcement': id},
+          options: Options(headers: {
+            'Authorization': 'Bearer ${StorageRepository.getString('token')}'
+          }));
+      if (response.statusCode != null &&
+          response.statusCode! >= 200 &&
+          response.statusCode! < 300) {
+        print('DATASOURCE --- GET COUNT');
+        return response.data;
+      } else {
+        print('DATASOURCE ERROR CALL');
+        print('DATASOURCE ERROR CALL ---> ${response.data}');
         throw ServerException(
             statusCode: response.statusCode!,
             errorMessage: response.data.toString());

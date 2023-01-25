@@ -37,7 +37,7 @@ class ChangePhoneNumberBloc
         event.onSuccess();
         emit(state.copyWith(session: result.right));
       } else {
-        var err = (result.left is ServerFailure)
+        final err = (result.left is ServerFailure)
             ? (result.left as ServerFailure).errorMessage
             : result.left.toString();
         event.onError(err);

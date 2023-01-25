@@ -5,26 +5,32 @@ import 'package:auto/features/car_single/presentation/parts/car_actions.dart';
 import 'package:auto/features/car_single/presentation/parts/car_details.dart';
 import 'package:auto/features/car_single/presentation/parts/statistics.dart';
 import 'package:auto/features/car_single/presentation/widgets/car_price_bottom.dart';
+import 'package:auto/features/car_single/presentation/widgets/day_like_color_item.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class CarNameWidget extends StatelessWidget {
   final String priceBsh;
-  final String middlePrice;
-  final String ration;
+  final bool isMine;
+  final double middlePrice;
+  final double ration;
   final String dateBsh;
   final String percent;
   final String fullname;
   final String price;
   final String date;
+  final double percenti;
   final String currency;
   final String view;
   final String id;
   final VoidCallback onVin;
   final VoidCallback onComparison;
   final VoidCallback onShare;
-
+  final String saleDays;
+  final int addToFavorite;
+  final int callToNumber;
+  final String daysLeft;
   final String year;
   final String mileage;
   final String body;
@@ -33,32 +39,44 @@ class CarNameWidget extends StatelessWidget {
   final String engineVolume;
   final String gearType;
   final String uzb;
+  final int compareId;
+  final bool isCompared;
+  final double procent;
 
-  const CarNameWidget(
-      {Key? key,
-      required this.fullname,
-      required this.price,
-      required this.date,
-      required this.view,
-      required this.id,
-      required this.currency,
-      required this.onVin,
-      required this.onComparison,
-      required this.onShare,
-      required this.year,
-      required this.mileage,
-      required this.body,
-      required this.color,
-      required this.complectation,
-      required this.engineVolume,
-      required this.gearType,
-      required this.uzb,
-      required this.priceBsh,
-      required this.middlePrice,
-      required this.ration,
-      required this.dateBsh,
-      required this.percent})
-      : super(key: key);
+  const CarNameWidget({
+    required this.fullname,
+    required this.price,
+    required this.date,
+    required this.view,
+    required this.id,
+    required this.currency,
+    required this.onVin,
+    required this.onComparison,
+    required this.onShare,
+    required this.year,
+    required this.mileage,
+    required this.body,
+    required this.color,
+    required this.complectation,
+    required this.engineVolume,
+    required this.gearType,
+    required this.uzb,
+    required this.priceBsh,
+    required this.middlePrice,
+    required this.ration,
+    required this.dateBsh,
+    required this.percent,
+    required this.isMine,
+    required this.saleDays,
+    required this.addToFavorite,
+    required this.callToNumber,
+    required this.daysLeft,
+    required this.compareId,
+    required this.isCompared,
+    required this.percenti,
+    required this.procent,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) => Container(
@@ -120,6 +138,8 @@ class CarNameWidget extends StatelessWidget {
                           date: dateBsh,
                           percent: percent,
                           currency: currency,
+                          percenti: percenti,
+                          procent: procent,
                         ),
                       );
                     },
@@ -167,6 +187,8 @@ class CarNameWidget extends StatelessWidget {
               onVin: onVin,
               onComparison: onComparison,
               onShare: onShare,
+              id: compareId,
+              isComparised: isCompared,
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(
@@ -192,6 +214,15 @@ class CarNameWidget extends StatelessWidget {
               gearType: gearType,
               uzb: uzb,
             ),
+            if (isMine == true)
+              DayLikeCallItem(
+                days: saleDays,
+                likes: addToFavorite,
+                calls: callToNumber,
+                leftDays: daysLeft,
+              )
+            else
+              const SizedBox()
           ],
         ),
       );

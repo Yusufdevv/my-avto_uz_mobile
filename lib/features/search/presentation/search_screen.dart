@@ -130,7 +130,6 @@ class _SearchScreenState extends State<SearchScreen> {
                           focusNode: focusNode,
                           onFocusChange: (value) {
                             isFocused = value;
-
                             if (!value) {
                               if (searchController.text.isEmpty) {
                                 textControllerStatus =
@@ -147,10 +146,10 @@ class _SearchScreenState extends State<SearchScreen> {
                               searchBloc.add(SearchEvent.getSuggestions(
                                   search: searchController.text));
                             }
-
                             setState(() {});
                           },
                           child: WTextField(
+                            height: 44,
                             fillColor: Theme.of(context)
                                 .extension<ThemedColors>()!
                                 .whiteSmoke2ToNightRider,
@@ -227,13 +226,11 @@ class _SearchScreenState extends State<SearchScreen> {
                         borderRadius: 12,
                         margin: const EdgeInsets.only(left: 10, right: 16),
                         color: lavender,
-                        child: SvgPicture.asset(
-                          AppIcons.arrowsSort,
-                          height: 24,
-                          width: 24,
-                          fit: BoxFit.cover,
-                          color: purple,
-                        ),
+                        child: SvgPicture.asset(AppIcons.arrowsSort,
+                            height: 24,
+                            width: 24,
+                            fit: BoxFit.cover,
+                            color: purple),
                       ),
                     ],
                   ),
@@ -244,87 +241,81 @@ class _SearchScreenState extends State<SearchScreen> {
                         SearchControllerStatus.typing
                     ? searchController.text.isEmpty
                         ? const SizedBox()
-                        : Padding(
-                          
-                            padding: const EdgeInsets.only(top: 16),
-                            child: Paginator(
-                              
-                              fetchMoreFunction: () {},
-                              hasMoreToFetch:
-                                  state.suggestionsFetchMore ?? false,
-                              paginatorStatus: state.suggestionsStatus,
-                              separatorBuilder: (context, index) =>
-                                  (index != state.suggestionsCount - 1)
-                                      ? const Divider(height: 1)
-                                      : const SizedBox(),
-                              errorWidget: const SizedBox(),
-                              padding: EdgeInsets.zero,
-                              itemCount: state.suggestionsCount,
-                              itemBuilder: (context, index) =>
-                                  SearchedModelsItem(
-                                imageUrl: state
-                                    .suggestions[index].source.carMake.logo,
-                                vehicleType:
-                                    state.suggestions[index].source.vehicleType,
-                                fullText: state
-                                    .suggestions[index].source.absoluteCarName,
-                                searchText: searchController.text,
-                                onTap: () {
-                                  searchController
-                                    ..text = state.suggestions[index].text
-                                    ..selection = TextSelection.fromPosition(
-                                      TextPosition(
-                                          offset: searchController.text.length),
-                                    );
-                                  searchBloc.add(
-                                    SearchEvent.getResults(
-                                        searchText: searchController.text),
-                                  );
-                                  addSearchToStorage(searchController.text);
-                                  focusNode.unfocus();
-                                  setState(() {});
-                                },
-                              ),
-                            ),
-                          )
+                        : searchController.text.isNotEmpty &&
+                                state.suggestions.isEmpty
+                            ? const NothingFoundScreen()
+                            : Padding(
+                                padding: const EdgeInsets.only(top: 16),
+                                child: Paginator(
+                                  fetchMoreFunction: () {},
+                                  hasMoreToFetch:
+                                      state.suggestionsFetchMore ?? false,
+                                  paginatorStatus: state.suggestionsStatus,
+                                  separatorBuilder: (context, index) =>
+                                      (index != state.suggestionsCount - 1)
+                                          ? const Divider(height: 1)
+                                          : const SizedBox(),
+                                  errorWidget: const SizedBox(),
+                                  padding: EdgeInsets.zero,
+                                  itemCount: state.suggestionsCount,
+                                  itemBuilder: (context, index) =>
+                                      SearchedModelsItem(
+                                    imageUrl: state
+                                        .suggestions[index].source.carMake.logo,
+                                    vehicleType: state
+                                        .suggestions[index].source.vehicleType,
+                                    fullText: state.suggestions[index].source
+                                        .absoluteCarName,
+                                    searchText: searchController.text,
+                                    onTap: () {
+                                      searchController
+                                        ..text = state.suggestions[index].text
+                                        ..selection =
+                                            TextSelection.fromPosition(
+                                          TextPosition(
+                                              offset:
+                                                  searchController.text.length),
+                                        );
+                                      searchBloc.add(
+                                        SearchEvent.getResults(
+                                            searchText: searchController.text),
+                                      );
+                                      addSearchToStorage(searchController.text);
+                                      focusNode.unfocus();
+                                      setState(() {});
+                                    },
+                                  ),
+                                ),
+                              )
                     : textControllerStatus == SearchControllerStatus.completed
-                        ? Column(
-                            children: [
-                              Expanded(
-                                child: state.status !=
-                                        FormzStatus.submissionSuccess
-                                    ? const LoadingScreen()
-                                    : state.searchResults.isEmpty
-                                        ? const Center(
-                                            child: NothingFoundScreen(),
-                                          )
-                                        : Paginator(
-                                            hasMoreToFetch: state.moreFetch,
-                                            fetchMoreFunction: () {},
-                                            itemCount: state.count,
-                                            paginatorStatus: state.status,
-                                            errorWidget:
-                                                const SearchItemShimmer(
-                                                    slideImageCount: 2),
-                                            separatorBuilder:
-                                                (context, index) => Divider(
-                                              height: 12,
-                                              thickness: 0,
-                                              color: Theme.of(context)
-                                                  .extension<ThemedColors>()!
-                                                  .borderGreyToDark,
-                                            ),
-                                            itemBuilder: (context, index) =>
-                                                SortResultsCard(
-                                              searchResults:
-                                                  state.searchResults,
-                                              index: index,
-                                              status: sortingValue,
-                                            ),
-                                          ),
-                              ),
-                            ],
-                          )
+                        ? state.status != FormzStatus.submissionSuccess
+                            ? const LoadingScreen()
+                            : state.searchResults.isEmpty
+                                ? const Center(
+                                    child: NothingFoundScreen(),
+                                  )
+                                : Paginator(
+                                    hasMoreToFetch: state.moreFetch,
+                                    fetchMoreFunction: () {},
+                                    itemCount: state.count,
+                                    paginatorStatus: state.status,
+                                    errorWidget: const SearchItemShimmer(
+                                        slideImageCount: 2),
+                                    separatorBuilder: (context, index) =>
+                                        Divider(
+                                      height: 12,
+                                      thickness: 0,
+                                      color: Theme.of(context)
+                                          .extension<ThemedColors>()!
+                                          .borderGreyToDark,
+                                    ),
+                                    itemBuilder: (context, index) =>
+                                        SortResultsCard(
+                                      searchResults: state.searchResults,
+                                      index: index,
+                                      status: sortingValue,
+                                    ),
+                                  )
                         : LastPopularSearchesScreen(
                             searchController: searchController,
                             focusNode: focusNode,
@@ -340,20 +331,21 @@ void addSearchToStorage(String text) {
   if (StorageRepository.getList('last_searches').isEmpty) {
     StorageRepository.putList('last_searches', [text]);
   } else {
-    StorageRepository.getList('last_searches').map((e) {
-      if (text.toLowerCase() != e.toLowerCase()) {
-        if (StorageRepository.getList('last_searches').length >= 5) {
-          final newList = StorageRepository.getList('last_searches')
-            ..removeAt(0);
-          StorageRepository.putList('last_searches', [...newList, text]);
-        } else {
-          StorageRepository.putList(
-            'last_searches',
-            [...StorageRepository.getList('last_searches'), text],
-          );
-        }
+    final list = StorageRepository.getList('last_searches');
+    if (!list.contains(text)) {
+      if (list.length >= 5) {
+        final newList = StorageRepository.getList('last_searches')..removeAt(0);
+        StorageRepository.putList('last_searches', [...newList, text]);
+      } else {
+        StorageRepository.putList(
+          'last_searches',
+          [...StorageRepository.getList('last_searches'), text],
+        );
       }
-    });
+    } else {
+      final newList = StorageRepository.getList('last_searches')..remove(text);
+      StorageRepository.putList('last_searches', [...newList, text]);
+    }
   }
 }
 

@@ -1,5 +1,6 @@
 class AppImages {
   static const flagUzb = 'assets/images/global/flag_uzb.png';
+  static const flagUzb2 = 'assets/images/global/flagUzb2.png';
   static const unknownUser = 'assets/images/global/unknown_user.png';
   static const firstImage = 'assets/images/global/first_image.png';
   static const secondImage = 'assets/images/global/second_image.png';
@@ -8,10 +9,15 @@ class AppImages {
   static const done = 'assets/images/global/done.png';
   static const omg = 'assets/images/global/omg.png';
   static const bmw = 'assets/images/global/bmw.png';
+  static const placeholderImage = 'assets/images/global/placeholder-image.jpg';
+  static const proverka = 'assets/images/global/proverka.png';
+  static const pl = 'assets/images/global/pl.png';
   static const audi = 'assets/images/global/audi.png';
+  static const mainMap = 'assets/images/global/main_map.png';
   static const tahoe = 'assets/images/global/tahoe.png';
   static const clap = 'assets/images/global/clap.png';
   static const magic = 'assets/images/global/magic.png';
+  static const carLogo = 'assets/images/global/car_logo.svg';
   static const orangePolygon = 'assets/images/global/orange_polygon.png';
   static const chevrolet = 'assets/images/global/chevrolet.png';
   static const carcase = 'assets/images/global/carcase.png';
@@ -29,10 +35,10 @@ class AppImages {
   static const autoUzCircle = 'assets/images/global/auto_uz_circle.png';
   static const hello = 'assets/images/global/hello.png';
   static const bmwModel = 'assets/images/global/bmw_model.png';
+  static const diler = 'assets/images/global/diler.png';
   static const none = 'assets/images/main/none.png';
   static const placeHolder = 'assets/icons/global/placeHolder.svg';
   static const placeHolder1 = 'assets/icons/global/car.svg';
-  static const carImage = 'assets/icons/global/car_image.svg';
   static const carCrashed = 'assets/images/car_single/car_crashed.png';
   static const carSingle = 'assets/images/car_single/car_single300kb.png';
   static const imagePlaceHolder = 'assets/images/global/place_holder.png';
@@ -49,5 +55,18 @@ class AppImages {
   static const paymepng = 'assets/images/car_single/payme.png';
   static const upaypng = 'assets/images/car_single/upay.png';
   static const vin_soon = 'assets/images/car_single/vin_soon.png';
+  static const car_from_back = 'assets/images/car_single/car_from_back.png';
+  static const car_from_opposite =
+      'assets/images/car_single/car_from_opposite.png';
   static const noItemFoundCar = 'assets/images/global/no_item_found_car.png';
+  static const one_nice = 'assets/images/car_single/one_nice.png';
+  static const nice_two = 'assets/images/car_single/nice_two.png';
+  static const nice_three = 'assets/images/car_single/nice_three.png';
+  static const optima_one = 'assets/images/car_single/optima_one.png';
+  static const optima_two = 'assets/images/car_single/optima_two.png';
+  static const optima_three = 'assets/images/car_single/optima_three.png';
+  static const bad_one = 'assets/images/car_single/bad_one.png';
+  static const bad_two = 'assets/images/car_single/bad_two.png';
+  static const bad_three = 'assets/images/car_single/bad_three.png';
+  static const price_cases = 'assets/images/car_single/price_case.png';
 }

@@ -1,5 +1,6 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/core/utils/size_config.dart';
+import 'package:auto/features/common/bloc/announcement_bloc/bloc/announcement_list_bloc.dart';
 import 'package:auto/features/common/models/region.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
@@ -9,17 +10,18 @@ import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+///
 
 class RentChooseRegionBottomSheet extends StatefulWidget {
   final List<Region> list;
-  final bool isProfileEdit;
-  final bool isOtherPage;
-  Map<int, Region> checkedRegions;
+  final bool isMultiChoice;
+  final Map<int, Region> checkedRegions;
 
-  RentChooseRegionBottomSheet({
+  const RentChooseRegionBottomSheet({
     required this.list,
-    this.isProfileEdit = false,
-    this.isOtherPage = false,
+    this.isMultiChoice = true,
     this.checkedRegions = const <int, Region>{},
     super.key,
   }) : super();
@@ -43,7 +45,7 @@ class _RentChooseRegionBottomSheetState
   Widget build(BuildContext context) {
     final isAllChecked = checkStatus.length == widget.list.length;
     return Container(
-      margin: EdgeInsets.only(top: SizeConfig.v(24)),
+      margin: EdgeInsets.only(top: SizeConfig.v(48)),
       decoration: const BoxDecoration(
         color: white,
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
@@ -62,10 +64,9 @@ class _RentChooseRegionBottomSheetState
               physics: const BouncingScrollPhysics(),
               child: Column(
                 children: [
-                  if (!widget.isProfileEdit)
+                  if (widget.isMultiChoice)
                     RegionSelectAllItem(
                       isAllChecked: isAllChecked,
-                      isOtherPage: widget.isOtherPage,
                       onTap: () {
                         if (isAllChecked) {
                           checkStatus = {};
@@ -83,10 +84,11 @@ class _RentChooseRegionBottomSheetState
                       children: [
                         WScaleAnimation(
                           onTap: () {
-                            if (widget.isProfileEdit) {
-                              checkStatus
-                                  .removeWhere((key, value) => key != index);
-                              checkStatus[index] = widget.list[index];
+                            if (!widget.isMultiChoice) {
+                              checkStatus.removeWhere(
+                                  (key, value) => key != widget.list[index].id);
+                              checkStatus[widget.list[index].id] =
+                                  widget.list[index];
                             } else {
                               if (checkStatus
                                   .containsKey(widget.list[index].id)) {
@@ -99,8 +101,6 @@ class _RentChooseRegionBottomSheetState
                             setState(() {});
                           },
                           child: RegionSheetItem(
-                            isOtherPage: widget.isOtherPage,
-                            isProfileEdit: widget.isProfileEdit,
                             title: widget.list[index].title,
                             hasBorder: index == widget.list.length - 1,
                             isChecked:

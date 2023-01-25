@@ -19,7 +19,7 @@ class DirectoryFilterCategory extends StatefulWidget {
 }
 
 class _DirectoryFilterCategoryState extends State<DirectoryFilterCategory> {
-  final List<DirCategoryEntity> _selectedIndexes = [];
+  List<DirCategoryEntity> _selectedIndexes = [];
 
   @override
   Widget build(BuildContext context) => Column(
@@ -90,7 +90,7 @@ class _DirectoryFilterCategoryState extends State<DirectoryFilterCategory> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Expanded(
-                            child: Text(item.name!,
+                            child: Text(item.name ?? '',
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 style: Theme.of(context)
@@ -119,9 +119,8 @@ class _DirectoryFilterCategoryState extends State<DirectoryFilterCategory> {
                                 children: [
                                   SizedBox(width: SizeConfig.h(10)),
                                   Container(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: SizeConfig.h(4),
-                                        vertical: SizeConfig.v(4)),
+                                    height: 25,
+                                    width: 24,
                                     decoration: BoxDecoration(
                                         color: context
                                                 .read<DirectoryBloc>()
@@ -132,19 +131,21 @@ class _DirectoryFilterCategoryState extends State<DirectoryFilterCategory> {
                                             : seashell,
                                         borderRadius: BorderRadius.circular(
                                             SizeConfig.h(4))),
-                                    child: Text(
-                                      item.carPlaceCount.toString(),
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .headline2
-                                          ?.copyWith(
-                                              color: context
-                                                      .read<DirectoryBloc>()
-                                                      .state
-                                                      .selectedCategories
-                                                      .contains(item)
-                                                  ? purple
-                                                  : orange),
+                                    child: Center(
+                                      child: Text(
+                                        item.carPlaceCount.toString(),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline2
+                                            ?.copyWith(
+                                                color: context
+                                                        .read<DirectoryBloc>()
+                                                        .state
+                                                        .selectedCategories
+                                                        .contains(item)
+                                                    ? purple
+                                                    : orange),
+                                      ),
                                     ),
                                   ),
                                 ],

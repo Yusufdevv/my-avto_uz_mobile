@@ -9,6 +9,7 @@ import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/onboarding/presentation/widgets/base_onboarding.dart';
 import 'package:auto/features/onboarding/presentation/widgets/indicator.dart';
 import 'package:auto/features/onboarding/presentation/widgets/on_boarding_page_items.dart';
+import 'package:auto/features/onboarding/presentation/widgets/uz_on_boarding_item.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -68,10 +69,14 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
     });
   }
 
+  bool isLangRus() {
+    final res = StorageRepository.getString('language') == 'ru' ? true : false;
+    return res;
+  }
+
   @override
   Widget build(BuildContext context) {
     setOnboardingTrue();
-    final height = MediaQuery.of(context).size.height - 265;
     return SafeArea(
       child: Scaffold(
         body: Column(
@@ -89,58 +94,68 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                     child: SvgPicture.asset(AppIcons.arrowLeft, color: black),
                   ),
                   const Spacer(),
-                  GestureDetector(
-                      onTap: () {
-                        Navigator.of(context)
-                            .pushReplacement(fade(page: const LoginScreen()));
-                      },
-                      child: Text(
-                        LocaleKeys.skip.tr(),
-                        style: Theme.of(context).textTheme.headline1!.copyWith(
-                            fontSize: 15, fontWeight: FontWeight.w400),
-                      )),
+                  if (currentIndex != 2)
+                    GestureDetector(
+                        onTap: () {
+                          Navigator.of(context)
+                              .pushReplacement(fade(page: const LoginScreen()));
+                        },
+                        child: Text(
+                          LocaleKeys.skip.tr(),
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline1!
+                              .copyWith(
+                                  fontSize: 15, fontWeight: FontWeight.w400),
+                        )),
                 ],
               ),
             ),
-            SizedBox(
-              height: height,
-              child: PageView(
-                physics: const BouncingScrollPhysics(),
-                onPageChanged: (page) {
-                  setState(() {
-                    currentIndex = page;
-                  });
-                },
-                children: [
-                  OnBoardingItems(
-                      height: height,
-                      icon: AppImages.flash,
-                      title: LocaleKeys.easy_send.tr(),
-                      image: AppImages.firstImage),
-                  OnBoardingItems(
-                      height: height,
-                      icon: AppImages.done,
-                      title: LocaleKeys.trusted_car_dealers.tr(),
-                      image: AppImages.secondImage),
-                  OnBoardingItems(
-                    height: height,
-                    icon: AppImages.omg,
-                    hasSecondText: true,
-                    title: LocaleKeys.more_than.tr(),
-                    secondText: ' 10 000',
-                    image: AppImages.thirdImage,
-                    thirdText: ' offers',
-                  ),
-                ],
+            Expanded(
+              child: SizedBox(
+                child: PageView(
+                  physics: const BouncingScrollPhysics(),
+                  onPageChanged: (page) {
+                    setState(() {
+                      currentIndex = page;
+                    });
+                  },
+                  children: [
+                    OnBoardingPageItems(
+                        icon: AppImages.flash,
+                        title: LocaleKeys.easy_send.tr(),
+                        image: AppImages.firstImage),
+                    OnBoardingPageItems(
+                        icon: AppImages.done,
+                        title: LocaleKeys.trusted_car_dealers.tr(),
+                        image: AppImages.secondImage),
+                    if (isLangRus())
+                      OnBoardingPageItems(
+                        icon: AppImages.omg,
+                        title: LocaleKeys.more_than.tr(),
+                        secondText: ' 10 000 ',
+                        image: AppImages.thirdImage,
+                        thirdText: LocaleKeys.offers.tr(),
+                      )
+                    else
+                      UzOnBoardingPageItems(
+                          icon: AppImages.omg,
+                          title: LocaleKeys.more_than.tr(),
+                          image: AppImages.thirdImage,
+                          secondText: '10 000 ',
+                          thirdText: LocaleKeys.offers.tr()),
+                  ],
+                ),
               ),
             ),
+            const SizedBox(height: 24),
             Padding(
               padding: const EdgeInsets.only(left: 32),
               child: Row(
                 children: buildIndicator(),
               ),
             ),
-            const SizedBox(height: 15),
+            const SizedBox(height: 32),
             BaseOnBoarding(
               onTap: () => Navigator.pushAndRemoveUntil(
                   context, fade(page: const LoginScreen()), (route) => false),

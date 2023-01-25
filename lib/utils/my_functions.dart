@@ -5,9 +5,12 @@ import 'dart:ui' as ui;
 
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/assets/constants/images.dart';
 import 'package:auto/core/exceptions/exceptions.dart';
+import 'package:auto/core/exceptions/failures.dart';
+import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/common/models/region.dart';
-import 'package:auto/features/dealers/data/models/dealer_card_model.dart';
+import 'package:auto/features/dealers/data/models/map_model.dart';
 import 'package:auto/features/profile/domain/entities/dir_category_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -126,12 +129,12 @@ class MyFunctions {
 
   static Future<Uint8List> getBytesFromCanvas(
       {required int width,
-        required int height,
-        required int placeCount,
-        required BuildContext context,
-        Offset? offset,
-        required String image,
-        bool shouldAddText = true}) async {
+      required int height,
+      required int placeCount,
+      required BuildContext context,
+      Offset? offset,
+      required String image,
+      bool shouldAddText = true}) async {
     final pictureRecorder = ui.PictureRecorder();
     final canvas = Canvas(pictureRecorder);
     final paint = Paint()..color = Colors.red;
@@ -142,16 +145,17 @@ class MyFunctions {
 
     if (shouldAddText) {
       final painter = TextPainter(textDirection: ui.TextDirection.ltr);
-      painter..text = TextSpan(
-        text: placeCount.toString(),
-        style: const TextStyle(fontSize: 100, color: Colors.white),
-      )
-      ..layout()
-      ..paint(
-        canvas,
-        Offset((width * 0.47) - painter.width * 0.2,
-            (height * 0.1) - painter.height * 0.1),
-      );
+      painter
+        ..text = TextSpan(
+          text: placeCount.toString(),
+          style: const TextStyle(fontSize: 100, color: Colors.white),
+        )
+        ..layout()
+        ..paint(
+          canvas,
+          Offset((width * 0.47) - painter.width * 0.2,
+              (height * 0.1) - painter.height * 0.1),
+        );
     }
 
     final img = await pictureRecorder.endRecording().toImage(width, height);
@@ -183,17 +187,19 @@ class MyFunctions {
   static const clusterId = MapObjectId('big_cluster_id');
 
   static Future<void> addDealer(
-      List<DealerCardModel> points,
-      BuildContext context,
-      List<MapObject<dynamic>> mapObjects,
-      YandexMapController controller,
-      Point point,
-      double accuracy) async {
+      {required List<MapModel> points,
+      required BuildContext context,
+      required List<MapObject<dynamic>> mapObjects,
+      required YandexMapController controller,
+      required Point point,
+      required double accuracy,
+      required bool isDirectoryPage}) async {
     final iconData = await getBytesFromCanvas(
         placeCount: 0,
-        image: AppIcons.dealersLocIcon,
+        image:
+            isDirectoryPage ? AppIcons.directoryPoint : AppIcons.dealersLocIcon,
         width: 170,
-        //offset: const Offset(0, -30),
+        offset: const Offset(0, -30),
         height: 410,
         context: context,
         shouldAddText: false);
@@ -212,30 +218,30 @@ class MyFunctions {
                   ),
                 ),
               );
-              showModalBottomSheet(
-                barrierColor: Colors.transparent,
-                context: context,
-                isScrollControlled: true,
-                useRootNavigator: true,
-                backgroundColor: Colors.transparent,
-                builder: (context) => const SizedBox(
-                  height: 40,
-                  width: 100,
-                  child: Text('Shu locationga bosdingiz'),
-                ),
-                // builder: (context) => HospitalSingleBottomSheet(
-                //   id: e.id,
-                //   isHospital: true,
-                //   slug: e.slug,
-                //   title: e.title,
-                //   phone: e.phoneNumber,
-                //   logo: e.logo.middle,
-                //   address: e.address,
-                //   images: e.images.map((e) => e.middle).toList(),
-                //   location: Point(latitude: e.latitude, longitude: e.longitude),
-                //   rating: e.rating,
-                // ),
-              );
+              // showModalBottomSheet(
+              //   barrierColor: Colors.transparent,
+              //   context: context,
+              //   isScrollControlled: true,
+              //   useRootNavigator: true,
+              //   backgroundColor: Colors.transparent,
+              //   builder: (context) => const SizedBox(
+              //     height: 40,
+              //     width: 100,
+              //     child: Text('Shu locationga bosdingiz'),
+              //   ),
+              //   // builder: (context) => HospitalSingleBottomSheet(
+              //   //   id: e.id,
+              //   //   isHospital: true,
+              //   //   slug: e.slug,
+              //   //   title: e.title,
+              //   //   phone: e.phoneNumber,
+              //   //   logo: e.logo.middle,
+              //   //   address: e.address,
+              //   //   images: e.images.map((e) => e.middle).toList(),
+              //   //   location: Point(latitude: e.latitude, longitude: e.longitude),
+              //   //   rating: e.rating,
+              //   // ),
+              // );
             },
             icon: PlacemarkIcon.single(
               PlacemarkIconStyle(
@@ -246,6 +252,12 @@ class MyFunctions {
           ),
         )
         .toList();
+
+    print(points.map((point) => [point.latitude, point.longitude, point.name]));
+
+    print('poins');
+    print(points.length);
+    print(points);
     final myPoint = await getMyPoint(point, context);
     final clusterItem = ClusterizedPlacemarkCollection(
       mapId: clusterId,
@@ -260,25 +272,25 @@ class MyFunctions {
             zoom: 15)));
       },
       onTap: (collection, point) {},
-      // onClusterAdded: (collection, cluster) async => cluster.copyWith(
-      //   appearance: cluster.appearance.copyWith(
-      //     opacity: 1,
-      //     icon: PlacemarkIcon.single(
-      //       PlacemarkIconStyle(
-      //         image: BitmapDescriptor.fromBytes(
-      //           await getBytesFromCanvas(
-      //               image: AppImages.hospitalCluster,
-      //               width: 170,
-      //               height: 410,
-      //               placeCount: cluster.placemarks.length,
-      //               context: context,
-      //               shouldAddText: true),
-      //         ),
-      //         scale: 0.6,
-      //       ),
-      //     ),
-      //   ),
-      // ),
+      onClusterAdded: (collection, cluster) async => cluster.copyWith(
+        appearance: cluster.appearance.copyWith(
+          opacity: 1,
+          icon: PlacemarkIcon.single(
+            PlacemarkIconStyle(
+              image: BitmapDescriptor.fromBytes(
+                await getBytesFromCanvas(
+                    image: AppImages.audi,
+                    width: 170,
+                    height: 410,
+                    placeCount: cluster.placemarks.length,
+                    context: context,
+                    shouldAddText: true),
+              ),
+              scale: 0.6,
+            ),
+          ),
+        ),
+      ),
     );
 
     mapObjects
@@ -307,27 +319,37 @@ class MyFunctions {
     bool serviceEnabled;
     LocationPermission permission;
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    print('=> => => =>  serivce enabled   ${serviceEnabled}    <= <= <= <=');
     if (!serviceEnabled) {
-      throw const ParsingException(errorMessage: 'location_services_disabled');
-    }
-    permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
+      print('=> => => =>     service enabled not    <= <= <= <=');
+      // throw const ParsingException(errorMessage: 'location_services_disabled');
+      permission = await Geolocator.checkPermission();
       if (permission == LocationPermission.denied) {
-        throw const ParsingException(
-            errorMessage: 'location_permission_disabled');
+        print('=> => => =>     permission deniyed    <= <= <= <=');
+        permission = await Geolocator.requestPermission();
+        if (permission == LocationPermission.denied) {
+          print('=> => => =>     permisson again denied    <= <= <= <=');
+          throw const ParsingException(
+              errorMessage: 'location_permission_disabled');
+        }
+      }
+
+      if (permission == LocationPermission.deniedForever) {
+        print('=> => => =>     permission denied forever    <= <= <= <=');
+        permission = await Geolocator.requestPermission();
+        if (permission == LocationPermission.denied) {
+          print('=> => => =>     permission denied again forever    <= <= <= <=');
+          throw const ParsingException(
+              errorMessage: 'location_permission_disabled');
+        } else if (permission == LocationPermission.deniedForever) {
+          print('=> => => =>     dennied again ageain    <= <= <= <=');
+          throw const ParsingException(
+              errorMessage: 'location_permission_permanent_disabled');
+        }
       }
     }
-    if (permission == LocationPermission.deniedForever) {
-      permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied) {
-        throw const ParsingException(
-            errorMessage: 'location_permission_disabled');
-      } else if (permission == LocationPermission.deniedForever) {
-        throw const ParsingException(
-            errorMessage: 'location_permission_permanent_disabled');
-      }
-    }
+    print('=> => => =>     REturning    <= <= <= <=');
+
     return await Geolocator.getCurrentPosition();
   }
 
@@ -415,7 +437,6 @@ class MyFunctions {
 
   static bool enableForCalling(
       {required String callFrom, required String callTo}) {
-
     final now = DateTime.now();
 
     final dateFrom = DateTime(
@@ -440,7 +461,7 @@ class MyFunctions {
   static bool isEmail(String email) =>
       RegExp(r'^[a-z0-9](\.?[a-z0-9]){5,}@g(oogle)?mail\.com$').hasMatch(email);
 
-  String getDoorName(String door) {
+  static String getDoorName(String door) {
     switch (door) {
       case 'left_front_door':
         return 'Левая передняя дверь';
@@ -472,7 +493,7 @@ class MyFunctions {
     return '';
   }
 
-  String getStatusTitle(String status) {
+  static String getStatusTitle(String status) {
     switch (status) {
       case 'ideal':
         return 'Идеальное';
@@ -488,7 +509,16 @@ class MyFunctions {
     return 'Не показано';
   }
 
-  Widget getStatusIcon(String status) {
+  static String getErrorMessage(Failure failure) {
+    var err =
+        (failure is ServerFailure) ? failure.errorMessage : failure.toString();
+    if (err == 'Wrong code!') {
+      err = 'Код подтверждения введен неверно';
+    }
+    return err;
+  }
+
+  static Widget getStatusIcon(String status) {
     switch (status) {
       case 'ideal':
         return SvgPicture.asset(AppIcons.checkRounded, height: 20, width: 20);
@@ -502,5 +532,22 @@ class MyFunctions {
         return SvgPicture.asset(AppIcons.redWarning);
     }
     return const SizedBox();
+  }
+
+  static Color getStatusColor(DamageType? status) {
+    if (status == null) return emerald;
+
+    switch (status) {
+      case DamageType.ideal:
+        return emerald;
+      case DamageType.withDents:
+        return const Color(0xffF0CB49);
+      case DamageType.scratched:
+        return const Color(0xffF08149);
+      case DamageType.replaced:
+        return const Color(0xff695CEA);
+      case DamageType.requiresReplacement:
+        return const Color(0xffE00B00);
+    }
   }
 }

@@ -13,13 +13,13 @@ class OtherAdsItem extends StatelessWidget {
   final String imageUrl;
   final Widget widget;
 
-  const OtherAdsItem(
-      {Key? key,
-      required this.makeName,
-      required this.imageUrl,
-      required this.status,
-      required this.widget})
-      : super(key: key);
+  const OtherAdsItem({
+    required this.makeName,
+    required this.imageUrl,
+    required this.status,
+    required this.widget,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) => Container(

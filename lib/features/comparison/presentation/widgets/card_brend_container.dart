@@ -1,22 +1,21 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
-import 'package:auto/features/common/widgets/hight_light.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class CarBrandContainer extends StatelessWidget {
   final String title;
   final String imageUrl;
-  final String text;
   final bool hasShadow;
+  final bool isCheck;
 
   const CarBrandContainer({
-    this.hasShadow = false,
-    Key? key,
     required this.title,
     required this.imageUrl,
-    required this.text,
+    required this.isCheck,
+    this.hasShadow = false,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -27,7 +26,9 @@ class CarBrandContainer extends StatelessWidget {
         margin: const EdgeInsets.only(left: 12, top: 16, bottom: 16),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
-          color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
+          color: isCheck
+              ? Theme.of(context).extension<ThemedColors>()!.snowToNightRider
+              : Theme.of(context).extension<ThemedColors>()!.whiteToDark,
           border: Border.all(
               width: 1,
               color: Theme.of(context)
@@ -46,32 +47,39 @@ class CarBrandContainer extends StatelessWidget {
         ),
         child: Column(
           children: [
-            const SizedBox(height: 16),
-            if (imageUrl.isEmpty)
-              SvgPicture.asset(
-                AppImages.carImage,
-                height: 40,
-                fit: BoxFit.cover,
-              )
-            else
-              Image.network(
-                imageUrl,
-                height: 40,
-                fit: BoxFit.cover,
-              ),
             const SizedBox(height: 8),
-            HighlightedText(
-              allText: title,
-              highlightedText: '',
-              terms: text.split(' '),
+            SizedBox(
+              height: 48,
+              width: 60,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: imageUrl.isEmpty
+                    ? Image.asset(
+                        AppImages.defaultPhoto,
+                        height: 48,
+                        width: 60,
+                        fit: BoxFit.cover,
+                      )
+                    : CachedNetworkImage(
+                        imageUrl: imageUrl,
+                        height: 48,
+                        width: 60,
+                        fit: BoxFit.cover,
+                        errorWidget: (context, url, error) => Image.asset(
+                          AppImages.defaultPhoto,
+                          height: 48,
+                          width: 60,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+              ),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              title,
               maxLines: 2,
               textAlign: TextAlign.center,
-              highlightColor: const Color.fromARGB(255, 249, 228, 145),
-              textStyle: Theme.of(context)
-                  .textTheme
-                  .headline1!
-                  .copyWith(fontSize: 12, fontWeight: FontWeight.w400),
-              textStyleHighlight: Theme.of(context)
+              style: Theme.of(context)
                   .textTheme
                   .headline1!
                   .copyWith(fontSize: 12, fontWeight: FontWeight.w400),

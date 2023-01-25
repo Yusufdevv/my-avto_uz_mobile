@@ -1,5 +1,7 @@
+import 'package:auto/features/common/bloc/auth/authentication_bloc.dart';
 import 'package:auto/features/common/bloc/wishlist_add/wishlist_add_bloc.dart';
 import 'package:auto/features/common/repository/auth.dart';
+import 'package:auto/features/common/widgets/notification_button.dart';
 import 'package:auto/features/comparison/presentation/comparison_page.dart';
 import 'package:auto/features/profile/domain/entities/profile_data_entity.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -16,7 +18,7 @@ import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/core/utils/size_config.dart';
 import 'package:auto/features/ad/presentation/bloc/add_photo/image_bloc.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
-import 'package:auto/features/dealers/presentation/dealers_main.dart';
+import 'package:auto/features/dealers/presentation/dealers_screen.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/profile/data/repositories/profile_repository_impl.dart';
 import 'package:auto/features/profile/domain/usecases/change_password_usecase.dart';
@@ -43,7 +45,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   void initState() {
     final repo = serviceLocator<ProfileRepositoryImpl>();
-
     profileBloc = ProfileBloc(
         changePasswordUseCase: ChangePasswordUseCase(repository: repo),
         editProfileUseCase: EditProfileUseCase(repository: repo),
@@ -91,19 +92,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         BoxShadow(
                             offset: Offset(0, 0), blurRadius: 0, color: white),
                       ],
-                      extraActions: [
-                        Padding(
-                          padding: EdgeInsets.only(right: SizeConfig.h(16)),
-                          child: GestureDetector(
-                            onTap: () =>
-                                Navigator.of(context, rootNavigator: true)
-                                    .push(fade(page: const NotificationPage())),
-                            child: SvgPicture.asset(
-                              AppIcons.bellWithCircle,
-                            ),
-                          ),
-                        )
-                      ],
+                      extraActions: const [NotificationButton()],
                       hasBackButton: false,
                       textWithButton: LocaleKeys.my_profile.tr()),
                   body: SingleChildScrollView(
@@ -122,7 +111,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               fullName: profileData.fullName ?? '',
                               subTitle:
                                   '${usercountData.announcementsCount} ${LocaleKeys.how_many_ads.tr()}',
-                              imageUrl: profileData.image!,
+                              imageUrl: profileData.image ?? '',
                               margin: EdgeInsets.only(
                                   top: SizeConfig.v(16),
                                   bottom: SizeConfig.v(12))),
@@ -135,8 +124,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       context,
                                       fade(
                                           page: FavouritePage(
-                                        profileBloc: profileBloc,
-                                      )));
+                                              profileBloc: profileBloc)));
                                 },
                                 iconPath: AppIcons.heartBlue,
                                 count: usercountData.announcementWishlistCount),
@@ -171,15 +159,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 count: state.profileEntity.usercountdata
                                     .filterHistoryCount),
                             const ProfileDivider(),
-                            ProfileMenuTile(
-                                name: 'Мои отзывы',
-                                onTap: () {
-                                  Navigator.of(context)
-                                      .push(fade(page: const ReviewsScreen()));
-                                },
-                                iconPath: AppIcons.message,
-                                count: state
-                                    .profileEntity.usercountdata.reviewsCount),
+                            // ProfileMenuTile(
+                            //     name: 'Мои отзывы',
+                            //     onTap: () {
+                            //       Navigator.of(context)
+                            //           .push(fade(page: const ReviewsScreen()));
+                            //     },
+                            //     iconPath: AppIcons.message,
+                            //     count: state
+                            //         .profileEntity.usercountdata.reviewsCount),
                           ]),
 
                           //Дилеры - Справочник - Чат
@@ -207,11 +195,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       .push(
                                     fade(
                                         page: ChatPage(
-                                            phone: profileData.phoneNumber!,
-                                            userName: profileData.username ??
-                                                profileData.firstName,
-                                            hasChat: false,
-                                            imageBloc: imageBloc)),
+                                            phone: state.profileEntity
+                                                    .phoneNumber ??
+                                                '',
+                                            userName: state
+                                                    .profileEntity.fullName ??
+                                                state.profileEntity.firstName ??
+                                                '')),
                                   );
                                 },
                                 iconPath: AppIcons.message),
@@ -219,11 +209,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             ProfileMenuTile(
                                 name: LocaleKeys.settings.tr(),
                                 onTap: () {
-                                  Navigator.of(context).push(
+                                  Navigator.of(context)
+                                      .push(
                                     fade(
                                         page: SettingsPage(
                                             profileBloc: profileBloc)),
-                                  );
+                                  )
+                                      .then((value) {
+                                    setState(() {});
+                                  });
                                 },
                                 iconPath: AppIcons.settings),
                           ]),

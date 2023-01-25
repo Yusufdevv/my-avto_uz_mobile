@@ -4,9 +4,11 @@ import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class BusySheet extends StatelessWidget {
-  const BusySheet({Key? key}) : super(key: key);
+  final String copyUrl;
+  const BusySheet({Key? key, required this.copyUrl}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
@@ -15,29 +17,29 @@ class BusySheet extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Container(
-            decoration: const BoxDecoration(
-              color: bottomSheetColor,
-              borderRadius: BorderRadius.vertical(top: Radius.circular(13)),
-            ),
-            child: CupertinoActionSheetAction(
-              child: Text(
-                LocaleKeys.Complain.tr(),
-                style: Theme.of(context)
-                    .textTheme
-                    .headline1!
-                    .copyWith(fontWeight: FontWeight.w400, color: red),
-              ),
-              onPressed: () {
-                Navigator.pop(context, LocaleKeys.Complain.tr());
-              },
-            ),
-          ),
-          Divider(
-            height: 0,
-            thickness: 1,
-            color: brightGrey.withOpacity(0.65),
-          ),
+          // Container(
+          //   decoration: const BoxDecoration(
+          //     color: bottomSheetColor,
+          //     borderRadius: BorderRadius.vertical(top: Radius.circular(13)),
+          //   ),
+          //   child: CupertinoActionSheetAction(
+          //     child: Text(
+          //       LocaleKeys.Complain.tr(),
+          //       style: Theme.of(context)
+          //           .textTheme
+          //           .headline1!
+          //           .copyWith(fontWeight: FontWeight.w400, color: red),
+          //     ),
+          //     onPressed: () {
+          //       Navigator.pop(context, LocaleKeys.Complain.tr());
+          //     },
+          //   ),
+          // ),
+          // Divider(
+          //   height: 0,
+          //   thickness: 1,
+          //   color: brightGrey.withOpacity(0.65),
+          // ),
           Container(
             decoration: const BoxDecoration(
               color: bottomSheetColor,
@@ -53,7 +55,8 @@ class BusySheet extends StatelessWidget {
                     .headline4!
                     .copyWith(fontWeight: FontWeight.w400, fontSize: 20),
               ),
-              onPressed: () {
+              onPressed: () async {
+                await Clipboard.setData(ClipboardData(text: copyUrl));
                 Navigator.pop(context, LocaleKeys.Complain.tr());
               },
             ),

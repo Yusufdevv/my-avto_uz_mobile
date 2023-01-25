@@ -7,7 +7,7 @@ part 'reel_model.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class ReelModel extends ReelEntity {
-  const ReelModel({
+   ReelModel({
     required super.id,
     required super.title,
     required super.content,
@@ -15,6 +15,7 @@ class ReelModel extends ReelEntity {
     required super.shareCount,
     required super.dealer,
     required super.announcement,
+    required super.isLiked,
   });
 
   factory ReelModel.fromJson(Map<String, dynamic> json) =>

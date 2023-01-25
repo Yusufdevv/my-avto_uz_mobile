@@ -65,7 +65,7 @@ class _PhoneNumberEditPageState extends State<PhoneNumberEditPage> {
                 appBar: const WAppBar(title: 'Номер телефона'),
                 body: Padding(
                   padding: const EdgeInsets.only(
-                      top: 50, left: 16, right: 16, bottom: 16),
+                      top: 50, left: 16, right: 16, bottom: 20),
                   child: Form(
                     key: _formKey,
                     child: Column(
@@ -91,13 +91,19 @@ class _PhoneNumberEditPageState extends State<PhoneNumberEditPage> {
                               return 'Iltimos, telefon nomerni kiriting';
                             } else if (value.length < 12) {
                               return "Telefon nomer 12 raqamdan iborat bo'lishi kerak";
+                            } else if (int.tryParse(value) == null) {
+                              return "To'gri telefon raqam kiriting!";
                             }
                             return null;
                           },
                           controller: phoneController,
+                          prefixPadding: const EdgeInsets.only(bottom: 5),
                           prefixIcon: Row(
                             children: [
-                              Image.asset(AppImages.flagUzb),
+                              SizedBox(
+                                  height: 20,
+                                  width: 20,
+                                  child: Image.asset(AppImages.flagUzb2)),
                               const SizedBox(width: 4),
                               Text('+998',
                                   style: Theme.of(context)
@@ -152,7 +158,6 @@ class _PhoneNumberEditPageState extends State<PhoneNumberEditPage> {
                                               ShowPopUp(
                                                   message: message,
                                                   isSucces: false));
-                                                  
                                         }));
                               }
                             },

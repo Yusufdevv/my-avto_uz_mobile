@@ -19,9 +19,13 @@ mixin _$GetMakesBlocEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getMakes,
+    required TResult Function() getTopMakes,
     required TResult Function(String naem) getSerched,
     required TResult Function(int id) changeSelected,
     required TResult Function(String letter) sortMakes,
+    required TResult Function() getIsCheck,
+    required TResult Function() getNextTop,
+    required TResult Function(String index) getIndex,
     required TResult Function(int id, String name, String imageUrl)
         selectedCarItems,
     required TResult Function() confirmCarOption,
@@ -31,9 +35,13 @@ mixin _$GetMakesBlocEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getMakes,
+    TResult? Function()? getTopMakes,
     TResult? Function(String naem)? getSerched,
     TResult? Function(int id)? changeSelected,
     TResult? Function(String letter)? sortMakes,
+    TResult? Function()? getIsCheck,
+    TResult? Function()? getNextTop,
+    TResult? Function(String index)? getIndex,
     TResult? Function(int id, String name, String imageUrl)? selectedCarItems,
     TResult? Function()? confirmCarOption,
     TResult? Function()? revertCarOption,
@@ -42,9 +50,13 @@ mixin _$GetMakesBlocEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getMakes,
+    TResult Function()? getTopMakes,
     TResult Function(String naem)? getSerched,
     TResult Function(int id)? changeSelected,
     TResult Function(String letter)? sortMakes,
+    TResult Function()? getIsCheck,
+    TResult Function()? getNextTop,
+    TResult Function(String index)? getIndex,
     TResult Function(int id, String name, String imageUrl)? selectedCarItems,
     TResult Function()? confirmCarOption,
     TResult Function()? revertCarOption,
@@ -54,9 +66,13 @@ mixin _$GetMakesBlocEvent {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_GetMakes value) getMakes,
+    required TResult Function(_GetTopMakes value) getTopMakes,
     required TResult Function(_GetSerched value) getSerched,
     required TResult Function(_ChangeSelected value) changeSelected,
     required TResult Function(_SortMakes value) sortMakes,
+    required TResult Function(_GetIsCheck value) getIsCheck,
+    required TResult Function(_GetNextTop value) getNextTop,
+    required TResult Function(_GetIndex value) getIndex,
     required TResult Function(_SelectedCarItems value) selectedCarItems,
     required TResult Function(_ConfirmCarOption value) confirmCarOption,
     required TResult Function(_RevertCarOption value) revertCarOption,
@@ -65,9 +81,13 @@ mixin _$GetMakesBlocEvent {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetMakes value)? getMakes,
+    TResult? Function(_GetTopMakes value)? getTopMakes,
     TResult? Function(_GetSerched value)? getSerched,
     TResult? Function(_ChangeSelected value)? changeSelected,
     TResult? Function(_SortMakes value)? sortMakes,
+    TResult? Function(_GetIsCheck value)? getIsCheck,
+    TResult? Function(_GetNextTop value)? getNextTop,
+    TResult? Function(_GetIndex value)? getIndex,
     TResult? Function(_SelectedCarItems value)? selectedCarItems,
     TResult? Function(_ConfirmCarOption value)? confirmCarOption,
     TResult? Function(_RevertCarOption value)? revertCarOption,
@@ -76,9 +96,13 @@ mixin _$GetMakesBlocEvent {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetMakes value)? getMakes,
+    TResult Function(_GetTopMakes value)? getTopMakes,
     TResult Function(_GetSerched value)? getSerched,
     TResult Function(_ChangeSelected value)? changeSelected,
     TResult Function(_SortMakes value)? sortMakes,
+    TResult Function(_GetIsCheck value)? getIsCheck,
+    TResult Function(_GetNextTop value)? getNextTop,
+    TResult Function(_GetIndex value)? getIndex,
     TResult Function(_SelectedCarItems value)? selectedCarItems,
     TResult Function(_ConfirmCarOption value)? confirmCarOption,
     TResult Function(_RevertCarOption value)? revertCarOption,
@@ -144,9 +168,13 @@ class _$_GetMakes implements _GetMakes {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getMakes,
+    required TResult Function() getTopMakes,
     required TResult Function(String naem) getSerched,
     required TResult Function(int id) changeSelected,
     required TResult Function(String letter) sortMakes,
+    required TResult Function() getIsCheck,
+    required TResult Function() getNextTop,
+    required TResult Function(String index) getIndex,
     required TResult Function(int id, String name, String imageUrl)
         selectedCarItems,
     required TResult Function() confirmCarOption,
@@ -159,9 +187,13 @@ class _$_GetMakes implements _GetMakes {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getMakes,
+    TResult? Function()? getTopMakes,
     TResult? Function(String naem)? getSerched,
     TResult? Function(int id)? changeSelected,
     TResult? Function(String letter)? sortMakes,
+    TResult? Function()? getIsCheck,
+    TResult? Function()? getNextTop,
+    TResult? Function(String index)? getIndex,
     TResult? Function(int id, String name, String imageUrl)? selectedCarItems,
     TResult? Function()? confirmCarOption,
     TResult? Function()? revertCarOption,
@@ -173,9 +205,13 @@ class _$_GetMakes implements _GetMakes {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getMakes,
+    TResult Function()? getTopMakes,
     TResult Function(String naem)? getSerched,
     TResult Function(int id)? changeSelected,
     TResult Function(String letter)? sortMakes,
+    TResult Function()? getIsCheck,
+    TResult Function()? getNextTop,
+    TResult Function(String index)? getIndex,
     TResult Function(int id, String name, String imageUrl)? selectedCarItems,
     TResult Function()? confirmCarOption,
     TResult Function()? revertCarOption,
@@ -191,9 +227,13 @@ class _$_GetMakes implements _GetMakes {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_GetMakes value) getMakes,
+    required TResult Function(_GetTopMakes value) getTopMakes,
     required TResult Function(_GetSerched value) getSerched,
     required TResult Function(_ChangeSelected value) changeSelected,
     required TResult Function(_SortMakes value) sortMakes,
+    required TResult Function(_GetIsCheck value) getIsCheck,
+    required TResult Function(_GetNextTop value) getNextTop,
+    required TResult Function(_GetIndex value) getIndex,
     required TResult Function(_SelectedCarItems value) selectedCarItems,
     required TResult Function(_ConfirmCarOption value) confirmCarOption,
     required TResult Function(_RevertCarOption value) revertCarOption,
@@ -205,9 +245,13 @@ class _$_GetMakes implements _GetMakes {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetMakes value)? getMakes,
+    TResult? Function(_GetTopMakes value)? getTopMakes,
     TResult? Function(_GetSerched value)? getSerched,
     TResult? Function(_ChangeSelected value)? changeSelected,
     TResult? Function(_SortMakes value)? sortMakes,
+    TResult? Function(_GetIsCheck value)? getIsCheck,
+    TResult? Function(_GetNextTop value)? getNextTop,
+    TResult? Function(_GetIndex value)? getIndex,
     TResult? Function(_SelectedCarItems value)? selectedCarItems,
     TResult? Function(_ConfirmCarOption value)? confirmCarOption,
     TResult? Function(_RevertCarOption value)? revertCarOption,
@@ -219,9 +263,13 @@ class _$_GetMakes implements _GetMakes {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetMakes value)? getMakes,
+    TResult Function(_GetTopMakes value)? getTopMakes,
     TResult Function(_GetSerched value)? getSerched,
     TResult Function(_ChangeSelected value)? changeSelected,
     TResult Function(_SortMakes value)? sortMakes,
+    TResult Function(_GetIsCheck value)? getIsCheck,
+    TResult Function(_GetNextTop value)? getNextTop,
+    TResult Function(_GetIndex value)? getIndex,
     TResult Function(_SelectedCarItems value)? selectedCarItems,
     TResult Function(_ConfirmCarOption value)? confirmCarOption,
     TResult Function(_RevertCarOption value)? revertCarOption,
@@ -236,6 +284,163 @@ class _$_GetMakes implements _GetMakes {
 
 abstract class _GetMakes implements GetMakesBlocEvent {
   factory _GetMakes() = _$_GetMakes;
+}
+
+/// @nodoc
+abstract class _$$_GetTopMakesCopyWith<$Res> {
+  factory _$$_GetTopMakesCopyWith(
+          _$_GetTopMakes value, $Res Function(_$_GetTopMakes) then) =
+      __$$_GetTopMakesCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$_GetTopMakesCopyWithImpl<$Res>
+    extends _$GetMakesBlocEventCopyWithImpl<$Res, _$_GetTopMakes>
+    implements _$$_GetTopMakesCopyWith<$Res> {
+  __$$_GetTopMakesCopyWithImpl(
+      _$_GetTopMakes _value, $Res Function(_$_GetTopMakes) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$_GetTopMakes implements _GetTopMakes {
+  _$_GetTopMakes();
+
+  @override
+  String toString() {
+    return 'GetMakesBlocEvent.getTopMakes()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$_GetTopMakes);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() getMakes,
+    required TResult Function() getTopMakes,
+    required TResult Function(String naem) getSerched,
+    required TResult Function(int id) changeSelected,
+    required TResult Function(String letter) sortMakes,
+    required TResult Function() getIsCheck,
+    required TResult Function() getNextTop,
+    required TResult Function(String index) getIndex,
+    required TResult Function(int id, String name, String imageUrl)
+        selectedCarItems,
+    required TResult Function() confirmCarOption,
+    required TResult Function() revertCarOption,
+  }) {
+    return getTopMakes();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? getMakes,
+    TResult? Function()? getTopMakes,
+    TResult? Function(String naem)? getSerched,
+    TResult? Function(int id)? changeSelected,
+    TResult? Function(String letter)? sortMakes,
+    TResult? Function()? getIsCheck,
+    TResult? Function()? getNextTop,
+    TResult? Function(String index)? getIndex,
+    TResult? Function(int id, String name, String imageUrl)? selectedCarItems,
+    TResult? Function()? confirmCarOption,
+    TResult? Function()? revertCarOption,
+  }) {
+    return getTopMakes?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? getMakes,
+    TResult Function()? getTopMakes,
+    TResult Function(String naem)? getSerched,
+    TResult Function(int id)? changeSelected,
+    TResult Function(String letter)? sortMakes,
+    TResult Function()? getIsCheck,
+    TResult Function()? getNextTop,
+    TResult Function(String index)? getIndex,
+    TResult Function(int id, String name, String imageUrl)? selectedCarItems,
+    TResult Function()? confirmCarOption,
+    TResult Function()? revertCarOption,
+    required TResult orElse(),
+  }) {
+    if (getTopMakes != null) {
+      return getTopMakes();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_GetMakes value) getMakes,
+    required TResult Function(_GetTopMakes value) getTopMakes,
+    required TResult Function(_GetSerched value) getSerched,
+    required TResult Function(_ChangeSelected value) changeSelected,
+    required TResult Function(_SortMakes value) sortMakes,
+    required TResult Function(_GetIsCheck value) getIsCheck,
+    required TResult Function(_GetNextTop value) getNextTop,
+    required TResult Function(_GetIndex value) getIndex,
+    required TResult Function(_SelectedCarItems value) selectedCarItems,
+    required TResult Function(_ConfirmCarOption value) confirmCarOption,
+    required TResult Function(_RevertCarOption value) revertCarOption,
+  }) {
+    return getTopMakes(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetMakes value)? getMakes,
+    TResult? Function(_GetTopMakes value)? getTopMakes,
+    TResult? Function(_GetSerched value)? getSerched,
+    TResult? Function(_ChangeSelected value)? changeSelected,
+    TResult? Function(_SortMakes value)? sortMakes,
+    TResult? Function(_GetIsCheck value)? getIsCheck,
+    TResult? Function(_GetNextTop value)? getNextTop,
+    TResult? Function(_GetIndex value)? getIndex,
+    TResult? Function(_SelectedCarItems value)? selectedCarItems,
+    TResult? Function(_ConfirmCarOption value)? confirmCarOption,
+    TResult? Function(_RevertCarOption value)? revertCarOption,
+  }) {
+    return getTopMakes?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetMakes value)? getMakes,
+    TResult Function(_GetTopMakes value)? getTopMakes,
+    TResult Function(_GetSerched value)? getSerched,
+    TResult Function(_ChangeSelected value)? changeSelected,
+    TResult Function(_SortMakes value)? sortMakes,
+    TResult Function(_GetIsCheck value)? getIsCheck,
+    TResult Function(_GetNextTop value)? getNextTop,
+    TResult Function(_GetIndex value)? getIndex,
+    TResult Function(_SelectedCarItems value)? selectedCarItems,
+    TResult Function(_ConfirmCarOption value)? confirmCarOption,
+    TResult Function(_RevertCarOption value)? revertCarOption,
+    required TResult orElse(),
+  }) {
+    if (getTopMakes != null) {
+      return getTopMakes(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _GetTopMakes implements GetMakesBlocEvent {
+  factory _GetTopMakes() = _$_GetTopMakes;
 }
 
 /// @nodoc
@@ -303,9 +508,13 @@ class _$_GetSerched implements _GetSerched {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getMakes,
+    required TResult Function() getTopMakes,
     required TResult Function(String naem) getSerched,
     required TResult Function(int id) changeSelected,
     required TResult Function(String letter) sortMakes,
+    required TResult Function() getIsCheck,
+    required TResult Function() getNextTop,
+    required TResult Function(String index) getIndex,
     required TResult Function(int id, String name, String imageUrl)
         selectedCarItems,
     required TResult Function() confirmCarOption,
@@ -318,9 +527,13 @@ class _$_GetSerched implements _GetSerched {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getMakes,
+    TResult? Function()? getTopMakes,
     TResult? Function(String naem)? getSerched,
     TResult? Function(int id)? changeSelected,
     TResult? Function(String letter)? sortMakes,
+    TResult? Function()? getIsCheck,
+    TResult? Function()? getNextTop,
+    TResult? Function(String index)? getIndex,
     TResult? Function(int id, String name, String imageUrl)? selectedCarItems,
     TResult? Function()? confirmCarOption,
     TResult? Function()? revertCarOption,
@@ -332,9 +545,13 @@ class _$_GetSerched implements _GetSerched {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getMakes,
+    TResult Function()? getTopMakes,
     TResult Function(String naem)? getSerched,
     TResult Function(int id)? changeSelected,
     TResult Function(String letter)? sortMakes,
+    TResult Function()? getIsCheck,
+    TResult Function()? getNextTop,
+    TResult Function(String index)? getIndex,
     TResult Function(int id, String name, String imageUrl)? selectedCarItems,
     TResult Function()? confirmCarOption,
     TResult Function()? revertCarOption,
@@ -350,9 +567,13 @@ class _$_GetSerched implements _GetSerched {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_GetMakes value) getMakes,
+    required TResult Function(_GetTopMakes value) getTopMakes,
     required TResult Function(_GetSerched value) getSerched,
     required TResult Function(_ChangeSelected value) changeSelected,
     required TResult Function(_SortMakes value) sortMakes,
+    required TResult Function(_GetIsCheck value) getIsCheck,
+    required TResult Function(_GetNextTop value) getNextTop,
+    required TResult Function(_GetIndex value) getIndex,
     required TResult Function(_SelectedCarItems value) selectedCarItems,
     required TResult Function(_ConfirmCarOption value) confirmCarOption,
     required TResult Function(_RevertCarOption value) revertCarOption,
@@ -364,9 +585,13 @@ class _$_GetSerched implements _GetSerched {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetMakes value)? getMakes,
+    TResult? Function(_GetTopMakes value)? getTopMakes,
     TResult? Function(_GetSerched value)? getSerched,
     TResult? Function(_ChangeSelected value)? changeSelected,
     TResult? Function(_SortMakes value)? sortMakes,
+    TResult? Function(_GetIsCheck value)? getIsCheck,
+    TResult? Function(_GetNextTop value)? getNextTop,
+    TResult? Function(_GetIndex value)? getIndex,
     TResult? Function(_SelectedCarItems value)? selectedCarItems,
     TResult? Function(_ConfirmCarOption value)? confirmCarOption,
     TResult? Function(_RevertCarOption value)? revertCarOption,
@@ -378,9 +603,13 @@ class _$_GetSerched implements _GetSerched {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetMakes value)? getMakes,
+    TResult Function(_GetTopMakes value)? getTopMakes,
     TResult Function(_GetSerched value)? getSerched,
     TResult Function(_ChangeSelected value)? changeSelected,
     TResult Function(_SortMakes value)? sortMakes,
+    TResult Function(_GetIsCheck value)? getIsCheck,
+    TResult Function(_GetNextTop value)? getNextTop,
+    TResult Function(_GetIndex value)? getIndex,
     TResult Function(_SelectedCarItems value)? selectedCarItems,
     TResult Function(_ConfirmCarOption value)? confirmCarOption,
     TResult Function(_RevertCarOption value)? revertCarOption,
@@ -467,9 +696,13 @@ class _$_ChangeSelected implements _ChangeSelected {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getMakes,
+    required TResult Function() getTopMakes,
     required TResult Function(String naem) getSerched,
     required TResult Function(int id) changeSelected,
     required TResult Function(String letter) sortMakes,
+    required TResult Function() getIsCheck,
+    required TResult Function() getNextTop,
+    required TResult Function(String index) getIndex,
     required TResult Function(int id, String name, String imageUrl)
         selectedCarItems,
     required TResult Function() confirmCarOption,
@@ -482,9 +715,13 @@ class _$_ChangeSelected implements _ChangeSelected {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getMakes,
+    TResult? Function()? getTopMakes,
     TResult? Function(String naem)? getSerched,
     TResult? Function(int id)? changeSelected,
     TResult? Function(String letter)? sortMakes,
+    TResult? Function()? getIsCheck,
+    TResult? Function()? getNextTop,
+    TResult? Function(String index)? getIndex,
     TResult? Function(int id, String name, String imageUrl)? selectedCarItems,
     TResult? Function()? confirmCarOption,
     TResult? Function()? revertCarOption,
@@ -496,9 +733,13 @@ class _$_ChangeSelected implements _ChangeSelected {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getMakes,
+    TResult Function()? getTopMakes,
     TResult Function(String naem)? getSerched,
     TResult Function(int id)? changeSelected,
     TResult Function(String letter)? sortMakes,
+    TResult Function()? getIsCheck,
+    TResult Function()? getNextTop,
+    TResult Function(String index)? getIndex,
     TResult Function(int id, String name, String imageUrl)? selectedCarItems,
     TResult Function()? confirmCarOption,
     TResult Function()? revertCarOption,
@@ -514,9 +755,13 @@ class _$_ChangeSelected implements _ChangeSelected {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_GetMakes value) getMakes,
+    required TResult Function(_GetTopMakes value) getTopMakes,
     required TResult Function(_GetSerched value) getSerched,
     required TResult Function(_ChangeSelected value) changeSelected,
     required TResult Function(_SortMakes value) sortMakes,
+    required TResult Function(_GetIsCheck value) getIsCheck,
+    required TResult Function(_GetNextTop value) getNextTop,
+    required TResult Function(_GetIndex value) getIndex,
     required TResult Function(_SelectedCarItems value) selectedCarItems,
     required TResult Function(_ConfirmCarOption value) confirmCarOption,
     required TResult Function(_RevertCarOption value) revertCarOption,
@@ -528,9 +773,13 @@ class _$_ChangeSelected implements _ChangeSelected {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetMakes value)? getMakes,
+    TResult? Function(_GetTopMakes value)? getTopMakes,
     TResult? Function(_GetSerched value)? getSerched,
     TResult? Function(_ChangeSelected value)? changeSelected,
     TResult? Function(_SortMakes value)? sortMakes,
+    TResult? Function(_GetIsCheck value)? getIsCheck,
+    TResult? Function(_GetNextTop value)? getNextTop,
+    TResult? Function(_GetIndex value)? getIndex,
     TResult? Function(_SelectedCarItems value)? selectedCarItems,
     TResult? Function(_ConfirmCarOption value)? confirmCarOption,
     TResult? Function(_RevertCarOption value)? revertCarOption,
@@ -542,9 +791,13 @@ class _$_ChangeSelected implements _ChangeSelected {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetMakes value)? getMakes,
+    TResult Function(_GetTopMakes value)? getTopMakes,
     TResult Function(_GetSerched value)? getSerched,
     TResult Function(_ChangeSelected value)? changeSelected,
     TResult Function(_SortMakes value)? sortMakes,
+    TResult Function(_GetIsCheck value)? getIsCheck,
+    TResult Function(_GetNextTop value)? getNextTop,
+    TResult Function(_GetIndex value)? getIndex,
     TResult Function(_SelectedCarItems value)? selectedCarItems,
     TResult Function(_ConfirmCarOption value)? confirmCarOption,
     TResult Function(_RevertCarOption value)? revertCarOption,
@@ -631,9 +884,13 @@ class _$_SortMakes implements _SortMakes {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getMakes,
+    required TResult Function() getTopMakes,
     required TResult Function(String naem) getSerched,
     required TResult Function(int id) changeSelected,
     required TResult Function(String letter) sortMakes,
+    required TResult Function() getIsCheck,
+    required TResult Function() getNextTop,
+    required TResult Function(String index) getIndex,
     required TResult Function(int id, String name, String imageUrl)
         selectedCarItems,
     required TResult Function() confirmCarOption,
@@ -646,9 +903,13 @@ class _$_SortMakes implements _SortMakes {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getMakes,
+    TResult? Function()? getTopMakes,
     TResult? Function(String naem)? getSerched,
     TResult? Function(int id)? changeSelected,
     TResult? Function(String letter)? sortMakes,
+    TResult? Function()? getIsCheck,
+    TResult? Function()? getNextTop,
+    TResult? Function(String index)? getIndex,
     TResult? Function(int id, String name, String imageUrl)? selectedCarItems,
     TResult? Function()? confirmCarOption,
     TResult? Function()? revertCarOption,
@@ -660,9 +921,13 @@ class _$_SortMakes implements _SortMakes {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getMakes,
+    TResult Function()? getTopMakes,
     TResult Function(String naem)? getSerched,
     TResult Function(int id)? changeSelected,
     TResult Function(String letter)? sortMakes,
+    TResult Function()? getIsCheck,
+    TResult Function()? getNextTop,
+    TResult Function(String index)? getIndex,
     TResult Function(int id, String name, String imageUrl)? selectedCarItems,
     TResult Function()? confirmCarOption,
     TResult Function()? revertCarOption,
@@ -678,9 +943,13 @@ class _$_SortMakes implements _SortMakes {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_GetMakes value) getMakes,
+    required TResult Function(_GetTopMakes value) getTopMakes,
     required TResult Function(_GetSerched value) getSerched,
     required TResult Function(_ChangeSelected value) changeSelected,
     required TResult Function(_SortMakes value) sortMakes,
+    required TResult Function(_GetIsCheck value) getIsCheck,
+    required TResult Function(_GetNextTop value) getNextTop,
+    required TResult Function(_GetIndex value) getIndex,
     required TResult Function(_SelectedCarItems value) selectedCarItems,
     required TResult Function(_ConfirmCarOption value) confirmCarOption,
     required TResult Function(_RevertCarOption value) revertCarOption,
@@ -692,9 +961,13 @@ class _$_SortMakes implements _SortMakes {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetMakes value)? getMakes,
+    TResult? Function(_GetTopMakes value)? getTopMakes,
     TResult? Function(_GetSerched value)? getSerched,
     TResult? Function(_ChangeSelected value)? changeSelected,
     TResult? Function(_SortMakes value)? sortMakes,
+    TResult? Function(_GetIsCheck value)? getIsCheck,
+    TResult? Function(_GetNextTop value)? getNextTop,
+    TResult? Function(_GetIndex value)? getIndex,
     TResult? Function(_SelectedCarItems value)? selectedCarItems,
     TResult? Function(_ConfirmCarOption value)? confirmCarOption,
     TResult? Function(_RevertCarOption value)? revertCarOption,
@@ -706,9 +979,13 @@ class _$_SortMakes implements _SortMakes {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetMakes value)? getMakes,
+    TResult Function(_GetTopMakes value)? getTopMakes,
     TResult Function(_GetSerched value)? getSerched,
     TResult Function(_ChangeSelected value)? changeSelected,
     TResult Function(_SortMakes value)? sortMakes,
+    TResult Function(_GetIsCheck value)? getIsCheck,
+    TResult Function(_GetNextTop value)? getNextTop,
+    TResult Function(_GetIndex value)? getIndex,
     TResult Function(_SelectedCarItems value)? selectedCarItems,
     TResult Function(_ConfirmCarOption value)? confirmCarOption,
     TResult Function(_RevertCarOption value)? revertCarOption,
@@ -727,6 +1004,508 @@ abstract class _SortMakes implements GetMakesBlocEvent {
   String get letter;
   @JsonKey(ignore: true)
   _$$_SortMakesCopyWith<_$_SortMakes> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_GetIsCheckCopyWith<$Res> {
+  factory _$$_GetIsCheckCopyWith(
+          _$_GetIsCheck value, $Res Function(_$_GetIsCheck) then) =
+      __$$_GetIsCheckCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$_GetIsCheckCopyWithImpl<$Res>
+    extends _$GetMakesBlocEventCopyWithImpl<$Res, _$_GetIsCheck>
+    implements _$$_GetIsCheckCopyWith<$Res> {
+  __$$_GetIsCheckCopyWithImpl(
+      _$_GetIsCheck _value, $Res Function(_$_GetIsCheck) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$_GetIsCheck implements _GetIsCheck {
+  _$_GetIsCheck();
+
+  @override
+  String toString() {
+    return 'GetMakesBlocEvent.getIsCheck()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$_GetIsCheck);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() getMakes,
+    required TResult Function() getTopMakes,
+    required TResult Function(String naem) getSerched,
+    required TResult Function(int id) changeSelected,
+    required TResult Function(String letter) sortMakes,
+    required TResult Function() getIsCheck,
+    required TResult Function() getNextTop,
+    required TResult Function(String index) getIndex,
+    required TResult Function(int id, String name, String imageUrl)
+        selectedCarItems,
+    required TResult Function() confirmCarOption,
+    required TResult Function() revertCarOption,
+  }) {
+    return getIsCheck();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? getMakes,
+    TResult? Function()? getTopMakes,
+    TResult? Function(String naem)? getSerched,
+    TResult? Function(int id)? changeSelected,
+    TResult? Function(String letter)? sortMakes,
+    TResult? Function()? getIsCheck,
+    TResult? Function()? getNextTop,
+    TResult? Function(String index)? getIndex,
+    TResult? Function(int id, String name, String imageUrl)? selectedCarItems,
+    TResult? Function()? confirmCarOption,
+    TResult? Function()? revertCarOption,
+  }) {
+    return getIsCheck?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? getMakes,
+    TResult Function()? getTopMakes,
+    TResult Function(String naem)? getSerched,
+    TResult Function(int id)? changeSelected,
+    TResult Function(String letter)? sortMakes,
+    TResult Function()? getIsCheck,
+    TResult Function()? getNextTop,
+    TResult Function(String index)? getIndex,
+    TResult Function(int id, String name, String imageUrl)? selectedCarItems,
+    TResult Function()? confirmCarOption,
+    TResult Function()? revertCarOption,
+    required TResult orElse(),
+  }) {
+    if (getIsCheck != null) {
+      return getIsCheck();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_GetMakes value) getMakes,
+    required TResult Function(_GetTopMakes value) getTopMakes,
+    required TResult Function(_GetSerched value) getSerched,
+    required TResult Function(_ChangeSelected value) changeSelected,
+    required TResult Function(_SortMakes value) sortMakes,
+    required TResult Function(_GetIsCheck value) getIsCheck,
+    required TResult Function(_GetNextTop value) getNextTop,
+    required TResult Function(_GetIndex value) getIndex,
+    required TResult Function(_SelectedCarItems value) selectedCarItems,
+    required TResult Function(_ConfirmCarOption value) confirmCarOption,
+    required TResult Function(_RevertCarOption value) revertCarOption,
+  }) {
+    return getIsCheck(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetMakes value)? getMakes,
+    TResult? Function(_GetTopMakes value)? getTopMakes,
+    TResult? Function(_GetSerched value)? getSerched,
+    TResult? Function(_ChangeSelected value)? changeSelected,
+    TResult? Function(_SortMakes value)? sortMakes,
+    TResult? Function(_GetIsCheck value)? getIsCheck,
+    TResult? Function(_GetNextTop value)? getNextTop,
+    TResult? Function(_GetIndex value)? getIndex,
+    TResult? Function(_SelectedCarItems value)? selectedCarItems,
+    TResult? Function(_ConfirmCarOption value)? confirmCarOption,
+    TResult? Function(_RevertCarOption value)? revertCarOption,
+  }) {
+    return getIsCheck?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetMakes value)? getMakes,
+    TResult Function(_GetTopMakes value)? getTopMakes,
+    TResult Function(_GetSerched value)? getSerched,
+    TResult Function(_ChangeSelected value)? changeSelected,
+    TResult Function(_SortMakes value)? sortMakes,
+    TResult Function(_GetIsCheck value)? getIsCheck,
+    TResult Function(_GetNextTop value)? getNextTop,
+    TResult Function(_GetIndex value)? getIndex,
+    TResult Function(_SelectedCarItems value)? selectedCarItems,
+    TResult Function(_ConfirmCarOption value)? confirmCarOption,
+    TResult Function(_RevertCarOption value)? revertCarOption,
+    required TResult orElse(),
+  }) {
+    if (getIsCheck != null) {
+      return getIsCheck(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _GetIsCheck implements GetMakesBlocEvent {
+  factory _GetIsCheck() = _$_GetIsCheck;
+}
+
+/// @nodoc
+abstract class _$$_GetNextTopCopyWith<$Res> {
+  factory _$$_GetNextTopCopyWith(
+          _$_GetNextTop value, $Res Function(_$_GetNextTop) then) =
+      __$$_GetNextTopCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$_GetNextTopCopyWithImpl<$Res>
+    extends _$GetMakesBlocEventCopyWithImpl<$Res, _$_GetNextTop>
+    implements _$$_GetNextTopCopyWith<$Res> {
+  __$$_GetNextTopCopyWithImpl(
+      _$_GetNextTop _value, $Res Function(_$_GetNextTop) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$_GetNextTop implements _GetNextTop {
+  _$_GetNextTop();
+
+  @override
+  String toString() {
+    return 'GetMakesBlocEvent.getNextTop()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$_GetNextTop);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() getMakes,
+    required TResult Function() getTopMakes,
+    required TResult Function(String naem) getSerched,
+    required TResult Function(int id) changeSelected,
+    required TResult Function(String letter) sortMakes,
+    required TResult Function() getIsCheck,
+    required TResult Function() getNextTop,
+    required TResult Function(String index) getIndex,
+    required TResult Function(int id, String name, String imageUrl)
+        selectedCarItems,
+    required TResult Function() confirmCarOption,
+    required TResult Function() revertCarOption,
+  }) {
+    return getNextTop();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? getMakes,
+    TResult? Function()? getTopMakes,
+    TResult? Function(String naem)? getSerched,
+    TResult? Function(int id)? changeSelected,
+    TResult? Function(String letter)? sortMakes,
+    TResult? Function()? getIsCheck,
+    TResult? Function()? getNextTop,
+    TResult? Function(String index)? getIndex,
+    TResult? Function(int id, String name, String imageUrl)? selectedCarItems,
+    TResult? Function()? confirmCarOption,
+    TResult? Function()? revertCarOption,
+  }) {
+    return getNextTop?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? getMakes,
+    TResult Function()? getTopMakes,
+    TResult Function(String naem)? getSerched,
+    TResult Function(int id)? changeSelected,
+    TResult Function(String letter)? sortMakes,
+    TResult Function()? getIsCheck,
+    TResult Function()? getNextTop,
+    TResult Function(String index)? getIndex,
+    TResult Function(int id, String name, String imageUrl)? selectedCarItems,
+    TResult Function()? confirmCarOption,
+    TResult Function()? revertCarOption,
+    required TResult orElse(),
+  }) {
+    if (getNextTop != null) {
+      return getNextTop();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_GetMakes value) getMakes,
+    required TResult Function(_GetTopMakes value) getTopMakes,
+    required TResult Function(_GetSerched value) getSerched,
+    required TResult Function(_ChangeSelected value) changeSelected,
+    required TResult Function(_SortMakes value) sortMakes,
+    required TResult Function(_GetIsCheck value) getIsCheck,
+    required TResult Function(_GetNextTop value) getNextTop,
+    required TResult Function(_GetIndex value) getIndex,
+    required TResult Function(_SelectedCarItems value) selectedCarItems,
+    required TResult Function(_ConfirmCarOption value) confirmCarOption,
+    required TResult Function(_RevertCarOption value) revertCarOption,
+  }) {
+    return getNextTop(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetMakes value)? getMakes,
+    TResult? Function(_GetTopMakes value)? getTopMakes,
+    TResult? Function(_GetSerched value)? getSerched,
+    TResult? Function(_ChangeSelected value)? changeSelected,
+    TResult? Function(_SortMakes value)? sortMakes,
+    TResult? Function(_GetIsCheck value)? getIsCheck,
+    TResult? Function(_GetNextTop value)? getNextTop,
+    TResult? Function(_GetIndex value)? getIndex,
+    TResult? Function(_SelectedCarItems value)? selectedCarItems,
+    TResult? Function(_ConfirmCarOption value)? confirmCarOption,
+    TResult? Function(_RevertCarOption value)? revertCarOption,
+  }) {
+    return getNextTop?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetMakes value)? getMakes,
+    TResult Function(_GetTopMakes value)? getTopMakes,
+    TResult Function(_GetSerched value)? getSerched,
+    TResult Function(_ChangeSelected value)? changeSelected,
+    TResult Function(_SortMakes value)? sortMakes,
+    TResult Function(_GetIsCheck value)? getIsCheck,
+    TResult Function(_GetNextTop value)? getNextTop,
+    TResult Function(_GetIndex value)? getIndex,
+    TResult Function(_SelectedCarItems value)? selectedCarItems,
+    TResult Function(_ConfirmCarOption value)? confirmCarOption,
+    TResult Function(_RevertCarOption value)? revertCarOption,
+    required TResult orElse(),
+  }) {
+    if (getNextTop != null) {
+      return getNextTop(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _GetNextTop implements GetMakesBlocEvent {
+  factory _GetNextTop() = _$_GetNextTop;
+}
+
+/// @nodoc
+abstract class _$$_GetIndexCopyWith<$Res> {
+  factory _$$_GetIndexCopyWith(
+          _$_GetIndex value, $Res Function(_$_GetIndex) then) =
+      __$$_GetIndexCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String index});
+}
+
+/// @nodoc
+class __$$_GetIndexCopyWithImpl<$Res>
+    extends _$GetMakesBlocEventCopyWithImpl<$Res, _$_GetIndex>
+    implements _$$_GetIndexCopyWith<$Res> {
+  __$$_GetIndexCopyWithImpl(
+      _$_GetIndex _value, $Res Function(_$_GetIndex) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? index = null,
+  }) {
+    return _then(_$_GetIndex(
+      null == index
+          ? _value.index
+          : index // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_GetIndex implements _GetIndex {
+  _$_GetIndex(this.index);
+
+  @override
+  final String index;
+
+  @override
+  String toString() {
+    return 'GetMakesBlocEvent.getIndex(index: $index)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_GetIndex &&
+            (identical(other.index, index) || other.index == index));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, index);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_GetIndexCopyWith<_$_GetIndex> get copyWith =>
+      __$$_GetIndexCopyWithImpl<_$_GetIndex>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() getMakes,
+    required TResult Function() getTopMakes,
+    required TResult Function(String naem) getSerched,
+    required TResult Function(int id) changeSelected,
+    required TResult Function(String letter) sortMakes,
+    required TResult Function() getIsCheck,
+    required TResult Function() getNextTop,
+    required TResult Function(String index) getIndex,
+    required TResult Function(int id, String name, String imageUrl)
+        selectedCarItems,
+    required TResult Function() confirmCarOption,
+    required TResult Function() revertCarOption,
+  }) {
+    return getIndex(index);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? getMakes,
+    TResult? Function()? getTopMakes,
+    TResult? Function(String naem)? getSerched,
+    TResult? Function(int id)? changeSelected,
+    TResult? Function(String letter)? sortMakes,
+    TResult? Function()? getIsCheck,
+    TResult? Function()? getNextTop,
+    TResult? Function(String index)? getIndex,
+    TResult? Function(int id, String name, String imageUrl)? selectedCarItems,
+    TResult? Function()? confirmCarOption,
+    TResult? Function()? revertCarOption,
+  }) {
+    return getIndex?.call(index);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? getMakes,
+    TResult Function()? getTopMakes,
+    TResult Function(String naem)? getSerched,
+    TResult Function(int id)? changeSelected,
+    TResult Function(String letter)? sortMakes,
+    TResult Function()? getIsCheck,
+    TResult Function()? getNextTop,
+    TResult Function(String index)? getIndex,
+    TResult Function(int id, String name, String imageUrl)? selectedCarItems,
+    TResult Function()? confirmCarOption,
+    TResult Function()? revertCarOption,
+    required TResult orElse(),
+  }) {
+    if (getIndex != null) {
+      return getIndex(index);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_GetMakes value) getMakes,
+    required TResult Function(_GetTopMakes value) getTopMakes,
+    required TResult Function(_GetSerched value) getSerched,
+    required TResult Function(_ChangeSelected value) changeSelected,
+    required TResult Function(_SortMakes value) sortMakes,
+    required TResult Function(_GetIsCheck value) getIsCheck,
+    required TResult Function(_GetNextTop value) getNextTop,
+    required TResult Function(_GetIndex value) getIndex,
+    required TResult Function(_SelectedCarItems value) selectedCarItems,
+    required TResult Function(_ConfirmCarOption value) confirmCarOption,
+    required TResult Function(_RevertCarOption value) revertCarOption,
+  }) {
+    return getIndex(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetMakes value)? getMakes,
+    TResult? Function(_GetTopMakes value)? getTopMakes,
+    TResult? Function(_GetSerched value)? getSerched,
+    TResult? Function(_ChangeSelected value)? changeSelected,
+    TResult? Function(_SortMakes value)? sortMakes,
+    TResult? Function(_GetIsCheck value)? getIsCheck,
+    TResult? Function(_GetNextTop value)? getNextTop,
+    TResult? Function(_GetIndex value)? getIndex,
+    TResult? Function(_SelectedCarItems value)? selectedCarItems,
+    TResult? Function(_ConfirmCarOption value)? confirmCarOption,
+    TResult? Function(_RevertCarOption value)? revertCarOption,
+  }) {
+    return getIndex?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetMakes value)? getMakes,
+    TResult Function(_GetTopMakes value)? getTopMakes,
+    TResult Function(_GetSerched value)? getSerched,
+    TResult Function(_ChangeSelected value)? changeSelected,
+    TResult Function(_SortMakes value)? sortMakes,
+    TResult Function(_GetIsCheck value)? getIsCheck,
+    TResult Function(_GetNextTop value)? getNextTop,
+    TResult Function(_GetIndex value)? getIndex,
+    TResult Function(_SelectedCarItems value)? selectedCarItems,
+    TResult Function(_ConfirmCarOption value)? confirmCarOption,
+    TResult Function(_RevertCarOption value)? revertCarOption,
+    required TResult orElse(),
+  }) {
+    if (getIndex != null) {
+      return getIndex(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _GetIndex implements GetMakesBlocEvent {
+  factory _GetIndex(final String index) = _$_GetIndex;
+
+  String get index;
+  @JsonKey(ignore: true)
+  _$$_GetIndexCopyWith<_$_GetIndex> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -813,9 +1592,13 @@ class _$_SelectedCarItems implements _SelectedCarItems {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getMakes,
+    required TResult Function() getTopMakes,
     required TResult Function(String naem) getSerched,
     required TResult Function(int id) changeSelected,
     required TResult Function(String letter) sortMakes,
+    required TResult Function() getIsCheck,
+    required TResult Function() getNextTop,
+    required TResult Function(String index) getIndex,
     required TResult Function(int id, String name, String imageUrl)
         selectedCarItems,
     required TResult Function() confirmCarOption,
@@ -828,9 +1611,13 @@ class _$_SelectedCarItems implements _SelectedCarItems {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getMakes,
+    TResult? Function()? getTopMakes,
     TResult? Function(String naem)? getSerched,
     TResult? Function(int id)? changeSelected,
     TResult? Function(String letter)? sortMakes,
+    TResult? Function()? getIsCheck,
+    TResult? Function()? getNextTop,
+    TResult? Function(String index)? getIndex,
     TResult? Function(int id, String name, String imageUrl)? selectedCarItems,
     TResult? Function()? confirmCarOption,
     TResult? Function()? revertCarOption,
@@ -842,9 +1629,13 @@ class _$_SelectedCarItems implements _SelectedCarItems {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getMakes,
+    TResult Function()? getTopMakes,
     TResult Function(String naem)? getSerched,
     TResult Function(int id)? changeSelected,
     TResult Function(String letter)? sortMakes,
+    TResult Function()? getIsCheck,
+    TResult Function()? getNextTop,
+    TResult Function(String index)? getIndex,
     TResult Function(int id, String name, String imageUrl)? selectedCarItems,
     TResult Function()? confirmCarOption,
     TResult Function()? revertCarOption,
@@ -860,9 +1651,13 @@ class _$_SelectedCarItems implements _SelectedCarItems {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_GetMakes value) getMakes,
+    required TResult Function(_GetTopMakes value) getTopMakes,
     required TResult Function(_GetSerched value) getSerched,
     required TResult Function(_ChangeSelected value) changeSelected,
     required TResult Function(_SortMakes value) sortMakes,
+    required TResult Function(_GetIsCheck value) getIsCheck,
+    required TResult Function(_GetNextTop value) getNextTop,
+    required TResult Function(_GetIndex value) getIndex,
     required TResult Function(_SelectedCarItems value) selectedCarItems,
     required TResult Function(_ConfirmCarOption value) confirmCarOption,
     required TResult Function(_RevertCarOption value) revertCarOption,
@@ -874,9 +1669,13 @@ class _$_SelectedCarItems implements _SelectedCarItems {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetMakes value)? getMakes,
+    TResult? Function(_GetTopMakes value)? getTopMakes,
     TResult? Function(_GetSerched value)? getSerched,
     TResult? Function(_ChangeSelected value)? changeSelected,
     TResult? Function(_SortMakes value)? sortMakes,
+    TResult? Function(_GetIsCheck value)? getIsCheck,
+    TResult? Function(_GetNextTop value)? getNextTop,
+    TResult? Function(_GetIndex value)? getIndex,
     TResult? Function(_SelectedCarItems value)? selectedCarItems,
     TResult? Function(_ConfirmCarOption value)? confirmCarOption,
     TResult? Function(_RevertCarOption value)? revertCarOption,
@@ -888,9 +1687,13 @@ class _$_SelectedCarItems implements _SelectedCarItems {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetMakes value)? getMakes,
+    TResult Function(_GetTopMakes value)? getTopMakes,
     TResult Function(_GetSerched value)? getSerched,
     TResult Function(_ChangeSelected value)? changeSelected,
     TResult Function(_SortMakes value)? sortMakes,
+    TResult Function(_GetIsCheck value)? getIsCheck,
+    TResult Function(_GetNextTop value)? getNextTop,
+    TResult Function(_GetIndex value)? getIndex,
     TResult Function(_SelectedCarItems value)? selectedCarItems,
     TResult Function(_ConfirmCarOption value)? confirmCarOption,
     TResult Function(_RevertCarOption value)? revertCarOption,
@@ -956,9 +1759,13 @@ class _$_ConfirmCarOption implements _ConfirmCarOption {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getMakes,
+    required TResult Function() getTopMakes,
     required TResult Function(String naem) getSerched,
     required TResult Function(int id) changeSelected,
     required TResult Function(String letter) sortMakes,
+    required TResult Function() getIsCheck,
+    required TResult Function() getNextTop,
+    required TResult Function(String index) getIndex,
     required TResult Function(int id, String name, String imageUrl)
         selectedCarItems,
     required TResult Function() confirmCarOption,
@@ -971,9 +1778,13 @@ class _$_ConfirmCarOption implements _ConfirmCarOption {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getMakes,
+    TResult? Function()? getTopMakes,
     TResult? Function(String naem)? getSerched,
     TResult? Function(int id)? changeSelected,
     TResult? Function(String letter)? sortMakes,
+    TResult? Function()? getIsCheck,
+    TResult? Function()? getNextTop,
+    TResult? Function(String index)? getIndex,
     TResult? Function(int id, String name, String imageUrl)? selectedCarItems,
     TResult? Function()? confirmCarOption,
     TResult? Function()? revertCarOption,
@@ -985,9 +1796,13 @@ class _$_ConfirmCarOption implements _ConfirmCarOption {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getMakes,
+    TResult Function()? getTopMakes,
     TResult Function(String naem)? getSerched,
     TResult Function(int id)? changeSelected,
     TResult Function(String letter)? sortMakes,
+    TResult Function()? getIsCheck,
+    TResult Function()? getNextTop,
+    TResult Function(String index)? getIndex,
     TResult Function(int id, String name, String imageUrl)? selectedCarItems,
     TResult Function()? confirmCarOption,
     TResult Function()? revertCarOption,
@@ -1003,9 +1818,13 @@ class _$_ConfirmCarOption implements _ConfirmCarOption {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_GetMakes value) getMakes,
+    required TResult Function(_GetTopMakes value) getTopMakes,
     required TResult Function(_GetSerched value) getSerched,
     required TResult Function(_ChangeSelected value) changeSelected,
     required TResult Function(_SortMakes value) sortMakes,
+    required TResult Function(_GetIsCheck value) getIsCheck,
+    required TResult Function(_GetNextTop value) getNextTop,
+    required TResult Function(_GetIndex value) getIndex,
     required TResult Function(_SelectedCarItems value) selectedCarItems,
     required TResult Function(_ConfirmCarOption value) confirmCarOption,
     required TResult Function(_RevertCarOption value) revertCarOption,
@@ -1017,9 +1836,13 @@ class _$_ConfirmCarOption implements _ConfirmCarOption {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetMakes value)? getMakes,
+    TResult? Function(_GetTopMakes value)? getTopMakes,
     TResult? Function(_GetSerched value)? getSerched,
     TResult? Function(_ChangeSelected value)? changeSelected,
     TResult? Function(_SortMakes value)? sortMakes,
+    TResult? Function(_GetIsCheck value)? getIsCheck,
+    TResult? Function(_GetNextTop value)? getNextTop,
+    TResult? Function(_GetIndex value)? getIndex,
     TResult? Function(_SelectedCarItems value)? selectedCarItems,
     TResult? Function(_ConfirmCarOption value)? confirmCarOption,
     TResult? Function(_RevertCarOption value)? revertCarOption,
@@ -1031,9 +1854,13 @@ class _$_ConfirmCarOption implements _ConfirmCarOption {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetMakes value)? getMakes,
+    TResult Function(_GetTopMakes value)? getTopMakes,
     TResult Function(_GetSerched value)? getSerched,
     TResult Function(_ChangeSelected value)? changeSelected,
     TResult Function(_SortMakes value)? sortMakes,
+    TResult Function(_GetIsCheck value)? getIsCheck,
+    TResult Function(_GetNextTop value)? getNextTop,
+    TResult Function(_GetIndex value)? getIndex,
     TResult Function(_SelectedCarItems value)? selectedCarItems,
     TResult Function(_ConfirmCarOption value)? confirmCarOption,
     TResult Function(_RevertCarOption value)? revertCarOption,
@@ -1089,9 +1916,13 @@ class _$_RevertCarOption implements _RevertCarOption {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getMakes,
+    required TResult Function() getTopMakes,
     required TResult Function(String naem) getSerched,
     required TResult Function(int id) changeSelected,
     required TResult Function(String letter) sortMakes,
+    required TResult Function() getIsCheck,
+    required TResult Function() getNextTop,
+    required TResult Function(String index) getIndex,
     required TResult Function(int id, String name, String imageUrl)
         selectedCarItems,
     required TResult Function() confirmCarOption,
@@ -1104,9 +1935,13 @@ class _$_RevertCarOption implements _RevertCarOption {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getMakes,
+    TResult? Function()? getTopMakes,
     TResult? Function(String naem)? getSerched,
     TResult? Function(int id)? changeSelected,
     TResult? Function(String letter)? sortMakes,
+    TResult? Function()? getIsCheck,
+    TResult? Function()? getNextTop,
+    TResult? Function(String index)? getIndex,
     TResult? Function(int id, String name, String imageUrl)? selectedCarItems,
     TResult? Function()? confirmCarOption,
     TResult? Function()? revertCarOption,
@@ -1118,9 +1953,13 @@ class _$_RevertCarOption implements _RevertCarOption {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getMakes,
+    TResult Function()? getTopMakes,
     TResult Function(String naem)? getSerched,
     TResult Function(int id)? changeSelected,
     TResult Function(String letter)? sortMakes,
+    TResult Function()? getIsCheck,
+    TResult Function()? getNextTop,
+    TResult Function(String index)? getIndex,
     TResult Function(int id, String name, String imageUrl)? selectedCarItems,
     TResult Function()? confirmCarOption,
     TResult Function()? revertCarOption,
@@ -1136,9 +1975,13 @@ class _$_RevertCarOption implements _RevertCarOption {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_GetMakes value) getMakes,
+    required TResult Function(_GetTopMakes value) getTopMakes,
     required TResult Function(_GetSerched value) getSerched,
     required TResult Function(_ChangeSelected value) changeSelected,
     required TResult Function(_SortMakes value) sortMakes,
+    required TResult Function(_GetIsCheck value) getIsCheck,
+    required TResult Function(_GetNextTop value) getNextTop,
+    required TResult Function(_GetIndex value) getIndex,
     required TResult Function(_SelectedCarItems value) selectedCarItems,
     required TResult Function(_ConfirmCarOption value) confirmCarOption,
     required TResult Function(_RevertCarOption value) revertCarOption,
@@ -1150,9 +1993,13 @@ class _$_RevertCarOption implements _RevertCarOption {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetMakes value)? getMakes,
+    TResult? Function(_GetTopMakes value)? getTopMakes,
     TResult? Function(_GetSerched value)? getSerched,
     TResult? Function(_ChangeSelected value)? changeSelected,
     TResult? Function(_SortMakes value)? sortMakes,
+    TResult? Function(_GetIsCheck value)? getIsCheck,
+    TResult? Function(_GetNextTop value)? getNextTop,
+    TResult? Function(_GetIndex value)? getIndex,
     TResult? Function(_SelectedCarItems value)? selectedCarItems,
     TResult? Function(_ConfirmCarOption value)? confirmCarOption,
     TResult? Function(_RevertCarOption value)? revertCarOption,
@@ -1164,9 +2011,13 @@ class _$_RevertCarOption implements _RevertCarOption {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetMakes value)? getMakes,
+    TResult Function(_GetTopMakes value)? getTopMakes,
     TResult Function(_GetSerched value)? getSerched,
     TResult Function(_ChangeSelected value)? changeSelected,
     TResult Function(_SortMakes value)? sortMakes,
+    TResult Function(_GetIsCheck value)? getIsCheck,
+    TResult Function(_GetNextTop value)? getNextTop,
+    TResult Function(_GetIndex value)? getIndex,
     TResult Function(_SelectedCarItems value)? selectedCarItems,
     TResult Function(_ConfirmCarOption value)? confirmCarOption,
     TResult Function(_RevertCarOption value)? revertCarOption,
@@ -1186,10 +2037,15 @@ abstract class _RevertCarOption implements GetMakesBlocEvent {
 /// @nodoc
 mixin _$GetMakesState {
   FormzStatus get status => throw _privateConstructorUsedError;
+  FormzStatus get statusTop => throw _privateConstructorUsedError;
   List<MakeEntity> get makes => throw _privateConstructorUsedError;
-  dynamic get next => throw _privateConstructorUsedError;
+  List<MakeEntity> get topMakes => throw _privateConstructorUsedError;
+  String? get next => throw _privateConstructorUsedError;
+  bool get ischeck => throw _privateConstructorUsedError;
   dynamic get search => throw _privateConstructorUsedError;
   dynamic get count => throw _privateConstructorUsedError;
+  int get index => throw _privateConstructorUsedError;
+  String get selectChar => throw _privateConstructorUsedError;
   int get selectId => throw _privateConstructorUsedError;
   int get confirmId => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
@@ -1208,10 +2064,15 @@ abstract class $GetMakesStateCopyWith<$Res> {
   @useResult
   $Res call(
       {FormzStatus status,
+      FormzStatus statusTop,
       List<MakeEntity> makes,
-      dynamic next,
+      List<MakeEntity> topMakes,
+      String? next,
+      bool ischeck,
       dynamic search,
       dynamic count,
+      int index,
+      String selectChar,
       int selectId,
       int confirmId,
       String name,
@@ -1232,10 +2093,15 @@ class _$GetMakesStateCopyWithImpl<$Res, $Val extends GetMakesState>
   @override
   $Res call({
     Object? status = null,
+    Object? statusTop = null,
     Object? makes = null,
+    Object? topMakes = null,
     Object? next = freezed,
+    Object? ischeck = null,
     Object? search = freezed,
     Object? count = freezed,
+    Object? index = null,
+    Object? selectChar = null,
     Object? selectId = null,
     Object? confirmId = null,
     Object? name = null,
@@ -1246,14 +2112,26 @@ class _$GetMakesStateCopyWithImpl<$Res, $Val extends GetMakesState>
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as FormzStatus,
+      statusTop: null == statusTop
+          ? _value.statusTop
+          : statusTop // ignore: cast_nullable_to_non_nullable
+              as FormzStatus,
       makes: null == makes
           ? _value.makes
           : makes // ignore: cast_nullable_to_non_nullable
               as List<MakeEntity>,
+      topMakes: null == topMakes
+          ? _value.topMakes
+          : topMakes // ignore: cast_nullable_to_non_nullable
+              as List<MakeEntity>,
       next: freezed == next
           ? _value.next
           : next // ignore: cast_nullable_to_non_nullable
-              as dynamic,
+              as String?,
+      ischeck: null == ischeck
+          ? _value.ischeck
+          : ischeck // ignore: cast_nullable_to_non_nullable
+              as bool,
       search: freezed == search
           ? _value.search
           : search // ignore: cast_nullable_to_non_nullable
@@ -1262,6 +2140,14 @@ class _$GetMakesStateCopyWithImpl<$Res, $Val extends GetMakesState>
           ? _value.count
           : count // ignore: cast_nullable_to_non_nullable
               as dynamic,
+      index: null == index
+          ? _value.index
+          : index // ignore: cast_nullable_to_non_nullable
+              as int,
+      selectChar: null == selectChar
+          ? _value.selectChar
+          : selectChar // ignore: cast_nullable_to_non_nullable
+              as String,
       selectId: null == selectId
           ? _value.selectId
           : selectId // ignore: cast_nullable_to_non_nullable
@@ -1292,10 +2178,15 @@ abstract class _$$_GetMakesStateCopyWith<$Res>
   @useResult
   $Res call(
       {FormzStatus status,
+      FormzStatus statusTop,
       List<MakeEntity> makes,
-      dynamic next,
+      List<MakeEntity> topMakes,
+      String? next,
+      bool ischeck,
       dynamic search,
       dynamic count,
+      int index,
+      String selectChar,
       int selectId,
       int confirmId,
       String name,
@@ -1314,10 +2205,15 @@ class __$$_GetMakesStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? status = null,
+    Object? statusTop = null,
     Object? makes = null,
+    Object? topMakes = null,
     Object? next = freezed,
+    Object? ischeck = null,
     Object? search = freezed,
     Object? count = freezed,
+    Object? index = null,
+    Object? selectChar = null,
     Object? selectId = null,
     Object? confirmId = null,
     Object? name = null,
@@ -1328,13 +2224,36 @@ class __$$_GetMakesStateCopyWithImpl<$Res>
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as FormzStatus,
+      statusTop: null == statusTop
+          ? _value.statusTop
+          : statusTop // ignore: cast_nullable_to_non_nullable
+              as FormzStatus,
       makes: null == makes
           ? _value._makes
           : makes // ignore: cast_nullable_to_non_nullable
               as List<MakeEntity>,
-      next: freezed == next ? _value.next! : next,
+      topMakes: null == topMakes
+          ? _value._topMakes
+          : topMakes // ignore: cast_nullable_to_non_nullable
+              as List<MakeEntity>,
+      next: freezed == next
+          ? _value.next
+          : next // ignore: cast_nullable_to_non_nullable
+              as String?,
+      ischeck: null == ischeck
+          ? _value.ischeck
+          : ischeck // ignore: cast_nullable_to_non_nullable
+              as bool,
       search: freezed == search ? _value.search! : search,
       count: freezed == count ? _value.count! : count,
+      index: null == index
+          ? _value.index
+          : index // ignore: cast_nullable_to_non_nullable
+              as int,
+      selectChar: null == selectChar
+          ? _value.selectChar
+          : selectChar // ignore: cast_nullable_to_non_nullable
+              as String,
       selectId: null == selectId
           ? _value.selectId
           : selectId // ignore: cast_nullable_to_non_nullable
@@ -1360,19 +2279,28 @@ class __$$_GetMakesStateCopyWithImpl<$Res>
 class _$_GetMakesState implements _GetMakesState {
   _$_GetMakesState(
       {this.status = FormzStatus.pure,
-      final List<MakeEntity> makes = const <MakeEntity>[],
+      this.statusTop = FormzStatus.pure,
+      final List<MakeEntity> makes = const [],
+      final List<MakeEntity> topMakes = const [],
       this.next = '',
+      this.ischeck = false,
       this.search = '',
       this.count = 0,
+      this.index = 0,
+      this.selectChar = 'A',
       this.selectId = -1,
       this.confirmId = 0,
       this.name = '',
       this.imageUrl = ''})
-      : _makes = makes;
+      : _makes = makes,
+        _topMakes = topMakes;
 
   @override
   @JsonKey()
   final FormzStatus status;
+  @override
+  @JsonKey()
+  final FormzStatus statusTop;
   final List<MakeEntity> _makes;
   @override
   @JsonKey()
@@ -1382,15 +2310,33 @@ class _$_GetMakesState implements _GetMakesState {
     return EqualUnmodifiableListView(_makes);
   }
 
+  final List<MakeEntity> _topMakes;
   @override
   @JsonKey()
-  final dynamic next;
+  List<MakeEntity> get topMakes {
+    if (_topMakes is EqualUnmodifiableListView) return _topMakes;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_topMakes);
+  }
+
+  @override
+  @JsonKey()
+  final String? next;
+  @override
+  @JsonKey()
+  final bool ischeck;
   @override
   @JsonKey()
   final dynamic search;
   @override
   @JsonKey()
   final dynamic count;
+  @override
+  @JsonKey()
+  final int index;
+  @override
+  @JsonKey()
+  final String selectChar;
   @override
   @JsonKey()
   final int selectId;
@@ -1406,7 +2352,7 @@ class _$_GetMakesState implements _GetMakesState {
 
   @override
   String toString() {
-    return 'GetMakesState(status: $status, makes: $makes, next: $next, search: $search, count: $count, selectId: $selectId, confirmId: $confirmId, name: $name, imageUrl: $imageUrl)';
+    return 'GetMakesState(status: $status, statusTop: $statusTop, makes: $makes, topMakes: $topMakes, next: $next, ischeck: $ischeck, search: $search, count: $count, index: $index, selectChar: $selectChar, selectId: $selectId, confirmId: $confirmId, name: $name, imageUrl: $imageUrl)';
   }
 
   @override
@@ -1415,10 +2361,17 @@ class _$_GetMakesState implements _GetMakesState {
         (other.runtimeType == runtimeType &&
             other is _$_GetMakesState &&
             (identical(other.status, status) || other.status == status) &&
+            (identical(other.statusTop, statusTop) ||
+                other.statusTop == statusTop) &&
             const DeepCollectionEquality().equals(other._makes, _makes) &&
-            const DeepCollectionEquality().equals(other.next, next) &&
+            const DeepCollectionEquality().equals(other._topMakes, _topMakes) &&
+            (identical(other.next, next) || other.next == next) &&
+            (identical(other.ischeck, ischeck) || other.ischeck == ischeck) &&
             const DeepCollectionEquality().equals(other.search, search) &&
             const DeepCollectionEquality().equals(other.count, count) &&
+            (identical(other.index, index) || other.index == index) &&
+            (identical(other.selectChar, selectChar) ||
+                other.selectChar == selectChar) &&
             (identical(other.selectId, selectId) ||
                 other.selectId == selectId) &&
             (identical(other.confirmId, confirmId) ||
@@ -1432,10 +2385,15 @@ class _$_GetMakesState implements _GetMakesState {
   int get hashCode => Object.hash(
       runtimeType,
       status,
+      statusTop,
       const DeepCollectionEquality().hash(_makes),
-      const DeepCollectionEquality().hash(next),
+      const DeepCollectionEquality().hash(_topMakes),
+      next,
+      ischeck,
       const DeepCollectionEquality().hash(search),
       const DeepCollectionEquality().hash(count),
+      index,
+      selectChar,
       selectId,
       confirmId,
       name,
@@ -1451,10 +2409,15 @@ class _$_GetMakesState implements _GetMakesState {
 abstract class _GetMakesState implements GetMakesState {
   factory _GetMakesState(
       {final FormzStatus status,
+      final FormzStatus statusTop,
       final List<MakeEntity> makes,
-      final dynamic next,
+      final List<MakeEntity> topMakes,
+      final String? next,
+      final bool ischeck,
       final dynamic search,
       final dynamic count,
+      final int index,
+      final String selectChar,
       final int selectId,
       final int confirmId,
       final String name,
@@ -1463,13 +2426,23 @@ abstract class _GetMakesState implements GetMakesState {
   @override
   FormzStatus get status;
   @override
+  FormzStatus get statusTop;
+  @override
   List<MakeEntity> get makes;
   @override
-  dynamic get next;
+  List<MakeEntity> get topMakes;
+  @override
+  String? get next;
+  @override
+  bool get ischeck;
   @override
   dynamic get search;
   @override
   dynamic get count;
+  @override
+  int get index;
+  @override
+  String get selectChar;
   @override
   int get selectId;
   @override

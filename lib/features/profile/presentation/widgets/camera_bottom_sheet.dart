@@ -24,8 +24,8 @@ class CameraBottomSheet extends StatefulWidget {
 
 class CameraBottomSheetState extends State<CameraBottomSheet> {
   List<String> titleList = [
-    LocaleKeys.camera.tr(),
-    LocaleKeys.choose_photo.tr(),
+    LocaleKeys.camera,
+    LocaleKeys.choose_photo,
   ];
   List<String> img = [
     AppIcons.camera,
@@ -40,7 +40,7 @@ class CameraBottomSheetState extends State<CameraBottomSheet> {
         value: widget.imageBloc,
         child: Container(
           padding:
-              const EdgeInsets.only(left: 16, right: 16, top: 20, bottom: 12),
+              const EdgeInsets.only(left: 16, right: 16, top: 20, bottom: 0),
           decoration: BoxDecoration(
             borderRadius: const BorderRadius.only(
               topRight: Radius.circular(20),
@@ -57,11 +57,8 @@ class CameraBottomSheetState extends State<CameraBottomSheet> {
                 ),
                 const Spacer(),
                 WScaleAnimation(
-                    child: SvgPicture.asset(
-                      AppIcons.close,
-                      width: 32,
-                      height: 32
-                    ),
+                    child:
+                        SvgPicture.asset(AppIcons.close, width: 32, height: 32),
                     onTap: () {
                       Navigator.of(context).pop();
                     }),
@@ -80,7 +77,7 @@ class CameraBottomSheetState extends State<CameraBottomSheet> {
               physics: const BouncingScrollPhysics(),
               itemBuilder: (context, index) => _ItemSelect(
                 camera: img[index],
-                text: titleList[index],
+                text: titleList[index].tr(),
                 imageType: ImageSource.gallery,
                 onTapImageType: (_imageType) {
                   if (index == 0) {
@@ -95,7 +92,7 @@ class CameraBottomSheetState extends State<CameraBottomSheet> {
               ),
             ),
             WButton(
-              margin: const EdgeInsets.only(top: 20),
+              margin: const EdgeInsets.symmetric(vertical: 20),
               onTap: () {
                 Navigator.pop(context);
               },

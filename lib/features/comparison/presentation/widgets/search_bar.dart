@@ -6,7 +6,8 @@ import 'package:flutter/material.dart';
 class WSerachBar extends SliverPersistentHeaderDelegate {
   final TextEditingController controller;
   final Function() onChanged;
-  WSerachBar({required this.controller, required this.onChanged});
+  final VoidCallback? onClear;
+  WSerachBar({required this.controller, required this.onChanged,this.onClear});
   @override
   double get minExtent => 64;
 
@@ -14,7 +15,8 @@ class WSerachBar extends SliverPersistentHeaderDelegate {
   double get maxExtent => 64;
 
   @override
-  bool shouldRebuild(WSerachBar oldChild) => controller != oldChild.controller;
+  bool shouldRebuild(WSerachBar oldDelegate) =>
+      controller != oldDelegate.controller;
   @override
   Widget build(
           BuildContext context, double shrinkOffset, bool overlapsContent) =>
@@ -23,7 +25,17 @@ class WSerachBar extends SliverPersistentHeaderDelegate {
         child: WTextField(
           fillColor: Theme.of(context)
               .extension<ThemedColors>()!
-              .whiteLilacToPayneGrey,
+              .whiteSmoke2ToNightRider,
+          textStyle: Theme.of(context)
+              .textTheme
+              .subtitle1!
+              .copyWith(fontSize: 16, fontWeight: FontWeight.w400),
+          focusColor: Theme.of(context)
+              .extension<ThemedColors>()!
+              .whiteSmoke2ToNightRider,
+          enabledBorderColor: Theme.of(context)
+              .extension<ThemedColors>()!
+              .whiteSmoke2ToNightRider,
           margin: const EdgeInsets.only(
             left: 16,
             right: 16,
@@ -35,10 +47,13 @@ class WSerachBar extends SliverPersistentHeaderDelegate {
           borderRadius: 12,
           hasSearch: true,
           borderColor: purple,
+          keyBoardType: TextInputType.name,
+          textInputAction: TextInputAction.search,
           hintText: 'Поиск',
           height: 40,
           controller: controller,
           hasClearButton: true,
+          onClear: onClear,
         ),
       );
 }

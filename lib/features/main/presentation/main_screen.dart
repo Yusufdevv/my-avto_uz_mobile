@@ -1,40 +1,37 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ads/presentation/pages/ads_screen.dart';
 import 'package:auto/features/commercial/presentation/commercial_screen.dart';
 import 'package:auto/features/common/bloc/announcement_bloc/bloc/announcement_list_bloc.dart';
 import 'package:auto/features/common/bloc/get_car_model/get_car_model_bloc.dart';
 import 'package:auto/features/common/bloc/get_makes_bloc/get_makes_bloc_bloc.dart';
 import 'package:auto/features/common/bloc/wishlist_add/wishlist_add_bloc.dart';
-
-import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/comparison/presentation/pages/choose_car_brand.dart';
-import 'package:auto/features/dealers/presentation/dealers_main.dart';
 import 'package:auto/features/main/domain/entities/service_entity.dart';
 import 'package:auto/features/main/domain/usecases/get_top_ads.dart';
 import 'package:auto/features/main/domain/usecases/get_top_brand.dart';
 import 'package:auto/features/main/presentation/bloc/main_bloc.dart';
 import 'package:auto/features/main/presentation/bloc/top_ad/top_ad_bloc.dart';
 import 'package:auto/features/main/presentation/bloc/top_brand/top_brand_bloc.dart';
-import 'package:auto/features/main/presentation/parts/favorites.dart';
+import 'package:auto/features/main/presentation/parts/main_favorites.dart';
+import 'package:auto/features/main/presentation/parts/main_map_part.dart';
 import 'package:auto/features/main/presentation/parts/stories.dart';
 import 'package:auto/features/main/presentation/parts/top_ads.dart';
 import 'package:auto/features/main/presentation/parts/top_brands.dart';
 import 'package:auto/features/main/presentation/widgets/car_model_item.dart';
+import 'package:auto/features/main/presentation/widgets/check_bottomsheet.dart';
+import 'package:auto/features/main/presentation/widgets/create_ad_button.dart';
 import 'package:auto/features/main/presentation/widgets/deal_button.dart';
-import 'package:auto/features/main/presentation/widgets/main_favourite_item.dart';
 import 'package:auto/features/main/presentation/widgets/main_app_bar.dart';
 import 'package:auto/features/main/presentation/widgets/service_item.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/reels/presentation/pages/reels_screen.dart';
 import 'package:auto/features/rent/presentation/rent_screen.dart';
 import 'package:auto/generated/locale_keys.g.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:formz/formz.dart';
-import 'package:yandex_mapkit/yandex_mapkit.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -51,32 +48,35 @@ class _MainScreenState extends State<MainScreen> {
 
   final List<ServiceEntity> serviceEntity = [
     const ServiceEntity(
-      title: 'Проверка',
+      title: LocaleKeys.check,
       icon: AppIcons.verification,
     ),
-    const ServiceEntity(title: 'Объявления', icon: AppIcons.ads),
     const ServiceEntity(
-      title: 'Каршеринг',
+      title: LocaleKeys.ads,
+      icon: AppIcons.ads,
+    ),
+    const ServiceEntity(
+      title: LocaleKeys.carshering,
       icon: AppIcons.carSharing,
     ),
     const ServiceEntity(
-      title: 'Страхование',
+      title: LocaleKeys.insurance,
       icon: AppIcons.insurance,
     ),
     const ServiceEntity(
-      title: 'Коммерческий транспорт',
+      title: LocaleKeys.commercial_vehicles,
       icon: AppIcons.commercialCar,
     ),
     const ServiceEntity(
-      title: 'RentCar',
+      title: LocaleKeys.rent_Car,
       icon: AppIcons.rentCar,
     ),
   ];
-  int n = 10;
 
   @override
   void initState() {
     mainBloc = MainBloc()..add(InitialEvent());
+    context.read<GetMakesBloc>().add(GetMakesBlocEvent.getMakes());
     topAdBloc = TopAdBloc(GetTopAdsUseCase())
       ..add(TopAdEvent.getTopAds())
       ..add(TopAdEvent.getFavorites(
@@ -85,7 +85,12 @@ class _MainScreenState extends State<MainScreen> {
       ..add(TopBrandEvent.getBrand());
     serviceTaps = [
       () {
-        Navigator.push(context, fade(page: const DealerScreen()));
+        showModalBottomSheet(
+          backgroundColor: Colors.transparent,
+          useRootNavigator: true,
+          context: context,
+          builder: (context) => CheckBottomsheet(onTap: () {}),
+        );
       },
       () {
         context
@@ -128,151 +133,128 @@ class _MainScreenState extends State<MainScreen> {
             value: mainBloc,
           ),
           BlocProvider.value(
-            value: topBrandBloc,
+            value: topAdBloc,
           ),
           BlocProvider.value(
-            value: topAdBloc,
+            value: topBrandBloc,
           ),
         ],
         child: BlocBuilder<MainBloc, MainState>(
           builder: (context, state) => Scaffold(
-            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+            backgroundColor:
+                Theme.of(context).extension<ThemedColors>()!.whiteToDark,
             appBar: const MainAppBar(),
-            body: BlocBuilder<AnnouncementListBloc, AnnouncementListState>(
-              builder: (context, stateAnnounc) => SingleChildScrollView(
-                padding: const EdgeInsets.symmetric(vertical: 20),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Visibility(
-                      visible: state.statusStoriesGet.isSubmissionInProgress ||
-                          state.statusStoriesGet.isSubmissionSuccess &&
-                              state.stories.isNotEmpty,
-                      child: Stories(
-                        status: state.statusStoriesGet,
-                        stories: state.stories,
+            body: RefreshIndicator(
+              color: purple,
+              onRefresh: () async {
+                mainBloc.add(InitialEvent());
+                topBrandBloc.add(TopBrandEvent.getBrand());
+                topAdBloc
+                  ..add(TopAdEvent.getTopAds())
+                  ..add(TopAdEvent.getFavorites(
+                      endpoint: '/users/wishlist/announcement/list/'));
+              },
+              child: BlocBuilder<AnnouncementListBloc, AnnouncementListState>(
+                builder: (context, stateAnnounc) => SingleChildScrollView(
+                  physics: const BouncingScrollPhysics(),
+                  padding: const EdgeInsets.only(top: 20, bottom: 24),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Visibility(
+                        visible:
+                            state.statusStoriesGet.isSubmissionInProgress ||
+                                state.statusStoriesGet.isSubmissionSuccess &&
+                                    state.stories.isNotEmpty,
+                        child: Stories(
+                          status: state.statusStoriesGet,
+                          stories: state.stories,
+                          onBack: () {
+                            mainBloc.add(InitialEvent());
+                          },
+                        ),
                       ),
-                    ),
-                    const SizedBox(height: 16),
-                    DealButton(
-                      onTap: () {
-                        Navigator.of(context, rootNavigator: true)
-                            .push(fade(page: const ReelsScreen()));
-                      },
-                    ),
-                    BlocBuilder<GetMakesBloc, GetMakesState>(
-                      builder: (context, state) => CarModelItem(
-                        onTapSelect: () =>
-                            Navigator.of(context, rootNavigator: true)
-                                .push(fade(
-                                    page: ChooseCarBrandComparison(
-                          onTap: () {},
-                          isbak: true,
-                          isClear: false,
-                        )))
-                                .then((value) {
-                          context.read<AnnouncementListBloc>().add(
-                              AnnouncementListEvent.getFilter(context
-                                  .read<AnnouncementListBloc>()
-                                  .state
-                                  .filter
-                                  .copyWith(
-                                    make: context
-                                        .read<GetMakesBloc>()
-                                        .state
-                                        .selectId,
-                                  )));
-                          context
-                              .read<AnnouncementListBloc>()
-                              .add(AnnouncementListEvent.getAnnouncementList());
-                        }),
-                        onTapShow: () {
-                          Navigator.of(context).push(fade(
-                              page: AdsScreen(isBack: false, onTap: () {})));
+                      const SizedBox(height: 16),
+                      DealButton(
+                        onTap: () {
+                          Navigator.of(context, rootNavigator: true)
+                              .push(fade(page: ReelsScreen(isFromMain: true)));
                         },
-                        imageUrl: state.imageUrl,
-                        title: state.name,
-                        count: stateAnnounc.count,
                       ),
-                    ),
-                    SizedBox(
-                      height: 48,
-                      child: ListView.builder(
-                        physics: const BouncingScrollPhysics(),
-                        padding: const EdgeInsets.only(right: 12),
-                        itemBuilder: (context, index) => ServiceItem(
-                          serviceEntity: serviceEntity[index],
-                          onTap: serviceTaps[index],
-                        ),
-                        itemCount: serviceEntity.length,
-                        scrollDirection: Axis.horizontal,
+                      BlocBuilder<GetMakesBloc, GetMakesState>(
+                        builder: (context, state) => CarModelItem(
+                            onTapSelect: () =>
+                                Navigator.of(context, rootNavigator: true)
+                                    .push(fade(
+                                        page: ChooseCarBrandComparison(
+                                  onTap: () {},
+                                  isbak: true,
+                                  isClear: true,
+                                )))
+                                    .then((value) {
+                                  context.read<AnnouncementListBloc>().add(
+                                      AnnouncementListEvent.getFilter(context
+                                          .read<AnnouncementListBloc>()
+                                          .state
+                                          .filter
+                                          .copyWith(
+                                            make: context
+                                                .read<GetMakesBloc>()
+                                                .state
+                                                .selectId,
+                                          )));
+                                  context.read<AnnouncementListBloc>().add(
+                                      AnnouncementListEvent
+                                          .getAnnouncementList());
+                                }),
+                            onTapShow: () {
+                              Navigator.of(context, rootNavigator: true).push(
+                                  fade(
+                                      page: AdsScreen(
+                                          isBack: false, onTap: () {})));
+                            },
+                            imageUrl: state.imageUrl,
+                            title: state.name,
+                            count: stateAnnounc.count,
+                            isCheck: state.ischeck),
                       ),
-                    ),
-                    const TopBrands(),
-                    const TopAds(),
-                    BlocListener<WishlistAddBloc, WishlistAddState>(
-                      listener: (context, stateWish) {
-                        if (stateWish.addStatus.isSubmissionSuccess ||
-                            stateWish.removeStatus.isSubmissionSuccess) {
-                          context.read<TopAdBloc>().add(TopAdEvent.changeIsWish(
-                              index: stateWish.index, id: stateWish.id));
-                          context.read<TopAdBloc>().add(TopAdEvent.getFavorites(
-                              endpoint: '/users/wishlist/announcement/list/'));
-                              context
-                        .read<WishlistAddBloc>()
-                        .add(WishlistAddEvent.clearState());
-                        }
-                      },
-                      child: Favorites(),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: SizedBox(
-                        height: 191,
-                        child: Stack(
-                          alignment: AlignmentDirectional.bottomStart,
-                          children: [
-                            const YandexMap(),
-                            WButton(
-                              onTap: () =>
-                                  Navigator.of(context, rootNavigator: true)
-                                      .push(
-                                MaterialPageRoute(
-                                  builder: (_) => const DealerScreen(),
+                      SizedBox(
+                        height: 48,
+                        child: ListView.builder(
+                            physics: const BouncingScrollPhysics(),
+                            padding: const EdgeInsets.only(right: 12),
+                            itemBuilder: (context, index) => ServiceItem(
+                                  serviceEntity: serviceEntity[index],
+                                  onTap: serviceTaps[index],
                                 ),
-                              ),
-                              margin: const EdgeInsets.symmetric(
-                                  horizontal: 16, vertical: 15),
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 15),
-                              height: 44,
-                              color: white,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  SvgPicture.asset(
-                                    AppIcons.mapPin,
-                                    color: purple,
-                                    height: 15,
-                                    width: 13,
-                                  ),
-                                  const SizedBox(width: 12),
-                                  const Text(
-                                    'Показать всех дилеров',
-                                    style: TextStyle(
-                                      color: black,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
+                            itemCount: serviceEntity.length,
+                            scrollDirection: Axis.horizontal),
                       ),
-                    ),
-                  ],
+                      TopBrands(
+                        onTap: () => Navigator.of(context, rootNavigator: true)
+                            .push(fade(
+                                page: AdsScreen(isBack: false, onTap: () {}))),
+                      ),
+                      const TopAds(),
+                      BlocListener<WishlistAddBloc, WishlistAddState>(
+                        listener: (context, stateWish) {
+                          if (stateWish.addStatus.isSubmissionSuccess ||
+                              stateWish.removeStatus.isSubmissionSuccess) {
+                            context.read<TopAdBloc>().add(
+                                TopAdEvent.getFavorites(
+                                    endpoint:
+                                        '/users/wishlist/announcement/list/'));
+                            context
+                                .read<WishlistAddBloc>()
+                                .add(WishlistAddEvent.clearState());
+                          }
+                        },
+                        child: MainFavorites(),
+                      ),
+                      const MainMapPart(),
+                      const CreateAdButton(),
+                    ],
+                  ),
                 ),
               ),
             ),

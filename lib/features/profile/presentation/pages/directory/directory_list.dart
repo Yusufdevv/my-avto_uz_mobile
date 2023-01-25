@@ -32,11 +32,13 @@ class _DirectoryListState extends State<DirectoryList> {
               final directories = state.directories;
               return directories.isNotEmpty
                   ? ListView.separated(
+                      physics: const BouncingScrollPhysics(),
                       padding: const EdgeInsets.only(
                           left: 16, right: 16, top: 20, bottom: 20),
                       itemBuilder: (context, index) {
                         final item = directories[index];
                         return DirectoryCard(
+                          slug: item.slug!,
                           region: item.region!,
                           dealerType: item.category!.name!,
                           dealerName: item.name!,
@@ -58,8 +60,8 @@ class _DirectoryListState extends State<DirectoryList> {
                     )
                   : const Center(
                       child: EmptyItemBody(
-                          title: 'Упс!',
-                          subtitle: 'По вашему запросу ничего не найдено.',
+                          title: 'Пока нет диллеров',
+                          subtitle: '',
                           image: AppIcons.emptyFolder),
                     );
             }

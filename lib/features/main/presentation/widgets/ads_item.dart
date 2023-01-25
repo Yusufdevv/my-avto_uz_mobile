@@ -37,124 +37,102 @@ class AdsItem extends StatelessWidget {
   @override
   // ignore: prefer_expression_function_bodies
   Widget build(BuildContext context) {
-    // print('object ${adsEntity.imageUrl}');
     return GestureDetector(
       onTap: () {
-        Navigator.of(context, rootNavigator: true).push(fade(
-            page: CarSingleScreen(
-          id: id,
-        )));
+        Navigator.of(context, rootNavigator: true)
+            .push(fade(page: CarSingleScreen(id: id)));
       },
       child: Container(
-        height: MediaQuery.of(context).size.height * 0.331,
-        width: MediaQuery.of(context).size.width * 0.6,
+        height: 269,
+        width: 225,
         decoration: BoxDecoration(
-          boxShadow: [
-            BoxShadow(
-              blurRadius: 19,
-              spreadRadius: 0,
-              offset: const Offset(0, 4),
-              color: dark.withOpacity(.04),
-            ),
-          ],
-          borderRadius: BorderRadius.circular(12),
-          color: Theme.of(context).extension<ThemedColors>()!.whiteToSecondNero,
-        ),
+            boxShadow: [
+              BoxShadow(
+                  blurRadius: 19,
+                  spreadRadius: 0,
+                  offset: const Offset(0, 4),
+                  color: dark.withOpacity(.04)),
+            ],
+            borderRadius: BorderRadius.circular(12),
+            color:
+                Theme.of(context).extension<ThemedColors>()?.whiteToSecondNero),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.155,
-              width: MediaQuery.of(context).size.width * 0.6,
+              height: 126,
+              width: 225,
               child: ClipRRect(
                   borderRadius: const BorderRadius.only(
-                    topRight: Radius.circular(12),
-                    topLeft: Radius.circular(12),
-                  ),
+                      topRight: Radius.circular(12),
+                      topLeft: Radius.circular(12)),
                   child: CachedNetworkImage(
-                    imageUrl: image,
-                    fit: BoxFit.cover,
-                    errorWidget: (context, url, error) => Image.asset(
-                      AppImages.defaultPhoto,
+                      imageUrl: image,
                       fit: BoxFit.cover,
-                    ),
-                  )),
+                      errorWidget: (context, url, error) => Image.asset(
+                          AppImages.defaultPhoto,
+                          fit: BoxFit.cover))),
             ),
             const SizedBox(height: 12),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Text(
-                name,
-                style: Theme.of(context)
-                    .textTheme
-                    .headline3
-                    ?.copyWith(fontWeight: FontWeight.w600, fontSize: 12),
-              ),
+              child: Text(name,
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline3
+                      ?.copyWith(fontWeight: FontWeight.w600, fontSize: 12)),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Text(
-                '${MyFunctions.getFormatCost(price)} $currency',
-                style: Theme.of(context)
-                    .textTheme
-                    .headline1
-                    ?.copyWith(fontSize: 16, fontWeight: FontWeight.w700),
-              ),
+              child: Text('${MyFunctions.getFormatCost(price)} $currency',
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline1
+                      ?.copyWith(fontSize: 16, fontWeight: FontWeight.w700)),
             ),
             const SizedBox(height: 8),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Text(
-                description.isNotEmpty ? description : '\n',
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-                style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                    color: Theme.of(context)
-                        .extension<ThemedColors>()
-                        ?.greySuitToWhite60),
-              ),
+              child: Text(description.isNotEmpty ? description : ' \n ',
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                      color: Theme.of(context)
+                          .extension<ThemedColors>()
+                          ?.greySuitToWhite60)),
             ),
             const SizedBox(height: 10),
             Container(
-              height: 1,
-              margin: const EdgeInsets.only(left: 16),
-              color: Theme.of(context)
-                  .extension<ThemedColors>()!
-                  .solitudeToWhite35,
-            ),
-            const SizedBox(height: 10),
-            Padding(
-              padding: const EdgeInsets.only(right: 12, left: 16, bottom: 10),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Row(
-                      children: [
-                        SvgPicture.asset(AppIcons.location),
-                        const SizedBox(width: 4),
-                        Expanded(
-                          child: Text(
-                            location,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: Theme.of(context)
-                                .textTheme
-                                .headline6!
-                                .copyWith(
-                                    fontSize: 12,
-                                    color: Theme.of(context)
-                                        .extension<ThemedColors>()!
-                                        .dolphinToGreySuit),
-                          ),
-                        )
-                      ],
+                height: 1,
+                margin: const EdgeInsets.only(left: 16),
+                color: Theme.of(context)
+                    .extension<ThemedColors>()
+                    ?.solitudeToWhite35),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.only(right: 12, left: 16),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    SvgPicture.asset(AppIcons.location),
+                    const SizedBox(width: 4),
+                    Expanded(
+                      child: Text(location,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline6
+                              ?.copyWith(
+                                  fontSize: 12,
+                                  color: Theme.of(context)
+                                      .extension<ThemedColors>()
+                                      ?.dolphinToGreySuit)),
                     ),
-                  ),
-                  AddWishlistItem(
-                    onTap: onTapLike,
-                    initialLike: isLiked,
-                  ),
-                ],
+                    AddWishlistItem(onTap: onTapLike, initialLike: isLiked),
+                  ],
+                ),
               ),
             )
           ],

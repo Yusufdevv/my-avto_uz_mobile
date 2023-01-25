@@ -97,9 +97,8 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       EditProfileEvent event, Emitter<ProfileState> emit) async {
     emit(state.copyWith(editStatus: FormzStatus.submissionInProgress));
     final result = await editProfileUseCase.call(EditProfileParams(
-      surName: event.surName,
       region: event.region,
-      name: event.name,
+      fullName: event.fullName,
       image: event.image,
     ));
     if (result.isRight) {
@@ -122,12 +121,11 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
           oldPassword: event.oldPassword,
           newPassword: event.newPassword,
         ));
-
         if (result.isRight) {
           event.onSuccess(result.right);
           emit(state.copyWith(changeStatus: FormzStatus.submissionSuccess));
         } else {
-           var err = (result.left is ServerFailure)
+           final err = (result.left is ServerFailure)
             ? (result.left as ServerFailure).errorMessage
             : result.left.toString();
         event.onError(err);
@@ -144,10 +142,8 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   }
 
   Future<void> _onLoginUser(LoginUser event, Emitter<ProfileState> emit) async {
+    // ignore: unused_local_variable
     final result =
         await repository.login(login: event.phone, password: event.password);
-    if (result.isRight) {
-      print('auth good ');
-    }
   }
 }

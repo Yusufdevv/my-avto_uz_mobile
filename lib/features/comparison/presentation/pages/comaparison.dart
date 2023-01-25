@@ -20,9 +20,9 @@ class Comparison extends StatefulWidget {
   final bool isSticky;
   final ComparisonBloc comparisonBloc;
   const Comparison({
-    Key? key,
     required this.isSticky,
     required this.comparisonBloc,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -239,10 +239,10 @@ class _ComparisonState extends State<Comparison> {
                       EngineParametersWidget(
                         onChanged: (integer) {
                           setState(() {
-                            currentValueOfComplectation = integer;
+                            currentValueOfCharacteristics = integer;
                           });
                         },
-                        selectedValue: currentValueOfComplectation,
+                        selectedValue: currentValueOfCharacteristics,
                         comparisonParameters: complectationParameters[1],
                         numberOfAddedCars: state.cars,
                         controller: scrollControllers[1],

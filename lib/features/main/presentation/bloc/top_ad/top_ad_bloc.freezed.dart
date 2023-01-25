@@ -21,6 +21,7 @@ mixin _$TopAdEvent {
     required TResult Function() getTopAds,
     required TResult Function(String endpoint) getFavorites,
     required TResult Function() getMoreTopAds,
+    required TResult Function() getMoreFavorite,
     required TResult Function(int index, int id) changeIsWish,
     required TResult Function(int id, bool adding) deleteFavoriteItem,
   }) =>
@@ -30,6 +31,7 @@ mixin _$TopAdEvent {
     TResult? Function()? getTopAds,
     TResult? Function(String endpoint)? getFavorites,
     TResult? Function()? getMoreTopAds,
+    TResult? Function()? getMoreFavorite,
     TResult? Function(int index, int id)? changeIsWish,
     TResult? Function(int id, bool adding)? deleteFavoriteItem,
   }) =>
@@ -39,6 +41,7 @@ mixin _$TopAdEvent {
     TResult Function()? getTopAds,
     TResult Function(String endpoint)? getFavorites,
     TResult Function()? getMoreTopAds,
+    TResult Function()? getMoreFavorite,
     TResult Function(int index, int id)? changeIsWish,
     TResult Function(int id, bool adding)? deleteFavoriteItem,
     required TResult orElse(),
@@ -49,6 +52,7 @@ mixin _$TopAdEvent {
     required TResult Function(_GetTopAds value) getTopAds,
     required TResult Function(_GetFavorites value) getFavorites,
     required TResult Function(_GetMoreTopAds value) getMoreTopAds,
+    required TResult Function(_GetMoreFavorite value) getMoreFavorite,
     required TResult Function(_ChangeIsWish value) changeIsWish,
     required TResult Function(_DeleteFavoriteItem value) deleteFavoriteItem,
   }) =>
@@ -58,6 +62,7 @@ mixin _$TopAdEvent {
     TResult? Function(_GetTopAds value)? getTopAds,
     TResult? Function(_GetFavorites value)? getFavorites,
     TResult? Function(_GetMoreTopAds value)? getMoreTopAds,
+    TResult? Function(_GetMoreFavorite value)? getMoreFavorite,
     TResult? Function(_ChangeIsWish value)? changeIsWish,
     TResult? Function(_DeleteFavoriteItem value)? deleteFavoriteItem,
   }) =>
@@ -67,6 +72,7 @@ mixin _$TopAdEvent {
     TResult Function(_GetTopAds value)? getTopAds,
     TResult Function(_GetFavorites value)? getFavorites,
     TResult Function(_GetMoreTopAds value)? getMoreTopAds,
+    TResult Function(_GetMoreFavorite value)? getMoreFavorite,
     TResult Function(_ChangeIsWish value)? changeIsWish,
     TResult Function(_DeleteFavoriteItem value)? deleteFavoriteItem,
     required TResult orElse(),
@@ -133,6 +139,7 @@ class _$_GetTopAds implements _GetTopAds {
     required TResult Function() getTopAds,
     required TResult Function(String endpoint) getFavorites,
     required TResult Function() getMoreTopAds,
+    required TResult Function() getMoreFavorite,
     required TResult Function(int index, int id) changeIsWish,
     required TResult Function(int id, bool adding) deleteFavoriteItem,
   }) {
@@ -145,6 +152,7 @@ class _$_GetTopAds implements _GetTopAds {
     TResult? Function()? getTopAds,
     TResult? Function(String endpoint)? getFavorites,
     TResult? Function()? getMoreTopAds,
+    TResult? Function()? getMoreFavorite,
     TResult? Function(int index, int id)? changeIsWish,
     TResult? Function(int id, bool adding)? deleteFavoriteItem,
   }) {
@@ -157,6 +165,7 @@ class _$_GetTopAds implements _GetTopAds {
     TResult Function()? getTopAds,
     TResult Function(String endpoint)? getFavorites,
     TResult Function()? getMoreTopAds,
+    TResult Function()? getMoreFavorite,
     TResult Function(int index, int id)? changeIsWish,
     TResult Function(int id, bool adding)? deleteFavoriteItem,
     required TResult orElse(),
@@ -173,6 +182,7 @@ class _$_GetTopAds implements _GetTopAds {
     required TResult Function(_GetTopAds value) getTopAds,
     required TResult Function(_GetFavorites value) getFavorites,
     required TResult Function(_GetMoreTopAds value) getMoreTopAds,
+    required TResult Function(_GetMoreFavorite value) getMoreFavorite,
     required TResult Function(_ChangeIsWish value) changeIsWish,
     required TResult Function(_DeleteFavoriteItem value) deleteFavoriteItem,
   }) {
@@ -185,6 +195,7 @@ class _$_GetTopAds implements _GetTopAds {
     TResult? Function(_GetTopAds value)? getTopAds,
     TResult? Function(_GetFavorites value)? getFavorites,
     TResult? Function(_GetMoreTopAds value)? getMoreTopAds,
+    TResult? Function(_GetMoreFavorite value)? getMoreFavorite,
     TResult? Function(_ChangeIsWish value)? changeIsWish,
     TResult? Function(_DeleteFavoriteItem value)? deleteFavoriteItem,
   }) {
@@ -197,6 +208,7 @@ class _$_GetTopAds implements _GetTopAds {
     TResult Function(_GetTopAds value)? getTopAds,
     TResult Function(_GetFavorites value)? getFavorites,
     TResult Function(_GetMoreTopAds value)? getMoreTopAds,
+    TResult Function(_GetMoreFavorite value)? getMoreFavorite,
     TResult Function(_ChangeIsWish value)? changeIsWish,
     TResult Function(_DeleteFavoriteItem value)? deleteFavoriteItem,
     required TResult orElse(),
@@ -280,6 +292,7 @@ class _$_GetFavorites implements _GetFavorites {
     required TResult Function() getTopAds,
     required TResult Function(String endpoint) getFavorites,
     required TResult Function() getMoreTopAds,
+    required TResult Function() getMoreFavorite,
     required TResult Function(int index, int id) changeIsWish,
     required TResult Function(int id, bool adding) deleteFavoriteItem,
   }) {
@@ -292,6 +305,7 @@ class _$_GetFavorites implements _GetFavorites {
     TResult? Function()? getTopAds,
     TResult? Function(String endpoint)? getFavorites,
     TResult? Function()? getMoreTopAds,
+    TResult? Function()? getMoreFavorite,
     TResult? Function(int index, int id)? changeIsWish,
     TResult? Function(int id, bool adding)? deleteFavoriteItem,
   }) {
@@ -304,6 +318,7 @@ class _$_GetFavorites implements _GetFavorites {
     TResult Function()? getTopAds,
     TResult Function(String endpoint)? getFavorites,
     TResult Function()? getMoreTopAds,
+    TResult Function()? getMoreFavorite,
     TResult Function(int index, int id)? changeIsWish,
     TResult Function(int id, bool adding)? deleteFavoriteItem,
     required TResult orElse(),
@@ -320,6 +335,7 @@ class _$_GetFavorites implements _GetFavorites {
     required TResult Function(_GetTopAds value) getTopAds,
     required TResult Function(_GetFavorites value) getFavorites,
     required TResult Function(_GetMoreTopAds value) getMoreTopAds,
+    required TResult Function(_GetMoreFavorite value) getMoreFavorite,
     required TResult Function(_ChangeIsWish value) changeIsWish,
     required TResult Function(_DeleteFavoriteItem value) deleteFavoriteItem,
   }) {
@@ -332,6 +348,7 @@ class _$_GetFavorites implements _GetFavorites {
     TResult? Function(_GetTopAds value)? getTopAds,
     TResult? Function(_GetFavorites value)? getFavorites,
     TResult? Function(_GetMoreTopAds value)? getMoreTopAds,
+    TResult? Function(_GetMoreFavorite value)? getMoreFavorite,
     TResult? Function(_ChangeIsWish value)? changeIsWish,
     TResult? Function(_DeleteFavoriteItem value)? deleteFavoriteItem,
   }) {
@@ -344,6 +361,7 @@ class _$_GetFavorites implements _GetFavorites {
     TResult Function(_GetTopAds value)? getTopAds,
     TResult Function(_GetFavorites value)? getFavorites,
     TResult Function(_GetMoreTopAds value)? getMoreTopAds,
+    TResult Function(_GetMoreFavorite value)? getMoreFavorite,
     TResult Function(_ChangeIsWish value)? changeIsWish,
     TResult Function(_DeleteFavoriteItem value)? deleteFavoriteItem,
     required TResult orElse(),
@@ -405,6 +423,7 @@ class _$_GetMoreTopAds implements _GetMoreTopAds {
     required TResult Function() getTopAds,
     required TResult Function(String endpoint) getFavorites,
     required TResult Function() getMoreTopAds,
+    required TResult Function() getMoreFavorite,
     required TResult Function(int index, int id) changeIsWish,
     required TResult Function(int id, bool adding) deleteFavoriteItem,
   }) {
@@ -417,6 +436,7 @@ class _$_GetMoreTopAds implements _GetMoreTopAds {
     TResult? Function()? getTopAds,
     TResult? Function(String endpoint)? getFavorites,
     TResult? Function()? getMoreTopAds,
+    TResult? Function()? getMoreFavorite,
     TResult? Function(int index, int id)? changeIsWish,
     TResult? Function(int id, bool adding)? deleteFavoriteItem,
   }) {
@@ -429,6 +449,7 @@ class _$_GetMoreTopAds implements _GetMoreTopAds {
     TResult Function()? getTopAds,
     TResult Function(String endpoint)? getFavorites,
     TResult Function()? getMoreTopAds,
+    TResult Function()? getMoreFavorite,
     TResult Function(int index, int id)? changeIsWish,
     TResult Function(int id, bool adding)? deleteFavoriteItem,
     required TResult orElse(),
@@ -445,6 +466,7 @@ class _$_GetMoreTopAds implements _GetMoreTopAds {
     required TResult Function(_GetTopAds value) getTopAds,
     required TResult Function(_GetFavorites value) getFavorites,
     required TResult Function(_GetMoreTopAds value) getMoreTopAds,
+    required TResult Function(_GetMoreFavorite value) getMoreFavorite,
     required TResult Function(_ChangeIsWish value) changeIsWish,
     required TResult Function(_DeleteFavoriteItem value) deleteFavoriteItem,
   }) {
@@ -457,6 +479,7 @@ class _$_GetMoreTopAds implements _GetMoreTopAds {
     TResult? Function(_GetTopAds value)? getTopAds,
     TResult? Function(_GetFavorites value)? getFavorites,
     TResult? Function(_GetMoreTopAds value)? getMoreTopAds,
+    TResult? Function(_GetMoreFavorite value)? getMoreFavorite,
     TResult? Function(_ChangeIsWish value)? changeIsWish,
     TResult? Function(_DeleteFavoriteItem value)? deleteFavoriteItem,
   }) {
@@ -469,6 +492,7 @@ class _$_GetMoreTopAds implements _GetMoreTopAds {
     TResult Function(_GetTopAds value)? getTopAds,
     TResult Function(_GetFavorites value)? getFavorites,
     TResult Function(_GetMoreTopAds value)? getMoreTopAds,
+    TResult Function(_GetMoreFavorite value)? getMoreFavorite,
     TResult Function(_ChangeIsWish value)? changeIsWish,
     TResult Function(_DeleteFavoriteItem value)? deleteFavoriteItem,
     required TResult orElse(),
@@ -482,6 +506,132 @@ class _$_GetMoreTopAds implements _GetMoreTopAds {
 
 abstract class _GetMoreTopAds implements TopAdEvent {
   factory _GetMoreTopAds() = _$_GetMoreTopAds;
+}
+
+/// @nodoc
+abstract class _$$_GetMoreFavoriteCopyWith<$Res> {
+  factory _$$_GetMoreFavoriteCopyWith(
+          _$_GetMoreFavorite value, $Res Function(_$_GetMoreFavorite) then) =
+      __$$_GetMoreFavoriteCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$_GetMoreFavoriteCopyWithImpl<$Res>
+    extends _$TopAdEventCopyWithImpl<$Res, _$_GetMoreFavorite>
+    implements _$$_GetMoreFavoriteCopyWith<$Res> {
+  __$$_GetMoreFavoriteCopyWithImpl(
+      _$_GetMoreFavorite _value, $Res Function(_$_GetMoreFavorite) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$_GetMoreFavorite implements _GetMoreFavorite {
+  _$_GetMoreFavorite();
+
+  @override
+  String toString() {
+    return 'TopAdEvent.getMoreFavorite()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$_GetMoreFavorite);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() getTopAds,
+    required TResult Function(String endpoint) getFavorites,
+    required TResult Function() getMoreTopAds,
+    required TResult Function() getMoreFavorite,
+    required TResult Function(int index, int id) changeIsWish,
+    required TResult Function(int id, bool adding) deleteFavoriteItem,
+  }) {
+    return getMoreFavorite();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? getTopAds,
+    TResult? Function(String endpoint)? getFavorites,
+    TResult? Function()? getMoreTopAds,
+    TResult? Function()? getMoreFavorite,
+    TResult? Function(int index, int id)? changeIsWish,
+    TResult? Function(int id, bool adding)? deleteFavoriteItem,
+  }) {
+    return getMoreFavorite?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? getTopAds,
+    TResult Function(String endpoint)? getFavorites,
+    TResult Function()? getMoreTopAds,
+    TResult Function()? getMoreFavorite,
+    TResult Function(int index, int id)? changeIsWish,
+    TResult Function(int id, bool adding)? deleteFavoriteItem,
+    required TResult orElse(),
+  }) {
+    if (getMoreFavorite != null) {
+      return getMoreFavorite();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_GetTopAds value) getTopAds,
+    required TResult Function(_GetFavorites value) getFavorites,
+    required TResult Function(_GetMoreTopAds value) getMoreTopAds,
+    required TResult Function(_GetMoreFavorite value) getMoreFavorite,
+    required TResult Function(_ChangeIsWish value) changeIsWish,
+    required TResult Function(_DeleteFavoriteItem value) deleteFavoriteItem,
+  }) {
+    return getMoreFavorite(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetTopAds value)? getTopAds,
+    TResult? Function(_GetFavorites value)? getFavorites,
+    TResult? Function(_GetMoreTopAds value)? getMoreTopAds,
+    TResult? Function(_GetMoreFavorite value)? getMoreFavorite,
+    TResult? Function(_ChangeIsWish value)? changeIsWish,
+    TResult? Function(_DeleteFavoriteItem value)? deleteFavoriteItem,
+  }) {
+    return getMoreFavorite?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetTopAds value)? getTopAds,
+    TResult Function(_GetFavorites value)? getFavorites,
+    TResult Function(_GetMoreTopAds value)? getMoreTopAds,
+    TResult Function(_GetMoreFavorite value)? getMoreFavorite,
+    TResult Function(_ChangeIsWish value)? changeIsWish,
+    TResult Function(_DeleteFavoriteItem value)? deleteFavoriteItem,
+    required TResult orElse(),
+  }) {
+    if (getMoreFavorite != null) {
+      return getMoreFavorite(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _GetMoreFavorite implements TopAdEvent {
+  factory _GetMoreFavorite() = _$_GetMoreFavorite;
 }
 
 /// @nodoc
@@ -559,6 +709,7 @@ class _$_ChangeIsWish implements _ChangeIsWish {
     required TResult Function() getTopAds,
     required TResult Function(String endpoint) getFavorites,
     required TResult Function() getMoreTopAds,
+    required TResult Function() getMoreFavorite,
     required TResult Function(int index, int id) changeIsWish,
     required TResult Function(int id, bool adding) deleteFavoriteItem,
   }) {
@@ -571,6 +722,7 @@ class _$_ChangeIsWish implements _ChangeIsWish {
     TResult? Function()? getTopAds,
     TResult? Function(String endpoint)? getFavorites,
     TResult? Function()? getMoreTopAds,
+    TResult? Function()? getMoreFavorite,
     TResult? Function(int index, int id)? changeIsWish,
     TResult? Function(int id, bool adding)? deleteFavoriteItem,
   }) {
@@ -583,6 +735,7 @@ class _$_ChangeIsWish implements _ChangeIsWish {
     TResult Function()? getTopAds,
     TResult Function(String endpoint)? getFavorites,
     TResult Function()? getMoreTopAds,
+    TResult Function()? getMoreFavorite,
     TResult Function(int index, int id)? changeIsWish,
     TResult Function(int id, bool adding)? deleteFavoriteItem,
     required TResult orElse(),
@@ -599,6 +752,7 @@ class _$_ChangeIsWish implements _ChangeIsWish {
     required TResult Function(_GetTopAds value) getTopAds,
     required TResult Function(_GetFavorites value) getFavorites,
     required TResult Function(_GetMoreTopAds value) getMoreTopAds,
+    required TResult Function(_GetMoreFavorite value) getMoreFavorite,
     required TResult Function(_ChangeIsWish value) changeIsWish,
     required TResult Function(_DeleteFavoriteItem value) deleteFavoriteItem,
   }) {
@@ -611,6 +765,7 @@ class _$_ChangeIsWish implements _ChangeIsWish {
     TResult? Function(_GetTopAds value)? getTopAds,
     TResult? Function(_GetFavorites value)? getFavorites,
     TResult? Function(_GetMoreTopAds value)? getMoreTopAds,
+    TResult? Function(_GetMoreFavorite value)? getMoreFavorite,
     TResult? Function(_ChangeIsWish value)? changeIsWish,
     TResult? Function(_DeleteFavoriteItem value)? deleteFavoriteItem,
   }) {
@@ -623,6 +778,7 @@ class _$_ChangeIsWish implements _ChangeIsWish {
     TResult Function(_GetTopAds value)? getTopAds,
     TResult Function(_GetFavorites value)? getFavorites,
     TResult Function(_GetMoreTopAds value)? getMoreTopAds,
+    TResult Function(_GetMoreFavorite value)? getMoreFavorite,
     TResult Function(_ChangeIsWish value)? changeIsWish,
     TResult Function(_DeleteFavoriteItem value)? deleteFavoriteItem,
     required TResult orElse(),
@@ -721,6 +877,7 @@ class _$_DeleteFavoriteItem implements _DeleteFavoriteItem {
     required TResult Function() getTopAds,
     required TResult Function(String endpoint) getFavorites,
     required TResult Function() getMoreTopAds,
+    required TResult Function() getMoreFavorite,
     required TResult Function(int index, int id) changeIsWish,
     required TResult Function(int id, bool adding) deleteFavoriteItem,
   }) {
@@ -733,6 +890,7 @@ class _$_DeleteFavoriteItem implements _DeleteFavoriteItem {
     TResult? Function()? getTopAds,
     TResult? Function(String endpoint)? getFavorites,
     TResult? Function()? getMoreTopAds,
+    TResult? Function()? getMoreFavorite,
     TResult? Function(int index, int id)? changeIsWish,
     TResult? Function(int id, bool adding)? deleteFavoriteItem,
   }) {
@@ -745,6 +903,7 @@ class _$_DeleteFavoriteItem implements _DeleteFavoriteItem {
     TResult Function()? getTopAds,
     TResult Function(String endpoint)? getFavorites,
     TResult Function()? getMoreTopAds,
+    TResult Function()? getMoreFavorite,
     TResult Function(int index, int id)? changeIsWish,
     TResult Function(int id, bool adding)? deleteFavoriteItem,
     required TResult orElse(),
@@ -761,6 +920,7 @@ class _$_DeleteFavoriteItem implements _DeleteFavoriteItem {
     required TResult Function(_GetTopAds value) getTopAds,
     required TResult Function(_GetFavorites value) getFavorites,
     required TResult Function(_GetMoreTopAds value) getMoreTopAds,
+    required TResult Function(_GetMoreFavorite value) getMoreFavorite,
     required TResult Function(_ChangeIsWish value) changeIsWish,
     required TResult Function(_DeleteFavoriteItem value) deleteFavoriteItem,
   }) {
@@ -773,6 +933,7 @@ class _$_DeleteFavoriteItem implements _DeleteFavoriteItem {
     TResult? Function(_GetTopAds value)? getTopAds,
     TResult? Function(_GetFavorites value)? getFavorites,
     TResult? Function(_GetMoreTopAds value)? getMoreTopAds,
+    TResult? Function(_GetMoreFavorite value)? getMoreFavorite,
     TResult? Function(_ChangeIsWish value)? changeIsWish,
     TResult? Function(_DeleteFavoriteItem value)? deleteFavoriteItem,
   }) {
@@ -785,6 +946,7 @@ class _$_DeleteFavoriteItem implements _DeleteFavoriteItem {
     TResult Function(_GetTopAds value)? getTopAds,
     TResult Function(_GetFavorites value)? getFavorites,
     TResult Function(_GetMoreTopAds value)? getMoreTopAds,
+    TResult Function(_GetMoreFavorite value)? getMoreFavorite,
     TResult Function(_ChangeIsWish value)? changeIsWish,
     TResult Function(_DeleteFavoriteItem value)? deleteFavoriteItem,
     required TResult orElse(),
@@ -814,7 +976,8 @@ mixin _$TopAdState {
   FormzStatus get favoritesStatus => throw _privateConstructorUsedError;
   List<AdModel> get topAds => throw _privateConstructorUsedError;
   List<AutoEntity> get favorites => throw _privateConstructorUsedError;
-  String get next => throw _privateConstructorUsedError;
+  String? get next => throw _privateConstructorUsedError;
+  String? get nextF => throw _privateConstructorUsedError;
   int get count => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -833,7 +996,8 @@ abstract class $TopAdStateCopyWith<$Res> {
       FormzStatus favoritesStatus,
       List<AdModel> topAds,
       List<AutoEntity> favorites,
-      String next,
+      String? next,
+      String? nextF,
       int count});
 }
 
@@ -854,7 +1018,8 @@ class _$TopAdStateCopyWithImpl<$Res, $Val extends TopAdState>
     Object? favoritesStatus = null,
     Object? topAds = null,
     Object? favorites = null,
-    Object? next = null,
+    Object? next = freezed,
+    Object? nextF = freezed,
     Object? count = null,
   }) {
     return _then(_value.copyWith(
@@ -874,10 +1039,14 @@ class _$TopAdStateCopyWithImpl<$Res, $Val extends TopAdState>
           ? _value.favorites
           : favorites // ignore: cast_nullable_to_non_nullable
               as List<AutoEntity>,
-      next: null == next
+      next: freezed == next
           ? _value.next
           : next // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
+      nextF: freezed == nextF
+          ? _value.nextF
+          : nextF // ignore: cast_nullable_to_non_nullable
+              as String?,
       count: null == count
           ? _value.count
           : count // ignore: cast_nullable_to_non_nullable
@@ -899,7 +1068,8 @@ abstract class _$$_TopAdStateCopyWith<$Res>
       FormzStatus favoritesStatus,
       List<AdModel> topAds,
       List<AutoEntity> favorites,
-      String next,
+      String? next,
+      String? nextF,
       int count});
 }
 
@@ -918,7 +1088,8 @@ class __$$_TopAdStateCopyWithImpl<$Res>
     Object? favoritesStatus = null,
     Object? topAds = null,
     Object? favorites = null,
-    Object? next = null,
+    Object? next = freezed,
+    Object? nextF = freezed,
     Object? count = null,
   }) {
     return _then(_$_TopAdState(
@@ -938,10 +1109,14 @@ class __$$_TopAdStateCopyWithImpl<$Res>
           ? _value._favorites
           : favorites // ignore: cast_nullable_to_non_nullable
               as List<AutoEntity>,
-      next: null == next
+      next: freezed == next
           ? _value.next
           : next // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
+      nextF: freezed == nextF
+          ? _value.nextF
+          : nextF // ignore: cast_nullable_to_non_nullable
+              as String?,
       count: null == count
           ? _value.count
           : count // ignore: cast_nullable_to_non_nullable
@@ -958,7 +1133,8 @@ class _$_TopAdState implements _TopAdState {
       this.favoritesStatus = FormzStatus.pure,
       final List<AdModel> topAds = const [],
       final List<AutoEntity> favorites = const [],
-      this.next = '',
+      this.next,
+      this.nextF,
       this.count = 0})
       : _topAds = topAds,
         _favorites = favorites;
@@ -988,15 +1164,16 @@ class _$_TopAdState implements _TopAdState {
   }
 
   @override
-  @JsonKey()
-  final String next;
+  final String? next;
+  @override
+  final String? nextF;
   @override
   @JsonKey()
   final int count;
 
   @override
   String toString() {
-    return 'TopAdState(status: $status, favoritesStatus: $favoritesStatus, topAds: $topAds, favorites: $favorites, next: $next, count: $count)';
+    return 'TopAdState(status: $status, favoritesStatus: $favoritesStatus, topAds: $topAds, favorites: $favorites, next: $next, nextF: $nextF, count: $count)';
   }
 
   @override
@@ -1011,6 +1188,7 @@ class _$_TopAdState implements _TopAdState {
             const DeepCollectionEquality()
                 .equals(other._favorites, _favorites) &&
             (identical(other.next, next) || other.next == next) &&
+            (identical(other.nextF, nextF) || other.nextF == nextF) &&
             (identical(other.count, count) || other.count == count));
   }
 
@@ -1022,6 +1200,7 @@ class _$_TopAdState implements _TopAdState {
       const DeepCollectionEquality().hash(_topAds),
       const DeepCollectionEquality().hash(_favorites),
       next,
+      nextF,
       count);
 
   @JsonKey(ignore: true)
@@ -1037,7 +1216,8 @@ abstract class _TopAdState implements TopAdState {
       final FormzStatus favoritesStatus,
       final List<AdModel> topAds,
       final List<AutoEntity> favorites,
-      final String next,
+      final String? next,
+      final String? nextF,
       final int count}) = _$_TopAdState;
 
   @override
@@ -1049,7 +1229,9 @@ abstract class _TopAdState implements TopAdState {
   @override
   List<AutoEntity> get favorites;
   @override
-  String get next;
+  String? get next;
+  @override
+  String? get nextF;
   @override
   int get count;
   @override

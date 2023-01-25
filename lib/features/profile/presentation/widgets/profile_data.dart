@@ -1,10 +1,8 @@
-import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/assets/themes/theme_extensions/w_textfield_style.dart';
 import 'package:auto/core/utils/size_config.dart';
-import 'package:auto/features/common/widgets/cached_image.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -63,7 +61,7 @@ class ProfileDataWidget extends StatelessWidget {
                               borderRadius: BorderRadius.circular(
                                 SizeConfig.h(24),
                               ),
-                              child: SvgPicture.asset(AppIcons.userAvatar)))),
+                              child: Image.asset(AppImages.defaultPhoto, fit: BoxFit.cover)))),
                 ),
               ),
               Expanded(

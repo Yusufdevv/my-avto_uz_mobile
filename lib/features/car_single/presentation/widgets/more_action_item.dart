@@ -5,28 +5,30 @@ import 'package:flutter_svg/flutter_svg.dart';
 class MoreActionItem extends StatelessWidget {
   final String icon;
   final Color color;
+  final Color borderColor;
   final String text;
   final VoidCallback onTap;
 
-  const MoreActionItem(
-      {Key? key, required this.icon, required this.text, required this.color, required this.onTap})
-      : super(key: key);
+  const MoreActionItem({
+    required this.icon,
+    required this.text,
+    required this.color,
+    required this.onTap,
+    required this.borderColor,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) => WScaleAnimation(
-    onTap:onTap,
-    child: Container(
+        onTap: onTap,
+        child: Container(
           height: 52,
           decoration: BoxDecoration(
             color: color,
             borderRadius: BorderRadius.circular(
               12,
             ),
-            border: Border.all(
-              color: const Color(
-                0xffF1F1F5,
-              ),
-            ),
+            border: Border.all(color: borderColor),
           ),
           padding: const EdgeInsets.symmetric(
             vertical: 12,
@@ -56,5 +58,5 @@ class MoreActionItem extends StatelessWidget {
             ),
           ),
         ),
-  );
+      );
 }

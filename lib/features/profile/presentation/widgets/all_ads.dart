@@ -47,7 +47,7 @@ class AllAds extends StatelessWidget {
                                 MyAdCarDescPart(item: item),
                                 //
                                 if (item.moderationStatus != 'blocked')
-                                  MyAdDesc(item: item)
+                                 MyAdDesc(item: item)
                                 else
                                   ReSendPart(item: item)
                               ],

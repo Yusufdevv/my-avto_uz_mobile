@@ -7,7 +7,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 class WFilterButton extends StatelessWidget {
   const WFilterButton({
-    Key? key,
     required this.size,
     required this.theme,
     required this.icon,
@@ -17,6 +16,7 @@ class WFilterButton extends StatelessWidget {
     required this.activeColor,
     required this.onTap,
     required this.onTapClear,
+    Key? key,
   }) : super(key: key);
 
   final Size size;
@@ -47,12 +47,16 @@ class WFilterButton extends StatelessWidget {
               fit: BoxFit.cover,
             ),
             const SizedBox(width: 8),
-            Text(
-              name.isEmpty ? defaultTitle : name,
-              style: Theme.of(context)
-                  .textTheme
-                  .subtitle1!
-                  .copyWith(color: claerA ? activeColor : null),
+            SizedBox(
+              width: size.width * 0.22,
+              child: Text(
+                name.isEmpty ? defaultTitle : name,
+                style: Theme.of(context)
+                    .textTheme
+                    .subtitle1!
+                    .copyWith(color: claerA ? activeColor : null),
+                overflow: TextOverflow.ellipsis,
+              ),
             ),
             const Spacer(),
             if (claerA)

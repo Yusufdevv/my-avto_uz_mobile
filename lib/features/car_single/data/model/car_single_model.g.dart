@@ -87,7 +87,17 @@ CarSingleModel _$CarSingleModelFromJson(Map<String, dynamic> json) =>
               .fromJson(json['user'] as Map<String, dynamic>?),
       userType: json['user_type'] as String? ?? '',
       viewsCount: json['views_count'] as int? ?? 0,
+      callCount: json['call_count'] as int? ?? 0,
+      wishlistCount: json['wishlist_count'] as int? ?? 0,
+      isComparison: json['is_comparison'] as bool? ?? false,
       year: json['year'] as int? ?? 0,
+      isExpired: json['is_expired'] as bool? ?? false,
+      expiredAt: json['expired_at'] as String? ?? '',
+      isRentWithPurchase: json['is_rent_with_purchase'] as bool? ?? false,
+      priceAnalytics: json['price_analytics'] == null
+          ? const PriceAnalyticsEntity()
+          : const PriceAnalyticsConverter()
+              .fromJson(json['price_analytics'] as Map<String, dynamic>?),
     );
 
 Map<String, dynamic> _$CarSingleModelToJson(CarSingleModel instance) =>
@@ -142,4 +152,12 @@ Map<String, dynamic> _$CarSingleModelToJson(CarSingleModel instance) =>
           .toList(),
       'user_type': instance.userType,
       'is_wishlisted': instance.isWishlisted,
+      'wishlist_count': instance.wishlistCount,
+      'call_count': instance.callCount,
+      'is_comparison': instance.isComparison,
+      'is_rent_with_purchase': instance.isRentWithPurchase,
+      'is_expired': instance.isExpired,
+      'expired_at': instance.expiredAt,
+      'price_analytics':
+          const PriceAnalyticsConverter().toJson(instance.priceAnalytics),
     };

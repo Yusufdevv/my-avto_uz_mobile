@@ -1,7 +1,7 @@
-import 'dart:async';
 import 'package:auto/core/exceptions/exceptions.dart';
-import 'package:auto/features/dealers/data/models/dealer_card_model.dart';
+import 'package:auto/features/dealers/data/models/map_model.dart';
 import 'package:auto/features/dealers/domain/entities/map_parameter.dart';
+import 'package:auto/features/dealers/domain/usecases/get_directories_map_point_usecase.dart';
 import 'package:auto/features/dealers/domain/usecases/get_map_dealers.dart';
 import 'package:auto/utils/my_functions.dart';
 import 'package:bloc/bloc.dart';
@@ -17,21 +17,38 @@ part 'map_organization_bloc.freezed.dart';
 
 class MapOrganizationBloc extends Bloc<MapOrganizationEvent, MapOrganizationState> {
   final GetMapDealersUseCase getDealers;
-  MapOrganizationBloc(this.getDealers)
+  final GetDirectoriesMapPointUseCase getDirectoriesMapPointUseCase;
+  MapOrganizationBloc(this.getDealers, this.getDirectoriesMapPointUseCase)
       : super(MapOrganizationState()) {
     on<_GetDealers>((event, emit) async {
       emit(state.copyWith(status: FormzStatus.submissionInProgress));
-      final result = await getDealers('',
+      final result = await getDealers(state.searchText,
           param: MapParameter(
               lat: event.latitude ?? state.lat,
               long: event.longitude ?? state.long,
               radius: event.radius?.floor() ?? state.radius));
       if (result.isRight) {
+        print('here is result${result.right}');
         emit(state.copyWith(dealers: result.right, status: FormzStatus.submissionSuccess));
       } else {
         emit(state.copyWith(status: FormzStatus.submissionFailure));
       }
     });
+
+    on<_GetDirectoriesPoints>((event, emit) async {
+      emit(state.copyWith(status: FormzStatus.submissionInProgress));
+      final result = await getDirectoriesMapPointUseCase(state.searchText,
+          param: MapParameter(
+              lat: event.latitude ?? state.lat,
+              long: event.longitude ?? state.long,
+              radius: event.radius?.floor() ?? state.radius));
+      if (result.isRight) {
+        emit(state.copyWith(directoriesPoints: result.right, status: FormzStatus.submissionSuccess));
+      } else {
+        emit(state.copyWith(status: FormzStatus.submissionFailure));
+      }
+    });
+
     on<_ChangeRadius>((event, emit) {
       emit(state.copyWith(radius: event.radius));
     });

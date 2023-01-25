@@ -51,16 +51,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
     phoneController.dispose();
     super.dispose();
   }
+   // register screen -1 
 
   @override
   Widget build(BuildContext context) => CustomScreen(
         child: BlocProvider.value(
           value: registerBloc,
           child: BlocBuilder<RegisterBloc, RegisterState>(
-            builder: (context, state) {
-              print(
-                  '=>=>=>=> send code status name:  ${state.sendCodeStatus.name} <=<=<=<=');
-              return Scaffold(
+            builder: (context, state) => Scaffold(
                 appBar: WAppBar(
                   title: LocaleKeys.register.tr(),
                 ),
@@ -89,7 +87,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         controller: phoneController,
                         prefixIcon: Row(
                           children: [
-                            Image.asset(AppImages.flagUzb),
+                            SizedBox(
+                                height: 20,
+                                width: 20,
+                                child: Image.asset(AppImages.flagUzb2)),
                             const SizedBox(
                               width: 4,
                             ),
@@ -134,7 +135,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     dismissible: false));
                               } else {
                                 context.read<ShowPopUpBloc>().add(ShowPopUp(
-                                    message: 'something went wronggggggg',
+                                    message: 'something went wrong',
                                     isSucces: false,
                                     dismissible: false));
                               }
@@ -151,7 +152,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                             .replaceAll('+998', '')),
                                   )));
                             }));
-                          } else {}
+                          }
                         },
                         shadow: [
                           BoxShadow(
@@ -161,7 +162,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ],
                         margin: EdgeInsets.only(
                             bottom: 4 + MediaQuery.of(context).padding.bottom),
-                        color: (phoneController.text.isNotEmpty)
+                        color: (phoneController.text.length > 11)
                             ? orange
                             : Theme.of(context)
                                 .extension<ThemedColors>()!
@@ -177,8 +178,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ],
                   ),
                 ),
-              );
-            },
+              ),
           ),
         ),
       );

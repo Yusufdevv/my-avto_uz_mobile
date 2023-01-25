@@ -20,6 +20,7 @@ class PasswordChangingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) => CustomScreen(
         child: Scaffold(
+          backgroundColor: white,
           appBar: WAppBar(
             textWithButton: LocaleKeys.settings.tr(),
           ),
@@ -63,7 +64,7 @@ class PasswordChangingPage extends StatelessWidget {
                 SizeConfig.h(16),
                 SizeConfig.v(15) + MediaQuery.of(context).padding.bottom),
             onTap: () {
-              Navigator.of(context)
+              Navigator.of(context, rootNavigator: true)
                   .push(fade(page: NewPasswordsPage(profileBloc: profileBloc)));
             },
             child: Text(

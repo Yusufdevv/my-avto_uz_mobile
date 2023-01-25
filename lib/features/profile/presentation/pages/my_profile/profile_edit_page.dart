@@ -1,11 +1,11 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/assets/constants/images.dart';
 import 'package:auto/core/utils/size_config.dart';
 import 'package:auto/features/ad/presentation/bloc/add_photo/image_bloc.dart';
 import 'package:auto/features/common/bloc/regions/regions_bloc.dart';
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
 import 'package:auto/features/common/models/region.dart';
-import 'package:auto/features/common/widgets/cached_image.dart';
 import 'package:auto/features/common/widgets/custom_screen.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
@@ -21,7 +21,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:formz/formz.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
@@ -40,21 +39,25 @@ class ProfileEditPage extends StatefulWidget {
 }
 
 class _ProfileEditPageState extends State<ProfileEditPage> {
-  late TextEditingController nameController;
-  late TextEditingController surNameController;
+  late TextEditingController _fullNameController;
   Region? newRegion;
   final GlobalKey<FormState> _formKey = GlobalKey();
 
   @override
   void initState() {
-    nameController = TextEditingController(
-        text: widget.profileBloc.state.profileEntity.firstName);
-    surNameController = TextEditingController(
-        text: widget.profileBloc.state.profileEntity.lastName);
+    _fullNameController = TextEditingController(
+        text: widget.profileBloc.state.profileEntity.fullName);
+   
     context.read<RegionsBloc>().add(RegionsEvent.getRegions());
     widget.imageBloc
         .add(DeleteImage(imageUrl: widget.imageBloc.state.image.path));
     super.initState();
+  }
+
+  bool isChanged({required String oldname, required String oldsurname}) {
+    final result = (oldname != _fullNameController) ||
+        widget.imageBloc.state.image.path.isNotEmpty;
+    return result;
   }
 
   @override
@@ -78,19 +81,23 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                   textWithButton: LocaleKeys.my_profile.tr(),
                 ),
                 bottomNavigationBar: WButton(
+                  color: isChanged(
+                          oldname: stateProfile.profileEntity.firstName ?? '',
+                          oldsurname: stateProfile.profileEntity.lastName ?? '')
+                      ? orange
+                      : grey,
                   isLoading: stateProfile.editStatus.isSubmissionInProgress,
                   margin: EdgeInsets.fromLTRB(
                       SizeConfig.h(16),
                       SizeConfig.v(0),
                       SizeConfig.h(16),
                       SizeConfig.v(8) + mediaQuery.padding.bottom),
-                  text: 'Подтвердить',
+                  text: 'Сохранить',
                   onTap: () {
                     if (_formKey.currentState!.validate()) {
                       context.read<ProfileBloc>().add(
                             EditProfileEvent(
-                              name: nameController.text,
-                              surName: surNameController.text,
+                              fullName: _fullNameController.text,
                               image:
                                   widget.imageBloc.state.image.path.isNotEmpty
                                       ? widget.imageBloc.state.image.path
@@ -156,10 +163,10 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                                                           BorderRadius.circular(
                                                               50),
                                                       child: CachedNetworkImage(
-                                                          imageUrl:
-                                                              stateProfile
+                                                          imageUrl: stateProfile
                                                                   .profileEntity
-                                                                  .image!,
+                                                                  .image ??
+                                                              '',
                                                           width:
                                                               SizeConfig.h(80),
                                                           height:
@@ -174,17 +181,15 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                                                                               80),
                                                                   height:
                                                                       SizeConfig
-                                                                          .v(
-                                                                              80),
-                                                                  child:
-                                                                      ClipRRect(
-                                                                    borderRadius:
-                                                                        BorderRadius.circular(
-                                                                            50),
-                                                                    child: SvgPicture.asset(
-                                                                        AppIcons
-                                                                            .userAvatar),
-                                                                  ))),
+                                                                          .v(80),
+                                                                  child: ClipRRect(
+                                                                      borderRadius: BorderRadius.circular(50),
+                                                                      child: Image.asset(
+                                                                        AppImages
+                                                                            .defaultPhoto,
+                                                                        fit: BoxFit
+                                                                            .cover,
+                                                                      )))),
                                                     )
                                                   : SizedBox(
                                                       height: SizeConfig.v(80),
@@ -202,68 +207,55 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                                                     ),
                                         ),
                                         SizedBox(height: SizeConfig.h(8)),
-                                        Text(
-                                          LocaleKeys.change_photo.tr(),
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headline2!
-                                              .copyWith(color: blue),
-                                        ),
+                                        Text(LocaleKeys.change_photo.tr(),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .headline2!
+                                                .copyWith(color: blue)),
                                       ],
                                     )),
                               ),
                               //
-                              TitleTextFieldTop(
-                                title: LocaleKeys.name.tr(),
-                              ),
+                            const  TitleTextFieldTop(title: 'ФИО'),
                               ProfilTextField(
-                                controller: nameController,
-                                isNameField: true,
-                              ),
+                                  controller: _fullNameController,
+                                  isNameField: true),
                               //
-                              TitleTextFieldTop(
-                                title: LocaleKeys.surname.tr(),
-                              ),
-                              ProfilTextField(controller: surNameController),
-                              //
-                              TitleTextFieldTop(
-                                title: LocaleKeys.region.tr(),
-                              ),
+                              TitleTextFieldTop(title: LocaleKeys.region.tr()),
                               WScaleAnimation(
-                                onTap: () async {
-                                  await showModalBottomSheet<List<Region>>(
-                                    isDismissible: false,
-                                    context: context,
-                                    isScrollControlled: true,
-                                    backgroundColor: Colors.transparent,
-                                    builder: (c) => RentChooseRegionBottomSheet(
-                                        isProfileEdit: true,
-                                        list: context
-                                            .read<RegionsBloc>()
-                                            .state
-                                            .regions),
-                                  ).then((value) {
-                                    if (value != null && value.isNotEmpty) {
-                                      setState(() {
-                                        newRegion = value.first;
-                                      });
-                                    }
-                                  });
-                                },
-                                child: EditItemContainer(
-                                    icon: AppIcons.chevronRightBlack,
-                                    region: newRegion?.title ??
-                                        widget.profileBloc.state.profileEntity
-                                            .region?.title ??
-                                        ''),
-                              ),
+                                  onTap: () async {
+                                    await showModalBottomSheet<List<Region>>(
+                                        isDismissible: false,
+                                        context: context,
+                                        useRootNavigator: true,
+                                        isScrollControlled: true,
+                                        backgroundColor: Colors.transparent,
+                                        builder: (c) =>
+                                            RentChooseRegionBottomSheet(
+                                                isMultiChoice: true,
+                                                list: context
+                                                    .read<RegionsBloc>()
+                                                    .state
+                                                    .regions)).then((value) {
+                                      if (value != null && value.isNotEmpty) {
+                                        setState(() {
+                                          newRegion = value.first;
+                                        });
+                                      }
+                                    });
+                                  },
+                                  child: EditItemContainer(
+                                      icon: AppIcons.chevronRightBlack,
+                                      region: newRegion?.title ??
+                                          widget.profileBloc.state.profileEntity
+                                              .region?.title ??
+                                          '')),
                               //
                               const TitleTextFieldTop(title: 'Номер телефона'),
                               WScaleAnimation(
                                   onTap: () {
-                                    Navigator.push(
-                                        context,
-                                        fade(
+                                    Navigator.of(context, rootNavigator: true)
+                                        .push(fade(
                                             page: PhoneNumberEditPage(
                                                 profileBloc:
                                                     widget.profileBloc)));

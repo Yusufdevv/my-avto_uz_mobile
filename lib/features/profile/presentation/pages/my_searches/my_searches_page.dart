@@ -17,8 +17,8 @@ import 'package:auto/features/profile/domain/usecases/get_notification_single.da
 import 'package:auto/features/profile/domain/usecases/get_notification_usecase.dart';
 import 'package:auto/features/profile/domain/usecases/profil_favorites_usecase.dart';
 import 'package:auto/features/profile/presentation/bloc/user_wishlists_notifications/user_wishlists_notification_bloc.dart';
+import 'package:auto/features/profile/presentation/widgets/custom_profile_bottomsheet.dart';
 import 'package:auto/features/profile/presentation/widgets/empty_item_body.dart';
-import 'package:auto/features/profile/presentation/widgets/log_out_bottomsheet.dart';
 import 'package:auto/features/profile/presentation/widgets/my_search_item.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -40,8 +40,7 @@ class _MySearchesPageState extends State<MySearchesPage> {
   void initState() {
     final repo = serviceLocator<GetUserListRepoImpl>();
     bloc = UserWishListsBloc(
-        profileFavoritesMyAdsUseCase:
-            GetUserFavoritesMyAdsUseCase( ),
+        profileFavoritesMyAdsUseCase: GetUserFavoritesMyAdsUseCase(),
         getNotificationSingleUseCase:
             GetNotificationSingleUseCase(repository: repo),
         getNotificationsUseCase: GetNotificationsUseCase(repository: repo),
@@ -62,27 +61,28 @@ class _MySearchesPageState extends State<MySearchesPage> {
             appBar: WAppBar(
               textWithButton: 'Мои поиски',
               extraActions: [
-                WScaleAnimation(
-                  onTap: () {
-                    if (mySearches.isNotEmpty) {
-                      setState(() {
-                        isToggled = !isToggled;
-                      });
-                    }
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: isToggled
-                        ? Text(
-                            'Отменить',
-                            style: Theme.of(context)
-                                .textTheme
-                                .subtitle1
-                                ?.copyWith(color: red, height: 1.3),
-                          )
-                        : SvgPicture.asset(AppIcons.delete, color: grey),
-                  ),
-                )
+                if (mySearches.isNotEmpty)
+                  WScaleAnimation(
+                    onTap: () {
+                      if (mySearches.isNotEmpty) {
+                        setState(() {
+                          isToggled = !isToggled;
+                        });
+                      }
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: isToggled
+                          ? Text(
+                              'Отменить',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .subtitle1
+                                  ?.copyWith(color: red, height: 1.3),
+                            )
+                          : SvgPicture.asset(AppIcons.delete, color: grey),
+                    ),
+                  )
               ],
             ),
             body: BlocBuilder<UserWishListsBloc, UserWishListsState>(
@@ -116,8 +116,8 @@ class _MySearchesPageState extends State<MySearchesPage> {
                                           .state
                                           .filter
                                           .copyWith(
-                                              make: item.make!.id,
-                                              model: item.model![0]!.id)));
+                                              make: item.make?.id,
+                                              model: item.model?[0]?.id)));
                                   context.read<AnnouncementListBloc>().add(
                                       AnnouncementListEvent
                                           .getAnnouncementList());
@@ -192,7 +192,9 @@ class _MySearchesPageState extends State<MySearchesPage> {
     List<int> result = <int>[];
 
     for (var i = 0; i < list.length; i++) {
-      result.add(list[i].id!);
+      if (list[i].id != null) {
+        result.add(list[i].id!);
+      }
     }
     return result;
   }

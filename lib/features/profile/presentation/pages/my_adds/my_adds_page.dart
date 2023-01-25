@@ -1,7 +1,6 @@
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/features/profile/data/repositories/get_user_list_repo_impl.dart';
-import 'package:auto/features/profile/domain/entities/profile_item_entity.dart';
 import 'package:auto/features/profile/domain/usecases/get_my_searches_usecase.dart';
 import 'package:auto/features/profile/domain/usecases/get_notification_single.dart';
 import 'package:auto/features/profile/domain/usecases/get_notification_usecase.dart';

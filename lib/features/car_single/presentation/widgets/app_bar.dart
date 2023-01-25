@@ -1,4 +1,5 @@
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/features/car_single/presentation/widgets/mine_more_bottomsheet.dart';
 import 'package:auto/features/car_single/presentation/widgets/more_actions_bottomsheet.dart';
 import 'package:auto/features/car_single/presentation/widgets/sliver_images_item.dart';
 import 'package:auto/features/common/bloc/wishlist_add/wishlist_add_bloc.dart';
@@ -7,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:formz/formz.dart';
 import 'package:share_plus/share_plus.dart';
 
 class SliverAppBarItem extends StatefulWidget {
@@ -14,22 +16,27 @@ class SliverAppBarItem extends StatefulWidget {
   final Color iconColor;
   final String absoluteCarName;
   final CrossFadeState actionState;
-  final int likeId;
+  final bool isWishlisted;
   final List images;
   final String dealerName;
   final String position;
   final String? avatar;
   final String shareUrl;
+  final FormzStatus status;
+  final int id;
   final VoidCallback onDealer;
   final VoidCallback onCompare;
+  final VoidCallback onSold;
+  final bool isMine;
+  final bool isCompare;
 
   const SliverAppBarItem({
-    Key? key,
     required this.brightness,
+    required this.id,
     required this.iconColor,
     required this.absoluteCarName,
     required this.actionState,
-    required this.likeId,
+    required this.isWishlisted,
     required this.dealerName,
     required this.position,
     required this.avatar,
@@ -37,6 +44,11 @@ class SliverAppBarItem extends StatefulWidget {
     required this.images,
     required this.onDealer,
     required this.onCompare,
+    required this.isMine,
+    required this.status,
+    required this.onSold,
+    required this.isCompare,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -44,7 +56,13 @@ class SliverAppBarItem extends StatefulWidget {
 }
 
 class _SliverAppBarItemState extends State<SliverAppBarItem> {
-  bool isLiked = false;
+  bool? isLiked;
+
+  @override
+  void initState() {
+    isLiked = widget.isWishlisted;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) => SliverAppBar(
@@ -61,14 +79,18 @@ class _SliverAppBarItemState extends State<SliverAppBarItem> {
         title: Row(
           children: [
             GestureDetector(
+              behavior: HitTestBehavior.opaque,
               onTap: () {
                 Navigator.pop(context);
               },
-              child: SvgPicture.asset(
-                AppIcons.chevronLeft,
-                width: 24,
-                height: 24,
-                color: widget.iconColor,
+              child: Padding(
+                padding: const EdgeInsets.only(right: 8),
+                child: SvgPicture.asset(
+                  AppIcons.chevronLeft,
+                  width: 24,
+                  height: 24,
+                  color: widget.iconColor,
+                ),
               ),
             ),
             Expanded(
@@ -90,29 +112,33 @@ class _SliverAppBarItemState extends State<SliverAppBarItem> {
             ),
             Padding(
               padding: const EdgeInsets.only(left: 8, right: 8),
-              child: AddWishlistItem(
-                onTap: () {
-                  if (!isLiked) {
-                    context.read<WishlistAddBloc>().add(
-                          WishlistAddEvent.addWishlist(
-                            widget.likeId,
-                            0,
-                          ),
-                        );
-                    isLiked = true;
-                  } else {
-                    context.read<WishlistAddBloc>().add(
-                          WishlistAddEvent.removeWishlist(
-                            widget.likeId,
-                            0,
-                          ),
-                        );
-                    isLiked = false;
-                  }
-                  setState(() {});
-                },
-                initialLike: isLiked,
-              ),
+              child: widget.isMine
+                  ? GestureDetector(
+                      onTap: () {},
+                      child: SvgPicture.asset(
+                        AppIcons.edit_single,
+                        color: widget.iconColor,
+                      ),
+                    )
+                  : AddWishlistItem(
+                      onTap: () {
+                        context
+                            .read<WishlistAddBloc>()
+                            .add(WishlistAddEvent.clearState());
+                        if (!isLiked!) {
+                          context
+                              .read<WishlistAddBloc>()
+                              .add(WishlistAddEvent.addWishlist(widget.id, 0));
+                          isLiked = true;
+                        } else {
+                          context.read<WishlistAddBloc>().add(
+                              WishlistAddEvent.removeWishlist(widget.id, 0));
+                          isLiked = false;
+                        }
+                        setState(() {});
+                      },
+                      initialLike: isLiked!,
+                    ),
             ),
             GestureDetector(
               child: SvgPicture.asset(AppIcons.moreVertical,
@@ -123,18 +149,36 @@ class _SliverAppBarItemState extends State<SliverAppBarItem> {
                   backgroundColor: Colors.transparent,
                   isScrollControlled: false,
                   context: context,
-                  builder: (context) => MoreActions(
-                    name: widget.dealerName,
-                    position: widget.position,
-                    image: widget.avatar ?? '',
-                    onShare: () {
-                      Share.share(
-                        widget.shareUrl,
-                      );
-                    },
-                    onCompare: widget.onCompare,
-                    onDealer: widget.onDealer,
-                  ),
+                  builder: (context) => widget.isMine == true
+                      ? MineMoreBottomSheet(
+                          name: widget.dealerName,
+                          position: widget.position,
+                          image: widget.avatar ?? '',
+                          onShare: () {
+                            Share.share(
+                              widget.shareUrl,
+                            );
+                          },
+                          onCompare: () {},
+                          onDealer: () {},
+                          id: widget.id,
+                          status: widget.status,
+                          onSold: widget.onSold,
+                        )
+                      : MoreActions(
+                          name: widget.dealerName,
+                          position: widget.position,
+                          image: widget.avatar ?? '',
+                          onShare: () {
+                            Share.share(
+                              widget.shareUrl,
+                            );
+                          },
+                          onCompare: widget.onCompare,
+                          onDealer: widget.onDealer,
+                          id: widget.id,
+                          isCompare: widget.isCompare,
+                        ),
                 );
               },
             ),

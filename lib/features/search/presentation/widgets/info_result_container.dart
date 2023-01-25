@@ -3,10 +3,8 @@ import 'package:auto/assets/colors/light.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
-import 'package:auto/features/common/bloc/comparison_add/bloc/comparison_add_bloc.dart';
 import 'package:auto/features/common/bloc/wishlist_add/wishlist_add_bloc.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
-import 'package:auto/features/search/presentation/bloc/search_results/search_bloc.dart';
 import 'package:auto/features/search/presentation/part/bottom_sheet_for_calling.dart';
 import 'package:auto/features/search/presentation/widgets/add_comparison_item.dart';
 import 'package:auto/features/search/presentation/widgets/add_wishlist_item.dart';
@@ -123,8 +121,10 @@ class _InfoResultContainerState extends State<InfoResultContainer> {
                         ),
                       ),
                     ),
-                  if (MyFunctions.enableForCalling(
-                      callFrom: widget.callFrom, callTo: widget.callTo))
+                  if (widget.callFrom.isNotEmpty &&
+                      widget.callTo.isNotEmpty &&
+                      MyFunctions.enableForCalling(
+                          callFrom: widget.callFrom, callTo: widget.callTo))
                     WButton(
                       onTap: () {
                         bottomSheetForCalling(context, widget.contactPhone);
@@ -255,18 +255,18 @@ class _InfoResultContainerState extends State<InfoResultContainer> {
               children: [
                 Text(
                   widget.discount > 0.0
-                      ? '${widget.discount.floor()} ${widget.currency.toUpperCase()}'
+                      ? '${(widget.price - widget.discount).floor()} ${widget.currency.toUpperCase()}'
                       : '${widget.price.floor()} ${widget.currency.toUpperCase()}',
                   style: Theme.of(context)
                       .textTheme
-                      .headline5!
-                      .copyWith(color: green, fontWeight: FontWeight.w600),
+                      .headline5
+                      ?.copyWith(color: green, fontWeight: FontWeight.w600),
                 ),
                 const SizedBox(width: 4),
                 if (widget.discount > 0.0)
                   Text(
                     '${widget.price.floor()} ${widget.currency.toUpperCase()}',
-                    style: Theme.of(context).textTheme.headline2!.copyWith(
+                    style: Theme.of(context).textTheme.headline2?.copyWith(
                         decoration: TextDecoration.lineThrough, color: grey),
                   )
               ],

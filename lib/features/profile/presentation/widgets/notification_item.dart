@@ -49,7 +49,7 @@ class NotificationItem extends StatelessWidget {
                 right: SizeConfig.h(0),
                 child: SvgPicture.asset(
                   AppIcons.ellipseRed,
-                  color: isRead ? null : warmerGrey,
+                  color: isRead ? warmerGrey : orange,
                 )),
             Row(
               children: [
@@ -61,6 +61,8 @@ class NotificationItem extends StatelessWidget {
                     child: CachedNetworkImage(
                       imageUrl: image,
                       fit: BoxFit.cover,
+                      errorWidget: (context, url, error) =>
+                          Image.asset(AppIcons.car, fit: BoxFit.cover),
                     ),
                   ),
                 ),

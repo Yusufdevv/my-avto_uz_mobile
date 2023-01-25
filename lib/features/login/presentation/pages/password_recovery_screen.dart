@@ -9,7 +9,7 @@ import 'package:auto/features/login/domain/usecases/verify_code.dart';
 import 'package:auto/features/login/domain/usecases/verify_recovery.dart';
 import 'package:auto/features/login/presentation/bloc/recovery/recovery_bloc.dart';
 import 'package:auto/features/login/presentation/pages/new_password_screen.dart';
-import 'package:auto/features/login/presentation/widgets/signIn_with_socials.dart';
+import 'package:auto/features/login/presentation/widgets/SignIn_with_socials.dart';
 import 'package:auto/features/login/presentation/widgets/login_header_widget.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/profile/presentation/widgets/refresh_button.dart';
@@ -58,12 +58,12 @@ class _PasswordRecoveryScreenState extends State<PasswordRecoveryScreen> {
   }
 
   /// comment to
-
+bool isError = false;
   @override
   Widget build(BuildContext context) => KeyboardDismisser(
         child: Scaffold(
-          appBar: const WAppBar(
-            title: 'Забыли пароль',
+          appBar:   WAppBar(
+            title:  LocaleKeys.forgot_password.tr(),
           ),
           body: Padding(
             padding: const EdgeInsets.all(16),
@@ -108,9 +108,9 @@ class _PasswordRecoveryScreenState extends State<PasswordRecoveryScreen> {
                         .extension<ThemedColors>()!
                         .solitudeToWhite35,
                     errorBorderColor: red,
-                    activeColor: purple,
-                    activeFillColor: purple,
-                    selectedColor: purple,
+                    activeColor:isError ? red : purple,
+                    activeFillColor:isError ? red : purple,
+                    selectedColor:isError ? red : purple,
                     shape: PinCodeFieldShape.underline,
                     fieldHeight: 44,
                     fieldWidth: 50,

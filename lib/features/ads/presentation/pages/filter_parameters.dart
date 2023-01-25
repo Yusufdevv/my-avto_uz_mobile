@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_bool_literals_in_conditional_expressions
+
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/features/ad/domain/entities/types/body_type.dart';
 import 'package:auto/features/ad/domain/entities/types/drive_type.dart';
@@ -15,7 +17,6 @@ import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 
 class FilterParameters extends StatefulWidget {
   final BodyTypeEntity? bodyType;
@@ -26,17 +27,16 @@ class FilterParameters extends StatefulWidget {
   final RangeValues? priceValues;
   final bool? ischek;
   final AnnouncementListBloc? bloc;
-  const FilterParameters({
-    super.key,
-    this.bodyType,
-    this.carDriveType,
-    this.gearboxType,
-    this.yearValues,
-    this.priceValues,
-    this.bloc,
-    this.idVal,
-    this.ischek
-  });
+  const FilterParameters(
+      {super.key,
+      this.bodyType,
+      this.carDriveType,
+      this.gearboxType,
+      this.yearValues,
+      this.priceValues,
+      this.bloc,
+      this.idVal,
+      this.ischek});
 
   @override
   State<FilterParameters> createState() => _FilterParametersState();
@@ -54,7 +54,7 @@ class _FilterParametersState extends State<FilterParameters> {
       priceValues: widget.priceValues,
       yearValues: widget.yearValues,
       idVal: widget.idVal,
-      ischek: widget.ischek,
+      ischek: widget.ischek ?? false,
     );
     super.initState();
   }
@@ -63,9 +63,7 @@ class _FilterParametersState extends State<FilterParameters> {
   Widget build(BuildContext context) => BlocProvider.value(
         value: filterBloc,
         child: BlocBuilder<FilterBloc, FilterState>(
-          builder: (context, state) {
-            var size = MediaQuery.of(context).size;
-            return Scaffold(
+          builder: (context, state) => Scaffold(
               appBar: WAppBar(
                 title: 'Параметры',
                 centerTitle: false,
@@ -74,6 +72,8 @@ class _FilterParametersState extends State<FilterParameters> {
                     onPressed: () {
                       widget.bloc!
                           .add(AnnouncementListEvent.getInfo(isFilter: false));
+                      widget.bloc!
+                          .add(AnnouncementListEvent.getIsHistory(true));
                       widget.bloc!.add(AnnouncementListEvent.getFilterClear());
                       widget.bloc!
                           .add(AnnouncementListEvent.getAnnouncementList());
@@ -116,30 +116,33 @@ class _FilterParametersState extends State<FilterParameters> {
                               ? LocaleKeys.choose_body.tr()
                               : state.bodyType!.type,
                       title: LocaleKeys.body_type.tr(),
-                      hasArrowDown: true,
+                      hasArrowDown: state.bodyType?.type == null
+                          ? true
+                          : state.bodyType!.type.isEmpty,
                     ),
                     SelectorItem(
-                      onTap: () async {
-                        await showModalBottomSheet<DriveTypeEntity>(
-                          isDismissible: false,
-                          context: context,
-                          isScrollControlled: true,
-                          backgroundColor: Colors.transparent,
-                          builder: (c) => ChooseDriveType(
-                              selectedId: state.carDriveType?.id ?? -1),
-                        ).then((value) {
-                          filterBloc
-                              .add(FilterSelectEvent(carDriveType: value));
-                        });
-                      },
-                      hintText: state.carDriveType?.type == null
-                          ? LocaleKeys.choose_body.tr()
-                          : state.carDriveType!.type.isEmpty
-                              ? LocaleKeys.choose_drive_type.tr()
-                              : state.carDriveType!.type,
-                      title: LocaleKeys.drive_unit.tr(),
-                      hasArrowDown: true,
-                    ),
+                        onTap: () async {
+                          await showModalBottomSheet<DriveTypeEntity>(
+                            isDismissible: false,
+                            context: context,
+                            isScrollControlled: true,
+                            backgroundColor: Colors.transparent,
+                            builder: (c) => ChooseDriveType(
+                                selectedId: state.carDriveType?.id ?? -1),
+                          ).then((value) {
+                            filterBloc
+                                .add(FilterSelectEvent(carDriveType: value));
+                          });
+                        },
+                        hintText: state.carDriveType?.type == null
+                            ? LocaleKeys.choose_body.tr()
+                            : state.carDriveType!.type.isEmpty
+                                ? LocaleKeys.choose_drive_type.tr()
+                                : state.carDriveType!.type,
+                        title: LocaleKeys.drive_unit.tr(),
+                        hasArrowDown: state.carDriveType?.type == null
+                            ? true
+                            : state.carDriveType!.type.isEmpty),
                     SelectorItem(
                       onTap: () async {
                         await showModalBottomSheet<GearboxTypeEntity>(
@@ -159,7 +162,9 @@ class _FilterParametersState extends State<FilterParameters> {
                               ? LocaleKeys.choose_box_type.tr()
                               : state.gearboxType!.type,
                       title: LocaleKeys.box.tr(),
-                      hasArrowDown: true,
+                      hasArrowDown: state.gearboxType?.type == null
+                          ? true
+                          : state.gearboxType!.type.isEmpty,
                     ),
                     Text(
                       'Выберите валюту',
@@ -232,20 +237,31 @@ class _FilterParametersState extends State<FilterParameters> {
                       endValue: 500000,
                       startValue: 1000,
                       isForPrice: true,
+                      description: state.idVal == 1 ? 'сум' : 'у.е.',
                     ),
                     const Spacer(),
                     WButton(
                       onTap: () {
                         widget.bloc!.add(AnnouncementListEvent.getFilter(
                             widget.bloc!.state.filter.copyWith(
-                          bodyType: state.bodyType?.id,
-                          driveType: state.carDriveType?.id,
+                          priceFrom: state.priceValues.start.toInt(),
+                          priceTo: state.priceValues.end.toInt(),
+                          yearFrom: state.yearValues.start.toInt(),
+                          yearTo: state.yearValues.end.toInt(),
+                          bodyType: state.bodyType?.id == -1
+                              ? null
+                              : state.bodyType?.id,
+                          driveType: state.carDriveType?.id == -1
+                              ? null
+                              : state.carDriveType?.id,
                           gearboxType: state.gearboxType?.id == -1
                               ? null
                               : state.gearboxType?.id,
                         )));
                         widget.bloc!
                             .add(AnnouncementListEvent.getAnnouncementList());
+                        widget.bloc!.add(
+                            AnnouncementListEvent.getIsHistory(!state.ischeck));
                         widget.bloc!.add(
                           AnnouncementListEvent.getInfo(
                             bodyType: state.bodyType,
@@ -264,8 +280,7 @@ class _FilterParametersState extends State<FilterParameters> {
                   ],
                 ),
               ),
-            );
-          },
+            ),
         ),
       );
 }

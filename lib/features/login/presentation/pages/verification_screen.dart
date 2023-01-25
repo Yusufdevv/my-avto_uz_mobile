@@ -37,27 +37,23 @@ class _VerificationScreenState extends State<VerificationScreen> {
   late TextEditingController verificationController;
   bool timeComplete = false;
   bool isToastShowing = false;
-
+  late String session;
   @override
   void initState() {
     verificationController = TextEditingController();
+    session = widget.session;
+
     super.initState();
   }
 
-  @override
-  void dispose() {
-    // verificationController.dispose();
-    super.dispose();
-  }
+  bool isError = false;
 
   @override
   Widget build(BuildContext context) => KeyboardDismisser(
         child: CustomScreen(
           child: BlocBuilder<RegisterBloc, RegisterState>(
             builder: (context, state) => Scaffold(
-              appBar: const WAppBar(
-                title: 'Регистрация',
-              ),
+              appBar: WAppBar(title: LocaleKeys.register.tr()),
               body: Padding(
                 padding: const EdgeInsets.all(16),
                 child: Column(
@@ -71,14 +67,11 @@ class _VerificationScreenState extends State<VerificationScreen> {
                       height: 12,
                     ),
                     Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 8, vertical: 4),
+                      padding: const EdgeInsets.only(
+                          left: 8, right: 4, top: 4, bottom: 4),
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        color: Theme.of(context)
-                            .extension<ThemedColors>()!
-                            .solitudeToBastille,
-                      ),
+                          borderRadius: BorderRadius.circular(8),
+                          color: border),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
@@ -90,19 +83,20 @@ class _VerificationScreenState extends State<VerificationScreen> {
                                 .copyWith(
                                     fontWeight: FontWeight.w400, fontSize: 14),
                           ),
-                          const SizedBox(
-                            width: 12,
-                          ),
+                          const SizedBox(width: 12),
                           WButton(
                             onTap: () {
                               Navigator.pop(context);
                             },
-                            padding: const EdgeInsets.all(4),
+                            borderRadius: 4,
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 4, vertical: 4),
                             color: Theme.of(context)
                                 .extension<ThemedColors>()!
                                 .solitudeToSolitude14,
                             height: 24,
-                            child: SvgPicture.asset(AppIcons.edit),
+                            width: 24,
+                            child: SvgPicture.asset(AppIcons.edit, color: grey),
                           )
                         ],
                       ),
@@ -127,14 +121,14 @@ class _VerificationScreenState extends State<VerificationScreen> {
                             .extension<ThemedColors>()!
                             .solitudeToWhite35,
                         errorBorderColor: red,
-                        activeColor: purple,
-                        activeFillColor: purple,
-                        selectedColor: purple,
+                        activeColor: isError ? red : purple,
+                        activeFillColor: isError ? red : purple,
+                        selectedColor: isError ? red : purple,
                         shape: PinCodeFieldShape.underline,
                         fieldHeight: 44,
                         fieldWidth: 50,
                       ),
-                      cursorColor: white,
+                      cursorColor: black,
                       keyboardType: TextInputType.number,
                       enableActiveFill: false,
                       textStyle: Theme.of(context)
@@ -148,9 +142,6 @@ class _VerificationScreenState extends State<VerificationScreen> {
                       appContext: context,
                       showCursor: true,
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    ),
-                    const SizedBox(
-                      height: 18,
                     ),
                     Row(
                       children: [
@@ -175,6 +166,26 @@ class _VerificationScreenState extends State<VerificationScreen> {
                                 setState(() {
                                   timeComplete = false;
                                 });
+                                context.read<RegisterBloc>().add(
+                                        RegisterEvent.sendCode(widget.phone,
+                                            onError: (text) {
+                                      if (text.isNotEmpty) {
+                                        context.read<ShowPopUpBloc>().add(
+                                            ShowPopUp(
+                                                message: text,
+                                                isSucces: false,
+                                                dismissible: false));
+                                      } else {
+                                        context.read<ShowPopUpBloc>().add(
+                                            ShowPopUp(
+                                                message: 'Something went wrong',
+                                                isSucces: false,
+                                                dismissible: false));
+                                      }
+                                      isToastShowing = true;
+                                    }, onSuccess: (sessionn) {
+                                      session = sessionn;
+                                    }));
                               },
                             ),
                           )
@@ -196,23 +207,29 @@ class _VerificationScreenState extends State<VerificationScreen> {
                       ],
                     ),
                     const SizedBox(height: 24),
-                    //  const Spacer(),
                     WButton(
                       isLoading: state.verifyStatus ==
                           FormzStatus.submissionInProgress,
                       onTap: () => verificationController.text.isNotEmpty &&
                               verificationController.text.length == 6
-                          ? context.read<RegisterBloc>().add(
-                                  RegisterEvent.registerVerifyCode(
-                                      VerifyParam(
-                                          code: verificationController.text,
-                                          phone: widget.phone,
-                                          session: widget.session),
-                                      onError: (text) {
-                                context.read<ShowPopUpBloc>().add(ShowPopUp(
-                                    message: text,
-                                    isSucces: false,
-                                    dismissible: false));
+                          ? context
+                              .read<RegisterBloc>()
+                              .add(RegisterEvent.registerVerifyCode(
+                                  VerifyParam(
+                                    code: verificationController.text,
+                                    phone: widget.phone,
+                                    session: session,
+                                  ), onError: (text) {
+                                isError = true;
+                                setState(() {});
+
+                                context.read<ShowPopUpBloc>().add(
+                                      ShowPopUp(
+                                        message: text,
+                                        isSucces: false,
+                                        dismissible: false,
+                                      ),
+                                    );
                                 isToastShowing = true;
                               }, onSuccess: () {
                                 Navigator.pushReplacement(

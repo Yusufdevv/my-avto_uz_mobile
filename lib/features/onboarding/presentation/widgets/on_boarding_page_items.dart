@@ -1,22 +1,18 @@
 import 'package:flutter/material.dart';
 
-class OnBoardingItems extends StatelessWidget {
+class OnBoardingPageItems extends StatelessWidget {
   final String image;
   final String title;
   final String icon;
-  final bool hasSecondText;
   final String secondText;
   final String thirdText;
-  final double height;
 
-  const OnBoardingItems({
+  const OnBoardingPageItems({
     required this.icon,
     required this.title,
     required this.image,
-    required this.height,
     this.secondText = '',
     this.thirdText = '',
-    this.hasSecondText = false,
     Key? key,
   }) : super(key: key);
 
@@ -25,17 +21,19 @@ class OnBoardingItems extends StatelessWidget {
         mainAxisSize: MainAxisSize.max,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Center(
-            child: Image.asset(
-              image,
-              height: height - 94,
-            ),
+          Expanded(
+            child: Center(child: Image.asset(image)),
           ),
           Padding(
             padding: const EdgeInsets.only(left: 32),
             child: RichText(
               text: TextSpan(children: [
-                WidgetSpan(child: Image.asset(icon)),
+                WidgetSpan(
+                    child: Padding(
+                  padding: const EdgeInsets.only(right: 8),
+                  child:
+                      SizedBox(height: 32, width: 32, child: Image.asset(icon)),
+                )),
                 TextSpan(
                   text: title,
                   style: Theme.of(context)

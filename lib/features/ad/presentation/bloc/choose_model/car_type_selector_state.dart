@@ -1,15 +1,29 @@
 part of 'car_type_selector_bloc.dart';
 
-class CarTypeSelectorState extends Equatable {
-  final int selectedId;
+class CarModelSelectorState extends Equatable {
+  final int selectedModelId;
+  final FormzStatus status;
+  final String? searchPattern;
+  final List<MakeEntity> models;
 
-  const CarTypeSelectorState({required this.selectedId});
+  const CarModelSelectorState({
+    required this.selectedModelId,
+    required this.status,
+    this.searchPattern,
+    this.models = const [],
+  });
 
-  CarTypeSelectorState copyWith({
-    int? selectedId,
-    int? confirmId,
+  CarModelSelectorState copyWith({
+    String? searchPattern,
+    int? selectedModelId,
+    FormzStatus? status,
+    List<MakeEntity>? models,
   }) =>
-      CarTypeSelectorState(selectedId: selectedId ?? this.selectedId);
+      CarModelSelectorState(
+          searchPattern: searchPattern ?? this.searchPattern,
+          models: models ?? this.models,
+          status: status ?? this.status,
+          selectedModelId: selectedModelId ?? this.selectedModelId);
   @override
-  List<Object?> get props => [selectedId];
+  List<Object?> get props => [selectedModelId, status, models, searchPattern];
 }

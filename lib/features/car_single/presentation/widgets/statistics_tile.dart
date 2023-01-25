@@ -4,16 +4,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class StatisticsTile extends StatelessWidget {
-final CarStatistic carStatistic;
+  final CarStatistic carStatistic;
 
-  const StatisticsTile(
-      {Key? key,
-     required this.carStatistic})
-      : super(key: key);
+  const StatisticsTile({
+    required this.carStatistic,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) => Container(
-        child: Row(mainAxisSize: MainAxisSize.min,
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
           children: [
             SvgPicture.asset(
               carStatistic.icon,
@@ -25,10 +26,8 @@ final CarStatistic carStatistic;
             ),
             Text(
               carStatistic.valueText,
-              style: Theme.of(context)
-                  .textTheme
-                  .headline1!
-                  .copyWith(fontWeight: FontWeight.w600, fontSize: 12,color: suvaGray),
+              style: Theme.of(context).textTheme.headline1!.copyWith(
+                  fontWeight: FontWeight.w600, fontSize: 12, color: suvaGray),
             )
           ],
         ),

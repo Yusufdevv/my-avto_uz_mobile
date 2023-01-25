@@ -1,10 +1,12 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/features/car_single/presentation/car_single_screen.dart';
 import 'package:auto/features/common/bloc/comparison_add/bloc/comparison_add_bloc.dart';
 import 'package:auto/features/comparison/presentation/bloc/comparison-bloc/comparison_bloc.dart';
 import 'package:auto/features/comparison/presentation/widgets/add_new_car.dart';
 import 'package:auto/features/comparison/presentation/widgets/added_car_sticky.dart';
 import 'package:auto/features/comparison/presentation/widgets/added_car_widget.dart';
+import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/search/presentation/part/bottom_sheet_for_calling.dart';
 import 'package:auto/utils/my_functions.dart';
 import 'package:flutter/material.dart';
@@ -106,50 +108,63 @@ class SliverWidget extends SliverPersistentHeaderDelegate {
                             children: [
                               ...List.generate(
                                 comparisonBloc.state.cars.length,
-                                (index) => AddedCar(
-                                  ownerType: '',
-                                  // ownerType: comparisonBloc
-                                  //     .state.cars[index].announcement.ownership,
-                                  hasCallCard: MyFunctions.enableForCalling(
-                                    callFrom: comparisonBloc
-                                        .state
-                                        .cars[index]
-                                        .announcement
-                                        .mainData
-                                        .contactAvailableFrom,
-                                    callTo: comparisonBloc
-                                        .state
-                                        .cars[index]
-                                        .announcement
-                                        .mainData
-                                        .contactAvailableTo,
+                                (index) => GestureDetector(
+                                  onTap: () {
+                                    Navigator.of(context, rootNavigator: true)
+                                        .push(fade(
+                                            page: CarSingleScreen(
+                                                id: comparisonBloc
+                                                    .state
+                                                    .cars[index]
+                                                    .announcement
+                                                    .id)));
+                                  },
+                                  child: AddedCar(
+                                    ownerType: comparisonBloc.state.cars[index]
+                                        .announcement.ownership,
+                                    hasCallCard: true,
+                                    // hasCallCard: MyFunctions.enableForCalling(
+                                    //   callFrom: comparisonBloc
+                                    //       .state
+                                    //       .cars[index]
+                                    //       .announcement
+                                    //       .mainData
+                                    //       .contactAvailableFrom,
+                                    //   callTo: comparisonBloc
+                                    //       .state
+                                    //       .cars[index]
+                                    //       .announcement
+                                    //       .mainData
+                                    //       .contactAvailableTo,
+                                    // ),
+                                    carName: comparisonBloc.state.cars[index]
+                                        .announcement.mainData.model,
+                                    carSalary:
+                                        '${comparisonBloc.state.cars[index].announcement.price} ${comparisonBloc.state.cars[index].announcement.currency.toUpperCase()}',
+                                    imageUrl: comparisonBloc.state.cars[index]
+                                        .announcement.mainData.gallery,
+                                    onTabCall: () {
+                                      bottomSheetForCalling(
+                                        context,
+                                        comparisonBloc
+                                            .state
+                                            .cars[index]
+                                            .announcement
+                                            .mainData
+                                            .user
+                                            .phoneNumber,
+                                      );
+                                    },
+                                    onTabClose: () {
+                                      BlocProvider.of<ComparisonAddBloc>(
+                                              context)
+                                          .add(ComparisonAddEvent
+                                              .deleteComparison(
+                                        comparisonBloc.state.cars[index].order,
+                                      ));
+                                      comparisonBloc.add(GetComparableCars());
+                                    },
                                   ),
-                                  carName: comparisonBloc.state.cars[index]
-                                      .announcement.mainData.model,
-                                  carSalary:
-                                      '${comparisonBloc.state.cars[index].announcement.price} ${comparisonBloc.state.cars[index].announcement.currency.toUpperCase()}',
-                                  imageUrl: comparisonBloc.state.cars[index]
-                                      .announcement.mainData.gallery,
-                                  onTabCall: () {
-                                    bottomSheetForCalling(
-                                      context,
-                                      comparisonBloc
-                                          .state
-                                          .cars[index]
-                                          .announcement
-                                          .mainData
-                                          .user
-                                          .phoneNumber,
-                                    );
-                                  },
-                                  onTabClose: () {
-                                    BlocProvider.of<ComparisonAddBloc>(context)
-                                        .add(
-                                            ComparisonAddEvent.deleteComparison(
-                                      comparisonBloc.state.cars[index].order,
-                                    ));
-                                    comparisonBloc.add(GetComparableCars());
-                                  },
                                 ),
                               ),
                               AddNewCar(

@@ -1,6 +1,10 @@
-import 'package:auto/features/common/widgets/w_radio_tile.dart';
+import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.dart';
 import 'package:auto/features/ad/presentation/widgets/base_widget.dart';
+import 'package:auto/features/ad/presentation/widgets/pos_radio_item.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:formz/formz.dart';
 
 class GenerationScreen extends StatefulWidget {
   const GenerationScreen({Key? key}) : super(key: key);
@@ -10,29 +14,29 @@ class GenerationScreen extends StatefulWidget {
 }
 
 class _GenerationScreenState extends State<GenerationScreen> {
-  final List<String> titleList = [
-    'I (G07)',
-    'M5',
-  ];
-
   int selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) => Scaffold(
           body: BaseWidget(
-            headerText: 'Год выпуска',
+        headerText: 'Поколение',
         padding: const EdgeInsets.only(top: 16),
-        child: ListView.builder(
-          itemBuilder: (context, index) => RadioItem(
-              onTap: (value) {
-                setState(() {
-                  selectedIndex = index;
-                });
-              },
-              title: titleList[index],
-              groupValue: index,
-              value: selectedIndex),
-          itemCount: 2,
+        child: BlocBuilder<PostingAdBloc, PostingAdState>(
+          builder: (context, state) {
+            if (state.status == FormzStatus.submissionInProgress) {
+              return const Center(child: CupertinoActivityIndicator());
+            }
+            return ListView.builder(
+              itemBuilder: (context, index) => PostingRadioItem(
+                  onTap: () => context.read<PostingAdBloc>().add(
+                      PostingAdChooseEvent(
+                          generationId: state.generations[index].id)),
+                  image: state.generations[index].logo,
+                  selected: state.generationId == state.generations[index].id,
+                  title: state.generations[index].name),
+              itemCount: state.generations.length,
+            );
+          },
         ),
       ));
 }

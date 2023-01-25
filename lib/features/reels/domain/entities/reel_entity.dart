@@ -8,8 +8,8 @@ class ReelEntity extends Equatable {
   final int id;
   final String title;
   final String content;
-  final int likeCount;
-  final int shareCount;
+  int likeCount;
+  int shareCount;
   @DealerConverter()
   final DealerEntity dealer;
   @AnnouncementConverter()
@@ -17,8 +17,9 @@ class ReelEntity extends Equatable {
   final bool hasDiscount;
   final String oldPrice;
   final int discountPercent;
+  bool isLiked;
 
-  const ReelEntity({
+  ReelEntity({
     this.id = -1,
     this.title = '',
     this.content = '',
@@ -29,9 +30,10 @@ class ReelEntity extends Equatable {
     this.hasDiscount = false,
     this.oldPrice = '0',
     this.discountPercent = 0,
+    this.isLiked = true,
   });
 
-  @override
+  @override 
   List<Object?> get props => [
         id,
         title,
@@ -39,6 +41,7 @@ class ReelEntity extends Equatable {
         likeCount,
         shareCount,
         announcement,
+        isLiked,
       ];
 }
 

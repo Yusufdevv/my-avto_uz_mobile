@@ -38,15 +38,16 @@ class CustomScreen extends StatelessWidget {
                   child: Row(
                     children: [
                       Container(
-                        height: 32,
-                        width: 32,
-                        decoration: BoxDecoration(
-                          color: state.isSucces ? green : red,
-                          shape: BoxShape.circle,
-                        ),
-                        alignment: Alignment.center,
-                        child: SvgPicture.asset(AppIcons.cancel),
-                      ),
+                          height: 32,
+                          width: 32,
+                          decoration: BoxDecoration(
+                            color: state.isSucces ? green : red,
+                            shape: BoxShape.circle,
+                          ),
+                          alignment: Alignment.center,
+                          child: state.isSucces
+                              ? Image.asset(AppIcons.succesGreenIcon)
+                              : SvgPicture.asset(AppIcons.cancel)),
                       const SizedBox(width: 12),
                       Expanded(
                         child: Text(

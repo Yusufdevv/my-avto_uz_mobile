@@ -1,11 +1,11 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/core/utils/size_config.dart';
 import 'package:auto/features/ad/presentation/bloc/add_photo/image_bloc.dart';
 import 'package:auto/features/car_single/presentation/widgets/orange_button.dart';
-import 'package:auto/features/common/widgets/cached_image.dart';
 import 'package:auto/features/common/widgets/custom_screen.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
@@ -17,7 +17,6 @@ import 'package:auto/features/profile/presentation/widgets/widgets.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -45,9 +44,6 @@ class SeeProfilePage extends StatelessWidget {
             ),
             body: BlocBuilder<ProfileBloc, ProfileState>(
               builder: (context, state) {
-                if (state.status.isSubmissionInProgress) {
-                  return const Center(child: CupertinoActivityIndicator());
-                }
                 if (state.status.isSubmissionSuccess) {
                   return Container(
                     margin: EdgeInsets.only(top: SizeConfig.v(16)),
@@ -71,20 +67,17 @@ class SeeProfilePage extends StatelessWidget {
                             ClipRRect(
                               borderRadius: BorderRadius.circular(50),
                               child: CachedNetworkImage(
-                                  imageUrl: state.profileEntity.image!,
-                                  width: SizeConfig.h(80),
-                                  height: SizeConfig.v(80),
-                                  fit: BoxFit.cover,
-                                  errorWidget: (context, url, error) =>
-                                      SizedBox(
-                                          width: SizeConfig.h(80),
-                                          height: SizeConfig.v(80),
-                                          child: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(50),
-                                            child: SvgPicture.asset(
-                                                AppIcons.userAvatar),
-                                          ))),
+                                imageUrl: state.profileEntity.image ?? '',
+                                width: SizeConfig.h(80),
+                                height: SizeConfig.v(80),
+                                fit: BoxFit.cover,
+                                errorWidget: (context, url, error) => SizedBox(
+                                    width: SizeConfig.h(80),
+                                    height: SizeConfig.v(80),
+                                    child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(50),
+                                        child:Image.asset(AppImages.defaultPhoto, fit: BoxFit.cover))),
+                              ),
                             ),
                             const Spacer(),
                             WScaleAnimation(
@@ -106,10 +99,9 @@ class SeeProfilePage extends StatelessWidget {
                               onTap: () {
                                 Navigator.of(context).push(
                                   fade(
-                                    page: ProfileEditPage(
-                                        profileBloc: profileBloc,
-                                        imageBloc: imageBloc),
-                                  ),
+                                      page: ProfileEditPage(
+                                          profileBloc: profileBloc,
+                                          imageBloc: imageBloc)),
                                 );
                               },
                             ),
@@ -147,49 +139,50 @@ class SeeProfilePage extends StatelessWidget {
                             value: state.profileEntity.email ?? ''),
                         const Spacer(),
                         OrangeButton(
-                          content: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              SvgPicture.asset(AppIcons.logout),
-                              SizedBox(width: SizeConfig.h(8)),
-                              Text(
-                                'Выйти из аккаунта',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headline3!
-                                    .copyWith(color: red),
-                              ),
-                            ],
-                          ),
-                          onTap: () {
-                            showModalBottomSheet(
-                                context: context,
-                                backgroundColor: Colors.transparent,
-                                builder: (context) => CustomProfileBottomsheet(
-                                      title: 'Вы действительно \nхотите выйти?',
-                                      subTitle:
-                                          'После выхода из приложения, необходимо\nбудет заново пройти авторизацию чтобы\nвойти обратно в приложение.',
-                                      betweenHeight: 64,
-                                      onTap: () {
-                                        StorageRepository.deleteString('token');
-                                        Navigator.of(context,
-                                                rootNavigator: true)
-                                            .pushAndRemoveUntil(
-                                                fade(page: const LoginScreen()),
-                                                (route) => false);
-                                      },
-                                    ));
-                          },
-                          color: red.withOpacity(0.1),
-                          shadowColor: white,
-                        )
+                            content: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                SvgPicture.asset(AppIcons.logout),
+                                SizedBox(width: SizeConfig.h(8)),
+                                Text('Выйти из аккаунта',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headline3!
+                                        .copyWith(color: red))
+                              ],
+                            ),
+                            onTap: () {
+                              showModalBottomSheet(
+                                  useRootNavigator: true,
+                                  context: context,
+                                  backgroundColor: Colors.transparent,
+                                  builder: (context) =>
+                                      CustomProfileBottomsheet(
+                                        title:
+                                            'Вы действительно \nхотите выйти?',
+                                        subTitle:
+                                            'После выхода из приложения, необходимо\nбудет заново пройти авторизацию чтобы\nвойти обратно в приложение.',
+                                        betweenHeight: 64,
+                                        onTap: () {
+                                          StorageRepository.deleteString(
+                                              'token');
+                                          Navigator.of(context,
+                                                  rootNavigator: true)
+                                              .pushAndRemoveUntil(
+                                                  fade(
+                                                      page:
+                                                          const LoginScreen()),
+                                                  (route) => false);
+                                        },
+                                      ));
+                            },
+                            color: red.withOpacity(0.1),
+                            shadowColor: white)
                       ],
                     ),
                   );
                 }
-                return const Center(
-                  child: Text('Something went wrong'),
-                );
+                return const SizedBox();
               },
             ),
           ),

@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/assets/themes/theme_extensions/w_textfield_style.dart';
@@ -39,14 +38,14 @@ class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) => WillPopScope(
         onWillPop: () async {
-          unawaited(Navigator.push(context, fade(page: const ProfileScreen())));
+            Navigator.pop(context, true);
           return false;
         },
         child: Scaffold(
           appBar: WAppBar(
             bottomRadius: 24,
             onTapBack: () {
-              Navigator.push(context, fade(page: const ProfileScreen()));
+              Navigator.pop(context, true);
             },
             textWithButton: LocaleKeys.settings.tr(),
           ),

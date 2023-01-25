@@ -10,7 +10,9 @@ class DealerSingleEntity extends Equatable {
   final String slug;
   final String description;
   final String phoneNumber;
+  final String phone;
   final String avatar;
+  final String address;
   final String contactFrom;
   final String contactTo;
   final String locationUrl;
@@ -29,7 +31,9 @@ class DealerSingleEntity extends Equatable {
     this.slug = '',
     this.description = '',
     this.phoneNumber = '',
+    this.phone = '',
     this.avatar = '',
+    this.address = '',
     this.contactFrom = '',
     this.contactTo = '',
     this.locationUrl = '',
@@ -43,22 +47,27 @@ class DealerSingleEntity extends Equatable {
 
   @override
   List<Object?> get props => [
-    id,
-    name,
-    slug,
-    description,
-    phoneNumber,
-    avatar,
-    contactFrom,
-    contactTo,
-    locationUrl,
-    longitude,
-    latitude,
-    carCount,
-    district,
-    gallery,
-    dealerType,
-  ];
+        id,
+        name,
+        slug,
+        description,
+        phoneNumber,
+        address,
+        phone,
+        avatar,
+        contactFrom,
+        contactTo,
+        locationUrl,
+        longitude,
+        latitude,
+        carCount,
+        district,
+        gallery,
+        dealerType,
+        address,
+        description,
+
+      ];
 }
 
 class DealerCardConvert

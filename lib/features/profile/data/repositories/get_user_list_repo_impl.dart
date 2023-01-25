@@ -2,6 +2,9 @@ import 'package:auto/core/exceptions/exceptions.dart';
 import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/core/utils/either.dart';
 import 'package:auto/features/common/domain/entity/auto_entity.dart';
+import 'package:auto/features/common/domain/model/auto_model.dart';
+import 'package:auto/features/dealers/data/models/dealer_info_model.dart';
+import 'package:auto/features/pagination/models/generic_pagination.dart';
 import 'package:auto/features/profile/data/datasources/get_user_lists_datasource.dart';
 import 'package:auto/features/profile/domain/entities/dir_category_entity.dart';
 import 'package:auto/features/profile/domain/entities/directory_entity.dart';
@@ -13,14 +16,27 @@ class GetUserListRepoImpl extends GetUserListRepository {
   GetUserListDatasourceImpl dataSource;
 
   GetUserListRepoImpl({required this.dataSource});
+
   @override
-  Future<Either<ServerFailure, List<AutoEntity>>> getProfileFavorites(
-      String endpoint) async {
+  Future<Either<Failure, DealerSingleModel>> getDirectorySingle(
+      String params) async {
     try {
-      final result = await dataSource.getProfileFavoritesMyAds(endpoint);
+      final result = await dataSource.getDirectorySingle(params);
       return Right(result);
-    } 
-    on ServerException catch (error) {
+    } on ServerException catch (e) {
+      return Left(
+        ServerFailure(errorMessage: e.errorMessage, statusCode: e.statusCode),
+      );
+    }
+  }
+
+  @override
+  Future<Either<Failure, GenericPagination<AutoModel>>> getProfileFavorites(
+      {required String url, String? next}) async {
+    try {
+      final result = await dataSource.getProfileFavoritesMyAds(url: url,next: next,fromJson: AutoModel.fromJson);
+      return result;
+    } on ServerException catch (error) {
       return Left(ServerFailure(
           statusCode: error.statusCode, errorMessage: error.errorMessage));
     }

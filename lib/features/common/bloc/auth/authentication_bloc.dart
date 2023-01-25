@@ -4,6 +4,7 @@ import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/common/domain/model/user.dart';
 import 'package:auto/features/common/repository/auth.dart';
+import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -24,7 +25,7 @@ class AuthenticationBloc
   late StreamSubscription<AuthenticationStatus> statusSubscription;
 
   AuthenticationBloc(this.repository)
-      : super(const AuthenticationState.unauthenticated()) {
+      : super(AuthenticationState.unauthenticated()) {
     statusSubscription = repository.authStream.stream.listen((event) {
       add(AuthenticationStatusChanged(status: event));
     });
@@ -35,11 +36,11 @@ class AuthenticationBloc
           if (userData.isRight) {
             emit(AuthenticationState.authenticated(userData.right));
           } else {
-            emit(const AuthenticationState.unauthenticated());
+            emit(AuthenticationState.unauthenticated());
           }
           break;
         case AuthenticationStatus.unauthenticated:
-          emit(const AuthenticationState.unauthenticated());
+          emit(AuthenticationState.unauthenticated());
           break;
         case AuthenticationStatus.loading:
         case AuthenticationStatus.cancelLoading:
@@ -48,19 +49,17 @@ class AuthenticationBloc
     });
 
     on<LoginUser>((event, emit) async {
-      emit(const AuthenticationState.loading());
+      emit(AuthenticationState.loading());
       final result = await repository.login(
           login: event.userName, password: event.password);
       if (result.isRight) {
-        print('auth good ');
         add(AuthenticationStatusChanged(
             status: AuthenticationStatus.authenticated));
       } else {
-
         if (event.onError != null) {
           event.onError!((result.left as ServerFailure).errorMessage);
         }
-        emit(const AuthenticationState.cancelLoading());
+        emit(AuthenticationState.cancelLoading());
       }
     });
 
@@ -68,8 +67,6 @@ class AuthenticationBloc
       final hasToken =
           StorageRepository.getString('token', defValue: '').isNotEmpty;
       if (hasToken) {
-        // print(StorageRepository.getString('token'));
-        print('hello');
         final response = await repository.getUser();
         if (response.isRight) {
           add(AuthenticationStatusChanged(
@@ -78,7 +75,6 @@ class AuthenticationBloc
           add(RefreshToken());
         }
       } else {
-        print('goodbye');
         add(AuthenticationStatusChanged(
             status: AuthenticationStatus.unauthenticated));
       }
@@ -93,6 +89,19 @@ class AuthenticationBloc
             status: AuthenticationStatus.unauthenticated));
       }
     });
+
+    on<ChangeNotificationAllRead>(
+      (event, emit) {
+        // ignore: prefer_final_locals
+        print('=======berfore ${state.user.isReadAllNotifications}');
+        var user = state.user;
+        // ignore: cascade_invocations
+        user.isReadAllNotifications = true;
+        print('=======after ${state.user.isReadAllNotifications}');
+
+        emit(state.copyWith(user: user));
+      },
+    );
   }
 
   @override

@@ -3,6 +3,7 @@ import 'package:auto/features/ad/data/models/drive_type.dart';
 import 'package:auto/features/ad/domain/entities/types/body_type.dart';
 import 'package:auto/features/ad/domain/entities/types/drive_type.dart';
 import 'package:auto/features/ad/domain/entities/types/gearbox_type.dart';
+import 'package:auto/features/common/models/region.dart';
 import 'package:auto/features/common/usecases/announcement_list_usecase.dart';
 import 'package:auto/features/comparison/domain/entities/announcement_list_entity.dart';
 import 'package:bloc/bloc.dart';
@@ -21,17 +22,34 @@ class AnnouncementListBloc
       : super(AnnouncementListState()) {
     on<_GetAnnouncementList>((event, emit) async {
       emit(state.copyWith(status: FormzStatus.submissionInProgress));
-      print('====> filter as string ${state.filter}');
       final result = await useCase.call(state.filter);
       if (result.isRight) {
-        emit(
-          state.copyWith(
-            announcementList: result.right.results,
-            status: FormzStatus.submissionSuccess,
-            count: result.right.count,
-            next: result.right.next ?? '',
-          ),
-        );
+        if (state.filter.isNew == true) {
+          emit(
+            state.copyWith(
+              announcementListNew: result.right.results,
+              status: FormzStatus.submissionSuccess,
+              nextNew: result.right.next ?? '',
+            ),
+          );
+        } else if (state.filter.isNew == false) {
+          emit(
+            state.copyWith(
+              announcementListOld: result.right.results,
+              status: FormzStatus.submissionSuccess,
+              nextOld: result.right.next ?? '',
+            ),
+          );
+        } else {
+          emit(
+            state.copyWith(
+              announcementList: result.right.results,
+              status: FormzStatus.submissionSuccess,
+              count: result.right.count,
+              next: result.right.next ?? '',
+            ),
+          );
+        }
       } else {
         emit(state.copyWith(status: FormzStatus.submissionFailure));
       }
@@ -39,9 +57,28 @@ class AnnouncementListBloc
     on<_GetFilter>(
       (event, emit) => emit(state.copyWith(filter: event.filter)),
     );
+    on<_GetRegions>((event, emit) {
+      emit(state.copyWith(
+          filter: state.filter.copyWith(
+              region__in:
+                  event.regions.map((e) => '${e.id}').toList().join(','))));
+      emit(state.copyWith(regions: event.regions));
+    });
+    on<_GetIsHistory>(
+        (event, emit) => emit(state.copyWith(isHistory: event.isHistory)));
     on<_GetFilterClear>(
-      (event, emit) =>
-          emit(state.copyWith(filter: const AnnouncementFilterModel())),
+      (event, emit) => emit(
+        state.copyWith(
+          filter: state.filter.copyWith(
+              gearboxType: null,
+              bodyType: null,
+              driveType: null,
+              priceFrom: 1000,
+              priceTo: 500000,
+              yearFrom: 1960,
+              yearTo: 2023),
+        ),
+      ),
     );
     on<_GetInfo>((event, emit) => emit(state.copyWith(
           bodyTypeEntity: event.bodyType,
@@ -53,7 +90,7 @@ class AnnouncementListBloc
           priceValues: event.priceValues == null
               ? const RangeValues(1000, 500000)
               : event.priceValues!,
-          idVal: event.idVal,
+          idVal: event.idVal ?? 0,
           isFilter: event.isFilter!,
         )));
   }

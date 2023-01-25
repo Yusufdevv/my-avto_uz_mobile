@@ -55,6 +55,7 @@ class WTextField extends StatefulWidget {
   final Function? onTapSuffix;
   final Function()? onEditCompleted;
   final Function()? onTap;
+  final Function()? onClear;
   final bool autoFocus;
   final Color? disabledColor;
   final double? suffixRightPosition;
@@ -69,8 +70,8 @@ class WTextField extends StatefulWidget {
   final String hintNextToTitle;
 
   const WTextField(
-      {this.controller,
-      required this.onChanged,
+      {required this.onChanged,
+      this.controller,
       this.hasBorderColor,
       this.readOnly = false,
       this.disabledColor,
@@ -116,6 +117,7 @@ class WTextField extends StatefulWidget {
       Key? key,
       this.onEditCompleted,
       this.onTap,
+      this.onClear,
       this.suffixRightPosition,
       this.suffixSize,
       this.maxLines = 1,
@@ -220,6 +222,7 @@ class _WTextFieldState extends State<WTextField>
                     borderRadius: widget.detailedBorderRadius ??
                         BorderRadius.circular(widget.borderRadius),
                     child: TextFormField(
+                      
                       autovalidateMode: widget.autoValidateMode,
                       validator: widget.validate,
                       maxLines: widget.maxLines,
@@ -384,8 +387,13 @@ class _WTextFieldState extends State<WTextField>
                                 widget.controller!.text.isNotEmpty
                             ? GestureDetector(
                                 onTap: () {
-                                  widget.controller!.clear();
+                                  if (widget.controller!=null) {
+                                  widget.controller?.clear();
                                   setState(() {});
+                                  }
+                                  if (widget.onClear !=null) {
+                                  widget.onClear!();
+                                  }
                                 },
                                 child: Padding(
                                   padding:

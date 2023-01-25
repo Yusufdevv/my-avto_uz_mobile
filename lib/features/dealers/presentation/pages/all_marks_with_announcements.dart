@@ -73,7 +73,15 @@ class _AllMarksWithAnnouncementsState extends State<AllMarksWithAnnouncements> {
                       GestureDetector(
                         onTap: () {
                           Navigator.push(
-                              context, fade(page: SingleMarkAnnouncements()));
+                            context,
+                            fade(
+                              page: SingleMarkAnnouncements(
+                                dealerSlug: widget.slug,
+                                markSlug: state.marks[index].make.slug,
+                                carMark: state.marks[index].make.name,
+                              ),
+                            ),
+                          );
                         },
                         child: Container(
                           height: 91,
@@ -88,6 +96,7 @@ class _AllMarksWithAnnouncementsState extends State<AllMarksWithAnnouncements> {
                           child: ClipRRect(
                             child: CachedNetworkImage(
                               imageUrl: state.marks[index].make.logo,
+                              fit: BoxFit.cover,
                               errorWidget: (context, url, error) =>
                                   Image.asset(AppImages.autoUz),
                             ),

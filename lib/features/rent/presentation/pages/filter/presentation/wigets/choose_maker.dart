@@ -2,6 +2,7 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/features/ad/data/repositories/ad_repository_impl.dart';
 import 'package:auto/features/ad/domain/usecases/get_makes.dart';
+import 'package:auto/features/ad/domain/usecases/get_top_makes.dart';
 import 'package:auto/features/common/bloc/get_makes_bloc/get_makes_bloc_bloc.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
@@ -25,7 +26,8 @@ class _ChooseMakerState extends State<ChooseMaker> {
   @override
   void initState() {
     getMakesBloc = GetMakesBloc(
-      selectedMakeId: widget.selectedId,
+      topUseCase: GetTopMakesUseCase(
+                  repository: serviceLocator<AdRepositoryImpl>()),
       useCase: GetMakesUseCase(
         repository: serviceLocator<AdRepositoryImpl>(),
       ),

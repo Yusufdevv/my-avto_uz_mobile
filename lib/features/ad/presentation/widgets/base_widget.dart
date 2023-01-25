@@ -1,16 +1,18 @@
+import 'dart:math';
+
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:flutter/material.dart';
 
 class BaseWidget extends StatelessWidget {
   final String headerText;
-  final VoidCallback? onTap;
   final Widget child;
   final EdgeInsets? padding;
+  final Widget? extraAction;
 
   const BaseWidget(
       {required this.headerText,
       required this.child,
-      this.onTap,
+      this.extraAction,
       this.padding,
       Key? key})
       : super(key: key);
@@ -28,9 +30,15 @@ class BaseWidget extends StatelessWidget {
                 top: 20,
                 left: 16,
               ),
-              child: Text(
-                headerText,
-                style: Theme.of(context).textTheme.headline1,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    headerText,
+                    style: Theme.of(context).textTheme.headline1,
+                  ),
+                  if (extraAction != null) ...{extraAction!}
+                ],
               ),
             ),
             Expanded(

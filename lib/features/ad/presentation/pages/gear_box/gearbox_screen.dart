@@ -1,7 +1,10 @@
-import 'package:auto/assets/constants/icons.dart';
-import 'package:auto/features/common/widgets/w_radio_tile.dart';
+import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.dart';
 import 'package:auto/features/ad/presentation/widgets/base_widget.dart';
+import 'package:auto/features/ad/presentation/widgets/pos_radio_item.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:formz/formz.dart';
 
 class GearboxScreen extends StatefulWidget {
   const GearboxScreen({Key? key}) : super(key: key);
@@ -11,27 +14,29 @@ class GearboxScreen extends StatefulWidget {
 }
 
 class _GearboxScreenState extends State<GearboxScreen> {
-  int selectedIndex = 0;
-  final List<String> titleList = ['Бензиновый'];
-
   @override
   Widget build(BuildContext context) => Scaffold(
           body: BaseWidget(
-            headerText:'Коробка передач' ,
+        headerText: 'Коробка передач',
         padding: const EdgeInsets.only(top: 16),
-        child: ListView.builder(
-          itemBuilder: (context, index) => RadioItem(
-              hasImage: true,
-              image: AppIcons.engine,
-              onTap: (value) {
-                setState(() {
-                  selectedIndex = index;
-                });
-              },
-              title: titleList[index],
-              groupValue: index,
-              value: selectedIndex),
-          itemCount: titleList.length,
+        child: BlocBuilder<PostingAdBloc, PostingAdState>(
+          builder: (context, state) {
+            if (state.status == FormzStatus.submissionInProgress) {
+              return const Center(
+                child: CupertinoActivityIndicator(),
+              );
+            }
+            return ListView.builder(
+              itemBuilder: (context, index) => PostingRadioItem(
+                onTap: () => context.read<PostingAdBloc>().add(
+                    PostingAdChooseEvent(gearboxId: state.gearBoxes[index].id)),
+                image: state.gearBoxes[index].logo,
+                title: state.gearBoxes[index].type,
+                selected: state.gearBoxes[index].id == state.gearboxId,
+              ),
+              itemCount: state.gearBoxes.length,
+            );
+          },
         ),
       ));
 }

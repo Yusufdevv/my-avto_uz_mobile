@@ -29,6 +29,7 @@ class ChangeCarItems extends StatelessWidget {
   Widget build(BuildContext context) => GestureDetector(
         onTap: onTap,
         child: Container(
+          height: 54,
           padding: const EdgeInsets.only(left: 16),
           color: id == selectedId
               ? Theme.of(context).extension<ThemedColors>()!.snowToNightRider
@@ -36,7 +37,6 @@ class ChangeCarItems extends StatelessWidget {
           child: Container(
             padding: const EdgeInsets.only(right: 16, top: 5, bottom: 5),
             decoration: BoxDecoration(
-              color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
               border: Border(
                 bottom: BorderSide(
                   width: 1,
@@ -45,7 +45,7 @@ class ChangeCarItems extends StatelessWidget {
               ),
             ),
             child: SizedBox(
-              height: 50,
+              height: 54,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -54,19 +54,31 @@ class ChangeCarItems extends StatelessWidget {
                       SizedBox(
                         height: 36,
                         width: 36,
-                        child: imageUrl.isEmpty
-                            ? SvgPicture.asset(
-                                AppImages.carImage,
-                                height: 40,
-                                fit: BoxFit.cover,
-                                color: Colors.red,
-                              )
-                            : CachedNetworkImage(
-                                imageUrl: imageUrl,
-                                height: 36,
-                                width: 36,
-                                fit: BoxFit.cover,
-                              ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(8),
+                          child: 
+                          
+                          // imageUrl.isEmpty
+                          //     ? 
+                              
+                              Image.asset(
+                                  AppImages.defaultPhoto,
+                                  height: 36,
+                                  fit: BoxFit.cover,
+                                )
+                              // : CachedNetworkImage(
+                              //     imageUrl: imageUrl,
+                              //     height: 36,
+                              //     width: 36,
+                              //     fit: BoxFit.cover,
+                              //     errorWidget: (context, url, error) =>
+                              //         Image.asset(
+                              //       AppImages.defaultPhoto,
+                              //       height: 36,
+                              //       fit: BoxFit.cover,
+                              //     ),
+                              //   ),
+                        ),
                       ),
                       const SizedBox(
                         width: 12,

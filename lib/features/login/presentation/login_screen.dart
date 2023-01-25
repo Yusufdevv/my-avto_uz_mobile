@@ -9,6 +9,7 @@ import 'package:auto/features/common/widgets/custom_screen.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_divider.dart';
+import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/login/presentation/pages/register_screen.dart';
 import 'package:auto/features/login/presentation/pages/send_phone_number_page.dart';
 import 'package:auto/features/login/presentation/widgets/z_text_form_field.dart';
@@ -92,7 +93,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     const SizedBox(
                       width: 4,
                     ),
-                    GestureDetector(
+                    WScaleAnimation(
                       onTap: () {
                         hidePopUp();
                         Navigator.push(
@@ -109,27 +110,31 @@ class _LoginScreenState extends State<LoginScreen> {
                 const SizedBox(height: 36),
                 ZTextFormField(
                   onTap: hidePopUp,
-                  onChanged: (onChanged) {
+                  onChanged: (value) {
                     setState(() {});
                   },
                   controller: phoneController,
                   prefixIcon: Row(
                     children: [
-                      const Text('🇺🇿'),
-                      // Image.asset(AppImages.flagUzb),
+                      SizedBox(
+                          height: 20,
+                          width: 20,
+                          child: Image.asset(AppImages.flagUzb2)),
                       const SizedBox(
                         width: 4,
                       ),
-                      Text(
-                        '+998',
-                        style: Theme.of(context)
-                            .textTheme
-                            .subtitle1!
-                            .copyWith(fontSize: 15),
-                      ),
+                      Text('+998',
+                          style: Theme.of(context)
+                              .textTheme
+                              .subtitle1!
+                              .copyWith(fontSize: 15)),
                     ],
                   ),
                   hintText: '91 234 56 78',
+                  hintTextStyle: Theme.of(context)
+                      .textTheme
+                      .subtitle1!
+                      .copyWith(fontSize: 15, color: warmerGrey),
                   keyBoardType: TextInputType.number,
                   textInputFormatters: [phoneFormatter],
                 ),
@@ -144,7 +149,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   isObscure: true,
                 ),
                 const SizedBox(height: 16),
-                GestureDetector(
+                WScaleAnimation(
                   onTap: () {
                     hidePopUp();
                     Navigator.of(context)
@@ -160,19 +165,19 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 const SizedBox(height: 24),
                 WButton(
-                  isDisabled: !(passwordController.text.length >= 4 &&
-                      phoneController.text.length == 12),
                   isLoading: context.watch<AuthenticationBloc>().state.status ==
                       AuthenticationStatus.loading,
                   onTap: passwordController.text.length >= 4 &&
                           phoneController.text.length == 12
                       ? () {
+                          hidePopUp();
                           context.read<AuthenticationBloc>().add(LoginUser(
                               onError: (text) {
                                 context.read<ShowPopUpBloc>().add(ShowPopUp(
-                                    message: text,
-                                    isSucces: false,
-                                    dismissible: false));
+                                      message: text,
+                                      isSucces: false,
+                                      dismissible: false,
+                                    ));
                                 isToastShowing = true;
                               },
                               password: passwordController.text,
@@ -189,8 +194,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   ],
                   margin: EdgeInsets.only(
                     bottom: 20 + MediaQuery.of(context).padding.bottom,
-                    right: 16,
-                    left: 16,
                   ),
                   text: 'Продолжить',
                   border: Border.all(
@@ -199,6 +202,10 @@ class _LoginScreenState extends State<LoginScreen> {
                         .extension<ThemedColors>()!
                         .whiteToDolphin,
                   ),
+                  color: (passwordController.text.length >= 4 &&
+                          phoneController.text.length > 11)
+                      ? orange
+                      : warmerGrey,
                 ),
               ],
             ),

@@ -4,6 +4,7 @@ class DirectoryModel extends DirectoryEntity {
   DirectoryModel({
     super.id,
     super.name,
+    super.slug,
     super.category,
     super.address,
     super.region,
@@ -17,6 +18,7 @@ class DirectoryModel extends DirectoryEntity {
   factory DirectoryModel.fromJson(Map<String, dynamic> json) => DirectoryModel(
         id: json['id'],
         name: json['name'],
+        slug: json['slug'],
         category: Category.fromJson(json['category']),
         address: json['address'],
         region: json['region'],

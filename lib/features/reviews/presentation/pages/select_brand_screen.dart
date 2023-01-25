@@ -156,7 +156,9 @@ class _SelectBrandScreenState extends State<SelectBrandScreen> {
                         child: ListView.builder(
                           scrollDirection: Axis.horizontal,
                           itemBuilder: (context, index) => CarBrandItem(
-                              carBrandEntity: carBrandEntity[index]),
+                            carBrandEntity: carBrandEntity[index],
+                            onTap: () {},
+                          ),
                           itemCount: carBrandEntity.length,
                         ),
                       ),

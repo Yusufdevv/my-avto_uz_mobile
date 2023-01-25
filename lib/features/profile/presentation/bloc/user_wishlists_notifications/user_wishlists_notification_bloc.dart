@@ -1,7 +1,5 @@
-import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/core/usecases/usecase.dart';
 import 'package:auto/features/common/domain/entity/auto_entity.dart';
-import 'package:auto/features/profile/data/datasources/get_user_lists_datasource.dart';
 import 'package:auto/features/profile/domain/entities/my_searches_entity.dart';
 import 'package:auto/features/profile/domain/entities/notifications_entity.dart';
 import 'package:auto/features/profile/domain/usecases/delete_my_searches_usecase.dart';
@@ -47,16 +45,25 @@ class UserWishListsBloc extends Bloc<UserWishListsEvent, UserWishListsState> {
     on<NotificationAllReadEvent>(_onNotificationAllReadEvent);
     on<DeleteMySearchesEvent>(_onDeleteMySearchesEvent);
     on<ChangeIsWishEvenet>(_onChangeIsWish);
+    on<ChangeReadEvent>(_onChangeRead);
   }
   // delete item from from list in state
   void _onChangeIsWish(
       ChangeIsWishEvenet event, Emitter<UserWishListsState> emit) {
     final list = <AutoEntity>[...state.favorites];
-    final item = list.firstWhere((element) => element.id==event.id);
+    final item = list.firstWhere((element) => element.id == event.id);
     // ignore: cascade_invocations
     list.remove(item);
     emit(state.copyWith(favorites: list));
-    
+  }
+
+  void _onChangeRead(ChangeReadEvent event, Emitter<UserWishListsState> emit) {
+    final list = <NotificationsEntity>[...state.notifications];
+    final item = list.firstWhere((element) => element.id == event.id);
+    // ignore: cascade_invocations
+    final index = list.indexOf(item);
+    list.elementAt(index).isRead = !list.elementAt(index).isRead!;
+    emit(state.copyWith(notifications: list));
   }
 
   Future<void> _onGetUserFavorites(
@@ -66,7 +73,7 @@ class UserWishListsBloc extends Bloc<UserWishListsEvent, UserWishListsState> {
     if (result.isRight) {
       emit(state.copyWith(
           favoritesStatus: FormzStatus.submissionSuccess,
-          favorites: result.right));
+          favorites: result.right.results));
     } else {
       emit(state.copyWith(favoritesStatus: FormzStatus.submissionFailure));
     }
@@ -90,7 +97,7 @@ class UserWishListsBloc extends Bloc<UserWishListsEvent, UserWishListsState> {
     final result = await profileFavoritesMyAdsUseCase.call(event.endpoint);
     if (result.isRight) {
       emit(state.copyWith(
-          myAdsStatus: FormzStatus.submissionSuccess, myAds: result.right));
+          myAdsStatus: FormzStatus.submissionSuccess, myAds: result.right.results));
     } else {
       emit(state.copyWith(myAdsStatus: FormzStatus.submissionFailure));
     }

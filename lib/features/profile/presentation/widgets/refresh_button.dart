@@ -1,17 +1,19 @@
 import 'dart:async';
 
-import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class RefreshButton extends StatefulWidget {
   final VoidCallback onSucces;
   final String filteredPhone;
 
-  const RefreshButton(
-      {Key? key, required this.onSucces, required this.filteredPhone})
-      : super(key: key);
+  const RefreshButton({
+    required this.onSucces,
+    required this.filteredPhone,
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<RefreshButton> createState() => _RefreshButtonState();
@@ -43,7 +45,7 @@ class _RefreshButtonState extends State<RefreshButton>
           turns: Tween(begin: 0.0, end: 1.0).animate(_controller),
           child: SvgPicture.asset(
             AppIcons.refreshSmall,
-            color: orange,
+            color: Theme.of(context).extension<ThemedColors>()!.greyToCinnabar,
           ),
         ),
       );

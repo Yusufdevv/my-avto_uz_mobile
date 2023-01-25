@@ -103,7 +103,8 @@ class _PhoneVerifiyPageState extends State<PhoneVerifiyPage> {
                                 .extension<ThemedColors>()!
                                 .solitudeToSolitude14,
                             height: SizeConfig.v(24),
-                            child: SvgPicture.asset(AppIcons.edit),
+                            width: SizeConfig.v(24),
+                            child: SvgPicture.asset(AppIcons.edit, color: grey),
                           )
                         ],
                       ),
@@ -127,7 +128,7 @@ class _PhoneVerifiyPageState extends State<PhoneVerifiyPage> {
                         fieldHeight: 44,
                         fieldWidth: 50,
                       ),
-                      cursorColor: white,
+                      cursorColor: black,
                       keyboardType: TextInputType.number,
                       enableActiveFill: false,
                       textStyle: Theme.of(context)

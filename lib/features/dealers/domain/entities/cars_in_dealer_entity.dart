@@ -9,6 +9,7 @@ class CarsInDealerEntity extends Equatable {
   final String createdAt;
   final String updatedAt;
   final String moderationStatus;
+  final List<String> gallery;
   final int year;
   final String absoluteCarName;
   final String licenceType;
@@ -62,6 +63,7 @@ class CarsInDealerEntity extends Equatable {
     this.createdAt = '',
     this.updatedAt = '',
     this.moderationStatus ='',
+    this.gallery = const [],
     this.year = 0,
     this.absoluteCarName = '',
     this.licenceType = '',
@@ -116,6 +118,7 @@ class CarsInDealerEntity extends Equatable {
     createdAt,
     updatedAt,
     moderationStatus,
+    gallery,
     year,
     absoluteCarName,
     licenceType,

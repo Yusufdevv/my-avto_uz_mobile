@@ -91,50 +91,50 @@ class ZTextFormField extends StatefulWidget {
     this.focusColor,
     this.suffixTitleWidget,
     Key? key,
-
   }) : super(key: key);
 
   @override
   State<ZTextFormField> createState() => _ZTextFormFieldState();
 }
 
-class _ZTextFormFieldState extends State<ZTextFormField> with SingleTickerProviderStateMixin {
-late FocusNode focusNode;
-bool focused = false;
-bool hasText = false;
-bool isObscure = false;
-bool showStroke = false;
-late AnimationController animationController;
+class _ZTextFormFieldState extends State<ZTextFormField>
+    with SingleTickerProviderStateMixin {
+  late FocusNode focusNode;
+  bool focused = false;
+  bool hasText = false;
+  bool isObscure = false;
+  bool showStroke = false;
+  late AnimationController animationController;
 
-@override
-void initState() {
-  animationController = AnimationController(
-      vsync: this, duration: const Duration(milliseconds: 200));
-  super.initState();
-  if (widget.isObscure != null) {
-    isObscure = widget.isObscure!;
+  @override
+  void initState() {
+    animationController = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 200));
+    super.initState();
+    if (widget.isObscure != null) {
+      isObscure = widget.isObscure!;
+    }
+    focusNode = FocusNode();
+
+    focusNode.addListener(
+      () => setState(() {
+        debugPrint('focused');
+        focused = !focused;
+      }),
+    );
   }
-  focusNode = FocusNode();
 
-  focusNode.addListener(
-        () => setState(() {
-      debugPrint('focused');
-      focused = !focused;
-    }),
-  );
-}
+  @override
+  void dispose() {
+    focusNode.dispose();
 
-@override
-void dispose() {
-  focusNode.dispose();
+    super.dispose();
+  }
 
-  super.dispose();
-}
-
-@override
+  @override
   Widget build(BuildContext context) => Stack(
-    children: [
-      TextFormField(
+        children: [
+          TextFormField(
             focusNode: widget.focusNode ?? focusNode,
             onChanged: (s) {
               setState(() => hasText = s.isNotEmpty);
@@ -161,72 +161,75 @@ void dispose() {
             style: widget.textStyle ??
                 Theme.of(context).textTheme.subtitle1!.copyWith(fontSize: 15),
             decoration: InputDecoration(
-              suffix:
-                  widget.suffix != null ? SizedBox(width: widget.suffixSize) : null,
-              counterText: widget.hideCounterText != null && widget.hideCounterText!
-                  ? ''
+              suffix: widget.suffix != null
+                  ? SizedBox(width: widget.suffixSize)
                   : null,
-              prefixIconConstraints: const BoxConstraints(maxWidth: 65 ),
-
+              counterText:
+                  widget.hideCounterText != null && widget.hideCounterText!
+                      ? ''
+                      : null,
+                      
+              prefixIconConstraints: const BoxConstraints(maxWidth: 65),
+              contentPadding: widget.contentPadding,
               prefixIcon: widget.prefixIcon,
               hintText: widget.hintText,
               hintStyle: widget.hintTextStyle ??
                   Theme.of(context).textTheme.headline6!.copyWith(fontSize: 14),
             ),
           ),
-      Positioned(
-        // top: 0,
-        right: 8,
-        child: widget.isObscure == null
-            ? widget.suffixIcon != null
-            ? WScaleAnimation(
-          onTap: () {},
-          child: Padding(
-            padding: const EdgeInsets.fromLTRB(0, 6, 2, 6),
-            child: SvgPicture.asset(
-              widget.suffixIcon!,
-            ),
-          ),
-        )
-            : const SizedBox()
-            : GestureDetector(
-          onTap: () {
-            setState(() {
-              isObscure = !isObscure;
-            });
-            if (showStroke) {
-              showStroke = false;
-              animationController.forward();
-            } else {
-              showStroke = true;
-              animationController.reverse();
-            }
-          },
-          child: Container(
-            alignment: Alignment.center,
-            margin: const EdgeInsets.only(top: 12),
-            // width: 24,
-            // height: 24,
-            child: Center(
-              child: AnimatedBuilder(
-                animation: animationController,
-                child: SvgPicture.asset(
-                  AppIcons.eye,
-                ),
-                builder: (context, child) => SizedBox(
-                  width: 24,
-                  height: 24,
-                  child: CustomPaint(
-                    foregroundPainter:
-                    StrokePaint(animationController.value),
-                    child: child,
+          Positioned(
+            // top: 0,
+            right: 8,
+            child: widget.isObscure == null
+                ? widget.suffixIcon != null
+                    ? WScaleAnimation(
+                        onTap: () {},
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 6, 2, 6),
+                          child: SvgPicture.asset(
+                            widget.suffixIcon!,
+                          ),
+                        ),
+                      )
+                    : const SizedBox()
+                : GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        isObscure = !isObscure;
+                      });
+                      if (showStroke) {
+                        showStroke = false;
+                        animationController.forward();
+                      } else {
+                        showStroke = true;
+                        animationController.reverse();
+                      }
+                    },
+                    child: Container(
+                      alignment: Alignment.center,
+                      margin: const EdgeInsets.only(top: 12),
+                      // width: 24,
+                      // height: 24,
+                      child: Center(
+                        child: AnimatedBuilder(
+                          animation: animationController,
+                          child: SvgPicture.asset(
+                            AppIcons.eye,
+                          ),
+                          builder: (context, child) => SizedBox(
+                            width: 24,
+                            height: 24,
+                            child: CustomPaint(
+                              foregroundPainter:
+                                  StrokePaint(animationController.value),
+                              child: child,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
                   ),
-                ),
-              ),
-            ),
           ),
-        ),
-      ),
-    ],
-  );
+        ],
+      );
 }

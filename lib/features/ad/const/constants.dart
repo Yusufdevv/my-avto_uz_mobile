@@ -4,6 +4,7 @@ enum DamagedParts {
   rightFrontDoor('rigth_front_door'), //TODO incorrect spelling
   rightRearDoor('right_rear_door'),
   leftFrontDoor('left_front_door'),
+  leftRearDoor('left_rear_door'),
   frontBumper('front_bumper'),
   rearBumper('rear_bumper'),
   frontLeftFender('front_left_fender'),

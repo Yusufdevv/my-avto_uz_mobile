@@ -4,16 +4,24 @@ part of 'announcement_list_bloc.dart';
 class AnnouncementListState with _$AnnouncementListState {
   factory AnnouncementListState({
     @Default(FormzStatus.pure) FormzStatus status,
+    @Default(FormzStatus.pure) FormzStatus statusNew,
+    @Default(FormzStatus.pure) FormzStatus statusOld,
     @Default(0) int selected,
     @Default('') String next,
+    @Default('') String nextNew,
+    @Default('') String nextOld,
     @Default('') String search,
     @Default(0) int count,
+    @Default([]) List<Region> regions,
     @Default(false) bool isFilter,
+    @Default(false) bool isHistory,
     @Default([]) List<AnnouncementListEntity> announcementList,
+    @Default([]) List<AnnouncementListEntity> announcementListNew,
+    @Default([]) List<AnnouncementListEntity> announcementListOld,
     @Default(AnnouncementFilterModel()) AnnouncementFilterModel filter,
     @Default(RangeValues(1960, 2023)) RangeValues yearValues,
     @Default(RangeValues(1000, 500000)) RangeValues priceValues,
-    @Default(0) int? idVal,
+    @Default(0) int idVal,
     @Default(GearboxTypeEntity(id: -1, type: '', logo: ''))
         GearboxTypeEntity? gearboxTypeEntity,
     @Default(BodyTypeEntity(id: -1, type: '', logo: ''))
