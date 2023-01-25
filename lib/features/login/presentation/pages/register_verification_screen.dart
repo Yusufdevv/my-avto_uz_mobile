@@ -173,9 +173,14 @@ class _RegisterVerificationScreenState
                                         RegisterEvent.sendCode(widget.phone,
                                             onError: (text) {
                                       if (text.isNotEmpty) {
+                                        var error = text;
+                                if (error.toLowerCase().contains('dioerror')) {
+                                  error =
+                                      'Server bilan xatolik yuz berdi';
+                                }
                                         context.read<ShowPopUpBloc>().add(
                                             ShowPopUp(
-                                                message: text,
+                                                message: error,
                                                 isSucces: false,
                                                 dismissible: false));
                                       } else {

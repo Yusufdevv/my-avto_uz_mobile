@@ -54,9 +54,14 @@ class _SendPhoneNumberPageState extends State<SendPhoneNumberPage> {
             child: BlocConsumer<SendPhoneBloc, SendPhoneState>(
               listener: (context, state) {
                 if (state.status == FormzStatus.submissionCanceled) {
+                  var error = state.toastMessage;
+                                if (error.toLowerCase().contains('dioerror')) {
+                                  error =
+                                      'Server bilan xatolik yuz berdi';
+                                }
                   context.read<ShowPopUpBloc>().add(
                         ShowPopUp(
-                          message: state.toastMessage,
+                          message: error,
                           isSucces: false,
                           dismissible: false,
                         ),

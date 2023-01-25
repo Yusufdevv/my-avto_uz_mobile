@@ -6,7 +6,6 @@ import 'package:auto/features/profile/presentation/pages/notification/notifiacti
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:formz/formz.dart';
 
 class NotificationButton extends StatefulWidget {
   const NotificationButton({

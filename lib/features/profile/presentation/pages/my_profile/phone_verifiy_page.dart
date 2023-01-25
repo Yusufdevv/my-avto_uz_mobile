@@ -182,9 +182,14 @@ class _PhoneVerifiyPageState extends State<PhoneVerifiyPage> {
                                                 '+998${widget.phone}',
                                             onSuccess: () {},
                                             onError: (message) {
+                                              var error = message;
+                                if (error.toLowerCase().contains('dioerror')) {
+                                  error =
+                                      'Server bilan xatolik yuz berdi';
+                                }
                                               context.read<ShowPopUpBloc>().add(
                                                   ShowPopUp(
-                                                      message: message,
+                                                      message: error,
                                                       isSucces: false));
                                             },
                                           ),
