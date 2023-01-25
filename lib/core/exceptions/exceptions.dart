@@ -2,7 +2,7 @@ class ServerException implements Exception {
   final String errorMessage;
   final num statusCode;
 
-  const ServerException({required this.statusCode, required this.errorMessage});
+  const ServerException({this.statusCode = 400, this.errorMessage = 'error'});
 
   @override
   String toString() =>

@@ -20,7 +20,6 @@ class StoryContentItem extends StatefulWidget {
   const StoryContentItem({
     required this.story,
     required this.pageIndex,
-    required this.currentPageIndex,
     required this.isPaused,
     required this.animate,
     required this.storiesCount,
@@ -31,7 +30,6 @@ class StoryContentItem extends StatefulWidget {
 
   final StoryEntity story;
   final int pageIndex;
-  final int currentPageIndex;
   final bool isPaused;
   final int storiesCount;
   final Function({required bool forward}) animate;
@@ -43,7 +41,7 @@ class StoryContentItem extends StatefulWidget {
 }
 
 class _StoryContentItemState extends State<StoryContentItem>
-    with SingleTickerProviderStateMixin {
+    with SingleTickerProviderStateMixin, WidgetsBindingObserver {
   late VideoPlayerController _videoPlayerController;
   late AnimationController animationController;
   int itemIndex = 0;
@@ -53,17 +51,36 @@ class _StoryContentItemState extends State<StoryContentItem>
   bool isEnded = false;
 
   @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    print('state: $state');
+    switch (state) {
+      case AppLifecycleState.resumed:
+        break;
+      case AppLifecycleState.inactive:
+        break;
+      case AppLifecycleState.paused:
+        break;
+      case AppLifecycleState.detached:
+        break;
+    }
+  }
+
+  @override
   void initState() {
-    super.initState();
+    print('isPaused: ${widget.isPaused}');
+    WidgetsBinding.instance.addObserver(this);
+    if (WidgetsBinding.instance.lifecycleState != null) {
+      print('state: 1 ${WidgetsBinding.instance.lifecycleState!}');
+    }
     animationController = AnimationController(vsync: this);
     animationController.addStatusListener(_animationListener);
-    print('app log: init state\npageIndex: ${widget.pageIndex}\ncurrentPageIndex: ${widget.currentPageIndex}'
-        '\nisPaused: ${widget.isPaused}');
     _loadStory();
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    print('isPaused: ${widget.isPaused}');
     var isLandscape = false;
     if (initialized && _videoPlayerController.value.isInitialized) {
       isLandscape = _videoPlayerController.value.size.width >
@@ -89,9 +106,9 @@ class _StoryContentItemState extends State<StoryContentItem>
                   fit: BoxFit.cover,
                 ),
                 progressIndicatorBuilder: (context, s, progress) {
-                  print('progress.downloaded: ${progress.downloaded}');
-                  print('progress.progress: ${progress.progress}');
-                  print('progress.totalSize: ${progress.totalSize}');
+                  // print('progress.downloaded: ${progress.downloaded}');
+                  // print('progress.progress: ${progress.progress}');
+                  // print('progress.totalSize: ${progress.totalSize}');
 
                   // if (progress.totalSize != null &&
                   //     progress.progress != 1.0 &&
@@ -260,7 +277,7 @@ class _StoryContentItemState extends State<StoryContentItem>
 
   void prevStory() {
     if (itemIndex == 0) {
-      if (widget.currentPageIndex == 0) {
+      if (widget.pageIndex == 0) {
         Navigator.pop(context);
       } else {
         itemIndex = widget.story.items.length - 1;
@@ -275,7 +292,7 @@ class _StoryContentItemState extends State<StoryContentItem>
 
   void nextStory() {
     if (itemIndex + 1 == widget.story.items.length) {
-      if (widget.currentPageIndex + 1 == widget.storiesCount) {
+      if (widget.pageIndex + 1 == widget.storiesCount) {
         Navigator.pop(context);
       } else {
         itemIndex = 0;
@@ -289,13 +306,11 @@ class _StoryContentItemState extends State<StoryContentItem>
   }
 
   void _loadStory() {
-    print('app log: itemIndex $itemIndex');
-    if (!(widget.pageIndex == widget.currentPageIndex && !widget.isPaused)) {
+    if (!(widget.pageIndex == widget.pageIndex && !widget.isPaused)) {
       return;
     }
     final last = widget.story.items[itemIndex].content.split('.').last;
     isVideo = last == 'mp4' || last == 'mov';
-    print('app log: isVideo $isVideo');
     if (isVideo) {
       _initVideoController();
       _pauseAndPlayVideo();
@@ -355,9 +370,7 @@ class _StoryContentItemState extends State<StoryContentItem>
 
   void _pauseAndPlayVideo() {
     if (initialized) {
-      if (widget.pageIndex == widget.currentPageIndex &&
-          !widget.isPaused &&
-          initialized) {
+      if (!widget.isPaused && initialized) {
         _videoPlayerController.play().then((value) {});
       } else {
         _videoPlayerController.pause().then((value) {});
@@ -372,7 +385,7 @@ class _StoryContentItemState extends State<StoryContentItem>
         aspectRatio: _videoPlayerController.value.aspectRatio,
         child: VisibilityDetector(
             onVisibilityChanged: _handleVisibilityDetector,
-            key: Key('key_${widget.currentPageIndex}'),
+            key: Key('key_${widget.pageIndex}'),
             child: VideoPlayer(_videoPlayerController)),
       ),
     );
@@ -402,7 +415,7 @@ class _StoryContentItemState extends State<StoryContentItem>
             : screenW,
         child: VisibilityDetector(
             onVisibilityChanged: _handleVisibilityDetector,
-            key: Key('key_${widget.currentPageIndex}'),
+            key: Key('key_${widget.pageIndex}'),
             child: VideoPlayer(_videoPlayerController)),
       ),
     );
@@ -411,7 +424,7 @@ class _StoryContentItemState extends State<StoryContentItem>
   void _handleVisibilityDetector(VisibilityInfo info) {
     if (info.visibleFraction == 0) {
       if (!actualDisposed &&
-          widget.pageIndex == widget.currentPageIndex &&
+          widget.pageIndex == widget.pageIndex &&
           !widget.isPaused &&
           initialized) {
         _videoPlayerController.pause().then((value) {});
@@ -433,6 +446,8 @@ class _StoryContentItemState extends State<StoryContentItem>
 
   @override
   void dispose() {
+    print('isPaused: ${widget.isPaused}');
+    WidgetsBinding.instance.removeObserver(this);
     animationController.dispose();
     disposeVideo();
     super.dispose();
