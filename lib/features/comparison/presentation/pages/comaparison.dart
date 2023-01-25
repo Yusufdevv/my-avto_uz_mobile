@@ -168,11 +168,6 @@ class _ComparisonState extends State<Comparison> {
                                                       .selectedId),
                                         ),
                                       );
-                                  print(
-                                      '===> ==> Bu selectMak Id ${context.read<GetMakesBloc>().state.selectId}');
-                                  print(
-                                      '===> ==> Bu selectModel Id ${context.read<GetCarModelBloc>().state.selectedId}');
-
                                   Navigator.of(context).push(
                                     fade(
                                       page: AdsScreen(

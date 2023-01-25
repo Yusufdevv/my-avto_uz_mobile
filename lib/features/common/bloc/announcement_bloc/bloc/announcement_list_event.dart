@@ -1,9 +1,13 @@
+// ignore_for_file: avoid_positional_boolean_parameters
+
 part of 'announcement_list_bloc.dart';
 
 @freezed
 class AnnouncementListEvent with _$AnnouncementListEvent {
-  factory AnnouncementListEvent.getAnnouncementList() = _GetAnnouncementList;
-  factory AnnouncementListEvent.getFilterClear() = _GetFilterClear;
+  factory AnnouncementListEvent.getAnnouncementList() =
+      _GetAnnouncementList;
+  factory AnnouncementListEvent.getFilterClear({bool? ismake}) =
+      _GetFilterClear;
   factory AnnouncementListEvent.getRegions(List<Region> regions) = _GetRegions;
   factory AnnouncementListEvent.getIsHistory(bool isHistory) = _GetIsHistory;
   factory AnnouncementListEvent.getFilter(AnnouncementFilterModel filter) =
