@@ -18,6 +18,7 @@ class ReelEntity extends Equatable {
   final String oldPrice;
   final int discountPercent;
   bool isLiked;
+  final bool isOfferOfTheDay;
 
   ReelEntity({
     this.id = -1,
@@ -31,9 +32,10 @@ class ReelEntity extends Equatable {
     this.oldPrice = '0',
     this.discountPercent = 0,
     this.isLiked = true,
+    this.isOfferOfTheDay = false,
   });
 
-  @override 
+  @override
   List<Object?> get props => [
         id,
         title,
@@ -42,6 +44,7 @@ class ReelEntity extends Equatable {
         shareCount,
         announcement,
         isLiked,
+        isOfferOfTheDay,
       ];
 }
 

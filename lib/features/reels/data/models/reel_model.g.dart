@@ -21,6 +21,7 @@ ReelModel _$ReelModelFromJson(Map<String, dynamic> json) => ReelModel(
           : const AnnouncementConverter()
               .fromJson(json['announcement'] as Map<String, dynamic>?),
       isLiked: json['is_liked'] as bool? ?? true,
+      isOfferOfTheDay: json['is_offer_of_the_day'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$ReelModelToJson(ReelModel instance) => <String, dynamic>{
@@ -33,4 +34,5 @@ Map<String, dynamic> _$ReelModelToJson(ReelModel instance) => <String, dynamic>{
       'announcement':
           const AnnouncementConverter().toJson(instance.announcement),
       'is_liked': instance.isLiked,
+      'is_offer_of_the_day': instance.isOfferOfTheDay,
     };

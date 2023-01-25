@@ -6,8 +6,12 @@ abstract class ReelsEvent extends Equatable {
 }
 
 class InitialEvent extends ReelsEvent {
+  final bool isFromMain;
+
+  const InitialEvent({required this.isFromMain});
+
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [isFromMain];
 }
 
 class ChangeStatusEvent extends ReelsEvent {
@@ -19,10 +23,14 @@ class ChangeStatusEvent extends ReelsEvent {
   List<Object?> get props => [status];
 }
 
-class GetReelsEvent extends ReelsEvent {
+class GetMoreReelsEvent extends ReelsEvent {
+  final bool isFromMain;
   final int offset;
 
-  const GetReelsEvent(this.offset);
+  const GetMoreReelsEvent({
+    required this.isFromMain,
+    required this.offset,
+  });
 
   @override
   List<Object?> get props => [offset];
