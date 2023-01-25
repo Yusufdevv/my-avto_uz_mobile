@@ -42,6 +42,7 @@ class _OnBoardingBottomState extends State<OnBoardingBottom> {
               horizontal: 32,
             ),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
                   children: [
@@ -69,12 +70,14 @@ class _OnBoardingBottomState extends State<OnBoardingBottom> {
                           .caption!
                           .copyWith(fontSize: 32, fontWeight: FontWeight.w700),
                       children: [
-                        WidgetSpan(child: Image.asset(AppImages.magic))
+                        WidgetSpan(
+                            child: Padding(
+                          padding: const EdgeInsets.only(left: 8),
+                          child: Image.asset(AppImages.magic),
+                        ))
                       ]),
                 ),
-                const SizedBox(
-                  height: 35,
-                ),
+                const SizedBox(height: 37),
                 Row(
                   children: [
                     //O‘zbekcha btn
@@ -191,6 +194,7 @@ class _OnBoardingBottomState extends State<OnBoardingBottom> {
             ),
           ),
           Positioned(
+            top: 0,
             right: 0,
             child: WScaleAnimation(
               onTap: () {
