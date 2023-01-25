@@ -32,6 +32,7 @@ class PostingAdState extends Equatable {
   final Map<DamagedParts, DamageType> damagedParts;
   final UserModel? userModel;
   final num minimumPrice;
+  final int? makeLetterIndex;
   final String? letter;
   final String? ownerName;
   final String? ownerEmail;
@@ -65,6 +66,7 @@ class PostingAdState extends Equatable {
     required this.phoneController,
     required this.emailController,
     required this.nameController,
+    this.makeLetterIndex,
     this.minimumPrice = 0,
     this.gearboxId,
     this.gearBoxes = const <GearboxTypeEntity>[],
@@ -161,6 +163,7 @@ class PostingAdState extends Equatable {
     int? yearId,
     List<YearsEntity>? years,
     UserModel? userModel,
+    int? makeLetterIndex,
     num? minimumPrice,
     String? letter,
     String? colorName,
@@ -194,6 +197,7 @@ class PostingAdState extends Equatable {
     // print('====   ACTUALLY IN STATE:  ${this.districts}  ====');
     // print('==== INCOMING DISTRICT TO COPYWITH:  ${districts}  ====');
     final newState = PostingAdState(
+      makeLetterIndex: makeLetterIndex ?? this.makeLetterIndex,
       yearId: yearId ?? this.yearId,
       locationUrl: locationUrl ?? this.locationUrl,
       phoneController: phoneController ?? this.phoneController,
@@ -263,6 +267,7 @@ class PostingAdState extends Equatable {
 
   @override
   List<Object?> get props => [
+        makeLetterIndex,
         locationUrl,
         phoneController,
         emailController,

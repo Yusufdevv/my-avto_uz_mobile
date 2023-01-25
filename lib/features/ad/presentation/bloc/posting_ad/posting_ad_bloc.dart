@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/core/usecases/usecase.dart';
 import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/ad/data/models/announcement_to_post_model.dart';
@@ -145,7 +146,9 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
               TextEditingController(text: state.userModel!.fullName),
           ownerEmail: state.userModel?.email,
           ownerName: state.userModel?.fullName,
-          ownerPhone: state.userModel?.phone.substring(4),
+          ownerPhone: state.userModel?.phoneNumber.substring(4),
+             showOwnerContacts: true,
+                                    
           isContactsVerified: true,
           status: FormzStatus.submissionSuccess));
       return;
@@ -154,6 +157,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     if (result.isRight) {
       emit(state.copyWith(
         isContactsVerified: true,
+        showOwnerContacts: true,
         status: FormzStatus.submissionSuccess,
         phoneController: TextEditingController(
             text:
@@ -164,6 +168,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
         ownerName: result.right.fullName,
         ownerPhone: result.right.phoneNumber.substring(4),
         userModel: result.right,
+  
       ));
     } else {
       emit(
@@ -266,11 +271,17 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     final result = await createUseCase.call(await PASingleton.create(state));
     if (result.isRight) {
       print('=> => => =>     RIGHT RIGHT RIGHT RIGHT       <= <= <= <=');
-      emit(state.copyWith(status: FormzStatus.pure));
+      emit(state.copyWith(status: FormzStatus.submissionSuccess));
     } else {
+      final err = (result.left is ServerFailure)
+          ? (result.left as ServerFailure).errorMessage
+          : result.left.toString();
+
       print(
-          '=> => => =>     LEFT LEFT LEFT LEFT LEFT   ${result.left}  <= <= <= <=');
-      emit(state.copyWith(status: FormzStatus.pure));
+          '=> => => =>     LEFT LEFT LEFT LEFT LEFT   ${result.left}  toast: $err <= <= <= <=');
+      emit(state.copyWith(
+          status: FormzStatus.submissionFailure,
+          toastMessage: err));
     }
   }
 
@@ -308,11 +319,6 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
 
   FutureOr<void> _driveTypes(
       PostingAdDriveTypesEvent event, Emitter<PostingAdState> emit) async {
-    if (state.driveTypeId != null && state.driveTypes.isNotEmpty) {
-      emit(state.copyWith(status: FormzStatus.submissionSuccess));
-      return;
-    }
-
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
     final result = await driveTypeUseCase.call(DriveTypeParams(
         generationId: state.generationId!,
@@ -332,11 +338,6 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
 
   FutureOr<void> _engines(
       PostingAdEnginesEvent event, Emitter<PostingAdState> emit) async {
-    if (state.engineId != null && state.engines.isNotEmpty) {
-      emit(state.copyWith(status: FormzStatus.submissionSuccess));
-      return;
-    }
-
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
     final result = await engineUseCase.call(EngineTypeParams(
       bodyTypeId: state.bodyTypeId!,
@@ -354,10 +355,6 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
 
   FutureOr<void> _models(
       PostingAdModelEvent event, Emitter<PostingAdState> emit) async {
-    if (state.modelId != null && state.models.isNotEmpty) {
-      emit(state.copyWith(status: FormzStatus.submissionSuccess));
-      return;
-    }
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
     final result = await modelsUseCase.call(state.makeId!);
     if (result.isRight) {
@@ -373,10 +370,14 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
   FutureOr<void> _generations(
       PostingAdGenerationsEvent event, Emitter<PostingAdState> emit) async {
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
-    final result = await generationUseCase
-        .call(GenerationParams(modelId: state.modelId!, year: state.years!.firstWhere((element) => element.id == state.yearId).yearBegin));
+    final result = await generationUseCase.call(GenerationParams(
+        modelId: state.modelId!,
+        year: state.years!
+            .firstWhere((element) => element.id == state.yearId)
+            .yearBegin));
     if (result.isRight) {
-  print('=> => => =>   result . right is   ${result.right.results.length}    <= <= <= <=');
+      print(
+          '=> => => =>   result . right is   ${result.right.results.length}    <= <= <= <=');
       emit(state.copyWith(
           generations: result.right.results,
           status: FormzStatus.submissionSuccess));
@@ -411,7 +412,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
 
   FutureOr<void> _makes(
       PostingAdMakesEvent event, Emitter<PostingAdState> emit) async {
-    if (state.makeId != null && state.makes.isNotEmpty) {
+    if (state.makes.isNotEmpty) {
       emit(state.copyWith(status: FormzStatus.submissionSuccess));
       return;
     }

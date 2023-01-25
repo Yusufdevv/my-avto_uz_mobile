@@ -314,6 +314,7 @@ class MyFunctions {
     }
     return newCost.trimLeft();
   }
+  static List<String> getUpperLetter()=> [for (int i = 0; i < 26; i++) String.fromCharCode(i +65)];
 
   static Future<Position> determinePosition() async {
     bool serviceEnabled;

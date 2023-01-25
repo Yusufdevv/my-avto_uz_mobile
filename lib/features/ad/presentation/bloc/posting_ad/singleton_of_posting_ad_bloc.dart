@@ -82,6 +82,103 @@ class PASingleton {
     return result;
   }
 
+  static PostingAdState stateForEdit(CarSingleEntity v) {
+    String? phone = '';
+    try {
+      phone = MyFunctions.phoneFormat(v.user.phoneNumber.substring(4));
+    } catch (e) {
+      phone = null;
+    }
+
+    return PostingAdState(
+      phoneController: TextEditingController(text: phone ?? v.user.phoneNumber),
+      emailController: TextEditingController(),
+      nameController: TextEditingController(
+          text: v.user.name.isEmpty ? v.user.fullName : v.user.name),
+      status: FormzStatus.submissionSuccess,
+      bodyTypeId: v.bodyType.id,
+      callTimeFrom: v.contactAvailableFrom.trim().substring(0, 5),
+      callTimeTo: v.contactAvailableTo.trim().substring(0, 5),
+      colorName: v.color,
+      damagedParts: damagedPartAdopter(v.damagedParts),
+      currency: v.currency,
+      description: v.description,
+      driveTypeId: v.driveType.id,
+      engineId: v.engineType.id,
+      gearboxId: v.gearboxType.id,
+      generationId: v.gearboxType.id,
+      isWithoutMileage: !(v.distanceTraveled > 0),
+      makeId: v.make.id,
+      modelId: v.model.id,
+      ownerName: v.user.name.isEmpty ? v.user.fullName : v.user.name,
+      ownerPhone: phone ?? v.user.phoneNumber,
+      ownerStep: v.ownership,
+      price: v.price,
+      mileage: '${v.distanceTraveled}',
+      purchasedDate: v.purchaseDate,
+      registeredInUzbekistan: v.registeredInUzbekistan,
+    );
+  }
+
+  static PostingAdState choose(
+      PostingAdState state, PostingAdChooseEvent event) {
+    print('=> => => => LOCATION URL    ${event.locationUrl}    <= <= <= <=');
+    return state.copyWith(
+        years: event.years,
+        yearId: event.yearId,
+        locationUrl: event.locationUrl,
+        toastMessage: event.toastMessage,
+        damagedParts: event.damagedParts,
+        rentWithPurchaseConditions: event.rentWithPurchaseConditions,
+        gallery: event.gallery,
+        showExactAddress: event.showExactAddress,
+        isWithoutMileage: event.isWithoutMileage,
+        rentToBuy: event.rentToBuy,
+        isContactsVerified: event.isContactsVerified,
+        showOwnerContacts: event.showOwnerContacts,
+        isCallTimed: event.isCallTimed,
+        callTimeTo: event.callTimeTo,
+        callTimeFrom: event.callTimeFrom,
+        mileage: event.mileage,
+        ownerStep: event.ownerStep,
+        typeDocument: event.typeDocument,
+        colorName: event.colorName,
+        gearboxId: event.gearboxId,
+        driveTypeId: event.driveTypeId,
+        engineId: event.engineId,
+        generationId: event.generationId,
+        bodyTypeId: event.selectedBodyTypeId,
+        isSortByLetter: event.letter != state.letter,
+        modelId: event.modelId,
+        letter: event.letter,
+        makeId: event.makeId,
+        purchasedDate: event.purchasedDate,
+        registeredInUzbekistan: event.isRastamojen,
+        ownerEmail: event.ownerEmail,
+        ownerName: event.ownerName,
+        ownerPhone: event.ownerPhone,
+        city: event.city,
+        region: event.region,
+        price: event.price,
+        currency: event.currency,
+        gasBalloonType: event.gasBalloonType,
+        districtId: event.districtId,
+        phoneController: event.phoneController,
+        emailController: event.emailController,
+        nameController: event.nameController,
+        makeLetterIndex: _getMakeLetterIndex(event.letter, state.makes));
+  }
+
+  static int? _getMakeLetterIndex(String? l, List<MakeEntity> makes) {
+    if (l == null) return null;
+    final i =
+        makes.indexWhere((element) => element.name.toUpperCase().startsWith(l));
+    if (i > -1) {
+      return i;
+    }
+    return null;
+  }
+
   static DamageType? _getDamageType(String type) {
     switch (type) {
       case 'ideal':
@@ -147,92 +244,5 @@ class PASingleton {
       default:
         return null;
     }
-  }
-
-  static PostingAdState stateForEdit(CarSingleEntity v) {
-    String? phone = '';
-    try {
-      phone = MyFunctions.phoneFormat(v.user.phoneNumber.substring(4));
-    } catch (e) {
-      phone = null;
-    }
-
-    return PostingAdState(
-      phoneController: TextEditingController(text: phone ?? v.user.phoneNumber),
-      emailController: TextEditingController(),
-      nameController: TextEditingController(
-          text: v.user.name.isEmpty ? v.user.fullName : v.user.name),
-      status: FormzStatus.submissionSuccess,
-      bodyTypeId: v.bodyType.id,
-      callTimeFrom: v.contactAvailableFrom.trim().substring(0, 5),
-      callTimeTo: v.contactAvailableTo.trim().substring(0, 5),
-      colorName: v.color,
-      damagedParts: damagedPartAdopter(v.damagedParts),
-      currency: v.currency,
-      description: v.description,
-      driveTypeId: v.driveType.id,
-      engineId: v.engineType.id,
-      gearboxId: v.gearboxType.id,
-      generationId: v.gearboxType.id,
-      isWithoutMileage: !(v.distanceTraveled > 0),
-      makeId: v.make.id,
-      modelId: v.model.id,
-      ownerName: v.user.name.isEmpty ? v.user.fullName : v.user.name,
-      ownerPhone: phone ?? v.user.phoneNumber,
-      ownerStep: v.ownership,
-      price: v.price,
-      mileage: '${v.distanceTraveled}',
-      purchasedDate: v.purchaseDate,
-      registeredInUzbekistan: v.registeredInUzbekistan,
-    );
-  }
-
-  static PostingAdState choose(
-      PostingAdState state, PostingAdChooseEvent event) {
-    print('=> => => => LOCATION URL    ${event.locationUrl}    <= <= <= <=');
-    return state.copyWith(
-      years: event.years,
-      yearId: event.yearId,
-      locationUrl: event.locationUrl,
-      toastMessage: event.toastMessage,
-      damagedParts: event.damagedParts,
-      rentWithPurchaseConditions: event.rentWithPurchaseConditions,
-      gallery: event.gallery,
-      showExactAddress: event.showExactAddress,
-      isWithoutMileage: event.isWithoutMileage,
-      rentToBuy: event.rentToBuy,
-      isContactsVerified: event.isContactsVerified,
-      showOwnerContacts: event.showOwnerContacts,
-      isCallTimed: event.isCallTimed,
-      callTimeTo: event.callTimeTo,
-      callTimeFrom: event.callTimeFrom,
-      mileage: event.mileage,
-      ownerStep: event.ownerStep,
-      typeDocument: event.typeDocument,
-      colorName: event.colorName,
-      gearboxId: event.gearboxId,
-      driveTypeId: event.driveTypeId,
-      engineId: event.engineId,
-      generationId: event.generationId,
-      bodyTypeId: event.selectedBodyTypeId,
-      isSortByLetter: event.letter != state.letter,
-      modelId: event.modelId,
-      letter: event.letter,
-      makeId: event.makeId,
-      purchasedDate: event.purchasedDate,
-      registeredInUzbekistan: event.isRastamojen,
-      ownerEmail: event.ownerEmail,
-      ownerName: event.ownerName,
-      ownerPhone: event.ownerPhone,
-      city: event.city,
-      region: event.region,
-      price: event.price,
-      currency: event.currency,
-      gasBalloonType: event.gasBalloonType,
-      districtId: event.districtId,
-      phoneController: event.phoneController,
-      emailController: event.emailController,
-      nameController: event.nameController,
-    );
   }
 }

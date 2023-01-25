@@ -53,7 +53,9 @@ class _SmsVerificationSheetState extends State<SmsVerificationSheet> {
               if (state.status == FormzStatus.submissionSuccess) {
                 Navigator.of(context).pop(true);
               }
-              if (state.status == FormzStatus.submissionFailure) {}
+              if (state.status == FormzStatus.submissionFailure) {
+                Navigator.of(context).pop(state.toastMessage);
+              }
             },
             builder: (context, state) => Container(
               padding: EdgeInsets.only(
