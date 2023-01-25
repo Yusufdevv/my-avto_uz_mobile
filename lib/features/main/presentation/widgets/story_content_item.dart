@@ -41,7 +41,7 @@ class StoryContentItem extends StatefulWidget {
 }
 
 class _StoryContentItemState extends State<StoryContentItem>
-    with SingleTickerProviderStateMixin {
+    with SingleTickerProviderStateMixin, WidgetsBindingObserver {
   late VideoPlayerController _videoPlayerController;
   late AnimationController animationController;
   int itemIndex = 0;
@@ -51,7 +51,27 @@ class _StoryContentItemState extends State<StoryContentItem>
   bool isEnded = false;
 
   @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    print('state: $state');
+    switch (state) {
+      case AppLifecycleState.resumed:
+        break;
+      case AppLifecycleState.inactive:
+        break;
+      case AppLifecycleState.paused:
+        break;
+      case AppLifecycleState.detached:
+        break;
+    }
+  }
+
+  @override
   void initState() {
+    print('isPaused: ${widget.isPaused}');
+    WidgetsBinding.instance.addObserver(this);
+    if (WidgetsBinding.instance.lifecycleState != null) {
+      print('state: 1 ${WidgetsBinding.instance.lifecycleState!}');
+    }
     animationController = AnimationController(vsync: this);
     animationController.addStatusListener(_animationListener);
     _loadStory();
@@ -60,6 +80,7 @@ class _StoryContentItemState extends State<StoryContentItem>
 
   @override
   Widget build(BuildContext context) {
+    print('isPaused: ${widget.isPaused}');
     var isLandscape = false;
     if (initialized && _videoPlayerController.value.isInitialized) {
       isLandscape = _videoPlayerController.value.size.width >
@@ -425,6 +446,8 @@ class _StoryContentItemState extends State<StoryContentItem>
 
   @override
   void dispose() {
+    print('isPaused: ${widget.isPaused}');
+    WidgetsBinding.instance.removeObserver(this);
     animationController.dispose();
     disposeVideo();
     super.dispose();
