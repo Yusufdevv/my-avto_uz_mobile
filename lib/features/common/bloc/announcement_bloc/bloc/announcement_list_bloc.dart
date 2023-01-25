@@ -24,32 +24,14 @@ class AnnouncementListBloc
       emit(state.copyWith(status: FormzStatus.submissionInProgress));
       final result = await useCase.call(state.filter);
       if (result.isRight) {
-        if (state.filter.isNew == true) {
-          emit(
-            state.copyWith(
-              announcementListNew: result.right.results,
-              status: FormzStatus.submissionSuccess,
-              nextNew: result.right.next ?? '',
-            ),
-          );
-        } else if (state.filter.isNew == false) {
-          emit(
-            state.copyWith(
-              announcementListOld: result.right.results,
-              status: FormzStatus.submissionSuccess,
-              nextOld: result.right.next ?? '',
-            ),
-          );
-        } else {
-          emit(
-            state.copyWith(
-              announcementList: result.right.results,
-              status: FormzStatus.submissionSuccess,
-              count: result.right.count,
-              next: result.right.next ?? '',
-            ),
-          );
-        }
+        emit(
+          state.copyWith(
+            announcementList: result.right.results,
+            status: FormzStatus.submissionSuccess,
+            count: result.right.count,
+            next: result.right.next ?? '',
+          ),
+        );
       } else {
         emit(state.copyWith(status: FormzStatus.submissionFailure));
       }
@@ -66,20 +48,38 @@ class AnnouncementListBloc
     });
     on<_GetIsHistory>(
         (event, emit) => emit(state.copyWith(isHistory: event.isHistory)));
-    on<_GetFilterClear>(
-      (event, emit) => emit(
-        state.copyWith(
-          filter: state.filter.copyWith(
-              gearboxType: null,
-              bodyType: null,
-              driveType: null,
-              priceFrom: 1000,
-              priceTo: 500000,
-              yearFrom: 1960,
-              yearTo: 2023),
-        ),
-      ),
-    );
+    on<_GetFilterClear>((event, emit) {
+      if (event.ismake == true) {
+        emit(
+          state.copyWith(
+            filter: state.filter.copyWith(
+                make: -1,
+                model: -1,
+                gearboxType: null,
+                bodyType: null,
+                driveType: null,
+                priceFrom: 1000,
+                priceTo: 500000,
+                yearFrom: 1960,
+                yearTo: 2023),
+          ),
+        );
+        add(AnnouncementListEvent.getAnnouncementList());
+      } else {
+        emit(
+          state.copyWith(
+            filter: state.filter.copyWith(
+                gearboxType: null,
+                bodyType: null,
+                driveType: null,
+                priceFrom: 1000,
+                priceTo: 500000,
+                yearFrom: 1960,
+                yearTo: 2023),
+          ),
+        );
+      }
+    });
     on<_GetInfo>((event, emit) => emit(state.copyWith(
           bodyTypeEntity: event.bodyType,
           gearboxTypeEntity: event.gearboxType,

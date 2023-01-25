@@ -32,9 +32,10 @@ class WFilterButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) => WButton(
         onTap: onTap,
+        height: 38,
         width: size.width * 0.45,
         borderRadius: 8,
-        padding: const EdgeInsets.all(12),
+        padding: const EdgeInsets.all(10),
         border: Border.all(color: theme.dividerColorToGrey),
         color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
         child: Row(
@@ -48,7 +49,7 @@ class WFilterButton extends StatelessWidget {
             ),
             const SizedBox(width: 8),
             SizedBox(
-              width: size.width * 0.22,
+              width: size.width * 0.26,
               child: Text(
                 name.isEmpty ? defaultTitle : name,
                 style: Theme.of(context)

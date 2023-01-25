@@ -100,7 +100,7 @@ class _MainScreenState extends State<MainScreen> {
             GetMakesBlocEvent.selectedCarItems(id: -1, name: '', imageUrl: ''));
         context
             .read<AnnouncementListBloc>()
-            .add(AnnouncementListEvent.getFilterClear());
+            .add(AnnouncementListEvent.getFilterClear(ismake: true));
         Navigator.of(context, rootNavigator: true)
             .push(fade(page: AdsScreen(isBack: false, onTap: () {})));
       },
