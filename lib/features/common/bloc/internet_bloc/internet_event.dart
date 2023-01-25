@@ -7,10 +7,3 @@ class GlobalCheck extends InternetEvent {
 
   GlobalCheck({required this.isConnected});
 }
-
-class TapCheck extends InternetEvent {
-  final bool isConnected;
-
-
-  TapCheck({required this.isConnected});
-}
