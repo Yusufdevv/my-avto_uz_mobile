@@ -31,13 +31,14 @@ class ChooseCarBrand extends StatefulWidget {
 class _ChooseCarBrandState extends State<ChooseCarBrand> {
   CrossFadeState crossFadeState = CrossFadeState.showFirst;
   late ScrollController _scrollController;
+  late ScrollController _makesController;
   late TextEditingController searchController;
 
   double height = 140;
   @override
   void initState() {
     _scrollController = ScrollController()..addListener(_scrollListener);
-
+    _makesController = ScrollController();
     searchController = TextEditingController();
 
     super.initState();
@@ -71,7 +72,13 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
 
   @override
   Widget build(BuildContext context) => KeyboardDismisser(
-        child: BlocBuilder<PostingAdBloc, PostingAdState>(
+        child: BlocConsumer<PostingAdBloc, PostingAdState>(
+          listener: (context, state) {
+            if (state.makeLetterIndex != null && state.makeLetterIndex! > -1) {
+              _makesController.animateTo(state.makeLetterIndex! * 54,
+                  duration: Duration(milliseconds: 500), curve: Curves.linear);
+            }
+          },
           builder: (context, state) => Scaffold(
             body: NestedScrollView(
               controller: _scrollController,
@@ -189,11 +196,12 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
                 child: state.status == FormzStatus.submissionInProgress
                     ? const Center(child: CupertinoActivityIndicator())
                     : ListView.builder(
+                        controller: _makesController,
                         physics: const BouncingScrollPhysics(),
                         padding: const EdgeInsets.only(bottom: 50),
                         itemBuilder: (context, index) => ChangeCarItems(
                           onTap: () {
-                           context.read<PostingAdBloc>().add(
+                            context.read<PostingAdBloc>().add(
                                 PostingAdChooseEvent(
                                     makeId: state.makes[index].id));
                           },

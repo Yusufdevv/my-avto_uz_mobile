@@ -2,7 +2,6 @@ part of 'posting_ad_bloc.dart';
 
 class PostingAdState extends Equatable {
   final TextEditingController phoneController;
-
   final TextEditingController emailController;
   final TextEditingController nameController;
   final int? gearboxId;
@@ -20,19 +19,20 @@ class PostingAdState extends Equatable {
   final List<GenerationEntity> generations;
   final int? bodyTypeId;
   final List<BodyTypeEntity> bodyTypes;
-
   final Region? region;
   final List<Region> regions;
   final List<DistrictEntity> districts;
   final FormzStatus status;
   final FormzStatus getDistrictsStatus;
-  final YearsEntity? yearsEntity;
+  final int? yearId;
+  final List<YearsEntity>? years;
   final int? districtId;
   final List<String> gallery;
   final List<RentWithPurchaseEntity> rentWithPurchaseConditions;
   final Map<DamagedParts, DamageType> damagedParts;
   final UserModel? userModel;
   final num minimumPrice;
+  final int? makeLetterIndex;
   final String? letter;
   final String? ownerName;
   final String? ownerEmail;
@@ -66,6 +66,7 @@ class PostingAdState extends Equatable {
     required this.phoneController,
     required this.emailController,
     required this.nameController,
+    this.makeLetterIndex,
     this.minimumPrice = 0,
     this.gearboxId,
     this.gearBoxes = const <GearboxTypeEntity>[],
@@ -82,11 +83,12 @@ class PostingAdState extends Equatable {
     this.generations = const <GenerationEntity>[],
     this.bodyTypeId,
     this.bodyTypes = const <BodyTypeEntity>[],
+    this.yearId,
+    this.years = const <YearsEntity>[],
     this.gallery = const <String>[],
     this.rentWithPurchaseConditions = const <RentWithPurchaseEntity>[],
     this.regions = const <Region>[],
     this.damagedParts = const <DamagedParts, DamageType>{},
-    this.yearsEntity,
     this.letter,
     this.colorName,
     this.typeDocument,
@@ -158,8 +160,10 @@ class PostingAdState extends Equatable {
     List<MakeEntity>? topMakes,
     List<DistrictEntity>? districts,
     List<String>? gallery,
-    YearsEntity? yearsEntity,
+    int? yearId,
+    List<YearsEntity>? years,
     UserModel? userModel,
+    int? makeLetterIndex,
     num? minimumPrice,
     String? letter,
     String? colorName,
@@ -193,6 +197,8 @@ class PostingAdState extends Equatable {
     // print('====   ACTUALLY IN STATE:  ${this.districts}  ====');
     // print('==== INCOMING DISTRICT TO COPYWITH:  ${districts}  ====');
     final newState = PostingAdState(
+      makeLetterIndex: makeLetterIndex ?? this.makeLetterIndex,
+      yearId: yearId ?? this.yearId,
       locationUrl: locationUrl ?? this.locationUrl,
       phoneController: phoneController ?? this.phoneController,
       emailController: emailController ?? this.emailController,
@@ -222,7 +228,7 @@ class PostingAdState extends Equatable {
       makes: makes ?? this.makes,
       status: status ?? this.status,
       bodyTypes: bodyTypes ?? this.bodyTypes,
-      yearsEntity: yearsEntity ?? this.yearsEntity,
+      years: years ?? this.years,
       hasAppBarShadow: hasAppBarShadow ?? this.hasAppBarShadow,
       isSortByLetter: isSortByLetter,
       modelId: modelId ?? this.modelId,
@@ -261,6 +267,7 @@ class PostingAdState extends Equatable {
 
   @override
   List<Object?> get props => [
+        makeLetterIndex,
         locationUrl,
         phoneController,
         emailController,
@@ -294,7 +301,8 @@ class PostingAdState extends Equatable {
         makeId,
         letter,
         hasAppBarShadow,
-        yearsEntity,
+        years,
+        yearId,
         bodyTypes,
         status,
         generationId,
