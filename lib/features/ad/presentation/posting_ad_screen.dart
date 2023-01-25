@@ -10,6 +10,7 @@ import 'package:auto/features/ad/domain/usecases/get_drive_type.dart';
 import 'package:auto/features/ad/domain/usecases/get_engine_type.dart';
 import 'package:auto/features/ad/domain/usecases/get_generation.dart';
 import 'package:auto/features/ad/domain/usecases/get_makes.dart';
+import 'package:auto/features/ad/domain/usecases/get_years.dart';
 import 'package:auto/features/ad/domain/usecases/minimum_price_usecase.dart';
 import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.dart';
 import 'package:auto/features/ad/presentation/pages/add_photo/add_photo_screen.dart';
@@ -64,7 +65,7 @@ class _PostingAdScreenState extends State<PostingAdScreen>
     with SingleTickerProviderStateMixin {
   late PageController pageController;
   late PostingAdBloc postingAdBloc;
-  static int initialPage = 16;
+  static int initialPage = 0;
   // ChooseCarBrand,
   //1
   // ChooseCarModelScreen(makeId: state.makeId ?? -1),
@@ -120,6 +121,8 @@ class _PostingAdScreenState extends State<PostingAdScreen>
   void initState() {
     pageController = PageController(initialPage: initialPage);
     postingAdBloc = PostingAdBloc(
+      getYearsUseCase:
+          GetYearsUseCase(repository: serviceLocator<AdRepositoryImpl>()),
       userRepository: AuthRepository(),
       contactsUseCase:
           ContactsUseCase(repository: serviceLocator<AdRepositoryImpl>()),
@@ -158,34 +161,80 @@ class _PostingAdScreenState extends State<PostingAdScreen>
   }
 
   bool _isDisabled(int page, PostingAdState state) {
-//     switch (page) {
-//       //make
-//       case 0:
-//         return state.makeId == null;
-// // model
-//       case 1:
-//         return state.modelId == null;
-//       // year
-//       case 2:
-//         return state.yearsEntity == null;
-//       // body type
-//       case 3:
-//         return state.bodyTypeId == null;
-//       // generation
-//       case 4:
-//         return state.generationId == null;
-//       // engine
-//       case 5:
-//         return state.engineId == null;
-//       // drive type
-//       case 6:
-//         return state.driveTypeId == null;
-//       // gearbox
-//       case 7:
-//         return state.gearboxId == null;
-//       case 15:
-//         return state.isContactsVerified??false;
-//     }
+    print('=> => => =>   isDisabled page:  $page    <= <= <= <=');
+    switch (page) {
+      //make
+      case 0:
+        return state.makeId == null;
+// model
+      case 1:
+        return state.modelId == null;
+      // year
+      case 2:
+        return state.yearId == null;
+      // generation
+      case 3:
+        {
+          var v = state.generationId == null;
+          print('=> => => =>  generation bool:   $v    <= <= <= <=');
+          return v;
+        }
+
+     // body type
+      case 4:
+        return state.bodyTypeId == null;
+      // engine
+      case 5:
+        return state.engineId == null;
+      // drive type
+      case 6:
+        return state.driveTypeId == null;
+      // gearbox
+      case 7:
+        return state.gearboxId == null;
+      // ModificationScreen
+      case 8:
+        return state.gearboxId == null;
+      // ColorsScreen
+      case 9:
+        return false;
+      // AddPhotoScreen
+      case 10:
+        return state.gallery.isEmpty;
+      // PtsScreen
+      case 11:
+        return state.ownerStep == null ||
+            state.typeDocument == null ||
+            state.purchasedDate == null;
+      //  DescriptionScreen
+      case 12:
+        return false;
+      //  EquipmentScreen
+      case 13:
+        return false;
+      // DamageScreen
+      case 14:
+        return false;
+      // ContactsScreen
+      case 15:
+        return !state.isContactsVerified;
+// InspectionPlaceScreen
+      case 16:
+        {
+          var v = state.region == null;
+          print('=> => => =>     Inspection place bool: $v    <= <= <= <=');
+          return v;
+        }
+      // PriceScreen
+      case 17:
+        return state.price == null;
+      // MileageScreen
+      case 18:
+        return !(state.mileage != null || (state.isWithoutMileage??false));
+      // PreviewScreen
+      case 19:
+        return false;
+    }
 
     return false;
   }
@@ -199,6 +248,7 @@ class _PostingAdScreenState extends State<PostingAdScreen>
         postingAdBloc.add(PostingAdModelEvent());
         break;
       case 2:
+        postingAdBloc.add(PostingAdGetYearsEvent());
         break;
       case 3:
         postingAdBloc.add(PostingAdGenerationsEvent(modelId: state.modelId!));
@@ -311,11 +361,11 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                       //1
                       ChooseCarModelScreen(makeId: state.makeId ?? -1),
                       //2
-                      YearIssueScreen(modelId: state.modelId ?? -1),
+                      const YearIssueScreenn(),
                       //3
                       const GenerationScreen(),
                       //4
-                      CarcaseScreen(selectedBodyTypeId: state.bodyTypeId ?? -1),
+                      const CarcaseScreen(),
                       //5
                       const EngineScreen(),
                       //6

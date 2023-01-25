@@ -1,61 +1,48 @@
-import 'package:auto/core/singletons/service_locator.dart';
-import 'package:auto/features/ad/data/repositories/ad_repository_impl.dart';
-import 'package:auto/features/ad/domain/usecases/get_years.dart';
 import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.dart';
-import 'package:auto/features/ad/presentation/bloc/year_of_issue/year_issue_bloc.dart';
 import 'package:auto/features/ad/presentation/pages/year_of_issue/widget/years_item.dart';
 import 'package:auto/features/ad/presentation/widgets/base_widget.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:formz/formz.dart';
 
-class YearIssueScreen extends StatefulWidget {
-  final int modelId;
-  const YearIssueScreen({required this.modelId, Key? key}) : super(key: key);
+class YearIssueScreenn extends StatefulWidget {
+  const YearIssueScreenn({Key? key}) : super(key: key);
 
   @override
-  State<YearIssueScreen> createState() => _YearIssueScreenState();
+  State<YearIssueScreenn> createState() => _YearIssueScreennState();
 }
 
-class _YearIssueScreenState extends State<YearIssueScreen> {
-  late YearIssueBloc yearIssueBloc;
-
+class _YearIssueScreennState extends State<YearIssueScreenn> {
   @override
   void initState() {
-    yearIssueBloc = YearIssueBloc(
-        modelId: widget.modelId,
-        getYearsUseCase:
-            GetYearsUseCase(repository: serviceLocator<AdRepositoryImpl>()))
-      ..add(YearsIssueGetEvent());
     super.initState();
   }
 
   @override
-  Widget build(BuildContext context) => BlocProvider.value(
-        value: yearIssueBloc,
-        child: Scaffold(
-            body: BlocBuilder<YearIssueBloc, YearIssueState>(
-          builder: (context, state) => BaseWidget(
-            headerText: 'Год выпуска',
-            child: ListView.builder(
-              physics: const BouncingScrollPhysics(),
-              shrinkWrap: true,
-              itemBuilder: (context, index) => GestureDetector(
-                onTap: () {
-                  context.read<PostingAdBloc>().add(PostingAdChooseEvent(
-                      yearsEntity: state.yearsEntity[index]));
-                },
-                child: YearItem(
-                  beginYear: '${state.yearsEntity[index].yearBegin}',
-                  endYear: '${state.yearsEntity[index].yearEnd}',
-                  isSelected:
-                      (context.watch<PostingAdBloc>().state.yearsEntity?.id ??
-                              -1) ==
-                          state.yearsEntity[index].id,
+  Widget build(BuildContext context) => Scaffold(
+          body: BlocBuilder<PostingAdBloc, PostingAdState>(
+        builder: (context, state) => BaseWidget(
+          headerText: 'Год выпуска',
+          child: state.status == FormzStatus.submissionInProgress
+              ? const Center(child: CupertinoActivityIndicator())
+              : ListView.builder(
+                  physics: const BouncingScrollPhysics(),
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) => GestureDetector(
+                    onTap: () {
+                      context.read<PostingAdBloc>().add(
+                          PostingAdChooseEvent(yearId: state.years![index].id));
+                    },
+                    child: YearItem(
+                      beginYear: '${state.years![index].yearBegin}',
+                      endYear: '${state.years![index].yearEnd}',
+                      isSelected:
+                          (state.yearId ?? -1) == state.years![index].id,
+                    ),
+                  ),
+                  itemCount: state.years?.length ?? 0,
                 ),
-              ),
-              itemCount: state.yearsEntity.length,
-            ),
-          ),
-        )),
-      );
+        ),
+      ));
 }

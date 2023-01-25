@@ -21,6 +21,7 @@ import 'package:auto/features/ad/domain/usecases/get_drive_type.dart';
 import 'package:auto/features/ad/domain/usecases/get_engine_type.dart';
 import 'package:auto/features/ad/domain/usecases/get_generation.dart';
 import 'package:auto/features/ad/domain/usecases/get_makes.dart';
+import 'package:auto/features/ad/domain/usecases/get_years.dart';
 import 'package:auto/features/ad/domain/usecases/minimum_price_usecase.dart';
 import 'package:auto/features/car_single/domain/entities/car_single_entity.dart';
 import 'package:auto/features/car_single/domain/entities/damaged_parts_entity.dart';
@@ -45,6 +46,7 @@ part 'posting_ad_state.dart';
 part 'singleton_of_posting_ad_bloc.dart';
 
 class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
+  final GetYearsUseCase getYearsUseCase;
   final CreateAnnouncementUseCase createUseCase;
   final AuthRepository userRepository;
   final VerifyCodeUseCase verifyCodeUseCase;
@@ -63,6 +65,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
   final GetBodyTypeUseCase bodyTypesUseCase;
 
   PostingAdBloc({
+    required this.getYearsUseCase,
     required this.userRepository,
     required this.verifyCodeUseCase,
     required this.contactsUseCase,
@@ -105,6 +108,19 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     on<PostingAdSendCodeEvent>(_sendCode);
     on<PostingAdGetUserDataEvent>(_getUser);
     on<PostingAdClearControllersEvent>(_clearControllers);
+    on<PostingAdGetYearsEvent>(_getYears);
+  }
+  FutureOr<void> _getYears(
+      PostingAdGetYearsEvent event, Emitter<PostingAdState> emit) async {
+    emit(state.copyWith(status: FormzStatus.submissionInProgress));
+    final result =
+        await getYearsUseCase.call(YearsParams(modelId: state.modelId!));
+    if (result.isRight) {
+      emit(state.copyWith(
+          status: FormzStatus.submissionSuccess, years: result.right.results));
+    } else {
+      emit(state.copyWith(status: FormzStatus.submissionFailure));
+    }
   }
 
   FutureOr<void> _clearControllers(PostingAdClearControllersEvent event,
@@ -136,17 +152,6 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     }
     final result = await userRepository.getUser();
     if (result.isRight) {
-      print('the users fullname:${result.right.fullName}');
-
-      print('the users first:${result.right.firstName}');
-
-      print('the users last:${result.right.lastName}');
-
-      print('the users plhone:${result.right.phone}');
-
-      print('the users phone number:${result.right.phoneNumber}');
-
-      print('the users fullname:${result.right.email}');
       emit(state.copyWith(
         isContactsVerified: true,
         status: FormzStatus.submissionSuccess,
@@ -368,9 +373,10 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
   FutureOr<void> _generations(
       PostingAdGenerationsEvent event, Emitter<PostingAdState> emit) async {
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
-    final result = await generationUseCase.call(GenerationParams(
-        modelId: state.modelId!, year: state.yearsEntity!.yearBegin));
+    final result = await generationUseCase
+        .call(GenerationParams(modelId: state.modelId!, year: state.years!.firstWhere((element) => element.id == state.yearId).yearBegin));
     if (result.isRight) {
+  print('=> => => =>   result . right is   ${result.right.results.length}    <= <= <= <=');
       emit(state.copyWith(
           generations: result.right.results,
           status: FormzStatus.submissionSuccess));

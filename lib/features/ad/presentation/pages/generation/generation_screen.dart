@@ -18,25 +18,30 @@ class _GenerationScreenState extends State<GenerationScreen> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-          body: BaseWidget(
-        headerText: 'Поколение',
-        padding: const EdgeInsets.only(top: 16),
-        child: BlocBuilder<PostingAdBloc, PostingAdState>(
-          builder: (context, state) {
-            if (state.status == FormzStatus.submissionInProgress) {
-              return const Center(child: CupertinoActivityIndicator());
-            }
-            return ListView.builder(
-              itemBuilder: (context, index) => PostingRadioItem(
-                  onTap: () => context.read<PostingAdBloc>().add(
-                      PostingAdChooseEvent(
-                          generationId: state.generations[index].id)),
-                  image: state.generations[index].logo,
-                  selected: state.generationId == state.generations[index].id,
-                  title: state.generations[index].name),
-              itemCount: state.generations.length,
-            );
-          },
+        body: BaseWidget(
+          headerText: 'Поколение',
+          padding: const EdgeInsets.only(top: 16),
+          child: BlocBuilder<PostingAdBloc, PostingAdState>(
+            builder: (context, state) {
+              if (state.status == FormzStatus.submissionInProgress) {
+                return const Center(child: CupertinoActivityIndicator());
+              }
+              if (state.generations.isEmpty) {
+                return const Center(child: Text('no data'));
+              }
+
+              return ListView.builder(
+                itemBuilder: (context, index) => PostingRadioItem(
+                    onTap: () => context.read<PostingAdBloc>().add(
+                        PostingAdChooseEvent(
+                            generationId: state.generations[index].id)),
+                    image: state.generations[index].logo,
+                    selected: state.generationId == state.generations[index].id,
+                    title: state.generations[index].name),
+                itemCount: state.generations.length,
+              );
+            },
+          ),
         ),
-      ));
+      );
 }

@@ -64,7 +64,8 @@ class PreviewScreen extends StatelessWidget {
                         height: 1, color: Theme.of(context).dividerColor)),
                 CarInfoRow(
                     title: 'Год выпуска',
-                    info: '${state.yearsEntity?.yearBegin}'),
+                    info:
+                        '${state.years?.firstWhere((element) => state.yearId == element.id).yearBegin}'),
                 CarInfoRow(title: 'Пробег', info: '${state.mileage}'),
                 CarInfoRow(
                     title: 'Кузов',
@@ -80,7 +81,8 @@ class PreviewScreen extends StatelessWidget {
                 const CarInfoRow(title: 'Комплектация', info: 'hsergfd'),
                 CarInfoRow(
                   title: 'Объем двигателя, л',
-                  info: '${state.yearsEntity?.yearBegin ?? 'hsergfd'}',
+                  info:
+                      '${state.years?.firstWhere((element) => state.yearId == element.id).yearBegin}',
                 ),
                 CarInfoRow(
                   title: 'Коробка передач',

@@ -2,6 +2,8 @@ part of 'posting_ad_bloc.dart';
 
 abstract class PostingAdEvent {}
 
+class PostingAdGetYearsEvent extends PostingAdEvent {}
+
 class PostingAdClearControllersEvent extends PostingAdEvent {}
 
 class PostingAdGetUserDataEvent extends PostingAdEvent {}
@@ -75,7 +77,7 @@ class PostingAdChooseEvent extends PostingAdEvent {
   final TextEditingController? nameController;
   List<String>? gallery;
   final Region? region;
-  final YearsEntity? yearsEntity;
+  final List<YearsEntity>? years;
   final int? districtId;
   final List<RentWithPurchaseEntity>? rentWithPurchaseConditions;
   final Map<DamagedParts, DamageType>? damagedParts;
@@ -88,6 +90,7 @@ class PostingAdChooseEvent extends PostingAdEvent {
   final int? selectedBodyTypeId;
   final int? driveTypeId;
   final int? gearboxId;
+  final int? yearId;
   final String? letter;
   final String? colorName;
   final String? typeDocument;
@@ -120,6 +123,7 @@ class PostingAdChooseEvent extends PostingAdEvent {
   final bool? isNew;
 
   PostingAdChooseEvent({
+    this.yearId,
     this.locationUrl,
     this.phoneController,
     this.emailController,
@@ -135,7 +139,7 @@ class PostingAdChooseEvent extends PostingAdEvent {
     this.driveTypeId,
     this.generationId,
     this.selectedBodyTypeId,
-    this.yearsEntity,
+    this.years,
     this.modelId,
     this.letter,
     this.makeId,

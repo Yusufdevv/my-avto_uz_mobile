@@ -7,8 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 
 class CarcaseScreen extends StatefulWidget {
-  final int selectedBodyTypeId;
-  const CarcaseScreen({required this.selectedBodyTypeId, Key? key})
+  const CarcaseScreen({ Key? key})
       : super(key: key);
 
   @override
