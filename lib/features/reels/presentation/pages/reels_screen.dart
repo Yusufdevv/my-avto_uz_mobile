@@ -10,8 +10,10 @@ import 'package:flutter_svg/svg.dart';
 import 'package:formz/formz.dart';
 
 class ReelsScreen extends StatefulWidget {
-  ReelsScreen({Key? key, this.isFromMain = false}) : super(key: key);
-  bool isFromMain;
+  const ReelsScreen({Key? key, this.isFromMain = false}) : super(key: key);
+
+  final bool isFromMain;
+
   @override
   State<ReelsScreen> createState() => _ReelsScreenState();
 }
@@ -24,7 +26,7 @@ class _ReelsScreenState extends State<ReelsScreen> {
 
   @override
   void initState() {
-    bloc = ReelsBloc()..add(InitialEvent());
+    bloc = ReelsBloc()..add(InitialEvent(isFromMain: widget.isFromMain));
     _pageController = PageController(keepPage: true);
     _pageController.addListener(_scrollListener);
     super.initState();

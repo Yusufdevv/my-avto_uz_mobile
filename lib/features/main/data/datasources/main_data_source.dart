@@ -30,18 +30,22 @@ class MainDataSource {
           ));
       return GenericPagination.fromJson(result.data,
           (json) => StoryModel.fromJson(json as Map<String, dynamic>));
-    } catch(e) {
+    } catch (e) {
       throw const ServerException();
     }
   }
 
   Future<dynamic> readStory({required int itemId}) async {
-    final result = await dio.get('stories/item/$itemId/read/',
-        options: Options(
-          headers: {
-            'Authorization': 'Bearer ${StorageRepository.getString('token')}',
-          },
-        ));
-    return result;
+    try {
+      final result = await dio.get('stories/item/$itemId/read/',
+          options: Options(
+            headers: {
+              'Authorization': 'Bearer ${StorageRepository.getString('token')}',
+            },
+          ));
+      return result;
+    } catch (e) {
+      throw const ServerException();
+    }
   }
 }

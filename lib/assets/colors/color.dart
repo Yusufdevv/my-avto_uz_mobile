@@ -74,6 +74,8 @@ const seashell = _seashell;
 const yellowSea = _yellowSea;
 const disabledButton = _veryLightGrey;
 const whiteToGrey = _whiteToGrey;
+const orangeLight = _orangeLight;
+const orangeMid = _orangeMid;
 
 // Main palette (http://www.color-blindness.com/color-name-hue/).
 
@@ -152,3 +154,5 @@ const _lavender = Color(0xffF0EFFD);
 
 const _tutu = Color(0xFFFAEEEE);
 const _veryLightGrey = Color(0xFFCCCCCC);
+const _orangeMid = Color(0xFFFF930F);
+const _orangeLight = Color(0xFFEBCC54);

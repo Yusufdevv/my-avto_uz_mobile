@@ -15,6 +15,14 @@ abstract class ReelRepository {
     throw Exception('not implemented');
   }
 
+  Future<Either<Failure, GenericPagination<ReelModel>>> getReelsOfDay({
+    String? search,
+    int? limit,
+    int? offset,
+  }) {
+    throw Exception('not implemented');
+  }
+
   Future<Either<Failure, ReelsPostEntity>> getReelsLike({
     required int id,
   }) {
