@@ -67,8 +67,13 @@ class _VerifySmsCodePageState extends State<VerifySmsCodePage> {
               listener: (context, state) {
                 if (state.status == FormzStatus.submissionCanceled) {
                   isError = true;
-                  context.read<ShowPopUpBloc>().add(
-                      ShowPopUp(message: state.toastMessage, isSucces: false));
+                  var error = state.toastMessage;
+                  if (error.toLowerCase().contains('dioerror')) {
+                    error = 'Server bilan xatolik yuz berdi';
+                  }
+                  context
+                      .read<ShowPopUpBloc>()
+                      .add(ShowPopUp(message: error, isSucces: false));
                 }
                 if (state.status == FormzStatus.submissionSuccess) {
                   Navigator.pushReplacement(

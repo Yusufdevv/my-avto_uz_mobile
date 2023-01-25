@@ -112,8 +112,13 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                                     isSucces: true));
                               },
                               onError: (text) {
+                                var error = text;
+                                if (error.toLowerCase().contains('dioerror')) {
+                                  error =
+                                      'Server bilan xatolik yuz berdi';
+                                }
                                 context.read<ShowPopUpBloc>().add(
-                                    ShowPopUp(message: text, isSucces: false));
+                                    ShowPopUp(message: error, isSucces: false));
                               },
                             ),
                           );

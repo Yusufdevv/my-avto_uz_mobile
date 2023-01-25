@@ -55,8 +55,13 @@ class _ForgotPasswordSendPhonePageState
             child: BlocConsumer<SendPhoneBloc, SendPhoneState>(
               listener: (context, state) {
                 if (state.status == FormzStatus.submissionCanceled) {
+                  var error = state.toastMessage;
+                                if (error.toLowerCase().contains('dioerror')) {
+                                  error =
+                                      'Server bilan xatolik yuz berdi';
+                                }
                   context.read<ShowPopUpBloc>().add(
-                      ShowPopUp(message: state.toastMessage, isSucces: false));
+                      ShowPopUp(message: error, isSucces: false));
                 }
                 if (state.status == FormzStatus.submissionSuccess) {
                   Navigator.push(

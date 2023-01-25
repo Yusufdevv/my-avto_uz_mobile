@@ -65,9 +65,9 @@ class _LoginScreenState extends State<LoginScreen> {
     return KeyboardDismisser(
       child: CustomScreen(
         child: Scaffold(
-          appBar:   WAppBar(
+          appBar: WAppBar(
             hasBackButton: false,
-            title:LocaleKeys.enter.tr(),
+            title: LocaleKeys.enter.tr(),
           ),
           body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -175,8 +175,13 @@ class _LoginScreenState extends State<LoginScreen> {
                           hidePopUp();
                           context.read<AuthenticationBloc>().add(LoginUser(
                               onError: (text) {
+                                var error = text;
+                                if (error.toLowerCase().contains('dioerror')) {
+                                  error =
+                                      'Server bilan xatolik yuz berdi';
+                                }
                                 context.read<ShowPopUpBloc>().add(ShowPopUp(
-                                      message: text,
+                                      message: error,
                                       isSucces: false,
                                       dismissible: false,
                                     ));

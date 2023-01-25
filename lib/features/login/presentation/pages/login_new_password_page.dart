@@ -58,6 +58,11 @@ class _LoginNewPasswordPageState extends State<LoginNewPasswordPage> {
             child: BlocConsumer<NewPasswordBloc, NewPasswordState>(
               listener: (context, state) {
                 if (state.status == FormzStatus.submissionCanceled) {
+                  var error = state.toastMessage;
+                                if (error.toLowerCase().contains('dioerror')) {
+                                  error =
+                                      'Server bilan xatolik yuz berdi';
+                                }
                   context.read<ShowPopUpBloc>().add(
                       ShowPopUp(message: state.toastMessage, isSucces: false));
                 }
