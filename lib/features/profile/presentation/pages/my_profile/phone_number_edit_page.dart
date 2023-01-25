@@ -154,9 +154,16 @@ class _PhoneNumberEditPageState extends State<PhoneNumberEditPage> {
                                           );
                                         },
                                         onError: (message) {
+                                          var error = message;
+                                          if (error
+                                              .toLowerCase()
+                                              .contains('dioerror')) {
+                                            error =
+                                                'Server bilan xatolik yuz berdi';
+                                          }
                                           context.read<ShowPopUpBloc>().add(
                                               ShowPopUp(
-                                                  message: message,
+                                                  message: error,
                                                   isSucces: false));
                                         }));
                               }

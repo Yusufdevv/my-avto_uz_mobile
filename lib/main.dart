@@ -37,11 +37,11 @@ import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/onboarding/presentation/first_onboarding.dart';
 import 'package:auto/features/splash/presentation/pages/splash_sc.dart';
 import 'package:auto/generated/codegen_loader.g.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 
 void main() async {
@@ -101,9 +101,10 @@ class _AppState extends State<App> {
   void initState() {
     bloc = InternetBloc();
     streamSubscription =
-        InternetConnectionChecker().onStatusChange.listen((status) {
+        Connectivity().onConnectivityChanged.listen((status) {
       context.read<InternetBloc>().add(GlobalCheck(
-          isConnected: status == InternetConnectionStatus.connected));
+          isConnected: status == ConnectivityResult.mobile || status == ConnectivityResult.wifi));
+          print('====net=status ${status == ConnectivityResult.mobile || status == ConnectivityResult.wifi}');
     });
     super.initState();
   }
@@ -185,6 +186,7 @@ class _AppState extends State<App> {
                           .isNotEmpty) {
                         navigator.pushAndRemoveUntil(
                             fade(page: const HomeScreen()), (route) => false);
+                            
                         break;
                       }
                       if (!StorageRepository.getBool('onboarding',

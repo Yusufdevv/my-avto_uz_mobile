@@ -1,6 +1,7 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
 import 'package:auto/features/common/widgets/custom_screen.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
@@ -57,7 +58,6 @@ class _VerifySmsCodePageState extends State<VerifySmsCodePage> {
 
   bool isError = false;
 
-
   @override
   Widget build(BuildContext context) => CustomScreen(
         child: KeyboardDismisser(
@@ -67,8 +67,13 @@ class _VerifySmsCodePageState extends State<VerifySmsCodePage> {
               listener: (context, state) {
                 if (state.status == FormzStatus.submissionCanceled) {
                   isError = true;
-                  context.read<ShowPopUpBloc>().add(
-                      ShowPopUp(message: state.toastMessage, isSucces: false));
+                  var error = state.toastMessage;
+                  if (error.toLowerCase().contains('dioerror')) {
+                    error = 'Server bilan xatolik yuz berdi';
+                  }
+                  context
+                      .read<ShowPopUpBloc>()
+                      .add(ShowPopUp(message: error, isSucces: false));
                 }
                 if (state.status == FormzStatus.submissionSuccess) {
                   Navigator.pushReplacement(
@@ -86,8 +91,8 @@ class _VerifySmsCodePageState extends State<VerifySmsCodePage> {
               },
               builder: (context, state) => Scaffold(
                 resizeToAvoidBottomInset: false,
-                appBar: const WAppBar(
-                  title: 'Забыли пароль',
+                appBar: WAppBar(
+                  title: LocaleKeys.forgot_password.tr(),
                 ),
                 body: Padding(
                   padding: const EdgeInsets.all(16),
@@ -172,16 +177,16 @@ class _VerifySmsCodePageState extends State<VerifySmsCodePage> {
                       ),
                       Row(
                         children: [
-                          Text(LocaleKeys.send_via_password.tr(),
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline6!
-                                  .copyWith(
-                                    fontSize: 14,
-                                  )),
-                          const SizedBox(
-                            width: 6,
-                          ),
+                          if (StorageRepository.getString('language') == 'ru')
+                            Text(LocaleKeys.send_via_password.tr(),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline6!
+                                    .copyWith(
+                                      fontSize: 14,
+                                    )),
+                          if (StorageRepository.getString('language') == 'ru')
+                            const SizedBox(width: 6),
                           if (timeComplete)
                             Container(
                               padding: const EdgeInsets.symmetric(
@@ -215,7 +220,15 @@ class _VerifySmsCodePageState extends State<VerifySmsCodePage> {
                                   });
                                 },
                               ),
-                            )
+                            ),
+                          if (StorageRepository.getString('language') == 'uz')
+                            const SizedBox(width: 6),
+                          if (StorageRepository.getString('language') == 'uz')
+                            Text(LocaleKeys.send_via_password.tr(),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline6!
+                                    .copyWith(fontSize: 14)),
                         ],
                       ),
                       Padding(

@@ -1,6 +1,7 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
 import 'package:auto/features/common/widgets/custom_screen.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
@@ -21,19 +22,21 @@ import 'package:formz/formz.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
-class VerificationScreen extends StatefulWidget {
+class RegisterVerificationScreen extends StatefulWidget {
   final String phone;
   final String session;
 
-  const VerificationScreen(
+  const RegisterVerificationScreen(
       {required this.phone, required this.session, Key? key})
       : super(key: key);
 
   @override
-  State<VerificationScreen> createState() => _VerificationScreenState();
+  State<RegisterVerificationScreen> createState() =>
+      _RegisterVerificationScreenState();
 }
 
-class _VerificationScreenState extends State<VerificationScreen> {
+class _RegisterVerificationScreenState
+    extends State<RegisterVerificationScreen> {
   late TextEditingController verificationController;
   bool timeComplete = false;
   bool isToastShowing = false;
@@ -63,9 +66,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
                       title: LocaleKeys.confim_number.tr(),
                       description: LocaleKeys.enter_password_sms.tr(),
                     ),
-                    const SizedBox(
-                      height: 12,
-                    ),
+                    const SizedBox(height: 12),
                     Container(
                       padding: const EdgeInsets.only(
                           left: 8, right: 4, top: 4, bottom: 4),
@@ -145,14 +146,16 @@ class _VerificationScreenState extends State<VerificationScreen> {
                     ),
                     Row(
                       children: [
-                        Text(LocaleKeys.send_password_again.tr(),
-                            style:
-                                Theme.of(context).textTheme.headline6!.copyWith(
-                                      fontSize: 14,
-                                    )),
-                        const SizedBox(
-                          width: 6,
-                        ),
+                        if (StorageRepository.getString('language') == 'ru')
+                          Text(LocaleKeys.send_password_again.tr(),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline6!
+                                  .copyWith(
+                                    fontSize: 14,
+                                  )),
+                        if (StorageRepository.getString('language') == 'ru')
+                          const SizedBox(width: 6),
                         if (timeComplete)
                           Container(
                             padding: const EdgeInsets.symmetric(
@@ -170,9 +173,14 @@ class _VerificationScreenState extends State<VerificationScreen> {
                                         RegisterEvent.sendCode(widget.phone,
                                             onError: (text) {
                                       if (text.isNotEmpty) {
+                                        var error = text;
+                                if (error.toLowerCase().contains('dioerror')) {
+                                  error =
+                                      'Server bilan xatolik yuz berdi';
+                                }
                                         context.read<ShowPopUpBloc>().add(
                                             ShowPopUp(
-                                                message: text,
+                                                message: error,
                                                 isSucces: false,
                                                 dismissible: false));
                                       } else {
@@ -203,7 +211,17 @@ class _VerificationScreenState extends State<VerificationScreen> {
                                 });
                               },
                             ),
-                          )
+                          ),
+                        if (StorageRepository.getString('language') == 'uz')
+                          const SizedBox(width: 6),
+                        if (StorageRepository.getString('language') == 'uz')
+                          Text(LocaleKeys.send_password_again.tr(),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline6!
+                                  .copyWith(
+                                    fontSize: 14,
+                                  )),
                       ],
                     ),
                     const SizedBox(height: 24),

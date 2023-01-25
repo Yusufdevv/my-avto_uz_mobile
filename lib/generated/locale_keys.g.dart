@@ -91,9 +91,12 @@ abstract class  LocaleKeys {
   static const create_password_6 = 'create_password_6';
   static const confim_number = 'confim_number';
   static const send_password_again = 'send_password_again';
+  static const passwords_didnt_match = 'passwords_didnt_match';
   static const photo = 'photo';
   static const add_photo = 'add_photo';
   static const region = 'region';
+  static const full_name = 'full_name';
+  static const enter_fullname = 'enter_fullname';
   static const top_marks = 'top_marks';
   static const offers_of_day = 'offers_of_day';
   static const main = 'main';

@@ -1,3 +1,4 @@
+import 'package:auto/core/exceptions/exceptions.dart';
 import 'package:auto/core/singletons/dio_settings.dart';
 import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/core/singletons/storage.dart';
@@ -15,19 +16,48 @@ class ReelDataSource {
     int? limit,
     int? offset,
   }) async {
-    final result = await dio.get('reels/',
-        queryParameters: {
-          'search': search,
-          'limit': limit,
-          'offset': offset,
-        },
-        options: Options(
-          headers: {
-            'Authorization': 'Bearer ${StorageRepository.getString('token')}',
+    try {
+      final result = await dio.get('reels/',
+          queryParameters: {
+            'search': search,
+            'limit': limit,
+            'offset': offset,
           },
-        ));
-    return GenericPagination.fromJson(result.data,
-        (json) => ReelModel.fromJson(json as Map<String, dynamic>));
+          options: Options(
+            headers: {
+              'Authorization': 'Bearer ${StorageRepository.getString('token')}',
+            },
+          ));
+      return GenericPagination.fromJson(result.data,
+          (json) => ReelModel.fromJson(json as Map<String, dynamic>));
+    } catch (e) {
+      throw const ServerException();
+    }
+  }
+
+  Future<GenericPagination<ReelModel>> getReelsOfDay({
+    String? category,
+    String? search,
+    int? limit,
+    int? offset,
+  }) async {
+    try {
+      final result = await dio.get('reels/offer-of-the-day/',
+          queryParameters: {
+            'search': search,
+            'limit': limit,
+            'offset': offset,
+          },
+          options: Options(
+            headers: {
+              'Authorization': 'Bearer ${StorageRepository.getString('token')}',
+            },
+          ));
+      return GenericPagination.fromJson(result.data,
+          (json) => ReelModel.fromJson(json as Map<String, dynamic>));
+    } catch (e) {
+      throw const ServerException();
+    }
   }
 
   Future reelsLike({required int id}) async {

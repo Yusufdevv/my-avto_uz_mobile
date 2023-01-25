@@ -45,14 +45,18 @@ class _RegionButtonState extends State<RegionButton> {
           builder: (context, state) => Container(
             padding: const EdgeInsets.only(top: 29),
             child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Expanded(
-                  child: Text(
-                    LocaleKeys.region.tr(),
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline1!
-                        .copyWith(fontSize: 14, fontWeight: FontWeight.w400),
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: 12),
+                    child: Text(
+                      LocaleKeys.region.tr(),
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline1!
+                          .copyWith(fontSize: 12, fontWeight: FontWeight.w400),
+                    ),
                   ),
                 ),
                 Expanded(

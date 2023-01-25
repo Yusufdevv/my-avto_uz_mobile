@@ -16,6 +16,7 @@ class ReelModel extends ReelEntity {
     required super.dealer,
     required super.announcement,
     required super.isLiked,
+    required super.isOfferOfTheDay,
   });
 
   factory ReelModel.fromJson(Map<String, dynamic> json) =>

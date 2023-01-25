@@ -74,7 +74,7 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
                   children: [
                     LoginHeader(
                       title: LocaleKeys.personal_data.tr(),
-                      description: LocaleKeys.create_password.tr(),
+                      description: LocaleKeys.complete_registration.tr(),
                       hasSizedBox: false,
                     ),
                     const SizedBox(height: 36),
@@ -84,9 +84,9 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
                     PersonalDataItemm(
                       isRequired: true,
                       onTap: hidePopUp,
-                      title: 'ФИО',
+                      title: LocaleKeys.full_name.tr(),
                       controller: nameController,
-                      hintText: 'Введите ФИО',
+                      hintText: LocaleKeys.enter_fullname.tr(),
                       onChanged: (value) {
                         setState(() {});
                       },
@@ -128,12 +128,17 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
                                                     RegisterEvent.register(
                                                       validPassword: password,
                                                       onError: (text) {
+                                                        var error = text;
+                                if (error.toLowerCase().contains('dioerror')) {
+                                  error =
+                                      'Server bilan xatolik yuz berdi';
+                                }
                                                         context
                                                             .read<
                                                                 ShowPopUpBloc>()
                                                             .add(
                                                               ShowPopUp(
-                                                                message: text,
+                                                                message: error,
                                                                 isSucces: false,
                                                                 dismissible:
                                                                     false,
@@ -182,7 +187,7 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
                             blurRadius: 20,
                             color: solitude.withOpacity(.12)),
                       ],
-                      margin: EdgeInsets.only(bottom: 4),
+                      margin: const EdgeInsets.only(bottom: 4),
                       color: (nameController.text.isNotEmpty &&
                               emailController.text.isNotEmpty)
                           ? orange

@@ -1,5 +1,6 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/common/bloc/auth/authentication_bloc.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
@@ -58,12 +59,12 @@ class _PasswordRecoveryScreenState extends State<PasswordRecoveryScreen> {
   }
 
   /// comment to
-bool isError = false;
+  bool isError = false;
   @override
   Widget build(BuildContext context) => KeyboardDismisser(
         child: Scaffold(
-          appBar:   WAppBar(
-            title:  LocaleKeys.forgot_password.tr(),
+          appBar: WAppBar(
+            title: LocaleKeys.forgot_password.tr(),
           ),
           body: Padding(
             padding: const EdgeInsets.all(16),
@@ -74,18 +75,15 @@ bool isError = false;
                   title: LocaleKeys.recovery_password.tr(),
                   description: LocaleKeys.enter_password_sms.tr(),
                 ),
-                const SizedBox(
-                  height: 12,
-                ),
+                const SizedBox(height: 12),
                 Container(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    color: Theme.of(context)
-                        .extension<ThemedColors>()!
-                        .solitudeToBastille,
-                  ),
+                      borderRadius: BorderRadius.circular(8),
+                      color: Theme.of(context)
+                          .extension<ThemedColors>()!
+                          .solitudeToBastille),
                   child: Text(
                     '+998 ${widget.phone.replaceAll(' ', '')}',
                     style: Theme.of(context)
@@ -94,9 +92,7 @@ bool isError = false;
                         .copyWith(fontWeight: FontWeight.w400, fontSize: 14),
                   ),
                 ),
-                const SizedBox(
-                  height: 35,
-                ),
+                const SizedBox(height: 35),
                 PinCodeTextField(
                   onChanged: (value) {
                     setState(() {});
@@ -108,9 +104,9 @@ bool isError = false;
                         .extension<ThemedColors>()!
                         .solitudeToWhite35,
                     errorBorderColor: red,
-                    activeColor:isError ? red : purple,
-                    activeFillColor:isError ? red : purple,
-                    selectedColor:isError ? red : purple,
+                    activeColor: isError ? red : purple,
+                    activeFillColor: isError ? red : purple,
+                    selectedColor: isError ? red : purple,
                     shape: PinCodeFieldShape.underline,
                     fieldHeight: 44,
                     fieldWidth: 50,
@@ -135,13 +131,14 @@ bool isError = false;
                 ),
                 Row(
                   children: [
-                    Text(LocaleKeys.send_via_password.tr(),
-                        style: Theme.of(context).textTheme.headline6!.copyWith(
-                              fontSize: 14,
-                            )),
-                    const SizedBox(
-                      width: 6,
-                    ),
+                    if (StorageRepository.getString('language') == 'ru')
+                      Text(LocaleKeys.send_via_password.tr(),
+                          style:
+                              Theme.of(context).textTheme.headline6!.copyWith(
+                                    fontSize: 14,
+                                  )),
+                    if (StorageRepository.getString('language') == 'ru')
+                      const SizedBox(width: 6),
                     if (timeComplete)
                       Container(
                         padding: const EdgeInsets.symmetric(
@@ -172,7 +169,15 @@ bool isError = false;
                             });
                           },
                         ),
-                      )
+                      ),
+                    if (StorageRepository.getString('language') == 'uz')
+                      const SizedBox(width: 6),
+                    if (StorageRepository.getString('language') == 'uz')
+                      Text(LocaleKeys.send_via_password.tr(),
+                          style:
+                              Theme.of(context).textTheme.headline6!.copyWith(
+                                    fontSize: 14,
+                                  )),
                   ],
                 ),
                 Padding(

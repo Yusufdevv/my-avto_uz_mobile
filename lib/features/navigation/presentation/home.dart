@@ -93,6 +93,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     setState(() => _currentIndex = index);
     _controller.animateTo(index);
   }
+
   bool isBtmSheetOpened = false;
 
   @override
@@ -115,7 +116,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           child: BlocListener<InternetBloc, InternetState>(
             listener: (context, state) {
               WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-                if (!state.isConnected) {
+                if (!state.isConnected ) {
                   isBtmSheetOpened = true;
                   print('internet yoqqqqqqqqqq');
                   showModalBottomSheet(
@@ -130,17 +131,16 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                     builder: (context) => InternetErrorBottomSheet(
                       onTap: () {
                         context.read<InternetBloc>().add(
-                              GlobalCheck(isConnected: state.isConnected),
+                              GlobalCheck(isConnected: state.isConnected)
                             );
                       },
                     ),
                   );
-                } else  if(isBtmSheetOpened){
+                } else if (isBtmSheetOpened && state.isConnected) {
                   isBtmSheetOpened = false;
                   Navigator.of(context).pop();
                 }
               });
-              print('internet listen ---> ${state.isConnected}');
             },
             child: Scaffold(
               resizeToAvoidBottomInset: true,

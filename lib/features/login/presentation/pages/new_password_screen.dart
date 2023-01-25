@@ -108,10 +108,11 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                               widget.onSubmit(newPasswordController.text,
                                   confirmPasswordController.text);
                             } else {
+                              
                               context.read<ShowPopUpBloc>().add(
                                     ShowPopUp(
                                       message:
-                                          'Пароли не совпали, повторите попытку еще раз',
+                                          LocaleKeys.passwords_didnt_match.tr(),
                                       isSucces: false,
                                       dismissible: false,
                                     ),

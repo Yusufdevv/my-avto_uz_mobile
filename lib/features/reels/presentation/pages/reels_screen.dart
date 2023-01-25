@@ -10,8 +10,10 @@ import 'package:flutter_svg/svg.dart';
 import 'package:formz/formz.dart';
 
 class ReelsScreen extends StatefulWidget {
-  ReelsScreen({Key? key, this.isFromMain = false}) : super(key: key);
-  bool isFromMain;
+  const ReelsScreen({Key? key, this.isFromMain = false}) : super(key: key);
+
+  final bool isFromMain;
+
   @override
   State<ReelsScreen> createState() => _ReelsScreenState();
 }
@@ -24,7 +26,7 @@ class _ReelsScreenState extends State<ReelsScreen> {
 
   @override
   void initState() {
-    bloc = ReelsBloc()..add(InitialEvent());
+    bloc = ReelsBloc()..add(InitialEvent(isFromMain: widget.isFromMain));
     _pageController = PageController(keepPage: true);
     _pageController.addListener(_scrollListener);
     super.initState();
@@ -36,6 +38,7 @@ class _ReelsScreenState extends State<ReelsScreen> {
       setState(() {
         _currentPage = _pageController.page!.toInt();
         _isOnPageTurning = false;
+        _getMore();
       });
     } else if (!_isOnPageTurning &&
         _currentPage.toDouble() != _pageController.page) {
@@ -44,6 +47,16 @@ class _ReelsScreenState extends State<ReelsScreen> {
           _isOnPageTurning = true;
         });
       }
+    }
+  }
+
+  void _getMore() {
+    if (_currentPage == bloc.state.reels.length - 1 &&
+        !bloc.state.statusReelsGet.isSubmissionInProgress &&
+        bloc.state.hasNext) {
+      bloc.add(GetMoreReelsEvent(
+          isFromMain: widget.isFromMain,
+          offset: bloc.state.reels.length - 1));
     }
   }
 

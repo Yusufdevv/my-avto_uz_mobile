@@ -54,9 +54,14 @@ class _SendPhoneNumberPageState extends State<SendPhoneNumberPage> {
             child: BlocConsumer<SendPhoneBloc, SendPhoneState>(
               listener: (context, state) {
                 if (state.status == FormzStatus.submissionCanceled) {
+                  var error = state.toastMessage;
+                                if (error.toLowerCase().contains('dioerror')) {
+                                  error =
+                                      'Server bilan xatolik yuz berdi';
+                                }
                   context.read<ShowPopUpBloc>().add(
                         ShowPopUp(
-                          message: state.toastMessage,
+                          message: error,
                           isSucces: false,
                           dismissible: false,
                         ),
@@ -89,7 +94,7 @@ class _SendPhoneNumberPageState extends State<SendPhoneNumberPage> {
                     children: [
                       const SizedBox(height: 64),
                       Text(
-                        'Восстановление пароля',
+                        LocaleKeys.recovery_password.tr(),
                         style: Theme.of(context).textTheme.headline1!.copyWith(
                               fontSize: 18,
                               fontWeight: FontWeight.w700,
@@ -97,7 +102,7 @@ class _SendPhoneNumberPageState extends State<SendPhoneNumberPage> {
                       ),
                       const SizedBox(height: 4),
                       Text(
-                        'Мы проверим ваш номер телефона в системе',
+                        LocaleKeys.check_number.tr(),
                         style: Theme.of(context).textTheme.headline2,
                       ),
                       ZTextFormField(
@@ -137,7 +142,7 @@ class _SendPhoneNumberPageState extends State<SendPhoneNumberPage> {
                             state.status == FormzStatus.submissionInProgress,
                         disabledColor: disabledButton,
                         isDisabled: phoneController.text.length != 12,
-                        text: 'Продолжить',
+                        text: LocaleKeys.continuee.tr(),
                         onTap: () => sendPhoneBloc
                             .add(SendPhoneEvent(phone: phoneController.text)),
                       ),
