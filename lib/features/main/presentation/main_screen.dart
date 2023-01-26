@@ -104,16 +104,8 @@ class _MainScreenState extends State<MainScreen> {
         Navigator.of(context, rootNavigator: true)
             .push(fade(page: AdsScreen(isBack: false, onTap: () {})));
       },
-      () async {
-        /// for testing purpose
-        /// KAR SHARING
-        // await StorageRepository.putString('token', '');
-        // await StorageRepository.putBool(value: false, key: 'onboarding');
-        // print('=>=>=>=> onboarding put false <=<=<=<=');
-        // print('=>=>=>=> token put empty <=<=<=<=');
-        // ??
-      },
-      () async {},
+      () {},
+      () {},
       () {
         Navigator.of(context, rootNavigator: true)
             .push(fade(page: const CommercialScreen()));
@@ -177,8 +169,8 @@ class _MainScreenState extends State<MainScreen> {
                       const SizedBox(height: 16),
                       DealButton(
                         onTap: () {
-                          Navigator.of(context, rootNavigator: true)
-                              .push(fade(page: const ReelsScreen(isFromMain: true)));
+                          Navigator.of(context, rootNavigator: true).push(
+                              fade(page: const ReelsScreen(isFromMain: true)));
                         },
                       ),
                       BlocBuilder<GetMakesBloc, GetMakesState>(
