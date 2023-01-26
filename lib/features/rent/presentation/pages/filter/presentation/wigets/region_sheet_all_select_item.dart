@@ -1,6 +1,8 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/region_checkbox.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class RegionSelectAllItem extends StatelessWidget {
@@ -24,7 +26,7 @@ class RegionSelectAllItem extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Все регион',
+                LocaleKeys.all_regions.tr(),
                 style: Theme.of(context)
                     .textTheme
                     .headline1!

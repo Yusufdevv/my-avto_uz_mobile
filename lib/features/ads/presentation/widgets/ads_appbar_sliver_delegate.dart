@@ -21,13 +21,16 @@ class AdsAppBarTitle extends StatelessWidget {
   Widget build(BuildContext context) => AnimatedSwitcher(
         duration: fadeDuration,
         child: crossFadeState == CrossFadeState.showFirst
-            ? const SizedBox(
-                key: Key('1'),
+            ? SizedBox(
+                key: const Key('1'),
                 width: double.infinity,
                 child: Text(
-                  'Объявления',
-                  style: TextStyle(
-                      fontSize: 16, color: dark, fontWeight: FontWeight.w600),
+                  LocaleKeys.ads.tr(),
+                  style: const TextStyle(
+                    fontSize: 16,
+                    color: dark,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
               )
             : SizedBox(

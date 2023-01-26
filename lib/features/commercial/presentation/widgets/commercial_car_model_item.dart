@@ -71,20 +71,12 @@ class CommercialCarModelItem extends StatelessWidget {
             children: [
               Text(
                 title.isEmpty ? LocaleKeys.choose_brand_model.tr() : title,
-                style: Theme.of(context).textTheme.headline6!.copyWith(
-                    fontSize: 14,
-                    color: Theme.of(context)
-                        .extension<ThemedColors>()!
-                        .midnightExpressToDolphin),
+                style: Theme.of(context).textTheme.subtitle1,
               ),
               if (subtitle!.isNotEmpty)
                 Text(
                   subtitle!,
-                  style: const TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                    color: Color(0xff92929D),
-                  ),
+                  style:Theme.of(context).textTheme.headline2,
                 )
             ],
           ),

@@ -6,6 +6,8 @@ import 'package:auto/features/common/bloc/get_car_model/get_car_model_bloc.dart'
 import 'package:auto/features/common/bloc/get_makes_bloc/get_makes_bloc_bloc.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/comparison/presentation/widgets/search_bar.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -64,9 +66,9 @@ class _ChooseCarModelComparison extends State<ChooseCarModelComparison> {
                         ),
                       ),
                       titleSpacing: 4,
-                      title: const Text(
-                        'Выберите модель автомобиля',
-                        style: TextStyle(
+                      title: Text(
+                        LocaleKeys.choose_model_auto.tr(),
+                        style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w700,
                           color: dark,
@@ -155,7 +157,7 @@ class _ChooseCarModelComparison extends State<ChooseCarModelComparison> {
                   left: 16,
                   child: WButton(
                     onTap: state.selectedId == -1 ? () {} : widget.onTap,
-                    text: 'Далее',
+                    text: LocaleKeys.further.tr(),
                     shadow: [
                       BoxShadow(
                         offset: const Offset(0, 4),

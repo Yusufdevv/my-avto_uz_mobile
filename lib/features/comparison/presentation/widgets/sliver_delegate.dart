@@ -103,6 +103,7 @@ class SliverWidget extends SliverPersistentHeaderDelegate {
                         child: SingleChildScrollView(
                           padding: const EdgeInsets.only(right: 16, left: 8),
                           controller: scrollController,
+                          physics: const BouncingScrollPhysics(),
                           scrollDirection: Axis.horizontal,
                           child: Row(
                             children: [

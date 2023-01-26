@@ -9,6 +9,8 @@ import 'package:auto/features/ads/presentation/pages/ads_screen.dart';
 import 'package:auto/features/common/widgets/car_brand_item.dart';
 import 'package:auto/features/common/widgets/w_textfield.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -79,7 +81,7 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
               physics: const BouncingScrollPhysics(),
               headerSliverBuilder: (context, innerBoxIsScrolled) => [
                 /// HEADER TEXT
-                const SliverHeaderText(text: 'Выберите марку автомобиля'),
+                 SliverHeaderText(text: LocaleKeys.choose_brand_auto.tr(),),
 
                 /// SEARCH FIELD WITH PERSISTENT HEADER
 
@@ -101,7 +103,7 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
                           onChanged: (value) => setState(() {}),
                           borderRadius: 12,
                           hasSearch: true,
-                          hintText: 'Поиск',
+                          hintText: LocaleKeys.search.tr(),
                           height: 40,
                           controller: searchController,
                           hasClearButton: true,

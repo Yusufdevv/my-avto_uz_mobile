@@ -67,6 +67,7 @@ class AddedCar extends StatelessWidget {
                   children: [
                     SizedBox(
                       height: 112,
+                      width: (MediaQuery.of(context).size.width - 46) / 2,
                       child: ClipRRect(
                         borderRadius: const BorderRadius.only(
                           topLeft: Radius.circular(12),
@@ -116,7 +117,7 @@ class AddedCar extends StatelessWidget {
             Positioned(
               top: 5,
               right: 0,
-              child: GestureDetector(
+              child: WScaleAnimation(
                 onTap: onTabClose,
                 child: SvgPicture.asset(AppIcons.roundedClose),
               ),
@@ -130,7 +131,7 @@ class AddedCar extends StatelessWidget {
                 child: Container(
                   margin: const EdgeInsets.symmetric(horizontal: 12),
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 23, vertical: 8),
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
                   decoration: BoxDecoration(
                     color: ownerType == 'first'
                         ? hasCallCard
@@ -144,17 +145,26 @@ class AddedCar extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       SvgPicture.asset(
+                        ownerType != 'first'
+                            ? AppIcons.tablerInfo
+                            : AppIcons.tablerPhone,
+                        color: white,
+                        height: 20,
+                        width: 20,
+                      ),
+                      const SizedBox(width: 8),
+                      SizedBox(
+                        width: 72,
+                        child: Text(
                           ownerType != 'first'
-                              ? AppIcons.tablerInfo
-                              : AppIcons.tablerPhone,
-                          color: white),
-                      const SizedBox(width: 4),
-                      Text(
-                        ownerType != 'first' ? 'Купить' : LocaleKeys.call.tr(),
-                        style: const TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 14,
-                          color: white,
+                              ? LocaleKeys.buy.tr()
+                              : LocaleKeys.call.tr(),
+                          style: const TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 14,
+                            color: white,
+                          ),
+                          overflow: TextOverflow.ellipsis,
                         ),
                       ),
                     ],

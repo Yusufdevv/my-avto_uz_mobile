@@ -127,12 +127,13 @@ class _RentChooseRegionBottomSheetState
               bottom: 16,
             ),
             child: WButton(
-                onTap: () {
-                  Navigator.of(context)
-                      .pop(checkStatus.entries.map((e) => e.value).toList());
-                },
-                color: orange,
-                text: 'Применить'),
+              onTap: () {
+                Navigator.of(context)
+                    .pop(checkStatus.entries.map((e) => e.value).toList());
+              },
+              color: orange,
+              text: LocaleKeys.show.tr(),
+            ),
           ),
         ],
       ),

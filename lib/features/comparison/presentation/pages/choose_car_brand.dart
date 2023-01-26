@@ -7,9 +7,12 @@ import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/comparison/presentation/bloc/scroll-bloc/scrolling_bloc.dart';
 import 'package:auto/features/comparison/presentation/widgets/alphabetic_header.dart';
 import 'package:auto/features/comparison/presentation/widgets/search_bar.dart';
+import 'package:auto/features/comparison/presentation/widgets/top_brand_sliver_delegate.dart';
 import 'package:auto/features/main/domain/usecases/get_top_brand.dart';
 import 'package:auto/features/main/presentation/bloc/top_brand/top_brand_bloc.dart';
 import 'package:auto/features/main/presentation/parts/top_brands.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -19,9 +22,12 @@ class ChooseCarBrandComparison extends StatefulWidget {
   final bool isbak;
   final bool isClear;
   final VoidCallback onTap;
-  const ChooseCarBrandComparison(
-      {required this.onTap, Key? key, this.isbak = false, this.isClear = true})
-      : super(key: key);
+  const ChooseCarBrandComparison({
+    required this.onTap,
+    Key? key,
+    this.isbak = false,
+    this.isClear = true,
+  }) : super(key: key);
 
   @override
   State<ChooseCarBrandComparison> createState() =>
@@ -72,6 +78,7 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
                 body: Stack(
                   children: [
                     NestedScrollView(
+                      physics: const BouncingScrollPhysics(),
                       controller: controllerScroll,
                       headerSliverBuilder: (context, innerBoxIsScrolled) => [
                         SliverAppBar(
@@ -86,9 +93,9 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
                             ),
                           ),
                           titleSpacing: 4,
-                          title: const Text(
-                            'Выберите марку автомобиля',
-                            style: TextStyle(
+                          title: Text(
+                            LocaleKeys.choose_brand_auto.tr(),
+                            style: const TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w700,
                               color: dark,
@@ -111,84 +118,56 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
                             ),
                           ],
                         ),
-                        SliverSafeArea(
-                          top: false,
-                          bottom: true,
-                          sliver: SliverPersistentHeader(
-                            delegate: WSerachBar(
-                              controller: searchController,
-                              onChanged: () {
-                                context.read<GetMakesBloc>().add(
-                                      GetMakesBlocEvent.getSerched(
-                                        searchController.text,
-                                      ),
-                                    );
-                                context
-                                    .read<GetMakesBloc>()
-                                    .add(GetMakesBlocEvent.getMakes());
-                                setState(() {});
-                              },
-                              onClear: () {
-                                context.read<GetMakesBloc>().add(
-                                      GetMakesBlocEvent.getSerched(
-                                        searchController.text,
-                                      ),
-                                    );
-                                context
-                                    .read<GetMakesBloc>()
-                                    .add(GetMakesBlocEvent.getMakes());
-                                setState(() {});
-                              },
-                            ),
-                            pinned: true,
+                        SliverPersistentHeader(
+                          delegate: WSerachBar(
+                            controller: searchController,
+                            onChanged: () {
+                              context.read<GetMakesBloc>().add(
+                                    GetMakesBlocEvent.getSerched(
+                                      searchController.text,
+                                    ),
+                                  );
+                              context
+                                  .read<GetMakesBloc>()
+                                  .add(GetMakesBlocEvent.getMakes());
+                              setState(() {});
+                            },
+                            onClear: () {
+                              context.read<GetMakesBloc>().add(
+                                    GetMakesBlocEvent.getSerched(
+                                      searchController.text,
+                                    ),
+                                  );
+                              context
+                                  .read<GetMakesBloc>()
+                                  .add(GetMakesBlocEvent.getMakes());
+                              setState(() {});
+                            },
                           ),
+                          pinned: true,
                         ),
                         if (state.search.isEmpty)
-                          SliverToBoxAdapter(
-                            child: TopBrands(
-                              onTap: widget.isbak == true
-                                  ? () {
-                                      Navigator.pop(context);
-                                    }
-                                  : widget.onTap,
-                              isText: false,
+                          SliverPersistentHeader(
+                            delegate: TopBrandSliverWidget(
+                              onTap: widget.onTap,
+                              isbak: widget.isbak,
                             ),
                           ),
                         if (state.search.isEmpty)
-                          SliverToBoxAdapter(
-                            child: Transform.translate(
-                              offset: const Offset(0, 1),
-                              child: Container(
-                                height: 20,
-                                width: double.infinity,
-                                decoration: BoxDecoration(
-                                  color: Theme.of(context)
-                                      .extension<ThemedColors>()!
-                                      .whiteToDark,
-                                  borderRadius: const BorderRadius.vertical(
-                                    top: Radius.circular(20),
-                                  ),
-                                ),
-                              ),
+                          SliverPersistentHeader(
+                            delegate: AlphabeticHeader(
+                              color: color,
+                              controller: controllerScroll,
                             ),
-                          ),
-                        if (state.search.isEmpty)
-                          SliverSafeArea(
-                            top: false,
-                            bottom: false,
-                            sliver: SliverPersistentHeader(
-                              delegate: AlphabeticHeader(
-                                color: color,
-                                controller: controllerScroll,
-                              ),
-                              pinned: true,
-                            ),
+                            pinned: true,
                           ),
                       ],
                       body: ListView.builder(
                         padding: const EdgeInsets.only(bottom: 60),
                         itemCount: state.makes.length,
                         controller: scrollController,
+                        physics: const BouncingScrollPhysics(),
+                        shrinkWrap: true,
                         itemBuilder: (context, index) => Container(
                           height: 54,
                           color: Theme.of(context)
@@ -223,7 +202,7 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
                                 Navigator.pop(context);
                               }
                             : widget.onTap,
-                        text: 'Далее',
+                        text: LocaleKeys.further.tr(),
                         shadow: [
                           BoxShadow(
                             offset: const Offset(0, 4),

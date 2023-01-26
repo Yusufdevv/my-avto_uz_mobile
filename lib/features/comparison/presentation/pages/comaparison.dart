@@ -12,6 +12,8 @@ import 'package:auto/features/comparison/presentation/widgets/engin_info_widget.
 import 'package:auto/features/comparison/presentation/widgets/main_parameters_widget.dart';
 import 'package:auto/features/comparison/presentation/widgets/sliver_delegate.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:linked_scroll_controller/linked_scroll_controller.dart';
@@ -201,6 +203,7 @@ class _ComparisonState extends State<Comparison> {
             )
           ],
           body: SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -213,7 +216,7 @@ class _ComparisonState extends State<Comparison> {
                       Padding(
                         padding: const EdgeInsets.only(top: 12, left: 16),
                         child: Text(
-                          'Характеристики',
+                          LocaleKeys.characters.tr(),
                           style: Theme.of(context)
                               .textTheme
                               .headline1!
