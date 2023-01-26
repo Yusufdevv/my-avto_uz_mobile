@@ -37,7 +37,7 @@ class _PhotoItemState extends State<PhotoItem> {
           onTap: () async {
             context
                 .read<ImageBloc>()
-                .add(const PickImage(source: ImageSource.gallery));
+                .add(const PickImage(source: ImageSource.camera));
           },
           child: Container(
             alignment: Alignment.center,
@@ -64,7 +64,7 @@ class _PhotoItemState extends State<PhotoItem> {
                 onTap: () {
                   context
                       .read<ImageBloc>()
-                      .add(const PickImage(source: ImageSource.gallery));
+                      .add(const PickImage(source: ImageSource.camera));
                 },
                 child: Container(
                   alignment: Alignment.center,
