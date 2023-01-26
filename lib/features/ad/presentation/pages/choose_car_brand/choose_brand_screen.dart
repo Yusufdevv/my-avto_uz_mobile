@@ -135,23 +135,9 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
                                   const EdgeInsets.symmetric(horizontal: 16),
                               physics: const BouncingScrollPhysics(),
                               scrollDirection: Axis.horizontal,
-                              itemBuilder: (context, index) => GestureDetector(
-                                    onTap: () {
-                                      context.read<PostingAdBloc>().add(
-                                          PostingAdChooseEvent(
-                                              makeId:
-                                                  state.topMakes[index].id));
-                                      widget.onTopBrandPressed();
-                                    },
-                                    child: CarBrandItem(
-                                      carBrandEntity: state.topMakes[index],
-                                      onTap: () => Navigator.of(context,
-                                              rootNavigator: true)
-                                          .push(fade(
-                                              page: AdsScreen(
-                                                  isBack: false,
-                                                  onTap: () {}))),
-                                    ),
+                              itemBuilder: (context, index) => CarBrandItem(
+                                    carBrandEntity: state.topMakes[index],
+                                    onTap: widget.onTopBrandPressed,
                                   ),
                               separatorBuilder: (context, index) =>
                                   const SizedBox(width: 12)),

@@ -105,7 +105,7 @@ class _PostingAdScreenState extends State<PostingAdScreen>
           GetMakesUseCase(repository: serviceLocator<AdRepositoryImpl>()),
     );
     if (widget.announcementId == null) {
-      currentTabIndex = 0;
+      currentTabIndex = 16;
       postingAdBloc.add(PostingAdMakesEvent());
     } else {
       currentTabIndex = 10;
