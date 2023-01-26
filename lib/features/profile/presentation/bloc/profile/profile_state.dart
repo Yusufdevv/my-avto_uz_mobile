@@ -3,7 +3,7 @@ part of 'profile_bloc.dart';
 @immutable
 class ProfileState extends Equatable {
   final ProfileDataEntity profileEntity;
-  final List<TermsOfUseEntity> termsOfUseEntity;
+  final  TermsOfUseEntity  termsOfUseEntity;
   final FormzStatus status;
   final FormzStatus editStatus;
   final FormzStatus changeStatus;
@@ -20,7 +20,7 @@ class ProfileState extends Equatable {
   ProfileState copyWith(
           {ProfileDataEntity? profileEntity,
           List<AutoEntity>? autoEntity,
-          List<TermsOfUseEntity>? termsOfUseEntity,
+           TermsOfUseEntity ? termsOfUseEntity,
           FormzStatus? status,
           FormzStatus? editStatus,
           FormzStatus? secondStatus,

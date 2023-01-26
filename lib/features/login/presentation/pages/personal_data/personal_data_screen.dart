@@ -134,23 +134,19 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
                                                             .toLowerCase()
                                                             .contains(
                                                                 'dioerror')) {
-                                                          error = StorageRepository
-                                                                      .getString(
-                                                                          'language') ==
-                                                                  'uz'
-                                                              ? 'Tarmoqda uzilish yuzaga keldi'
-                                                              : 'Произошел сбой сети';
+                                                          error = LocaleKeys.service_error.tr();
                                                         }
                                                         context
                                                             .read<
                                                                 ShowPopUpBloc>()
                                                             .add(
                                                               ShowPopUp(
-                                                                message: error,
-                                                                isSucces: false,
-                                                                dismissible:
-                                                                    false,
-                                                              ),
+                                                                  message:
+                                                                      error,
+                                                                  isSucces:
+                                                                      false,
+                                                                  dismissible:
+                                                                      false),
                                                             );
                                                         isToastShowing = true;
                                                       },

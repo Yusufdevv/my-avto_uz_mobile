@@ -1,4 +1,5 @@
 import 'package:auto/assets/colors/color.dart';
+import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
@@ -19,6 +20,7 @@ import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:formz/formz.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
@@ -61,9 +63,7 @@ class _LoginNewPasswordPageState extends State<LoginNewPasswordPage> {
                 if (state.status == FormzStatus.submissionCanceled) {
                   var error = state.toastMessage;
                   if (error.toLowerCase().contains('dioerror')) {
-                    error = StorageRepository.getString('language') == 'uz'
-                        ? 'Tarmoqda uzilish yuzaga keldi'
-                        : 'Произошел сбой сети';
+                    error = LocaleKeys.service_error.tr();
                   }
                   context
                       .read<ShowPopUpBloc>()
@@ -88,7 +88,7 @@ class _LoginNewPasswordPageState extends State<LoginNewPasswordPage> {
               builder: (context, state) => CustomScreen(
                 child: Scaffold(
                   appBar: WAppBar(
-                    title: LocaleKeys.security.tr(),
+                    title: LocaleKeys.forgot_password.tr(),
                   ),
                   body: Padding(
                     padding: const EdgeInsets.all(16),
@@ -97,11 +97,9 @@ class _LoginNewPasswordPageState extends State<LoginNewPasswordPage> {
                       children: [
                         LoginHeader(
                           title: LocaleKeys.new_password.tr(),
-                          description: LocaleKeys.create_password.tr(),
+                          description: LocaleKeys.create_password_6.tr(),
                         ),
-                        const SizedBox(
-                          height: 36,
-                        ),
+                        const SizedBox(height: 36),
                         ZTextFormField(
                           onChanged: (value) {
                             setState(() {});
@@ -110,9 +108,7 @@ class _LoginNewPasswordPageState extends State<LoginNewPasswordPage> {
                           hintText: LocaleKeys.new_password.tr(),
                           controller: newPasswordController,
                         ),
-                        const SizedBox(
-                          height: 16,
-                        ),
+                        const SizedBox(height: 16),
                         ZTextFormField(
                           onChanged: (value) {
                             setState(() {});
@@ -137,9 +133,17 @@ class _LoginNewPasswordPageState extends State<LoginNewPasswordPage> {
                               } else {
                                 context.read<ShowPopUpBloc>().add(ShowPopUp(
                                     message:
-                                        'Пароли не совпали, повторите попытку еще раз',
+                                        LocaleKeys.passwords_didnt_match.tr(),
                                     isSucces: false));
                               }
+                            } else {
+                              context.read<ShowPopUpBloc>().add(
+                                    ShowPopUp(
+                                        message:
+                                            LocaleKeys.password_must_6.tr(),
+                                        isSucces: false,
+                                        dismissible: false),
+                                  );
                             }
                           },
                           shadow: [
@@ -151,19 +155,18 @@ class _LoginNewPasswordPageState extends State<LoginNewPasswordPage> {
                           margin: EdgeInsets.only(
                               bottom:
                                   4 + MediaQuery.of(context).padding.bottom),
-                          color: (newPasswordController.text.isNotEmpty &&
-                                  confirmPasswordController.text.isNotEmpty)
-                              ? orange
-                              : Theme.of(context)
+                          color: (newPasswordController.text.length < 6 &&
+                                  confirmPasswordController.text.length < 6)
+                              ? Theme.of(context)
                                   .extension<ThemedColors>()!
-                                  .veryLightGreyToEclipse,
+                                  .veryLightGreyToEclipse
+                              : orange,
                           text: LocaleKeys.continuee.tr(),
                           border: Border.all(
-                            width: 1,
-                            color: Theme.of(context)
-                                .extension<ThemedColors>()!
-                                .whiteToDolphin,
-                          ),
+                              width: 1,
+                              color: Theme.of(context)
+                                  .extension<ThemedColors>()!
+                                  .whiteToDolphin),
                         ),
                       ],
                     ),

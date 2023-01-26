@@ -7,7 +7,7 @@ import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/login/domain/usecases/send_recovery_code.dart';
 import 'package:auto/features/login/presentation/bloc/send_phone/send_phone_bloc.dart';
-import 'package:auto/features/login/presentation/pages/verify_sms_code_page.dart';
+import 'package:auto/features/login/presentation/pages/forget_password/verify_sms_code_page.dart';
 import 'package:auto/features/login/presentation/widgets/z_text_form_field.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/generated/locale_keys.g.dart';
@@ -57,9 +57,7 @@ class _SendPhoneNumberPageState extends State<SendPhoneNumberPage> {
                 if (state.status == FormzStatus.submissionCanceled) {
                   var error = state.toastMessage;
                   if (error.toLowerCase().contains('dioerror')) {
-                    error = StorageRepository.getString('language') == 'uz'
-                        ? 'Tarmoqda uzilish yuzaga keldi'
-                        : 'Произошел сбой сети';
+                    error = LocaleKeys.service_error.tr();
                   }
                   context.read<ShowPopUpBloc>().add(
                         ShowPopUp(
@@ -98,9 +96,7 @@ class _SendPhoneNumberPageState extends State<SendPhoneNumberPage> {
                       Text(
                         LocaleKeys.recovery_password.tr(),
                         style: Theme.of(context).textTheme.headline1!.copyWith(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w700,
-                            ),
+                            fontSize: 18, fontWeight: FontWeight.w700),
                       ),
                       const SizedBox(height: 4),
                       Text(

@@ -6,12 +6,12 @@ import 'package:auto/features/profile/data/repositories/profile_repository_impl.
 import 'package:auto/features/profile/domain/entities/terms_of_use_entity.dart';
 import 'package:auto/features/profile/domain/repositories/profile_repository.dart';
 
-class GetTermsOfUseUseCase extends UseCase<List<TermsOfUseEntity>, NoParams> {
+class GetTermsOfUseUseCase extends UseCase< TermsOfUseEntity , String> {
   final ProfileRepository repository = serviceLocator<ProfileRepositoryImpl>();
 
   GetTermsOfUseUseCase( );
 
   @override
-  Future<Either<Failure, List<TermsOfUseEntity>>> call(NoParams params) async =>
-      await repository.getTermsOfUse();
+  Future<Either<Failure,  TermsOfUseEntity >> call(String  params) async =>
+      await repository.getTermsOfUse(params);
 }

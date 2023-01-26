@@ -33,7 +33,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
             editStatus: FormzStatus.pure,
             status: FormzStatus.pure,
             profileEntity: ProfileDataEntity(usercountdata: Usercountdata()),
-            termsOfUseEntity: const <TermsOfUseEntity>[],
+            termsOfUseEntity:   TermsOfUseEntity(),
           ),
         ) {
     on<GetProfileEvent>(_onGetProfile);
@@ -78,7 +78,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   Future<void> _onGetTermsOfUse(
       GetTermsOfUseEvent event, Emitter<ProfileState> emit) async {
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
-    final result = await getTermsOfUseUseCase.call(NoParams());
+    final result = await getTermsOfUseUseCase.call(event.slug);
     if (result.isRight) {
       emit(state.copyWith(
         status: FormzStatus.submissionSuccess,

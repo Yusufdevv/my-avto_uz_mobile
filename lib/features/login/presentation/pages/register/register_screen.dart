@@ -11,8 +11,9 @@ import 'package:auto/features/login/domain/usecases/register_user.dart';
 import 'package:auto/features/login/domain/usecases/send_code.dart';
 import 'package:auto/features/login/domain/usecases/verify_code.dart';
 import 'package:auto/features/login/presentation/bloc/register/register_bloc.dart';
-import 'package:auto/features/login/presentation/pages/register_verification_screen.dart';
+import 'package:auto/features/login/presentation/pages/register/register_verification_screen.dart';
 import 'package:auto/features/login/presentation/widgets/login_header_widget.dart';
+import 'package:auto/features/login/presentation/widgets/terms_of_use_and_rules.dart';
 import 'package:auto/features/login/presentation/widgets/z_text_form_field.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/profile/presentation/pages/about_app/terms_of_use_page.dart';
@@ -109,73 +110,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       textInputFormatters: [phoneFormatter],
                     ),
                     const SizedBox(height: 24),
-                    RichText(
-                        text: TextSpan(
-                      children: [
-                        TextSpan(
-                            text:
-                                'Продолжая регистрацию, я признаю что принимаю ',
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyText1
-                                ?.copyWith(
-                                    color: Theme.of(context)
-                                        .extension<ThemedColors>()!
-                                        .dolphinToGreySuit)),
-                        WidgetSpan(
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyText1
-                                ?.copyWith(
-                                    color: Theme.of(context)
-                                        .extension<ThemedColors>()!
-                                        .mediumSlateBlueToDolphin),
-                            child: WScaleAnimation(
-                              child: Text('условия использования ',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyText1
-                                      ?.copyWith(
-                                          color: Theme.of(context)
-                                              .extension<ThemedColors>()!
-                                              .mediumSlateBlueToDolphin)),
-                              onTap: () {
-                                Navigator.push(context,
-                                    fade(page: const TermsOfUsePage()));
-                              },
-                            )),
-                        TextSpan(
-                            text: 'и ',
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyText1
-                                ?.copyWith(
-                                    color: Theme.of(context)
-                                        .extension<ThemedColors>()!
-                                        .dolphinToGreySuit)),
-                        WidgetSpan(
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyText1
-                                ?.copyWith(
-                                    color: Theme.of(context)
-                                        .extension<ThemedColors>()!
-                                        .mediumSlateBlueToDolphin),
-                            child: WScaleAnimation(
-                              child: Text(
-                                'правила ',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyText1
-                                    ?.copyWith(
-                                        color: Theme.of(context)
-                                            .extension<ThemedColors>()!
-                                            .mediumSlateBlueToDolphin),
-                              ),
-                              onTap: () {},
-                            )),
-                      ],
-                    )),
+                    const TermsOfUseAndRules(),
                     const SizedBox(height: 12),
                     WButton(
                       isLoading: state.sendCodeStatus ==
@@ -188,11 +123,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             if (text.isNotEmpty) {
                               var error = text;
                               if (error.toLowerCase().contains('dioerror')) {
-                                error =
-                                    StorageRepository.getString('language') ==
-                                            'uz'
-                                        ? 'Tarmoqda uzilish yuzaga keldi'
-                                        : 'Произошел сбой сети';
+                                error = LocaleKeys.service_error.tr();
                               }
                               context.read<ShowPopUpBloc>().add(ShowPopUp(
                                   message: error,
@@ -200,7 +131,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   dismissible: false));
                             } else {
                               context.read<ShowPopUpBloc>().add(ShowPopUp(
-                                  message: 'Something went wrong',
+                                  message: LocaleKeys.error_try_again.tr(),
                                   isSucces: false,
                                   dismissible: false));
                             }

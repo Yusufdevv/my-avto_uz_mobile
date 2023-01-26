@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/themes/dark.dart';
@@ -43,7 +44,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -95,17 +95,18 @@ class _AppState extends State<App> {
   final _navigatorKey = GlobalKey<NavigatorState>();
 
   NavigatorState get navigator => _navigatorKey.currentState!;
+  // ignore: cancel_subscriptions
   StreamSubscription? streamSubscription;
   InternetBloc bloc = InternetBloc();
 
   @override
   void initState() {
     bloc = InternetBloc();
-    streamSubscription =
-        Connectivity().onConnectivityChanged.listen((status) {
+    streamSubscription = Connectivity().onConnectivityChanged.listen((status) {
       context.read<InternetBloc>().add(GlobalCheck(
-          isConnected: status == ConnectivityResult.mobile || status == ConnectivityResult.wifi));
-          print('====net=status ${status == ConnectivityResult.mobile || status == ConnectivityResult.wifi}');
+          isConnected: status == ConnectivityResult.mobile ||
+              status == ConnectivityResult.wifi));
+      log('====net=status ${status == ConnectivityResult.mobile || status == ConnectivityResult.wifi}');
     });
     super.initState();
   }
@@ -113,7 +114,6 @@ class _AppState extends State<App> {
   @override
   Widget build(BuildContext context) => MultiBlocProvider(
         providers: [
-          // BlocProvider(create: (c) => InternetBloc()),
           BlocProvider(
             create: (c) =>
                 AuthenticationBloc(AuthRepository())..add(CheckUser()),
@@ -190,7 +190,7 @@ class _AppState extends State<App> {
                           .isNotEmpty) {
                         navigator.pushAndRemoveUntil(
                             fade(page: const HomeScreen()), (route) => false);
-                            
+
                         break;
                       }
                       if (!StorageRepository.getBool('onboarding',
