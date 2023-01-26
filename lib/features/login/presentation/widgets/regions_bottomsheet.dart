@@ -38,4 +38,4 @@ Future<Region> showRegionsBottomSheet(
           ),
         ],
       ),
-    ).then((value) => value ?? Region());
+    ).then((value) => value ?? const Region());

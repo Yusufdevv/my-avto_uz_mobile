@@ -171,6 +171,7 @@ class _AddPhotoItemState extends State<AddPhotoItem> {
                         },
                         borderRadius: 4,
                         height: 24,
+                        margin:const EdgeInsets.symmetric(vertical: 10),
                         padding: const EdgeInsets.symmetric(horizontal: 12),
                         text: state.registerModel.image.isEmpty
                             ? LocaleKeys.add_photo.tr()

@@ -2,8 +2,10 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/features/common/bloc/regions/regions_bloc.dart';
 import 'package:auto/features/common/models/region.dart';
+import 'package:auto/features/common/widgets/region_bottom_sheet.dart';
 import 'package:auto/features/login/presentation/bloc/register/register_bloc.dart';
 import 'package:auto/features/login/presentation/widgets/regions_bottomsheet.dart';
+import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/rent_choose_region_bottom_sheet.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -29,16 +31,23 @@ class _RegionButtonState extends State<RegionButton> {
         behavior: HitTestBehavior.opaque,
         onTap: () {
           widget.onTap();
-          showRegionsBottomSheet(
-            context,
-            context.read<RegionsBloc>().state.regions,
+          showModalBottomSheet<List<Region>>(
+            context: context,
+            isDismissible: false,
+            useRootNavigator: true,
+            isScrollControlled: true,
+            backgroundColor: Colors.transparent,
+            builder: (context) => RentChooseRegionBottomSheet(
+                isMultiChoice: false,
+                list: context.read<RegionsBloc>().state.regions),
           ).then((value) {
-            context
-                .read<RegisterBloc>()
-                .add(RegisterEvent.changeRegion(region: value.id));
-            setState(() {
-              currentRegion = value;
-            });
+            if (value != null && value.isNotEmpty) {
+              setState(() {
+                currentRegion = value.first;
+              });
+              context.read<RegisterBloc>().add(
+                  RegisterEvent.changeRegion(region: currentRegion?.id ?? -1));
+            }
           });
         },
         child: BlocBuilder<RegionsBloc, RegionsState>(
