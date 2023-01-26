@@ -8,7 +8,7 @@ import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/login/domain/usecases/verify_code.dart';
 import 'package:auto/features/login/presentation/bloc/register/register_bloc.dart';
-import 'package:auto/features/login/presentation/pages/personal_data_screen.dart';
+import 'package:auto/features/login/presentation/pages/personal_data/personal_data_screen.dart';
 import 'package:auto/features/login/presentation/widgets/login_header_widget.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/profile/presentation/widgets/refresh_button.dart';
@@ -146,73 +146,72 @@ class _RegisterVerificationScreenState
                     ),
                     Row(
                       children: [
-                          Text(LocaleKeys.send_via_password.tr(),
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline6!
-                                  .copyWith(
-                                    fontSize: 14,
-                                  )),
-                          const SizedBox(width: 6),
+                        Text(LocaleKeys.send_via_password.tr(),
+                            style:
+                                Theme.of(context).textTheme.headline6!.copyWith(
+                                      fontSize: 14,
+                                    )),
+                        const SizedBox(width: 6),
                         if (timeComplete)
                           Container(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 4, vertical: 3),
+                            height: 24,
+                            width: 24,
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(4),
                                 color: orange.withOpacity(0.1)),
-                            child: RefreshButton(
-                              filteredPhone: widget.phone,
-                              onSucces: () {
-                                setState(() {
-                                  timeComplete = false;
-                                });
-                                context.read<RegisterBloc>().add(
-                                        RegisterEvent.sendCode(widget.phone,
-                                            onError: (text) {
-                                      if (text.isNotEmpty) {
-                                        var error = text;
-                                        if (error
-                                            .toLowerCase()
-                                            .contains('dioerror')) {
-                                          error = StorageRepository.getString(
-                                                      'language') ==
-                                                  'uz'
-                                              ? 'Tarmoqda uzilish yuzaga keldi'
-                                              : 'Произошел сбой сети';
+                            child: Center(
+                              child: RefreshButton(
+                                filteredPhone: widget.phone,
+                                onSucces: () {
+                                  setState(() {
+                                    timeComplete = false;
+                                  });
+                                  context.read<RegisterBloc>().add(
+                                          RegisterEvent.sendCode(widget.phone,
+                                              onError: (text) {
+                                        if (text.isNotEmpty) {
+                                          var error = text;
+                                          if (error
+                                              .toLowerCase()
+                                              .contains('dioerror')) {
+                                            error = LocaleKeys.service_error.tr();
+                                          }
+                                          context.read<ShowPopUpBloc>().add(
+                                              ShowPopUp(
+                                                  message: error,
+                                                  isSucces: false,
+                                                  dismissible: false));
+                                        } else {
+                                          context.read<ShowPopUpBloc>().add(
+                                              ShowPopUp(
+                                                  message:
+                                                      'Something went wrong',
+                                                  isSucces: false,
+                                                  dismissible: false));
                                         }
-                                        context.read<ShowPopUpBloc>().add(
-                                            ShowPopUp(
-                                                message: error,
-                                                isSucces: false,
-                                                dismissible: false));
-                                      } else {
-                                        context.read<ShowPopUpBloc>().add(
-                                            ShowPopUp(
-                                                message: 'Something went wrong',
-                                                isSucces: false,
-                                                dismissible: false));
-                                      }
-                                      isToastShowing = true;
-                                    }, onSuccess: (sessionn) {
-                                      session = sessionn;
-                                    }));
-                              },
+                                        isToastShowing = true;
+                                      }, onSuccess: (sessionn) {
+                                        session = sessionn;
+                                      }));
+                                },
+                              ),
                             ),
                           )
                         else
                           Container(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 4, vertical: 3),
+                            height: 21,
+                            width: 41,
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(4),
                                 color: orange.withOpacity(0.1)),
-                            child: TimeCounter(
-                              onComplete: () {
-                                setState(() {
-                                  timeComplete = true;
-                                });
-                              },
+                            child: Center(
+                              child: TimeCounter(
+                                onComplete: () {
+                                  setState(() {
+                                    timeComplete = true;
+                                  });
+                                },
+                              ),
                             ),
                           ),
                       ],

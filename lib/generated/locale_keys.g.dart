@@ -74,6 +74,8 @@ abstract class  LocaleKeys {
   static const register = 'register';
   static const password = 'password';
   static const forgot_password = 'forgot_password';
+  static const service_error = 'service_error';
+  static const error_try_again = 'error_try_again';
   static const continuee = 'continuee';
   static const security = 'security';
   static const new_password = 'new_password';
@@ -89,10 +91,13 @@ abstract class  LocaleKeys {
   static const check_number = 'check_number';
   static const safety = 'safety';
   static const create_password_6 = 'create_password_6';
+  static const password_must_6 = 'password_must_6';
   static const confim_number = 'confim_number';
   static const send_password_again = 'send_password_again';
   static const passwords_didnt_match = 'passwords_didnt_match';
   static const photo = 'photo';
+  static const no_results = 'no_results';
+  static const sorry_no_results = 'sorry_no_results';
   static const add_photo = 'add_photo';
   static const region = 'region';
   static const full_name = 'full_name';

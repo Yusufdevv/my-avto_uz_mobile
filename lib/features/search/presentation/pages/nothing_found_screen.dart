@@ -1,5 +1,7 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/images.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class NothingFoundScreen extends StatelessWidget {
@@ -27,13 +29,14 @@ class NothingFoundScreen extends StatelessWidget {
                 ),
               ),
               Text(
-                'Нет результатов',
+                LocaleKeys.no_results.tr(),
                 style:
                     Theme.of(context).textTheme.subtitle1!.copyWith(fontSize: 16),
               ),
               const SizedBox(height: 8),
               Text(
-                'К соэалению, по вашему запросу результаты не найдены',
+                                LocaleKeys.sorry_no_results.tr(),
+
                 maxLines: 2,
                 textAlign: TextAlign.center,
                 style: Theme.of(context)

@@ -19,5 +19,5 @@ abstract class ProfileRepository {
 
   Future<Either<ServerFailure, String>> sendVerificationCode({required String phoneNumber, required String code,required String session});
 
-  Future<Either<ServerFailure, List<TermsOfUseEntity>>> getTermsOfUse();
+  Future<Either<ServerFailure,  TermsOfUseEntity >> getTermsOfUse(String slug);
 }

@@ -314,7 +314,9 @@ class MyFunctions {
     }
     return newCost.trimLeft();
   }
-  static List<String> getUpperLetter()=> [for (int i = 0; i < 26; i++) String.fromCharCode(i +65)];
+
+  static List<String> getUpperLetter() =>
+      [for (int i = 0; i < 26; i++) String.fromCharCode(i + 65)];
 
   static Future<Position> determinePosition() async {
     bool serviceEnabled;
@@ -339,7 +341,8 @@ class MyFunctions {
         print('=> => => =>     permission denied forever    <= <= <= <=');
         permission = await Geolocator.requestPermission();
         if (permission == LocationPermission.denied) {
-          print('=> => => =>     permission denied again forever    <= <= <= <=');
+          print(
+              '=> => => =>     permission denied again forever    <= <= <= <=');
           throw const ParsingException(
               errorMessage: 'location_permission_disabled');
         } else if (permission == LocationPermission.deniedForever) {
@@ -459,8 +462,9 @@ class MyFunctions {
     return now.isAfter(dateFrom) && now.isBefore(dateTo);
   }
 
-  static bool isEmail(String email) =>
-      RegExp(r'^[a-z0-9](\.?[a-z0-9]){5,}@g(oogle)?mail\.com$').hasMatch(email);
+  static bool isEmail(String email) => RegExp(
+          r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
+      .hasMatch(email);
 
   static String getDoorName(String door) {
     switch (door) {

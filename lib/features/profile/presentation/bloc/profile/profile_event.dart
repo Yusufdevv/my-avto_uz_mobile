@@ -6,7 +6,10 @@ abstract class ProfileEvent {}
 
 class GetProfileEvent extends ProfileEvent {}
 
-class GetTermsOfUseEvent extends ProfileEvent {}
+class GetTermsOfUseEvent extends ProfileEvent {
+  final String slug;
+  GetTermsOfUseEvent({ required this.slug});
+}
 
 class ChangeCountDataEvent extends ProfileEvent{
   final bool adding;
