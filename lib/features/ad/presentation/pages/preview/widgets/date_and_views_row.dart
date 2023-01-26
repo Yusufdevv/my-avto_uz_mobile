@@ -1,16 +1,15 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
-import 'package:auto/features/ad/domain/entities/preview/preview_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class DateAndViewsRow extends StatelessWidget {
   const DateAndViewsRow({
-    required this.previews,
+    required this.date,
     Key? key,
   }) : super(key: key);
 
-  final List<PreviewEntity> previews;
+  final String date;
 
   @override
   Widget build(BuildContext context) => Padding(
@@ -24,7 +23,7 @@ class DateAndViewsRow extends StatelessWidget {
                   width: 8,
                 ),
                 Text(
-                  previews[0].date,
+                  date,
                   style: Theme.of(context)
                       .textTheme
                       .bodyText1!
@@ -42,7 +41,7 @@ class DateAndViewsRow extends StatelessWidget {
                   width: 8,
                 ),
                 Text(
-                '0',
+                  '0',
                   style: Theme.of(context)
                       .textTheme
                       .bodyText1!

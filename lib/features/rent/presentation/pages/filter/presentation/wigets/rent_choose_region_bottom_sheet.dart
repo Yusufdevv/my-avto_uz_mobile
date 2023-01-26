@@ -101,6 +101,7 @@ class _RentChooseRegionBottomSheetState
                             setState(() {});
                           },
                           child: RegionSheetItem(
+                            isMultiChoice: widget.isMultiChoice,
                             title: widget.list[index].title,
                             hasBorder: index == widget.list.length - 1,
                             isChecked:

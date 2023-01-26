@@ -56,6 +56,7 @@ class _CurrencyChooseSheetState extends State<CurrencyChooseSheet> {
                           setState(() {});
                         },
                         child: RegionSheetItem(
+                          isMultiChoice: false,
                           title: Currency.values[index].name,
                           hasBorder: index == Currency.values.length - 1,
                           isChecked: selected == Currency.values[index].name,

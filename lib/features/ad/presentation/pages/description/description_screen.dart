@@ -90,23 +90,24 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
                           borderRadius: 8,
                           maxLines: 6,
                           height: 125,
+                          textStyle: Theme.of(context)
+                              .textTheme
+                              .headline1!
+                              .copyWith(
+                                  fontSize: 16, fontWeight: FontWeight.w400),
                         ),
-                        const SizedBox(
-                          height: 28,
-                        ),
+                        const SizedBox(height: 28),
                         GestureDetector(
                             onTap: () => context.read<PostingAdBloc>().add(
                                 PostingAdChooseEvent(
                                     isRastamojen:
-                                        !state.registeredInUzbekistan)),
+                                        !state.notRegisteredInUzbekistan)),
                             child: Row(
                               children: [
                                 WCheckBox(
-                                    isChecked: state.registeredInUzbekistan,
+                                    isChecked: state.notRegisteredInUzbekistan,
                                     checkBoxColor: purple),
-                                const SizedBox(
-                                  width: 10,
-                                ),
+                                const SizedBox(width: 10),
                                 Text(
                                   'Не растаможен',
                                   style: Theme.of(context)

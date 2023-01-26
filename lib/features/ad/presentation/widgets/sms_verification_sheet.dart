@@ -115,7 +115,7 @@ class _SmsVerificationSheetState extends State<SmsVerificationSheet> {
                     onTap: () {
                       Navigator.pop(context);
                     },
-                    text: '+998 ${widget.phoneNumber.replaceAll(' ', '')}',
+                    text: '+998 ${widget.phoneNumber}',
                   ),
                   const SizedBox(height: 42),
                   PinCodeTextField(

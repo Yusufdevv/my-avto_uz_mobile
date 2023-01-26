@@ -7,13 +7,25 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 class RegionCheckBox extends StatelessWidget {
   final bool isChecked;
+  final bool isMultiChoice;
   const RegionCheckBox({
+    required this.isMultiChoice,
     required this.isChecked,
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    if (!isMultiChoice) {
+      if (isChecked) {
+        return SvgPicture.asset(
+          AppIcons.check,
+          height: 14,
+          color: orange,
+        );
+      }
+      return const SizedBox();
+    }
     return AnimatedContainer(
       duration: const Duration(milliseconds: 200),
       padding: const EdgeInsets.all(2),

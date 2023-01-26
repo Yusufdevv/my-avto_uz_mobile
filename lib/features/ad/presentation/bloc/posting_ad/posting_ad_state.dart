@@ -1,6 +1,7 @@
 part of 'posting_ad_bloc.dart';
 
 class PostingAdState extends Equatable {
+  final String? id;
   final TextEditingController phoneController;
   final TextEditingController emailController;
   final TextEditingController nameController;
@@ -53,7 +54,7 @@ class PostingAdState extends Equatable {
   final String? locationUrl;
   final bool hasAppBarShadow;
   final bool isSortByLetter;
-  final bool registeredInUzbekistan;
+  final bool notRegisteredInUzbekistan;
   final bool isCallTimed;
   final bool showOwnerContacts;
   final bool isContactsVerified;
@@ -66,6 +67,7 @@ class PostingAdState extends Equatable {
     required this.phoneController,
     required this.emailController,
     required this.nameController,
+    this.id,
     this.makeLetterIndex,
     this.minimumPrice = 0,
     this.gearboxId,
@@ -97,7 +99,7 @@ class PostingAdState extends Equatable {
     this.description,
     this.isSortByLetter = false,
     this.hasAppBarShadow = true,
-    this.registeredInUzbekistan = false,
+    this.notRegisteredInUzbekistan = false,
     this.showExactAddress = false,
     this.ownerName,
     this.ownerEmail,
@@ -163,9 +165,9 @@ class PostingAdState extends Equatable {
     int? yearId,
     List<YearsEntity>? years,
     UserModel? userModel,
-    int? makeLetterIndex,
+    int? eventMakeScrrollIndex,
     num? minimumPrice,
-    String? letter,
+    String? eventLetter,
     String? colorName,
     String? typeDocument,
     String? ownerStep,
@@ -197,7 +199,7 @@ class PostingAdState extends Equatable {
     // print('====   ACTUALLY IN STATE:  ${this.districts}  ====');
     // print('==== INCOMING DISTRICT TO COPYWITH:  ${districts}  ====');
     final newState = PostingAdState(
-      makeLetterIndex: makeLetterIndex ?? this.makeLetterIndex,
+      makeLetterIndex: eventMakeScrrollIndex,
       yearId: yearId ?? this.yearId,
       locationUrl: locationUrl ?? this.locationUrl,
       phoneController: phoneController ?? this.phoneController,
@@ -233,13 +235,13 @@ class PostingAdState extends Equatable {
       isSortByLetter: isSortByLetter,
       modelId: modelId ?? this.modelId,
       makeId: makeId ?? this.makeId,
-      letter: letter,
+      letter: eventLetter,
       colorName: colorName ?? this.colorName,
       typeDocument: typeDocument ?? this.typeDocument,
       ownerStep: ownerStep ?? this.ownerStep,
       purchasedDate: purchasedDate ?? this.purchasedDate,
-      registeredInUzbekistan:
-          registeredInUzbekistan ?? this.registeredInUzbekistan,
+      notRegisteredInUzbekistan:
+          registeredInUzbekistan ?? this.notRegisteredInUzbekistan,
       description: description ?? this.description,
       ownerEmail: ownerEmail ?? this.ownerEmail,
       ownerName: ownerName ?? this.ownerName,
@@ -267,6 +269,7 @@ class PostingAdState extends Equatable {
 
   @override
   List<Object?> get props => [
+        id,
         makeLetterIndex,
         locationUrl,
         phoneController,
@@ -311,7 +314,7 @@ class PostingAdState extends Equatable {
         ownerStep,
         purchasedDate,
         bodyTypeId,
-        registeredInUzbekistan,
+        notRegisteredInUzbekistan,
         description,
         ownerEmail,
         ownerName,
