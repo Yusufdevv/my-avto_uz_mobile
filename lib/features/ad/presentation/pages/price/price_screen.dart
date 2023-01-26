@@ -1,4 +1,5 @@
 import 'package:auto/assets/colors/color.dart';
+import 'package:auto/assets/constants/formatters.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/assets/themes/theme_extensions/w_textfield_style.dart';
@@ -58,9 +59,10 @@ class _PriceScreenState extends State<PriceScreen> {
                             .copyWith(
                                 fontSize: 16, fontWeight: FontWeight.w400),
                         textInputFormatters: [
-                          FilteringTextInputFormatter.digitsOnly
+                          FilteringTextInputFormatter.digitsOnly,
+                          ThousandsSeparatorInputFormatter()
                         ],
-                        maxLength: 17,
+                        maxLength: 18,
                         hideCounterText: true,
                         controller: priceController,
                         onChanged: (value) => context
@@ -175,7 +177,7 @@ class _PriceScreenState extends State<PriceScreen> {
                         value: (state.rentToBuy ?? false) &&
                             state.rentWithPurchaseConditions.isNotEmpty,
                         onTap: () {
-                          if ((int.tryParse(priceController.text) ?? 0) > 0) {
+                          if ((int.tryParse(priceController.text.replaceAll(' ', '')) ?? 0) > 0) {
                             showModalBottomSheet<RentWithPurchaseEntity>(
                                 useRootNavigator: true,
                                 isScrollControlled: true,

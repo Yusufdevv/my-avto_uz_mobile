@@ -40,6 +40,7 @@ import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
 import 'package:formz/formz.dart';
 
 part 'posting_ad_event.dart';
@@ -254,7 +255,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
         ),
       );
     } else {
-      emit(state.copyWith(status: FormzStatus.submissionFailure));
+      emit(state.copyWith(status: FormzStatus.submissionFailure,toastMessage: (result.left is ServerFailure)? (result.left as ServerFailure).errorMessage:result.left.toString()));
     }
   }
 

@@ -81,6 +81,7 @@ class PostingAdChooseEvent extends PostingAdEvent {
   final int? districtId;
   final List<RentWithPurchaseEntity>? rentWithPurchaseConditions;
   final Map<DamagedParts, DamageType>? damagedParts;
+  final Uint8List? bodyBytes;
   final int? modelId;
   final int? generationId;
 
@@ -123,6 +124,7 @@ class PostingAdChooseEvent extends PostingAdEvent {
   final bool? isNew;
 
   PostingAdChooseEvent({
+    this.bodyBytes,
     this.yearId,
     this.locationUrl,
     this.phoneController,

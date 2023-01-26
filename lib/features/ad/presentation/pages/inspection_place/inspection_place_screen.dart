@@ -1,4 +1,5 @@
 import 'package:auto/features/ad/domain/entities/district_entity.dart';
+
 import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.dart';
 import 'package:auto/features/ad/presentation/widgets/base_widget.dart';
 import 'package:auto/features/ad/presentation/widgets/choose_district_sheet.dart';
@@ -25,6 +26,13 @@ class _InspectionPlaceScreenState extends State<InspectionPlaceScreen> {
     context.read<ShowPopUpBloc>().add(HidePopUp());
   }
 
+  late GlobalKey globalKey;
+  @override
+  void initState() {
+    globalKey = GlobalKey();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) => Scaffold(
         body: BaseWidget(
@@ -38,8 +46,7 @@ class _InspectionPlaceScreenState extends State<InspectionPlaceScreen> {
                   // CHOOSE REGION
                   LoaderBox(
                     isActive: state.region != null,
-                    isLoading: state.status ==
-                        FormzStatus.submissionInProgress,
+                    isLoading: state.status == FormzStatus.submissionInProgress,
                     onTap: () async {
                       hidePopUp();
                       await showModalBottomSheet<List<Region>>(
@@ -118,7 +125,20 @@ class _InspectionPlaceScreenState extends State<InspectionPlaceScreen> {
                     hintText: state.districtTitle,
                     title: 'Район / город',
                   ),
+
                   const SizedBox(height: 17),
+                  if (state.bodyBytes != null) ...{
+                    Container(
+                      height: 200,
+                      width: 343,
+                      child: Image.memory(
+                        state.bodyBytes!,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    const SizedBox(height: 17),
+                  },
+
                   SwitcherRowAsButtonAlso(
                     onTap: () {
                       hidePopUp();
@@ -139,4 +159,5 @@ class _InspectionPlaceScreenState extends State<InspectionPlaceScreen> {
           ),
         ),
       );
+ 
 }
