@@ -146,15 +146,13 @@ class _RegisterVerificationScreenState
                     ),
                     Row(
                       children: [
-                        if (StorageRepository.getString('language') == 'ru')
-                          Text(LocaleKeys.send_password_again.tr(),
+                          Text(LocaleKeys.send_via_password.tr(),
                               style: Theme.of(context)
                                   .textTheme
                                   .headline6!
                                   .copyWith(
                                     fontSize: 14,
                                   )),
-                        if (StorageRepository.getString('language') == 'ru')
                           const SizedBox(width: 6),
                         if (timeComplete)
                           Container(
@@ -174,10 +172,15 @@ class _RegisterVerificationScreenState
                                             onError: (text) {
                                       if (text.isNotEmpty) {
                                         var error = text;
-                                if (error.toLowerCase().contains('dioerror')) {
-                                  error =
-                                      'Server bilan xatolik yuz berdi';
-                                }
+                                        if (error
+                                            .toLowerCase()
+                                            .contains('dioerror')) {
+                                          error = StorageRepository.getString(
+                                                      'language') ==
+                                                  'uz'
+                                              ? 'Tarmoqda uzilish yuzaga keldi'
+                                              : 'Произошел сбой сети';
+                                        }
                                         context.read<ShowPopUpBloc>().add(
                                             ShowPopUp(
                                                 message: error,
@@ -212,16 +215,6 @@ class _RegisterVerificationScreenState
                               },
                             ),
                           ),
-                        if (StorageRepository.getString('language') == 'uz')
-                          const SizedBox(width: 6),
-                        if (StorageRepository.getString('language') == 'uz')
-                          Text(LocaleKeys.send_password_again.tr(),
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline6!
-                                  .copyWith(
-                                    fontSize: 14,
-                                  )),
                       ],
                     ),
                     const SizedBox(height: 24),

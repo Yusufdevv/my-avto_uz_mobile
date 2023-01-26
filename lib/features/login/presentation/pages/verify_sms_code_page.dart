@@ -69,7 +69,9 @@ class _VerifySmsCodePageState extends State<VerifySmsCodePage> {
                   isError = true;
                   var error = state.toastMessage;
                   if (error.toLowerCase().contains('dioerror')) {
-                    error = 'Server bilan xatolik yuz berdi';
+                    error = StorageRepository.getString('language') == 'uz'
+                        ? 'Tarmoqda uzilish yuzaga keldi'
+                        : 'Произошел сбой сети';
                   }
                   context
                       .read<ShowPopUpBloc>()
@@ -177,58 +179,51 @@ class _VerifySmsCodePageState extends State<VerifySmsCodePage> {
                       ),
                       Row(
                         children: [
-                          if (StorageRepository.getString('language') == 'ru')
-                            Text(LocaleKeys.send_via_password.tr(),
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headline6!
-                                    .copyWith(
-                                      fontSize: 14,
-                                    )),
-                          if (StorageRepository.getString('language') == 'ru')
-                            const SizedBox(width: 6),
+                          Text(LocaleKeys.send_via_password.tr(),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline6!
+                                  .copyWith(
+                                    fontSize: 14,
+                                  )),
+                          const SizedBox(width: 6),
                           if (timeComplete)
                             Container(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 4, vertical: 3),
+                              height: 24,
+                              width: 24,
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(4),
                                   color: orange.withOpacity(0.1)),
-                              child: RefreshButton(
-                                filteredPhone: widget.phone,
-                                onSucces: () {
-                                  setState(() {
-                                    timeComplete = false;
-                                  });
-                                  context
-                                      .read<SendPhoneBloc>()
-                                      .add(SendPhoneEvent(phone: widget.phone));
-                                },
+                              child: Center(
+                                child: RefreshButton(
+                                  filteredPhone: widget.phone,
+                                  onSucces: () {
+                                    setState(() {
+                                      timeComplete = false;
+                                    });
+                                    context.read<SendPhoneBloc>().add(
+                                        SendPhoneEvent(phone: widget.phone));
+                                  },
+                                ),
                               ),
                             )
                           else
                             Container(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 4, vertical: 3),
+                              height: 21,
+                              width: 41,
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(4),
                                   color: orange.withOpacity(0.1)),
-                              child: TimeCounter(
-                                onComplete: () {
-                                  setState(() {
-                                    timeComplete = true;
-                                  });
-                                },
+                              child: Center(
+                                child: TimeCounter(
+                                  onComplete: () {
+                                    setState(() {
+                                      timeComplete = true;
+                                    });
+                                  },
+                                ),
                               ),
                             ),
-                          if (StorageRepository.getString('language') == 'uz')
-                            const SizedBox(width: 6),
-                          if (StorageRepository.getString('language') == 'uz')
-                            Text(LocaleKeys.send_via_password.tr(),
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headline6!
-                                    .copyWith(fontSize: 14)),
                         ],
                       ),
                       Padding(

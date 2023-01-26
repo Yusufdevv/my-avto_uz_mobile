@@ -1,6 +1,7 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/images.dart';
+import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/core/utils/size_config.dart';
 import 'package:auto/features/ad/presentation/bloc/add_photo/image_bloc.dart';
 import 'package:auto/features/common/bloc/regions/regions_bloc.dart';
@@ -25,11 +26,11 @@ import 'package:formz/formz.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 class ProfileEditPage extends StatefulWidget {
-  final ProfileBloc profileBloc;
+
   final ImageBloc imageBloc;
 
   const ProfileEditPage({
-    required this.profileBloc,
+
     required this.imageBloc,
     Key? key,
   }) : super(key: key);
@@ -46,9 +47,11 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
   @override
   void initState() {
     _fullNameController = TextEditingController(
-        text: widget.profileBloc.state.profileEntity.fullName);
+        text: context.read<ProfileBloc>().state.profileEntity.fullName);
    
-    context.read<RegionsBloc>().add(RegionsEvent.getRegions());
+    if(context.read<RegionsBloc>().state.regions.isEmpty) {
+      context.read<RegionsBloc>().add(RegionsEvent.getRegions());
+    }
     widget.imageBloc
         .add(DeleteImage(imageUrl: widget.imageBloc.state.image.path));
     super.initState();
@@ -65,7 +68,6 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
     final mediaQuery = MediaQuery.of(context);
     return MultiBlocProvider(
       providers: [
-        BlocProvider.value(value: widget.profileBloc),
         BlocProvider.value(value: widget.imageBloc),
       ],
       child: BlocBuilder<ProfileBloc, ProfileState>(
@@ -104,7 +106,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                                       : null,
                               region: newRegion?.id,
                               onSuccess: () {
-                                widget.profileBloc.add(GetProfileEvent());
+                                context.read<ProfileBloc>().add(GetProfileEvent());
                                 Navigator.pop(context);
                                 context.read<ShowPopUpBloc>().add(ShowPopUp(
                                     message:
@@ -114,8 +116,8 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                               onError: (text) {
                                 var error = text;
                                 if (error.toLowerCase().contains('dioerror')) {
-                                  error =
-                                      'Server bilan xatolik yuz berdi';
+                                  error = StorageRepository.getString('language')=='uz' ?
+                                                    'Tarmoqda uzilish yuzaga keldi' : 'Произошел сбой сети';
                                 }
                                 context.read<ShowPopUpBloc>().add(
                                     ShowPopUp(message: error, isSucces: false));
@@ -252,7 +254,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                                   child: EditItemContainer(
                                       icon: AppIcons.chevronRightBlack,
                                       region: newRegion?.title ??
-                                          widget.profileBloc.state.profileEntity
+                                          context.read<ProfileBloc>().state.profileEntity
                                               .region?.title ??
                                           '')),
                               //
@@ -261,9 +263,8 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                                   onTap: () {
                                     Navigator.of(context, rootNavigator: true)
                                         .push(fade(
-                                            page: PhoneNumberEditPage(
-                                                profileBloc:
-                                                    widget.profileBloc)));
+                                            page: const PhoneNumberEditPage(
+                                               )));
                                   },
                                   child: PhoneContainer(
                                       phoneNumber: stateProfile

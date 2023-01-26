@@ -1,7 +1,9 @@
 import 'package:auto/core/exceptions/failures.dart';
+import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/core/usecases/usecase.dart';
 import 'package:auto/features/common/domain/entity/auto_entity.dart';
 import 'package:auto/features/common/repository/auth.dart';
+import 'package:auto/features/profile/data/repositories/profile_repository_impl.dart';
 import 'package:auto/features/profile/domain/entities/profile_data_entity.dart';
 import 'package:auto/features/profile/domain/entities/terms_of_use_entity.dart';
 import 'package:auto/features/profile/domain/usecases/change_password_usecase.dart';
@@ -18,20 +20,14 @@ part 'profile_event.dart';
 part 'profile_state.dart';
 
 class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
-  final AuthRepository repository;
 
-  final ProfileUseCase profileUseCase;
-  final EditProfileUseCase editProfileUseCase;
-  final ChangePasswordUseCase changePasswordUseCase;
-  final GetTermsOfUseUseCase getTermsOfUseUseCase;
+  final AuthRepository repository = AuthRepository();
+  final ProfileUseCase profileUseCase = ProfileUseCase();
+  final EditProfileUseCase editProfileUseCase = EditProfileUseCase();
+  final ChangePasswordUseCase changePasswordUseCase = ChangePasswordUseCase();
+  final GetTermsOfUseUseCase getTermsOfUseUseCase = GetTermsOfUseUseCase();
 
-  ProfileBloc({
-    required this.profileUseCase,
-    required this.editProfileUseCase,
-    required this.changePasswordUseCase,
-    required this.getTermsOfUseUseCase,
-    required this.repository,
-  }) : super(
+  ProfileBloc() : super(
           ProfileState(
             changeStatus: FormzStatus.pure,
             editStatus: FormzStatus.pure,
@@ -105,8 +101,9 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       emit(state.copyWith(editStatus: FormzStatus.submissionSuccess));
       event.onSuccess();
     } else {
+      final error =  (result.left as ServerFailure).errorMessage;
       emit(state.copyWith(editStatus: FormzStatus.submissionFailure));
-      event.onError(result.left.toString());
+      event.onError(error);
     }
   }
 

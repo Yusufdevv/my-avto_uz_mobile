@@ -1,10 +1,12 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
 import 'package:auto/features/common/widgets/custom_screen.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
+import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/login/domain/usecases/register_user.dart';
 import 'package:auto/features/login/domain/usecases/send_code.dart';
 import 'package:auto/features/login/domain/usecases/verify_code.dart';
@@ -13,6 +15,7 @@ import 'package:auto/features/login/presentation/pages/register_verification_scr
 import 'package:auto/features/login/presentation/widgets/login_header_widget.dart';
 import 'package:auto/features/login/presentation/widgets/z_text_form_field.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
+import 'package:auto/features/profile/presentation/pages/about_app/terms_of_use_page.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -71,9 +74,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       title: LocaleKeys.tel_number.tr(),
                       description: LocaleKeys.check_number.tr(),
                     ),
-                    const SizedBox(
-                      height: 12,
-                    ),
+                    const SizedBox(height: 49),
                     ZTextFormField(
                       onTap: () {
                         if (isToastShowing) {
@@ -108,18 +109,74 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       textInputFormatters: [phoneFormatter],
                     ),
                     const SizedBox(height: 24),
-                    // RichText(
-                    //     text: TextSpan(
-                    //   children: [
-                    //     TextSpan(
-                    //         text: "Продолжая регистрацию, я признаю что принимаю",
-                    //         style: Theme.of(context).textTheme.headline1),
-                    //     TextSpan(text: ' условия использования'),
-                    //     TextSpan(text: ' и'),
-                    //     TextSpan(text: ' правила'),
-                    //   ],
-                    // )),
-                    //const Spacer(),
+                    RichText(
+                        text: TextSpan(
+                      children: [
+                        TextSpan(
+                            text:
+                                'Продолжая регистрацию, я признаю что принимаю ',
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyText1
+                                ?.copyWith(
+                                    color: Theme.of(context)
+                                        .extension<ThemedColors>()!
+                                        .dolphinToGreySuit)),
+                        WidgetSpan(
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyText1
+                                ?.copyWith(
+                                    color: Theme.of(context)
+                                        .extension<ThemedColors>()!
+                                        .mediumSlateBlueToDolphin),
+                            child: WScaleAnimation(
+                              child: Text('условия использования ',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyText1
+                                      ?.copyWith(
+                                          color: Theme.of(context)
+                                              .extension<ThemedColors>()!
+                                              .mediumSlateBlueToDolphin)),
+                              onTap: () {
+                                Navigator.push(context,
+                                    fade(page: const TermsOfUsePage()));
+                              },
+                            )),
+                        TextSpan(
+                            text: 'и ',
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyText1
+                                ?.copyWith(
+                                    color: Theme.of(context)
+                                        .extension<ThemedColors>()!
+                                        .dolphinToGreySuit)),
+                        WidgetSpan(
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyText1
+                                ?.copyWith(
+                                    color: Theme.of(context)
+                                        .extension<ThemedColors>()!
+                                        .mediumSlateBlueToDolphin),
+                            child: WScaleAnimation(
+                              child: Text(
+                                'правила ',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyText1
+                                    ?.copyWith(
+                                        color: Theme.of(context)
+                                            .extension<ThemedColors>()!
+                                            .mediumSlateBlueToDolphin),
+                              ),
+                              onTap: () {},
+                            )),
+                      ],
+                    )),
+                    const SizedBox(height: 12),
                     WButton(
                       isLoading: state.sendCodeStatus ==
                           FormzStatus.submissionInProgress,
@@ -129,18 +186,21 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               phoneController.text.replaceAll('+998', ''),
                               onError: (text) {
                             if (text.isNotEmpty) {
-                               var error = text;
-                                if (error.toLowerCase().contains('dioerror')) {
-                                  error =
-                                      'Server bilan xatolik yuz berdi';
-                                }
+                              var error = text;
+                              if (error.toLowerCase().contains('dioerror')) {
+                                error =
+                                    StorageRepository.getString('language') ==
+                                            'uz'
+                                        ? 'Tarmoqda uzilish yuzaga keldi'
+                                        : 'Произошел сбой сети';
+                              }
                               context.read<ShowPopUpBloc>().add(ShowPopUp(
                                   message: error,
                                   isSucces: false,
                                   dismissible: false));
                             } else {
                               context.read<ShowPopUpBloc>().add(ShowPopUp(
-                                  message: 'something went wrong',
+                                  message: 'Something went wrong',
                                   isSucces: false,
                                   dismissible: false));
                             }

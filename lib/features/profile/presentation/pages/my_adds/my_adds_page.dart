@@ -30,8 +30,7 @@ class _MyAddsPageState extends State<MyAddsPage> {
   void initState() {
     final repo = serviceLocator<GetUserListRepoImpl>();
     bloc = UserWishListsBloc(
-        profileFavoritesMyAdsUseCase:
-            GetUserFavoritesMyAdsUseCase( ),
+        profileFavoritesMyAdsUseCase: GetUserFavoritesMyAdsUseCase(),
         getNotificationSingleUseCase:
             GetNotificationSingleUseCase(repository: repo),
         getNotificationsUseCase: GetNotificationsUseCase(repository: repo),
@@ -91,14 +90,11 @@ class _MyAddsPageState extends State<MyAddsPage> {
                 }
                 if (state.myAdsStatus.isSubmissionSuccess) {
                   final myAds = state.myAds;
-                  final activeAds = myAds
-                      .where((e) => !e.isExpired)
-                      .toList();
-                  final noActive = myAds
-                      .where((e) => e.isExpired)
-                      .toList();
+                  final activeAds = myAds.where((e) => !e.isExpired).toList();
+                  final noActive = myAds.where((e) => e.isExpired).toList();
                   return myAds.isNotEmpty
                       ? TabBarView(
+                          physics: const NeverScrollableScrollPhysics(),
                           children: [
                             AllAds(autoEntity: myAds),
                             AllAds(autoEntity: activeAds),

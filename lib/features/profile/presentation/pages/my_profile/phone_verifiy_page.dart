@@ -1,6 +1,7 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/core/utils/size_config.dart';
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
 import 'package:auto/features/common/widgets/custom_screen.dart';
@@ -22,14 +23,9 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 
 class PhoneVerifiyPage extends StatefulWidget {
   final String phone;
-  final ProfileBloc profileBloc;
   final BuildContext ctx;
 
-  const PhoneVerifiyPage(
-      {required this.phone,
-      required this.profileBloc,
-      required this.ctx,
-      Key? key})
+  const PhoneVerifiyPage({required this.phone, required this.ctx, Key? key})
       : super(key: key);
 
   @override
@@ -53,11 +49,10 @@ class _PhoneVerifiyPageState extends State<PhoneVerifiyPage> {
         child: CustomScreen(
           child: Scaffold(
             appBar: WAppBar(
-              onTapBack: () {
-                Navigator.pop(context);
-              },
-              title: 'Номер телефона',
-            ),
+                onTapBack: () {
+                  Navigator.pop(context);
+                },
+                title: LocaleKeys.tel_number.tr()),
             body: Padding(
               padding: EdgeInsets.symmetric(
                   vertical: SizeConfig.v(16), horizontal: SizeConfig.h(16)),
@@ -183,10 +178,12 @@ class _PhoneVerifiyPageState extends State<PhoneVerifiyPage> {
                                             onSuccess: () {},
                                             onError: (message) {
                                               var error = message;
-                                if (error.toLowerCase().contains('dioerror')) {
-                                  error =
-                                      'Server bilan xatolik yuz berdi';
-                                }
+                                              if (error
+                                                  .toLowerCase()
+                                                  .contains('dioerror')) {
+                                                error = StorageRepository.getString('language')=='uz' ?
+                                                    'Tarmoqda uzilish yuzaga keldi' : 'Произошел сбой сети';
+                                              }
                                               context.read<ShowPopUpBloc>().add(
                                                   ShowPopUp(
                                                       message: error,

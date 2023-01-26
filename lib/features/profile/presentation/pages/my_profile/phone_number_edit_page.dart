@@ -2,6 +2,7 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/core/singletons/service_locator.dart';
+import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/core/utils/size_config.dart';
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
 import 'package:auto/features/common/widgets/custom_screen.dart';
@@ -25,8 +26,8 @@ import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 class PhoneNumberEditPage extends StatefulWidget {
-  const PhoneNumberEditPage({required this.profileBloc, this.phone, super.key});
-  final ProfileBloc profileBloc;
+  const PhoneNumberEditPage({this.phone, super.key});
+
   final String? phone;
   @override
   State<PhoneNumberEditPage> createState() => _PhoneNumberEditPageState();
@@ -87,12 +88,11 @@ class _PhoneNumberEditPageState extends State<PhoneNumberEditPage> {
                             }
                           },
                           validate: (value) {
+                            print('======= ${value?.length}');
                             if (value == null || value.isEmpty) {
                               return 'Iltimos, telefon nomerni kiriting';
                             } else if (value.length < 12) {
                               return "Telefon nomer 12 raqamdan iborat bo'lishi kerak";
-                            } else if (int.tryParse(value) == null) {
-                              return "To'gri telefon raqam kiriting!";
                             }
                             return null;
                           },
@@ -142,12 +142,9 @@ class _PhoneNumberEditPageState extends State<PhoneNumberEditPage> {
                                                 BlocProvider.value(
                                                     value:
                                                         changePhoneNumberBloc),
-                                                BlocProvider.value(
-                                                    value: widget.profileBloc)
                                               ],
                                               child: PhoneVerifiyPage(
                                                 ctx: context,
-                                                profileBloc: widget.profileBloc,
                                                 phone: phoneNumber,
                                               ),
                                             )),
@@ -158,8 +155,8 @@ class _PhoneNumberEditPageState extends State<PhoneNumberEditPage> {
                                           if (error
                                               .toLowerCase()
                                               .contains('dioerror')) {
-                                            error =
-                                                'Server bilan xatolik yuz berdi';
+                                           error = StorageRepository.getString('language')=='uz' ?
+                                                    'Tarmoqda uzilish yuzaga keldi' : 'Произошел сбой сети';
                                           }
                                           context.read<ShowPopUpBloc>().add(
                                               ShowPopUp(
