@@ -1,6 +1,6 @@
+import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.dart';
-import 'package:auto/features/ad/presentation/pages/choose_car_brand/widget/az_list.dart';
 import 'package:auto/utils/my_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,14 +28,27 @@ class Header extends SliverPersistentHeaderDelegate {
           children: [
             Expanded(
               child: ListView.builder(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
                 itemBuilder: (context, index) => GestureDetector(
                   onTap: () => context
                       .read<PostingAdBloc>()
                       .add(PostingAdChooseEvent(letter: letters[index])),
-                  child: AzList(
-                    isSelected: context.watch<PostingAdBloc>().state.letter ==
-                        letters[index],
-                    letter: letters[index],
+                  child: Padding(
+                    padding:
+                        const EdgeInsets.only(left: 16, right: 16, bottom: 4),
+                    child: Text(
+                      letters[index],
+                      style: letters[index] ==
+                              context.watch<PostingAdBloc>().state.letter
+                          ? Theme.of(context)
+                              .textTheme
+                              .headline6!
+                              .copyWith(color: greyText)
+                          : Theme.of(context)
+                              .textTheme
+                              .headline6!
+                              .copyWith(color: warmerGrey),
+                    ),
                   ),
                 ),
                 itemCount: letters.length,
@@ -43,9 +56,7 @@ class Header extends SliverPersistentHeaderDelegate {
                 scrollDirection: Axis.horizontal,
               ),
             ),
-            Divider(
-              color: Theme.of(context).dividerColor,
-            )
+            Divider(color: Theme.of(context).dividerColor)
           ],
         ),
       );

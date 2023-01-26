@@ -16,7 +16,7 @@ import 'package:formz/formz.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 class ChooseCarBrand extends StatefulWidget {
-  final VoidCallback onTopBrandPressed;
+  final Function(int) onTopBrandPressed;
   final PostingAdBloc bloc;
   const ChooseCarBrand({
     required this.bloc,
@@ -112,6 +112,7 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
                           height: 40,
                           controller: searchController,
                           hasClearButton: true,
+                          textStyle:Theme.of(context).textTheme.headline1!.copyWith(fontWeight: FontWeight.w400,fontSize: 16) ,
                         ),
                       ),
                     ),
@@ -137,7 +138,10 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
                               scrollDirection: Axis.horizontal,
                               itemBuilder: (context, index) => CarBrandItem(
                                     carBrandEntity: state.topMakes[index],
-                                    onTap: widget.onTopBrandPressed,
+                                    onTap: () {
+                                      widget.onTopBrandPressed(
+                                          state.topMakes[index].id);
+                                    },
                                   ),
                               separatorBuilder: (context, index) =>
                                   const SizedBox(width: 12)),

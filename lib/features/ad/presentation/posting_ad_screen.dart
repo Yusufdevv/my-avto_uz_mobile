@@ -105,7 +105,7 @@ class _PostingAdScreenState extends State<PostingAdScreen>
           GetMakesUseCase(repository: serviceLocator<AdRepositoryImpl>()),
     );
     if (widget.announcementId == null) {
-      currentTabIndex = 16;
+      currentTabIndex = 0;
       postingAdBloc.add(PostingAdMakesEvent());
     } else {
       currentTabIndex = 10;
@@ -157,7 +157,8 @@ class _PostingAdScreenState extends State<PostingAdScreen>
         return false;
       // AddPhotoScreen
       case 10:
-        return state.gallery.isEmpty;
+        return false;
+      // return state.gallery.isEmpty;
       // PtsScreen
       case 11:
         return state.ownerStep == null ||
@@ -177,11 +178,8 @@ class _PostingAdScreenState extends State<PostingAdScreen>
         return !state.isContactsVerified;
 // InspectionPlaceScreen
       case 16:
-        {
-          var v = state.region == null;
-          print('=> => => =>     Inspection place bool: $v    <= <= <= <=');
-          return v;
-        }
+        return state.region == null;
+
       // PriceScreen
       case 17:
         return state.price == null;
@@ -328,7 +326,9 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                         //0
                         ChooseCarBrand(
                           bloc: postingAdBloc,
-                          onTopBrandPressed: () {
+                          onTopBrandPressed: (makeId) {
+                            postingAdBloc
+                                .add(PostingAdChooseEvent(makeId: makeId));
                             currentTabIndex++;
                             addEvent(currentTabIndex, state);
                             pageController.animateToPage(currentTabIndex,
@@ -395,7 +395,7 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                         // //19
                         // const StsScreen(),
                         //19
-                        PreviewScreen(),
+                        const PreviewScreen(),
                       ],
                     ),
                     if (currentTabIndex < tabLength - 1) ...{

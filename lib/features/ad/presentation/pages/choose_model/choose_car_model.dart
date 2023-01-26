@@ -75,6 +75,7 @@ class _ChooseCarModelScreenState extends State<ChooseCarModelScreen> {
                       hintText: 'Поиск',
                       height: 40,
                       controller: searchController,
+                      textStyle: Theme.of(context).textTheme.headline1!.copyWith(fontWeight: FontWeight.w400,fontSize: 16) ,
                     ),
                   ),
 

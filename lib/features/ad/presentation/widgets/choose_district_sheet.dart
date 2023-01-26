@@ -61,6 +61,7 @@ class _ChooseDistrictSheetState extends State<ChooseDistrictSheet> {
                               setState(() {});
                             },
                             child: RegionSheetItem(
+                              isMultiChoice: false,
                               title: widget.districts[index].title,
                               hasBorder: index == widget.districts.length - 1,
                               isChecked: widget.districts[index].id == selected,

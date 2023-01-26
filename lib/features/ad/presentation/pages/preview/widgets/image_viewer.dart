@@ -1,8 +1,10 @@
+import 'dart:io';
+
 import 'package:auto/features/ad/presentation/pages/preview/widgets/image_indicator.dart';
 import 'package:flutter/material.dart';
 
 class ImageViewer extends StatefulWidget {
-  final List<String?> images;
+  final List<String> images;
 
   const ImageViewer({required this.images, Key? key}) : super(key: key);
 
@@ -59,7 +61,7 @@ class _ImageViewerState extends State<ImageViewer> {
             Positioned.fill(
               child: PageView(
                 controller: pageController,
-                onPageChanged: (int page) {
+                onPageChanged: (page) {
                   setState(() {
                     currentIndex = page;
                   });
@@ -68,10 +70,12 @@ class _ImageViewerState extends State<ImageViewer> {
                   widget.images.length,
                   (index) => SizedBox(
                     width: double.infinity,
-                    child: Image.network(
-                      widget.images[index] ?? '',
-                      fit: BoxFit.cover,
-                    ),
+                    child: widget.images[index].startsWith('http')
+                        ? Image.network(
+                            widget.images[index],
+                            fit: BoxFit.cover,
+                          )
+                        : Image.file(File(widget.images[index]),fit: BoxFit.cover,),
                   ),
                 ),
               ),
