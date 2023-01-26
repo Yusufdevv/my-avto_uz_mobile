@@ -25,7 +25,7 @@ class PASingleton {
       'contact_available_to': v.callTimeTo,
       'region': v.region!.id,
       'district': v.districtId,
-      'price': v.price,
+      'price': v.price!.replaceAll(' ', ''),
       'currency': v.currency,
       'distance_traveled': v.mileage,
       'registration_vin': 'KENTEKENMEWIJS',
@@ -124,6 +124,7 @@ class PASingleton {
       PostingAdState state, PostingAdChooseEvent event) {
     print('=> => => => LOCATION URL    ${event.locationUrl}    <= <= <= <=');
     return state.copyWith(
+        bodyBytes: event.bodyBytes,
         years: event.years,
         yearId: event.yearId,
         locationUrl: event.locationUrl,
@@ -153,7 +154,7 @@ class PASingleton {
         eventLetter: event.letter,
         makeId: event.makeId,
         purchasedDate: event.purchasedDate,
-        registeredInUzbekistan: event.isRastamojen,
+        notRegisteredInUzbekistan: event.isRastamojen,
         ownerEmail: event.ownerEmail,
         ownerName: event.ownerName,
         ownerPhone: event.ownerPhone,

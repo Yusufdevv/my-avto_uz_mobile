@@ -1,6 +1,7 @@
 part of 'posting_ad_bloc.dart';
 
 class PostingAdState extends Equatable {
+  final Uint8List? bodyBytes;
   final String? id;
   final TextEditingController phoneController;
   final TextEditingController emailController;
@@ -123,6 +124,7 @@ class PostingAdState extends Equatable {
     this.toastMessage,
     this.userModel,
     this.locationUrl,
+    this.bodyBytes,
   });
 
   String get districtTitle {
@@ -140,6 +142,7 @@ class PostingAdState extends Equatable {
     TextEditingController? nameController,
     Map<DamagedParts, DamageType>? damagedParts,
     List<RentWithPurchaseEntity>? rentWithPurchaseConditions,
+    Uint8List? bodyBytes,
     int? districtId,
     Region? region,
     FormzStatus? status,
@@ -187,7 +190,7 @@ class PostingAdState extends Equatable {
     String? toastMessage,
     String? locationUrl,
     bool? hasAppBarShadow,
-    bool? registeredInUzbekistan,
+    bool? notRegisteredInUzbekistan,
     bool? isCallTimed,
     bool isSortByLetter = false,
     bool? showOwnerContacts,
@@ -199,6 +202,7 @@ class PostingAdState extends Equatable {
     // print('====   ACTUALLY IN STATE:  ${this.districts}  ====');
     // print('==== INCOMING DISTRICT TO COPYWITH:  ${districts}  ====');
     final newState = PostingAdState(
+      bodyBytes: bodyBytes ?? this.bodyBytes,
       makeLetterIndex: eventMakeScrrollIndex,
       yearId: yearId ?? this.yearId,
       locationUrl: locationUrl ?? this.locationUrl,
@@ -241,7 +245,7 @@ class PostingAdState extends Equatable {
       ownerStep: ownerStep ?? this.ownerStep,
       purchasedDate: purchasedDate ?? this.purchasedDate,
       notRegisteredInUzbekistan:
-          registeredInUzbekistan ?? this.notRegisteredInUzbekistan,
+          notRegisteredInUzbekistan ?? this.notRegisteredInUzbekistan,
       description: description ?? this.description,
       ownerEmail: ownerEmail ?? this.ownerEmail,
       ownerName: ownerName ?? this.ownerName,
@@ -269,6 +273,7 @@ class PostingAdState extends Equatable {
 
   @override
   List<Object?> get props => [
+        bodyBytes,
         id,
         makeLetterIndex,
         locationUrl,
