@@ -35,7 +35,7 @@ class WFilterButton extends StatelessWidget {
         height: 38,
         width: size.width * 0.45,
         borderRadius: 8,
-        padding: const EdgeInsets.all(10),
+        padding: const EdgeInsets.only(top: 8,bottom:8,left: 12,right: 10 ),
         border: Border.all(color: theme.dividerColorToGrey),
         color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
         child: Row(
@@ -49,7 +49,7 @@ class WFilterButton extends StatelessWidget {
             ),
             const SizedBox(width: 8),
             SizedBox(
-              width: size.width * 0.26,
+              width: size.width * 0.27,
               child: Text(
                 name.isEmpty ? defaultTitle : name,
                 style: Theme.of(context)

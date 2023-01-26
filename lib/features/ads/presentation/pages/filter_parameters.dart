@@ -67,7 +67,7 @@ class _FilterParametersState extends State<FilterParameters> {
         child: BlocBuilder<FilterBloc, FilterState>(
           builder: (context, state) => Scaffold(
             appBar: WAppBar(
-              title: 'Параметры',
+              title: LocaleKeys.options.tr(),
               centerTitle: false,
               extraActions: [
                 TextButton(
@@ -80,9 +80,9 @@ class _FilterParametersState extends State<FilterParameters> {
                         .add(AnnouncementListEvent.getAnnouncementList());
                     filterBloc.add(FilterClearEvent());
                   },
-                  child: const Text(
-                    'Сбросить',
-                    style: TextStyle(
+                  child: Text(
+                    LocaleKeys.reset.tr(),
+                    style: const TextStyle(
                       fontSize: 13,
                       fontWeight: FontWeight.w400,
                       color: orange,
@@ -167,11 +167,8 @@ class _FilterParametersState extends State<FilterParameters> {
                         : state.gearboxType!.type.isEmpty,
                   ),
                   Text(
-                    'Выберите валюту',
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline2!
-                        .copyWith(fontWeight: FontWeight.w400),
+                    LocaleKeys.select_currency.tr(),
+                    style: Theme.of(context).textTheme.headline2,
                   ),
                   const SizedBox(height: 8),
                   Row(
@@ -275,7 +272,7 @@ class _FilterParametersState extends State<FilterParameters> {
                       );
                       Navigator.of(context).pop();
                     },
-                    text: 'Показать',
+                    text: LocaleKeys.show.tr(),
                   ),
                 ],
               ),

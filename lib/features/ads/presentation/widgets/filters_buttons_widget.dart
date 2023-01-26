@@ -8,6 +8,8 @@ import 'package:auto/features/common/models/region.dart';
 import 'package:auto/features/common/widgets/w_filter_button.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/rent_choose_region_bottom_sheet.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -36,7 +38,7 @@ class FilterButtonsWidget extends StatelessWidget {
                 name: '',
                 claerA: state.isFilter,
                 activeColor: orange,
-                defaultTitle: 'Параметры',
+                defaultTitle: LocaleKeys.options.tr(),
                 onTap: () {
                   Navigator.of(context).push(
                     fade(
@@ -72,7 +74,7 @@ class FilterButtonsWidget extends StatelessWidget {
                 name: state.regions.isNotEmpty ? state.regions[0].title : '',
                 claerA: state.regions.isNotEmpty,
                 activeColor: dark,
-                defaultTitle: 'Все регионы',
+                defaultTitle: LocaleKeys.all_regions.tr(),
                 onTap: () async {
                   await showModalBottomSheet<List<Region>>(
                     isDismissible: false,

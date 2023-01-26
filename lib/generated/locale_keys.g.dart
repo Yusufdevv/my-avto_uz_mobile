@@ -35,6 +35,7 @@ abstract class  LocaleKeys {
   static const body_type = 'body_type';
   static const all_params = 'all_params';
   static const auto_characters = 'auto_characters';
+  static const characters = 'characters';
   static const Other_announcements = 'Other_announcements';
   static const auto_seller = 'auto_seller';
   static const participation_in_accident = 'participation_in_accident';
@@ -49,7 +50,14 @@ abstract class  LocaleKeys {
   static const all = 'all';
   static const using = 'using';
   static const close = 'close';
+  static const no_data = 'no_data';
+  static const no_data_commit = 'no_data_commit';
+  static const sorting = 'sorting';
+  static const options = 'options';
+  static const all_regions = 'all_regions';
+  static const save_search = 'save_search';
   static const car_comparison = 'car_comparison';
+  static const add_car = 'add_car';
   static const add_car_comparison = 'add_car_comparison';
   static const add_advert = 'add_advert';
   static const complectation = 'complectation';
@@ -154,9 +162,11 @@ abstract class  LocaleKeys {
   static const number_and_passport = 'number_and_passport';
   static const na_uchete = 'na_uchete';
   static const choose_brand_auto = 'choose_brand_auto';
+  static const choose_model_auto = 'choose_model_auto';
   static const choose_model = 'choose_model';
   static const years_of_issue = 'years_of_issue';
   static const body = 'body';
+  static const no_offers = 'no_offers';
   static const generation = 'generation';
   static const motor = 'motor';
   static const drive_unit = 'drive_unit';
@@ -308,6 +318,7 @@ abstract class  LocaleKeys {
   static const car_sale = 'car_sale';
   static const load_more = 'load_more';
   static const show = 'show';
+  static const select_currency = 'select_currency';
   static const result = 'result';
   static const moto = 'moto';
   static const category = 'category';

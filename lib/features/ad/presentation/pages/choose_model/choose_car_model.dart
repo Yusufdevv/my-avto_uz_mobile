@@ -8,6 +8,8 @@ import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.da
 import 'package:auto/features/ad/presentation/pages/choose_model/widgets/model_items.dart';
 import 'package:auto/features/ad/presentation/widgets/sliver_header_text.dart';
 import 'package:auto/features/common/widgets/w_textfield.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -72,7 +74,7 @@ class _ChooseCarModelScreenState extends State<ChooseCarModelScreen> {
                               searchPattern: searchController.text)),
                       borderRadius: 12,
                       hasSearch: true,
-                      hintText: 'Поиск',
+                      hintText: LocaleKeys.search.tr(),
                       height: 40,
                       controller: searchController,
                     ),

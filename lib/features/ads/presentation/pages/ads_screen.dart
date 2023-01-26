@@ -6,13 +6,12 @@ import 'package:auto/features/ads/presentation/pages/ads_body_screen.dart';
 import 'package:auto/features/ads/presentation/widgets/ads_appbar_sliver_delegate.dart';
 import 'package:auto/features/ads/presentation/widgets/ads_sliver_deleget.dart';
 import 'package:auto/features/common/bloc/announcement_bloc/bloc/announcement_list_bloc.dart';
-import 'package:auto/features/common/bloc/get_car_model/get_car_model_bloc.dart';
 import 'package:auto/features/common/bloc/get_makes_bloc/get_makes_bloc_bloc.dart';
+import 'package:auto/features/common/bloc/regions/regions_bloc.dart';
+import 'package:auto/features/common/widgets/custom_screen.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/search/presentation/search_screen.dart';
 import 'package:auto/features/search/presentation/widgets/sort_bottom_sheet.dart';
-import 'package:auto/generated/locale_keys.g.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -58,6 +57,7 @@ class _AdsScreenState extends State<AdsScreen>
   void initState() {
     _scrollController = ScrollController()..addListener(_scrollListener);
     tabController = TabController(length: 3, vsync: this);
+    context.read<RegionsBloc>().add(RegionsEvent.getRegions());
     context.read<AnnouncementListBloc>().add(AnnouncementListEvent.getIsHistory(
         context.read<GetMakesBloc>().state.selectId <= 0));
     super.initState();
@@ -79,76 +79,78 @@ class _AdsScreenState extends State<AdsScreen>
     final theme = Theme.of(context).extension<ThemedColors>()!;
     return BlocBuilder<AnnouncementListBloc, AnnouncementListState>(
       builder: (context, state) => SafeArea(
-        child: Scaffold(
-          body: NestedScrollView(
-            controller: _scrollController,
-            headerSliverBuilder: (context, innerBoxIsScrolled) => [
-              SliverAppBar(
-                titleSpacing: 0,
-                pinned: true,
-                elevation: 0,
-                automaticallyImplyLeading: false,
-                leading: WScaleAnimation(
-                  onTap: widget.isBack
-                      ? widget.onTap
-                      : () {
-                          Navigator.pop(context);
-                        },
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 24, right: 16),
-                    child: Align(
-                      alignment: Alignment.center,
-                      child: Transform.scale(
-                        scale: 1.5,
-                        child: SvgPicture.asset(AppIcons.chevronLeft),
-                      ),
-                    ),
-                  ),
-                ),
-                title: AdsAppBarTitle(
-                  fadeDuration: fadeDuration,
-                  crossFadeState: crossFadeState,
-                ),
-                actions: [
-                  Padding(
-                    padding: const EdgeInsets.only(right: 16),
-                    child: WScaleAnimation(
-                      onTap: () {
-                        filterBottomSheet(context);
-                      },
+        child: CustomScreen(
+          child: Scaffold(
+            body: NestedScrollView(
+              controller: _scrollController,
+              headerSliverBuilder: (context, innerBoxIsScrolled) => [
+                SliverAppBar(
+                  titleSpacing: 0,
+                  pinned: true,
+                  elevation: 0,
+                  automaticallyImplyLeading: false,
+                  leading: WScaleAnimation(
+                    onTap: widget.isBack
+                        ? widget.onTap
+                        : () {
+                            Navigator.pop(context);
+                          },
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 24, right: 16),
                       child: Align(
                         alignment: Alignment.center,
-                        child: SvgPicture.asset(
-                          AppIcons.arrowsSort,
-                          color: orange,
+                        child: Transform.scale(
+                          scale: 1.5,
+                          child: SvgPicture.asset(AppIcons.chevronLeft),
                         ),
                       ),
                     ),
                   ),
-                ],
-              ),
-              SliverPersistentHeader(
-                delegate: AdsSliverWidget(
-                  size: size,
-                  theme: theme,
-                  tabController: tabController,
+                  title: AdsAppBarTitle(
+                    fadeDuration: fadeDuration,
+                    crossFadeState: crossFadeState,
+                  ),
+                  actions: [
+                    Padding(
+                      padding: const EdgeInsets.only(right: 16),
+                      child: WScaleAnimation(
+                        onTap: () {
+                          filterBottomSheet(context);
+                        },
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: SvgPicture.asset(
+                            AppIcons.arrowsSort,
+                            color: orange,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-            ],
-            body: TabBarView(
-              physics: const NeverScrollableScrollPhysics(),
-              controller: tabController,
-              children: const [
-                AdsBodyScreen(
-                  isNew: null,
-                ),
-                AdsBodyScreen(
-                  isNew: true,
-                ),
-                AdsBodyScreen(
-                  isNew: false,
+                SliverPersistentHeader(
+                  delegate: AdsSliverWidget(
+                    size: size,
+                    theme: theme,
+                    tabController: tabController,
+                  ),
                 ),
               ],
+              body: TabBarView(
+                physics: const NeverScrollableScrollPhysics(),
+                controller: tabController,
+                children: const [
+                  AdsBodyScreen(
+                    isNew: null,
+                  ),
+                  AdsBodyScreen(
+                    isNew: true,
+                  ),
+                  AdsBodyScreen(
+                    isNew: false,
+                  ),
+                ],
+              ),
             ),
           ),
         ),

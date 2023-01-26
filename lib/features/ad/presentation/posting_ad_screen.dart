@@ -48,6 +48,7 @@ import 'package:auto/features/login/domain/usecases/verify_code.dart';
 import 'package:auto/features/main/domain/usecases/get_top_brand.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/rent/domain/usecases/get_gearboxess_usecase.dart';
+import 'package:auto/features/ad/presentation/pages/map_screen/map_screen_posting_ad.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
