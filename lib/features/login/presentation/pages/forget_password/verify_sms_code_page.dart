@@ -80,11 +80,8 @@ class _VerifySmsCodePageState extends State<VerifySmsCodePage> {
                     context,
                     fade(
                       page: BlocProvider.value(
-                        value: verifyBloc,
-                        child: LoginNewPasswordPage(
-                          phone: state.phone,
-                        ),
-                      ),
+                          value: verifyBloc,
+                          child: LoginNewPasswordPage(phone: state.phone)),
                     ),
                   );
                 }
@@ -181,9 +178,7 @@ class _VerifySmsCodePageState extends State<VerifySmsCodePage> {
                               style: Theme.of(context)
                                   .textTheme
                                   .headline6!
-                                  .copyWith(
-                                    fontSize: 14,
-                                  )),
+                                  .copyWith(fontSize: 14)),
                           const SizedBox(width: 6),
                           if (timeComplete)
                             Container(
@@ -233,13 +228,12 @@ class _VerifySmsCodePageState extends State<VerifySmsCodePage> {
                             verifyBloc.add(
                               VerifyVerifyEvent(
                                 param: VerifyParam(
-                                  phone: widget.phone,
-                                  code: passwordRecoveryController.text,
-                                  session: context
-                                      .read<SendPhoneBloc>()
-                                      .state
-                                      .session,
-                                ),
+                                    phone: widget.phone,
+                                    code: passwordRecoveryController.text,
+                                    session: context
+                                        .read<SendPhoneBloc>()
+                                        .state
+                                        .session),
                               ),
                             );
                           },
