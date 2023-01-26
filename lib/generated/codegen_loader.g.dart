@@ -94,7 +94,7 @@ class CodegenLoader extends AssetLoader{
   "confirm_password": "Подтверждение пароля",
   "recovery_password": "Восстановление пароля",
   "enter_password_sms": "Введите код подтверждения из SMS. Код подтверждения отправлено на номер",
-  "send_via_password": "Отправить код снова через",
+  "send_via_password": "Отправить код снова ",
   "personal_data": "Персональные данные",
   "create_password": "Придумайте пароль для входа",
   "name": "Имя",
@@ -428,7 +428,7 @@ static const Map<String,dynamic> uz = {
   "confirm_password": "Parolni tasdiqlash",
   "recovery_password": "Parolni tiklash",
   "enter_password_sms": "SMS orqali yuborilgan tasdiqlash kodini kiriting. Ushbu raqamga tasdiqlash kodi yuborildi",
-  "send_via_password": "orqali kodni qayta yuboring",
+  "send_via_password": "Kodni qayta yuboring",
   "personal_data": "Shaxsiy ma'lumotlar",
   "create_password": "Kirish uchun parol kiriting",
   "name": "Ism-familiya",

@@ -1,13 +1,15 @@
 import 'package:auto/core/exceptions/failures.dart';
+import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/core/usecases/usecase.dart';
 import 'package:auto/core/utils/either.dart';
+import 'package:auto/features/profile/data/repositories/profile_repository_impl.dart';
 import 'package:auto/features/profile/domain/repositories/profile_repository.dart';
 import 'package:equatable/equatable.dart';
 
 class ChangePasswordUseCase extends UseCase<String, ChangePasswordParams> {
-  final ProfileRepository repository;
+  final ProfileRepository repository =  serviceLocator<ProfileRepositoryImpl>();
 
-  ChangePasswordUseCase({required this.repository});
+  ChangePasswordUseCase( );
 
   @override
   Future<Either<Failure, String>> call(ChangePasswordParams params) async =>

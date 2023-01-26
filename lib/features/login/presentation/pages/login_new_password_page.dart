@@ -1,5 +1,6 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
 import 'package:auto/features/common/widgets/custom_screen.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
@@ -59,12 +60,14 @@ class _LoginNewPasswordPageState extends State<LoginNewPasswordPage> {
               listener: (context, state) {
                 if (state.status == FormzStatus.submissionCanceled) {
                   var error = state.toastMessage;
-                                if (error.toLowerCase().contains('dioerror')) {
-                                  error =
-                                      'Server bilan xatolik yuz berdi';
-                                }
-                  context.read<ShowPopUpBloc>().add(
-                      ShowPopUp(message: state.toastMessage, isSucces: false));
+                  if (error.toLowerCase().contains('dioerror')) {
+                    error = StorageRepository.getString('language') == 'uz'
+                        ? 'Tarmoqda uzilish yuzaga keldi'
+                        : 'Произошел сбой сети';
+                  }
+                  context
+                      .read<ShowPopUpBloc>()
+                      .add(ShowPopUp(message: error, isSucces: false));
                 }
                 if (state.status == FormzStatus.submissionSuccess) {
                   Navigator.pushAndRemoveUntil(

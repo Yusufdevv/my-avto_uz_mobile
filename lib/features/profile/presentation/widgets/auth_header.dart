@@ -4,12 +4,10 @@ import 'package:flutter/material.dart';
 
 class AuthHeader extends StatelessWidget {
   final String title;
-
   final String? desc;
-
   final String? phone;
 
-  const AuthHeader({Key? key, required this.title, this.phone, this.desc})
+  const AuthHeader({required this.title,Key? key,  this.phone, this.desc})
       : super(key: key);
 
   @override
@@ -52,8 +50,6 @@ class AuthHeader extends StatelessWidget {
                 ),
               ),
             )
-          else
-            const SizedBox(),
         ],
       );
 }

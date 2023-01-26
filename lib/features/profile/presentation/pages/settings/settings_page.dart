@@ -20,9 +20,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class SettingsPage extends StatefulWidget {
-  final ProfileBloc profileBloc;
+ 
 
-  const SettingsPage({required this.profileBloc, Key? key}) : super(key: key);
+  const SettingsPage({ Key? key}) : super(key: key);
 
   @override
   State<SettingsPage> createState() => _SettingsPageState();
@@ -61,8 +61,8 @@ class _SettingsPageState extends State<SettingsPage> {
                       onTap: () {
                         Navigator.of(context).push(
                           fade(
-                            page: PasswordChangingPage(
-                                profileBloc: widget.profileBloc),
+                            page:const PasswordChangingPage(
+                                 ),
                           ),
                         );
                       },

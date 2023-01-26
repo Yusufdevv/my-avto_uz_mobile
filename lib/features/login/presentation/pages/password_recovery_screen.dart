@@ -131,14 +131,11 @@ class _PasswordRecoveryScreenState extends State<PasswordRecoveryScreen> {
                 ),
                 Row(
                   children: [
-                    if (StorageRepository.getString('language') == 'ru')
-                      Text(LocaleKeys.send_via_password.tr(),
-                          style:
-                              Theme.of(context).textTheme.headline6!.copyWith(
-                                    fontSize: 14,
-                                  )),
-                    if (StorageRepository.getString('language') == 'ru')
-                      const SizedBox(width: 6),
+                    Text(LocaleKeys.send_via_password.tr(),
+                        style: Theme.of(context).textTheme.headline6!.copyWith(
+                              fontSize: 14,
+                            )),
+                    const SizedBox(width: 6),
                     if (timeComplete)
                       Container(
                         padding: const EdgeInsets.symmetric(
@@ -170,14 +167,6 @@ class _PasswordRecoveryScreenState extends State<PasswordRecoveryScreen> {
                           },
                         ),
                       ),
-                    if (StorageRepository.getString('language') == 'uz')
-                      const SizedBox(width: 6),
-                    if (StorageRepository.getString('language') == 'uz')
-                      Text(LocaleKeys.send_via_password.tr(),
-                          style:
-                              Theme.of(context).textTheme.headline6!.copyWith(
-                                    fontSize: 14,
-                                  )),
                   ],
                 ),
                 Padding(

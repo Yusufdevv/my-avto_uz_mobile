@@ -20,8 +20,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 
 class FavouritePage extends StatefulWidget {
-  final ProfileBloc profileBloc;
-  const FavouritePage({required this.profileBloc, Key? key}) : super(key: key);
+ 
+  const FavouritePage({ Key? key}) : super(key: key);
 
   @override
   State<FavouritePage> createState() => _FavouritePageState();

@@ -1,4 +1,3 @@
-export 'package:auto/features/profile/presentation/widgets/advertising.dart';
 export 'package:auto/features/profile/presentation/widgets/all_ads.dart';
 export 'package:auto/features/profile/presentation/widgets/auth_header.dart';
 export 'package:auto/features/profile/presentation/widgets/bottomsheet_region.dart';

@@ -12,9 +12,9 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class PasswordChangingPage extends StatelessWidget {
-  final ProfileBloc profileBloc;
+ 
 
-  const PasswordChangingPage({required this.profileBloc, Key? key})
+  const PasswordChangingPage({ Key? key})
       : super(key: key);
 
   @override
@@ -65,7 +65,7 @@ class PasswordChangingPage extends StatelessWidget {
                 SizeConfig.v(15) + MediaQuery.of(context).padding.bottom),
             onTap: () {
               Navigator.of(context, rootNavigator: true)
-                  .push(fade(page: NewPasswordsPage(profileBloc: profileBloc)));
+                  .push(fade(page: NewPasswordsPage( )));
             },
             child: Text(
               LocaleKeys.change_password.tr(),

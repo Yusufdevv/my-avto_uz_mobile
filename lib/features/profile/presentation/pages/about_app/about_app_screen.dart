@@ -12,12 +12,12 @@ import 'package:auto/features/profile/presentation/widgets/widgets.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 class AboutAppScreen extends StatefulWidget {
-  const AboutAppScreen({required this.profileBloc, Key? key}) : super(key: key);
-  final ProfileBloc profileBloc;
+  const AboutAppScreen({ Key? key}) : super(key: key);
 
   @override
   State<AboutAppScreen> createState() => _AboutAppScreenState();
@@ -53,9 +53,9 @@ class _AboutAppScreenState extends State<AboutAppScreen> {
           children: [
             WScaleAnimation(
               onTap: () {
-                widget.profileBloc.add(GetTermsOfUseEvent());
+                context.read<ProfileBloc>().add(GetTermsOfUseEvent());
                 Navigator.of(context).push(fade(
-                    page: TermsOfUsePage(profileBloc: widget.profileBloc)));
+                    page: const TermsOfUsePage()));
               },
               child: Container(
                 padding: EdgeInsets.symmetric(
