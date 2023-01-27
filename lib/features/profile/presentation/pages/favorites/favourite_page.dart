@@ -20,8 +20,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 
 class FavouritePage extends StatefulWidget {
- 
-  const FavouritePage({ Key? key}) : super(key: key);
+  const FavouritePage({Key? key}) : super(key: key);
 
   @override
   State<FavouritePage> createState() => _FavouritePageState();
@@ -158,11 +157,3 @@ class _FavouritePageState extends State<FavouritePage> {
         ),
       ));
 }
-
-
-
-
-
-// onTapLike: () {
-                                 
-//                                 },

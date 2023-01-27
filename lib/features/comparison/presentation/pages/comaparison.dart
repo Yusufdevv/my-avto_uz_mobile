@@ -1,6 +1,7 @@
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ads/presentation/pages/ads_screen.dart';
 import 'package:auto/features/common/bloc/announcement_bloc/bloc/announcement_list_bloc.dart';
+import 'package:auto/features/common/bloc/comparison_add/bloc/comparison_add_bloc.dart';
 import 'package:auto/features/common/bloc/get_car_model/get_car_model_bloc.dart';
 import 'package:auto/features/common/bloc/get_makes_bloc/get_makes_bloc_bloc.dart';
 import 'package:auto/features/comparison/domain/entities/complectation_entity.dart';
@@ -122,16 +123,11 @@ class _ComparisonState extends State<Comparison> {
     super.initState();
   }
 
-  @override
-  void dispose() {
-    sliverWidgetScrollController.dispose();
-    super.dispose();
-  }
+  final GlobalKey<AnimatedListState> listkey = GlobalKey();
 
   @override
   Widget build(BuildContext context) =>
       BlocBuilder<ComparisonBloc, ComparisonState>(
-        bloc: widget.comparisonBloc,
         builder: (context, state) => NestedScrollView(
           headerSliverBuilder: (context, innerBoxIsScrolled) => [
             SliverOverlapAbsorber(
@@ -141,6 +137,7 @@ class _ComparisonState extends State<Comparison> {
                 sliver: SliverPersistentHeader(
                   pinned: true,
                   delegate: SliverWidget(
+                    listkey: listkey,
                     numberOfAddedCars: state.cars.length,
                     boolean: showDifferences,
                     onChanged: (showDifferences1) =>
@@ -203,7 +200,7 @@ class _ComparisonState extends State<Comparison> {
             )
           ],
           body: SingleChildScrollView(
-            physics: const BouncingScrollPhysics(),
+            physics: const NeverScrollableScrollPhysics(),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

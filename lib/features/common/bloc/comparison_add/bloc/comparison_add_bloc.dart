@@ -15,7 +15,7 @@ class ComparisonAddBloc extends Bloc<ComparisonAddEvent, ComparisonAddState> {
       : super(ComparisonAddState()) {
     on<_PostComparisonCars>((event, emit) async {
       emit(state.copyWith(addStatus: FormzStatus.submissionInProgress));
-      final result = await addUseCase.call(event.id);
+      final result = await addUseCase(event.id);
       if (result.isRight) {
         emit(state.copyWith(addStatus: FormzStatus.submissionSuccess));
       } else {
@@ -24,7 +24,7 @@ class ComparisonAddBloc extends Bloc<ComparisonAddEvent, ComparisonAddState> {
     });
     on<_DeleteComparison>((event, emit) async {
       emit(state.copyWith(removeStatus: FormzStatus.submissionInProgress));
-      final result = await deleteUseCase.call(event.id);
+      final result = await deleteUseCase(event.id);
       if (result.isRight) {
         emit(state.copyWith(removeStatus: FormzStatus.submissionSuccess));
       } else {
