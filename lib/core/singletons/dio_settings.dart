@@ -1,5 +1,6 @@
 import 'package:auto/core/singletons/storage.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 
 class DioSettings {
   BaseOptions _dioBaseOptions = BaseOptions(
@@ -29,9 +30,9 @@ class DioSettings {
 
   Dio get dio => Dio(_dioBaseOptions)
     ..interceptors.add(LogInterceptor(
-      requestBody: true,
-      request: true,
-      requestHeader: true,
-      responseBody: true,
+      requestBody: kDebugMode,
+      request: kDebugMode,
+      requestHeader: kDebugMode,
+      responseBody: kDebugMode,
     ));
 }
