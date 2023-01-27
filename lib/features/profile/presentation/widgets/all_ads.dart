@@ -20,6 +20,7 @@ class AllAds extends StatelessWidget {
         color: secondBackground,
         child: autoEntity.isNotEmpty
             ? ListView.builder(
+                physics:const BouncingScrollPhysics(),
                 padding: const EdgeInsets.only(),
                 itemCount: autoEntity.length,
                 itemBuilder: (context, index) {

@@ -33,15 +33,17 @@ class MyAdImagesPart extends StatelessWidget {
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(index == 0 ? 8 : 0),
                     bottomLeft: Radius.circular(index == 0 ? 8 : 0),
-                    topRight: Radius.circular(
-                        index == item.gallery.length - 1 ? 8 : 0),
-                    bottomRight: Radius.circular(
-                        index == item.gallery.length - 1 ? 8 : 0),
+                    topRight: Radius.circular(index != 0 ? 8 : 0),
+                    bottomRight: Radius.circular(index != 0 ? 8 : 0),
                   ),
                   child: item.gallery.isNotEmpty
                       ? CachedNetworkImage(
                           imageUrl: item.gallery[index],
                           fit: BoxFit.cover,
+                          errorWidget: (context, url, error) => Image.asset(
+                            AppImages.defaultPhoto,
+                            fit: BoxFit.cover,
+                          ),
                         )
                       : Image.asset(
                           AppImages.defaultPhoto,
@@ -60,6 +62,5 @@ class MyAdImagesPart extends StatelessWidget {
             ],
           ),
         ),
-      )
-      );
+      ));
 }
