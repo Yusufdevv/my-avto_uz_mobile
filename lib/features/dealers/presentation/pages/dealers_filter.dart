@@ -13,6 +13,7 @@ import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/rent_choose_region_bottom_sheet.dart';
 import 'package:auto/features/search/presentation/widgets/selector_item.dart';
 import 'package:auto/generated/locale_keys.g.dart';
+import 'package:auto/utils/my_functions.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -47,7 +48,7 @@ class _DealersFilterScreenState extends State<DealersFilterScreen> {
   void initState() {
     selectedCategory = widget.carType ?? 'all';
     filterBloc = DealerFilterBloc(
-      car_type: widget.carType,
+      carType: widget.carType,
       maker: widget.maker,
       region: widget.regions,
     );
@@ -151,7 +152,7 @@ class _DealersFilterScreenState extends State<DealersFilterScreen> {
                     },
                     hintText: (state.region.isEmpty)
                         ? LocaleKeys.choose_region.tr()
-                        : state.region.first.title,
+                        : MyFunctions.text(state.region, true),
                     title: LocaleKeys.region.tr(),
                     hasArrowDown: true,
                   ),
@@ -181,7 +182,7 @@ class _DealersFilterScreenState extends State<DealersFilterScreen> {
                       filterBloc.add(DealerFilterSelectEvent(
                         region: state.region,
                         maker: state.maker,
-                        car_type: selectedCategory,
+                        carType: selectedCategory,
                       ));
 
                       widget.dealerBloc.add(DealerCardEvent.getFilterResult(
