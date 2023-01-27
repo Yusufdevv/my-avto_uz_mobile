@@ -63,6 +63,7 @@ class _ChatPageState extends State<ChatPage> {
 <body>
   <h1>Bu html code ishlayotganidan dalolat</h1>
   <h1>Hozircha xabar jo'natish ishlamayapti</h1>
+  <button>button</button>
 </body>
 </html>''';
     return html;

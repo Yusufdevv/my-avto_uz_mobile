@@ -42,6 +42,19 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     on<GetTermsOfUseEvent>(_onGetTermsOfUse);
     on<LoginUser>(_onLoginUser);
     on<ChangeCountDataEvent>(_onChangeIsWish);
+
+    on<ChangeNotificationAllRead>(
+      (event, emit) {
+        // ignore: prefer_final_locals
+        print('=======berfore ${state.profileEntity.isReadAllNotifications}');
+        var user = state.profileEntity;
+        // ignore: cascade_invocations
+        user.isReadAllNotifications = true;
+        print('=======after ${state.profileEntity.isReadAllNotifications}');
+        emit(state.copyWith(profileEntity: user));
+      },
+    );
+    
   }
   void _onChangeIsWish(ChangeCountDataEvent event, Emitter<ProfileState> emit) {
     emit(state.copyWith(changeStatus: FormzStatus.submissionInProgress));
@@ -137,6 +150,8 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       emit(state.copyWith(changeStatus: FormzStatus.submissionFailure));
     }
   }
+
+   
 
   Future<void> _onLoginUser(LoginUser event, Emitter<ProfileState> emit) async {
     // ignore: unused_local_variable

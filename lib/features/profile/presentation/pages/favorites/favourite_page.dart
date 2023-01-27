@@ -20,8 +20,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 
 class FavouritePage extends StatefulWidget {
- 
-  const FavouritePage({ Key? key}) : super(key: key);
+  const FavouritePage({Key? key}) : super(key: key);
 
   @override
   State<FavouritePage> createState() => _FavouritePageState();
@@ -68,7 +67,10 @@ class _FavouritePageState extends State<FavouritePage> {
                       initialItemCount: state.favorites.length,
                       itemBuilder: (context, index, animation) {
                         final item = state.favorites[index];
-                        final dealer = DealerFavEntity.fromJson(item.dealer);
+
+                        final dealer = item.dealer != null
+                            ? DealerFavEntity.fromJson(item.dealer)
+                            : DealerFavEntity();
                         return Padding(
                             padding: EdgeInsets.only(
                                 top: index == 0 ? 16 : 0, bottom: 12),

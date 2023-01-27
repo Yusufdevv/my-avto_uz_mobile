@@ -52,4 +52,9 @@ class EditProfileEvent extends ProfileEvent {
     this.region,
     this.image,
   });
+
+  
+}
+class ChangeNotificationAllRead extends ProfileEvent {
+  
 }

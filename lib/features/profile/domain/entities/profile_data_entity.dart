@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 
+// ignore: must_be_immutable
 class ProfileDataEntity extends Equatable {
   ProfileDataEntity({
     required this.usercountdata,
@@ -18,6 +19,7 @@ class ProfileDataEntity extends Equatable {
     this.isSuperuser,
     this.lastLogin,
     this.dateJoined,
+    this.isReadAllNotifications = true,
   });
 
   final int? id;
@@ -36,6 +38,7 @@ class ProfileDataEntity extends Equatable {
   final String? lastLogin;
   final String? dateJoined;
   Usercountdata usercountdata;
+  bool isReadAllNotifications;
 
   @override
   List<Object?> get props => [
@@ -53,7 +56,8 @@ class ProfileDataEntity extends Equatable {
         isSuperuser,
         lastLogin,
         dateJoined,
-        usercountdata
+        usercountdata,
+        isReadAllNotifications
       ];
 }
 

@@ -116,13 +116,13 @@ class _DealerScreenState extends State<DealerScreen> {
                                     Navigator.push(
                                         context,
                                         fade(
-                                            page: DealersFilter(
+                                            page: DealersFilterScreen(
                                           dealerBloc: bloc,
                                           maker: filterState.maker,
                                           regions: filterState.region,
                                           carType: filterState.car_type == ''
                                               ? 'all'
-                                              : state.carType,
+                                              : filterState.car_type,
                                         )));
                                   },
                                   borderRadius: 12,

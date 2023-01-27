@@ -19,11 +19,13 @@ class GetRegionsDatasourceImpl extends GetRegionsDatasourse {
   @override
   Future<List<Region>> getRegions() async {
     try {
-      final response = await _dio.get('/common/regions/',
-          queryParameters: {'limit': 30},
-          options: Options(headers: {
-            'Authorization': 'Bearer ${StorageRepository.getString('token')}'
-          }));
+      final response = await _dio.get(
+        '/common/regions/',
+        queryParameters: {'limit': 30},
+        // options: Options(headers: {
+        //   'Authorization': 'Bearer ${StorageRepository.getString('token')}'
+        // })
+      );
       if (response.statusCode != null &&
           response.statusCode! >= 200 &&
           response.statusCode! < 300) {

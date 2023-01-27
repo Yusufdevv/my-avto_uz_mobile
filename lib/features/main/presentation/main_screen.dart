@@ -26,6 +26,7 @@ import 'package:auto/features/main/presentation/widgets/deal_button.dart';
 import 'package:auto/features/main/presentation/widgets/main_app_bar.dart';
 import 'package:auto/features/main/presentation/widgets/service_item.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
+import 'package:auto/features/profile/presentation/bloc/profile/profile_bloc.dart';
 import 'package:auto/features/reels/presentation/pages/reels_screen.dart';
 import 'package:auto/features/rent/presentation/rent_screen.dart';
 import 'package:auto/generated/locale_keys.g.dart';
@@ -76,6 +77,7 @@ class _MainScreenState extends State<MainScreen> {
   @override
   void initState() {
     mainBloc = MainBloc()..add(InitialEvent());
+    context.read<ProfileBloc>().add(GetProfileEvent());
     context.read<GetMakesBloc>().add(GetMakesBlocEvent.getMakes());
     topAdBloc = TopAdBloc(GetTopAdsUseCase())
       ..add(TopAdEvent.getTopAds())

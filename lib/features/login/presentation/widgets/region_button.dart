@@ -22,7 +22,13 @@ class RegionButton extends StatefulWidget {
 }
 
 class _RegionButtonState extends State<RegionButton> {
-  Region? currentRegion;
+  List<Region> currentRegion = <Region>[];
+
+  @override
+  void initState() {
+    super.initState();
+    context.read<RegionsBloc>().add(RegionsEvent.getRegions());
+  }
 
   @override
   Widget build(BuildContext context) => GestureDetector(
@@ -36,15 +42,17 @@ class _RegionButtonState extends State<RegionButton> {
             isScrollControlled: true,
             backgroundColor: Colors.transparent,
             builder: (context) => RentChooseRegionBottomSheet(
+                checkedRegions: currentRegion.asMap(),
                 isMultiChoice: false,
                 list: context.read<RegionsBloc>().state.regions),
           ).then((value) {
             if (value != null && value.isNotEmpty) {
               setState(() {
-                currentRegion = value.first;
+                currentRegion = value;
               });
-              context.read<RegisterBloc>().add(
-                  RegisterEvent.changeRegion(region: currentRegion?.id ?? -1));
+              context
+                  .read<RegisterBloc>()
+                  .add(RegisterEvent.changeRegion(region: currentRegion[0].id));
             }
           });
         },
@@ -62,7 +70,7 @@ class _RegionButtonState extends State<RegionButton> {
                       style: Theme.of(context)
                           .textTheme
                           .headline1!
-                          .copyWith(fontSize: 12, fontWeight: FontWeight.w400),
+                          .copyWith(fontSize: 14, fontWeight: FontWeight.w400),
                     ),
                   ),
                 ),
@@ -75,12 +83,10 @@ class _RegionButtonState extends State<RegionButton> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            currentRegion != null &&
-                                    currentRegion!.title.isNotEmpty
-                                ? currentRegion!.title
+                            currentRegion.isNotEmpty
+                                ? currentRegion[0].title
                                 : LocaleKeys.choose_region.tr(),
-                            style: currentRegion == null ||
-                                    currentRegion!.title.isEmpty
+                            style: currentRegion.isEmpty
                                 ? Theme.of(context)
                                     .textTheme
                                     .headline6!

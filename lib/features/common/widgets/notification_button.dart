@@ -1,7 +1,7 @@
 import 'package:auto/assets/constants/icons.dart';
-import 'package:auto/features/common/bloc/auth/authentication_bloc.dart';
-import 'package:auto/features/common/domain/model/user.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
+import 'package:auto/features/profile/domain/entities/profile_data_entity.dart';
+import 'package:auto/features/profile/presentation/bloc/profile/profile_bloc.dart';
 import 'package:auto/features/profile/presentation/pages/notification/notifiactions_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,20 +22,20 @@ class _NotificationButtonState extends State<NotificationButton> {
     super.initState();
   }
 
-  late UserModel user;
+  late ProfileDataEntity user;
 
   @override
   Widget build(BuildContext context) =>
-      BlocConsumer<AuthenticationBloc, AuthenticationState>(
+      BlocConsumer<ProfileBloc, ProfileState>(
           listener: (context, stateLis) {
         print(
-            '======= ${user.isReadAllNotifications != stateLis.user.isReadAllNotifications}');
-        print('=======listener ${stateLis.user.isReadAllNotifications}');
-        user = stateLis.user;
+            '======= ${user.isReadAllNotifications != stateLis.profileEntity.isReadAllNotifications}');
+        print('=======listener ${stateLis.profileEntity.isReadAllNotifications}');
+        user = stateLis.profileEntity;
       }, builder: (context, state) {
-        print('=======builder ${state.user.isReadAllNotifications}');
+        print('=======builder ${state.profileEntity.isReadAllNotifications}');
 
-        user = state.user;
+        user = state.profileEntity;
         return GestureDetector(
           behavior: HitTestBehavior.opaque,
           onTap: () {
@@ -43,7 +43,7 @@ class _NotificationButtonState extends State<NotificationButton> {
                 .push(fade(page: const NotificationPage()));
             if (!user.isReadAllNotifications) {
               context
-                  .read<AuthenticationBloc>()
+                  .read<ProfileBloc>()
                   .add(ChangeNotificationAllRead());
               setState(() {});
             }

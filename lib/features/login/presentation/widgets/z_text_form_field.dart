@@ -168,7 +168,6 @@ class _ZTextFormFieldState extends State<ZTextFormField>
                   widget.hideCounterText != null && widget.hideCounterText!
                       ? ''
                       : null,
-                      
               prefixIconConstraints: const BoxConstraints(maxWidth: 65),
               contentPadding: widget.contentPadding,
               prefixIcon: widget.prefixIcon,
@@ -197,12 +196,10 @@ class _ZTextFormFieldState extends State<ZTextFormField>
                       setState(() {
                         isObscure = !isObscure;
                       });
-                      if (showStroke) {
-                        showStroke = false;
-                        animationController.forward();
-                      } else {
-                        showStroke = true;
+                      if (isObscure) {
                         animationController.reverse();
+                      } else {
+                        animationController.forward();
                       }
                     },
                     child: Container(

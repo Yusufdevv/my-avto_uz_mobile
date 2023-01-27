@@ -17,13 +17,13 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class DealersFilter extends StatefulWidget {
+class DealersFilterScreen extends StatefulWidget {
   final List<Region>? regions;
   final MakeEntity? maker;
   final DealerCardBloc dealerBloc;
   final String? carType;
 
-  const DealersFilter(
+  const DealersFilterScreen(
       {required this.dealerBloc,
       this.maker,
       this.carType,
@@ -34,10 +34,10 @@ class DealersFilter extends StatefulWidget {
   final bool isDirectoryPage;
 
   @override
-  State<DealersFilter> createState() => _DealersFilterState();
+  State<DealersFilterScreen> createState() => _DealersFilterScreenState();
 }
 
-class _DealersFilterState extends State<DealersFilter> {
+class _DealersFilterScreenState extends State<DealersFilterScreen> {
   late DealerFilterBloc filterBloc;
   late String selectedCategory;
 
@@ -139,6 +139,7 @@ class _DealersFilterState extends State<DealersFilter> {
                       await showModalBottomSheet<List<Region>>(
                         isDismissible: false,
                         context: context,
+                        useRootNavigator: true,
                         isScrollControlled: true,
                         backgroundColor: Colors.transparent,
                         builder: (c) => RentChooseRegionBottomSheet(
@@ -160,6 +161,7 @@ class _DealersFilterState extends State<DealersFilter> {
                         isDismissible: false,
                         context: context,
                         isScrollControlled: true,
+                        useRootNavigator: true,
                         backgroundColor: Colors.transparent,
                         builder: (c) =>
                             ChooseMaker(selectedId: state.maker?.id ?? -1),
