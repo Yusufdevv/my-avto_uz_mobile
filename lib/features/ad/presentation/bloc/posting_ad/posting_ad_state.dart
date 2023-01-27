@@ -26,6 +26,8 @@ class PostingAdState extends Equatable {
   final List<DistrictEntity> districts;
   final FormzStatus status;
   final FormzStatus getDistrictsStatus;
+
+  final FormzStatus createStatus;
   final int? yearId;
   final List<YearsEntity>? years;
   final int? districtId;
@@ -121,6 +123,7 @@ class PostingAdState extends Equatable {
     this.districtId,
     this.districts = const <DistrictEntity>[],
     this.getDistrictsStatus = FormzStatus.pure,
+    this.createStatus = FormzStatus.pure,
     this.toastMessage,
     this.userModel,
     this.locationUrl,
@@ -147,6 +150,7 @@ class PostingAdState extends Equatable {
     Region? region,
     FormzStatus? status,
     FormzStatus? getDistrictsStatus,
+    FormzStatus? createStatus,
     int? gearboxId,
     List<GearboxTypeEntity>? gearBoxes,
     int? driveTypeId,
@@ -202,6 +206,7 @@ class PostingAdState extends Equatable {
     // print('====   ACTUALLY IN STATE:  ${this.districts}  ====');
     // print('==== INCOMING DISTRICT TO COPYWITH:  ${districts}  ====');
     final newState = PostingAdState(
+      createStatus: createStatus ?? this.createStatus,
       bodyBytes: bodyBytes ?? this.bodyBytes,
       makeLetterIndex: eventMakeScrrollIndex,
       yearId: yearId ?? this.yearId,
@@ -273,6 +278,7 @@ class PostingAdState extends Equatable {
 
   @override
   List<Object?> get props => [
+        createStatus,
         bodyBytes,
         id,
         makeLetterIndex,

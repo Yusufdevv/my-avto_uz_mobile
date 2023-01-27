@@ -47,14 +47,12 @@ import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/login/domain/usecases/verify_code.dart';
 import 'package:auto/features/main/domain/usecases/get_top_brand.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
+import 'package:auto/features/profile/presentation/profile_screen.dart';
 import 'package:auto/features/rent/domain/usecases/get_gearboxess_usecase.dart';
-import 'package:auto/features/ad/presentation/pages/map_screen/map_screen_posting_ad.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
-import 'dart:ui' as ui;
 
 class PostingAdScreen extends StatefulWidget {
   final int? announcementId;
@@ -270,9 +268,11 @@ class _PostingAdScreenState extends State<PostingAdScreen>
             value: postingAdBloc,
             child: BlocConsumer<PostingAdBloc, PostingAdState>(
               listener: (context, state) {
-                print(
-                    '=> => => =>  toast message in posting add page:   ${state.toastMessage}    <= <= <= <=');
-                if (state.toastMessage != null &&
+                if (state.createStatus == FormzStatus.submissionSuccess) {
+                  Navigator.pushReplacement(
+                      context, fade(page: const ProfileScreen()));
+                }
+                  if (state.toastMessage != null &&
                     state.toastMessage!.isNotEmpty) {
                   context.read<ShowPopUpBloc>().add(
                       ShowPopUp(message: state.toastMessage!, isSucces: false));
@@ -383,13 +383,15 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                             Navigator.push(
                               context,
                               fade(
-                                page: MapScreenPostingAd(onMapTap: (url) async {
-                                  postingAdBloc.add(
-                                    PostingAdChooseEvent(locationUrl: url),
-                                  );
-                                }),
+                                page: const MapScreenPostingAd(),
                               ),
-                            );
+                            ).then((value) {
+                              if (value is String) {
+                                postingAdBloc.add(
+                                  PostingAdChooseEvent(locationUrl: value),
+                                );
+                              }
+                            });
                           },
                         ),
                         //17
@@ -439,7 +441,7 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                           right: 16,
                           left: 16,
                           child: WButton(
-                            isLoading: state.status ==
+                            isLoading: state.createStatus ==
                                 FormzStatus.submissionInProgress,
                             onTap: () async {
                               postingAdBloc.add(PostingAdCreateEvent());
