@@ -56,6 +56,7 @@ class _MapScreenPostingAdState extends State<MapScreenPostingAd>
         value: mapBloc,
         child: CustomScreen(
           child: Scaffold(
+            appBar:AppBar(title: Text("")),
             body: BlocBuilder<MapBloc, MapState>(
               builder: (context, mapOrganizationState) => Stack(
                 children: [

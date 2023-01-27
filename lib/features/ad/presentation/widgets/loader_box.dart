@@ -56,7 +56,7 @@ class LoaderBox extends StatelessWidget {
                           hintText,
                           style: isActive
                               ? Theme.of(context).textTheme.headline1!.copyWith(
-                                  fontSize: 16, fontWeight: FontWeight.w600)
+                                  fontSize: 14, fontWeight: FontWeight.w600)
                               : Theme.of(context).textTheme.headline6!.copyWith(
                                   fontWeight: FontWeight.w400,
                                   color: Theme.of(context)
