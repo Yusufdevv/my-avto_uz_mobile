@@ -53,7 +53,7 @@ class _AboutAppScreenState extends State<AboutAppScreen> {
           children: [
             WScaleAnimation(
               onTap: () {
-                context.read<ProfileBloc>().add(GetTermsOfUseEvent());
+                context.read<ProfileBloc>().add(GetTermsOfUseEvent(slug: 'условия пользования'));
                 Navigator.of(context).push(fade(
                     page: const TermsOfUsePage()));
               },

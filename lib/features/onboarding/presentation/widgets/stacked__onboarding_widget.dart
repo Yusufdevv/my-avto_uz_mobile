@@ -19,7 +19,7 @@ class StackedOnBoardingWidget extends StatelessWidget {
     return Stack(
       children: [
         Positioned(
-          right: -30,
+          right: -20,
           top: height,
           child: SizedBox(
             width: 220,
@@ -70,7 +70,8 @@ class StackedOnBoardingWidget extends StatelessWidget {
                               .textTheme
                               .headline6!
                               .copyWith(color: white, fontSize: 10),
-                        )
+                        ),
+                        const SizedBox(width: 2),
                       ],
                     ),
                   ),

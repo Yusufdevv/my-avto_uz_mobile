@@ -33,9 +33,7 @@ class RegionSelectAllItem extends StatelessWidget {
                     .copyWith(fontWeight: FontWeight.w400, fontSize: 16),
               ),
               if (isAllChecked)
-                const RegionCheckBox(
-                  isChecked: true
-                )
+                const RegionCheckBox(isMultiChoice: true, isChecked: true)
               else
                 Container(
                   alignment: Alignment.center,

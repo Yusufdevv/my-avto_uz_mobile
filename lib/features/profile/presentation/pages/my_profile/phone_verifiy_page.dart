@@ -35,7 +35,7 @@ class PhoneVerifiyPage extends StatefulWidget {
 class _PhoneVerifiyPageState extends State<PhoneVerifiyPage> {
   late TextEditingController verificationController;
   bool timeComplete = false;
-  bool validate = false;
+  bool isError = false;
   final GlobalKey<FormState> _formKey = GlobalKey();
 
   @override
@@ -116,9 +116,9 @@ class _PhoneVerifiyPageState extends State<PhoneVerifiyPage> {
                             .extension<ThemedColors>()!
                             .solitudeToWhite35,
                         errorBorderColor: red,
-                        activeColor: validate ? red : purple,
-                        activeFillColor: validate ? red : purple,
-                        selectedColor: validate ? red : purple,
+                        activeColor: isError ? red : purple,
+                        activeFillColor: isError ? red : purple,
+                        selectedColor: isError ? red : purple,
                         shape: PinCodeFieldShape.underline,
                         fieldHeight: 44,
                         fieldWidth: 50,
@@ -138,34 +138,23 @@ class _PhoneVerifiyPageState extends State<PhoneVerifiyPage> {
                       showCursor: true,
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     ),
-                    if (validate)
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 4),
-                        child: Text(
-                          "Sms kodni to'g'ri kiriting",
-                          style: Theme.of(context).textTheme.button,
-                        ),
-                      )
-                    else
-                      const SizedBox(),
                     Row(
                       children: [
-                        Text(LocaleKeys.send_password_again.tr(),
-                            style:
-                                Theme.of(context).textTheme.headline6!.copyWith(
-                                      fontSize: 14,
-                                    )),
-                        const SizedBox(
-                          width: 6,
-                        ),
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 4, vertical: 3),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(4),
-                              color: orange.withOpacity(0.1)),
-                          child: timeComplete
-                              ? RefreshButton(
+                        Text(LocaleKeys.send_via_password.tr(),
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline6!
+                                .copyWith(fontSize: 14)),
+                        const SizedBox(width: 6),
+                        if (timeComplete)
+                          Container(
+                              height: 24,
+                              width: 24,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(4),
+                                  color: orange.withOpacity(0.1)),
+                              child: Center(
+                                child: RefreshButton(
                                   filteredPhone: widget.phone,
                                   onSucces: () {
                                     setState(() {
@@ -181,26 +170,39 @@ class _PhoneVerifiyPageState extends State<PhoneVerifiyPage> {
                                               if (error
                                                   .toLowerCase()
                                                   .contains('dioerror')) {
-                                                error = StorageRepository.getString('language')=='uz' ?
-                                                    'Tarmoqda uzilish yuzaga keldi' : 'Произошел сбой сети';
+                                                error = LocaleKeys.service_error
+                                                    .tr();
                                               }
                                               context.read<ShowPopUpBloc>().add(
                                                   ShowPopUp(
                                                       message: error,
                                                       isSucces: false));
+                                              setState(() {
+                                                isError = true;
+                                              });
                                             },
                                           ),
                                         );
                                   },
-                                )
-                              : TimeCounter(
-                                  onComplete: () {
-                                    setState(() {
-                                      timeComplete = true;
-                                    });
-                                  },
                                 ),
-                        )
+                              ))
+                        else
+                          Container(
+                            height: 21,
+                            width: 41,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(4),
+                                color: orange.withOpacity(0.1)),
+                            child: Center(
+                              child: TimeCounter(
+                                onComplete: () {
+                                  setState(() {
+                                    timeComplete = true;
+                                  });
+                                },
+                              ),
+                            ),
+                          ),
                       ],
                     ),
                     SizedBox(height: SizeConfig.v(24)),
@@ -211,9 +213,6 @@ class _PhoneVerifiyPageState extends State<PhoneVerifiyPage> {
                             state.status == FormzStatus.submissionInProgress,
                         onTap: () {
                           if (verificationController.text.length == 6) {
-                            setState(() {
-                              validate = false;
-                            });
                             context
                                 .read<ChangePhoneNumberBloc>()
                                 .add(VerifyCodeEvent(
@@ -233,15 +232,14 @@ class _PhoneVerifiyPageState extends State<PhoneVerifiyPage> {
                                       Navigator.pop(widget.ctx);
                                     },
                                     onError: (message) {
+                                      setState(() {
+                                        isError = true;
+                                      });
                                       context.read<ShowPopUpBloc>().add(
                                           ShowPopUp(
                                               message: message,
                                               isSucces: false));
                                     }));
-                          } else {
-                            setState(() {
-                              validate = true;
-                            });
                           }
                         },
                         margin: EdgeInsets.only(

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/themes/dark.dart';
@@ -10,6 +11,7 @@ import 'package:auto/features/ad/data/repositories/ad_repository_impl.dart';
 import 'package:auto/features/ad/domain/usecases/get_car_model.dart';
 import 'package:auto/features/ad/domain/usecases/get_makes.dart';
 import 'package:auto/features/ad/domain/usecases/get_top_makes.dart';
+import 'package:auto/features/ad/presentation/posting_ad_screen.dart';
 import 'package:auto/features/common/bloc/announcement_bloc/bloc/announcement_list_bloc.dart';
 import 'package:auto/features/common/bloc/auth/authentication_bloc.dart';
 import 'package:auto/features/common/bloc/comparison_add/bloc/comparison_add_bloc.dart';
@@ -23,7 +25,7 @@ import 'package:auto/features/common/repository/add_wishlist_repository.dart';
 import 'package:auto/features/common/repository/auth.dart';
 import 'package:auto/features/common/usecases/add_wishlist_usecase.dart';
 import 'package:auto/features/common/usecases/announcement_list_usecase.dart';
-import 'package:auto/features/common/usecases/get_regions.dart';
+import 'package:auto/features/common/usecases/get_regions_usecase.dart';
 import 'package:auto/features/comparison/data/repositories/comparison_cars_repo_impl.dart';
 import 'package:auto/features/comparison/domain/usecases/comparison_add_use_case.dart';
 import 'package:auto/features/comparison/domain/usecases/delete_comparison.dart';
@@ -43,7 +45,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -95,17 +96,18 @@ class _AppState extends State<App> {
   final _navigatorKey = GlobalKey<NavigatorState>();
 
   NavigatorState get navigator => _navigatorKey.currentState!;
+  // ignore: cancel_subscriptions
   StreamSubscription? streamSubscription;
   InternetBloc bloc = InternetBloc();
 
   @override
   void initState() {
     bloc = InternetBloc();
-    streamSubscription =
-        Connectivity().onConnectivityChanged.listen((status) {
+    streamSubscription = Connectivity().onConnectivityChanged.listen((status) {
       context.read<InternetBloc>().add(GlobalCheck(
-          isConnected: status == ConnectivityResult.mobile || status == ConnectivityResult.wifi));
-          print('====net=status ${status == ConnectivityResult.mobile || status == ConnectivityResult.wifi}');
+          isConnected: status == ConnectivityResult.mobile ||
+              status == ConnectivityResult.wifi));
+      log('====net=status ${status == ConnectivityResult.mobile || status == ConnectivityResult.wifi}');
     });
     super.initState();
   }
@@ -113,13 +115,12 @@ class _AppState extends State<App> {
   @override
   Widget build(BuildContext context) => MultiBlocProvider(
         providers: [
-          // BlocProvider(create: (c) => InternetBloc()),
           BlocProvider(
             create: (c) =>
                 AuthenticationBloc(AuthRepository())..add(CheckUser()),
           ),
           BlocProvider(
-            create: (context) => RegionsBloc(GetRegionsUseCase())
+            create: (context) => RegionsBloc()
               ..add(RegionsEvent.getRegions()),
           ),
           BlocProvider(
@@ -190,7 +191,6 @@ class _AppState extends State<App> {
                           .isNotEmpty) {
                         navigator.pushAndRemoveUntil(
                             fade(page: const HomeScreen()), (route) => false);
-                            
                         break;
                       }
                       if (!StorageRepository.getBool('onboarding',
@@ -208,7 +208,10 @@ class _AppState extends State<App> {
                                 registerUseCase: RegisterUseCase(),
                                 verifyCodeUseCase: VerifyCodeUseCase(),
                               ),
-                              child: const LoginScreen(),
+                              child:
+                              
+                              // PostingAdScreen(),
+                               const LoginScreen(),
                             ),
                           ),
                           (route) => false);

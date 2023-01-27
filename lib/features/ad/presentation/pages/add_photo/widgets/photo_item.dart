@@ -37,7 +37,7 @@ class _PhotoItemState extends State<PhotoItem> {
           onTap: () async {
             context
                 .read<ImageBloc>()
-                .add(const PickImage(source: ImageSource.gallery));
+                .add(const PickImage(source: ImageSource.camera));
           },
           child: Container(
             alignment: Alignment.center,
@@ -56,29 +56,33 @@ class _PhotoItemState extends State<PhotoItem> {
         )
       : Padding(
           padding: const EdgeInsets.all(16),
-          child: Wrap(runSpacing: 16, spacing: 8, children: [
-            WScaleAnimation(
-              onTap: () {
-                context
-                    .read<ImageBloc>()
-                    .add(PickImage(source: ImageSource.camera));
-              },
-              child: Container(
-                alignment: Alignment.center,
-                height: 110,
-                width: 110,
-                decoration: BoxDecoration(
-                  border: Border.all(width: 1, color: purple),
-                  borderRadius: BorderRadius.circular(8),
-                  color: Theme.of(context)
-                      .extension<ThemedColors>()!
-                      .ghostWhiteToUltramarine10,
+          child: Wrap(
+            runSpacing: 16,
+            spacing: 8,
+            children: [
+              WScaleAnimation(
+                onTap: () {
+                  context
+                      .read<ImageBloc>()
+                      .add(const PickImage(source: ImageSource.camera));
+                },
+                child: Container(
+                  alignment: Alignment.center,
+                  height: 110,
+                  width: 110,
+                  decoration: BoxDecoration(
+                    border: Border.all(width: 1, color: purple),
+                    borderRadius: BorderRadius.circular(8),
+                    color: Theme.of(context)
+                        .extension<ThemedColors>()!
+                        .ghostWhiteToUltramarine10,
+                  ),
+                  child: const PlusCircle(),
                 ),
-                child:const PlusCircle(),
               ),
-            ),
-            ...List.generate(widget.images.length,
-                (index) => ImageItem(image: widget.images[index])).toList()
-          ]),
+              ...List.generate(widget.images.length,
+                  (index) => ImageItem(image: widget.images[index])).toList()
+            ],
+          ),
         );
 }

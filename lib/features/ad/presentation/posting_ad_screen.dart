@@ -41,7 +41,7 @@ import 'package:auto/features/car_single/domain/usecases/get_ads_usecase.dart';
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
 import 'package:auto/features/common/repository/auth.dart';
 import 'package:auto/features/common/usecases/get_districts_usecase.dart';
-import 'package:auto/features/common/usecases/get_regions.dart';
+import 'package:auto/features/common/usecases/get_regions_usecase.dart';
 import 'package:auto/features/common/widgets/custom_screen.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/login/domain/usecases/verify_code.dart';
@@ -50,9 +50,11 @@ import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/rent/domain/usecases/get_gearboxess_usecase.dart';
 import 'package:auto/features/ad/presentation/pages/map_screen/map_screen_posting_ad.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
+import 'dart:ui' as ui;
 
 class PostingAdScreen extends StatefulWidget {
   final int? announcementId;
@@ -66,13 +68,14 @@ class _PostingAdScreenState extends State<PostingAdScreen>
     with SingleTickerProviderStateMixin {
   late PageController pageController;
   late PostingAdBloc postingAdBloc;
-
+  late GlobalKey globalKey;
   late int currentTabIndex;
   static int initialPage = 0;
 
   final int tabLength = 20;
   @override
   void initState() {
+    globalKey = GlobalKey();
     pageController = PageController(initialPage: initialPage);
     postingAdBloc = PostingAdBloc(
       getYearsUseCase:
@@ -106,7 +109,7 @@ class _PostingAdScreenState extends State<PostingAdScreen>
           GetMakesUseCase(repository: serviceLocator<AdRepositoryImpl>()),
     );
     if (widget.announcementId == null) {
-      currentTabIndex = 0;
+      currentTabIndex = initialPage;
       postingAdBloc.add(PostingAdMakesEvent());
     } else {
       currentTabIndex = 10;
@@ -158,6 +161,7 @@ class _PostingAdScreenState extends State<PostingAdScreen>
         return false;
       // AddPhotoScreen
       case 10:
+        // return false;
         return state.gallery.isEmpty;
       // PtsScreen
       case 11:
@@ -178,11 +182,8 @@ class _PostingAdScreenState extends State<PostingAdScreen>
         return !state.isContactsVerified;
 // InspectionPlaceScreen
       case 16:
-        {
-          var v = state.region == null;
-          print('=> => => =>     Inspection place bool: $v    <= <= <= <=');
-          return v;
-        }
+        return state.region == null;
+
       // PriceScreen
       case 17:
         return state.price == null;
@@ -329,7 +330,9 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                         //0
                         ChooseCarBrand(
                           bloc: postingAdBloc,
-                          onTopBrandPressed: () {
+                          onTopBrandPressed: (makeId) {
+                            postingAdBloc
+                                .add(PostingAdChooseEvent(makeId: makeId));
                             currentTabIndex++;
                             addEvent(currentTabIndex, state);
                             pageController.animateToPage(currentTabIndex,
@@ -380,11 +383,11 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                             Navigator.push(
                               context,
                               fade(
-                                page: MapScreenPostingAd(
-                                  onMapTap: (url) => postingAdBloc.add(
+                                page: MapScreenPostingAd(onMapTap: (url) async {
+                                  postingAdBloc.add(
                                     PostingAdChooseEvent(locationUrl: url),
-                                  ),
-                                ),
+                                  );
+                                }),
                               ),
                             );
                           },
@@ -396,7 +399,7 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                         // //19
                         // const StsScreen(),
                         //19
-                        PreviewScreen(),
+                        const PreviewScreen(),
                       ],
                     ),
                     if (currentTabIndex < tabLength - 1) ...{

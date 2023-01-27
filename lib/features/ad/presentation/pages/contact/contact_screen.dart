@@ -11,6 +11,7 @@ import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
 import 'package:auto/features/common/widgets/custom_screen.dart';
 import 'package:auto/features/common/widgets/switcher_row_as_button_also.dart';
 import 'package:auto/features/common/widgets/w_textfield.dart';
+import 'package:auto/utils/my_functions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -163,6 +164,13 @@ class _ContactScreenState extends State<ContactScreen> {
                               focusColor: Theme.of(context)
                                   .extension<WTextFieldStyle>()!
                                   .fillColor,
+                              textStyle: Theme.of(context)
+                                  .textTheme
+                                  .headline1!
+                                  .copyWith(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w400,
+                                  ),
                             ),
                             const SizedBox(height: 16),
                             WTextField(
@@ -195,6 +203,13 @@ class _ContactScreenState extends State<ContactScreen> {
                               focusColor: Theme.of(context)
                                   .extension<WTextFieldStyle>()!
                                   .fillColor,
+                              textStyle: Theme.of(context)
+                                  .textTheme
+                                  .headline1!
+                                  .copyWith(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w400,
+                                  ),
                             ),
                             const SizedBox(height: 16),
                             WTextField(
@@ -269,8 +284,7 @@ class _ContactScreenState extends State<ContactScreen> {
                                                     builder: (context) =>
                                                         SmsVerificationSheet(
                                                             session: session,
-                                                            phoneNumber:
-                                                                postingAdState
+                                                            phoneNumber: postingAdState
                                                                     .phoneController
                                                                     .text)).then(
                                                     (value) {
@@ -332,6 +346,13 @@ class _ContactScreenState extends State<ContactScreen> {
                                     }
                                   }),
                               suffixPadding: const EdgeInsets.all(5),
+                              textStyle: Theme.of(context)
+                                  .textTheme
+                                  .headline1!
+                                  .copyWith(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w400,
+                                  ),
                             ),
                             const SizedBox(height: 16),
                             SwitcherRowAsButtonAlso(

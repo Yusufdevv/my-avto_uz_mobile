@@ -1,4 +1,5 @@
 import 'package:auto/assets/colors/color.dart';
+import 'package:auto/assets/constants/formatters.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/assets/themes/theme_extensions/w_textfield_style.dart';
@@ -8,11 +9,11 @@ import 'package:auto/features/ad/presentation/widgets/base_widget.dart';
 import 'package:auto/features/ad/presentation/widgets/currency_choose_sheet.dart';
 import 'package:auto/features/ad/presentation/widgets/rent_to_buy_sheet.dart';
 import 'package:auto/features/ad/presentation/widgets/rent_to_sale_info_box.dart';
+import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
 import 'package:auto/features/common/widgets/switcher_row_as_button_also.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/common/widgets/w_textfield.dart';
-import 'package:auto/utils/my_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -52,10 +53,16 @@ class _PriceScreenState extends State<PriceScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       WTextField(
+                        textStyle: Theme.of(context)
+                            .textTheme
+                            .headline1!
+                            .copyWith(
+                                fontSize: 16, fontWeight: FontWeight.w400),
                         textInputFormatters: [
-                          FilteringTextInputFormatter.digitsOnly
+                          FilteringTextInputFormatter.digitsOnly,
+                          ThousandsSeparatorInputFormatter()
                         ],
-                        maxLength: 7,
+                        maxLength: 18,
                         hideCounterText: true,
                         controller: priceController,
                         onChanged: (value) => context
@@ -167,29 +174,36 @@ class _PriceScreenState extends State<PriceScreen> {
                       },
                       const SizedBox(height: 25),
                       SwitcherRowAsButtonAlso(
-                        value: state.rentToBuy ?? false,
+                        value: (state.rentToBuy ?? false) &&
+                            state.rentWithPurchaseConditions.isNotEmpty,
                         onTap: () {
-                          showModalBottomSheet<RentWithPurchaseEntity>(
-                              useRootNavigator: true,
-                              isScrollControlled: true,
-                              backgroundColor: Colors.transparent,
-                              isDismissible: false,
-                              context: context,
-                              builder: (context) => RentToBuySheet(
-                                    step: 1,
-                                    price:
-                                        int.tryParse(state.price ?? '0') ?? 0,
-                                  )).then((value) {
-                            if (value != null) {
-                              context.read<PostingAdBloc>().add(
-                                      PostingAdChooseEvent(
-                                          rentToBuy: true,
-                                          rentWithPurchaseConditions: [
-                                        value,
-                                        ...state.rentWithPurchaseConditions
-                                      ]));
-                            }
-                          });
+                          if ((int.tryParse(priceController.text.replaceAll(' ', '')) ?? 0) > 0) {
+                            showModalBottomSheet<RentWithPurchaseEntity>(
+                                useRootNavigator: true,
+                                isScrollControlled: true,
+                                backgroundColor: Colors.transparent,
+                                isDismissible: false,
+                                context: context,
+                                builder: (context) => RentToBuySheet(
+                                      step: 1,
+                                      price:
+                                          int.tryParse(state.price ?? '0') ?? 0,
+                                    )).then((value) {
+                              if (value != null) {
+                                context.read<PostingAdBloc>().add(
+                                        PostingAdChooseEvent(
+                                            rentToBuy: true,
+                                            rentWithPurchaseConditions: [
+                                          value,
+                                          ...state.rentWithPurchaseConditions
+                                        ]));
+                              }
+                            });
+                          } else {
+                            context.read<ShowPopUpBloc>().add(ShowPopUp(
+                                message: 'Avval narhni kiriting',
+                                isSucces: true));
+                          }
                         },
                         onChanged: (v) => context
                             .read<PostingAdBloc>()
@@ -200,7 +214,8 @@ class _PriceScreenState extends State<PriceScreen> {
                       const SizedBox(
                         height: 16,
                       ),
-                      if (state.rentToBuy ?? false) ...{
+                      if ((state.rentToBuy ?? false) &&
+                          state.rentWithPurchaseConditions.isNotEmpty) ...{
                         ...state.rentWithPurchaseConditions
                             .map((e) => RentToSaleDetailsBox(
                                   monthlyPayment: e.monthlyPayment,

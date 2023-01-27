@@ -66,8 +66,8 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                       physics: const BouncingScrollPhysics(),
                       children: [
                         LoginHeader(
-                          title: LocaleKeys.new_password.tr(),
-                          description: LocaleKeys.create_password.tr(),
+                          title: LocaleKeys.security.tr(),
+                          description: LocaleKeys.create_password_6.tr(),
                         ),
                         const SizedBox(
                           height: 36,
@@ -95,28 +95,37 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                         ),
                         const SizedBox(height: 36),
                         WButton(
-                          isDisabled: newPasswordController.text.isEmpty ||
-                              confirmPasswordController.text.isEmpty,
+                          // isDisabled: newPasswordController.text.length < 6 &&
+                          //     confirmPasswordController.text.length < 6,
                           isLoading: state.registerStatus ==
                               FormzStatus.submissionInProgress,
                           onTap: () {
-                            if ((newPasswordController.text.length >= 6 &&
-                                    confirmPasswordController.text.length >=
-                                        6) &&
-                                newPasswordController.text ==
-                                    confirmPasswordController.text) {
-                              widget.onSubmit(newPasswordController.text,
-                                  confirmPasswordController.text);
+                            if (newPasswordController.text.length >= 6 &&
+                                confirmPasswordController.text.length >= 6) {
+                              if (newPasswordController.text ==
+                                  confirmPasswordController.text) {
+                                widget.onSubmit(newPasswordController.text,
+                                    confirmPasswordController.text);
+                              } else {
+                                context.read<ShowPopUpBloc>().add(
+                                      ShowPopUp(
+                                        message: LocaleKeys
+                                            .passwords_didnt_match
+                                            .tr(),
+                                        isSucces: false,
+                                        dismissible: false,
+                                      ),
+                                    );
+                                isShowingToast = true;
+                              }
                             } else {
                               context.read<ShowPopUpBloc>().add(
                                     ShowPopUp(
-                                      message:
-                                          LocaleKeys.passwords_didnt_match.tr(),
+                                      message: LocaleKeys.password_must_6.tr(),
                                       isSucces: false,
                                       dismissible: false,
                                     ),
                                   );
-                              isShowingToast = true;
                             }
                           },
                           shadow: [
@@ -128,10 +137,12 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                           margin: EdgeInsets.only(
                               bottom:
                                   4 + MediaQuery.of(context).padding.bottom),
-                          color: orange,
-                          disabledColor: Theme.of(context)
-                              .extension<ThemedColors>()!
-                              .veryLightGreyToEclipse,
+                          color: newPasswordController.text.length < 6 &&
+                                  confirmPasswordController.text.length < 6
+                              ? Theme.of(context)
+                                  .extension<ThemedColors>()!
+                                  .veryLightGreyToEclipse
+                              : orange,
                           text: LocaleKeys.continuee.tr(),
                           border: Border.all(
                             width: 1,

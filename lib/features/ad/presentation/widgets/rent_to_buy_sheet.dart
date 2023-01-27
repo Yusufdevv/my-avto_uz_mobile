@@ -1,4 +1,5 @@
 import 'package:auto/assets/colors/color.dart';
+import 'package:auto/assets/constants/formatters.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/domain/entities/rent_with_purchase/rent_with_purchase_entity.dart';
@@ -132,7 +133,8 @@ class _RentToBuySheetState extends State<RentToBuySheet> {
                         autofocus: true,
                         focusNode: focusNode,
                         inputFormatters: [
-                          FilteringTextInputFormatter.digitsOnly
+                          FilteringTextInputFormatter.digitsOnly,
+                          ThousandsSeparatorInputFormatter()
                         ],
                         keyboardType: TextInputType.phone,
                         textAlign: TextAlign.center,
@@ -183,7 +185,7 @@ class _RentToBuySheetState extends State<RentToBuySheet> {
                                     title: 'Срок аренды (в месяцах)',
                                     step: state.step + 1,
                                     controller: TextEditingController(),
-                                    prepayment: state.controller.text));
+                                    prepayment: state.controller.text.replaceAll(' ', '')));
                                 break;
                               case 2:
                                 {
@@ -191,10 +193,10 @@ class _RentToBuySheetState extends State<RentToBuySheet> {
                                       int.tryParse(state.prepayment ?? '0') ??
                                           0;
                                   final rentalPeriod =
-                                      int.tryParse(state.controller.text) ?? 0;
+                                      int.tryParse(state.controller.text.replaceAll(' ', '')) ?? 0;
 
                                   rentToBuyBloc.add(RentToBuyEvent(
-                                      rentalPeriod: state.controller.text,
+                                      rentalPeriod: state.controller.text.replaceAll(' ', ''),
                                       controller: TextEditingController(),
                                       title: 'Ежемесячная оплата',
                                       step: state.step + 1,
@@ -210,7 +212,7 @@ class _RentToBuySheetState extends State<RentToBuySheet> {
                           } else {
                             Navigator.of(context).pop(
                               RentWithPurchaseEntity(
-                                  monthlyPayment: state.controller.text,
+                                  monthlyPayment: state.controller.text.replaceAll(' ', ''),
                                   prepayment: state.prepayment!,
                                   rentalPeriod:
                                       int.tryParse(state.rentalPeriod!) ?? -1),

@@ -1,9 +1,10 @@
+import 'package:auto/assets/colors/color.dart';
 import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/ad/presentation/bloc/map/map_bloc.dart';
-import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.dart';
 import 'package:auto/features/ad/presentation/pages/map_screen/widgets/buttons.dart';
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
 import 'package:auto/features/common/widgets/custom_screen.dart';
+import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/utils/my_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,7 +12,9 @@ import 'package:yandex_mapkit/yandex_mapkit.dart';
 
 class MapScreenPostingAd extends StatefulWidget {
   final ValueChanged<String> onMapTap;
-  const MapScreenPostingAd({required this.onMapTap, Key? key})
+  
+  const MapScreenPostingAd(
+      { required this.onMapTap, Key? key})
       : super(key: key);
 
   @override
@@ -81,9 +84,9 @@ class _MapScreenPostingAdState extends State<MapScreenPostingAd>
                             '=> => => =>   ${point.latitude} / ${point.latitude}       <= <= <= <=');
                         widget.onMapTap(
                             'https://yandex.com/maps/10335/tashkent/?ll=${point.longitude}%2C${point.latitude}&z=$zoomLevel');
-
+                    
                         final camera = await _mapController.getCameraPosition();
-
+                    
                         myPoint = Point(
                             latitude: point.latitude,
                             longitude: point.longitude);
@@ -92,7 +95,7 @@ class _MapScreenPostingAdState extends State<MapScreenPostingAd>
                         setState(() {
                           _mapObjects.add(myPlaceMark);
                         });
-
+                    
                         await _mapController.moveCamera(
                           CameraUpdate.newCameraPosition(
                             CameraPosition(
@@ -113,7 +116,7 @@ class _MapScreenPostingAdState extends State<MapScreenPostingAd>
                                 .floor(),
                           ),
                         );
-
+                    
                         WidgetsBinding.instance.focusManager.primaryFocus
                             ?.unfocus();
                       },
@@ -184,6 +187,23 @@ class _MapScreenPostingAdState extends State<MapScreenPostingAd>
                       },
                     ),
                   ),
+                  Positioned(
+                      child: WScaleAnimation(
+                    onTap: () => Navigator.pop(context),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                          width: 2,
+                          color: Colors.amber,
+                        ),
+                      ),
+                      child: const Icon(
+                        Icons.arrow_back,
+                        color: white,
+                      ),
+                    ),
+                  )),
                   Positioned(
                     right: 0,
                     bottom: 110,
@@ -256,4 +276,5 @@ class _MapScreenPostingAdState extends State<MapScreenPostingAd>
           ),
         ),
       );
+
 }

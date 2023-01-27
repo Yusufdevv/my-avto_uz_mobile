@@ -11,7 +11,7 @@ import 'package:auto/features/login/domain/usecases/verify_code.dart';
 import 'package:auto/features/login/domain/usecases/verify_recovery.dart';
 import 'package:auto/features/login/presentation/bloc/send_phone/send_phone_bloc.dart';
 import 'package:auto/features/login/presentation/bloc/verify/verify_bloc.dart';
-import 'package:auto/features/login/presentation/pages/login_new_password_page.dart';
+import 'package:auto/features/login/presentation/pages/forget_password/new_password_page.dart';
 import 'package:auto/features/login/presentation/widgets/SignIn_with_socials.dart';
 // import 'package:auto/features/login/presentation/widgets/signIn_with_socials.dart';
 import 'package:auto/features/login/presentation/widgets/login_header_widget.dart';
@@ -69,9 +69,7 @@ class _VerifySmsCodePageState extends State<VerifySmsCodePage> {
                   isError = true;
                   var error = state.toastMessage;
                   if (error.toLowerCase().contains('dioerror')) {
-                    error = StorageRepository.getString('language') == 'uz'
-                        ? 'Tarmoqda uzilish yuzaga keldi'
-                        : 'Произошел сбой сети';
+                    error = LocaleKeys.service_error.tr();
                   }
                   context
                       .read<ShowPopUpBloc>()
@@ -82,11 +80,8 @@ class _VerifySmsCodePageState extends State<VerifySmsCodePage> {
                     context,
                     fade(
                       page: BlocProvider.value(
-                        value: verifyBloc,
-                        child: LoginNewPasswordPage(
-                          phone: state.phone,
-                        ),
-                      ),
+                          value: verifyBloc,
+                          child: LoginNewPasswordPage(phone: state.phone)),
                     ),
                   );
                 }
@@ -183,9 +178,7 @@ class _VerifySmsCodePageState extends State<VerifySmsCodePage> {
                               style: Theme.of(context)
                                   .textTheme
                                   .headline6!
-                                  .copyWith(
-                                    fontSize: 14,
-                                  )),
+                                  .copyWith(fontSize: 14)),
                           const SizedBox(width: 6),
                           if (timeComplete)
                             Container(
@@ -235,13 +228,12 @@ class _VerifySmsCodePageState extends State<VerifySmsCodePage> {
                             verifyBloc.add(
                               VerifyVerifyEvent(
                                 param: VerifyParam(
-                                  phone: widget.phone,
-                                  code: passwordRecoveryController.text,
-                                  session: context
-                                      .read<SendPhoneBloc>()
-                                      .state
-                                      .session,
-                                ),
+                                    phone: widget.phone,
+                                    code: passwordRecoveryController.text,
+                                    session: context
+                                        .read<SendPhoneBloc>()
+                                        .state
+                                        .session),
                               ),
                             );
                           },

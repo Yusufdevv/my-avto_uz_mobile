@@ -59,6 +59,7 @@ class PersonalDataItemm extends StatelessWidget {
                   onChanged: onChanged,
                   controller: controller,
                   hintText: hintText,
+                  textStyle: Theme.of(context).textTheme.headline2?.copyWith(color: dark),
                   hintTextStyle: Theme.of(context).textTheme.headline2,
                 )),
           ],

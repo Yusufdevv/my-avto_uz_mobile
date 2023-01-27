@@ -24,7 +24,7 @@ abstract class ProfileDataSource {
       required String code,
       required String session});
 
-  Future<List<TermsOfUseModel>> getTermsOfUseData();
+  Future<TermsOfUseModel> getTermsOfUseData(String slug);
 }
 
 class ProfileDataSourceImpl extends ProfileDataSource {
@@ -202,32 +202,14 @@ class ProfileDataSourceImpl extends ProfileDataSource {
     }
   }
 
-  // if (result.data is List && (result.data as List).isNotEmpty) {
-  //         return Left(ServerFailure(
-  //             errorMessage: (result.data as List).first.toString(),
-  //             statusCode: 141));
-  //       }
-  //       var data = result.data[errorKey ?? 'detail'] ?? '';
-  //       if (data.isEmpty) {
-  //         data = result.data.toString();
-  //       }
-
-  //       return Left(ServerFailure(errorMessage: data, statusCode: 141));
-
   @override
-  Future<List<TermsOfUseModel>> getTermsOfUseData() async {
+  Future<TermsOfUseModel> getTermsOfUseData(String slug) async {
     try {
       final response = await dio.get(
-        '/common/static-pages/',
-        options: Options(headers: {
-          'Authorization': 'Bearer ${StorageRepository.getString('token')}'
-        }),
+        '/common/static-pages/$slug/',
       );
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
-        return (response.data['results'] as List)
-            // ignore: unnecessary_lambdas
-            .map((e) => TermsOfUseModel.fromJson(e))
-            .toList();
+        return TermsOfUseModel.fromJson(response.data);
       }
       throw ServerException(
           statusCode: response.statusCode ?? 0,

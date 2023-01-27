@@ -121,6 +121,8 @@ class _PtsScreenState extends State<PtsScreen> {
                                 ),
                           );
                         },
+                        titleStyle:state.purchasedDate != null &&
+                                state.purchasedDate!.isNotEmpty? Theme.of(context).textTheme.headline1!.copyWith(fontSize: 16):null,
                         title: state.purchasedDate != null &&
                                 state.purchasedDate!.isNotEmpty
                             ? MyFunctions.getData(state.purchasedDate!)

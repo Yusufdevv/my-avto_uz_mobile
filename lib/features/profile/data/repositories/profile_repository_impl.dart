@@ -79,9 +79,9 @@ class ProfileRepositoryImpl extends ProfileRepository {
   }
 
   @override
-  Future<Either<ServerFailure, List<TermsOfUseEntity>>> getTermsOfUse() async {
+  Future<Either<ServerFailure,  TermsOfUseEntity >> getTermsOfUse(String slug) async {
     try {
-      final result = await dataSource.getTermsOfUseData();
+      final result = await dataSource.getTermsOfUseData( slug);
       return Right(result);
     } on ServerException catch (error) {
       return Left(ServerFailure(

@@ -17,7 +17,7 @@ class PASingleton {
       'color': v.colorName,
       'purchase_date': v.purchasedDate,
       'description': v.description,
-      'is_registered_locally': v.registeredInUzbekistan,
+      'is_registered_locally': v.notRegisteredInUzbekistan,
       'contact_name': v.ownerName,
       'contact_email': v.ownerEmail,
       'contact_phone': v.ownerPhone,
@@ -25,15 +25,15 @@ class PASingleton {
       'contact_available_to': v.callTimeTo,
       'region': v.region!.id,
       'district': v.districtId,
-      'price': v.price,
+      'price': v.price!.replaceAll(' ', ''),
       'currency': v.currency,
       'distance_traveled': v.mileage,
       'registration_vin': 'KENTEKENMEWIJS',
       'registration_plate': 'KENTEKENMEWIJS',
       'registration_certificate': 'KENTEKENMEWIJS',
       'registration_serial_number': 'KENTEKENMEWIJS',
-      'registered_in_uzbekistan': v.registeredInUzbekistan,
-      'is_new': v.registeredInUzbekistan,
+      'registered_in_uzbekistan': v.notRegisteredInUzbekistan,
+      'is_new': v.notRegisteredInUzbekistan,
       'licence_type': v.typeDocument,
       'ownership': v.ownerStep,
       'location_url': v.locationUrl,
@@ -116,7 +116,7 @@ class PASingleton {
       price: v.price,
       mileage: '${v.distanceTraveled}',
       purchasedDate: v.purchaseDate,
-      registeredInUzbekistan: v.registeredInUzbekistan,
+      notRegisteredInUzbekistan: v.registeredInUzbekistan,
     );
   }
 
@@ -124,6 +124,7 @@ class PASingleton {
       PostingAdState state, PostingAdChooseEvent event) {
     print('=> => => => LOCATION URL    ${event.locationUrl}    <= <= <= <=');
     return state.copyWith(
+        bodyBytes: event.bodyBytes,
         years: event.years,
         yearId: event.yearId,
         locationUrl: event.locationUrl,
@@ -150,10 +151,10 @@ class PASingleton {
         bodyTypeId: event.selectedBodyTypeId,
         isSortByLetter: event.letter != state.letter,
         modelId: event.modelId,
-        letter: event.letter,
+        eventLetter: event.letter,
         makeId: event.makeId,
         purchasedDate: event.purchasedDate,
-        registeredInUzbekistan: event.isRastamojen,
+        notRegisteredInUzbekistan: event.isRastamojen,
         ownerEmail: event.ownerEmail,
         ownerName: event.ownerName,
         ownerPhone: event.ownerPhone,
@@ -166,16 +167,18 @@ class PASingleton {
         phoneController: event.phoneController,
         emailController: event.emailController,
         nameController: event.nameController,
-        makeLetterIndex: _getMakeLetterIndex(event.letter, state.makes));
+        eventMakeScrrollIndex: _getMakeLetterIndex(event, state.makes));
   }
 
-  static int? _getMakeLetterIndex(String? l, List<MakeEntity> makes) {
-    if (l == null) return null;
-    final i =
-        makes.indexWhere((element) => element.name.toUpperCase().startsWith(l));
-    if (i > -1) {
-      return i;
-    }
+  static int? _getMakeLetterIndex(
+      PostingAdChooseEvent event, List<MakeEntity> makes) {
+    if (event.letter == null) return null;
+
+    final i = makes.indexWhere(
+        (element) => element.name.toUpperCase().startsWith(event.letter!));
+
+    if (i > -1) return i;
+
     return null;
   }
 
