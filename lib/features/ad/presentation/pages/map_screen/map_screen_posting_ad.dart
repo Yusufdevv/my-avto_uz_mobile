@@ -6,20 +6,15 @@ import 'package:auto/features/ad/presentation/pages/map_screen/widgets/buttons.d
 import 'package:auto/features/ad/presentation/pages/map_screen/widgets/submit_sheet.dart';
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
 import 'package:auto/features/common/widgets/custom_screen.dart';
-import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
-import 'package:auto/generated/locale_keys.g.dart';
 import 'package:auto/utils/my_functions.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yandex_mapkit/yandex_mapkit.dart';
 
 class MapScreenPostingAd extends StatefulWidget {
-
-  const MapScreenPostingAd({Key? key})
-      : super(key: key);
+  const MapScreenPostingAd({Key? key}) : super(key: key);
 
   @override
   State<MapScreenPostingAd> createState() => _MapScreenPostingAdState();

@@ -8,6 +8,8 @@ import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
 import 'package:auto/features/common/models/region.dart';
 import 'package:auto/features/common/widgets/switcher_row_as_button_also.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/rent_choose_region_bottom_sheet.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
@@ -36,7 +38,7 @@ class _InspectionPlaceScreenState extends State<InspectionPlaceScreen> {
   @override
   Widget build(BuildContext context) => Scaffold(
         body: BaseWidget(
-          headerText: 'Место осмотра',
+          headerText: LocaleKeys.place_of_inspection.tr(),
           child: Padding(
             padding: const EdgeInsets.all(16),
             child: BlocBuilder<PostingAdBloc, PostingAdState>(
@@ -80,15 +82,15 @@ class _InspectionPlaceScreenState extends State<InspectionPlaceScreen> {
                       });
                     },
                     hintText: state.region == null
-                        ? 'Выберите регион'
+                        ? LocaleKeys.choose_region.tr()
                         : state.region!.title,
-                    title: 'Район',
+                    title: LocaleKeys.area.tr(),
                   ),
                   const SizedBox(height: 16),
 
                   // CHOOSE DISTRICT
                   LoaderBox(
-                    isActive: state.districtTitle != 'Выберите район',
+                    isActive: state.districtTitle != null,
                     isLoading: state.getDistrictsStatus ==
                         FormzStatus.submissionInProgress,
                     onTap: () async {
@@ -122,13 +124,15 @@ class _InspectionPlaceScreenState extends State<InspectionPlaceScreen> {
                         }
                       });
                     },
-                    hintText: state.districtTitle,
-                    title: 'Район / город',
+                    hintText:
+                        state.districtTitle ?? LocaleKeys.choose_area.tr(),
+                    title:
+                        '${LocaleKeys.area.tr()} / ${LocaleKeys.city.tr().toLowerCase()}',
                   ),
 
                   const SizedBox(height: 17),
                   if (state.bodyBytes != null) ...{
-                    Container(
+                    SizedBox(
                       height: 200,
                       width: 343,
                       child: Image.memory(
@@ -144,7 +148,7 @@ class _InspectionPlaceScreenState extends State<InspectionPlaceScreen> {
                       hidePopUp();
                       widget.onToMapPressed();
                     },
-                    title: 'Указать точную геопозицию',
+                    title: LocaleKeys.show_exactly_geoposition.tr(),
                     value: state.showExactAddress,
                     onChanged: (v) {
                       hidePopUp();
@@ -159,5 +163,4 @@ class _InspectionPlaceScreenState extends State<InspectionPlaceScreen> {
           ),
         ),
       );
- 
 }

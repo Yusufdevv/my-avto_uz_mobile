@@ -28,7 +28,7 @@ class Header extends SliverPersistentHeaderDelegate {
           children: [
             Expanded(
               child: ListView.builder(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
+                padding: const EdgeInsets.symmetric(horizontal: 4),
                 itemBuilder: (context, index) => GestureDetector(
                   onTap: () => context
                       .read<PostingAdBloc>()

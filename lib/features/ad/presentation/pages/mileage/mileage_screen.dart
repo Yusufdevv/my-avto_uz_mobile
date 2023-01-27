@@ -3,9 +3,11 @@ import 'package:auto/assets/themes/theme_extensions/w_textfield_style.dart';
 import 'package:auto/features/ad/presentation/bloc/mileage/mileage_image_bloc.dart';
 import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.dart';
 import 'package:auto/features/ad/presentation/pages/mileage/widgets/mileage_image.dart';
+import 'package:auto/features/ad/presentation/widgets/base_widget.dart';
 import 'package:auto/features/common/widgets/switcher_row.dart';
 import 'package:auto/features/common/widgets/w_textfield.dart';
-import 'package:auto/features/ad/presentation/widgets/base_widget.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
@@ -44,14 +46,14 @@ class _MileageScreenState extends State<MileageScreen> {
           child: Scaffold(
             body: BlocBuilder<MileageImageBloc, MileageImageState>(
               builder: (context, state) => BaseWidget(
-                headerText: 'Пробег',
+                headerText: LocaleKeys.Mileage.tr(),
                 child: Padding(
                   padding: const EdgeInsets.all(16),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SwitcherRow(
-                        title: 'Без пробега',
+                        title: LocaleKeys.without_milaege.tr(),
                         value: context
                                 .watch<PostingAdBloc>()
                                 .state
@@ -73,7 +75,7 @@ class _MileageScreenState extends State<MileageScreen> {
                           onChanged: (value) => context
                               .read<PostingAdBloc>()
                               .add(PostingAdChooseEvent(mileage: value)),
-                          title: 'Пробег',
+                          title: LocaleKeys.Mileage.tr(),
                           hintText: '0 km',
                           borderRadius: 12,
                           keyBoardType: TextInputType.number,

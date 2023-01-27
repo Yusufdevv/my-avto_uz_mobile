@@ -78,7 +78,8 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
           listener: (context, state) {
             if (state.makeLetterIndex != null && state.makeLetterIndex! > -1) {
               _makesController.animateTo(state.makeLetterIndex! * 54,
-                  duration: Duration(milliseconds: 500), curve: Curves.linear);
+                  duration: const Duration(milliseconds: 500),
+                  curve: Curves.linear);
             }
           },
           builder: (context, state) => Scaffold(
@@ -88,7 +89,9 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
               physics: const BouncingScrollPhysics(),
               headerSliverBuilder: (context, innerBoxIsScrolled) => [
                 /// HEADER TEXT
-                 SliverHeaderText(text: LocaleKeys.choose_brand_auto.tr(),),
+                SliverHeaderText(
+                  text: LocaleKeys.choose_brand_auto.tr(),
+                ),
 
                 /// SEARCH FIELD WITH PERSISTENT HEADER
 
@@ -114,7 +117,11 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
                           height: 40,
                           controller: searchController,
                           hasClearButton: true,
-                          textStyle:Theme.of(context).textTheme.headline1!.copyWith(fontWeight: FontWeight.w400,fontSize: 16) ,
+                          textStyle: Theme.of(context)
+                              .textTheme
+                              .headline1!
+                              .copyWith(
+                                  fontWeight: FontWeight.w400, fontSize: 16),
                         ),
                       ),
                     ),

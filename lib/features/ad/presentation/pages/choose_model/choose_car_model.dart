@@ -60,7 +60,7 @@ class _ChooseCarModelScreenState extends State<ChooseCarModelScreen> {
                 physics: const BouncingScrollPhysics(),
                 slivers: [
                   /// HEADER TEXT
-                  const SliverHeaderText(text: 'Выберите модель'),
+                   SliverHeaderText(text:  LocaleKeys.choose_model.tr()),
 
                   /// SEARCH FIELD
                   SliverToBoxAdapter(

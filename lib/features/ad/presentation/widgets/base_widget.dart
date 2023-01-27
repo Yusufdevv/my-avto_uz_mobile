@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:flutter/material.dart';
 
@@ -7,7 +5,7 @@ class BaseWidget extends StatelessWidget {
   final String headerText;
   final Widget child;
   final EdgeInsets? padding;
-  final Widget? extraAction;
+  final List<Widget>? extraAction;
 
   const BaseWidget(
       {required this.headerText,
@@ -31,13 +29,13 @@ class BaseWidget extends StatelessWidget {
                 left: 16,
               ),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Text(
                     headerText,
                     style: Theme.of(context).textTheme.headline1,
                   ),
-                  if (extraAction != null) ...{extraAction!}
+                  if (extraAction != null) ...{...extraAction!}
                 ],
               ),
             ),

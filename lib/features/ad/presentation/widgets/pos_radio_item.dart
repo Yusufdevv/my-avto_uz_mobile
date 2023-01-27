@@ -18,7 +18,8 @@ class PostingRadioItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) => GestureDetector(
         onTap: onTap,
-        child: Container(
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 150),
           decoration: BoxDecoration(
             color: Theme.of(context)
                 .extension<ThemedColors>()!
@@ -40,22 +41,23 @@ class PostingRadioItem extends StatelessWidget {
                     .headline1!
                     .copyWith(fontSize: 16, fontWeight: FontWeight.w600),
               ),
-              if (selected) ...{
-                const Spacer(),
-                Container(
-                  height: 20,
-                  width: 20,
-                  margin: const EdgeInsets.only(right: 8),
-                  padding: const EdgeInsets.all(2.2),
-                  decoration: BoxDecoration(
-                      border: Border.all(color: purple, width: 1.9),
-                      shape: BoxShape.circle),
-                  child: Container(
-                    decoration: const BoxDecoration(
-                        shape: BoxShape.circle, color: purple),
-                  ),
-                )
-              }
+              const Spacer(),
+              Container(
+                height: 20,
+                width: 20,
+                margin: const EdgeInsets.only(right: 8),
+                padding: const EdgeInsets.all(2.2),
+                decoration: BoxDecoration(
+                    border:
+                        Border.all(color: selected ? purple : grey, width: 1.9),
+                    shape: BoxShape.circle),
+                child: selected
+                    ? Container(
+                        decoration: const BoxDecoration(
+                            shape: BoxShape.circle, color: purple),
+                      )
+                    : null,
+              )
             ],
           ),
         ),

@@ -1,6 +1,8 @@
 import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.dart';
 import 'package:auto/features/ad/presentation/pages/year_of_issue/widget/years_item.dart';
 import 'package:auto/features/ad/presentation/widgets/base_widget.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -23,7 +25,7 @@ class _YearIssueScreennState extends State<YearIssueScreenn> {
   Widget build(BuildContext context) => Scaffold(
           body: BlocBuilder<PostingAdBloc, PostingAdState>(
         builder: (context, state) => BaseWidget(
-          headerText: 'Год выпуска',
+          headerText:  LocaleKeys.year_of_issue.tr(),
           child: state.status == FormzStatus.submissionInProgress
               ? const Center(child: CupertinoActivityIndicator())
               : ListView.builder(

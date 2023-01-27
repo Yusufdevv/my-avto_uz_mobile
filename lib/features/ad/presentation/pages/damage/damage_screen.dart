@@ -62,35 +62,39 @@ class _DamageScreenState extends State<DamageScreen>
   Widget build(BuildContext context) => Scaffold(
         resizeToAvoidBottomInset: false,
         body: BaseWidget(
-          extraAction: Container(
-            height: 28,
-            width: 28,
-            margin: const EdgeInsets.only(right: 16),
-            decoration:
-                const BoxDecoration(shape: BoxShape.circle, color: border),
-            padding: const EdgeInsets.all(4),
-            child: DamageButton(
-                damageType: DamageType.replaced,
-                onTap: () {
-                  showModalBottomSheet<DamageType>(
-                    useRootNavigator: true,
-                    context: context,
-                    isScrollControlled: true,
-                    barrierColor: Colors.black.withOpacity(.5),
-                    backgroundColor: Colors.transparent,
-                    builder: (c) => DamageTypeInfoSheet(),
-                  );
-                }),
-          ),
+          extraAction: [
+            const Spacer(),
+            Container(
+              height: 28,
+              width: 28,
+              margin: const EdgeInsets.only(right: 16),
+              decoration:
+                  const BoxDecoration(shape: BoxShape.circle, color: border),
+              padding: const EdgeInsets.all(4),
+              child: DamageButton(
+                  damageType: DamageType.replaced,
+                  onTap: () {
+                    showModalBottomSheet<DamageType>(
+                      useRootNavigator: true,
+                      context: context,
+                      isScrollControlled: true,
+                      barrierColor: Colors.black.withOpacity(.5),
+                      backgroundColor: Colors.transparent,
+                      builder: (c) => DamageTypeInfoSheet(),
+                    );
+                  }),
+            )
+          ],
           headerText: 'Состояние кузова',
           child: SingleChildScrollView(
-            padding: const EdgeInsets.fromLTRB(16, 16, 16, 70),
+            physics: const BouncingScrollPhysics(),
+            padding: const EdgeInsets.fromLTRB(16, 16, 0, 70),
             child: BlocBuilder<PostingAdBloc, PostingAdState>(
               builder: (context, state) => Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Покупатели чаще звонят по объявлениям, в которых указана комплектация',
+                    'Отметьте на схеме окрашенные детали и повреждения',
                     style: Theme.of(context).textTheme.headline6!.copyWith(
                         fontSize: 14,
                         color: Theme.of(context)
@@ -101,7 +105,6 @@ class _DamageScreenState extends State<DamageScreen>
                   DamageCarsItem(
                     onPressed: _showChoosDamageTypeSheet,
                   ),
-                  const SizedBox(height: 32),
                   // DOOR
                   CustomTabBar(
                       title: 'Дверь',
@@ -109,7 +112,7 @@ class _DamageScreenState extends State<DamageScreen>
                       firstTab: 'Левая',
                       secondTab: 'Правая'),
                   SizedBox(
-                    height: 180,
+                    height: 150,
                     child: TabBarView(
                       controller: doorController,
                       children: [
@@ -193,7 +196,7 @@ class _DamageScreenState extends State<DamageScreen>
                       firstTab: 'Заднее',
                       secondTab: 'Переднее'),
                   SizedBox(
-                    height: 180,
+                    height: 170,
                     child: TabBarView(
                       controller: wingController,
                       children: [
@@ -248,7 +251,7 @@ class _DamageScreenState extends State<DamageScreen>
                       },
                       title: 'Крыша',
                       damageType: state.damagedParts[DamagedParts.roof]),
-                  const SizedBox(height: 24),
+
                   // HOOD
                   SituationTitleItem(
                     onTap: () {
@@ -257,7 +260,7 @@ class _DamageScreenState extends State<DamageScreen>
                     title: 'Капот',
                     damageType: state.damagedParts[DamagedParts.hood],
                   ),
-                  const SizedBox(height: 24),
+
                   // TRUNK
                   SituationTitleItem(
                     onTap: () {

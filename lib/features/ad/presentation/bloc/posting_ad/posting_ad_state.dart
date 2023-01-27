@@ -130,13 +130,13 @@ class PostingAdState extends Equatable {
     this.bodyBytes,
   });
 
-  String get districtTitle {
+  String? get districtTitle {
     final index =
         districts.indexWhere((element) => element.id == (districtId ?? -1));
     if (index >= 0) {
       return districts[index].title;
     }
-    return 'Выберите район';
+    return null;
   }
 
   PostingAdState copyWith({

@@ -1,10 +1,10 @@
 import 'package:auto/assets/colors/color.dart';
+import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/features/ad/const/constants.dart';
-import 'package:auto/features/ad/presentation/pages/damage/widgets/damage_pluc_button.dart';
 import 'package:auto/features/ad/presentation/widgets/warning_circle_widget.dart';
-import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/utils/my_functions.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class SituationItem extends StatelessWidget {
   final String position;
@@ -23,37 +23,44 @@ class SituationItem extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            WScaleAnimation(
-              onTap: onTap,
-              child: Row(
-                children: [
-                  WarningCircleWidget(damageType: damageType),
-                  const SizedBox(width: 8),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        position,
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyText1!
-                            .copyWith(fontSize: 14, color: grey),
-                      ),
-                      const SizedBox(
-                        height: 2,
-                      ),
-                      Text(
-                        MyFunctions.getStatusTitle(damageType?.value ?? ''),
-                        style: Theme.of(context).textTheme.headline1!.copyWith(
-                            fontSize: 16, fontWeight: FontWeight.w600),
-                      )
-                    ],
-                  ),
-                ],
-              ),
+            Row(
+              children: [
+                WarningCircleWidget(damageType: damageType),
+                const SizedBox(width: 8),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      position,
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyText1!
+                          .copyWith(fontSize: 14, color: grey),
+                    ),
+                    const SizedBox(
+                      height: 2,
+                    ),
+                    Text(
+                      MyFunctions.getStatusTitle(damageType?.value ?? ''),
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline1!
+                          .copyWith(fontSize: 16, fontWeight: FontWeight.w600),
+                    )
+                  ],
+                ),
+                const Spacer(),
+                GestureDetector(
+                  onTap: onTap,
+                  behavior: HitTestBehavior.opaque,
+                  child: SvgPicture.asset(AppIcons.editProfile, height: 24),
+                ),
+               const SizedBox(width: 16)
+              ],
             ),
             const SizedBox(height: 12),
             Divider(
+              height: 1,
               thickness: 1,
               color: Theme.of(context).dividerColor,
             ),

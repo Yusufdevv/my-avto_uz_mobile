@@ -3,9 +3,10 @@ import 'package:auto/assets/constants/formatters.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/domain/entities/rent_with_purchase/rent_with_purchase_entity.dart';
-import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.dart';
 import 'package:auto/features/ad/presentation/bloc/rent_to_buy/rent_to_buy_bloc.dart';
 import 'package:auto/features/car_single/presentation/widgets/orange_button.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -166,7 +167,7 @@ class _RentToBuySheetState extends State<RentToBuySheet> {
                                       fontSize: 13,
                                     )),
                             TextSpan(
-                                text: '  >= ${state.minimumSumma}',
+                                text: '  ≥ ${state.minimumSumma}',
                                 style: Theme.of(context).textTheme.headline5)
                           ],
                         ),
@@ -182,21 +183,26 @@ class _RentToBuySheetState extends State<RentToBuySheet> {
                             switch (state.step) {
                               case 1:
                                 rentToBuyBloc.add(RentToBuyEvent(
-                                    title: 'Срок аренды (в месяцах)',
+                                    title:
+                                        '${LocaleKeys.rent_period.tr()} (в месяцах)',
                                     step: state.step + 1,
                                     controller: TextEditingController(),
-                                    prepayment: state.controller.text.replaceAll(' ', '')));
+                                    prepayment: state.controller.text
+                                        .replaceAll(' ', '')));
                                 break;
                               case 2:
                                 {
                                   final prePayment =
                                       int.tryParse(state.prepayment ?? '0') ??
                                           0;
-                                  final rentalPeriod =
-                                      int.tryParse(state.controller.text.replaceAll(' ', '')) ?? 0;
+                                  final rentalPeriod = int.tryParse(state
+                                          .controller.text
+                                          .replaceAll(' ', '')) ??
+                                      0;
 
                                   rentToBuyBloc.add(RentToBuyEvent(
-                                      rentalPeriod: state.controller.text.replaceAll(' ', ''),
+                                      rentalPeriod: state.controller.text
+                                          .replaceAll(' ', ''),
                                       controller: TextEditingController(),
                                       title: 'Ежемесячная оплата',
                                       step: state.step + 1,
@@ -212,7 +218,8 @@ class _RentToBuySheetState extends State<RentToBuySheet> {
                           } else {
                             Navigator.of(context).pop(
                               RentWithPurchaseEntity(
-                                  monthlyPayment: state.controller.text.replaceAll(' ', ''),
+                                  monthlyPayment:
+                                      state.controller.text.replaceAll(' ', ''),
                                   prepayment: state.prepayment!,
                                   rentalPeriod:
                                       int.tryParse(state.rentalPeriod!) ?? -1),
@@ -221,7 +228,7 @@ class _RentToBuySheetState extends State<RentToBuySheet> {
                         }
                       },
                       content: Text(
-                        'Продолжить',
+                        LocaleKeys.continuee,
                         style: Theme.of(context).textTheme.subtitle1!.copyWith(
                               color: white,
                             ),
