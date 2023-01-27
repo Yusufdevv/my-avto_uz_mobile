@@ -25,11 +25,17 @@ class ComparisonBloc extends Bloc<ComparisonEvent, ComparisonState> {
           status: FormzStatus.submissionSuccess,
         ));
       } else {
-        emit(state.copyWith(status:  FormzStatus.submissionFailure));
+        emit(state.copyWith(status: FormzStatus.submissionFailure));
       }
     });
     on<SetStickyEvent>((event, emit) {
       emit(state.copyWith(isSticky: event.isSticky));
+    });
+    on<GetCars>((event, emit) {
+      final list = <ComparisonEntity>[...state.cars];
+      final item = list.firstWhere((element) => element.id == event.id);
+      list.remove(item);
+      emit(state.copyWith(cars: list));
     });
   }
 }

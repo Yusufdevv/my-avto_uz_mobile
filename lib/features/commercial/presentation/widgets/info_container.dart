@@ -97,10 +97,8 @@ class _InfoContainerState extends State<InfoContainer> {
                 clipBehavior: Clip.antiAlias,
                 controller: PageController(viewportFraction: 0.75),
                 physics: const BouncingScrollPhysics(),
-                itemBuilder: (context, index) => Stack(
-                  children: [
-                    if (index == widget.gallery!.length)
-                      WScaleAnimation(
+                itemBuilder: (context, index) => index == widget.gallery!.length
+                    ? WScaleAnimation(
                         onTap: () {
                           bottomSheetForCalling(
                             context,
@@ -140,10 +138,10 @@ class _InfoContainerState extends State<InfoContainer> {
                           ),
                         ),
                       )
-                    else
-                      SizedBox(
+                    : Container(
                         height: 201,
                         width: 280,
+                        padding: const EdgeInsets.only(right: 4),
                         child: CachedNetworkImage(
                           imageUrl: widget.gallery![index],
                           fit: BoxFit.cover,
@@ -153,8 +151,6 @@ class _InfoContainerState extends State<InfoContainer> {
                           ),
                         ),
                       ),
-                  ],
-                ),
               ),
             ),
             if (widget.sellType!.isNotEmpty)

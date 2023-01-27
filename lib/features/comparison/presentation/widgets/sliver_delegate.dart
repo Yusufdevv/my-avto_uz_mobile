@@ -8,7 +8,6 @@ import 'package:auto/features/comparison/presentation/widgets/added_car_sticky.d
 import 'package:auto/features/comparison/presentation/widgets/added_car_widget.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/search/presentation/part/bottom_sheet_for_calling.dart';
-import 'package:auto/utils/my_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -20,7 +19,7 @@ class SliverWidget extends SliverPersistentHeaderDelegate {
   final VoidCallback onAddCar;
   final ValueChanged<bool> setSticky;
   final ComparisonBloc comparisonBloc;
-
+  final GlobalKey<AnimatedListState> listkey;
   SliverWidget({
     required this.onAddCar,
     required this.numberOfAddedCars,
@@ -29,8 +28,8 @@ class SliverWidget extends SliverPersistentHeaderDelegate {
     required this.scrollController,
     required this.setSticky,
     required this.comparisonBloc,
+    required this.listkey,
   });
-
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
@@ -39,174 +38,150 @@ class SliverWidget extends SliverPersistentHeaderDelegate {
     } else {
       setSticky(false);
     }
-    return AnimatedSwitcher(
-      duration: const Duration(milliseconds: 300),
-      child: shrinkOffset >= 180
-          ? Container(
-              width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
-                color: Theme.of(context).extension<ThemedColors>()!.whiteToNero,
-                boxShadow: [
-                  BoxShadow(
-                    offset: const Offset(0, 8),
-                    blurRadius: 24,
-                    color: dark.withOpacity(0.08),
-                  ),
-                  BoxShadow(
-                    offset: const Offset(0, -1),
-                    color: dark.withOpacity(0.08),
-                  ),
-                ],
-              ),
-              child: ListView(
-                  shrinkWrap: true,
-                  controller: scrollController,
-                  scrollDirection: Axis.horizontal,
-                  children: List.generate(
-                    comparisonBloc.state.cars.length,
-                    (index) => StickyAdderCar(
-                      carImage: comparisonBloc.state.cars[index].announcement
-                              .mainData.gallery.isEmpty
-                          ? ''
-                          : comparisonBloc.state.cars[index].announcement
-                              .mainData.gallery[0],
-                      carSalary:
-                          '${comparisonBloc.state.cars[index].announcement.price} ${comparisonBloc.state.cars[index].announcement.currency}',
-                      name: comparisonBloc
-                          .state.cars[index].announcement.mainData.make,
+    return BlocBuilder<ComparisonBloc, ComparisonState>(
+      builder: (context, state) => AnimatedSwitcher(
+        duration: const Duration(milliseconds: 300),
+        child: shrinkOffset >= 180
+            ? Container(
+                width: MediaQuery.of(context).size.width,
+                decoration: BoxDecoration(
+                  color:
+                      Theme.of(context).extension<ThemedColors>()!.whiteToNero,
+                  boxShadow: [
+                    BoxShadow(
+                      offset: const Offset(0, 8),
+                      blurRadius: 24,
+                      color: dark.withOpacity(0.08),
                     ),
-                  )),
-            )
-          : AnimatedOpacity(
-              duration: const Duration(milliseconds: 100),
-              opacity: shrinkOffset >= 20 && shrinkOffset <= 60
-                  ? 0.8
-                  : shrinkOffset >= 60 && shrinkOffset <= 80
-                      ? 0.6
-                      : shrinkOffset >= 80 && shrinkOffset <= 160
-                          ? 0.4
-                          : shrinkOffset >= 150
-                              ? 0.2
-                              : 1,
-              child: Container(
-                color: Theme.of(context)
-                    .extension<ThemedColors>()!
-                    .solitudeContainerToBlack,
-                padding: const EdgeInsets.only(top: 16),
-                child: SingleChildScrollView(
-                  physics: const NeverScrollableScrollPhysics(),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      SizedBox(
-                        height: 234,
-                        child: SingleChildScrollView(
-                          padding: const EdgeInsets.only(right: 16, left: 8),
-                          controller: scrollController,
-                          physics: const BouncingScrollPhysics(),
-                          scrollDirection: Axis.horizontal,
-                          child: Row(
-                            children: [
-                              ...List.generate(
-                                comparisonBloc.state.cars.length,
-                                (index) => GestureDetector(
+                    BoxShadow(
+                      offset: const Offset(0, -1),
+                      color: dark.withOpacity(0.08),
+                    ),
+                  ],
+                ),
+                child: ListView(
+                    shrinkWrap: true,
+                    controller: scrollController,
+                    scrollDirection: Axis.horizontal,
+                    children: List.generate(
+                      state.cars.length,
+                      (index) => StickyAdderCar(
+                        carImage: state.cars[index].announcement.mainData
+                                .gallery.isEmpty
+                            ? ''
+                            : state
+                                .cars[index].announcement.mainData.gallery[0],
+                        carSalary:
+                            '${state.cars[index].announcement.price} ${state.cars[index].announcement.currency}',
+                        name: state.cars[index].announcement.mainData.make,
+                      ),
+                    )),
+              )
+            : AnimatedOpacity(
+                duration: const Duration(milliseconds: 100),
+                opacity: shrinkOffset >= 20 && shrinkOffset <= 60
+                    ? 0.8
+                    : shrinkOffset >= 60 && shrinkOffset <= 80
+                        ? 0.6
+                        : shrinkOffset >= 80 && shrinkOffset <= 160
+                            ? 0.4
+                            : shrinkOffset >= 150
+                                ? 0.2
+                                : 1,
+                child: Container(
+                  color: Theme.of(context)
+                      .extension<ThemedColors>()!
+                      .solitudeContainerToBlack,
+                  padding: const EdgeInsets.only(top: 16),
+                  child: SingleChildScrollView(
+                    physics: const NeverScrollableScrollPhysics(),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        SizedBox(
+                          height: 234,
+                          child: AnimatedList(
+                            key: listkey,
+                            padding: const EdgeInsets.only(right: 16, left: 8),
+                            controller: scrollController,
+                            physics: const BouncingScrollPhysics(),
+                            scrollDirection: Axis.horizontal,
+                            initialItemCount: state.cars.length + 1,
+                            itemBuilder: (context, index, animation) {
+                              final item = state.cars.length == index
+                                  ? null
+                                  : state.cars[index];
+                              if (state.cars.length == index) {
+                                return AddNewCar(
+                                  onTap: onAddCar,
+                                );
+                              } else {
+                                return GestureDetector(
                                   onTap: () {
                                     Navigator.of(context, rootNavigator: true)
                                         .push(fade(
                                             page: CarSingleScreen(
-                                                id: comparisonBloc
-                                                    .state
-                                                    .cars[index]
-                                                    .announcement
-                                                    .id)));
+                                                id: item!.announcement.id)));
                                   },
                                   child: AddedCar(
-                                    ownerType: comparisonBloc.state.cars[index]
-                                        .announcement.ownership,
+                                    ownerType: item!.announcement.ownership,
                                     hasCallCard: true,
-                                    // hasCallCard: MyFunctions.enableForCalling(
-                                    //   callFrom: comparisonBloc
-                                    //       .state
-                                    //       .cars[index]
-                                    //       .announcement
-                                    //       .mainData
-                                    //       .contactAvailableFrom,
-                                    //   callTo: comparisonBloc
-                                    //       .state
-                                    //       .cars[index]
-                                    //       .announcement
-                                    //       .mainData
-                                    //       .contactAvailableTo,
-                                    // ),
-                                    carName: comparisonBloc.state.cars[index]
-                                        .announcement.mainData.model,
+                                    carName: item.announcement.mainData.model,
                                     carSalary:
-                                        '${comparisonBloc.state.cars[index].announcement.price} ${comparisonBloc.state.cars[index].announcement.currency.toUpperCase()}',
-                                    imageUrl: comparisonBloc.state.cars[index]
-                                        .announcement.mainData.gallery,
+                                        '${item.announcement.price} ${item.announcement.currency.toUpperCase()}',
+                                    imageUrl:
+                                        item.announcement.mainData.gallery,
                                     onTabCall: () {
                                       bottomSheetForCalling(
                                         context,
-                                        comparisonBloc
-                                            .state
-                                            .cars[index]
-                                            .announcement
-                                            .mainData
-                                            .user
+                                        item.announcement.mainData.user
                                             .phoneNumber,
                                       );
                                     },
                                     onTabClose: () {
-                                      BlocProvider.of<ComparisonAddBloc>(
-                                              context)
-                                          .add(ComparisonAddEvent
-                                              .deleteComparison(
-                                        comparisonBloc.state.cars[index].order,
-                                      ));
-                                      comparisonBloc.add(GetComparableCars());
+                                      print('===> ==> Bu bosildi');
+                                      comparisonBloc.add(GetCars(id: item.id));
+                                      print('===> ==> Bu yoqa keldi');
+                                      print('===> ==> Bu keldiku');
+                                      listkey.currentState?.removeItem(
+                                        index,
+                                        (context, animation) => AddedCar(
+                                          ownerType:
+                                              item.announcement.ownership,
+                                          hasCallCard: true,
+                                          carName:
+                                              item.announcement.mainData.model,
+                                          carSalary:
+                                              '${item.announcement.price} ${item.announcement.currency.toUpperCase()}',
+                                          imageUrl: item
+                                              .announcement.mainData.gallery,
+                                          onTabCall: () {},
+                                          onTabClose: () {},
+                                          id: item.id,
+                                          animation: animation,
+                                        ),
+                                      );
+                                      print('===> ==> Qale');
+                                      context.read<ComparisonAddBloc>().add(
+                                            ComparisonAddEvent.deleteComparison(
+                                              item.order,
+                                            ),
+                                          );
                                     },
+                                    id: item.id,
+                                    animation: animation,
                                   ),
-                                ),
-                              ),
-                              AddNewCar(
-                                onTap: onAddCar,
-                              )
-                            ],
+                                );
+                              }
+                            },
                           ),
                         ),
-                      ),
-                      const SizedBox(height: 8),
-                      // Padding(
-                      //   padding: const EdgeInsets.symmetric(horizontal: 16),
-                      //   child: Row(
-                      //     children: [
-                      //       Expanded(
-                      //         child: Text(
-                      //           LocaleKeys.show_only_difference.tr(),
-                      //           style: const TextStyle(
-                      //             fontSize: 16,
-                      //             fontWeight: FontWeight.w600,
-                      //             color: greyText,
-                      //           ),
-                      //         ),
-                      //       ),
-                      //       CupertinoSwitch(
-                      //         value: boolean,
-                      //         onChanged: onChanged,
-                      //         activeColor: green,
-                      //         thumbColor: white,
-                      //         trackColor: Theme.of(context)
-                      //             .extension<ThemedColors>()!
-                      //             .whiteLilacToPayneGrey,
-                      //       ),
-                      //     ],
-                      //   ),
-                      // ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
+      ),
     );
   }
 
