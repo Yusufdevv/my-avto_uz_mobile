@@ -31,7 +31,7 @@ import 'package:auto/features/common/domain/model/user.dart';
 import 'package:auto/features/common/models/region.dart';
 import 'package:auto/features/common/repository/auth.dart';
 import 'package:auto/features/common/usecases/get_districts_usecase.dart';
-import 'package:auto/features/common/usecases/get_regions.dart';
+import 'package:auto/features/common/usecases/get_regions_usecase.dart';
 import 'package:auto/features/login/domain/usecases/verify_code.dart';
 import 'package:auto/features/main/domain/usecases/get_top_brand.dart';
 import 'package:auto/features/rent/domain/usecases/get_gearboxess_usecase.dart';
@@ -244,12 +244,12 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
   FutureOr<void> _getRegions(
       PostingAdGetRegionsEvent event, Emitter<PostingAdState> emit) async {
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
-    final result = await regionsUseCase.call('');
+    final result = await regionsUseCase.call(NoParams());
     if (result.isRight) {
       emit(
         state.copyWith(
           status: FormzStatus.submissionSuccess,
-          regions: result.right.results,
+          regions: result.right,
           districts: <DistrictEntity>[],
         ),
       );

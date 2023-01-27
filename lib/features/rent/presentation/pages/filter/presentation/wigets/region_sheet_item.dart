@@ -1,8 +1,6 @@
 import 'package:auto/assets/colors/color.dart';
-import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/region_checkbox.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class RegionSheetItem extends StatelessWidget {
   final bool isChecked;
