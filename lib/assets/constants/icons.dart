@@ -79,6 +79,7 @@ class AppIcons {
   static const mapPin = 'assets/icons/global/map_pin.svg';
   static const filterIcon = 'assets/icons/global/filter_icon.svg';
   static const cancel = 'assets/icons/global/cancel.svg';
+  static const foldedMap = 'assets/icons/global/folded_map.svg';
   static const locationIcon = 'assets/icons/global/location_icon.svg';
   static const currentLocation = 'assets/icons/global/current_location.svg';
   static const currentLoc = 'assets/images/global/current_location.png';

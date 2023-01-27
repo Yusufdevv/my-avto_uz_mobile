@@ -22,42 +22,42 @@ class MapControllerButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Column(
-      children: [
-        WButton(
-          onTap: onPlusTap,
-          height: 36,
-          width: 36,
-          color: white,
-          borderRadius: 8,
-          border: Border.all(
-            color: dividerColor,
+        children: [
+          WButton(
+            onTap: onPlusTap,
+            height: 36,
+            width: 36,
+            color: white,
+            borderRadius: 8,
+            border: Border.all(
+              color: dividerColor,
+            ),
+            padding: const EdgeInsets.all(10),
+            child: SvgPicture.asset(
+              AppIcons.plus,
+              color: greyText,
+            ),
           ),
-          padding: const EdgeInsets.all(10),
-          child: SvgPicture.asset(
-            AppIcons.plus,
-            color: greyText,
+          const SizedBox(height: 16),
+          WButton(
+            onTap: onMinusTap,
+            height: 36,
+            width: 36,
+            color: white,
+            borderRadius: 8,
+            border: Border.all(
+              color: dividerColor,
+            ),
+            padding: const EdgeInsets.all(10),
+            child: SvgPicture.asset(
+              AppIcons.minus,
+              color: greyText,
+            ),
           ),
-        ),
-        const SizedBox(height: 16),
-        WButton(
-          onTap: onMinusTap,
-          height: 36,
-          width: 36,
-          color: white,
-          borderRadius: 8,
-          border: Border.all(
-            color: dividerColor,
-          ),
-          padding: const EdgeInsets.all(10),
-          child: SvgPicture.asset(
-            AppIcons.minus,
-            color: greyText,
-          ),
-        ),
-        const SizedBox(height: 28),
-        CurrentLocationButton(onCurrentLocationTap: onCurrentLocationTap)
-      ],
-    );
+          const SizedBox(height: 28),
+          CurrentLocationButton(onCurrentLocationTap: onCurrentLocationTap)
+        ],
+      );
 }
 
 class CurrentLocationButton extends StatelessWidget {
@@ -68,15 +68,18 @@ class CurrentLocationButton extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => BlocBuilder<MapOrganizationBloc, MapOrganizationState>(
-      builder: (context, state) => WScaleAnimation(
+  Widget build(BuildContext context) =>
+      BlocBuilder<MapOrganizationBloc, MapOrganizationState>(
+        builder: (context, state) => WScaleAnimation(
           isDisabled: state.getCurrentLocationStatus.isSubmissionInProgress,
           onTap: onCurrentLocationTap,
           child: AnimatedContainer(
             duration: const Duration(milliseconds: 150),
             padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
-              color: state.getCurrentLocationStatus.isSubmissionInProgress ? white.withOpacity(0.7) : white,
+              color: state.getCurrentLocationStatus.isSubmissionInProgress
+                  ? white.withOpacity(0.7)
+                  : white,
               border: Border.all(
                 color: dividerColor,
               ),
@@ -90,7 +93,7 @@ class CurrentLocationButton extends StatelessWidget {
             ),
           ),
         ),
-    );
+      );
 }
 
 class AnimatedLocationIcon extends StatefulWidget {
@@ -100,15 +103,18 @@ class AnimatedLocationIcon extends StatefulWidget {
   State<AnimatedLocationIcon> createState() => _AnimatedLocationIconState();
 }
 
-class _AnimatedLocationIconState extends State<AnimatedLocationIcon> with TickerProviderStateMixin {
+class _AnimatedLocationIconState extends State<AnimatedLocationIcon>
+    with TickerProviderStateMixin {
   late AnimationController _iconAnimationController;
   late Animation<double> _iconAnimation;
   @override
   void initState() {
     super.initState();
-    _iconAnimationController = AnimationController(vsync: this, duration: const Duration(milliseconds: 500))
+    _iconAnimationController = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 500))
       ..repeat(reverse: true);
-    _iconAnimation = Tween<double>(begin: 1, end: 2.3).animate(_iconAnimationController);
+    _iconAnimation =
+        Tween<double>(begin: 1, end: 2.3).animate(_iconAnimationController);
   }
 
   @override
@@ -119,17 +125,18 @@ class _AnimatedLocationIconState extends State<AnimatedLocationIcon> with Ticker
 
   @override
   Widget build(BuildContext context) => Stack(
-      alignment: Alignment.center,
-      children: [
-        ScaleTransition(
-          scale: _iconAnimation,
-          child: Container(
-            height: 6,
-            width: 6,
-            decoration: const BoxDecoration(color: green, shape: BoxShape.circle),
+        alignment: Alignment.center,
+        children: [
+          ScaleTransition(
+            scale: _iconAnimation,
+            child: Container(
+              height: 6,
+              width: 6,
+              decoration:
+                  const BoxDecoration(color: green, shape: BoxShape.circle),
+            ),
           ),
-        ),
-        SvgPicture.asset(AppIcons.currentLocation),
-      ],
-    );
+          SvgPicture.asset(AppIcons.currentLocation),
+        ],
+      );
 }

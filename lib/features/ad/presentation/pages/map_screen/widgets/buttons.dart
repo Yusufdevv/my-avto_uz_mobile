@@ -33,8 +33,16 @@ class PostingAdMapControllerButtons extends StatelessWidget {
               color: dividerColor,
             ),
             padding: const EdgeInsets.all(10),
+            shadow: [
+              BoxShadow(
+                  offset:const  Offset(0, 4),
+                  blurRadius: 10,
+                  spreadRadius: 0,
+                  color: profileContainers.withOpacity(.08))
+            ],
             child: SvgPicture.asset(
               AppIcons.plus,
+              height: 14,
               color: greyText,
             ),
           ),
@@ -52,10 +60,11 @@ class PostingAdMapControllerButtons extends StatelessWidget {
             child: SvgPicture.asset(
               AppIcons.minus,
               color: greyText,
+              height: 14,
             ),
           ),
-          const SizedBox(height: 28),
-          CurrentLocationButton(onCurrentLocationTap: onCurrentLocationTap)
+          // const SizedBox(height: 28),
+          // CurrentLocationButton(onCurrentLocationTap: onCurrentLocationTap)
         ],
       );
 }
