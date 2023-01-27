@@ -49,6 +49,7 @@ import 'package:auto/features/main/domain/usecases/get_top_brand.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/profile/presentation/profile_screen.dart';
 import 'package:auto/features/rent/domain/usecases/get_gearboxess_usecase.dart';
+import 'package:auto/generated/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -272,7 +273,7 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                   Navigator.pushReplacement(
                       context, fade(page: const ProfileScreen()));
                 }
-                  if (state.toastMessage != null &&
+                if (state.toastMessage != null &&
                     state.toastMessage!.isNotEmpty) {
                   context.read<ShowPopUpBloc>().add(
                       ShowPopUp(message: state.toastMessage!, isSucces: false));
@@ -287,10 +288,18 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                       PostingAdAppBar(
                         backgroundColor: white,
                         hasShadow: state.hasAppBarShadow,
-                        hasBackButton: currentTabIndex != 0,
                         onTapBack: () {
-                          if (widget.announcementId != null) {
-                            if (currentTabIndex > 10) {
+                          if (currentTabIndex != 0) {
+                            if (widget.announcementId != null) {
+                              if (currentTabIndex > 10) {
+                                --currentTabIndex;
+                                addEvent(currentTabIndex, state);
+                                pageController.animateToPage(currentTabIndex,
+                                    duration: const Duration(milliseconds: 150),
+                                    curve: Curves.linear);
+                                setState(() {});
+                              }
+                            } else {
                               --currentTabIndex;
                               addEvent(currentTabIndex, state);
                               pageController.animateToPage(currentTabIndex,
@@ -299,16 +308,12 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                               setState(() {});
                             }
                           } else {
-                            --currentTabIndex;
-                            addEvent(currentTabIndex, state);
-                            pageController.animateToPage(currentTabIndex,
-                                duration: const Duration(milliseconds: 150),
-                                curve: Curves.linear);
-                            setState(() {});
+                            print(
+                                '=> => => =>     I cannot get back still    <= <= <= <=');
                           }
                         },
                         title: currentTabIndex == 0
-                            ? ''
+                            ? 'Назад'
                             : tabs[currentTabIndex - 1],
                       ),
                       CompletionBar(
@@ -348,7 +353,7 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                         //3
                         const GenerationScreen(),
                         //4
-                        const CarcaseScreen(),
+                        const BodyTypeScreen(),
                         //5
                         const EngineScreen(),
                         //6

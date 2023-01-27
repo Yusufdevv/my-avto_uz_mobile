@@ -240,7 +240,7 @@ class _WTextFieldState extends State<WTextField>
                       cursorColor: widget.cursorColor ??
                           Theme.of(context).colorScheme.surface,
                       obscuringCharacter: '●',
-                      cursorHeight: 18,
+                      cursorHeight: 24,
                       onEditingComplete: widget.onEditCompleted,
                       onChanged: (s) {
                         setState(() => hasText = s.isNotEmpty);

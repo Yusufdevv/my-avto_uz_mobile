@@ -2,7 +2,6 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/const/constants.dart';
-import 'package:auto/features/ad/domain/entities/announcement/announcement_entity_to_post.dart';
 import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.dart';
 import 'package:auto/features/ad/presentation/bloc/pts/date_picker_bloc.dart';
 import 'package:auto/features/ad/presentation/pages/pts/widgets/pts_buttons.dart';
@@ -83,8 +82,10 @@ class _PtsScreenState extends State<PtsScreen> {
                       const SizedBox(height: 41),
                       Text(
                         'Какой вы владелец?',
-                        style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                            fontWeight: FontWeight.w600, fontSize: 16),
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline6!
+                            .copyWith(color: greyText),
                       ),
                       const SizedBox(height: 8),
                       Wrap(
@@ -105,8 +106,10 @@ class _PtsScreenState extends State<PtsScreen> {
                       const SizedBox(height: 41),
                       Text(
                         'Когда был куплен автомобиль?',
-                        style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                            fontWeight: FontWeight.w600, fontSize: 16),
+                      style:Theme.of(context)
+                            .textTheme
+                            .headline6!
+                            .copyWith(color: greyText),
                       ),
                       const SizedBox(
                         height: 17,

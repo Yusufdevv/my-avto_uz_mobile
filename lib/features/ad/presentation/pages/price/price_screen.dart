@@ -11,9 +11,10 @@ import 'package:auto/features/ad/presentation/widgets/rent_to_buy_sheet.dart';
 import 'package:auto/features/ad/presentation/widgets/rent_to_sale_info_box.dart';
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
 import 'package:auto/features/common/widgets/switcher_row_as_button_also.dart';
-import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/common/widgets/w_textfield.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -42,7 +43,7 @@ class _PriceScreenState extends State<PriceScreen> {
         child: BlocBuilder<PostingAdBloc, PostingAdState>(
           builder: (context, state) => Scaffold(
             body: BaseWidget(
-              headerText: 'Цена',
+              headerText: LocaleKeys.price.tr(),
               child: SingleChildScrollView(
                 padding: EdgeInsets.only(
                     bottom: MediaQuery.of(context).viewInsets.bottom + 60),
@@ -68,7 +69,7 @@ class _PriceScreenState extends State<PriceScreen> {
                         onChanged: (value) => context
                             .read<PostingAdBloc>()
                             .add(PostingAdChooseEvent(price: value)),
-                        title: 'Введите сумму',
+                        title: LocaleKeys.enter_price.tr(),
                         keyBoardType: TextInputType.number,
                         borderRadius: 12,
                         fillColor: Theme.of(context)
@@ -82,13 +83,27 @@ class _PriceScreenState extends State<PriceScreen> {
                             .fillColor,
                         suffixPadding: const EdgeInsets.all(0),
                         suffix: WScaleAnimation(
-                          onTap: () {},
+                          onTap: () async {
+                            await showModalBottomSheet<String>(
+                              useRootNavigator: false,
+                              isDismissible: false,
+                              context: context,
+                              isScrollControlled: true,
+                              barrierColor: Colors.black.withOpacity(.5),
+                              backgroundColor: Colors.transparent,
+                              builder: (c) => CurrencyChooseSheet(
+                                selected: state.currency,
+                              ),
+                            ).then((value) => context
+                                .read<PostingAdBloc>()
+                                .add(PostingAdChooseEvent(currency: value)));
+                          },
                           child: Container(
                             padding: const EdgeInsets.all(14),
                             decoration: BoxDecoration(
                                 color: Theme.of(context)
-                                    .extension<ThemedColors>()!
-                                    .solitudeToEclipse,
+                                    .extension<WTextFieldStyle>()!
+                                    .fillColor,
                                 borderRadius: const BorderRadius.horizontal(
                                   right: Radius.circular(12),
                                 ),
@@ -97,38 +112,20 @@ class _PriceScreenState extends State<PriceScreen> {
                                     color: Theme.of(context)
                                         .extension<WTextFieldStyle>()!
                                         .borderColor)),
-                            child: WButton(
-                              onTap: () async {
-                                await showModalBottomSheet<String>(
-                                  useRootNavigator: false,
-                                  isDismissible: false,
-                                  context: context,
-                                  isScrollControlled: true,
-                                  barrierColor: Colors.black.withOpacity(.5),
-                                  backgroundColor: Colors.transparent,
-                                  builder: (c) => CurrencyChooseSheet(
-                                    selected: state.currency,
-                                  ),
-                                ).then((value) => context
-                                    .read<PostingAdBloc>()
-                                    .add(
-                                        PostingAdChooseEvent(currency: value)));
-                              },
-                              color: Colors.transparent,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    state.currency,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .subtitle1!
-                                        .copyWith(color: greyText),
-                                  ),
-                                  const SizedBox(width: 4),
-                                  SvgPicture.asset(AppIcons.chevronDown)
-                                ],
-                              ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  state.currency,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .subtitle1!
+                                      .copyWith(color: greyText),
+                                ),
+                                const SizedBox(width: 4),
+                                SvgPicture.asset(AppIcons.chevronDown,
+                                    color: greyText)
+                              ],
                             ),
                           ),
                         ),
@@ -153,7 +150,7 @@ class _PriceScreenState extends State<PriceScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Стоимость такого же авто начинается с:',
+                                LocaleKeys.price_starting_from.tr(),
                                 style: Theme.of(context)
                                     .textTheme
                                     .headline2!
@@ -177,7 +174,10 @@ class _PriceScreenState extends State<PriceScreen> {
                         value: (state.rentToBuy ?? false) &&
                             state.rentWithPurchaseConditions.isNotEmpty,
                         onTap: () {
-                          if ((int.tryParse(priceController.text.replaceAll(' ', '')) ?? 0) > 0) {
+                          if ((int.tryParse(priceController.text
+                                      .replaceAll(' ', '')) ??
+                                  0) >
+                              0) {
                             showModalBottomSheet<RentWithPurchaseEntity>(
                                 useRootNavigator: true,
                                 isScrollControlled: true,
