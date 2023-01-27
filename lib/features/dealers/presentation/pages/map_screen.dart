@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/core/singletons/storage.dart';
@@ -7,6 +9,7 @@ import 'package:auto/features/dealers/data/models/map_model.dart';
 import 'package:auto/features/dealers/domain/usecases/get_directories_map_point_usecase.dart';
 import 'package:auto/features/dealers/domain/usecases/get_map_dealers.dart';
 import 'package:auto/features/dealers/presentation/blocs/map_organization/map_organization_bloc.dart';
+import 'package:auto/features/dealers/presentation/widgets/custom_point.dart';
 import 'package:auto/features/dealers/presentation/widgets/map_controller_buttons.dart';
 import 'package:auto/utils/my_functions.dart';
 import 'package:flutter/material.dart';
@@ -39,7 +42,6 @@ class _MapScreenState extends State<MapScreen>
 
   @override
   void initState() {
-    print('app log: init state');
     mapOrganizationBloc = MapOrganizationBloc(
         GetMapDealersUseCase(), GetDirectoriesMapPointUseCase());
     myPoint = const Point(latitude: 0, longitude: 0);
@@ -68,7 +70,6 @@ class _MapScreenState extends State<MapScreen>
               return isBuild;
             },
             listener: (context, state) {
-              print('app log: pre add dealer func');
               addDealer(
                 points: widget.isDirectoryPage
                     ? state.directoriesPoints
@@ -88,8 +89,6 @@ class _MapScreenState extends State<MapScreen>
                     rotateGesturesEnabled: false,
                     onCameraPositionChanged:
                         (cameraPosition, updateReason, isStopped) async {
-                      print(
-                          'app log: onCameraPositionChanged $isStopped, $cameraPosition');
                       if (isStopped) {
                         zoomLevel = cameraPosition.zoom;
                         mapOrganizationBloc.add(
@@ -106,13 +105,11 @@ class _MapScreenState extends State<MapScreen>
                       }
                     },
                     onMapTap: (point) {
-                      print('app log: onMapTap ${point.toString()}');
                       WidgetsBinding.instance.focusManager.primaryFocus
                           ?.unfocus();
                     },
                     mapObjects: _mapObjects,
                     onMapCreated: (controller) async {
-                      print('app log: onMapCreated');
                       _mapController = controller;
                       maxZoomLevel = await controller.getMaxZoom();
                       minZoomLevel = await controller.getMinZoom();
@@ -198,7 +195,6 @@ class _MapScreenState extends State<MapScreen>
                     padding: const EdgeInsets.all(16),
                     child: MapControllerButtons(
                       onCurrentLocationTap: () async {
-                        print('app log: onCurrentLocationTap');
                         mapOrganizationBloc.add(
                           MapOrganizationEvent.getCurrentLocation(
                             onSuccess: (position) async {
@@ -235,7 +231,6 @@ class _MapScreenState extends State<MapScreen>
                         zoomLevel = 15;
                       },
                       onMinusTap: () {
-                        print('app log: onMinusTap');
                         if (minZoomLevel < zoomLevel) {
                           _mapController.moveCamera(
                             CameraUpdate.zoomTo(zoomLevel - 1),
@@ -246,7 +241,6 @@ class _MapScreenState extends State<MapScreen>
                         }
                       },
                       onPlusTap: () async {
-                        print('app log: onPlusTap');
                         if (maxZoomLevel > zoomLevel) {
                           await _mapController.moveCamera(
                             CameraUpdate.zoomTo(zoomLevel + 1),
@@ -275,41 +269,45 @@ class _MapScreenState extends State<MapScreen>
     required double accuracy,
     required bool isDirectoryPage,
   }) async {
-    final iconData = await MyFunctions.getBytesFromCanvas(
-      placeCount: 0,
-      image:
-          isDirectoryPage ? AppIcons.directoryPoint : AppIcons.dealersLocIcon,
-      width: 170,
-      offset: const Offset(0, -30),
-      height: 410,
-      context: context,
-      shouldAddText: false,
-    );
-    final placeMarks = points
-        .map(
-          (e) => PlacemarkMapObject(
-            opacity: 1,
-            mapId: MapObjectId(e.latitude.toString()),
-            point: Point(latitude: e.latitude, longitude: e.longitude),
-            onTap: (object, point) {
-              _mapController.moveCamera(
-                CameraUpdate.newCameraPosition(
-                  CameraPosition(
-                    target: Point(latitude: e.latitude, longitude: e.longitude),
-                    zoom: 15,
-                  ),
-                ),
-              );
-            },
-            icon: PlacemarkIcon.single(
-              PlacemarkIconStyle(
-                scale: 0.6,
-                image: BitmapDescriptor.fromBytes(iconData),
+    final placeMarks = <PlacemarkMapObject>[];
+    for (final point in points) {
+      Uint8List? uint8list;
+      if (point.gallery.isNotEmpty || true) {
+        uint8list = await MyFunctions.createImageFromWidget(CustomPoint(
+          scale: 1.5,
+          url: point.gallery.first,
+        ));
+      }
+      placeMarks.add(PlacemarkMapObject(
+        opacity: 1,
+        mapId: MapObjectId(point.latitude.toString()),
+        point: Point(latitude: point.latitude, longitude: point.longitude),
+        onTap: (object, point) {
+          _mapController.moveCamera(
+            CameraUpdate.newCameraPosition(
+              CameraPosition(
+                target:
+                    Point(latitude: point.latitude, longitude: point.longitude),
+                zoom: 15,
               ),
             ),
+          );
+        },
+        icon: PlacemarkIcon.single(
+          PlacemarkIconStyle(
+            scale: 0.6,
+            image: uint8list != null
+                ? BitmapDescriptor.fromBytes(uint8list)
+                : BitmapDescriptor.fromAssetImage(
+                    isDirectoryPage
+                        ? AppIcons.directoryPoint
+                        : AppIcons.dealersLocIcon,
+                  ),
+            rotationType: RotationType.noRotation,
           ),
-        )
-        .toList();
+        ),
+      ));
+    }
 
     final myPoint = await MyFunctions.getMyPoint(point, context);
     final clusterItem = ClusterizedPlacemarkCollection(
@@ -349,6 +347,7 @@ class _MapScreenState extends State<MapScreen>
     mapObjects
       ..clear()
       ..addAll([clusterItem, myPoint]);
+    setState(() {});
   }
 
   @override

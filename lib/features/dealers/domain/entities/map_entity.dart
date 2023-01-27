@@ -18,6 +18,7 @@ class MapEntity extends Equatable {
   final int carCount;
   @RegionConverter()
   final RegionEntity district;
+  final List<String> gallery;
 
   const MapEntity({
     this.id = 0,
@@ -33,6 +34,7 @@ class MapEntity extends Equatable {
     this.latitude = 0.0,
     this.carCount = 0,
     this.district = const RegionEntity(),
+    this.gallery = const [],
   });
 
   @override
@@ -50,6 +52,7 @@ class MapEntity extends Equatable {
     latitude,
     carCount,
     district,
+    gallery,
   ];
 }
 

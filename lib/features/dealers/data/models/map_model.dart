@@ -20,6 +20,7 @@ class MapModel extends MapEntity {
     required super.latitude,
     required super.carCount,
     required super.district,
+    required super.gallery,
   });
 
   factory MapModel.fromJson(Map<String, dynamic> json) =>
