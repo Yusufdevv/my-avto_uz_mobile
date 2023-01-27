@@ -272,7 +272,7 @@ class _MapScreenState extends State<MapScreen>
     final placeMarks = <PlacemarkMapObject>[];
     for (final point in points) {
       Uint8List? uint8list;
-      if (point.gallery.isNotEmpty || true) {
+      if (point.gallery.isNotEmpty) {
         uint8list = await MyFunctions.createImageFromWidget(CustomPoint(
           scale: 1.5,
           url: point.gallery.first,
