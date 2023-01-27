@@ -2,9 +2,7 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/features/common/bloc/regions/regions_bloc.dart';
 import 'package:auto/features/common/models/region.dart';
-import 'package:auto/features/common/widgets/region_bottom_sheet.dart';
 import 'package:auto/features/login/presentation/bloc/register/register_bloc.dart';
-import 'package:auto/features/login/presentation/widgets/regions_bottomsheet.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/rent_choose_region_bottom_sheet.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -91,20 +89,14 @@ class _RegionButtonState extends State<RegionButton> {
                                         fontWeight: FontWeight.w400)
                                 : Theme.of(context)
                                     .textTheme
-                                    .subtitle1!
-                                    .copyWith(fontSize: 15),
+                                    .headline2
+                                    ?.copyWith(color: dark),
                           ),
-                          SvgPicture.asset(
-                            AppIcons.chevronRight,
-                            height: 20,
-                            width: 20,
-                            color: Colors.black,
-                          )
+                          SvgPicture.asset(AppIcons.chevronRight,
+                              height: 20, width: 20, color: Colors.black)
                         ],
                       ),
-                      const SizedBox(
-                        height: 12,
-                      ),
+                      const SizedBox(height: 12),
                       const Divider(
                         height: 1,
                         color: dividerColor,

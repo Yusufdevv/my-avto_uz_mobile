@@ -25,7 +25,7 @@ import 'package:auto/features/common/repository/add_wishlist_repository.dart';
 import 'package:auto/features/common/repository/auth.dart';
 import 'package:auto/features/common/usecases/add_wishlist_usecase.dart';
 import 'package:auto/features/common/usecases/announcement_list_usecase.dart';
-import 'package:auto/features/common/usecases/get_regions.dart';
+import 'package:auto/features/common/usecases/get_regions_usecase.dart';
 import 'package:auto/features/comparison/data/repositories/comparison_cars_repo_impl.dart';
 import 'package:auto/features/comparison/domain/usecases/comparison_add_use_case.dart';
 import 'package:auto/features/comparison/domain/usecases/delete_comparison.dart';
@@ -120,7 +120,7 @@ class _AppState extends State<App> {
                 AuthenticationBloc(AuthRepository())..add(CheckUser()),
           ),
           BlocProvider(
-            create: (context) => RegionsBloc(GetRegionsUseCase())
+            create: (context) => RegionsBloc()
               ..add(RegionsEvent.getRegions()),
           ),
           BlocProvider(
@@ -191,7 +191,6 @@ class _AppState extends State<App> {
                           .isNotEmpty) {
                         navigator.pushAndRemoveUntil(
                             fade(page: const HomeScreen()), (route) => false);
-
                         break;
                       }
                       if (!StorageRepository.getBool('onboarding',

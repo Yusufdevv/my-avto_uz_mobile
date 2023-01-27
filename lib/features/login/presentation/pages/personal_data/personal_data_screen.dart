@@ -134,7 +134,9 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
                                                             .toLowerCase()
                                                             .contains(
                                                                 'dioerror')) {
-                                                          error = LocaleKeys.service_error.tr();
+                                                          error = LocaleKeys
+                                                              .service_error
+                                                              .tr();
                                                         }
                                                         context
                                                             .read<

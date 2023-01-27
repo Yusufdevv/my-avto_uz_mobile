@@ -1,5 +1,6 @@
+import 'package:auto/core/usecases/usecase.dart';
 import 'package:auto/features/common/models/region.dart';
-import 'package:auto/features/common/usecases/get_regions.dart';
+import 'package:auto/features/common/usecases/get_regions_usecase.dart';
 import 'package:bloc/bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -11,19 +12,17 @@ part 'regions_state.dart';
 part 'regions_bloc.freezed.dart';
 
 class RegionsBloc extends Bloc<RegionsEvent, RegionsState> {
-  final GetRegionsUseCase getRegions;
+  final GetRegionsUseCase getRegionsUseCase = GetRegionsUseCase();
 
-  RegionsBloc(this.getRegions) : super(RegionsState()) {
+  RegionsBloc() : super(RegionsState()) {
     on<_GetRegions>((event, emit) async {
       emit(state.copyWith(status: FormzStatus.submissionInProgress));
-      final result = await getRegions('');
+      final result = await getRegionsUseCase.call(NoParams());
 
       if (result.isRight) {
         emit(state.copyWith(
-            status: FormzStatus.submissionSuccess,
-            regions: result.right.results));
+            status: FormzStatus.submissionSuccess, regions: result.right));
       } else {
-        print('isLeft142');
         emit(state.copyWith(status: FormzStatus.submissionFailure));
       }
     });
