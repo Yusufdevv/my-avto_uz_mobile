@@ -16,14 +16,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:formz/formz.dart';
 
-class MyAddsPage extends StatefulWidget {
-  const MyAddsPage({Key? key}) : super(key: key);
+class MyAdsPage extends StatefulWidget {
+  const MyAdsPage({Key? key}) : super(key: key);
 
   @override
-  State<MyAddsPage> createState() => _MyAddsPageState();
+  State<MyAdsPage> createState() => _MyAdsPageState();
 }
 
-class _MyAddsPageState extends State<MyAddsPage> {
+class _MyAdsPageState extends State<MyAdsPage> {
   late UserWishListsBloc bloc;
 
   @override

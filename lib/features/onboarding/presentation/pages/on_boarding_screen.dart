@@ -126,13 +126,21 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                   },
                   children: [
                     OnBoardingPageItems(
-                        icon: AppImages.flash,
-                        title: LocaleKeys.easy_send.tr(),
-                        image: AppImages.firstImage),
+                      icon: AppImages.flash,
+                      title: LocaleKeys.easy_send.tr(),
+                      image: AppImages.firstImage,
+                      polygonIcon: true,
+                      rightPosition: 41,
+                      bottomPosition: 70,
+                    ),
                     OnBoardingPageItems(
-                        icon: AppImages.done,
-                        title: LocaleKeys.trusted_car_dealers.tr(),
-                        image: AppImages.secondImage),
+                      icon: AppImages.done,
+                      title: LocaleKeys.trusted_car_dealers.tr(),
+                      image: AppImages.secondImage,
+                      polygonIcon: true,
+                      rightPosition: 15,
+                      topPosition: 90,
+                    ),
                     if (isLangRus())
                       OnBoardingPageItems(
                         icon: AppImages.omg,
@@ -143,11 +151,12 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                       )
                     else
                       UzOnBoardingPageItems(
-                          icon: AppImages.omg,
-                          title: LocaleKeys.more_than.tr(),
-                          image: AppImages.thirdImage,
-                          secondText: '10 000 ',
-                          thirdText: LocaleKeys.offers.tr()),
+                        icon: AppImages.omg,
+                        title: LocaleKeys.more_than.tr(),
+                        image: AppImages.thirdImage,
+                        secondText: '10 000 ',
+                        thirdText: LocaleKeys.offers.tr(),
+                      ),
                   ],
                 ),
               ),

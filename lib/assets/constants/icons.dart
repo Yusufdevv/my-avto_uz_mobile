@@ -70,6 +70,7 @@ class AppIcons {
   static const purpleOval = 'assets/icons/global/purple_oval.svg';
   static const blueOval = 'assets/icons/global/blue_oval.svg';
   static const polygon = 'assets/icons/global/polygon.svg';
+  static const purplePolygon = 'assets/icons/global/purplePolygon.svg';
   static const orangePolygon = 'assets/icons/global/orange_polygon.svg';
   static const arrowRight = 'assets/icons/global/arrow_right.svg';
   static const russia = 'assets/icons/global/russia.svg';

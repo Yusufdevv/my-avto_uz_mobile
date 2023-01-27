@@ -120,7 +120,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               name: LocaleKeys.my_ads.tr(),
                               onTap: () {
                                 Navigator.of(context)
-                                    .push(fade(page: const MyAddsPage()));
+                                    .push(fade(page: const MyAdsPage()));
                               },
                               iconPath: AppIcons.tabletNews,
                               count: usercountData.announcementsCount),
