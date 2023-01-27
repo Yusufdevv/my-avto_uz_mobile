@@ -17,9 +17,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yandex_mapkit/yandex_mapkit.dart';
 
 class MapScreenPostingAd extends StatefulWidget {
-  final ValueChanged<String> onMapTap;
 
-  const MapScreenPostingAd({required this.onMapTap, Key? key})
+  const MapScreenPostingAd({Key? key})
       : super(key: key);
 
   @override
@@ -81,7 +80,7 @@ class _MapScreenPostingAdState extends State<MapScreenPostingAd>
                       .copyWith(fontWeight: FontWeight.w600, fontSize: 16),
                 )),
             body: BlocBuilder<MapBloc, MapState>(
-              builder: (context, mapState) => Stack(
+              builder: (context, state) => Stack(
                 children: [
                   Positioned.fill(
                     top: -24,
@@ -106,8 +105,6 @@ class _MapScreenPostingAdState extends State<MapScreenPostingAd>
                       onMapTap: (point) async {
                         print(
                             '=> => => =>   ${point.latitude} / ${point.latitude}       <= <= <= <=');
-                        widget.onMapTap(
-                            'https://yandex.com/maps/10335/tashkent/?ll=${point.longitude}%2C${point.latitude}&z=$zoomLevel');
 
                         final camera = await _mapController.getCameraPosition();
 
@@ -278,12 +275,14 @@ class _MapScreenPostingAdState extends State<MapScreenPostingAd>
                     ),
                   ),
                   Positioned(
-                      bottom: 0,
-                      child: PostingAdSubmitBox(
-                        onTab: mapState.lat == 0
-                            ? null
-                            : () => Navigator.of(context).pop(),
-                      ))
+                    bottom: 0,
+                    child: PostingAdSubmitBox(
+                      onTab: state.lat == 0
+                          ? null
+                          : () => Navigator.of(context).pop(
+                              'https://yandex.com/maps/10335/tashkent/?ll=${state.long}%2C${state.lat}&z=$zoomLevel'),
+                    ),
+                  ),
                 ],
               ),
             ),

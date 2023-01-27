@@ -148,8 +148,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
           ownerEmail: state.userModel?.email,
           ownerName: state.userModel?.fullName,
           ownerPhone: state.userModel?.phoneNumber.substring(4),
-             showOwnerContacts: true,
-                                    
+          showOwnerContacts: true,
           isContactsVerified: true,
           status: FormzStatus.submissionSuccess));
       return;
@@ -169,7 +168,6 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
         ownerName: result.right.fullName,
         ownerPhone: result.right.phoneNumber.substring(4),
         userModel: result.right,
-  
       ));
     } else {
       emit(
@@ -255,7 +253,11 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
         ),
       );
     } else {
-      emit(state.copyWith(status: FormzStatus.submissionFailure,toastMessage: (result.left is ServerFailure)? (result.left as ServerFailure).errorMessage:result.left.toString()));
+      emit(state.copyWith(
+          status: FormzStatus.submissionFailure,
+          toastMessage: (result.left is ServerFailure)
+              ? (result.left as ServerFailure).errorMessage
+              : result.left.toString()));
     }
   }
 
@@ -268,11 +270,11 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
 
   FutureOr<void> _create(
       PostingAdCreateEvent event, Emitter<PostingAdState> emit) async {
-    emit(state.copyWith(status: FormzStatus.submissionInProgress));
+    emit(state.copyWith(createStatus: FormzStatus.submissionInProgress));
     final result = await createUseCase.call(await PASingleton.create(state));
     if (result.isRight) {
       print('=> => => =>     RIGHT RIGHT RIGHT RIGHT       <= <= <= <=');
-      emit(state.copyWith(status: FormzStatus.submissionSuccess));
+      emit(state.copyWith(createStatus: FormzStatus.submissionSuccess));
     } else {
       final err = (result.left is ServerFailure)
           ? (result.left as ServerFailure).errorMessage
@@ -281,8 +283,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
       print(
           '=> => => =>     LEFT LEFT LEFT LEFT LEFT   ${result.left}  toast: $err <= <= <= <=');
       emit(state.copyWith(
-          status: FormzStatus.submissionFailure,
-          toastMessage: err));
+          createStatus: FormzStatus.submissionFailure, toastMessage: err));
     }
   }
 
