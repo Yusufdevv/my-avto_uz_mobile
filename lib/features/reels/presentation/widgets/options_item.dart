@@ -74,19 +74,7 @@ class _OptionsItemState extends State<OptionsItem>
         child: Column(
           children: [
             WScaleAnimation(
-              onTap: () {
-                context.read<ReelsBloc>().add(ReelsLike(
-                    context.read<ReelsBloc>().state.reels[widget.index].id,
-                    widget.index));
-                setState(() {
-                  isLiked = !isLiked;
-                  if (isLiked) {
-                    ++countLike;
-                  } else {
-                    --countLike;
-                  }
-                });
-              },
+              onTap: widget.onTapLike,
               child: Padding(
                 padding: const EdgeInsets.only(bottom: 10),
                 child: Column(

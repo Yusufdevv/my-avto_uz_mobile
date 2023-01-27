@@ -61,15 +61,14 @@ class ReelsBloc extends Bloc<ReelsEvent, ReelsState> {
     final result = await reelsLikeUseCase.call(event.id);
     if (result.isRight) {
       final reel = state.reels[event.index];
+      ReelEntity r;
       if (reel.isLiked) {
-        reel.isLiked = false;
-        reel.likeCount--;
+        r = reel.copyWith(likeCount: reel.likeCount - 1, isLiked: false);
       } else {
-        reel.isLiked = true;
-        reel.likeCount++;
+        r = reel.copyWith(likeCount: reel.likeCount + 1, isLiked: true);
       }
       final list = <ReelEntity>[...state.reels];
-      list[event.index] = reel;
+      list[event.index] = r;
       emit(state.copWith(reels: list));
     }
   }
@@ -78,9 +77,9 @@ class ReelsBloc extends Bloc<ReelsEvent, ReelsState> {
     final result = await reelsShareUsecase.call(event.id);
     if (result.isRight) {
       final reel = state.reels[event.index];
-      reel.shareCount = result.right.reel;
+      final r = reel.copyWith(shareCount: reel.shareCount + 1);
       final list = <ReelEntity>[...state.reels];
-      list[event.index] = reel;
+      list[event.index] = r;
       emit(state.copWith(reels: list));
     }
   }

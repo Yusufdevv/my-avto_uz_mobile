@@ -55,8 +55,7 @@ class _ReelsScreenState extends State<ReelsScreen> {
         !bloc.state.statusReelsGet.isSubmissionInProgress &&
         bloc.state.hasNext) {
       bloc.add(GetMoreReelsEvent(
-          isFromMain: widget.isFromMain,
-          offset: bloc.state.reels.length - 1));
+          isFromMain: widget.isFromMain, offset: bloc.state.reels.length - 1));
     }
   }
 
@@ -100,7 +99,7 @@ class _ReelsScreenState extends State<ReelsScreen> {
                           reel: state.reels[index],
                           isLiked: state.reels[index].isLiked,
                           onTapLike: () {
-                            // bloc.add(ReelsLike(state.reels[index].id, index));
+                            bloc.add(ReelsLike(state.reels[index].id, index));
                           },
                           pageIndex: index,
                           currentPageIndex: _currentPage,
