@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/core/utils/either.dart';
 import 'package:auto/features/ad/data/models/announcement_filter.dart';
@@ -15,9 +17,12 @@ import 'package:auto/features/pagination/models/generic_pagination.dart';
 import 'package:dio/dio.dart';
 
 abstract class AdRepository {
+  Future<Either<Failure, String>> getMapScreenShot(
+      {required Map<String, String> params});
   Future<Either<Failure, bool>> verify({required Map<String, String> params});
 
-  Future<Either<Failure, num>> getMinimumPrice({required Map<String, dynamic> params});
+  Future<Either<Failure, num>> getMinimumPrice(
+      {required Map<String, dynamic> params});
   Future<Either<Failure, String>> sendCode({required String phone});
   Future<Either<Failure, GenericPagination<MakeEntity>>> getTopMakes(
       {String? next});

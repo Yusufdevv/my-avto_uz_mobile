@@ -2,6 +2,14 @@ part of 'posting_ad_bloc.dart';
 
 abstract class PostingAdEvent {}
 
+class PostingAdGetMapScreenShotEvent extends PostingAdEvent {
+  final double lat;
+  final double long;
+  final double zoomLevel;
+  PostingAdGetMapScreenShotEvent(
+      {required this.lat, required this.long, required this.zoomLevel});
+}
+
 class PostingAdGetYearsEvent extends PostingAdEvent {}
 
 class PostingAdClearControllersEvent extends PostingAdEvent {}
@@ -81,7 +89,6 @@ class PostingAdChooseEvent extends PostingAdEvent {
   final int? districtId;
   final List<RentWithPurchaseEntity>? rentWithPurchaseConditions;
   final Map<DamagedParts, DamageType>? damagedParts;
-  final Uint8List? bodyBytes;
   final int? modelId;
   final int? generationId;
 
@@ -92,6 +99,7 @@ class PostingAdChooseEvent extends PostingAdEvent {
   final int? driveTypeId;
   final int? gearboxId;
   final int? yearId;
+  final String? bodyBytes;
   final String? letter;
   final String? colorName;
   final String? typeDocument;

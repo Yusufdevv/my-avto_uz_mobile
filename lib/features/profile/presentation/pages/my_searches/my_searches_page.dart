@@ -2,7 +2,7 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/core/utils/size_config.dart';
-import 'package:auto/features/ads/presentation/pages/ads_screen.dart';
+import 'package:auto/features/common/bloc/ads/presentation/pages/ads_screen.dart';
 import 'package:auto/features/common/bloc/announcement_bloc/bloc/announcement_list_bloc.dart';
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
 import 'package:auto/features/common/widgets/custom_screen.dart';

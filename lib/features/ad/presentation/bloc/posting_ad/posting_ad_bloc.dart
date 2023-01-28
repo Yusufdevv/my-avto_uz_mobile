@@ -22,6 +22,7 @@ import 'package:auto/features/ad/domain/usecases/get_drive_type.dart';
 import 'package:auto/features/ad/domain/usecases/get_engine_type.dart';
 import 'package:auto/features/ad/domain/usecases/get_generation.dart';
 import 'package:auto/features/ad/domain/usecases/get_makes.dart';
+import 'package:auto/features/ad/domain/usecases/get_map_screenshot_usecase.dart';
 import 'package:auto/features/ad/domain/usecases/get_years.dart';
 import 'package:auto/features/ad/domain/usecases/minimum_price_usecase.dart';
 import 'package:auto/features/car_single/domain/entities/car_single_entity.dart';
@@ -48,6 +49,7 @@ part 'posting_ad_state.dart';
 part 'singleton_of_posting_ad_bloc.dart';
 
 class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
+  final GetMapScreenShotUseCase screenShotUseCase;
   final GetYearsUseCase getYearsUseCase;
   final CreateAnnouncementUseCase createUseCase;
   final AuthRepository userRepository;
@@ -67,6 +69,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
   final GetBodyTypeUseCase bodyTypesUseCase;
 
   PostingAdBloc({
+    required this.screenShotUseCase,
     required this.getYearsUseCase,
     required this.userRepository,
     required this.verifyCodeUseCase,
@@ -111,7 +114,25 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     on<PostingAdGetUserDataEvent>(_getUser);
     on<PostingAdClearControllersEvent>(_clearControllers);
     on<PostingAdGetYearsEvent>(_getYears);
+    on<PostingAdGetMapScreenShotEvent>(_screenShot);
   }
+  FutureOr<void> _screenShot(PostingAdGetMapScreenShotEvent event,
+      Emitter<PostingAdState> emit) async {
+    emit(state.copyWith(
+        status: FormzStatus.submissionInProgress,
+        locationUrl:
+            'https://yandex.com/maps/10335/tashkent/?ll=${event.long}%2C${event.lat}&z=${event.zoomLevel}'));
+    final result = await screenShotUseCase
+        .call({'longitude': '69.276800', 'latitude': '41.294725'});
+    if (result.isRight) {
+      print(
+          '=> => => =>     SCREENSHOT RIGHT  RIGHT  RIGHT  RIGHT      <= <= <= <=');
+      emit(state.copyWith(status: FormzStatus.submissionSuccess,mapPointBytes: result.right));
+    } else {
+      emit(state.copyWith(status: FormzStatus.submissionFailure));
+    }
+  }
+
   FutureOr<void> _getYears(
       PostingAdGetYearsEvent event, Emitter<PostingAdState> emit) async {
     emit(state.copyWith(status: FormzStatus.submissionInProgress));

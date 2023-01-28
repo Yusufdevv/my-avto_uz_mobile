@@ -176,6 +176,7 @@ class _ContactScreenState extends State<ContactScreen> {
                               hintText: LocaleKeys.add_email.tr(),
                               borderRadius: 12,
                               validate: (value) {
+                                if (value?.isEmpty ?? true) return null;
                                 if ((value?.isNotEmpty ?? false) &&
                                     (value == null ||
                                         value.isEmpty ||

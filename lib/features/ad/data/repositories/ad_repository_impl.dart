@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:auto/core/exceptions/exceptions.dart';
 import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/core/utils/either.dart';
@@ -373,6 +375,21 @@ class AdRepositoryImpl extends AdRepository {
       {required Map<String, dynamic> params}) async {
     try {
       final result = await remoteDataSource.getMinimumPrice(params);
+      return Right(result);
+    } on DioException {
+      return Left(DioFailure());
+    } on ParsingException catch (e) {
+      return Left(ParsingFailure(errorMessage: e.errorMessage));
+    } on ServerException catch (e) {
+      return Left(ServerFailure(
+          errorMessage: e.errorMessage, statusCode: e.statusCode));
+    }
+  }
+
+  @override
+  Future<Either<Failure, String>> getMapScreenShot({required Map<String, String> params}) async{
+    try {
+      final result = await remoteDataSource.getMapScreenShot(params);
       return Right(result);
     } on DioException {
       return Left(DioFailure());

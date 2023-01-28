@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:auto/features/ad/domain/entities/district_entity.dart';
 
 import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.dart';
@@ -131,14 +133,17 @@ class _InspectionPlaceScreenState extends State<InspectionPlaceScreen> {
                   ),
 
                   const SizedBox(height: 17),
-                  if (state.bodyBytes != null) ...{
-                    SizedBox(
+                  if (state.mapPointBytes != null) ...{
+                    Container(
                       height: 200,
                       width: 343,
-                      child: Image.memory(
-                        state.bodyBytes!,
+                      decoration: BoxDecoration(
+                          image: DecorationImage(
+                        image: MemoryImage(
+                          base64.decode(state.mapPointBytes!),
+                        ),
                         fit: BoxFit.cover,
-                      ),
+                      )),
                     ),
                     const SizedBox(height: 17),
                   },
