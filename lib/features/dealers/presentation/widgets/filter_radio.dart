@@ -1,6 +1,5 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
-import 'package:auto/features/dealers/presentation/pages/dealers_filter.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +24,6 @@ class FilterRadio extends StatelessWidget {
         return LocaleKeys.news.tr();
       case 'used':
         return LocaleKeys.with_Mileage.tr();
-
     }
   }
 
@@ -37,8 +35,8 @@ class FilterRadio extends StatelessWidget {
         behavior: HitTestBehavior.opaque,
         child: AnimatedContainer(
           height: 36,
-          padding: const EdgeInsets.only(
-            right: 12,
+          padding: const EdgeInsets.symmetric(
+            horizontal: 12,
           ),
           decoration: BoxDecoration(
             color: currentValue == value
@@ -57,14 +55,19 @@ class FilterRadio extends StatelessWidget {
           duration: const Duration(milliseconds: 200),
           child: Row(
             children: [
-              Radio(
-                  splashRadius: 0,
-                  activeColor: purple,
-                  value: value,
-                  groupValue: currentValue,
-                  onChanged: (String? radioValue) {
-                    onChanged(radioValue ?? value);
-                  }),
+              SizedBox(
+                height: 20,
+                width: 20,
+                child: Radio(
+                    splashRadius: 0,
+                    activeColor: purple,
+                    value: value,
+                    groupValue: currentValue,
+                    onChanged: (String? radioValue) {
+                      onChanged(radioValue ?? value);
+                    }),
+              ),
+              const SizedBox(width: 8),
               Text(
                 getCategory(value) ?? '',
                 style: TextStyle(
