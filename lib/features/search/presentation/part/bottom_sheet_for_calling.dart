@@ -19,7 +19,6 @@ Future<dynamic> bottomSheetForCalling(BuildContext context, String phone) =>
               child: Column(
                 children: [
                   WScaleAnimation(
-                    
                     child: Container(
                       height: 60,
                       width: double.maxFinite,
@@ -48,7 +47,9 @@ Future<dynamic> bottomSheetForCalling(BuildContext context, String phone) =>
                       ),
                     ),
                     onTap: () {
-                      launchUrlString('tel: $phone');
+                      if (phone.isNotEmpty) {
+                        launchUrlString('tel: $phone');
+                      }
                     },
                   ),
                   WScaleAnimation(

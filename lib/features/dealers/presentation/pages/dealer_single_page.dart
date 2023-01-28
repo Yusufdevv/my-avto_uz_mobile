@@ -71,7 +71,6 @@ class _DealerSinglePageState extends State<DealerSinglePage> {
   @override
   void dispose() {
     dealerSingleBloc.close();
-    marksBloc.close();
     super.dispose();
   }
 
@@ -206,19 +205,6 @@ class _DealerSinglePageState extends State<DealerSinglePage> {
                                                   .marks[index].make.name,
                                             ),
                                           )
-
-                                          // List.generate(
-                                          //   marksInDealerState.marks.length,
-                                          //   (index) =>
-                                          // MarksWithAnnouncements(
-                                          //     quantity: marksInDealerState
-                                          //         .marks[index].carsCount,
-                                          //     imageUrl: marksInDealerState
-                                          //         .marks[index].make.logo,
-                                          //     mark: marksInDealerState
-                                          //         .marks[index].make.name,
-                                          //   ),
-                                          // ),
                                           )
                                       : const SizedBox()),
                           BlocBuilder<CarsInDealerBloc, CarsInDealerState>(

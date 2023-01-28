@@ -19,8 +19,8 @@ class AllCarsInDealerScreen extends StatefulWidget {
   final String slug;
 
   const AllCarsInDealerScreen({
-    Key? key,
     required this.slug,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -45,7 +45,6 @@ class _AllCarsInDealerScreenState extends State<AllCarsInDealerScreen> {
             cars: CarsInDealerRepositoryImpl(
                 dataSource: CarsInDealerDataSource(DioSettings().dio))))
       ..add(CarsInDealerEvent.getResults(slug: widget.slug));
-    // TODO: implement initState
     super.initState();
   }
 

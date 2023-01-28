@@ -28,17 +28,17 @@ class _SingleImagePartState extends State<SingleImagePart> {
   @override
   Widget build(BuildContext context) => GestureDetector(
         onTap: () {
-          widget.images.isNotEmpty
-              ? Navigator.of(context).push(fade(
-                  page: ImagesPage(
-                  count: widget.count,
-                  images: widget.images,
-                )))
-              : () {};
+          if (widget.images.isNotEmpty) {
+            Navigator.of(context).push(fade(
+                page: ImagesPage(
+              count: widget.count,
+              images: widget.images,
+            )));
+          }
         },
         child: Stack(
           children: [
-            Container(
+            SizedBox(
               child: PageView.builder(
                 controller: pageController,
                 scrollDirection: Axis.horizontal,
@@ -58,12 +58,25 @@ class _SingleImagePartState extends State<SingleImagePart> {
                     ),
                   ),
                   child: widget.images.isEmpty
-                      ? SvgPicture.asset(AppIcons.defalut)
+                      ? SizedBox(
+                          width: double.maxFinite,
+                          height: 340,
+                          child: SvgPicture.asset(
+                            AppIcons.defalut,
+                            fit: BoxFit.cover,
+                          ))
                       : CachedNetworkImage(
                           imageUrl: widget.images[index],
                           width: double.maxFinite,
                           height: 340,
                           fit: BoxFit.cover,
+                          errorWidget: (context, url, error) => SizedBox(
+                              width: double.maxFinite,
+                              height: 340,
+                              child: SvgPicture.asset(
+                                AppIcons.defalut,
+                                fit: BoxFit.cover,
+                              )),
                         ),
                 ),
               ),

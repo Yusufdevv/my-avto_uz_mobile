@@ -2,9 +2,7 @@ import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/dealers/presentation/pages/image_in_full_screen.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class AnimatedImages extends StatefulWidget {
   final double screenWidth;
@@ -163,7 +161,11 @@ class _AnimatedImagesState extends State<AnimatedImages>
                                     imageUrl: widget.images[index],
                                     width: double.maxFinite,
                                     height: 340,
-                                    fit: BoxFit.cover),
+                                    fit: BoxFit.cover,
+                                    errorWidget: (context, url, error) =>
+                                        Image.asset(AppImages.diler,
+                                            fit: BoxFit.cover),
+                                  ),
                           )),
             ),
             Positioned(

@@ -1,11 +1,9 @@
-import 'package:auto/assets/themes/light.dart';
 import 'package:auto/features/ads/presentation/widgets/ads_item_shimmer.dart';
 import 'package:auto/features/ads/presentation/widgets/no_data_widget.dart';
 import 'package:auto/features/car_single/presentation/car_single_screen.dart';
 import 'package:auto/features/commercial/presentation/widgets/info_container.dart';
 import 'package:auto/features/common/bloc/announcement_bloc/bloc/announcement_list_bloc.dart';
 import 'package:auto/features/comparison/domain/entities/announcement_list_entity.dart';
-import 'package:auto/features/main/presentation/widgets/ads_shimmer.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/pagination/presentation/paginator.dart';
 import 'package:auto/utils/my_functions.dart';

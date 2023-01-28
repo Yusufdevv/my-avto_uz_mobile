@@ -179,7 +179,6 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                                 ),
                               ).then((value) {
                                 if (value == true) {
-                                  print('FALSE VALUE IS --> ${value}');
                                   Navigator.pop(context);
                                   bloc.add(
                                     CarSingleEvent.soldAds(
@@ -191,7 +190,6 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                                                 isSucces: true));
                                       },
                                       (errorMessage) {
-                                        print('popup --error');
                                         context.read<ShowPopUpBloc>().add(
                                             ShowPopUp(
                                                 message: state.errorMessage,

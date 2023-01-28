@@ -46,13 +46,17 @@ class DirectorySliverDelegate extends SliverPersistentHeaderDelegate {
           ),
           Positioned(
               top: 60,
-              left: 16,
+              left: 0,
               child: GestureDetector(
+                  behavior: HitTestBehavior.opaque,
                   onTap: () {
                     Navigator.pop(context);
                   },
-                  child:
-                      SvgPicture.asset(AppIcons.chevronLeft, color: solitude))),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child:
+                        SvgPicture.asset(AppIcons.chevronLeft, color: solitude),
+                  ))),
           Positioned(
             bottom: 0,
             right: 0,

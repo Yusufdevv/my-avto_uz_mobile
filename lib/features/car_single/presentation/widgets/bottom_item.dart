@@ -2,6 +2,7 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/features/car_single/presentation/bloc/car_single_bloc.dart';
+import 'package:auto/features/car_single/presentation/pages/user_single_page.dart';
 import 'package:auto/features/car_single/presentation/widgets/dealer_time_botomsheet.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
@@ -136,7 +137,9 @@ class _BottomItemState extends State<BottomItem>
           WScaleAnimation(
             onTap: () {
               widget.usertype == 'owner'
-                  ? Navigator.of(context).push(fade(page: const DealerScreen()))
+                  ? Navigator.of(context).push(fade(
+                      page:
+                          const UserSinglePage(slug: 'sardor-avto-invest-chp')))
                   : Navigator.of(context)
                       .push(fade(page: DealerSinglePage(slug: widget.slug)));
             },

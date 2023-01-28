@@ -120,6 +120,7 @@ abstract class  LocaleKeys {
   static const more_than = 'more_than';
   static const offers = 'offers';
   static const offers1 = 'offers1';
+  static const neww = 'neww';
   static const enter_to_system = 'enter_to_system';
   static const another_ways = 'another_ways';
   static const hello = 'hello';

@@ -26,8 +26,8 @@ class CarsInDealerEntity extends Equatable {
   final String contactAvailableFrom;
   final String contactAvailableTo;
   final String locationUrl;
-  final int longitude;
-  final int latitude;
+  final double longitude;
+  final double latitude;
   final int distanceTraveled;
   final String mileageImage;
   final String registrationVin;

@@ -12,8 +12,8 @@ CarsInDealerModel _$CarsInDealerModelFromJson(Map<String, dynamic> json) =>
       make: json['make'] as int? ?? 0,
       district: json['district'] as int? ?? 0,
       description: json['description'] as String? ?? '',
-      latitude: json['latitude'] as int? ?? 0,
-      longitude: json['longitude'] as int? ?? 0,
+      latitude: (json['latitude'] as num?)?.toDouble() ?? 0,
+      longitude: (json['longitude'] as num?)?.toDouble() ?? 0,
       price: json['price'] as String? ?? '',
       locationUrl: json['location_url'] as String? ?? '',
       gallery: (json['gallery'] as List<dynamic>?)
