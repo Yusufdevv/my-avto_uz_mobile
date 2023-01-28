@@ -123,11 +123,11 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
         locationUrl:
             'https://yandex.com/maps/10335/tashkent/?ll=${event.long}%2C${event.lat}&z=${event.zoomLevel}'));
     final result = await screenShotUseCase
-        .call({'longitude': '${event.long}', 'latitude': '${event.lat}'});
+        .call({'longitude': '69.276800', 'latitude': '41.294725'});
     if (result.isRight) {
       print(
           '=> => => =>     SCREENSHOT RIGHT  RIGHT  RIGHT  RIGHT      <= <= <= <=');
-      emit(state.copyWith(status: FormzStatus.submissionSuccess));
+      emit(state.copyWith(status: FormzStatus.submissionSuccess,mapPointBytes: result.right));
     } else {
       emit(state.copyWith(status: FormzStatus.submissionFailure));
     }

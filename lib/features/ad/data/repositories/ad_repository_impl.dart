@@ -387,7 +387,7 @@ class AdRepositoryImpl extends AdRepository {
   }
 
   @override
-  Future<Either<Failure, File>> getMapScreenShot({required Map<String, String> params}) async{
+  Future<Either<Failure, String>> getMapScreenShot({required Map<String, String> params}) async{
     try {
       final result = await remoteDataSource.getMapScreenShot(params);
       return Right(result);

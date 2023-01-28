@@ -163,8 +163,8 @@ class _PostingAdScreenState extends State<PostingAdScreen>
         return false;
       // AddPhotoScreen
       case 10:
-        // return false;
-        return state.gallery.isEmpty;
+        return false;
+      // return state.gallery.isEmpty;
       // PtsScreen
       case 11:
         return state.ownerStep == null ||

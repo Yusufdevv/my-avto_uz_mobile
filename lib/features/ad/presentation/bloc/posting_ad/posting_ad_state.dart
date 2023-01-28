@@ -1,7 +1,7 @@
 part of 'posting_ad_bloc.dart';
 
 class PostingAdState extends Equatable {
-  final Uint8List? bodyBytes;
+  final String? mapPointBytes;
   final String? id;
   final TextEditingController phoneController;
   final TextEditingController emailController;
@@ -127,7 +127,7 @@ class PostingAdState extends Equatable {
     this.toastMessage,
     this.userModel,
     this.locationUrl,
-    this.bodyBytes,
+    this.mapPointBytes,
   });
 
   String? get districtTitle {
@@ -145,7 +145,6 @@ class PostingAdState extends Equatable {
     TextEditingController? nameController,
     Map<DamagedParts, DamageType>? damagedParts,
     List<RentWithPurchaseEntity>? rentWithPurchaseConditions,
-    Uint8List? bodyBytes,
     int? districtId,
     Region? region,
     FormzStatus? status,
@@ -179,6 +178,7 @@ class PostingAdState extends Equatable {
     String? typeDocument,
     String? ownerStep,
     String? ownerName,
+    String? mapPointBytes,
     String? ownerPhone,
     String? ownerEmail,
     String? purchasedDate,
@@ -207,7 +207,7 @@ class PostingAdState extends Equatable {
     // print('==== INCOMING DISTRICT TO COPYWITH:  ${districts}  ====');
     final newState = PostingAdState(
       createStatus: createStatus ?? this.createStatus,
-      bodyBytes: bodyBytes ?? this.bodyBytes,
+      mapPointBytes: mapPointBytes ?? this.mapPointBytes,
       makeLetterIndex: eventMakeScrrollIndex,
       yearId: yearId ?? this.yearId,
       locationUrl: locationUrl ?? this.locationUrl,
@@ -279,7 +279,7 @@ class PostingAdState extends Equatable {
   @override
   List<Object?> get props => [
         createStatus,
-        bodyBytes,
+        mapPointBytes,
         id,
         makeLetterIndex,
         locationUrl,

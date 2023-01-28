@@ -37,7 +37,6 @@ class _LoginScreenState extends State<LoginScreen> {
   );
   late TextEditingController phoneController;
   late TextEditingController passwordController;
-  bool isToastShowing = false;
 
   @override
   void initState() {
@@ -53,10 +52,7 @@ class _LoginScreenState extends State<LoginScreen> {
   //   super.dispose();
   // }
   void hidePopUp() {
-    if (isToastShowing) {
-      context.read<ShowPopUpBloc>().add(HidePopUp());
-      isToastShowing = false;
-    }
+    context.read<ShowPopUpBloc>().add(HidePopUp());
   }
 
   @override
@@ -64,6 +60,7 @@ class _LoginScreenState extends State<LoginScreen> {
     final mediaQuery = MediaQuery.of(context);
     return KeyboardDismisser(
       child: CustomScreen(
+        
         child: Scaffold(
           appBar: WAppBar(
             hasBackButton: false,
@@ -177,15 +174,13 @@ class _LoginScreenState extends State<LoginScreen> {
                               onError: (text) {
                                 var error = text;
                                 if (error.toLowerCase().contains('dioerror')) {
-                                  error =
-                                      LocaleKeys.service_error.tr();
+                                  error = LocaleKeys.service_error.tr();
                                 }
                                 context.read<ShowPopUpBloc>().add(ShowPopUp(
                                       message: error,
                                       isSucces: false,
                                       dismissible: false,
                                     ));
-                                isToastShowing = true;
                               },
                               password: passwordController.text,
                               userName: phoneController.text

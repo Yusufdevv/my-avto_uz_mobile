@@ -1,5 +1,6 @@
 // ignore_for_file: avoid_catches_without_on_clauses
 
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:auto/core/exceptions/exceptions.dart';
@@ -18,9 +19,10 @@ import 'package:auto/features/comparison/data/models/announcement_list_model.dar
 import 'package:auto/features/pagination/models/generic_pagination.dart';
 import 'package:auto/features/reviews/data/models/make_model.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/services.dart';
 
 abstract class AdRemoteDataSource {
-  Future<File> getMapScreenShot(Map<String, String> params);
+  Future<String> getMapScreenShot(Map<String, String> params);
   Future<num> getMinimumPrice(Map<String, dynamic> params);
   Future<bool> verify(Map<String, String> params);
   Future<String> sendCode({required String phone});
@@ -664,7 +666,8 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
   }
 
   @override
-  Future<File> getMapScreenShot(Map<String, String> params) async {
+  Future<String> getMapScreenShot(Map<String, String> params) async {
+    print('ketayotgan params: ${params}');
     try {
       final response = await _dio.post(
         '/common/map/screenshot',
@@ -679,13 +682,14 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
         ),
       );
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
-        Headers he = response.headers;
-        print('=> => => =>     ${response.headers}    <= <= <= <=');
+        final v = await response.data;
+        final uint = base64.decode(v);
+        print('=> => => =>  uint runtimeType    ${uint.runtimeType}    <= <= <= <=');
+
         print(
-            '=> => => => as string:    ${response.data.toString()}    <= <= <= <=');
-        print(
-            '=> => => =>     gottten data runtime type: ${response.data.runtimeType.toString()}    <= <= <= <=');
-        return response.data['min_price'];
+            '=> => => =>     gottten data runtime type: ${v.runtimeType}    <= <= <= <=');
+
+        return response.data;
       }
       throw ServerException(
           statusCode: response.statusCode ?? 0,

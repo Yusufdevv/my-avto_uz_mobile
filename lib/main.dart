@@ -120,8 +120,7 @@ class _AppState extends State<App> {
                 AuthenticationBloc(AuthRepository())..add(CheckUser()),
           ),
           BlocProvider(
-            create: (context) => RegionsBloc()
-              ..add(RegionsEvent.getRegions()),
+            create: (context) => RegionsBloc()..add(RegionsEvent.getRegions()),
           ),
           BlocProvider(
             create: (context) => ShowPopUpBloc(),
@@ -209,14 +208,15 @@ class _AppState extends State<App> {
                                 verifyCodeUseCase: VerifyCodeUseCase(),
                               ),
                               child:
-                              
-                              // PostingAdScreen(),
-                               const LoginScreen(),
+
+                                  // PostingAdScreen(),
+                                  const LoginScreen(),
                             ),
                           ),
                           (route) => false);
                       break;
                     case AuthenticationStatus.authenticated:
+                      context.read<ShowPopUpBloc>().add(HidePopUp());
                       if (StorageRepository.getString('token').isEmpty) {
                         navigator.pushAndRemoveUntil(
                             fade(

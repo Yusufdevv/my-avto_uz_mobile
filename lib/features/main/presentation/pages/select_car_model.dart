@@ -5,7 +5,7 @@ import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/domain/entities/choose_car_brand/change_car_entity.dart';
 import 'package:auto/features/ad/domain/entities/types/make.dart';
 import 'package:auto/features/ad/presentation/pages/choose_car_brand/widget/persistant_header.dart';
-import 'package:auto/features/ads/presentation/pages/ads_screen.dart';
+import 'package:auto/features/common/bloc/ads/presentation/pages/ads_screen.dart';
 import 'package:auto/features/common/widgets/car_brand_item.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';

@@ -17,7 +17,7 @@ import 'package:auto/features/pagination/models/generic_pagination.dart';
 import 'package:dio/dio.dart';
 
 abstract class AdRepository {
-  Future<Either<Failure, File>> getMapScreenShot(
+  Future<Either<Failure, String>> getMapScreenShot(
       {required Map<String, String> params});
   Future<Either<Failure, bool>> verify({required Map<String, String> params});
 

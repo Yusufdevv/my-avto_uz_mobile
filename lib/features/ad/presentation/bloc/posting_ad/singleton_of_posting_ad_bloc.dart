@@ -124,7 +124,7 @@ class PASingleton {
       PostingAdState state, PostingAdChooseEvent event) {
     print('=> => => => LOCATION URL    ${event.locationUrl}    <= <= <= <=');
     return state.copyWith(
-        bodyBytes: event.bodyBytes,
+        mapPointBytes: event.bodyBytes,
         years: event.years,
         yearId: event.yearId,
         locationUrl: event.locationUrl,
