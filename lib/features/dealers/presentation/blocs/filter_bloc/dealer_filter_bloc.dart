@@ -18,13 +18,14 @@ class DealerFilterBloc extends Bloc<DealerFilterEvent, DealerFilterState> {
     this.maker,
     this.carType,
   }) : super(DealerFilterState(
-          maker: maker,
+          maker:  maker ?? const MakeEntity(),
           region: region ?? <Region>[],
           carType: carType,
         )) {
     on<DealerFilterClearEvent>((event, emit) => emit(const DealerFilterState(
           region: <Region>[],
           carType: '',
+          maker: MakeEntity(),
         )));
     on<DealerFilterSelectEvent>(
       (event, emit) {

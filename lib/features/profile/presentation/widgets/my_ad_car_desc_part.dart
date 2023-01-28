@@ -50,9 +50,7 @@ class MyAdCarDescPart extends StatelessWidget {
                           .copyWith(fontSize: 10, fontWeight: FontWeight.w600),
                     ),
                   ),
-                  SizedBox(
-                    width: SizeConfig.h(4),
-                  ),
+                  SizedBox(width: SizeConfig.h(4)),
                   if (item.isNew)
                     CustomChip(
                       leading: SvgPicture.asset(AppIcons.checkCurly),
@@ -60,10 +58,9 @@ class MyAdCarDescPart extends StatelessWidget {
                       backgroundColor: green.withOpacity(0.1),
                       borderRadius: 4,
                       labelStyle: const TextStyle(
-                        fontSize: 10,
-                        fontWeight: FontWeight.w600,
-                        color: green,
-                      ),
+                          fontSize: 10,
+                          fontWeight: FontWeight.w600,
+                          color: green),
                     )
                   else
                     const SizedBox(),

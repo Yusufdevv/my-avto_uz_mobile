@@ -44,114 +44,107 @@ class _DirectoryPageState extends State<DirectoryPage> {
   }
 
   @override
+  void dispose() {
+    bloc.close();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) => BlocProvider.value(
         value: bloc,
         child: AnnotatedRegion(
           value: const SystemUiOverlayStyle(statusBarColor: Colors.transparent),
-          child: WillPopScope(
-            onWillPop: () async {
-              bloc.add(DirectoryFilterEvent(
-                  regions: '', regionId: '', selectedCategories: []));
-              return true;
-            },
-            child: KeyboardDismisser(
-              child: Scaffold(
-                body: DefaultTabController(
-                  length: 2,
-                  child: CustomScrollView(
-                    physics: const NeverScrollableScrollPhysics(),
-                    slivers: [
-                      SliverAppBar(
-                        pinned: true,
-                        automaticallyImplyLeading: false,
-                        backgroundColor: Theme.of(context)
-                            .extension<ThemedColors>()!
-                            .whiteToNero,
-                        leadingWidth: 0,
-                        title: Padding(
-                          padding: const EdgeInsets.only(top: 12),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              GestureDetector(
-                                behavior: HitTestBehavior.opaque,
-                                onTap: () {
-                                  bloc.add(DirectoryFilterEvent(
-                                      regions: '',
-                                      regionId: '',
-                                      selectedCategories: []));
-                                  Navigator.pop(context);
-                                },
-                                child: Padding(
-                                  padding: const EdgeInsets.only(right: 5),
-                                  child: SvgPicture.asset(AppIcons.chevronLeft),
-                                ),
-                              ),
-                              const SizedBox(width: 7),
-                              Expanded(
-                                child: WTextField(
-                                  controller: controller,
-                                  borderColor: Theme.of(context)
-                                      .extension<ThemedColors>()!
-                                      .whiteSmokeToNightRider,
-                                  fillColor: Theme.of(context)
-                                      .extension<ThemedColors>()!
-                                      .whiteSmokeToNightRider,
-                                  hintText: 'Автосалон, автосервис',
-                                  hintTextStyle: const TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w400,
-                                      color: grey),
-                                  focusColor: Theme.of(context)
-                                      .extension<ThemedColors>()!
-                                      .whiteSmokeToNightRider,
-                                  onChanged: (value) {
-                                    bloc.add(
-                                        GetDirectoriesEvent(search: value));
-                                  },
-                                  hasSearch: true,
-                                  borderRadius: 8,
-                                ),
-                              ),
-                              const SizedBox(width: 12),
-                              WButton(
-                                  onTap: () {
-                                    FocusScope.of(context).unfocus();
-                                    controller.text = '';
-                                    Navigator.of(context, rootNavigator: true)
-                                        .push(fade(
-                                            page: BlocProvider.value(
-                                      value: bloc,
-                                      child: DirectoryFilterPage(bloc: bloc),
-                                    )));
-                                  },
-                                  borderRadius: 12,
-                                  color: Theme.of(context)
-                                      .extension<ThemedColors>()!
-                                      .whiteSmokeToNightRider,
-                                  padding: const EdgeInsets.all(12),
-                                  child: SvgPicture.asset(AppIcons.filter,
-                                      color: purple))
-                            ],
-                          ),
-                        ),
-                      ),
-                      SliverPersistentHeader(
-                        pinned: true,
-                        delegate:
-                            SegmentedControl(maxHeight: 64, minHeight: 64),
-                      ),
-                      const SliverFillRemaining(
-                        child: TabBarView(
-                          physics: NeverScrollableScrollPhysics(),
+          child: KeyboardDismisser(
+            child: Scaffold(
+              body: DefaultTabController(
+                length: 2,
+                child: CustomScrollView(
+                  physics: const NeverScrollableScrollPhysics(),
+                  slivers: [
+                    SliverAppBar(
+                      pinned: true,
+                      automaticallyImplyLeading: false,
+                      backgroundColor: Theme.of(context)
+                          .extension<ThemedColors>()!
+                          .whiteToNero,
+                      leadingWidth: 0,
+                      title: Padding(
+                        padding: const EdgeInsets.only(top: 12),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            DirectoryList(),
-                            MapScreen(isDirectoryPage: true),
+                            GestureDetector(
+                              behavior: HitTestBehavior.opaque,
+                              onTap: () {
+                                Navigator.pop(context);
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.only(right: 5),
+                                child: SvgPicture.asset(AppIcons.chevronLeft),
+                              ),
+                            ),
+                            const SizedBox(width: 7),
+                            Expanded(
+                              child: WTextField(
+                                controller: controller,
+                                borderColor: Theme.of(context)
+                                    .extension<ThemedColors>()!
+                                    .whiteSmokeToNightRider,
+                                fillColor: Theme.of(context)
+                                    .extension<ThemedColors>()!
+                                    .whiteSmokeToNightRider,
+                                hintText: 'Автосалон, автосервис',
+                                hintTextStyle: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w400,
+                                    color: grey),
+                                focusColor: Theme.of(context)
+                                    .extension<ThemedColors>()!
+                                    .whiteSmokeToNightRider,
+                                onChanged: (value) {
+                                  bloc.add(GetDirectoriesEvent(search: value));
+                                },
+                                hasSearch: true,
+                                borderRadius: 8,
+                              ),
+                            ),
+                            const SizedBox(width: 12),
+                            WButton(
+                                onTap: () {
+                                  FocusScope.of(context).unfocus();
+                                  controller.text = '';
+                                  Navigator.of(context, rootNavigator: true)
+                                      .push(fade(
+                                          page: BlocProvider.value(
+                                    value: bloc,
+                                    child: DirectoryFilterPage(bloc: bloc),
+                                  )));
+                                },
+                                borderRadius: 12,
+                                color: Theme.of(context)
+                                    .extension<ThemedColors>()!
+                                    .whiteSmokeToNightRider,
+                                padding: const EdgeInsets.all(12),
+                                child: SvgPicture.asset(AppIcons.filter,
+                                    color: purple))
                           ],
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                    SliverPersistentHeader(
+                      pinned: true,
+                      delegate: SegmentedControl(maxHeight: 64, minHeight: 64),
+                    ),
+                    const SliverFillRemaining(
+                      child: TabBarView(
+                        physics: NeverScrollableScrollPhysics(),
+                        children: [
+                          DirectoryList(),
+                          MapScreen(isDirectoryPage: true),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),

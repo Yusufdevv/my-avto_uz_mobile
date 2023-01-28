@@ -26,13 +26,12 @@ class _ChooseMakerState extends State<ChooseMaker> {
   @override
   void initState() {
     getMakesBloc = GetMakesBloc(
-      topUseCase: GetTopMakesUseCase(
-                  repository: serviceLocator<AdRepositoryImpl>()),
+      topUseCase:
+          GetTopMakesUseCase(repository: serviceLocator<AdRepositoryImpl>()),
       useCase: GetMakesUseCase(
         repository: serviceLocator<AdRepositoryImpl>(),
       ),
     )..add(GetMakesBlocEvent.getMakes());
-
     super.initState();
   }
 
@@ -47,7 +46,6 @@ class _ChooseMakerState extends State<ChooseMaker> {
           ),
           child: BlocBuilder<GetMakesBloc, GetMakesState>(
             builder: (context, getMakesState) {
-             
               if (getMakesState.status == FormzStatus.submissionSuccess ||
                   getMakesState.status == FormzStatus.submissionFailure) {
                 return Column(
@@ -102,7 +100,7 @@ class _ChooseMakerState extends State<ChooseMaker> {
                     ),
                     Padding(
                       padding: const EdgeInsets.only(
-                          left: 16, right: 16, bottom: 50),
+                          left: 16, right: 16, bottom: 16),
                       child: WButton(
                           onTap: () {
                             Navigator.of(context).pop(getMakesState.selectId >=
