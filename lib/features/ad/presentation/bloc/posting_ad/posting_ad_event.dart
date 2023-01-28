@@ -2,6 +2,14 @@ part of 'posting_ad_bloc.dart';
 
 abstract class PostingAdEvent {}
 
+class PostingAdGetMapScreenShotEvent extends PostingAdEvent {
+  final double lat;
+  final double long;
+  final double zoomLevel;
+  PostingAdGetMapScreenShotEvent(
+      {required this.lat, required this.long, required this.zoomLevel});
+}
+
 class PostingAdGetYearsEvent extends PostingAdEvent {}
 
 class PostingAdClearControllersEvent extends PostingAdEvent {}

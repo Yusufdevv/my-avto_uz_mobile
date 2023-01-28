@@ -1,5 +1,7 @@
 // ignore_for_file: avoid_catches_without_on_clauses
 
+import 'dart:io';
+
 import 'package:auto/core/exceptions/exceptions.dart';
 import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/ad/data/models/announcement_filter.dart';
@@ -18,6 +20,7 @@ import 'package:auto/features/reviews/data/models/make_model.dart';
 import 'package:dio/dio.dart';
 
 abstract class AdRemoteDataSource {
+  Future<File> getMapScreenShot(Map<String, String> params);
   Future<num> getMinimumPrice(Map<String, dynamic> params);
   Future<bool> verify(Map<String, String> params);
   Future<String> sendCode({required String phone});
@@ -646,6 +649,42 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
         ),
       );
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
+        return response.data['min_price'];
+      }
+      throw ServerException(
+          statusCode: response.statusCode ?? 0,
+          errorMessage: response.statusMessage ?? '');
+    } on ServerException {
+      rethrow;
+    } on DioError {
+      throw DioException();
+    } on Exception catch (e) {
+      throw ParsingException(errorMessage: e.toString());
+    }
+  }
+
+  @override
+  Future<File> getMapScreenShot(Map<String, String> params) async {
+    try {
+      final response = await _dio.post(
+        '/common/map/screenshot',
+        data: params,
+        options: Options(
+          headers: StorageRepository.getString('token').isNotEmpty
+              ? {
+                  'Authorization':
+                      'Token ${StorageRepository.getString('token')}'
+                }
+              : {},
+        ),
+      );
+      if (response.statusCode! >= 200 && response.statusCode! < 300) {
+        Headers he = response.headers;
+        print('=> => => =>     ${response.headers}    <= <= <= <=');
+        print(
+            '=> => => => as string:    ${response.data.toString()}    <= <= <= <=');
+        print(
+            '=> => => =>     gottten data runtime type: ${response.data.runtimeType.toString()}    <= <= <= <=');
         return response.data['min_price'];
       }
       throw ServerException(

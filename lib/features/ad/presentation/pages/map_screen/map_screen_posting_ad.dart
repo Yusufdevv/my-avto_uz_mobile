@@ -275,7 +275,7 @@ class _MapScreenPostingAdState extends State<MapScreenPostingAd>
                       onTab: state.lat == 0
                           ? null
                           : () => Navigator.of(context).pop(
-                              'https://yandex.com/maps/10335/tashkent/?ll=${state.long}%2C${state.lat}&z=$zoomLevel'),
+                              [state.lat,state.long,zoomLevel]),
                     ),
                   ),
                 ],

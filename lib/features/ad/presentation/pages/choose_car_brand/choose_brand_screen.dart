@@ -7,6 +7,7 @@ import 'package:auto/features/ad/presentation/pages/choose_car_brand/widget/pers
 import 'package:auto/features/ad/presentation/widgets/sliver_header_text.dart';
 import 'package:auto/features/ads/presentation/pages/ads_screen.dart';
 import 'package:auto/features/common/widgets/car_brand_item.dart';
+import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/common/widgets/w_textfield.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/generated/locale_keys.g.dart';

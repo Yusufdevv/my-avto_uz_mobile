@@ -10,6 +10,7 @@ import 'package:auto/features/ad/domain/usecases/get_drive_type.dart';
 import 'package:auto/features/ad/domain/usecases/get_engine_type.dart';
 import 'package:auto/features/ad/domain/usecases/get_generation.dart';
 import 'package:auto/features/ad/domain/usecases/get_makes.dart';
+import 'package:auto/features/ad/domain/usecases/get_map_screenshot_usecase.dart';
 import 'package:auto/features/ad/domain/usecases/get_years.dart';
 import 'package:auto/features/ad/domain/usecases/minimum_price_usecase.dart';
 import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.dart';
@@ -77,6 +78,8 @@ class _PostingAdScreenState extends State<PostingAdScreen>
     globalKey = GlobalKey();
     pageController = PageController(initialPage: initialPage);
     postingAdBloc = PostingAdBloc(
+      screenShotUseCase: GetMapScreenShotUseCase(
+          repository: serviceLocator<AdRepositoryImpl>()),
       getYearsUseCase:
           GetYearsUseCase(repository: serviceLocator<AdRepositoryImpl>()),
       userRepository: AuthRepository(),
@@ -308,8 +311,11 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                               setState(() {});
                             }
                           } else {
-                            print(
-                                '=> => => =>     I cannot get back still    <= <= <= <=');
+                            print('=> => => =>     pressed    <= <= <= <=');
+                            postingAdBloc.add(PostingAdGetMapScreenShotEvent(
+                                lat: 51.727348,
+                                long: 22.557984,
+                                zoomLevel: 15));
                           }
                         },
                         title: currentTabIndex == 0
@@ -390,10 +396,13 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                               fade(
                                 page: const MapScreenPostingAd(),
                               ),
-                            ).then((value) {
-                              if (value is String) {
+                            ).then((latLongZoom) {
+                              if (latLongZoom is List<double>) {
                                 postingAdBloc.add(
-                                  PostingAdChooseEvent(locationUrl: value),
+                                  PostingAdGetMapScreenShotEvent(
+                                      lat: latLongZoom[0],
+                                      long: latLongZoom[1],
+                                      zoomLevel: latLongZoom[2]),
                                 );
                               }
                             });
