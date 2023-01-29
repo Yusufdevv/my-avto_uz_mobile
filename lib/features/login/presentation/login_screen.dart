@@ -166,7 +166,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 WButton(
                   isLoading: context.watch<AuthenticationBloc>().state.status ==
                       AuthenticationStatus.loading,
-                  onTap: passwordController.text.length >= 4 &&
+                  onTap: passwordController.text.length >= 6 &&
                           phoneController.text.length == 12
                       ? () {
                           hidePopUp();
@@ -204,7 +204,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         .extension<ThemedColors>()!
                         .whiteToDolphin,
                   ),
-                  color: (passwordController.text.length >= 4 &&
+                  color: (passwordController.text.length >= 6 &&
                           phoneController.text.length > 11)
                       ? orange
                       : warmerGrey,

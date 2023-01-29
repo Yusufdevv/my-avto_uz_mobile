@@ -192,7 +192,7 @@ class _DealersFilterScreenState extends State<DealersFilterScreen> {
                       widget.dealerBloc.add(DealerCardEvent.getFilterResult(
                         regionId: state.region.isEmpty
                             ? ''
-                            : state.region.single.id.toString(),
+                            : MyFunctions.text(state.region),
                         mark: state.maker.slug,
                         carType: selectedCategory,
                       ));

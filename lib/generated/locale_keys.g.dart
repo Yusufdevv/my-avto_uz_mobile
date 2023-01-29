@@ -117,7 +117,10 @@ abstract class  LocaleKeys {
   static const password_must_6 = 'password_must_6';
   static const confim_number = 'confim_number';
   static const send_password_again = 'send_password_again';
+  static const passwords_didnt_match_return = 'passwords_didnt_match_return';
   static const passwords_didnt_match = 'passwords_didnt_match';
+  static const password_changed_successfully = 'password_changed_successfully';
+  static const phone_n_m_be_12_d = 'phone_n_m_be_12_d';
   static const photo = 'photo';
   static const no_results = 'no_results';
   static const sorry_no_results = 'sorry_no_results';

@@ -117,6 +117,11 @@ class NewPasswordsPage extends StatelessWidget {
                     SizeConfig.v(24) +
                         MediaQuery.of(context).viewInsets.bottom),
                 child: WButton(
+                  color: _oldPasswordController.text.length < 6 &&
+                          _newPassword1Controller.text.length < 6 &&
+                          _newPassword2Controller.text.length < 6
+                      ? warmerGrey
+                      : orange,
                   shadow: [
                     BoxShadow(
                       blurRadius: 20,
@@ -126,35 +131,62 @@ class NewPasswordsPage extends StatelessWidget {
                   ],
                   isLoading: state.changeStatus.isSubmissionInProgress,
                   onTap: () {
-                    if (_formKey.currentState!.validate()) {
-                      context.read<ProfileBloc>().add(
-                            ChangePasswordEvent(
-                              newPassword: _newPassword1Controller.text,
-                              oldPassword: _oldPasswordController.text,
-                              newPasswordConfirm: _newPassword2Controller.text,
-                              onSuccess: (message) {
-                                context.read<ShowPopUpBloc>().add(ShowPopUp(
-                                    message:
-                                        "Parol muvaffaqiyatli o'zgartirildi",
-                                    isSucces: true));
-                                //after pasword changing get new token
-                                context.read<ProfileBloc>().add(LoginUser(
-                                    password: _newPassword1Controller.text,
-                                    phone: state.profileEntity.phoneNumber!
-                                        .replaceAll('+998', '')
-                                        .replaceAll('', ' ')));
-                                Navigator.of(context).pop();
-                              },
-                              onError: (message) {
-                                var error = message;
-                                if (error.toLowerCase().contains('dioerror')) {
-                                  error =LocaleKeys.service_error.tr();
-                                }
-                                context.read<ShowPopUpBloc>().add(
-                                    ShowPopUp(message: error, isSucces: false));
-                              },
-                            ),
-                          );
+                    if (_oldPasswordController.text.length < 6 ||
+                        _newPassword1Controller.text.length < 6 ||
+                        _newPassword2Controller.text.length < 6) {
+                      context.read<ShowPopUpBloc>().add(ShowPopUp(
+                          message: LocaleKeys.password_must_6.tr(),
+                          isSucces: false));
+                    } else if (_oldPasswordController.text.isEmpty ||
+                        _newPassword1Controller.text.isEmpty ||
+                        _newPassword2Controller.text.isEmpty) {
+                      context.read<ShowPopUpBloc>().add(ShowPopUp(
+                          message: LocaleKeys.password_must_6.tr(),
+                          isSucces: false));
+                    } else if (_oldPasswordController.text.length >= 6 &&
+                        _newPassword1Controller.text.length >= 6 &&
+                        _newPassword2Controller.text.length >= 6) {
+                      if (_newPassword1Controller.text !=
+                          _newPassword2Controller.text) {
+                        context.read<ShowPopUpBloc>().add(ShowPopUp(
+                            message: LocaleKeys.passwords_didnt_match.tr(),
+                            isSucces: false));
+                      } else {
+                        context.read<ProfileBloc>().add(
+                              ChangePasswordEvent(
+                                newPassword: _newPassword1Controller.text,
+                                oldPassword: _oldPasswordController.text,
+                                newPasswordConfirm:
+                                    _newPassword2Controller.text,
+                                onSuccess: (message) {
+                                  context.read<ShowPopUpBloc>().add(ShowPopUp(
+                                      message: message.isNotEmpty
+                                          ? message
+                                          : LocaleKeys
+                                              .password_changed_successfully
+                                              .tr(),
+                                      isSucces: true));
+                                  //after pasword changing get new token
+                                  context.read<ProfileBloc>().add(LoginUser(
+                                      password: _newPassword1Controller.text,
+                                      phone: state.profileEntity.phoneNumber!
+                                          .replaceAll('+998', '')
+                                          .replaceAll('', ' ')));
+                                  Navigator.of(context).pop();
+                                },
+                                onError: (message) {
+                                  var error = message;
+                                  if (error
+                                      .toLowerCase()
+                                      .contains('dioerror')) {
+                                    error = LocaleKeys.service_error.tr();
+                                  }
+                                  context.read<ShowPopUpBloc>().add(ShowPopUp(
+                                      message: error, isSucces: false));
+                                },
+                              ),
+                            );
+                      }
                     }
                   },
                   child: Text(

@@ -107,7 +107,7 @@ class ProfileDataSourceImpl extends ProfileDataSource {
               statusCode: response.statusCode!,
               errorMessage: ((response.data as Map).values.isNotEmpty
                       ? ((response.data as Map).values.first as List)[0]
-                      : 'Wrong number!')
+                      : '')
                   .toString());
         } else {
           throw ServerException(
