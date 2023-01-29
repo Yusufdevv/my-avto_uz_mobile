@@ -1,8 +1,18 @@
 part of 'add_image_instructions_bloc.dart';
 
-abstract class AddImageInstructionsEvent {}
+abstract class PhotoInstructionEvent {}
 
-class AddImageInstructionsChangeStepEvent extends AddImageInstructionsEvent {
-  final bool forward;
-  AddImageInstructionsChangeStepEvent({required this.forward});
+class PhotoInstructionMoveStepEvent extends PhotoInstructionEvent {
+  final bool isForward;
+
+  PhotoInstructionMoveStepEvent({required this.isForward});
+}
+
+class PhotoInstructionChangeStepEvent extends PhotoInstructionEvent {
+  final int step;
+
+  PhotoInstructionChangeStepEvent({required this.step});
+}
+class PhotoInstructionGetEvent extends PhotoInstructionEvent{
+  
 }

@@ -9,10 +9,12 @@ import 'package:auto/features/ad/data/models/announcement_filter.dart';
 import 'package:auto/features/ad/data/models/body_type.dart';
 import 'package:auto/features/ad/data/models/drive_type.dart';
 import 'package:auto/features/ad/data/models/engine_type.dart';
+import 'package:auto/features/ad/data/models/foto_instruction_model.dart';
 import 'package:auto/features/ad/data/models/gearbox_type.dart';
 import 'package:auto/features/ad/data/models/generation.dart';
 import 'package:auto/features/ad/data/models/modification_type.dart';
 import 'package:auto/features/ad/data/models/years.dart';
+import 'package:auto/features/ad/domain/entities/foto_instruction_entity.dart';
 import 'package:auto/features/common/entities/makes_entity.dart';
 import 'package:auto/features/common/models/get_make_model.dart';
 import 'package:auto/features/comparison/data/models/announcement_list_model.dart';
@@ -22,6 +24,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
 
 abstract class AdRemoteDataSource {
+  Future<List<FotoInstructionEntity>> getFotoInstructions();
   Future<String> getMapScreenShot(Map<String, String> params);
   Future<num> getMinimumPrice(Map<String, dynamic> params);
   Future<bool> verify(Map<String, String> params);
@@ -667,7 +670,6 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
 
   @override
   Future<String> getMapScreenShot(Map<String, String> params) async {
-    print('ketayotgan params: ${params}');
     try {
       final response = await _dio.post(
         '/common/map/screenshot',
@@ -684,12 +686,44 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
         final v = await response.data;
         final uint = base64.decode(v);
-        print('=> => => =>  uint runtimeType    ${uint.runtimeType}    <= <= <= <=');
+        print(
+            '=> => => =>  uint runtimeType    ${uint.runtimeType}    <= <= <= <=');
 
         print(
             '=> => => =>     gottten data runtime type: ${v.runtimeType}    <= <= <= <=');
 
         return response.data;
+      }
+      throw ServerException(
+          statusCode: response.statusCode ?? 0,
+          errorMessage: response.statusMessage ?? '');
+    } on ServerException {
+      rethrow;
+    } on DioError {
+      throw DioException();
+    } on Exception catch (e) {
+      throw ParsingException(errorMessage: e.toString());
+    }
+  }
+
+  @override
+  Future<List<FotoInstructionEntity>> getFotoInstructions() async {
+    try {
+      final response = await _dio.get(
+        '',
+        options: Options(
+          headers: StorageRepository.getString('token').isNotEmpty
+              ? {
+                  'Authorization':
+                      'Token ${StorageRepository.getString('token')}'
+                }
+              : {},
+        ),
+      );
+      if (response.statusCode! >= 200 && response.statusCode! < 300) {
+        return (response.data as List)
+            .map((e) => FotoInstructionModel.fromJson(response.data))
+            .toList();
       }
       throw ServerException(
           statusCode: response.statusCode ?? 0,

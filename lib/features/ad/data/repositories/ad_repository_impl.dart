@@ -5,6 +5,7 @@ import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/core/utils/either.dart';
 import 'package:auto/features/ad/data/datasources/ad_remote_datasource.dart';
 import 'package:auto/features/ad/data/models/announcement_filter.dart';
+import 'package:auto/features/ad/domain/entities/foto_instruction_entity.dart';
 import 'package:auto/features/ad/domain/entities/generation/generation.dart';
 import 'package:auto/features/ad/domain/entities/types/body_type.dart';
 import 'package:auto/features/ad/domain/entities/types/drive_type.dart';
@@ -400,4 +401,19 @@ class AdRepositoryImpl extends AdRepository {
           errorMessage: e.errorMessage, statusCode: e.statusCode));
     }
   }
+    @override
+  Future<Either<Failure, List<FotoInstructionEntity>>> getFotoInstructions() async{
+    try {
+      final result = await remoteDataSource.getFotoInstructions();
+      return Right(result);
+    } on DioException {
+      return Left(DioFailure());
+    } on ParsingException catch (e) {
+      return Left(ParsingFailure(errorMessage: e.errorMessage));
+    } on ServerException catch (e) {
+      return Left(ServerFailure(
+          errorMessage: e.errorMessage, statusCode: e.statusCode));
+    }
+  }
+  
 }

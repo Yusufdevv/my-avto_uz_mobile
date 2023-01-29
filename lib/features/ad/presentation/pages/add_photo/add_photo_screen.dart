@@ -5,7 +5,7 @@ import 'package:auto/features/ad/presentation/bloc/add_photo/image_bloc.dart';
 import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.dart';
 import 'package:auto/features/ad/presentation/pages/add_photo/widgets/photo_item.dart';
 import 'package:auto/features/ad/presentation/pages/add_photo/widgets/plus_circle.dart';
-import 'package:auto/features/ad/presentation/pages/add_photo_instructions_screen.dart';
+import 'package:auto/features/ad/presentation/pages/add_photo/widgets/add_photo_instructions_screen.dart';
 import 'package:auto/features/ad/presentation/widgets/base_widget.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
@@ -44,7 +44,7 @@ class _AddPhotoScreenState extends State<AddPhotoScreen> {
                 child: GestureDetector(
                     onTap: () {
                       Navigator.of(context, rootNavigator: true)
-                          .push(fade(page: const AddPhotoInstructionsScreen()));
+                          .push(fade(page: const PhotoInstructionsScreen()));
                     },
                     behavior: HitTestBehavior.opaque,
                     child: SvgPicture.asset(AppIcons.infoCircle, height: 24)),
