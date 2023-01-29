@@ -311,7 +311,7 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                               setState(() {});
                             }
                           } else {
-                            print('=> => => =>     pressed    <= <= <= <=');
+                          
                             postingAdBloc.add(PostingAdGetMapScreenShotEvent(
                                 lat: 51.727348,
                                 long: 22.557984,

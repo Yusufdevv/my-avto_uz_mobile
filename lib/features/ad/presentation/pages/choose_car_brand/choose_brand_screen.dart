@@ -87,7 +87,7 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
             body: NestedScrollView(
               controller: _scrollController,
               floatHeaderSlivers: true,
-              physics: const BouncingScrollPhysics(),
+              physics: const ClampingScrollPhysics(),
               headerSliverBuilder: (context, innerBoxIsScrolled) => [
                 /// HEADER TEXT
                 SliverHeaderText(
@@ -135,7 +135,7 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
                   child: AnimatedCrossFade(
                     duration: const Duration(microseconds: 150),
                     crossFadeState: crossFadeState,
-                    secondChild: const SizedBox(),
+                    secondChild: const SizedBox(height: 100),
                     firstChild: SizedBox(
                       height: 100,
                       child: state.status == FormzStatus.submissionInProgress
@@ -198,7 +198,7 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
                     : ListView.builder(
                         controller: _makesController,
                         physics: const BouncingScrollPhysics(),
-                        padding: const EdgeInsets.only(bottom: 50),
+                        padding: const EdgeInsets.only(bottom: 50,top: 124),
                         itemBuilder: (context, index) => ChangeCarItems(
                           onTap: () {
                             context.read<PostingAdBloc>().add(
