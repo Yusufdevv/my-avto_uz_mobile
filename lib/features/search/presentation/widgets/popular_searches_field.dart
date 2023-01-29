@@ -6,7 +6,8 @@ import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/search/presentation/search_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 // ignore: must_be_immutable
 class PopularSearchesField extends StatefulWidget {
   PopularSearchesField({
@@ -63,7 +64,7 @@ class _PopularSearchesFieldState extends State<PopularSearchesField> {
                       width: 64,
                       color: transparentButton,
                       child: Text(
-                        'Очистить',
+                        LocaleKeys.clear.tr(),
                         style: Theme.of(context).textTheme.headline2!.copyWith(
                               fontSize: 13,
                               color: blue

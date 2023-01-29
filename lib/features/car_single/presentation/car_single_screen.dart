@@ -144,6 +144,7 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                   return Stack(
                     children: [
                       CustomScrollView(
+                        physics: const BouncingScrollPhysics(),
                         controller: _scrollController,
                         slivers: [
                           SliverAppBarItem(

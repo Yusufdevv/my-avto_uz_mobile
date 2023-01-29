@@ -20,16 +20,18 @@ class CarStatusIconInPicture extends StatelessWidget {
   final double? top;
   final double? bottom;
 
-  bool hasDoorName(List<DamagedPartsEntity> damagedpartsEntity, String door) {
-    var result = DamagedPartsEntity();
-    result = damagedpartsEntity.firstWhere((element) => element.part == door);
-
-    return result.part.isEmpty ? false : true;
-  }
+  // bool hasDoorName(List<DamagedPartsEntity> damagedpartsEntity, String door) {
+  //   List<String> list = [];
+  //   for (final element in damagedpartsEntity) {
+  //     list.add(element.part);
+  //   }
+  //   final result = list.contains(door);
+  //   return result;
+  // }
 
   @override
   Widget build(BuildContext context) => Visibility(
-        visible: hasDoorName(informAboutDoors, doorName) &&
+        visible: 
             MyFunctions.getStatusTitle(
                     informAboutDoors[informAboutDoors.indexWhere((element) {
                   print(informAboutDoors.indexOf(element));

@@ -19,7 +19,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
-
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 class DirectoryPage extends StatefulWidget {
   const DirectoryPage({Key? key}) : super(key: key);
 
@@ -93,7 +94,7 @@ class _DirectoryPageState extends State<DirectoryPage> {
                                 fillColor: Theme.of(context)
                                     .extension<ThemedColors>()!
                                     .whiteSmokeToNightRider,
-                                hintText: 'Автосалон, автосервис',
+                                hintText: LocaleKeys.autosalon_autoservice.tr(),
                                 hintTextStyle: const TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.w400,

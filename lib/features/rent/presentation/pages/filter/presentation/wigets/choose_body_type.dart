@@ -7,6 +7,8 @@ import 'package:auto/features/rent/domain/usecases/get_body_types_usecase.dart';
 import 'package:auto/features/rent/presentation/bloc/get_body_types/get_body_types_bloc.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/maker_sheet_item.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/sheet_header.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -102,7 +104,7 @@ class _ChooseBodyTypeState extends State<ChooseBodyType> {
                                 : null);
                           },
                           color: orange,
-                          text: 'Применить'),
+                          text: LocaleKeys.apply.tr()),
                     ),
                   ],
                 );

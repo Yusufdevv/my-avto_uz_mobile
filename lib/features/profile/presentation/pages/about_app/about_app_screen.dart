@@ -48,7 +48,7 @@ class _AboutAppScreenState extends State<AboutAppScreen> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        appBar: const WAppBar(textWithButton: 'О приложении', boxShadow: []),
+        appBar:   WAppBar(textWithButton: LocaleKeys.about_app.tr(), boxShadow: []),
         body: Column(
           children: [
             WScaleAnimation(
@@ -97,7 +97,7 @@ class _AboutAppScreenState extends State<AboutAppScreen> {
               padding: EdgeInsets.only(
                   top: SizeConfig.v(2), bottom: SizeConfig.v(36)),
               child: Text(
-                'Версия ${_packageInfo.version}',
+                '${LocaleKeys.version.tr()} ${_packageInfo.version}',
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.headline2
               )

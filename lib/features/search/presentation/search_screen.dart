@@ -33,7 +33,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:formz/formz.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
-
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 class SearchScreen extends StatefulWidget {
   const SearchScreen({Key? key}) : super(key: key);
 
@@ -181,7 +182,7 @@ class _SearchScreenState extends State<SearchScreen> {
                             borderRadius: 12,
                             controller: searchController,
                             hasSearch: true,
-                            hintText: 'Марка, Модель',
+                            hintText: LocaleKeys.model_brand.tr(),
                             hasClearButton: true,
                           ),
                         ),
@@ -197,22 +198,22 @@ class _SearchScreenState extends State<SearchScreen> {
                           ),
                           clipBehavior: Clip.hardEdge,
                           builder: (context) => SortBottomSheet(
-                            title: 'Сортировка',
+                            title: LocaleKeys.sorting.tr(),
                             values: const [
                               SortSearchResultsModel(
-                                title: 'По убыванию',
+                                title: LocaleKeys.descending,
                                 status: SortSearchResultStatus.cheapest,
                               ),
                               SortSearchResultsModel(
-                                title: 'По возрастанию',
+                                title: LocaleKeys.ascending,
                                 status: SortSearchResultStatus.expensive,
                               ),
                               SortSearchResultsModel(
-                                title: 'Сначала старые',
+                                title: LocaleKeys.oldOnesFirst,
                                 status: SortSearchResultStatus.oldest,
                               ),
                               SortSearchResultsModel(
-                                title: 'Сначала новые',
+                                title: LocaleKeys.newOnesFirst,
                                 status: SortSearchResultStatus.newest,
                               ),
                             ],

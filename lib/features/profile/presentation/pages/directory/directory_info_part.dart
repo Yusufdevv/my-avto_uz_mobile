@@ -1,7 +1,6 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
-import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
-import 'package:auto/core/singletons/storage.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart'; 
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:auto/utils/my_functions.dart';
@@ -69,7 +68,7 @@ class _DirectoryInfoPartState extends State<DirectoryInfoPart> {
           ),
           const SizedBox(height: 20),
           Info(
-              text: 'Каждый день, ${widget.contactFrom} - ${widget.contactTo}',
+              text: '${LocaleKeys.every_day.tr()}, ${widget.contactFrom} - ${widget.contactTo}',
               icon: AppIcons.clock),
           const SizedBox(height: 16),
           Row(
@@ -135,10 +134,10 @@ class _DirectoryInfoPartState extends State<DirectoryInfoPart> {
             ),
           ),
           const SizedBox(height: 16),
-          const Info(
+            Info(
               icon: AppIcons.tablerInfo,
-              text:
-                  'Автомобили от популярных брендов, линейки всех категорий от семейного до представительского, шикарный дизайн! Плюс гарантия на год!'),
+              text:widget.description
+                  ),
           const SizedBox(height: 16),
           if (!isSelected)
             WScaleAnimation(

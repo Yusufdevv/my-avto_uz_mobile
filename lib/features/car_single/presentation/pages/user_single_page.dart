@@ -1,16 +1,8 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
-import 'package:auto/core/singletons/dio_settings.dart';
-import 'package:auto/features/commercial/presentation/widgets/info_container.dart';
-import 'package:auto/features/dealers/data/datasource/cars_in_dealer_datasource.dart';
-import 'package:auto/features/dealers/data/datasource/dealer_single_datasource.dart';
-import 'package:auto/features/dealers/data/repositories/cars_in_dealers_repository.dart';
-import 'package:auto/features/dealers/data/repositories/dealer_single_repository.dart';
-import 'package:auto/features/dealers/domain/usecases/cars_in_dealers_usecase.dart';
-import 'package:auto/features/dealers/domain/usecases/dealer_single_usecase.dart';
-import 'package:auto/features/dealers/presentation/blocs/cars_in_dealer_bloc/cars_in_dealer_bloc.dart';
-import 'package:auto/features/dealers/presentation/blocs/dealer_single_bloc/dealer_single_bloc.dart';
+import 'package:auto/features/car_single/presentation/bloc/user_single_bloc/user_single_bloc.dart';
+import 'package:auto/features/commercial/presentation/widgets/info_container.dart';  
 import 'package:auto/features/dealers/presentation/widgets/dealer_single_info_part.dart';
 import 'package:auto/features/profile/presentation/pages/directory/directory_sliver_delegete.dart';
 import 'package:auto/generated/locale_keys.g.dart';
@@ -36,30 +28,20 @@ class UserSinglePage extends StatefulWidget {
 }
 
 class _UserSinglePageState extends State<UserSinglePage> {
-  late DealerSingleBloc dealerSingleBloc;
-  late CarsInDealerBloc carsBloc;
+  late UserSingleBloc userSingleBloc;
 
   @override
   void initState() {
-    dealerSingleBloc = DealerSingleBloc(
-      dealerSingleUseCase: DealerSingleUseCase(
-        dealerSingle: DealerSingleRepositoryImpl(
-          dataSource: DealerSingleDataSource(DioSettings().dio),
-        ),
-      ),
-    )..add(DealerSingleEvent.getResults(slug: widget.slug));
-    carsBloc = CarsInDealerBloc(
-        carsInDealerUseCase: CarsInDealerUseCase(
-            cars: CarsInDealerRepositoryImpl(
-                dataSource: CarsInDealerDataSource(DioSettings().dio))))
-      ..add(CarsInDealerEvent.getResults(slug: widget.slug));
+    userSingleBloc = UserSingleBloc()
+      ..add(UserSingleEvent.getUserAds(slug: widget.slug))
+      ..add(UserSingleEvent.getUserSingle(slug: widget.slug));
+
     super.initState();
   }
 
   @override
   void dispose() {
-    dealerSingleBloc.close();
-    carsBloc.close();
+    userSingleBloc.close();
     super.dispose();
   }
 
@@ -68,16 +50,13 @@ class _UserSinglePageState extends State<UserSinglePage> {
   double minZoomLevel = 0;
 
   @override
-  Widget build(BuildContext context) => MultiBlocProvider(
-        providers: [
-          BlocProvider.value(value: dealerSingleBloc),
-          BlocProvider.value(value: carsBloc),
-        ],
+  Widget build(BuildContext context) => BlocProvider.value(
+        value: userSingleBloc,
         child: Scaffold(
-          body: BlocBuilder<DealerSingleBloc, DealerSingleState>(
-            builder: (context, dealerSingleState) {
-              if (dealerSingleState.status.isSubmissionSuccess) {
-                final item = dealerSingleState.dealerSingleEntity;
+          body: BlocBuilder<UserSingleBloc, UserSingleState>(
+            builder: (context, state) {
+              if (state.status.isSubmissionSuccess) {
+                final item = state.dealerSingleEntity;
                 return NestedScrollView(
                   headerSliverBuilder: (context, innerBoxIsScrolled) =>
                       <Widget>[
@@ -117,9 +96,9 @@ class _UserSinglePageState extends State<UserSinglePage> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  const Text(
-                                    'Информация о продавце',
-                                    style: TextStyle(
+                                    Text(
+                                    LocaleKeys.about_dealer.tr(),
+                                    style:const TextStyle(
                                         color: orange,
                                         fontSize: 16,
                                         fontWeight: FontWeight.w600),
@@ -189,76 +168,60 @@ class _UserSinglePageState extends State<UserSinglePage> {
                                       text: item.description),
                                 ],
                               )),
-                          BlocBuilder<CarsInDealerBloc, CarsInDealerState>(
-                            builder: (context, allCarsState) =>
-                                allCarsState.cars.isNotEmpty
-                                    ? Padding(
-                                        padding: const EdgeInsets.only(
-                                            top: 16,
-                                            bottom: 12,
-                                            left: 16,
-                                            right: 16),
-                                        child: Text(
-                                          LocaleKeys.all.tr(),
-                                          style: const TextStyle(
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w400,
-                                              color: greyText),
-                                        ),
-                                      )
-                                    : const SizedBox(),
-                          ),
-                          BlocBuilder<CarsInDealerBloc, CarsInDealerState>(
-                            builder: (context, allCarsState) => allCarsState
-                                    .cars.isNotEmpty
-                                ? ListView.builder(
-                                    physics:
-                                        const NeverScrollableScrollPhysics(),
-                                    shrinkWrap: true,
-                                    scrollDirection: Axis.vertical,
-                                    itemCount: allCarsState.cars.length,
-                                    itemBuilder: (context, index) => Padding(
-                                      padding:
-                                          const EdgeInsets.only(bottom: 12),
-                                      child: InfoContainer(
-                                        index: index,
-                                        avatarPicture: dealerSingleState
-                                            .dealerSingleEntity.avatar,
-                                        carModel: allCarsState
-                                            .cars[index].absoluteCarName,
-                                        hasDiscount: false,
-                                        location: allCarsState
-                                            .cars[index].region.title,
-                                        owner: dealerSingleState
-                                            .dealerSingleEntity.name,
-                                        ownerType: 'a',
-                                        publishTime:
-                                            MyFunctions.getAutoPublishDate(
-                                                allCarsState
-                                                    .cars[index].createdAt),
-                                        subtitle: allCarsState
-                                            .cars[index].description,
-                                        year: allCarsState.cars[index].year,
-                                        price: allCarsState.cars[index].price,
-                                        discountPrice:
-                                            allCarsState.cars[index].price,
-                                        sellType: 'Продажа Автомобиля',
-                                        hasStatusInfo: true,
-                                        hasCallCard: true,
-                                        gallery:
-                                            allCarsState.cars[index].gallery,
-                                        currency:
-                                            allCarsState.cars[index].currency,
-                                        initialLike: false,
-                                        onTapFavorites: () {},
-                                        onTapComparsion: () {},
-                                        initialComparsions: false,
-                                        id: -1,
-                                      ),
+                          if (state.cars.isNotEmpty)
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      top: 16, bottom: 12, left: 16, right: 16),
+                                  child: Text(
+                                    LocaleKeys.all.tr(),
+                                    style: const TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w400,
+                                        color: greyText),
+                                  ),
+                                ),
+                                ListView.builder(
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  shrinkWrap: true,
+                                  scrollDirection: Axis.vertical,
+                                  itemCount: state.cars.length,
+                                  itemBuilder: (context, index) => Padding(
+                                    padding: const EdgeInsets.only(bottom: 12),
+                                    child: InfoContainer(
+                                      index: index,
+                                      avatarPicture:
+                                          state.dealerSingleEntity.avatar,
+                                      carModel:
+                                          state.cars[index].absoluteCarName,
+                                      hasDiscount: false,
+                                      location: state.cars[index].region.title,
+                                      owner: state.dealerSingleEntity.name,
+                                      ownerType: 'a',
+                                      publishTime:
+                                          MyFunctions.getAutoPublishDate(
+                                              state.cars[index].createdAt),
+                                      subtitle: state.cars[index].description,
+                                      year: state.cars[index].year,
+                                      price: state.cars[index].price,
+                                      discountPrice: state.cars[index].price,
+                                      sellType: LocaleKeys.car_sale.tr(),
+                                      hasStatusInfo: true,
+                                      hasCallCard: true,
+                                      gallery: state.cars[index].gallery,
+                                      currency: state.cars[index].currency,
+                                      initialLike: false,
+                                      onTapFavorites: () {},
+                                      onTapComparsion: () {},
+                                      initialComparsions: false,
+                                      id: state.cars[index].id,
                                     ),
-                                  )
-                                : const SizedBox(),
-                          ),
+                                  ),
+                                )
+                              ],
+                            ),
                         ],
                       ),
                     ),

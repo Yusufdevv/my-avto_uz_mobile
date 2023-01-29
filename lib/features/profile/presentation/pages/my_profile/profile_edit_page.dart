@@ -116,11 +116,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                               onError: (text) {
                                 var error = text;
                                 if (error.toLowerCase().contains('dioerror')) {
-                                  error =
-                                      StorageRepository.getString('language') ==
-                                              'uz'
-                                          ? 'Tarmoqda uzilish yuzaga keldi'
-                                          : 'Произошел сбой сети';
+                                  error =  LocaleKeys.service_error.tr();
                                 }
                                 context.read<ShowPopUpBloc>().add(
                                     ShowPopUp(message: error, isSucces: false));
@@ -226,7 +222,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                                     )),
                               ),
                               //
-                              const TitleTextFieldTop(title: 'ФИО'),
+                                TitleTextFieldTop(title: LocaleKeys.full_name.tr()),
                               ProfilTextField(
                                   controller: _fullNameController,
                                   isNameField: true),
@@ -265,7 +261,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                                               ?.title ??
                                           '')),
                               //
-                              const TitleTextFieldTop(title: 'Номер телефона'),
+                              TitleTextFieldTop(title: LocaleKeys.full_name.tr()),
                               WScaleAnimation(
                                   onTap: () {
                                     Navigator.of(context, rootNavigator: true)

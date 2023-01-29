@@ -121,7 +121,7 @@ class _DirectoryFilterPageState extends State<DirectoryFilterPage> {
                                     .state
                                     .regions
                                     .isEmpty
-                                ? 'Выберите регион'
+                                ? LocaleKeys.choose_region.tr()
                                 : context.read<DirectoryBloc>().state.regions),
                       ),
                       const SizedBox(height: 16),

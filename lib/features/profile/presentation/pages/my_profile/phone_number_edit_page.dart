@@ -15,7 +15,7 @@ import 'package:auto/features/profile/data/repositories/profile_repository_impl.
 import 'package:auto/features/profile/domain/usecases/change_phone_number_usecase.dart';
 import 'package:auto/features/profile/domain/usecases/send_sms_verifiaction_code_usecase.dart';
 import 'package:auto/features/profile/presentation/bloc/change_phone_number/change_phone_number_bloc.dart';
-import 'package:auto/features/profile/presentation/bloc/profile/profile_bloc.dart';
+ 
 import 'package:auto/features/profile/presentation/pages/my_profile/phone_verifiy_page.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -63,7 +63,7 @@ class _PhoneNumberEditPageState extends State<PhoneNumberEditPage> {
             child: CustomScreen(
               child: Scaffold(
                 backgroundColor: white,
-                appBar: const WAppBar(title: 'Номер телефона'),
+                appBar:   WAppBar(title: LocaleKeys.tel_number.tr()),
                 body: Padding(
                   padding: const EdgeInsets.only(
                       top: 50, left: 16, right: 16, bottom: 20),
@@ -75,7 +75,7 @@ class _PhoneNumberEditPageState extends State<PhoneNumberEditPage> {
                         LoginHeader(
                             title: LocaleKeys.tel_number.tr(),
                             description:
-                                'Мы отправим код подтверждения на номер телефона'),
+                                LocaleKeys.we_will_send_a_verification.tr()),
                         SizedBox(height: SizeConfig.v(50)),
                         ZTextFormField(
                           disabledBorderColor: border,
@@ -155,8 +155,7 @@ class _PhoneNumberEditPageState extends State<PhoneNumberEditPage> {
                                           if (error
                                               .toLowerCase()
                                               .contains('dioerror')) {
-                                           error = StorageRepository.getString('language')=='uz' ?
-                                                    'Tarmoqda uzilish yuzaga keldi' : 'Произошел сбой сети';
+                                           error = LocaleKeys.service_error.tr();
                                           }
                                           context.read<ShowPopUpBloc>().add(
                                               ShowPopUp(

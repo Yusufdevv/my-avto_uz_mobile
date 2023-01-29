@@ -6,13 +6,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:formz/formz.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class TermsOfUsePage extends StatelessWidget {
   const TermsOfUsePage({super.key});
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        appBar: const WAppBar(textWithButton: 'Правила пользования'),
+        appBar:   WAppBar(textWithButton: LocaleKeys.rules_of_using.tr()),
         body: BlocBuilder<ProfileBloc, ProfileState>(builder: (context, state) {
           if (state.status == FormzStatus.submissionInProgress) {
             return const Center(child: CupertinoActivityIndicator());

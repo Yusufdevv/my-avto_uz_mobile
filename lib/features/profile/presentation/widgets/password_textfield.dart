@@ -82,11 +82,11 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
             return 'Parolni kiriting!';
           } else if (value.isNotEmpty && !widget.isOldPasword) {
             if (widget.controller.text.length < 8) {
-              return "Parol kamida 8 ta belgidan iborat bo'lishi kerak";
+              return "Parol kamida 6 ta belgidan iborat bo'lishi kerak";
             }
             if (widget.secondController != null &&
                 widget.secondController!.text.length < 8) {
-              return "Parol kamida 8 ta belgidan iborat bo'lishi kerak";
+              return "Parol kamida 6 ta belgidan iborat bo'lishi kerak";
             } else if ((widget.secondController != null ||
                     widget.secondController!.text.isNotEmpty) &&
                 (widget.secondController?.text != null ||

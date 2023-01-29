@@ -3,6 +3,7 @@ import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/core/singletons/dio_settings.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
+import 'package:auto/features/dealers/data/datasource/marks_in_dealer_datasource.dart';
 import 'package:auto/features/dealers/data/repositories/marks_in_dealer_repository.dart';
 import 'package:auto/features/dealers/domain/usecases/marks_usecase.dart';
 import 'package:auto/features/dealers/presentation/blocs/marks_in_dealer_bloc/marks_in_dealers_bloc.dart';
@@ -14,14 +15,12 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../data/datasource/marks_in_dealer_datasource.dart';
-
 class AllMarksWithAnnouncements extends StatefulWidget {
   final String slug;
 
   const AllMarksWithAnnouncements({
-    Key? key,
     required this.slug,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -39,8 +38,6 @@ class _AllMarksWithAnnouncementsState extends State<AllMarksWithAnnouncements> {
             marks: MarksInDealerRepositoryImpl(
                 dataSource: MarksInDealerDataSource(DioSettings().dio))))
       ..add(MarksInDealersEvent.getResults(slug: widget.slug));
-
-    // TODO: implement initState
     super.initState();
   }
 

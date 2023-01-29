@@ -2,6 +2,8 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class ModerationStatusPart extends StatelessWidget {
   const ModerationStatusPart({required this.moderationStatus, super.key});
@@ -13,14 +15,14 @@ class ModerationStatusPart extends StatelessWidget {
         children: [
           if (moderationStatus == 'blocked')
             ModerationWidget(
-              title: 'Заблокировано модератором',
+              title: LocaleKeys.blocked_by_moderator.tr(),
               titleColor: red,
               svgPath: AppIcons.info,
               color: red.withOpacity(0.1),
             )
           else if (moderationStatus == 'sold')
             ModerationWidget(
-              title: 'Продано',
+              title: LocaleKeys.sold.tr(),
               titleColor: emerald,
               color: green.withOpacity(0.1),
             )

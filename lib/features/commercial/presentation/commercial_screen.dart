@@ -7,10 +7,13 @@ import 'package:auto/features/commercial/presentation/widgets/commercial_tab.dar
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/search/presentation/search_screen.dart';
 import 'package:auto/features/search/presentation/widgets/sort_bottom_sheet.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
+
 
 class CommercialScreen extends StatefulWidget {
   const CommercialScreen({super.key});
@@ -94,9 +97,9 @@ class _CommercialScreenState extends State<CommercialScreen>
                   title: AnimatedCrossFade(
                     duration: fadeDuration,
                     crossFadeState: crossFadeState,
-                    firstChild: const Text(
-                      'Лёгкий коммерческий транспорт',
-                      style: TextStyle(
+                    firstChild:  Text(
+                      LocaleKeys.light_commercial_vehicles.tr(),
+                      style:const TextStyle(
                           fontSize: 16,
                           color: dark,
                           fontWeight: FontWeight.w600),
@@ -146,7 +149,7 @@ class _CommercialScreenState extends State<CommercialScreen>
                     crossFadeState: crossFadeState,
                     firstChild: CommercialTab(
                       tabController: tabController,
-                      tabLabels: const ['Все', 'Новые', 'С пробегом'],
+                      tabLabels:   [LocaleKeys.all.tr(),LocaleKeys.news.tr() ,LocaleKeys.with_Mileage.tr()],
                     ),
                     secondChild: const SizedBox(),
                   ),
@@ -247,22 +250,22 @@ class _CommercialScreenState extends State<CommercialScreen>
         ),
         clipBehavior: Clip.hardEdge,
         builder: (context) => SortBottomSheet(
-          title: 'Сортировка',
-          values: const [
+          title: LocaleKeys.sorting.tr() ,
+          values: const  [
             SortSearchResultsModel(
-              title: 'По убыванию',
+              title: LocaleKeys.descending  ,
               status: SortSearchResultStatus.cheapest,
             ),
             SortSearchResultsModel(
-              title: 'По возрастанию',
+              title:  LocaleKeys.ascending   ,
               status: SortSearchResultStatus.expensive,
             ),
             SortSearchResultsModel(
-              title: 'Сначала старые',
+              title:  LocaleKeys.oldOnesFirst  ,
               status: SortSearchResultStatus.oldest,
             ),
             SortSearchResultsModel(
-              title: 'Сначала новые',
+              title:  LocaleKeys.newOnesFirst ,
               status: SortSearchResultStatus.newest,
             ),
           ],

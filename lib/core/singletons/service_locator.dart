@@ -2,7 +2,9 @@ import 'package:auto/core/singletons/dio_settings.dart';
 import 'package:auto/features/ad/data/datasources/ad_remote_datasource.dart';
 import 'package:auto/features/ad/data/repositories/ad_repository_impl.dart';
 import 'package:auto/features/car_single/data/datasource/car_single_datasource.dart';
+import 'package:auto/features/car_single/data/datasource/user_single_datasource.dart';
 import 'package:auto/features/car_single/data/repository/car_single_repository_impl.dart';
+import 'package:auto/features/car_single/data/repository/user_single_repository.dart';
 import 'package:auto/features/common/data/datasources/add_wishlist_datasource.dart';
 import 'package:auto/features/common/data/get_regions_datasource.dart';
 import 'package:auto/features/common/repository/add_wishlist_repository.dart';
@@ -26,6 +28,8 @@ void setupLocator() {
     ..registerLazySingleton(DioSettings.new)
     ..registerLazySingleton(MainRepositoryImpl.new)
     ..registerLazySingleton(MainDataSource.new)
+    ..registerLazySingleton(UserSingleRepositoryImpl.new)
+    ..registerLazySingleton(UserSingleDataSourceImpl.new)
     ..registerLazySingleton(
         () => ProfileRepositoryImpl(dataSource: ProfileDataSourceImpl()))
     ..registerLazySingleton(
