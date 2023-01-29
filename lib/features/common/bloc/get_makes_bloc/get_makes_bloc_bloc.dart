@@ -17,7 +17,8 @@ class GetMakesBloc extends Bloc<GetMakesBlocEvent, GetMakesState> {
   GetMakesBloc({
     required this.useCase,
     required this.topUseCase,
-  }) : super(GetMakesState()) {
+    int? initialId,
+  }) : super(GetMakesState(selectId: initialId ?? -1)) {
     on<_ChangeSelected>((event, emit) {
       emit(state.copyWith(selectId: event.id));
     });

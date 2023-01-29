@@ -8,12 +8,13 @@ import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/maker_sheet_item.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/sheet_header.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
-import 'package:auto/generated/locale_keys.g.dart';
-import 'package:easy_localization/easy_localization.dart';
+
 class ChooseMaker extends StatefulWidget {
   final int selectedId;
   const ChooseMaker({required this.selectedId, super.key});
@@ -27,6 +28,7 @@ class _ChooseMakerState extends State<ChooseMaker> {
   @override
   void initState() {
     getMakesBloc = GetMakesBloc(
+      initialId: widget.selectedId,
       topUseCase:
           GetTopMakesUseCase(repository: serviceLocator<AdRepositoryImpl>()),
       useCase: GetMakesUseCase(
@@ -54,10 +56,7 @@ class _ChooseMakerState extends State<ChooseMaker> {
                     SheetHeader(
                         title: LocaleKeys.brand.tr(),
                         onCancelPressed: () {
-                          Navigator.of(context).pop(getMakesState.selectId >= 0
-                              ? getMakesState.makes.firstWhere((element) =>
-                                  getMakesState.selectId == element.id)
-                              : null);
+                          Navigator.of(context).pop();
                         }),
                     const Divider(thickness: 1, color: border, height: 1),
                     Expanded(
