@@ -7,7 +7,7 @@ import 'package:auto/features/profile/domain/entities/dealer_type_entity.dart';
 import 'package:auto/features/profile/domain/usecases/get_my_searches_usecase.dart';
 import 'package:auto/features/profile/domain/usecases/get_notification_single.dart';
 import 'package:auto/features/profile/domain/usecases/get_notification_usecase.dart';
-import 'package:auto/features/profile/domain/usecases/profil_favorites_usecase.dart'; 
+import 'package:auto/features/profile/domain/usecases/profil_favorites_usecase.dart';
 import 'package:auto/features/profile/presentation/bloc/user_wishlists_notifications/user_wishlists_notification_bloc.dart';
 import 'package:auto/features/profile/presentation/widgets/empty_item_body.dart';
 import 'package:auto/features/profile/presentation/widgets/favorite_item.dart';
@@ -148,13 +148,13 @@ class _FavouritePageState extends State<FavouritePage> {
                                           const Duration(milliseconds: 600));
                                 }));
                       })
-                  :   Center(
+                  : Center(
                       child: EmptyItemBody(
                           subtitle: LocaleKeys.you_dont_have_ads.tr(),
                           image: AppIcons.carIcon),
                     );
             }
-            return const Center(child: Text('Xatolik'));
+            return Center(child: Text(LocaleKeys.error.tr()));
           },
         ),
       ));

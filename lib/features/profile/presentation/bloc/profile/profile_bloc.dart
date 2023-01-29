@@ -1,9 +1,7 @@
 import 'package:auto/core/exceptions/failures.dart';
-import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/core/usecases/usecase.dart';
 import 'package:auto/features/common/domain/entity/auto_entity.dart';
 import 'package:auto/features/common/repository/auth.dart';
-import 'package:auto/features/profile/data/repositories/profile_repository_impl.dart';
 import 'package:auto/features/profile/domain/entities/profile_data_entity.dart';
 import 'package:auto/features/profile/domain/entities/terms_of_use_entity.dart';
 import 'package:auto/features/profile/domain/usecases/change_password_usecase.dart';
@@ -44,14 +42,14 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     on<ChangeCountDataEvent>(_onChangeIsWish);
 
     on<ChangeNotificationAllRead>(
+      // notifikatsiya iconini bosganda iconni o'zgartirish
       (event, emit) {
+        emit(state.copyWith(editStatus: FormzStatus.submissionInProgress));
         // ignore: prefer_final_locals
-        print('=======berfore ${state.profileEntity.isReadAllNotifications}');
         var user = state.profileEntity;
         // ignore: cascade_invocations
         user.isReadAllNotifications = true;
-        print('=======after ${state.profileEntity.isReadAllNotifications}');
-        emit(state.copyWith(profileEntity: user));
+        emit(state.copyWith(profileEntity: user, editStatus: FormzStatus.submissionSuccess));
       },
     );
     

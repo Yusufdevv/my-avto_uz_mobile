@@ -7,6 +7,7 @@ import 'package:auto/features/car_single/presentation/car_single_screen.dart';
 import 'package:auto/features/common/bloc/wishlist_add/wishlist_add_bloc.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
+import 'package:auto/features/profile/presentation/widgets/car_name_year_widget.dart';
 import 'package:auto/features/search/presentation/part/bottom_sheet_for_calling.dart';
 import 'package:auto/features/search/presentation/widgets/add_comparison_item.dart';
 import 'package:auto/features/search/presentation/widgets/add_wishlist_item.dart';
@@ -18,6 +19,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
 class FavoriteItem extends StatefulWidget {
   const FavoriteItem(
       {required this.gallery,
@@ -94,7 +96,7 @@ class _FavoriteItemState extends State<FavoriteItem> {
           },
           child: Container(
             width: MediaQuery.of(context).size.width,
-            padding: const EdgeInsets.only(top: 12, left: 16, bottom: 12),
+            padding: const EdgeInsets.only(top: 12, left: 16, bottom: 8),
             decoration: BoxDecoration(
                 color: Theme.of(context).extension<ThemedColors>()?.whiteToDark,
                 boxShadow: [
@@ -123,7 +125,7 @@ class _FavoriteItemState extends State<FavoriteItem> {
                           height: 201,
                           width: 264,
                           child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 2),
+                            padding: const EdgeInsets.only(right: 4),
                             child: CachedNetworkImage(
                               errorWidget: (context, url, error) => Image.asset(
                                 AppImages.carPlaceHolder,
@@ -136,6 +138,18 @@ class _FavoriteItemState extends State<FavoriteItem> {
                             ),
                           ),
                         ),
+                      if (widget.gallery.isEmpty)
+                        SizedBox(
+                          height: 201,
+                          width: 264,
+                          child: Padding(
+                            padding: const EdgeInsets.only(right: 4),
+                            child: Image.asset(
+                              AppImages.carPlaceHolder,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
                       if (MyFunctions.enableForCalling(
                           callFrom: widget.callFrom, callTo: widget.callTo))
                         WButton(
@@ -145,7 +159,7 @@ class _FavoriteItemState extends State<FavoriteItem> {
                           height: 201,
                           borderRadius: 0,
                           color: emerald,
-                          margin: const EdgeInsets.only(left: 2, right: 16),
+                          margin: const EdgeInsets.only(right: 16),
                           width: 264,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -169,9 +183,9 @@ class _FavoriteItemState extends State<FavoriteItem> {
                           onTap: () {},
                           height: 201,
                           color: border,
-                          margin: const EdgeInsets.only(left: 2, right: 16),
                           width: 264,
                           borderRadius: 0,
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -190,7 +204,7 @@ class _FavoriteItemState extends State<FavoriteItem> {
                                               fontWeight: FontWeight.w600),
                                     ),
                                     TextSpan(
-                                      text:  LocaleKeys.please_call_during.tr(),
+                                      text: LocaleKeys.please_call_during.tr(),
                                       style: Theme.of(context)
                                           .textTheme
                                           .headline2
@@ -229,84 +243,7 @@ class _FavoriteItemState extends State<FavoriteItem> {
                         ),
                   ),
                 const SizedBox(height: 12),
-                RichText(
-                text: TextSpan(
-                     
-                    children: [
-                  TextSpan(
-                    text: widget.carModelName,
-                     style: Theme.of(context).textTheme.headline2!.copyWith(
-                        color: dark, fontSize: 14, fontWeight: FontWeight.w400),
-                  ),
-                  WidgetSpan(
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 4),
-                      child: CustomChip(
-                        label: '${widget.carYear}',
-                        backgroundColor:
-                            LightThemeColors.navBarIndicator.withOpacity(0.1),
-                        borderRadius: 4,
-                        labelStyle: const TextStyle(
-                          fontSize: 10,
-                          fontWeight: FontWeight.w600,
-                          color: LightThemeColors.navBarIndicator,
-                        ),
-                      ),
-                    ),
-                  ),
-                  if (widget.isNew)
-                    WidgetSpan(
-                        child: Padding(
-                      padding: const EdgeInsets.only(left: 4),
-                      child: CustomChip(
-                        leading: SvgPicture.asset(AppIcons.checkCurly),
-                        label: LocaleKeys.neww.tr(),
-                        backgroundColor: emerald.withOpacity(0.1),
-                        borderRadius: 4,
-                        labelStyle: const TextStyle(
-                          fontSize: 10,
-                          fontWeight: FontWeight.w600,
-                          color: emerald,
-                        ),
-                      ),
-                    ))
-                ])),
-                // Row(
-                //   children: [
-                //     Text(
-                //       widget.carModelName,
-                //       style: Theme.of(context)
-                //           .textTheme
-                //           .headline2
-                //           ?.copyWith(color: dark),
-                //     ),
-                //     const SizedBox(width: 4),
-                //     CustomChip(
-                //       label: '${widget.carYear}',
-                //       backgroundColor:
-                //           LightThemeColors.navBarIndicator.withOpacity(0.1),
-                //       borderRadius: 4,
-                //       labelStyle: const TextStyle(
-                //         fontSize: 10,
-                //         fontWeight: FontWeight.w600,
-                //         color: LightThemeColors.navBarIndicator,
-                //       ),
-                //     ),
-                //     const SizedBox(width: 4),
-                //     if (widget.isNew)
-                //       CustomChip(
-                //         leading: SvgPicture.asset(AppIcons.checkCurly),
-                //         label: LocaleKeys.neww.tr(),
-                //         backgroundColor: green.withOpacity(0.1),
-                //         borderRadius: 4,
-                //         labelStyle: const TextStyle(
-                //           fontSize: 10,
-                //           fontWeight: FontWeight.w600,
-                //           color: green
-                //         ),
-                //       )
-                //   ],
-                // ),
+                CarNameYearWidget(carName: widget.carModelName, carYear: widget.carYear.toString(), isNew: widget.isNew),
                 const SizedBox(height: 4),
                 Row(
                   children: [
@@ -368,36 +305,39 @@ class _FavoriteItemState extends State<FavoriteItem> {
                           fit: BoxFit.cover),
                     ),
                     const SizedBox(width: 8),
-                    RichText(
-                      text: TextSpan(
-                        children: [
-                          TextSpan(
-                            text: '${widget.userFullName}\n',
-                            style: Theme.of(context)
-                                .textTheme
-                                .headline2
-                                ?.copyWith(fontSize: 14),
-                          ),
-                          TextSpan(
-                            text: widget.userType,
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyText1
-                                ?.copyWith(color: purple),
-                          ),
-                        ],
-                      ),
-                    )
+                   RichText(
+                        text: TextSpan(
+                          children: [
+                            TextSpan(
+                              text: '${widget.userFullName}\n',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline2
+                                  ?.copyWith(fontSize: 14),
+                            ),
+                            TextSpan(
+                              text: widget.userType == 'owner'
+                                  ? LocaleKeys.private_person.tr()
+                                  : LocaleKeys.autosalon.tr(),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyText1
+                                  ?.copyWith(color: purple),
+                            ),
+                          ],
+                        ),
+                      )
                   ],
                 ),
+                const SizedBox(height: 16),
                 Divider(
                     color: Theme.of(context)
                         .extension<ThemedColors>()
                         ?.solitude2ToNightRider,
-                    height: 32,
+                    height: 1,
                     thickness: 1),
                 Padding(
-                  padding: const EdgeInsets.only(right: 16),
+                  padding: const EdgeInsets.only(right: 16, top: 8),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -411,7 +351,7 @@ class _FavoriteItemState extends State<FavoriteItem> {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(top: 7),
+                        padding: const EdgeInsets.only(top: 0),
                         child: AddComparisonItem(
                           id: widget.id,
                           initialLike: widget.hasComparison,

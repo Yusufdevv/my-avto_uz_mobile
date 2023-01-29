@@ -7,6 +7,7 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/core/exceptions/exceptions.dart';
 import 'package:auto/core/exceptions/failures.dart';
+import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/common/models/region.dart';
 import 'package:auto/features/profile/domain/entities/dir_category_entity.dart';
@@ -234,31 +235,32 @@ class MyFunctions {
   }
 
   static String getMonthByIndex(int index) {
+    final language = StorageRepository.getString('language');
     switch (index) {
       case 1:
-        return 'Январь';
+        return language=='uz' ? 'Yanvar' : 'Январь';
       case 2:
-        return 'Февраль';
+        return language=='uz' ? 'Fevral' : 'Февраль';
       case 3:
-        return 'Март';
+        return language=='uz' ? 'Mart' :  'Март';
       case 4:
-        return 'Апрель';
+        return language=='uz' ? 'Aprel' : 'Апрель';
       case 5:
-        return 'Май';
+        return language=='uz' ? 'May' : 'Май';
       case 6:
-        return 'Июнь';
+        return language=='uz' ? 'Iyun' : 'Июнь';
       case 7:
-        return 'Июль';
+        return language=='uz' ? 'Iyul' : 'Июль';
       case 8:
-        return 'Август';
+        return language=='uz' ? 'Avgust' : 'Август';
       case 9:
-        return 'Сентябрь';
+        return language=='uz' ? 'Sentabr' : 'Сентябрь';
       case 10:
-        return 'Октябрь';
+        return language=='uz' ? 'Oktabr' : 'Октябрь';
       case 11:
-        return 'Ноябрь';
+        return language=='uz' ? 'Noyabr' : 'Ноябрь';
       case 12:
-        return 'Декабрь';
+        return language=='uz' ? 'Dekabr' : 'Декабрь';
       default:
         return '';
     }
@@ -271,12 +273,13 @@ class MyFunctions {
   }
 
   static String getDateNamedMonthEdit(String data) {
+    final language = StorageRepository.getString('language');
     final date = DateTime.now();
     final list = data.substring(0, 10).split('-');
     if (date.year.toString() == list[0]) {
       if (date.month == int.tryParse(list[1]) &&
           date.day == int.tryParse(list[2])) {
-        return 'Сегодня';
+        return language == 'uz' ? 'Bugun' :  'Сегодня';
       } else {
         return '${int.tryParse(list[2])} ${getMonthByIndex(int.tryParse(list[1]) ?? -1)}';
       }
@@ -286,14 +289,16 @@ class MyFunctions {
   }
 
   static String getAutoPublishDate(String data) {
+    final language = StorageRepository.getString('language');
+
     final dateNow = DateTime.now();
     final date = getDateNamedMonth(data).split(',');
     final dateDay = int.parse(date[0].split(' ')[0]);
     final dateYear = int.parse(date[1].trim().split(' ')[0]);
     if (dateDay == dateNow.day) {
-      return 'Сегодня';
+      return language == 'uz' ? 'Bugun' :  'Сегодня';
     } else if (dateDay == (dateNow.day - 1)) {
-      return 'Вчера';
+      return language == 'uz' ? 'Kecha' :  'Вчера';
     } else if (dateYear == dateNow.year) {
       return date[0];
     } else {
