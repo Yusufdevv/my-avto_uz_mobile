@@ -43,19 +43,19 @@ class _AdditionalOptionsState extends State<AdditionalOptions> {
               children: [
                 OptionsItem(
                   isHas: widget.rentCarEntity.isClean,
-                  title: 'Помытая машина',
+                  title: LocaleKeys.washed_car.tr(),
                 ),
                 const SizedBox(width: 12),
                 OptionsItem(
                   isHas: widget.rentCarEntity.hasBabySeat,
-                  title: 'Детское кресло',
+                  title: LocaleKeys.baby_chair.tr(),
                 ),
               ],
             ),
             const SizedBox(height: 12),
             OptionsItem(
               isHas: widget.rentCarEntity.isFullFuel,
-              title: 'Полный бак бензина',
+              title: LocaleKeys.full_tank_of_gasoline.tr(),
             ),
           ],
         ),

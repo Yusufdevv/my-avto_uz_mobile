@@ -142,6 +142,7 @@ class _MainScreenState extends State<MainScreen> {
               color: purple,
               onRefresh: () async {
                 mainBloc.add(InitialEvent());
+                context.read<ProfileBloc>().add(GetProfileEvent());
                 topBrandBloc.add(TopBrandEvent.getBrand());
                 topAdBloc
                   ..add(TopAdEvent.getTopAds())

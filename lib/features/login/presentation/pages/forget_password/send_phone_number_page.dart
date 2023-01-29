@@ -1,6 +1,5 @@
 import 'package:auto/assets/colors/color.dart';
-import 'package:auto/assets/constants/images.dart';
-import 'package:auto/core/singletons/storage.dart';
+import 'package:auto/assets/constants/images.dart'; 
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
 import 'package:auto/features/common/widgets/custom_screen.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';

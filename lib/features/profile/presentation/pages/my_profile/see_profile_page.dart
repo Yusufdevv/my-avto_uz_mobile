@@ -105,7 +105,7 @@ class SeeProfilePage extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.only(
                         top: SizeConfig.v(16), bottom: SizeConfig.v(2)),
-                    child: Text(state.profileEntity.fullName ?? 'No name',
+                    child: Text(state.profileEntity.fullName ?? '',
                         style: Theme.of(context)
                             .textTheme
                             .headline1!
@@ -130,7 +130,7 @@ class SeeProfilePage extends StatelessWidget {
                     padding: EdgeInsets.only(bottom: SizeConfig.v(16)),
                   ),
                   TextSpacer(
-                      title: 'Email',
+                      title: LocaleKeys.email.tr(),
                       value: state.profileEntity.email ?? ''),
                   const Spacer(),
                   OrangeButton(
@@ -139,7 +139,7 @@ class SeeProfilePage extends StatelessWidget {
                         children: [
                           SvgPicture.asset(AppIcons.logout),
                           SizedBox(width: SizeConfig.h(8)),
-                          Text('Выйти из аккаунта',
+                          Text(LocaleKeys.exit_from_account.tr(),
                               style: Theme.of(context)
                                   .textTheme
                                   .headline3!
@@ -154,9 +154,9 @@ class SeeProfilePage extends StatelessWidget {
                             builder: (context) =>
                                 CustomProfileBottomsheet(
                                   title:
-                                      'Вы действительно \nхотите выйти?',
+                                      LocaleKeys.do_you_really_want_to_leave.tr(),
                                   subTitle:
-                                      'После выхода из приложения, необходимо\nбудет заново пройти авторизацию чтобы\nвойти обратно в приложение.',
+                                      LocaleKeys.after_exiting_the_application.tr(),
                                   betweenHeight: 64,
                                   onTap: () {
                                     StorageRepository.deleteString(

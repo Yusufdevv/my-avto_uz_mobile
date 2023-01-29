@@ -25,7 +25,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:formz/formz.dart';
-
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 class MySearchesPage extends StatefulWidget {
   const MySearchesPage({super.key});
 
@@ -59,7 +60,7 @@ class _MySearchesPageState extends State<MySearchesPage> {
         child: CustomScreen(
           child: Scaffold(
             appBar: WAppBar(
-              textWithButton: 'Мои поиски',
+              textWithButton: LocaleKeys.my_searchs.tr(),
               extraActions: [
                 if (mySearches.isNotEmpty)
                   WScaleAnimation(
@@ -74,7 +75,7 @@ class _MySearchesPageState extends State<MySearchesPage> {
                       padding: const EdgeInsets.symmetric(horizontal: 16),
                       child: isToggled
                           ? Text(
-                              'Отменить',
+                              LocaleKeys.cancell.tr(),
                               style: Theme.of(context)
                                   .textTheme
                                   .subtitle1
@@ -139,20 +140,20 @@ class _MySearchesPageState extends State<MySearchesPage> {
                             );
                           },
                         )
-                      : const Center(
+                      :   Center(
                           child: EmptyItemBody(
-                              title: 'Нет уведомлении',
+                              title:LocaleKeys.no_notice.tr(),
                               subtitle:
-                                  'Ваши сохранённые поиски будут отображаться в данном разделе.',
+                                  LocaleKeys.your_saved_searches_will.tr(),
                               image: AppIcons.emptyFolder),
                         );
                 }
-                return const Center(child: Text('Xatolik!'));
+                return   Center(child: Text(LocaleKeys.error.tr()));
               },
             ),
             bottomNavigationBar: isToggled
                 ? WButton(
-                    text: 'Удалить',
+                    text: LocaleKeys.delete.tr(),
                     color: deletedList.isNotEmpty ? orange : grey,
                     margin: EdgeInsets.symmetric(
                         horizontal: SizeConfig.h(16),
@@ -162,8 +163,8 @@ class _MySearchesPageState extends State<MySearchesPage> {
                           ? showModalBottomSheet(
                               context: context,
                               builder: (context) => CustomProfileBottomsheet(
-                                title: 'Вы действительно \nхотите удалить?',
-                                subTitle: 'Удаление возврату не поддлежит',
+                                title: LocaleKeys.a_y_s_y_w_to_d.tr(),
+                                subTitle:  LocaleKeys.del_is_non_refundable.tr(),
                                 betweenHeight: 36,
                                 onTap: () {
                                   isDeleted = !isDeleted;
@@ -180,7 +181,7 @@ class _MySearchesPageState extends State<MySearchesPage> {
                             )
                           : context.read<ShowPopUpBloc>().add(ShowPopUp(
                               isSucces: false,
-                              message: "O'chirish uchun avval tanlang"));
+                              message: LocaleKeys.select_first_to_delete.tr()));
                     },
                   )
                 : const SizedBox(),

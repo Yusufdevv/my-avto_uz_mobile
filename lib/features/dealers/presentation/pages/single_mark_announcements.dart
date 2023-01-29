@@ -52,7 +52,6 @@ class _SingleMarkAnnouncementsState extends State<SingleMarkAnnouncements> {
         ),
       ),
     )..add(CarsInMarksEvent.getResults(params: param));
-    // TODO: implement initState
     super.initState();
   }
 

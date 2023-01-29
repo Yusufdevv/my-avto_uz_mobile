@@ -3,7 +3,8 @@ import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 class CustomProfileBottomsheet extends StatelessWidget {
   const CustomProfileBottomsheet(
       {required this.title,
@@ -55,13 +56,13 @@ class CustomProfileBottomsheet extends StatelessWidget {
                   child: WButton(
                       color: solitude,
                       onTap: () => Navigator.pop(context),
-                      text: 'Нет',
+                      text: LocaleKeys.no.tr(),
                       textColor: greyText),
                 ),
                 const SizedBox(width: 12),
                 Expanded(
                   child: WButton(
-                      color: tutu, onTap: onTap, text: 'Да', textColor: red),
+                      color: tutu, onTap: onTap, text:LocaleKeys.yes.tr() , textColor: red),
                 ),
               ],
             )

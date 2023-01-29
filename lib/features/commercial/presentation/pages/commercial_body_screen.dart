@@ -1,6 +1,8 @@
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class CommercialBodyScreen extends StatelessWidget {
   final ScrollController scrollController;
@@ -23,12 +25,12 @@ class CommercialBodyScreen extends StatelessWidget {
               fit: BoxFit.cover,
             ),
             const SizedBox(height: 24),
-            Text('Очень скоро...',
+            Text(LocaleKeys.very_soon.tr(),
                 style: Theme.of(context).textTheme.headline1,
                 textAlign: TextAlign.center),
             const SizedBox(height: 8),
             Text(
-              'Ваша любимая команда разработчиков трудится днем и ночью чтобы предоставить вам данную функцию как можно скорее',
+              LocaleKeys.our_team_developers.tr(),
               style: Theme.of(context)
                   .textTheme
                   .headline2!

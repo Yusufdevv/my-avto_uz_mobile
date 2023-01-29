@@ -15,6 +15,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class AddPhotoItem extends StatefulWidget {
   final VoidCallback onTap;
@@ -46,7 +48,7 @@ class _AddPhotoItemState extends State<AddPhotoItem> {
               children: [
                 Row(
                   children: [
-                    Text('Фото', style: Theme.of(context).textTheme.headline1),
+                    Text(LocaleKeys.photo.tr(), style: Theme.of(context).textTheme.headline1),
                     const Spacer(),
                     WScaleAnimation(
                         child: SvgPicture.asset(AppIcons.close,

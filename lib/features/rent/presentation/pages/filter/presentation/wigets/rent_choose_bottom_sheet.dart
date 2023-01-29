@@ -108,7 +108,7 @@ class _RentChooseBottomSheetState extends State<RentChooseBottomSheet> {
           ),
           Padding(
             padding: const EdgeInsets.only(left: 16, right: 16, bottom: 50),
-            child: WButton(onTap: goBack, color: orange, text: 'Применить'),
+            child: WButton(onTap: goBack, color: orange, text: LocaleKeys.apply.tr()),
           ),
         ],
       ),

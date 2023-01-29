@@ -1,8 +1,7 @@
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
+import 'package:flutter/material.dart'; 
 
 class SegmentedControl extends SliverPersistentHeaderDelegate {
   SegmentedControl({required this.maxHeight, required this.minHeight});
@@ -55,15 +54,13 @@ class SegmentedControl extends SliverPersistentHeaderDelegate {
       );
 
   @override
-  // TODO: implement maxExtent
+   
   double get maxExtent => maxHeight;
 
   @override
-  // TODO: implement minExtent
+ 
   double get minExtent => minHeight;
 
   @override
-  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) {
-    return false;
-  }
+  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) => false;
 }

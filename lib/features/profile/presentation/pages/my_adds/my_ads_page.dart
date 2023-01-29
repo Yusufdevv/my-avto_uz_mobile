@@ -101,9 +101,9 @@ class _MyAdsPageState extends State<MyAdsPage> {
                             AllAds(autoEntity: noActive),
                           ],
                         )
-                      : const Center(
+                      :  Center(
                           child: EmptyItemBody(
-                              subtitle: 'У вас еще нет объявлений',
+                              subtitle:  LocaleKeys.you_dont_have_ads.tr(),
                               image: AppIcons.carIcon),
                         );
                 }

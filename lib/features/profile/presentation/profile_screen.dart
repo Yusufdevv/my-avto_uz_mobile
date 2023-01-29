@@ -2,7 +2,6 @@ import 'package:auto/features/common/bloc/wishlist_add/wishlist_add_bloc.dart';
 import 'package:auto/features/common/widgets/notification_button.dart';
 import 'package:auto/features/comparison/presentation/comparison_page.dart';
 import 'package:auto/features/profile/domain/entities/profile_data_entity.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,6 +19,7 @@ import 'package:auto/features/profile/presentation/bloc/profile/profile_bloc.dar
 import 'package:auto/features/profile/presentation/pages/pages.dart';
 import 'package:auto/features/profile/presentation/widgets/widgets.dart';
 import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -72,7 +72,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               if (state.status.isSubmissionInProgress) {
                 return const Center(child: CupertinoActivityIndicator());
               } else if (state.status.isSubmissionFailure) {
-                return const Center(child: Text('Fail'));
+                return const SizedBox();
               } else if (state.status.isSubmissionSuccess) {
                 profileData = state.profileEntity;
                 // ignore: prefer_final_locals
@@ -126,7 +126,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               count: usercountData.announcementsCount),
                           const ProfileDivider(),
                           ProfileMenuTile(
-                              name: 'Мои поиски',
+                              name: LocaleKeys.my_searchs.tr(),
                               onTap: () {
                                 Navigator.of(context, rootNavigator: true)
                                     .push(fade(page: const MySearchesPage()));
@@ -149,7 +149,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         //Дилеры - Справочник - Чат
                         ProfilItemsBox(marginTop: SizeConfig.v(12), widgets: [
                           ProfileMenuTile(
-                              name: 'Дилеры',
+                              name: LocaleKeys.dealers.tr(),
                               onTap: () {
                                 Navigator.of(context)
                                     .push(fade(page: const DealerScreen()));
@@ -157,7 +157,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               iconPath: AppIcons.dealers),
                           const ProfileDivider(),
                           ProfileMenuTile(
-                              name: 'Справочник',
+                              name: LocaleKeys.directory.tr(),
                               onTap: () {
                                 Navigator.of(context)
                                     .push(fade(page: const DirectoryPage()));
@@ -165,7 +165,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               iconPath: AppIcons.direct),
                           const ProfileDivider(),
                           ProfileMenuTile(
-                              name: 'Чат',
+                              name: LocaleKeys.chat.tr(),
                               onTap: () {
                                 Navigator.of(context, rootNavigator: true).push(
                                   fade(

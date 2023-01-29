@@ -5,6 +5,8 @@ import 'package:auto/features/commercial/presentation/widgets/custom_chip.dart';
 import 'package:auto/features/common/domain/entity/auto_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class MyAdCarDescPart extends StatelessWidget {
   const MyAdCarDescPart({
@@ -54,7 +56,7 @@ class MyAdCarDescPart extends StatelessWidget {
                   if (item.isNew)
                     CustomChip(
                       leading: SvgPicture.asset(AppIcons.checkCurly),
-                      label: 'Новый',
+                      label: LocaleKeys.neww.tr(),
                       backgroundColor: green.withOpacity(0.1),
                       borderRadius: 4,
                       labelStyle: const TextStyle(

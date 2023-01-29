@@ -10,18 +10,18 @@ import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_divider.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
-import 'package:auto/features/login/presentation/pages/register/register_screen.dart';
 import 'package:auto/features/login/presentation/pages/forget_password/send_phone_number_page.dart';
+import 'package:auto/features/login/presentation/pages/register/register_screen.dart';
 import 'package:auto/features/login/presentation/widgets/z_text_form_field.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/onboarding/presentation/widgets/social_media_item.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
-import 'package:auto/generated/locale_keys.g.dart';
-import 'package:easy_localization/easy_localization.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);

@@ -88,7 +88,7 @@ class _AllCarsInDealerScreenState extends State<AllCarsInDealerScreen> {
                         year: carsInDealerState.cars[index].year,
                         price: carsInDealerState.cars[index].price,
                         discountPrice: carsInDealerState.cars[index].price,
-                        sellType: 'Продажа Автомобиля',
+                        sellType: LocaleKeys.car_sale.tr(),
                         hasStatusInfo: true,
                         hasCallCard: true,
                         gallery: carsInDealerState.cars[index].gallery,

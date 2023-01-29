@@ -68,7 +68,7 @@ class _DealerSingleInfoPartState extends State<DealerSingleInfoPart> {
           Info(
             icon: AppIcons.vehicleCar,
             text: widget.quantityOfCars == 0
-                ? 'Нет автомобилей'
+                ? LocaleKeys.no_cars.tr()
                 : '${widget.quantityOfCars} ${LocaleKeys.carses.tr()}',
           ),
           const SizedBox(

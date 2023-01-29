@@ -23,7 +23,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:formz/formz.dart';
 import 'package:url_launcher/url_launcher.dart';
-
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 class NotificationPage extends StatefulWidget {
   const NotificationPage({super.key});
 
@@ -55,7 +56,7 @@ class _NotificationPageState extends State<NotificationPage> {
           child: Scaffold(
             appBar: WAppBar(
               hasBackButton: true,
-              title: 'Уведомления',
+              title: LocaleKeys.notifications.tr(),
               centerTitle: true,
               extraActions: [
                 WScaleAnimation(
@@ -89,6 +90,7 @@ class _NotificationPageState extends State<NotificationPage> {
                   final notifications = state.notifications;
                   return notifications.isNotEmpty
                       ? ListView.builder(
+                          physics:const BouncingScrollPhysics(),
                           itemCount: notifications.length,
                           itemBuilder: (context, index) {
                             final item = notifications[index];
@@ -110,7 +112,6 @@ class _NotificationPageState extends State<NotificationPage> {
                               },
                               child: BlocBuilder<UserWishListsBloc,
                                   UserWishListsState>(
-                                // listener: (context, state) {},
                                 builder: (context, state) => NotificationItem(
                                   currentIndex: index,
                                   category:
@@ -123,14 +124,14 @@ class _NotificationPageState extends State<NotificationPage> {
                             );
                           },
                         )
-                      : const EmptyItemBody(
-                          title: 'Нет уведомлении',
+                      :   EmptyItemBody(
+                          title: LocaleKeys.no_notice.tr(),
                           subtitle:
-                              'Пока нет уведомлении, они будут отображаться в данном разделе.',
+                              LocaleKeys.w_t_is_no_n_t_w_be.tr(),
                           image: AppIcons.notification);
                 }
-                return const Center(
-                  child: Text('Xatolik!'),
+                return   Center(
+                  child: Text(LocaleKeys.error.tr()),
                 );
               },
             ),

@@ -148,11 +148,7 @@ class NewPasswordsPage extends StatelessWidget {
                               onError: (message) {
                                 var error = message;
                                 if (error.toLowerCase().contains('dioerror')) {
-                                  error =
-                                      StorageRepository.getString('language') ==
-                                              'uz'
-                                          ? 'Tarmoqda uzilish yuzaga keldi'
-                                          : 'Произошел сбой сети';
+                                  error =LocaleKeys.service_error.tr();
                                 }
                                 context.read<ShowPopUpBloc>().add(
                                     ShowPopUp(message: error, isSucces: false));

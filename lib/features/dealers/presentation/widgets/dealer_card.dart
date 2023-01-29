@@ -126,7 +126,7 @@ class _DealerCardState extends State<DealerCard> {
                   const SizedBox(width: 8),
                   Text(
                       widget.quantityOfCars == 0
-                          ? 'Нет автомобилей'
+                          ? LocaleKeys.no_cars.tr()
                           : '${widget.quantityOfCars} ${LocaleKeys.carses.tr()}',
                       style: Theme.of(context)
                           .textTheme

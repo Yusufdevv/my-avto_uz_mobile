@@ -1,6 +1,5 @@
 import 'package:auto/assets/colors/color.dart';
-import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
-import 'package:auto/core/singletons/storage.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart'; 
 import 'package:auto/features/common/bloc/auth/authentication_bloc.dart';
 import 'package:auto/features/common/bloc/image/image_bloc.dart';
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
@@ -175,12 +174,12 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
                               emailController.text.isNotEmpty) {
                             context.read<ShowPopUpBloc>().add(ShowPopUp(
                                 message:
-                                    'Пожалуйста, введите действительный адрес электронной почты',
+                                    LocaleKeys.please_enter_valid_email.tr(),
                                 isSucces: false,
                                 dismissible: false));
                           } else {
                             context.read<ShowPopUpBloc>().add(ShowPopUp(
-                                message: 'Имя и электронная почта обязательны',
+                                message:  LocaleKeys.please_enter_valid_email.tr(),
                                 isSucces: false,
                                 dismissible: false));
                           }

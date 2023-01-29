@@ -25,7 +25,7 @@ class MainFavorites extends StatelessWidget {
           favorites = state.favorites;
           return Visibility(
             visible: state.favoritesStatus.isSubmissionInProgress ||
-                state.favoritesStatus.isSubmissionSuccess,
+                state.favoritesStatus.isSubmissionSuccess && state.favorites.isNotEmpty,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

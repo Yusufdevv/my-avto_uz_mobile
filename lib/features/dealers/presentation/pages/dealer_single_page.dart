@@ -96,7 +96,7 @@ class _DealerSinglePageState extends State<DealerSinglePage> {
                               dealerSingleState.dealerSingleEntity.avatar,
                           dealerName: dealerSingleState.dealerSingleEntity.name,
                           minHeight: MediaQuery.of(context).size.height * 0.11,
-                          showroomOrPerson: 'Avtasalon'),
+                          showroomOrPerson: LocaleKeys.autosalon.tr()),
                     ),
                   ],
                   body: SingleChildScrollView(
@@ -220,7 +220,7 @@ class _DealerSinglePageState extends State<DealerSinglePage> {
                                       children: [
                                         Expanded(
                                             child: Text(
-                                                '${LocaleKeys.cars.tr()} от ${dealerSingleState.dealerSingleEntity.name}',
+                                               LocaleKeys.cars.tr(args: [dealerSingleState.dealerSingleEntity.name]) ,
                                                 overflow: TextOverflow.ellipsis,
                                                 maxLines: 1,
                                                 style: const TextStyle(

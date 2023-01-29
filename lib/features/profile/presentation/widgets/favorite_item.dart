@@ -18,7 +18,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
 class FavoriteItem extends StatefulWidget {
   const FavoriteItem(
       {required this.gallery,
@@ -154,7 +153,7 @@ class _FavoriteItemState extends State<FavoriteItem> {
                             children: [
                               SvgPicture.asset(AppIcons.phone),
                               Text(
-                                'Позвонить',
+                                LocaleKeys.call.tr(),
                                 style: Theme.of(context)
                                     .textTheme
                                     .headline4
@@ -183,7 +182,7 @@ class _FavoriteItemState extends State<FavoriteItem> {
                                 TextSpan(
                                   children: [
                                     TextSpan(
-                                      text: 'Звонок не доступен\n',
+                                      text: LocaleKeys.call_not_available.tr(),
                                       style: Theme.of(context)
                                           .textTheme
                                           .headline1
@@ -191,7 +190,7 @@ class _FavoriteItemState extends State<FavoriteItem> {
                                               fontWeight: FontWeight.w600),
                                     ),
                                     TextSpan(
-                                      text: 'Просим вас звонить в течении:\n',
+                                      text:  LocaleKeys.please_call_during.tr(),
                                       style: Theme.of(context)
                                           .textTheme
                                           .headline2
@@ -230,81 +229,84 @@ class _FavoriteItemState extends State<FavoriteItem> {
                         ),
                   ),
                 const SizedBox(height: 12),
-                // RichText(
-                // text: TextSpan(
-                //     text: widget.carModelName,
-                //     style: Theme.of(context).textTheme.headline2!.copyWith(
-                //         color: dark, fontSize: 14, fontWeight: FontWeight.w400),
-                //     children: [
-                //   WidgetSpan(
-                //     child: Padding(
-                //       padding: const EdgeInsets.only(left: 4),
-                //       child: CustomChip(
-                //         label: '${widget.carYear}',
-                //         backgroundColor:
-                //             LightThemeColors.navBarIndicator.withOpacity(0.1),
-                //         borderRadius: 4,
-                //         labelStyle: const TextStyle(
-                //           fontSize: 10,
-                //           fontWeight: FontWeight.w600,
-                //           color: LightThemeColors.navBarIndicator,
-                //         ),
-                //       ),
-                //     ),
-                //   ),
-                //   if (widget.isNew)
-                //     WidgetSpan(
-                //         child: Padding(
-                //       padding: const EdgeInsets.only(left: 4),
-                //       child: CustomChip(
-                //         leading: SvgPicture.asset(AppIcons.checkCurly),
-                //         label: LocaleKeys.neww.tr(),
-                //         backgroundColor: emerald.withOpacity(0.1),
-                //         borderRadius: 4,
-                //         labelStyle: const TextStyle(
-                //           fontSize: 10,
-                //           fontWeight: FontWeight.w600,
-                //           color: emerald,
-                //         ),
-                //       ),
-                //     ))
-                // ])),
-                Row(
-                  children: [
-                    Text(
-                      widget.carModelName,
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline2
-                          ?.copyWith(color: dark),
-                    ),
-                    const SizedBox(width: 4),
-                    CustomChip(
-                      label: '${widget.carYear}',
-                      backgroundColor:
-                          LightThemeColors.navBarIndicator.withOpacity(0.1),
-                      borderRadius: 4,
-                      labelStyle: const TextStyle(
-                        fontSize: 10,
-                        fontWeight: FontWeight.w600,
-                        color: LightThemeColors.navBarIndicator,
-                      ),
-                    ),
-                    const SizedBox(width: 4),
-                    if (widget.isNew)
-                      CustomChip(
-                        leading: SvgPicture.asset(AppIcons.checkCurly),
-                        label: 'Новый',
-                        backgroundColor: green.withOpacity(0.1),
+                RichText(
+                text: TextSpan(
+                     
+                    children: [
+                  TextSpan(
+                    text: widget.carModelName,
+                     style: Theme.of(context).textTheme.headline2!.copyWith(
+                        color: dark, fontSize: 14, fontWeight: FontWeight.w400),
+                  ),
+                  WidgetSpan(
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 4),
+                      child: CustomChip(
+                        label: '${widget.carYear}',
+                        backgroundColor:
+                            LightThemeColors.navBarIndicator.withOpacity(0.1),
                         borderRadius: 4,
                         labelStyle: const TextStyle(
                           fontSize: 10,
                           fontWeight: FontWeight.w600,
-                          color: green,
+                          color: LightThemeColors.navBarIndicator,
                         ),
-                      )
-                  ],
-                ),
+                      ),
+                    ),
+                  ),
+                  if (widget.isNew)
+                    WidgetSpan(
+                        child: Padding(
+                      padding: const EdgeInsets.only(left: 4),
+                      child: CustomChip(
+                        leading: SvgPicture.asset(AppIcons.checkCurly),
+                        label: LocaleKeys.neww.tr(),
+                        backgroundColor: emerald.withOpacity(0.1),
+                        borderRadius: 4,
+                        labelStyle: const TextStyle(
+                          fontSize: 10,
+                          fontWeight: FontWeight.w600,
+                          color: emerald,
+                        ),
+                      ),
+                    ))
+                ])),
+                // Row(
+                //   children: [
+                //     Text(
+                //       widget.carModelName,
+                //       style: Theme.of(context)
+                //           .textTheme
+                //           .headline2
+                //           ?.copyWith(color: dark),
+                //     ),
+                //     const SizedBox(width: 4),
+                //     CustomChip(
+                //       label: '${widget.carYear}',
+                //       backgroundColor:
+                //           LightThemeColors.navBarIndicator.withOpacity(0.1),
+                //       borderRadius: 4,
+                //       labelStyle: const TextStyle(
+                //         fontSize: 10,
+                //         fontWeight: FontWeight.w600,
+                //         color: LightThemeColors.navBarIndicator,
+                //       ),
+                //     ),
+                //     const SizedBox(width: 4),
+                //     if (widget.isNew)
+                //       CustomChip(
+                //         leading: SvgPicture.asset(AppIcons.checkCurly),
+                //         label: LocaleKeys.neww.tr(),
+                //         backgroundColor: green.withOpacity(0.1),
+                //         borderRadius: 4,
+                //         labelStyle: const TextStyle(
+                //           fontSize: 10,
+                //           fontWeight: FontWeight.w600,
+                //           color: green
+                //         ),
+                //       )
+                //   ],
+                // ),
                 const SizedBox(height: 4),
                 Row(
                   children: [

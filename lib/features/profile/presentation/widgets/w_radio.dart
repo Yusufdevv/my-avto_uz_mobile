@@ -9,7 +9,7 @@ class WRadio extends StatelessWidget {
   final Color inactiveColor;
   final double borderWidth;
 
-  WRadio({
+ const WRadio({
     required this.onChanged,
     required this.value,
     required this.groupValue,
