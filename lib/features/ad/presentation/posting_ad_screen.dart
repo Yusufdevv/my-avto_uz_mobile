@@ -124,7 +124,6 @@ class _PostingAdScreenState extends State<PostingAdScreen>
   }
 
   bool _isDisabled(int page, PostingAdState state) {
-    print('=> => => =>   isDisabled page:  $page    <= <= <= <=');
     switch (page) {
       //make
       case 0:
@@ -137,11 +136,7 @@ class _PostingAdScreenState extends State<PostingAdScreen>
         return state.yearId == null;
       // generation
       case 3:
-        {
-          var v = state.generationId == null;
-          print('=> => => =>  generation bool:   $v    <= <= <= <=');
-          return v;
-        }
+        return state.generationId == null;
 
       // body type
       case 4:
@@ -284,7 +279,7 @@ class _PostingAdScreenState extends State<PostingAdScreen>
               },
               builder: (context, state) => Scaffold(
                 appBar: PreferredSize(
-                  preferredSize: const Size.fromHeight(55),
+                  preferredSize: const Size.fromHeight(54),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -311,7 +306,6 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                               setState(() {});
                             }
                           } else {
-                          
                             postingAdBloc.add(PostingAdGetMapScreenShotEvent(
                                 lat: 51.727348,
                                 long: 22.557984,

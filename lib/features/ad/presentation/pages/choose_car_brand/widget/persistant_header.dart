@@ -22,42 +22,43 @@ class Header extends SliverPersistentHeaderDelegate {
   Widget build(
           BuildContext context, double shrinkOffset, bool overlapsContent) =>
       Container(
+
         padding: const EdgeInsets.only(top: 3),
-        color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
-        child: Column(
-          children: [
-            Expanded(
-              child: ListView.builder(
-                padding: const EdgeInsets.symmetric(horizontal: 4),
-                itemBuilder: (context, index) => GestureDetector(
-                  onTap: () => context
-                      .read<PostingAdBloc>()
-                      .add(PostingAdChooseEvent(letter: letters[index])),
-                  child: Padding(
-                    padding:
-                        const EdgeInsets.only(left: 16, right: 16, bottom: 4),
-                    child: Text(
-                      letters[index],
-                      style: letters[index] ==
-                              context.watch<PostingAdBloc>().state.letter
-                          ? Theme.of(context)
-                              .textTheme
-                              .headline6!
-                              .copyWith(color: greyText)
-                          : Theme.of(context)
-                              .textTheme
-                              .headline6!
-                              .copyWith(color: warmerGrey),
-                    ),
-                  ),
-                ),
-                itemCount: letters.length,
-                shrinkWrap: true,
-                scrollDirection: Axis.horizontal,
+        decoration: BoxDecoration(
+            // color: Colors.amber,
+            color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
+            border: Border(
+                bottom: BorderSide(
+                    color: Theme.of(context).dividerColor, width: 1))),
+        child: ListView.separated(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          itemBuilder: (context, index) => GestureDetector(
+        
+            behavior: HitTestBehavior.translucent,
+            onTap: () => context
+                .read<PostingAdBloc>()
+                .add(PostingAdChooseEvent(letter: letters[index])),
+            child: Container(
+              padding: const EdgeInsets.only(left: 8, right: 8, bottom: 4),
+              child: Text(
+                letters[index],
+                style: letters[index] ==
+                        context.watch<PostingAdBloc>().state.letter
+                    ? Theme.of(context)
+                        .textTheme
+                        .headline6!
+                        .copyWith(color: greyText)
+                    : Theme.of(context)
+                        .textTheme
+                        .headline6!
+                        .copyWith(color: warmerGrey),
               ),
             ),
-            Divider(color: Theme.of(context).dividerColor)
-          ],
+          ),
+          itemCount: letters.length,
+          shrinkWrap: false,
+          scrollDirection: Axis.horizontal,
+          separatorBuilder: (context, index) => SizedBox(width:16 ),
         ),
       );
 }

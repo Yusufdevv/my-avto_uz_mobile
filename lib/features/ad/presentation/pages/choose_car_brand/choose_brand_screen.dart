@@ -5,11 +5,8 @@ import 'package:auto/features/ad/presentation/pages/choose_car_brand/widget/car_
 import 'package:auto/features/ad/presentation/pages/choose_car_brand/widget/persistant_header.dart';
 import 'package:auto/features/ad/presentation/pages/choose_car_brand/widget/persistent_header_search.dart';
 import 'package:auto/features/ad/presentation/widgets/sliver_header_text.dart';
-import 'package:auto/features/common/bloc/ads/presentation/pages/ads_screen.dart';
 import 'package:auto/features/common/widgets/car_brand_item.dart';
-import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/common/widgets/w_textfield.dart';
-import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
@@ -17,6 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
+import 'package:visibility_detector/visibility_detector.dart';
 
 class ChooseCarBrand extends StatefulWidget {
   final Function(int) onTopBrandPressed;
@@ -33,29 +31,38 @@ class ChooseCarBrand extends StatefulWidget {
 
 class _ChooseCarBrandState extends State<ChooseCarBrand> {
   CrossFadeState crossFadeState = CrossFadeState.showFirst;
-  late ScrollController _scrollController;
+  late ScrollController _nestsController;
   late ScrollController _makesController;
   late TextEditingController searchController;
 
   double height = 140;
   @override
   void initState() {
-    _scrollController = ScrollController()..addListener(_scrollListener);
-    _makesController = ScrollController();
+    _nestsController = ScrollController()..addListener(_scrollListener);
+    _makesController = ScrollController()..addListener(_makesListener);
     searchController = TextEditingController();
 
     super.initState();
   }
 
+  void _makesListener() {
+    // print('==== make: ${_makesController.offset}  ====');
+    // print('==== nest: ${_nestsController.offset}  ====');
+  }
+
   void _scrollListener() {
-    if (widget.bloc.state.hasAppBarShadow == _isShrink) {
-      widget.bloc.add(PostingAdChangeAppBarShadowEvent(value: !_isShrink));
+    if (!_isShowFirst(crossFadeState.index) ==
+        widget.bloc.state.hasAppBarShadow) {
+      widget.bloc.add(PostingAdChangeAppBarShadowEvent(
+          value: _isShowFirst(crossFadeState.index)));
     }
 
-    if (_scrollController.offset > 55) {
-      setState(() {
-        crossFadeState = CrossFadeState.showSecond;
-      });
+    if (_nestsController.offset > 55 && _nestsController.hasClients) {
+      if (_isShowFirst(crossFadeState.index)) {
+        setState(() {
+          crossFadeState = CrossFadeState.showSecond;
+        });
+      }
     } else {
       setState(() {
         crossFadeState = CrossFadeState.showFirst;
@@ -63,9 +70,7 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
     }
   }
 
-  bool get _isShrink =>
-      _scrollController.hasClients &&
-      _scrollController.offset > (height - kToolbarHeight);
+  bool _isShowFirst(int index) => index == 0;
 
   @override
   void dispose() {
@@ -84,8 +89,9 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
             }
           },
           builder: (context, state) => Scaffold(
+            backgroundColor: _isShowFirst(crossFadeState.index) ? null : white,
             body: NestedScrollView(
-              controller: _scrollController,
+              controller: _nestsController,
               floatHeaderSlivers: true,
               physics: const ClampingScrollPhysics(),
               headerSliverBuilder: (context, innerBoxIsScrolled) => [
@@ -103,15 +109,17 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
                     delegate: PersistentHeaderSearch(
                       child: AnimatedContainer(
                         duration: const Duration(milliseconds: 150),
-                        color: _isShrink
-                            ? white
-                            : Theme.of(context).scaffoldBackgroundColor,
+                        color: _isShowFirst(crossFadeState.index)
+                            ? Theme.of(context).scaffoldBackgroundColor
+                            : white,
                         padding: const EdgeInsets.only(top: 16, bottom: 12),
                         child: WTextField(
-                          fillColor: _isShrink ? whiteSmoke : white,
+                          fillColor: _isShowFirst(crossFadeState.index)
+                              ? white
+                              : whiteSmoke,
                           filled: true,
                           margin: const EdgeInsets.only(left: 16, right: 16),
-                          onChanged: (value) => setState(() {}),
+                          onChanged: (value) => () {},
                           borderRadius: 12,
                           hasSearch: true,
                           hintText: LocaleKeys.search.tr(),
@@ -159,9 +167,7 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
                   ),
                 ),
 
-                const SliverToBoxAdapter(
-                  child: SizedBox(height: 20),
-                ),
+                const SliverToBoxAdapter(child: SizedBox(height: 20)),
 
                 /// SIZED BOX
                 SliverToBoxAdapter(
@@ -198,12 +204,14 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
                     : ListView.builder(
                         controller: _makesController,
                         physics: const BouncingScrollPhysics(),
-                        padding: const EdgeInsets.only(bottom: 50,top: 124),
+                        padding: const EdgeInsets.only(bottom: 50),
                         itemBuilder: (context, index) => ChangeCarItems(
                           onTap: () {
                             context.read<PostingAdBloc>().add(
-                                PostingAdChooseEvent(
-                                    makeId: state.makes[index].id));
+                                  PostingAdChooseEvent(
+                                    makeId: state.makes[index].id,
+                                  ),
+                                );
                           },
                           selectedId:
                               context.watch<PostingAdBloc>().state.makeId ?? -1,
