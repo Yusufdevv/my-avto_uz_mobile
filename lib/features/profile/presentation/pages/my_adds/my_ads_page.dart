@@ -107,7 +107,7 @@ class _MyAdsPageState extends State<MyAdsPage> {
                               image: AppIcons.carIcon),
                         );
                 }
-                return const Center(child: Text('Xatolik!'));
+                return   Center(child: Text(LocaleKeys.error.tr()));
               }),
             ),
           ),

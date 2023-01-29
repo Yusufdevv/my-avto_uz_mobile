@@ -56,5 +56,4 @@ class EditProfileEvent extends ProfileEvent {
   
 }
 class ChangeNotificationAllRead extends ProfileEvent {
-  
 }

@@ -14,8 +14,8 @@ class AddWishlistItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => SizedBox(
-        height: 24,
-        width: 24,
+        height: 28,
+        width: 28,
         child: GestureDetector(
           onTap: onTap,
           child: AnimatedSwitcher(

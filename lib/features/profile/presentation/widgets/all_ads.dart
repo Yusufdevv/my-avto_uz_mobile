@@ -8,9 +8,9 @@ import 'package:auto/features/profile/presentation/widgets/my_ad_car_desc_part.d
 import 'package:auto/features/profile/presentation/widgets/my_ad_desc_part.dart';
 import 'package:auto/features/profile/presentation/widgets/my_ad_images_part.dart';
 import 'package:auto/features/profile/presentation/widgets/resend_part.dart';
-import 'package:flutter/material.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
 class AllAds extends StatelessWidget {
   final List<AutoEntity> autoEntity;
 

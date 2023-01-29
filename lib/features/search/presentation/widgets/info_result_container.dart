@@ -5,6 +5,7 @@ import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/bloc/wishlist_add/wishlist_add_bloc.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
+import 'package:auto/features/profile/presentation/widgets/car_name_year_widget.dart';
 import 'package:auto/features/search/presentation/part/bottom_sheet_for_calling.dart';
 import 'package:auto/features/search/presentation/widgets/add_comparison_item.dart';
 import 'package:auto/features/search/presentation/widgets/add_wishlist_item.dart';
@@ -17,6 +18,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:formz/formz.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
+
 class InfoResultContainer extends StatefulWidget {
   const InfoResultContainer(
       {required this.gallery,
@@ -215,42 +217,10 @@ class _InfoResultContainerState extends State<InfoResultContainer> {
                     ),
               ),
             const SizedBox(height: 12),
-            Row(
-              children: [
-                Text(
-                  widget.carModelName,
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline2!
-                      .copyWith(color: dark),
-                ),
-                const SizedBox(width: 4),
-                CustomChip(
-                  label: '${widget.carYear}',
-                  backgroundColor:
-                      LightThemeColors.navBarIndicator.withOpacity(0.1),
-                  borderRadius: 4,
-                  labelStyle: const TextStyle(
-                    fontSize: 10,
-                    fontWeight: FontWeight.w600,
-                    color: LightThemeColors.navBarIndicator,
-                  ),
-                ),
-                const SizedBox(width: 4),
-                if (widget.isNew)
-                  CustomChip(
-                    leading: SvgPicture.asset(AppIcons.checkCurly),
-                    label: LocaleKeys.neww.tr(),
-                    backgroundColor: green.withOpacity(0.1),
-                    borderRadius: 4,
-                    labelStyle: const TextStyle(
-                      fontSize: 10,
-                      fontWeight: FontWeight.w600,
-                      color: green,
-                    ),
-                  )
-              ],
-            ),
+            CarNameYearWidget(
+                carName: widget.carModelName,
+                carYear: '${widget.carYear}',
+                isNew: widget.isNew),
             const SizedBox(height: 4),
             Row(
               children: [

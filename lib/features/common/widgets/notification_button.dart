@@ -6,6 +6,7 @@ import 'package:auto/features/profile/presentation/pages/notification/notifiacti
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:formz/formz.dart';
 
 class NotificationButton extends StatefulWidget {
   const NotificationButton({
@@ -26,34 +27,30 @@ class _NotificationButtonState extends State<NotificationButton> {
 
   @override
   Widget build(BuildContext context) =>
-      BlocConsumer<ProfileBloc, ProfileState>(
-          listener: (context, stateLis) {
-        print(
-            '======= ${user.isReadAllNotifications != stateLis.profileEntity.isReadAllNotifications}');
-        print('=======listener ${stateLis.profileEntity.isReadAllNotifications}');
-        user = stateLis.profileEntity;
+      BlocConsumer<ProfileBloc, ProfileState>(listener: (context, stateLis) {
+        if (stateLis.editStatus.isSubmissionSuccess) {
+          user = stateLis.profileEntity;
+        }
       }, builder: (context, state) {
-        print('=======builder ${state.profileEntity.isReadAllNotifications}');
-
         user = state.profileEntity;
-        return GestureDetector(
-          behavior: HitTestBehavior.opaque,
-          onTap: () {
-            Navigator.of(context, rootNavigator: true)
-                .push(fade(page: const NotificationPage()));
-            if (!user.isReadAllNotifications) {
-              context
-                  .read<ProfileBloc>()
-                  .add(ChangeNotificationAllRead());
-              setState(() {});
-            }
-          },
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: user.isReadAllNotifications
-                ? SvgPicture.asset(AppIcons.bell)
-                : SvgPicture.asset(AppIcons.bellWithCircle),
-          ),
-        );
+        if (state.status.isSubmissionSuccess) {
+          return GestureDetector(
+            behavior: HitTestBehavior.opaque,
+            onTap: () {
+              if (!user.isReadAllNotifications) {
+                context.read<ProfileBloc>().add(ChangeNotificationAllRead());
+              }
+              Navigator.of(context, rootNavigator: true)
+                  .push(fade(page: const NotificationPage()));
+            },
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: user.isReadAllNotifications
+                  ? SvgPicture.asset(AppIcons.bell)
+                  : SvgPicture.asset(AppIcons.bellWithCircle),
+            ),
+          );
+        }
+        return const SizedBox();
       });
 }

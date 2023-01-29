@@ -6,6 +6,7 @@ import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/commercial/presentation/widgets/custom_chip.dart';
 import 'package:auto/features/common/bloc/wishlist_add/wishlist_add_bloc.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
+import 'package:auto/features/profile/presentation/widgets/car_name_year_widget.dart';
 import 'package:auto/features/search/presentation/part/bottom_sheet_for_calling.dart';
 import 'package:auto/features/search/presentation/widgets/add_comparison_item.dart';
 import 'package:auto/features/search/presentation/widgets/add_wishlist_item.dart';
@@ -15,6 +16,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
 class InfoContainer extends StatefulWidget {
   const InfoContainer({
     required this.onTapComparsion,
@@ -170,45 +172,10 @@ class _InfoContainerState extends State<InfoContainer> {
                 borderRadius: 4,
               ),
             const SizedBox(height: 12),
-            RichText(
-                text: TextSpan(
-                    text: widget.carModel ?? '',
-                    style: Theme.of(context).textTheme.headline2!.copyWith(
-                        color: dark, fontSize: 14, fontWeight: FontWeight.w400),
-                    children: [
-                  WidgetSpan(
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 4),
-                      child: CustomChip(
-                        label: '${widget.year}',
-                        backgroundColor:
-                            LightThemeColors.navBarIndicator.withOpacity(0.1),
-                        borderRadius: 4,
-                        labelStyle: const TextStyle(
-                          fontSize: 10,
-                          fontWeight: FontWeight.w600,
-                          color: LightThemeColors.navBarIndicator,
-                        ),
-                      ),
-                    ),
-                  ),
-                  if (widget.hasStatusInfo)
-                    WidgetSpan(
-                        child: Padding(
-                      padding: const EdgeInsets.only(left: 4),
-                      child: CustomChip(
-                        leading: SvgPicture.asset(AppIcons.checkCurly),
-                        label: LocaleKeys.neww.tr(),
-                        backgroundColor: emerald.withOpacity(0.1),
-                        borderRadius: 4,
-                        labelStyle: const TextStyle(
-                          fontSize: 10,
-                          fontWeight: FontWeight.w600,
-                          color: emerald,
-                        ),
-                      ),
-                    ))
-                ])),
+            CarNameYearWidget(
+                carName: widget.carModel ?? '',
+                carYear: '${widget.year}',
+                isNew: widget.hasStatusInfo),
             const SizedBox(height: 4),
             RichText(
               text: TextSpan(
