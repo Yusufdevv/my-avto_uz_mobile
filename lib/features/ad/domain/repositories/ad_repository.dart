@@ -16,10 +16,11 @@ import 'package:auto/features/common/entities/makes_entity.dart';
 import 'package:auto/features/comparison/domain/entities/announcement_list_entity.dart';
 import 'package:auto/features/pagination/models/generic_pagination.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/services.dart';
 
 abstract class AdRepository {
   Future<Either<Failure, List<FotoInstructionEntity>>> getFotoInstructions();
-  Future<Either<Failure, String>> getMapScreenShot(
+  Future<Either<Failure, Uint8List>> getMapScreenShot(
       {required Map<String, String> params});
   Future<Either<Failure, bool>> verify({required Map<String, String> params});
 

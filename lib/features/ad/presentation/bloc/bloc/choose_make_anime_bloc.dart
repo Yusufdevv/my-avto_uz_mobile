@@ -26,7 +26,6 @@ class ChooseMakeAnimeBloc
   }
   FutureOr<void> _changeParams(ChooseMakeAnimeChangeParamsEvent event,
       Emitter<ChooseMakeAnimeState> emit) {
-        print('=> => => =>   ${event.where}:  ${event.isAnimating} / ${event.isCollapsed}    <= <= <= <=');
     emit(
       state.copyWith(
         isAnimating: event.isAnimating,

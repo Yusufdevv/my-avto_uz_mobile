@@ -1,8 +1,7 @@
 // ignore_for_file: avoid_catches_without_on_clauses
 
 import 'dart:convert';
-import 'dart:io';
-
+import 'dart:typed_data';
 import 'package:auto/core/exceptions/exceptions.dart';
 import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/ad/data/models/announcement_filter.dart';
@@ -21,11 +20,11 @@ import 'package:auto/features/comparison/data/models/announcement_list_model.dar
 import 'package:auto/features/pagination/models/generic_pagination.dart';
 import 'package:auto/features/reviews/data/models/make_model.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/services.dart';
+import 'package:http/http.dart' as http;
 
 abstract class AdRemoteDataSource {
   Future<List<FotoInstructionEntity>> getFotoInstructions();
-  Future<String> getMapScreenShot(Map<String, String> params);
+  Future<Uint8List> getMapScreenShot(Map<String, String> params);
   Future<num> getMinimumPrice(Map<String, dynamic> params);
   Future<bool> verify(Map<String, String> params);
   Future<String> sendCode({required String phone});
@@ -669,34 +668,39 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
   }
 
   @override
-  Future<String> getMapScreenShot(Map<String, String> params) async {
+  Future<Uint8List> getMapScreenShot(Map<String, String> params) async {
+    print('=> => => =>     get screeshot triggered    <= <= <= <=');
     try {
-      final response = await _dio.post(
-        '/common/map/screenshot',
-        data: params,
-        options: Options(
-          headers: StorageRepository.getString('token').isNotEmpty
-              ? {
-                  'Authorization':
-                      'Token ${StorageRepository.getString('token')}'
-                }
-              : {},
-        ),
-      );
-      if (response.statusCode! >= 200 && response.statusCode! < 300) {
-        final v = await response.data;
-        final uint = base64.decode(v);
-        print(
-            '=> => => =>  uint runtimeType    ${uint.runtimeType}    <= <= <= <=');
+      var headers = <String, String>{};
 
-        print(
-            '=> => => =>     gottten data runtime type: ${v.runtimeType}    <= <= <= <=');
-
-        return response.data;
+      final token = StorageRepository.getString('token').isNotEmpty
+          ? MapEntry(
+              'Authorization', 'Token ${StorageRepository.getString('token')}')
+          : null;
+      var list = <MapEntry<String, String>>[];
+      if (token != null) {
+        list.add(token);
       }
-      throw ServerException(
-          statusCode: response.statusCode ?? 0,
-          errorMessage: response.statusMessage ?? '');
+      list
+        ..add(const MapEntry('accept', 'Application-json'))
+        ..add(const MapEntry('accept', 'application/json'))
+        ..add(const MapEntry('Content-Type', 'application/json'))
+        ..add(MapEntry('Accept-Language',
+            StorageRepository.getString('language', defValue: 'uz')));
+
+      headers.addEntries(list);
+      final request = http.Request('POST',
+          Uri.parse('https://panel.avto.uz/api/v1/common/map/screenshot'));
+      request.body = json.encode(params);
+
+      request.headers.addAll(headers);
+      final response = await request.send();
+
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        final stack = await http.Response.fromStream(response);
+        return stack.bodyBytes;
+      }
+      throw ServerException(statusCode: response.statusCode, errorMessage: '');
     } on ServerException {
       rethrow;
     } on DioError {

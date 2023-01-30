@@ -51,7 +51,8 @@ class _MyAdsPageState extends State<MyAdsPage> {
                   pinned: true,
                   leadingWidth: 40,
                   leading: GestureDetector(
-                    onTap: () => Navigator.pop(context), behavior: HitTestBehavior.opaque,
+                    onTap: () => Navigator.pop(context),
+                    behavior: HitTestBehavior.opaque,
                     child: Row(
                       children: [
                         const SizedBox(width: 20),

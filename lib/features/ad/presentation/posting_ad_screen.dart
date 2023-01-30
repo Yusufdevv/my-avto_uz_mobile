@@ -48,8 +48,6 @@ import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/login/domain/usecases/verify_code.dart';
 import 'package:auto/features/main/domain/usecases/get_top_brand.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
-import 'package:auto/features/profile/presentation/pages/my_adds/my_ads_page.dart';
-import 'package:auto/features/profile/presentation/profile_screen.dart';
 import 'package:auto/features/rent/domain/usecases/get_gearboxess_usecase.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -192,10 +190,12 @@ class _PostingAdScreenState extends State<PostingAdScreen>
             child: BlocConsumer<PostingAdBloc, PostingAdState>(
               listener: (context, state) async {
                 if (state.createStatus == FormzStatus.submissionSuccess) {
-                  context.read<ShowPopUpBloc>().add(
-                      ShowPopUp(message: state.toastMessage!, isSucces: true));
+                  context.read<ShowPopUpBloc>().add(ShowPopUp(
+                      message: state.toastMessage!,
+                      isSucces: true,
+                      dismissible: false));
                   await Future.delayed(const Duration(milliseconds: 1000));
-                  Navigator.pushReplacement(context, fade(page: MyAdsPage()));
+                  // Navigator.pushReplacement(context, fade(page: MyAdsPage()));
                   return;
                 }
 
@@ -294,6 +294,9 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                           //10
                           AddPhotoScreen(onImageChanged: (v) {
                             postingAdBloc.add(PostingAdChooseEvent(gallery: v));
+                          }, onPanaramaChanged: (v) {
+                            postingAdBloc
+                                .add(PostingAdChooseEvent(panaramaGallery: v));
                           }),
                           //11
                           const PtsScreen(),

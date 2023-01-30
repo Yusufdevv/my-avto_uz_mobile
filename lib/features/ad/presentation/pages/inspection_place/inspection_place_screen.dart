@@ -13,6 +13,7 @@ import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 
@@ -44,7 +45,11 @@ class _InspectionPlaceScreenState extends State<InspectionPlaceScreen> {
           child: Padding(
             padding: const EdgeInsets.all(16),
             child: BlocBuilder<PostingAdBloc, PostingAdState>(
-              builder: (context, state) => Column(
+                builder: (context, state) {
+              print(
+                  '=> => => => lenth    ${state.mapPointBytes?.length}    <= <= <= <=');
+
+              return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   // CHOOSE REGION
@@ -138,12 +143,12 @@ class _InspectionPlaceScreenState extends State<InspectionPlaceScreen> {
                       height: 200,
                       width: 343,
                       decoration: BoxDecoration(
+                          color: Colors.amber,
+                          borderRadius: BorderRadius.circular(12),
                           image: DecorationImage(
-                        image: MemoryImage(
-                          base64.decode(state.mapPointBytes!),
-                        ),
-                        fit: BoxFit.cover,
-                      )),
+                            image: MemoryImage(state.mapPointBytes!),
+                            fit: BoxFit.cover,
+                          )),
                     ),
                     const SizedBox(height: 17),
                   },
@@ -163,8 +168,8 @@ class _InspectionPlaceScreenState extends State<InspectionPlaceScreen> {
                     },
                   ),
                 ],
-              ),
-            ),
+              );
+            }),
           ),
         ),
       );
