@@ -29,11 +29,15 @@ class AddWishlistItem extends StatelessWidget {
                     AppIcons.enabledHeart,
                     key: const ValueKey<int>(1),
                     fit: BoxFit.cover,
+                    height: 28,
+                    width: 28,
                   )
                 : SvgPicture.asset(
                     AppIcons.heart,
                     key: const ValueKey<int>(2),
                     fit: BoxFit.cover,
+                    height: 28,
+                    width: 28,
                   ),
           ),
         ),

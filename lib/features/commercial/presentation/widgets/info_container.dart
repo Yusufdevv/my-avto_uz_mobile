@@ -1,5 +1,4 @@
 import 'package:auto/assets/colors/color.dart';
-import 'package:auto/assets/colors/light.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
@@ -85,7 +84,7 @@ class _InfoContainerState extends State<InfoContainer> {
   @override
   Widget build(BuildContext context) => Container(
         width: MediaQuery.of(context).size.width,
-        padding: const EdgeInsets.only(top: 12, left: 16, bottom: 12),
+        padding: const EdgeInsets.only(top: 12, left: 16, bottom: 8),
         decoration: BoxDecoration(
             color: Theme.of(context).extension<ThemedColors>()!.whiteToDark),
         child: Column(
@@ -194,8 +193,11 @@ class _InfoContainerState extends State<InfoContainer> {
                               .darkToWhite,
                     ),
                   ),
-                  const WidgetSpan(child: SizedBox(width: 4)),
+                  const WidgetSpan(
+                      alignment: PlaceholderAlignment.middle,
+                      child: SizedBox(width: 4)),
                   WidgetSpan(
+                    alignment: PlaceholderAlignment.middle,
                     child: Visibility(
                       visible: widget.hasDiscount,
                       child: Text(
@@ -262,11 +264,11 @@ class _InfoContainerState extends State<InfoContainer> {
                 )
               ],
             ),
+            const SizedBox(height: 12),
             Divider(
               color: Theme.of(context)
                   .extension<ThemedColors>()!
                   .solitude2ToNightRider,
-              height: 28,
               thickness: 1,
             ),
             Padding(
