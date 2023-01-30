@@ -17,6 +17,7 @@ class DamageButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => GestureDetector(
+        behavior: HitTestBehavior.opaque,
         onTap: onTap,
         child: damageType == null
             ? Container(

@@ -27,7 +27,8 @@ class ChangeCarItems extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => GestureDetector(
-        onTap: onTap,
+    
+        onTap: onTap,behavior: HitTestBehavior.opaque,
         child: Container(
           height: 54,
           padding: const EdgeInsets.only(left: 16),

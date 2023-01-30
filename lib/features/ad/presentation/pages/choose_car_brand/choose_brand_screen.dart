@@ -3,7 +3,6 @@ import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/presentation/bloc/bloc/choose_make_anime_bloc.dart';
 import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.dart';
 import 'package:auto/features/ad/presentation/pages/choose_car_brand/widget/car_items.dart';
-import 'package:auto/features/ad/presentation/pages/choose_car_brand/widget/choose_brand_app_bar.dart';
 import 'package:auto/features/ad/presentation/pages/choose_car_brand/widget/persistant_header.dart';
 import 'package:auto/features/ad/presentation/pages/choose_car_brand/widget/persistent_header_search.dart';
 import 'package:auto/features/common/widgets/car_brand_item.dart';
@@ -20,10 +19,10 @@ import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 class ChooseCarBrand extends StatefulWidget {
   final int tabLength;
   final Function(int) onTopBrandPressed;
-  final PostingAdBloc bloc;
+  final PostingAdBloc postingAddBloc;
   const ChooseCarBrand({
     required this.tabLength,
-    required this.bloc,
+    required this.postingAddBloc,
     required this.onTopBrandPressed,
     Key? key,
   }) : super(key: key);
@@ -32,48 +31,16 @@ class ChooseCarBrand extends StatefulWidget {
   State<ChooseCarBrand> createState() => _ChooseCarBrandState();
 }
 
-class _ChooseCarBrandState extends State<ChooseCarBrand>
-    with SingleTickerProviderStateMixin {
-  late ScrollController _nestsControllerr;
+class _ChooseCarBrandState extends State<ChooseCarBrand> {
+  late ScrollController _nestsController;
   late ScrollController _makesController;
   late TextEditingController searchController;
-  late AnimationController _animationController;
-  late Animation<double> _scaleAnimation;
-  late Animation<double> _reverseScaleAnimation;
   late ColorTween _bgTweenColor;
   late ColorTween _fillTweenColor;
   late ColorTween _headerTextTweenColor;
-  late ChooseMakeAnimeBloc animeBloc;
 
   @override
   void initState() {
-    animeBloc = ChooseMakeAnimeBloc();
-    _animationController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 350),
-    );
-
-    _scaleAnimation = Tween<double>(
-      begin: 1,
-      end: 0,
-    ).animate(
-      CurvedAnimation(
-        curve: Curves.decelerate,
-        parent: _animationController,
-      ),
-    )..addListener(() {
-        setState(() {});
-      });
-    _reverseScaleAnimation = Tween<double>(
-      begin: 0,
-      end: 1,
-    ).animate(
-      CurvedAnimation(
-        curve: Curves.decelerate,
-        parent: _animationController,
-      ),
-    );
-
     _fillTweenColor = ColorTween(
       begin: whiteSmoke,
       end: white,
@@ -84,45 +51,124 @@ class _ChooseCarBrandState extends State<ChooseCarBrand>
     );
     _headerTextTweenColor = ColorTween(
       begin: white,
-      end: Colors.black,
+      end: const Color(0xff171725),
     );
-    _nestsControllerr = ScrollController();
+    _nestsController = ScrollController()..addListener(_nestListener);
     _makesController = ScrollController()..addListener(_makesListener);
     searchController = TextEditingController();
-
     super.initState();
   }
 
-  void _makesListener() {
+  void _nestListener() {
+    print(
+        '=> => => =>  is not animating    ${!BlocProvider.of<ChooseMakeAnimeBloc>(context, listen: false).state.isAnimating}    <= <= <= <=');
+    print(
+        '=> => => =>  is not animating    ${BlocProvider.of<ChooseMakeAnimeBloc>(context, listen: false).state.isCollapsed}    <= <= <= <=');
+
+    print('=> => => =>     nest listeener     <= <= <= <=');
     if (ScrollDirection.reverse ==
-        _makesController.position.userScrollDirection) {
-      if (!animeBloc.state.isAnimating) {
+        _nestsController.position.userScrollDirection) {
+      if (!BlocProvider.of<ChooseMakeAnimeBloc>(context, listen: false)
+              .state
+              .isAnimating &&
+          !BlocProvider.of<ChooseMakeAnimeBloc>(context, listen: false)
+              .state
+              .isCollapsed) {
+        context.read<ChooseMakeAnimeBloc>().add(
+            ChooseMakeAnimeChangeParamsEvent(
+                where: 'Nest if', isAnimating: true, isCollapsed: true));
         context
             .read<ChooseMakeAnimeBloc>()
-            .add(ChooseMakeAnimeEvent(isAnimating: true, isCollapsed: true));
-        _animationController
+            .state
+            .animationController
             .forward()
             .then((value) => context.read<ChooseMakeAnimeBloc>().add(
-                ChooseMakeAnimeEvent(isAnimating: false, isCollapsed: true)))
+                ChooseMakeAnimeChangeParamsEvent(
+                    where: 'Nest if then', isAnimating: false)))
             .then((value) {
-          widget.bloc.add(PostingAdChangeAppBarShadowEvent(value: false));
+          widget.postingAddBloc
+              .add(PostingAdChangeAppBarShadowEvent(value: false));
         });
       }
     } else {
-      if (!animeBloc.state.isAnimating) {
-        print('====  reverse 0  ====');
+      print('=> => => =>    NEST   ELSE      <= <= <= <=');
+      if (!BlocProvider.of<ChooseMakeAnimeBloc>(context, listen: false)
+              .state
+              .isAnimating &&
+          BlocProvider.of<ChooseMakeAnimeBloc>(context, listen: false)
+              .state
+              .isCollapsed) {
+        context.read<ChooseMakeAnimeBloc>().add(
+            ChooseMakeAnimeChangeParamsEvent(
+                where: 'Nest else', isAnimating: true, isCollapsed: false));
+        widget.postingAddBloc
+            .add(PostingAdChangeAppBarShadowEvent(value: true));
         context
             .read<ChooseMakeAnimeBloc>()
-            .add(ChooseMakeAnimeEvent(isAnimating: true, isCollapsed: false));
-        widget.bloc.add(PostingAdChangeAppBarShadowEvent(value: true));
-        _animationController.reverse().then((value) => context
-            .read<ChooseMakeAnimeBloc>()
-            .add(ChooseMakeAnimeEvent(isAnimating: false, isCollapsed: false)));
+            .state
+            .animationController
+            .reverse()
+            .then((value) => context.read<ChooseMakeAnimeBloc>().add(
+                ChooseMakeAnimeChangeParamsEvent(
+                    where: 'Nest else then', isAnimating: false)));
       }
     }
   }
 
-  bool _isShowFirst(int index) => index == 0;
+  void _makesListener() {
+    print('=> => => =>     make listeener     <= <= <= <=');
+    if (ScrollDirection.reverse ==
+        _makesController.position.userScrollDirection) {
+      if (!BlocProvider.of<ChooseMakeAnimeBloc>(context, listen: false)
+              .state
+              .isAnimating &&
+          !BlocProvider.of<ChooseMakeAnimeBloc>(context, listen: false)
+              .state
+              .isCollapsed) {
+        context.read<ChooseMakeAnimeBloc>().add(
+            ChooseMakeAnimeChangeParamsEvent(
+                where: 'Make if ', isAnimating: true, isCollapsed: true));
+        context
+            .read<ChooseMakeAnimeBloc>()
+            .state
+            .animationController
+            .forward()
+            .then((value) => context.read<ChooseMakeAnimeBloc>().add(
+                ChooseMakeAnimeChangeParamsEvent(
+                    where: 'Make if then',
+                    isAnimating: false,
+                    isCollapsed: true)))
+            .then((value) {
+          widget.postingAddBloc
+              .add(PostingAdChangeAppBarShadowEvent(value: false));
+        });
+      }
+    } else {
+      print('=> => => =>     MAKE ELSE    <= <= <= <=');
+      if (!BlocProvider.of<ChooseMakeAnimeBloc>(context, listen: false)
+              .state
+              .isAnimating &&
+          BlocProvider.of<ChooseMakeAnimeBloc>(context, listen: false)
+              .state
+              .isCollapsed) {
+        context.read<ChooseMakeAnimeBloc>().add(
+            ChooseMakeAnimeChangeParamsEvent(
+                where: 'Make else', isAnimating: true, isCollapsed: false));
+        widget.postingAddBloc
+            .add(PostingAdChangeAppBarShadowEvent(value: true));
+        context
+            .read<ChooseMakeAnimeBloc>()
+            .state
+            .animationController
+            .reverse()
+            .then((value) => context.read<ChooseMakeAnimeBloc>().add(
+                ChooseMakeAnimeChangeParamsEvent(
+                    where: 'Make else then',
+                    isAnimating: false,
+                    isCollapsed: false)));
+      }
+    }
+  }
 
   @override
   void dispose() {
@@ -133,38 +179,31 @@ class _ChooseCarBrandState extends State<ChooseCarBrand>
   @override
   Widget build(BuildContext context) =>
       BlocBuilder<ChooseMakeAnimeBloc, ChooseMakeAnimeState>(
-        builder: (context, state) => KeyboardDismisser(
+        builder: (context, animeState) => KeyboardDismisser(
           child: BlocConsumer<PostingAdBloc, PostingAdState>(
-            listener: (context, state) {
-              if (state.makeLetterIndex != null &&
-                  state.makeLetterIndex! > -1) {
-                _makesController.animateTo(state.makeLetterIndex! * 54,
+            listener: (context, postingAddState) {
+              if (postingAddState.makeLetterIndex != null &&
+                  postingAddState.makeLetterIndex! > -1) {
+                _makesController.animateTo(
+                    postingAddState.makeLetterIndex! * 54,
                     duration: const Duration(milliseconds: 300),
                     curve: Curves.linear);
               }
             },
             builder: (context, state) => Scaffold(
-              appBar: PreferredSize(
-                preferredSize: const Size.fromHeight(54),
-                child: ChooseBrandAppBar(
-                  reversScaleAnimation: _reverseScaleAnimation,
-                  reverseTitle: 'revers titile',
-                  scaleAnimation: _scaleAnimation,
-                  title: 'title',
-                ),
-              ),
-              backgroundColor: _bgTweenColor.evaluate(_scaleAnimation),
+              backgroundColor:
+                  _bgTweenColor.evaluate(animeState.scaleAnimation),
               body: NestedScrollView(
-                controller: _nestsControllerr,
+                controller: _nestsController,
                 floatHeaderSlivers: true,
                 headerSliverBuilder: (context, innerBoxIsScrolled) => [
                   /// HEADER TEXT
                   SliverToBoxAdapter(
                     child: FadeTransition(
-                      opacity: _scaleAnimation,
+                      opacity: animeState.scaleAnimation,
                       child: SizeTransition(
                         axis: Axis.vertical,
-                        sizeFactor: _scaleAnimation,
+                        sizeFactor: animeState.scaleAnimation,
                         child: Padding(
                           padding: const EdgeInsets.only(
                             top: 20,
@@ -177,7 +216,7 @@ class _ChooseCarBrandState extends State<ChooseCarBrand>
                                 .headline1!
                                 .copyWith(
                                     color: _headerTextTweenColor
-                                        .evaluate(_scaleAnimation)),
+                                        .evaluate(animeState.scaleAnimation)),
                           ),
                         ),
                       ),
@@ -193,11 +232,12 @@ class _ChooseCarBrandState extends State<ChooseCarBrand>
                       delegate: PersistentHeaderSearch(
                         child: AnimatedContainer(
                           duration: const Duration(milliseconds: 150),
-                          color: _bgTweenColor.evaluate(_scaleAnimation),
+                          color:
+                              _bgTweenColor.evaluate(animeState.scaleAnimation),
                           padding: const EdgeInsets.only(top: 16, bottom: 12),
                           child: WTextField(
-                            fillColor:
-                                _fillTweenColor.evaluate(_scaleAnimation),
+                            fillColor: _fillTweenColor
+                                .evaluate(animeState.scaleAnimation),
                             filled: true,
                             margin: const EdgeInsets.only(left: 16, right: 16),
                             onChanged: (value) => () {},
@@ -223,9 +263,9 @@ class _ChooseCarBrandState extends State<ChooseCarBrand>
                   SliverToBoxAdapter(
                     child: SizeTransition(
                       axis: Axis.vertical,
-                      sizeFactor: _scaleAnimation,
+                      sizeFactor: animeState.scaleAnimation,
                       child: FadeTransition(
-                        opacity: _scaleAnimation,
+                        opacity: animeState.scaleAnimation,
                         child: SizedBox(
                           height: 120,
                           child: state.status ==
@@ -256,7 +296,7 @@ class _ChooseCarBrandState extends State<ChooseCarBrand>
                   SliverToBoxAdapter(
                     child: SizeTransition(
                       axis: Axis.vertical,
-                      sizeFactor: _scaleAnimation,
+                      sizeFactor: animeState.scaleAnimation,
                       child: Container(
                         height: 20,
                         width: double.infinity,
@@ -288,7 +328,6 @@ class _ChooseCarBrandState extends State<ChooseCarBrand>
                       ? const Center(child: CupertinoActivityIndicator())
                       : ListView.builder(
                           controller: _makesController,
-                          physics: const BouncingScrollPhysics(),
                           padding: const EdgeInsets.only(bottom: 50),
                           itemBuilder: (context, index) => ChangeCarItems(
                             onTap: () {

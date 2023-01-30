@@ -79,7 +79,7 @@ class _MoreActionsState extends State<MoreActions> {
                 GestureDetector(
                   onTap: () {
                     Navigator.pop(context);
-                  },
+                  },    behavior: HitTestBehavior.opaque,
                   child: SvgPicture.asset(
                     AppIcons.close,
                     width: 28,

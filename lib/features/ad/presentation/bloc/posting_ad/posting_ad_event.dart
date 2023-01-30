@@ -2,6 +2,11 @@ part of 'posting_ad_bloc.dart';
 
 abstract class PostingAdEvent {}
 
+class PostingAdAddEventForEveryPage extends PostingAdEvent {
+  final int page;
+  PostingAdAddEventForEveryPage({required this.page});
+}
+
 class PostingAdGetMapScreenShotEvent extends PostingAdEvent {
   final double lat;
   final double long;

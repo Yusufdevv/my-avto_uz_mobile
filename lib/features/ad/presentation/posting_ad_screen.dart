@@ -48,8 +48,11 @@ import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/login/domain/usecases/verify_code.dart';
 import 'package:auto/features/main/domain/usecases/get_top_brand.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
+import 'package:auto/features/profile/presentation/pages/my_adds/my_ads_page.dart';
 import 'package:auto/features/profile/presentation/profile_screen.dart';
 import 'package:auto/features/rent/domain/usecases/get_gearboxess_usecase.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -67,16 +70,39 @@ class _PostingAdScreenState extends State<PostingAdScreen>
     with SingleTickerProviderStateMixin {
   late PageController pageController;
   late PostingAdBloc postingAdBloc;
-
   late ChooseMakeAnimeBloc animeBloc;
   late GlobalKey globalKey;
   late int currentTabIndex;
+  late AnimationController animeController;
   static int initialPage = 0;
-
   final int tabLength = 20;
   @override
   void initState() {
-    animeBloc = ChooseMakeAnimeBloc();
+    animeController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 350),
+    );
+    animeBloc = ChooseMakeAnimeBloc(
+      scaleAnimation: Tween<double>(
+        begin: 1,
+        end: 0,
+      ).animate(
+        CurvedAnimation(
+          curve: Curves.decelerate,
+          parent: animeController,
+        ),
+      ),
+      reversScaleAnimation: Tween<double>(
+        begin: 0,
+        end: 1,
+      ).animate(
+        CurvedAnimation(
+          curve: Curves.decelerate,
+          parent: animeController,
+        ),
+      ),
+      animationController: animeController,
+    );
     globalKey = GlobalKey();
     pageController = PageController(initialPage: initialPage);
     postingAdBloc = PostingAdBloc(
@@ -125,113 +151,6 @@ class _PostingAdScreenState extends State<PostingAdScreen>
     super.initState();
   }
 
-  bool _isDisabled(int page, PostingAdState state) {
-    switch (page) {
-      //make
-      case 0:
-        return state.makeId == null;
-// model
-      case 1:
-        return state.modelId == null;
-      // year
-      case 2:
-        return state.yearId == null;
-      // generation
-      case 3:
-        return state.generationId == null;
-
-      // body type
-      case 4:
-        return state.bodyTypeId == null;
-      // engine
-      case 5:
-        return state.engineId == null;
-      // drive type
-      case 6:
-        return state.driveTypeId == null;
-      // gearbox
-      case 7:
-        return state.gearboxId == null;
-      // ModificationScreen
-      case 8:
-        return state.gearboxId == null;
-      // ColorsScreen
-      case 9:
-        return false;
-      // AddPhotoScreen
-      case 10:
-        return false;
-      // return state.gallery.isEmpty;
-      // PtsScreen
-      case 11:
-        return state.ownerStep == null ||
-            state.typeDocument == null ||
-            state.purchasedDate == null;
-      //  DescriptionScreen
-      case 12:
-        return false;
-      //  EquipmentScreen
-      case 13:
-        return false;
-      // DamageScreen
-      case 14:
-        return state.damagedParts.isEmpty;
-      // ContactsScreen
-      case 15:
-        return !state.isContactsVerified;
-// InspectionPlaceScreen
-      case 16:
-        return state.region == null;
-
-      // PriceScreen
-      case 17:
-        return state.price == null;
-      // MileageScreen
-      case 18:
-        return !(state.mileage != null || (state.isWithoutMileage ?? false));
-      // PreviewScreen
-      case 19:
-        return false;
-    }
-
-    return false;
-  }
-
-  void addEvent(int page, PostingAdState state) {
-    switch (page) {
-      case 0:
-        postingAdBloc.add(PostingAdMakesEvent());
-        break;
-      case 1:
-        postingAdBloc.add(PostingAdModelEvent());
-        break;
-      case 2:
-        postingAdBloc.add(PostingAdGetYearsEvent());
-        break;
-      case 3:
-        postingAdBloc.add(PostingAdGenerationsEvent(modelId: state.modelId!));
-        break;
-      case 4:
-        postingAdBloc.add(PostingAdBodyTypesEvent());
-        break;
-      case 5:
-        postingAdBloc.add(PostingAdEnginesEvent());
-        break;
-      case 6:
-        postingAdBloc.add(PostingAdDriveTypesEvent());
-        break;
-      case 7:
-        postingAdBloc.add(PostingAdGearBoxesEvent());
-        break;
-      case 16:
-        postingAdBloc.add(PostingAdGetRegionsEvent());
-        break;
-      case 17:
-        postingAdBloc.add(PostingAdGetMinimumPriceEvent());
-        break;
-    }
-  }
-
   List<String> tabs = [
     'Марку автомобиля',
     'Модель автомобиля',
@@ -271,11 +190,15 @@ class _PostingAdScreenState extends State<PostingAdScreen>
               BlocProvider(create: (c) => postingAdBloc)
             ],
             child: BlocConsumer<PostingAdBloc, PostingAdState>(
-              listener: (context, state) {
+              listener: (context, state) async {
                 if (state.createStatus == FormzStatus.submissionSuccess) {
-                  Navigator.pushReplacement(
-                      context, fade(page: const ProfileScreen()));
+                  context.read<ShowPopUpBloc>().add(
+                      ShowPopUp(message: state.toastMessage!, isSucces: true));
+                  await Future.delayed(const Duration(milliseconds: 1000));
+                  Navigator.pushReplacement(context, fade(page: MyAdsPage()));
+                  return;
                 }
+
                 if (state.toastMessage != null &&
                     state.toastMessage!.isNotEmpty) {
                   context.read<ShowPopUpBloc>().add(
@@ -285,59 +208,49 @@ class _PostingAdScreenState extends State<PostingAdScreen>
               builder: (context, state) =>
                   BlocBuilder<ChooseMakeAnimeBloc, ChooseMakeAnimeState>(
                 builder: (context, animeState) => Scaffold(
-                  appBar: currentTabIndex == 0
-                      ? null
-                      : PreferredSize(
-                          preferredSize: const Size.fromHeight(54),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              PostingAdAppBar(
-                                currentTabIndex: currentTabIndex,
-                                reversScaleAnimation:
-                                    animeState.reversScaleAnimation!,
-                                reverseTitle: 'Revers title',
-                                scaleAnimation: animeState.scaleAnimation!,
-                                tabLength: tabLength,
-                                hasShadow: state.hasAppBarShadow,
-                                onTapBack: () {
-                                  if (currentTabIndex != 0) {
-                                    if (widget.announcementId != null) {
-                                      if (currentTabIndex > 10) {
-                                        --currentTabIndex;
-                                        addEvent(currentTabIndex, state);
-                                        pageController.animateToPage(
-                                            currentTabIndex,
-                                            duration: const Duration(
-                                                milliseconds: 150),
-                                            curve: Curves.linear);
-                                        setState(() {});
-                                      }
-                                    } else {
-                                      --currentTabIndex;
-                                      addEvent(currentTabIndex, state);
-                                      pageController.animateToPage(
-                                          currentTabIndex,
-                                          duration:
-                                              const Duration(milliseconds: 150),
-                                          curve: Curves.linear);
-                                      setState(() {});
-                                    }
-                                  } else {
-                                    postingAdBloc.add(
-                                        PostingAdGetMapScreenShotEvent(
-                                            lat: 51.727348,
-                                            long: 22.557984,
-                                            zoomLevel: 15));
-                                  }
-                                },
-                                title: currentTabIndex == 0
-                                    ? 'Назад'
-                                    : tabs[currentTabIndex - 1],
-                              ),
-                            ],
-                          ),
-                        ),
+                  appBar: PreferredSize(
+                    preferredSize: const Size.fromHeight(54),
+                    child: PostingAdAppBar(
+                      currentTabIndex: currentTabIndex,
+                      reversScaleAnimation: animeState.reversScaleAnimation,
+                      reverseTitle: LocaleKeys.choose_brand_auto.tr(),
+                      scaleAnimation: animeState.scaleAnimation,
+                      tabLength: tabLength,
+                      hasShadow: state.hasAppBarShadow,
+                      onTapBack: () {
+                        if (currentTabIndex != 0) {
+                          if (widget.announcementId != null) {
+                            if (currentTabIndex > 10) {
+                              --currentTabIndex;
+                              postingAdBloc.add(PostingAdAddEventForEveryPage(
+                                  page: currentTabIndex));
+                              pageController.animateToPage(currentTabIndex,
+                                  duration: const Duration(milliseconds: 150),
+                                  curve: Curves.linear);
+                              setState(() {});
+                            }
+                          } else {
+                            --currentTabIndex;
+                            postingAdBloc.add(PostingAdAddEventForEveryPage(
+                                page: currentTabIndex));
+                            pageController.animateToPage(currentTabIndex,
+                                duration: const Duration(milliseconds: 150),
+                                curve: Curves.linear);
+                            setState(() {});
+                          }
+                        } else {
+                          postingAdBloc.add(PostingAdGetMapScreenShotEvent(
+                              lat: 51.727348, long: 22.557984, zoomLevel: 15));
+                        }
+                      },
+                      onTapCancel: () {
+                        print('=> => => =>     on tap cancel    <= <= <= <=');
+                      },
+                      title: currentTabIndex == 0
+                          ? 'Назад'
+                          : tabs[currentTabIndex - 1],
+                    ),
+                  ),
                   body: Stack(
                     children: [
                       PageView(
@@ -347,12 +260,13 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                           //0
                           ChooseCarBrand(
                             tabLength: tabLength,
-                            bloc: postingAdBloc,
+                            postingAddBloc: postingAdBloc,
                             onTopBrandPressed: (makeId) {
                               postingAdBloc
                                   .add(PostingAdChooseEvent(makeId: makeId));
                               currentTabIndex++;
-                              addEvent(currentTabIndex, state);
+                              postingAdBloc.add(PostingAdAddEventForEveryPage(
+                                  page: currentTabIndex));
                               pageController.animateToPage(currentTabIndex,
                                   duration: const Duration(milliseconds: 150),
                                   curve: Curves.linear);
@@ -433,13 +347,12 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                           left: 16,
                           child: WButton(
                             disabledColor: disabledButton,
-                            isDisabled: _isDisabled(currentTabIndex, state),
+                            isDisabled: state.buttonStatus(currentTabIndex),
                             onTap: () {
-                              // print(
-                              //     '=>=>=>=> ${currentTabIndex} /  /  <=<=<=<=');
                               if (currentTabIndex < tabLength - 1) {
                                 currentTabIndex++;
-                                addEvent(currentTabIndex, state);
+                                postingAdBloc.add(PostingAdAddEventForEveryPage(
+                                    page: currentTabIndex));
                                 pageController.animateToPage(currentTabIndex,
                                     duration: const Duration(milliseconds: 150),
                                     curve: Curves.linear);
@@ -447,7 +360,7 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                               }
                             },
                             text: 'Далее',
-                            shadow: _isDisabled(currentTabIndex, state)
+                            shadow: state.buttonStatus(currentTabIndex)
                                 ? null
                                 : [
                                     BoxShadow(

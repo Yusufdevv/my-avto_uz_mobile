@@ -338,4 +338,5 @@ class PostingAdState extends Equatable {
         showOwnerContacts,
         isContactsVerified,
       ];
+  bool buttonStatus(int page) => PASingleton.buttonStatus(page, this);
 }

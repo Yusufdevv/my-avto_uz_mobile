@@ -1,7 +1,14 @@
 part of 'choose_make_anime_bloc.dart';
 
-class ChooseMakeAnimeEvent {
+abstract class ChooseMakeAnimeEvent {}
+
+class ChooseMakeAnimeChangeParamsEvent extends ChooseMakeAnimeEvent {
   final bool? isCollapsed;
   final bool? isAnimating;
-  ChooseMakeAnimeEvent({this.isAnimating, this.isCollapsed});
+  final String where;
+  ChooseMakeAnimeChangeParamsEvent({
+    required this.where,
+    this.isAnimating,
+    this.isCollapsed,
+  });
 }

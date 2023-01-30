@@ -42,6 +42,7 @@ class _AddPhotoScreenState extends State<AddPhotoScreen> {
               Padding(
                 padding: const EdgeInsets.only(bottom: 3),
                 child: GestureDetector(
+                  
                     onTap: () {
                       Navigator.of(context, rootNavigator: true)
                           .push(fade(page: const PhotoInstructionsScreen()));

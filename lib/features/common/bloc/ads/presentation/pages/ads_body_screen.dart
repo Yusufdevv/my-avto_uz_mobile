@@ -56,7 +56,7 @@ class _AdsBodyScreenState extends State<AdsBodyScreen> {
                       Navigator.of(context, rootNavigator: true).push(fade(
                           page: CarSingleScreen(
                               id: state.announcementList[index].id)));
-                    },
+                    },    behavior: HitTestBehavior.opaque,
                     child: InfoContainer(
                       index: index,
                       phone: state.announcementList[index].userType == 'owner'

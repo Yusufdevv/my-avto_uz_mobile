@@ -394,7 +394,7 @@ class _WTextFieldState extends State<WTextField>
                                   if (widget.onClear !=null) {
                                   widget.onClear!();
                                   }
-                                },
+                                },    behavior: HitTestBehavior.opaque,
                                 child: Padding(
                                   padding:
                                       const EdgeInsets.symmetric(horizontal: 8),
@@ -445,7 +445,7 @@ class _WTextFieldState extends State<WTextField>
                                 showStroke = true;
                                 animationController.reverse();
                               }
-                            },
+                            },    behavior: HitTestBehavior.opaque,
                             child: Container(
                               alignment: Alignment.center,
                               margin: const EdgeInsets.only(top: 10),

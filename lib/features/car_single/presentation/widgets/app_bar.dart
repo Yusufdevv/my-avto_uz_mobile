@@ -114,7 +114,7 @@ class _SliverAppBarItemState extends State<SliverAppBarItem> {
               padding: const EdgeInsets.only(left: 8, right: 8),
               child: widget.isMine
                   ? GestureDetector(
-                      onTap: () {},
+                      onTap: () {},    behavior: HitTestBehavior.opaque,
                       child: SvgPicture.asset(
                         AppIcons.edit_single,
                         color: widget.iconColor,
@@ -140,7 +140,7 @@ class _SliverAppBarItemState extends State<SliverAppBarItem> {
                       initialLike: isLiked!,
                     ),
             ),
-            GestureDetector(
+            GestureDetector(    behavior: HitTestBehavior.opaque,
               child: SvgPicture.asset(AppIcons.moreVertical,
                   width: 36, height: 36, color: widget.iconColor),
               onTap: () {

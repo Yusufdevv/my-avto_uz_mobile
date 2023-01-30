@@ -47,20 +47,22 @@ class AdaptiveDialog extends StatelessWidget {
                 onTap: () {
                   Navigator.pop(context);
                 },
+                behavior: HitTestBehavior.opaque,
                 child: SizedBox(
-                    height: 44,
-                    child: Center(
-                        child: Text(
+                  height: 44,
+                  child: Center(
+                    child: Text(
                       LocaleKeys.cancel.tr(),
                       style: Theme.of(context).textTheme.headline1!.copyWith(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 17,
-                          color: blue),
-                    ))),
+                            fontWeight: FontWeight.w600,
+                            fontSize: 17,
+                            color: blue,
+                          ),
+                    ),
+                  ),
+                ),
               ),
-              const SizedBox(
-                width: 20,
-              ),
+              const SizedBox(width: 20),
               GestureDetector(
                 onTap: onTapPositive,
                 child: SizedBox(

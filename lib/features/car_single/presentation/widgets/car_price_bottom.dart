@@ -65,7 +65,7 @@ class CarPriceBottom extends StatelessWidget {
                   GestureDetector(
                     onTap: () {
                       Navigator.pop(context);
-                    },
+                    },    behavior: HitTestBehavior.opaque,
                     child: SvgPicture.asset(
                       AppIcons.close,
                       width: 32,
@@ -82,7 +82,7 @@ class CarPriceBottom extends StatelessWidget {
               onTap: () {
                 print('currency ${currency}');
                 Navigator.of(context).pop();
-              },
+              },    behavior: HitTestBehavior.opaque,
               child: Container(
                 margin: const EdgeInsets.only(left: 16),
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),

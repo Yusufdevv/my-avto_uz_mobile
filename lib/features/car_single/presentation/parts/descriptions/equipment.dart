@@ -88,7 +88,7 @@ class _EquipmentCardState extends State<EquipmentCard>
                       animationController.reverse();
                     }
                   });
-                },
+                },    behavior: HitTestBehavior.opaque,
                 child: Padding(
                   padding: const EdgeInsets.only(left: 8.0),
                   child: Column(

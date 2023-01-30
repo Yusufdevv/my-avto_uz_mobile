@@ -41,6 +41,7 @@ class DamageTypeInfoSheet extends StatelessWidget {
                       ),
                     ),
                     GestureDetector(
+                          behavior: HitTestBehavior.opaque,
                       onTap: () => Navigator.pop(context),
                       child: SvgPicture.asset(
                         AppIcons.close,
