@@ -18,17 +18,18 @@ class CompletionBar extends StatelessWidget {
       : super(key: key);
 
   @override
-  Widget build(BuildContext context) => visibile
-      ? AnimatedContainer(
-          alignment: Alignment.centerLeft,
-          height: 2,
-          width: currentStep * (screenWidth / totalSteps),
-          color:progressBarColor,
-          duration: const Duration(milliseconds: 200),
-        )
-      : Container(
-          height: 2,
-          color: white,
-          width: screenWidth,
-        );
+  Widget build(BuildContext context) => AnimatedContainer(
+        alignment: Alignment.centerLeft,
+        height: 2,
+        width: screenWidth,
+        color: white,
+        duration: const Duration(milliseconds: 500),
+        child: visibile
+            ? Container(
+                height: 2,
+                width: screenWidth / totalSteps,
+                color: progressBarColor,
+              )
+            : null,
+      );
 }

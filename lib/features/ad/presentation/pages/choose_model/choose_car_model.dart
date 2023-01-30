@@ -5,8 +5,7 @@ import 'package:auto/features/ad/data/repositories/ad_repository_impl.dart';
 import 'package:auto/features/ad/domain/usecases/get_car_model.dart';
 import 'package:auto/features/ad/presentation/bloc/choose_model/car_type_selector_bloc.dart';
 import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.dart';
-import 'package:auto/features/ad/presentation/pages/choose_model/widgets/model_items.dart';
-import 'package:auto/features/ad/presentation/widgets/sliver_header_text.dart';
+import 'package:auto/features/ad/presentation/pages/choose_model/widgets/model_items.dart'; 
 import 'package:auto/features/common/widgets/w_textfield.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -59,8 +58,20 @@ class _ChooseCarModelScreenState extends State<ChooseCarModelScreen> {
               builder: (context, state) => CustomScrollView(
                 physics: const BouncingScrollPhysics(),
                 slivers: [
-                  /// HEADER TEXT
-                   SliverHeaderText(text:  LocaleKeys.choose_model.tr()),
+                  /// HEADER TEXT 
+                   SliverToBoxAdapter(
+        child: Padding(
+          padding: const EdgeInsets.only(
+            top: 20,
+            left: 16,
+          ),
+          child: Text(
+            LocaleKeys.choose_model.tr(),
+            style: Theme.of(context).textTheme.headline1,
+          ),
+        ),
+      ),
+                
 
                   /// SEARCH FIELD
                   SliverToBoxAdapter(

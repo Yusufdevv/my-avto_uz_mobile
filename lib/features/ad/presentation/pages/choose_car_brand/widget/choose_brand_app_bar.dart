@@ -4,34 +4,18 @@ import 'package:auto/features/ad/presentation/widgets/completion_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class PostingAdAppBar extends StatelessWidget implements PreferredSizeWidget {
-  final VoidCallback onTapBack;
+class ChooseBrandAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
-  final TextStyle? titleStyle;
-  final Widget? childWithButton;
-  final bool hasShadow;
-  final int currentTabIndex;
-
-  ///Default is 20
-  final double backButtonSize;
   final String reverseTitle;
-  final int tabLength;
+
   final Animation<double> scaleAnimation;
   final Animation<double> reversScaleAnimation;
-  const PostingAdAppBar({
-    required this.currentTabIndex,
-    required this.tabLength,
+  const ChooseBrandAppBar({
+    required this.reverseTitle,
+    required this.title,
     required this.scaleAnimation,
     required this.reversScaleAnimation,
-    required this.reverseTitle,
-    required this.hasShadow,
-    required this.title,
-    required this.onTapBack,
-    this.backButtonSize = 20,
-    this.titleStyle,
-    this.childWithButton,
-    Key? key,
-  }) : super(key: key);
+  });
 
   @override
   Size get preferredSize => const Size.fromHeight(57);
@@ -44,15 +28,13 @@ class PostingAdAppBar extends StatelessWidget implements PreferredSizeWidget {
             height: (52) + MediaQuery.of(context).padding.top,
             padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
             decoration: BoxDecoration(
-              boxShadow: hasShadow
-                  ? [
-                      BoxShadow(
-                        offset: const Offset(0, 8),
-                        blurRadius: 11,
-                        color: dark.withOpacity(0.04),
-                      ),
-                    ]
-                  : null,
+              boxShadow: [
+                BoxShadow(
+                  offset: const Offset(0, 8),
+                  blurRadius: 11,
+                  color: dark.withOpacity(0.04),
+                ),
+              ],
               color: white,
             ),
             child: Stack(
@@ -65,7 +47,7 @@ class PostingAdAppBar extends StatelessWidget implements PreferredSizeWidget {
                     children: [
                       GestureDetector(
                         behavior: HitTestBehavior.opaque,
-                        onTap: onTapBack,
+                        onTap: () {},
                         child: Row(
                           children: [
                             const SizedBox(width: 16),
@@ -78,13 +60,11 @@ class PostingAdAppBar extends StatelessWidget implements PreferredSizeWidget {
                               title.length > 21
                                   ? '${title.substring(0, 20)}..'
                                   : title,
-                              style: titleStyle ??
-                                  Theme.of(context)
-                                      .textTheme
-                                      .headline2!
-                                      .copyWith(fontWeight: FontWeight.w600),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline2!
+                                  .copyWith(fontWeight: FontWeight.w600),
                             ),
-                            childWithButton ?? const SizedBox()
                           ],
                         ),
                       ),
@@ -99,7 +79,7 @@ class PostingAdAppBar extends StatelessWidget implements PreferredSizeWidget {
                     children: [
                       GestureDetector(
                         behavior: HitTestBehavior.opaque,
-                        onTap: onTapBack,
+                        onTap: () {},
                         child: Row(
                           children: [
                             const SizedBox(width: 16),
@@ -112,13 +92,11 @@ class PostingAdAppBar extends StatelessWidget implements PreferredSizeWidget {
                               reverseTitle.length > 21
                                   ? '${reverseTitle.substring(0, 20)}..'
                                   : reverseTitle,
-                              style: titleStyle ??
-                                  Theme.of(context)
-                                      .textTheme
-                                      .headline2!
-                                      .copyWith(fontWeight: FontWeight.w600),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline2!
+                                  .copyWith(fontWeight: FontWeight.w600),
                             ),
-                            childWithButton ?? const SizedBox()
                           ],
                         ),
                       ),
@@ -129,10 +107,10 @@ class PostingAdAppBar extends StatelessWidget implements PreferredSizeWidget {
             ),
           ),
           CompletionBar(
-            visibile: hasShadow,
+            visibile: true,
             screenWidth: MediaQuery.of(context).size.width,
-            totalSteps: tabLength,
-            currentStep: currentTabIndex + 1,
+            totalSteps: 20,
+            currentStep: 1,
             progressBarColor: orange,
           ),
         ],

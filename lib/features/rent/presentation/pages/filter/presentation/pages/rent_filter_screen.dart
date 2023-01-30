@@ -101,7 +101,6 @@ class _RentFilterScreenState extends State<RentFilterScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SelectorItem(
-                    
                     onTap: () async {
                       await showModalBottomSheet<List<Region>>(
                         isDismissible: false,

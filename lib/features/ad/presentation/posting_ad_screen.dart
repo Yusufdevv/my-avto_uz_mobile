@@ -13,6 +13,7 @@ import 'package:auto/features/ad/domain/usecases/get_makes.dart';
 import 'package:auto/features/ad/domain/usecases/get_map_screenshot_usecase.dart';
 import 'package:auto/features/ad/domain/usecases/get_years.dart';
 import 'package:auto/features/ad/domain/usecases/minimum_price_usecase.dart';
+import 'package:auto/features/ad/presentation/bloc/bloc/choose_make_anime_bloc.dart';
 import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.dart';
 import 'package:auto/features/ad/presentation/pages/add_photo/add_photo_screen.dart';
 import 'package:auto/features/ad/presentation/pages/carcase/carcase_screen.dart';
@@ -35,7 +36,6 @@ import 'package:auto/features/ad/presentation/pages/preview/preview_screen.dart'
 import 'package:auto/features/ad/presentation/pages/price/price_screen.dart';
 import 'package:auto/features/ad/presentation/pages/pts/pts_screen.dart';
 import 'package:auto/features/ad/presentation/pages/year_of_issue/year_issue_screen.dart';
-import 'package:auto/features/ad/presentation/widgets/completion_bar.dart';
 import 'package:auto/features/ad/presentation/widgets/posting_ad_appbar.dart';
 import 'package:auto/features/car_single/data/repository/car_single_repository_impl.dart';
 import 'package:auto/features/car_single/domain/usecases/get_ads_usecase.dart';
@@ -50,7 +50,6 @@ import 'package:auto/features/main/domain/usecases/get_top_brand.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/profile/presentation/profile_screen.dart';
 import 'package:auto/features/rent/domain/usecases/get_gearboxess_usecase.dart';
-import 'package:auto/generated/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -68,6 +67,8 @@ class _PostingAdScreenState extends State<PostingAdScreen>
     with SingleTickerProviderStateMixin {
   late PageController pageController;
   late PostingAdBloc postingAdBloc;
+
+  late ChooseMakeAnimeBloc animeBloc;
   late GlobalKey globalKey;
   late int currentTabIndex;
   static int initialPage = 0;
@@ -75,6 +76,7 @@ class _PostingAdScreenState extends State<PostingAdScreen>
   final int tabLength = 20;
   @override
   void initState() {
+    animeBloc = ChooseMakeAnimeBloc();
     globalKey = GlobalKey();
     pageController = PageController(initialPage: initialPage);
     postingAdBloc = PostingAdBloc(
@@ -263,8 +265,11 @@ class _PostingAdScreenState extends State<PostingAdScreen>
             statusBarBrightness: Brightness.light,
             statusBarIconBrightness: Brightness.dark,
           ),
-          child: BlocProvider.value(
-            value: postingAdBloc,
+          child: MultiBlocProvider(
+            providers: [
+              BlocProvider(create: (c) => animeBloc),
+              BlocProvider(create: (c) => postingAdBloc)
+            ],
             child: BlocConsumer<PostingAdBloc, PostingAdState>(
               listener: (context, state) {
                 if (state.createStatus == FormzStatus.submissionSuccess) {
@@ -277,199 +282,209 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                       ShowPopUp(message: state.toastMessage!, isSucces: false));
                 }
               },
-              builder: (context, state) => Scaffold(
-                appBar: PreferredSize(
-                  preferredSize: const Size.fromHeight(54),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      PostingAdAppBar(
-                        backgroundColor: white,
-                        hasShadow: state.hasAppBarShadow,
-                        onTapBack: () {
-                          if (currentTabIndex != 0) {
-                            if (widget.announcementId != null) {
-                              if (currentTabIndex > 10) {
-                                --currentTabIndex;
-                                addEvent(currentTabIndex, state);
-                                pageController.animateToPage(currentTabIndex,
-                                    duration: const Duration(milliseconds: 150),
-                                    curve: Curves.linear);
-                                setState(() {});
-                              }
-                            } else {
-                              --currentTabIndex;
-                              addEvent(currentTabIndex, state);
-                              pageController.animateToPage(currentTabIndex,
-                                  duration: const Duration(milliseconds: 150),
-                                  curve: Curves.linear);
-                              setState(() {});
-                            }
-                          } else {
-                            postingAdBloc.add(PostingAdGetMapScreenShotEvent(
-                                lat: 51.727348,
-                                long: 22.557984,
-                                zoomLevel: 15));
-                          }
-                        },
-                        title: currentTabIndex == 0
-                            ? 'Назад'
-                            : tabs[currentTabIndex - 1],
-                      ),
-                      CompletionBar(
-                        visibile: state.hasAppBarShadow,
-                        screenWidth: MediaQuery.of(context).size.width,
-                        totalSteps: tabLength,
-                        currentStep: currentTabIndex + 1,
-                        progressBarColor: orange,
-                      ),
-                    ],
-                  ),
-                ),
-                body: Stack(
-                  children: [
-                    PageView(
-                      controller: pageController,
-                      physics: const NeverScrollableScrollPhysics(),
-                      children: [
-                        //0
-                        ChooseCarBrand(
-                          bloc: postingAdBloc,
-                          onTopBrandPressed: (makeId) {
-                            postingAdBloc
-                                .add(PostingAdChooseEvent(makeId: makeId));
-                            currentTabIndex++;
-                            addEvent(currentTabIndex, state);
-                            pageController.animateToPage(currentTabIndex,
-                                duration: const Duration(milliseconds: 150),
-                                curve: Curves.linear);
-                            setState(() {});
-                          },
-                        ),
-                        //1
-                        ChooseCarModelScreen(makeId: state.makeId ?? -1),
-                        //2
-                        const YearIssueScreenn(),
-                        //3
-                        const GenerationScreen(),
-                        //4
-                        const BodyTypeScreen(),
-                        //5
-                        const EngineScreen(),
-                        //6
-                        const DriveTypeScreen(),
-                        //7
-                        const GearboxScreen(),
-                        //8
-                        const ModificationScreen(),
-                        //9
-                        const ColorsScreen(),
-                        //10
-                        AddPhotoScreen(onImageChanged: (v) {
-                          postingAdBloc.add(PostingAdChooseEvent(gallery: v));
-                        }),
-                        //11
-                        const PtsScreen(),
-                        //12
-                        DescriptionScreen(initialText: state.description ?? ''),
-                        //13
-                        const EquipmentScreen(),
-                        //14
-                        const DamageScreen(),
-                        //15
-                        ContactScreen(
-                          initialEmail: state.ownerEmail ?? '',
-                          initialName: state.ownerName ?? '',
-                          initialPhone: state.ownerPhone ?? '',
-                        ),
-                        //16
-                        InspectionPlaceScreen(
-                          onToMapPressed: () {
-                            Navigator.push(
-                              context,
-                              fade(
-                                page: const MapScreenPostingAd(),
+              builder: (context, state) =>
+                  BlocBuilder<ChooseMakeAnimeBloc, ChooseMakeAnimeState>(
+                builder: (context, animeState) => Scaffold(
+                  appBar: currentTabIndex == 0
+                      ? null
+                      : PreferredSize(
+                          preferredSize: const Size.fromHeight(54),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              PostingAdAppBar(
+                                currentTabIndex: currentTabIndex,
+                                reversScaleAnimation:
+                                    animeState.reversScaleAnimation,
+                                reverseTitle: 'Revers title',
+                                scaleAnimation: animeState.scaleAnimation,
+                                tabLength: tabLength,
+                                hasShadow: state.hasAppBarShadow,
+                                onTapBack: () {
+                                  if (currentTabIndex != 0) {
+                                    if (widget.announcementId != null) {
+                                      if (currentTabIndex > 10) {
+                                        --currentTabIndex;
+                                        addEvent(currentTabIndex, state);
+                                        pageController.animateToPage(
+                                            currentTabIndex,
+                                            duration: const Duration(
+                                                milliseconds: 150),
+                                            curve: Curves.linear);
+                                        setState(() {});
+                                      }
+                                    } else {
+                                      --currentTabIndex;
+                                      addEvent(currentTabIndex, state);
+                                      pageController.animateToPage(
+                                          currentTabIndex,
+                                          duration:
+                                              const Duration(milliseconds: 150),
+                                          curve: Curves.linear);
+                                      setState(() {});
+                                    }
+                                  } else {
+                                    postingAdBloc.add(
+                                        PostingAdGetMapScreenShotEvent(
+                                            lat: 51.727348,
+                                            long: 22.557984,
+                                            zoomLevel: 15));
+                                  }
+                                },
+                                title: currentTabIndex == 0
+                                    ? 'Назад'
+                                    : tabs[currentTabIndex - 1],
                               ),
-                            ).then((latLongZoom) {
-                              if (latLongZoom is List<double>) {
-                                postingAdBloc.add(
-                                  PostingAdGetMapScreenShotEvent(
-                                      lat: latLongZoom[0],
-                                      long: latLongZoom[1],
-                                      zoomLevel: latLongZoom[2]),
-                                );
-                              }
-                            });
-                          },
+                            ],
+                          ),
                         ),
-                        //17
-                        PriceScreen(initialPrice: state.price ?? ''),
-                        //18
-                        MileageScreen(initialMilage: state.mileage ?? ''),
-                        // //19
-                        // const StsScreen(),
-                        //19
-                        const PreviewScreen(),
-                      ],
-                    ),
-                    if (currentTabIndex < tabLength - 1) ...{
-                      Positioned(
-                        bottom: 16,
-                        right: 16,
-                        left: 16,
-                        child: WButton(
-                          disabledColor: disabledButton,
-                          isDisabled: _isDisabled(currentTabIndex, state),
-                          onTap: () {
-                            // print(
-                            //     '=>=>=>=> ${currentTabIndex} / ${tabLength} /  <=<=<=<=');
-                            if (currentTabIndex < tabLength - 1) {
+                  body: Stack(
+                    children: [
+                      PageView(
+                        controller: pageController,
+                        physics: const NeverScrollableScrollPhysics(),
+                        children: [
+                          //0
+                          ChooseCarBrand(
+                            tabLength: tabLength,
+                            bloc: postingAdBloc,
+                            onTopBrandPressed: (makeId) {
+                              postingAdBloc
+                                  .add(PostingAdChooseEvent(makeId: makeId));
                               currentTabIndex++;
                               addEvent(currentTabIndex, state);
                               pageController.animateToPage(currentTabIndex,
                                   duration: const Duration(milliseconds: 150),
                                   curve: Curves.linear);
                               setState(() {});
-                            }
-                          },
-                          text: 'Далее',
-                          shadow: _isDisabled(currentTabIndex, state)
-                              ? null
-                              : [
-                                  BoxShadow(
-                                      offset: const Offset(0, 4),
-                                      blurRadius: 20,
-                                      color: orange.withOpacity(0.2)),
-                                ],
-                        ),
+                            },
+                          ),
+                          //1
+                          ChooseCarModelScreen(makeId: state.makeId ?? -1),
+                          //2
+                          const YearIssueScreenn(),
+                          //3
+                          const GenerationScreen(),
+                          //4
+                          const BodyTypeScreen(),
+                          //5
+                          const EngineScreen(),
+                          //6
+                          const DriveTypeScreen(),
+                          //7
+                          const GearboxScreen(),
+                          //8
+                          const ModificationScreen(),
+                          //9
+                          const ColorsScreen(),
+                          //10
+                          AddPhotoScreen(onImageChanged: (v) {
+                            postingAdBloc.add(PostingAdChooseEvent(gallery: v));
+                          }),
+                          //11
+                          const PtsScreen(),
+                          //12
+                          DescriptionScreen(
+                              initialText: state.description ?? ''),
+                          //13
+                          const EquipmentScreen(),
+                          //14
+                          const DamageScreen(),
+                          //15
+                          ContactScreen(
+                            initialEmail: state.ownerEmail ?? '',
+                            initialName: state.ownerName ?? '',
+                            initialPhone: state.ownerPhone ?? '',
+                          ),
+                          //16
+                          InspectionPlaceScreen(
+                            onToMapPressed: () {
+                              Navigator.push(
+                                context,
+                                fade(
+                                  page: const MapScreenPostingAd(),
+                                ),
+                              ).then((latLongZoom) {
+                                if (latLongZoom is List<double>) {
+                                  postingAdBloc.add(
+                                    PostingAdGetMapScreenShotEvent(
+                                        lat: latLongZoom[0],
+                                        long: latLongZoom[1],
+                                        zoomLevel: latLongZoom[2]),
+                                  );
+                                }
+                              });
+                            },
+                          ),
+                          //17
+                          PriceScreen(initialPrice: state.price ?? ''),
+                          //18
+                          MileageScreen(initialMilage: state.mileage ?? ''),
+                          // //19
+                          // const StsScreen(),
+                          //19
+                          const PreviewScreen(),
+                        ],
                       ),
-                    } else ...{
-                      Positioned(
-                          bottom: MediaQuery.of(context).padding.bottom + 16,
+                      if (currentTabIndex < tabLength - 1) ...{
+                        Positioned(
+                          bottom: 16,
                           right: 16,
                           left: 16,
                           child: WButton(
-                            isLoading: state.createStatus ==
-                                FormzStatus.submissionInProgress,
-                            onTap: () async {
-                              postingAdBloc.add(PostingAdCreateEvent());
-                              // Navigator.pop(context);
-                              // HomeTabControllerProvider.of(context)
-                              //     .controller
-                              //     .animateTo(4);
-
-                              // await Navigator.push(context, fade(page: const MyAddsPage()));
+                            disabledColor: disabledButton,
+                            isDisabled: _isDisabled(currentTabIndex, state),
+                            onTap: () {
+                              // print(
+                              //     '=>=>=>=> ${currentTabIndex} /  /  <=<=<=<=');
+                              if (currentTabIndex < tabLength - 1) {
+                                currentTabIndex++;
+                                addEvent(currentTabIndex, state);
+                                pageController.animateToPage(currentTabIndex,
+                                    duration: const Duration(milliseconds: 150),
+                                    curve: Curves.linear);
+                                setState(() {});
+                              }
                             },
-                            text: 'Разместить бесплатно на 7 дней....',
-                            shadow: [
-                              BoxShadow(
-                                  offset: const Offset(0, 4),
-                                  blurRadius: 20,
-                                  color: orange.withOpacity(0.2)),
-                            ],
-                          )),
-                    }
-                  ],
+                            text: 'Далее',
+                            shadow: _isDisabled(currentTabIndex, state)
+                                ? null
+                                : [
+                                    BoxShadow(
+                                        offset: const Offset(0, 4),
+                                        blurRadius: 20,
+                                        color: orange.withOpacity(0.2)),
+                                  ],
+                          ),
+                        ),
+                      } else ...{
+                        Positioned(
+                            bottom: MediaQuery.of(context).padding.bottom + 16,
+                            right: 16,
+                            left: 16,
+                            child: WButton(
+                              isLoading: state.createStatus ==
+                                  FormzStatus.submissionInProgress,
+                              onTap: () async {
+                                postingAdBloc.add(PostingAdCreateEvent());
+                                // Navigator.pop(context);
+                                // HomeTabControllerProvider.of(context)
+                                //     .controller
+                                //     .animateTo(4);
+
+                                // await Navigator.push(context, fade(page: const MyAddsPage()));
+                              },
+                              text: 'Разместить бесплатно на 7 дней....',
+                              shadow: [
+                                BoxShadow(
+                                    offset: const Offset(0, 4),
+                                    blurRadius: 20,
+                                    color: orange.withOpacity(0.2)),
+                              ],
+                            )),
+                      }
+                    ],
+                  ),
                 ),
               ),
             ),
