@@ -33,17 +33,18 @@ class OptionsItem extends StatefulWidget {
 }
 
 class _OptionsItemState extends State<OptionsItem>
-    with SingleTickerProviderStateMixin, WidgetsBindingObserver {
+    // ignore: prefer_mixin
+    with
+        SingleTickerProviderStateMixin,
+        WidgetsBindingObserver {
   bool isLiked = false;
   int countLike = 0;
+  int countShare = 0;
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     switch (state) {
       case AppLifecycleState.resumed:
-        context.read<ReelsBloc>().add(ReelsShare(
-            context.read<ReelsBloc>().state.reels[widget.index].id,
-            widget.index));
         break;
       case AppLifecycleState.inactive:
         break;
@@ -59,6 +60,7 @@ class _OptionsItemState extends State<OptionsItem>
     WidgetsBinding.instance.addObserver(this);
     isLiked = widget.isLiked;
     countLike = widget.countLike;
+    countShare = widget.countShare;
     super.initState();
   }
 
@@ -74,7 +76,16 @@ class _OptionsItemState extends State<OptionsItem>
         child: Column(
           children: [
             WScaleAnimation(
-              onTap: widget.onTapLike,
+              onTap: () {
+                widget.onTapLike();
+                if (isLiked) {
+                  countLike -= 1;
+                } else {
+                  countLike += 1;
+                }
+                isLiked = !isLiked;
+                setState(() {});
+              },
               child: Padding(
                 padding: const EdgeInsets.only(bottom: 10),
                 child: Column(
@@ -99,9 +110,7 @@ class _OptionsItemState extends State<OptionsItem>
                               height: 28,
                             ),
                     ),
-                    const SizedBox(
-                      height: 2,
-                    ),
+                    const SizedBox(height: 2),
                     Text(
                       '$countLike',
                       style: Theme.of(context)
@@ -123,7 +132,7 @@ class _OptionsItemState extends State<OptionsItem>
                       height: 2,
                     ),
                     Text(
-                      '${widget.countShare}',
+                      '$countShare',
                       style: Theme.of(context)
                           .textTheme
                           .headline4!
@@ -132,8 +141,19 @@ class _OptionsItemState extends State<OptionsItem>
                   ],
                 ),
               ),
-              onTap: () {
-                Share.share(widget.shareUrl);
+              onTap: () async {
+                final box = context.findRenderObject() as RenderBox?;
+                ShareResult shareResult;
+                shareResult = await Share.shareWithResult(widget.shareUrl,
+                    sharePositionOrigin:
+                        box!.localToGlobal(Offset.zero) & box.size);
+                if (shareResult.status == ShareResultStatus.success) {
+                  context.read<ReelsBloc>().add(ReelsShare(
+                      context.read<ReelsBloc>().state.reels[widget.index].id,
+                      widget.index));
+                  countShare += 1;
+                  setState(() {});
+                }
               },
             ),
             WScaleAnimation(
