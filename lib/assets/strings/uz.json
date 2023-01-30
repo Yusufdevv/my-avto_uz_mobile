@@ -407,10 +407,8 @@
   "insurance" : "Sug'urtalash xizmati",
   "commercial_vehicles" : "Tijoriy transport",
   "rent_Car" : "RentCar",
-  "characteristics_are_the_same_as_PTS" : "Xususiyatlari PTS bilan bir xil",
-  "one_owner_in_PTS" : "PTSda 1 ta ega",
-  "t_entries_in_the_history_of_operation" : "Faoliyat tarixida 12 ta yozuv",
-  "collateral_search" : "Garovni qidirish",
-  "t_more_checkpoints" : "Yana 20 ta nazorat punkti"
+  "car_make":"Марку автомобиля"
+
+
 
 }

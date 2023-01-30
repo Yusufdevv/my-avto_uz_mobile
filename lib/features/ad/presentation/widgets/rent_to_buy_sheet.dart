@@ -15,8 +15,7 @@ import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 class RentToBuySheet extends StatefulWidget {
   final int price;
-  final int step;
-  const RentToBuySheet({required this.step, required this.price, super.key});
+  const RentToBuySheet({ required this.price, super.key});
 
   @override
   State<RentToBuySheet> createState() => _RentToBuySheetState();
@@ -84,7 +83,8 @@ class _RentToBuySheetState extends State<RentToBuySheet> {
                         GestureDetector(
                           onTap: () {
                             Navigator.of(context).pop(null);
-                          },    behavior: HitTestBehavior.opaque,
+                          },
+                          behavior: HitTestBehavior.opaque,
                           child: Transform.scale(
                             scale: .8,
                             child: SvgPicture.asset(
@@ -102,8 +102,8 @@ class _RentToBuySheetState extends State<RentToBuySheet> {
                           horizontal:
                               MediaQuery.of(context).size.width / 3 - 32),
                       child: TextFormField(
-                        validator: (v) {
-                          final value = int.tryParse(v ?? '0') ?? 0;
+                        validator: (vv) {
+                          final value = int.tryParse(vv?.replaceAll(' ', '') ?? '0') ?? 0;
                           switch (state.step) {
                             case 1:
                               {
@@ -114,14 +114,14 @@ class _RentToBuySheetState extends State<RentToBuySheet> {
                               break;
                             case 2:
                               {
-                                if (v?.isEmpty ?? true) {
+                                if (vv?.isEmpty ?? true) {
                                   return 'Must filled';
                                 }
                               }
                               break;
                             case 3:
                               {
-                                if (!((int.tryParse(v ?? '0') ?? 0) >=
+                                if (!((int.tryParse(vv ?? '0') ?? 0) >=
                                     state.minimumSumma!)) {
                                   return 'Must be >= ${state.minimumSumma}';
                                 }
@@ -199,17 +199,25 @@ class _RentToBuySheetState extends State<RentToBuySheet> {
                                           .controller.text
                                           .replaceAll(' ', '')) ??
                                       0;
-
+                                  print(
+                                      '=> => => =>     prepayment: $prePayment    <= <= <= <=');
+                                  print(
+                                      '=> => => =>     rental Period: $rentalPeriod    <= <= <= <=');
+                                  print(
+                                      '=> => => =>     widget price: ${widget.price}    <= <= <= <=');
+                                  final mini = widget.price > 0
+                                      ? (widget.price - prePayment) ~/
+                                          rentalPeriod
+                                      : 0;
+                                  print(
+                                      '=> => => =>     MINI: ${mini}    <= <= <= <=');
                                   rentToBuyBloc.add(RentToBuyEvent(
                                       rentalPeriod: state.controller.text
                                           .replaceAll(' ', ''),
                                       controller: TextEditingController(),
                                       title: 'Ежемесячная оплата',
                                       step: state.step + 1,
-                                      minimumMonthlyPay: widget.price > 0
-                                          ? (widget.price - prePayment) ~/
-                                              rentalPeriod
-                                          : 0));
+                                      minimumMonthlyPay: mini));
                                 }
                                 break;
                               default:

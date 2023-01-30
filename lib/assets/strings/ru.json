@@ -411,9 +411,6 @@
   "insurance" : "Страхование",
   "commercial_vehicles" : "Коммерческий транспорт",
   "rent_Car" : "RentCar",
-  "characteristics_are_the_same_as_PTS" : "Характеристики совпадают с ПТС",
-  "one_owner_in_PTS" : "1 владелец в ПТС",
-  "t_more_checkpoints" : "Ещё 20 пунктов проверки",
-  "collateral_search" : "Поиск данных о залоге",
-  "t_entries_in_the_history_of_operation" : "12 записей в истории эксплутации"
+  "car_make":"Марку автомобиля"
+
 }

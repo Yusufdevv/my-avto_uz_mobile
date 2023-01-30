@@ -52,10 +52,8 @@ class PASingleton {
 
     var images = <MultipartFile>[];
 
-    for (final element in v.gallery) {
-      final multiParFile = await MultipartFile.fromFile(
-        element,
-      );
+    for (final element in [...v.gallery, ...v.panaramaGallery]) {
+      final multiParFile = await MultipartFile.fromFile(element);
       images.add(multiParFile);
     }
     i = -1;
@@ -122,8 +120,8 @@ class PASingleton {
 
   static PostingAdState choose(
       PostingAdState state, PostingAdChooseEvent event) {
-    print('=> => => => LOCATION URL    ${event.locationUrl}    <= <= <= <=');
     return state.copyWith(
+        panaramaGallery: event.panaramaGallery,
         mapPointBytes: event.bodyBytes,
         years: event.years,
         yearId: event.yearId,
@@ -285,7 +283,7 @@ class PASingleton {
       // AddPhotoScreen
       case 10:
         return false;
-      // return state.gallery.isEmpty;
+      // return [...state.gallery, ...state.panaramaGallery].isEmpty;
       // PtsScreen
       case 11:
         return state.ownerStep == null ||

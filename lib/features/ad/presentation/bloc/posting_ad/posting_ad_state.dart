@@ -1,7 +1,6 @@
 part of 'posting_ad_bloc.dart';
 
 class PostingAdState extends Equatable {
-  final String? mapPointBytes;
   final String? id;
   final TextEditingController phoneController;
   final TextEditingController emailController;
@@ -32,9 +31,11 @@ class PostingAdState extends Equatable {
   final List<YearsEntity>? years;
   final int? districtId;
   final List<String> gallery;
+  final List<String> panaramaGallery;
   final List<RentWithPurchaseEntity> rentWithPurchaseConditions;
   final Map<DamagedParts, DamageType> damagedParts;
   final UserModel? userModel;
+  final Uint8List? mapPointBytes;
   final num minimumPrice;
   final int? makeLetterIndex;
   final String? letter;
@@ -91,6 +92,7 @@ class PostingAdState extends Equatable {
     this.yearId,
     this.years = const <YearsEntity>[],
     this.gallery = const <String>[],
+    this.panaramaGallery = const <String>[],
     this.rentWithPurchaseConditions = const <RentWithPurchaseEntity>[],
     this.regions = const <Region>[],
     this.damagedParts = const <DamagedParts, DamageType>{},
@@ -168,6 +170,7 @@ class PostingAdState extends Equatable {
     List<MakeEntity>? topMakes,
     List<DistrictEntity>? districts,
     List<String>? gallery,
+    List<String>? panaramaGallery,
     int? yearId,
     List<YearsEntity>? years,
     UserModel? userModel,
@@ -178,7 +181,7 @@ class PostingAdState extends Equatable {
     String? typeDocument,
     String? ownerStep,
     String? ownerName,
-    String? mapPointBytes,
+    Uint8List? mapPointBytes,
     String? ownerPhone,
     String? ownerEmail,
     String? purchasedDate,
@@ -206,6 +209,7 @@ class PostingAdState extends Equatable {
     // print('====   ACTUALLY IN STATE:  ${this.districts}  ====');
     // print('==== INCOMING DISTRICT TO COPYWITH:  ${districts}  ====');
     final newState = PostingAdState(
+      panaramaGallery: panaramaGallery ?? this.panaramaGallery,
       createStatus: createStatus ?? this.createStatus,
       mapPointBytes: mapPointBytes ?? this.mapPointBytes,
       makeLetterIndex: eventMakeScrrollIndex,
@@ -268,7 +272,7 @@ class PostingAdState extends Equatable {
       isWithoutMileage: isWithoutMileage ?? this.isWithoutMileage,
       gallery: gallery ?? this.gallery,
       regions: regions ?? this.regions,
-      toastMessage: toastMessage ?? this.toastMessage,
+      toastMessage: toastMessage,
     );
 
     // print(
@@ -278,6 +282,7 @@ class PostingAdState extends Equatable {
 
   @override
   List<Object?> get props => [
+        panaramaGallery,
         createStatus,
         mapPointBytes,
         id,

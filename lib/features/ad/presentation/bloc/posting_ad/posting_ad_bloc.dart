@@ -155,15 +155,18 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
 
   FutureOr<void> _screenShot(PostingAdGetMapScreenShotEvent event,
       Emitter<PostingAdState> emit) async {
+        print('=> => => =>     screenshot triggered    <= <= <= <=');
+    final url =
+        'https://yandex.com/maps/10335/tashkent/?ll=${event.long}%2C${event.lat}&z=${event.zoomLevel}';
+    print('=> => => =>  url:   $url    <= <= <= <=');
     emit(state.copyWith(
         status: FormzStatus.submissionInProgress,
         locationUrl:
             'https://yandex.com/maps/10335/tashkent/?ll=${event.long}%2C${event.lat}&z=${event.zoomLevel}'));
     final result = await screenShotUseCase
-        .call({'longitude': '69.276800', 'latitude': '41.294725'});
+        .call({'longitude': '${event.long}', 'latitude': '${event.lat}'});
     if (result.isRight) {
-      print(
-          '=> => => =>     SCREENSHOT RIGHT  RIGHT  RIGHT  RIGHT      <= <= <= <=');
+      print('=> => => =>     lenth in bloc: ${result.right.length}    <= <= <= <=');
       emit(state.copyWith(
           status: FormzStatus.submissionSuccess, mapPointBytes: result.right));
     } else {

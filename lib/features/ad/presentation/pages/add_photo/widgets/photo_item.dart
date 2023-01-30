@@ -1,44 +1,38 @@
-import 'dart:io';
 
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
-import 'package:auto/features/ad/presentation/bloc/add_photo/image_bloc.dart';
 import 'package:auto/features/ad/presentation/pages/add_photo/widgets/image_item.dart';
 import 'package:auto/features/ad/presentation/pages/add_photo/widgets/plus_circle.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:image_picker/image_picker.dart';
 
 class PhotoItem extends StatefulWidget {
   final List<String> images;
+  final VoidCallback onTap;
 
-  const PhotoItem({required this.images, Key? key}) : super(key: key);
+  const PhotoItem({required this.images, required this.onTap, Key? key})
+      : super(key: key);
 
   @override
   State<PhotoItem> createState() => _PhotoItemState();
 }
 
 class _PhotoItemState extends State<PhotoItem> {
-  late TargetPlatform? platform;
-  @override
-  void initState() {
-    if (Platform.isAndroid) {
-      platform = TargetPlatform.android;
-    } else {
-      platform = TargetPlatform.iOS;
-    }
-    super.initState();
-  }
+  // late TargetPlatform? platform;
+  // @override
+  // void initState() {
+  //   if (Platform.isAndroid) {
+  //     platform = TargetPlatform.android;
+  //   } else {
+  //     platform = TargetPlatform.iOS;
+  //   }
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) => widget.images.isEmpty
       ? WScaleAnimation(
-          onTap: () async {
-            context
-                .read<ImageBloc>()
-                .add(const PickImage(source: ImageSource.camera));
-          },
+          onTap: widget.onTap,
           child: Container(
             alignment: Alignment.center,
             height: 110,
@@ -61,11 +55,7 @@ class _PhotoItemState extends State<PhotoItem> {
             spacing: 8,
             children: [
               WScaleAnimation(
-                onTap: () {
-                  context
-                      .read<ImageBloc>()
-                      .add(const PickImage(source: ImageSource.camera));
-                },
+                onTap: widget.onTap,
                 child: Container(
                   alignment: Alignment.center,
                   height: 110,
