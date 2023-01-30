@@ -8,10 +8,10 @@ class StickyAdderCar extends StatelessWidget {
   final String carSalary;
   final String carImage;
   const StickyAdderCar({
-    Key? key,
     required this.name,
     required this.carSalary,
     required this.carImage,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -36,6 +36,13 @@ class StickyAdderCar extends StatelessWidget {
                       : CachedNetworkImage(
                           imageUrl: carImage,
                           fit: BoxFit.cover,
+                          errorWidget: (context, url, error) =>
+                              SvgPicture.asset(
+                            AppImages.placeHolder,
+                            fit: BoxFit.fill,
+                            height: 44,
+                            width: 44,
+                          ),
                         ),
                 ),
               ),
