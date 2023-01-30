@@ -56,7 +56,7 @@ class _DealerCardState extends State<DealerCard> {
 
   @override
   Widget build(BuildContext context) => GestureDetector(
-        onTap: widget.onTap,
+        onTap: widget.onTap, behavior: HitTestBehavior.opaque,
         child: Container(
           decoration: BoxDecoration(
               color: Theme.of(context).extension<ThemedColors>()!.whiteToNero,

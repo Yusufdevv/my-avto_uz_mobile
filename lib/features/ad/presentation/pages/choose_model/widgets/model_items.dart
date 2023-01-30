@@ -22,12 +22,13 @@ class ModelItems extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => GestureDetector(
-        onTap: onTap,
+        onTap: onTap, behavior: HitTestBehavior.opaque,
         child: Container(
           padding: const EdgeInsets.only(left: 16),
           color: isSelected
               ? Theme.of(context).extension<ThemedColors>()!.snowToNightRider
               : Colors.transparent,
+              
           child: Container(
             padding: const EdgeInsets.only(right: 16, top: 10, bottom: 10),
             decoration: BoxDecoration(

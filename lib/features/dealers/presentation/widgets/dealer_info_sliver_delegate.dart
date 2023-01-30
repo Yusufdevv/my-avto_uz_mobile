@@ -88,7 +88,7 @@ class SellerSliverDelegate extends SliverPersistentHeaderDelegate {
               child: GestureDetector(
                   onTap: () {
                     Navigator.pop(context);
-                  },
+                  }, behavior: HitTestBehavior.opaque,
                   child:
                       SvgPicture.asset(AppIcons.chevronLeft, color: solitude))),
           Positioned(

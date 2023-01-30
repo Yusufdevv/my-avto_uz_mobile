@@ -47,7 +47,7 @@ class _AddComparisonItemState extends State<AddComparisonItem> {
                 isLiked = false;
               }
               setState(() {});
-            },
+            }, behavior: HitTestBehavior.opaque,
             child: AnimatedSwitcher(
               duration: const Duration(milliseconds: 300),
               transitionBuilder: (child, animation) => ScaleTransition(

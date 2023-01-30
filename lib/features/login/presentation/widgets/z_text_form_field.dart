@@ -201,7 +201,7 @@ class _ZTextFormFieldState extends State<ZTextFormField>
                       } else {
                         animationController.forward();
                       }
-                    },
+                    }, behavior: HitTestBehavior.opaque,
                     child: Container(
                       alignment: Alignment.center,
                       margin: const EdgeInsets.only(top: 12),

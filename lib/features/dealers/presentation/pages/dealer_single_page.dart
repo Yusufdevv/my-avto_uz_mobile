@@ -158,7 +158,7 @@ class _DealerSinglePageState extends State<DealerSinglePage> {
                                                         AllMarksWithAnnouncements(
                                                   slug: widget.slug,
                                                 )));
-                                          },
+                                          }, behavior: HitTestBehavior.opaque,
                                           child: Row(
                                             children: [
                                               Text(
@@ -235,7 +235,7 @@ class _DealerSinglePageState extends State<DealerSinglePage> {
                                               page: AllCarsInDealerScreen(
                                                   slug: widget.slug),
                                             ),
-                                          ),
+                                          ), behavior: HitTestBehavior.opaque,
                                           child: Row(
                                             children: [
                                               Text(

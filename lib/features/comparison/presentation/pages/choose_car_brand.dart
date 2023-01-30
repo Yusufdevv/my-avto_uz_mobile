@@ -86,6 +86,7 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
                           leadingWidth: 36,
                           leading: GestureDetector(
                             onTap: () => Navigator.pop(context),
+                             behavior: HitTestBehavior.opaque,
                             child: Padding(
                               padding: const EdgeInsets.only(left: 16),
                               child: SvgPicture.asset(AppIcons.chevronLeft),
@@ -111,7 +112,7 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
                                         GetMakesBlocEvent.selectedCarItems(
                                             id: -1, name: '', imageUrl: ''));
                                   }
-                                },
+                                }, behavior: HitTestBehavior.opaque,
                                 child: SvgPicture.asset(AppIcons.close),
                               ),
                             ),

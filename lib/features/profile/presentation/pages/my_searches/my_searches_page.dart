@@ -131,7 +131,7 @@ class _MySearchesPageState extends State<MySearchesPage> {
                                         onTap: () {},
                                       )));
                                 }
-                              },
+                              }, behavior: HitTestBehavior.opaque,
                               child: MySearchItem(
                                   item: item,
                                   index: index,

@@ -31,7 +31,7 @@ class CheckBottomsheet extends StatelessWidget {
               SizedBox(child: Image.asset(AppImages.pl)),
               const Spacer(),
               GestureDetector(
-                  onTap: () => Navigator.pop(context),
+                  onTap: () => Navigator.pop(context), behavior: HitTestBehavior.opaque,
                   child:
                       SvgPicture.asset(AppIcons.close, height: 32, width: 32)),
             ],

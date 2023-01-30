@@ -33,7 +33,7 @@ class ContainerRegionMark extends StatelessWidget {
                       topRight: Radius.circular(20))),
               builder: (context) =>
                   BottomSheetContent(markOrRegion: markOrRegion));
-        },
+        }, behavior: HitTestBehavior.opaque,
         child: Container(
           padding: const EdgeInsets.only(left: 16, right: 10),
           decoration: BoxDecoration(

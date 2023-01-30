@@ -109,7 +109,7 @@ class _PopularSearchesFieldState extends State<PopularSearchesField> {
                           StorageRepository.putList(
                               'last_searches', widget.elements);
                           setState(() {});
-                        },
+                        }, behavior: HitTestBehavior.opaque,
                         child: SvgPicture.asset(AppIcons.close),
                       )
                     else

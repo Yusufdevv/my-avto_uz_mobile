@@ -174,7 +174,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                       onDoubleTap: () =>
                           _navigatorKeys[NavItemEnum.values[_currentIndex]]!
                               .currentState!
-                              .popUntil((route) => route.isFirst),
+                              .popUntil((route) => route.isFirst), behavior: HitTestBehavior.opaque,
                       child: NavItemWidget(
                         navBar: lables[0],
                         currentIndex: _currentIndex,
@@ -184,7 +184,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                       onDoubleTap: () =>
                           _navigatorKeys[NavItemEnum.values[_currentIndex]]!
                               .currentState!
-                              .popUntil((route) => route.isFirst),
+                              .popUntil((route) => route.isFirst), behavior: HitTestBehavior.opaque,
                       child: NavItemWidget(
                         navBar: lables[1],
                         currentIndex: _currentIndex,
@@ -194,7 +194,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                       onDoubleTap: () =>
                           _navigatorKeys[NavItemEnum.values[_currentIndex]]!
                               .currentState!
-                              .popUntil((route) => route.isFirst),
+                              .popUntil((route) => route.isFirst), behavior: HitTestBehavior.opaque,
                       child: NavItemWidget(
                         navBar: lables[2],
                         currentIndex: _currentIndex,
@@ -204,7 +204,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                       onDoubleTap: () =>
                           _navigatorKeys[NavItemEnum.values[_currentIndex]]!
                               .currentState!
-                              .popUntil((route) => route.isFirst),
+                              .popUntil((route) => route.isFirst), behavior: HitTestBehavior.opaque,
                       child: NavItemWidget(
                         navBar: lables[3],
                         currentIndex: _currentIndex,
@@ -214,7 +214,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                       onDoubleTap: () =>
                           _navigatorKeys[NavItemEnum.values[_currentIndex]]!
                               .currentState!
-                              .popUntil((route) => route.isFirst),
+                              .popUntil((route) => route.isFirst), behavior: HitTestBehavior.opaque,
                       child: NavItemWidget(
                         navBar: lables[4],
                         currentIndex: _currentIndex,

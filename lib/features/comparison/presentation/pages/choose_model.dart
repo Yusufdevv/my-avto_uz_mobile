@@ -59,7 +59,7 @@ class _ChooseCarModelComparison extends State<ChooseCarModelComparison> {
                       pinned: true,
                       leadingWidth: 36,
                       leading: GestureDetector(
-                        onTap: () => Navigator.pop(context),
+                        onTap: () => Navigator.pop(context), behavior: HitTestBehavior.opaque,
                         child: Padding(
                           padding: const EdgeInsets.only(left: 16),
                           child: SvgPicture.asset(AppIcons.chevronLeft),

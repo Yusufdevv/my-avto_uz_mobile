@@ -79,7 +79,7 @@ class _AllMarksWithAnnouncementsState extends State<AllMarksWithAnnouncements> {
                               ),
                             ),
                           );
-                        },
+                        }, behavior: HitTestBehavior.opaque,
                         child: Container(
                           height: 91,
                           width: MediaQuery.of(context).size.width * 0.44,

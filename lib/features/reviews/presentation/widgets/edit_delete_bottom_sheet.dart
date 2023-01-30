@@ -35,7 +35,7 @@ class EditDeleteBottomSheet extends StatelessWidget {
                   GestureDetector(
                     onTap: () {
                       Navigator.pop(context);
-                    },
+                    }, behavior: HitTestBehavior.opaque,
                     child: SvgPicture.asset(
                       AppIcons.close,
                       height: 14,
@@ -70,7 +70,7 @@ class EditDeleteBottomSheet extends StatelessWidget {
               onTap: () => showDialog(
                 context: context,
                 builder: (context) => const DeleteShowDialog(),
-              ),
+              ), behavior: HitTestBehavior.opaque,
               child: Chip(
                 padding: const EdgeInsets.only(left: 20, top: 16),
                 backgroundColor: Colors.white,

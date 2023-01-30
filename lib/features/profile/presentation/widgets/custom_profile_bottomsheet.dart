@@ -34,7 +34,7 @@ class CustomProfileBottomsheet extends StatelessWidget {
             Align(
               alignment: Alignment.centerRight,
               child: GestureDetector(
-                  onTap: () => Navigator.pop(context),
+                  onTap: () => Navigator.pop(context), behavior: HitTestBehavior.opaque,
                   child:
                       SvgPicture.asset(AppIcons.close, height: 32, width: 32)),
             ),

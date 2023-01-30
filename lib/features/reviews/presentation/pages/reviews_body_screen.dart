@@ -108,7 +108,7 @@ class _ReviewsBodyScreenState extends State<ReviewsBodyScreen> {
                           setState(() {
                             firstPositive = !firstPositive;
                           });
-                        },
+                        }, behavior: HitTestBehavior.opaque,
                         child: AnimatedContainer(
                           duration: const Duration(milliseconds: 200),
                           child: Text(

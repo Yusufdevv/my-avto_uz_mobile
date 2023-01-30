@@ -93,7 +93,7 @@ class _FavoriteItemState extends State<FavoriteItem> {
           onTap: () {
             Navigator.of(context)
                 .push(fade(page: CarSingleScreen(id: widget.id)));
-          },
+          }, behavior: HitTestBehavior.opaque,
           child: Container(
             width: MediaQuery.of(context).size.width,
             padding: const EdgeInsets.only(top: 12, left: 16, bottom: 8),

@@ -122,7 +122,7 @@ class SliverWidget extends SliverPersistentHeaderDelegate {
                                         .push(fade(
                                             page: CarSingleScreen(
                                                 id: item!.announcement.id)));
-                                  },
+                                  }, behavior: HitTestBehavior.opaque,
                                   child: AddedCar(
                                     ownerType: item!.announcement.ownership,
                                     hasCallCard: true,

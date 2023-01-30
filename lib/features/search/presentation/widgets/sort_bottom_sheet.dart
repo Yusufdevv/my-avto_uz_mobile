@@ -48,7 +48,7 @@ class _SortBottomSheetState extends State<SortBottomSheet> {
                   ),
                 ),
                 GestureDetector(
-                  onTap: () => Navigator.pop(context),
+                  onTap: () => Navigator.pop(context), behavior: HitTestBehavior.opaque,
                   child: SvgPicture.asset(
                     AppIcons.close,
                     height: 24,

@@ -100,7 +100,7 @@ class _AnimatedImagesState extends State<AnimatedImages>
                             )));
                   }
                 }
-              },
+              }, behavior: HitTestBehavior.opaque,
               child:
                   //   child: PageView(
                   //     onPageChanged: (integer) {

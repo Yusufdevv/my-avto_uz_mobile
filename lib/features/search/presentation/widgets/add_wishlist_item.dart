@@ -17,7 +17,7 @@ class AddWishlistItem extends StatelessWidget {
         height: 28,
         width: 28,
         child: GestureDetector(
-          onTap: onTap,
+          onTap: onTap, behavior: HitTestBehavior.opaque,
           child: AnimatedSwitcher(
             duration: const Duration(milliseconds: 300),
             transitionBuilder: (child, animation) => ScaleTransition(

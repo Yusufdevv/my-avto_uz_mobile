@@ -41,7 +41,7 @@ class AdsItem extends StatelessWidget {
       onTap: () {
         Navigator.of(context, rootNavigator: true)
             .push(fade(page: CarSingleScreen(id: id)));
-      },
+      }, behavior: HitTestBehavior.opaque,
       child: Container(
         height: 269,
         width: 225,

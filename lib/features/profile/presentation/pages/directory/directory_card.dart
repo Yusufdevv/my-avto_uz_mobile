@@ -53,7 +53,7 @@ class _DirectoryCardState extends State<DirectoryCard> {
         onTap: () {
           Navigator.of(context)
               .push(fade(page: DirectorySinglePage(slug: widget.slug)));
-        },
+        }, behavior: HitTestBehavior.opaque,
         child: Container(
           decoration: BoxDecoration(
               color: Theme.of(context).extension<ThemedColors>()!.whiteToNero,
