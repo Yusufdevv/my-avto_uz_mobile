@@ -32,7 +32,8 @@ class _YearIssueScreennState extends State<YearIssueScreenn> {
                   physics: const BouncingScrollPhysics(),
                   shrinkWrap: true,
                   itemBuilder: (context, index) => GestureDetector(
-                    onTap: () {
+
+    behavior: HitTestBehavior.opaque,                    onTap: () {
                       context.read<PostingAdBloc>().add(
                           PostingAdChooseEvent(yearId: state.years![index].id));
                     },

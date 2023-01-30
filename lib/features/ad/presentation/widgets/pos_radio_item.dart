@@ -17,7 +17,8 @@ class PostingRadioItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => GestureDetector(
-        onTap: onTap,
+
+    behavior: HitTestBehavior.opaque,        onTap: onTap,
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 150),
           decoration: BoxDecoration(

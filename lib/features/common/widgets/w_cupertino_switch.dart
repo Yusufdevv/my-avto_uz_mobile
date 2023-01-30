@@ -63,7 +63,7 @@ class _WCupertinoSwitchState extends State<WCupertinoSwitch> {
               widget.onChange(isSwitched);
             });
             widget.onChange(isSwitched);
-          },
+          },    behavior: HitTestBehavior.opaque,
           onHorizontalDragStart: (details) {
             setState(() {
               if (details.localPosition.dx < widget.height - 4) {

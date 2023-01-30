@@ -248,4 +248,76 @@ class PASingleton {
         return null;
     }
   }
+
+  static bool buttonStatus(int page, PostingAdState state) {
+    switch (page) {
+      //make
+      case 0:
+        return state.makeId == null;
+// model
+      case 1:
+        return state.modelId == null;
+      // year
+      case 2:
+        return state.yearId == null;
+      // generation
+      case 3:
+        return state.generationId == null;
+
+      // body type
+      case 4:
+        return state.bodyTypeId == null;
+      // engine
+      case 5:
+        return state.engineId == null;
+      // drive type
+      case 6:
+        return state.driveTypeId == null;
+      // gearbox
+      case 7:
+        return state.gearboxId == null;
+      // ModificationScreen
+      case 8:
+        return state.gearboxId == null;
+      // ColorsScreen
+      case 9:
+        return false;
+      // AddPhotoScreen
+      case 10:
+        return false;
+      // return state.gallery.isEmpty;
+      // PtsScreen
+      case 11:
+        return state.ownerStep == null ||
+            state.typeDocument == null ||
+            state.purchasedDate == null;
+      //  DescriptionScreen
+      case 12:
+        return false;
+      //  EquipmentScreen
+      case 13:
+        return false;
+      // DamageScreen
+      case 14:
+        return state.damagedParts.isEmpty;
+      // ContactsScreen
+      case 15:
+        return !state.isContactsVerified;
+// InspectionPlaceScreen
+      case 16:
+        return state.region == null;
+
+      // PriceScreen
+      case 17:
+        return state.price == null;
+      // MileageScreen
+      case 18:
+        return !(state.mileage != null || (state.isWithoutMileage ?? false));
+      // PreviewScreen
+      case 19:
+        return false;
+    }
+
+    return false;
+  }
 }

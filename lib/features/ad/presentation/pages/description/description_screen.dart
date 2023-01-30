@@ -98,6 +98,7 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
                         ),
                         const SizedBox(height: 28),
                         GestureDetector(
+                              behavior: HitTestBehavior.opaque,
                             onTap: () => context.read<PostingAdBloc>().add(
                                 PostingAdChooseEvent(
                                     isRastamojen:

@@ -48,6 +48,7 @@ class _DamageTypeChooseSheetState extends State<DamageTypeChooseSheet> {
                     ),
                   ),
                   GestureDetector(
+                        behavior: HitTestBehavior.opaque,
                     onTap: () => Navigator.pop(context),
                     child: SvgPicture.asset(
                       AppIcons.close,

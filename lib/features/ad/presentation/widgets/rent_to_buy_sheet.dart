@@ -84,7 +84,7 @@ class _RentToBuySheetState extends State<RentToBuySheet> {
                         GestureDetector(
                           onTap: () {
                             Navigator.of(context).pop(null);
-                          },
+                          },    behavior: HitTestBehavior.opaque,
                           child: Transform.scale(
                             scale: .8,
                             child: SvgPicture.asset(

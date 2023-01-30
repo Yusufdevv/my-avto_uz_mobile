@@ -25,7 +25,7 @@ class SwitcherRowAsButtonAlso extends StatelessWidget {
             return;
           }
           onTap();
-        },
+        },    behavior: HitTestBehavior.opaque,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [

@@ -115,7 +115,44 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     on<PostingAdClearControllersEvent>(_clearControllers);
     on<PostingAdGetYearsEvent>(_getYears);
     on<PostingAdGetMapScreenShotEvent>(_screenShot);
+    on<PostingAdAddEventForEveryPage>(_addEvent);
   }
+  FutureOr<void> _addEvent(
+      PostingAdAddEventForEveryPage event, Emitter<PostingAdState> emit) {
+    switch (event.page) {
+      case 0:
+        add(PostingAdMakesEvent());
+        break;
+      case 1:
+        add(PostingAdModelEvent());
+        break;
+      case 2:
+        add(PostingAdGetYearsEvent());
+        break;
+      case 3:
+        add(PostingAdGenerationsEvent(modelId: state.modelId!));
+        break;
+      case 4:
+        add(PostingAdBodyTypesEvent());
+        break;
+      case 5:
+        add(PostingAdEnginesEvent());
+        break;
+      case 6:
+        add(PostingAdDriveTypesEvent());
+        break;
+      case 7:
+        add(PostingAdGearBoxesEvent());
+        break;
+      case 16:
+        add(PostingAdGetRegionsEvent());
+        break;
+      case 17:
+        add(PostingAdGetMinimumPriceEvent());
+        break;
+    }
+  }
+
   FutureOr<void> _screenShot(PostingAdGetMapScreenShotEvent event,
       Emitter<PostingAdState> emit) async {
     emit(state.copyWith(
@@ -127,7 +164,8 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     if (result.isRight) {
       print(
           '=> => => =>     SCREENSHOT RIGHT  RIGHT  RIGHT  RIGHT      <= <= <= <=');
-      emit(state.copyWith(status: FormzStatus.submissionSuccess,mapPointBytes: result.right));
+      emit(state.copyWith(
+          status: FormzStatus.submissionSuccess, mapPointBytes: result.right));
     } else {
       emit(state.copyWith(status: FormzStatus.submissionFailure));
     }
@@ -295,7 +333,9 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     final result = await createUseCase.call(await PASingleton.create(state));
     if (result.isRight) {
       print('=> => => =>     RIGHT RIGHT RIGHT RIGHT       <= <= <= <=');
-      emit(state.copyWith(createStatus: FormzStatus.submissionSuccess));
+      emit(state.copyWith(
+          createStatus: FormzStatus.submissionSuccess,
+          toastMessage: 'Your ad created successfully!'));
     } else {
       final err = (result.left is ServerFailure)
           ? (result.left as ServerFailure).errorMessage

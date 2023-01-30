@@ -86,7 +86,7 @@ class _SmsVerificationSheetState extends State<SmsVerificationSheet> {
                       GestureDetector(
                         onTap: () {
                           Navigator.of(context).pop();
-                        },
+                        },    behavior: HitTestBehavior.opaque,
                         child: Transform.scale(
                           scale: .8,
                           child: SvgPicture.asset(

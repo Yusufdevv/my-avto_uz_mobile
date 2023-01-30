@@ -33,7 +33,7 @@ class AboutCarPriceBottom extends StatelessWidget {
                 GestureDetector(
                   onTap: () {
                     Navigator.pop(context);
-                  },
+                  },    behavior: HitTestBehavior.opaque,
                   child: SvgPicture.asset(
                     AppIcons.close,
                     width: 32,

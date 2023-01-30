@@ -32,6 +32,7 @@ class _BodyTypeScreenState extends State<BodyTypeScreen> {
               headerText: LocaleKeys.body_type.tr(),
               child: ListView.builder(
                 itemBuilder: (context, index) => GestureDetector(
+                  behavior: HitTestBehavior.opaque,
                   onTap: () => context.read<PostingAdBloc>().add(
                       PostingAdChooseEvent(
                           selectedBodyTypeId: state.bodyTypes[index].id)),

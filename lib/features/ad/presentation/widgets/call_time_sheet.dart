@@ -57,6 +57,7 @@ class _CallTimeSheetState extends State<CallTimeSheet> {
                   style: Theme.of(context).textTheme.headline1,
                 ),
                 GestureDetector(
+                      behavior: HitTestBehavior.opaque,
                   onTap: () {
                     Navigator.of(context).pop();
                   },

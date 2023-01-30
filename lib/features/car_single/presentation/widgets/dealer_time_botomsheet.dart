@@ -42,7 +42,7 @@ class DealerTime extends StatelessWidget {
                   GestureDetector(
                     onTap: () {
                       Navigator.of(context).pop();
-                    },
+                    },    behavior: HitTestBehavior.opaque,
                     child: SvgPicture.asset(
                       AppIcons.close,
                       width: 32,
