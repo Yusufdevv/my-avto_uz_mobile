@@ -36,9 +36,13 @@ class UserWishListsBloc extends Bloc<UserWishListsEvent, UserWishListsState> {
           notifications: const <NotificationsEntity>[],
           notificationSingle: NotificationsEntity(),
           mySearches: const <MySearchesEntity>[],
+          count: 0,
+          next: '',
+          moreFetch: false,
         )) {
     on<GetUserFavoritesEvent>(_onGetUserFavorites);
     on<GetUserMyAdsEvent>(_onGetUserMyAds);
+    on<GetMoreUserMyAdsEvent>(_onGetMoreUserMyAds);
     on<GetMySearchesEvent>(_onGetMySearches);
     on<GetNotificationsEvent>(_onGetNotifications);
     on<GetNotificationSingleEvent>(_onGetNotificationSingle);
@@ -47,7 +51,7 @@ class UserWishListsBloc extends Bloc<UserWishListsEvent, UserWishListsState> {
     on<ChangeIsWishEvenet>(_onChangeIsWish);
     on<ChangeReadEvent>(_onChangeRead);
   }
-  // delete item from from list in state
+  // delete favoritesItem  from favorites in state
   void _onChangeIsWish(
       ChangeIsWishEvenet event, Emitter<UserWishListsState> emit) {
     final list = <AutoEntity>[...state.favorites];
@@ -69,11 +73,14 @@ class UserWishListsBloc extends Bloc<UserWishListsEvent, UserWishListsState> {
   Future<void> _onGetUserFavorites(
       GetUserFavoritesEvent event, Emitter<UserWishListsState> emit) async {
     emit(state.copyWith(favoritesStatus: FormzStatus.submissionInProgress));
-    final result = await profileFavoritesMyAdsUseCase.call(event.endpoint);
+    final result = await profileFavoritesMyAdsUseCase
+        .call(Params(endpoint: '/users/wishlist/announcement/list/'));
     if (result.isRight) {
       emit(state.copyWith(
-          favoritesStatus: FormzStatus.submissionSuccess,
-          favorites: result.right.results));
+        favoritesStatus: FormzStatus.submissionSuccess,
+        favorites: result.right.results,
+        next: result.right.next,
+      ));
     } else {
       emit(state.copyWith(favoritesStatus: FormzStatus.submissionFailure));
     }
@@ -94,11 +101,33 @@ class UserWishListsBloc extends Bloc<UserWishListsEvent, UserWishListsState> {
   Future<void> _onGetUserMyAds(
       GetUserMyAdsEvent event, Emitter<UserWishListsState> emit) async {
     emit(state.copyWith(myAdsStatus: FormzStatus.submissionInProgress));
-    final result = await profileFavoritesMyAdsUseCase.call(event.endpoint);
+    final result = await profileFavoritesMyAdsUseCase.call(Params(
+        endpoint: '/car/my-announcements/',
+        moderationStatus: event.moderationStatus));
     if (result.isRight) {
       emit(state.copyWith(
-          myAdsStatus: FormzStatus.submissionSuccess,
-          myAds: result.right.results));
+        myAdsStatus: FormzStatus.submissionSuccess,
+        myAds: result.right.results,
+        next: result.right.next,
+      ));
+    } else {
+      emit(state.copyWith(myAdsStatus: FormzStatus.submissionFailure));
+    }
+  }
+
+  Future<void> _onGetMoreUserMyAds(
+      GetMoreUserMyAdsEvent event, Emitter<UserWishListsState> emit) async {
+    emit(state.copyWith(myAdsStatus: FormzStatus.submissionInProgress));
+    final result = await profileFavoritesMyAdsUseCase.call(Params(
+        endpoint: '/car/my-announcements/',
+        query: state.next,
+        moderationStatus: event.moderationStatus));
+    if (result.isRight) {
+      emit(state.copyWith(
+        myAds: result.right.results,
+        next: result.right.next,
+        moreFetch: result.right.next != null,
+      ));
     } else {
       emit(state.copyWith(myAdsStatus: FormzStatus.submissionFailure));
     }

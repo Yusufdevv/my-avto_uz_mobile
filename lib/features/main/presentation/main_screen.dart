@@ -81,8 +81,7 @@ class _MainScreenState extends State<MainScreen> {
     context.read<GetMakesBloc>().add(GetMakesBlocEvent.getMakes());
     topAdBloc = TopAdBloc(GetTopAdsUseCase())
       ..add(TopAdEvent.getTopAds())
-      ..add(TopAdEvent.getFavorites(
-          endpoint: '/users/wishlist/announcement/list/'));
+      ..add(TopAdEvent.getFavorites());
     topBrandBloc = TopBrandBloc(GetTopBrandUseCase())
       ..add(TopBrandEvent.getBrand());
     serviceTaps = [
@@ -146,8 +145,7 @@ class _MainScreenState extends State<MainScreen> {
                 topBrandBloc.add(TopBrandEvent.getBrand());
                 topAdBloc
                   ..add(TopAdEvent.getTopAds())
-                  ..add(TopAdEvent.getFavorites(
-                      endpoint: '/users/wishlist/announcement/list/'));
+                  ..add(TopAdEvent.getFavorites());
               },
               child: BlocBuilder<AnnouncementListBloc, AnnouncementListState>(
                 builder: (context, stateAnnounc) => SingleChildScrollView(
@@ -236,9 +234,7 @@ class _MainScreenState extends State<MainScreen> {
                           if (stateWish.addStatus.isSubmissionSuccess ||
                               stateWish.removeStatus.isSubmissionSuccess) {
                             context.read<TopAdBloc>().add(
-                                TopAdEvent.getFavorites(
-                                    endpoint:
-                                        '/users/wishlist/announcement/list/'));
+                                TopAdEvent.getFavorites());
                             context
                                 .read<WishlistAddBloc>()
                                 .add(WishlistAddEvent.clearState());

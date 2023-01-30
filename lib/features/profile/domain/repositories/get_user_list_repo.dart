@@ -10,8 +10,8 @@ import 'package:auto/features/profile/domain/entities/my_searches_entity.dart';
 import 'package:auto/features/profile/domain/entities/notifications_entity.dart';
 
 abstract class GetUserListRepository {
-  Future<Either<Failure, GenericPagination<AutoModel>>> getProfileFavorites(
-      {required String url, String? next});
+  Future<Either<Failure, GenericPagination<AutoEntity>>>
+      getProfileFavoritesMyAds({required String url, String? next, String? moderationStatus});
   Future<Either<ServerFailure, List<NotificationsEntity>>> getNotifications();
   Future<Either<ServerFailure, List<MySearchesEntity>>> getMySearches();
   Future<Either<ServerFailure, NotificationsEntity>> getNotificationSingle(

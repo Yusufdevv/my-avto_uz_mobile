@@ -31,10 +31,11 @@ class GetUserListRepoImpl extends GetUserListRepository {
   }
 
   @override
-  Future<Either<Failure, GenericPagination<AutoModel>>> getProfileFavorites(
-      {required String url, String? next}) async {
+  Future<Either<Failure, GenericPagination<AutoEntity>>>
+      getProfileFavoritesMyAds({required String url, String? next, String? moderationStatus}) async {
     try {
-      final result = await dataSource.getProfileFavoritesMyAds(url: url,next: next,fromJson: AutoModel.fromJson);
+      final result = await dataSource.getProfileFavoritesMyAds(
+          url: url, next: next, fromJson: AutoModel.fromJson, moderationStatus: moderationStatus);
       return result;
     } on ServerException catch (error) {
       return Left(ServerFailure(
