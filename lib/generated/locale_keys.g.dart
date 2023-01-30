@@ -87,6 +87,7 @@ abstract class  LocaleKeys {
   static const loading_data = 'loading_data';
   static const choose_brand = 'choose_brand';
   static const choose_region = 'choose_region';
+  static const all_notifications_are_read = 'all_notifications_are_read';
   static const with_list = 'with_list';
   static const om_map = 'om_map';
   static const model = 'model';

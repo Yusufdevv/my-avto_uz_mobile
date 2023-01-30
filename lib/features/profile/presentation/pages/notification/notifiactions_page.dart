@@ -25,6 +25,7 @@ import 'package:formz/formz.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
+
 class NotificationPage extends StatefulWidget {
   const NotificationPage({super.key});
 
@@ -35,14 +36,12 @@ class NotificationPage extends StatefulWidget {
 class _NotificationPageState extends State<NotificationPage> {
   late UserWishListsBloc bloc;
   @override
-  void initState() { 
-    bloc = UserWishListsBloc(
-         )
-      ..add(GetNotificationsEvent());
+  void initState() {
+    bloc = UserWishListsBloc()..add(GetNotificationsEvent());
     super.initState();
   }
 
-    @override
+  @override
   void dispose() {
     bloc.close();
     super.dispose();
@@ -91,47 +90,44 @@ class _NotificationPageState extends State<NotificationPage> {
                   final notifications = state.notifications;
                   return notifications.isNotEmpty
                       ? ListView.builder(
-                          physics:const BouncingScrollPhysics(),
+                          physics: const BouncingScrollPhysics(),
                           itemCount: notifications.length,
                           itemBuilder: (context, index) {
                             final item = notifications[index];
                             return InkWell(
-                              onTap: () {
-                                context.read<UserWishListsBloc>().add(
-                                    GetNotificationSingleEvent(
-                                        id: item.id.toString()));
-                                Navigator.push(
-                                    context,
-                                    fade(
-                                        page: BlocProvider.value(
-                                            value: bloc,
-                                            child:
-                                                const NotificationSinglePage())));
-                                context
-                                    .read<UserWishListsBloc>()
-                                    .add(ChangeReadEvent(id: item.id!));
-                              },
-                              child: BlocBuilder<UserWishListsBloc,
-                                  UserWishListsState>(
-                                builder: (context, state) => NotificationItem(
+                                onTap: () {
+                                  context.read<UserWishListsBloc>().add(
+                                      GetNotificationSingleEvent(
+                                          id: item.id.toString()));
+                                  Navigator.push(
+                                      context,
+                                      fade(
+                                          page: BlocProvider.value(
+                                              value: bloc,
+                                              child:
+                                                  const NotificationSinglePage())));
+                                  if (item.isRead != null && !item.isRead!) {
+                                    context
+                                        .read<UserWishListsBloc>()
+                                        .add(ChangeReadEvent(index: index));
+                                  }
+                                },
+                                child: NotificationItem(
                                   currentIndex: index,
                                   category:
                                       '#${item.category?.name} • ${MyFunctions.getAutoPublishDate(item.createdAt!)}',
                                   title: item.title ?? '',
                                   isRead: isAllRead ? isAllRead : item.isRead!,
                                   image: item.cover ?? '',
-                                ),
-                              ),
-                            );
+                                ));
                           },
                         )
-                      :   EmptyItemBody(
+                      : EmptyItemBody(
                           title: LocaleKeys.no_notice.tr(),
-                          subtitle:
-                              LocaleKeys.w_t_is_no_n_t_w_be.tr(),
+                          subtitle: LocaleKeys.w_t_is_no_n_t_w_be.tr(),
                           image: AppIcons.notification);
                 }
-                return   Center(
+                return Center(
                   child: Text(LocaleKeys.error.tr()),
                 );
               },

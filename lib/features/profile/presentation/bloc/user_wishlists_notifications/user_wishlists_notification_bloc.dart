@@ -63,10 +63,7 @@ class UserWishListsBloc extends Bloc<UserWishListsEvent, UserWishListsState> {
 
   void _onChangeRead(ChangeReadEvent event, Emitter<UserWishListsState> emit) {
     final list = <NotificationsEntity>[...state.notifications];
-    final item = list.firstWhere((element) => element.id == event.id);
-    // ignore: cascade_invocations
-    final index = list.indexOf(item);
-    list.elementAt(index).isRead = !list.elementAt(index).isRead!;
+    list[event.index].isRead = !list[event.index].isRead!;
     emit(state.copyWith(notifications: list));
   }
 

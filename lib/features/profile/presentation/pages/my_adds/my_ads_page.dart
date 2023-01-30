@@ -47,52 +47,52 @@ class _MyAdsPageState extends State<MyAdsPage> {
           child: Scaffold(
             backgroundColor: borderCircular,
             body: NestedScrollView(
-              headerSliverBuilder: (context, item) => [
-                SliverAppBar(
-                  pinned: true,
-                  leadingWidth: 40,
-                  leading: GestureDetector(
-                    onTap: () => Navigator.pop(context), behavior: HitTestBehavior.opaque,
-                    child: Row(
-                      children: [
-                        const SizedBox(width: 20),
-                        SizedBox(
-                            height: 20,
-                            width: 20,
-                            child: SvgPicture.asset(
-                              AppIcons.chevronLeft,
-                            )),
-                      ],
+                headerSliverBuilder: (context, item) => [
+                      SliverAppBar(
+                        pinned: true,
+                        leadingWidth: 40,
+                        leading: GestureDetector(
+                          onTap: () => Navigator.pop(context),
+                          behavior: HitTestBehavior.opaque,
+                          child: Row(
+                            children: [
+                              const SizedBox(width: 20),
+                              SizedBox(
+                                  height: 20,
+                                  width: 20,
+                                  child: SvgPicture.asset(
+                                    AppIcons.chevronLeft,
+                                  )),
+                            ],
+                          ),
+                        ),
+                        title: Text(LocaleKeys.my_ads.tr()),
+                      ),
+                      SliverPersistentHeader(
+                        delegate: ProfileTabBar(
+                          onTap: (index) {},
+                          tabs: [
+                            LocaleKeys.all.tr(),
+                            LocaleKeys.using.tr(),
+                            LocaleKeys.close.tr(),
+                          ],
+                        ),
+                      )
+                    ],
+                body: const TabBarView(
+                  physics: NeverScrollableScrollPhysics(),
+                  children: [
+                    AllAds(
+                      moderationStatus: '',
                     ),
-                  ),
-                  title: Text(LocaleKeys.my_ads.tr()),
-                ),
-                SliverPersistentHeader(
-                  delegate: ProfileTabBar(
-                    onTap: (index) {},
-                    tabs: [
-                      LocaleKeys.all.tr(),
-                      LocaleKeys.using.tr(),
-                      LocaleKeys.close.tr(),
-                    ],
-                  ),
-                )
-              ],
-              body: const TabBarView(
-                    physics: NeverScrollableScrollPhysics(),
-                    children: [
-                      AllAds( 
-                        moderationStatus: '',
-                      ),
-                      AllAds( 
-                        moderationStatus: 'active',
-                      ),
-                      AllAds( 
-                        moderationStatus: 'blocked,in_moderation,sold',
-                      ),
-                    ],
-                  )
-            ),
+                    AllAds(
+                      moderationStatus: 'active',
+                    ),
+                    AllAds(
+                      moderationStatus: 'blocked,in_moderation,sold',
+                    ),
+                  ],
+                )),
           ),
         ),
       );
