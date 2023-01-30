@@ -4,7 +4,7 @@ import 'package:auto/features/profile/domain/entities/my_searches_entity.dart';
 import 'package:auto/features/profile/domain/entities/notifications_entity.dart';
 import 'package:auto/features/profile/domain/usecases/delete_my_searches_usecase.dart';
 import 'package:auto/features/profile/domain/usecases/get_my_searches_usecase.dart';
-import 'package:auto/features/profile/domain/usecases/get_notification_single.dart';
+import 'package:auto/features/profile/domain/usecases/get_notification_single_usecase.dart';
 import 'package:auto/features/profile/domain/usecases/get_notification_usecase.dart';
 import 'package:auto/features/profile/domain/usecases/notification_all_read_usecase.dart';
 import 'package:auto/features/profile/domain/usecases/profil_favorites_usecase.dart';
@@ -16,19 +16,19 @@ part 'user_wishlists_notifications_event.dart';
 part 'user_wishlists_notifiactions_state.dart';
 
 class UserWishListsBloc extends Bloc<UserWishListsEvent, UserWishListsState> {
-  final GetUserFavoritesMyAdsUseCase profileFavoritesMyAdsUseCase;
-  final GetNotificationSingleUseCase getNotificationSingleUseCase;
-  final GetNotificationsUseCase getNotificationsUseCase;
-  final GetMySearchesUseCase getMySearchesUseCase;
-  NotificationAllReadUseCase notificationAllReadUseCase =
+  final GetUserFavoritesMyAdsUseCase profileFavoritesMyAdsUseCase =
+      GetUserFavoritesMyAdsUseCase();
+  final GetNotificationSingleUseCase getNotificationSingleUseCase =
+      GetNotificationSingleUseCase();
+  final GetNotificationsUseCase getNotificationsUseCase =
+      GetNotificationsUseCase();
+  final GetMySearchesUseCase getMySearchesUseCase = GetMySearchesUseCase();
+  final NotificationAllReadUseCase notificationAllReadUseCase =
       NotificationAllReadUseCase();
-  DeleteMySearchesUseCase deleteMySearchesUseCase = DeleteMySearchesUseCase();
-  UserWishListsBloc({
-    required this.profileFavoritesMyAdsUseCase,
-    required this.getNotificationSingleUseCase,
-    required this.getNotificationsUseCase,
-    required this.getMySearchesUseCase,
-  }) : super(UserWishListsState(
+  final DeleteMySearchesUseCase deleteMySearchesUseCase =
+      DeleteMySearchesUseCase();
+  UserWishListsBloc()
+      : super(UserWishListsState(
           favoritesStatus: FormzStatus.pure,
           myAdsStatus: FormzStatus.pure,
           favorites: const <AutoEntity>[],
@@ -97,7 +97,8 @@ class UserWishListsBloc extends Bloc<UserWishListsEvent, UserWishListsState> {
     final result = await profileFavoritesMyAdsUseCase.call(event.endpoint);
     if (result.isRight) {
       emit(state.copyWith(
-          myAdsStatus: FormzStatus.submissionSuccess, myAds: result.right.results));
+          myAdsStatus: FormzStatus.submissionSuccess,
+          myAds: result.right.results));
     } else {
       emit(state.copyWith(myAdsStatus: FormzStatus.submissionFailure));
     }

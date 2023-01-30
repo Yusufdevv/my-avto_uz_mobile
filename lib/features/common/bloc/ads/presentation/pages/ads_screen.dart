@@ -12,6 +12,8 @@ import 'package:auto/features/common/widgets/custom_screen.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/search/presentation/search_screen.dart';
 import 'package:auto/features/search/presentation/widgets/sort_bottom_sheet.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -168,22 +170,22 @@ class _AdsScreenState extends State<AdsScreen>
         ),
         clipBehavior: Clip.hardEdge,
         builder: (context) => SortBottomSheet(
-          title: 'Сортировка',
+          title: LocaleKeys.sorting.tr(),
           values: const [
             SortSearchResultsModel(
-              title: 'По убыванию',
+              title: LocaleKeys.descending,
               status: SortSearchResultStatus.cheapest,
             ),
             SortSearchResultsModel(
-              title: 'По возрастанию',
+              title: LocaleKeys.ascending,
               status: SortSearchResultStatus.expensive,
             ),
             SortSearchResultsModel(
-              title: 'Сначала старые',
+              title: LocaleKeys.oldOnesFirst,
               status: SortSearchResultStatus.oldest,
             ),
             SortSearchResultsModel(
-              title: 'Сначала новые',
+              title: LocaleKeys.newOnesFirst,
               status: SortSearchResultStatus.newest,
             ),
           ],

@@ -6,12 +6,13 @@ import 'package:auto/features/search/data/models/search_suggest_model.dart';
 import 'package:auto/features/search/domain/repositories/suggestion_repository.dart';
 
 class SuggestionRepositoryImpl extends SuggestionRepository {
-  final SuggestionDatasource dataSource;
+  final SuggestionDatasource dataSource = SuggestionDatasourceImpl();
 
-  SuggestionRepositoryImpl({required this.dataSource});
+  SuggestionRepositoryImpl();
 
   @override
-  Future<Either<Failure, SearchSuggestModel>> getSuggestions(String text) async {
+  Future<Either<Failure, SearchSuggestModel>> getSuggestions(
+      String text) async {
     try {
       final result = await dataSource.getSuggestions(text);
       return Right(result);
