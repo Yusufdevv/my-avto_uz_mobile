@@ -16,7 +16,8 @@ abstract class GetUserListDatasource {
   Future<Either<Failure, GenericPagination<T>>> getProfileFavoritesMyAds<T>(
       {required String url,
       required T Function(Map<String, dynamic>) fromJson,
-      String? next});
+      String? next,
+      String? moderationStatus});
 
   Future<List<NotificationsModel>> getNotifications();
   Future<List<MySearchesModel>> getMySearches();
@@ -37,10 +38,12 @@ class GetUserListDatasourceImpl extends GetUserListDatasource {
   Future<Either<Failure, GenericPagination<T>>> getProfileFavoritesMyAds<T>(
       {required String url,
       required T Function(Map<String, dynamic>) fromJson,
-      String? next}) async {
+      String? next,
+      String? moderationStatus}) async {
     try {
       final response = await dio.get(
         next != null && next.isNotEmpty ? next : url,
+        queryParameters: {'moderation_status__in': moderationStatus},
         options: Options(headers: {
           'Authorization': 'Bearer ${StorageRepository.getString('token')}'
         }),

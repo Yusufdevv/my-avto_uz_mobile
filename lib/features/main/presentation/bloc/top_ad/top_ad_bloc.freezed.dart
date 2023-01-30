@@ -19,7 +19,7 @@ mixin _$TopAdEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getTopAds,
-    required TResult Function(String endpoint) getFavorites,
+    required TResult Function() getFavorites,
     required TResult Function() getMoreTopAds,
     required TResult Function() getMoreFavorite,
     required TResult Function(int index, int id) changeIsWish,
@@ -29,7 +29,7 @@ mixin _$TopAdEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getTopAds,
-    TResult? Function(String endpoint)? getFavorites,
+    TResult? Function()? getFavorites,
     TResult? Function()? getMoreTopAds,
     TResult? Function()? getMoreFavorite,
     TResult? Function(int index, int id)? changeIsWish,
@@ -39,7 +39,7 @@ mixin _$TopAdEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getTopAds,
-    TResult Function(String endpoint)? getFavorites,
+    TResult Function()? getFavorites,
     TResult Function()? getMoreTopAds,
     TResult Function()? getMoreFavorite,
     TResult Function(int index, int id)? changeIsWish,
@@ -137,7 +137,7 @@ class _$_GetTopAds implements _GetTopAds {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getTopAds,
-    required TResult Function(String endpoint) getFavorites,
+    required TResult Function() getFavorites,
     required TResult Function() getMoreTopAds,
     required TResult Function() getMoreFavorite,
     required TResult Function(int index, int id) changeIsWish,
@@ -150,7 +150,7 @@ class _$_GetTopAds implements _GetTopAds {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getTopAds,
-    TResult? Function(String endpoint)? getFavorites,
+    TResult? Function()? getFavorites,
     TResult? Function()? getMoreTopAds,
     TResult? Function()? getMoreFavorite,
     TResult? Function(int index, int id)? changeIsWish,
@@ -163,7 +163,7 @@ class _$_GetTopAds implements _GetTopAds {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getTopAds,
-    TResult Function(String endpoint)? getFavorites,
+    TResult Function()? getFavorites,
     TResult Function()? getMoreTopAds,
     TResult Function()? getMoreFavorite,
     TResult Function(int index, int id)? changeIsWish,
@@ -229,8 +229,6 @@ abstract class _$$_GetFavoritesCopyWith<$Res> {
   factory _$$_GetFavoritesCopyWith(
           _$_GetFavorites value, $Res Function(_$_GetFavorites) then) =
       __$$_GetFavoritesCopyWithImpl<$Res>;
-  @useResult
-  $Res call({String endpoint});
 }
 
 /// @nodoc
@@ -240,83 +238,58 @@ class __$$_GetFavoritesCopyWithImpl<$Res>
   __$$_GetFavoritesCopyWithImpl(
       _$_GetFavorites _value, $Res Function(_$_GetFavorites) _then)
       : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? endpoint = null,
-  }) {
-    return _then(_$_GetFavorites(
-      endpoint: null == endpoint
-          ? _value.endpoint
-          : endpoint // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
 }
 
 /// @nodoc
 
 class _$_GetFavorites implements _GetFavorites {
-  _$_GetFavorites({required this.endpoint});
-
-  @override
-  final String endpoint;
+  _$_GetFavorites();
 
   @override
   String toString() {
-    return 'TopAdEvent.getFavorites(endpoint: $endpoint)';
+    return 'TopAdEvent.getFavorites()';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_GetFavorites &&
-            (identical(other.endpoint, endpoint) ||
-                other.endpoint == endpoint));
+        (other.runtimeType == runtimeType && other is _$_GetFavorites);
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, endpoint);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$_GetFavoritesCopyWith<_$_GetFavorites> get copyWith =>
-      __$$_GetFavoritesCopyWithImpl<_$_GetFavorites>(this, _$identity);
+  int get hashCode => runtimeType.hashCode;
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getTopAds,
-    required TResult Function(String endpoint) getFavorites,
+    required TResult Function() getFavorites,
     required TResult Function() getMoreTopAds,
     required TResult Function() getMoreFavorite,
     required TResult Function(int index, int id) changeIsWish,
     required TResult Function(int id, bool adding) deleteFavoriteItem,
   }) {
-    return getFavorites(endpoint);
+    return getFavorites();
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getTopAds,
-    TResult? Function(String endpoint)? getFavorites,
+    TResult? Function()? getFavorites,
     TResult? Function()? getMoreTopAds,
     TResult? Function()? getMoreFavorite,
     TResult? Function(int index, int id)? changeIsWish,
     TResult? Function(int id, bool adding)? deleteFavoriteItem,
   }) {
-    return getFavorites?.call(endpoint);
+    return getFavorites?.call();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getTopAds,
-    TResult Function(String endpoint)? getFavorites,
+    TResult Function()? getFavorites,
     TResult Function()? getMoreTopAds,
     TResult Function()? getMoreFavorite,
     TResult Function(int index, int id)? changeIsWish,
@@ -324,7 +297,7 @@ class _$_GetFavorites implements _GetFavorites {
     required TResult orElse(),
   }) {
     if (getFavorites != null) {
-      return getFavorites(endpoint);
+      return getFavorites();
     }
     return orElse();
   }
@@ -374,12 +347,7 @@ class _$_GetFavorites implements _GetFavorites {
 }
 
 abstract class _GetFavorites implements TopAdEvent {
-  factory _GetFavorites({required final String endpoint}) = _$_GetFavorites;
-
-  String get endpoint;
-  @JsonKey(ignore: true)
-  _$$_GetFavoritesCopyWith<_$_GetFavorites> get copyWith =>
-      throw _privateConstructorUsedError;
+  factory _GetFavorites() = _$_GetFavorites;
 }
 
 /// @nodoc
@@ -421,7 +389,7 @@ class _$_GetMoreTopAds implements _GetMoreTopAds {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getTopAds,
-    required TResult Function(String endpoint) getFavorites,
+    required TResult Function() getFavorites,
     required TResult Function() getMoreTopAds,
     required TResult Function() getMoreFavorite,
     required TResult Function(int index, int id) changeIsWish,
@@ -434,7 +402,7 @@ class _$_GetMoreTopAds implements _GetMoreTopAds {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getTopAds,
-    TResult? Function(String endpoint)? getFavorites,
+    TResult? Function()? getFavorites,
     TResult? Function()? getMoreTopAds,
     TResult? Function()? getMoreFavorite,
     TResult? Function(int index, int id)? changeIsWish,
@@ -447,7 +415,7 @@ class _$_GetMoreTopAds implements _GetMoreTopAds {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getTopAds,
-    TResult Function(String endpoint)? getFavorites,
+    TResult Function()? getFavorites,
     TResult Function()? getMoreTopAds,
     TResult Function()? getMoreFavorite,
     TResult Function(int index, int id)? changeIsWish,
@@ -547,7 +515,7 @@ class _$_GetMoreFavorite implements _GetMoreFavorite {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getTopAds,
-    required TResult Function(String endpoint) getFavorites,
+    required TResult Function() getFavorites,
     required TResult Function() getMoreTopAds,
     required TResult Function() getMoreFavorite,
     required TResult Function(int index, int id) changeIsWish,
@@ -560,7 +528,7 @@ class _$_GetMoreFavorite implements _GetMoreFavorite {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getTopAds,
-    TResult? Function(String endpoint)? getFavorites,
+    TResult? Function()? getFavorites,
     TResult? Function()? getMoreTopAds,
     TResult? Function()? getMoreFavorite,
     TResult? Function(int index, int id)? changeIsWish,
@@ -573,7 +541,7 @@ class _$_GetMoreFavorite implements _GetMoreFavorite {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getTopAds,
-    TResult Function(String endpoint)? getFavorites,
+    TResult Function()? getFavorites,
     TResult Function()? getMoreTopAds,
     TResult Function()? getMoreFavorite,
     TResult Function(int index, int id)? changeIsWish,
@@ -707,7 +675,7 @@ class _$_ChangeIsWish implements _ChangeIsWish {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getTopAds,
-    required TResult Function(String endpoint) getFavorites,
+    required TResult Function() getFavorites,
     required TResult Function() getMoreTopAds,
     required TResult Function() getMoreFavorite,
     required TResult Function(int index, int id) changeIsWish,
@@ -720,7 +688,7 @@ class _$_ChangeIsWish implements _ChangeIsWish {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getTopAds,
-    TResult? Function(String endpoint)? getFavorites,
+    TResult? Function()? getFavorites,
     TResult? Function()? getMoreTopAds,
     TResult? Function()? getMoreFavorite,
     TResult? Function(int index, int id)? changeIsWish,
@@ -733,7 +701,7 @@ class _$_ChangeIsWish implements _ChangeIsWish {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getTopAds,
-    TResult Function(String endpoint)? getFavorites,
+    TResult Function()? getFavorites,
     TResult Function()? getMoreTopAds,
     TResult Function()? getMoreFavorite,
     TResult Function(int index, int id)? changeIsWish,
@@ -875,7 +843,7 @@ class _$_DeleteFavoriteItem implements _DeleteFavoriteItem {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getTopAds,
-    required TResult Function(String endpoint) getFavorites,
+    required TResult Function() getFavorites,
     required TResult Function() getMoreTopAds,
     required TResult Function() getMoreFavorite,
     required TResult Function(int index, int id) changeIsWish,
@@ -888,7 +856,7 @@ class _$_DeleteFavoriteItem implements _DeleteFavoriteItem {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getTopAds,
-    TResult? Function(String endpoint)? getFavorites,
+    TResult? Function()? getFavorites,
     TResult? Function()? getMoreTopAds,
     TResult? Function()? getMoreFavorite,
     TResult? Function(int index, int id)? changeIsWish,
@@ -901,7 +869,7 @@ class _$_DeleteFavoriteItem implements _DeleteFavoriteItem {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getTopAds,
-    TResult Function(String endpoint)? getFavorites,
+    TResult Function()? getFavorites,
     TResult Function()? getMoreTopAds,
     TResult Function()? getMoreFavorite,
     TResult Function(int index, int id)? changeIsWish,

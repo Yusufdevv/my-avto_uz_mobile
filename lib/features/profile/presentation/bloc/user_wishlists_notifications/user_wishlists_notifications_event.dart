@@ -8,23 +8,34 @@ class GetUserFavoritesEvent extends UserWishListsEvent {
 }
 
 class GetUserMyAdsEvent extends UserWishListsEvent {
-  final String endpoint;
-  GetUserMyAdsEvent({required this.endpoint});
+  final String moderationStatus;
+  GetUserMyAdsEvent({required this.moderationStatus});
+}
+
+class GetMoreUserMyAdsEvent extends UserWishListsEvent {
+  final String moderationStatus;
+
+  GetMoreUserMyAdsEvent({required this.moderationStatus});
 }
 
 class GetMySearchesEvent extends UserWishListsEvent {}
 
 class NotificationAllReadEvent extends UserWishListsEvent {}
+
 class ChangeIsWishEvenet extends UserWishListsEvent {
   final int index;
   final int id;
-    bool isAddWish;
+  bool isAddWish;
   bool isRemoveWish;
-  ChangeIsWishEvenet({required this.index, required this.id, this.isAddWish =false, this.isRemoveWish=false});
+  ChangeIsWishEvenet(
+      {required this.index,
+      required this.id,
+      this.isAddWish = false,
+      this.isRemoveWish = false});
 }
 
 class DeleteMySearchesEvent extends UserWishListsEvent {
-    final List<int> ids;
+  final List<int> ids;
   DeleteMySearchesEvent({required this.ids});
 }
 

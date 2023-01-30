@@ -1,3 +1,4 @@
+import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/features/profile/data/repositories/get_user_list_repo_impl.dart';
@@ -28,8 +29,7 @@ class _MyAdsPageState extends State<MyAdsPage> {
 
   @override
   void initState() {
-    bloc = UserWishListsBloc()
-      ..add(GetUserMyAdsEvent(endpoint: '/car/my-announcements/'));
+    bloc = UserWishListsBloc();
     super.initState();
   }
 
@@ -45,6 +45,7 @@ class _MyAdsPageState extends State<MyAdsPage> {
         child: DefaultTabController(
           length: 3,
           child: Scaffold(
+            backgroundColor: borderCircular,
             body: NestedScrollView(
               headerSliverBuilder: (context, item) => [
                 SliverAppBar(
@@ -77,35 +78,20 @@ class _MyAdsPageState extends State<MyAdsPage> {
                   ),
                 )
               ],
-              body: BlocBuilder<UserWishListsBloc, UserWishListsState>(
-                  builder: (context, state) {
-                if (state.myAdsStatus.isSubmissionInProgress) {
-                  return const Center(child: CupertinoActivityIndicator());
-                }
-                if (state.myAdsStatus.isSubmissionSuccess) {
-                  final myAds = state.myAds;
-                  final activeAds = myAds.where((e) => !e.isExpired).toList();
-                  final noActive = myAds.where((e) => e.isExpired).toList();
-                  return TabBarView(
-                    physics: const NeverScrollableScrollPhysics(),
+              body: const TabBarView(
+                    physics: NeverScrollableScrollPhysics(),
                     children: [
-                      AllAds(
-                        autoEntity: myAds,
-                        moderationStatus: null,
+                      AllAds( 
+                        moderationStatus: '',
                       ),
-                      AllAds(
-                        autoEntity: activeAds,
+                      AllAds( 
                         moderationStatus: 'active',
                       ),
-                      AllAds(
-                        autoEntity: noActive,
+                      AllAds( 
                         moderationStatus: 'blocked,in_moderation,sold',
                       ),
                     ],
-                  );
-                }
-                return Center(child: Text(LocaleKeys.error.tr()));
-              }),
+                  )
             ),
           ),
         ),

@@ -2,6 +2,7 @@ import 'package:auto/features/common/domain/entity/auto_entity.dart';
 import 'package:auto/features/common/models/ad_model.dart';
 import 'package:auto/features/main/domain/usecases/get_top_ads.dart';
 import 'package:auto/features/profile/domain/usecases/profil_favorites_usecase.dart';
+import 'package:auto/features/rent/domain/usecases/rent_usecase.dart';
 import 'package:bloc/bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -44,7 +45,7 @@ class TopAdBloc extends Bloc<TopAdEvent, TopAdState> {
 
     on<_GetFavorites>((event, emit) async {
       emit(state.copyWith(favoritesStatus: FormzStatus.submissionInProgress));
-      final result = await profileFavoritesMyAdsUseCase.call(state.nextF);
+      final result = await profileFavoritesMyAdsUseCase.call(Params(endpoint: '/users/wishlist/announcement/list/'));
       if (result.isRight) {
         emit(state.copyWith(
           favoritesStatus: FormzStatus.submissionSuccess,
@@ -57,7 +58,7 @@ class TopAdBloc extends Bloc<TopAdEvent, TopAdState> {
     });
 
     on<_GetMoreFavorite>((event, emit) async {
-      final result = await profileFavoritesMyAdsUseCase(state.nextF);
+      final result = await profileFavoritesMyAdsUseCase(Params(endpoint: '/users/wishlist/announcement/list/', query: state.nextF));
       if (result.isRight) {
         emit(state.copyWith(
           favorites: [...state.favorites, ...result.right.results],
