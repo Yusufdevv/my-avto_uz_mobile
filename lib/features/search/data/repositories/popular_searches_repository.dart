@@ -7,9 +7,9 @@ import 'package:auto/features/search/data/models/popular_search_model.dart';
 import 'package:auto/features/search/domain/repositories/popular_searches_repo.dart';
 
 class PopularSearchesRepositoryImpl extends PopularSearchesRepository {
-  final PopularSearchesDataSource dataSource;
+  final PopularSearchesDataSource dataSource = PopularSearchesSourceImpl();
 
-  PopularSearchesRepositoryImpl({required this.dataSource});
+  PopularSearchesRepositoryImpl();
 
   @override
   Future<Either<Failure, GenericPagination<PopularSearchModel>>> getPopulars(

@@ -1,18 +1,21 @@
 import 'package:auto/core/exceptions/exceptions.dart';
+import 'package:auto/core/singletons/dio_settings.dart';
+import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/pagination/models/generic_pagination.dart';
 import 'package:auto/features/search/data/models/popular_search_model.dart';
 
 import 'package:dio/dio.dart';
 
+// ignore: one_member_abstracts
 abstract class PopularSearchesDataSource {
   Future<GenericPagination<PopularSearchModel>> getPopularSearches(
       String? search);
 }
 
 class PopularSearchesSourceImpl extends PopularSearchesDataSource {
-  final Dio _dio;
-  PopularSearchesSourceImpl(this._dio);
+  final Dio _dio = serviceLocator<DioSettings>().dio;
+  PopularSearchesSourceImpl( );
 
   @override
   Future<GenericPagination<PopularSearchModel>> getPopularSearches(

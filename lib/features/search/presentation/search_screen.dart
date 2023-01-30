@@ -28,13 +28,14 @@ import 'package:auto/features/search/presentation/widgets/search_item_shimmer.da
 import 'package:auto/features/search/presentation/widgets/searched_models_item.dart';
 import 'package:auto/features/search/presentation/widgets/sort_bottom_sheet.dart';
 import 'package:auto/features/search/presentation/widgets/sort_results_card.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:formz/formz.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
-import 'package:auto/generated/locale_keys.g.dart';
-import 'package:easy_localization/easy_localization.dart';
+
 class SearchScreen extends StatefulWidget {
   const SearchScreen({Key? key}) : super(key: key);
 
@@ -55,20 +56,8 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   void initState() {
     searchController = TextEditingController();
-    searchBloc = SearchBloc(
-        GetSearchResultsUseCase(
-            repo: SearchRepositoryImpl(
-                dataSource: SearchResultsDatasourceImpl(DioSettings().dio))),
-        suggestionUseCase: SuggestionUseCase(
-            repo: SuggestionRepositoryImpl(
-                dataSource: SuggestionDatasourceImpl(DioSettings().dio))));
-    userSearchesBloc = UserSearchesBloc(
-        useCase: UserSearchesUseCase(
-            repo: UserSearchesRepositoryImpl(
-                dataSource: UserSearchesDatasourceImpl(DioSettings().dio))),
-        popularSearchesUseCase: PopularSearchesUseCase(
-            repo: PopularSearchesRepositoryImpl(
-                dataSource: PopularSearchesSourceImpl(DioSettings().dio))))
+    searchBloc = SearchBloc();
+    userSearchesBloc = UserSearchesBloc()
       ..add(UserSearchesEvent.getUserSearches())
       ..add(UserSearchesEvent.getPopularSearches());
 
@@ -297,7 +286,10 @@ class _SearchScreenState extends State<SearchScreen> {
                                   )
                                 : Paginator(
                                     hasMoreToFetch: state.moreFetch,
-                                    fetchMoreFunction: () {},
+                                    fetchMoreFunction: () {
+                                      searchBloc
+                                          .add(SearchEvent.getMoreResults());
+                                    },
                                     itemCount: state.count,
                                     paginatorStatus: state.status,
                                     errorWidget: const SearchItemShimmer(

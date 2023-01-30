@@ -7,8 +7,7 @@ import 'package:auto/features/profile/domain/entities/profile_data_entity.dart';
 import 'package:auto/features/profile/domain/repositories/profile_repository.dart';
 
 class ProfileUseCase extends UseCase<ProfileDataEntity, NoParams> {
-  final ProfileRepository repository = 
-   serviceLocator<ProfileRepositoryImpl>();
+  final ProfileRepository repository = serviceLocator<ProfileRepositoryImpl>();
 
   ProfileUseCase();
 

@@ -11,10 +11,11 @@ part 'user_searches_state.dart';
 part 'user_searches_bloc.freezed.dart';
 
 class UserSearchesBloc extends Bloc<UserSearchesEvent, UserSearchesState> {
-  final UserSearchesUseCase useCase;
-  final PopularSearchesUseCase popularSearchesUseCase;
-  UserSearchesBloc(
-      {required this.useCase, required this.popularSearchesUseCase})
+  final UserSearchesUseCase useCase = UserSearchesUseCase(
+             );
+  final PopularSearchesUseCase popularSearchesUseCase = PopularSearchesUseCase(
+            );
+  UserSearchesBloc( )
       : super(UserSearchesState()) {
     on<_GetUserSearches>((event, emit) async {
       emit(state.copyWith(status: FormzStatus.submissionInProgress));

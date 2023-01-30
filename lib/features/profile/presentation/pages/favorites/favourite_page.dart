@@ -5,7 +5,7 @@ import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/profile/data/repositories/get_user_list_repo_impl.dart';
 import 'package:auto/features/profile/domain/entities/dealer_type_entity.dart';
 import 'package:auto/features/profile/domain/usecases/get_my_searches_usecase.dart';
-import 'package:auto/features/profile/domain/usecases/get_notification_single.dart';
+import 'package:auto/features/profile/domain/usecases/get_notification_single_usecase.dart';
 import 'package:auto/features/profile/domain/usecases/get_notification_usecase.dart';
 import 'package:auto/features/profile/domain/usecases/profil_favorites_usecase.dart';
 import 'package:auto/features/profile/presentation/bloc/user_wishlists_notifications/user_wishlists_notification_bloc.dart';
@@ -30,19 +30,19 @@ class _FavouritePageState extends State<FavouritePage> {
 
   @override
   void initState() {
-    final repo = serviceLocator<GetUserListRepoImpl>();
-    bloc = UserWishListsBloc(
-        profileFavoritesMyAdsUseCase: GetUserFavoritesMyAdsUseCase(),
-        getNotificationSingleUseCase:
-            GetNotificationSingleUseCase(repository: repo),
-        getNotificationsUseCase: GetNotificationsUseCase(repository: repo),
-        getMySearchesUseCase: GetMySearchesUseCase(repository: repo))
+    bloc = UserWishListsBloc()
       ..add(GetUserFavoritesEvent(
           endpoint: '/users/wishlist/announcement/list/'));
     super.initState();
   }
 
   final listkey = GlobalKey<AnimatedListState>();
+
+  @override
+  void dispose() {
+    bloc.close();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) => BlocProvider.value(

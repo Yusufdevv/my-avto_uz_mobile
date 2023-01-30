@@ -2,7 +2,7 @@ import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/features/profile/data/repositories/get_user_list_repo_impl.dart';
 import 'package:auto/features/profile/domain/usecases/get_my_searches_usecase.dart';
-import 'package:auto/features/profile/domain/usecases/get_notification_single.dart';
+import 'package:auto/features/profile/domain/usecases/get_notification_single_usecase.dart';
 import 'package:auto/features/profile/domain/usecases/get_notification_usecase.dart';
 import 'package:auto/features/profile/domain/usecases/profil_favorites_usecase.dart';
 import 'package:auto/features/profile/presentation/bloc/user_wishlists_notifications/user_wishlists_notification_bloc.dart';
@@ -28,13 +28,7 @@ class _MyAdsPageState extends State<MyAdsPage> {
 
   @override
   void initState() {
-    final repo = serviceLocator<GetUserListRepoImpl>();
-    bloc = UserWishListsBloc(
-        profileFavoritesMyAdsUseCase: GetUserFavoritesMyAdsUseCase(),
-        getNotificationSingleUseCase:
-            GetNotificationSingleUseCase(repository: repo),
-        getNotificationsUseCase: GetNotificationsUseCase(repository: repo),
-        getMySearchesUseCase: GetMySearchesUseCase(repository: repo))
+    bloc = UserWishListsBloc()
       ..add(GetUserMyAdsEvent(endpoint: '/car/my-announcements/'));
     super.initState();
   }
@@ -92,22 +86,25 @@ class _MyAdsPageState extends State<MyAdsPage> {
                   final myAds = state.myAds;
                   final activeAds = myAds.where((e) => !e.isExpired).toList();
                   final noActive = myAds.where((e) => e.isExpired).toList();
-                  return myAds.isNotEmpty
-                      ? TabBarView(
-                          physics: const NeverScrollableScrollPhysics(),
-                          children: [
-                            AllAds(autoEntity: myAds),
-                            AllAds(autoEntity: activeAds),
-                            AllAds(autoEntity: noActive),
-                          ],
-                        )
-                      :  Center(
-                          child: EmptyItemBody(
-                              subtitle:  LocaleKeys.you_dont_have_ads.tr(),
-                              image: AppIcons.carIcon),
-                        );
+                  return TabBarView(
+                    physics: const NeverScrollableScrollPhysics(),
+                    children: [
+                      AllAds(
+                        autoEntity: myAds,
+                        moderationStatus: null,
+                      ),
+                      AllAds(
+                        autoEntity: activeAds,
+                        moderationStatus: 'active',
+                      ),
+                      AllAds(
+                        autoEntity: noActive,
+                        moderationStatus: 'blocked,in_moderation,sold',
+                      ),
+                    ],
+                  );
                 }
-                return   Center(child: Text(LocaleKeys.error.tr()));
+                return Center(child: Text(LocaleKeys.error.tr()));
               }),
             ),
           ),

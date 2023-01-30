@@ -7,9 +7,9 @@ import 'package:auto/features/search/data/datasources/search_results_datasource.
 import 'package:auto/features/search/domain/repositories/search_repository_repository.dart';
 
 class SearchRepositoryImpl extends SearchRepository {
-  final SearchResultsDatasource dataSource;
+  final SearchResultsDatasource dataSource = SearchResultsDatasourceImpl();
 
-  SearchRepositoryImpl({required this.dataSource});
+  SearchRepositoryImpl();
 
   @override
   Future<Either<Failure, GenericPagination<AutoModel>>>

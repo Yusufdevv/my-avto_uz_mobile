@@ -9,7 +9,7 @@ import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/profile/data/repositories/get_user_list_repo_impl.dart';
 import 'package:auto/features/profile/domain/usecases/get_my_searches_usecase.dart';
-import 'package:auto/features/profile/domain/usecases/get_notification_single.dart';
+import 'package:auto/features/profile/domain/usecases/get_notification_single_usecase.dart';
 import 'package:auto/features/profile/domain/usecases/get_notification_usecase.dart';
 import 'package:auto/features/profile/domain/usecases/profil_favorites_usecase.dart';
 import 'package:auto/features/profile/presentation/bloc/user_wishlists_notifications/user_wishlists_notification_bloc.dart';
@@ -35,16 +35,17 @@ class NotificationPage extends StatefulWidget {
 class _NotificationPageState extends State<NotificationPage> {
   late UserWishListsBloc bloc;
   @override
-  void initState() {
-    final repo = serviceLocator<GetUserListRepoImpl>();
+  void initState() { 
     bloc = UserWishListsBloc(
-        profileFavoritesMyAdsUseCase: GetUserFavoritesMyAdsUseCase(),
-        getNotificationSingleUseCase:
-            GetNotificationSingleUseCase(repository: repo),
-        getNotificationsUseCase: GetNotificationsUseCase(repository: repo),
-        getMySearchesUseCase: GetMySearchesUseCase(repository: repo))
+         )
       ..add(GetNotificationsEvent());
     super.initState();
+  }
+
+    @override
+  void dispose() {
+    bloc.close();
+    super.dispose();
   }
 
   bool isAllRead = false;
