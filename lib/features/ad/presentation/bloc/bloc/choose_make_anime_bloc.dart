@@ -9,7 +9,7 @@ class ChooseMakeAnimeBloc
     extends Bloc<ChooseMakeAnimeEvent, ChooseMakeAnimeState> {
   ChooseMakeAnimeBloc()
       : super(const ChooseMakeAnimeState(
-            isAnimating: false, isCollapsed: false)) {
+            isAnimating: false, isCollapsed: false, reversScaleAnimation: null)) {
     on<ChooseMakeAnimeEvent>((event, emit) {
       // TODO: implement event handler
     });

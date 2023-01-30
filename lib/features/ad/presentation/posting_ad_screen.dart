@@ -295,9 +295,9 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                               PostingAdAppBar(
                                 currentTabIndex: currentTabIndex,
                                 reversScaleAnimation:
-                                    animeState.reversScaleAnimation,
+                                    animeState.reversScaleAnimation!,
                                 reverseTitle: 'Revers title',
-                                scaleAnimation: animeState.scaleAnimation,
+                                scaleAnimation: animeState.scaleAnimation!,
                                 tabLength: tabLength,
                                 hasShadow: state.hasAppBarShadow,
                                 onTapBack: () {
