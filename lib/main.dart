@@ -206,8 +206,7 @@ class _AppState extends State<App> {
                                 registerUseCase: RegisterUseCase(),
                                 verifyCodeUseCase: VerifyCodeUseCase(),
                               ),
-                              child: PostingAdScreen(),
-                              // cronst LoginScreen(),
+                              child: const LoginScreen(),
                             ),
                           ),
                           (route) => false);

@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:flutter/material.dart';

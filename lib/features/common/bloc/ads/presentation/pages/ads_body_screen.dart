@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_bool_literals_in_conditional_expressions
+
 import 'package:auto/features/car_single/presentation/car_single_screen.dart';
 import 'package:auto/features/commercial/presentation/widgets/info_container.dart';
 import 'package:auto/features/common/bloc/ads/presentation/widgets/ads_item_shimmer.dart';
@@ -92,18 +94,18 @@ class _AdsBodyScreenState extends State<AdsBodyScreen> {
                   ),
                 ),
                 itemCount: state.announcementList.length,
-                fetchMoreFunction: () {
-                  print('===> ==> Qale ${state.next}');
-                },
-                hasMoreToFetch: state.next != null,
+                fetchMoreFunction: () {},
+                hasMoreToFetch: state.announcementList.length > 9
+                    ? state.next != null
+                    : false,
                 errorWidget: const Text('Error'),
-                loadingWidget: ListView.builder(
-                  itemBuilder: (context, index) => Padding(
-                    padding: const EdgeInsets.only(bottom: 12),
-                    child: AdsShimmerItem(),
-                  ),
-                  itemCount: 3,
-                ),
+                // loadingWidget: ListView.builder(
+                //   itemBuilder: (context, index) => Padding(
+                //     padding: const EdgeInsets.only(bottom: 12),
+                //     child: AdsShimmerItem(),
+                //   ),
+                //   itemCount: 3,
+                // ),
               ),
             );
           } else {

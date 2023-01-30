@@ -139,10 +139,7 @@ class SliverWidget extends SliverPersistentHeaderDelegate {
                                       );
                                     },
                                     onTabClose: () {
-                                      print('===> ==> Bu bosildi');
                                       comparisonBloc.add(GetCars(id: item.id));
-                                      print('===> ==> Bu yoqa keldi');
-                                      print('===> ==> Bu keldiku');
                                       listkey.currentState?.removeItem(
                                         index,
                                         (context, animation) => AddedCar(
@@ -161,7 +158,6 @@ class SliverWidget extends SliverPersistentHeaderDelegate {
                                           animation: animation,
                                         ),
                                       );
-                                      print('===> ==> Qale');
                                       context.read<ComparisonAddBloc>().add(
                                             ComparisonAddEvent.deleteComparison(
                                               item.order,

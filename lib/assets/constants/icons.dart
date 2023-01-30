@@ -225,6 +225,7 @@ class AppIcons {
   static const vin_soon = 'assets/icons/car_single/vin_soon.svg';
   static const blue_vin_soon = 'assets/icons/car_single/blue_vin_soon.svg';
   static const safe = 'assets/icons/car_single/safety.svg';
+  static const autoModel = 'assets/icons/car_single/auto_model.svg';
   static const shieldCheckOutlined =
       'assets/icons/car_single/shield_check_outlined.svg';
 

@@ -118,7 +118,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
                 if (!state.isConnected ) {
                   isBtmSheetOpened = true;
-                  print('internet yoqqqqqqqqqq');
                   showModalBottomSheet(
                     isDismissible: false,
                     constraints: const BoxConstraints(
