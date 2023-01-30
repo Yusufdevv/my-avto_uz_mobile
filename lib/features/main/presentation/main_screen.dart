@@ -214,10 +214,10 @@ class _MainScreenState extends State<MainScreen> {
                             isCheck: state.ischeck),
                       ),
                       SizedBox(
-                        height: 48,
+                        height: 64,
                         child: ListView.builder(
                             physics: const BouncingScrollPhysics(),
-                            padding: const EdgeInsets.only(right: 12),
+                            padding: const EdgeInsets.only(right: 12,bottom: 16),
                             itemBuilder: (context, index) => ServiceItem(
                                   serviceEntity: serviceEntity[index],
                                   onTap: serviceTaps[index],

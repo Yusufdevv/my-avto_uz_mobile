@@ -26,7 +26,6 @@ class TopBrands extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              if (isText) const SizedBox(height: 16),
               if (isText)
                 Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
