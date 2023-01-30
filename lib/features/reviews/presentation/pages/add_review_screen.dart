@@ -31,7 +31,7 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
     'Категория',
     'Марка',
     'Модель',
-    'Год выпуска',
+    LocaleKeys.year_of_issue.tr(),
     'Покаление',
     'Тип кузова',
     'Двигатель',

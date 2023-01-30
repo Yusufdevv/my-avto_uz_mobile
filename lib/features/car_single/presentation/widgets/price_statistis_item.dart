@@ -1,5 +1,7 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/images.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class PriceStatisticItem extends StatelessWidget {
@@ -118,34 +120,47 @@ class PriceStatisticItem extends StatelessWidget {
                     ),
                     Row(
                       children: [
-                        const Spacer(),
-                        Text(
-                          'Отличная',
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline1!
-                              .copyWith(
-                                  fontSize: 16, fontWeight: FontWeight.w600),
+                        Container(
+                          width: MediaQuery.of(context).size.width * .3,
+                          alignment: Alignment.center,
+                          child: Text(
+                            LocaleKeys.excellent.tr(),
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline1!
+                                .copyWith(
+                                    fontSize: 16, fontWeight: FontWeight.w600),
+                            textAlign: TextAlign.center,
+                          ),
                         ),
                         const Spacer(),
-                        Text(
-                          'Оптимальная',
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline1!
-                              .copyWith(
-                                  fontSize: 16, fontWeight: FontWeight.w600),
+                        Container(
+                          width: MediaQuery.of(context).size.width * .3,
+                          alignment: Alignment.center,
+                          child: Text(
+                            LocaleKeys.optimal.tr(),
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline1!
+                                .copyWith(
+                                    fontSize: 16, fontWeight: FontWeight.w600),
+                            textAlign: TextAlign.center,
+                          ),
                         ),
                         const Spacer(),
-                        Text(
-                          'Завышенная',
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline1!
-                              .copyWith(
-                                  fontSize: 16, fontWeight: FontWeight.w600),
+                        Container(
+                          width: MediaQuery.of(context).size.width * .3,
+                          alignment: Alignment.center,
+                          child: Text(
+                            LocaleKeys.overpriced.tr(),
+                            style:
+                                Theme.of(context).textTheme.headline1!.copyWith(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                            textAlign: TextAlign.center,
+                          ),
                         ),
-                        const Spacer(),
                       ],
                     )
                   ],

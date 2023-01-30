@@ -1,7 +1,7 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
-import 'package:auto/features/common/bloc/ads/presentation/pages/ads_screen.dart';
+import 'package:auto/features/ads/presentation/pages/ads_screen.dart';
 import 'package:auto/features/commercial/presentation/commercial_screen.dart';
 import 'package:auto/features/common/bloc/announcement_bloc/bloc/announcement_list_bloc.dart';
 import 'package:auto/features/common/bloc/get_car_model/get_car_model_bloc.dart';

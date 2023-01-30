@@ -53,7 +53,7 @@ class _ChooseBodyTypeState extends State<ChooseBodyType> {
                 return Column(
                   children: [
                     SheetHeader(
-                        title: 'Кузов',
+                        title: LocaleKeys.body.tr(),
                         onCancelPressed: () {
                           Navigator.of(context).pop(state.selected >= 0
                               ? state.bodyTypes[state.selected]

@@ -65,155 +65,155 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
   Widget build(BuildContext context) => KeyboardDismisser(
         child: BlocProvider.value(
           value: topBrandBloc,
-          child: BlocListener<GetMakesBloc, GetMakesState>(
+          child: BlocConsumer<GetMakesBloc, GetMakesState>(
             listener: (context, state) {
               scrollController.animateTo(state.index.toDouble() * 54,
                   duration: const Duration(milliseconds: 500),
                   curve: Curves.ease);
             },
-            child: BlocBuilder<GetMakesBloc, GetMakesState>(
-              builder: (context, state) => Scaffold(
-                resizeToAvoidBottomInset: false,
-                body: Stack(
-                  children: [
-                    NestedScrollView(
-                      physics: const BouncingScrollPhysics(),
-                      controller: controllerScroll,
-                      headerSliverBuilder: (context, innerBoxIsScrolled) => [
-                        SliverAppBar(
-                          elevation: 0,
-                          pinned: true,
-                          leadingWidth: 36,
-                          leading: GestureDetector(
-                            onTap: () => Navigator.pop(context),
-                             behavior: HitTestBehavior.opaque,
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 16),
-                              child: SvgPicture.asset(AppIcons.chevronLeft),
-                            ),
-                          ),
-                          titleSpacing: 4,
-                          title: Text(
-                            LocaleKeys.choose_brand_auto.tr(),
-                            style: const TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w700,
-                              color: dark,
-                            ),
-                          ),
-                          actions: [
-                            Padding(
-                              padding: const EdgeInsets.only(right: 16),
-                              child: GestureDetector(
-                                onTap: () {
-                                  Navigator.of(context).pop();
-                                  if (widget.isClear) {
-                                    context.read<GetMakesBloc>().add(
-                                        GetMakesBlocEvent.selectedCarItems(
-                                            id: -1, name: '', imageUrl: ''));
-                                  }
-                                }, behavior: HitTestBehavior.opaque,
-                                child: SvgPicture.asset(AppIcons.close),
-                              ),
-                            ),
-                          ],
-                        ),
-                        SliverPersistentHeader(
-                          delegate: WSerachBar(
-                            controller: searchController,
-                            onChanged: () {
-                              context.read<GetMakesBloc>().add(
-                                    GetMakesBlocEvent.getSerched(
-                                      searchController.text,
-                                    ),
-                                  );
-                              context
-                                  .read<GetMakesBloc>()
-                                  .add(GetMakesBlocEvent.getMakes());
-                              setState(() {});
-                            },
-                            onClear: () {
-                              context.read<GetMakesBloc>().add(
-                                    GetMakesBlocEvent.getSerched(
-                                      searchController.text,
-                                    ),
-                                  );
-                              context
-                                  .read<GetMakesBloc>()
-                                  .add(GetMakesBlocEvent.getMakes());
-                              setState(() {});
-                            },
-                          ),
-                          pinned: true,
-                        ),
-                        if (state.search.isEmpty)
-                          SliverPersistentHeader(
-                            delegate: TopBrandSliverWidget(
-                              onTap: widget.onTap,
-                              isbak: widget.isbak,
-                            ),
-                          ),
-                        if (state.search.isEmpty)
-                          SliverPersistentHeader(
-                            delegate: AlphabeticHeader(
-                              color: color,
-                              controller: controllerScroll,
-                            ),
-                            pinned: true,
-                          ),
-                      ],
-                      body: ListView.builder(
-                        padding: const EdgeInsets.only(bottom: 60),
-                        itemCount: state.makes.length,
-                        controller: scrollController,
-                        physics: const BouncingScrollPhysics(),
-                        shrinkWrap: true,
-                        itemBuilder: (context, index) => Container(
-                          height: 54,
-                          color: Theme.of(context)
-                              .extension<ThemedColors>()!
-                              .whiteToDark,
-                          child: ChangeCarItems(
-                            selectedId: state.selectId,
-                            id: state.makes[index].id,
-                            imageUrl: state.makes[index].logo,
-                            name: state.makes[index].name,
-                            text: state.search,
-                            onTap: () {
-                              context.read<GetMakesBloc>().add(
-                                    GetMakesBlocEvent.selectedCarItems(
-                                      id: state.makes[index].id,
-                                      name: state.makes[index].name,
-                                      imageUrl: state.makes[index].logo,
-                                    ),
-                                  );
-                            },
+            builder: (context, state) => Scaffold(
+              resizeToAvoidBottomInset: false,
+              body: Stack(
+                children: [
+                  NestedScrollView(
+                    physics: const BouncingScrollPhysics(),
+                    controller: controllerScroll,
+                    headerSliverBuilder: (context, innerBoxIsScrolled) => [
+                      SliverAppBar(
+                        elevation: 0,
+                        pinned: true,
+                        leadingWidth: 44,
+                        leading: GestureDetector(
+                          onTap: () => Navigator.pop(context),
+                          behavior: HitTestBehavior.opaque,
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                                left: 16, right: 8, top: 8, bottom: 8),
+                            child: SvgPicture.asset(AppIcons.chevronLeft),
                           ),
                         ),
-                      ),
-                    ),
-                    Positioned(
-                      bottom: 16,
-                      right: 16,
-                      left: 16,
-                      child: WButton(
-                        onTap: widget.isbak == true
-                            ? () {
-                                Navigator.pop(context);
-                              }
-                            : widget.onTap,
-                        text: LocaleKeys.further.tr(),
-                        shadow: [
-                          BoxShadow(
-                            offset: const Offset(0, 4),
-                            blurRadius: 20,
-                            color: orange.withOpacity(0.2),
+                        titleSpacing: 0,
+                        title: Text(
+                          LocaleKeys.choose_brand_auto.tr(),
+                          style: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w700,
+                            color: dark,
+                          ),
+                        ),
+                        actions: [
+                          Padding(
+                            padding: const EdgeInsets.only(right: 16),
+                            child: GestureDetector(
+                              onTap: () {
+                                Navigator.of(context).pop();
+                                if (widget.isClear) {
+                                  context.read<GetMakesBloc>().add(
+                                      GetMakesBlocEvent.selectedCarItems(
+                                          id: -1, name: '', imageUrl: ''));
+                                }
+                              },
+                              behavior: HitTestBehavior.opaque,
+                              child: SvgPicture.asset(AppIcons.close),
+                            ),
                           ),
                         ],
                       ),
+                      SliverPersistentHeader(
+                        delegate: WSerachBar(
+                          controller: searchController,
+                          onChanged: () {
+                            context.read<GetMakesBloc>().add(
+                                  GetMakesBlocEvent.getSerched(
+                                    searchController.text,
+                                  ),
+                                );
+                            context
+                                .read<GetMakesBloc>()
+                                .add(GetMakesBlocEvent.getMakes());
+                            setState(() {});
+                          },
+                          onClear: () {
+                            context.read<GetMakesBloc>().add(
+                                  GetMakesBlocEvent.getSerched(
+                                    searchController.text,
+                                  ),
+                                );
+                            context
+                                .read<GetMakesBloc>()
+                                .add(GetMakesBlocEvent.getMakes());
+                            setState(() {});
+                          },
+                        ),
+                        pinned: true,
+                      ),
+                      if (state.search.isEmpty)
+                        SliverPersistentHeader(
+                          delegate: TopBrandSliverWidget(
+                            onTap: widget.onTap,
+                            isbak: widget.isbak,
+                          ),
+                        ),
+                      if (state.search.isEmpty)
+                        SliverPersistentHeader(
+                          delegate: AlphabeticHeader(
+                            color: color,
+                            controller: controllerScroll,
+                          ),
+                          pinned: true,
+                        ),
+                    ],
+                    body: ListView.builder(
+                      padding: const EdgeInsets.only(bottom: 60),
+                      itemCount: state.makes.length,
+                      controller: scrollController,
+                      physics: const BouncingScrollPhysics(),
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) => Container(
+                        height: 54,
+                        color: Theme.of(context)
+                            .extension<ThemedColors>()!
+                            .whiteToDark,
+                        child: ChangeCarItems(
+                          selectedId: state.selectId,
+                          id: state.makes[index].id,
+                          imageUrl: state.makes[index].logo,
+                          name: state.makes[index].name,
+                          text: state.search,
+                          onTap: () {
+                            context.read<GetMakesBloc>().add(
+                                  GetMakesBlocEvent.selectedCarItems(
+                                    id: state.makes[index].id,
+                                    name: state.makes[index].name,
+                                    imageUrl: state.makes[index].logo,
+                                  ),
+                                );
+                          },
+                        ),
+                      ),
                     ),
-                  ],
-                ),
+                  ),
+                  Positioned(
+                    bottom: 16,
+                    right: 16,
+                    left: 16,
+                    child: WButton(
+                      onTap: widget.isbak == true
+                          ? () {
+                              Navigator.pop(context);
+                            }
+                          : widget.onTap,
+                      text: LocaleKeys.further.tr(),
+                      shadow: [
+                        BoxShadow(
+                          offset: const Offset(0, 4),
+                          blurRadius: 20,
+                          color: orange.withOpacity(0.2),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
