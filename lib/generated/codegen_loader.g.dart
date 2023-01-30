@@ -102,6 +102,8 @@ class CodegenLoader extends AssetLoader{
   "very_soon": "Очень скоро...",
   "news": "Новые",
   "yes": "Да",
+  "what_was_ordered": "Не указано",
+  "a_y_s_y_w_t_c_t_a": "Вы действительно хотите\nзавершить объявление?",
   "categories": "Категории",
   "our_team_developers": "Ваша любимая команда разработчиков трудится днем и ночью чтобы предоставить вам данную функцию как можно скорее",
   "sort": "Сортировка",
@@ -419,11 +421,17 @@ class CodegenLoader extends AssetLoader{
   "all_cars": "Все автомобили",
   "create_add": "Создать объявление",
   "show_all_dealers": "Показать всех дилеров",
+  "show_all": "Показать все",
   "check": "Проверка",
   "carshering": "Каршеринг",
   "insurance": "Страхование",
   "commercial_vehicles": "Коммерческий транспорт",
-  "rent_Car": "RentCar"
+  "rent_Car": "RentCar",
+  "characteristics_are_the_same_as_PTS": "Характеристики совпадают с ПТС",
+  "one_owner_in_PTS": "1 владелец в ПТС",
+  "t_more_checkpoints": "Ещё 20 пунктов проверки",
+  "collateral_search": "Поиск данных о залоге",
+  "t_entries_in_the_history_of_operation": "12 записей в истории эксплутации"
 };
 static const Map<String,dynamic> uz = {
   "price_of_similar_cars": "Shu kabi avtomobillarning o'rtacha narxi",
@@ -488,6 +496,9 @@ static const Map<String,dynamic> uz = {
   "no_data": "Natija yoʻq",
   "no_data_commit": "Kechirasiz, qidiruvingiz uchun hech qanday natija topilmadi.",
   "sorting": "Tartiblash",
+  "what_was_ordered": "Belgilanmagan",
+  "show_all": "Hammasini ko'rsatish",
+  "a_y_s_y_w_t_c_t_a": "Haqiqatan ham e'lonni yakunlamoqchimisiz?",
   "options": "Parametrlar",
   "select_currency": "Valyutani tanlang",
   "all_regions": "Barcha viloyatlar",
@@ -830,7 +841,12 @@ static const Map<String,dynamic> uz = {
   "carshering": "Karshering",
   "insurance": "Sug'urtalash xizmati",
   "commercial_vehicles": "Tijoriy transport",
-  "rent_Car": "RentCar"
+  "rent_Car": "RentCar",
+  "characteristics_are_the_same_as_PTS": "Xususiyatlari PTS bilan bir xil",
+  "one_owner_in_PTS": "PTSda 1 ta ega",
+  "t_entries_in_the_history_of_operation": "Faoliyat tarixida 12 ta yozuv",
+  "collateral_search": "Garovni qidirish",
+  "t_more_checkpoints": "Yana 20 ta nazorat punkti"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ru": ru, "uz": uz};
 }

@@ -3,15 +3,16 @@ import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/car_single/domain/entities/equipment_entity.dart';
 import 'package:auto/features/car_single/presentation/widgets/equipment_tile.dart';
+import 'package:auto/generated/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-
+import 'package:easy_localization/easy_localization.dart';
 class EquipmentCard extends StatefulWidget {
   final String complectation;
   final String complectationItem;
 
   const EquipmentCard(
-      {Key? key, required this.complectation, required this.complectationItem})
+      {required this.complectation, required this.complectationItem,Key? key,})
       : super(key: key);
 
   @override
@@ -73,7 +74,7 @@ class _EquipmentCardState extends State<EquipmentCard>
             ...List.generate(
               entity.length,
               (index) => Padding(
-                padding: EdgeInsets.only(left: 8),
+                padding:const EdgeInsets.only(left: 8),
                 child: EquipmentTile(title: widget.complectationItem),
               ),
             ),
@@ -114,7 +115,7 @@ class _EquipmentCardState extends State<EquipmentCard>
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            'Показать все',
+                            LocaleKeys.show_all.tr(),
                             style: Theme.of(context)
                                 .textTheme
                                 .headline3!
@@ -122,14 +123,14 @@ class _EquipmentCardState extends State<EquipmentCard>
                                     fontSize: 14, fontWeight: FontWeight.w600),
                           ),
                           const SizedBox(
-                            width: 4,
+                            width: 4
                           ),
                           AnimatedRotation(
                             turns: showContent ? 1 / 2 : 1,
                             duration: const Duration(milliseconds: 200),
                             child: SvgPicture.asset(
                               AppIcons.chevronDown,
-                              color: purple,
+                              color: purple
                             ),
                           ),
                         ],

@@ -4,9 +4,6 @@ import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
-String text =
-    'ФИНАЛЬНАЯ ЦЕНА за НАЛИЧНЫЙ РАСЧЕТ 2 879 000 сум. Автомобиль в безупречном состоянии! Без дтп! По регистрациям, были перевесы Гос номеров, прослеживается по истории владения. Оригинальный пробег. Полный комплект Ключей и документов к автомобилю!';
-
 class SellerComment extends StatelessWidget {
   final String comment;
 

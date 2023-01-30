@@ -10,13 +10,13 @@ import 'package:flutter/material.dart';
 class VinInfoList extends StatelessWidget {
   const VinInfoList({Key? key}) : super(key: key);
 
-  static const List<OwnerActionEntity> list = [
-    OwnerActionEntity(
-        icon: AppIcons.shieldRound, title: 'Характеристики совпадают с ПТС'),
-    OwnerActionEntity(icon: AppIcons.lockRound, title: '1 владелец в ПТС'),
-    OwnerActionEntity(
-        icon: AppIcons.lockRound, title: '12 записей в истории эксплутации'),
-    OwnerActionEntity(icon: AppIcons.lockRound, title: 'Поиск данных о залоге'),
+  static   List<OwnerActionEntity> list = [
+    const OwnerActionEntity(
+        icon: AppIcons.shieldRound, title: LocaleKeys.characteristics_are_the_same_as_PTS),
+   const OwnerActionEntity(icon: AppIcons.lockRound, title: LocaleKeys.one_owner_in_PTS),
+    const OwnerActionEntity(
+        icon: AppIcons.lockRound, title: LocaleKeys.t_entries_in_the_history_of_operation),
+    const OwnerActionEntity(icon: AppIcons.lockRound, title: LocaleKeys.collateral_search),
   ];
 
   @override
@@ -46,9 +46,9 @@ class VinInfoList extends StatelessWidget {
                 list.length, (index) => VinInfoTile(entity: list[index])),
             if (list.length >= 4)
               GestureDetector(
-                child: const VinInfoTile(
+                child:   VinInfoTile(
                     entity: OwnerActionEntity(
-                  title: 'Ещё 20 пунктов проверки',
+                  title: LocaleKeys.t_more_checkpoints.tr(),
                   icon: AppIcons.chevronRound,
                 )),
               )

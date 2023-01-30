@@ -86,6 +86,8 @@
   "very_soon": "Очень скоро...",
   "news": "Новые",
   "yes" : "Да",
+  "what_was_ordered" : "Не указано",
+  "a_y_s_y_w_t_c_t_a" : "Вы действительно хотите\nзавершить объявление?",
   "categories" : "Категории", 
   "our_team_developers" : "Ваша любимая команда разработчиков трудится днем и ночью чтобы предоставить вам данную функцию как можно скорее",
   "sort" : "Сортировка",
@@ -403,10 +405,15 @@
   "all_cars": "Все автомобили",
   "create_add" : "Создать объявление",
   "show_all_dealers" : "Показать всех дилеров",
+  "show_all" : "Показать все",
   "check" : "Проверка",
   "carshering" : "Каршеринг",
   "insurance" : "Страхование",
   "commercial_vehicles" : "Коммерческий транспорт",
-  "rent_Car" : "RentCar"
-
+  "rent_Car" : "RentCar",
+  "characteristics_are_the_same_as_PTS" : "Характеристики совпадают с ПТС",
+  "one_owner_in_PTS" : "1 владелец в ПТС",
+  "t_more_checkpoints" : "Ещё 20 пунктов проверки",
+  "collateral_search" : "Поиск данных о залоге",
+  "t_entries_in_the_history_of_operation" : "12 записей в истории эксплутации"
 }
