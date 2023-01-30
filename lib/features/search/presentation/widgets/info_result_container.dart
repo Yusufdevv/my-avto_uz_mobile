@@ -10,14 +10,14 @@ import 'package:auto/features/search/presentation/part/bottom_sheet_for_calling.
 import 'package:auto/features/search/presentation/widgets/add_comparison_item.dart';
 import 'package:auto/features/search/presentation/widgets/add_wishlist_item.dart';
 import 'package:auto/features/search/presentation/widgets/custom_chip.dart';
+import 'package:auto/generated/locale_keys.g.dart';
 import 'package:auto/utils/my_functions.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:formz/formz.dart';
-import 'package:auto/generated/locale_keys.g.dart';
-import 'package:easy_localization/easy_localization.dart';
 
 class InfoResultContainer extends StatefulWidget {
   const InfoResultContainer(

@@ -4,10 +4,11 @@ import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/search/presentation/search_screen.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+
 // ignore: must_be_immutable
 class PopularSearchesField extends StatefulWidget {
   PopularSearchesField({
@@ -43,34 +44,28 @@ class _PopularSearchesFieldState extends State<PopularSearchesField> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    widget.title,
-                    style: Theme.of(context).textTheme.headline2!.copyWith(
+                  Text(widget.title,
+                      style: Theme.of(context).textTheme.headline2!.copyWith(
                           fontSize: 13,
-                          color: LightThemeColors.darkGreyToWhite
-                        )
-                  ),
+                          color: LightThemeColors.darkGreyToWhite)),
                   if (widget.hasClearButtonInTitle)
                     WButton(
-                      scaleValue: 0.95,
-                      onTap: () {
-                        setState(() {
-                          widget.elements.clear();
-                          StorageRepository.putList(
-                              'last_searches', widget.elements);
-                        });
-                      },
-                      height: 20,
-                      width: 64,
-                      color: transparentButton,
-                      child: Text(
-                        LocaleKeys.clear.tr(),
-                        style: Theme.of(context).textTheme.headline2!.copyWith(
-                              fontSize: 13,
-                              color: blue
-                            )
-                      )
-                    )
+                        scaleValue: 0.95,
+                        onTap: () {
+                          setState(() {
+                            widget.elements.clear();
+                            StorageRepository.putList(
+                                'last_searches', widget.elements);
+                          });
+                        },
+                        height: 20,
+                        width: 64,
+                        color: transparentButton,
+                        child: Text(LocaleKeys.clear.tr(),
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline2!
+                                .copyWith(fontSize: 13, color: blue)))
                   else
                     const SizedBox(),
                 ],
@@ -79,42 +74,50 @@ class _PopularSearchesFieldState extends State<PopularSearchesField> {
             ListView.separated(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
-              itemBuilder: (context, index) => WButton(
+              itemBuilder: (context, index) => GestureDetector(
                 onTap: () {
                   widget.textController.text = widget.elements[index];
                   widget.textController.selection = TextSelection.fromPosition(
                       TextPosition(offset: widget.textController.text.length));
                   widget.focusNode.unfocus();
                   addSearchToStorage(widget.textController.text);
-                  
                 },
-                color: white,
-                borderRadius: 0,
-                padding: const EdgeInsets.all(12),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      child: Text(
-                        widget.elements[index],
-                        style: Theme.of(context).textTheme.subtitle1,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
+                child: Container(
+                  color: white,
+                  padding: EdgeInsets.only(
+                      top: 16,
+                      bottom: 16,
+                      left: 16,
+                      right: widget.hasClearTrailing ? 0 : 16),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: Text(
+                          widget.elements[index],
+                          style: Theme.of(context).textTheme.subtitle1,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
-                    ),
-                    if (widget.hasClearTrailing)
-                      GestureDetector(
-                        onTap: () {
-                          widget.elements.removeAt(index);
-                          StorageRepository.putList(
-                              'last_searches', widget.elements);
-                          setState(() {});
-                        }, behavior: HitTestBehavior.opaque,
-                        child: SvgPicture.asset(AppIcons.close),
-                      )
-                    else
-                      const SizedBox(),
-                  ],
+                      if (widget.hasClearTrailing)
+                        GestureDetector(
+                          onTap: () {
+                            widget.elements.removeAt(index);
+                            StorageRepository.putList(
+                                'last_searches', widget.elements);
+                            setState(() {});
+                          },
+                          behavior: HitTestBehavior.opaque,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 16),
+                            child: SvgPicture.asset(AppIcons.close),
+                          ),
+                        )
+                      else
+                        const SizedBox(),
+                    ],
+                  ),
                 ),
               ),
               separatorBuilder: (context, index) => const Divider(

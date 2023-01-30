@@ -3,8 +3,8 @@ part of 'user_wishlists_notification_bloc.dart';
 class UserWishListsEvent {}
 
 class GetUserFavoritesEvent extends UserWishListsEvent {
-  final String endpoint;
-  GetUserFavoritesEvent({required this.endpoint});
+   
+  GetUserFavoritesEvent( );
 }
 
 class GetUserMyAdsEvent extends UserWishListsEvent {
@@ -45,8 +45,8 @@ class GetNotificationSingleEvent extends UserWishListsEvent {
 }
 
 class ChangeReadEvent extends UserWishListsEvent {
-  final int id;
-  ChangeReadEvent({required this.id});
+  final int index;
+  ChangeReadEvent({required this.index});
 }
 
 class GetNotificationsEvent extends UserWishListsEvent {}
