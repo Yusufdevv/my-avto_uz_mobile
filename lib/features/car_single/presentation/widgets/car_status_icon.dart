@@ -31,22 +31,21 @@ class CarStatusIconInPicture extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Visibility(
-        visible: 
-            MyFunctions.getStatusTitle(
-                    informAboutDoors[informAboutDoors.indexWhere((element) {
-                  print(informAboutDoors.indexOf(element));
-                  return element.part == doorName;
-                })]
-                        .damageType) !=
-                'Идеальное',
+        visible: MyFunctions.getStatusTitle(informAboutDoors[
+                    informAboutDoors
+                        .indexWhere((element) => element.part == doorName)]
+                .damageType) !=
+            'Идеальное',
         child: Positioned(
           right: right,
           top: top,
           left: left,
           bottom: bottom,
-          child: MyFunctions.getStatusIcon(informAboutDoors[informAboutDoors
-                  .indexWhere((element) => element.part == doorName)]
-              .damageType),
+          // child: MyFunctions.getStatusIcon(informAboutDoors[
+          //         informAboutDoors
+          //             .indexWhere((element) => element.part == doorName)]
+          //     .damageType),
+          child: Text('hi'),
         ),
       );
 }

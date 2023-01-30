@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_null_comparison
+
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/features/car_single/data/repository/car_single_repository_impl.dart';
@@ -293,8 +295,8 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      if (state.singleEntity.description !=
-                                          null)
+                                      if (state
+                                          .singleEntity.description.isNotEmpty)
                                         SellerComment(
                                           comment:
                                               state.singleEntity.description,

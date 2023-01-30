@@ -17,7 +17,7 @@ class SliverAppBarItem extends StatefulWidget {
   final String absoluteCarName;
   final CrossFadeState actionState;
   final bool isWishlisted;
-  final List images;
+  final List<String> images;
   final String dealerName;
   final String position;
   final String? avatar;

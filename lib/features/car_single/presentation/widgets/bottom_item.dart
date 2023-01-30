@@ -19,9 +19,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class BottomItem extends StatefulWidget {
-  final String callFrom;
+  final String? callFrom;
   final String usertype;
-  final String callTo;
+  final String? callTo;
   final int id;
   final String phoneNumber;
   final String slug;
@@ -72,8 +72,8 @@ class _BottomItemState extends State<BottomItem>
           Expanded(
               child: widget.callFrom != null && widget.callTo != null
                   ? MyFunctions.enableForCalling(
-                      callFrom: widget.callFrom,
-                      callTo: widget.callTo,
+                      callFrom: widget.callFrom!,
+                      callTo: widget.callTo!,
                     )
                       ? WButton(
                           onTap: () {
@@ -93,8 +93,8 @@ class _BottomItemState extends State<BottomItem>
                               backgroundColor: Colors.transparent,
                               context: context,
                               builder: (context) => DealerTime(
-                                timeTo: widget.callTo.substring(0, 5),
-                                timeFrom: widget.callFrom.substring(0, 5),
+                                timeTo: widget.callTo!.substring(0, 5),
+                                timeFrom: widget.callFrom!.substring(0, 5),
                               ),
                             );
                           },
