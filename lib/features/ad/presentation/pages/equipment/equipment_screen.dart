@@ -1,6 +1,8 @@
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/w_radio_tile.dart';
 import 'package:auto/features/ad/presentation/widgets/base_widget.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
@@ -22,7 +24,7 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
   Widget build(BuildContext context) => KeyboardDismisser(
         child: Scaffold(
           body: BaseWidget(
-            headerText: 'Комплектация',
+            headerText: LocaleKeys.complectation.tr(),
             child: Padding(
               padding: const EdgeInsets.only(top: 16),
               child: Column(

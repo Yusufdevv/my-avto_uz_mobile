@@ -1,5 +1,5 @@
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
-import 'package:auto/features/common/bloc/ads/presentation/widgets/filters_buttons_widget.dart';
+import 'package:auto/features/ads/presentation/widgets/filters_buttons_widget.dart';
 import 'package:auto/features/commercial/presentation/widgets/commercial_car_model_item.dart';
 import 'package:auto/features/commercial/presentation/widgets/commercial_tab.dart';
 import 'package:auto/features/common/bloc/announcement_bloc/bloc/announcement_list_bloc.dart';

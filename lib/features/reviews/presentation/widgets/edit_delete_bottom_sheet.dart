@@ -1,5 +1,7 @@
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/features/reviews/presentation/widgets/delete_show_dialog.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -24,9 +26,9 @@ class EditDeleteBottomSheet extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text(
-                    'Действия',
-                    style: TextStyle(
+                  Text(
+                    LocaleKeys.actions_single.tr(),
+                    style: const TextStyle(
                       color: Colors.black,
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
@@ -35,7 +37,8 @@ class EditDeleteBottomSheet extends StatelessWidget {
                   GestureDetector(
                     onTap: () {
                       Navigator.pop(context);
-                    }, behavior: HitTestBehavior.opaque,
+                    },
+                    behavior: HitTestBehavior.opaque,
                     child: SvgPicture.asset(
                       AppIcons.close,
                       height: 14,
@@ -70,7 +73,8 @@ class EditDeleteBottomSheet extends StatelessWidget {
               onTap: () => showDialog(
                 context: context,
                 builder: (context) => const DeleteShowDialog(),
-              ), behavior: HitTestBehavior.opaque,
+              ),
+              behavior: HitTestBehavior.opaque,
               child: Chip(
                 padding: const EdgeInsets.only(left: 20, top: 16),
                 backgroundColor: Colors.white,

@@ -3,6 +3,8 @@ import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/features/car_single/presentation/widgets/dealer_item.dart';
 import 'package:auto/features/common/bloc/comparison_add/bloc/comparison_add_bloc.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -69,7 +71,7 @@ class _MoreActionsState extends State<MoreActions> {
                   width: 16,
                 ),
                 Text(
-                  'Действия',
+                  LocaleKeys.actions_single.tr(),
                   style: Theme.of(context).textTheme.headline1!.copyWith(
                         fontSize: 20,
                         fontWeight: FontWeight.w700,
@@ -79,7 +81,8 @@ class _MoreActionsState extends State<MoreActions> {
                 GestureDetector(
                   onTap: () {
                     Navigator.pop(context);
-                  },    behavior: HitTestBehavior.opaque,
+                  },
+                  behavior: HitTestBehavior.opaque,
                   child: SvgPicture.asset(
                     AppIcons.close,
                     width: 28,
@@ -122,7 +125,7 @@ class _MoreActionsState extends State<MoreActions> {
                             AppIcons.blue_vin_soon,
                           ),
                           Text(
-                            'Отчет (VIN)',
+                            LocaleKeys.report_vin.tr(),
                             style:
                                 Theme.of(context).textTheme.headline1!.copyWith(
                                       color: const Color(
@@ -188,7 +191,7 @@ class _MoreActionsState extends State<MoreActions> {
                                     ),
                             ),
                             Text(
-                              'Сравнить',
+                              LocaleKeys.compare.tr(),
                               style: Theme.of(context)
                                   .textTheme
                                   .headline1!
@@ -236,7 +239,7 @@ class _MoreActionsState extends State<MoreActions> {
                               ),
                             ),
                             Text(
-                              'Поделиться',
+                              LocaleKeys.share.tr(),
                               style: Theme.of(context)
                                   .textTheme
                                   .headline1!

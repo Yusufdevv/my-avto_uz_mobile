@@ -44,7 +44,7 @@ class CarActions extends StatelessWidget {
                 initialLike: isComparised,
               ),
               Text(
-                'Сравнить',
+                LocaleKeys.compare.tr(),
                 style: Theme.of(context).textTheme.headline1!.copyWith(
                       fontWeight: FontWeight.w600,
                       fontSize: 12,

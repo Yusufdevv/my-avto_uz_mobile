@@ -66,13 +66,13 @@ class PriceIndicator extends StatelessWidget {
                 width: 23,
               ),
               Text(
-                'Отличная',
+                LocaleKeys.excellent.tr(),
                 style: Theme.of(context).textTheme.headline2,
               ),
               const Spacer(),
-              Text('Оптимальная', style: Theme.of(context).textTheme.headline2),
+              Text(LocaleKeys.optimal.tr(), style: Theme.of(context).textTheme.headline2),
               const Spacer(),
-              Text('Завышенная', style: Theme.of(context).textTheme.headline2),
+              Text(LocaleKeys.overpriced.tr(), style: Theme.of(context).textTheme.headline2),
               const SizedBox(
                 width: 15,
               ),

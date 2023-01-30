@@ -11,6 +11,15 @@ abstract class  LocaleKeys {
   static const search = 'search';
   static const further = 'further';
   static const more = 'more';
+  static const optimal_price = 'optimal_price';
+  static const optimal = 'optimal';
+  static const excellent = 'excellent';
+  static const overpriced = 'overpriced';
+  static const how_the_average_price_is_calculated = 'how_the_average_price_is_calculated';
+  static const average_price = 'average_price';
+  static const ratio = 'ratio';
+  static const market_condition_on = 'market_condition_on';
+  static const cheaper_sc = 'cheaper_sc';
   static const best_offers = 'best_offers';
   static const favorites = 'favorites';
   static const You_dont_have_favorites = 'You_dont_have_favorites';
@@ -22,6 +31,7 @@ abstract class  LocaleKeys {
   static const blocked_by_moderator = 'blocked_by_moderator';
   static const sold = 'sold';
   static const editing_ad = 'editing_ad';
+  static const actions_single = 'actions_single';
   static const this_ad_has_expired = 'this_ad_has_expired';
   static const your_ad_will_be_available = 'your_ad_will_be_available';
   static const call_not_available = 'call_not_available';
