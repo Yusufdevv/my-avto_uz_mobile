@@ -32,7 +32,6 @@ class _ImagesPageState extends State<ImagesPage> {
             children: [
               Center(
                 child: PhotoViewGallery.builder(
-                  // controller: pageController,
                   scrollPhysics: const ClampingScrollPhysics(),
                   backgroundDecoration: const BoxDecoration(
                     color: black,
@@ -96,14 +95,3 @@ class _ImagesPageState extends State<ImagesPage> {
         ),
       );
 }
-// CachedNetworkImage(
-// imageUrl: widget.images[index],
-// errorWidget: (context, url, error) => Image.asset(
-// AppIcons.defalut,
-// ),
-// width: double.maxFinite,
-// height: 340,
-// fit: BoxFit.cover,
-// ),
-
-// SvgPicture.asset(AppIcons.defalut)

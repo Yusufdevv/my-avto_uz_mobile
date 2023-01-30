@@ -8,7 +8,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 class SingleImagePart extends StatefulWidget {
   final int count;
-  final List images;
+  final List<String> images;
 
   const SingleImagePart({
     required this.count,
@@ -28,44 +28,44 @@ class _SingleImagePartState extends State<SingleImagePart> {
   @override
   Widget build(BuildContext context) => GestureDetector(
         onTap: () {
-          widget.images.isNotEmpty
-              ? Navigator.of(context).push(fade(
-                  page: ImagesPage(
-                  count: widget.count,
-                  images: widget.images,
-                )))
-              : () {};
+          if (widget.images.isNotEmpty) {
+            Navigator.of(context).push(fade(
+                page: ImagesPage(
+              count: widget.count,
+              images: widget.images,
+            )));
+          }
         },
         child: Stack(
           children: [
-            Container(
-              child: PageView.builder(
-                controller: pageController,
-                scrollDirection: Axis.horizontal,
-                onPageChanged: (value) => setState(() {
-                  currentIndex = value;
-                }),
-                itemCount: widget.images.isEmpty ? 1 : widget.images.length,
-                itemBuilder: (context, index) => Container(
-                  foregroundDecoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.center,
-                      colors: [
-                        Colors.black,
-                        Colors.black.withOpacity(0),
-                      ],
-                    ),
+            PageView.builder(
+              controller: pageController,
+              scrollDirection: Axis.horizontal,
+              onPageChanged: (value) => setState(() {
+                currentIndex = value;
+              }),
+              itemCount: widget.images.isEmpty ? 1 : widget.images.length,
+              itemBuilder: (context, index) => Container(
+                foregroundDecoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.center,
+                    colors: [
+                      Colors.black,
+                      Colors.black.withOpacity(0),
+                    ],
                   ),
-                  child: widget.images.isEmpty
-                      ? SvgPicture.asset(AppIcons.defalut)
-                      : CachedNetworkImage(
-                          imageUrl: widget.images[index],
-                          width: double.maxFinite,
-                          height: 340,
-                          fit: BoxFit.cover,
-                        ),
                 ),
+                child: widget.images.isEmpty
+                    ? SvgPicture.asset(AppIcons.defalut)
+                    : CachedNetworkImage(
+                        imageUrl: widget.images[index],
+                        width: double.maxFinite,
+                        height: 340,
+                        fit: BoxFit.cover,
+                        errorWidget: (context, url, error) =>
+                            SvgPicture.asset(AppIcons.defalut),
+                      ),
               ),
             ),
             if (widget.images.length > 1)

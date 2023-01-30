@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_null_comparison
+
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/features/car_single/data/repository/car_single_repository_impl.dart';
@@ -144,6 +146,7 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                   return Stack(
                     children: [
                       CustomScrollView(
+                        physics: const BouncingScrollPhysics(),
                         controller: _scrollController,
                         slivers: [
                           SliverAppBarItem(
@@ -179,7 +182,6 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                                 ),
                               ).then((value) {
                                 if (value == true) {
-                                  print('FALSE VALUE IS --> ${value}');
                                   Navigator.pop(context);
                                   bloc.add(
                                     CarSingleEvent.soldAds(
@@ -191,7 +193,6 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                                                 isSucces: true));
                                       },
                                       (errorMessage) {
-                                        print('popup --error');
                                         context.read<ShowPopUpBloc>().add(
                                             ShowPopUp(
                                                 message: state.errorMessage,
@@ -294,8 +295,8 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      if (state.singleEntity.description !=
-                                          null)
+                                      if (state
+                                          .singleEntity.description.isNotEmpty)
                                         SellerComment(
                                           comment:
                                               state.singleEntity.description,

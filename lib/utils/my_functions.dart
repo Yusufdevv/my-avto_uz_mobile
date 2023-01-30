@@ -302,7 +302,9 @@ class MyFunctions {
   static bool enableForCalling(
       {required String callFrom, required String callTo}) {
     final now = DateTime.now();
-
+    if (callFrom.isEmpty && callTo.isEmpty) {
+      return false;
+    }
     final dateFrom = DateTime(
       now.year,
       now.month,
@@ -420,17 +422,20 @@ class MyFunctions {
   /// then waiting for the given [wait] amount of time and then creating an image via a [RepaintBoundary].
   ///
   /// The final image will be of size [imageSize] and the the widget will be layout, ... with the given [logicalSize].
-  static Future<Uint8List?> createImageFromWidget(Widget widget, {Duration? wait, Size? logicalSize, Size? imageSize}) async {
+  static Future<Uint8List?> createImageFromWidget(Widget widget,
+      {Duration? wait, Size? logicalSize, Size? imageSize}) async {
     final repaintBoundary = RenderRepaintBoundary();
 
     logicalSize ??= ui.window.physicalSize / ui.window.devicePixelRatio;
     imageSize ??= ui.window.physicalSize;
 
-    assert(logicalSize.aspectRatio == imageSize.aspectRatio, 'logicalSize and imageSize must not be the same');
+    assert(logicalSize.aspectRatio == imageSize.aspectRatio,
+        'logicalSize and imageSize must not be the same');
 
     final renderView = RenderView(
       window: ui.window,
-      child: RenderPositionedBox(alignment: Alignment.center, child: repaintBoundary),
+      child: RenderPositionedBox(
+          alignment: Alignment.center, child: repaintBoundary),
       configuration: ViewConfiguration(
         size: logicalSize,
         devicePixelRatio: 1,
@@ -447,9 +452,8 @@ class MyFunctions {
         container: repaintBoundary,
         child: Directionality(
           textDirection: TextDirection.ltr,
-          child:widget,
-        )
-    ).attachToRenderTree(buildOwner);
+          child: widget,
+        )).attachToRenderTree(buildOwner);
 
     // final rootElement = RenderObjectToWidgetAdapter<RenderBox>(
     //   container: repaintBoundary,
@@ -462,14 +466,17 @@ class MyFunctions {
       await Future.delayed(wait);
     }
 
-    buildOwner..buildScope(rootElement)
-    ..finalizeTree();
+    buildOwner
+      ..buildScope(rootElement)
+      ..finalizeTree();
 
-    pipelineOwner..flushLayout()
-    ..flushCompositingBits()
-    ..flushPaint();
+    pipelineOwner
+      ..flushLayout()
+      ..flushCompositingBits()
+      ..flushPaint();
 
-    final image = await repaintBoundary.toImage(pixelRatio: imageSize.width / logicalSize.width);
+    final image = await repaintBoundary.toImage(
+        pixelRatio: imageSize.width / logicalSize.width);
     final byteData = await image.toByteData(format: ui.ImageByteFormat.png);
 
     return byteData?.buffer.asUint8List();

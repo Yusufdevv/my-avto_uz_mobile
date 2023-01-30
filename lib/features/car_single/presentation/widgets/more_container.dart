@@ -4,8 +4,11 @@ class MoreContainer extends StatelessWidget {
   final int itemQuantity;
   final Color color;
 
-  const MoreContainer(
-      {super.key, required this.color, required this.itemQuantity});
+  const MoreContainer({
+    required this.color,
+    required this.itemQuantity,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
