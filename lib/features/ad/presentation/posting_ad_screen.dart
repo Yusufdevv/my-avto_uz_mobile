@@ -262,6 +262,7 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                             tabLength: tabLength,
                             postingAddBloc: postingAdBloc,
                             onTopBrandPressed: (makeId) {
+                              currentTabIndex++;
                               postingAdBloc
                                   .add(PostingAdChooseEvent(makeId: makeId));
                               currentTabIndex++;
@@ -366,8 +367,10 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                             isDisabled: state.buttonStatus(currentTabIndex),
                             onTap: () {
                               if (currentTabIndex < tabLength - 1) {
-                                if (currentTabIndex == 0 && animeState.isCollapsed) {
-                                  print('=> => => =>     reversing    <= <= <= <=');
+                                if (currentTabIndex == 0 &&
+                                    animeState.isCollapsed) {
+                                  print(
+                                      '=> => => =>     reversing    <= <= <= <=');
                                   animeState.animationController.reverse();
                                 }
                                 currentTabIndex++;
