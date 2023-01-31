@@ -29,5 +29,11 @@ class MapState extends Equatable {
             getCurrentLocationStatus ?? this.getCurrentLocationStatus,
       );
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [
+        status,
+        getCurrentLocationStatus,
+        radius,
+        lat,
+        long,
+      ];
 }

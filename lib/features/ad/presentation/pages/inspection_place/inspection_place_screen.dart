@@ -47,7 +47,7 @@ class _InspectionPlaceScreenState extends State<InspectionPlaceScreen> {
             child: BlocBuilder<PostingAdBloc, PostingAdState>(
                 builder: (context, state) {
               print(
-                  '=> => => => lenth    ${state.mapPointBytes?.length}    <= <= <= <=');
+                  '=> => => => lenth    ${state.mapPointBytes?.length}  / ${state.mapPointBytes?.isNotEmpty ?? false}  <= <= <= <=');
 
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -138,10 +138,12 @@ class _InspectionPlaceScreenState extends State<InspectionPlaceScreen> {
                   ),
 
                   const SizedBox(height: 17),
-                  if (state.mapPointBytes != null) ...{
+                  if (state.mapPointBytes != null &&
+                      (state.mapPointBytes?.isNotEmpty ?? false) &&
+                      state.showExactAddress) ...{
                     Container(
                       height: 200,
-                      width: 343,
+                      //  margin: const EdgeInsets.symmetric(horizontal: 16),
                       decoration: BoxDecoration(
                           color: Colors.amber,
                           borderRadius: BorderRadius.circular(12),

@@ -72,7 +72,7 @@ class _PostingAdScreenState extends State<PostingAdScreen>
   late GlobalKey globalKey;
   late int currentTabIndex;
   late AnimationController animeController;
-  static int initialPage = 0;
+  static int initialPage = 16;
   final int tabLength = 20;
   @override
   void initState() {
@@ -316,6 +316,16 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                           //16
                           InspectionPlaceScreen(
                             onToMapPressed: () {
+                              // postingAdBloc.add(
+                              //   PostingAdGetMapScreenShotEvent(
+                              //       lat: 41.317014,
+                              //       long: 69.268345,
+                              //       ////////////////////
+                              //       // lat: 53.860743,
+                              //       // long:27.952510 ,
+
+                              //       zoomLevel: 15),
+                              // );
                               Navigator.push(
                                 context,
                                 fade(
@@ -323,6 +333,8 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                                 ),
                               ).then((latLongZoom) {
                                 if (latLongZoom is List<double>) {
+                                    print('=> => => =>     then: lat: ${latLongZoom[0]} long: ${latLongZoom[1]}  zoom: ${latLongZoom[2]} <= <= <= <=');
+                    
                                   postingAdBloc.add(
                                     PostingAdGetMapScreenShotEvent(
                                         lat: latLongZoom[0],

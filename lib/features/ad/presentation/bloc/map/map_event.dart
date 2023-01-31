@@ -14,7 +14,12 @@ class MapGetCurrentLocationEvent extends MapEvent {
 class MapChangeLatLongEvent extends MapEvent {
   final double lat;
   final double long;
+  final String where;
 
   int? radius;
-  MapChangeLatLongEvent({required this.lat, required this.long, this.radius});
+  MapChangeLatLongEvent(
+      {required this.lat,
+      required this.long,
+      required this.where,
+      this.radius});
 }

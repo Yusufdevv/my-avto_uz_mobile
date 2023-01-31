@@ -165,6 +165,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
             'https://yandex.com/maps/10335/tashkent/?ll=${event.long}%2C${event.lat}&z=${event.zoomLevel}'));
     final result = await screenShotUseCase
         .call({'longitude': '${event.long}', 'latitude': '${event.lat}'});
+       
     if (result.isRight) {
       print('=> => => =>     lenth in bloc: ${result.right.length}    <= <= <= <=');
       emit(state.copyWith(
