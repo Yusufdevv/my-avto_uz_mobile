@@ -1,3 +1,4 @@
+import 'package:auto/features/ads/domain/entities/query_data_entity.dart';
 import 'package:auto/features/ads/domain/entities/search_history_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 

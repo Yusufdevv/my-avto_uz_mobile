@@ -2095,7 +2095,7 @@ mixin _$AnnouncementListState {
   List<AnnouncementListEntity> get announcementList =>
       throw _privateConstructorUsedError;
   AnnouncementFilterModel get filter => throw _privateConstructorUsedError;
-  SearchHistoryModel get searchHistoryEntity =>
+  SearchHistoryEntity get searchHistoryEntity =>
       throw _privateConstructorUsedError;
   RangeValues get yearValues => throw _privateConstructorUsedError;
   RangeValues get priceValues => throw _privateConstructorUsedError;
@@ -2127,7 +2127,7 @@ abstract class $AnnouncementListStateCopyWith<$Res> {
       bool isHistory,
       List<AnnouncementListEntity> announcementList,
       AnnouncementFilterModel filter,
-      SearchHistoryModel searchHistoryEntity,
+      SearchHistoryEntity searchHistoryEntity,
       RangeValues yearValues,
       RangeValues priceValues,
       int idVal,
@@ -2212,7 +2212,7 @@ class _$AnnouncementListStateCopyWithImpl<$Res,
       searchHistoryEntity: null == searchHistoryEntity
           ? _value.searchHistoryEntity
           : searchHistoryEntity // ignore: cast_nullable_to_non_nullable
-              as SearchHistoryModel,
+              as SearchHistoryEntity,
       yearValues: null == yearValues
           ? _value.yearValues
           : yearValues // ignore: cast_nullable_to_non_nullable
@@ -2260,7 +2260,7 @@ abstract class _$$_AnnouncementListCopyWith<$Res>
       bool isHistory,
       List<AnnouncementListEntity> announcementList,
       AnnouncementFilterModel filter,
-      SearchHistoryModel searchHistoryEntity,
+      SearchHistoryEntity searchHistoryEntity,
       RangeValues yearValues,
       RangeValues priceValues,
       int idVal,
@@ -2342,7 +2342,7 @@ class __$$_AnnouncementListCopyWithImpl<$Res>
       searchHistoryEntity: null == searchHistoryEntity
           ? _value.searchHistoryEntity
           : searchHistoryEntity // ignore: cast_nullable_to_non_nullable
-              as SearchHistoryModel,
+              as SearchHistoryEntity,
       yearValues: null == yearValues
           ? _value.yearValues
           : yearValues // ignore: cast_nullable_to_non_nullable
@@ -2385,7 +2385,7 @@ class _$_AnnouncementList implements _AnnouncementList {
       this.isHistory = false,
       final List<AnnouncementListEntity> announcementList = const [],
       this.filter = const AnnouncementFilterModel(),
-      this.searchHistoryEntity = SearchHistoryModel,
+      this.searchHistoryEntity = const SearchHistoryEntity(),
       this.yearValues = const RangeValues(1960, 2023),
       this.priceValues = const RangeValues(1000, 500000),
       this.idVal = 0,
@@ -2441,7 +2441,7 @@ class _$_AnnouncementList implements _AnnouncementList {
   final AnnouncementFilterModel filter;
   @override
   @JsonKey()
-  final SearchHistoryModel searchHistoryEntity;
+  final SearchHistoryEntity searchHistoryEntity;
   @override
   @JsonKey()
   final RangeValues yearValues;
@@ -2540,7 +2540,7 @@ abstract class _AnnouncementList implements AnnouncementListState {
       final bool isHistory,
       final List<AnnouncementListEntity> announcementList,
       final AnnouncementFilterModel filter,
-      final SearchHistoryModel searchHistoryEntity,
+      final SearchHistoryEntity searchHistoryEntity,
       final RangeValues yearValues,
       final RangeValues priceValues,
       final int idVal,
@@ -2569,7 +2569,7 @@ abstract class _AnnouncementList implements AnnouncementListState {
   @override
   AnnouncementFilterModel get filter;
   @override
-  SearchHistoryModel get searchHistoryEntity;
+  SearchHistoryEntity get searchHistoryEntity;
   @override
   RangeValues get yearValues;
   @override

@@ -72,7 +72,7 @@ class _PostingAdScreenState extends State<PostingAdScreen>
   late GlobalKey globalKey;
   late int currentTabIndex;
   late AnimationController animeController;
-  static int initialPage = 16;
+  static int initialPage = 0;
   final int tabLength = 20;
   @override
   void initState() {
@@ -333,8 +333,9 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                                 ),
                               ).then((latLongZoom) {
                                 if (latLongZoom is List<double>) {
-                                    print('=> => => =>     then: lat: ${latLongZoom[0]} long: ${latLongZoom[1]}  zoom: ${latLongZoom[2]} <= <= <= <=');
-                    
+                                  print(
+                                      '=> => => =>     then: lat: ${latLongZoom[0]} long: ${latLongZoom[1]}  zoom: ${latLongZoom[2]} <= <= <= <=');
+
                                   postingAdBloc.add(
                                     PostingAdGetMapScreenShotEvent(
                                         lat: latLongZoom[0],
@@ -365,6 +366,10 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                             isDisabled: state.buttonStatus(currentTabIndex),
                             onTap: () {
                               if (currentTabIndex < tabLength - 1) {
+                                if (currentTabIndex == 0 && animeState.isCollapsed) {
+                                  print('=> => => =>     reversing    <= <= <= <=');
+                                  animeState.animationController.reverse();
+                                }
                                 currentTabIndex++;
                                 postingAdBloc.add(PostingAdAddEventForEveryPage(
                                     page: currentTabIndex));

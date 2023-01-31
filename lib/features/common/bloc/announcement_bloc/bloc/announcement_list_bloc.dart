@@ -6,6 +6,7 @@ import 'package:auto/features/ad/domain/entities/types/drive_type.dart';
 import 'package:auto/features/ad/domain/entities/types/gearbox_type.dart';
 import 'package:auto/features/ad/domain/repositories/ad_repository.dart';
 import 'package:auto/features/ads/data/models/search_history_model.dart';
+import 'package:auto/features/ads/domain/entities/search_history_entity.dart';
 import 'package:auto/features/common/models/region.dart';
 import 'package:auto/features/common/usecases/announcement_list_usecase.dart';
 import 'package:auto/features/comparison/domain/entities/announcement_list_entity.dart';
