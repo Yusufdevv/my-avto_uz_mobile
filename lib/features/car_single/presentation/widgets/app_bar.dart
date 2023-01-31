@@ -3,6 +3,7 @@ import 'package:auto/features/car_single/presentation/widgets/mine_more_bottomsh
 import 'package:auto/features/car_single/presentation/widgets/more_actions_bottomsheet.dart';
 import 'package:auto/features/car_single/presentation/widgets/sliver_images_item.dart';
 import 'package:auto/features/common/bloc/wishlist_add/wishlist_add_bloc.dart';
+import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/search/presentation/widgets/add_wishlist_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -114,7 +115,8 @@ class _SliverAppBarItemState extends State<SliverAppBarItem> {
               padding: const EdgeInsets.only(left: 8, right: 8),
               child: widget.isMine
                   ? GestureDetector(
-                      onTap: () {},    behavior: HitTestBehavior.opaque,
+                      onTap: () {},
+                      behavior: HitTestBehavior.opaque,
                       child: SvgPicture.asset(
                         AppIcons.edit_single,
                         color: widget.iconColor,
@@ -140,9 +142,13 @@ class _SliverAppBarItemState extends State<SliverAppBarItem> {
                       initialLike: isLiked!,
                     ),
             ),
-            GestureDetector(    behavior: HitTestBehavior.opaque,
-              child: SvgPicture.asset(AppIcons.moreVertical,
-                  width: 36, height: 36, color: widget.iconColor),
+            WScaleAnimation(
+              child: SvgPicture.asset(
+                AppIcons.moreVertical,
+                width: 36,
+                height: 36,
+                color: widget.iconColor,
+              ),
               onTap: () {
                 showModalBottomSheet(
                   useRootNavigator: true,
