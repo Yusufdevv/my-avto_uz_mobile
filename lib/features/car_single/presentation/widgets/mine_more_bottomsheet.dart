@@ -179,7 +179,7 @@ class MineMoreBottomSheet extends StatelessWidget {
             ),
             MoreActionItem(
               icon: AppIcons.refresh,
-              text: 'Продлить еще на 12 дней',
+              text: LocaleKeys.extends_for_7.tr(),
               color: const Color(
                 0xffF0FAF6,
               ),

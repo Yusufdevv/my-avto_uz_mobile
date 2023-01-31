@@ -122,6 +122,10 @@ abstract class  LocaleKeys {
   static const register = 'register';
   static const password = 'password';
   static const forgot_password = 'forgot_password';
+  static const service = 'service';
+  static const end_of_term = 'end_of_term';
+  static const total = 'total';
+  static const payment_method = 'payment_method';
   static const service_error = 'service_error';
   static const error_try_again = 'error_try_again';
   static const continuee = 'continuee';
@@ -189,6 +193,10 @@ abstract class  LocaleKeys {
   static const add_email = 'add_email';
   static const vin_check_text = 'vin_check_text';
   static const confirm = 'confirm';
+  static const service_connected_successfully = 'service_connected_successfully';
+  static const back_to_ad = 'back_to_ad';
+  static const payment_pending = 'payment_pending';
+  static const refresh_the_page = 'refresh_the_page';
   static const avialable_hours = 'avialable_hours';
   static const the_user_is_only_available_in = 'the_user_is_only_available_in';
   static const incognito_mode = 'incognito_mode';

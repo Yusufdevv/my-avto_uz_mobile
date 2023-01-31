@@ -112,9 +112,9 @@ class _BottomItemState extends State<BottomItem>
                               const SizedBox(
                                 width: 8,
                               ),
-                              const Text(
-                                'Позвонить',
-                                style: TextStyle(color: border),
+                              Text(
+                                LocaleKeys.call.tr(),
+                                style: const TextStyle(color: border),
                               ),
                               const Spacer(),
                             ],
@@ -136,8 +136,8 @@ class _BottomItemState extends State<BottomItem>
           WScaleAnimation(
             onTap: () {
               widget.usertype == 'owner'
-                  ? Navigator.of(context)
-                      .push(fade(page:const UserSinglePage(slug: 'anvar-gulyamov')))
+                  ? Navigator.of(context).push(
+                      fade(page: const UserSinglePage(slug: 'anvar-gulyamov')))
                   : Navigator.of(context)
                       .push(fade(page: DealerSinglePage(slug: widget.slug)));
             },

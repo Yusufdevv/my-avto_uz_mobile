@@ -86,7 +86,8 @@ class _SmsVerificationSheetState extends State<SmsVerificationSheet> {
                       GestureDetector(
                         onTap: () {
                           Navigator.of(context).pop();
-                        },    behavior: HitTestBehavior.opaque,
+                        },
+                        behavior: HitTestBehavior.opaque,
                         child: Transform.scale(
                           scale: .8,
                           child: SvgPicture.asset(
@@ -203,7 +204,7 @@ class _SmsVerificationSheetState extends State<SmsVerificationSheet> {
                           .read<VerifyContactsBloc>()
                           .add(VerifyContactsEvent(code: controller.text));
                     },
-                    text: 'Подтвердить',
+                    text: LocaleKeys.confirm.tr(),
                   ),
                 ],
               ),

@@ -5,7 +5,9 @@ import 'package:auto/features/car_single/presentation/widgets/orange_button.dart
 import 'package:auto/features/car_single/presentation/widgets/select_pay_way.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
+import 'package:auto/generated/locale_keys.g.dart';
 import 'package:dotted_line/dotted_line.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -24,10 +26,10 @@ class _InvoicePageState extends State<InvoicePage> {
   @override
   Widget build(BuildContext context) => Scaffold(
         backgroundColor: white,
-        appBar: const WAppBar(
+        appBar: WAppBar(
           hasUnderline: true,
           hasBackButton: true,
-          title: 'Услуга',
+          title: LocaleKeys.service.tr(),
         ),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
@@ -80,7 +82,7 @@ class _InvoicePageState extends State<InvoicePage> {
                       child: Row(
                         children: [
                           Text(
-                            'Окончание срока',
+                            LocaleKeys.end_of_term.tr(),
                             style: Theme.of(context).textTheme.headline2,
                           ),
                           const Spacer(),
@@ -130,7 +132,7 @@ class _InvoicePageState extends State<InvoicePage> {
                       child: Row(
                         children: [
                           Text(
-                            'Итого:',
+                            LocaleKeys.total.tr(),
                             style: Theme.of(context).textTheme.headline2,
                           ),
                           const Spacer(),
@@ -151,7 +153,7 @@ class _InvoicePageState extends State<InvoicePage> {
                 height: 16,
               ),
               Text(
-                'Способ оплаты',
+                LocaleKeys.payment_method.tr(),
                 style: Theme.of(context)
                     .textTheme
                     .headline2!
@@ -191,47 +193,12 @@ class _InvoicePageState extends State<InvoicePage> {
                         value: 2,
                         color: value == 2 ? lavanda : borderCircular,
                         groupValue: value,
-                        iconPath: AppIcons.click,
+                        iconPath: AppIcons.kpay,
                         borderColor: value == 2 ? purple : border,
                       ),
                     ),
                   ],
                 ),
-              ),
-              Row(
-                children: [
-                  Expanded(
-                    child: SelectPaymentItem(
-                      onTap: (val) {
-                        setState(() {
-                          value = val;
-                        });
-                      },
-                      value: 3,
-                      color: value == 3 ? lavanda : borderCircular,
-                      groupValue: value,
-                      iconPath: AppIcons.apelsin,
-                      borderColor: value == 3 ? purple : border,
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 8,
-                  ),
-                  Expanded(
-                    child: SelectPaymentItem(
-                      onTap: (val) {
-                        setState(() {
-                          value = val;
-                        });
-                      },
-                      value: 4,
-                      color: value == 4 ? lavanda : borderCircular,
-                      groupValue: value,
-                      iconPath: AppIcons.kpay,
-                      borderColor: value == 4 ? purple : border,
-                    ),
-                  ),
-                ],
               ),
               const Spacer(),
               Column(
@@ -285,7 +252,7 @@ class _InvoicePageState extends State<InvoicePage> {
                   OrangeButton(
                     shadowColor: white,
                     color: orange,
-                    content: Text('Подтвердить',
+                    content: Text(LocaleKeys.confirm.tr(),
                         style: Theme.of(context)
                             .textTheme
                             .headline4!
