@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:auto/assets/colors/color.dart';
+import 'package:auto/assets/constants/app_constants.dart';
 import 'package:auto/assets/themes/dark.dart';
 import 'package:auto/assets/themes/light.dart';
 import 'package:auto/core/singletons/service_locator.dart';
@@ -93,9 +94,6 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> {
-  final _navigatorKey = GlobalKey<NavigatorState>();
-
-  NavigatorState get navigator => _navigatorKey.currentState!;
   // ignore: cancel_subscriptions
   StreamSubscription? streamSubscription;
   InternetBloc bloc = InternetBloc();
@@ -177,7 +175,7 @@ class _AppState extends State<App> {
             theme: LightTheme.theme(),
             darkTheme: DarkTheme.theme(),
             themeMode: ThemeMode.light,
-            navigatorKey: _navigatorKey,
+            navigatorKey: AppConstants.navigatorKey,
             onGenerateRoute: (settings) => SplashSc.route(),
             builder: (context, child) {
               SizeConfig().init(context);
@@ -188,48 +186,53 @@ class _AppState extends State<App> {
                     case AuthenticationStatus.unauthenticated:
                       if (StorageRepository.getString('token', defValue: '')
                           .isNotEmpty) {
-                        navigator.pushAndRemoveUntil(
-                            fade(page: const HomeScreen()), (route) => false);
+                        AppConstants.navigatorKey.currentState
+                            ?.pushAndRemoveUntil(fade(page: const HomeScreen()),
+                                (route) => false);
                         break;
                       }
                       if (!StorageRepository.getBool('onboarding',
                           defValue: false)) {
-                        navigator.pushAndRemoveUntil(
-                            fade(page: const FirstOnBoarding()),
-                            (route) => false);
+                        AppConstants.navigatorKey.currentState
+                            ?.pushAndRemoveUntil(
+                                fade(page: const FirstOnBoarding()),
+                                (route) => false);
                         break;
                       }
-                      navigator.pushAndRemoveUntil(
-                          fade(
-                            page: BlocProvider(
-                              create: (c) => RegisterBloc(
-                                sendCodeUseCase: SendCodeUseCase(),
-                                registerUseCase: RegisterUseCase(),
-                                verifyCodeUseCase: VerifyCodeUseCase(),
+                      AppConstants.navigatorKey.currentState
+                          ?.pushAndRemoveUntil(
+                              fade(
+                                page: BlocProvider(
+                                  create: (c) => RegisterBloc(
+                                    sendCodeUseCase: SendCodeUseCase(),
+                                    registerUseCase: RegisterUseCase(),
+                                    verifyCodeUseCase: VerifyCodeUseCase(),
+                                  ),
+                                  child: const LoginScreen(),
+                                ),
                               ),
-                              child: const LoginScreen(),
-                            ),
-                          ),
-                          (route) => false);
+                              (route) => false);
                       break;
                     case AuthenticationStatus.authenticated:
                       context.read<ShowPopUpBloc>().add(HidePopUp());
                       if (StorageRepository.getString('token').isEmpty) {
-                        navigator.pushAndRemoveUntil(
-                            fade(
-                              page: BlocProvider(
-                                create: (c) => RegisterBloc(
-                                  sendCodeUseCase: SendCodeUseCase(),
-                                  registerUseCase: RegisterUseCase(),
-                                  verifyCodeUseCase: VerifyCodeUseCase(),
+                        AppConstants.navigatorKey.currentState
+                            ?.pushAndRemoveUntil(
+                                fade(
+                                  page: BlocProvider(
+                                    create: (c) => RegisterBloc(
+                                      sendCodeUseCase: SendCodeUseCase(),
+                                      registerUseCase: RegisterUseCase(),
+                                      verifyCodeUseCase: VerifyCodeUseCase(),
+                                    ),
+                                    child: const LoginScreen(),
+                                  ),
                                 ),
-                                child: const LoginScreen(),
-                              ),
-                            ),
-                            (route) => false);
+                                (route) => false);
                       } else {
-                        navigator.pushAndRemoveUntil(
-                            fade(page: const HomeScreen()), (route) => false);
+                        AppConstants.navigatorKey.currentState
+                            ?.pushAndRemoveUntil(fade(page: const HomeScreen()),
+                                (route) => false);
                       }
                       break;
                     case AuthenticationStatus.loading:

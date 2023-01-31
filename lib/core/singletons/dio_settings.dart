@@ -1,4 +1,7 @@
+import 'package:auto/assets/constants/app_constants.dart';
+import 'package:auto/assets/constants/storage_keys.dart';
 import 'package:auto/core/singletons/storage.dart';
+import 'package:chuck_interceptor/chuck.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 
@@ -28,11 +31,20 @@ class DioSettings {
 // final _dio = serviceLocator<DioSettings>().dio; ///sample
   BaseOptions get dioBaseOptions => _dioBaseOptions;
 
+  bool get chuck =>
+      StorageRepository.getBool(StorageKeys.CHUCK, defValue: false);
+
   Dio get dio => Dio(_dioBaseOptions)
     ..interceptors.add(LogInterceptor(
       requestBody: kDebugMode,
       request: kDebugMode,
       requestHeader: kDebugMode,
       responseBody: kDebugMode,
-    ));
+    ))
+    ..interceptors.add(Chuck(
+      navigatorKey: AppConstants.navigatorKey,
+      showNotification: chuck,
+      showInspectorOnShake: chuck,
+      darkTheme: false,
+    ).getDioInterceptor());
 }

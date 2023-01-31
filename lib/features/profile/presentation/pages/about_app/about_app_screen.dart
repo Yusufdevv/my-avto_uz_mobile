@@ -1,7 +1,11 @@
+import 'dart:async';
+
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/assets/constants/storage_keys.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_icons.dart';
 import 'package:auto/assets/themes/theme_extensions/w_textfield_style.dart';
+import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/core/utils/size_config.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
@@ -17,13 +21,15 @@ import 'package:flutter_svg/svg.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 class AboutAppScreen extends StatefulWidget {
-  const AboutAppScreen({ Key? key}) : super(key: key);
+  const AboutAppScreen({Key? key}) : super(key: key);
 
   @override
   State<AboutAppScreen> createState() => _AboutAppScreenState();
 }
 
 class _AboutAppScreenState extends State<AboutAppScreen> {
+  Timer? timer;
+
   PackageInfo _packageInfo = PackageInfo(
     appName: 'Unknown',
     packageName: 'Unknown',
@@ -47,15 +53,23 @@ class _AboutAppScreenState extends State<AboutAppScreen> {
   }
 
   @override
+  void dispose() {
+    timer?.cancel();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) => Scaffold(
-        appBar:   WAppBar(textWithButton: LocaleKeys.about_app.tr(), boxShadow: []),
+        appBar:
+            WAppBar(textWithButton: LocaleKeys.about_app.tr(), boxShadow: []),
         body: Column(
           children: [
             WScaleAnimation(
               onTap: () {
-                context.read<ProfileBloc>().add(GetTermsOfUseEvent(slug: 'условия пользования'));
-                Navigator.of(context).push(fade(
-                    page: const TermsOfUsePage()));
+                context
+                    .read<ProfileBloc>()
+                    .add(GetTermsOfUseEvent(slug: 'условия пользования'));
+                Navigator.of(context).push(fade(page: const TermsOfUsePage()));
               },
               child: Container(
                 padding: EdgeInsets.symmetric(
@@ -89,19 +103,32 @@ class _AboutAppScreenState extends State<AboutAppScreen> {
             const Rate(),
             const Spacer(),
             //
-            SvgPicture.asset(
-              Theme.of(context).extension<ThemedIcons>()!.autoUzLightDark,
+            GestureDetector(
+              onPanCancel: () => timer?.cancel(),
+              onPanDown: (_) => timer = Timer(const Duration(seconds: 2), () {
+                final chuck = StorageRepository.getBool(
+                  StorageKeys.CHUCK,
+                  defValue: false,
+                );
+                StorageRepository.putBool(
+                  key: StorageKeys.CHUCK,
+                  value: !chuck,
+                );
+                ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text(!chuck ? 'ON' : 'OFF')));
+              }),
+              child: SvgPicture.asset(
+                Theme.of(context).extension<ThemedIcons>()!.autoUzLightDark,
+              ),
             ),
             SizedBox(height: SizeConfig.v(12)),
             Padding(
-              padding: EdgeInsets.only(
-                  top: SizeConfig.v(2), bottom: SizeConfig.v(36)),
-              child: Text(
-                '${LocaleKeys.version.tr()} ${_packageInfo.version}',
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.headline2
-              )
-            ),
+                padding: EdgeInsets.only(
+                    top: SizeConfig.v(2), bottom: SizeConfig.v(36)),
+                child: Text(
+                    '${LocaleKeys.version.tr()} ${_packageInfo.version}',
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.headline2)),
           ],
         ),
       );
