@@ -272,4 +272,6 @@ class AppIcons {
   static const defalut = 'assets/icons/car_single/defalut.svg';
   static const edit_single = 'assets/icons/car_single/edit_single.svg';
   static const crug = 'assets/icons/car_single/crug.svg';
+  static const introduce = 'assets/icons/reels/introduce.svg';
+  static const introduce1 = 'assets/icons/reels/introduce1.svg';
 }

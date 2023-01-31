@@ -1,5 +1,9 @@
+import 'dart:async';
+
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/assets/constants/storage_keys.dart';
+import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/reels/presentation/bloc/reels_bloc.dart';
 import 'package:auto/features/reels/presentation/widgets/content_item.dart';
@@ -18,19 +22,134 @@ class ReelsScreen extends StatefulWidget {
   State<ReelsScreen> createState() => _ReelsScreenState();
 }
 
-class _ReelsScreenState extends State<ReelsScreen> {
+class _ReelsScreenState extends State<ReelsScreen>
+    with TickerProviderStateMixin {
   late ReelsBloc bloc;
   late PageController _pageController;
+  Timer? timer;
   int _currentPage = 0;
   bool _isOnPageTurning = false;
+  double topMin = 60;
+  double topMax = 110;
+  double right = 0;
+  double left = 0;
+  int timeInSec = 1;
+  int count = 0;
+  bool isIncreasing = false;
+  bool isFirstTimeWatchReel = true;
 
   @override
   void initState() {
     bloc = ReelsBloc()..add(InitialEvent(isFromMain: widget.isFromMain));
     _pageController = PageController(keepPage: true);
     _pageController.addListener(_scrollListener);
+    isFirstTimeWatchReel = StorageRepository.getBool(
+      StorageKeys.FIRST_TIME_WATCH_REEL,
+      defValue: true,
+    );
+    if (isFirstTimeWatchReel) {
+      timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+        setState(() {
+          if (count ~/ timeInSec % 2 == 0) {
+            isIncreasing = true;
+          } else {
+            isIncreasing = false;
+          }
+        });
+        count++;
+      });
+    }
     super.initState();
   }
+
+  @override
+  void dispose() {
+    timer?.cancel();
+    _pageController.dispose();
+    SystemChrome.setSystemUIOverlayStyle(
+      const SystemUiOverlayStyle(
+        statusBarColor: white,
+        systemNavigationBarColor: white,
+        statusBarIconBrightness: Brightness.dark,
+        statusBarBrightness: Brightness.light,
+      ),
+    );
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) => AnnotatedRegion(
+        value: const SystemUiOverlayStyle(
+          statusBarColor: black,
+          systemNavigationBarColor: black,
+          statusBarBrightness: Brightness.light,
+          statusBarIconBrightness: Brightness.light,
+          systemNavigationBarIconBrightness: Brightness.light,
+        ),
+        child: SafeArea(
+          child: BlocProvider(
+            create: (context) => bloc,
+            child: BlocBuilder<ReelsBloc, ReelsState>(
+              builder: (context, state) => Scaffold(
+                backgroundColor: Colors.transparent,
+                body: Stack(
+                  children: [
+                    if (state.statusReelsGet.isSubmissionSuccess)
+                      PageView.builder(
+                        scrollDirection: Axis.vertical,
+                        controller: _pageController,
+                        itemCount: state.reels.length,
+                        itemBuilder: (context, index) => ContentItem(
+                          reel: state.reels[index],
+                          isLiked: state.reels[index].isLiked,
+                          onTapLike: () {
+                            bloc.add(ReelsLike(state.reels[index].id, index));
+                          },
+                          pageIndex: index,
+                          currentPageIndex: _currentPage,
+                          isPaused: _isOnPageTurning,
+                        ),
+                      ),
+                    Positioned(
+                      top: 16,
+                      right: 16,
+                      left: 16,
+                      child: Row(
+                        children: [
+                          if (widget.isFromMain)
+                            WScaleAnimation(
+                              child:
+                                  SvgPicture.asset(AppIcons.chevronLeftWhite),
+                              onTap: () => Navigator.pop(context),
+                            ),
+                          const Spacer(),
+                          SvgPicture.asset(AppIcons.whiteLogo),
+                        ],
+                      ),
+                    ),
+                    if (isFirstTimeWatchReel)
+                      AnimatedPositioned(
+                        top: isIncreasing ? topMax : topMin,
+                        left: 0,
+                        right: 0,
+                        duration: Duration(seconds: timeInSec),
+                        child: SvgPicture.asset(AppIcons.introduce),
+                      ),
+                    if (isFirstTimeWatchReel)
+                      AnimatedPositioned(
+                        bottom: (isIncreasing ? topMax : topMin) + 100,
+                        left: 0,
+                        right: 0,
+                        duration: Duration(seconds: timeInSec),
+                        child: SvgPicture.asset(AppIcons.introduce1),
+                      ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      );
 
   void _scrollListener() {
     if (_isOnPageTurning &&
@@ -38,6 +157,9 @@ class _ReelsScreenState extends State<ReelsScreen> {
       setState(() {
         _currentPage = _pageController.page!.toInt();
         _isOnPageTurning = false;
+        isFirstTimeWatchReel = false;
+        StorageRepository.putBool(
+            key: StorageKeys.FIRST_TIME_WATCH_REEL, value: false);
         _getMore();
       });
     } else if (!_isOnPageTurning &&
@@ -58,75 +180,4 @@ class _ReelsScreenState extends State<ReelsScreen> {
           isFromMain: widget.isFromMain, offset: bloc.state.reels.length - 1));
     }
   }
-
-  @override
-  void dispose() {
-    _pageController.dispose();
-    SystemChrome.setSystemUIOverlayStyle(
-      const SystemUiOverlayStyle(
-        statusBarColor: white,
-        systemNavigationBarColor: white,
-        statusBarIconBrightness: Brightness.dark,
-        statusBarBrightness: Brightness.light,
-      ),
-    );
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) => AnnotatedRegion(
-      value: const SystemUiOverlayStyle(
-        statusBarColor: black,
-        systemNavigationBarColor: black,
-        statusBarBrightness: Brightness.light,
-        statusBarIconBrightness: Brightness.light,
-        systemNavigationBarIconBrightness: Brightness.light,
-      ),
-      child: SafeArea(
-        child: BlocProvider(
-          create: (context) => bloc,
-          child: BlocBuilder<ReelsBloc, ReelsState>(
-            builder: (context, state) => Scaffold(
-              backgroundColor: Colors.transparent,
-              body: Stack(
-                children: [
-                  if (state.statusReelsGet.isSubmissionSuccess)
-                    PageView.builder(
-                      scrollDirection: Axis.vertical,
-                      controller: _pageController,
-                      itemCount: state.reels.length,
-                      itemBuilder: (context, index) => ContentItem(
-                        reel: state.reels[index],
-                        isLiked: state.reels[index].isLiked,
-                        onTapLike: () {
-                          bloc.add(ReelsLike(state.reels[index].id, index));
-                        },
-                        pageIndex: index,
-                        currentPageIndex: _currentPage,
-                        isPaused: _isOnPageTurning,
-                      ),
-                    ),
-                  Positioned(
-                    top: 16,
-                    right: 16,
-                    left: 16,
-                    child: Row(
-                      children: [
-                        if (widget.isFromMain)
-                          WScaleAnimation(
-                            child: SvgPicture.asset(AppIcons.chevronLeftWhite),
-                            onTap: () => Navigator.pop(context),
-                          ),
-                        const Spacer(),
-                        SvgPicture.asset(AppIcons.whiteLogo),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
 }
