@@ -186,6 +186,7 @@ abstract class  LocaleKeys {
   static const orange = 'orange';
   static const add_name = 'add_name';
   static const add_email = 'add_email';
+  static const vin_check_text = 'vin_check_text';
   static const confirm = 'confirm';
   static const avialable_hours = 'avialable_hours';
   static const the_user_is_only_available_in = 'the_user_is_only_available_in';
@@ -276,6 +277,7 @@ abstract class  LocaleKeys {
   static const conditioner = 'conditioner';
   static const baby_chair = 'baby_chair';
   static const full_tank_of_gasoline = 'full_tank_of_gasoline';
+  static const clean_car = 'clean_car';
   static const full_tank = 'full_tank';
   static const automatic_box = 'automatic_box';
   static const miniwen = 'miniwen';
@@ -430,10 +432,6 @@ abstract class  LocaleKeys {
   static const insurance = 'insurance';
   static const commercial_vehicles = 'commercial_vehicles';
   static const rent_Car = 'rent_Car';
-  static const characteristics_are_the_same_as_PTS = 'characteristics_are_the_same_as_PTS';
-  static const one_owner_in_PTS = 'one_owner_in_PTS';
-  static const t_more_checkpoints = 't_more_checkpoints';
-  static const collateral_search = 'collateral_search';
-  static const t_entries_in_the_history_of_operation = 't_entries_in_the_history_of_operation';
+  static const car_make = 'car_make';
 
 }

@@ -67,7 +67,7 @@ class VinSoonItem extends StatelessWidget {
                         height: 12,
                       ),
                       Text(
-                        'VIN проверка позволит получиить детализированную информацию об автомобиле',
+                        LocaleKeys.vin_check_text.tr(),
                         maxLines: 3,
                         overflow: TextOverflow.ellipsis,
                         style: Theme.of(context).textTheme.headline2,
