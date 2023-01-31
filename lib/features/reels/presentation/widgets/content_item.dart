@@ -85,6 +85,7 @@ class _ContentItemState extends State<ContentItem> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               PriceButton(
+                announcementId: widget.reel.announcement.id,
                 discount: widget.reel.announcement.discount,
                 price: widget.reel.announcement.price,
                 currency: widget.reel.announcement.currency,

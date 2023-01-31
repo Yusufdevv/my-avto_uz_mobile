@@ -49,7 +49,6 @@ class _BottomItemState extends State<BottomItem>
     switch (state) {
       case AppLifecycleState.resumed:
         context.read<CarSingleBloc>().add(CarSingleEvent.callCount(widget.id));
-        print('----${AppLifecycleState.resumed}');
         break;
       case AppLifecycleState.inactive:
         break;
@@ -137,9 +136,8 @@ class _BottomItemState extends State<BottomItem>
           WScaleAnimation(
             onTap: () {
               widget.usertype == 'owner'
-                  ? Navigator.of(context).push(fade(
-                      page:
-                          const UserSinglePage(slug: 'sardor-avto-invest-chp')))
+                  ? Navigator.of(context)
+                      .push(fade(page:const UserSinglePage(slug: 'anvar-gulyamov')))
                   : Navigator.of(context)
                       .push(fade(page: DealerSinglePage(slug: widget.slug)));
             },

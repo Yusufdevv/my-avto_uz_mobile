@@ -33,9 +33,9 @@ class OptionsItem extends StatefulWidget {
 }
 
 class _OptionsItemState extends State<OptionsItem>
-    // ignore: prefer_mixin
     with
         SingleTickerProviderStateMixin,
+        // ignore: prefer_mixin
         WidgetsBindingObserver {
   bool isLiked = false;
   int countLike = 0;

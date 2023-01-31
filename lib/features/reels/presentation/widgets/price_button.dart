@@ -1,7 +1,9 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/features/car_single/presentation/car_single_screen.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
+import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/utils/my_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -11,17 +13,22 @@ class PriceButton extends StatelessWidget {
     required this.discount,
     required this.price,
     required this.currency,
+    required this.announcementId,
     Key? key,
   }) : super(key: key);
 
   final String discount;
   final String price;
   final String currency;
+  final int announcementId;
 
   @override
   Widget build(BuildContext context) => (double.parse(discount) > 0.0)
       ? WScaleAnimation(
-          onTap: () {},
+          onTap: () {
+            Navigator.push(
+                context, fade(page: CarSingleScreen(id: announcementId)));
+          },
           child: Container(
             padding: const EdgeInsets.fromLTRB(16, 12, 8, 16),
             decoration: BoxDecoration(
@@ -87,7 +94,10 @@ class PriceButton extends StatelessWidget {
           ),
         )
       : WButton(
-          onTap: () {},
+          onTap: () {
+            Navigator.push(
+                context, fade(page: CarSingleScreen(id: announcementId)));
+          },
           padding: const EdgeInsets.symmetric(horizontal: 16),
           height: 55,
           borderRadius: 16,

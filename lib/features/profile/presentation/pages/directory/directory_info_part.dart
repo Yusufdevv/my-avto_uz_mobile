@@ -167,8 +167,7 @@ class _DirectoryInfoPartState extends State<DirectoryInfoPart> {
                       SvgPicture.asset(AppIcons.phoneCall1),
                       const SizedBox(width: 8),
                       Text(
-                          MyFunctions.phoneFormatter(
-                              widget.phone, [5, 7, 10, 12]),
+                          MyFunctions.phoneFormat(widget.phone),
                           style: Theme.of(context)
                               .textTheme
                               .headline1!

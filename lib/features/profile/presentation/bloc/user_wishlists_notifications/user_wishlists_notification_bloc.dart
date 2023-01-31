@@ -106,6 +106,7 @@ class UserWishListsBloc extends Bloc<UserWishListsEvent, UserWishListsState> {
         myAdsStatus: FormzStatus.submissionSuccess,
         myAds: result.right.results,
         next: result.right.next,
+        moreFetch: result.right.next != null,
       ));
     } else {
       emit(state.copyWith(myAdsStatus: FormzStatus.submissionFailure));
@@ -114,19 +115,16 @@ class UserWishListsBloc extends Bloc<UserWishListsEvent, UserWishListsState> {
 
   Future<void> _onGetMoreUserMyAds(
       GetMoreUserMyAdsEvent event, Emitter<UserWishListsState> emit) async {
-    emit(state.copyWith(myAdsStatus: FormzStatus.submissionInProgress));
     final result = await profileFavoritesMyAdsUseCase.call(Params(
         endpoint: '/car/my-announcements/',
         query: state.next,
         moderationStatus: event.moderationStatus));
     if (result.isRight) {
       emit(state.copyWith(
-        myAds: result.right.results,
+        myAds: [...state.myAds, ...result.right.results],
         next: result.right.next,
         moreFetch: result.right.next != null,
       ));
-    } else {
-      emit(state.copyWith(myAdsStatus: FormzStatus.submissionFailure));
     }
   }
 
