@@ -2,6 +2,7 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/generated/locale_keys.g.dart';
+import 'package:auto/utils/my_functions.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -72,12 +73,8 @@ class _DealerSingleInfoPartState extends State<DealerSingleInfoPart> {
                 : '${widget.quantityOfCars} ${LocaleKeys.carses.tr()}',
           ),
           const SizedBox(
-            height: 16,
+            height: 16
           ),
-          // if (dealerType == 'showroom') ...{
-          //
-          // },
-
           Info(
               text:
                   '${LocaleKeys.every_day.tr()}, ${widget.contactFrom.substring(0, 5)} - ${widget.contactTo.substring(0, 5)}',
@@ -128,7 +125,7 @@ class _DealerSingleInfoPartState extends State<DealerSingleInfoPart> {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 20),
             child: Info(
-              text: widget.contact,
+              text: MyFunctions.phoneFormat(widget.contact) ,
               icon: AppIcons.tablerPhone,
             ),
           ),

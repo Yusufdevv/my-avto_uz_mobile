@@ -5,6 +5,7 @@ import 'package:auto/features/dealers/data/datasource/dealer_single_datasource.d
 import 'package:auto/features/dealers/data/models/dealer_info_model.dart';
 
 
+// ignore: one_member_abstracts
 abstract class DealerSingleRepository {
   Future<Either<Failure, DealerSingleModel>> getDealerSingle(
       String params);

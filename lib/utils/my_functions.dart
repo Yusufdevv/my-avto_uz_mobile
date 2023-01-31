@@ -20,18 +20,29 @@ import 'package:yandex_mapkit/yandex_mapkit.dart';
 
 // ignore: avoid_classes_with_only_static_members
 class MyFunctions {
-  
-
   static String getData(String data) =>
       Jiffy(data).format('dd-MM-yyyy').replaceAll('-', '/').toString();
 
   static String phoneFormat(String phone) {
     var formattedPhone = '';
-    formattedPhone += '${phone.substring(0, 2)} '; //90
-    formattedPhone += '${phone.substring(2, 5)} '; // 478
-    formattedPhone += '${phone.substring(5, 7)} '; // 17
-    formattedPhone += phone.substring(7); // 17
-    return formattedPhone; // 90 478 17 17
+    if (phone.length == 9) {
+      //!input = 904781717
+      formattedPhone += '${phone.substring(0, 2)} '; //90
+      formattedPhone += '${phone.substring(2, 5)} '; // 478
+      formattedPhone += '${phone.substring(5, 7)} '; // 17
+      formattedPhone += phone.substring(7); // 17
+      //!result 90 487 17 17
+    } else if (phone.length == 13) {
+      //!input = +998904781717
+      formattedPhone += '${phone.substring(0, 4)} '; //+998
+      formattedPhone += '${phone.substring(4, 6)} '; //90
+      formattedPhone += '${phone.substring(6, 9)} '; // 478
+      formattedPhone += '${phone.substring(9, 11)} '; // 17
+      formattedPhone += phone.substring(11);
+      //!result +998 90 487 17 17
+    }
+
+    return formattedPhone;
   }
 
   static String text(List<Region>? list, [bool doName = false]) {
@@ -238,29 +249,29 @@ class MyFunctions {
     final language = StorageRepository.getString('language');
     switch (index) {
       case 1:
-        return language=='uz' ? 'Yanvar' : 'Январь';
+        return language == 'uz' ? 'Yanvar' : 'Январь';
       case 2:
-        return language=='uz' ? 'Fevral' : 'Февраль';
+        return language == 'uz' ? 'Fevral' : 'Февраль';
       case 3:
-        return language=='uz' ? 'Mart' :  'Март';
+        return language == 'uz' ? 'Mart' : 'Март';
       case 4:
-        return language=='uz' ? 'Aprel' : 'Апрель';
+        return language == 'uz' ? 'Aprel' : 'Апрель';
       case 5:
-        return language=='uz' ? 'May' : 'Май';
+        return language == 'uz' ? 'May' : 'Май';
       case 6:
-        return language=='uz' ? 'Iyun' : 'Июнь';
+        return language == 'uz' ? 'Iyun' : 'Июнь';
       case 7:
-        return language=='uz' ? 'Iyul' : 'Июль';
+        return language == 'uz' ? 'Iyul' : 'Июль';
       case 8:
-        return language=='uz' ? 'Avgust' : 'Август';
+        return language == 'uz' ? 'Avgust' : 'Август';
       case 9:
-        return language=='uz' ? 'Sentabr' : 'Сентябрь';
+        return language == 'uz' ? 'Sentabr' : 'Сентябрь';
       case 10:
-        return language=='uz' ? 'Oktabr' : 'Октябрь';
+        return language == 'uz' ? 'Oktabr' : 'Октябрь';
       case 11:
-        return language=='uz' ? 'Noyabr' : 'Ноябрь';
+        return language == 'uz' ? 'Noyabr' : 'Ноябрь';
       case 12:
-        return language=='uz' ? 'Dekabr' : 'Декабрь';
+        return language == 'uz' ? 'Dekabr' : 'Декабрь';
       default:
         return '';
     }
@@ -279,7 +290,7 @@ class MyFunctions {
     if (date.year.toString() == list[0]) {
       if (date.month == int.tryParse(list[1]) &&
           date.day == int.tryParse(list[2])) {
-        return language == 'uz' ? 'Bugun' :  'Сегодня';
+        return language == 'uz' ? 'Bugun' : 'Сегодня';
       } else {
         return '${int.tryParse(list[2])} ${getMonthByIndex(int.tryParse(list[1]) ?? -1)}';
       }
@@ -296,9 +307,9 @@ class MyFunctions {
     final dateDay = int.parse(date[0].split(' ')[0]);
     final dateYear = int.parse(date[1].trim().split(' ')[0]);
     if (dateDay == dateNow.day) {
-      return language == 'uz' ? 'Bugun' :  'Сегодня';
+      return language == 'uz' ? 'Bugun' : 'Сегодня';
     } else if (dateDay == (dateNow.day - 1)) {
-      return language == 'uz' ? 'Kecha' :  'Вчера';
+      return language == 'uz' ? 'Kecha' : 'Вчера';
     } else if (dateYear == dateNow.year) {
       return date[0];
     } else {

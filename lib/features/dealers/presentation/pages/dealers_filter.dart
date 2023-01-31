@@ -193,7 +193,7 @@ class _DealersFilterScreenState extends State<DealersFilterScreen> {
                         regionId: state.region.isEmpty
                             ? ''
                             : MyFunctions.text(state.region),
-                        mark: state.maker.slug,
+                        mark: state.maker.id,
                         carType: selectedCategory,
                       ));
                       Navigator.pop(context);

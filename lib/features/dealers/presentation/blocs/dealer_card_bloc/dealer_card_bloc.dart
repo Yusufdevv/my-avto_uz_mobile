@@ -46,19 +46,17 @@ class DealerCardBloc extends Bloc<DealerCardEvent, DealerCardState> {
     on<_GetFilter>((event, emit) async {
       final result = await dealerUseCase(DealerParams(
           filter: DealerFilterParams(
-              mark: event.mark,
+              mark: event.mark.toString(),
               car_type: event.carType,
               regionId: event.regionId)));
 
-       if(result.isRight){
-        emit(
-          state.copyWith(
-            list: result.right.results,
-            count: result.right.count,
-            next: result.right.next,
-          )
-        );
-      }else{
+      if (result.isRight) {
+        emit(state.copyWith(
+          list: result.right.results,
+          count: result.right.count,
+          next: result.right.next,
+        ));
+      } else {
         emit(state.copyWith(status: FormzStatus.submissionFailure));
       }
     });

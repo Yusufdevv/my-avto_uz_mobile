@@ -2,7 +2,7 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/car_single/presentation/bloc/user_single_bloc/user_single_bloc.dart';
-import 'package:auto/features/commercial/presentation/widgets/info_container.dart';  
+import 'package:auto/features/commercial/presentation/widgets/info_container.dart';
 import 'package:auto/features/dealers/presentation/widgets/dealer_single_info_part.dart';
 import 'package:auto/features/profile/presentation/pages/directory/directory_sliver_delegete.dart';
 import 'package:auto/generated/locale_keys.g.dart';
@@ -32,9 +32,10 @@ class _UserSinglePageState extends State<UserSinglePage> {
 
   @override
   void initState() {
+    print('======= ${widget.slug}');
     userSingleBloc = UserSingleBloc()
-      ..add(UserSingleEvent.getUserAds(slug: widget.slug))
-      ..add(UserSingleEvent.getUserSingle(slug: widget.slug));
+      ..add(UserSingleEvent.getUserSingle(slug: widget.slug))
+      ..add(UserSingleEvent.getUserAds(slug: widget.slug));
 
     super.initState();
   }
@@ -96,9 +97,9 @@ class _UserSinglePageState extends State<UserSinglePage> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                    Text(
+                                  Text(
                                     LocaleKeys.about_dealer.tr(),
-                                    style:const TextStyle(
+                                    style: const TextStyle(
                                         color: orange,
                                         fontSize: 16,
                                         fontWeight: FontWeight.w600),
@@ -159,7 +160,8 @@ class _UserSinglePageState extends State<UserSinglePage> {
                                     padding: const EdgeInsets.symmetric(
                                         vertical: 20),
                                     child: Info(
-                                      text: item.phoneNumber,
+                                      text: MyFunctions.phoneFormat(
+                                          item.phoneNumber),
                                       icon: AppIcons.tablerPhone,
                                     ),
                                   ),
