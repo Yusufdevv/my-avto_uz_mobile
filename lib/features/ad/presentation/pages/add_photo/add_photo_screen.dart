@@ -66,8 +66,8 @@ class _AddPhotoScreenState extends State<AddPhotoScreen> {
                       PhotoItem(
                         images: postingAdState.gallery,
                         onTap: () async {
-                          imageBloc.add(
-                              const PickImage(source: ImageSource.camera));
+                          imageBloc
+                              .add(const PickImage(source: ImageSource.camera));
                         },
                       ),
                       const SizedBox(height: 16),
