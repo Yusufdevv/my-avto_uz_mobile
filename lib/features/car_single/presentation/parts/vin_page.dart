@@ -10,7 +10,7 @@ class VinPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        appBar:  WAppBar(
+        appBar: WAppBar(
           title: LocaleKeys.VIN_check_report.tr(),
         ),
         body: Container(
@@ -47,8 +47,8 @@ class VinPage extends StatelessWidget {
                 description: 'Объем двигателя',
                 data: '2,5 Л',
               ),
-              const VinPageItem(
-                description: 'Мощность двигателя',
+              VinPageItem(
+                description: LocaleKeys.Engine_power.tr(),
                 data: '193 л.с.',
               ),
               const SizedBox(

@@ -1,8 +1,11 @@
+import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/features/ad/data/models/announcement_filter.dart';
 import 'package:auto/features/ad/data/models/drive_type.dart';
 import 'package:auto/features/ad/domain/entities/types/body_type.dart';
 import 'package:auto/features/ad/domain/entities/types/drive_type.dart';
 import 'package:auto/features/ad/domain/entities/types/gearbox_type.dart';
+import 'package:auto/features/ad/domain/repositories/ad_repository.dart';
+import 'package:auto/features/ads/data/models/search_history_model.dart';
 import 'package:auto/features/common/models/region.dart';
 import 'package:auto/features/common/usecases/announcement_list_usecase.dart';
 import 'package:auto/features/comparison/domain/entities/announcement_list_entity.dart';
@@ -18,6 +21,7 @@ part 'announcement_list_bloc.freezed.dart';
 class AnnouncementListBloc
     extends Bloc<AnnouncementListEvent, AnnouncementListState> {
   AnnouncementListUseCase useCase;
+  AdRepository repository = serviceLocator<AdRepository>();
   AnnouncementListBloc({required this.useCase})
       : super(AnnouncementListState()) {
     on<_GetAnnouncementList>((event, emit) async {
@@ -48,6 +52,7 @@ class AnnouncementListBloc
     });
     on<_GetIsHistory>(
         (event, emit) => emit(state.copyWith(isHistory: event.isHistory)));
+
     on<_GetFilterClear>((event, emit) {
       if (event.ismake == true) {
         emit(

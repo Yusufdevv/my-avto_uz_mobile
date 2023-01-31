@@ -17,7 +17,11 @@ class InformationAboutDoors extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Row(
         children: [
-          MyFunctions.getStatusIcon(informAboutDoors[index].damageType),
+          Padding(
+            padding: const EdgeInsets.only(right: 8),
+            child:
+                MyFunctions.getStatusIcon(informAboutDoors[index].damageType),
+          ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

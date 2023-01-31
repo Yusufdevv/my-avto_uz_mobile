@@ -16,6 +16,7 @@ import 'package:auto/features/ad/domain/entities/types/make.dart';
 import 'package:auto/features/ad/domain/entities/types/modification_type.dart';
 import 'package:auto/features/ad/domain/entities/years/years.dart';
 import 'package:auto/features/ad/domain/repositories/ad_repository.dart';
+import 'package:auto/features/ads/data/models/search_history_model.dart';
 import 'package:auto/features/common/entities/makes_entity.dart';
 import 'package:auto/features/comparison/domain/entities/announcement_list_entity.dart';
 import 'package:auto/features/pagination/models/generic_pagination.dart';
@@ -415,6 +416,11 @@ class AdRepositoryImpl extends AdRepository {
       return Left(ServerFailure(
           errorMessage: e.errorMessage, statusCode: e.statusCode));
     }
+  }
+
+  @override
+  Future<void> filterHistory({required SearchHistoryModel model}) async{
+    final result = await remoteDataSource.filterHistory(model: model);
   }
   
 }

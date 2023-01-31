@@ -35,7 +35,7 @@ class CommercialCarModelItem extends StatelessWidget {
         width: 1,
         color: theme.solitudeToPayneGrey,
       ),
-      height: MediaQuery.of(context).size.height*.063,
+      height: MediaQuery.of(context).size.height*.065,
       margin: const EdgeInsets.only(top: 16, bottom: 12, right: 16, left: 16),
       child: Row(
         children: [

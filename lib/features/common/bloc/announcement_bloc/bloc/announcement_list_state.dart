@@ -13,6 +13,7 @@ class AnnouncementListState with _$AnnouncementListState {
     @Default(false) bool isHistory,
     @Default([]) List<AnnouncementListEntity> announcementList,
     @Default(AnnouncementFilterModel()) AnnouncementFilterModel filter,
+    @Default(SearchHistoryModel) SearchHistoryModel searchHistoryEntity,
     @Default(RangeValues(1960, 2023)) RangeValues yearValues,
     @Default(RangeValues(1000, 500000)) RangeValues priceValues,
     @Default(0) int idVal,
