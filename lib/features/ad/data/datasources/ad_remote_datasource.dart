@@ -24,7 +24,7 @@ import 'package:dio/dio.dart';
 import 'package:http/http.dart' as http;
 
 abstract class AdRemoteDataSource {
-  Future<List<FotoInstructionEntity>> getFotoInstructions();
+  Future<GenericPagination<FotoInstructionEntity>> getFotoInstructions();
   Future<Uint8List> getMapScreenShot(Map<String, String> params);
   Future<num> getMinimumPrice(Map<String, dynamic> params);
   Future<bool> verify(Map<String, String> params);
@@ -706,10 +706,10 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
   }
 
   @override
-  Future<List<FotoInstructionEntity>> getFotoInstructions() async {
+  Future<GenericPagination<FotoInstructionEntity>> getFotoInstructions() async {
     try {
       final response = await _dio.get(
-        '',
+        '/car/announcement/photo-instruction/',
         options: Options(
           headers: StorageRepository.getString('token').isNotEmpty
               ? {
@@ -720,9 +720,11 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
         ),
       );
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
-        return (response.data as List)
-            .map((e) => FotoInstructionModel.fromJson(response.data))
-            .toList();
+        final v = GenericPagination.fromJson(response.data,
+            (p0) => FotoInstructionModel.fromJson(p0 as Map<String, dynamic>));
+        for (int i = 0; i < v.results.length;i++){
+                 print('=> => => =>     gotten instructions: ${v.results[i].toJson()}   <= <= <= <=');
+        } return v;
       }
       throw ServerException(
           statusCode: response.statusCode ?? 0,

@@ -9,9 +9,11 @@ import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:formz/formz.dart';
 
 class PhotoInstructionsScreen extends StatefulWidget {
   const PhotoInstructionsScreen({Key? key}) : super(key: key);
@@ -27,7 +29,8 @@ class _PhotoInstructionsScreenState extends State<PhotoInstructionsScreen> {
   void initState() {
     bloc = PhotoInstructionBloc(
         useCase: PhotoInstructionsUseCase(
-            repository: serviceLocator<AdRepositoryImpl>()));
+            repository: serviceLocator<AdRepositoryImpl>()))
+      ..add(PhotoInstructionGetEvent());
     super.initState();
   }
 
@@ -36,22 +39,31 @@ class _PhotoInstructionsScreenState extends State<PhotoInstructionsScreen> {
         value: bloc,
         child: Scaffold(
           appBar: WAppBar(
-              title: 'Добавление фото',
-              backgroundColor: white,
-              hasBackButton: true,
-              boxShadow: [
-                BoxShadow(
-                    offset: const Offset(0, 8),
-                    blurRadius: 11,
-                    spreadRadius: 0,
-                    color: dark.withOpacity(.04))
-              ]),
+            title: LocaleKeys.adding_photo.tr(),
+            backgroundColor: white,
+            hasBackButton: true,
+            boxShadow: [
+              BoxShadow(
+                offset: const Offset(0, 8),
+                blurRadius: 11,
+                spreadRadius: 0,
+                color: dark.withOpacity(.04),
+              ),
+            ],
+          ),
           body: Padding(
             padding: EdgeInsets.only(
                 bottom: MediaQuery.of(context).viewInsets.bottom + 44),
-            child: Center(
-                child: BlocBuilder<PhotoInstructionBloc, PhotoInstructionState>(
-              builder: (context, state) => Column(
+            child: Center(child:
+                BlocBuilder<PhotoInstructionBloc, PhotoInstructionState>(
+                    builder: (context, state) {
+              if (state.status == FormzStatus.submissionInProgress) {
+                return const Center(child: CupertinoActivityIndicator());
+              }
+              if (state.instructions.isEmpty) {
+                return const Center(child: Text('No Instructions available'));
+              }
+              return Column(
                 children: [
                   const StepBoxOfPhotoInstruction(),
                   Container(
@@ -60,16 +72,16 @@ class _PhotoInstructionsScreenState extends State<PhotoInstructionsScreen> {
                     decoration: BoxDecoration(
                         color: Colors.amber,
                         borderRadius: BorderRadius.circular(6)),
-                    // child: Image.asset(
-                    //   AppImages.audi,
-                    //   fit: BoxFit.cover,
-                    // ),
+                    child: Image.network(
+                      state.instructions[state.step].image,
+                      fit: BoxFit.cover,
+                    ),
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 20, vertical: 16),
                     child: Text(
-                      state.instructions[state.step].instruction,
+                      state.instructions[state.step].description,
                       style: Theme.of(context).textTheme.headline1!.copyWith(
                             fontSize: 14,
                             fontWeight: FontWeight.w400,
@@ -128,8 +140,8 @@ class _PhotoInstructionsScreenState extends State<PhotoInstructionsScreen> {
                     ],
                   ),
                 ],
-              ),
-            )),
+              );
+            })),
           ),
         ),
       );

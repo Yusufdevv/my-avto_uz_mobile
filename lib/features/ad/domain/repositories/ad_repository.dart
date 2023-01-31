@@ -18,7 +18,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
 
 abstract class AdRepository {
-  Future<Either<Failure, List<FotoInstructionEntity>>> getFotoInstructions();
+  Future<Either<Failure, GenericPagination<FotoInstructionEntity>>> getFotoInstructions();
   Future<Either<Failure, Uint8List>> getMapScreenShot(
       {required Map<String, String> params});
   Future<Either<Failure, bool>> verify({required Map<String, String> params});

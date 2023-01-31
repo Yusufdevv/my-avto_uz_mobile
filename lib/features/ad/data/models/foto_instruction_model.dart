@@ -5,7 +5,9 @@ part 'foto_instruction_model.g.dart';
 class FotoInstructionModel extends FotoInstructionEntity {
   const FotoInstructionModel({
     required super.image,
-    required super.instruction,
+    required super.description,
+    required super.id,
+    required super.order
   });
   factory FotoInstructionModel.fromJson(Map<String, dynamic> json) =>
       _$FotoInstructionModelFromJson(json);

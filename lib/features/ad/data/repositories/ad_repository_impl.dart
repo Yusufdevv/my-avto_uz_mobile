@@ -404,7 +404,7 @@ class AdRepositoryImpl extends AdRepository {
     }
   }
     @override
-  Future<Either<Failure, List<FotoInstructionEntity>>> getFotoInstructions() async{
+  Future<Either<Failure, GenericPagination<FotoInstructionEntity>>> getFotoInstructions() async{
     try {
       final result = await remoteDataSource.getFotoInstructions();
       return Right(result);
