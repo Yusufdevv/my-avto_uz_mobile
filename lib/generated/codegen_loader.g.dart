@@ -550,7 +550,6 @@ static const Map<String,dynamic> uz = {
   "contacts": "Kontaktlar",
   "show_contact": "Kontaktni ko'rsatish",
   "private_person": "Jismoniy shaxs",
-  "verySoon...": "Tez orada...",
   "no_dealer": "Dilerlar yo'q",
   "autosalon": "Avtosalon",
   "news": "Yangilar",
@@ -876,7 +875,13 @@ static const Map<String,dynamic> uz = {
   "insurance": "Sug'urtalash xizmati",
   "commercial_vehicles": "Tijoriy transport",
   "rent_Car": "RentCar",
-  "car_make": "Марку автомобиля"
+  "car_make": "Марку автомобиля",
+  "category": "Kategoriya",
+  "add_review": "Добавить отзыв",
+  "auto": "Avtomobil",
+  "filled": "Заполнено",
+  "ownership_term": "Срок владения",
+  "rating_comment": "Оцените ходовые качества"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ru": ru, "uz": uz};
 }
