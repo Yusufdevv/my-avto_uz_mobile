@@ -66,8 +66,8 @@ class _AddPhotoScreenState extends State<AddPhotoScreen> {
                       PhotoItem(
                         images: postingAdState.gallery,
                         onTap: () async {
-                          context.read<ImageBloc>().add(
-                              const PickImage(source: ImageSource.gallery));
+                          imageBloc.add(
+                              const PickImage(source: ImageSource.camera));
                         },
                       ),
                       const SizedBox(height: 16),
@@ -84,9 +84,7 @@ class _AddPhotoScreenState extends State<AddPhotoScreen> {
                       PhotoItem(
                         images: postingAdState.panaramaGallery,
                         onTap: () async {
-                          context
-                              .read<ImageBloc>()
-                              .add(PickPanaramaImageEvent());
+                          imageBloc.add(PickPanaramaImageEvent());
                         },
                       ),
                     ],
