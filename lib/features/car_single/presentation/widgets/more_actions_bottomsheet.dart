@@ -3,6 +3,7 @@ import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/features/car_single/presentation/widgets/dealer_item.dart';
 import 'package:auto/features/common/bloc/comparison_add/bloc/comparison_add_bloc.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
+import 'package:auto/features/search/presentation/widgets/add_comparison_item.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -144,68 +145,22 @@ class _MoreActionsState extends State<MoreActions> {
                   width: 8,
                 ),
                 Expanded(
-                  child: WScaleAnimation(
-                    onTap: () {
-                      if (!isLiked) {
-                        context.read<ComparisonAddBloc>().add(
-                            ComparisonAddEvent.postComparisonCars(widget.id));
-                        isLiked = true;
-                      } else {
-                        context.read<ComparisonAddBloc>().add(
-                            ComparisonAddEvent.deleteComparison(widget.id));
-                        isLiked = false;
-                      }
-                      setState(() {});
-                    },
-                    child: Container(
-                      padding: const EdgeInsets.only(
-                        top: 16,
-                        bottom: 16,
+                  child: Container(
+                    padding: const EdgeInsets.only(
+                      top: 16,
+                      bottom: 16,
+                    ),
+                    decoration: BoxDecoration(
+                      color: const Color(0xffEFFAF3),
+                      borderRadius: BorderRadius.circular(
+                        8,
                       ),
-                      decoration: BoxDecoration(
-                        color: const Color(0xffEFFAF3),
-                        borderRadius: BorderRadius.circular(
-                          8,
-                        ),
-                      ),
-                      child: Center(
-                        child: Column(
-                          children: [
-                            AnimatedSwitcher(
-                              duration: const Duration(milliseconds: 300),
-                              transitionBuilder: (child, animation) =>
-                                  ScaleTransition(
-                                scale: animation,
-                                child: child,
-                              ),
-                              child: isLiked
-                                  ? SvgPicture.asset(
-                                      AppIcons.scalesRed,
-                                      key: const ValueKey<int>(1),
-                                      fit: BoxFit.cover,
-                                    )
-                                  : SvgPicture.asset(
-                                      AppIcons.scale,
-                                      fit: BoxFit.cover,
-                                      key: const ValueKey<int>(2),
-                                    ),
-                            ),
-                            Text(
-                              LocaleKeys.compare.tr(),
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline1!
-                                  .copyWith(
-                                    color: const Color(
-                                      0xff171725,
-                                    ),
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 12,
-                                  ),
-                            ),
-                          ],
-                        ),
-                      ),
+                    ),
+                    child: AddComparisonItem(
+                      id: widget.id,
+                      initialLike: widget.isCompare,
+                      isText: true,
+                      isGreen: true,
                     ),
                   ),
                 ),

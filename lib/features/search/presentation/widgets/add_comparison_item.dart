@@ -1,5 +1,9 @@
+import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/features/common/bloc/comparison_add/bloc/comparison_add_bloc.dart';
+import 'package:auto/features/common/widgets/w_scale.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -7,11 +11,16 @@ import 'package:flutter_svg/svg.dart';
 class AddComparisonItem extends StatefulWidget {
   final bool? initialLike;
   final int id;
-  final Color? color;
+  final bool isText;
+  final bool isGreen;
 
-  const AddComparisonItem(
-      {required this.id, this.initialLike, Key? key, this.color})
-      : super(key: key);
+  const AddComparisonItem({
+    required this.id,
+    this.initialLike,
+    Key? key,
+    this.isText = false,
+    this.isGreen = false,
+  }) : super(key: key);
 
   @override
   State<AddComparisonItem> createState() => _AddComparisonItemState();
@@ -29,48 +38,65 @@ class _AddComparisonItemState extends State<AddComparisonItem> {
   }
 
   @override
-  Widget build(BuildContext context) => SizedBox(
-        height: 28,
-        width: 28,
-        child: BlocBuilder<ComparisonAddBloc, ComparisonAddState>(
-          builder: (context, state) => GestureDetector(
-            onTap: () {
-              if (!isLiked) {
-                context
-                    .read<ComparisonAddBloc>()
-                    .add(ComparisonAddEvent.postComparisonCars(widget.id));
-                isLiked = true;
-              } else {
-                context
-                    .read<ComparisonAddBloc>()
-                    .add(ComparisonAddEvent.deleteComparison(widget.id));
-                isLiked = false;
-              }
-              setState(() {});
-            }, behavior: HitTestBehavior.opaque,
-            child: AnimatedSwitcher(
-              duration: const Duration(milliseconds: 300),
-              transitionBuilder: (child, animation) => ScaleTransition(
-                scale: animation,
-                child: child,
+  Widget build(BuildContext context) =>
+      BlocBuilder<ComparisonAddBloc, ComparisonAddState>(
+        builder: (context, state) => WScaleAnimation(
+          onTap: () {
+            if (!isLiked) {
+              context
+                  .read<ComparisonAddBloc>()
+                  .add(ComparisonAddEvent.postComparisonCars(widget.id));
+              isLiked = true;
+            } else {
+              context
+                  .read<ComparisonAddBloc>()
+                  .add(ComparisonAddEvent.deleteComparison(widget.id));
+              isLiked = false;
+            }
+            setState(() {});
+          },
+          child: Column(
+            children: [
+              AnimatedSwitcher(
+                duration: const Duration(milliseconds: 300),
+                transitionBuilder: (child, animation) => ScaleTransition(
+                  scale: animation,
+                  child: child,
+                ),
+                child: isLiked
+                    ? SvgPicture.asset(
+                        AppIcons.scalesRed,
+                        key: const ValueKey<int>(1),
+                        fit: BoxFit.cover,
+                        height: 28,
+                        width: 28,
+                      )
+                    : SvgPicture.asset(
+                        widget.isGreen ? AppIcons.comparGreen : AppIcons.scale,
+                        fit: BoxFit.cover,
+                        key: const ValueKey<int>(2),
+                        height: 28,
+                        width: 28,
+                      ),
               ),
-              child: isLiked
-                  ? SvgPicture.asset(
-                      AppIcons.scalesRed,
-                      key: const ValueKey<int>(1),
-                      fit: BoxFit.cover,
-                      color: widget.color,
-                      height: 28,
-                      width: 28,
-                    )
-                  : SvgPicture.asset(
-                      AppIcons.scale,
-                      fit: BoxFit.cover,
-                      key: const ValueKey<int>(2),
-                      height: 28,
-                      width: 28,
-                    ),
-            ),
+              if (widget.isText)
+                if (widget.isGreen)
+                  Text(
+                    LocaleKeys.compare.tr(),
+                    style: Theme.of(context).textTheme.headline6!.copyWith(
+                          fontSize: 12,
+                          color: isLiked ? orange : dark,
+                        ),
+                  )
+                else
+                  Text(
+                    LocaleKeys.compare.tr(),
+                    style: Theme.of(context).textTheme.headline6!.copyWith(
+                          fontSize: 12,
+                          color: isLiked ? orange : null,
+                        ),
+                  )
+            ],
           ),
         ),
       );

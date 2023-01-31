@@ -37,21 +37,10 @@ class CarActions extends StatelessWidget {
               width: 28,
             ),
           ),
-          Column(
-            children: [
-              AddComparisonItem(
-                id: id,
-                initialLike: isComparised,
-              ),
-              Text(
-                LocaleKeys.compare.tr(),
-                style: Theme.of(context).textTheme.headline1!.copyWith(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 12,
-                      color: const Color(0xff696974),
-                    ),
-              ),
-            ],
+          AddComparisonItem(
+            id: id,
+            initialLike: isComparised,
+            isText: true,
           ),
           CarActionsBox(
             onTap: onShare,
