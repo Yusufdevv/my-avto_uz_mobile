@@ -1,5 +1,9 @@
+import 'dart:async';
+
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/assets/constants/storage_keys.dart';
+import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/reels/presentation/bloc/reels_bloc.dart';
 import 'package:auto/features/reels/presentation/widgets/content_item.dart';
@@ -18,23 +22,49 @@ class ReelsScreen extends StatefulWidget {
   State<ReelsScreen> createState() => _ReelsScreenState();
 }
 
-class _ReelsScreenState extends State<ReelsScreen> with TickerProviderStateMixin {
+class _ReelsScreenState extends State<ReelsScreen>
+    with TickerProviderStateMixin {
   late ReelsBloc bloc;
   late PageController _pageController;
+  Timer? timer;
   int _currentPage = 0;
   bool _isOnPageTurning = false;
+  double topMin = 60;
+  double topMax = 110;
+  double right = 0;
+  double left = 0;
+  int timeInSec = 1;
+  int count = 0;
+  bool isIncreasing = false;
+  bool isFirstTimeWatchReel = true;
 
   @override
   void initState() {
     bloc = ReelsBloc()..add(InitialEvent(isFromMain: widget.isFromMain));
     _pageController = PageController(keepPage: true);
     _pageController.addListener(_scrollListener);
-    AnimationController(duration: const Duration(seconds: 2), vsync: this);
+    isFirstTimeWatchReel = StorageRepository.getBool(
+      StorageKeys.FIRST_TIME_WATCH_REEL,
+      defValue: true,
+    );
+    if (isFirstTimeWatchReel) {
+      timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+        setState(() {
+          if (count ~/ timeInSec % 2 == 0) {
+            isIncreasing = true;
+          } else {
+            isIncreasing = false;
+          }
+        });
+        count++;
+      });
+    }
     super.initState();
   }
 
   @override
   void dispose() {
+    timer?.cancel();
     _pageController.dispose();
     SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(
@@ -97,6 +127,22 @@ class _ReelsScreenState extends State<ReelsScreen> with TickerProviderStateMixin
                         ],
                       ),
                     ),
+                    if (isFirstTimeWatchReel)
+                      AnimatedPositioned(
+                        top: isIncreasing ? topMax : topMin,
+                        left: 0,
+                        right: 0,
+                        duration: Duration(seconds: timeInSec),
+                        child: SvgPicture.asset(AppIcons.introduce),
+                      ),
+                    if (isFirstTimeWatchReel)
+                      AnimatedPositioned(
+                        bottom: (isIncreasing ? topMax : topMin) + 100,
+                        left: 0,
+                        right: 0,
+                        duration: Duration(seconds: timeInSec),
+                        child: SvgPicture.asset(AppIcons.introduce1),
+                      ),
                   ],
                 ),
               ),
@@ -111,6 +157,9 @@ class _ReelsScreenState extends State<ReelsScreen> with TickerProviderStateMixin
       setState(() {
         _currentPage = _pageController.page!.toInt();
         _isOnPageTurning = false;
+        isFirstTimeWatchReel = false;
+        StorageRepository.putBool(
+            key: StorageKeys.FIRST_TIME_WATCH_REEL, value: false);
         _getMore();
       });
     } else if (!_isOnPageTurning &&
