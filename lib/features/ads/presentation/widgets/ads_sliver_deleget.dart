@@ -89,10 +89,10 @@ class AdsSliverWidget extends SliverPersistentHeaderDelegate {
       );
 
   @override
-  double get maxExtent => 180;
+  double get maxExtent => 184;
 
   @override
-  double get minExtent => 180;
+  double get minExtent => 184;
 
   @override
   bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) =>

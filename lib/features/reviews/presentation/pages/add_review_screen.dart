@@ -33,7 +33,7 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
     LocaleKeys.model.tr(),
     LocaleKeys.year_of_issue.tr(),
     'Покаление',
-    'Тип кузова',
+    LocaleKeys.body_type.tr(),
     'Двигатель',
     'Тип привода',
     'Тип коробки передач',

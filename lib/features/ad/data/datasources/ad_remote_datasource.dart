@@ -14,6 +14,7 @@ import 'package:auto/features/ad/data/models/generation.dart';
 import 'package:auto/features/ad/data/models/modification_type.dart';
 import 'package:auto/features/ad/data/models/years.dart';
 import 'package:auto/features/ad/domain/entities/foto_instruction_entity.dart';
+import 'package:auto/features/ads/data/models/search_history_model.dart';
 import 'package:auto/features/common/entities/makes_entity.dart';
 import 'package:auto/features/common/models/get_make_model.dart';
 import 'package:auto/features/comparison/data/models/announcement_list_model.dart';
@@ -92,7 +93,7 @@ abstract class AdRemoteDataSource {
   Future<GenericPagination<AnnouncementListModel>> getAnnouncementList(
     AnnouncementFilterModel filter,
   );
-  Future<void> filterHistory();
+  Future<void> filterHistory({required SearchHistoryModel model});
 }
 
 class AdRemoteDataSourceImpl extends AdRemoteDataSource {
@@ -542,16 +543,10 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
   }
 
   @override
-  Future<void> filterHistory() async {
+  Future<void> filterHistory({required SearchHistoryModel model}) async {
     try {
       final response = await _dio.post('users/filter-history/create/',
-          data: {
-            'id': 0,
-            'make': 89,
-            'model': [4070],
-            'query': 'string',
-            'query_data': {}
-          },
+          data: model.toJson(),
           options: Options(headers: {
             'Authorization': 'Bearer ${StorageRepository.getString('token')}'
           }));

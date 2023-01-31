@@ -54,7 +54,10 @@ class CarCharacteristicImage extends StatelessWidget {
           Center(
             child: Stack(
               children: [
-                SvgPicture.asset(AppIcons.autoModel),
+                SvgPicture.asset(
+                  AppIcons.autoModel,
+                  fit: BoxFit.cover,
+                ),
                 CarStatusIconInPicture(
                   informAboutDoors: informAboutDoors,
                   doorName: 'rear_right_fender',
@@ -65,17 +68,17 @@ class CarCharacteristicImage extends StatelessWidget {
                   informAboutDoors: informAboutDoors,
                   doorName: 'left_rear_door',
                   bottom: 40,
-                  left: width *0.24,
+                  left: width * 0.24,
                 ),
                 CarStatusIconInPicture(
                   informAboutDoors: informAboutDoors,
-                  left: width *0.3,
+                  left: width * 0.3,
                   top: 35,
                   doorName: 'rigth_front_door',
                 ),
                 CarStatusIconInPicture(
                   informAboutDoors: informAboutDoors,
-                  right: width *0.12,
+                  right: width * 0.12,
                   bottom: 42,
                   doorName: 'front_left_fender',
                 ),
@@ -112,7 +115,7 @@ class CarCharacteristicImage extends StatelessWidget {
                 CarStatusIconInPicture(
                   informAboutDoors: informAboutDoors,
                   doorName: 'rear_left_fender',
-                  left: width *0.09,
+                  left: width * 0.09,
                   bottom: 44,
                 ),
                 CarStatusIconInPicture(
@@ -129,7 +132,7 @@ class CarCharacteristicImage extends StatelessWidget {
                 ),
                 CarStatusIconInPicture(
                   informAboutDoors: informAboutDoors,
-                  left: width*0.12,
+                  left: width * 0.12,
                   top: 25,
                   doorName: 'front_right_fender',
                 ),
@@ -140,27 +143,27 @@ class CarCharacteristicImage extends StatelessWidget {
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             itemBuilder: (context, index) => Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  child: InformationAboutDoors(
-                    informAboutDoors: informAboutDoors,
-                    index: index,
-                  ),
-                ),
-                if (index > 12)
-                  const SizedBox()
-                else
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
                   Expanded(
                     child: InformationAboutDoors(
                       informAboutDoors: informAboutDoors,
                       index: index,
                     ),
                   ),
-              ],
-            ),
+                  if (index > 12)
+                    const SizedBox()
+                  else
+                    Expanded(
+                      child: InformationAboutDoors(
+                        informAboutDoors: informAboutDoors,
+                        index: index + informAboutDoors.length ~/ 2,
+                      ),
+                    ),
+                ],
+              ),
             separatorBuilder: (context, index) => const Divider(),
-            itemCount: informAboutDoors.length,
+            itemCount: informAboutDoors.length ~/ 2,
           )
         ],
       ),

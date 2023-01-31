@@ -24,6 +24,22 @@ mixin _$AnnouncementListEvent {
     required TResult Function(bool isHistory) getIsHistory,
     required TResult Function(AnnouncementFilterModel filter) getFilter,
     required TResult Function(
+            int? bodyType,
+            int? driveType,
+            int? engineType,
+            int? gearboxType,
+            String? regionIn,
+            bool? isNew,
+            int? priceFrom,
+            int? priceTo,
+            int? yearFrom,
+            int? yearTo,
+            int? idVal,
+            bool? isFilter,
+            int? make,
+            int? model)
+        getHistoryApi,
+    required TResult Function(
             RangeValues? yearValues,
             RangeValues? priceValues,
             BodyTypeEntity? bodyType,
@@ -41,6 +57,22 @@ mixin _$AnnouncementListEvent {
     TResult? Function(List<Region> regions)? getRegions,
     TResult? Function(bool isHistory)? getIsHistory,
     TResult? Function(AnnouncementFilterModel filter)? getFilter,
+    TResult? Function(
+            int? bodyType,
+            int? driveType,
+            int? engineType,
+            int? gearboxType,
+            String? regionIn,
+            bool? isNew,
+            int? priceFrom,
+            int? priceTo,
+            int? yearFrom,
+            int? yearTo,
+            int? idVal,
+            bool? isFilter,
+            int? make,
+            int? model)?
+        getHistoryApi,
     TResult? Function(
             RangeValues? yearValues,
             RangeValues? priceValues,
@@ -60,6 +92,22 @@ mixin _$AnnouncementListEvent {
     TResult Function(bool isHistory)? getIsHistory,
     TResult Function(AnnouncementFilterModel filter)? getFilter,
     TResult Function(
+            int? bodyType,
+            int? driveType,
+            int? engineType,
+            int? gearboxType,
+            String? regionIn,
+            bool? isNew,
+            int? priceFrom,
+            int? priceTo,
+            int? yearFrom,
+            int? yearTo,
+            int? idVal,
+            bool? isFilter,
+            int? make,
+            int? model)?
+        getHistoryApi,
+    TResult Function(
             RangeValues? yearValues,
             RangeValues? priceValues,
             BodyTypeEntity? bodyType,
@@ -78,6 +126,7 @@ mixin _$AnnouncementListEvent {
     required TResult Function(_GetRegions value) getRegions,
     required TResult Function(_GetIsHistory value) getIsHistory,
     required TResult Function(_GetFilter value) getFilter,
+    required TResult Function(_GetHistoryApi value) getHistoryApi,
     required TResult Function(_GetInfo value) getInfo,
   }) =>
       throw _privateConstructorUsedError;
@@ -88,6 +137,7 @@ mixin _$AnnouncementListEvent {
     TResult? Function(_GetRegions value)? getRegions,
     TResult? Function(_GetIsHistory value)? getIsHistory,
     TResult? Function(_GetFilter value)? getFilter,
+    TResult? Function(_GetHistoryApi value)? getHistoryApi,
     TResult? Function(_GetInfo value)? getInfo,
   }) =>
       throw _privateConstructorUsedError;
@@ -98,6 +148,7 @@ mixin _$AnnouncementListEvent {
     TResult Function(_GetRegions value)? getRegions,
     TResult Function(_GetIsHistory value)? getIsHistory,
     TResult Function(_GetFilter value)? getFilter,
+    TResult Function(_GetHistoryApi value)? getHistoryApi,
     TResult Function(_GetInfo value)? getInfo,
     required TResult orElse(),
   }) =>
@@ -167,6 +218,22 @@ class _$_GetAnnouncementList implements _GetAnnouncementList {
     required TResult Function(bool isHistory) getIsHistory,
     required TResult Function(AnnouncementFilterModel filter) getFilter,
     required TResult Function(
+            int? bodyType,
+            int? driveType,
+            int? engineType,
+            int? gearboxType,
+            String? regionIn,
+            bool? isNew,
+            int? priceFrom,
+            int? priceTo,
+            int? yearFrom,
+            int? yearTo,
+            int? idVal,
+            bool? isFilter,
+            int? make,
+            int? model)
+        getHistoryApi,
+    required TResult Function(
             RangeValues? yearValues,
             RangeValues? priceValues,
             BodyTypeEntity? bodyType,
@@ -188,6 +255,22 @@ class _$_GetAnnouncementList implements _GetAnnouncementList {
     TResult? Function(bool isHistory)? getIsHistory,
     TResult? Function(AnnouncementFilterModel filter)? getFilter,
     TResult? Function(
+            int? bodyType,
+            int? driveType,
+            int? engineType,
+            int? gearboxType,
+            String? regionIn,
+            bool? isNew,
+            int? priceFrom,
+            int? priceTo,
+            int? yearFrom,
+            int? yearTo,
+            int? idVal,
+            bool? isFilter,
+            int? make,
+            int? model)?
+        getHistoryApi,
+    TResult? Function(
             RangeValues? yearValues,
             RangeValues? priceValues,
             BodyTypeEntity? bodyType,
@@ -208,6 +291,22 @@ class _$_GetAnnouncementList implements _GetAnnouncementList {
     TResult Function(List<Region> regions)? getRegions,
     TResult Function(bool isHistory)? getIsHistory,
     TResult Function(AnnouncementFilterModel filter)? getFilter,
+    TResult Function(
+            int? bodyType,
+            int? driveType,
+            int? engineType,
+            int? gearboxType,
+            String? regionIn,
+            bool? isNew,
+            int? priceFrom,
+            int? priceTo,
+            int? yearFrom,
+            int? yearTo,
+            int? idVal,
+            bool? isFilter,
+            int? make,
+            int? model)?
+        getHistoryApi,
     TResult Function(
             RangeValues? yearValues,
             RangeValues? priceValues,
@@ -233,6 +332,7 @@ class _$_GetAnnouncementList implements _GetAnnouncementList {
     required TResult Function(_GetRegions value) getRegions,
     required TResult Function(_GetIsHistory value) getIsHistory,
     required TResult Function(_GetFilter value) getFilter,
+    required TResult Function(_GetHistoryApi value) getHistoryApi,
     required TResult Function(_GetInfo value) getInfo,
   }) {
     return getAnnouncementList(this);
@@ -246,6 +346,7 @@ class _$_GetAnnouncementList implements _GetAnnouncementList {
     TResult? Function(_GetRegions value)? getRegions,
     TResult? Function(_GetIsHistory value)? getIsHistory,
     TResult? Function(_GetFilter value)? getFilter,
+    TResult? Function(_GetHistoryApi value)? getHistoryApi,
     TResult? Function(_GetInfo value)? getInfo,
   }) {
     return getAnnouncementList?.call(this);
@@ -259,6 +360,7 @@ class _$_GetAnnouncementList implements _GetAnnouncementList {
     TResult Function(_GetRegions value)? getRegions,
     TResult Function(_GetIsHistory value)? getIsHistory,
     TResult Function(_GetFilter value)? getFilter,
+    TResult Function(_GetHistoryApi value)? getHistoryApi,
     TResult Function(_GetInfo value)? getInfo,
     required TResult orElse(),
   }) {
@@ -343,6 +445,22 @@ class _$_GetFilterClear implements _GetFilterClear {
     required TResult Function(bool isHistory) getIsHistory,
     required TResult Function(AnnouncementFilterModel filter) getFilter,
     required TResult Function(
+            int? bodyType,
+            int? driveType,
+            int? engineType,
+            int? gearboxType,
+            String? regionIn,
+            bool? isNew,
+            int? priceFrom,
+            int? priceTo,
+            int? yearFrom,
+            int? yearTo,
+            int? idVal,
+            bool? isFilter,
+            int? make,
+            int? model)
+        getHistoryApi,
+    required TResult Function(
             RangeValues? yearValues,
             RangeValues? priceValues,
             BodyTypeEntity? bodyType,
@@ -364,6 +482,22 @@ class _$_GetFilterClear implements _GetFilterClear {
     TResult? Function(bool isHistory)? getIsHistory,
     TResult? Function(AnnouncementFilterModel filter)? getFilter,
     TResult? Function(
+            int? bodyType,
+            int? driveType,
+            int? engineType,
+            int? gearboxType,
+            String? regionIn,
+            bool? isNew,
+            int? priceFrom,
+            int? priceTo,
+            int? yearFrom,
+            int? yearTo,
+            int? idVal,
+            bool? isFilter,
+            int? make,
+            int? model)?
+        getHistoryApi,
+    TResult? Function(
             RangeValues? yearValues,
             RangeValues? priceValues,
             BodyTypeEntity? bodyType,
@@ -384,6 +518,22 @@ class _$_GetFilterClear implements _GetFilterClear {
     TResult Function(List<Region> regions)? getRegions,
     TResult Function(bool isHistory)? getIsHistory,
     TResult Function(AnnouncementFilterModel filter)? getFilter,
+    TResult Function(
+            int? bodyType,
+            int? driveType,
+            int? engineType,
+            int? gearboxType,
+            String? regionIn,
+            bool? isNew,
+            int? priceFrom,
+            int? priceTo,
+            int? yearFrom,
+            int? yearTo,
+            int? idVal,
+            bool? isFilter,
+            int? make,
+            int? model)?
+        getHistoryApi,
     TResult Function(
             RangeValues? yearValues,
             RangeValues? priceValues,
@@ -409,6 +559,7 @@ class _$_GetFilterClear implements _GetFilterClear {
     required TResult Function(_GetRegions value) getRegions,
     required TResult Function(_GetIsHistory value) getIsHistory,
     required TResult Function(_GetFilter value) getFilter,
+    required TResult Function(_GetHistoryApi value) getHistoryApi,
     required TResult Function(_GetInfo value) getInfo,
   }) {
     return getFilterClear(this);
@@ -422,6 +573,7 @@ class _$_GetFilterClear implements _GetFilterClear {
     TResult? Function(_GetRegions value)? getRegions,
     TResult? Function(_GetIsHistory value)? getIsHistory,
     TResult? Function(_GetFilter value)? getFilter,
+    TResult? Function(_GetHistoryApi value)? getHistoryApi,
     TResult? Function(_GetInfo value)? getInfo,
   }) {
     return getFilterClear?.call(this);
@@ -435,6 +587,7 @@ class _$_GetFilterClear implements _GetFilterClear {
     TResult Function(_GetRegions value)? getRegions,
     TResult Function(_GetIsHistory value)? getIsHistory,
     TResult Function(_GetFilter value)? getFilter,
+    TResult Function(_GetHistoryApi value)? getHistoryApi,
     TResult Function(_GetInfo value)? getInfo,
     required TResult orElse(),
   }) {
@@ -530,6 +683,22 @@ class _$_GetRegions implements _GetRegions {
     required TResult Function(bool isHistory) getIsHistory,
     required TResult Function(AnnouncementFilterModel filter) getFilter,
     required TResult Function(
+            int? bodyType,
+            int? driveType,
+            int? engineType,
+            int? gearboxType,
+            String? regionIn,
+            bool? isNew,
+            int? priceFrom,
+            int? priceTo,
+            int? yearFrom,
+            int? yearTo,
+            int? idVal,
+            bool? isFilter,
+            int? make,
+            int? model)
+        getHistoryApi,
+    required TResult Function(
             RangeValues? yearValues,
             RangeValues? priceValues,
             BodyTypeEntity? bodyType,
@@ -551,6 +720,22 @@ class _$_GetRegions implements _GetRegions {
     TResult? Function(bool isHistory)? getIsHistory,
     TResult? Function(AnnouncementFilterModel filter)? getFilter,
     TResult? Function(
+            int? bodyType,
+            int? driveType,
+            int? engineType,
+            int? gearboxType,
+            String? regionIn,
+            bool? isNew,
+            int? priceFrom,
+            int? priceTo,
+            int? yearFrom,
+            int? yearTo,
+            int? idVal,
+            bool? isFilter,
+            int? make,
+            int? model)?
+        getHistoryApi,
+    TResult? Function(
             RangeValues? yearValues,
             RangeValues? priceValues,
             BodyTypeEntity? bodyType,
@@ -571,6 +756,22 @@ class _$_GetRegions implements _GetRegions {
     TResult Function(List<Region> regions)? getRegions,
     TResult Function(bool isHistory)? getIsHistory,
     TResult Function(AnnouncementFilterModel filter)? getFilter,
+    TResult Function(
+            int? bodyType,
+            int? driveType,
+            int? engineType,
+            int? gearboxType,
+            String? regionIn,
+            bool? isNew,
+            int? priceFrom,
+            int? priceTo,
+            int? yearFrom,
+            int? yearTo,
+            int? idVal,
+            bool? isFilter,
+            int? make,
+            int? model)?
+        getHistoryApi,
     TResult Function(
             RangeValues? yearValues,
             RangeValues? priceValues,
@@ -596,6 +797,7 @@ class _$_GetRegions implements _GetRegions {
     required TResult Function(_GetRegions value) getRegions,
     required TResult Function(_GetIsHistory value) getIsHistory,
     required TResult Function(_GetFilter value) getFilter,
+    required TResult Function(_GetHistoryApi value) getHistoryApi,
     required TResult Function(_GetInfo value) getInfo,
   }) {
     return getRegions(this);
@@ -609,6 +811,7 @@ class _$_GetRegions implements _GetRegions {
     TResult? Function(_GetRegions value)? getRegions,
     TResult? Function(_GetIsHistory value)? getIsHistory,
     TResult? Function(_GetFilter value)? getFilter,
+    TResult? Function(_GetHistoryApi value)? getHistoryApi,
     TResult? Function(_GetInfo value)? getInfo,
   }) {
     return getRegions?.call(this);
@@ -622,6 +825,7 @@ class _$_GetRegions implements _GetRegions {
     TResult Function(_GetRegions value)? getRegions,
     TResult Function(_GetIsHistory value)? getIsHistory,
     TResult Function(_GetFilter value)? getFilter,
+    TResult Function(_GetHistoryApi value)? getHistoryApi,
     TResult Function(_GetInfo value)? getInfo,
     required TResult orElse(),
   }) {
@@ -712,6 +916,22 @@ class _$_GetIsHistory implements _GetIsHistory {
     required TResult Function(bool isHistory) getIsHistory,
     required TResult Function(AnnouncementFilterModel filter) getFilter,
     required TResult Function(
+            int? bodyType,
+            int? driveType,
+            int? engineType,
+            int? gearboxType,
+            String? regionIn,
+            bool? isNew,
+            int? priceFrom,
+            int? priceTo,
+            int? yearFrom,
+            int? yearTo,
+            int? idVal,
+            bool? isFilter,
+            int? make,
+            int? model)
+        getHistoryApi,
+    required TResult Function(
             RangeValues? yearValues,
             RangeValues? priceValues,
             BodyTypeEntity? bodyType,
@@ -733,6 +953,22 @@ class _$_GetIsHistory implements _GetIsHistory {
     TResult? Function(bool isHistory)? getIsHistory,
     TResult? Function(AnnouncementFilterModel filter)? getFilter,
     TResult? Function(
+            int? bodyType,
+            int? driveType,
+            int? engineType,
+            int? gearboxType,
+            String? regionIn,
+            bool? isNew,
+            int? priceFrom,
+            int? priceTo,
+            int? yearFrom,
+            int? yearTo,
+            int? idVal,
+            bool? isFilter,
+            int? make,
+            int? model)?
+        getHistoryApi,
+    TResult? Function(
             RangeValues? yearValues,
             RangeValues? priceValues,
             BodyTypeEntity? bodyType,
@@ -753,6 +989,22 @@ class _$_GetIsHistory implements _GetIsHistory {
     TResult Function(List<Region> regions)? getRegions,
     TResult Function(bool isHistory)? getIsHistory,
     TResult Function(AnnouncementFilterModel filter)? getFilter,
+    TResult Function(
+            int? bodyType,
+            int? driveType,
+            int? engineType,
+            int? gearboxType,
+            String? regionIn,
+            bool? isNew,
+            int? priceFrom,
+            int? priceTo,
+            int? yearFrom,
+            int? yearTo,
+            int? idVal,
+            bool? isFilter,
+            int? make,
+            int? model)?
+        getHistoryApi,
     TResult Function(
             RangeValues? yearValues,
             RangeValues? priceValues,
@@ -778,6 +1030,7 @@ class _$_GetIsHistory implements _GetIsHistory {
     required TResult Function(_GetRegions value) getRegions,
     required TResult Function(_GetIsHistory value) getIsHistory,
     required TResult Function(_GetFilter value) getFilter,
+    required TResult Function(_GetHistoryApi value) getHistoryApi,
     required TResult Function(_GetInfo value) getInfo,
   }) {
     return getIsHistory(this);
@@ -791,6 +1044,7 @@ class _$_GetIsHistory implements _GetIsHistory {
     TResult? Function(_GetRegions value)? getRegions,
     TResult? Function(_GetIsHistory value)? getIsHistory,
     TResult? Function(_GetFilter value)? getFilter,
+    TResult? Function(_GetHistoryApi value)? getHistoryApi,
     TResult? Function(_GetInfo value)? getInfo,
   }) {
     return getIsHistory?.call(this);
@@ -804,6 +1058,7 @@ class _$_GetIsHistory implements _GetIsHistory {
     TResult Function(_GetRegions value)? getRegions,
     TResult Function(_GetIsHistory value)? getIsHistory,
     TResult Function(_GetFilter value)? getFilter,
+    TResult Function(_GetHistoryApi value)? getHistoryApi,
     TResult Function(_GetInfo value)? getInfo,
     required TResult orElse(),
   }) {
@@ -893,6 +1148,22 @@ class _$_GetFilter implements _GetFilter {
     required TResult Function(bool isHistory) getIsHistory,
     required TResult Function(AnnouncementFilterModel filter) getFilter,
     required TResult Function(
+            int? bodyType,
+            int? driveType,
+            int? engineType,
+            int? gearboxType,
+            String? regionIn,
+            bool? isNew,
+            int? priceFrom,
+            int? priceTo,
+            int? yearFrom,
+            int? yearTo,
+            int? idVal,
+            bool? isFilter,
+            int? make,
+            int? model)
+        getHistoryApi,
+    required TResult Function(
             RangeValues? yearValues,
             RangeValues? priceValues,
             BodyTypeEntity? bodyType,
@@ -914,6 +1185,22 @@ class _$_GetFilter implements _GetFilter {
     TResult? Function(bool isHistory)? getIsHistory,
     TResult? Function(AnnouncementFilterModel filter)? getFilter,
     TResult? Function(
+            int? bodyType,
+            int? driveType,
+            int? engineType,
+            int? gearboxType,
+            String? regionIn,
+            bool? isNew,
+            int? priceFrom,
+            int? priceTo,
+            int? yearFrom,
+            int? yearTo,
+            int? idVal,
+            bool? isFilter,
+            int? make,
+            int? model)?
+        getHistoryApi,
+    TResult? Function(
             RangeValues? yearValues,
             RangeValues? priceValues,
             BodyTypeEntity? bodyType,
@@ -934,6 +1221,22 @@ class _$_GetFilter implements _GetFilter {
     TResult Function(List<Region> regions)? getRegions,
     TResult Function(bool isHistory)? getIsHistory,
     TResult Function(AnnouncementFilterModel filter)? getFilter,
+    TResult Function(
+            int? bodyType,
+            int? driveType,
+            int? engineType,
+            int? gearboxType,
+            String? regionIn,
+            bool? isNew,
+            int? priceFrom,
+            int? priceTo,
+            int? yearFrom,
+            int? yearTo,
+            int? idVal,
+            bool? isFilter,
+            int? make,
+            int? model)?
+        getHistoryApi,
     TResult Function(
             RangeValues? yearValues,
             RangeValues? priceValues,
@@ -959,6 +1262,7 @@ class _$_GetFilter implements _GetFilter {
     required TResult Function(_GetRegions value) getRegions,
     required TResult Function(_GetIsHistory value) getIsHistory,
     required TResult Function(_GetFilter value) getFilter,
+    required TResult Function(_GetHistoryApi value) getHistoryApi,
     required TResult Function(_GetInfo value) getInfo,
   }) {
     return getFilter(this);
@@ -972,6 +1276,7 @@ class _$_GetFilter implements _GetFilter {
     TResult? Function(_GetRegions value)? getRegions,
     TResult? Function(_GetIsHistory value)? getIsHistory,
     TResult? Function(_GetFilter value)? getFilter,
+    TResult? Function(_GetHistoryApi value)? getHistoryApi,
     TResult? Function(_GetInfo value)? getInfo,
   }) {
     return getFilter?.call(this);
@@ -985,6 +1290,7 @@ class _$_GetFilter implements _GetFilter {
     TResult Function(_GetRegions value)? getRegions,
     TResult Function(_GetIsHistory value)? getIsHistory,
     TResult Function(_GetFilter value)? getFilter,
+    TResult Function(_GetHistoryApi value)? getHistoryApi,
     TResult Function(_GetInfo value)? getInfo,
     required TResult orElse(),
   }) {
@@ -1001,6 +1307,462 @@ abstract class _GetFilter implements AnnouncementListEvent {
   AnnouncementFilterModel get filter;
   @JsonKey(ignore: true)
   _$$_GetFilterCopyWith<_$_GetFilter> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_GetHistoryApiCopyWith<$Res> {
+  factory _$$_GetHistoryApiCopyWith(
+          _$_GetHistoryApi value, $Res Function(_$_GetHistoryApi) then) =
+      __$$_GetHistoryApiCopyWithImpl<$Res>;
+  @useResult
+  $Res call(
+      {int? bodyType,
+      int? driveType,
+      int? engineType,
+      int? gearboxType,
+      String? regionIn,
+      bool? isNew,
+      int? priceFrom,
+      int? priceTo,
+      int? yearFrom,
+      int? yearTo,
+      int? idVal,
+      bool? isFilter,
+      int? make,
+      int? model});
+}
+
+/// @nodoc
+class __$$_GetHistoryApiCopyWithImpl<$Res>
+    extends _$AnnouncementListEventCopyWithImpl<$Res, _$_GetHistoryApi>
+    implements _$$_GetHistoryApiCopyWith<$Res> {
+  __$$_GetHistoryApiCopyWithImpl(
+      _$_GetHistoryApi _value, $Res Function(_$_GetHistoryApi) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? bodyType = freezed,
+    Object? driveType = freezed,
+    Object? engineType = freezed,
+    Object? gearboxType = freezed,
+    Object? regionIn = freezed,
+    Object? isNew = freezed,
+    Object? priceFrom = freezed,
+    Object? priceTo = freezed,
+    Object? yearFrom = freezed,
+    Object? yearTo = freezed,
+    Object? idVal = freezed,
+    Object? isFilter = freezed,
+    Object? make = freezed,
+    Object? model = freezed,
+  }) {
+    return _then(_$_GetHistoryApi(
+      bodyType: freezed == bodyType
+          ? _value.bodyType
+          : bodyType // ignore: cast_nullable_to_non_nullable
+              as int?,
+      driveType: freezed == driveType
+          ? _value.driveType
+          : driveType // ignore: cast_nullable_to_non_nullable
+              as int?,
+      engineType: freezed == engineType
+          ? _value.engineType
+          : engineType // ignore: cast_nullable_to_non_nullable
+              as int?,
+      gearboxType: freezed == gearboxType
+          ? _value.gearboxType
+          : gearboxType // ignore: cast_nullable_to_non_nullable
+              as int?,
+      regionIn: freezed == regionIn
+          ? _value.regionIn
+          : regionIn // ignore: cast_nullable_to_non_nullable
+              as String?,
+      isNew: freezed == isNew
+          ? _value.isNew
+          : isNew // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      priceFrom: freezed == priceFrom
+          ? _value.priceFrom
+          : priceFrom // ignore: cast_nullable_to_non_nullable
+              as int?,
+      priceTo: freezed == priceTo
+          ? _value.priceTo
+          : priceTo // ignore: cast_nullable_to_non_nullable
+              as int?,
+      yearFrom: freezed == yearFrom
+          ? _value.yearFrom
+          : yearFrom // ignore: cast_nullable_to_non_nullable
+              as int?,
+      yearTo: freezed == yearTo
+          ? _value.yearTo
+          : yearTo // ignore: cast_nullable_to_non_nullable
+              as int?,
+      idVal: freezed == idVal
+          ? _value.idVal
+          : idVal // ignore: cast_nullable_to_non_nullable
+              as int?,
+      isFilter: freezed == isFilter
+          ? _value.isFilter
+          : isFilter // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      make: freezed == make
+          ? _value.make
+          : make // ignore: cast_nullable_to_non_nullable
+              as int?,
+      model: freezed == model
+          ? _value.model
+          : model // ignore: cast_nullable_to_non_nullable
+              as int?,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_GetHistoryApi implements _GetHistoryApi {
+  _$_GetHistoryApi(
+      {this.bodyType,
+      this.driveType,
+      this.engineType,
+      this.gearboxType,
+      this.regionIn,
+      this.isNew,
+      this.priceFrom,
+      this.priceTo,
+      this.yearFrom,
+      this.yearTo,
+      this.idVal,
+      this.isFilter,
+      this.make,
+      this.model});
+
+  @override
+  final int? bodyType;
+  @override
+  final int? driveType;
+  @override
+  final int? engineType;
+  @override
+  final int? gearboxType;
+  @override
+  final String? regionIn;
+  @override
+  final bool? isNew;
+  @override
+  final int? priceFrom;
+  @override
+  final int? priceTo;
+  @override
+  final int? yearFrom;
+  @override
+  final int? yearTo;
+  @override
+  final int? idVal;
+  @override
+  final bool? isFilter;
+  @override
+  final int? make;
+  @override
+  final int? model;
+
+  @override
+  String toString() {
+    return 'AnnouncementListEvent.getHistoryApi(bodyType: $bodyType, driveType: $driveType, engineType: $engineType, gearboxType: $gearboxType, regionIn: $regionIn, isNew: $isNew, priceFrom: $priceFrom, priceTo: $priceTo, yearFrom: $yearFrom, yearTo: $yearTo, idVal: $idVal, isFilter: $isFilter, make: $make, model: $model)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_GetHistoryApi &&
+            (identical(other.bodyType, bodyType) ||
+                other.bodyType == bodyType) &&
+            (identical(other.driveType, driveType) ||
+                other.driveType == driveType) &&
+            (identical(other.engineType, engineType) ||
+                other.engineType == engineType) &&
+            (identical(other.gearboxType, gearboxType) ||
+                other.gearboxType == gearboxType) &&
+            (identical(other.regionIn, regionIn) ||
+                other.regionIn == regionIn) &&
+            (identical(other.isNew, isNew) || other.isNew == isNew) &&
+            (identical(other.priceFrom, priceFrom) ||
+                other.priceFrom == priceFrom) &&
+            (identical(other.priceTo, priceTo) || other.priceTo == priceTo) &&
+            (identical(other.yearFrom, yearFrom) ||
+                other.yearFrom == yearFrom) &&
+            (identical(other.yearTo, yearTo) || other.yearTo == yearTo) &&
+            (identical(other.idVal, idVal) || other.idVal == idVal) &&
+            (identical(other.isFilter, isFilter) ||
+                other.isFilter == isFilter) &&
+            (identical(other.make, make) || other.make == make) &&
+            (identical(other.model, model) || other.model == model));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      bodyType,
+      driveType,
+      engineType,
+      gearboxType,
+      regionIn,
+      isNew,
+      priceFrom,
+      priceTo,
+      yearFrom,
+      yearTo,
+      idVal,
+      isFilter,
+      make,
+      model);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_GetHistoryApiCopyWith<_$_GetHistoryApi> get copyWith =>
+      __$$_GetHistoryApiCopyWithImpl<_$_GetHistoryApi>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() getAnnouncementList,
+    required TResult Function(bool? ismake) getFilterClear,
+    required TResult Function(List<Region> regions) getRegions,
+    required TResult Function(bool isHistory) getIsHistory,
+    required TResult Function(AnnouncementFilterModel filter) getFilter,
+    required TResult Function(
+            int? bodyType,
+            int? driveType,
+            int? engineType,
+            int? gearboxType,
+            String? regionIn,
+            bool? isNew,
+            int? priceFrom,
+            int? priceTo,
+            int? yearFrom,
+            int? yearTo,
+            int? idVal,
+            bool? isFilter,
+            int? make,
+            int? model)
+        getHistoryApi,
+    required TResult Function(
+            RangeValues? yearValues,
+            RangeValues? priceValues,
+            BodyTypeEntity? bodyType,
+            DriveTypeEntity? carDriveType,
+            GearboxTypeEntity? gearboxType,
+            int? idVal,
+            bool? isFilter)
+        getInfo,
+  }) {
+    return getHistoryApi(
+        bodyType,
+        driveType,
+        engineType,
+        gearboxType,
+        regionIn,
+        isNew,
+        priceFrom,
+        priceTo,
+        yearFrom,
+        yearTo,
+        idVal,
+        isFilter,
+        make,
+        model);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? getAnnouncementList,
+    TResult? Function(bool? ismake)? getFilterClear,
+    TResult? Function(List<Region> regions)? getRegions,
+    TResult? Function(bool isHistory)? getIsHistory,
+    TResult? Function(AnnouncementFilterModel filter)? getFilter,
+    TResult? Function(
+            int? bodyType,
+            int? driveType,
+            int? engineType,
+            int? gearboxType,
+            String? regionIn,
+            bool? isNew,
+            int? priceFrom,
+            int? priceTo,
+            int? yearFrom,
+            int? yearTo,
+            int? idVal,
+            bool? isFilter,
+            int? make,
+            int? model)?
+        getHistoryApi,
+    TResult? Function(
+            RangeValues? yearValues,
+            RangeValues? priceValues,
+            BodyTypeEntity? bodyType,
+            DriveTypeEntity? carDriveType,
+            GearboxTypeEntity? gearboxType,
+            int? idVal,
+            bool? isFilter)?
+        getInfo,
+  }) {
+    return getHistoryApi?.call(
+        bodyType,
+        driveType,
+        engineType,
+        gearboxType,
+        regionIn,
+        isNew,
+        priceFrom,
+        priceTo,
+        yearFrom,
+        yearTo,
+        idVal,
+        isFilter,
+        make,
+        model);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? getAnnouncementList,
+    TResult Function(bool? ismake)? getFilterClear,
+    TResult Function(List<Region> regions)? getRegions,
+    TResult Function(bool isHistory)? getIsHistory,
+    TResult Function(AnnouncementFilterModel filter)? getFilter,
+    TResult Function(
+            int? bodyType,
+            int? driveType,
+            int? engineType,
+            int? gearboxType,
+            String? regionIn,
+            bool? isNew,
+            int? priceFrom,
+            int? priceTo,
+            int? yearFrom,
+            int? yearTo,
+            int? idVal,
+            bool? isFilter,
+            int? make,
+            int? model)?
+        getHistoryApi,
+    TResult Function(
+            RangeValues? yearValues,
+            RangeValues? priceValues,
+            BodyTypeEntity? bodyType,
+            DriveTypeEntity? carDriveType,
+            GearboxTypeEntity? gearboxType,
+            int? idVal,
+            bool? isFilter)?
+        getInfo,
+    required TResult orElse(),
+  }) {
+    if (getHistoryApi != null) {
+      return getHistoryApi(
+          bodyType,
+          driveType,
+          engineType,
+          gearboxType,
+          regionIn,
+          isNew,
+          priceFrom,
+          priceTo,
+          yearFrom,
+          yearTo,
+          idVal,
+          isFilter,
+          make,
+          model);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_GetAnnouncementList value) getAnnouncementList,
+    required TResult Function(_GetFilterClear value) getFilterClear,
+    required TResult Function(_GetRegions value) getRegions,
+    required TResult Function(_GetIsHistory value) getIsHistory,
+    required TResult Function(_GetFilter value) getFilter,
+    required TResult Function(_GetHistoryApi value) getHistoryApi,
+    required TResult Function(_GetInfo value) getInfo,
+  }) {
+    return getHistoryApi(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetAnnouncementList value)? getAnnouncementList,
+    TResult? Function(_GetFilterClear value)? getFilterClear,
+    TResult? Function(_GetRegions value)? getRegions,
+    TResult? Function(_GetIsHistory value)? getIsHistory,
+    TResult? Function(_GetFilter value)? getFilter,
+    TResult? Function(_GetHistoryApi value)? getHistoryApi,
+    TResult? Function(_GetInfo value)? getInfo,
+  }) {
+    return getHistoryApi?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetAnnouncementList value)? getAnnouncementList,
+    TResult Function(_GetFilterClear value)? getFilterClear,
+    TResult Function(_GetRegions value)? getRegions,
+    TResult Function(_GetIsHistory value)? getIsHistory,
+    TResult Function(_GetFilter value)? getFilter,
+    TResult Function(_GetHistoryApi value)? getHistoryApi,
+    TResult Function(_GetInfo value)? getInfo,
+    required TResult orElse(),
+  }) {
+    if (getHistoryApi != null) {
+      return getHistoryApi(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _GetHistoryApi implements AnnouncementListEvent {
+  factory _GetHistoryApi(
+      {final int? bodyType,
+      final int? driveType,
+      final int? engineType,
+      final int? gearboxType,
+      final String? regionIn,
+      final bool? isNew,
+      final int? priceFrom,
+      final int? priceTo,
+      final int? yearFrom,
+      final int? yearTo,
+      final int? idVal,
+      final bool? isFilter,
+      final int? make,
+      final int? model}) = _$_GetHistoryApi;
+
+  int? get bodyType;
+  int? get driveType;
+  int? get engineType;
+  int? get gearboxType;
+  String? get regionIn;
+  bool? get isNew;
+  int? get priceFrom;
+  int? get priceTo;
+  int? get yearFrom;
+  int? get yearTo;
+  int? get idVal;
+  bool? get isFilter;
+  int? get make;
+  int? get model;
+  @JsonKey(ignore: true)
+  _$$_GetHistoryApiCopyWith<_$_GetHistoryApi> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -1142,6 +1904,22 @@ class _$_GetInfo implements _GetInfo {
     required TResult Function(bool isHistory) getIsHistory,
     required TResult Function(AnnouncementFilterModel filter) getFilter,
     required TResult Function(
+            int? bodyType,
+            int? driveType,
+            int? engineType,
+            int? gearboxType,
+            String? regionIn,
+            bool? isNew,
+            int? priceFrom,
+            int? priceTo,
+            int? yearFrom,
+            int? yearTo,
+            int? idVal,
+            bool? isFilter,
+            int? make,
+            int? model)
+        getHistoryApi,
+    required TResult Function(
             RangeValues? yearValues,
             RangeValues? priceValues,
             BodyTypeEntity? bodyType,
@@ -1164,6 +1942,22 @@ class _$_GetInfo implements _GetInfo {
     TResult? Function(bool isHistory)? getIsHistory,
     TResult? Function(AnnouncementFilterModel filter)? getFilter,
     TResult? Function(
+            int? bodyType,
+            int? driveType,
+            int? engineType,
+            int? gearboxType,
+            String? regionIn,
+            bool? isNew,
+            int? priceFrom,
+            int? priceTo,
+            int? yearFrom,
+            int? yearTo,
+            int? idVal,
+            bool? isFilter,
+            int? make,
+            int? model)?
+        getHistoryApi,
+    TResult? Function(
             RangeValues? yearValues,
             RangeValues? priceValues,
             BodyTypeEntity? bodyType,
@@ -1185,6 +1979,22 @@ class _$_GetInfo implements _GetInfo {
     TResult Function(List<Region> regions)? getRegions,
     TResult Function(bool isHistory)? getIsHistory,
     TResult Function(AnnouncementFilterModel filter)? getFilter,
+    TResult Function(
+            int? bodyType,
+            int? driveType,
+            int? engineType,
+            int? gearboxType,
+            String? regionIn,
+            bool? isNew,
+            int? priceFrom,
+            int? priceTo,
+            int? yearFrom,
+            int? yearTo,
+            int? idVal,
+            bool? isFilter,
+            int? make,
+            int? model)?
+        getHistoryApi,
     TResult Function(
             RangeValues? yearValues,
             RangeValues? priceValues,
@@ -1211,6 +2021,7 @@ class _$_GetInfo implements _GetInfo {
     required TResult Function(_GetRegions value) getRegions,
     required TResult Function(_GetIsHistory value) getIsHistory,
     required TResult Function(_GetFilter value) getFilter,
+    required TResult Function(_GetHistoryApi value) getHistoryApi,
     required TResult Function(_GetInfo value) getInfo,
   }) {
     return getInfo(this);
@@ -1224,6 +2035,7 @@ class _$_GetInfo implements _GetInfo {
     TResult? Function(_GetRegions value)? getRegions,
     TResult? Function(_GetIsHistory value)? getIsHistory,
     TResult? Function(_GetFilter value)? getFilter,
+    TResult? Function(_GetHistoryApi value)? getHistoryApi,
     TResult? Function(_GetInfo value)? getInfo,
   }) {
     return getInfo?.call(this);
@@ -1237,6 +2049,7 @@ class _$_GetInfo implements _GetInfo {
     TResult Function(_GetRegions value)? getRegions,
     TResult Function(_GetIsHistory value)? getIsHistory,
     TResult Function(_GetFilter value)? getFilter,
+    TResult Function(_GetHistoryApi value)? getHistoryApi,
     TResult Function(_GetInfo value)? getInfo,
     required TResult orElse(),
   }) {
@@ -1282,6 +2095,8 @@ mixin _$AnnouncementListState {
   List<AnnouncementListEntity> get announcementList =>
       throw _privateConstructorUsedError;
   AnnouncementFilterModel get filter => throw _privateConstructorUsedError;
+  SearchHistoryModel get searchHistoryEntity =>
+      throw _privateConstructorUsedError;
   RangeValues get yearValues => throw _privateConstructorUsedError;
   RangeValues get priceValues => throw _privateConstructorUsedError;
   int get idVal => throw _privateConstructorUsedError;
@@ -1312,6 +2127,7 @@ abstract class $AnnouncementListStateCopyWith<$Res> {
       bool isHistory,
       List<AnnouncementListEntity> announcementList,
       AnnouncementFilterModel filter,
+      SearchHistoryModel searchHistoryEntity,
       RangeValues yearValues,
       RangeValues priceValues,
       int idVal,
@@ -1344,6 +2160,7 @@ class _$AnnouncementListStateCopyWithImpl<$Res,
     Object? isHistory = null,
     Object? announcementList = null,
     Object? filter = null,
+    Object? searchHistoryEntity = null,
     Object? yearValues = null,
     Object? priceValues = null,
     Object? idVal = null,
@@ -1392,6 +2209,10 @@ class _$AnnouncementListStateCopyWithImpl<$Res,
           ? _value.filter
           : filter // ignore: cast_nullable_to_non_nullable
               as AnnouncementFilterModel,
+      searchHistoryEntity: null == searchHistoryEntity
+          ? _value.searchHistoryEntity
+          : searchHistoryEntity // ignore: cast_nullable_to_non_nullable
+              as SearchHistoryModel,
       yearValues: null == yearValues
           ? _value.yearValues
           : yearValues // ignore: cast_nullable_to_non_nullable
@@ -1439,6 +2260,7 @@ abstract class _$$_AnnouncementListCopyWith<$Res>
       bool isHistory,
       List<AnnouncementListEntity> announcementList,
       AnnouncementFilterModel filter,
+      SearchHistoryModel searchHistoryEntity,
       RangeValues yearValues,
       RangeValues priceValues,
       int idVal,
@@ -1468,6 +2290,7 @@ class __$$_AnnouncementListCopyWithImpl<$Res>
     Object? isHistory = null,
     Object? announcementList = null,
     Object? filter = null,
+    Object? searchHistoryEntity = null,
     Object? yearValues = null,
     Object? priceValues = null,
     Object? idVal = null,
@@ -1516,6 +2339,10 @@ class __$$_AnnouncementListCopyWithImpl<$Res>
           ? _value.filter
           : filter // ignore: cast_nullable_to_non_nullable
               as AnnouncementFilterModel,
+      searchHistoryEntity: null == searchHistoryEntity
+          ? _value.searchHistoryEntity
+          : searchHistoryEntity // ignore: cast_nullable_to_non_nullable
+              as SearchHistoryModel,
       yearValues: null == yearValues
           ? _value.yearValues
           : yearValues // ignore: cast_nullable_to_non_nullable
@@ -1558,6 +2385,7 @@ class _$_AnnouncementList implements _AnnouncementList {
       this.isHistory = false,
       final List<AnnouncementListEntity> announcementList = const [],
       this.filter = const AnnouncementFilterModel(),
+      this.searchHistoryEntity = SearchHistoryModel,
       this.yearValues = const RangeValues(1960, 2023),
       this.priceValues = const RangeValues(1000, 500000),
       this.idVal = 0,
@@ -1613,6 +2441,9 @@ class _$_AnnouncementList implements _AnnouncementList {
   final AnnouncementFilterModel filter;
   @override
   @JsonKey()
+  final SearchHistoryModel searchHistoryEntity;
+  @override
+  @JsonKey()
   final RangeValues yearValues;
   @override
   @JsonKey()
@@ -1632,7 +2463,7 @@ class _$_AnnouncementList implements _AnnouncementList {
 
   @override
   String toString() {
-    return 'AnnouncementListState(status: $status, selected: $selected, next: $next, search: $search, count: $count, regions: $regions, isFilter: $isFilter, isHistory: $isHistory, announcementList: $announcementList, filter: $filter, yearValues: $yearValues, priceValues: $priceValues, idVal: $idVal, gearboxTypeEntity: $gearboxTypeEntity, bodyTypeEntity: $bodyTypeEntity, driveTypeEntity: $driveTypeEntity)';
+    return 'AnnouncementListState(status: $status, selected: $selected, next: $next, search: $search, count: $count, regions: $regions, isFilter: $isFilter, isHistory: $isHistory, announcementList: $announcementList, filter: $filter, searchHistoryEntity: $searchHistoryEntity, yearValues: $yearValues, priceValues: $priceValues, idVal: $idVal, gearboxTypeEntity: $gearboxTypeEntity, bodyTypeEntity: $bodyTypeEntity, driveTypeEntity: $driveTypeEntity)';
   }
 
   @override
@@ -1654,6 +2485,8 @@ class _$_AnnouncementList implements _AnnouncementList {
             const DeepCollectionEquality()
                 .equals(other._announcementList, _announcementList) &&
             (identical(other.filter, filter) || other.filter == filter) &&
+            (identical(other.searchHistoryEntity, searchHistoryEntity) ||
+                other.searchHistoryEntity == searchHistoryEntity) &&
             (identical(other.yearValues, yearValues) ||
                 other.yearValues == yearValues) &&
             (identical(other.priceValues, priceValues) ||
@@ -1680,6 +2513,7 @@ class _$_AnnouncementList implements _AnnouncementList {
       isHistory,
       const DeepCollectionEquality().hash(_announcementList),
       filter,
+      searchHistoryEntity,
       yearValues,
       priceValues,
       idVal,
@@ -1706,6 +2540,7 @@ abstract class _AnnouncementList implements AnnouncementListState {
       final bool isHistory,
       final List<AnnouncementListEntity> announcementList,
       final AnnouncementFilterModel filter,
+      final SearchHistoryModel searchHistoryEntity,
       final RangeValues yearValues,
       final RangeValues priceValues,
       final int idVal,
@@ -1733,6 +2568,8 @@ abstract class _AnnouncementList implements AnnouncementListState {
   List<AnnouncementListEntity> get announcementList;
   @override
   AnnouncementFilterModel get filter;
+  @override
+  SearchHistoryModel get searchHistoryEntity;
   @override
   RangeValues get yearValues;
   @override

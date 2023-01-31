@@ -58,6 +58,7 @@ abstract class  LocaleKeys {
   static const Ground_clearance = 'Ground_clearance';
   static const Acceleration_to_100_kmh = 'Acceleration_to_100_kmh';
   static const Engine_power = 'Engine_power';
+  static const engine_capacity = 'engine_capacity';
   static const Curb_weight = 'Curb_weight';
   static const Fuel_consumption_per_100_km = 'Fuel_consumption_per_100_km';
   static const Transmission = 'Transmission';

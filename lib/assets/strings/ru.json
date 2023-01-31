@@ -56,6 +56,7 @@
   "Ground_clearance": "Дорожный просвет",
   "Acceleration_to_100_kmh": "Разгон до 100 км/ч",
   "Engine_power": "Мощность двигателя",
+  "engine_capacity":"Обьем двигателя",
   "Curb_weight": "Снаряженная масса",
   "Fuel_consumption_per_100_km": "Расход топлива на 100 км",
   "Transmission": "Коробка передач",

@@ -156,7 +156,7 @@ class _PostingAdScreenState extends State<PostingAdScreen>
     'Поколение',
     LocaleKeys.body.tr(),
     'Двигатель',
-    'Привод',
+    LocaleKeys.drive_unit.tr(),
     LocaleKeys.drive_gearbox.tr(),
     'Модификация',
     'Цвет автомобиля',
