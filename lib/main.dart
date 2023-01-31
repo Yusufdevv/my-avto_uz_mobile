@@ -11,7 +11,6 @@ import 'package:auto/features/ad/data/repositories/ad_repository_impl.dart';
 import 'package:auto/features/ad/domain/usecases/get_car_model.dart';
 import 'package:auto/features/ad/domain/usecases/get_makes.dart';
 import 'package:auto/features/ad/domain/usecases/get_top_makes.dart';
-import 'package:auto/features/ad/presentation/posting_ad_screen.dart';
 import 'package:auto/features/common/bloc/announcement_bloc/bloc/announcement_list_bloc.dart';
 import 'package:auto/features/common/bloc/auth/authentication_bloc.dart';
 import 'package:auto/features/common/bloc/comparison_add/bloc/comparison_add_bloc.dart';
@@ -42,6 +41,7 @@ import 'package:auto/generated/codegen_loader.g.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -50,6 +50,7 @@ void main() async {
   await EasyLocalization.ensureInitialized();
   setupLocator();
   await StorageRepository.getInstance();
+  debugRepaintRainbowEnabled = false;
   runApp(
     EasyLocalization(
         supportedLocales: const [

@@ -18,7 +18,7 @@ class ReelsScreen extends StatefulWidget {
   State<ReelsScreen> createState() => _ReelsScreenState();
 }
 
-class _ReelsScreenState extends State<ReelsScreen> {
+class _ReelsScreenState extends State<ReelsScreen> with TickerProviderStateMixin {
   late ReelsBloc bloc;
   late PageController _pageController;
   int _currentPage = 0;
@@ -29,34 +29,8 @@ class _ReelsScreenState extends State<ReelsScreen> {
     bloc = ReelsBloc()..add(InitialEvent(isFromMain: widget.isFromMain));
     _pageController = PageController(keepPage: true);
     _pageController.addListener(_scrollListener);
+    AnimationController(duration: const Duration(seconds: 2), vsync: this);
     super.initState();
-  }
-
-  void _scrollListener() {
-    if (_isOnPageTurning &&
-        _pageController.page == _pageController.page!.roundToDouble()) {
-      setState(() {
-        _currentPage = _pageController.page!.toInt();
-        _isOnPageTurning = false;
-        _getMore();
-      });
-    } else if (!_isOnPageTurning &&
-        _currentPage.toDouble() != _pageController.page) {
-      if ((_currentPage.toDouble() - _pageController.page!).abs() > 0.7) {
-        setState(() {
-          _isOnPageTurning = true;
-        });
-      }
-    }
-  }
-
-  void _getMore() {
-    if (_currentPage == bloc.state.reels.length - 1 &&
-        !bloc.state.statusReelsGet.isSubmissionInProgress &&
-        bloc.state.hasNext) {
-      bloc.add(GetMoreReelsEvent(
-          isFromMain: widget.isFromMain, offset: bloc.state.reels.length - 1));
-    }
   }
 
   @override
@@ -130,4 +104,31 @@ class _ReelsScreenState extends State<ReelsScreen> {
           ),
         ),
       );
+
+  void _scrollListener() {
+    if (_isOnPageTurning &&
+        _pageController.page == _pageController.page!.roundToDouble()) {
+      setState(() {
+        _currentPage = _pageController.page!.toInt();
+        _isOnPageTurning = false;
+        _getMore();
+      });
+    } else if (!_isOnPageTurning &&
+        _currentPage.toDouble() != _pageController.page) {
+      if ((_currentPage.toDouble() - _pageController.page!).abs() > 0.7) {
+        setState(() {
+          _isOnPageTurning = true;
+        });
+      }
+    }
+  }
+
+  void _getMore() {
+    if (_currentPage == bloc.state.reels.length - 1 &&
+        !bloc.state.statusReelsGet.isSubmissionInProgress &&
+        bloc.state.hasNext) {
+      bloc.add(GetMoreReelsEvent(
+          isFromMain: widget.isFromMain, offset: bloc.state.reels.length - 1));
+    }
+  }
 }
