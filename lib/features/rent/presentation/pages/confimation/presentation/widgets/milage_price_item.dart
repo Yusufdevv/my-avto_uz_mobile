@@ -36,7 +36,7 @@ class MileagePriceItem extends StatelessWidget {
             Row(
               children: [
                 Text(
-                  'Детское кресло',
+                  LocaleKeys.baby_chair.tr(),
                   style: Theme.of(context)
                       .textTheme
                       .headline6!

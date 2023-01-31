@@ -58,12 +58,9 @@ class _ServiceTypeItemState extends State<ServiceTypeItem> {
                 style: widget.isSelect
                     ? Theme.of(context)
                         .textTheme
-                        .bodyText1!
-                        .copyWith(fontSize: 14, color: orange)
-                    : Theme.of(context)
-                        .textTheme
-                        .headline1!
-                        .copyWith(fontWeight: FontWeight.w600, fontSize: 14),
+                        .subtitle1!
+                        .copyWith(color: orange)
+                    : Theme.of(context).textTheme.subtitle1,
               )
             ],
           ),

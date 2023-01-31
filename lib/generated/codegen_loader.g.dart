@@ -200,6 +200,7 @@ class CodegenLoader extends AssetLoader{
   "orange": "Оранжевый",
   "add_name": "Введите имя",
   "add_email": "Введите электронную почту",
+  "vin_check_text": "VIN проверка позволит получиить детализированную информацию об автомобиле",
   "confirm": "Подтвердить",
   "avialable_hours": "Доступные часы",
   "the_user_is_only_available_in": "Пользователь доступен только в",
@@ -290,6 +291,7 @@ class CodegenLoader extends AssetLoader{
   "conditioner": "Кондиционер",
   "baby_chair": "Детское кресло",
   "full_tank_of_gasoline": "Полный бак бензина",
+  "clean_car": "Чистая машина",
   "full_tank": "Полный бак",
   "automatic_box": "Автомат коробка",
   "miniwen": "Минивены",
@@ -444,19 +446,17 @@ class CodegenLoader extends AssetLoader{
   "insurance": "Страхование",
   "commercial_vehicles": "Коммерческий транспорт",
   "rent_Car": "RentCar",
-  "characteristics_are_the_same_as_PTS": "Характеристики совпадают с ПТС",
-  "one_owner_in_PTS": "1 владелец в ПТС",
-  "t_more_checkpoints": "Ещё 20 пунктов проверки",
-  "collateral_search": "Поиск данных о залоге",
-  "t_entries_in_the_history_of_operation": "12 записей в истории эксплутации"
+  "car_make": "Марку автомобиля"
 };
 static const Map<String,dynamic> uz = {
   "price_of_similar_cars": "Shu kabi avtomobillarning o'rtacha narxi",
   "see_price_statustic": "Narxlar statistikasini ko'rish",
   "how_price_is_calculated": "O'rtacha narx qanday hisoblanadi",
   "we_compared_all_parameters": "Biz auto.uz’dagi barcha o‘xshash avtomobillarni parametrlari bo‘yicha solishtirdik:",
+  "vin_check_text": "VIN tekshiruvi sizga olish imkonini beradi batafsil ma'lumot mashina haqida",
   "report_vin": "Hisobot (VIN)",
   "compare": "Taqqoslash",
+  "clean_car": "Toza mashina",
   "position": "Lavozim",
   "from": "dan",
   "to": "gacha",
@@ -876,11 +876,7 @@ static const Map<String,dynamic> uz = {
   "insurance": "Sug'urtalash xizmati",
   "commercial_vehicles": "Tijoriy transport",
   "rent_Car": "RentCar",
-  "characteristics_are_the_same_as_PTS": "Xususiyatlari PTS bilan bir xil",
-  "one_owner_in_PTS": "PTSda 1 ta ega",
-  "t_entries_in_the_history_of_operation": "Faoliyat tarixida 12 ta yozuv",
-  "collateral_search": "Garovni qidirish",
-  "t_more_checkpoints": "Yana 20 ta nazorat punkti"
+  "car_make": "Марку автомобиля"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ru": ru, "uz": uz};
 }
