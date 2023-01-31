@@ -86,9 +86,11 @@ class FilterButtonsWidget extends StatelessWidget {
                       list: context.read<RegionsBloc>().state.regions,
                     ),
                   ).then((value) {
+                    context.read<AnnouncementListBloc>().add(
+                        AnnouncementListEvent.getIsHistory(value!.isEmpty));
                     context
                         .read<AnnouncementListBloc>()
-                        .add(AnnouncementListEvent.getRegions(value!));
+                        .add(AnnouncementListEvent.getRegions(value));
                     context
                         .read<AnnouncementListBloc>()
                         .add(AnnouncementListEvent.getAnnouncementList());
