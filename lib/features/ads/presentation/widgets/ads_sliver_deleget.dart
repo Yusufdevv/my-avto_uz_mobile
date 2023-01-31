@@ -33,7 +33,6 @@ class AdsSliverWidget extends SliverPersistentHeaderDelegate {
               LocaleKeys.with_Mileage.tr()
             ],
           ),
-          const SizedBox(height: 16),
           CommercialCarModelItem(
               title: context.read<GetMakesBloc>().state.name,
               subtitle: context.read<GetCarModelBloc>().state.name,
@@ -85,9 +84,7 @@ class AdsSliverWidget extends SliverPersistentHeaderDelegate {
                                           .getAnnouncementList());
                                 }))));
               }),
-          const SizedBox(height: 12),
           FilterButtonsWidget(size: size, theme: theme),
-          const SizedBox(height: 16),
         ],
       );
 

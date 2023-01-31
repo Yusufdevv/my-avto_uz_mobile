@@ -235,6 +235,7 @@ class AppIcons {
   static const blueCheckRounded = 'assets/icons/car_single/blue_check.svg';
   static const redWarning = 'assets/icons/car_single/red_warning.svg';
   static const yellowWarning = 'assets/icons/car_single/yellow_warning.svg';
+  static const comparGreen = 'assets/icons/car_single/compar_green.svg';
 
   static const greyPhoneCall = 'assets/icons/global/grey_phone_call.svg';
   static const inet_error = 'assets/icons/global/inet_error.svg';

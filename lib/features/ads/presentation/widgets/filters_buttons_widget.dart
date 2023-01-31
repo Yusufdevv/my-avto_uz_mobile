@@ -27,7 +27,7 @@ class FilterButtonsWidget extends StatelessWidget {
   Widget build(BuildContext context) =>
       BlocBuilder<AnnouncementListBloc, AnnouncementListState>(
         builder: (context, state) => Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
+          padding: const EdgeInsets.only(right: 16,left: 16,bottom: 12),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
