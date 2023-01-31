@@ -319,7 +319,7 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
                       ? const Center(child: CupertinoActivityIndicator())
                       : ListView.builder(
                           controller: _makesController,
-                          padding: const EdgeInsets.only(bottom: 66, left: 16),
+                          padding: const EdgeInsets.only(bottom: 66),
                           itemBuilder: (context, index) => ChangeCarItems(
                             hasBorder: (state.makes.length - 1) != index,
                             onTap: () {

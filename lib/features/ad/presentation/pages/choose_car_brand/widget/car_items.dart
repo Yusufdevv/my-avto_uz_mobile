@@ -33,83 +33,92 @@ class ChangeCarItems extends StatelessWidget {
         behavior: HitTestBehavior.opaque,
         child: Container(
           height: 54,
-          padding: const EdgeInsets.only(right: 16, top: 5, bottom: 5),
           decoration: BoxDecoration(
             color: id == selectedId
                 ? Theme.of(context).extension<ThemedColors>()!.snowToNightRider
                 : Colors.transparent,
-            border: hasBorder
-                ? Border(
-                    bottom: BorderSide(
-                      width: 1,
-                      color: Theme.of(context).dividerColor,
-                    ),
-                  )
-                : null,
           ),
-          child: SizedBox(
-            height: 54,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const SizedBox(/* for fix alignment*/),
+              Padding(
+                padding: const EdgeInsets.only(left: 16, right: 20),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    SizedBox(
-                      height: 36,
-                      width: 36,
-                      child: ClipRRect(
-                          borderRadius: BorderRadius.circular(8),
-                          child:
+                    Row(
+                      children: [
+                        SizedBox(
+                          height: 36,
+                          width: 36,
+                          child: ClipRRect(
+                              borderRadius: BorderRadius.circular(8),
+                              child:
 
-                              // imageUrl.isEmpty
-                              //     ?
+                                  // imageUrl.isEmpty
+                                  //     ?
 
-                              Image.asset(
-                            AppImages.defaultPhoto,
-                            height: 36,
-                            fit: BoxFit.cover,
-                          )
-                          // : CachedNetworkImage(
-                          //     imageUrl: imageUrl,
-                          //     height: 36,
-                          //     width: 36,
-                          //     fit: BoxFit.cover,
-                          //     errorWidget: (context, url, error) =>
-                          //         Image.asset(
-                          //       AppImages.defaultPhoto,
-                          //       height: 36,
-                          //       fit: BoxFit.cover,
-                          //     ),
-                          //   ),
-                          ),
-                    ),
-                    const SizedBox(width: 12),
-                    HighlightedText(
-                      allText: name,
-                      highlightedText: '',
-                      terms: text.split(' '),
-                      highlightColor:
-                          LightThemeColors.tangerineYellowToMediumSlateBlue,
-                      textStyle: Theme.of(context)
-                          .textTheme
-                          .headline1!
-                          .copyWith(fontSize: 16, fontWeight: FontWeight.w600),
-                      textStyleHighlight:
-                          Theme.of(context).textTheme.headline1!.copyWith(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w600,
+                                  Image.asset(
+                                AppImages.defaultPhoto,
+                                height: 36,
+                                fit: BoxFit.cover,
+                              )
+                              // : CachedNetworkImage(
+                              //     imageUrl: imageUrl,
+                              //     height: 36,
+                              //     width: 36,
+                              //     fit: BoxFit.cover,
+                              //     errorWidget: (context, url, error) =>
+                              //         Image.asset(
+                              //       AppImages.defaultPhoto,
+                              //       height: 36,
+                              //       fit: BoxFit.cover,
+                              //     ),
+                              //   ),
                               ),
+                        ),
+                        const SizedBox(width: 12),
+                        HighlightedText(
+                          allText: name,
+                          highlightedText: '',
+                          terms: text.split(' '),
+                          highlightColor:
+                              LightThemeColors.tangerineYellowToMediumSlateBlue,
+                          textStyle: Theme.of(context)
+                              .textTheme
+                              .headline1!
+                              .copyWith(
+                                  fontSize: 16, fontWeight: FontWeight.w600),
+                          textStyleHighlight:
+                              Theme.of(context).textTheme.headline1!.copyWith(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                        ),
+                      ],
                     ),
+                    if (id == selectedId)
+                      SvgPicture.asset(
+                        AppIcons.check,
+                        color: orange,
+                        height: 14,
+                      ),
                   ],
                 ),
-                if (id == selectedId)
-                  SvgPicture.asset(
-                    AppIcons.check,
-                    color: orange,
-                    height: 14,
-                  ),
-              ],
-            ),
+              ),
+              if (hasBorder) ...{
+                Divider(
+                  height: 1,
+                  color: Theme.of(context).dividerColor,
+                  thickness: 1,
+                  indent: 16,
+                ),
+              } else ...{
+                const SizedBox()
+              },
+            ],
           ),
         ),
       );
