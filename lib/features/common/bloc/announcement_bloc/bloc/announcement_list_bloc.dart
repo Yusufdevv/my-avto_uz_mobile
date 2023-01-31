@@ -22,7 +22,7 @@ part 'announcement_list_bloc.freezed.dart';
 class AnnouncementListBloc
     extends Bloc<AnnouncementListEvent, AnnouncementListState> {
   AnnouncementListUseCase useCase;
-  AdRepository repository = serviceLocator<AdRepository>();
+  // AdRepository repository = serviceLocator<AdRepository>();
   AnnouncementListBloc({required this.useCase})
       : super(AnnouncementListState()) {
     on<_GetAnnouncementList>((event, emit) async {
