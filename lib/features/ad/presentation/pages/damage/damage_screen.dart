@@ -10,6 +10,7 @@ import 'package:auto/features/ad/presentation/pages/damage/widgets/situation_ite
 import 'package:auto/features/ad/presentation/pages/damage/widgets/situation_with_title.dart';
 import 'package:auto/features/ad/presentation/widgets/base_widget.dart';
 import 'package:auto/features/ad/presentation/widgets/damage_type_sheet.dart';
+import 'package:auto/generated/locale_keys.g.dart';
 import 'package:auto/utils/my_functions.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -141,7 +142,7 @@ class _DamageScreenState extends State<DamageScreen>
                               _showChoosDamageTypeSheet(
                                   DamagedParts.rightFrontDoor);
                             },
-                            position: 'Правая передняя дверь',
+                            position: LocaleKeys.right_front_door.tr(),
                             damageType:
                                 state.damagedParts[DamagedParts.rightFrontDoor],
                           ),
@@ -150,7 +151,7 @@ class _DamageScreenState extends State<DamageScreen>
                               _showChoosDamageTypeSheet(
                                   DamagedParts.rightRearDoor);
                             },
-                            position: 'Правая задняя дверь',
+                            position: LocaleKeys.right_rear_door.tr(),
                             damageType:
                                 state.damagedParts[DamagedParts.rightRearDoor],
                           ),
@@ -174,7 +175,7 @@ class _DamageScreenState extends State<DamageScreen>
                               _showChoosDamageTypeSheet(
                                   DamagedParts.frontBumper);
                             },
-                            position: 'Передний бамфер',
+                            position: LocaleKeys.front_bumper.tr(),
                             damageType:
                                 state.damagedParts[DamagedParts.frontBumper]),
                         SituationItem(
@@ -249,7 +250,7 @@ class _DamageScreenState extends State<DamageScreen>
                       onTap: () {
                         _showChoosDamageTypeSheet(DamagedParts.roof);
                       },
-                      title: 'Крыша',
+                      title: LocaleKeys.roof.tr(),
                       damageType: state.damagedParts[DamagedParts.roof]),
 
                   // HOOD
@@ -257,7 +258,7 @@ class _DamageScreenState extends State<DamageScreen>
                     onTap: () {
                       _showChoosDamageTypeSheet(DamagedParts.hood);
                     },
-                    title: 'Капот',
+                    title: LocaleKeys.hood.tr(),
                     damageType: state.damagedParts[DamagedParts.hood],
                   ),
 
@@ -266,7 +267,7 @@ class _DamageScreenState extends State<DamageScreen>
                     onTap: () {
                       _showChoosDamageTypeSheet(DamagedParts.trunk);
                     },
-                    title: 'Багажник',
+                    title: LocaleKeys.trunk.tr(),
                     damageType: state.damagedParts[DamagedParts.trunk],
                   ),
                 ],

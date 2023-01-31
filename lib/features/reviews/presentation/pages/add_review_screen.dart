@@ -29,8 +29,8 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
   int completed = 1;
   final List<String> titles = [
     'Категория',
-    'Марка',
-    'Модель',
+    LocaleKeys.brand.tr(),
+    LocaleKeys.model.tr(),
     LocaleKeys.year_of_issue.tr(),
     'Покаление',
     'Тип кузова',

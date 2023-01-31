@@ -10,8 +10,8 @@ class VinPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        appBar: const WAppBar(
-          title: 'Отчёт о проверке по VIN',
+        appBar:  WAppBar(
+          title: LocaleKeys.VIN_check_report.tr(),
         ),
         body: Container(
           padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
