@@ -116,7 +116,12 @@ class WAppBar extends StatelessWidget implements PreferredSizeWidget {
                                 Navigator.pop(context);
                               },
                           child: Padding(
-                            padding: const EdgeInsets.only(left: 16, right: 8),
+                            padding: const EdgeInsets.only(
+                              left: 16,
+                              right: 16,
+                              top: 8,
+                              bottom: 8,
+                            ),
                             child: SvgPicture.asset(AppIcons.chevronLeft),
                           ),
                         ),

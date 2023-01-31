@@ -13,9 +13,18 @@ class ImageBloc extends Bloc<ImageEvent, ImageState> {
 
   ImageBloc()
       : super(ImageState(
+          panaramaImages: const [],
           images: const [],
           image: File(''),
         )) {
+    on<PickPanaramaImageEvent>((event, emit) async {
+      final image = await imagePicker.pickImage(source: ImageSource.gallery);
+      print(
+          '=> => => => picked panarama image path    ${image?.path}    <= <= <= <=');
+      if (image != null) {
+        emit(state.copyWith(panaramaImages: [image.path, ...state.panaramaImages]));
+      }
+    });
     on<PickImage>((event, emit) async {
       final image = await imagePicker.pickImage(source: event.source);
       if (image != null) {

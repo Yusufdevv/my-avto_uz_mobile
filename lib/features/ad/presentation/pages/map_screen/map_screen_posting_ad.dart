@@ -7,6 +7,7 @@ import 'package:auto/features/ad/presentation/pages/map_screen/widgets/submit_sh
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
 import 'package:auto/features/common/widgets/custom_screen.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
+import 'package:auto/features/rent/domain/usecases/rent_usecase.dart';
 import 'package:auto/utils/my_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -271,12 +272,11 @@ class _MapScreenPostingAdState extends State<MapScreenPostingAd>
                   ),
                   Positioned(
                     bottom: 0,
-                    child: PostingAdSubmitBox(
-                      onTab: state.lat == 0
-                          ? null
-                          : () => Navigator.of(context).pop(
-                              [state.lat,state.long,zoomLevel]),
-                    ),
+                    child: PostingAdSubmitBox(onTab: () {
+                     if (state.lat == 0) return;
+                      Navigator.of(context)
+                          .pop([state.lat, state.long, zoomLevel]);
+                    }),
                   ),
                 ],
               ),

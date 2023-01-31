@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:auto/core/exceptions/exceptions.dart';
 import 'package:auto/core/exceptions/failures.dart';
@@ -388,7 +389,7 @@ class AdRepositoryImpl extends AdRepository {
   }
 
   @override
-  Future<Either<Failure, String>> getMapScreenShot({required Map<String, String> params}) async{
+  Future<Either<Failure, Uint8List>> getMapScreenShot({required Map<String, String> params}) async{
     try {
       final result = await remoteDataSource.getMapScreenShot(params);
       return Right(result);

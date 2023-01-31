@@ -1,5 +1,5 @@
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
-import 'package:auto/features/common/bloc/ads/presentation/pages/ads_screen.dart';
+import 'package:auto/features/ads/presentation/pages/ads_screen.dart';
 import 'package:auto/features/common/bloc/announcement_bloc/bloc/announcement_list_bloc.dart';
 import 'package:auto/features/common/bloc/get_car_model/get_car_model_bloc.dart';
 import 'package:auto/features/common/bloc/get_makes_bloc/get_makes_bloc_bloc.dart';
@@ -198,53 +198,60 @@ class _ComparisonState extends State<Comparison> {
               ),
             )
           ],
-          body: SingleChildScrollView(
-            physics: const NeverScrollableScrollPhysics(),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  color:
-                      Theme.of(context).extension<ThemedColors>()!.whiteToNero,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(top: 12, left: 16),
-                        child: Text(
-                          LocaleKeys.characters.tr(),
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline1!
-                              .copyWith(fontSize: 18),
+          body: NotificationListener<OverscrollIndicatorNotification>(
+            onNotification: (overscroll) {
+              overscroll.disallowIndicator();
+              return true;
+            },
+            child: SingleChildScrollView(
+              physics: const NeverScrollableScrollPhysics(),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    color: Theme.of(context)
+                        .extension<ThemedColors>()!
+                        .whiteToNero,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(top: 12, left: 16),
+                          child: Text(
+                            LocaleKeys.characters.tr(),
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline1!
+                                .copyWith(fontSize: 18),
+                          ),
                         ),
-                      ),
-                      CharacteristicsParametersWidget(
-                        onChanged: (integer) {
-                          setState(() {
-                            currentValueOfComplectation = integer;
-                          });
-                        },
-                        selectedValue: currentValueOfComplectation,
-                        comparisonParameters: complectationParameters[0],
-                        numberOfAddedCars: state.cars,
-                        controller: scrollControllers[0],
-                      ),
-                      EngineParametersWidget(
-                        onChanged: (integer) {
-                          setState(() {
-                            currentValueOfCharacteristics = integer;
-                          });
-                        },
-                        selectedValue: currentValueOfCharacteristics,
-                        comparisonParameters: complectationParameters[1],
-                        numberOfAddedCars: state.cars,
-                        controller: scrollControllers[1],
-                      ),
-                    ],
+                        CharacteristicsParametersWidget(
+                          onChanged: (integer) {
+                            setState(() {
+                              currentValueOfComplectation = integer;
+                            });
+                          },
+                          selectedValue: currentValueOfComplectation,
+                          comparisonParameters: complectationParameters[0],
+                          numberOfAddedCars: state.cars,
+                          controller: scrollControllers[0],
+                        ),
+                        EngineParametersWidget(
+                          onChanged: (integer) {
+                            setState(() {
+                              currentValueOfCharacteristics = integer;
+                            });
+                          },
+                          selectedValue: currentValueOfCharacteristics,
+                          comparisonParameters: complectationParameters[1],
+                          numberOfAddedCars: state.cars,
+                          controller: scrollControllers[1],
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

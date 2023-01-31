@@ -60,13 +60,7 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
   }
 
   void _nestListener() {
-    print(
-        '=> => => =>  is not animating    ${!BlocProvider.of<ChooseMakeAnimeBloc>(context, listen: false).state.isAnimating}    <= <= <= <=');
-    print(
-        '=> => => =>  is not animating    ${BlocProvider.of<ChooseMakeAnimeBloc>(context, listen: false).state.isCollapsed}    <= <= <= <=');
-
-    print('=> => => =>     nest listeener     <= <= <= <=');
-    if (ScrollDirection.reverse ==
+ if (ScrollDirection.reverse ==
         _nestsController.position.userScrollDirection) {
       if (!BlocProvider.of<ChooseMakeAnimeBloc>(context, listen: false)
               .state
@@ -91,7 +85,6 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
         });
       }
     } else {
-      print('=> => => =>    NEST   ELSE      <= <= <= <=');
       if (!BlocProvider.of<ChooseMakeAnimeBloc>(context, listen: false)
               .state
               .isAnimating &&
@@ -116,7 +109,6 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
   }
 
   void _makesListener() {
-    print('=> => => =>     make listeener     <= <= <= <=');
     if (ScrollDirection.reverse ==
         _makesController.position.userScrollDirection) {
       if (!BlocProvider.of<ChooseMakeAnimeBloc>(context, listen: false)
@@ -144,7 +136,6 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
         });
       }
     } else {
-      print('=> => => =>     MAKE ELSE    <= <= <= <=');
       if (!BlocProvider.of<ChooseMakeAnimeBloc>(context, listen: false)
               .state
               .isAnimating &&
@@ -328,8 +319,9 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
                       ? const Center(child: CupertinoActivityIndicator())
                       : ListView.builder(
                           controller: _makesController,
-                          padding: const EdgeInsets.only(bottom: 50),
+                          padding: const EdgeInsets.only(bottom: 66, left: 16),
                           itemBuilder: (context, index) => ChangeCarItems(
+                            hasBorder: (state.makes.length - 1) != index,
                             onTap: () {
                               context.read<PostingAdBloc>().add(
                                     PostingAdChooseEvent(

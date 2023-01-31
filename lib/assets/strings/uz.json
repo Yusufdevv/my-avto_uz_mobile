@@ -3,8 +3,17 @@
   "see_price_statustic": "Narxlar statistikasini ko'rish",
   "report_vin": "Hisobot (VIN)",
   "compare": "Taqqoslash",
+  "optimal":"Optimal",
+  "excellent":"Ajoyib",
+  "overpriced":"Haddan tashqari",
   "note": "Eslatma",
   "share": "Ulashish",
+  "optimal_price":"Optimal narx",
+  "cheaper_sc":"Arzonroq s.c:",
+  "ratio":"Nisbat",
+  "market_condition_on":"Bozor holati yoqilgan",
+  "how_the_average_price_is_calculated":"O'rtacha narx qanday hisoblanadi",
+  "average_price":"O'rtacha narx:",
   "choose_car": "Avtomobil markasini tanlang",
   "search": "Qidirish",
   "further": "Keyingi",
@@ -41,6 +50,7 @@
   "VIN_check_report": "VIN tekshiruvi hisoboti",
   "buy_full_report": "Umumiy hisobotni sotib olish",
   "show_free_report": "Tekin hisobotni ko'rsatish",
+  "actions_single":"Harakatlar",
   "checked_by_autouz": "auto.uz da tekshirilgan",
   "cancel": "Bekor qilish",
   "copy_url": "Havolani nusxalash",
@@ -51,6 +61,9 @@
   "no_data":"Natija yoʻq",
   "no_data_commit":"Kechirasiz, qidiruvingiz uchun hech qanday natija topilmadi.",
   "sorting":"Tartiblash",
+  "what_was_ordered" : "Belgilanmagan",
+  "show_all" : "Hammasini ko'rsatish",
+  "a_y_s_y_w_t_c_t_a" : "Haqiqatan ham e'lonni yakunlamoqchimisiz?",
   "options":"Parametrlar",
   "select_currency":"Valyutani tanlang",
   "all_regions":"Barcha viloyatlar",
@@ -64,6 +77,7 @@
   "all_marks": "Barcha markalar",
   "every_day": "Har kuni",
   "very_soon": "Tez orada...",
+  "all_notifications_are_read" : "Barcha xabarlar o'qildi",
   "contacts": "Kontaktlar",
   "show_contact": "Kontaktni ko'rsatish",
   "private_person": "Jismoniy shaxs",
@@ -392,7 +406,8 @@
   "carshering" : "Karshering",
   "insurance" : "Sug'urtalash xizmati",
   "commercial_vehicles" : "Tijoriy transport",
-  "rent_Car" : "RentCar"
+  "rent_Car" : "RentCar",
+  "car_make":"Марку автомобиля"
 
 
 

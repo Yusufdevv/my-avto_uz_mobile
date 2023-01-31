@@ -27,67 +27,70 @@ class SearchedModelsItem extends StatelessWidget {
   Widget build(BuildContext context) => Container(
         padding: const EdgeInsets.symmetric(vertical: 10),
         color: white,
-        child: WButton(
-          color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
-          padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: InkWell(
           onTap: onTap,
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              CachedNetworkImage(
-                imageUrl: imageUrl,
-                imageBuilder: (context, imageProvider) => Container(
-                  decoration: BoxDecoration(
-                    image: DecorationImage(image: imageProvider),
-                  ),
-                  height: 32,
-                  width: 32,
-                  padding: const EdgeInsets.all(4),
-                ),
-                errorWidget: (context, url, error) => Container(
-                  height: 32,
-                  padding: const EdgeInsets.all(4),
-                  width: 32,
-                  decoration: BoxDecoration(
-                    border: Border.all(color: dividerColor),
-                    borderRadius: BorderRadius.circular(150),
-                  ),
-                  child: SvgPicture.asset(AppIcons.car),
-                ),
-              ),
-              const SizedBox(width: 12),
-              Flexible(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    WHighlightedText(
-                      overflow: TextOverflow.ellipsis,
-                      allText: fullText,
-                      highlightedText: searchText,
-                      highlightColor:
-                          LightThemeColors.tangerineYellowToMediumSlateBlue,
-                      textStyle: Theme.of(context)
-                          .textTheme
-                          .subtitle1!
-                          .copyWith(fontSize: 13),
-                      textStyleHighlight: Theme.of(context)
-                          .textTheme
-                          .subtitle1!
-                          .copyWith(fontSize: 13),
-                      textAlign: TextAlign.start,
+          child: Container(
+            color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+           
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                CachedNetworkImage(
+                  imageUrl: imageUrl,
+                  imageBuilder: (context, imageProvider) => Container(
+                    decoration: BoxDecoration(
+                      image: DecorationImage(image: imageProvider),
                     ),
-                    Text(
-                      vehicleType,
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline2!
-                          .copyWith(fontSize: 12),
-                    )
-                  ],
+                    height: 32,
+                    width: 32,
+                    padding: const EdgeInsets.all(4),
+                  ),
+                  errorWidget: (context, url, error) => Container(
+                    height: 32,
+                    padding: const EdgeInsets.all(4),
+                    width: 32,
+                    decoration: BoxDecoration(
+                      border: Border.all(color: dividerColor),
+                      borderRadius: BorderRadius.circular(150),
+                    ),
+                    child: SvgPicture.asset(AppIcons.car),
+                  ),
                 ),
-              ),
-            ],
+                const SizedBox(width: 12),
+                Flexible(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      WHighlightedText(
+                        overflow: TextOverflow.ellipsis,
+                        allText: fullText,
+                        highlightedText: searchText,
+                        highlightColor:
+                            LightThemeColors.tangerineYellowToMediumSlateBlue,
+                        textStyle: Theme.of(context)
+                            .textTheme
+                            .subtitle1!
+                            .copyWith(fontSize: 13),
+                        textStyleHighlight: Theme.of(context)
+                            .textTheme
+                            .subtitle1!
+                            .copyWith(fontSize: 13),
+                        textAlign: TextAlign.start,
+                      ),
+                      Text(
+                        vehicleType,
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline2!
+                            .copyWith(fontSize: 12),
+                      )
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       );

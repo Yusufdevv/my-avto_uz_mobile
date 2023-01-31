@@ -88,7 +88,8 @@ class PostingAdChooseEvent extends PostingAdEvent {
   final TextEditingController? phoneController;
   final TextEditingController? emailController;
   final TextEditingController? nameController;
-  List<String>? gallery;
+  final List<String>? gallery;
+  final List<String>? panaramaGallery;
   final Region? region;
   final List<YearsEntity>? years;
   final int? districtId;
@@ -104,7 +105,7 @@ class PostingAdChooseEvent extends PostingAdEvent {
   final int? driveTypeId;
   final int? gearboxId;
   final int? yearId;
-  final String? bodyBytes;
+  final Uint8List? bodyBytes;
   final String? letter;
   final String? colorName;
   final String? typeDocument;
@@ -137,6 +138,7 @@ class PostingAdChooseEvent extends PostingAdEvent {
   final bool? isNew;
 
   PostingAdChooseEvent({
+    this.panaramaGallery,
     this.bodyBytes,
     this.yearId,
     this.locationUrl,

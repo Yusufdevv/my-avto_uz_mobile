@@ -4,9 +4,11 @@ import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/car_single/presentation/car_single_screen.dart';
+import 'package:auto/features/common/bloc/comparison_add/bloc/comparison_add_bloc.dart';
 import 'package:auto/features/common/bloc/wishlist_add/wishlist_add_bloc.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
+import 'package:auto/features/profile/presentation/bloc/user_wishlists_notifications/user_wishlists_notification_bloc.dart';
 import 'package:auto/features/profile/presentation/widgets/car_name_year_widget.dart';
 import 'package:auto/features/search/presentation/part/bottom_sheet_for_calling.dart';
 import 'package:auto/features/search/presentation/widgets/add_comparison_item.dart';
@@ -19,6 +21,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:formz/formz.dart';
 
 class FavoriteItem extends StatefulWidget {
   const FavoriteItem(
@@ -43,10 +46,11 @@ class FavoriteItem extends StatefulWidget {
       required this.id,
       required this.index,
       required this.animation,
+      required this.bloc,
       this.onTap,
       this.sellType,
       super.key});
-
+  final UserWishListsBloc bloc;
   final List<String> gallery;
   final String contactPhone;
   final String carModelName;
@@ -92,8 +96,10 @@ class _FavoriteItemState extends State<FavoriteItem> {
         child: GestureDetector(
           onTap: () {
             Navigator.of(context)
-                .push(fade(page: CarSingleScreen(id: widget.id)));
-          }, behavior: HitTestBehavior.opaque,
+                .push(fade(page: CarSingleScreen(id: widget.id)))
+                .then((value) => widget.bloc.add(GetUserFavoritesEvent()));
+          },
+          behavior: HitTestBehavior.opaque,
           child: Container(
             width: MediaQuery.of(context).size.width,
             padding: const EdgeInsets.only(top: 12, left: 16, bottom: 8),
@@ -243,7 +249,10 @@ class _FavoriteItemState extends State<FavoriteItem> {
                         ),
                   ),
                 const SizedBox(height: 12),
-                CarNameYearWidget(carName: widget.carModelName, carYear: widget.carYear.toString(), isNew: widget.isNew),
+                CarNameYearWidget(
+                    carName: widget.carModelName,
+                    carYear: widget.carYear.toString(),
+                    isNew: widget.isNew),
                 const SizedBox(height: 4),
                 Row(
                   children: [
@@ -305,28 +314,28 @@ class _FavoriteItemState extends State<FavoriteItem> {
                           fit: BoxFit.cover),
                     ),
                     const SizedBox(width: 8),
-                   RichText(
-                        text: TextSpan(
-                          children: [
-                            TextSpan(
-                              text: '${widget.userFullName}\n',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline2
-                                  ?.copyWith(fontSize: 14),
-                            ),
-                            TextSpan(
-                              text: widget.userType == 'owner'
-                                  ? LocaleKeys.private_person.tr()
-                                  : LocaleKeys.autosalon.tr(),
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyText1
-                                  ?.copyWith(color: purple),
-                            ),
-                          ],
-                        ),
-                      )
+                    RichText(
+                      text: TextSpan(
+                        children: [
+                          TextSpan(
+                            text: '${widget.userFullName}\n',
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline2
+                                ?.copyWith(fontSize: 14),
+                          ),
+                          TextSpan(
+                            text: widget.userType == 'owner'
+                                ? LocaleKeys.private_person.tr()
+                                : LocaleKeys.autosalon.tr(),
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyText1
+                                ?.copyWith(color: purple),
+                          ),
+                        ],
+                      ),
+                    )
                   ],
                 ),
                 const SizedBox(height: 16),

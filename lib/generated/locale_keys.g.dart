@@ -11,6 +11,15 @@ abstract class  LocaleKeys {
   static const search = 'search';
   static const further = 'further';
   static const more = 'more';
+  static const optimal_price = 'optimal_price';
+  static const optimal = 'optimal';
+  static const excellent = 'excellent';
+  static const overpriced = 'overpriced';
+  static const how_the_average_price_is_calculated = 'how_the_average_price_is_calculated';
+  static const average_price = 'average_price';
+  static const ratio = 'ratio';
+  static const market_condition_on = 'market_condition_on';
+  static const cheaper_sc = 'cheaper_sc';
   static const best_offers = 'best_offers';
   static const favorites = 'favorites';
   static const You_dont_have_favorites = 'You_dont_have_favorites';
@@ -22,6 +31,7 @@ abstract class  LocaleKeys {
   static const blocked_by_moderator = 'blocked_by_moderator';
   static const sold = 'sold';
   static const editing_ad = 'editing_ad';
+  static const actions_single = 'actions_single';
   static const this_ad_has_expired = 'this_ad_has_expired';
   static const your_ad_will_be_available = 'your_ad_will_be_available';
   static const call_not_available = 'call_not_available';
@@ -78,6 +88,8 @@ abstract class  LocaleKeys {
   static const very_soon = 'very_soon';
   static const news = 'news';
   static const yes = 'yes';
+  static const what_was_ordered = 'what_was_ordered';
+  static const a_y_s_y_w_t_c_t_a = 'a_y_s_y_w_t_c_t_a';
   static const categories = 'categories';
   static const our_team_developers = 'our_team_developers';
   static const sort = 'sort';
@@ -87,6 +99,7 @@ abstract class  LocaleKeys {
   static const loading_data = 'loading_data';
   static const choose_brand = 'choose_brand';
   static const choose_region = 'choose_region';
+  static const all_notifications_are_read = 'all_notifications_are_read';
   static const with_list = 'with_list';
   static const om_map = 'om_map';
   static const model = 'model';
@@ -394,10 +407,16 @@ abstract class  LocaleKeys {
   static const all_cars = 'all_cars';
   static const create_add = 'create_add';
   static const show_all_dealers = 'show_all_dealers';
+  static const show_all = 'show_all';
   static const check = 'check';
   static const carshering = 'carshering';
   static const insurance = 'insurance';
   static const commercial_vehicles = 'commercial_vehicles';
   static const rent_Car = 'rent_Car';
+  static const characteristics_are_the_same_as_PTS = 'characteristics_are_the_same_as_PTS';
+  static const one_owner_in_PTS = 'one_owner_in_PTS';
+  static const t_more_checkpoints = 't_more_checkpoints';
+  static const collateral_search = 'collateral_search';
+  static const t_entries_in_the_history_of_operation = 't_entries_in_the_history_of_operation';
 
 }

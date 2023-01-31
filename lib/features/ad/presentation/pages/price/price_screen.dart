@@ -185,10 +185,10 @@ class _PriceScreenState extends State<PriceScreen> {
                                 isDismissible: false,
                                 context: context,
                                 builder: (context) => RentToBuySheet(
-                                      step: 1,
-                                      price:
-                                          int.tryParse(state.price ?? '0') ?? 0,
-                                    )).then((value) {
+                                    price: int.tryParse(
+                                            state.price?.replaceAll(' ', '') ??
+                                                '0') ??
+                                        0)).then((value) {
                               if (value != null) {
                                 context.read<PostingAdBloc>().add(
                                         PostingAdChooseEvent(
@@ -232,10 +232,10 @@ class _PriceScreenState extends State<PriceScreen> {
                                   isDismissible: false,
                                   context: context,
                                   builder: (context) => RentToBuySheet(
-                                        step: 1,
-                                        price:
-                                            int.tryParse(state.price ?? '0') ??
-                                                0,
+                                        price: int.tryParse(state.price
+                                                    ?.replaceAll(' ', '') ??
+                                                '0') ??
+                                            0,
                                       )).then((value) {
                                 if (value != null) {
                                   context.read<PostingAdBloc>().add(

@@ -1,21 +1,21 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
-import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/presentation/bloc/add_photo/image_bloc.dart';
 import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.dart';
-import 'package:auto/features/ad/presentation/pages/add_photo/widgets/photo_item.dart';
-import 'package:auto/features/ad/presentation/pages/add_photo/widgets/plus_circle.dart';
 import 'package:auto/features/ad/presentation/pages/add_photo/widgets/add_photo_instructions_screen.dart';
+import 'package:auto/features/ad/presentation/pages/add_photo/widgets/photo_item.dart';
 import 'package:auto/features/ad/presentation/widgets/base_widget.dart';
-import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:image_picker/image_picker.dart';
 
 class AddPhotoScreen extends StatefulWidget {
   final Function(List<String>) onImageChanged;
-  const AddPhotoScreen({required this.onImageChanged, Key? key})
+  final Function(List<String>) onPanaramaChanged;
+  const AddPhotoScreen(
+      {required this.onImageChanged, required this.onPanaramaChanged, Key? key})
       : super(key: key);
 
   @override
@@ -42,7 +42,6 @@ class _AddPhotoScreenState extends State<AddPhotoScreen> {
               Padding(
                 padding: const EdgeInsets.only(bottom: 3),
                 child: GestureDetector(
-                  
                     onTap: () {
                       Navigator.of(context, rootNavigator: true)
                           .push(fade(page: const PhotoInstructionsScreen()));
@@ -56,44 +55,42 @@ class _AddPhotoScreenState extends State<AddPhotoScreen> {
               builder: (context, postingAdState) {
                 print(
                     '=> => => =>     state images lenth: ${postingAdState.gallery.length}    <= <= <= <=');
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    BlocConsumer<ImageBloc, ImageState>(
-                      listener: (context, state) =>
-                          widget.onImageChanged(state.images),
-                      builder: (context, state) =>
-                          PhotoItem(images: postingAdState.gallery),
-                    ),
-                    const SizedBox(height: 16),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: Text(
-                        'Фото 360°',
-                        style: Theme.of(context)
-                            .textTheme
-                            .subtitle1!
-                            .copyWith(color: grey),
+                return BlocConsumer<ImageBloc, ImageState>(
+                  listener: (context, state) {
+                    widget.onImageChanged(state.images);
+                    widget.onPanaramaChanged(state.panaramaImages);
+                  },
+                  builder: (context, snapshot) => Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      PhotoItem(
+                        images: postingAdState.gallery,
+                        onTap: () async {
+                          context.read<ImageBloc>().add(
+                              const PickImage(source: ImageSource.gallery));
+                        },
                       ),
-                    ),
-                    WScaleAnimation(
-                      onTap: () {},
-                      child: Container(
-                          alignment: Alignment.center,
-                          height: 110,
-                          width: double.infinity,
-                          margin: const EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 16),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8),
-                            border: Border.all(width: 1, color: purple),
-                            color: Theme.of(context)
-                                .extension<ThemedColors>()!
-                                .ghostWhiteToUltramarine10,
-                          ),
-                          child: const PlusCircle()),
-                    )
-                  ],
+                      const SizedBox(height: 16),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        child: Text(
+                          'Фото 360°',
+                          style: Theme.of(context)
+                              .textTheme
+                              .subtitle1!
+                              .copyWith(color: grey),
+                        ),
+                      ),
+                      PhotoItem(
+                        images: postingAdState.panaramaGallery,
+                        onTap: () async {
+                          context
+                              .read<ImageBloc>()
+                              .add(PickPanaramaImageEvent());
+                        },
+                      ),
+                    ],
+                  ),
                 );
               },
             ),

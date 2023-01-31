@@ -2,9 +2,9 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/colors/light.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
-import 'package:auto/features/common/bloc/ads/presentation/pages/ads_body_screen.dart';
-import 'package:auto/features/common/bloc/ads/presentation/widgets/ads_appbar_sliver_delegate.dart';
-import 'package:auto/features/common/bloc/ads/presentation/widgets/ads_sliver_deleget.dart';
+import 'package:auto/features/ads/presentation/pages/ads_body_screen.dart';
+import 'package:auto/features/ads/presentation/widgets/ads_appbar_sliver_delegate.dart';
+import 'package:auto/features/ads/presentation/widgets/ads_sliver_deleget.dart';
 import 'package:auto/features/common/bloc/announcement_bloc/bloc/announcement_list_bloc.dart';
 import 'package:auto/features/common/bloc/get_makes_bloc/get_makes_bloc_bloc.dart';
 import 'package:auto/features/common/bloc/regions/regions_bloc.dart';
@@ -113,18 +113,21 @@ class _AdsScreenState extends State<AdsScreen>
                     crossFadeState: crossFadeState,
                   ),
                   actions: [
-                    Padding(
-                      padding: const EdgeInsets.only(right: 16),
-                      child: WScaleAnimation(
-                        onTap: () {
-                          filterBottomSheet(context);
-                        },
-                        child: Align(
-                          alignment: Alignment.center,
-                          child: SvgPicture.asset(
-                            AppIcons.arrowsSort,
-                            color: orange,
-                          ),
+                    WScaleAnimation(
+                      onTap: () {
+                        filterBottomSheet(context);
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.only(
+                          right: 16,
+                          left: 16,
+                          top: 8,
+                          bottom: 8,
+                        ),
+                        alignment: Alignment.center,
+                        child: SvgPicture.asset(
+                          AppIcons.arrowsSort,
+                          color: orange,
                         ),
                       ),
                     ),
