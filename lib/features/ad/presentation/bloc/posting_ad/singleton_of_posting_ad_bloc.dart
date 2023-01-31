@@ -89,6 +89,7 @@ class PASingleton {
     }
 
     return PostingAdState(
+      searchController: TextEditingController(),
       phoneController: TextEditingController(text: phone ?? v.user.phoneNumber),
       emailController: TextEditingController(),
       nameController: TextEditingController(

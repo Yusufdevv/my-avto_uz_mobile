@@ -34,7 +34,6 @@ class ChooseCarBrand extends StatefulWidget {
 class _ChooseCarBrandState extends State<ChooseCarBrand> {
   late ScrollController _nestsController;
   late ScrollController _makesController;
-  late TextEditingController searchController;
   late ColorTween _bgTweenColor;
   late ColorTween _fillTweenColor;
   late ColorTween _headerTextTweenColor;
@@ -55,12 +54,11 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
     );
     _nestsController = ScrollController()..addListener(_nestListener);
     _makesController = ScrollController()..addListener(_makesListener);
-    searchController = TextEditingController();
     super.initState();
   }
 
   void _nestListener() {
- if (ScrollDirection.reverse ==
+    if (ScrollDirection.reverse ==
         _nestsController.position.userScrollDirection) {
       if (!BlocProvider.of<ChooseMakeAnimeBloc>(context, listen: false)
               .state
@@ -163,7 +161,6 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
 
   @override
   void dispose() {
-    searchController.dispose();
     super.dispose();
   }
 
@@ -231,12 +228,16 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
                                 .evaluate(animeState.scaleAnimation),
                             filled: true,
                             margin: const EdgeInsets.only(left: 16, right: 16),
-                            onChanged: (value) => () {},
+                            onChanged: (value) {
+                              print('=> => => =>     onchanged    <= <= <= <=');
+                              widget.postingAddBloc
+                                  .add(PostingAdSearchMakesEvent(name: value));
+                            },
                             borderRadius: 12,
                             hasSearch: true,
                             hintText: LocaleKeys.search.tr(),
                             height: 40,
-                            controller: searchController,
+                            controller: state.searchController,
                             hasClearButton: true,
                             textStyle: Theme.of(context)
                                 .textTheme
@@ -315,7 +316,8 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
                 body: Container(
                   color:
                       Theme.of(context).extension<ThemedColors>()!.whiteToDark,
-                  child: state.status == FormzStatus.submissionInProgress
+                  child: state.getMakesStatus ==
+                          FormzStatus.submissionInProgress
                       ? const Center(child: CupertinoActivityIndicator())
                       : ListView.builder(
                           controller: _makesController,
@@ -335,7 +337,7 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
                             id: state.makes[index].id,
                             imageUrl: state.makes[index].logo,
                             name: state.makes[index].name,
-                            text: searchController.text,
+                            text: state.searchController.text,
                           ),
                           itemCount: state.makes.length,
                         ),

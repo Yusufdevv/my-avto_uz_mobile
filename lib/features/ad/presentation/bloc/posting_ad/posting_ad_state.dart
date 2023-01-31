@@ -1,10 +1,15 @@
 part of 'posting_ad_bloc.dart';
 
 class PostingAdState extends Equatable {
+  final FormzStatus status;
+  final FormzStatus getDistrictsStatus;
+  final FormzStatus getMakesStatus;
+  final FormzStatus createStatus;
   final String? id;
   final TextEditingController phoneController;
   final TextEditingController emailController;
   final TextEditingController nameController;
+  final TextEditingController searchController;
   final int? gearboxId;
   final List<GearboxTypeEntity> gearBoxes;
   final int? driveTypeId;
@@ -23,10 +28,7 @@ class PostingAdState extends Equatable {
   final Region? region;
   final List<Region> regions;
   final List<DistrictEntity> districts;
-  final FormzStatus status;
-  final FormzStatus getDistrictsStatus;
 
-  final FormzStatus createStatus;
   final int? yearId;
   final List<YearsEntity>? years;
   final int? districtId;
@@ -68,6 +70,7 @@ class PostingAdState extends Equatable {
 
   const PostingAdState({
     required this.status,
+    required this.searchController,
     required this.phoneController,
     required this.emailController,
     required this.nameController,
@@ -126,6 +129,7 @@ class PostingAdState extends Equatable {
     this.districts = const <DistrictEntity>[],
     this.getDistrictsStatus = FormzStatus.pure,
     this.createStatus = FormzStatus.pure,
+    this.getMakesStatus = FormzStatus.pure,
     this.toastMessage,
     this.userModel,
     this.locationUrl,
@@ -145,6 +149,7 @@ class PostingAdState extends Equatable {
     TextEditingController? phoneController,
     TextEditingController? emailController,
     TextEditingController? nameController,
+    TextEditingController? searchController,
     Map<DamagedParts, DamageType>? damagedParts,
     List<RentWithPurchaseEntity>? rentWithPurchaseConditions,
     int? districtId,
@@ -152,6 +157,7 @@ class PostingAdState extends Equatable {
     FormzStatus? status,
     FormzStatus? getDistrictsStatus,
     FormzStatus? createStatus,
+    FormzStatus? getMakesStatus,
     int? gearboxId,
     List<GearboxTypeEntity>? gearBoxes,
     int? driveTypeId,
@@ -209,6 +215,8 @@ class PostingAdState extends Equatable {
     // print('====   ACTUALLY IN STATE:  ${this.districts}  ====');
     // print('==== INCOMING DISTRICT TO COPYWITH:  ${districts}  ====');
     final newState = PostingAdState(
+      getMakesStatus: getMakesStatus ?? this.getMakesStatus,
+      searchController: searchController ?? this.searchController,
       panaramaGallery: panaramaGallery ?? this.panaramaGallery,
       createStatus: createStatus ?? this.createStatus,
       mapPointBytes: mapPointBytes ?? this.mapPointBytes,
@@ -282,6 +290,8 @@ class PostingAdState extends Equatable {
 
   @override
   List<Object?> get props => [
+        getMakesStatus,
+        searchController,
         panaramaGallery,
         createStatus,
         mapPointBytes,

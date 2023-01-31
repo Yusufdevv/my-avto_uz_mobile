@@ -72,7 +72,7 @@ class _PostingAdScreenState extends State<PostingAdScreen>
   late GlobalKey globalKey;
   late int currentTabIndex;
   late AnimationController animeController;
-  static int initialPage = 10;
+  static int initialPage = 0;
   final int tabLength = 20;
   @override
   void initState() {

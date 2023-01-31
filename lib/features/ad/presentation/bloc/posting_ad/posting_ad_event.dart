@@ -68,9 +68,13 @@ class PostingAdEnginesEvent extends PostingAdEvent {
   PostingAdEnginesEvent();
 }
 
-class PostingAdMakesEvent extends PostingAdEvent {
+class PostingAdSearchMakesEvent extends PostingAdEvent {
   final String? name;
-  PostingAdMakesEvent({this.name});
+  PostingAdSearchMakesEvent({this.name});
+}
+
+class PostingAdMakesEvent extends PostingAdEvent {
+  PostingAdMakesEvent();
 }
 
 class PostingAdTopMakesEvent extends PostingAdEvent {
@@ -88,6 +92,7 @@ class PostingAdChooseEvent extends PostingAdEvent {
   final TextEditingController? phoneController;
   final TextEditingController? emailController;
   final TextEditingController? nameController;
+  final TextEditingController? searchController;
   final List<String>? gallery;
   final List<String>? panaramaGallery;
   final Region? region;
@@ -138,6 +143,7 @@ class PostingAdChooseEvent extends PostingAdEvent {
   final bool? isNew;
 
   PostingAdChooseEvent({
+    this.searchController,
     this.panaramaGallery,
     this.bodyBytes,
     this.yearId,

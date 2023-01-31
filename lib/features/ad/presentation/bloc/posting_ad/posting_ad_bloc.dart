@@ -3,8 +3,6 @@ import 'dart:async';
 import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/core/usecases/usecase.dart';
 import 'package:auto/features/ad/const/constants.dart';
-import 'package:auto/features/ad/data/models/announcement_to_post_model.dart';
-import 'package:auto/features/ad/domain/entities/damaged_part/damaged_part.dart';
 import 'package:auto/features/ad/domain/entities/district_entity.dart';
 import 'package:auto/features/ad/domain/entities/generation/generation.dart';
 import 'package:auto/features/ad/domain/entities/rent_with_purchase/rent_with_purchase_entity.dart';
@@ -88,11 +86,11 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     required this.bodyTypesUseCase,
     required this.createUseCase,
   }) : super(PostingAdState(
-          status: FormzStatus.pure,
-          phoneController: TextEditingController(),
-          emailController: TextEditingController(),
-          nameController: TextEditingController(),
-        )) {
+            status: FormzStatus.pure,
+            phoneController: TextEditingController(),
+            emailController: TextEditingController(),
+            nameController: TextEditingController(),
+            searchController: TextEditingController())) {
     on<PostingAdChooseEvent>(_choose);
     on<PostingAdMakesEvent>(_makes);
     on<PostingAdTopMakesEvent>(_topMakes);
@@ -116,7 +114,25 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     on<PostingAdGetYearsEvent>(_getYears);
     on<PostingAdGetMapScreenShotEvent>(_screenShot);
     on<PostingAdAddEventForEveryPage>(_addEvent);
+    on<PostingAdSearchMakesEvent>(_searchMake);
   }
+  FutureOr<void> _searchMake(
+      PostingAdSearchMakesEvent event, Emitter<PostingAdState> emit) async {
+    emit(state.copyWith(getMakesStatus: FormzStatus.submissionInProgress));
+    final result = await makeUseCase.call(event.name);
+    if (result.isRight) {
+      emit(state.copyWith(
+          getMakesStatus: FormzStatus.submissionSuccess,
+          makes: result.right.results));
+    } else {
+      emit(state.copyWith(
+          getMakesStatus: FormzStatus.submissionFailure,
+          toastMessage: (result.left is ServerFailure)
+              ? (result.left as ServerFailure).errorMessage
+              : null));
+    }
+  }
+
   FutureOr<void> _addEvent(
       PostingAdAddEventForEveryPage event, Emitter<PostingAdState> emit) {
     switch (event.page) {
@@ -155,7 +171,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
 
   FutureOr<void> _screenShot(PostingAdGetMapScreenShotEvent event,
       Emitter<PostingAdState> emit) async {
-        print('=> => => =>     screenshot triggered    <= <= <= <=');
+    print('=> => => =>     screenshot triggered    <= <= <= <=');
     final url =
         'https://yandex.com/maps/10335/tashkent/?ll=${event.long}%2C${event.lat}&z=${event.zoomLevel}';
     print('=> => => =>  url:   $url    <= <= <= <=');
@@ -165,9 +181,10 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
             'https://yandex.com/maps/10335/tashkent/?ll=${event.long}%2C${event.lat}&z=${event.zoomLevel}'));
     final result = await screenShotUseCase
         .call({'longitude': '${event.long}', 'latitude': '${event.lat}'});
-       
+
     if (result.isRight) {
-      print('=> => => =>     lenth in bloc: ${result.right.length}    <= <= <= <=');
+      print(
+          '=> => => =>     lenth in bloc: ${result.right.length}    <= <= <= <=');
       emit(state.copyWith(
           status: FormzStatus.submissionSuccess, mapPointBytes: result.right));
     } else {
@@ -480,24 +497,24 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
   FutureOr<void> _makes(
       PostingAdMakesEvent event, Emitter<PostingAdState> emit) async {
     if (state.makes.isNotEmpty) {
-      emit(state.copyWith(status: FormzStatus.submissionSuccess));
+      emit(state.copyWith(getMakesStatus: FormzStatus.submissionSuccess));
       return;
     }
 
-    emit(state.copyWith(status: FormzStatus.submissionInProgress));
+    emit(state.copyWith(getMakesStatus: FormzStatus.submissionInProgress));
 
-    final result = await makeUseCase.call(event.name);
+    final result = await makeUseCase.call(null);
     if (result.isRight) {
       emit(
         state.copyWith(
-          status: FormzStatus.submissionSuccess,
+          getMakesStatus: FormzStatus.submissionSuccess,
           makes: result.right.results,
         ),
       );
     } else {
       emit(
         state.copyWith(
-          status: FormzStatus.submissionFailure,
+          getMakesStatus: FormzStatus.submissionFailure,
         ),
       );
     }
