@@ -28,44 +28,47 @@ class CommercialCarModelItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).extension<ThemedColors>()!;
-    return Expanded(
-      child: WButton(
-        onTap: onTap,
-        color: theme.solitudeToGondola,
-        border: Border.all(
-          width: 1,
-          color: theme.solitudeToPayneGrey,
-        ),
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        margin: const EdgeInsets.symmetric(horizontal: 16),
-        child: Row(
-          children: [
-            if (imageUrl.isEmpty)
-              SvgPicture.asset(
+    return WButton(
+      onTap: onTap,
+      color: theme.solitudeToGondola,
+      border: Border.all(
+        width: 1,
+        color: theme.solitudeToPayneGrey,
+      ),
+      height: MediaQuery.of(context).size.height*.063,
+      margin: const EdgeInsets.only(top: 16, bottom: 12, right: 16, left: 16),
+      child: Row(
+        children: [
+          if (imageUrl.isEmpty)
+            Padding(
+              padding:
+                  const EdgeInsets.only(right: 16, top: 8, bottom: 8, left: 12),
+              child: SvgPicture.asset(
                 AppIcons.vehicle,
                 width: 24,
                 height: 24,
-              )
-            else
-              CachedNetworkImage(
+              ),
+            )
+          else
+            Padding(
+              padding:
+                  const EdgeInsets.only(right: 16, top: 8, bottom: 8, left: 12),
+              child: CachedNetworkImage(
                 imageUrl: imageUrl,
                 height: 36,
                 width: 36,
                 fit: BoxFit.cover,
               ),
-            const SizedBox(
-              width: 12,
             ),
-            Container(
-              margin: const EdgeInsets.symmetric(vertical: 6),
-              width: 1,
-              height: 20,
-              color: theme.solitudeToCharcoal,
-            ),
-            const SizedBox(
-              width: 12,
-            ),
-            Column(
+          Container(
+            margin: const EdgeInsets.symmetric(vertical: 6),
+            width: 1,
+            height: 20,
+            color: theme.solitudeToCharcoal,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+            child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -76,12 +79,12 @@ class CommercialCarModelItem extends StatelessWidget {
                 if (subtitle!.isNotEmpty)
                   Text(
                     subtitle!,
-                    style:Theme.of(context).textTheme.headline2,
+                    style: Theme.of(context).textTheme.headline2,
                   )
               ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
