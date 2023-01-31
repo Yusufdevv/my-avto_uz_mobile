@@ -43,8 +43,8 @@ class DioSettings {
     ))
     ..interceptors.add(Chuck(
       navigatorKey: AppConstants.navigatorKey,
-      showNotification: chuck,
-      showInspectorOnShake: chuck,
+      showNotification: chuck || kDebugMode,
+      showInspectorOnShake: chuck || kDebugMode,
       darkTheme: false,
     ).getDioInterceptor());
 }
