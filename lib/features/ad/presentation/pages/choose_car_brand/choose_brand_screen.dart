@@ -228,11 +228,8 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
                                 .evaluate(animeState.scaleAnimation),
                             filled: true,
                             margin: const EdgeInsets.only(left: 16, right: 16),
-                            onChanged: (value) {
-                              print('=> => => =>     onchanged    <= <= <= <=');
-                              widget.postingAddBloc
-                                  .add(PostingAdSearchMakesEvent(name: value));
-                            },
+                            onChanged: (value) => widget.postingAddBloc
+                                .add(PostingAdSearchMakesEvent(name: value)),
                             borderRadius: 12,
                             hasSearch: true,
                             hintText: LocaleKeys.search.tr(),
