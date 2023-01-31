@@ -7,6 +7,18 @@ abstract class  LocaleKeys {
   static const compare = 'compare';
   static const note = 'note';
   static const share = 'share';
+  static const from = 'from';
+  static const to = 'to';
+  static const soon = 'soon';
+  static const roof = 'roof';
+  static const hood = 'hood';
+  static const trunk = 'trunk';
+  static const understandably = 'understandably';
+  static const left_front_door = 'left_front_door';
+  static const left_rear_door = 'left_rear_door';
+  static const right_front_door = 'right_front_door';
+  static const right_rear_door = 'right_rear_door';
+  static const front_bumper = 'front_bumper';
   static const choose_car = 'choose_car';
   static const search = 'search';
   static const further = 'further';
@@ -174,6 +186,7 @@ abstract class  LocaleKeys {
   static const add_email = 'add_email';
   static const confirm = 'confirm';
   static const avialable_hours = 'avialable_hours';
+  static const the_user_is_only_available_in = 'the_user_is_only_available_in';
   static const incognito_mode = 'incognito_mode';
   static const buyers_more_call_on_add = 'buyers_more_call_on_add';
   static const description_dont_do = 'description_dont_do';
@@ -208,6 +221,10 @@ abstract class  LocaleKeys {
   static const generation = 'generation';
   static const motor = 'motor';
   static const drive_unit = 'drive_unit';
+  static const paint_condition = 'paint_condition';
+  static const position = 'position';
+  static const how_price_is_calculated = 'how_price_is_calculated';
+  static const we_compared_all_parameters = 'we_compared_all_parameters';
   static const drive_gearbox = 'drive_gearbox';
   static const modification = 'modification';
   static const color = 'color';

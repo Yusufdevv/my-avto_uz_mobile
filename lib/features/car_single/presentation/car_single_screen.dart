@@ -24,7 +24,9 @@ import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
 import 'package:auto/features/common/widgets/custom_screen.dart';
 import 'package:auto/features/main/presentation/widgets/ads_item.dart';
 import 'package:auto/features/pagination/presentation/paginator.dart';
+import 'package:auto/generated/locale_keys.g.dart';
 import 'package:auto/utils/my_functions.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -232,8 +234,8 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                                   state.singleEntity.modificationType.volume,
                               gearType: state.singleEntity.gearboxType.type,
                               uzb: state.singleEntity.isRegisteredLocally
-                                  ? 'Да'
-                                  : 'Нет',
+                                  ? LocaleKeys.yes.tr()
+                                  : LocaleKeys.no.tr(),
                               priceBsh: state.singleEntity.price,
                               middlePrice: state
                                   .singleEntity.priceAnalytics.averagePrice,

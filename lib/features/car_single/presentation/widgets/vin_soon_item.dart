@@ -1,5 +1,7 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/images.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class VinSoonItem extends StatelessWidget {
@@ -39,7 +41,7 @@ class VinSoonItem extends StatelessWidget {
                 ),
               ),
               child: Text(
-                'В скором времени',
+                LocaleKeys.soon.tr(),
                 style: Theme.of(context).textTheme.headline1!.copyWith(
                       color: white,
                       fontWeight: FontWeight.w600,
@@ -55,12 +57,11 @@ class VinSoonItem extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Отчёт о проверке по VIN',
-                        style: Theme.of(context).textTheme.headline1!.copyWith(
-                              color: const Color(0xff171725),
-                              fontWeight: FontWeight.w700,
-                              fontSize: 18,
-                            ),
+                        LocaleKeys.VIN_check_report.tr(),
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline1!
+                            .copyWith(fontSize: 18),
                       ),
                       const SizedBox(
                         height: 12,
@@ -69,11 +70,7 @@ class VinSoonItem extends StatelessWidget {
                         'VIN проверка позволит получиить детализированную информацию об автомобиле',
                         maxLines: 3,
                         overflow: TextOverflow.ellipsis,
-                        style: Theme.of(context).textTheme.headline1!.copyWith(
-                              color: const Color(0xff171725),
-                              fontWeight: FontWeight.w400,
-                              fontSize: 14,
-                            ),
+                        style: Theme.of(context).textTheme.headline2,
                       ),
                     ],
                   ),

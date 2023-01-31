@@ -82,8 +82,8 @@ class CarCharacteristicImage extends StatelessWidget {
                 CarStatusIconInPicture(
                   informAboutDoors: informAboutDoors,
                   doorName: 'front_bumper',
-                  top: height * 0.2,
-                  left: width * 0.133,
+                  top: height * 0.196,
+                  left: width * 0.136,
                 ),
                 CarStatusIconInPicture(
                   informAboutDoors: informAboutDoors,

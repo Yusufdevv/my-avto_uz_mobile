@@ -25,21 +25,22 @@ class AboutCarPriceBottom extends StatelessWidget {
             Row(
               children: [
                 Text(
-                  'Как рассчитывается \nсредняя цена',
-                  style: Theme.of(context).textTheme.headline2!.copyWith(
-                      fontWeight: FontWeight.w700,
-                      fontSize: 24,
-                      color: const Color(0xff171725)),
+                  LocaleKeys.how_the_average_price_is_calculated.tr(),
+                  style: Theme.of(context).textTheme.headline1,
                 ),
                 const Spacer(),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.pop(context);
-                  },    behavior: HitTestBehavior.opaque,
-                  child: SvgPicture.asset(
-                    AppIcons.close,
-                    width: 32,
-                    height: 32,
+                SizedBox(
+                  width: 32,
+                  height: 32,
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    behavior: HitTestBehavior.opaque,
+                    child: SvgPicture.asset(
+                      AppIcons.close,
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
               ],
@@ -49,14 +50,11 @@ class AboutCarPriceBottom extends StatelessWidget {
               child: Divider(),
             ),
             Text(
-              'Мы сравнили все похожие авто на \nauto.uz по параметрам:',
-              style: Theme.of(context).textTheme.headline2!.copyWith(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 16,
-                    color: const Color(
-                      0xff171725,
-                    ),
-                  ),
+              LocaleKeys.we_compared_all_parameters.tr(),
+              style: Theme.of(context)
+                  .textTheme
+                  .headline2!
+                  .copyWith(color: dark, fontSize: 16),
             ),
             Container(
               decoration: BoxDecoration(
@@ -79,12 +77,10 @@ class AboutCarPriceBottom extends StatelessWidget {
                           ),
                           Text(
                             LocaleKeys.year_of_issue.tr(),
-                            style:
-                                Theme.of(context).textTheme.headline1!.copyWith(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w600,
-                                      color: dark,
-                                    ),
+                            style: Theme.of(context)
+                                .textTheme
+                                .subtitle2!
+                                .copyWith(color: dark),
                           )
                         ],
                       ),
@@ -99,12 +95,10 @@ class AboutCarPriceBottom extends StatelessWidget {
                           ),
                           Text(
                             LocaleKeys.Mileage.tr(),
-                            style:
-                                Theme.of(context).textTheme.headline1!.copyWith(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w600,
-                                      color: dark,
-                                    ),
+                            style: Theme.of(context)
+                                .textTheme
+                                .subtitle2!
+                                .copyWith(color: dark),
                           )
                         ],
                       ),
@@ -118,19 +112,17 @@ class AboutCarPriceBottom extends StatelessWidget {
                             width: 4,
                           ),
                           Text(
-                            'Позиция',
-                            style:
-                                Theme.of(context).textTheme.headline1!.copyWith(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w600,
-                                      color: dark,
-                                    ),
+                            LocaleKeys.position.tr(),
+                            style: Theme.of(context)
+                                .textTheme
+                                .subtitle2!
+                                .copyWith(color: dark),
                           )
                         ],
                       ),
                     ],
                   ),
-                  Spacer(),
+                  const Spacer(),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -141,13 +133,11 @@ class AboutCarPriceBottom extends StatelessWidget {
                             width: 4,
                           ),
                           Text(
-                            'Марка',
-                            style:
-                                Theme.of(context).textTheme.headline1!.copyWith(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w600,
-                                      color: dark,
-                                    ),
+                            LocaleKeys.brand.tr(),
+                            style: Theme.of(context)
+                                .textTheme
+                                .subtitle2!
+                                .copyWith(color: dark),
                           )
                         ],
                       ),
@@ -161,13 +151,11 @@ class AboutCarPriceBottom extends StatelessWidget {
                             width: 4,
                           ),
                           Text(
-                            'Модель',
-                            style:
-                                Theme.of(context).textTheme.headline1!.copyWith(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w600,
-                                      color: dark,
-                                    ),
+                            LocaleKeys.model.tr(),
+                            style: Theme.of(context)
+                                .textTheme
+                                .subtitle2!
+                                .copyWith(color: dark),
                           )
                         ],
                       ),
@@ -181,13 +169,11 @@ class AboutCarPriceBottom extends StatelessWidget {
                             width: 4,
                           ),
                           Text(
-                            'Состояние краски',
-                            style:
-                                Theme.of(context).textTheme.headline1!.copyWith(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w600,
-                                      color: dark,
-                                    ),
+                            LocaleKeys.paint_condition.tr(),
+                            style: Theme.of(context)
+                                .textTheme
+                                .subtitle2!
+                                .copyWith(color: dark),
                           ),
                         ],
                       ),
