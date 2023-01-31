@@ -59,6 +59,15 @@ class _AdsScreenState extends State<AdsScreen>
     _scrollController = ScrollController()..addListener(_scrollListener);
     tabController = TabController(length: 3, vsync: this);
     context.read<RegionsBloc>().add(RegionsEvent.getRegions());
+    context
+        .read<AnnouncementListBloc>()
+        .add(AnnouncementListEvent.getInfo(isFilter: false));
+    context
+        .read<AnnouncementListBloc>()
+        .add(AnnouncementListEvent.getIsHistory(true));
+    context
+        .read<AnnouncementListBloc>()
+        .add(AnnouncementListEvent.getFilterClear());
     context.read<AnnouncementListBloc>().add(AnnouncementListEvent.getIsHistory(
         context.read<GetMakesBloc>().state.selectId <= 0));
     super.initState();

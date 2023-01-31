@@ -46,9 +46,9 @@ class _RentCommercialScreenState extends State<RentCommercialScreen> {
           BlocBuilder<CommercialBloc, CommercialState>(
             builder: (context, state) {
               if (state.status.isSubmissionInProgress) {
-                return const Center(
-                  child: CupertinoActivityIndicator(),
-                );
+                return SizedBox(
+                    height: MediaQuery.of(context).size.height * .8,
+                    child: const Center(child: CupertinoActivityIndicator()));
               } else if (state.status.isSubmissionSuccess) {
                 if (state.list.isNotEmpty) {
                   return Padding(

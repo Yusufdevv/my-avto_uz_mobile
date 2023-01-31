@@ -28,7 +28,9 @@ class _CarsScreenState extends State<CarsScreen> {
         child: BlocBuilder<RentBloc, RentState>(
           builder: (context, state) {
             if (state.status.isSubmissionInProgress) {
-              return const Center(child: CupertinoActivityIndicator());
+              return SizedBox(
+                height: MediaQuery.of(context).size.height*.8,
+                  child: const Center(child: CupertinoActivityIndicator()));
             } else if (state.status.isSubmissionSuccess) {
               if (state.list.isNotEmpty) {
                 return Column(
@@ -172,7 +174,8 @@ class _CarsScreenState extends State<CarsScreen> {
                 );
               } else {
                 return Container(
-                  margin: EdgeInsets.only(top: MediaQuery.of(context).size.height*.2),
+                  margin: EdgeInsets.only(
+                      top: MediaQuery.of(context).size.height * .2),
                   child: const NoDataWidget(),
                 );
               }
