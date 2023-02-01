@@ -23,29 +23,30 @@ class _YearIssueScreennState extends State<YearIssueScreenn> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-          body: BlocBuilder<PostingAdBloc, PostingAdState>(
-        builder: (context, state) => BaseWidget(
-          headerText:  LocaleKeys.year_of_issue.tr(),
-          child: state.status == FormzStatus.submissionInProgress
-              ? const Center(child: CupertinoActivityIndicator())
-              : ListView.builder(
-                  physics: const BouncingScrollPhysics(),
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) => GestureDetector(
-
-    behavior: HitTestBehavior.opaque,                    onTap: () {
-                      context.read<PostingAdBloc>().add(
-                          PostingAdChooseEvent(yearId: state.years![index].id));
-                    },
-                    child: YearItem(
-                      beginYear: '${state.years![index].yearBegin}',
-                      endYear: '${state.years![index].yearEnd}',
-                      isSelected:
-                          (state.yearId ?? -1) == state.years![index].id,
+        body: BlocBuilder<PostingAdBloc, PostingAdState>(
+          builder: (context, state) => BaseWidget(
+            headerText: LocaleKeys.year_of_issue.tr(),
+            child: state.status == FormzStatus.submissionInProgress
+                ? const Center(child: CupertinoActivityIndicator())
+                : ListView.builder(
+                    physics: const BouncingScrollPhysics(),
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) => GestureDetector(
+                      behavior: HitTestBehavior.opaque,
+                      onTap: () {
+                        context.read<PostingAdBloc>().add(PostingAdChooseEvent(
+                            yearEntity: state.years![index]));
+                      },
+                      child: YearItem(
+                        beginYear: '${state.years![index].yearBegin}',
+                        endYear: '${state.years![index].yearEnd}',
+                        isSelected:
+                            (state.yearEntity?.id ?? -1) == state.years![index].id,
+                      ),
                     ),
+                    itemCount: state.years?.length ?? 0,
                   ),
-                  itemCount: state.years?.length ?? 0,
-                ),
+          ),
         ),
-      ));
+      );
 }

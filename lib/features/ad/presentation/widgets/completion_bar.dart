@@ -27,7 +27,7 @@ class CompletionBar extends StatelessWidget {
         child: visibile
             ? Container(
                 height: 2,
-                width: screenWidth / totalSteps,
+                width: (screenWidth / totalSteps) * currentStep,
                 color: progressBarColor,
               )
             : null,

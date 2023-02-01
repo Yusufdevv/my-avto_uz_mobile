@@ -1,4 +1,5 @@
 import 'package:auto/assets/colors/color.dart';
+import 'package:auto/assets/constants/formatters.dart';
 import 'package:auto/assets/themes/theme_extensions/w_textfield_style.dart';
 import 'package:auto/features/ad/presentation/bloc/mileage/mileage_image_bloc.dart';
 import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.dart';
@@ -70,7 +71,8 @@ class _MileageScreenState extends State<MileageScreen> {
                               .isWithoutMileage ??
                           false)) ...{
                         WTextField(
-                          maxLength: 6,
+                          textInputFormatters: [ThousandsSeparatorInputFormatter()],
+                          maxLength: 12,
                           hideCounterText: true,
                           onChanged: (value) => context
                               .read<PostingAdBloc>()

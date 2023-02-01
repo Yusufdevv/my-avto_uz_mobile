@@ -25,7 +25,7 @@ class _ModificationScreenState extends State<ModificationScreen> {
                 return const Center(child: CupertinoActivityIndicator());
               }
               if (state.modifications.isEmpty) {
-                const Center(child: Text('No Modifications available'));
+                return const Center(child: Text('No Modifications available'));
               }
               return ListView.builder(
                 itemBuilder: (context, index) => PostingRadioItem(
@@ -37,7 +37,7 @@ class _ModificationScreenState extends State<ModificationScreen> {
                         modificationId: state.modifications[index].id));
                   },
                   title:
-                      '${state.modifications[index].power} ${state.modifications[index].volume}',
+                      'Volume ${state.modifications[index].volume} Power (${state.modifications[index].power})',
                 ),
                 itemCount: 2,
                 shrinkWrap: true,

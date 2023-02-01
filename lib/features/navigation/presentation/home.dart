@@ -1,9 +1,11 @@
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/features/ad/presentation/posting_ad_screen.dart';
 import 'package:auto/features/common/bloc/internet_bloc/internet_bloc.dart';
 import 'package:auto/features/common/widgets/internet_error_bottomsheet.dart';
 import 'package:auto/features/navigation/domain/entities/navbar.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/navigation/presentation/widgets/nav_bar_item.dart';
+import 'package:auto/features/profile/presentation/pages/my_adds/my_ads_page.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -105,18 +107,23 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 !await _navigatorKeys[NavItemEnum.values[_currentIndex]]!
                     .currentState!
                     .maybePop();
+            print(
+                '=> => => =>     on willpop: returning before if: ${isFirstRouteInCurrentTab}    <= <= <= <=');
+
             if (isFirstRouteInCurrentTab) {
               if (NavItemEnum.values[_currentIndex] != NavItemEnum.head) {
                 changePage(0);
                 return false;
               }
             }
+            print(
+                '=> => => =>     on willpop: returning: ${isFirstRouteInCurrentTab}    <= <= <= <=');
             return isFirstRouteInCurrentTab;
           },
           child: BlocListener<InternetBloc, InternetState>(
             listener: (context, state) {
               WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-                if (!state.isConnected ) {
+                if (!state.isConnected) {
                   isBtmSheetOpened = true;
                   showModalBottomSheet(
                     isDismissible: false,
@@ -129,9 +136,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                     context: context,
                     builder: (context) => InternetErrorBottomSheet(
                       onTap: () {
-                        context.read<InternetBloc>().add(
-                              GlobalCheck(isConnected: state.isConnected)
-                            );
+                        context
+                            .read<InternetBloc>()
+                            .add(GlobalCheck(isConnected: state.isConnected));
                       },
                     ),
                   );
@@ -174,7 +181,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                       onDoubleTap: () =>
                           _navigatorKeys[NavItemEnum.values[_currentIndex]]!
                               .currentState!
-                              .popUntil((route) => route.isFirst), behavior: HitTestBehavior.opaque,
+                              .popUntil((route) => route.isFirst),
+                      behavior: HitTestBehavior.opaque,
                       child: NavItemWidget(
                         navBar: lables[0],
                         currentIndex: _currentIndex,
@@ -184,7 +192,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                       onDoubleTap: () =>
                           _navigatorKeys[NavItemEnum.values[_currentIndex]]!
                               .currentState!
-                              .popUntil((route) => route.isFirst), behavior: HitTestBehavior.opaque,
+                              .popUntil((route) => route.isFirst),
+                      behavior: HitTestBehavior.opaque,
                       child: NavItemWidget(
                         navBar: lables[1],
                         currentIndex: _currentIndex,
@@ -194,7 +203,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                       onDoubleTap: () =>
                           _navigatorKeys[NavItemEnum.values[_currentIndex]]!
                               .currentState!
-                              .popUntil((route) => route.isFirst), behavior: HitTestBehavior.opaque,
+                              .popUntil((route) => route.isFirst),
+                      behavior: HitTestBehavior.opaque,
                       child: NavItemWidget(
                         navBar: lables[2],
                         currentIndex: _currentIndex,
@@ -204,7 +214,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                       onDoubleTap: () =>
                           _navigatorKeys[NavItemEnum.values[_currentIndex]]!
                               .currentState!
-                              .popUntil((route) => route.isFirst), behavior: HitTestBehavior.opaque,
+                              .popUntil((route) => route.isFirst),
+                      behavior: HitTestBehavior.opaque,
                       child: NavItemWidget(
                         navBar: lables[3],
                         currentIndex: _currentIndex,
@@ -214,7 +225,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                       onDoubleTap: () =>
                           _navigatorKeys[NavItemEnum.values[_currentIndex]]!
                               .currentState!
-                              .popUntil((route) => route.isFirst), behavior: HitTestBehavior.opaque,
+                              .popUntil((route) => route.isFirst),
+                      behavior: HitTestBehavior.opaque,
                       child: NavItemWidget(
                         navBar: lables[4],
                         currentIndex: _currentIndex,

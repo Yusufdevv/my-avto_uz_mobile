@@ -1,8 +1,8 @@
 import 'package:auto/features/ad/domain/entities/types/make.dart';
+import 'package:auto/features/ad/domain/entities/types/modification_type.dart';
 import 'package:auto/features/reviews/data/models/result_model.dart';
 import 'package:auto/features/reviews/domain/entities/generate_entity.dart';
 import 'package:auto/features/reviews/domain/entities/model_entity.dart';
-import 'package:auto/features/reviews/domain/entities/modification_type_entity.dart';
 import 'package:auto/features/reviews/domain/entities/star_answer_entity.dart';
 import 'package:auto/features/reviews/domain/entities/type_entity.dart';
 import 'package:equatable/equatable.dart';
@@ -18,7 +18,7 @@ class ResultEntity extends Equatable {
     this.driveType = const TypeEntity(),
     this.engineType = const TypeEntity(),
     this.gearboxType = const TypeEntity(),
-    this.modificationType = const ModificationTypeEntity(),
+    this.modificationType = const  ModificationTypeEntity(),
     this.absoluteCarName = '',
     this.title = '',
     this.comment = '',
@@ -49,7 +49,7 @@ class ResultEntity extends Equatable {
   final TypeEntity engineType;
   @TypeConverter()
   final TypeEntity gearboxType;
-  @ModificationTypeConverter()
+  @ModificationTypeEntityConverter()
   final ModificationTypeEntity modificationType;
   final String absoluteCarName;
   final String title;
@@ -103,13 +103,3 @@ class ResultConverter
   @override
   Map<String, dynamic>? toJson(ResultEntity objrct) => {};
 }
-//     class StarAnswerConverter
-//   implements JsonConverter<StarAnswerEntity, Map<String, dynamic>?> {
-// const StarAnswerConverter();
-
-// @override
-// StarAnswerEntity fromJson(Map<String, dynamic>? json) =>
-//     StarAnswerModel.fromJson(json ?? {});
-
-// @override
-// Map<String, dynamic>? toJson(StarAnswerEntity object) => {};

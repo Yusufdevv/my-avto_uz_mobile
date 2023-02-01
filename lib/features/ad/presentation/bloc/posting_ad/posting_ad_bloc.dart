@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/core/usecases/usecase.dart';
 import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/ad/domain/entities/district_entity.dart';
@@ -11,6 +10,7 @@ import 'package:auto/features/ad/domain/entities/types/drive_type.dart';
 import 'package:auto/features/ad/domain/entities/types/engine_type.dart';
 import 'package:auto/features/ad/domain/entities/types/gearbox_type.dart';
 import 'package:auto/features/ad/domain/entities/types/make.dart';
+import 'package:auto/features/ad/domain/entities/types/modification_type.dart';
 import 'package:auto/features/ad/domain/entities/years/years.dart';
 import 'package:auto/features/ad/domain/usecases/contacts_usecase.dart';
 import 'package:auto/features/ad/domain/usecases/create_announcement.dart';
@@ -35,7 +35,6 @@ import 'package:auto/features/common/usecases/get_regions_usecase.dart';
 import 'package:auto/features/login/domain/usecases/verify_code.dart';
 import 'package:auto/features/main/domain/usecases/get_top_brand.dart';
 import 'package:auto/features/rent/domain/usecases/get_gearboxess_usecase.dart';
-import 'package:auto/features/reviews/domain/entities/modification_type_entity.dart';
 import 'package:auto/utils/my_functions.dart';
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
@@ -120,7 +119,22 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     on<PostingAdAddEventForEveryPage>(_addEvent);
     on<PostingAdSearchMakesEvent>(_searchMake);
     on<PostingAdModificationsEvent>(_modification);
+    on<PostingAdClearStateEvent>(_clearState);
   }
+  FutureOr<void> _clearState(
+      PostingAdClearStateEvent event, Emitter<PostingAdState> emit) {
+    emit(
+      PostingAdState(
+        status: FormzStatus.pure,
+        phoneController: TextEditingController(),
+        emailController: TextEditingController(),
+        nameController: TextEditingController(),
+        searchController: TextEditingController(),
+      ),
+    );
+    add(PostingAdMakesEvent());
+  }
+
   FutureOr<void> _modification(
       PostingAdModificationsEvent event, Emitter<PostingAdState> emit) async {
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
@@ -131,6 +145,20 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
         gearBoxTypeTypeId: state.gearboxId!,
         generationId: state.generationId!,
         next: ''));
+    if (result.isRight) {
+      emit(
+        state.copyWith(
+          status: FormzStatus.submissionSuccess,
+          modifications: result.right.results,
+        ),
+      );
+    } else {
+      emit(
+        state.copyWith(
+            status: FormzStatus.submissionFailure,
+            toastMessage: MyFunctions.getErrorMessage(result.left)),
+      );
+    }
   }
 
   FutureOr<void> _searchMake(
@@ -144,9 +172,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     } else {
       emit(state.copyWith(
           getMakesStatus: FormzStatus.submissionFailure,
-          toastMessage: (result.left is ServerFailure)
-              ? (result.left as ServerFailure).errorMessage
-              : null));
+          toastMessage: MyFunctions.getErrorMessage(result.left)));
     }
   }
 
@@ -196,6 +222,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
         'https://yandex.com/maps/10335/tashkent/?ll=${event.long}%2C${event.lat}&z=${event.zoomLevel}';
     print('=> => => =>  url:   $url    <= <= <= <=');
     emit(state.copyWith(
+        showExactAddress: true,
         status: FormzStatus.submissionInProgress,
         locationUrl:
             'https://yandex.com/maps/10335/tashkent/?ll=${event.long}%2C${event.lat}&z=${event.zoomLevel}'));
@@ -329,6 +356,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     emit(state.copyWith(getDistrictsStatus: FormzStatus.submissionInProgress));
     final result = await districtUseCase.call(event.regionId);
     if (result.isRight) {
+      print('=> => => =>     gotten districts: ${result.right}    <= <= <= <=');
       emit(
         state.copyWith(
           getDistrictsStatus: FormzStatus.submissionSuccess,
@@ -336,7 +364,9 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
         ),
       );
     } else {
-      emit(state.copyWith(getDistrictsStatus: FormzStatus.submissionFailure));
+      emit(state.copyWith(
+          getDistrictsStatus: FormzStatus.submissionFailure,
+          toastMessage: MyFunctions.getErrorMessage(result.left)));
     }
   }
 
@@ -355,9 +385,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     } else {
       emit(state.copyWith(
           status: FormzStatus.submissionFailure,
-          toastMessage: (result.left is ServerFailure)
-              ? (result.left as ServerFailure).errorMessage
-              : result.left.toString()));
+          toastMessage: MyFunctions.getErrorMessage(result.left)));
     }
   }
 
@@ -378,14 +406,9 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
           createStatus: FormzStatus.submissionSuccess,
           toastMessage: 'Your ad created successfully!'));
     } else {
-      final err = (result.left is ServerFailure)
-          ? (result.left as ServerFailure).errorMessage
-          : result.left.toString();
-
-      print(
-          '=> => => =>     LEFT LEFT LEFT LEFT LEFT   ${result.left}  toast: $err <= <= <= <=');
       emit(state.copyWith(
-          createStatus: FormzStatus.submissionFailure, toastMessage: err));
+          createStatus: FormzStatus.submissionFailure,
+          toastMessage: MyFunctions.getErrorMessage(result.left)));
     }
   }
 
@@ -475,10 +498,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
       PostingAdGenerationsEvent event, Emitter<PostingAdState> emit) async {
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
     final result = await generationUseCase.call(GenerationParams(
-        modelId: state.modelId!,
-        year: state.years!
-            .firstWhere((element) => element.id == state.yearId)
-            .yearBegin));
+        modelId: state.modelId!, year: state.yearEntity!.yearBegin));
     if (result.isRight) {
       print(
           '=> => => =>   result . right is   ${result.right.results.length}    <= <= <= <=');
@@ -547,8 +567,12 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
   }
 
   void _choose(PostingAdChooseEvent event, Emitter<PostingAdState> emit) {
-    if (event.region != null) {
-      add(PostingAdGetDistritsEvent(regionId: event.region!.id));
+    print(
+        '=> => => =>     region id equal null: ${event.regionId}    <= <= <= <=');
+    if (event.regionId != null) {
+      print(
+          '=> => => =>     region id not null and districts called    <= <= <= <=');
+      add(PostingAdGetDistritsEvent(regionId: event.regionId!));
     }
     if (event.currency != null) {
       add(PostingAdGetMinimumPriceEvent());

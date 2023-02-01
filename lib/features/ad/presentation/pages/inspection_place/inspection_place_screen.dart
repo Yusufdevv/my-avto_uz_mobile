@@ -54,7 +54,7 @@ class _InspectionPlaceScreenState extends State<InspectionPlaceScreen> {
                 children: [
                   // CHOOSE REGION
                   LoaderBox(
-                    isActive: state.region != null,
+                    isActive: state.regionId != null,
                     isLoading: state.status == FormzStatus.submissionInProgress,
                     onTap: () async {
                       hidePopUp();
@@ -65,9 +65,9 @@ class _InspectionPlaceScreenState extends State<InspectionPlaceScreen> {
                         backgroundColor: Colors.transparent,
                         builder: (c) => RentChooseRegionBottomSheet(
                           isMultiChoice: false,
-                          checkedRegions: state.region == null
+                          checkedRegions: state.getSelectedRegion.id > -1
                               ? <int, Region>{}
-                              : {0: state.region!},
+                              : {0: state.getSelectedRegion},
                           list: state.regions,
                         ),
                       ).then((value) {
@@ -84,13 +84,13 @@ class _InspectionPlaceScreenState extends State<InspectionPlaceScreen> {
                               '=> => => =>     ${value[0].name}    <= <= <= <=');
                           context
                               .read<PostingAdBloc>()
-                              .add(PostingAdChooseEvent(region: value[0]));
+                              .add(PostingAdChooseEvent(regionId: value[0].id));
                         }
                       });
                     },
-                    hintText: state.region == null
+                    hintText: (state.getSelectedRegion.id == -1)
                         ? LocaleKeys.choose_region.tr()
-                        : state.region!.title,
+                        : state.getSelectedRegion.title,
                     title: LocaleKeys.area.tr(),
                   ),
                   const SizedBox(height: 16),
@@ -107,7 +107,7 @@ class _InspectionPlaceScreenState extends State<InspectionPlaceScreen> {
                               ShowPopUp(
                                 dismissible: false,
                                 message: 'Сначала выберите регион',
-                                isSucces: true,
+                                isSucces: false,
                               ),
                             );
                         return;
@@ -164,9 +164,11 @@ class _InspectionPlaceScreenState extends State<InspectionPlaceScreen> {
                     value: state.showExactAddress,
                     onChanged: (v) {
                       hidePopUp();
-                      context
-                          .read<PostingAdBloc>()
-                          .add(PostingAdChooseEvent(showExactAddress: v));
+                      if (!v) {
+                        context
+                            .read<PostingAdBloc>()
+                            .add(PostingAdChooseEvent(showExactAddress: v));
+                      }
                     },
                   ),
                 ],

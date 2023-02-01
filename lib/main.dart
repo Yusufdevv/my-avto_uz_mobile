@@ -12,7 +12,6 @@ import 'package:auto/features/ad/data/repositories/ad_repository_impl.dart';
 import 'package:auto/features/ad/domain/usecases/get_car_model.dart';
 import 'package:auto/features/ad/domain/usecases/get_makes.dart';
 import 'package:auto/features/ad/domain/usecases/get_top_makes.dart';
-import 'package:auto/features/ad/presentation/posting_ad_screen.dart';
 import 'package:auto/features/common/bloc/announcement_bloc/bloc/announcement_list_bloc.dart';
 import 'package:auto/features/common/bloc/auth/authentication_bloc.dart';
 import 'package:auto/features/common/bloc/comparison_add/bloc/comparison_add_bloc.dart';
@@ -179,7 +178,6 @@ class _AppState extends State<App> {
             navigatorKey: AppConstants.navigatorKey,
             onGenerateRoute: (settings) => SplashSc.route(),
             builder: (context, child) {
- 
               SizeConfig().init(context);
 
               return ScrollConfiguration(
@@ -191,7 +189,8 @@ class _AppState extends State<App> {
                         if (StorageRepository.getString('token', defValue: '')
                             .isNotEmpty) {
                           AppConstants.navigatorKey.currentState
-                              ?.pushAndRemoveUntil(fade(page: const HomeScreen()),
+                              ?.pushAndRemoveUntil(
+                                  fade(page: const HomeScreen()),
                                   (route) => false);
                           break;
                         }
@@ -234,10 +233,11 @@ class _AppState extends State<App> {
                                   ),
                                   (route) => false);
                         } else {
-                         AppConstants.navigatorKey.currentState
-                              ?.pushAndRemoveUntil(fade(page: const HomeScreen()),
+                          AppConstants.navigatorKey.currentState
+                              ?.pushAndRemoveUntil(
+                                  fade(page: const HomeScreen()),
                                   (route) => false);
-                                  }
+                        }
                         break;
                       case AuthenticationStatus.loading:
                       case AuthenticationStatus.cancelLoading:
@@ -252,8 +252,8 @@ class _AppState extends State<App> {
         ),
       );
 }
-class MyBehavior extends ScrollBehavior {
 
+class MyBehavior extends ScrollBehavior {
   @override
   Widget buildOverscrollIndicator(
       BuildContext context, Widget child, ScrollableDetails details) {

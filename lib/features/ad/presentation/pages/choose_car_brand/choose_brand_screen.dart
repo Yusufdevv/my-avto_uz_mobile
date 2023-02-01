@@ -13,6 +13,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:formz/formz.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
@@ -182,7 +183,6 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
               backgroundColor:
                   _bgTweenColor.evaluate(animeState.scaleAnimation),
               body: NestedScrollView(
-     
                 controller: _nestsController,
                 floatHeaderSlivers: true,
                 headerSliverBuilder: (context, innerBoxIsScrolled) => [
@@ -268,12 +268,18 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
                                       const EdgeInsets.fromLTRB(16, 0, 16, 20),
                                   physics: const BouncingScrollPhysics(),
                                   scrollDirection: Axis.horizontal,
-                                  itemBuilder: (context, index) => CarBrandItem(
-                                        carBrandEntity: state.topMakes[index],
+                                  itemBuilder: (context, index) =>
+                                      GestureDetector(
                                         onTap: () {
                                           widget.onTopBrandPressed(
                                               state.topMakes[index].id);
                                         },
+                                        child: CarBrandItem(
+                                          carBrandEntity: state.topMakes[index],
+                                          onTap: () {
+                                            print('=> => => =>     innner pressed working    <= <= <= <=');
+                                          },
+                                        ),
                                       ),
                                   separatorBuilder: (context, index) =>
                                       const SizedBox(width: 12)),
@@ -318,7 +324,7 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
                           FormzStatus.submissionInProgress
                       ? const Center(child: CupertinoActivityIndicator())
                       : ListView.builder(
-                                   physics:const  BouncingScrollPhysics(),
+                          physics: const BouncingScrollPhysics(),
                           controller: _makesController,
                           padding: const EdgeInsets.only(bottom: 66),
                           itemBuilder: (context, index) => ChangeCarItems(
