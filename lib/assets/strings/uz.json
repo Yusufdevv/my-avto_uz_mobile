@@ -428,8 +428,11 @@
   "car_make":"Марку автомобиля",
   "category": "Kategoriya",
   "add_review": "Добавить отзыв",
-  "auto": "Avtomobil",
+"auto": "Avtomobil",
   "filled": "Заполнено",
   "ownership_term": "Срок владения",
+  "repeat" : "Takrorlash",
+  "net_conntect_fail":"Internet aloqasi uzildi",
+  "problem__net_try_again": "Internet muammosi, qayta urinib ko'ring",
   "rating_comment": "Оцените ходовые качества"
 }

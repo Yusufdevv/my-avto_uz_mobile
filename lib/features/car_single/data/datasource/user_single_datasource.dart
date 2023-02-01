@@ -1,27 +1,35 @@
 import 'package:auto/core/exceptions/exceptions.dart';
 import 'package:auto/core/singletons/dio_settings.dart';
 import 'package:auto/core/singletons/service_locator.dart';
-import 'package:auto/features/dealers/data/models/cars_in_dealer_model.dart';
-import 'package:auto/features/dealers/data/models/dealer_info_model.dart';
+import 'package:auto/core/singletons/storage.dart';
+import 'package:auto/features/car_single/domain/entities/user_single_entity.dart';
+import 'package:auto/features/common/domain/model/auto_model.dart';
 import 'package:auto/features/pagination/models/generic_pagination.dart';
 import 'package:dio/dio.dart';
 
 abstract class UserSingleDataSource {
-  Future<DealerSingleModel> getUserSingle({required String params});
-  Future<GenericPagination<CarsInDealerModel>> getUserAds(
-      {required String params});
+  Future<UserSingleEntity> getUserSingle(
+      {required int userId, required int announcementId});
+  Future<GenericPagination<AutoModel>> getUserAds({required int userId});
 }
 
 class UserSingleDataSourceImpl extends UserSingleDataSource {
   final Dio _dio = serviceLocator<DioSettings>().dio;
   UserSingleDataSourceImpl();
   @override
-  Future<DealerSingleModel> getUserSingle({required String params}) async {
+  Future<UserSingleEntity> getUserSingle(
+      {required int userId, required int announcementId}) async {
     try {
-      final results = await _dio.get('users/dealers/$params/');
+      final results = await _dio.post(
+        'car/announcement/owner-detail/',
+        data: {'user': userId, 'announcement': announcementId},
+        options: Options(headers: {
+          'Authorization': 'Bearer ${StorageRepository.getString('token')}'
+        }),
+      );
 
       if (results.statusCode! >= 200 && results.statusCode! < 300) {
-        return DealerSingleModel.fromJson(results.data);
+        return UserSingleEntity.fromJson(results.data);
       } else {
         throw ServerException(
             errorMessage: results.data.toString(),
@@ -37,14 +45,18 @@ class UserSingleDataSourceImpl extends UserSingleDataSource {
   }
 
   @override
-  Future<GenericPagination<CarsInDealerModel>> getUserAds(
-      {required String params}) async {
+  Future<GenericPagination<AutoModel>> getUserAds({required int userId}) async {
     try {
-      final results = await _dio.get('users/dealers/$params/cars/');
+      final results = await _dio.get(
+        '/car/announcement/owner/$userId/',
+        options: Options(headers: {
+          'Authorization': 'Bearer ${StorageRepository.getString('token')}'
+        }),
+      );
 
       if (results.statusCode! >= 200 && results.statusCode! < 300) {
         return GenericPagination.fromJson(results.data,
-            (p0) => CarsInDealerModel.fromJson(p0 as Map<String, dynamic>));
+            (p0) => AutoModel.fromJson(p0 as Map<String, dynamic>));
       } else {
         throw ServerException(
             errorMessage: results.data.toString(),

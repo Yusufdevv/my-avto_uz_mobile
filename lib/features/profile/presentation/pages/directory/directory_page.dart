@@ -14,13 +14,13 @@ import 'package:auto/features/profile/domain/usecases/get_directories_usecase.da
 import 'package:auto/features/profile/presentation/bloc/directory/directory_bloc.dart';
 import 'package:auto/features/profile/presentation/pages/directory/directory_filter_page.dart';
 import 'package:auto/features/profile/presentation/pages/directory/directory_list.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
-import 'package:auto/generated/locale_keys.g.dart';
-import 'package:easy_localization/easy_localization.dart';
 class DirectoryPage extends StatefulWidget {
   const DirectoryPage({Key? key}) : super(key: key);
 

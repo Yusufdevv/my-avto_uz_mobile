@@ -25,6 +25,7 @@ class SliverAppBarItem extends StatefulWidget {
   final String shareUrl;
   final FormzStatus status;
   final int id;
+  final int userId;
   final VoidCallback onDealer;
   final VoidCallback onCompare;
   final VoidCallback onSold;
@@ -34,6 +35,7 @@ class SliverAppBarItem extends StatefulWidget {
   const SliverAppBarItem({
     required this.brightness,
     required this.id,
+    required this.userId,
     required this.iconColor,
     required this.absoluteCarName,
     required this.actionState,

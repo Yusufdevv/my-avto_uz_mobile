@@ -8,6 +8,7 @@ import 'package:auto/features/car_single/domain/usecases/get_ads_usecase.dart';
 import 'package:auto/features/car_single/domain/usecases/other_ads_usecase.dart';
 import 'package:auto/features/car_single/domain/usecases/sold_ads_usecase.dart';
 import 'package:auto/features/car_single/presentation/bloc/car_single_bloc.dart';
+import 'package:auto/features/car_single/presentation/pages/user_single_page.dart';
 import 'package:auto/features/car_single/presentation/parts/car_seller_card.dart';
 import 'package:auto/features/car_single/presentation/parts/descriptions/seller_comment.dart';
 import 'package:auto/features/car_single/presentation/parts/owner_actions.dart';
@@ -22,7 +23,9 @@ import 'package:auto/features/car_single/presentation/widgets/persistant_header.
 import 'package:auto/features/car_single/presentation/widgets/vin_soon_item.dart';
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
 import 'package:auto/features/common/widgets/custom_screen.dart';
+import 'package:auto/features/dealers/presentation/pages/dealer_single_page.dart';
 import 'package:auto/features/main/presentation/widgets/ads_item.dart';
+import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/pagination/presentation/paginator.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:auto/utils/my_functions.dart';
@@ -153,6 +156,7 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                         slivers: [
                           SliverAppBarItem(
                             id: state.singleEntity.id,
+                            userId: state.singleEntity.user.id,
                             brightness: brightness,
                             iconColor: iconColor,
                             absoluteCarName: state.singleEntity.absoluteCarName,
@@ -168,7 +172,30 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                             shareUrl:
                                 'https://panel.avto.uz/api/v1/car/announcement/${state.singleEntity.id}/detail/',
                             images: state.singleEntity.gallery,
-                            onDealer: () {},
+                            onDealer: () {
+                              if (state.singleEntity.userType == 'owner') {
+                                Navigator.of(context).push(fade(
+                                    page: UserSinglePage(
+                                  userId: state.singleEntity.user.id,
+                                  announcementId: state.singleEntity.id,
+                                )));
+                              }
+                              if (state.singleEntity.userType == 'dealer' &&
+                                  state.singleEntity.user.slug.isNotEmpty) {
+                                Navigator.of(context).push(fade(
+                                    page: DealerSinglePage(
+                                        slug: state.singleEntity.user.slug)));
+                              }
+                              // state.singleEntity.userType == 'owner'
+                              //     ? Navigator.of(context).push(fade(
+                              //         page: UserSinglePage(
+                              //         userId: state.singleEntity.user.id,
+                              //         announcementId: state.singleEntity.id,
+                              //       )))
+                              //     : Navigator.of(context).push(fade(
+                              //         page: DealerSinglePage(
+                              //             slug: state.singleEntity.user.slug)));
+                            },
                             onCompare: () {},
                             isMine: state.singleEntity.isMine,
                             status: state.soldStatus,
@@ -176,9 +203,8 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                               showModalBottomSheet(
                                 backgroundColor: Colors.transparent,
                                 context: context,
-                                builder: (context) =>   ConfirmBottomSheet(
-                                  title:
-                                      LocaleKeys.a_y_s_y_w_t_c_t_a.tr(),
+                                builder: (context) => ConfirmBottomSheet(
+                                  title: LocaleKeys.a_y_s_y_w_t_c_t_a.tr(),
                                   subTitle: '',
                                   betweenHeight: 0,
                                 ),
@@ -387,6 +413,7 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                           phoneNumber: state.singleEntity.user.phoneNumber,
                           userAvatar: state.singleEntity.user.avatar,
                           id: state.singleEntity.id,
+                          userId: state.singleEntity.user.id,
                           usertype: state.singleEntity.userType,
                           slug: state.singleEntity.user.slug,
                         ),

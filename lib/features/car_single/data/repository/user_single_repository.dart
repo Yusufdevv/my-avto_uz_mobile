@@ -3,9 +3,9 @@ import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/core/utils/either.dart';
 import 'package:auto/features/car_single/data/datasource/user_single_datasource.dart';
+import 'package:auto/features/car_single/domain/entities/user_single_entity.dart';
 import 'package:auto/features/car_single/domain/repository/user_single_repository.dart';
-import 'package:auto/features/dealers/data/models/cars_in_dealer_model.dart';
-import 'package:auto/features/dealers/data/models/dealer_info_model.dart';
+import 'package:auto/features/common/domain/entity/auto_entity.dart';
 import 'package:auto/features/pagination/models/generic_pagination.dart';
 
 class UserSingleRepositoryImpl extends UserSingleRepository {
@@ -14,10 +14,10 @@ class UserSingleRepositoryImpl extends UserSingleRepository {
 
   UserSingleRepositoryImpl();
   @override
-  Future<Either<Failure, GenericPagination<CarsInDealerModel>>> getUserAds(
-      String params) async {
+  Future<Either<Failure, GenericPagination<AutoEntity>>> getUserAds(
+      int userId) async {
     try {
-      final result = await dataSource.getUserAds(params: params);
+      final result = await dataSource.getUserAds(userId: userId);
       return Right(result);
     } on ServerException catch (e) {
       return Left(
@@ -27,10 +27,10 @@ class UserSingleRepositoryImpl extends UserSingleRepository {
   }
 
   @override
-  Future<Either<Failure, DealerSingleModel>> getUserSingle(
-      String params) async {
+  Future<Either<Failure, UserSingleEntity>> getUserSingle(
+      int userId, int announcementId) async {
     try {
-      final result = await dataSource.getUserSingle(params: params);
+      final result = await dataSource.getUserSingle(userId: userId, announcementId: announcementId);
       return Right(result);
     } on ServerException catch (e) {
       return Left(

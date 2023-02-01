@@ -170,7 +170,7 @@ class _MoreActionsState extends State<MoreActions> {
                 Expanded(
                   child: WScaleAnimation(
                     onTap: () {
-                      widget.onShare;
+                      widget.onShare();
                     },
                     child: Container(
                       padding: const EdgeInsets.only(

@@ -432,6 +432,9 @@ abstract class  LocaleKeys {
   static const insurance = 'insurance';
   static const commercial_vehicles = 'commercial_vehicles';
   static const rent_Car = 'rent_Car';
+  static const repeat = 'repeat';
+  static const net_conntect_fail = 'net_conntect_fail';
+  static const problem_with_net_repeat_again = 'problem_with_net_repeat_again';
   static const car_make = 'car_make';
 
 }
