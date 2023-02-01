@@ -11,20 +11,20 @@ import 'package:flutter_svg/svg.dart';
 class CarSellerCard extends StatelessWidget {
   final String image;
   final String name;
-  final String position;
+  final String userType;
   final bool isCrashed;
 
-  const CarSellerCard(
-      {Key? key,
-      required this.image,
-      required this.name,
-      required this.position,
-      required this.isCrashed})
-      : super(key: key);
+  const CarSellerCard({
+    required this.image,
+    required this.name,
+    required this.userType,
+    required this.isCrashed,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) => LayoutBuilder(
-    builder: (context, constraints) => Container(
+      builder: (context, constraints) => Container(
             decoration: BoxDecoration(
               border: Border.all(
                 width: 1,
@@ -47,9 +47,7 @@ class CarSellerCard extends StatelessWidget {
                         .headline1!
                         .copyWith(fontWeight: FontWeight.w700, fontSize: 18),
                   ),
-                  const SizedBox(
-                    height: 16,
-                  ),
+                  const SizedBox(height: 16),
                   Row(
                     children: [
                       SizedBox(
@@ -67,9 +65,7 @@ class CarSellerCard extends StatelessWidget {
                           ),
                         ),
                       ),
-                      const SizedBox(
-                        width: 8,
-                      ),
+                      const SizedBox(width: 8),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -79,29 +75,33 @@ class CarSellerCard extends StatelessWidget {
                               name,
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
-                              style: Theme.of(context).textTheme.headline2!.copyWith(
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline2!
+                                  .copyWith(
                                     fontWeight: FontWeight.w600,
                                     fontSize: 16,
                                   ),
                             ),
                           ),
-                          const SizedBox(
-                            height: 2,
-                          ),
+                          const SizedBox(height: 2),
                           Text(
-                            position,
-                            style: Theme.of(context).textTheme.headline2!.copyWith(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 12,
-                                color: const Color(0xff695CEA)),
+                            userType == 'owner'
+                                ? LocaleKeys.private_person.tr()
+                                : LocaleKeys.autosalon.tr(),
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline2!
+                                .copyWith(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 12,
+                                    color: const Color(0xff695CEA)),
                           ),
                         ],
                       )
                     ],
                   ),
-                  const SizedBox(
-                    height: 18,
-                  ),
+                  const SizedBox(height: 18),
                   Container(
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(12),
@@ -124,14 +124,16 @@ class CarSellerCard extends StatelessWidget {
                                     .textTheme
                                     .headline1!
                                     .copyWith(
-                                        fontWeight: FontWeight.w400, fontSize: 12),
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 12),
                               ),
                               const SizedBox(
                                 width: 8,
                               ),
                               if (isCrashed == true)
                                 Container(
-                                  padding: const EdgeInsets.fromLTRB(0, 12, 0, 12),
+                                  padding:
+                                      const EdgeInsets.fromLTRB(0, 12, 0, 12),
                                   child: Container(
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(4),
@@ -216,6 +218,5 @@ class CarSellerCard extends StatelessWidget {
                 ],
               ),
             ),
-          )
-  );
+          ));
 }

@@ -167,7 +167,7 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                                 : state.singleEntity.user.name,
                             position: state.singleEntity.userType,
                             avatar: state.singleEntity.userType == 'owner'
-                                ? state.singleEntity.user.fullName
+                                ? state.singleEntity.user.image
                                 : state.singleEntity.user.avatar,
                             shareUrl:
                                 'https://panel.avto.uz/api/v1/car/announcement/${state.singleEntity.id}/detail/',
@@ -299,7 +299,7 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                               name: state.singleEntity.userType == 'dealer'
                                   ? state.singleEntity.user.name
                                   : state.singleEntity.user.fullName,
-                              position: state.singleEntity.userType,
+                              userType: state.singleEntity.userType,
                               isCrashed: false,
                             ),
                           ),
