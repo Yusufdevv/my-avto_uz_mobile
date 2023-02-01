@@ -231,12 +231,12 @@ class _AppState extends State<App> {
                                 ),
                                 (route) => false);
                       } else {
-                        // AppConstants.navigatorKey.currentState
-                        //     ?.pushAndRemoveUntil(fade(page: const PostingAdScreen()),
-                        //         (route) => false);
-                       AppConstants.navigatorKey.currentState
-                            ?.pushAndRemoveUntil(fade(page: const HomeScreen()),
+                        AppConstants.navigatorKey.currentState
+                            ?.pushAndRemoveUntil(fade(page: const PostingAdScreen()),
                                 (route) => false);
+                      //  AppConstants.navigatorKey.currentState
+                      //       ?.pushAndRemoveUntil(fade(page: const HomeScreen()),
+                      //           (route) => false);
                                 }
                       break;
                     case AuthenticationStatus.loading:
