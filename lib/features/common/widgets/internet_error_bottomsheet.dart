@@ -59,7 +59,7 @@ class _InternetErrorBottomSheetState extends State<InternetErrorBottomSheet> {
                 height: 2,
               ),
               Text(
-                LocaleKeys.problem_with_net_repeat_again.tr(),
+                LocaleKeys.problem_net_try_again.tr(),
                 style: Theme.of(context).textTheme.headline1!.copyWith(
                       color: const Color(0xff696974),
                       fontSize: 14,

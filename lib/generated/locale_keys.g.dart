@@ -444,7 +444,7 @@ abstract class  LocaleKeys {
   static const rent_Car = 'rent_Car';
   static const repeat = 'repeat';
   static const net_conntect_fail = 'net_conntect_fail';
-  static const problem_with_net_repeat_again = 'problem_with_net_repeat_again';
+  static const problem_net_try_again = 'problem_net_try_again';
   static const car_make = 'car_make';
 
 }

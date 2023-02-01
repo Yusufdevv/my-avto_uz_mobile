@@ -443,6 +443,6 @@
   "ownership_term": "Срок владения",
   "repeat" : "Takrorlash",
   "net_conntect_fail":"Internet aloqasi uzildi",
-  "problem__net_try_again": "Internet muammosi, qayta urinib ko'ring",
+  "problem_net_try_again": "Internet muammosi, qayta urinib ko'ring",
   "rating_comment": "Оцените ходовые качества"
 }

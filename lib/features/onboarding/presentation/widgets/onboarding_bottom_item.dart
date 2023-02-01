@@ -100,16 +100,12 @@ class _OnBoardingBottomState extends State<OnBoardingBottom> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(20),
-                              child: SvgPicture.asset(
-                                AppIcons.uzbekistan,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                            const SizedBox(
-                              width: 4,
-                            ),
+                            // o'zb btn
+                            SizedBox(
+                                height: 24,
+                                width: 24,
+                                child: Image.asset(AppIcons.uzbekistan2)),
+                            const SizedBox(width: 4),
                             Text(
                               'O‘zbekcha',
                               style: index == 0
@@ -132,11 +128,8 @@ class _OnBoardingBottomState extends State<OnBoardingBottom> {
                         ),
                       ),
                     ),
-                    const SizedBox(
-                      width: 16,
-                    ),
-
-                    //O‘zbekcha btn
+                    const SizedBox(width: 16),
+                    //rus btn
                     Expanded(
                       child: WButton(
                         color: index == 1
@@ -156,16 +149,11 @@ class _OnBoardingBottomState extends State<OnBoardingBottom> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(20),
-                              child: SvgPicture.asset(
-                                AppIcons.russia,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                            const SizedBox(
-                              width: 4,
-                            ),
+                            SizedBox(
+                                height: 24,
+                                width: 24,
+                                child: Image.asset(AppIcons.russian2)),
+                            const SizedBox(width: 4),
                             Text(
                               'Русский',
                               style: index == 1

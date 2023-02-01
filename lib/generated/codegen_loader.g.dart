@@ -458,7 +458,7 @@ class CodegenLoader extends AssetLoader{
   "rent_Car": "RentCar",
   "repeat": "Повторить",
   "net_conntect_fail": "Интернет-соединение потеряно",
-  "problem_with_net_repeat_again": "Проблема с интернетом, попробуйте еще раз",
+  "problem_net_try_again": "Проблема с интернетом, попробуйте еще раз",
   "car_make": "Марку автомобиля"
 };
 static const Map<String,dynamic> uz = {
@@ -906,7 +906,7 @@ static const Map<String,dynamic> uz = {
   "ownership_term": "Срок владения",
   "repeat": "Takrorlash",
   "net_conntect_fail": "Internet aloqasi uzildi",
-  "problem__net_try_again": "Internet muammosi, qayta urinib ko'ring",
+  "problem_net_try_again": "Internet muammosi, qayta urinib ko'ring",
   "rating_comment": "Оцените ходовые качества"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ru": ru, "uz": uz};
