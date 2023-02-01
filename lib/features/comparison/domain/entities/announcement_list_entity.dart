@@ -2,7 +2,7 @@ import 'package:auto/features/common/domain/entity/car_dealer_entity.dart';
 import 'package:auto/features/comparison/domain/entities/user_entity.dart';
 
 class AnnouncementListEntity {
-  AnnouncementListEntity({
+ const AnnouncementListEntity({
     this.id = 0,
     this.make = '',
     this.model = '',

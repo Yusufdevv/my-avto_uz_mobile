@@ -383,7 +383,8 @@ abstract class _GetUserAds implements UserSingleEvent {
 /// @nodoc
 mixin _$UserSingleState {
   UserSingleEntity get userSingleEntity => throw _privateConstructorUsedError;
-  List<AutoEntity> get userAds => throw _privateConstructorUsedError;
+  List<AnnouncementListEntity> get userAds =>
+      throw _privateConstructorUsedError;
   FormzStatus get status => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -399,7 +400,7 @@ abstract class $UserSingleStateCopyWith<$Res> {
   @useResult
   $Res call(
       {UserSingleEntity userSingleEntity,
-      List<AutoEntity> userAds,
+      List<AnnouncementListEntity> userAds,
       FormzStatus status});
 }
 
@@ -428,7 +429,7 @@ class _$UserSingleStateCopyWithImpl<$Res, $Val extends UserSingleState>
       userAds: null == userAds
           ? _value.userAds
           : userAds // ignore: cast_nullable_to_non_nullable
-              as List<AutoEntity>,
+              as List<AnnouncementListEntity>,
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -447,7 +448,7 @@ abstract class _$$_UserSingleStateCopyWith<$Res>
   @useResult
   $Res call(
       {UserSingleEntity userSingleEntity,
-      List<AutoEntity> userAds,
+      List<AnnouncementListEntity> userAds,
       FormzStatus status});
 }
 
@@ -474,7 +475,7 @@ class __$$_UserSingleStateCopyWithImpl<$Res>
       userAds: null == userAds
           ? _value._userAds
           : userAds // ignore: cast_nullable_to_non_nullable
-              as List<AutoEntity>,
+              as List<AnnouncementListEntity>,
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -488,17 +489,17 @@ class __$$_UserSingleStateCopyWithImpl<$Res>
 class _$_UserSingleState implements _UserSingleState {
   _$_UserSingleState(
       {this.userSingleEntity = const UserSingleEntity(),
-      final List<AutoEntity> userAds = const [],
+      final List<AnnouncementListEntity> userAds = const [],
       this.status = FormzStatus.pure})
       : _userAds = userAds;
 
   @override
   @JsonKey()
   final UserSingleEntity userSingleEntity;
-  final List<AutoEntity> _userAds;
+  final List<AnnouncementListEntity> _userAds;
   @override
   @JsonKey()
-  List<AutoEntity> get userAds {
+  List<AnnouncementListEntity> get userAds {
     if (_userAds is EqualUnmodifiableListView) return _userAds;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_userAds);
@@ -538,13 +539,13 @@ class _$_UserSingleState implements _UserSingleState {
 abstract class _UserSingleState implements UserSingleState {
   factory _UserSingleState(
       {final UserSingleEntity userSingleEntity,
-      final List<AutoEntity> userAds,
+      final List<AnnouncementListEntity> userAds,
       final FormzStatus status}) = _$_UserSingleState;
 
   @override
   UserSingleEntity get userSingleEntity;
   @override
-  List<AutoEntity> get userAds;
+  List<AnnouncementListEntity> get userAds;
   @override
   FormzStatus get status;
   @override

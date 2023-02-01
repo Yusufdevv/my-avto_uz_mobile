@@ -176,6 +176,7 @@ class _InfoContainerState extends State<InfoContainer> {
                 carYear: '${widget.year}',
                 isNew: widget.hasStatusInfo),
             const SizedBox(height: 4),
+            
             RichText(
               text: TextSpan(
                 children: [

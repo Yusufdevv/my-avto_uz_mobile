@@ -105,8 +105,22 @@ class _MainScreenState extends State<MainScreen> {
         Navigator.of(context, rootNavigator: true)
             .push(fade(page: AdsScreen(isBack: false, onTap: () {})));
       },
-      () {},
-      () {},
+      () {
+        showModalBottomSheet(
+          backgroundColor: Colors.transparent,
+          useRootNavigator: true,
+          context: context,
+          builder: (context) => CheckBottomsheet(onTap: () {}),
+        );
+      },
+      () {
+        showModalBottomSheet(
+          backgroundColor: Colors.transparent,
+          useRootNavigator: true,
+          context: context,
+          builder: (context) => CheckBottomsheet(onTap: () {}),
+        );
+      },
       () {
         Navigator.of(context, rootNavigator: true)
             .push(fade(page: const CommercialScreen()));
@@ -215,7 +229,8 @@ class _MainScreenState extends State<MainScreen> {
                         height: 64,
                         child: ListView.builder(
                             physics: const BouncingScrollPhysics(),
-                            padding: const EdgeInsets.only(right: 12,bottom: 16),
+                            padding:
+                                const EdgeInsets.only(right: 12, bottom: 16),
                             itemBuilder: (context, index) => ServiceItem(
                                   serviceEntity: serviceEntity[index],
                                   onTap: serviceTaps[index],
@@ -233,8 +248,9 @@ class _MainScreenState extends State<MainScreen> {
                         listener: (context, stateWish) {
                           if (stateWish.addStatus.isSubmissionSuccess ||
                               stateWish.removeStatus.isSubmissionSuccess) {
-                            context.read<TopAdBloc>().add(
-                                TopAdEvent.getFavorites());
+                            context
+                                .read<TopAdBloc>()
+                                .add(TopAdEvent.getFavorites());
                             context
                                 .read<WishlistAddBloc>()
                                 .add(WishlistAddEvent.clearState());

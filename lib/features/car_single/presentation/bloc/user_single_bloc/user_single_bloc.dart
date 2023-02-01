@@ -2,8 +2,7 @@ import 'package:auto/features/car_single/domain/entities/user_single_entity.dart
 import 'package:auto/features/car_single/domain/usecases/get_user_ads_usecase.dart';
 import 'package:auto/features/car_single/domain/usecases/get_user_single_usecase.dart';
 import 'package:auto/features/common/domain/entity/auto_entity.dart';
-import 'package:auto/features/dealers/domain/entities/cars_in_dealer_entity.dart';
-import 'package:auto/features/dealers/domain/entities/dealer_info_entity.dart';
+import 'package:auto/features/comparison/domain/entities/announcement_list_entity.dart'; 
 import 'package:bloc/bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
