@@ -21,6 +21,7 @@ import 'package:auto/features/ad/domain/usecases/get_engine_type.dart';
 import 'package:auto/features/ad/domain/usecases/get_generation.dart';
 import 'package:auto/features/ad/domain/usecases/get_makes.dart';
 import 'package:auto/features/ad/domain/usecases/get_map_screenshot_usecase.dart';
+import 'package:auto/features/ad/domain/usecases/get_modification_type.dart';
 import 'package:auto/features/ad/domain/usecases/get_years.dart';
 import 'package:auto/features/ad/domain/usecases/minimum_price_usecase.dart';
 import 'package:auto/features/car_single/domain/entities/car_single_entity.dart';
@@ -34,6 +35,7 @@ import 'package:auto/features/common/usecases/get_regions_usecase.dart';
 import 'package:auto/features/login/domain/usecases/verify_code.dart';
 import 'package:auto/features/main/domain/usecases/get_top_brand.dart';
 import 'package:auto/features/rent/domain/usecases/get_gearboxess_usecase.dart';
+import 'package:auto/features/reviews/domain/entities/modification_type_entity.dart';
 import 'package:auto/utils/my_functions.dart';
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
@@ -47,6 +49,7 @@ part 'posting_ad_state.dart';
 part 'singleton_of_posting_ad_bloc.dart';
 
 class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
+  final GetModificationTypeUseCase modificationUseCase;
   final GetMapScreenShotUseCase screenShotUseCase;
   final GetYearsUseCase getYearsUseCase;
   final CreateAnnouncementUseCase createUseCase;
@@ -67,6 +70,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
   final GetBodyTypeUseCase bodyTypesUseCase;
 
   PostingAdBloc({
+    required this.modificationUseCase,
     required this.screenShotUseCase,
     required this.getYearsUseCase,
     required this.userRepository,
@@ -115,7 +119,20 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     on<PostingAdGetMapScreenShotEvent>(_screenShot);
     on<PostingAdAddEventForEveryPage>(_addEvent);
     on<PostingAdSearchMakesEvent>(_searchMake);
+    on<PostingAdModificationsEvent>(_modification);
   }
+  FutureOr<void> _modification(
+      PostingAdModificationsEvent event, Emitter<PostingAdState> emit) async {
+    emit(state.copyWith(status: FormzStatus.submissionInProgress));
+    final result = await modificationUseCase.call(ModificationTypeParams(
+        bodyTypeId: state.bodyTypeId!,
+        driveTypeId: state.driveTypeId!,
+        engineTypeId: state.engineId!,
+        gearBoxTypeTypeId: state.gearboxId!,
+        generationId: state.generationId!,
+        next: ''));
+  }
+
   FutureOr<void> _searchMake(
       PostingAdSearchMakesEvent event, Emitter<PostingAdState> emit) async {
     emit(state.copyWith(getMakesStatus: FormzStatus.submissionInProgress));
@@ -159,6 +176,9 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
         break;
       case 7:
         add(PostingAdGearBoxesEvent());
+        break;
+      case 8:
+        add(PostingAdModificationsEvent());
         break;
       case 16:
         add(PostingAdGetRegionsEvent());

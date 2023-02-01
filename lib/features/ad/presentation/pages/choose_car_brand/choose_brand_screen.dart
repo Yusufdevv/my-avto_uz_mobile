@@ -182,6 +182,7 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
               backgroundColor:
                   _bgTweenColor.evaluate(animeState.scaleAnimation),
               body: NestedScrollView(
+     
                 controller: _nestsController,
                 floatHeaderSlivers: true,
                 headerSliverBuilder: (context, innerBoxIsScrolled) => [
@@ -317,6 +318,7 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
                           FormzStatus.submissionInProgress
                       ? const Center(child: CupertinoActivityIndicator())
                       : ListView.builder(
+                                   physics:const  BouncingScrollPhysics(),
                           controller: _makesController,
                           padding: const EdgeInsets.only(bottom: 66),
                           itemBuilder: (context, index) => ChangeCarItems(

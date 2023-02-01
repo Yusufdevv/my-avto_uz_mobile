@@ -11,6 +11,7 @@ import 'package:auto/features/ad/domain/usecases/get_engine_type.dart';
 import 'package:auto/features/ad/domain/usecases/get_generation.dart';
 import 'package:auto/features/ad/domain/usecases/get_makes.dart';
 import 'package:auto/features/ad/domain/usecases/get_map_screenshot_usecase.dart';
+import 'package:auto/features/ad/domain/usecases/get_modification_type.dart';
 import 'package:auto/features/ad/domain/usecases/get_years.dart';
 import 'package:auto/features/ad/domain/usecases/minimum_price_usecase.dart';
 import 'package:auto/features/ad/presentation/bloc/bloc/choose_make_anime_bloc.dart';
@@ -104,6 +105,8 @@ class _PostingAdScreenState extends State<PostingAdScreen>
     globalKey = GlobalKey();
     pageController = PageController(initialPage: initialPage);
     postingAdBloc = PostingAdBloc(
+      modificationUseCase: GetModificationTypeUseCase(
+          repository: serviceLocator<AdRepositoryImpl>()),
       screenShotUseCase: GetMapScreenShotUseCase(
           repository: serviceLocator<AdRepositoryImpl>()),
       getYearsUseCase:
