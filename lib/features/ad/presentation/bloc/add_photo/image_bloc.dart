@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:auto/utils/my_functions.dart';
 import 'package:bloc/bloc.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:equatable/equatable.dart';
@@ -19,22 +20,9 @@ class ImageBloc extends Bloc<ImageEvent, ImageState> {
           image: File(''),
         )) {
     on<PickPanaramaImageEvent>((event, emit) async {
-      Permission permissionType;
-      if (Platform.isAndroid) {
-        final androidInfo = await DeviceInfoPlugin().androidInfo;
-        if (androidInfo.version.sdkInt <= 32) {
-          permissionType = Permission.storage;
-        } else {
-          permissionType = Permission.photos;
-        }
-
-        var permission = await permissionType.status;
-        if (!permission.isGranted) {
-          permission = await permissionType.request();
-        }
-        if (!permission.isGranted) return;
-      }
-
+      final permission =
+          await MyFunctions.getPhotosPermission(Platform.isAndroid);
+      if (!permission) return;
       final image = await imagePicker.pickImage(source: ImageSource.gallery);
       print(
           '=> => => => picked panarama image path    ${image?.path}    <= <= <= <=');
@@ -44,15 +32,10 @@ class ImageBloc extends Bloc<ImageEvent, ImageState> {
       }
     });
     on<PickImage>((event, emit) async {
-      var permission = await Permission.camera.status;
-      print(
-          '=> => => =>    CAMERA PERMISSION STATUS NAME: ${permission.name}     <= <= <= <=');
-      if (!permission.isGranted) {
-        permission = await Permission.camera.request();
-        print(
-            '=> => => =>     camera request status name: ${permission.name}    <= <= <= <=');
-      }
-      if (permission.isGranted) {
+      final permission =
+          await MyFunctions.getCameraPermission(Platform.isAndroid);
+
+      if (permission) {
         final image = await imagePicker.pickImage(source: event.source);
         if (image != null) {
           emit(state.copyWith(images: [image.path, ...state.images]));

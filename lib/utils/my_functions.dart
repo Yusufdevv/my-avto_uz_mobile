@@ -11,11 +11,13 @@ import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/common/models/region.dart';
 import 'package:auto/features/profile/domain/entities/dir_category_entity.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:jiffy/jiffy.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:yandex_mapkit/yandex_mapkit.dart';
 
 // ignore: avoid_classes_with_only_static_members
@@ -201,6 +203,41 @@ class MyFunctions {
 
   static List<String> getUpperLetter() =>
       [for (int i = 0; i < 26; i++) String.fromCharCode(i + 65)];
+
+  static Future<bool> getPhotosPermission(bool platformIsAndroid) async {
+    if (platformIsAndroid) {
+      Permission permissionType;
+
+      final androidInfo = await DeviceInfoPlugin().androidInfo;
+      if (androidInfo.version.sdkInt <= 32) {
+        permissionType = Permission.storage;
+      } else {
+        permissionType = Permission.photos;
+      }
+
+      var permission = await permissionType.status;
+      if (!permission.isGranted) {
+        permission = await permissionType.request();
+      }
+      return permission.isGranted;
+    }
+    return true;
+  }
+
+  static Future<bool> getCameraPermission(bool platformIsAndroid) async {
+    if (platformIsAndroid) {
+      var permission = await Permission.camera.status;
+      print(
+          '=> => => =>    CAMERA PERMISSION STATUS NAME: ${permission.name}     <= <= <= <=');
+      if (!permission.isGranted) {
+        permission = await Permission.camera.request();
+        print(
+            '=> => => =>     camera request status name: ${permission.name}    <= <= <= <=');
+      }
+      return permission.isGranted;
+    }
+    return true;
+  }
 
   static Future<Position> determinePosition() async {
     bool serviceEnabled;
