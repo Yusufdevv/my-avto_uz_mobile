@@ -22,7 +22,6 @@ class Header extends SliverPersistentHeaderDelegate {
   Widget build(
           BuildContext context, double shrinkOffset, bool overlapsContent) =>
       Container(
-
         padding: const EdgeInsets.only(top: 3),
         decoration: BoxDecoration(
             // color: Colors.amber,
@@ -31,9 +30,9 @@ class Header extends SliverPersistentHeaderDelegate {
                 bottom: BorderSide(
                     color: Theme.of(context).dividerColor, width: 1))),
         child: ListView.separated(
+          physics: const BouncingScrollPhysics(),
           padding: const EdgeInsets.symmetric(horizontal: 16),
           itemBuilder: (context, index) => GestureDetector(
-        
             behavior: HitTestBehavior.translucent,
             onTap: () => context
                 .read<PostingAdBloc>()
@@ -58,7 +57,7 @@ class Header extends SliverPersistentHeaderDelegate {
           itemCount: letters.length,
           shrinkWrap: false,
           scrollDirection: Axis.horizontal,
-          separatorBuilder: (context, index) => SizedBox(width:16 ),
+          separatorBuilder: (context, index) => SizedBox(width: 16),
         ),
       );
 }

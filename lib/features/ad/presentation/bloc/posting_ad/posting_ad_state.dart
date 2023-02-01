@@ -10,6 +10,8 @@ class PostingAdState extends Equatable {
   final TextEditingController emailController;
   final TextEditingController nameController;
   final TextEditingController searchController;
+  final int? modificationId;
+  final List<ModificationTypeEntity> modifications;
   final int? gearboxId;
   final List<GearboxTypeEntity> gearBoxes;
   final int? driveTypeId;
@@ -77,6 +79,8 @@ class PostingAdState extends Equatable {
     this.id,
     this.makeLetterIndex,
     this.minimumPrice = 0,
+    this.modificationId,
+    this.modifications = const <ModificationTypeEntity>[],
     this.gearboxId,
     this.gearBoxes = const <GearboxTypeEntity>[],
     this.driveTypeId,
@@ -158,6 +162,8 @@ class PostingAdState extends Equatable {
     FormzStatus? getDistrictsStatus,
     FormzStatus? createStatus,
     FormzStatus? getMakesStatus,
+    int? modificationId,
+    List<ModificationTypeEntity>? modifications,
     int? gearboxId,
     List<GearboxTypeEntity>? gearBoxes,
     int? driveTypeId,
@@ -215,6 +221,8 @@ class PostingAdState extends Equatable {
     // print('====   ACTUALLY IN STATE:  ${this.districts}  ====');
     // print('==== INCOMING DISTRICT TO COPYWITH:  ${districts}  ====');
     final newState = PostingAdState(
+      modificationId: modificationId ?? this.modificationId,
+      modifications: modifications ?? this.modifications,
       getMakesStatus: getMakesStatus ?? this.getMakesStatus,
       searchController: searchController ?? this.searchController,
       panaramaGallery: panaramaGallery ?? this.panaramaGallery,
@@ -290,6 +298,8 @@ class PostingAdState extends Equatable {
 
   @override
   List<Object?> get props => [
+    modificationId,
+modifications,
         getMakesStatus,
         searchController,
         panaramaGallery,

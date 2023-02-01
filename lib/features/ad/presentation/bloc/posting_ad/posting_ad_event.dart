@@ -2,6 +2,11 @@ part of 'posting_ad_bloc.dart';
 
 abstract class PostingAdEvent {}
 
+class PostingAdModificationsEvent extends PostingAdEvent {
+  final String? name;
+  PostingAdModificationsEvent({this.name});
+}
+
 class PostingAdAddEventForEveryPage extends PostingAdEvent {
   final int page;
   PostingAdAddEventForEveryPage({required this.page});
@@ -100,6 +105,7 @@ class PostingAdChooseEvent extends PostingAdEvent {
   final int? districtId;
   final List<RentWithPurchaseEntity>? rentWithPurchaseConditions;
   final Map<DamagedParts, DamageType>? damagedParts;
+  final int?     modificationId;
   final int? modelId;
   final int? generationId;
 
@@ -143,6 +149,7 @@ class PostingAdChooseEvent extends PostingAdEvent {
   final bool? isNew;
 
   PostingAdChooseEvent({
+    this.modificationId,
     this.searchController,
     this.panaramaGallery,
     this.bodyBytes,
