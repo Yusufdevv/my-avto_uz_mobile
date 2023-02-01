@@ -1,3 +1,4 @@
+import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/features/common/widgets/stroke_paint.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
@@ -110,6 +111,8 @@ class _ZTextFormFieldState extends State<ZTextFormField>
   void initState() {
     animationController = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 200));
+    animationController.forward();
+
     super.initState();
     if (widget.isObscure != null) {
       isObscure = widget.isObscure!;
@@ -118,7 +121,6 @@ class _ZTextFormFieldState extends State<ZTextFormField>
 
     focusNode.addListener(
       () => setState(() {
-        debugPrint('focused');
         focused = !focused;
       }),
     );
@@ -127,7 +129,6 @@ class _ZTextFormFieldState extends State<ZTextFormField>
   @override
   void dispose() {
     focusNode.dispose();
-
     super.dispose();
   }
 
@@ -157,10 +158,16 @@ class _ZTextFormFieldState extends State<ZTextFormField>
             cursorColor: Theme.of(context).colorScheme.surface,
             obscuringCharacter: '●',
             cursorHeight: 18,
+            cursorWidth: 1,
             onEditingComplete: widget.onEditCompleted,
             style: widget.textStyle ??
-                Theme.of(context).textTheme.subtitle1!.copyWith(fontSize: 15),
+                Theme.of(context).textTheme.subtitle1!.copyWith(fontSize: 14),
             decoration: InputDecoration(
+              focusColor: widget.focusColor,
+              focusedBorder: const UnderlineInputBorder(
+                  borderSide: BorderSide(
+                color: purple,
+              )),
               suffix: widget.suffix != null
                   ? SizedBox(width: widget.suffixSize)
                   : null,
@@ -168,8 +175,8 @@ class _ZTextFormFieldState extends State<ZTextFormField>
                   widget.hideCounterText != null && widget.hideCounterText!
                       ? ''
                       : null,
-              prefixIconConstraints: const BoxConstraints(maxWidth: 65),
-              contentPadding: widget.contentPadding,
+              prefixIconConstraints: const BoxConstraints(maxWidth: 70),
+              contentPadding: const EdgeInsets.only(left: 0),
               prefixIcon: widget.prefixIcon,
               hintText: widget.hintText,
               hintStyle: widget.hintTextStyle ??
@@ -197,11 +204,12 @@ class _ZTextFormFieldState extends State<ZTextFormField>
                         isObscure = !isObscure;
                       });
                       if (isObscure) {
-                        animationController.reverse();
-                      } else {
                         animationController.forward();
+                      } else {
+                        animationController.reverse();
                       }
-                    }, behavior: HitTestBehavior.opaque,
+                    },
+                    behavior: HitTestBehavior.opaque,
                     child: Container(
                       alignment: Alignment.center,
                       margin: const EdgeInsets.only(top: 12),

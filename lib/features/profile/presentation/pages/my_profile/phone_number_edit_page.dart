@@ -2,7 +2,6 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/core/singletons/service_locator.dart';
-import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/core/utils/size_config.dart';
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
 import 'package:auto/features/common/widgets/custom_screen.dart';
@@ -88,28 +87,37 @@ class _PhoneNumberEditPageState extends State<PhoneNumberEditPage> {
                             }
                           },
                           controller: phoneController,
-                          prefixPadding: const EdgeInsets.only(bottom: 5),
                           prefixIcon: Row(
                             children: [
                               SizedBox(
                                   height: 20,
                                   width: 20,
                                   child: Image.asset(AppImages.flagUzb2)),
-                              const SizedBox(width: 4),
+                              const SizedBox(width: 8),
                               Text('+998',
                                   style: Theme.of(context)
                                       .textTheme
                                       .subtitle1!
-                                      .copyWith(fontSize: 15)),
+                                      .copyWith(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w400)),
                             ],
                           ),
                           hintText: '00 000 00 00',
                           hintTextStyle: Theme.of(context)
                               .textTheme
                               .subtitle1!
-                              .copyWith(fontSize: 15, color: grey),
+                              .copyWith(
+                                  fontSize: 14,
+                                  color: warmerGrey,
+                                  fontWeight: FontWeight.w400),
                           keyBoardType: TextInputType.number,
                           textInputFormatters: [phoneFormatter],
+                          textStyle: Theme.of(context)
+                              .textTheme
+                              .subtitle1!
+                              .copyWith(
+                                  fontSize: 14, fontWeight: FontWeight.w400),
                         ),
                         const Spacer(),
                         Padding(
@@ -161,12 +169,6 @@ class _PhoneNumberEditPageState extends State<PhoneNumberEditPage> {
                                         }));
                               }
                             },
-                            shadow: [
-                              BoxShadow(
-                                  offset: const Offset(0, 4),
-                                  blurRadius: 20,
-                                  color: solitude.withOpacity(.12)),
-                            ],
                             margin: EdgeInsets.only(
                                 bottom:
                                     4 + MediaQuery.of(context).padding.bottom),
@@ -176,12 +178,7 @@ class _PhoneNumberEditPageState extends State<PhoneNumberEditPage> {
                                     .extension<ThemedColors>()!
                                     .veryLightGreyToEclipse,
                             text: LocaleKeys.continuee.tr(),
-                            border: Border.all(
-                              width: 1,
-                              color: Theme.of(context)
-                                  .extension<ThemedColors>()!
-                                  .whiteToDolphin,
-                            ),
+                            border: Border.all(width: 1, color: white),
                           ),
                         ),
                       ],

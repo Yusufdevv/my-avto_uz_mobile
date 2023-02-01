@@ -34,7 +34,7 @@ class PersonalDataItemm extends StatelessWidget {
                       style: Theme.of(context)
                           .textTheme
                           .headline1!
-                          .copyWith(fontWeight: FontWeight.w400, fontSize: 14),
+                          .copyWith(fontSize: 16, fontWeight: FontWeight.w400),
                     ),
                     if (isRequired) ...{
                       TextSpan(
@@ -53,14 +53,21 @@ class PersonalDataItemm extends StatelessWidget {
             Expanded(
                 flex: 3,
                 child: ZTextFormField(
-                  contentPadding:
-                      const EdgeInsets.only(top: 12, right: 12, bottom: 12),
                   onTap: onTap,
                   onChanged: onChanged,
                   controller: controller,
                   hintText: hintText,
-                  textStyle: Theme.of(context).textTheme.headline2?.copyWith(color: dark),
-                  hintTextStyle: Theme.of(context).textTheme.headline2,
+                  hintTextStyle: Theme.of(context)
+                      .textTheme
+                      .subtitle1!
+                      .copyWith(
+                          fontSize: 14,
+                          color: warmerGrey,
+                          fontWeight: FontWeight.w400),
+                  textStyle: Theme.of(context)
+                      .textTheme
+                      .subtitle1!
+                      .copyWith(fontSize: 14, fontWeight: FontWeight.w400),
                 )),
           ],
         ),

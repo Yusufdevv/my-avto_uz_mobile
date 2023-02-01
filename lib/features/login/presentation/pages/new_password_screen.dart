@@ -48,14 +48,25 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
       isShowingToast = false;
     }
   }
+  
 
   @override
   Widget build(BuildContext context) => KeyboardDismisser(
         child: BlocBuilder<RegisterBloc, RegisterState>(
           builder: (context, state) => CustomScreen(
             child: Scaffold(
+              backgroundColor: white,
               appBar: WAppBar(
                 title: LocaleKeys.security.tr(),
+                boxShadow: [
+                  BoxShadow(
+                      offset: const Offset(0, 4),
+                      blurRadius: 16,
+                      color: darkGray.withOpacity(0.08)),
+                  BoxShadow(
+                      offset: const Offset(0, -1),
+                      color: darkGray.withOpacity(0.08))
+                ],
               ),
               body: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -69,9 +80,7 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                           title: LocaleKeys.security.tr(),
                           description: LocaleKeys.create_password_6.tr(),
                         ),
-                        const SizedBox(
-                          height: 36,
-                        ),
+                        const SizedBox(height: 36),
                         ZTextFormField(
                           onTap: hidePopUp,
                           onChanged: (value) {
@@ -80,10 +89,20 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                           isObscure: true,
                           hintText: LocaleKeys.new_password.tr(),
                           controller: newPasswordController,
+                          hintTextStyle: Theme.of(context)
+                              .textTheme
+                              .subtitle1!
+                              .copyWith(
+                                  fontSize: 14,
+                                  color: warmerGrey,
+                                  fontWeight: FontWeight.w400),
+                          textStyle: Theme.of(context)
+                              .textTheme
+                              .subtitle1!
+                              .copyWith(
+                                  fontSize: 14, fontWeight: FontWeight.w400),
                         ),
-                        const SizedBox(
-                          height: 16,
-                        ),
+                        const SizedBox(height: 16),
                         ZTextFormField(
                           onTap: hidePopUp,
                           onChanged: (value) {
@@ -92,6 +111,18 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                           isObscure: true,
                           hintText: LocaleKeys.confirm_password.tr(),
                           controller: confirmPasswordController,
+                          hintTextStyle: Theme.of(context)
+                              .textTheme
+                              .subtitle1!
+                              .copyWith(
+                                  fontSize: 14,
+                                  color: warmerGrey,
+                                  fontWeight: FontWeight.w400),
+                          textStyle: Theme.of(context)
+                              .textTheme
+                              .subtitle1!
+                              .copyWith(
+                                  fontSize: 14, fontWeight: FontWeight.w400),
                         ),
                         const SizedBox(height: 36),
                         WButton(
@@ -128,12 +159,6 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                                   );
                             }
                           },
-                          shadow: [
-                            BoxShadow(
-                                offset: const Offset(0, 4),
-                                blurRadius: 20,
-                                color: solitude.withOpacity(.12)),
-                          ],
                           margin: EdgeInsets.only(
                               bottom:
                                   4 + MediaQuery.of(context).padding.bottom),
@@ -146,9 +171,7 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                           text: LocaleKeys.continuee.tr(),
                           border: Border.all(
                             width: 1,
-                            color: Theme.of(context)
-                                .extension<ThemedColors>()!
-                                .whiteToDolphin,
+                            color: white,
                           ),
                         ),
                       ],

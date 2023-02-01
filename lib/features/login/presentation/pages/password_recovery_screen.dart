@@ -62,8 +62,18 @@ class _PasswordRecoveryScreenState extends State<PasswordRecoveryScreen> {
   @override
   Widget build(BuildContext context) => KeyboardDismisser(
         child: Scaffold(
+          backgroundColor: white,
           appBar: WAppBar(
             title: LocaleKeys.forgot_password.tr(),
+            boxShadow: [
+              BoxShadow(
+                  offset: const Offset(0, 4),
+                  blurRadius: 16,
+                  color: darkGray.withOpacity(0.08)),
+              BoxShadow(
+                  offset: const Offset(0, -1),
+                  color: darkGray.withOpacity(0.08))
+            ],
           ),
           body: Padding(
             padding: const EdgeInsets.all(16),
@@ -94,7 +104,9 @@ class _PasswordRecoveryScreenState extends State<PasswordRecoveryScreen> {
                 const SizedBox(height: 35),
                 PinCodeTextField(
                   onChanged: (value) {
-                    setState(() {});
+                    setState(() {
+                      isError = false;
+                    });
                   },
                   controller: passwordRecoveryController,
                   length: 6,
@@ -109,52 +121,53 @@ class _PasswordRecoveryScreenState extends State<PasswordRecoveryScreen> {
                     shape: PinCodeFieldShape.underline,
                     fieldHeight: 44,
                     fieldWidth: 50,
+                    borderWidth: 1,
                   ),
-                  cursorColor: white,
+                  cursorColor: black,
+                  cursorWidth: 1,
+                  cursorHeight: 31,
                   keyboardType: TextInputType.number,
                   enableActiveFill: false,
                   textStyle: Theme.of(context)
                       .textTheme
                       .headline1!
-                      .copyWith(fontSize: 18),
+                      .copyWith(fontSize: 24, fontWeight: FontWeight.w400),
                   hintStyle: Theme.of(context)
                       .textTheme
                       .bodyText2!
                       .copyWith(fontSize: 4),
                   appContext: context,
                   showCursor: true,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 ),
-                const SizedBox(
-                  height: 18,
-                ),
+                const SizedBox(height: 18),
                 Row(
                   children: [
                     Text(LocaleKeys.send_via_password.tr(),
                         style: Theme.of(context).textTheme.headline6!.copyWith(
-                              fontSize: 14,
-                            )),
+                            fontSize: 14, fontWeight: FontWeight.w400)),
                     const SizedBox(width: 6),
                     if (timeComplete)
                       Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 4, vertical: 3),
+                        height: 24,
+                        width: 24,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(4),
-                            color: orange.withOpacity(0.1)),
-                        child: RefreshButton(
-                          filteredPhone: widget.phone,
-                          onSucces: () {
-                            setState(() {
-                              timeComplete = false;
-                            });
-                          },
+                            color: solitude),
+                        child: Center(
+                          child: RefreshButton(
+                            filteredPhone: widget.phone,
+                            onSucces: () {
+                              setState(() {
+                                timeComplete = false;
+                              });
+                            },
+                          ),
                         ),
                       )
                     else
                       Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 4, vertical: 3),
+                        height: 21,
+                        width: 41,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(4),
                             color: orange.withOpacity(0.1)),
@@ -169,7 +182,7 @@ class _PasswordRecoveryScreenState extends State<PasswordRecoveryScreen> {
                   ],
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 24),
+                  padding: const EdgeInsets.only(top: 36),
                   child: WButton(
                     onTap: () {
                       recoveryBloc.add(
@@ -207,12 +220,6 @@ class _PasswordRecoveryScreenState extends State<PasswordRecoveryScreen> {
                         ),
                       );
                     },
-                    shadow: [
-                      BoxShadow(
-                          offset: const Offset(0, 4),
-                          blurRadius: 20,
-                          color: solitude.withOpacity(.12)),
-                    ],
                     margin: EdgeInsets.only(
                         bottom: 4 + MediaQuery.of(context).padding.bottom),
                     color: (passwordRecoveryController.text.isNotEmpty)
@@ -221,12 +228,7 @@ class _PasswordRecoveryScreenState extends State<PasswordRecoveryScreen> {
                             .extension<ThemedColors>()!
                             .veryLightGreyToEclipse,
                     text: LocaleKeys.continuee.tr(),
-                    border: Border.all(
-                      width: 1,
-                      color: Theme.of(context)
-                          .extension<ThemedColors>()!
-                          .whiteToDolphin,
-                    ),
+                    border: Border.all(width: 1, color: white),
                   ),
                 ),
                 const Spacer(),

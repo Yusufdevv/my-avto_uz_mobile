@@ -145,6 +145,7 @@ abstract class  LocaleKeys {
   static const check_number = 'check_number';
   static const safety = 'safety';
   static const create_password_6 = 'create_password_6';
+  static const create_password_a_no_forget = 'create_password_a_no_forget';
   static const password_must_6 = 'password_must_6';
   static const confim_number = 'confim_number';
   static const send_password_again = 'send_password_again';

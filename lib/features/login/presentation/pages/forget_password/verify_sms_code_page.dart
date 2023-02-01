@@ -1,6 +1,6 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
-import 'package:auto/assets/themes/theme_extensions/themed_colors.dart'; 
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
 import 'package:auto/features/common/widgets/custom_screen.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
@@ -12,7 +12,6 @@ import 'package:auto/features/login/presentation/bloc/send_phone/send_phone_bloc
 import 'package:auto/features/login/presentation/bloc/verify/verify_bloc.dart';
 import 'package:auto/features/login/presentation/pages/forget_password/new_password_page.dart';
 import 'package:auto/features/login/presentation/widgets/SignIn_with_socials.dart';
-// import 'package:auto/features/login/presentation/widgets/signIn_with_socials.dart';
 import 'package:auto/features/login/presentation/widgets/login_header_widget.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/profile/presentation/widgets/refresh_button.dart';
@@ -86,9 +85,19 @@ class _VerifySmsCodePageState extends State<VerifySmsCodePage> {
                 }
               },
               builder: (context, state) => Scaffold(
+                backgroundColor: white,
                 resizeToAvoidBottomInset: false,
                 appBar: WAppBar(
                   title: LocaleKeys.forgot_password.tr(),
+                  boxShadow: [
+                    BoxShadow(
+                        offset: const Offset(0, 4),
+                        blurRadius: 16,
+                        color: darkGray.withOpacity(0.08)),
+                    BoxShadow(
+                        offset: const Offset(0, -1),
+                        color: darkGray.withOpacity(0.08))
+                  ],
                 ),
                 body: Padding(
                   padding: const EdgeInsets.all(16),
@@ -140,36 +149,40 @@ class _VerifySmsCodePageState extends State<VerifySmsCodePage> {
                       const SizedBox(height: 35),
                       PinCodeTextField(
                         onChanged: (value) {
-                          setState(() {});
+                          setState(() {
+                            isError = false;
+                          });
                         },
                         controller: passwordRecoveryController,
                         length: 6,
                         pinTheme: PinTheme(
-                          inactiveColor: Theme.of(context)
-                              .extension<ThemedColors>()!
-                              .solitudeToWhite35,
-                          errorBorderColor: red,
-                          activeColor: isError ? red : purple,
-                          activeFillColor: isError ? red : purple,
-                          selectedColor: isError ? red : purple,
-                          shape: PinCodeFieldShape.underline,
-                          fieldHeight: 44,
-                          fieldWidth: 50,
-                        ),
+                            inactiveColor: Theme.of(context)
+                                .extension<ThemedColors>()!
+                                .solitudeToWhite35,
+                            errorBorderColor: red,
+                            activeColor: isError ? red : purple,
+                            activeFillColor: isError ? red : purple,
+                            selectedColor: isError ? red : purple,
+                            shape: PinCodeFieldShape.underline,
+                            fieldHeight: 44,
+                            fieldWidth: 50,
+                            borderWidth: 1),
                         cursorColor: black,
+                        cursorWidth: 1,
+                        cursorHeight: 31,
                         keyboardType: TextInputType.number,
                         enableActiveFill: false,
                         textStyle: Theme.of(context)
                             .textTheme
                             .headline1!
-                            .copyWith(fontSize: 18),
+                            .copyWith(
+                                fontSize: 24, fontWeight: FontWeight.w400),
                         hintStyle: Theme.of(context)
                             .textTheme
                             .bodyText2!
                             .copyWith(fontSize: 4),
                         appContext: context,
                         showCursor: true,
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       ),
                       Row(
                         children: [
@@ -177,7 +190,9 @@ class _VerifySmsCodePageState extends State<VerifySmsCodePage> {
                               style: Theme.of(context)
                                   .textTheme
                                   .headline6!
-                                  .copyWith(fontSize: 14)),
+                                  .copyWith(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400)),
                           const SizedBox(width: 6),
                           if (timeComplete)
                             Container(
@@ -185,7 +200,7 @@ class _VerifySmsCodePageState extends State<VerifySmsCodePage> {
                               width: 24,
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(4),
-                                  color: orange.withOpacity(0.1)),
+                                  color: solitude),
                               child: Center(
                                 child: RefreshButton(
                                   filteredPhone: widget.phone,
@@ -219,7 +234,7 @@ class _VerifySmsCodePageState extends State<VerifySmsCodePage> {
                         ],
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(top: 24),
+                        padding: const EdgeInsets.only(top: 36),
                         child: WButton(
                           isLoading:
                               state.status == FormzStatus.submissionInProgress,
@@ -236,26 +251,18 @@ class _VerifySmsCodePageState extends State<VerifySmsCodePage> {
                               ),
                             );
                           },
-                          shadow: [
-                            BoxShadow(
-                                offset: const Offset(0, 4),
-                                blurRadius: 20,
-                                color: solitude.withOpacity(.12)),
-                          ],
                           margin: EdgeInsets.only(
                               bottom:
                                   4 + MediaQuery.of(context).padding.bottom),
-                          color: (passwordRecoveryController.text.isNotEmpty)
-                              ? orange
-                              : Theme.of(context)
+                          
+                          isDisabled: passwordRecoveryController.text.length<6,  
+                          disabledColor: Theme.of(context)
                                   .extension<ThemedColors>()!
-                                  .veryLightGreyToEclipse,
+                                  .veryLightGreyToEclipse,      
                           text: LocaleKeys.continuee.tr(),
                           border: Border.all(
                             width: 1,
-                            color: Theme.of(context)
-                                .extension<ThemedColors>()!
-                                .whiteToDolphin,
+                            color: white,
                           ),
                         ),
                       ),

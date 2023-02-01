@@ -1,12 +1,10 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
-import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
 import 'package:auto/features/common/widgets/custom_screen.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
-import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/login/domain/usecases/register_user.dart';
 import 'package:auto/features/login/domain/usecases/send_code.dart';
 import 'package:auto/features/login/domain/usecases/verify_code.dart';
@@ -16,7 +14,6 @@ import 'package:auto/features/login/presentation/widgets/login_header_widget.dar
 import 'package:auto/features/login/presentation/widgets/terms_of_use_and_rules.dart';
 import 'package:auto/features/login/presentation/widgets/z_text_form_field.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
-import 'package:auto/features/profile/presentation/pages/about_app/terms_of_use_page.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -63,8 +60,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
           value: registerBloc,
           child: BlocBuilder<RegisterBloc, RegisterState>(
             builder: (context, state) => Scaffold(
+              backgroundColor: white,
               appBar: WAppBar(
                 title: LocaleKeys.register.tr(),
+                boxShadow: [
+                  BoxShadow(
+                      offset: const Offset(0, 4),
+                      blurRadius: 16,
+                      color: darkGray.withOpacity(0.08)),
+                  BoxShadow(
+                      offset: const Offset(0, -1),
+                      color: darkGray.withOpacity(0.08))
+                ],
               ),
               body: Padding(
                 padding: const EdgeInsets.all(16),
@@ -93,21 +100,31 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               height: 20,
                               width: 20,
                               child: Image.asset(AppImages.flagUzb2)),
-                          const SizedBox(
-                            width: 4,
-                          ),
+                          const SizedBox(width: 8),
                           Text(
                             '+998',
                             style: Theme.of(context)
                                 .textTheme
                                 .subtitle1!
-                                .copyWith(fontSize: 15),
+                                .copyWith(
+                                    fontSize: 14, fontWeight: FontWeight.w400),
                           ),
                         ],
                       ),
-                      hintText: '91 234 56 78',
+                      hintText: '00 000 00 00',
+                      hintTextStyle: Theme.of(context)
+                          .textTheme
+                          .subtitle1!
+                          .copyWith(
+                              fontSize: 14,
+                              color: warmerGrey,
+                              fontWeight: FontWeight.w400),
                       keyBoardType: TextInputType.number,
                       textInputFormatters: [phoneFormatter],
+                      textStyle: Theme.of(context)
+                          .textTheme
+                          .subtitle1!
+                          .copyWith(fontSize: 14, fontWeight: FontWeight.w400),
                     ),
                     const SizedBox(height: 24),
                     const TermsOfUseAndRules(),
@@ -150,12 +167,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           }));
                         }
                       },
-                      shadow: [
-                        BoxShadow(
-                            offset: const Offset(0, 4),
-                            blurRadius: 20,
-                            color: solitude.withOpacity(.12)),
-                      ],
                       margin: EdgeInsets.only(
                           bottom: 4 + MediaQuery.of(context).padding.bottom),
                       color: (phoneController.text.length > 11)
@@ -166,9 +177,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       text: LocaleKeys.continuee.tr(),
                       border: Border.all(
                         width: 1,
-                        color: Theme.of(context)
-                            .extension<ThemedColors>()!
-                            .whiteToDolphin,
+                        color: white,
                       ),
                     ),
                   ],

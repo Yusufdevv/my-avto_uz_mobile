@@ -28,21 +28,18 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
   @override
   Widget build(BuildContext context) => TextFormField(
         controller: widget.controller,
-        style: Theme.of(context)
-            .textTheme
-            .headline5
-            ?.copyWith(color: Colors.black),
         obscureText: passwordVisible,
         textInputAction: TextInputAction.next,
         keyboardType: TextInputType.visiblePassword,
         cursorColor: black,
+        cursorWidth: 1,
         obscuringCharacter: '●',
         onChanged: (value) {
           setState(() {});
         },
         decoration: InputDecoration(
           filled: true,
-          hoverColor: const Color(0xFFF1F1F5),
+          hoverColor: const Color(0xFFFAFAFB),
           hintStyle: Theme.of(context)
               .textTheme
               .headline2!
@@ -60,8 +57,9 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
             color: grey,
             splashRadius: 1,
             focusColor: grey,
-            icon:
-                Icon(passwordVisible ? Icons.visibility_off : Icons.visibility),
+            icon: Icon(passwordVisible
+                ? Icons.visibility_outlined
+                : Icons.visibility_off_outlined),
             onPressed: () {
               setState(() {
                 passwordVisible = !passwordVisible;
@@ -83,27 +81,5 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
               borderRadius: BorderRadius.circular(8),
               borderSide: const BorderSide(color: Color(0xFFF1F1F5))),
         ),
-        validator: (value) {
-          if (value == null || value.isEmpty) {
-            return 'Parolni kiriting!';
-          } else if (value.isNotEmpty && !widget.isOldPasword) {
-            if (widget.controller.text.length < 8) {
-              return "Parol kamida 6 ta belgidan iborat bo'lishi kerak";
-            }
-            if (widget.secondController != null &&
-                widget.secondController!.text.length < 8) {
-              return "Parol kamida 6 ta belgidan iborat bo'lishi kerak";
-            } else if ((widget.secondController != null ||
-                    widget.secondController!.text.isNotEmpty) &&
-                (widget.secondController?.text != null ||
-                    widget.secondController!.text.isNotEmpty) &&
-                widget.controller.text.length >= 8 &&
-                widget.secondController!.text.length >= 8 &&
-                widget.secondController?.text != widget.controller.text) {
-              return 'Parol mos emas';
-            }
-          }
-          return null;
-        },
       );
 }
