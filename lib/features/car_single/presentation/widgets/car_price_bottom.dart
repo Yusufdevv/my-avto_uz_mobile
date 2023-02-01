@@ -81,8 +81,7 @@ class CarPriceBottom extends StatelessWidget {
               height: 4,
             ),
             GestureDetector(
-              onTap: () {
-                print('currency $currency');
+              onTap: () { 
                 Navigator.of(context).pop();
               },    behavior: HitTestBehavior.opaque,
               child: Container(
@@ -119,7 +118,8 @@ class CarPriceBottom extends StatelessWidget {
             CarsPrice(
               date: LocaleKeys.ratio.tr(),
               price: LocaleKeys.cheaper_sc.tr(),
-              totalPrice: 'на $ration ($percent %)',
+              totalPrice: LocaleKeys.on.tr(args: ['$ration ($percent %)']) ,
+              // 'на $ration ($percent %)',
               textColor: const Color(0xff5ECC81),
             ),
             const Divider(

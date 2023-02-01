@@ -115,6 +115,7 @@ abstract class  LocaleKeys {
   static const all_notifications_are_read = 'all_notifications_are_read';
   static const with_list = 'with_list';
   static const om_map = 'om_map';
+  static const on = 'on';
   static const model = 'model';
   static const enter = 'enter';
   static const enter_to_account = 'enter_to_account';

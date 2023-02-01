@@ -120,6 +120,7 @@
   "newOnesFirst" : "Birinchi navbatda yangilari",
   "with_Mileage": "Yurgan (km)",
   "brand": "Marka",
+  "on" : "{} da",
   "choose_brand": "Marka tanlash",
   "choose_region": "Viloyat tanlash",
   "with_list": "Ro'yxat",

@@ -113,6 +113,7 @@
   "all_notifications_are_read" : "Все сообщения прочитаны",
   "with_list": "Списком",
   "om_map": "На карте",
+  "on" : "на {}",
   "model": "Модель",
   "enter": "Войти",
   "enter_to_account": "Войти в существуюущий аккаунт",
