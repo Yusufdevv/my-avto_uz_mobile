@@ -47,11 +47,9 @@ class _PhoneVerifiyPageState extends State<PhoneVerifiyPage> {
   Widget build(BuildContext context) => KeyboardDismisser(
         child: CustomScreen(
           child: Scaffold(
-            appBar: WAppBar(
-                onTapBack: () {
-                  Navigator.pop(context);
-                },
-                title: LocaleKeys.tel_number.tr()),
+            backgroundColor: white,
+            appBar:
+                WAppBar(hasBackButton: true, title: LocaleKeys.tel_number.tr()),
             body: Padding(
               padding: EdgeInsets.symmetric(
                   vertical: SizeConfig.v(16), horizontal: SizeConfig.h(16)),
@@ -106,7 +104,9 @@ class _PhoneVerifiyPageState extends State<PhoneVerifiyPage> {
                     SizedBox(height: SizeConfig.v(35)),
                     PinCodeTextField(
                       onChanged: (value) {
-                        setState(() {});
+                        setState(() {
+                          isError = false;
+                        });
                       },
                       controller: verificationController,
                       length: 6,
@@ -121,21 +121,23 @@ class _PhoneVerifiyPageState extends State<PhoneVerifiyPage> {
                         shape: PinCodeFieldShape.underline,
                         fieldHeight: 44,
                         fieldWidth: 50,
+                        borderWidth: 1,
                       ),
                       cursorColor: black,
+                      cursorWidth: 1,
+                      cursorHeight: 31,
                       keyboardType: TextInputType.number,
                       enableActiveFill: false,
                       textStyle: Theme.of(context)
                           .textTheme
                           .headline1!
-                          .copyWith(fontSize: 18),
+                          .copyWith(fontSize: 24, fontWeight: FontWeight.w400),
                       hintStyle: Theme.of(context)
                           .textTheme
                           .bodyText2!
                           .copyWith(fontSize: 4),
                       appContext: context,
                       showCursor: true,
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     ),
                     Row(
                       children: [
@@ -143,7 +145,8 @@ class _PhoneVerifiyPageState extends State<PhoneVerifiyPage> {
                             style: Theme.of(context)
                                 .textTheme
                                 .headline6!
-                                .copyWith(fontSize: 14)),
+                                .copyWith(
+                                    fontSize: 14, fontWeight: FontWeight.w400)),
                         const SizedBox(width: 6),
                         if (timeComplete)
                           Container(
@@ -151,7 +154,7 @@ class _PhoneVerifiyPageState extends State<PhoneVerifiyPage> {
                               width: 24,
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(4),
-                                  color: orange.withOpacity(0.1)),
+                                  color: solitude),
                               child: Center(
                                 child: RefreshButton(
                                   filteredPhone: widget.phone,
@@ -250,17 +253,9 @@ class _PhoneVerifiyPageState extends State<PhoneVerifiyPage> {
                                 .extension<ThemedColors>()!
                                 .veryLightGreyToEclipse,
                         text: LocaleKeys.continuee.tr(),
-                        shadow: [
-                          BoxShadow(
-                              offset: const Offset(0, 4),
-                              blurRadius: 20,
-                              color: solitude.withOpacity(.12)),
-                        ],
                         border: Border.all(
                           width: 1,
-                          color: Theme.of(context)
-                              .extension<ThemedColors>()!
-                              .whiteToDolphin,
+                          color: white,
                         ),
                       ),
                     ),

@@ -11,10 +11,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class PasswordChangingPage extends StatelessWidget {
- 
-
-  const PasswordChangingPage({ Key? key})
-      : super(key: key);
+  const PasswordChangingPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) => CustomScreen(
@@ -57,14 +54,11 @@ class PasswordChangingPage extends StatelessWidget {
                 color: orange.withOpacity(0.2),
               ),
             ],
-            margin: EdgeInsets.fromLTRB(
-                SizeConfig.h(16),
-                SizeConfig.v(20),
-                SizeConfig.h(16),
-                SizeConfig.v(15) + MediaQuery.of(context).padding.bottom),
+            margin: EdgeInsets.fromLTRB(SizeConfig.h(16), SizeConfig.v(20),
+                SizeConfig.h(16), SizeConfig.v(20)),
             onTap: () {
               Navigator.of(context, rootNavigator: true)
-                  .push(fade(page: NewPasswordsPage( )));
+                  .push(fade(page: NewPasswordsPage()));
             },
             child: Text(
               LocaleKeys.change_password.tr(),

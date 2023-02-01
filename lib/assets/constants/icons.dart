@@ -73,8 +73,8 @@ class AppIcons {
   static const purplePolygon = 'assets/icons/global/purplePolygon.svg';
   static const orangePolygon = 'assets/icons/global/orange_polygon.svg';
   static const arrowRight = 'assets/icons/global/arrow_right.svg';
-  static const russia = 'assets/icons/global/russia.svg';
-  static const uzbekistan = 'assets/icons/global/uzbekistan.svg';
+  static const russian2 = 'assets/icons/global/russian2.png';
+  static const uzbekistan2 = 'assets/icons/global/uzbekistn2.png';
   static const chevronDownGrey = 'assets/icons/global/chevron_down_grey.svg';
   static const chevronRight = 'assets/icons/global/chevron_right.svg';
   static const mapPin = 'assets/icons/global/map_pin.svg';

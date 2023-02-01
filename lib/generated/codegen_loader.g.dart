@@ -159,6 +159,7 @@ class CodegenLoader extends AssetLoader{
   "check_number": "Мы проверим ваш номер телефона в системе",
   "safety": "Безопасность",
   "create_password_6": "Придумайте пароль для входа (минимум 6 символов)",
+  "create_password_a_no_forget": "Придумайте новый пароль и постарайтесь не забыть",
   "password_must_6": "Пароль должен содержать не менее 6 символов",
   "confim_number": "Подтверждение номера",
   "send_password_again": "Отправить код снова через",
@@ -458,7 +459,7 @@ class CodegenLoader extends AssetLoader{
   "rent_Car": "RentCar",
   "repeat": "Повторить",
   "net_conntect_fail": "Интернет-соединение потеряно",
-  "problem_with_net_repeat_again": "Проблема с интернетом, попробуйте еще раз",
+  "problem_net_try_again": "Проблема с интернетом, попробуйте еще раз",
   "car_make": "Марку автомобиля"
 };
 static const Map<String,dynamic> uz = {
@@ -614,7 +615,7 @@ static const Map<String,dynamic> uz = {
   "new_password": "Yangi parol",
   "confirm_password": "Parolni tasdiqlash",
   "recovery_password": "Parolni tiklash",
-  "enter_password_sms": "SMS orqali yuborilgan tasdiqlash kodini kiriting.  Tasdiqlash kodi shu raqamga yuborildi",
+  "enter_password_sms": "SMS orqali yuborilgan tasdiqlash kodini kiriting. Tasdiqlash kodi shu raqamga yuborildi",
   "send_via_password": "Kodni qayta yuboring",
   "personal_data": "Shaxsiy ma'lumotlar",
   "create_password": "Kirish uchun parol kiriting",
@@ -624,6 +625,7 @@ static const Map<String,dynamic> uz = {
   "check_number": "Biz sizning telefon raqamingizni tizimda tekshiramiz",
   "safety": "Xavfsizlik",
   "create_password_6": "Kirish parolini yozing (kamida 6 belgidan iborat bo'lsin)",
+  "create_password_a_no_forget": "Yangi parol yarating va unutmaslikka harakat qiling",
   "password_must_6": "Parol kamida 6 ta belgidan iborat bo'lishi kerak",
   "confim_number": "Raqamni tasdiqlash",
   "send_password_again": "dan so'ng kodni qayta yuborish",
@@ -906,7 +908,7 @@ static const Map<String,dynamic> uz = {
   "ownership_term": "Срок владения",
   "repeat": "Takrorlash",
   "net_conntect_fail": "Internet aloqasi uzildi",
-  "problem__net_try_again": "Internet muammosi, qayta urinib ko'ring",
+  "problem_net_try_again": "Internet muammosi, qayta urinib ko'ring",
   "rating_comment": "Оцените ходовые качества"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ru": ru, "uz": uz};

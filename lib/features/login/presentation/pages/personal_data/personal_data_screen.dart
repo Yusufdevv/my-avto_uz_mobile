@@ -1,5 +1,5 @@
 import 'package:auto/assets/colors/color.dart';
-import 'package:auto/assets/themes/theme_extensions/themed_colors.dart'; 
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/bloc/auth/authentication_bloc.dart';
 import 'package:auto/features/common/bloc/image/image_bloc.dart';
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
@@ -63,9 +63,19 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
           child: BlocProvider.value(
             value: imageBloc,
             child: Scaffold(
+              backgroundColor: white,
               resizeToAvoidBottomInset: false,
               appBar: WAppBar(
                 title: LocaleKeys.register.tr(),
+                boxShadow: [
+                  BoxShadow(
+                      offset: const Offset(0, 4),
+                      blurRadius: 16,
+                      color: darkGray.withOpacity(0.08)),
+                  BoxShadow(
+                      offset: const Offset(0, -1),
+                      color: darkGray.withOpacity(0.08))
+                ],
               ),
               body: Padding(
                 padding: const EdgeInsets.all(16),
@@ -179,19 +189,14 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
                                 dismissible: false));
                           } else {
                             context.read<ShowPopUpBloc>().add(ShowPopUp(
-                                message:  LocaleKeys.please_enter_valid_email.tr(),
+                                message:
+                                    LocaleKeys.please_enter_valid_email.tr(),
                                 isSucces: false,
                                 dismissible: false));
                           }
                           isToastShowing = true;
                         }
-                      },
-                      shadow: [
-                        BoxShadow(
-                            offset: const Offset(0, 4),
-                            blurRadius: 20,
-                            color: solitude.withOpacity(.12)),
-                      ],
+                      }, 
                       margin: const EdgeInsets.only(bottom: 4),
                       color: (nameController.text.isNotEmpty &&
                               emailController.text.isNotEmpty)
@@ -202,9 +207,7 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
                       text: LocaleKeys.continuee.tr(),
                       border: Border.all(
                         width: 1,
-                        color: Theme.of(context)
-                            .extension<ThemedColors>()!
-                            .whiteToDolphin,
+                        color: white,
                       ),
                     ),
                   ],

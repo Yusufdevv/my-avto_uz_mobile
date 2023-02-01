@@ -89,9 +89,10 @@ class _RegionButtonState extends State<RegionButton> {
                             style: currentRegion.isEmpty
                                 ? Theme.of(context)
                                     .textTheme
-                                    .headline6!
+                                    .subtitle1!
                                     .copyWith(
                                         fontSize: 14,
+                                        color: warmerGrey,
                                         fontWeight: FontWeight.w400)
                                 : Theme.of(context)
                                     .textTheme

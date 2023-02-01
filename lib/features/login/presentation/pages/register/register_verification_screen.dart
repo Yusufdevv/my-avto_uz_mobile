@@ -1,7 +1,6 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
-import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
 import 'package:auto/features/common/widgets/custom_screen.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
@@ -56,7 +55,19 @@ class _RegisterVerificationScreenState
         child: CustomScreen(
           child: BlocBuilder<RegisterBloc, RegisterState>(
             builder: (context, state) => Scaffold(
-              appBar: WAppBar(title: LocaleKeys.register.tr()),
+              backgroundColor: white,
+              appBar: WAppBar(
+                title: LocaleKeys.register.tr(),
+                boxShadow: [
+                  BoxShadow(
+                      offset: const Offset(0, 4),
+                      blurRadius: 16,
+                      color: darkGray.withOpacity(0.08)),
+                  BoxShadow(
+                      offset: const Offset(0, -1),
+                      color: darkGray.withOpacity(0.08))
+                ],
+              ),
               body: Padding(
                 padding: const EdgeInsets.all(16),
                 child: Column(
@@ -102,9 +113,7 @@ class _RegisterVerificationScreenState
                         ],
                       ),
                     ),
-                    const SizedBox(
-                      height: 35,
-                    ),
+                    const SizedBox(height: 35),
                     PinCodeTextField(
                       onTap: () {
                         if (isToastShowing) {
@@ -113,7 +122,9 @@ class _RegisterVerificationScreenState
                         }
                       },
                       onChanged: (value) {
-                        setState(() {});
+                        setState(() {
+                          isError = false;
+                        });
                       },
                       controller: verificationController,
                       length: 6,
@@ -128,29 +139,32 @@ class _RegisterVerificationScreenState
                         shape: PinCodeFieldShape.underline,
                         fieldHeight: 44,
                         fieldWidth: 50,
+                        borderWidth: 1,
                       ),
                       cursorColor: black,
+                      cursorWidth: 1,
+                      cursorHeight: 31,
                       keyboardType: TextInputType.number,
                       enableActiveFill: false,
                       textStyle: Theme.of(context)
                           .textTheme
                           .headline1!
-                          .copyWith(fontSize: 18),
+                          .copyWith(fontSize: 24, fontWeight: FontWeight.w400),
                       hintStyle: Theme.of(context)
                           .textTheme
                           .bodyText2!
                           .copyWith(fontSize: 4),
                       appContext: context,
                       showCursor: true,
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     ),
                     Row(
                       children: [
                         Text(LocaleKeys.send_via_password.tr(),
-                            style:
-                                Theme.of(context).textTheme.headline6!.copyWith(
-                                      fontSize: 14,
-                                    )),
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline6!
+                                .copyWith(
+                                    fontSize: 14, fontWeight: FontWeight.w400)),
                         const SizedBox(width: 6),
                         if (timeComplete)
                           Container(
@@ -158,7 +172,7 @@ class _RegisterVerificationScreenState
                             width: 24,
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(4),
-                                color: orange.withOpacity(0.1)),
+                                color: solitude),
                             child: Center(
                               child: RefreshButton(
                                 filteredPhone: widget.phone,
@@ -174,7 +188,8 @@ class _RegisterVerificationScreenState
                                           if (error
                                               .toLowerCase()
                                               .contains('dioerror')) {
-                                            error = LocaleKeys.service_error.tr();
+                                            error =
+                                                LocaleKeys.service_error.tr();
                                           }
                                           context.read<ShowPopUpBloc>().add(
                                               ShowPopUp(
@@ -184,8 +199,9 @@ class _RegisterVerificationScreenState
                                         } else {
                                           context.read<ShowPopUpBloc>().add(
                                               ShowPopUp(
-                                                  message:
-                                                      'Something went wrong',
+                                                  message: LocaleKeys
+                                                      .service_error
+                                                      .tr(),
                                                   isSucces: false,
                                                   dismissible: false));
                                         }
@@ -260,12 +276,6 @@ class _RegisterVerificationScreenState
                               .extension<ThemedColors>()!
                               .veryLightGreyToEclipse,
                       text: LocaleKeys.continuee.tr(),
-                      shadow: [
-                        BoxShadow(
-                            offset: const Offset(0, 4),
-                            blurRadius: 20,
-                            color: solitude.withOpacity(.12)),
-                      ],
                       border: Border.all(
                         width: 1,
                         color: Theme.of(context)

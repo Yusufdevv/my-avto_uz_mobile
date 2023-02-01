@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class TimeCounter extends StatefulWidget {
   final VoidCallback onComplete;
 
-  const TimeCounter({Key? key, required this.onComplete}) : super(key: key);
+  const TimeCounter({required this.onComplete, Key? key}) : super(key: key);
 
   @override
   State<TimeCounter> createState() => _TimeCounterState();
@@ -14,7 +14,7 @@ class TimeCounter extends StatefulWidget {
 class _TimeCounterState extends State<TimeCounter> {
   late Timer secondsTimer;
 
-  int secondS = 120;
+  int secondS = 59;
   final _streamController = StreamController<int>.broadcast(sync: true);
 
   @override
@@ -50,13 +50,13 @@ class _TimeCounterState extends State<TimeCounter> {
   Widget build(BuildContext context) => StreamBuilder<int>(
         stream: _streamController.stream
           ..listen((event) {}, onDone: widget.onComplete),
-        initialData: 120,
+        initialData: 59,
         builder: (context, duration) => Text(
           printTime(duration.data as int),
           style: Theme.of(context)
               .textTheme
               .bodyText1!
-              .copyWith(fontWeight: FontWeight.w600,color: orange),
+              .copyWith(fontWeight: FontWeight.w600, color: orange),
         ),
       );
 }

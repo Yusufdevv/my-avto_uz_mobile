@@ -1,5 +1,5 @@
 import 'package:auto/assets/colors/color.dart';
-import 'package:auto/assets/constants/images.dart'; 
+import 'package:auto/assets/constants/images.dart';
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
 import 'package:auto/features/common/widgets/custom_screen.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
@@ -83,7 +83,18 @@ class _SendPhoneNumberPageState extends State<SendPhoneNumberPage> {
                 }
               },
               builder: (context, state) => Scaffold(
+                backgroundColor: white,
                 appBar: WAppBar(
+                  backgroundColor: white,
+                  boxShadow: [
+                    BoxShadow(
+                        offset: const Offset(0, 4),
+                        blurRadius: 16,
+                        color: darkGray.withOpacity(0.08)),
+                    BoxShadow(
+                        offset: const Offset(0, -1),
+                        color: darkGray.withOpacity(0.08))
+                  ],
                   title: LocaleKeys.forgot_password.tr(),
                 ),
                 body: Padding(
@@ -119,19 +130,33 @@ class _SendPhoneNumberPageState extends State<SendPhoneNumberPage> {
                                 height: 20,
                                 width: 20,
                                 child: Image.asset(AppImages.flagUzb2)),
-                            const SizedBox(width: 4),
+                            const SizedBox(width: 8),
                             Text(
                               '+998',
                               style: Theme.of(context)
                                   .textTheme
                                   .subtitle1!
-                                  .copyWith(fontSize: 15),
+                                  .copyWith(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400),
                             ),
                           ],
                         ),
+                        hintTextStyle: Theme.of(context)
+                            .textTheme
+                            .subtitle1!
+                            .copyWith(
+                                fontSize: 14,
+                                color: warmerGrey,
+                                fontWeight: FontWeight.w400),
                         hintText: '00 000 00 00',
                         keyBoardType: TextInputType.number,
                         textInputFormatters: [phoneFormatter],
+                        textStyle: Theme.of(context)
+                            .textTheme
+                            .subtitle1!
+                            .copyWith(
+                                fontSize: 14, fontWeight: FontWeight.w400),
                       ),
                       const SizedBox(height: 36),
                       WButton(

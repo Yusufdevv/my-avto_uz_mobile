@@ -51,6 +51,7 @@ class _LoginScreenState extends State<LoginScreen> {
   //   passwordController.dispose();
   //   super.dispose();
   // }
+
   void hidePopUp() {
     context.read<ShowPopUpBloc>().add(HidePopUp());
   }
@@ -60,11 +61,20 @@ class _LoginScreenState extends State<LoginScreen> {
     final mediaQuery = MediaQuery.of(context);
     return KeyboardDismisser(
       child: CustomScreen(
-        
         child: Scaffold(
+          backgroundColor: white,
           appBar: WAppBar(
             hasBackButton: false,
             title: LocaleKeys.enter.tr(),
+            boxShadow: [
+              BoxShadow(
+                  offset: const Offset(0, 4),
+                  blurRadius: 16,
+                  color: darkGray.withOpacity(0.08)),
+              BoxShadow(
+                  offset: const Offset(0, -1),
+                  color: darkGray.withOpacity(0.08))
+            ],
           ),
           body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -81,6 +91,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 const SizedBox(height: 4),
                 Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       LocaleKeys.d_y_h_account.tr(),
@@ -89,9 +100,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           .headline6!
                           .copyWith(fontSize: 13, fontWeight: FontWeight.w400),
                     ),
-                    const SizedBox(
-                      width: 4,
-                    ),
+                    const SizedBox(width: 4),
                     WScaleAnimation(
                       onTap: () {
                         hidePopUp();
@@ -119,23 +128,29 @@ class _LoginScreenState extends State<LoginScreen> {
                           height: 20,
                           width: 20,
                           child: Image.asset(AppImages.flagUzb2)),
-                      const SizedBox(
-                        width: 4,
-                      ),
+                      const SizedBox(width: 8),
                       Text('+998',
                           style: Theme.of(context)
                               .textTheme
                               .subtitle1!
-                              .copyWith(fontSize: 15)),
+                              .copyWith(
+                                  fontSize: 14, fontWeight: FontWeight.w400)),
                     ],
                   ),
-                  hintText: '91 234 56 78',
+                  hintText: '00 000 00 00',
                   hintTextStyle: Theme.of(context)
                       .textTheme
                       .subtitle1!
-                      .copyWith(fontSize: 15, color: warmerGrey),
+                      .copyWith(
+                          fontSize: 14,
+                          color: warmerGrey,
+                          fontWeight: FontWeight.w400),
                   keyBoardType: TextInputType.number,
                   textInputFormatters: [phoneFormatter],
+                  textStyle: Theme.of(context)
+                      .textTheme
+                      .subtitle1!
+                      .copyWith(fontSize: 14, fontWeight: FontWeight.w400),
                 ),
                 const SizedBox(height: 30),
                 ZTextFormField(
@@ -146,6 +161,17 @@ class _LoginScreenState extends State<LoginScreen> {
                   hintText: LocaleKeys.password.tr(),
                   controller: passwordController,
                   isObscure: true,
+                  hintTextStyle: Theme.of(context)
+                      .textTheme
+                      .subtitle1!
+                      .copyWith(
+                          fontSize: 14,
+                          color: warmerGrey,
+                          fontWeight: FontWeight.w400),
+                  textStyle: Theme.of(context)
+                      .textTheme
+                      .subtitle1!
+                      .copyWith(fontSize: 14, fontWeight: FontWeight.w400),
                 ),
                 const SizedBox(height: 16),
                 WScaleAnimation(
@@ -166,6 +192,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 WButton(
                   isLoading: context.watch<AuthenticationBloc>().state.status ==
                       AuthenticationStatus.loading,
+                    
                   onTap: passwordController.text.length >= 6 &&
                           phoneController.text.length == 12
                       ? () {
@@ -188,26 +215,15 @@ class _LoginScreenState extends State<LoginScreen> {
                                   .replaceAll('', ' ')));
                         }
                       : () {},
-                  shadow: [
-                    BoxShadow(
-                        offset: const Offset(0, 4),
-                        blurRadius: 20,
-                        color: solitude.withOpacity(.12)),
-                  ],
                   margin: EdgeInsets.only(
                     bottom: 20 + MediaQuery.of(context).padding.bottom,
                   ),
                   text: LocaleKeys.continuee.tr(),
-                  border: Border.all(
-                    width: 1,
-                    color: Theme.of(context)
-                        .extension<ThemedColors>()!
-                        .whiteToDolphin,
-                  ),
+                  border: Border.all(width: 1, color: white),
                   color: (passwordController.text.length >= 6 &&
                           phoneController.text.length > 11)
                       ? orange
-                      : warmerGrey,
+                      : disabledButton,
                 ),
               ],
             ),

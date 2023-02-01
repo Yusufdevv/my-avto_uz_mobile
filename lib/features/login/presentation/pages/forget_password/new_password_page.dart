@@ -1,5 +1,5 @@
-import 'package:auto/assets/colors/color.dart'; 
-import 'package:auto/assets/themes/theme_extensions/themed_colors.dart'; 
+import 'package:auto/assets/colors/color.dart';
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
 import 'package:auto/features/common/widgets/custom_screen.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
@@ -17,7 +17,7 @@ import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart'; 
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
@@ -84,8 +84,18 @@ class _LoginNewPasswordPageState extends State<LoginNewPasswordPage> {
               },
               builder: (context, state) => CustomScreen(
                 child: Scaffold(
+                  backgroundColor: white,
                   appBar: WAppBar(
                     title: LocaleKeys.forgot_password.tr(),
+                    boxShadow: [
+                      BoxShadow(
+                          offset: const Offset(0, 4),
+                          blurRadius: 16,
+                          color: darkGray.withOpacity(0.08)),
+                      BoxShadow(
+                          offset: const Offset(0, -1),
+                          color: darkGray.withOpacity(0.08))
+                    ],
                   ),
                   body: Padding(
                     padding: const EdgeInsets.all(16),
@@ -94,7 +104,7 @@ class _LoginNewPasswordPageState extends State<LoginNewPasswordPage> {
                       children: [
                         LoginHeader(
                           title: LocaleKeys.new_password.tr(),
-                          description: LocaleKeys.create_password_6.tr(),
+                          description: LocaleKeys.create_password_a_no_forget.tr(),
                         ),
                         const SizedBox(height: 36),
                         ZTextFormField(
@@ -104,6 +114,18 @@ class _LoginNewPasswordPageState extends State<LoginNewPasswordPage> {
                           isObscure: true,
                           hintText: LocaleKeys.new_password.tr(),
                           controller: newPasswordController,
+                          hintTextStyle: Theme.of(context)
+                              .textTheme
+                              .subtitle1!
+                              .copyWith(
+                                  fontSize: 14,
+                                  color: warmerGrey,
+                                  fontWeight: FontWeight.w400),
+                          textStyle: Theme.of(context)
+                              .textTheme
+                              .subtitle1!
+                              .copyWith(
+                                  fontSize: 14, fontWeight: FontWeight.w400),
                         ),
                         const SizedBox(height: 16),
                         ZTextFormField(
@@ -113,6 +135,18 @@ class _LoginNewPasswordPageState extends State<LoginNewPasswordPage> {
                           isObscure: true,
                           hintText: LocaleKeys.confirm_password.tr(),
                           controller: confirmPasswordController,
+                          hintTextStyle: Theme.of(context)
+                              .textTheme
+                              .subtitle1!
+                              .copyWith(
+                                  fontSize: 14,
+                                  color: warmerGrey,
+                                  fontWeight: FontWeight.w400),
+                          textStyle: Theme.of(context)
+                              .textTheme
+                              .subtitle1!
+                              .copyWith(
+                                  fontSize: 14, fontWeight: FontWeight.w400),
                         ),
                         const SizedBox(height: 36),
                         WButton(
@@ -143,12 +177,6 @@ class _LoginNewPasswordPageState extends State<LoginNewPasswordPage> {
                                   );
                             }
                           },
-                          shadow: [
-                            BoxShadow(
-                                offset: const Offset(0, 4),
-                                blurRadius: 20,
-                                color: solitude.withOpacity(.12)),
-                          ],
                           margin: EdgeInsets.only(
                               bottom:
                                   4 + MediaQuery.of(context).padding.bottom),
@@ -159,11 +187,7 @@ class _LoginNewPasswordPageState extends State<LoginNewPasswordPage> {
                                   .veryLightGreyToEclipse
                               : orange,
                           text: LocaleKeys.continuee.tr(),
-                          border: Border.all(
-                              width: 1,
-                              color: Theme.of(context)
-                                  .extension<ThemedColors>()!
-                                  .whiteToDolphin),
+                          border: Border.all(width: 1, color: white),
                         ),
                       ],
                     ),
