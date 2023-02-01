@@ -6,7 +6,6 @@ import 'package:auto/features/car_single/presentation/pages/user_single_page.dar
 import 'package:auto/features/car_single/presentation/widgets/dealer_time_botomsheet.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
-import 'package:auto/features/dealers/presentation/dealers_screen.dart';
 import 'package:auto/features/dealers/presentation/pages/dealer_single_page.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/generated/locale_keys.g.dart';
@@ -23,6 +22,7 @@ class BottomItem extends StatefulWidget {
   final String usertype;
   final String? callTo;
   final int id;
+  final int userId;
   final String phoneNumber;
   final String slug;
   final String? userAvatar;
@@ -33,6 +33,7 @@ class BottomItem extends StatefulWidget {
     required this.phoneNumber,
     required this.userAvatar,
     required this.id,
+    required this.userId,
     required this.usertype,
     required this.slug,
     Key? key,
@@ -43,7 +44,9 @@ class BottomItem extends StatefulWidget {
 }
 
 class _BottomItemState extends State<BottomItem>
-    with SingleTickerProviderStateMixin, WidgetsBindingObserver {
+    with SingleTickerProviderStateMixin, 
+    // ignore: prefer_mixin
+    WidgetsBindingObserver {
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     switch (state) {
@@ -135,11 +138,19 @@ class _BottomItemState extends State<BottomItem>
           ),
           WScaleAnimation(
             onTap: () {
-              widget.usertype == 'owner'
-                  ? Navigator.of(context).push(
-                      fade(page: const UserSinglePage(slug: 'anvar-gulyamov')))
-                  : Navigator.of(context)
+             if(widget.usertype == 'owner')  {
+              Navigator.of(context)
+                      .push(fade(page:UserSinglePage(userId: widget.userId, announcementId: widget.id,)));
+             }
+             if(widget.usertype == 'dealer' && widget.slug.isNotEmpty)  {
+              Navigator.of(context)
                       .push(fade(page: DealerSinglePage(slug: widget.slug)));
+             }
+            //  widget.usertype == 'owner'
+            //       ? Navigator.of(context)
+            //           .push(fade(page:UserSinglePage(userId: widget.userId, announcementId: widget.id,)))
+            //       : Navigator.of(context)
+            //           .push(fade(page: DealerSinglePage(slug: widget.slug)));
             },
             child: Container(
               height: 44,

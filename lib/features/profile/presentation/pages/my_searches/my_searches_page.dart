@@ -53,12 +53,7 @@ class _MySearchesPageState extends State<MySearchesPage> {
   Widget build(BuildContext context) => BlocProvider.value(
         value: bloc,
         child: CustomScreen(
-          child: BlocConsumer<UserWishListsBloc, UserWishListsState>(
-            listener: (context, state) {
-              if (state.myAdsStatus.isSubmissionSuccess) {
-                context.read<ProfileBloc>().add(GetProfileEvent());
-              }
-            },
+          child: BlocBuilder<UserWishListsBloc, UserWishListsState>(
             builder: (context, st) {
               if (st.myAdsStatus.isSubmissionInProgress) {
                 return const Center(child: CupertinoActivityIndicator());
@@ -187,6 +182,9 @@ class _MySearchesPageState extends State<MySearchesPage> {
                                         deletedList.clear();
                                         isToggled = false;
                                         Navigator.pop(context);
+                                        context
+                                            .read<ProfileBloc>()
+                                            .add(GetProfileEvent());
                                       },
                                     ),
                                   )

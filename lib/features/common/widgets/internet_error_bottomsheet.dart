@@ -1,12 +1,11 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
-import 'package:auto/features/common/bloc/internet_bloc/internet_bloc.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class InternetErrorBottomSheet extends StatefulWidget {
   final VoidCallback onTap;
@@ -49,7 +48,7 @@ class _InternetErrorBottomSheetState extends State<InternetErrorBottomSheet> {
                 height: 20,
               ),
               Text(
-                'Интернет-соединение потеряно',
+                LocaleKeys.net_conntect_fail.tr(),
                 style: Theme.of(context).textTheme.headline1!.copyWith(
                       color: dark,
                       fontSize: 16,
@@ -60,7 +59,7 @@ class _InternetErrorBottomSheetState extends State<InternetErrorBottomSheet> {
                 height: 2,
               ),
               Text(
-                'Проблема с интернетом, попробуйте еще раз',
+                LocaleKeys.problem_with_net_repeat_again.tr(),
                 style: Theme.of(context).textTheme.headline1!.copyWith(
                       color: const Color(0xff696974),
                       fontSize: 14,
@@ -75,20 +74,10 @@ class _InternetErrorBottomSheetState extends State<InternetErrorBottomSheet> {
                   setState(() {
                     isLoading = true;
                   });
-                  await Future.delayed(const Duration(seconds: 2));
-                  final res = await canLaunchUrl(
-                    Uri.parse(
-                      'https://www.google.com/',
-                    ),
-                  );
+                  await Future.delayed(const Duration(seconds: 1));
                   setState(() {
                     isLoading = false;
                   });
-                  if (res) {
-                    context
-                        .read<InternetBloc>()
-                        .add(GlobalCheck(isConnected: res));
-                  }
                 },
                 color: orange,
                 child: Center(
@@ -109,7 +98,7 @@ class _InternetErrorBottomSheetState extends State<InternetErrorBottomSheet> {
                               width: 4,
                             ),
                             Text(
-                              'Повторить',
+                              LocaleKeys.repeat.tr(),
                               style: Theme.of(context)
                                   .textTheme
                                   .headline1!

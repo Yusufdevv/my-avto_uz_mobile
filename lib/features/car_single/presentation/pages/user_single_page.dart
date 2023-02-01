@@ -16,11 +16,13 @@ import 'package:yandex_mapkit/yandex_mapkit.dart';
 // ignore: must_be_immutable
 class UserSinglePage extends StatefulWidget {
   //final String dealerType;
-  final String slug;
+  final int userId;
+  final int announcementId;
 
   const UserSinglePage({
     //required this.dealerType,
-    required this.slug,
+    required this.userId,
+    required this.announcementId,
   });
 
   @override
@@ -31,11 +33,11 @@ class _UserSinglePageState extends State<UserSinglePage> {
   late UserSingleBloc userSingleBloc;
 
   @override
-  void initState() {
-    print('======= ${widget.slug}');
+  void initState() { 
     userSingleBloc = UserSingleBloc()
-      ..add(UserSingleEvent.getUserSingle(slug: widget.slug))
-      ..add(UserSingleEvent.getUserAds(slug: widget.slug));
+      ..add(UserSingleEvent.getUserSingle(userId: widget.userId, announcementId: widget.announcementId))
+      ..add(UserSingleEvent.getUserAds(userId: widget.userId))
+      ;
 
     super.initState();
   }
@@ -57,16 +59,16 @@ class _UserSinglePageState extends State<UserSinglePage> {
           body: BlocBuilder<UserSingleBloc, UserSingleState>(
             builder: (context, state) {
               if (state.status.isSubmissionSuccess) {
-                final item = state.dealerSingleEntity;
+                final item = state.userSingleEntity;
                 return NestedScrollView(
                   headerSliverBuilder: (context, innerBoxIsScrolled) =>
                       <Widget>[
                     SliverPersistentHeader(
                       pinned: true,
                       delegate: DirectorySliverDelegate(
-                          gallery: item.gallery,
-                          avatarImage: item.avatar,
-                          name: item.name,
+                          gallery: item.announcement?.gallery ?? [],
+                          avatarImage: item.user?.image ?? '',
+                          name: item.announcement?.contactName ?? '',
                           minHeight: MediaQuery.of(context).size.height * 0.11,
                           category: LocaleKeys.private_person.tr()),
                     ),
@@ -107,7 +109,7 @@ class _UserSinglePageState extends State<UserSinglePage> {
                                   const SizedBox(height: 16),
                                   Info(
                                       text:
-                                          '${LocaleKeys.every_day.tr()}, ${item.contactFrom.substring(0, 5)} - ${item.contactTo.substring(0, 5)}',
+                                          '${LocaleKeys.every_day.tr()}, ${item.announcement?.contactAvailableFrom?.substring(0, 5)} - ${item.announcement?.contactAvailableTo?.substring(0, 5)}',
                                       icon: AppIcons.clock),
                                   const SizedBox(height: 20),
                                   Container(
@@ -127,8 +129,8 @@ class _UserSinglePageState extends State<UserSinglePage> {
                                             CameraUpdate.newCameraPosition(
                                               CameraPosition(
                                                 target: Point(
-                                                    latitude: item.latitude,
-                                                    longitude: item.longitude),
+                                                    latitude: item.announcement?.latitude ?? 0.0,
+                                                    longitude: item.announcement?.longitude ?? 0.0),
                                               ),
                                             ),
                                             animation: const MapAnimation(
@@ -147,10 +149,10 @@ class _UserSinglePageState extends State<UserSinglePage> {
                                               ),
                                             ),
                                             mapId: MapObjectId(
-                                                item.latitude.toString()),
+                                                item.announcement?.latitude.toString() ?? ''),
                                             point: Point(
-                                                latitude: item.latitude,
-                                                longitude: item.longitude),
+                                                latitude: item.announcement?.latitude ?? 0.0,
+                                                longitude: item.announcement?.longitude ?? 0.0),
                                           ),
                                         ],
                                       ),
@@ -161,16 +163,16 @@ class _UserSinglePageState extends State<UserSinglePage> {
                                         vertical: 20),
                                     child: Info(
                                       text: MyFunctions.phoneFormat(
-                                          item.phoneNumber),
+                                          item.announcement?.contactPhone ?? ''),
                                       icon: AppIcons.tablerPhone,
                                     ),
                                   ),
                                   Info(
                                       icon: AppIcons.tablerInfo,
-                                      text: item.description),
+                                      text: item.announcement?.description ?? ''),
                                 ],
                               )),
-                          if (state.cars.isNotEmpty)
+                          if (state.userAds.isNotEmpty)
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -189,36 +191,36 @@ class _UserSinglePageState extends State<UserSinglePage> {
                                   physics: const NeverScrollableScrollPhysics(),
                                   shrinkWrap: true,
                                   scrollDirection: Axis.vertical,
-                                  itemCount: state.cars.length,
+                                  itemCount: state.userAds.length,
                                   itemBuilder: (context, index) => Padding(
                                     padding: const EdgeInsets.only(bottom: 12),
                                     child: InfoContainer(
                                       index: index,
                                       avatarPicture:
-                                          state.dealerSingleEntity.avatar,
+                                          item.user?.image ?? '',
                                       carModel:
-                                          state.cars[index].absoluteCarName,
+                                          state.userAds[index].absoluteCarName,
                                       hasDiscount: false,
-                                      location: state.cars[index].region.title,
-                                      owner: state.dealerSingleEntity.name,
+                                      location: state.userAds[index].region.title,
+                                      owner: item.announcement?.contactName ?? '',
                                       ownerType: 'a',
                                       publishTime:
                                           MyFunctions.getAutoPublishDate(
-                                              state.cars[index].createdAt),
-                                      subtitle: state.cars[index].description,
-                                      year: state.cars[index].year,
-                                      price: state.cars[index].price,
-                                      discountPrice: state.cars[index].price,
+                                              state.userAds[index].publishedAt),
+                                      subtitle: state.userAds[index].description,
+                                      year: state.userAds[index].year,
+                                      price: state.userAds[index].price.toString(),
+                                      discountPrice: state.userAds[index].discount.toString(),
                                       sellType: LocaleKeys.car_sale.tr(),
                                       hasStatusInfo: true,
                                       hasCallCard: true,
-                                      gallery: state.cars[index].gallery,
-                                      currency: state.cars[index].currency,
+                                      gallery: state.userAds[index].gallery,
+                                      currency: state.userAds[index].currency,
                                       initialLike: false,
                                       onTapFavorites: () {},
                                       onTapComparsion: () {},
                                       initialComparsions: false,
-                                      id: state.cars[index].id,
+                                      id: state.userAds[index].id,
                                     ),
                                   ),
                                 )

@@ -123,9 +123,11 @@ class DirectorySliverDelegate extends SliverPersistentHeaderDelegate {
                           child: CachedNetworkImage(
                             imageUrl: avatarImage,
                             fit: BoxFit.cover,
-                            errorWidget: (context, url, error) => Image.asset(
-                                AppImages.autoUz,
-                                fit: BoxFit.cover),
+                            errorWidget: (context, url, error) => ClipRRect(
+                              borderRadius: BorderRadius.circular(50),
+                              child: Image.asset(AppImages.carPlaceHolder,
+                                  fit: BoxFit.cover),
+                            ),
                             imageBuilder: (context, imageProvider) => Container(
                               decoration: BoxDecoration(
                                   shape: BoxShape.circle,

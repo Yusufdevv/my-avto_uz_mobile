@@ -439,5 +439,8 @@
   "insurance" : "Страхование",
   "commercial_vehicles" : "Коммерческий транспорт",
   "rent_Car" : "RentCar",
+  "repeat" : "Повторить",
+  "net_conntect_fail":"Интернет-соединение потеряно",
+  "problem_with_net_repeat_again": "Проблема с интернетом, попробуйте еще раз",
   "car_make":"Марку автомобиля"
 }

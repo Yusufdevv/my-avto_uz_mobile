@@ -129,7 +129,8 @@ class _DealerSinglePageState extends State<DealerSinglePage> {
                                 dealerSingleState.dealerSingleEntity.latitude,
                           ),
                           BlocBuilder<MarksInDealersBloc, MarksInDealersState>(
-                            builder: (context, allMarksState) => allMarksState
+                            builder: (context, allMarksState) => allMarksState.status.isSubmissionSuccess ?
+                              allMarksState
                                     .marks.isNotEmpty
                                 ? Padding(
                                     padding: const EdgeInsets.only(
@@ -180,10 +181,12 @@ class _DealerSinglePageState extends State<DealerSinglePage> {
                                       ],
                                     ),
                                   )
-                                : const SizedBox(),
-                          ),
+                                : const SizedBox()
+
+                                : const SizedBox()),
                           BlocBuilder<MarksInDealersBloc, MarksInDealersState>(
                               builder: (context, marksInDealerState) =>
+                              marksInDealerState.status.isSubmissionSuccess ?
                                   marksInDealerState.marks.isNotEmpty
                                       ? SizedBox(
                                           height: 88,
@@ -206,9 +209,12 @@ class _DealerSinglePageState extends State<DealerSinglePage> {
                                             ),
                                           )
                                           )
+                                      : const SizedBox()
                                       : const SizedBox()),
                           BlocBuilder<CarsInDealerBloc, CarsInDealerState>(
-                            builder: (context, allCarsState) => allCarsState
+                            builder: (context, allCarsState) => 
+                            allCarsState.status.isSubmissionSuccess ?
+                            allCarsState
                                     .cars.isNotEmpty
                                 ? Padding(
                                     padding: const EdgeInsets.only(
@@ -255,10 +261,12 @@ class _DealerSinglePageState extends State<DealerSinglePage> {
                                       ],
                                     ),
                                   )
-                                : const SizedBox(),
+                                : const SizedBox()
+                                : const SizedBox()
                           ),
                           BlocBuilder<CarsInDealerBloc, CarsInDealerState>(
                             builder: (context, carsInDealerState) =>
+                            carsInDealerState.status.isSubmissionSuccess ?
                                 carsInDealerState.cars.isNotEmpty
                                     ? SizedBox(
                                         height:
@@ -298,7 +306,8 @@ class _DealerSinglePageState extends State<DealerSinglePage> {
                                               carsInDealerState.cars.length,
                                         ),
                                       )
-                                    : const SizedBox(),
+                                    : const SizedBox()
+                                    : const SizedBox()
                           ),
                         ],
                       ),

@@ -16,23 +16,23 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$UserSingleEvent {
-  String get slug => throw _privateConstructorUsedError;
+  int get userId => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String slug) getUserSingle,
-    required TResult Function(String slug) getUserAds,
+    required TResult Function(int userId, int announcementId) getUserSingle,
+    required TResult Function(int userId) getUserAds,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String slug)? getUserSingle,
-    TResult? Function(String slug)? getUserAds,
+    TResult? Function(int userId, int announcementId)? getUserSingle,
+    TResult? Function(int userId)? getUserAds,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String slug)? getUserSingle,
-    TResult Function(String slug)? getUserAds,
+    TResult Function(int userId, int announcementId)? getUserSingle,
+    TResult Function(int userId)? getUserAds,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -67,7 +67,7 @@ abstract class $UserSingleEventCopyWith<$Res> {
           UserSingleEvent value, $Res Function(UserSingleEvent) then) =
       _$UserSingleEventCopyWithImpl<$Res, UserSingleEvent>;
   @useResult
-  $Res call({String slug});
+  $Res call({int userId});
 }
 
 /// @nodoc
@@ -83,13 +83,13 @@ class _$UserSingleEventCopyWithImpl<$Res, $Val extends UserSingleEvent>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? slug = null,
+    Object? userId = null,
   }) {
     return _then(_value.copyWith(
-      slug: null == slug
-          ? _value.slug
-          : slug // ignore: cast_nullable_to_non_nullable
-              as String,
+      userId: null == userId
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as int,
     ) as $Val);
   }
 }
@@ -102,7 +102,7 @@ abstract class _$$_GetUserSingleCopyWith<$Res>
       __$$_GetUserSingleCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String slug});
+  $Res call({int userId, int announcementId});
 }
 
 /// @nodoc
@@ -116,13 +116,18 @@ class __$$_GetUserSingleCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? slug = null,
+    Object? userId = null,
+    Object? announcementId = null,
   }) {
     return _then(_$_GetUserSingle(
-      slug: null == slug
-          ? _value.slug
-          : slug // ignore: cast_nullable_to_non_nullable
-              as String,
+      userId: null == userId
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as int,
+      announcementId: null == announcementId
+          ? _value.announcementId
+          : announcementId // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -130,14 +135,16 @@ class __$$_GetUserSingleCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_GetUserSingle implements _GetUserSingle {
-  _$_GetUserSingle({required this.slug});
+  _$_GetUserSingle({required this.userId, required this.announcementId});
 
   @override
-  final String slug;
+  final int userId;
+  @override
+  final int announcementId;
 
   @override
   String toString() {
-    return 'UserSingleEvent.getUserSingle(slug: $slug)';
+    return 'UserSingleEvent.getUserSingle(userId: $userId, announcementId: $announcementId)';
   }
 
   @override
@@ -145,11 +152,13 @@ class _$_GetUserSingle implements _GetUserSingle {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_GetUserSingle &&
-            (identical(other.slug, slug) || other.slug == slug));
+            (identical(other.userId, userId) || other.userId == userId) &&
+            (identical(other.announcementId, announcementId) ||
+                other.announcementId == announcementId));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, slug);
+  int get hashCode => Object.hash(runtimeType, userId, announcementId);
 
   @JsonKey(ignore: true)
   @override
@@ -160,30 +169,30 @@ class _$_GetUserSingle implements _GetUserSingle {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String slug) getUserSingle,
-    required TResult Function(String slug) getUserAds,
+    required TResult Function(int userId, int announcementId) getUserSingle,
+    required TResult Function(int userId) getUserAds,
   }) {
-    return getUserSingle(slug);
+    return getUserSingle(userId, announcementId);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String slug)? getUserSingle,
-    TResult? Function(String slug)? getUserAds,
+    TResult? Function(int userId, int announcementId)? getUserSingle,
+    TResult? Function(int userId)? getUserAds,
   }) {
-    return getUserSingle?.call(slug);
+    return getUserSingle?.call(userId, announcementId);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String slug)? getUserSingle,
-    TResult Function(String slug)? getUserAds,
+    TResult Function(int userId, int announcementId)? getUserSingle,
+    TResult Function(int userId)? getUserAds,
     required TResult orElse(),
   }) {
     if (getUserSingle != null) {
-      return getUserSingle(slug);
+      return getUserSingle(userId, announcementId);
     }
     return orElse();
   }
@@ -221,10 +230,13 @@ class _$_GetUserSingle implements _GetUserSingle {
 }
 
 abstract class _GetUserSingle implements UserSingleEvent {
-  factory _GetUserSingle({required final String slug}) = _$_GetUserSingle;
+  factory _GetUserSingle(
+      {required final int userId,
+      required final int announcementId}) = _$_GetUserSingle;
 
   @override
-  String get slug;
+  int get userId;
+  int get announcementId;
   @override
   @JsonKey(ignore: true)
   _$$_GetUserSingleCopyWith<_$_GetUserSingle> get copyWith =>
@@ -239,7 +251,7 @@ abstract class _$$_GetUserAdsCopyWith<$Res>
       __$$_GetUserAdsCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String slug});
+  $Res call({int userId});
 }
 
 /// @nodoc
@@ -253,13 +265,13 @@ class __$$_GetUserAdsCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? slug = null,
+    Object? userId = null,
   }) {
     return _then(_$_GetUserAds(
-      slug: null == slug
-          ? _value.slug
-          : slug // ignore: cast_nullable_to_non_nullable
-              as String,
+      userId: null == userId
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -267,14 +279,14 @@ class __$$_GetUserAdsCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_GetUserAds implements _GetUserAds {
-  _$_GetUserAds({required this.slug});
+  _$_GetUserAds({required this.userId});
 
   @override
-  final String slug;
+  final int userId;
 
   @override
   String toString() {
-    return 'UserSingleEvent.getUserAds(slug: $slug)';
+    return 'UserSingleEvent.getUserAds(userId: $userId)';
   }
 
   @override
@@ -282,11 +294,11 @@ class _$_GetUserAds implements _GetUserAds {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_GetUserAds &&
-            (identical(other.slug, slug) || other.slug == slug));
+            (identical(other.userId, userId) || other.userId == userId));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, slug);
+  int get hashCode => Object.hash(runtimeType, userId);
 
   @JsonKey(ignore: true)
   @override
@@ -297,30 +309,30 @@ class _$_GetUserAds implements _GetUserAds {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String slug) getUserSingle,
-    required TResult Function(String slug) getUserAds,
+    required TResult Function(int userId, int announcementId) getUserSingle,
+    required TResult Function(int userId) getUserAds,
   }) {
-    return getUserAds(slug);
+    return getUserAds(userId);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String slug)? getUserSingle,
-    TResult? Function(String slug)? getUserAds,
+    TResult? Function(int userId, int announcementId)? getUserSingle,
+    TResult? Function(int userId)? getUserAds,
   }) {
-    return getUserAds?.call(slug);
+    return getUserAds?.call(userId);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String slug)? getUserSingle,
-    TResult Function(String slug)? getUserAds,
+    TResult Function(int userId, int announcementId)? getUserSingle,
+    TResult Function(int userId)? getUserAds,
     required TResult orElse(),
   }) {
     if (getUserAds != null) {
-      return getUserAds(slug);
+      return getUserAds(userId);
     }
     return orElse();
   }
@@ -358,10 +370,10 @@ class _$_GetUserAds implements _GetUserAds {
 }
 
 abstract class _GetUserAds implements UserSingleEvent {
-  factory _GetUserAds({required final String slug}) = _$_GetUserAds;
+  factory _GetUserAds({required final int userId}) = _$_GetUserAds;
 
   @override
-  String get slug;
+  int get userId;
   @override
   @JsonKey(ignore: true)
   _$$_GetUserAdsCopyWith<_$_GetUserAds> get copyWith =>
@@ -370,9 +382,8 @@ abstract class _GetUserAds implements UserSingleEvent {
 
 /// @nodoc
 mixin _$UserSingleState {
-  DealerSingleEntity get dealerSingleEntity =>
-      throw _privateConstructorUsedError;
-  List<CarsInDealerEntity> get cars => throw _privateConstructorUsedError;
+  UserSingleEntity get userSingleEntity => throw _privateConstructorUsedError;
+  List<AutoEntity> get userAds => throw _privateConstructorUsedError;
   FormzStatus get status => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -387,8 +398,8 @@ abstract class $UserSingleStateCopyWith<$Res> {
       _$UserSingleStateCopyWithImpl<$Res, UserSingleState>;
   @useResult
   $Res call(
-      {DealerSingleEntity dealerSingleEntity,
-      List<CarsInDealerEntity> cars,
+      {UserSingleEntity userSingleEntity,
+      List<AutoEntity> userAds,
       FormzStatus status});
 }
 
@@ -405,19 +416,19 @@ class _$UserSingleStateCopyWithImpl<$Res, $Val extends UserSingleState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? dealerSingleEntity = null,
-    Object? cars = null,
+    Object? userSingleEntity = null,
+    Object? userAds = null,
     Object? status = null,
   }) {
     return _then(_value.copyWith(
-      dealerSingleEntity: null == dealerSingleEntity
-          ? _value.dealerSingleEntity
-          : dealerSingleEntity // ignore: cast_nullable_to_non_nullable
-              as DealerSingleEntity,
-      cars: null == cars
-          ? _value.cars
-          : cars // ignore: cast_nullable_to_non_nullable
-              as List<CarsInDealerEntity>,
+      userSingleEntity: null == userSingleEntity
+          ? _value.userSingleEntity
+          : userSingleEntity // ignore: cast_nullable_to_non_nullable
+              as UserSingleEntity,
+      userAds: null == userAds
+          ? _value.userAds
+          : userAds // ignore: cast_nullable_to_non_nullable
+              as List<AutoEntity>,
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -435,8 +446,8 @@ abstract class _$$_UserSingleStateCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {DealerSingleEntity dealerSingleEntity,
-      List<CarsInDealerEntity> cars,
+      {UserSingleEntity userSingleEntity,
+      List<AutoEntity> userAds,
       FormzStatus status});
 }
 
@@ -451,19 +462,19 @@ class __$$_UserSingleStateCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? dealerSingleEntity = null,
-    Object? cars = null,
+    Object? userSingleEntity = null,
+    Object? userAds = null,
     Object? status = null,
   }) {
     return _then(_$_UserSingleState(
-      dealerSingleEntity: null == dealerSingleEntity
-          ? _value.dealerSingleEntity
-          : dealerSingleEntity // ignore: cast_nullable_to_non_nullable
-              as DealerSingleEntity,
-      cars: null == cars
-          ? _value._cars
-          : cars // ignore: cast_nullable_to_non_nullable
-              as List<CarsInDealerEntity>,
+      userSingleEntity: null == userSingleEntity
+          ? _value.userSingleEntity
+          : userSingleEntity // ignore: cast_nullable_to_non_nullable
+              as UserSingleEntity,
+      userAds: null == userAds
+          ? _value._userAds
+          : userAds // ignore: cast_nullable_to_non_nullable
+              as List<AutoEntity>,
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -476,21 +487,21 @@ class __$$_UserSingleStateCopyWithImpl<$Res>
 
 class _$_UserSingleState implements _UserSingleState {
   _$_UserSingleState(
-      {this.dealerSingleEntity = const DealerSingleEntity(),
-      final List<CarsInDealerEntity> cars = const [],
+      {this.userSingleEntity = const UserSingleEntity(),
+      final List<AutoEntity> userAds = const [],
       this.status = FormzStatus.pure})
-      : _cars = cars;
+      : _userAds = userAds;
 
   @override
   @JsonKey()
-  final DealerSingleEntity dealerSingleEntity;
-  final List<CarsInDealerEntity> _cars;
+  final UserSingleEntity userSingleEntity;
+  final List<AutoEntity> _userAds;
   @override
   @JsonKey()
-  List<CarsInDealerEntity> get cars {
-    if (_cars is EqualUnmodifiableListView) return _cars;
+  List<AutoEntity> get userAds {
+    if (_userAds is EqualUnmodifiableListView) return _userAds;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_cars);
+    return EqualUnmodifiableListView(_userAds);
   }
 
   @override
@@ -499,7 +510,7 @@ class _$_UserSingleState implements _UserSingleState {
 
   @override
   String toString() {
-    return 'UserSingleState(dealerSingleEntity: $dealerSingleEntity, cars: $cars, status: $status)';
+    return 'UserSingleState(userSingleEntity: $userSingleEntity, userAds: $userAds, status: $status)';
   }
 
   @override
@@ -507,15 +518,15 @@ class _$_UserSingleState implements _UserSingleState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_UserSingleState &&
-            (identical(other.dealerSingleEntity, dealerSingleEntity) ||
-                other.dealerSingleEntity == dealerSingleEntity) &&
-            const DeepCollectionEquality().equals(other._cars, _cars) &&
+            (identical(other.userSingleEntity, userSingleEntity) ||
+                other.userSingleEntity == userSingleEntity) &&
+            const DeepCollectionEquality().equals(other._userAds, _userAds) &&
             (identical(other.status, status) || other.status == status));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, dealerSingleEntity,
-      const DeepCollectionEquality().hash(_cars), status);
+  int get hashCode => Object.hash(runtimeType, userSingleEntity,
+      const DeepCollectionEquality().hash(_userAds), status);
 
   @JsonKey(ignore: true)
   @override
@@ -526,14 +537,14 @@ class _$_UserSingleState implements _UserSingleState {
 
 abstract class _UserSingleState implements UserSingleState {
   factory _UserSingleState(
-      {final DealerSingleEntity dealerSingleEntity,
-      final List<CarsInDealerEntity> cars,
+      {final UserSingleEntity userSingleEntity,
+      final List<AutoEntity> userAds,
       final FormzStatus status}) = _$_UserSingleState;
 
   @override
-  DealerSingleEntity get dealerSingleEntity;
+  UserSingleEntity get userSingleEntity;
   @override
-  List<CarsInDealerEntity> get cars;
+  List<AutoEntity> get userAds;
   @override
   FormzStatus get status;
   @override

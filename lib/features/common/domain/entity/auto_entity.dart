@@ -10,6 +10,7 @@ import 'package:auto/features/common/domain/model/auto_model.dart';
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
+// ignore: must_be_immutable
 class AutoEntity extends Equatable {
     AutoEntity({
     this.id = -1,
