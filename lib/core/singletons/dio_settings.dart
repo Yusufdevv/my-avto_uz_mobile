@@ -40,6 +40,8 @@ class DioSettings {
       request: kDebugMode,
       requestHeader: kDebugMode,
       responseBody: kDebugMode,
+      responseHeader: kDebugMode,
+      error: kDebugMode,
     ))
     ..interceptors.add(Chuck(
       navigatorKey: AppConstants.navigatorKey,
