@@ -1,7 +1,9 @@
 part of 'posting_ad_bloc.dart';
 
 abstract class PostingAdEvent {}
-
+class PostingAdClearStateEvent extends PostingAdEvent{
+  
+}
 class PostingAdModificationsEvent extends PostingAdEvent {
   final String? name;
   PostingAdModificationsEvent({this.name});
@@ -100,12 +102,12 @@ class PostingAdChooseEvent extends PostingAdEvent {
   final TextEditingController? searchController;
   final List<String>? gallery;
   final List<String>? panaramaGallery;
-  final Region? region;
+  final int? regionId;
   final List<YearsEntity>? years;
   final int? districtId;
   final List<RentWithPurchaseEntity>? rentWithPurchaseConditions;
   final Map<DamagedParts, DamageType>? damagedParts;
-  final int?     modificationId;
+  final int? modificationId;
   final int? modelId;
   final int? generationId;
 
@@ -115,7 +117,7 @@ class PostingAdChooseEvent extends PostingAdEvent {
   final int? selectedBodyTypeId;
   final int? driveTypeId;
   final int? gearboxId;
-  final int? yearId;
+  final YearsEntity? yearEntity;
   final Uint8List? bodyBytes;
   final String? letter;
   final String? colorName;
@@ -153,7 +155,7 @@ class PostingAdChooseEvent extends PostingAdEvent {
     this.searchController,
     this.panaramaGallery,
     this.bodyBytes,
-    this.yearId,
+    this.yearEntity,
     this.locationUrl,
     this.phoneController,
     this.emailController,
@@ -186,7 +188,7 @@ class PostingAdChooseEvent extends PostingAdEvent {
     this.ownerName,
     this.ownerPhone,
     this.city,
-    this.region,
+    this.regionId,
     this.price,
     this.currency,
     this.mileage,

@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:auto/features/ad/presentation/posting_ad_screen.dart';
 import 'package:auto/features/common/bloc/wishlist_add/wishlist_add_bloc.dart';
 import 'package:auto/features/common/widgets/notification_button.dart';
 import 'package:auto/features/comparison/presentation/comparison_page.dart';
@@ -33,6 +36,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   void initState() {
+    if (mounted) {
+      Timer(
+        const Duration(milliseconds: 500),
+        () async {
+          if (context.read<WishlistAddBloc>().state.goToAds == 1) {
+            await Navigator.of(context)
+                .push(fade(page: const MyAdsPage()))
+                .then((value) => context
+                    .read<WishlistAddBloc>()
+                    .add(WishlistAddEvent.goToAdds(-1)));
+          }
+        },
+      );
+    }
+
     imageBloc = ImageBloc();
     super.initState();
   }
@@ -49,7 +67,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             extraActions: const [NotificationButton()],
             hasBackButton: false,
             textWithButton: LocaleKeys.my_profile.tr()),
-        body: BlocListener<WishlistAddBloc, WishlistAddState>(
+        body: BlocConsumer<WishlistAddBloc, WishlistAddState>(
           listener: (context, stateWish) {
             if (stateWish.addStatus.isSubmissionSuccess) {
               context
@@ -62,14 +80,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   .add(ChangeCountDataEvent(adding: false));
             }
           },
-          child: BlocConsumer<ProfileBloc, ProfileState>(
+          builder: (context, stateWish) =>
+              BlocConsumer<ProfileBloc, ProfileState>(
             listener: (context, state) {
               if (state.changeStatus.isSubmissionSuccess) {
                 profileData = state.profileEntity;
               }
             },
             builder: (context, state) {
-              if (state.status.isSubmissionInProgress) {
+              if (state.status.isSubmissionInProgress ||
+                  stateWish.goToAds == 1) {
                 return const Center(child: CupertinoActivityIndicator());
               } else if (state.status.isSubmissionFailure) {
                 return const SizedBox();

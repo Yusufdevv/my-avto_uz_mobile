@@ -7,6 +7,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 class PostingAdAppBar extends StatelessWidget implements PreferredSizeWidget {
   final VoidCallback onTapBack;
   final VoidCallback onTapCancel;
+  final bool hasBackButton;
   final String title;
   final TextStyle? titleStyle;
   final bool hasShadow;
@@ -28,6 +29,7 @@ class PostingAdAppBar extends StatelessWidget implements PreferredSizeWidget {
     required this.hasShadow,
     required this.title,
     required this.onTapBack,
+    required this.hasBackButton,
     this.backButtonSize = 20,
     this.titleStyle,
     Key? key,
@@ -55,85 +57,88 @@ class PostingAdAppBar extends StatelessWidget implements PreferredSizeWidget {
                   : null,
               color: white,
             ),
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
-                FadeTransition(
-                  opacity: scaleAnimation,
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.start,
+            child: hasBackButton
+                ? Stack(
+                    alignment: Alignment.center,
                     children: [
-                      GestureDetector(
-                        behavior: HitTestBehavior.opaque,
-                        onTap: onTapBack,
+                      FadeTransition(
+                        opacity: scaleAnimation,
                         child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            const SizedBox(width: 16),
-                            SvgPicture.asset(
-                              AppIcons.chevronLeft,
-                              height: 26,
-                            ),
-                            const SizedBox(width: 8),
-                            Text(
-                              title.length > 21
-                                  ? '${title.substring(0, 20)}..'
-                                  : title,
-                              style: titleStyle ??
-                                  Theme.of(context)
-                                      .textTheme
-                                      .headline2!
-                                      .copyWith(fontWeight: FontWeight.w600),
+                            GestureDetector(
+                              behavior: HitTestBehavior.opaque,
+                              onTap: onTapBack,
+                              child: Row(
+                                children: [
+                                  const SizedBox(width: 16),
+                                  SvgPicture.asset(
+                                    AppIcons.chevronLeft,
+                                    height: 26,
+                                  ),
+                                  const SizedBox(width: 8),
+                                  Text(
+                                    title.length > 21
+                                        ? '${title.substring(0, 20)}..'
+                                        : title,
+                                    style: titleStyle ??
+                                        Theme.of(context)
+                                            .textTheme
+                                            .headline2!
+                                            .copyWith(
+                                                fontWeight: FontWeight.w600),
+                                  ),
+                                ],
+                              ),
                             ),
                           ],
                         ),
                       ),
-                    ],
-                  ),
-                ),
-                FadeTransition(
-                  opacity: reversScaleAnimation,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        GestureDetector(
-                          behavior: HitTestBehavior.opaque,
-                          onTap: onTapBack,
+                      FadeTransition(
+                        opacity: reversScaleAnimation,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16),
                           child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              SvgPicture.asset(
-                                AppIcons.chevronLeft,
-                                height: 26,
+                              GestureDetector(
+                                behavior: HitTestBehavior.opaque,
+                                onTap: onTapBack,
+                                child: Row(
+                                  children: [
+                                    SvgPicture.asset(
+                                      AppIcons.chevronLeft,
+                                      height: 26,
+                                    ),
+                                    const SizedBox(width: 8),
+                                    Text(
+                                      reverseTitle.length > 25
+                                          ? '${reverseTitle.substring(0, 24)}..'
+                                          : reverseTitle,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headline1!
+                                          .copyWith(),
+                                    ),
+                                  ],
+                                ),
                               ),
-                              const SizedBox(width: 8),
-                              Text(
-                                reverseTitle.length > 25
-                                    ? '${reverseTitle.substring(0, 24)}..'
-                                    : reverseTitle,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headline1!
-                                    .copyWith(),
+                              GestureDetector(
+                                onTap: onTapCancel,
+                                behavior: HitTestBehavior.opaque,
+                                child: SvgPicture.asset(
+                                  AppIcons.cancel,
+                                  color: grey,
+                                ),
                               ),
                             ],
                           ),
                         ),
-                        GestureDetector(
-                          onTap: onTapCancel,
-                          behavior: HitTestBehavior.opaque,
-                          child: SvgPicture.asset(
-                            AppIcons.cancel,
-                            color: grey,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
+                      ),
+                    ],
+                  )
+                : const SizedBox(),
           ),
           CompletionBar(
             visibile: hasShadow,

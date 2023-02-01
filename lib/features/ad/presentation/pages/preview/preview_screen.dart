@@ -1,3 +1,5 @@
+import 'package:auto/features/ad/data/models/modification_type.dart';
+import 'package:auto/features/ad/domain/entities/types/modification_type.dart';
 import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.dart';
 import 'package:auto/features/ad/presentation/pages/preview/widgets/car_info_row.dart';
 import 'package:auto/features/ad/presentation/pages/preview/widgets/car_model_price_text.dart';
@@ -16,9 +18,14 @@ class PreviewScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Scaffold(
         body: BlocBuilder<PostingAdBloc, PostingAdState>(
-          builder: (context, state) => SingleChildScrollView(
+            builder: (context, state) {
+          for (int i = 0; i < state.modifications.length; i++) {
+            print(
+                '=> => => =>   ${state.modifications[i].id}      <= <= <= <=');
+          }
+          return SingleChildScrollView(
             physics: const BouncingScrollPhysics(),
-            padding: const EdgeInsets.only(bottom: 50),
+            padding: const EdgeInsets.only(bottom: 66),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -29,7 +36,8 @@ class PreviewScreen extends StatelessWidget {
                     style: Theme.of(context).textTheme.headline1,
                   ),
                 ),
-                ImageViewer(images: state.gallery),
+                ImageViewer(
+                    images: [...state.gallery, ...state.panaramaGallery]),
                 const SizedBox(height: 12),
                 CarModelText(
                     text:
@@ -46,8 +54,9 @@ class PreviewScreen extends StatelessWidget {
                         height: 1, color: Theme.of(context).dividerColor)),
                 CarInfoRow(
                     title: LocaleKeys.years_of_issue.tr(),
-                    info:
-                        '${state.years?.firstWhere((element) => state.yearId == element.id).yearBegin}'),
+                    info: state.yearEntity == null
+                        ? ''
+                        : '${state.yearEntity!.yearBegin}'),
                 CarInfoRow(title: LocaleKeys.Mileage, info: '${state.mileage}'),
                 CarInfoRow(
                     title: LocaleKeys.body.tr(),
@@ -60,11 +69,15 @@ class PreviewScreen extends StatelessWidget {
                   title: LocaleKeys.color.tr(),
                   info: '${state.colorName}',
                 ),
-                 CarInfoRow(title: LocaleKeys.complectation.tr(), info: 'hsergfd'),
+                CarInfoRow(
+                    title: LocaleKeys.complectation.tr(), info: 'hsergfd'),
                 CarInfoRow(
                   title: LocaleKeys.engine_volume_l.tr(),
-                  info:
-                      '${state.years?.firstWhere((element) => state.yearId == element.id).yearBegin}',
+                  info: state.modifications
+                      .singleWhere((e) => e.id == state.modificationId,
+                          orElse: () => const ModificationTypeModel(
+                              volume: '', id: -1, power: ''))
+                      .volume,
                 ),
                 CarInfoRow(
                   title: LocaleKeys.Transmission.tr(),
@@ -76,12 +89,14 @@ class PreviewScreen extends StatelessWidget {
                 ),
                 CarInfoRow(
                   title: 'Растаможен в Узбекистане',
-                  info: state.notRegisteredInUzbekistan ? LocaleKeys.no.tr() : 'Да',
+                  info: state.notRegisteredInUzbekistan
+                      ? LocaleKeys.no.tr()
+                      : 'Да',
                 ),
                 const SizedBox(height: 36)
               ],
             ),
-          ),
-        ),
+          );
+        }),
       );
 }

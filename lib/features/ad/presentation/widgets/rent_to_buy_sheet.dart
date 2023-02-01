@@ -121,7 +121,7 @@ class _RentToBuySheetState extends State<RentToBuySheet> {
                               break;
                             case 3:
                               {
-                                if (!((int.tryParse(vv ?? '0') ?? 0) >=
+                                if (!(value >=
                                     state.minimumSumma!)) {
                                   return 'Must be >= ${state.minimumSumma}';
                                 }

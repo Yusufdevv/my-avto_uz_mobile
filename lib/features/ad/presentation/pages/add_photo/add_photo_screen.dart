@@ -52,45 +52,42 @@ class _AddPhotoScreenState extends State<AddPhotoScreen> {
               const Spacer()
             ],
             child: BlocBuilder<PostingAdBloc, PostingAdState>(
-              builder: (context, postingAdState) {
-                print(
-                    '=> => => =>     state images lenth: ${postingAdState.gallery.length}    <= <= <= <=');
-                return BlocConsumer<ImageBloc, ImageState>(
-                  listener: (context, state) {
-                    widget.onImageChanged(state.images);
-                    widget.onPanaramaChanged(state.panaramaImages);
-                  },
-                  builder: (context, snapshot) => Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      PhotoItem(
-                        images: postingAdState.gallery,
-                        onTap: () async {
-                          imageBloc
-                              .add(const PickImage(source: ImageSource.camera));
-                        },
+              builder: (context, postingAdState) =>
+                  BlocConsumer<ImageBloc, ImageState>(
+                listener: (context, state) {
+                  widget.onImageChanged(state.images);
+                  widget.onPanaramaChanged(state.panaramaImages);
+                },
+                builder: (context, snapshot) => Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    PhotoItem(
+                      images: postingAdState.gallery,
+                      onTap: () async {
+                        imageBloc
+                            .add(const PickImage(source: ImageSource.gallery));
+                      },
+                    ),
+                    const SizedBox(height: 16),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: Text(
+                        'Фото 360°',
+                        style: Theme.of(context)
+                            .textTheme
+                            .subtitle1!
+                            .copyWith(color: grey),
                       ),
-                      const SizedBox(height: 16),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
-                        child: Text(
-                          'Фото 360°',
-                          style: Theme.of(context)
-                              .textTheme
-                              .subtitle1!
-                              .copyWith(color: grey),
-                        ),
-                      ),
-                      PhotoItem(
-                        images: postingAdState.panaramaGallery,
-                        onTap: () async {
-                          imageBloc.add(PickPanaramaImageEvent());
-                        },
-                      ),
-                    ],
-                  ),
-                );
-              },
+                    ),
+                    PhotoItem(
+                      images: postingAdState.panaramaGallery,
+                      onTap: () async {
+                        imageBloc.add(PickPanaramaImageEvent());
+                      },
+                    ),
+                  ],
+                ),
+              ),
             ),
           ),
         ),

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/core/singletons/service_locator.dart';
@@ -41,6 +43,7 @@ import 'package:auto/features/ad/presentation/widgets/posting_ad_appbar.dart';
 import 'package:auto/features/car_single/data/repository/car_single_repository_impl.dart';
 import 'package:auto/features/car_single/domain/usecases/get_ads_usecase.dart';
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
+import 'package:auto/features/common/bloc/wishlist_add/wishlist_add_bloc.dart';
 import 'package:auto/features/common/repository/auth.dart';
 import 'package:auto/features/common/usecases/get_districts_usecase.dart';
 import 'package:auto/features/common/usecases/get_regions_usecase.dart';
@@ -48,6 +51,7 @@ import 'package:auto/features/common/widgets/custom_screen.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/login/domain/usecases/verify_code.dart';
 import 'package:auto/features/main/domain/usecases/get_top_brand.dart';
+import 'package:auto/features/navigation/presentation/home.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/rent/domain/usecases/get_gearboxess_usecase.dart';
 import 'package:auto/generated/locale_keys.g.dart';
@@ -58,8 +62,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 
 class PostingAdScreen extends StatefulWidget {
+ 
   final int? announcementId;
-  const PostingAdScreen({this.announcementId, Key? key}) : super(key: key);
+  const PostingAdScreen(
+      {this.announcementId, Key? key})
+      : super(key: key);
 
   @override
   State<PostingAdScreen> createState() => _PostingAdScreenState();
@@ -103,7 +110,7 @@ class _PostingAdScreenState extends State<PostingAdScreen>
       animationController: animeController,
     );
     globalKey = GlobalKey();
-    pageController = PageController(initialPage: initialPage);
+
     postingAdBloc = PostingAdBloc(
       modificationUseCase: GetModificationTypeUseCase(
           repository: serviceLocator<AdRepositoryImpl>()),
@@ -144,11 +151,14 @@ class _PostingAdScreenState extends State<PostingAdScreen>
       postingAdBloc.add(PostingAdMakesEvent());
     } else {
       currentTabIndex = 10;
+      initialPage = 10;
 
       postingAdBloc
           .add(PostingAdGetAnnouncementEvent(id: widget.announcementId!));
     }
 
+    pageController = PageController(initialPage: initialPage);
+    print('=> => => =>     initstate of posting ad screen    <= <= <= <=');
     super.initState();
   }
 
@@ -194,11 +204,27 @@ class _PostingAdScreenState extends State<PostingAdScreen>
               listener: (context, state) async {
                 if (state.createStatus == FormzStatus.submissionSuccess) {
                   context.read<ShowPopUpBloc>().add(ShowPopUp(
-                      message: state.toastMessage!,
-                      isSucces: true,
-                      dismissible: false));
+                        message: state.toastMessage!,
+                        isSucces: true,
+                        dismissible: false,
+                      ));
                   await Future.delayed(const Duration(milliseconds: 1000));
-                  // Navigator.pushReplacement(context, fade(page: MyAdsPage()));
+                  context.read<ShowPopUpBloc>().add(HidePopUp());
+
+                  Navigator.of(context).pop(true);
+
+                  context
+                      .read<WishlistAddBloc>()
+                      .add(WishlistAddEvent.goToAdds(1));
+                  currentTabIndex = 0;
+                  await Future.delayed(const Duration(milliseconds: 500));
+                  await pageController.animateToPage(currentTabIndex,
+                      duration: const Duration(milliseconds: 150),
+                      curve: Curves.linear);
+
+                  postingAdBloc.add(PostingAdClearStateEvent());
+
+                  setState(() {});
                   return;
                 }
 
@@ -214,6 +240,8 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                   appBar: PreferredSize(
                     preferredSize: const Size.fromHeight(54),
                     child: PostingAdAppBar(
+                      hasBackButton: !(widget.announcementId != null &&
+                          currentTabIndex == 10),
                       currentTabIndex: currentTabIndex,
                       reversScaleAnimation: animeState.reversScaleAnimation,
                       reverseTitle: LocaleKeys.choose_brand_auto.tr(),
@@ -242,8 +270,7 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                             setState(() {});
                           }
                         } else {
-                          postingAdBloc.add(PostingAdGetMapScreenShotEvent(
-                              lat: 51.727348, long: 22.557984, zoomLevel: 15));
+                          // Navigator.pop(context);
                         }
                       },
                       onTapCancel: () {
@@ -320,16 +347,6 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                           //16
                           InspectionPlaceScreen(
                             onToMapPressed: () {
-                              // postingAdBloc.add(
-                              //   PostingAdGetMapScreenShotEvent(
-                              //       lat: 41.317014,
-                              //       long: 69.268345,
-                              //       ////////////////////
-                              //       // lat: 53.860743,
-                              //       // long:27.952510 ,
-
-                              //       zoomLevel: 15),
-                              // );
                               Navigator.push(
                                 context,
                                 fade(
@@ -362,7 +379,7 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                       ),
                       if (currentTabIndex < tabLength - 1) ...{
                         Positioned(
-                          bottom: 16,
+                          bottom: MediaQuery.of(context).padding.bottom + 53,
                           right: 16,
                           left: 16,
                           child: WButton(
@@ -398,7 +415,7 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                         ),
                       } else ...{
                         Positioned(
-                            bottom: MediaQuery.of(context).padding.bottom + 16,
+                            bottom: MediaQuery.of(context).padding.bottom + 53,
                             right: 16,
                             left: 16,
                             child: WButton(
@@ -406,12 +423,6 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                                   FormzStatus.submissionInProgress,
                               onTap: () async {
                                 postingAdBloc.add(PostingAdCreateEvent());
-                                // Navigator.pop(context);
-                                // HomeTabControllerProvider.of(context)
-                                //     .controller
-                                //     .animateTo(4);
-
-                                // await Navigator.push(context, fade(page: const MyAddsPage()));
                               },
                               text: 'Разместить бесплатно на 7 дней....',
                               shadow: [

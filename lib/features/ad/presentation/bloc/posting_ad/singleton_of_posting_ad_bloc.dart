@@ -12,7 +12,7 @@ class PASingleton {
       'drive_type': v.driveTypeId,
       'engine_type': v.engineId,
       'gearbox_type': v.gearboxId,
-      'year': v.yearId,
+      'year': v.yearEntity!.id,
       'modification_type': v.modificationId,
       'color': v.colorName,
       'purchase_date': v.purchasedDate,
@@ -23,11 +23,11 @@ class PASingleton {
       'contact_phone': v.ownerPhone,
       'contact_available_from': v.callTimeFrom,
       'contact_available_to': v.callTimeTo,
-      'region': v.region!.id,
+      'region': v.regionId!,
       'district': v.districtId,
       'price': v.price!.replaceAll(' ', ''),
       'currency': v.currency,
-      'distance_traveled': v.mileage,
+      'distance_traveled': v.mileage!.replaceAll(' ', ''),
       'registration_vin': 'KENTEKENMEWIJS',
       'registration_plate': 'KENTEKENMEWIJS',
       'registration_certificate': 'KENTEKENMEWIJS',
@@ -89,6 +89,7 @@ class PASingleton {
     }
 
     return PostingAdState(
+      isContactsVerified: true,
       searchController: TextEditingController(),
       phoneController: TextEditingController(text: phone ?? v.user.phoneNumber),
       emailController: TextEditingController(),
@@ -126,7 +127,7 @@ class PASingleton {
           panaramaGallery: event.panaramaGallery,
           mapPointBytes: event.bodyBytes,
           years: event.years,
-          yearId: event.yearId,
+          yearEntity: event.yearEntity,
           locationUrl: event.locationUrl,
           toastMessage: event.toastMessage,
           damagedParts: event.damagedParts,
@@ -159,7 +160,7 @@ class PASingleton {
           ownerName: event.ownerName,
           ownerPhone: event.ownerPhone,
           city: event.city,
-          region: event.region,
+          regionId: event.regionId,
           price: event.price,
           currency: event.currency,
           gasBalloonType: event.gasBalloonType,
@@ -258,7 +259,7 @@ class PASingleton {
         return state.modelId == null;
       // year
       case 2:
-        return state.yearId == null;
+        return state.yearEntity == null;
       // generation
       case 3:
         return state.generationId == null;
@@ -283,8 +284,8 @@ class PASingleton {
         return false;
       // AddPhotoScreen
       case 10:
-        return false;
-      // return [...state.gallery, ...state.panaramaGallery].isEmpty;
+        // return false;
+        return [...state.gallery, ...state.panaramaGallery].isEmpty;
       // PtsScreen
       case 11:
         return state.ownerStep == null ||
@@ -304,7 +305,7 @@ class PASingleton {
         return !state.isContactsVerified;
 // InspectionPlaceScreen
       case 16:
-        return state.region == null;
+        return state.regionId == null;
 
       // PriceScreen
       case 17:

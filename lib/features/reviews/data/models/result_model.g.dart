@@ -44,7 +44,7 @@ ResultModel _$ResultModelFromJson(Map<String, dynamic> json) => ResultModel(
               .fromJson(json['model'] as Map<String, dynamic>?),
       modificationType: json['modification_type'] == null
           ? const ModificationTypeEntity()
-          : const ModificationTypeConverter()
+          : const ModificationTypeEntityConverter()
               .fromJson(json['modification_type'] as Map<String, dynamic>?),
       negatives: (json['negatives'] as List<dynamic>?)
               ?.map((e) => e as String)
@@ -75,8 +75,8 @@ Map<String, dynamic> _$ResultModelToJson(ResultModel instance) =>
       'drive_type': const TypeConverter().toJson(instance.driveType),
       'engine_type': const TypeConverter().toJson(instance.engineType),
       'gearbox_type': const TypeConverter().toJson(instance.gearboxType),
-      'modification_type':
-          const ModificationTypeConverter().toJson(instance.modificationType),
+      'modification_type': const ModificationTypeEntityConverter()
+          .toJson(instance.modificationType),
       'absolute_car_name': instance.absoluteCarName,
       'title': instance.title,
       'comment': instance.comment,

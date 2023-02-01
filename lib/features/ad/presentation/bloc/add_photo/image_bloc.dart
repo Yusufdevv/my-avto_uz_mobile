@@ -44,10 +44,18 @@ class ImageBloc extends Bloc<ImageEvent, ImageState> {
     });
     on<DeleteImage>((event, emit) {
       final image = <String>[...state.images];
+      final panarama = <String>[...state.panaramaImages];
+       print(
+          '=> => => =>     pl: ${panarama.length}  il: ${image.length}  <= <= <= <=');
       if (image.contains(event.imageUrl)) {
         image.remove(event.imageUrl);
       }
-      emit(state.copyWith(images: image));
+      if (panarama.contains(event.imageUrl)) {
+        panarama.remove(event.imageUrl);
+      }
+      print(
+          '=> => => =>     pl: ${panarama.length}  il: ${image.length}  <= <= <= <=');
+      emit(state.copyWith(images: image, panaramaImages: panarama));
       emit(state.copyWith(image: File('')));
     });
     on<GetImage>((event, emit) async {

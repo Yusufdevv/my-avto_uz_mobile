@@ -21,6 +21,7 @@ mixin _$WishlistAddEvent {
     required TResult Function(int id, int index) addWishlist,
     required TResult Function(int id, int index) removeWishlist,
     required TResult Function() clearState,
+    required TResult Function(int goToAds) goToAdds,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -28,6 +29,7 @@ mixin _$WishlistAddEvent {
     TResult? Function(int id, int index)? addWishlist,
     TResult? Function(int id, int index)? removeWishlist,
     TResult? Function()? clearState,
+    TResult? Function(int goToAds)? goToAdds,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -35,6 +37,7 @@ mixin _$WishlistAddEvent {
     TResult Function(int id, int index)? addWishlist,
     TResult Function(int id, int index)? removeWishlist,
     TResult Function()? clearState,
+    TResult Function(int goToAds)? goToAdds,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -43,6 +46,7 @@ mixin _$WishlistAddEvent {
     required TResult Function(_AddWishlist value) addWishlist,
     required TResult Function(_RemoveWishlist value) removeWishlist,
     required TResult Function(_ClearState value) clearState,
+    required TResult Function(_GoToAds value) goToAdds,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -50,6 +54,7 @@ mixin _$WishlistAddEvent {
     TResult? Function(_AddWishlist value)? addWishlist,
     TResult? Function(_RemoveWishlist value)? removeWishlist,
     TResult? Function(_ClearState value)? clearState,
+    TResult? Function(_GoToAds value)? goToAdds,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -57,6 +62,7 @@ mixin _$WishlistAddEvent {
     TResult Function(_AddWishlist value)? addWishlist,
     TResult Function(_RemoveWishlist value)? removeWishlist,
     TResult Function(_ClearState value)? clearState,
+    TResult Function(_GoToAds value)? goToAdds,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -155,6 +161,7 @@ class _$_AddWishlist implements _AddWishlist {
     required TResult Function(int id, int index) addWishlist,
     required TResult Function(int id, int index) removeWishlist,
     required TResult Function() clearState,
+    required TResult Function(int goToAds) goToAdds,
   }) {
     return addWishlist(id, index);
   }
@@ -165,6 +172,7 @@ class _$_AddWishlist implements _AddWishlist {
     TResult? Function(int id, int index)? addWishlist,
     TResult? Function(int id, int index)? removeWishlist,
     TResult? Function()? clearState,
+    TResult? Function(int goToAds)? goToAdds,
   }) {
     return addWishlist?.call(id, index);
   }
@@ -175,6 +183,7 @@ class _$_AddWishlist implements _AddWishlist {
     TResult Function(int id, int index)? addWishlist,
     TResult Function(int id, int index)? removeWishlist,
     TResult Function()? clearState,
+    TResult Function(int goToAds)? goToAdds,
     required TResult orElse(),
   }) {
     if (addWishlist != null) {
@@ -189,6 +198,7 @@ class _$_AddWishlist implements _AddWishlist {
     required TResult Function(_AddWishlist value) addWishlist,
     required TResult Function(_RemoveWishlist value) removeWishlist,
     required TResult Function(_ClearState value) clearState,
+    required TResult Function(_GoToAds value) goToAdds,
   }) {
     return addWishlist(this);
   }
@@ -199,6 +209,7 @@ class _$_AddWishlist implements _AddWishlist {
     TResult? Function(_AddWishlist value)? addWishlist,
     TResult? Function(_RemoveWishlist value)? removeWishlist,
     TResult? Function(_ClearState value)? clearState,
+    TResult? Function(_GoToAds value)? goToAdds,
   }) {
     return addWishlist?.call(this);
   }
@@ -209,6 +220,7 @@ class _$_AddWishlist implements _AddWishlist {
     TResult Function(_AddWishlist value)? addWishlist,
     TResult Function(_RemoveWishlist value)? removeWishlist,
     TResult Function(_ClearState value)? clearState,
+    TResult Function(_GoToAds value)? goToAdds,
     required TResult orElse(),
   }) {
     if (addWishlist != null) {
@@ -303,6 +315,7 @@ class _$_RemoveWishlist implements _RemoveWishlist {
     required TResult Function(int id, int index) addWishlist,
     required TResult Function(int id, int index) removeWishlist,
     required TResult Function() clearState,
+    required TResult Function(int goToAds) goToAdds,
   }) {
     return removeWishlist(id, index);
   }
@@ -313,6 +326,7 @@ class _$_RemoveWishlist implements _RemoveWishlist {
     TResult? Function(int id, int index)? addWishlist,
     TResult? Function(int id, int index)? removeWishlist,
     TResult? Function()? clearState,
+    TResult? Function(int goToAds)? goToAdds,
   }) {
     return removeWishlist?.call(id, index);
   }
@@ -323,6 +337,7 @@ class _$_RemoveWishlist implements _RemoveWishlist {
     TResult Function(int id, int index)? addWishlist,
     TResult Function(int id, int index)? removeWishlist,
     TResult Function()? clearState,
+    TResult Function(int goToAds)? goToAdds,
     required TResult orElse(),
   }) {
     if (removeWishlist != null) {
@@ -337,6 +352,7 @@ class _$_RemoveWishlist implements _RemoveWishlist {
     required TResult Function(_AddWishlist value) addWishlist,
     required TResult Function(_RemoveWishlist value) removeWishlist,
     required TResult Function(_ClearState value) clearState,
+    required TResult Function(_GoToAds value) goToAdds,
   }) {
     return removeWishlist(this);
   }
@@ -347,6 +363,7 @@ class _$_RemoveWishlist implements _RemoveWishlist {
     TResult? Function(_AddWishlist value)? addWishlist,
     TResult? Function(_RemoveWishlist value)? removeWishlist,
     TResult? Function(_ClearState value)? clearState,
+    TResult? Function(_GoToAds value)? goToAdds,
   }) {
     return removeWishlist?.call(this);
   }
@@ -357,6 +374,7 @@ class _$_RemoveWishlist implements _RemoveWishlist {
     TResult Function(_AddWishlist value)? addWishlist,
     TResult Function(_RemoveWishlist value)? removeWishlist,
     TResult Function(_ClearState value)? clearState,
+    TResult Function(_GoToAds value)? goToAdds,
     required TResult orElse(),
   }) {
     if (removeWishlist != null) {
@@ -417,6 +435,7 @@ class _$_ClearState implements _ClearState {
     required TResult Function(int id, int index) addWishlist,
     required TResult Function(int id, int index) removeWishlist,
     required TResult Function() clearState,
+    required TResult Function(int goToAds) goToAdds,
   }) {
     return clearState();
   }
@@ -427,6 +446,7 @@ class _$_ClearState implements _ClearState {
     TResult? Function(int id, int index)? addWishlist,
     TResult? Function(int id, int index)? removeWishlist,
     TResult? Function()? clearState,
+    TResult? Function(int goToAds)? goToAdds,
   }) {
     return clearState?.call();
   }
@@ -437,6 +457,7 @@ class _$_ClearState implements _ClearState {
     TResult Function(int id, int index)? addWishlist,
     TResult Function(int id, int index)? removeWishlist,
     TResult Function()? clearState,
+    TResult Function(int goToAds)? goToAdds,
     required TResult orElse(),
   }) {
     if (clearState != null) {
@@ -451,6 +472,7 @@ class _$_ClearState implements _ClearState {
     required TResult Function(_AddWishlist value) addWishlist,
     required TResult Function(_RemoveWishlist value) removeWishlist,
     required TResult Function(_ClearState value) clearState,
+    required TResult Function(_GoToAds value) goToAdds,
   }) {
     return clearState(this);
   }
@@ -461,6 +483,7 @@ class _$_ClearState implements _ClearState {
     TResult? Function(_AddWishlist value)? addWishlist,
     TResult? Function(_RemoveWishlist value)? removeWishlist,
     TResult? Function(_ClearState value)? clearState,
+    TResult? Function(_GoToAds value)? goToAdds,
   }) {
     return clearState?.call(this);
   }
@@ -471,6 +494,7 @@ class _$_ClearState implements _ClearState {
     TResult Function(_AddWishlist value)? addWishlist,
     TResult Function(_RemoveWishlist value)? removeWishlist,
     TResult Function(_ClearState value)? clearState,
+    TResult Function(_GoToAds value)? goToAdds,
     required TResult orElse(),
   }) {
     if (clearState != null) {
@@ -485,7 +509,152 @@ abstract class _ClearState implements WishlistAddEvent {
 }
 
 /// @nodoc
+abstract class _$$_GoToAdsCopyWith<$Res> {
+  factory _$$_GoToAdsCopyWith(
+          _$_GoToAds value, $Res Function(_$_GoToAds) then) =
+      __$$_GoToAdsCopyWithImpl<$Res>;
+  @useResult
+  $Res call({int goToAds});
+}
+
+/// @nodoc
+class __$$_GoToAdsCopyWithImpl<$Res>
+    extends _$WishlistAddEventCopyWithImpl<$Res, _$_GoToAds>
+    implements _$$_GoToAdsCopyWith<$Res> {
+  __$$_GoToAdsCopyWithImpl(_$_GoToAds _value, $Res Function(_$_GoToAds) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? goToAds = null,
+  }) {
+    return _then(_$_GoToAds(
+      null == goToAds
+          ? _value.goToAds
+          : goToAds // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_GoToAds implements _GoToAds {
+  _$_GoToAds(this.goToAds);
+
+  @override
+  final int goToAds;
+
+  @override
+  String toString() {
+    return 'WishlistAddEvent.goToAdds(goToAds: $goToAds)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_GoToAds &&
+            (identical(other.goToAds, goToAds) || other.goToAds == goToAds));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, goToAds);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_GoToAdsCopyWith<_$_GoToAds> get copyWith =>
+      __$$_GoToAdsCopyWithImpl<_$_GoToAds>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(int id, int index) addWishlist,
+    required TResult Function(int id, int index) removeWishlist,
+    required TResult Function() clearState,
+    required TResult Function(int goToAds) goToAdds,
+  }) {
+    return goToAdds(goToAds);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(int id, int index)? addWishlist,
+    TResult? Function(int id, int index)? removeWishlist,
+    TResult? Function()? clearState,
+    TResult? Function(int goToAds)? goToAdds,
+  }) {
+    return goToAdds?.call(goToAds);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(int id, int index)? addWishlist,
+    TResult Function(int id, int index)? removeWishlist,
+    TResult Function()? clearState,
+    TResult Function(int goToAds)? goToAdds,
+    required TResult orElse(),
+  }) {
+    if (goToAdds != null) {
+      return goToAdds(goToAds);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_AddWishlist value) addWishlist,
+    required TResult Function(_RemoveWishlist value) removeWishlist,
+    required TResult Function(_ClearState value) clearState,
+    required TResult Function(_GoToAds value) goToAdds,
+  }) {
+    return goToAdds(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_AddWishlist value)? addWishlist,
+    TResult? Function(_RemoveWishlist value)? removeWishlist,
+    TResult? Function(_ClearState value)? clearState,
+    TResult? Function(_GoToAds value)? goToAdds,
+  }) {
+    return goToAdds?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_AddWishlist value)? addWishlist,
+    TResult Function(_RemoveWishlist value)? removeWishlist,
+    TResult Function(_ClearState value)? clearState,
+    TResult Function(_GoToAds value)? goToAdds,
+    required TResult orElse(),
+  }) {
+    if (goToAdds != null) {
+      return goToAdds(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _GoToAds implements WishlistAddEvent {
+  factory _GoToAds(final int goToAds) = _$_GoToAds;
+
+  int get goToAds;
+  @JsonKey(ignore: true)
+  _$$_GoToAdsCopyWith<_$_GoToAds> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 mixin _$WishlistAddState {
+  int get goToAds => throw _privateConstructorUsedError;
   FormzStatus get addStatus => throw _privateConstructorUsedError;
   FormzStatus get removeStatus => throw _privateConstructorUsedError;
   int get index => throw _privateConstructorUsedError;
@@ -503,7 +672,11 @@ abstract class $WishlistAddStateCopyWith<$Res> {
       _$WishlistAddStateCopyWithImpl<$Res, WishlistAddState>;
   @useResult
   $Res call(
-      {FormzStatus addStatus, FormzStatus removeStatus, int index, int id});
+      {int goToAds,
+      FormzStatus addStatus,
+      FormzStatus removeStatus,
+      int index,
+      int id});
 }
 
 /// @nodoc
@@ -519,12 +692,17 @@ class _$WishlistAddStateCopyWithImpl<$Res, $Val extends WishlistAddState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? goToAds = null,
     Object? addStatus = null,
     Object? removeStatus = null,
     Object? index = null,
     Object? id = null,
   }) {
     return _then(_value.copyWith(
+      goToAds: null == goToAds
+          ? _value.goToAds
+          : goToAds // ignore: cast_nullable_to_non_nullable
+              as int,
       addStatus: null == addStatus
           ? _value.addStatus
           : addStatus // ignore: cast_nullable_to_non_nullable
@@ -554,7 +732,11 @@ abstract class _$$_WishlistAddStateCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {FormzStatus addStatus, FormzStatus removeStatus, int index, int id});
+      {int goToAds,
+      FormzStatus addStatus,
+      FormzStatus removeStatus,
+      int index,
+      int id});
 }
 
 /// @nodoc
@@ -568,12 +750,17 @@ class __$$_WishlistAddStateCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? goToAds = null,
     Object? addStatus = null,
     Object? removeStatus = null,
     Object? index = null,
     Object? id = null,
   }) {
     return _then(_$_WishlistAddState(
+      goToAds: null == goToAds
+          ? _value.goToAds
+          : goToAds // ignore: cast_nullable_to_non_nullable
+              as int,
       addStatus: null == addStatus
           ? _value.addStatus
           : addStatus // ignore: cast_nullable_to_non_nullable
@@ -598,11 +785,15 @@ class __$$_WishlistAddStateCopyWithImpl<$Res>
 
 class _$_WishlistAddState implements _WishlistAddState {
   _$_WishlistAddState(
-      {this.addStatus = FormzStatus.pure,
+      {this.goToAds = -1,
+      this.addStatus = FormzStatus.pure,
       this.removeStatus = FormzStatus.pure,
       this.index = -1,
       this.id = -1});
 
+  @override
+  @JsonKey()
+  final int goToAds;
   @override
   @JsonKey()
   final FormzStatus addStatus;
@@ -618,7 +809,7 @@ class _$_WishlistAddState implements _WishlistAddState {
 
   @override
   String toString() {
-    return 'WishlistAddState(addStatus: $addStatus, removeStatus: $removeStatus, index: $index, id: $id)';
+    return 'WishlistAddState(goToAds: $goToAds, addStatus: $addStatus, removeStatus: $removeStatus, index: $index, id: $id)';
   }
 
   @override
@@ -626,6 +817,7 @@ class _$_WishlistAddState implements _WishlistAddState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_WishlistAddState &&
+            (identical(other.goToAds, goToAds) || other.goToAds == goToAds) &&
             (identical(other.addStatus, addStatus) ||
                 other.addStatus == addStatus) &&
             (identical(other.removeStatus, removeStatus) ||
@@ -636,7 +828,7 @@ class _$_WishlistAddState implements _WishlistAddState {
 
   @override
   int get hashCode =>
-      Object.hash(runtimeType, addStatus, removeStatus, index, id);
+      Object.hash(runtimeType, goToAds, addStatus, removeStatus, index, id);
 
   @JsonKey(ignore: true)
   @override
@@ -647,11 +839,14 @@ class _$_WishlistAddState implements _WishlistAddState {
 
 abstract class _WishlistAddState implements WishlistAddState {
   factory _WishlistAddState(
-      {final FormzStatus addStatus,
+      {final int goToAds,
+      final FormzStatus addStatus,
       final FormzStatus removeStatus,
       final int index,
       final int id}) = _$_WishlistAddState;
 
+  @override
+  int get goToAds;
   @override
   FormzStatus get addStatus;
   @override

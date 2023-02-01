@@ -27,11 +27,11 @@ class PostingAdState extends Equatable {
   final List<GenerationEntity> generations;
   final int? bodyTypeId;
   final List<BodyTypeEntity> bodyTypes;
-  final Region? region;
+  final int? regionId;
   final List<Region> regions;
   final List<DistrictEntity> districts;
 
-  final int? yearId;
+  final YearsEntity? yearEntity;
   final List<YearsEntity>? years;
   final int? districtId;
   final List<String> gallery;
@@ -96,7 +96,7 @@ class PostingAdState extends Equatable {
     this.generations = const <GenerationEntity>[],
     this.bodyTypeId,
     this.bodyTypes = const <BodyTypeEntity>[],
-    this.yearId,
+    this.yearEntity,
     this.years = const <YearsEntity>[],
     this.gallery = const <String>[],
     this.panaramaGallery = const <String>[],
@@ -117,7 +117,7 @@ class PostingAdState extends Equatable {
     this.ownerEmail,
     this.ownerPhone,
     this.city,
-    this.region,
+    this.regionId,
     this.price,
     this.currency = 'usd',
     this.mileage,
@@ -157,7 +157,7 @@ class PostingAdState extends Equatable {
     Map<DamagedParts, DamageType>? damagedParts,
     List<RentWithPurchaseEntity>? rentWithPurchaseConditions,
     int? districtId,
-    Region? region,
+    int? regionId,
     FormzStatus? status,
     FormzStatus? getDistrictsStatus,
     FormzStatus? createStatus,
@@ -183,7 +183,7 @@ class PostingAdState extends Equatable {
     List<DistrictEntity>? districts,
     List<String>? gallery,
     List<String>? panaramaGallery,
-    int? yearId,
+    YearsEntity? yearEntity,
     List<YearsEntity>? years,
     UserModel? userModel,
     int? eventMakeScrrollIndex,
@@ -229,7 +229,7 @@ class PostingAdState extends Equatable {
       createStatus: createStatus ?? this.createStatus,
       mapPointBytes: mapPointBytes ?? this.mapPointBytes,
       makeLetterIndex: eventMakeScrrollIndex,
-      yearId: yearId ?? this.yearId,
+      yearEntity: yearEntity ?? this.yearEntity,
       locationUrl: locationUrl ?? this.locationUrl,
       phoneController: phoneController ?? this.phoneController,
       emailController: emailController ?? this.emailController,
@@ -244,7 +244,7 @@ class PostingAdState extends Equatable {
       showExactAddress: showExactAddress ?? this.showExactAddress,
       districtId: districtId ?? this.districtId,
       city: city ?? this.city,
-      region: region ?? this.region,
+      regionId: regionId ?? this.regionId,
       gearboxId: gearboxId ?? this.gearboxId,
       gearBoxes: gearBoxes ?? this.gearBoxes,
       driveTypeId: driveTypeId ?? this.driveTypeId,
@@ -298,8 +298,8 @@ class PostingAdState extends Equatable {
 
   @override
   List<Object?> get props => [
-    modificationId,
-modifications,
+        modificationId,
+        modifications,
         getMakesStatus,
         searchController,
         panaramaGallery,
@@ -327,7 +327,7 @@ modifications,
         callTimeTo,
         callTimeFrom,
         city,
-        region,
+        regionId,
         gearboxId,
         gearBoxes,
         driveTypeId,
@@ -341,7 +341,7 @@ modifications,
         letter,
         hasAppBarShadow,
         years,
-        yearId,
+        yearEntity,
         bodyTypes,
         status,
         generationId,
@@ -364,4 +364,12 @@ modifications,
         isContactsVerified,
       ];
   bool buttonStatus(int page) => PASingleton.buttonStatus(page, this);
+  Region get getSelectedRegion {
+    final v = regions.firstWhere((e) => e.id == regionId,
+        orElse: () => const Region(id: -1, name: '', title: ''));
+        print('=> => => =>     returning region: ${v.id} ${v.name} ${v.title}    <= <= <= <=');
+    return v;
+  }
+
+
 }
