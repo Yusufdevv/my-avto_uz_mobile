@@ -46,8 +46,8 @@ class _DamageScreenState extends State<DamageScreen>
       isScrollControlled: true,
       barrierColor: Colors.black.withOpacity(.5),
       backgroundColor: Colors.transparent,
-      builder: (c) => const DamageTypeChooseSheet(
-        title: 'Pravaya perdnaya dver',
+      builder: (c) => DamageTypeChooseSheet(
+        title: MyFunctions.getDamagedPartName(part.value),
         initialType: null,
       ),
     ).then((value) {
@@ -86,7 +86,7 @@ class _DamageScreenState extends State<DamageScreen>
                   }),
             )
           ],
-          headerText: 'Состояние кузова',
+          headerText: LocaleKeys.body_state.tr(),
           child: SingleChildScrollView(
             physics: const BouncingScrollPhysics(),
             padding: const EdgeInsets.fromLTRB(16, 16, 0, 70),
@@ -95,7 +95,7 @@ class _DamageScreenState extends State<DamageScreen>
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Отметьте на схеме окрашенные детали и повреждения',
+                    LocaleKeys.mark_all_the_colored_and_damaged_parts.tr(),
                     style: Theme.of(context).textTheme.headline6!.copyWith(
                         fontSize: 14,
                         color: Theme.of(context)
@@ -108,10 +108,10 @@ class _DamageScreenState extends State<DamageScreen>
                   ),
                   // DOOR
                   CustomTabBar(
-                      title: 'Дверь',
+                      title: LocaleKeys.door.tr(),
                       tabController: doorController,
-                      firstTab: 'Левая',
-                      secondTab: 'Правая'),
+                      firstTab: LocaleKeys.left.tr(),
+                      secondTab:LocaleKeys.right.tr()),
                   SizedBox(
                     height: 150,
                     child: TabBarView(
@@ -123,7 +123,7 @@ class _DamageScreenState extends State<DamageScreen>
                               _showChoosDamageTypeSheet(
                                   DamagedParts.leftFrontDoor);
                             },
-                            position: 'Левая передняя дверь',
+                            position: LocaleKeys.left_front_door.tr(),
                             damageType:
                                 state.damagedParts[DamagedParts.leftFrontDoor],
                           ),
@@ -132,7 +132,7 @@ class _DamageScreenState extends State<DamageScreen>
                                 _showChoosDamageTypeSheet(
                                     DamagedParts.leftRearDoor);
                               },
-                              position: 'Левая задняя дверь',
+                              position: LocaleKeys.left_rear_door.tr(),
                               damageType: state
                                   .damagedParts[DamagedParts.leftRearDoor]),
                         ]),
@@ -161,10 +161,10 @@ class _DamageScreenState extends State<DamageScreen>
                   ),
                   // BUMPER
                   CustomTabBar(
-                      title: 'Бамфер',
+                      title: LocaleKeys.bamper.tr(),
                       tabController: bumperController,
-                      firstTab: 'Задний',
-                      secondTab: 'Передний'),
+                      firstTab: LocaleKeys.back.tr(),
+                      secondTab: LocaleKeys.front.tr()),
                   SizedBox(
                     height: 100,
                     child: TabBarView(
@@ -183,7 +183,7 @@ class _DamageScreenState extends State<DamageScreen>
                               _showChoosDamageTypeSheet(
                                   DamagedParts.rearBumper);
                             },
-                            position: 'Задняя бамфер',
+                            position: LocaleKeys.back_bumper.tr(),
                             damageType:
                                 state.damagedParts[DamagedParts.rearBumper]),
                       ],
@@ -192,10 +192,10 @@ class _DamageScreenState extends State<DamageScreen>
 
                   // FENDER
                   CustomTabBar(
-                      title: 'Крыло',
+                      title:LocaleKeys.fender.tr(),
                       tabController: wingController,
-                      firstTab: 'Заднее',
-                      secondTab: 'Переднее'),
+                      firstTab: LocaleKeys.back.tr(),
+                      secondTab: LocaleKeys.front.tr()),
                   SizedBox(
                     height: 170,
                     child: TabBarView(
@@ -208,7 +208,7 @@ class _DamageScreenState extends State<DamageScreen>
                                   _showChoosDamageTypeSheet(
                                       DamagedParts.rearLeftFender);
                                 },
-                                position: 'Задняя левое крыло',
+                                position: LocaleKeys.left_back_fender.tr(),
                                 damageType: state
                                     .damagedParts[DamagedParts.rearLeftFender]),
                             SituationItem(
@@ -216,7 +216,7 @@ class _DamageScreenState extends State<DamageScreen>
                                   _showChoosDamageTypeSheet(
                                       DamagedParts.rearRightFender);
                                 },
-                                position: 'Задняя правое крыло',
+                                position: LocaleKeys.right_back_fender.tr(),
                                 damageType: state.damagedParts[
                                     DamagedParts.rearRightFender]),
                           ],
@@ -228,7 +228,7 @@ class _DamageScreenState extends State<DamageScreen>
                                   _showChoosDamageTypeSheet(
                                       DamagedParts.frontLeftFender);
                                 },
-                                position: 'Переднее левое крыло',
+                                position: LocaleKeys.left_front_fender.tr(),
                                 damageType: state.damagedParts[
                                     DamagedParts.frontLeftFender]),
                             SituationItem(
@@ -236,7 +236,7 @@ class _DamageScreenState extends State<DamageScreen>
                                   _showChoosDamageTypeSheet(
                                       DamagedParts.frontRightFender);
                                 },
-                                position: 'Переднее правое крыло',
+                                position: LocaleKeys.right_front_fender.tr(),
                                 damageType: state.damagedParts[
                                     DamagedParts.frontRightFender]),
                           ],

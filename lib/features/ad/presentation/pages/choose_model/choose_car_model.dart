@@ -125,7 +125,7 @@ class _ChooseCarModelScreenState extends State<ChooseCarModelScreen> {
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 16),
                             child: Text(
-                              'Популярные',
+                             LocaleKeys.popular.tr(),
                               style: Theme.of(context)
                                   .textTheme
                                   .headline1!

@@ -664,7 +664,6 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
 
   @override
   Future<Uint8List> getMapScreenShot(Map<String, String> params) async {
-    print('=> => => =>     get screeshot triggered    <= <= <= <=');
     try {
       var headers = <String, String>{};
 
@@ -722,9 +721,7 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
         final v = GenericPagination.fromJson(response.data,
             (p0) => FotoInstructionModel.fromJson(p0 as Map<String, dynamic>));
-        for (int i = 0; i < v.results.length;i++){
-                 print('=> => => =>     gotten instructions: ${v.results[i].toJson()}   <= <= <= <=');
-        } return v;
+        return v;
       }
       throw ServerException(
           statusCode: response.statusCode ?? 0,

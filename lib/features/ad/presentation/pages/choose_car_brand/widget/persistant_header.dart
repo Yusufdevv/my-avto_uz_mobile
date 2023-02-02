@@ -24,7 +24,6 @@ class Header extends SliverPersistentHeaderDelegate {
       Container(
         padding: const EdgeInsets.only(top: 3),
         decoration: BoxDecoration(
-            // color: Colors.amber,
             color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
             border: Border(
                 bottom: BorderSide(
@@ -57,7 +56,7 @@ class Header extends SliverPersistentHeaderDelegate {
           itemCount: letters.length,
           shrinkWrap: false,
           scrollDirection: Axis.horizontal,
-          separatorBuilder: (context, index) => SizedBox(width: 16),
+          separatorBuilder: (context, index) => const SizedBox(width: 16),
         ),
       );
 }

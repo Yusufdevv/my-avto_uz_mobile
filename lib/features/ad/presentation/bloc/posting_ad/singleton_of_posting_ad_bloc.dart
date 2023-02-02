@@ -67,6 +67,42 @@ class PASingleton {
     return announcementFormData;
   }
 
+  static Map<String, dynamic> getMiniPrice(PostingAdState state) => {
+        'make': state.makeId,
+        'model': state.modelId,
+        'currency': state.currency
+      };
+
+  static PostingAdState initUserFromApi(UserModel user, PostingAdState state) =>
+      state.copyWith(
+        isContactsVerified: true,
+        showOwnerContacts: true,
+        status: FormzStatus.submissionSuccess,
+        phoneController: TextEditingController(
+            text: MyFunctions.phoneFormat(user.phoneNumber.substring(4))),
+        emailController: TextEditingController(text: user.email),
+        nameController: TextEditingController(text: user.fullName),
+        ownerEmail: user.email,
+        ownerName: user.fullName,
+        ownerPhone: user.phoneNumber.substring(4),
+        userModel: user,
+      );
+
+  static PostingAdState initUserFromState(PostingAdState state) =>
+      state.copyWith(
+          phoneController: TextEditingController(
+              text: MyFunctions.phoneFormat(
+                  state.userModel!.phoneNumber.substring(4))),
+          emailController: TextEditingController(text: state.userModel!.email),
+          nameController:
+              TextEditingController(text: state.userModel!.fullName),
+          ownerEmail: state.userModel?.email,
+          ownerName: state.userModel?.fullName,
+          ownerPhone: state.userModel?.phoneNumber.substring(4),
+          showOwnerContacts: true,
+          isContactsVerified: true,
+          status: FormzStatus.submissionSuccess);
+
   static Map<DamagedParts, DamageType> damagedPartAdopter(
       List<DamagedPartsEntity> damages) {
     var result = <DamagedParts, DamageType>{};

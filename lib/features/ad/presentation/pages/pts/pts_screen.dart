@@ -8,7 +8,9 @@ import 'package:auto/features/ad/presentation/pages/pts/widgets/pts_buttons.dart
 import 'package:auto/features/ad/presentation/pages/pts/widgets/show_cupertino_date_picker.dart';
 import 'package:auto/features/ad/presentation/widgets/base_widget.dart';
 import 'package:auto/features/common/widgets/w_container.dart';
+import 'package:auto/generated/locale_keys.g.dart';
 import 'package:auto/utils/my_functions.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
@@ -24,15 +26,15 @@ class _PtsScreenState extends State<PtsScreen> {
   late DatePickerBloc bloc;
 
   final List<String> documentList = [
-    'Оригинал / Электронный ПТС',
-    'Дубликат..',
+    LocaleKeys.original_slash_electronniy_pts.tr(),
+    LocaleKeys.duplicat.tr(),
   ];
 
   final List<String> ownerList = [
-    'Первый',
-    'Второй',
-    'Третий',
-    'Четвёртый или более',
+    LocaleKeys.first.tr(),
+    LocaleKeys.second.tr(),
+    LocaleKeys.third.tr(),
+    LocaleKeys.fourth_or_more.tr(),
   ];
 
   @override
@@ -47,7 +49,7 @@ class _PtsScreenState extends State<PtsScreen> {
           value: bloc,
           child: Scaffold(
             body: BaseWidget(
-              headerText: 'ПТС',
+              headerText: LocaleKeys.pts.tr(),
               child: BlocBuilder<PostingAdBloc, PostingAdState>(
                 builder: (context, state) => SingleChildScrollView(
                   padding:
@@ -56,7 +58,7 @@ class _PtsScreenState extends State<PtsScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Тип документа',
+                        LocaleKeys.document_type.tr(),
                         style: Theme.of(context)
                             .textTheme
                             .headline6!
@@ -81,7 +83,7 @@ class _PtsScreenState extends State<PtsScreen> {
                       ),
                       const SizedBox(height: 41),
                       Text(
-                        'Какой вы владелец?',
+                        LocaleKeys.what_kind_owner,
                         style: Theme.of(context)
                             .textTheme
                             .headline6!
@@ -105,8 +107,8 @@ class _PtsScreenState extends State<PtsScreen> {
                       ),
                       const SizedBox(height: 41),
                       Text(
-                        'Когда был куплен автомобиль?',
-                      style:Theme.of(context)
+                        LocaleKeys.when_car_was_buing.tr(),
+                        style: Theme.of(context)
                             .textTheme
                             .headline6!
                             .copyWith(color: greyText),
@@ -124,12 +126,17 @@ class _PtsScreenState extends State<PtsScreen> {
                                 ),
                           );
                         },
-                        titleStyle:state.purchasedDate != null &&
-                                state.purchasedDate!.isNotEmpty? Theme.of(context).textTheme.headline1!.copyWith(fontSize: 16):null,
+                        titleStyle: state.purchasedDate != null &&
+                                state.purchasedDate!.isNotEmpty
+                            ? Theme.of(context)
+                                .textTheme
+                                .headline1!
+                                .copyWith(fontSize: 16)
+                            : null,
                         title: state.purchasedDate != null &&
                                 state.purchasedDate!.isNotEmpty
                             ? MyFunctions.getData(state.purchasedDate!)
-                            : 'Выберите дату',
+                            : LocaleKeys.choose_date,
                         trailingIcon: AppIcons.calendar,
                         border: Border.all(
                             width: 1,

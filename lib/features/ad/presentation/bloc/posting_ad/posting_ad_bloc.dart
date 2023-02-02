@@ -217,10 +217,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
 
   FutureOr<void> _screenShot(PostingAdGetMapScreenShotEvent event,
       Emitter<PostingAdState> emit) async {
-    print('=> => => =>     screenshot triggered    <= <= <= <=');
-    final url =
-        'https://yandex.com/maps/10335/tashkent/?ll=${event.long}%2C${event.lat}&z=${event.zoomLevel}';
-    print('=> => => =>  url:   $url    <= <= <= <=');
+  
     emit(state.copyWith(
         showExactAddress: true,
         status: FormzStatus.submissionInProgress,
@@ -265,37 +262,12 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
       PostingAdGetUserDataEvent event, Emitter<PostingAdState> emit) async {
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
     if (state.userModel != null) {
-      emit(state.copyWith(
-          phoneController: TextEditingController(
-              text: MyFunctions.phoneFormat(
-                  state.userModel!.phoneNumber.substring(4))),
-          emailController: TextEditingController(text: state.userModel!.email),
-          nameController:
-              TextEditingController(text: state.userModel!.fullName),
-          ownerEmail: state.userModel?.email,
-          ownerName: state.userModel?.fullName,
-          ownerPhone: state.userModel?.phoneNumber.substring(4),
-          showOwnerContacts: true,
-          isContactsVerified: true,
-          status: FormzStatus.submissionSuccess));
+      emit(PASingleton.initUserFromState(state));
       return;
     }
     final result = await userRepository.getUser();
     if (result.isRight) {
-      emit(state.copyWith(
-        isContactsVerified: true,
-        showOwnerContacts: true,
-        status: FormzStatus.submissionSuccess,
-        phoneController: TextEditingController(
-            text:
-                MyFunctions.phoneFormat(result.right.phoneNumber.substring(4))),
-        emailController: TextEditingController(text: result.right.email),
-        nameController: TextEditingController(text: result.right.fullName),
-        ownerEmail: result.right.email,
-        ownerName: result.right.fullName,
-        ownerPhone: result.right.phoneNumber.substring(4),
-        userModel: result.right,
-      ));
+      emit(PASingleton.initUserFromApi(result.right, state));
     } else {
       emit(
         state.copyWith(
@@ -325,11 +297,8 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
   FutureOr<void> _getMinimumPrice(
       PostingAdGetMinimumPriceEvent event, Emitter<PostingAdState> emit) async {
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
-    final result = await minimumPriceUseCase.call({
-      'make': state.makeId,
-      'model': state.modelId,
-      'currency': state.currency
-    });
+    final result =
+        await minimumPriceUseCase.call(PASingleton.getMiniPrice(state));
 
     if (result.isRight) {
       emit(state.copyWith(
@@ -356,7 +325,6 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     emit(state.copyWith(getDistrictsStatus: FormzStatus.submissionInProgress));
     final result = await districtUseCase.call(event.regionId);
     if (result.isRight) {
-      print('=> => => =>     gotten districts: ${result.right}    <= <= <= <=');
       emit(
         state.copyWith(
           getDistrictsStatus: FormzStatus.submissionSuccess,
@@ -419,9 +387,13 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
         .call(BodyTypeParams(generationId: state.generationId!));
 
     if (result.isRight) {
-      emit(state.copyWith(
-          status: FormzStatus.submissionSuccess,
-          bodyTypes: result.right.results));
+      final bodies = result.right.results;
+      emit(
+        state.copyWith(
+            status: FormzStatus.submissionSuccess,
+            bodyTypes: result.right.results,
+            bodyTypeId: bodies.length == 1 ? bodies.first.id : null),
+      );
     } else {
       emit(state.copyWith(status: FormzStatus.submissionFailure));
     }
@@ -429,16 +401,16 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
 
   FutureOr<void> _gearBoxes(
       PostingAdGearBoxesEvent event, Emitter<PostingAdState> emit) async {
-    if (state.gearboxId != null && state.gearBoxes.isNotEmpty) {
-      emit(state.copyWith(status: FormzStatus.submissionSuccess));
-      return;
-    }
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
     final result = await gearboxUseCase.call(NoParams());
     if (result.isRight) {
-      emit(state.copyWith(
-          status: FormzStatus.submissionSuccess,
-          gearBoxes: result.right.results));
+      final gearBoxes = result.right.results;
+      emit(
+        state.copyWith(
+            status: FormzStatus.submissionSuccess,
+            gearBoxes: gearBoxes,
+            gearboxId: gearBoxes.length == 1 ? gearBoxes.first.id : null),
+      );
     } else {
       emit(state.copyWith(status: FormzStatus.submissionFailure));
     }
@@ -452,10 +424,12 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
         bodyTypeId: state.bodyTypeId!,
         engineTypeId: state.engineId!));
     if (result.isRight) {
+      final driveTypes = result.right.results;
       emit(
         state.copyWith(
           status: FormzStatus.submissionSuccess,
-          driveTypes: result.right.results,
+          driveTypes: driveTypes,
+          driveTypeId: driveTypes.length == 1 ? driveTypes.first.id : null,
         ),
       );
     } else {
@@ -472,9 +446,14 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     ));
 
     if (result.isRight) {
-      emit(state.copyWith(
+      final engines = result.right.results;
+      emit(
+        state.copyWith(
           status: FormzStatus.submissionSuccess,
-          engines: result.right.results));
+          engines: engines,
+          engineId: engines.length == 1 ? engines.first.id : null,
+        ),
+      );
     } else {
       emit(state.copyWith(status: FormzStatus.submissionFailure));
     }
@@ -485,10 +464,14 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
     final result = await modelsUseCase.call(state.makeId!);
     if (result.isRight) {
-      emit(state.copyWith(
-        status: FormzStatus.submissionSuccess,
-        models: result.right.results,
-      ));
+      final models = result.right.results;
+      emit(
+        state.copyWith(
+          status: FormzStatus.submissionSuccess,
+          models: result.right.results,
+          modelId: models.length == 1 ? models.first.id : null,
+        ),
+      );
     } else {
       emit(state.copyWith(status: FormzStatus.submissionFailure));
     }
@@ -500,11 +483,11 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     final result = await generationUseCase.call(GenerationParams(
         modelId: state.modelId!, year: state.yearEntity!.yearBegin));
     if (result.isRight) {
-      print(
-          '=> => => =>   result . right is   ${result.right.results.length}    <= <= <= <=');
+      final generations = result.right.results;
       emit(state.copyWith(
-          generations: result.right.results,
-          status: FormzStatus.submissionSuccess));
+          generations: generations,
+          status: FormzStatus.submissionSuccess,
+          generationId: generations.length == 1 ? generations.first.id : null));
     } else {
       emit(state.copyWith(status: FormzStatus.submissionFailure));
     }
@@ -567,11 +550,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
   }
 
   void _choose(PostingAdChooseEvent event, Emitter<PostingAdState> emit) {
-    print(
-        '=> => => =>     region id equal null: ${event.regionId}    <= <= <= <=');
     if (event.regionId != null) {
-      print(
-          '=> => => =>     region id not null and districts called    <= <= <= <=');
       add(PostingAdGetDistritsEvent(regionId: event.regionId!));
     }
     if (event.currency != null) {

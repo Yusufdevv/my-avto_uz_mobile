@@ -15,9 +15,11 @@ class CreateAdButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) => WButton(
         onTap: () {
-          print('=> => => =>     goint from create ad    <= <= <= <=');
           Navigator.of(context, rootNavigator: true).push(
-            MaterialPageRoute(builder: (_) =>  PostingAdScreen()),
+            MaterialPageRoute(
+                builder: (_) => PostingAdScreen(
+                      parentContext: context,
+                    )),
           );
         },
         margin: const EdgeInsets.symmetric(horizontal: 16),

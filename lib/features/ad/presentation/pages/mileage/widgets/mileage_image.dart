@@ -42,11 +42,13 @@ class _MileageImageItemState extends State<MileageImageItem> {
           height: 140,
           width: double.infinity,
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8),
-              image: DecorationImage(
-                  fit: BoxFit.cover,
-                  image: FileImage(
-                    File(widget.image),
-                  ))),
+            borderRadius: BorderRadius.circular(8),
+            image: DecorationImage(
+              fit: BoxFit.cover,
+              image: FileImage(
+                File(widget.image),
+              ),
+            ),
+          ),
         );
 }

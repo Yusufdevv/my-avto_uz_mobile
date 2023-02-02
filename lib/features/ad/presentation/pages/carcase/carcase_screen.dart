@@ -1,5 +1,4 @@
 import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.dart';
-import 'package:auto/features/ad/presentation/pages/carcase/widget/carcase_item.dart';
 import 'package:auto/features/ad/presentation/widgets/base_widget.dart';
 import 'package:auto/features/ad/presentation/widgets/pos_radio_item.dart';
 import 'package:auto/generated/locale_keys.g.dart';

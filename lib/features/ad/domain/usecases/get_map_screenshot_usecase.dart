@@ -11,8 +11,5 @@ class GetMapScreenShotUseCase extends UseCase<Uint8List, Map<String, String>> {
   GetMapScreenShotUseCase({required this.repository});
 
   @override
-  Future<Either<Failure, Uint8List>> call(Map<String, String> params) async {
-    print('=> => => => params in usecase:     $params    <= <= <= <=');
-    return await repository.getMapScreenShot(params:params);
-  }
+  Future<Either<Failure, Uint8List>> call(Map<String, String> params) async => await repository.getMapScreenShot(params:params);
 }
