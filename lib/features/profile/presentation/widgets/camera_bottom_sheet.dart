@@ -31,6 +31,10 @@ class CameraBottomSheetState extends State<CameraBottomSheet> {
     AppIcons.camera,
     AppIcons.photo,
   ];
+  List<ImageSource> sources = [
+    ImageSource.camera,
+    ImageSource.gallery,
+  ];
 
   int selectedCamera = 0;
   late final ValueChanged<ImageSource> imageType;
@@ -78,16 +82,9 @@ class CameraBottomSheetState extends State<CameraBottomSheet> {
               itemBuilder: (context, index) => _ItemSelect(
                 camera: img[index],
                 text: titleList[index].tr(),
-                imageType: ImageSource.gallery,
+                imageType: sources[index],
                 onTapImageType: (_imageType) {
-                  if (index == 0) {
-                    widget.imageBloc
-                        .add(const GetImage(source: ImageSource.camera));
-                  } else {
-                    widget.imageBloc
-                        .add(const GetImage(source: ImageSource.gallery));
-                  }
-                  Navigator.of(context).pop();
+                  Navigator.of(context).pop(_imageType);
                 },
               ),
             ),

@@ -62,11 +62,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 
 class PostingAdScreen extends StatefulWidget {
- 
   final int? announcementId;
-  const PostingAdScreen(
-      {this.announcementId, Key? key})
-      : super(key: key);
+  const PostingAdScreen({this.announcementId, Key? key}) : super(key: key);
 
   @override
   State<PostingAdScreen> createState() => _PostingAdScreenState();
