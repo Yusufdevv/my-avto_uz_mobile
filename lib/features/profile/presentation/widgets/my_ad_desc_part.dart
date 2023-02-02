@@ -119,6 +119,7 @@ class MyAdDesc extends StatelessWidget {
                             context,
                             fade(
                                 page: PostingAdScreen(
+                              parentContext: context,
                               announcementId: item.id,
                             )));
                       },
@@ -186,11 +187,14 @@ class MyAdDesc extends StatelessWidget {
                         print(
                             '=> => => =>     goint from my desc 2    <= <= <= <=');
                         Navigator.push(
-                            context,
-                            fade(
-                                page: PostingAdScreen(
+                          context,
+                          fade(
+                            page: PostingAdScreen(
+                              parentContext: context,
                               announcementId: item.id,
-                            )));
+                            ),
+                          ),
+                        );
                       },
                       child: Row(
                         children: [

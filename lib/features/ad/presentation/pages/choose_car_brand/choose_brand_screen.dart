@@ -261,25 +261,20 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
                           child: state.status ==
                                   FormzStatus.submissionInProgress
                               ? const Center(
-                                  child: CupertinoActivityIndicator())
+                                  child: CupertinoActivityIndicator(),
+                                )
                               : ListView.separated(
                                   itemCount: state.topMakes.length,
                                   padding:
                                       const EdgeInsets.fromLTRB(16, 0, 16, 20),
                                   physics: const BouncingScrollPhysics(),
                                   scrollDirection: Axis.horizontal,
-                                  itemBuilder: (context, index) =>
-                                      GestureDetector(
+                                  itemBuilder: (context, index) => CarBrandItem(
+                                        carBrandEntity: state.topMakes[index],
                                         onTap: () {
                                           widget.onTopBrandPressed(
                                               state.topMakes[index].id);
                                         },
-                                        child: CarBrandItem(
-                                          carBrandEntity: state.topMakes[index],
-                                          onTap: () {
-                                            print('=> => => =>     innner pressed working    <= <= <= <=');
-                                          },
-                                        ),
                                       ),
                                   separatorBuilder: (context, index) =>
                                       const SizedBox(width: 12)),

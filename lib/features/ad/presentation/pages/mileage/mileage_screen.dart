@@ -71,6 +71,11 @@ class _MileageScreenState extends State<MileageScreen> {
                               .isWithoutMileage ??
                           false)) ...{
                         WTextField(
+                          textStyle:  Theme.of(context)
+                            .textTheme
+                            .headline1!
+                            .copyWith(
+                                fontSize: 16, fontWeight: FontWeight.w400),
                           textInputFormatters: [ThousandsSeparatorInputFormatter()],
                           maxLength: 12,
                           hideCounterText: true,

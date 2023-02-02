@@ -17,7 +17,10 @@ class CreateAdButton extends StatelessWidget {
         onTap: () {
           print('=> => => =>     goint from create ad    <= <= <= <=');
           Navigator.of(context, rootNavigator: true).push(
-            MaterialPageRoute(builder: (_) =>  PostingAdScreen()),
+            MaterialPageRoute(
+                builder: (_) => PostingAdScreen(
+                      parentContext: context,
+                    )),
           );
         },
         margin: const EdgeInsets.symmetric(horizontal: 16),

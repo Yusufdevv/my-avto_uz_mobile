@@ -1,4 +1,3 @@
-import 'package:auto/features/ad/presentation/posting_ad_enterence.dart';
 import 'package:auto/features/ad/presentation/posting_ad_screen.dart';
 import 'package:auto/features/main/presentation/main_screen.dart';
 import 'package:auto/features/navigation/presentation/home.dart';
@@ -39,7 +38,7 @@ class _TabNavigatorState extends State<TabNavigator>
       case NavItemEnum.newPost:
         return {
           TabNavigatorRoutes.root: (context) =>
-              PostingAddEnterance(parentContext: context)
+              PostingAdScreen(parentContext: context)
           // const SizedBox(child: Center(child: Text('Tez orada'))),
         };
       case NavItemEnum.categories:
