@@ -92,58 +92,77 @@ class _ReelsScreenState extends State<ReelsScreen>
             child: BlocBuilder<ReelsBloc, ReelsState>(
               builder: (context, state) => Scaffold(
                 backgroundColor: Colors.transparent,
-                body: Stack(
-                  children: [
-                    if (state.statusReelsGet.isSubmissionSuccess)
-                      PageView.builder(
-                        scrollDirection: Axis.vertical,
-                        controller: _pageController,
-                        itemCount: state.reels.length,
-                        itemBuilder: (context, index) => ContentItem(
-                          reel: state.reels[index],
-                          isLiked: state.reels[index].isLiked,
-                          onTapLike: () {
-                            bloc.add(ReelsLike(state.reels[index].id, index));
-                          },
-                          pageIndex: index,
-                          currentPageIndex: _currentPage,
-                          isPaused: _isOnPageTurning,
+                body: ClipRRect(
+                  borderRadius:
+                      const BorderRadius.vertical(top: Radius.circular(20)),
+                  child: Stack(
+                    children: [
+                      if (state.statusReelsGet.isSubmissionSuccess)
+                        PageView.builder(
+                          scrollDirection: Axis.vertical,
+                          controller: _pageController,
+                          itemCount: state.reels.length,
+                          itemBuilder: (context, index) => ContentItem(
+                            reel: state.reels[index],
+                            isLiked: state.reels[index].isLiked,
+                            onTapLike: () {
+                              bloc.add(ReelsLike(state.reels[index].id, index));
+                            },
+                            pageIndex: index,
+                            currentPageIndex: _currentPage,
+                            isPaused: _isOnPageTurning,
+                          ),
+                        ),
+                      Positioned(
+                        top: 0,
+                        right: 0,
+                        left: 0,
+                        child: SizedBox(
+                          height: 100,
+                          child: DecoratedBox(
+                            decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                    begin: Alignment.topCenter,
+                                    end: Alignment.bottomCenter,
+                                    colors: [dark, dark.withOpacity(0)])),
+                            child: Padding(
+                              padding: const EdgeInsets.only(
+                                  top: 16, right: 16, left: 16),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  if (widget.isFromMain)
+                                    WScaleAnimation(
+                                      child: SvgPicture.asset(
+                                          AppIcons.chevronLeftWhite),
+                                      onTap: () => Navigator.pop(context),
+                                    ),
+                                  const Spacer(),
+                                  SvgPicture.asset(AppIcons.whiteLogo),
+                                ],
+                              ),
+                            ),
+                          ),
                         ),
                       ),
-                    Positioned(
-                      top: 16,
-                      right: 16,
-                      left: 16,
-                      child: Row(
-                        children: [
-                          if (widget.isFromMain)
-                            WScaleAnimation(
-                              child:
-                                  SvgPicture.asset(AppIcons.chevronLeftWhite),
-                              onTap: () => Navigator.pop(context),
-                            ),
-                          const Spacer(),
-                          SvgPicture.asset(AppIcons.whiteLogo),
-                        ],
-                      ),
-                    ),
-                    if (isFirstTimeWatchReel)
-                      AnimatedPositioned(
-                        top: isIncreasing ? topMax : topMin,
-                        left: 0,
-                        right: 0,
-                        duration: Duration(seconds: timeInSec),
-                        child: SvgPicture.asset(AppIcons.introduce),
-                      ),
-                    if (isFirstTimeWatchReel)
-                      AnimatedPositioned(
-                        bottom: (isIncreasing ? topMax : topMin) + 100,
-                        left: 0,
-                        right: 0,
-                        duration: Duration(seconds: timeInSec),
-                        child: SvgPicture.asset(AppIcons.introduce1),
-                      ),
-                  ],
+                      if (isFirstTimeWatchReel)
+                        AnimatedPositioned(
+                          top: isIncreasing ? topMax : topMin,
+                          left: 0,
+                          right: 0,
+                          duration: Duration(seconds: timeInSec),
+                          child: SvgPicture.asset(AppIcons.introduce),
+                        ),
+                      if (isFirstTimeWatchReel)
+                        AnimatedPositioned(
+                          bottom: (isIncreasing ? topMax : topMin) + 100,
+                          left: 0,
+                          right: 0,
+                          duration: Duration(seconds: timeInSec),
+                          child: SvgPicture.asset(AppIcons.introduce1),
+                        ),
+                    ],
+                  ),
                 ),
               ),
             ),

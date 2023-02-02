@@ -89,14 +89,15 @@ class CarBrandItem extends StatelessWidget {
                 child: Text(
                   carBrandEntity.name,
                   textAlign: TextAlign.center,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
+                  maxLines: 2,
+                  overflow: TextOverflow.visible,
                   style: Theme.of(context)
                       .textTheme
                       .headline1!
                       .copyWith(fontSize: 12, fontWeight: FontWeight.w600),
                 ),
-              )
+              ),
+              const SizedBox(height: 8),
             ],
           ),
         ),
