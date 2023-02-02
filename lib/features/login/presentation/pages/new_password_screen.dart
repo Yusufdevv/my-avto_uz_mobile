@@ -143,7 +143,7 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                                         message: LocaleKeys
                                             .passwords_didnt_match
                                             .tr(),
-                                        isSucces: false,
+                                        status: PopStatus.error,
                                         dismissible: false,
                                       ),
                                     );
@@ -153,7 +153,7 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                               context.read<ShowPopUpBloc>().add(
                                     ShowPopUp(
                                       message: LocaleKeys.password_must_6.tr(),
-                                      isSucces: false,
+                                  status: PopStatus.error,
                                       dismissible: false,
                                     ),
                                   );

@@ -49,7 +49,7 @@ class PostingAdState extends Equatable {
   final String? city;
   final String? ownerStep;
   final String? purchasedDate;
-  final String? typeDocument;
+  final String? licence_type;
   final String? colorName;
   final String? description;
   final String? price;
@@ -105,7 +105,7 @@ class PostingAdState extends Equatable {
     this.damagedParts = const <DamagedParts, DamageType>{},
     this.letter,
     this.colorName,
-    this.typeDocument,
+    this.licence_type,
     this.ownerStep,
     this.purchasedDate,
     this.description,
@@ -266,7 +266,7 @@ class PostingAdState extends Equatable {
       makeId: makeId ?? this.makeId,
       letter: eventLetter,
       colorName: colorName ?? this.colorName,
-      typeDocument: typeDocument ?? this.typeDocument,
+      licence_type: typeDocument ?? this.licence_type,
       ownerStep: ownerStep ?? this.ownerStep,
       purchasedDate: purchasedDate ?? this.purchasedDate,
       notRegisteredInUzbekistan:
@@ -346,7 +346,7 @@ class PostingAdState extends Equatable {
         status,
         generationId,
         colorName,
-        typeDocument,
+        licence_type,
         ownerStep,
         purchasedDate,
         bodyTypeId,
@@ -369,6 +369,4 @@ class PostingAdState extends Equatable {
         orElse: () => const Region(id: -1, name: '', title: ''));
     return v;
   }
-
-
 }

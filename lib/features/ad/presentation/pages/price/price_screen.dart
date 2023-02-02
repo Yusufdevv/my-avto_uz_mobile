@@ -10,6 +10,7 @@ import 'package:auto/features/ad/presentation/widgets/currency_choose_sheet.dart
 import 'package:auto/features/ad/presentation/widgets/rent_to_buy_sheet.dart';
 import 'package:auto/features/ad/presentation/widgets/rent_to_sale_info_box.dart';
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
+import 'package:auto/features/common/widgets/custom_screen.dart';
 import 'package:auto/features/common/widgets/switcher_row_as_button_also.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/common/widgets/w_textfield.dart';
@@ -174,35 +175,42 @@ class _PriceScreenState extends State<PriceScreen> {
                         value: (state.rentToBuy ?? false) &&
                             state.rentWithPurchaseConditions.isNotEmpty,
                         onTap: () {
-                          if ((int.tryParse(priceController.text
-                                      .replaceAll(' ', '')) ??
-                                  0) >
-                              0) {
-                            showModalBottomSheet<RentWithPurchaseEntity>(
-                                useRootNavigator: true,
-                                isScrollControlled: true,
-                                backgroundColor: Colors.transparent,
-                                isDismissible: false,
-                                context: context,
-                                builder: (context) => RentToBuySheet(
-                                    price: int.tryParse(
-                                            state.price?.replaceAll(' ', '') ??
-                                                '0') ??
-                                        0)).then((value) {
-                              if (value != null) {
-                                context.read<PostingAdBloc>().add(
-                                        PostingAdChooseEvent(
+                          if (state.rentWithPurchaseConditions.isEmpty) {
+                            if ((int.tryParse(priceController.text
+                                        .replaceAll(' ', '')) ??
+                                    0) >
+                                0) {
+                              showModalBottomSheet<RentWithPurchaseEntity>(
+                                  useRootNavigator: true,
+                                  isScrollControlled: true,
+                                  backgroundColor: Colors.transparent,
+                                  isDismissible: false,
+                                  context: context,
+                                  builder: (context) => RentToBuySheet(
+                                      price: int.tryParse(state.price
+                                                  ?.replaceAll(' ', '') ??
+                                              '0') ??
+                                          0)).then(
+                                (value) {
+                                  if (value != null) {
+                                    context.read<PostingAdBloc>().add(
+                                          PostingAdChooseEvent(
                                             rentToBuy: true,
                                             rentWithPurchaseConditions: [
-                                          value,
-                                          ...state.rentWithPurchaseConditions
-                                        ]));
-                              }
-                            });
-                          } else {
-                            context.read<ShowPopUpBloc>().add(ShowPopUp(
-                                message: 'Avval narhni kiriting',
-                                isSucces: true));
+                                              value,
+                                              ...state
+                                                  .rentWithPurchaseConditions
+                                            ],
+                                          ),
+                                        );
+                                  }
+                                },
+                              );
+                            } else {
+                              context.read<ShowPopUpBloc>().add(ShowPopUp(
+                                  message: 'Avval narhni kiriting',
+                                   status: PopStatus.error,));
+                            }
                           }
                         },
                         onChanged: (v) => context

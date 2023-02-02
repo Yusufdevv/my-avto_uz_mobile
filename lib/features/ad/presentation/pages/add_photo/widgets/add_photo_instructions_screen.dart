@@ -64,6 +64,7 @@ class _PhotoInstructionsScreenState extends State<PhotoInstructionsScreen> {
                 return const Center(child: Text('No Instructions available'));
               }
               return Column(
+                mainAxisSize: MainAxisSize.max,
                 children: [
                   const StepBoxOfPhotoInstruction(),
                   Container(
@@ -72,23 +73,31 @@ class _PhotoInstructionsScreenState extends State<PhotoInstructionsScreen> {
                     decoration: BoxDecoration(
                         color: Colors.amber,
                         borderRadius: BorderRadius.circular(6)),
-                    child: Image.network(
-                      state.instructions[state.step].image,
-                      fit: BoxFit.cover,
+                    child: ClipRRect(
+                    borderRadius: BorderRadius.circular(6),
+                      child: Image.network(
+                        state.instructions[state.step].image,
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 20, vertical: 16),
-                    child: Text(
-                      state.instructions[state.step].description,
-                      style: Theme.of(context).textTheme.headline1!.copyWith(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                          ),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 16),
+                      child: SingleChildScrollView(
+                        physics: const BouncingScrollPhysics(),
+                        child: Text(
+                          state.instructions[state.step].description,
+                          style:
+                              Theme.of(context).textTheme.headline1!.copyWith(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                        ),
+                      ),
                     ),
                   ),
-                  const Spacer(),
                   Row(
                     children: [
                       const SizedBox(width: 16),

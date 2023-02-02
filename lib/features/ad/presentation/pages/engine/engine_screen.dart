@@ -22,82 +22,87 @@ class EngineScreen extends StatefulWidget {
 class _EngineScreenState extends State<EngineScreen> {
   @override
   Widget build(BuildContext context) => Scaffold(
-          body: BaseWidget(
-        headerText: LocaleKeys.generation.tr(),
-        padding: const EdgeInsets.only(top: 16),
-        child: BlocBuilder<PostingAdBloc, PostingAdState>(
+        body: BaseWidget(
+          headerText: LocaleKeys.generation.tr(),
+          padding: const EdgeInsets.only(top: 16),
+          child: BlocBuilder<PostingAdBloc, PostingAdState>(
             builder: (context, state) {
-          if (state.status == FormzStatus.submissionInProgress) {
-            return const Center(child: CupertinoActivityIndicator());
-          }
-          return Column(
-            children: [
-              ListView.builder(
-                itemBuilder: (context, index) => PostingRadioItem(
-                  image: state.engines[index].logo,
-                  onTap: () => context.read<PostingAdBloc>().add(
-                      PostingAdChooseEvent(engineId: state.engines[index].id)),
-                  title: state.engines[index].type,
-                  selected: state.engineId == state.engines[index].id,
-                ),
-                itemCount: state.engines.length,
-                shrinkWrap: true,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: Divider(
-                  thickness: 1,
-                  color: Theme.of(context).dividerColor,
-                ),
-              ),
-              const SizedBox(
-                height: 13,
-              ),
-              if (state.gasBalloonType?.isNotEmpty ?? false) ...{
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: SwitcherRow(
-                      value: true,
-                      onChanged: (v) => context.read<PostingAdBloc>().add(
-                            PostingAdChooseEvent(
-                                hasGasBalloon: true, gasBalloonType: ''),
-                          ),
-                      title: LocaleKeys.gas_ballon_equipment.tr()),
-                ),
-              } else ...{
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: SwitcherRowAsButtonAlso(
-                      value: false,
-                      onChanged: (v) => context
-                          .read<PostingAdBloc>()
-                          .add(PostingAdChooseEvent(hasGasBalloon: v)),
-                      onTap: () {
-                        showModalBottomSheet<String>(
-                          context: context,
-                          useRootNavigator: true,
-                          backgroundColor: LightThemeColors.appBarColor,
-                          shape: const RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.vertical(top: Radius.circular(20)),
-                          ),
-                          clipBehavior: Clip.hardEdge,
-                          builder: (context) => SelectGasBalloonTypeSheet(
-                            selected: state.gasBalloonType,
-                          ),
-                        ).then((value) {
-                          context.read<PostingAdBloc>().add(
-                              PostingAdChooseEvent(
-                                  hasGasBalloon:
-                                      value != null && value.isNotEmpty,
-                                  gasBalloonType: value));
-                        });
-                      },
-                      title: 'Газобаллонное оборудование'),
-                )
+              if (state.status == FormzStatus.submissionInProgress) {
+                return const Center(child: CupertinoActivityIndicator());
               }
-            ],
-          );
-        }),
-      ));
+              return Column(
+                children: [
+                  ListView.builder(
+                    physics: const BouncingScrollPhysics(),
+                    itemBuilder: (context, index) => PostingRadioItem(
+                      image: state.engines[index].logo,
+                      onTap: () => context.read<PostingAdBloc>().add(
+                          PostingAdChooseEvent(
+                              engineId: state.engines[index].id)),
+                      title: state.engines[index].type,
+                      selected: state.engineId == state.engines[index].id,
+                    ),
+                    itemCount: state.engines.length,
+                    shrinkWrap: true,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: Divider(
+                      thickness: 1,
+                      color: Theme.of(context).dividerColor,
+                    ),
+                  ),
+                  const SizedBox(height: 13),
+                  if (state.gasBalloonType?.isNotEmpty ?? false) ...{
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: SwitcherRow(
+                          value: true,
+                          onChanged: (v) => context.read<PostingAdBloc>().add(
+                                PostingAdChooseEvent(
+                                    hasGasBalloon: true, gasBalloonType: ''),
+                              ),
+                          title: LocaleKeys.gas_ballon_equipment.tr()),
+                    ),
+                  } else ...{
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: SwitcherRowAsButtonAlso(
+                        value: false,
+                        onChanged: (v) => context
+                            .read<PostingAdBloc>()
+                            .add(PostingAdChooseEvent(hasGasBalloon: v)),
+                        onTap: () {
+                          showModalBottomSheet<String>(
+                            context: context,
+                            useRootNavigator: true,
+                            backgroundColor: LightThemeColors.appBarColor,
+                            shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.vertical(
+                                  top: Radius.circular(20)),
+                            ),
+                            clipBehavior: Clip.hardEdge,
+                            builder: (context) => SelectGasBalloonTypeSheet(
+                              selected: state.gasBalloonType,
+                            ),
+                          ).then(
+                            (value) {
+                              context.read<PostingAdBloc>().add(
+                                  PostingAdChooseEvent(
+                                      hasGasBalloon:
+                                          value != null && value.isNotEmpty,
+                                      gasBalloonType: value));
+                            },
+                          );
+                        },
+                        title: LocaleKeys.gas_ballon_equipment.tr(),
+                      ),
+                    )
+                  }
+                ],
+              );
+            },
+          ),
+        ),
+      );
 }

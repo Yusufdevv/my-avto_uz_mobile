@@ -27,12 +27,11 @@ class CustomScreen extends StatelessWidget {
                 right: 16,
                 duration: const Duration(milliseconds: 150),
                 child: Container(
-                  padding: const EdgeInsets.all(8),
+                  padding: const EdgeInsets.only(
+                      left: 12, right: 8, top: 8, bottom: 8),
                   decoration: BoxDecoration(
-                    color: state.isSucces
-                        ? const Color(0xFFECF8F3)
-                        : const Color(0xffFAEEEE),
-                    border: Border.all(color: state.isSucces ? green : red),
+                    color: statusBgColor(state.status),
+                    border: Border.all(color: statusBorderColor(state.status)),
                     borderRadius: BorderRadius.circular(16),
                   ),
                   child: Row(
@@ -41,13 +40,18 @@ class CustomScreen extends StatelessWidget {
                           height: 32,
                           width: 32,
                           decoration: BoxDecoration(
-                            color: state.isSucces ? green : red,
+                            color: statusColor(state.status),
                             shape: BoxShape.circle,
                           ),
                           alignment: Alignment.center,
-                          child: state.isSucces
-                              ? Image.asset(AppIcons.succesGreenIcon)
-                              : SvgPicture.asset(AppIcons.cancel)),
+                          child: SvgPicture.asset(
+                            statusIcon(state.status),
+                            color: state.status == PopStatus.success
+                                ? white
+                                : null,
+                            height:
+                                state.status == PopStatus.success ? 14 : null,
+                          )),
                       const SizedBox(width: 12),
                       Expanded(
                         child: Text(
@@ -92,4 +96,47 @@ class CustomScreen extends StatelessWidget {
           ),
         ),
       );
+  String statusIcon(PopStatus status) {
+    switch (status) {
+      case PopStatus.success:
+        return AppIcons.check;
+      case PopStatus.error:
+        return AppIcons.cancel;
+      case PopStatus.warning:
+        return AppIcons.popUpWarnig;
+    }
+  }
+
+  Color statusBgColor(PopStatus status) {
+    switch (status) {
+      case PopStatus.success:
+        return const Color(0xffECF8F3);
+      case PopStatus.error:
+        return const Color(0xffFAEEEE);
+      case PopStatus.warning:
+        return const Color(0xffFDF3E1);
+    }
+  }
+
+  Color statusBorderColor(PopStatus status) {
+    switch (status) {
+      case PopStatus.success:
+        return emerald;
+      case PopStatus.error:
+        return red;
+      case PopStatus.warning:
+        return popUpWarning;
+    }
+  }
+
+  Color statusColor(PopStatus status) {
+    switch (status) {
+      case PopStatus.success:
+        return green;
+      case PopStatus.error:
+        return red;
+      case PopStatus.warning:
+        return popUpWarning;
+    }
+  }
 }

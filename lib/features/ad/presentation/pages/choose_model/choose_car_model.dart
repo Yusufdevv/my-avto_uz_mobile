@@ -150,6 +150,7 @@ class _ChooseCarModelScreenState extends State<ChooseCarModelScreen> {
                         child: Center(child: CupertinoActivityIndicator()))
                   } else ...{
                     SliverList(
+                      
                       delegate: SliverChildBuilderDelegate(
                         (context, index) => Container(
                           color: Theme.of(context)

@@ -481,5 +481,6 @@ abstract class  LocaleKeys {
   static const car_model = 'car_model';
   static const photographation = 'photographation';
   static const start_free_week = 'start_free_week';
+  static const get_back = 'get_back';
 
 }

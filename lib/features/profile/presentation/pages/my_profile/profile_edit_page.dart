@@ -111,7 +111,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                                 context.read<ShowPopUpBloc>().add(ShowPopUp(
                                     message:
                                         "Malumotlar mufavvaqiyatli o'zgartirildi",
-                                    isSucces: true));
+                                    status: PopStatus.success));
                               },
                               onError: (text) {
                                 var error = text;
@@ -119,7 +119,11 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                                   error = LocaleKeys.service_error.tr();
                                 }
                                 context.read<ShowPopUpBloc>().add(
-                                    ShowPopUp(message: error, isSucces: false));
+                                      ShowPopUp(
+                                        message: error,
+                                        status: PopStatus.error,
+                                      ),
+                                    );
                               },
                             ),
                           );

@@ -120,7 +120,13 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
     on<PostingAdSearchMakesEvent>(_searchMake);
     on<PostingAdModificationsEvent>(_modification);
     on<PostingAdClearStateEvent>(_clearState);
+    on<PostingAdSerchControllerClearEvent>(_clearSearchController);
   }
+  FutureOr<void> _clearSearchController(
+      PostingAdSerchControllerClearEvent event, Emitter<PostingAdState> emit) {
+    emit(state.copyWith(searchController: TextEditingController()));
+  }
+
   FutureOr<void> _clearState(
       PostingAdClearStateEvent event, Emitter<PostingAdState> emit) {
     emit(
@@ -217,7 +223,6 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
 
   FutureOr<void> _screenShot(PostingAdGetMapScreenShotEvent event,
       Emitter<PostingAdState> emit) async {
-  
     emit(state.copyWith(
         showExactAddress: true,
         status: FormzStatus.submissionInProgress,
@@ -519,12 +524,11 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
 
   FutureOr<void> _makes(
       PostingAdMakesEvent event, Emitter<PostingAdState> emit) async {
+    emit(state.copyWith(getMakesStatus: FormzStatus.submissionInProgress));
     if (state.makes.isNotEmpty) {
       emit(state.copyWith(getMakesStatus: FormzStatus.submissionSuccess));
       return;
     }
-
-    emit(state.copyWith(getMakesStatus: FormzStatus.submissionInProgress));
 
     final result = await makeUseCase.call(null);
     if (result.isRight) {

@@ -61,7 +61,7 @@ class _NotificationPageState extends State<NotificationPage> {
                       });
                       bloc.add(NotificationAllReadEvent());
                       context.read<ShowPopUpBloc>().add(ShowPopUp(
-                          message: "Barcha xabarlar o'qildi", isSucces: true));
+                          message: "Barcha xabarlar o'qildi",  status: PopStatus.success));
                     }
                   },
                   child: Padding(

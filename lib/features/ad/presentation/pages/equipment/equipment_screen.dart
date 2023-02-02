@@ -21,44 +21,43 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
   ];
 
   @override
-  Widget build(BuildContext context) => KeyboardDismisser(
-        child: Scaffold(
-          body: BaseWidget(
-            headerText: LocaleKeys.complectation.tr(),
-            child: Padding(
-              padding: const EdgeInsets.only(top: 16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: Text(
-                      LocaleKeys.buyers_more_call_on_add.tr(),
-                      style: Theme.of(context).textTheme.headline6!.copyWith(
-                          fontSize: 14,
-                          color: Theme.of(context)
-                              .extension<ThemedColors>()!
-                              .aluminumToDolphin),
-                    ),
+  Widget build(BuildContext context) => Scaffold(
+        body: BaseWidget(
+          headerText: LocaleKeys.complectation.tr(),
+          child: Padding(
+            padding: const EdgeInsets.only(top: 16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: Text(
+                    LocaleKeys.buyers_more_call_on_add.tr(),
+                    style: Theme.of(context).textTheme.headline6!.copyWith(
+                        fontSize: 14,
+                        color: Theme.of(context)
+                            .extension<ThemedColors>()!
+                            .aluminumToDolphin),
                   ),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  ListView.builder(
-                    itemBuilder: (context, index) => RadioItem(
-                        onTap: (value) {
-                          setState(() {
-                            selectedIndex = index;
-                          });
-                        },
-                        title: titleList[index],
-                        groupValue: index,
-                        value: selectedIndex),
-                    itemCount: 2,
-                    shrinkWrap: true,
-                  )
-                ],
-              ),
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
+                ListView.builder(
+                  physics: const BouncingScrollPhysics(),
+                  itemBuilder: (context, index) => RadioItem(
+                      onTap: (value) {
+                        setState(() {
+                          selectedIndex = index;
+                        });
+                      },
+                      title: titleList[index],
+                      groupValue: index,
+                      value: selectedIndex),
+                  itemCount: 2,
+                  shrinkWrap: true,
+                )
+              ],
             ),
           ),
         ),

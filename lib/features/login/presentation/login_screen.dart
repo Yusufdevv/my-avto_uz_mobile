@@ -205,7 +205,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 }
                                 context.read<ShowPopUpBloc>().add(ShowPopUp(
                                       message: error,
-                                      isSucces: false,
+                                      status: PopStatus.error,
                                       dismissible: false,
                                     ));
                               },

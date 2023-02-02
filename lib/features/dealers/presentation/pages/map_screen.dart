@@ -135,7 +135,7 @@ class _MapScreenState extends State<MapScreen>
                           onError: (message) {
                             context.read<ShowPopUpBloc>().add(ShowPopUp(
                                   message: message,
-                                  isSucces: false,
+                                  status: PopStatus.error,
                                 ));
                           },
                           onSuccess: (position) async {
@@ -224,7 +224,7 @@ class _MapScreenState extends State<MapScreen>
                             },
                             onError: (message) {
                               context.read<ShowPopUpBloc>().add(
-                                  ShowPopUp(message: message, isSucces: false));
+                                  ShowPopUp(message: message,  status: PopStatus.error,));
                             },
                           ),
                         );

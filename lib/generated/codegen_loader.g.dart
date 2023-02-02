@@ -494,7 +494,8 @@ class CodegenLoader extends AssetLoader{
   "rastamojen_v_uzbekistan": "Растаможен в Узбекистане",
   "car_model": "Модель автомобиля",
   "photographation": "Фотографии",
-  "start_free_week": "Разместить бесплатно на 7 дней...."
+  "start_free_week": "Разместить бесплатно на 7 дней....",
+  "get_back": "Назад"
 };
 static const Map<String,dynamic> ru = {
   "price_of_similar_cars": "Средняя цена похожих автомобилей",
@@ -975,7 +976,8 @@ static const Map<String,dynamic> ru = {
   "rastamojen_v_uzbekistan": "Растаможен в Узбекистане",
   "car_model": "Модель автомобиля",
   "photographation": "Фотографии",
-  "start_free_week": "Разместить бесплатно на 7 дней...."
+  "start_free_week": "Разместить бесплатно на 7 дней....",
+  "get_back": "Назад"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"uz": uz, "ru": ru};
 }

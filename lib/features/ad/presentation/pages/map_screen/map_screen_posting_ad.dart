@@ -160,7 +160,7 @@ class _MapScreenPostingAdState extends State<MapScreenPostingAd>
                             onError: (message) {
                               context.read<ShowPopUpBloc>().add(ShowPopUp(
                                     message: message,
-                                    isSucces: false,
+                                    status: PopStatus.error,
                                   ));
                             },
                             onSuccess: (position) async {
@@ -237,7 +237,9 @@ class _MapScreenPostingAdState extends State<MapScreenPostingAd>
                               },
                               onError: (message) {
                                 context.read<ShowPopUpBloc>().add(ShowPopUp(
-                                    message: message, isSucces: false));
+                                      message: message,
+                                      status: PopStatus.error,
+                                    ));
                               },
                             ),
                           );

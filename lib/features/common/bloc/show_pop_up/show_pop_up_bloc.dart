@@ -3,20 +3,24 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:formz/formz.dart';
 
 part 'show_pop_up_event.dart';
 
 part 'show_pop_up_state.dart';
 
+enum PopStatus { success, error, warning }
+
 class ShowPopUpBloc extends Bloc<ShowPopUpEvent, ShowPopUpState> {
   ShowPopUpBloc()
       : super(const ShowPopUpState(
-            message: '', showPopUp: false, isSucces: false)) {
+          status: PopStatus.success,
+          message: '',
+          showPopUp: false,
+        )) {
     var timer = Timer(Duration.zero, () {});
     on<ShowPopUp>((event, emit) {
       emit(state.copyWith(
-          message: event.message, showPopUp: true, isSucces: event.isSucces));
+          message: event.message, showPopUp: true, status: event.status));
       if (timer.isActive) {
         timer.cancel();
       }

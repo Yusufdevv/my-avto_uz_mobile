@@ -120,13 +120,13 @@ class NewPasswordsPage extends StatelessWidget {
                               _newPassword2Controller.text.length < 6) {
                             context.read<ShowPopUpBloc>().add(ShowPopUp(
                                 message: LocaleKeys.password_must_6.tr(),
-                                isSucces: false));
+                                status: PopStatus.error,));
                           } else if (_oldPasswordController.text.isEmpty ||
                               _newPassword1Controller.text.isEmpty ||
                               _newPassword2Controller.text.isEmpty) {
                             context.read<ShowPopUpBloc>().add(ShowPopUp(
                                 message: LocaleKeys.password_must_6.tr(),
-                                isSucces: false));
+                                status: PopStatus.error,));
                           } else if (_oldPasswordController.text.length >= 6 &&
                               _newPassword1Controller.text.length >= 6 &&
                               _newPassword2Controller.text.length >= 6) {
@@ -135,7 +135,7 @@ class NewPasswordsPage extends StatelessWidget {
                               context.read<ShowPopUpBloc>().add(ShowPopUp(
                                   message:
                                       LocaleKeys.passwords_didnt_match.tr(),
-                                  isSucces: false));
+                                  status: PopStatus.error,));
                             } else {
                               context.read<ProfileBloc>().add(
                                     ChangePasswordEvent(
@@ -150,7 +150,7 @@ class NewPasswordsPage extends StatelessWidget {
                                                 : LocaleKeys
                                                     .password_changed_successfully
                                                     .tr(),
-                                            isSucces: true));
+                                             status: PopStatus.success));
                                         //after pasword changing get new token
                                         context.read<ProfileBloc>().add(
                                             LoginUser(
@@ -173,7 +173,7 @@ class NewPasswordsPage extends StatelessWidget {
                                         context.read<ShowPopUpBloc>().add(
                                             ShowPopUp(
                                                 message: error,
-                                                isSucces: false));
+                                                status: PopStatus.error,));
                                       },
                                     ),
                                   );

@@ -64,7 +64,7 @@ class _LoginNewPasswordPageState extends State<LoginNewPasswordPage> {
                   }
                   context
                       .read<ShowPopUpBloc>()
-                      .add(ShowPopUp(message: error, isSucces: false));
+                      .add(ShowPopUp(message: error,  status: PopStatus.error,));
                 }
                 if (state.status == FormzStatus.submissionSuccess) {
                   Navigator.pushAndRemoveUntil(
@@ -165,14 +165,14 @@ class _LoginNewPasswordPageState extends State<LoginNewPasswordPage> {
                                 context.read<ShowPopUpBloc>().add(ShowPopUp(
                                     message:
                                         LocaleKeys.passwords_didnt_match.tr(),
-                                    isSucces: false));
+                                     status: PopStatus.error,));
                               }
                             } else {
                               context.read<ShowPopUpBloc>().add(
                                     ShowPopUp(
                                         message:
                                             LocaleKeys.password_must_6.tr(),
-                                        isSucces: false,
+                                        status: PopStatus.error,
                                         dismissible: false),
                                   );
                             }

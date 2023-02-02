@@ -210,7 +210,7 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                   if (state.createStatus == FormzStatus.submissionSuccess) {
                     context.read<ShowPopUpBloc>().add(ShowPopUp(
                           message: state.toastMessage!,
-                          isSucces: true,
+                          status: PopStatus.success,
                           dismissible: false,
                         ));
                     await Future.delayed(const Duration(milliseconds: 1000));
@@ -236,8 +236,12 @@ class _PostingAdScreenState extends State<PostingAdScreen>
 
                   if (state.toastMessage != null &&
                       state.toastMessage!.isNotEmpty) {
-                    context.read<ShowPopUpBloc>().add(ShowPopUp(
-                        message: state.toastMessage!, isSucces: false));
+                    context.read<ShowPopUpBloc>().add(
+                          ShowPopUp(
+                            message: state.toastMessage!,
+                            status: PopStatus.error,
+                          ),
+                        );
                   }
                 },
                 builder: (context, state) =>
@@ -276,14 +280,16 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                               setState(() {});
                             }
                           } else {
-                            // Navigator.pop(context);
+                            HomeTabControllerProvider.of(widget.parentContext)
+                                .controller
+                                .animateTo(0);
                           }
                         },
                         onTapCancel: () {
                           print('=> => => =>     on tap cancel    <= <= <= <=');
                         },
                         title: currentTabIndex == 0
-                            ? LocaleKeys.back.tr()
+                            ? LocaleKeys.get_back.tr()
                             : tabs[currentTabIndex - 1],
                       ),
                     ),
@@ -366,9 +372,10 @@ class _PostingAdScreenState extends State<PostingAdScreen>
 
                                       postingAdBloc.add(
                                         PostingAdGetMapScreenShotEvent(
-                                            lat: latLongZoom[0],
-                                            long: latLongZoom[1],
-                                            zoomLevel: latLongZoom[2]),
+                                          lat: latLongZoom[0],
+                                          long: latLongZoom[1],
+                                          zoomLevel: latLongZoom[2],
+                                        ),
                                       );
                                     }
                                   },
@@ -387,7 +394,7 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                         ),
                         if (currentTabIndex < tabLength - 1) ...{
                           Positioned(
-                            bottom: MediaQuery.of(context).padding.bottom + 53,
+                            bottom: MediaQuery.of(context).padding.bottom + 16,
                             right: 16,
                             left: 16,
                             child: WButton(
@@ -425,7 +432,7 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                           ),
                         } else ...{
                           Positioned(
-                            bottom: MediaQuery.of(context).padding.bottom + 53,
+                            bottom: MediaQuery.of(context).padding.bottom + 16,
                             right: 16,
                             left: 16,
                             child: WButton(

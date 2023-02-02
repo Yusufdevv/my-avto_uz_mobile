@@ -131,7 +131,7 @@ class _PhoneNumberEditPageState extends State<PhoneNumberEditPage> {
                               if (phoneNumber.length < 9) {
                                 context.read<ShowPopUpBloc>().add(ShowPopUp(
                                     message: LocaleKeys.phone_n_m_be_12_d.tr(),
-                                    isSucces: false));
+                                    status: PopStatus.error,));
                               } else if (phoneNumber.length >= 9) {
                                 context
                                     .read<ChangePhoneNumberBloc>()
@@ -165,7 +165,7 @@ class _PhoneNumberEditPageState extends State<PhoneNumberEditPage> {
                                           context.read<ShowPopUpBloc>().add(
                                               ShowPopUp(
                                                   message: error,
-                                                  isSucces: false));
+                                                  status: PopStatus.error,));
                                         }));
                               }
                             },

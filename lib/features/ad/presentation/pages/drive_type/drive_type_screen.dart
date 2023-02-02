@@ -29,6 +29,7 @@ class _DriveTypeScreenState extends State<DriveTypeScreen> {
               );
             }
             return ListView.builder(
+              physics: const BouncingScrollPhysics(),
               itemBuilder: (context, index) => PostingRadioItem(
                 onTap: () => context.read<PostingAdBloc>().add(
                     PostingAdChooseEvent(

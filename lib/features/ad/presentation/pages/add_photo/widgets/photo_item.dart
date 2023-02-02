@@ -50,7 +50,7 @@ class _PhotoItemState extends State<PhotoItem> {
         )
       : Padding(
           padding: const EdgeInsets.all(16),
-          child: Wrap(
+          child: Wrap(         
             runSpacing: 16,
             spacing: 8,
             children: [

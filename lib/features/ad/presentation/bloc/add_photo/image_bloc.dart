@@ -2,10 +2,8 @@ import 'dart:io';
 
 import 'package:auto/utils/my_functions.dart';
 import 'package:bloc/bloc.dart';
-import 'package:device_info_plus/device_info_plus.dart';
 import 'package:equatable/equatable.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 part 'image_event.dart';
 part 'image_state.dart';
@@ -22,6 +20,7 @@ class ImageBloc extends Bloc<ImageEvent, ImageState> {
     on<PickPanaramaImageEvent>((event, emit) async {
       final permission =
           await MyFunctions.getPhotosPermission(Platform.isAndroid);
+          print('=> => => =>     permidssion is $permission    <= <= <= <=');
       if (!permission) return;
       final image = await imagePicker.pickImage(source: ImageSource.gallery);
       print(
@@ -45,7 +44,7 @@ class ImageBloc extends Bloc<ImageEvent, ImageState> {
     on<DeleteImage>((event, emit) {
       final image = <String>[...state.images];
       final panarama = <String>[...state.panaramaImages];
-       print(
+      print(
           '=> => => =>     pl: ${panarama.length}  il: ${image.length}  <= <= <= <=');
       if (image.contains(event.imageUrl)) {
         image.remove(event.imageUrl);

@@ -189,7 +189,7 @@ class _MySearchesPageState extends State<MySearchesPage> {
                                     ),
                                   )
                                 : context.read<ShowPopUpBloc>().add(ShowPopUp(
-                                    isSucces: false,
+                                    status: PopStatus.error,
                                     message: LocaleKeys.select_first_to_delete
                                         .tr()));
                           },

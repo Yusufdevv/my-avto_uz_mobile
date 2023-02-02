@@ -30,6 +30,7 @@ class _ModificationScreenState extends State<ModificationScreen> {
                 return const Center(child: Text('No Modifications available'));
               }
               return ListView.builder(
+                physics: const BouncingScrollPhysics(),
                 itemBuilder: (context, index) => PostingRadioItem(
                   image: '',
                   selected:

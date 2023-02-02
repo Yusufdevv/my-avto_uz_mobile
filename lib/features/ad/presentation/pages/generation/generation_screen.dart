@@ -33,6 +33,7 @@ class _GenerationScreenState extends State<GenerationScreen> {
               }
 
               return ListView.builder(
+                physics: const BouncingScrollPhysics(),
                 itemBuilder: (context, index) => PostingRadioItem(
                     onTap: () => context.read<PostingAdBloc>().add(
                         PostingAdChooseEvent(
