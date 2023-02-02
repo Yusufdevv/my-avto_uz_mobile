@@ -162,27 +162,26 @@ class _PostingAdScreenState extends State<PostingAdScreen>
   }
 
   List<String> tabs = [
-    'Марку автомобиля',
-    'Модель автомобиля',
+    LocaleKeys.car_make.tr(),
+    LocaleKeys.car_model.tr(),
     LocaleKeys.year_of_issue.tr(),
-    'Поколение',
+    LocaleKeys.generation.tr(),
     LocaleKeys.body.tr(),
-    'Двигатель',
+    LocaleKeys.motor.tr(),
     LocaleKeys.drive_unit.tr(),
     LocaleKeys.drive_gearbox.tr(),
-    'Модификация',
-    'Цвет автомобиля',
-    'Фотографии',
-    'ПТС',
-    'Описание',
+    LocaleKeys.modification.tr(),
+    LocaleKeys.car_color.tr(),
+    LocaleKeys.photographation.tr(),
+    LocaleKeys.pts.tr(),
+    LocaleKeys.description.tr(),
     LocaleKeys.complectation.tr(),
-    'Состояние кузова',
-    'Контактные данные',
-    'Место осмотра',
-    'Цена',
+    LocaleKeys.body_state.tr(),
+    LocaleKeys.contact_data.tr(),
+    LocaleKeys.place_of_inspection.tr(),
+    LocaleKeys.price.tr(),
     LocaleKeys.Mileage.tr(),
-    'Предосмотор',
-    'map'
+    LocaleKeys.preispection.tr(),
   ];
 
   @override
@@ -284,7 +283,7 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                           print('=> => => =>     on tap cancel    <= <= <= <=');
                         },
                         title: currentTabIndex == 0
-                            ? 'Назад'
+                            ? LocaleKeys.back.tr()
                             : tabs[currentTabIndex - 1],
                       ),
                     ),
@@ -359,19 +358,21 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                                   fade(
                                     page: const MapScreenPostingAd(),
                                   ),
-                                ).then((latLongZoom) {
-                                  if (latLongZoom is List<double>) {
-                                    print(
-                                        '=> => => =>     then: lat: ${latLongZoom[0]} long: ${latLongZoom[1]}  zoom: ${latLongZoom[2]} <= <= <= <=');
+                                ).then(
+                                  (latLongZoom) {
+                                    if (latLongZoom is List<double>) {
+                                      print(
+                                          '=> => => =>     then: lat: ${latLongZoom[0]} long: ${latLongZoom[1]}  zoom: ${latLongZoom[2]} <= <= <= <=');
 
-                                    postingAdBloc.add(
-                                      PostingAdGetMapScreenShotEvent(
-                                          lat: latLongZoom[0],
-                                          long: latLongZoom[1],
-                                          zoomLevel: latLongZoom[2]),
-                                    );
-                                  }
-                                });
+                                      postingAdBloc.add(
+                                        PostingAdGetMapScreenShotEvent(
+                                            lat: latLongZoom[0],
+                                            long: latLongZoom[1],
+                                            zoomLevel: latLongZoom[2]),
+                                      );
+                                    }
+                                  },
+                                );
                               },
                             ),
                             //17
@@ -411,7 +412,7 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                                   setState(() {});
                                 }
                               },
-                              text: 'Далее',
+                              text: LocaleKeys.further.tr(),
                               shadow: state.buttonStatus(currentTabIndex)
                                   ? null
                                   : [
@@ -424,24 +425,25 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                           ),
                         } else ...{
                           Positioned(
-                              bottom:
-                                  MediaQuery.of(context).padding.bottom + 53,
-                              right: 16,
-                              left: 16,
-                              child: WButton(
-                                isLoading: state.createStatus ==
-                                    FormzStatus.submissionInProgress,
-                                onTap: () async {
-                                  postingAdBloc.add(PostingAdCreateEvent());
-                                },
-                                text: 'Разместить бесплатно на 7 дней....',
-                                shadow: [
-                                  BoxShadow(
-                                      offset: const Offset(0, 4),
-                                      blurRadius: 20,
-                                      color: orange.withOpacity(0.2)),
-                                ],
-                              )),
+                            bottom: MediaQuery.of(context).padding.bottom + 53,
+                            right: 16,
+                            left: 16,
+                            child: WButton(
+                              isLoading: state.createStatus ==
+                                  FormzStatus.submissionInProgress,
+                              onTap: () async {
+                                postingAdBloc.add(PostingAdCreateEvent());
+                              },
+                              text: LocaleKeys.start_free_week.tr(),
+                              shadow: [
+                                BoxShadow(
+                                  offset: const Offset(0, 4),
+                                  blurRadius: 20,
+                                  color: orange.withOpacity(0.2),
+                                ),
+                              ],
+                            ),
+                          ),
                         }
                       ],
                     ),

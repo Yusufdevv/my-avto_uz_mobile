@@ -383,7 +383,7 @@ class MyFunctions {
           r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
       .hasMatch(email);
 
-  static String getDoorName(String door) {
+  static String getDamagedPartName(String door) {
     switch (door) {
       case 'left_front_door':
         return 'Левая передняя дверь';

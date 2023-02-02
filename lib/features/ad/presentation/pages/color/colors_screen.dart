@@ -2,6 +2,8 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.dart';
 import 'package:auto/features/ad/presentation/pages/color/widgets/colors_item.dart';
 import 'package:auto/features/ad/presentation/widgets/base_widget.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -24,19 +26,19 @@ class _ColorsScreenState extends State<ColorsScreen> {
     neonCarrot
   ];
   final List<String> colorsNameList = [
-    'Черный',
-    'Серебристый',
-    'Белый',
-    'Бордовый',
-    'Желтый',
-    'Оранжевыйq',
+    LocaleKeys.black.tr(),
+    LocaleKeys.serebro.tr(),
+    LocaleKeys.white.tr(),
+    LocaleKeys.bordo.tr(),
+    LocaleKeys.yellow.tr(),
+    LocaleKeys.orange.tr(),
   ];
   String currentId = '';
 
   @override
   Widget build(BuildContext context) => Scaffold(
         body: BaseWidget(
-          headerText: 'Цвет автомобиля',
+          headerText: LocaleKeys.car_color.tr(),
           padding: const EdgeInsets.only(top: 16),
           child: BlocBuilder<PostingAdBloc, PostingAdState>(
             builder: (context, state) {
@@ -49,15 +51,16 @@ class _ColorsScreenState extends State<ColorsScreen> {
                 itemBuilder: (context, index) => ColorsItem(
                   color: colorsList[index],
                   colorName: colorsNameList[index],
-                  onTap: (id) => context.read<PostingAdBloc>().add(
+                  onTap: () => context.read<PostingAdBloc>().add(
                       PostingAdChooseEvent(colorName: colorsNameList[index])),
-                  id: index.toString(),
                   isSelected: state.colorName == colorsNameList[index],
                 ),
                 itemCount: 6,
                 shrinkWrap: true,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2, childAspectRatio: 1.5),
+                  crossAxisCount: 2,
+                  childAspectRatio: 1.5,
+                ),
               );
             },
           ),

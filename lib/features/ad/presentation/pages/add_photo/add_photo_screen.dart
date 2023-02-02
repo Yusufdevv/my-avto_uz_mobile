@@ -7,6 +7,8 @@ import 'package:auto/features/ad/presentation/pages/add_photo/widgets/photo_item
 import 'package:auto/features/ad/presentation/widgets/base_widget.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/profile/presentation/widgets/widgets.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -37,7 +39,7 @@ class _AddPhotoScreenState extends State<AddPhotoScreen> {
         value: imageBloc,
         child: Scaffold(
           body: BaseWidget(
-            headerText: 'Фото',
+            headerText: LocaleKeys.photo.tr(),
             extraAction: [
               const SizedBox(width: 12),
               Padding(
@@ -73,9 +75,7 @@ class _AddPhotoScreenState extends State<AddPhotoScreen> {
                                     CameraBottomSheet(imageBloc: imageBloc))
                             .then((value) {
                           if (value != null) {
-                      
-                            imageBloc.add(
-                                 PickImage(source: value));
+                            imageBloc.add(PickImage(source: value));
                           }
                         });
                       },
@@ -84,7 +84,7 @@ class _AddPhotoScreenState extends State<AddPhotoScreen> {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16),
                       child: Text(
-                        'Фото 360°',
+                        '${LocaleKeys.photo.tr()} 360°',
                         style: Theme.of(context)
                             .textTheme
                             .subtitle1!

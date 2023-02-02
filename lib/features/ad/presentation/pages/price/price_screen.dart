@@ -208,7 +208,7 @@ class _PriceScreenState extends State<PriceScreen> {
                         onChanged: (v) => context
                             .read<PostingAdBloc>()
                             .add(PostingAdChooseEvent(rentToBuy: v)),
-                        title: 'Аренда с выкупом',
+                        title: LocaleKeys.rent_to_sale.tr(),
                       ),
                       const SizedBox(height: 16),
                       const SizedBox(
@@ -224,52 +224,53 @@ class _PriceScreenState extends State<PriceScreen> {
                                 ))
                             .toList(),
                         WScaleAnimation(
-                            onTap: () {
-                              showModalBottomSheet<RentWithPurchaseEntity>(
-                                  useRootNavigator: true,
-                                  isScrollControlled: true,
-                                  backgroundColor: Colors.transparent,
-                                  isDismissible: false,
-                                  context: context,
-                                  builder: (context) => RentToBuySheet(
-                                        price: int.tryParse(state.price
-                                                    ?.replaceAll(' ', '') ??
-                                                '0') ??
-                                            0,
-                                      )).then((value) {
-                                if (value != null) {
-                                  context.read<PostingAdBloc>().add(
-                                          PostingAdChooseEvent(
-                                              rentToBuy: true,
-                                              rentWithPurchaseConditions: [
-                                            value,
-                                            ...state.rentWithPurchaseConditions
-                                          ]));
-                                }
-                              });
-                            },
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  'Добавить условия аренды',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headline3!
-                                      .copyWith(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w600),
-                                ),
-                                const SizedBox(width: 8),
-                                SvgPicture.asset(
-                                  AppIcons.chevronRight,
-                                  color: Theme.of(context)
-                                      .extension<ThemedColors>()!
-                                      .mediumSlateBlueToWhite,
-                                )
-                              ],
-                            ))
+                          onTap: () {
+                            showModalBottomSheet<RentWithPurchaseEntity>(
+                                useRootNavigator: true,
+                                isScrollControlled: true,
+                                backgroundColor: Colors.transparent,
+                                isDismissible: false,
+                                context: context,
+                                builder: (context) => RentToBuySheet(
+                                      price: int.tryParse(state.price
+                                                  ?.replaceAll(' ', '') ??
+                                              '0') ??
+                                          0,
+                                    )).then((value) {
+                              if (value != null) {
+                                context.read<PostingAdBloc>().add(
+                                        PostingAdChooseEvent(
+                                            rentToBuy: true,
+                                            rentWithPurchaseConditions: [
+                                          value,
+                                          ...state.rentWithPurchaseConditions
+                                        ]));
+                              }
+                            });
+                          },
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                LocaleKeys.add_rent_condition.tr(),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline3!
+                                    .copyWith(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w600),
+                              ),
+                              const SizedBox(width: 8),
+                              SvgPicture.asset(
+                                AppIcons.chevronRight,
+                                color: Theme.of(context)
+                                    .extension<ThemedColors>()!
+                                    .mediumSlateBlueToWhite,
+                              ),
+                            ],
+                          ),
+                        ),
                       }
                     ],
                   ),

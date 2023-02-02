@@ -32,7 +32,7 @@ class PreviewScreen extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(top: 16, left: 16, bottom: 12),
                   child: Text(
-                    'Финальный предосмотр',
+                    LocaleKeys.final_review.tr(),
                     style: Theme.of(context).textTheme.headline1,
                   ),
                 ),
@@ -88,10 +88,10 @@ class PreviewScreen extends StatelessWidget {
                           .type,
                 ),
                 CarInfoRow(
-                  title: 'Растаможен в Узбекистане',
+                  title: LocaleKeys.rastamojen_v_uzbekistan.tr(),
                   info: state.notRegisteredInUzbekistan
                       ? LocaleKeys.no.tr()
-                      : 'Да',
+                      : LocaleKeys.yes.tr(),
                 ),
                 const SizedBox(height: 36)
               ],

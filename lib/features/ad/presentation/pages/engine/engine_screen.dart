@@ -62,7 +62,7 @@ class _EngineScreenState extends State<EngineScreen> {
                             PostingAdChooseEvent(
                                 hasGasBalloon: true, gasBalloonType: ''),
                           ),
-                      title: 'Газобаллонное оборудование'),
+                      title: LocaleKeys.gas_ballon_equipment.tr()),
                 ),
               } else ...{
                 Padding(

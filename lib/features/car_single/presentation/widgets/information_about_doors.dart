@@ -26,7 +26,7 @@ class InformationAboutDoors extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                MyFunctions.getDoorName(informAboutDoors[index].part),
+                MyFunctions.getDamagedPartName(informAboutDoors[index].part),
                 style: const TextStyle(
                   color: grey,
                   fontWeight: FontWeight.w400,

@@ -91,7 +91,7 @@ class _ContactScreenState extends State<ContactScreen> {
                   body: Form(
                     key: _formKey,
                     child: BaseWidget(
-                      headerText: 'Контактные данные',
+                      headerText: LocaleKeys.contact_data.tr(),
                       child: SingleChildScrollView(
                         padding: const EdgeInsets.all(16),
                         child: Column(
@@ -104,7 +104,7 @@ class _ContactScreenState extends State<ContactScreen> {
                                       .read<PostingAdBloc>()
                                       .add(PostingAdGetUserDataEvent());
                                 },
-                                title: 'Указать мои контактны данные',
+                                title: LocaleKeys.show_my_contact_data.tr(),
                                 value: postingAdState.showOwnerContacts,
                                 onChanged: (value) {
                                   if (!value) {
@@ -323,8 +323,6 @@ class _ContactScreenState extends State<ContactScreen> {
                                                                     .text,
                                                           ),
                                                         );
-                                                    print(
-                                                        '=> => => =>      Before show pup up:     <= <= <= <=');
                                                     context
                                                         .read<ShowPopUpBloc>()
                                                         .add(ShowPopUp(
