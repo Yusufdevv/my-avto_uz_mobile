@@ -7,4 +7,6 @@ class AppConstants {
       GlobalKey<NavigatorState>(
     debugLabel: 'auto.uz',
   );
+
+  static const yandexApiKey = 'b56a52a4-692e-47ec-948d-8dc742fb9f59';
 }
