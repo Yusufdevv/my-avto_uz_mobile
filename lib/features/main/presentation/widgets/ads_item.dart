@@ -41,7 +41,8 @@ class AdsItem extends StatelessWidget {
       onTap: () {
         Navigator.of(context, rootNavigator: true)
             .push(fade(page: CarSingleScreen(id: id)));
-      }, behavior: HitTestBehavior.opaque,
+      },
+      behavior: HitTestBehavior.opaque,
       child: Container(
         height: 269,
         width: 225,
@@ -84,7 +85,8 @@ class AdsItem extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Text('${MyFunctions.getFormatCost(price)} $currency',
+              child: Text(
+                  '${MyFunctions.getFormatCost(price)} ${currency.toUpperCase()}',
                   style: Theme.of(context)
                       .textTheme
                       .headline1
