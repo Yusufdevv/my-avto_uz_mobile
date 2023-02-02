@@ -6,6 +6,7 @@ import 'package:auto/features/ad/presentation/pages/add_photo/widgets/add_photo_
 import 'package:auto/features/ad/presentation/pages/add_photo/widgets/photo_item.dart';
 import 'package:auto/features/ad/presentation/widgets/base_widget.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
+import 'package:auto/features/profile/presentation/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -64,8 +65,19 @@ class _AddPhotoScreenState extends State<AddPhotoScreen> {
                     PhotoItem(
                       images: postingAdState.gallery,
                       onTap: () async {
-                        imageBloc
-                            .add(const PickImage(source: ImageSource.gallery));
+                        await showModalBottomSheet<ImageSource>(
+                                backgroundColor: Colors.transparent,
+                                context: context,
+                                useRootNavigator: true,
+                                builder: (context) =>
+                                    CameraBottomSheet(imageBloc: imageBloc))
+                            .then((value) {
+                          if (value != null) {
+                            print('=> => => =>     ${value.name}    <= <= <= <=');
+                            imageBloc.add(
+                                 PickImage(source: value));
+                          }
+                        });
                       },
                     ),
                     const SizedBox(height: 16),

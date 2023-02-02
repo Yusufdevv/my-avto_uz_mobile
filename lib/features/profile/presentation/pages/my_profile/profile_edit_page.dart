@@ -1,6 +1,6 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
-import 'package:auto/assets/constants/images.dart'; 
+import 'package:auto/assets/constants/images.dart';
 import 'package:auto/core/utils/size_config.dart';
 import 'package:auto/features/ad/presentation/bloc/add_photo/image_bloc.dart';
 import 'package:auto/features/common/bloc/regions/regions_bloc.dart';
@@ -22,6 +22,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 class ProfileEditPage extends StatefulWidget {
@@ -115,7 +116,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                               onError: (text) {
                                 var error = text;
                                 if (error.toLowerCase().contains('dioerror')) {
-                                  error =  LocaleKeys.service_error.tr();
+                                  error = LocaleKeys.service_error.tr();
                                 }
                                 context.read<ShowPopUpBloc>().add(
                                     ShowPopUp(message: error, isSucces: false));
@@ -150,13 +151,20 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                                 alignment: Alignment.center,
                                 child: WScaleAnimation(
                                     onTap: () {
-                                      showModalBottomSheet(
+                                      showModalBottomSheet<ImageSource>(
                                           backgroundColor: Colors.transparent,
                                           context: context,
                                           useRootNavigator: true,
                                           builder: (context) =>
                                               CameraBottomSheet(
-                                                  imageBloc: widget.imageBloc));
+                                                  imageBloc:
+                                                      widget.imageBloc)).then(
+                                          (value) {
+                                        if (value != null) {
+                                          widget.imageBloc
+                                              .add(GetImage(source: value));
+                                        }
+                                      });
                                     },
                                     child: Column(
                                       children: [
@@ -221,7 +229,8 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                                     )),
                               ),
                               //
-                                TitleTextFieldTop(title: LocaleKeys.full_name.tr()),
+                              TitleTextFieldTop(
+                                  title: LocaleKeys.full_name.tr()),
                               ProfilTextField(
                                   controller: _fullNameController,
                                   isNameField: true),
@@ -260,7 +269,8 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                                               ?.title ??
                                           '')),
                               //
-                              TitleTextFieldTop(title: LocaleKeys.full_name.tr()),
+                              TitleTextFieldTop(
+                                  title: LocaleKeys.full_name.tr()),
                               WScaleAnimation(
                                   onTap: () {
                                     Navigator.of(context, rootNavigator: true)
