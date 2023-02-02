@@ -142,7 +142,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                         if (!MyFunctions.isEmail(_eCont.text)) {
                           context.read<ShowPopUpBloc>().add(ShowPopUp(
                               message: LocaleKeys.please_enter_valid_email.tr(),
-                              isSucces: false));
+                              status: PopStatus.error));
                         } else if (_nameCont.text.isNotEmpty) {
                           context.read<ProfileBloc>().add(
                                 EditProfileEvent(
@@ -151,7 +151,6 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                                           .imageBloc.state.image.path.isNotEmpty
                                       ? widget.imageBloc.state.image.path
                                       : null,
-<<<<<<< HEAD
                                   region: newRegion?.id,
                                   onSuccess: () {
                                     context
@@ -162,7 +161,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                                         message: LocaleKeys
                                             .data_changed_succesfully
                                             .tr(),
-                                        isSucces: true));
+                                        status: PopStatus.success));
                                   },
                                   onError: (text) {
                                     var error = text;
@@ -172,51 +171,19 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                                       error = LocaleKeys.service_error.tr();
                                     }
                                     context.read<ShowPopUpBloc>().add(ShowPopUp(
-                                        message: error, isSucces: false));
+                                        message: error, status: PopStatus.error));
                                   },
                                 ),
                               );
                         } else {
                           context.read<ShowPopUpBloc>().add(ShowPopUp(
                               message: LocaleKeys.add_name.tr(),
-                              isSucces: false));
+                          status: PopStatus.error));
                         }
                       }
                     },
                   ),
                   body: Container(
-=======
-                              region: newRegion?.id,
-                              onSuccess: () {
-                                context
-                                    .read<ProfileBloc>()
-                                    .add(GetProfileEvent());
-                                Navigator.pop(context);
-                                context.read<ShowPopUpBloc>().add(ShowPopUp(
-                                    message:
-                                        "Malumotlar mufavvaqiyatli o'zgartirildi",
-                                    status: PopStatus.success));
-                              },
-                              onError: (text) {
-                                var error = text;
-                                if (error.toLowerCase().contains('dioerror')) {
-                                  error = LocaleKeys.service_error.tr();
-                                }
-                                context.read<ShowPopUpBloc>().add(
-                                      ShowPopUp(
-                                        message: error,
-                                        status: PopStatus.error,
-                                      ),
-                                    );
-                              },
-                            ),
-                          );
-                    }
-                  },
-                ),
-                body: KeyboardDismisser(
-                  child: Container(
->>>>>>> origin/posting_ad__checklist
                     height: MediaQuery.of(context).size.height,
                     margin: EdgeInsets.only(top: SizeConfig.v(16)),
                     padding: EdgeInsets.only(
