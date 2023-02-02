@@ -158,7 +158,6 @@ class _PostingAdScreenState extends State<PostingAdScreen>
     }
 
     pageController = PageController(initialPage: initialPage);
-    print('=> => => =>     initstate of posting ad screen    <= <= <= <=');
     super.initState();
   }
 

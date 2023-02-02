@@ -367,7 +367,6 @@ class PostingAdState extends Equatable {
   Region get getSelectedRegion {
     final v = regions.firstWhere((e) => e.id == regionId,
         orElse: () => const Region(id: -1, name: '', title: ''));
-        print('=> => => =>     returning region: ${v.id} ${v.name} ${v.title}    <= <= <= <=');
     return v;
   }
 

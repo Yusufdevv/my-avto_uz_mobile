@@ -7,7 +7,6 @@ import 'package:auto/features/ad/presentation/pages/map_screen/widgets/submit_sh
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
 import 'package:auto/features/common/widgets/custom_screen.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
-import 'package:auto/features/rent/domain/usecases/rent_usecase.dart';
 import 'package:auto/utils/my_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -76,11 +75,7 @@ class _MapScreenPostingAdState extends State<MapScreenPostingAd>
                       .copyWith(fontWeight: FontWeight.w600, fontSize: 16),
                 )),
             body: BlocBuilder<MapBloc, MapState>(
-              builder: (context, state) {
-                print(
-                    '=> => => =>     in build: lat: ${state.lat} long: ${state.long}    <= <= <= <=');
-
-                return Stack(
+              builder: (context, state) => Stack(
                   children: [
                     Positioned.fill(
                       top: -24,
@@ -91,7 +86,6 @@ class _MapScreenPostingAdState extends State<MapScreenPostingAd>
                           if (isStopped) {
                             zoomLevel = cameraPosition.zoom;
                             mapBloc.add(MapChangeLatLongEvent(
-                              where: '<<< onCameraPositionChanged >>>',
                                 lat: cameraPosition.target.latitude,
                                 long: cameraPosition.target.longitude,
                                 radius: MyFunctions.getRadiusFromZoom(
@@ -133,7 +127,6 @@ class _MapScreenPostingAdState extends State<MapScreenPostingAd>
                           );
                           mapBloc.add(
                             MapChangeLatLongEvent(
-                              where: '<<< onMapTap >>>',
                               lat: point.latitude,
                               long: point.longitude,
                               radius: MyFunctions.getRadiusFromZoom(camera.zoom)
@@ -200,7 +193,6 @@ class _MapScreenPostingAdState extends State<MapScreenPostingAd>
                                 );
                                 mapBloc.add(
                                   MapChangeLatLongEvent(
-                                    where: '<<< onMapCreated >>>',
                                     lat: position.latitude,
                                     long: position.longitude,
                                     radius: MyFunctions.getRadiusFromZoom(
@@ -295,8 +287,7 @@ class _MapScreenPostingAdState extends State<MapScreenPostingAd>
                       ),
                     ),
                   ],
-                );
-              },
+                ),
             ),
           ),
         ),

@@ -21,7 +21,6 @@ class MapBloc extends Bloc<MapEvent, MapState> {
   FutureOr<void> _changeLongLat(
       MapChangeLatLongEvent event, Emitter<MapState> emit) {
         
-        print('=> => => => wheree: ${event.where} \n    on lat long changed: lat: ${event.lat}  long: ${event.long}  <= <= <= <=');
     if (event.radius == null) {
       emit(state.copyWith(lat: event.lat, long: event.long));
     } else {

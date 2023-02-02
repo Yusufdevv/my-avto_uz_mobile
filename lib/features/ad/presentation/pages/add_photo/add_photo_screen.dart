@@ -73,7 +73,7 @@ class _AddPhotoScreenState extends State<AddPhotoScreen> {
                                     CameraBottomSheet(imageBloc: imageBloc))
                             .then((value) {
                           if (value != null) {
-                            print('=> => => =>     ${value.name}    <= <= <= <=');
+                      
                             imageBloc.add(
                                  PickImage(source: value));
                           }
