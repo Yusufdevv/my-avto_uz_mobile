@@ -13,6 +13,7 @@ class DirectorySliverDelegate extends SliverPersistentHeaderDelegate {
   final String name;
   final String avatarImage;
   final List<String> gallery;
+  final bool isUserSingle;
 
   DirectorySliverDelegate({
     required this.category,
@@ -20,6 +21,7 @@ class DirectorySliverDelegate extends SliverPersistentHeaderDelegate {
     required this.name,
     required this.avatarImage,
     required this.gallery,
+    this.isUserSingle = false,
   });
 
   final Duration _duration = const Duration(milliseconds: 200);
@@ -41,6 +43,7 @@ class DirectorySliverDelegate extends SliverPersistentHeaderDelegate {
                             ? 0.2
                             : 1,
             child: AnimatedImages(
+              isUserSingle: isUserSingle,
                 images: gallery,
                 screenWidth: MediaQuery.of(context).size.width),
           ),

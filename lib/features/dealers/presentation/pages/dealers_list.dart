@@ -9,8 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 
 class DealersList extends StatefulWidget {
-  const DealersList({Key? key, this.isDirectoryPage = false}) : super(key: key);
-  final bool isDirectoryPage;
+  const DealersList({Key? key}) : super(key: key);
 
   @override
   State<DealersList> createState() => _DealersListState();
@@ -62,7 +61,6 @@ class _DealersListState extends State<DealersList>
                   contractNumber: state.list[index].phoneNumber.substring(6),
                   contactTo: state.list[index].contactTo,
                   contactFrom: state.list[index].contactFrom,
-                  isDirectoryPage: widget.isDirectoryPage,
                 ),
               ),
               itemCount: state.count,

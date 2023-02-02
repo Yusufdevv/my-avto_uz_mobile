@@ -4,7 +4,6 @@ import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/car_single/presentation/car_single_screen.dart';
-import 'package:auto/features/common/bloc/comparison_add/bloc/comparison_add_bloc.dart';
 import 'package:auto/features/common/bloc/wishlist_add/wishlist_add_bloc.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
@@ -21,7 +20,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:formz/formz.dart';
 
 class FavoriteItem extends StatefulWidget {
   const FavoriteItem(
@@ -359,12 +357,9 @@ class _FavoriteItemState extends State<FavoriteItem> {
                               ?.copyWith(color: grey),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 0),
-                        child: AddComparisonItem(
-                          id: widget.id,
-                          initialLike: widget.hasComparison,
-                        ),
+                      AddComparisonItem(
+                        id: widget.id,
+                        initialLike: widget.hasComparison,
                       ),
                       const SizedBox(width: 8),
                       AddWishlistItem(

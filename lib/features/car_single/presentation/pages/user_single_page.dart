@@ -68,6 +68,7 @@ class _UserSinglePageState extends State<UserSinglePage> {
                     SliverPersistentHeader(
                       pinned: true,
                       delegate: DirectorySliverDelegate(
+                          isUserSingle: true,
                           gallery: item.announcement?.gallery ?? [],
                           avatarImage: item.user?.image ?? '',
                           name: item.announcement?.contactName ?? '',
@@ -113,66 +114,84 @@ class _UserSinglePageState extends State<UserSinglePage> {
                                       text:
                                           '${LocaleKeys.every_day.tr()}, ${item.announcement?.contactAvailableFrom?.substring(0, 5)} - ${item.announcement?.contactAvailableTo?.substring(0, 5)}',
                                       icon: AppIcons.clock),
-                                  const SizedBox(height: 20),
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(6),
-                                      color: warmerGrey,
-                                    ),
-                                    padding: const EdgeInsets.all(1),
-                                    height: 110,
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(6),
-                                      child: YandexMap(
-                                        rotateGesturesEnabled: false,
-                                        onMapCreated: (controller) async {
-                                          controller = controller;
-                                          await controller.moveCamera(
-                                            CameraUpdate.newCameraPosition(
-                                              CameraPosition(
-                                                target: Point(
-                                                    latitude: item.announcement
-                                                            ?.latitude ??
-                                                        0.0,
-                                                    longitude: item.announcement
-                                                            ?.longitude ??
-                                                        0.0),
-                                              ),
-                                            ),
-                                            animation: const MapAnimation(
-                                                duration: 0.15,
-                                                type: MapAnimationType.smooth),
-                                          );
-                                        },
-                                        mapObjects: [
-                                          PlacemarkMapObject(
-                                            icon: PlacemarkIcon.single(
-                                              PlacemarkIconStyle(
-                                                scale: 0.6,
-                                                image: BitmapDescriptor
-                                                    .fromAssetImage(
-                                                        AppIcons.currentLoc),
-                                              ),
-                                            ),
-                                            mapId: MapObjectId(item
-                                                    .announcement?.latitude
-                                                    .toString() ??
-                                                ''),
-                                            point: Point(
-                                                latitude: item.announcement
-                                                        ?.latitude ??
-                                                    0.0,
-                                                longitude: item.announcement
-                                                        ?.longitude ??
-                                                    0.0),
+                                  if (item.announcement?.latitude != 0.0 ||
+                                      item.announcement?.longitude != 0.0)
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        const SizedBox(height: 16),
+                                        Container(
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(6),
+                                            color: warmerGrey,
                                           ),
-                                        ],
-                                      ),
+                                          padding: const EdgeInsets.all(1),
+                                          height: 110,
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(6),
+                                            child: YandexMap(
+                                              rotateGesturesEnabled: false,
+                                              onMapCreated: (controller) async {
+                                                controller = controller;
+                                                await controller.moveCamera(
+                                                  CameraUpdate
+                                                      .newCameraPosition(
+                                                    CameraPosition(
+                                                      target: Point(
+                                                          latitude: item
+                                                                  .announcement
+                                                                  ?.latitude ??
+                                                              0.0,
+                                                          longitude: item
+                                                                  .announcement
+                                                                  ?.longitude ??
+                                                              0.0),
+                                                    ),
+                                                  ),
+                                                  animation: const MapAnimation(
+                                                      duration: 0.15,
+                                                      type: MapAnimationType
+                                                          .smooth),
+                                                );
+                                              },
+                                              mapObjects: [
+                                                PlacemarkMapObject(
+                                                  icon: PlacemarkIcon.single(
+                                                    PlacemarkIconStyle(
+                                                      scale: 0.6,
+                                                      image: BitmapDescriptor
+                                                          .fromAssetImage(
+                                                              AppIcons
+                                                                  .currentLoc),
+                                                    ),
+                                                  ),
+                                                  mapId: MapObjectId(item
+                                                          .announcement
+                                                          ?.latitude
+                                                          .toString() ??
+                                                      ''),
+                                                  point: Point(
+                                                      latitude: item
+                                                              .announcement
+                                                              ?.latitude ??
+                                                          0.0,
+                                                      longitude: item
+                                                              .announcement
+                                                              ?.longitude ??
+                                                          0.0),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                  ),
                                   Padding(
                                     padding: const EdgeInsets.symmetric(
-                                        vertical: 20),
+                                        vertical: 16),
                                     child: Info(
                                       text: MyFunctions.phoneFormat(
                                           item.announcement?.contactPhone ??
@@ -192,13 +211,13 @@ class _UserSinglePageState extends State<UserSinglePage> {
                               children: [
                                 Padding(
                                   padding: const EdgeInsets.only(
-                                      top: 16, bottom: 12, left: 16, right: 16),
+                                      top: 16, left: 16, right: 16),
                                   child: Text(
-                                    LocaleKeys.all.tr(),
-                                    style: const TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w400,
-                                        color: greyText),
+                                    LocaleKeys.user_ads.tr(),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headline5
+                                        ?.copyWith(fontSize: 16),
                                   ),
                                 ),
                                 ListView.builder(

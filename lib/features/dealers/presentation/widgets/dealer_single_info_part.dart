@@ -9,7 +9,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:yandex_mapkit/yandex_mapkit.dart';
 
 class DealerSingleInfoPart extends StatefulWidget {
-  // final String dealerType;
   final String dealerName;
   final String contactFrom;
   final String contactTo;
@@ -20,7 +19,6 @@ class DealerSingleInfoPart extends StatefulWidget {
   final double latitude;
 
   const DealerSingleInfoPart({
-    // required this.dealerType,
     required this.dealerName,
     required this.quantityOfCars,
     required this.contact,
@@ -58,9 +56,6 @@ class _DealerSingleInfoPartState extends State<DealerSingleInfoPart> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            // dealerType == 'showroom'
-            //     ? dealerName
-            //     : LocaleKeys.about_dealer.tr(),
             widget.dealerName,
             style: const TextStyle(
                 color: orange, fontSize: 16, fontWeight: FontWeight.w600),
@@ -72,60 +67,65 @@ class _DealerSingleInfoPartState extends State<DealerSingleInfoPart> {
                 ? LocaleKeys.no_cars.tr()
                 : '${widget.quantityOfCars} ${LocaleKeys.carses.tr()}',
           ),
-          const SizedBox(
-            height: 16
-          ),
+          const SizedBox(height: 16),
           Info(
               text:
                   '${LocaleKeys.every_day.tr()}, ${widget.contactFrom.substring(0, 5)} - ${widget.contactTo.substring(0, 5)}',
               icon: AppIcons.clock),
-          const SizedBox(height: 20),
-          Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(6),
-              color: warmerGrey,
-            ),
-            padding: const EdgeInsets.all(1),
-            height: 110,
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(6),
-              child: YandexMap(
-                rotateGesturesEnabled: false,
-                onMapCreated: (controller) async {
-                  controller = controller;
-                  await controller.moveCamera(
-                    CameraUpdate.newCameraPosition(
-                      CameraPosition(
-                        target: Point(
-                            latitude: widget.latitude,
-                            longitude: widget.longitude),
-                      ),
-                    ),
-                    animation: const MapAnimation(
-                        duration: 0.15, type: MapAnimationType.smooth),
-                  );
-                },
-                mapObjects: [
-                  PlacemarkMapObject(
-                    icon: PlacemarkIcon.single(
-                      PlacemarkIconStyle(
-                        scale: 0.6,
-                        image: BitmapDescriptor.fromAssetImage(
-                            AppIcons.currentLoc),
-                      ),
-                    ),
-                    mapId: MapObjectId(widget.latitude.toString()),
-                    point: Point(
-                        latitude: widget.latitude, longitude: widget.longitude),
+          if (widget.latitude > 1 && widget.longitude > 1)
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 16),
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(6),
+                    color: warmerGrey,
                   ),
-                ],
-              ),
+                  padding: const EdgeInsets.all(1),
+                  height: 110,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(6),
+                    child: YandexMap(
+                      rotateGesturesEnabled: false,
+                      onMapCreated: (controller) async {
+                        controller = controller;
+                        await controller.moveCamera(
+                          CameraUpdate.newCameraPosition(
+                            CameraPosition(
+                              target: Point(
+                                  latitude: widget.latitude,
+                                  longitude: widget.longitude),
+                            ),
+                          ),
+                          animation: const MapAnimation(
+                              duration: 0.15, type: MapAnimationType.smooth),
+                        );
+                      },
+                      mapObjects: [
+                        PlacemarkMapObject(
+                          icon: PlacemarkIcon.single(
+                            PlacemarkIconStyle(
+                              scale: 0.6,
+                              image: BitmapDescriptor.fromAssetImage(
+                                  AppIcons.currentLoc),
+                            ),
+                          ),
+                          mapId: MapObjectId(widget.latitude.toString()),
+                          point: Point(
+                              latitude: widget.latitude,
+                              longitude: widget.longitude),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 20),
             child: Info(
-              text: MyFunctions.phoneFormat(widget.contact) ,
+              text: MyFunctions.phoneFormat(widget.contact),
               icon: AppIcons.tablerPhone,
             ),
           ),
@@ -152,6 +152,7 @@ class Info extends StatelessWidget {
           Flexible(
             child: Text(
               text,
+              maxLines: 4,
               style: icon == AppIcons.tablerPhone
                   ? const TextStyle(
                       fontSize: 14, fontWeight: FontWeight.w600, color: blue)

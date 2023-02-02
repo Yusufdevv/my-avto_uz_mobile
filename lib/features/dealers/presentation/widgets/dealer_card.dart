@@ -11,7 +11,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class DealerCard extends StatefulWidget {
-  //final String dealerType;
   final String dealerInfo;
   final String dealerName;
   final String dealerImageUrl;
@@ -23,13 +22,10 @@ class DealerCard extends StatefulWidget {
   final String contractNumber;
   final double latitude;
   final double longitude;
-  final bool isDirectoryPage;
 
-  //final String district;
   final VoidCallback onTap;
 
   const DealerCard({
-    //required this.dealerType,
     required this.dealerName,
     required this.dealerImageUrl,
     required this.quantityOfCars,
@@ -42,8 +38,6 @@ class DealerCard extends StatefulWidget {
     required this.longitude,
     required this.phoneNumber,
     required this.onTap,
-    this.isDirectoryPage = false,
-    //required this.district,
     Key? key,
   }) : super(key: key);
 
@@ -56,7 +50,8 @@ class _DealerCardState extends State<DealerCard> {
 
   @override
   Widget build(BuildContext context) => GestureDetector(
-        onTap: widget.onTap, behavior: HitTestBehavior.opaque,
+        onTap: widget.onTap,
+        behavior: HitTestBehavior.opaque,
         child: Container(
           decoration: BoxDecoration(
               color: Theme.of(context).extension<ThemedColors>()!.whiteToNero,
@@ -103,12 +98,10 @@ class _DealerCardState extends State<DealerCard> {
                             maxLines: 1),
                       ),
                       const SizedBox(height: 2),
-                      const SizedBox(
+                      SizedBox(
                         width: 120,
-                        child: Text(
-                            //widget.dealerType,
-                            'Avtosalon',
-                            style: TextStyle(
+                        child: Text(LocaleKeys.autosalon.tr(),
+                            style: const TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w400,
                                 color: purple),
@@ -196,15 +189,17 @@ class _DealerCardState extends State<DealerCard> {
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 16, vertical: 5),
                                 decoration: BoxDecoration(
-                                  color: green,
+                                  color: emerald,
                                   borderRadius: BorderRadius.circular(4),
                                 ),
                                 child: Text(
                                   LocaleKeys.show_contact.tr(),
-                                  style: const TextStyle(
-                                      color: white,
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 14),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headline4!
+                                      .copyWith(
+                                        fontSize: 14,
+                                      ),
                                 ),
                               ),
                       ),

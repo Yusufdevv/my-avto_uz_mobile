@@ -25,7 +25,13 @@ class EmptyState extends StatelessWidget {
               child: Image.asset(AppImages.noItemFoundCar),
             ),
             const SizedBox(height: 24),
-            Text(LocaleKeys.no_dealer.tr()),
+            Text(
+              LocaleKeys.no_dealer.tr(),
+              style: Theme.of(context)
+                  .textTheme
+                  .subtitle1
+                  ?.copyWith(fontWeight: FontWeight.w400),
+            ),
           ],
         ),
       );

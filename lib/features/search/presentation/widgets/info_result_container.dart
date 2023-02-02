@@ -90,7 +90,7 @@ class _InfoResultContainerState extends State<InfoResultContainer> {
         },
         child: Container(
           width: MediaQuery.of(context).size.width,
-          padding: const EdgeInsets.only(top: 12, left: 16, bottom: 12),
+          padding: const EdgeInsets.only(top: 12, left: 16, bottom: 8),
           decoration: BoxDecoration(
               color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
               boxShadow: [
@@ -117,7 +117,7 @@ class _InfoResultContainerState extends State<InfoResultContainer> {
                         height: 201,
                         width: 264,
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 2),
+                          padding: const EdgeInsets.only(right: 4),
                           child: CachedNetworkImage(
                             errorWidget: (context, url, error) => Image.asset(
                               AppImages.carPlaceHolder,
@@ -127,6 +127,18 @@ class _InfoResultContainerState extends State<InfoResultContainer> {
                             fit: BoxFit.cover,
                             height: 201,
                             width: 264,
+                          ),
+                        ),
+                      ),
+                    if (widget.gallery.isEmpty)
+                      SizedBox(
+                        height: 201,
+                        width: 264,
+                        child: Padding(
+                          padding: const EdgeInsets.only(right: 4),
+                          child: Image.asset(
+                            AppImages.carPlaceHolder,
+                            fit: BoxFit.cover,
                           ),
                         ),
                       ),
@@ -314,14 +326,15 @@ class _InfoResultContainerState extends State<InfoResultContainer> {
                   )
                 ],
               ),
-              Divider(
-                  color: Theme.of(context)
-                      .extension<ThemedColors>()!
-                      .solitude2ToNightRider,
-                  height: 32,
-                  thickness: 1),
+              const SizedBox(height: 16),
+                Divider(
+                    color: Theme.of(context)
+                        .extension<ThemedColors>()
+                        ?.solitude2ToNightRider,
+                    height: 1,
+                    thickness: 1),
               Padding(
-                padding: const EdgeInsets.only(right: 16),
+                padding: const EdgeInsets.only(right: 16, top: 8),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -334,12 +347,9 @@ class _InfoResultContainerState extends State<InfoResultContainer> {
                             .copyWith(color: grey),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 7),
-                      child: AddComparisonItem(
-                        id: widget.id,
-                        initialLike: widget.hasComparison,
-                      ),
+                    AddComparisonItem(
+                      id: widget.id,
+                      initialLike: widget.hasComparison,
                     ),
                     const SizedBox(width: 8),
                     BlocListener<WishlistAddBloc, WishlistAddState>(

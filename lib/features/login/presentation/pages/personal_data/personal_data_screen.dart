@@ -106,7 +106,6 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
                       title: '',
                     ),
                     PersonalDataItemm(
-                      isRequired: true,
                       onTap: hidePopUp,
                       title: LocaleKeys.email.tr(),
                       controller: emailController,

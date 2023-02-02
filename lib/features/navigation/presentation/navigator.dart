@@ -30,11 +30,11 @@ class _TabNavigatorState extends State<TabNavigator>
     switch (widget.tabItem) {
       case NavItemEnum.head:
         return {
-          TabNavigatorRoutes.root: (context) => const MainScreen(),
+          TabNavigatorRoutes.root: (context) =>   MainScreen(parentContext: context),
         };
       case NavItemEnum.search:
         return {
-          TabNavigatorRoutes.root: (context) => const SearchScreen(),
+          TabNavigatorRoutes.root: (context) =>  const SearchScreen(),
         };
       case NavItemEnum.newPost:
         return {

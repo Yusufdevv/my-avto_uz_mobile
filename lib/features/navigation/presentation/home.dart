@@ -107,17 +107,12 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 !await _navigatorKeys[NavItemEnum.values[_currentIndex]]!
                     .currentState!
                     .maybePop();
-            print(
-                '=> => => =>     on willpop: returning before if: ${isFirstRouteInCurrentTab}    <= <= <= <=');
-
             if (isFirstRouteInCurrentTab) {
               if (NavItemEnum.values[_currentIndex] != NavItemEnum.head) {
                 changePage(0);
                 return false;
               }
             }
-            print(
-                '=> => => =>     on willpop: returning: ${isFirstRouteInCurrentTab}    <= <= <= <=');
             return isFirstRouteInCurrentTab;
           },
           child: BlocListener<InternetBloc, InternetState>(

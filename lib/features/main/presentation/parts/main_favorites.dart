@@ -13,7 +13,8 @@ import 'package:formz/formz.dart';
 
 // ignore: must_be_immutable
 class MainFavorites extends StatelessWidget {
-  MainFavorites({Key? key}) : super(key: key);
+  MainFavorites({required this.parentContext,Key? key}) : super(key: key);
+  final BuildContext parentContext;
 
   late List<AutoEntity> favorites;
   @override
@@ -43,7 +44,7 @@ class MainFavorites extends StatelessWidget {
                   builder: (context, stateWish) => (state
                               .favoritesStatus.isSubmissionSuccess &&
                           state.favorites.isEmpty)
-                      ? const MainEmptyFavourite()
+                      ?   MainEmptyFavourite(parentContext: parentContext,)
                       : SizedBox(
                           height: 298,
                           child: Paginator(

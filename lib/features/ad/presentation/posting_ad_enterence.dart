@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:auto/features/ad/presentation/bloc/pae_bloc/pae_bloc.dart';
 import 'package:auto/features/ad/presentation/posting_ad_screen.dart';
 import 'package:auto/features/navigation/presentation/home.dart';

@@ -61,7 +61,14 @@ class _DealersFilterScreenState extends State<DealersFilterScreen> {
           builder: (context, state) => Scaffold(
             backgroundColor: white,
             appBar: WAppBar(
-              boxShadow: const [],
+               boxShadow: [
+              BoxShadow(
+                  offset: const Offset(0, 8),
+                  blurRadius: 24,
+                  color: dark.withOpacity(0.08)),
+              BoxShadow(
+                  offset: const Offset(0, -1), color: dark.withOpacity(0.08))
+            ],
               titleStyle:
                   Theme.of(context).textTheme.headline1!.copyWith(fontSize: 16),
               extraActions: [

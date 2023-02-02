@@ -7,10 +7,12 @@ import 'package:flutter/material.dart';
 class AnimatedImages extends StatefulWidget {
   final double screenWidth;
   final List<String> images;
+  final bool isUserSingle;
 
   const AnimatedImages({
     required this.screenWidth,
     required this.images,
+    this.isUserSingle = false,
     Key? key,
   }) : super(key: key);
 
@@ -40,6 +42,7 @@ class _AnimatedImagesState extends State<AnimatedImages>
     _animationController = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 2000));
     animation =
+        // ignore: prefer_int_literals
         Tween(begin: 0.0, end: widthOfIndicator).animate(_animationController);
     _animationController
       ..forward()
@@ -76,6 +79,7 @@ class _AnimatedImagesState extends State<AnimatedImages>
               onTapDown: (details) {
                 if (details.localPosition.dx < leftSideOfPageView) {
                   if (page == 0) {
+                    // ignore: prefer_int_literals
                     _animationController.forward(from: 0.0);
                   } else {
                     _pageController.previousPage(
@@ -93,14 +97,15 @@ class _AnimatedImagesState extends State<AnimatedImages>
                         curve: Curves.bounceOut);
                   }
                 } else {
-                  if (widget.images.isNotEmpty) {
+                  if (!widget.isUserSingle && widget.images.isNotEmpty) {
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => ImageInFullScreen(
                               images: widget.images,
                             )));
                   }
                 }
-              }, behavior: HitTestBehavior.opaque,
+              },
+              behavior: HitTestBehavior.opaque,
               child:
                   //   child: PageView(
                   //     onPageChanged: (integer) {
@@ -178,47 +183,49 @@ class _AnimatedImagesState extends State<AnimatedImages>
                     .solitudeContainerToBlack,
               ),
             ),
-            Positioned(
-              top: 48,
-              left: 20,
-              child: Row(
-                children: List.generate(
-                  widget.images.length,
-                  (index) => Stack(
-                    children: [
-                      Container(
-                        margin: index == 0
-                            ? EdgeInsets.zero
-                            : const EdgeInsets.only(left: 4),
-                        height: 4,
-                        decoration: BoxDecoration(
-                            color: page > index
-                                ? Colors.white
-                                : Colors.white.withOpacity(0.5),
-                            borderRadius: BorderRadius.circular(2)),
-                        width: widthOfIndicator,
-                      ),
-                      if (page == index) ...{
-                        AnimatedBuilder(
-                          animation: animation,
-                          builder: (context, child) => Container(
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(2),
-                            ),
-                            margin: index == 0
-                                ? EdgeInsets.zero
-                                : const EdgeInsets.only(left: 4),
-                            height: 4,
-                            width: animation.value,
-                          ),
+            if (!widget.isUserSingle && widget.images.length > 1)
+              Positioned(
+                top: 48,
+                left: 20,
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: List.generate(
+                    widget.images.length,
+                    (index) => Stack(
+                      children: [
+                        Container(
+                          margin: index == 0
+                              ? EdgeInsets.zero
+                              : const EdgeInsets.only(left: 4),
+                          height: 4,
+                          decoration: BoxDecoration(
+                              color: page > index
+                                  ? Colors.white
+                                  : Colors.white.withOpacity(0.5),
+                              borderRadius: BorderRadius.circular(2)),
+                          width: widthOfIndicator,
                         ),
-                      },
-                    ],
+                        if (page == index) ...{
+                          AnimatedBuilder(
+                            animation: animation,
+                            builder: (context, child) => Container(
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(2),
+                              ),
+                              margin: index == 0
+                                  ? EdgeInsets.zero
+                                  : const EdgeInsets.only(left: 4),
+                              height: 4,
+                              width: animation.value,
+                            ),
+                          ),
+                        },
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
           ],
         ),
       );

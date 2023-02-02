@@ -46,7 +46,7 @@ class DealerCardBloc extends Bloc<DealerCardEvent, DealerCardState> {
     on<_GetFilter>((event, emit) async {
       final result = await dealerUseCase(DealerParams(
           filter: DealerFilterParams(
-              mark: event.mark.toString(),
+              mark: event.mark == -1 ? '' : event.mark.toString(),
               car_type: event.carType,
               regionId: event.regionId)));
 

@@ -91,7 +91,7 @@ class _ReelsScreenState extends State<ReelsScreen>
             create: (context) => bloc,
             child: BlocBuilder<ReelsBloc, ReelsState>(
               builder: (context, state) => Scaffold(
-                backgroundColor: Colors.transparent,
+                backgroundColor: Colors.black,
                 body: ClipRRect(
                   borderRadius:
                       const BorderRadius.vertical(top: Radius.circular(20)),
@@ -114,35 +114,21 @@ class _ReelsScreenState extends State<ReelsScreen>
                           ),
                         ),
                       Positioned(
-                        top: 0,
-                        right: 0,
-                        left: 0,
-                        child: SizedBox(
-                          height: 100,
-                          child: DecoratedBox(
-                            decoration: BoxDecoration(
-                                gradient: LinearGradient(
-                                    begin: Alignment.topCenter,
-                                    end: Alignment.bottomCenter,
-                                    colors: [dark, dark.withOpacity(0)])),
-                            child: Padding(
-                              padding: const EdgeInsets.only(
-                                  top: 16, right: 16, left: 16),
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  if (widget.isFromMain)
-                                    WScaleAnimation(
-                                      child: SvgPicture.asset(
-                                          AppIcons.chevronLeftWhite),
-                                      onTap: () => Navigator.pop(context),
-                                    ),
-                                  const Spacer(),
-                                  SvgPicture.asset(AppIcons.whiteLogo),
-                                ],
+                        top: 16,
+                        right: 16,
+                        left: 16,
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            if (widget.isFromMain)
+                              WScaleAnimation(
+                                child:
+                                    SvgPicture.asset(AppIcons.chevronLeftWhite),
+                                onTap: () => Navigator.pop(context),
                               ),
-                            ),
-                          ),
+                            const Spacer(),
+                            SvgPicture.asset(AppIcons.whiteLogo),
+                          ],
                         ),
                       ),
                       if (isFirstTimeWatchReel)

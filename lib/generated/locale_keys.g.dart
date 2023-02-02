@@ -86,6 +86,7 @@ abstract class  LocaleKeys {
   static const options = 'options';
   static const all_regions = 'all_regions';
   static const save_search = 'save_search';
+  static const save = 'save';
   static const car_comparison = 'car_comparison';
   static const add_car = 'add_car';
   static const add_car_comparison = 'add_car_comparison';
@@ -99,6 +100,7 @@ abstract class  LocaleKeys {
   static const private_person = 'private_person';
   static const autosalon = 'autosalon';
   static const very_soon = 'very_soon';
+  static const data_changed_succesfully = 'data_changed_succesfully';
   static const news = 'news';
   static const yes = 'yes';
   static const what_was_ordered = 'what_was_ordered';
@@ -154,6 +156,7 @@ abstract class  LocaleKeys {
   static const password_changed_successfully = 'password_changed_successfully';
   static const phone_n_m_be_12_d = 'phone_n_m_be_12_d';
   static const photo = 'photo';
+  static const user_ads = 'user_ads';
   static const no_results = 'no_results';
   static const sorry_no_results = 'sorry_no_results';
   static const add_photo = 'add_photo';
@@ -163,6 +166,7 @@ abstract class  LocaleKeys {
   static const do_you_really_want_to_leave = 'do_you_really_want_to_leave';
   static const after_exiting_the_application = 'after_exiting_the_application';
   static const enter_fullname = 'enter_fullname';
+  static const enter_email = 'enter_email';
   static const top_marks = 'top_marks';
   static const offers_of_day = 'offers_of_day';
   static const main = 'main';

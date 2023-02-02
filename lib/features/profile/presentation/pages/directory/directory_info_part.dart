@@ -1,7 +1,8 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
-import 'package:auto/assets/themes/theme_extensions/themed_colors.dart'; 
+import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
+import 'package:auto/features/dealers/presentation/widgets/dealer_single_info_part.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:auto/utils/my_functions.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -11,7 +12,6 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:yandex_mapkit/yandex_mapkit.dart';
 
 class DirectoryInfoPart extends StatefulWidget {
-  // final String dealerType;
   final String name;
   final String contactFrom;
   final String contactTo;
@@ -22,7 +22,6 @@ class DirectoryInfoPart extends StatefulWidget {
   final String address;
 
   const DirectoryInfoPart({
-    // required this.dealerType,
     required this.name,
     required this.description,
     required this.longitude,
@@ -68,7 +67,8 @@ class _DirectoryInfoPartState extends State<DirectoryInfoPart> {
           ),
           const SizedBox(height: 20),
           Info(
-              text: '${LocaleKeys.every_day.tr()}, ${widget.contactFrom} - ${widget.contactTo}',
+              text:
+                  '${LocaleKeys.every_day.tr()}, ${widget.contactFrom} - ${widget.contactTo}',
               icon: AppIcons.clock),
           const SizedBox(height: 16),
           Row(
@@ -82,62 +82,66 @@ class _DirectoryInfoPartState extends State<DirectoryInfoPart> {
                       .copyWith(fontSize: 14, fontWeight: FontWeight.w400))
             ],
           ),
-          const SizedBox(height: 16),
-          Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(6),
-              color: warmerGrey,
-            ),
-            padding: const EdgeInsets.all(1),
-            height: 110,
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(6),
-              child: YandexMap(
-                rotateGesturesEnabled: false,
-                onMapCreated: (controller) async {
-                  controller = controller;
-                  // maxZoomLevel = await controller.getMaxZoom();
-                  // minZoomLevel = await controller.getMinZoom();
-                  // final camera = await controller.getCameraPosition();
-                  // final position = Point(
-                  //     latitude: StorageRepository.getDouble('lat',
-                  //         defValue: 41.310990),
-                  //     longitude: StorageRepository.getDouble('long',
-                  //         defValue: 69.281997));
-                  await controller.moveCamera(
-                    CameraUpdate.newCameraPosition(
-                      CameraPosition(
-                        target: Point(
-                            latitude: widget.latitude,
-                            longitude: widget.longitude),
-                      ),
-                    ),
-                    animation: const MapAnimation(
-                        duration: 0.15, type: MapAnimationType.smooth),
-                  );
-                },
-                mapObjects: [
-                  PlacemarkMapObject(
-                    icon: PlacemarkIcon.single(
-                      PlacemarkIconStyle(
-                        scale: 0.6,
-                        image: BitmapDescriptor.fromAssetImage(
-                            AppIcons.currentLoc),
-                      ),
-                    ),
-                    mapId: MapObjectId(widget.latitude.toString()),
-                    point: Point(
-                        latitude: widget.latitude, longitude: widget.longitude),
+          if (widget.latitude > 1 && widget.longitude > 1)
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 16),
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(6),
+                    color: warmerGrey,
                   ),
-                ],
-              ),
-            ),
-          ),
-          const SizedBox(height: 16),
-            Info(
-              icon: AppIcons.tablerInfo,
-              text:widget.description
+                  padding: const EdgeInsets.all(1),
+                  height: 110,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(6),
+                    child: YandexMap(
+                      rotateGesturesEnabled: false,
+                      onMapCreated: (controller) async {
+                        controller = controller;
+                        // maxZoomLevel = await controller.getMaxZoom();
+                        // minZoomLevel = await controller.getMinZoom();
+                        // final camera = await controller.getCameraPosition();
+                        // final position = Point(
+                        //     latitude: StorageRepository.getDouble('lat',
+                        //         defValue: 41.310990),
+                        //     longitude: StorageRepository.getDouble('long',
+                        //         defValue: 69.281997));
+                        await controller.moveCamera(
+                          CameraUpdate.newCameraPosition(
+                            CameraPosition(
+                              target: Point(
+                                  latitude: widget.latitude,
+                                  longitude: widget.longitude),
+                            ),
+                          ),
+                          animation: const MapAnimation(
+                              duration: 0.15, type: MapAnimationType.smooth),
+                        );
+                      },
+                      mapObjects: [
+                        PlacemarkMapObject(
+                          icon: PlacemarkIcon.single(
+                            PlacemarkIconStyle(
+                              scale: 0.6,
+                              image: BitmapDescriptor.fromAssetImage(
+                                  AppIcons.currentLoc),
+                            ),
+                          ),
+                          mapId: MapObjectId(widget.latitude.toString()),
+                          point: Point(
+                              latitude: widget.latitude,
+                              longitude: widget.longitude),
+                        ),
+                      ],
+                    ),
                   ),
+                ),
+              ],
+            ),
+          const SizedBox(height: 16),
+          Info(icon: AppIcons.tablerInfo, text: widget.description),
           const SizedBox(height: 16),
           if (!isSelected)
             WScaleAnimation(
@@ -166,8 +170,7 @@ class _DirectoryInfoPartState extends State<DirectoryInfoPart> {
                     children: [
                       SvgPicture.asset(AppIcons.phoneCall1),
                       const SizedBox(width: 8),
-                      Text(
-                          MyFunctions.phoneFormat(widget.phone),
+                      Text(MyFunctions.phoneFormat(widget.phone),
                           style: Theme.of(context)
                               .textTheme
                               .headline1!
@@ -197,35 +200,4 @@ class _DirectoryInfoPartState extends State<DirectoryInfoPart> {
             ),
         ],
       ));
-}
-
-class Info extends StatelessWidget {
-  final String icon;
-  final String text;
-
-  const Info({
-    required this.icon,
-    required this.text,
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) => Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          SvgPicture.asset(icon),
-          const SizedBox(width: 8),
-          Flexible(
-            child: Text(
-              text,
-              style: TextStyle(
-                  fontWeight: FontWeight.w400,
-                  fontSize: 14,
-                  color: Theme.of(context)
-                      .extension<ThemedColors>()!
-                      .midnightExpressToGreySuit),
-            ),
-          ),
-        ],
-      );
 }

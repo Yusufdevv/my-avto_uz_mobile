@@ -35,7 +35,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 
 class MainScreen extends StatefulWidget {
-  const MainScreen({Key? key}) : super(key: key);
+  const MainScreen({required this.parentContext,Key? key}) : super(key: key);
+  final BuildContext parentContext;
 
   @override
   State<MainScreen> createState() => _MainScreenState();
@@ -256,7 +257,7 @@ class _MainScreenState extends State<MainScreen> {
                                 .add(WishlistAddEvent.clearState());
                           }
                         },
-                        child: MainFavorites(),
+                        child: MainFavorites(parentContext: widget.parentContext,),
                       ),
                       const MainMapPart(),
                       const CreateAdButton(),
