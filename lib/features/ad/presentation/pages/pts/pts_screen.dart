@@ -52,6 +52,7 @@ class _PtsScreenState extends State<PtsScreen> {
               headerText: LocaleKeys.pts.tr(),
               child: BlocBuilder<PostingAdBloc, PostingAdState>(
                 builder: (context, state) => SingleChildScrollView(
+                  physics: const BouncingScrollPhysics(),
                   padding:
                       const EdgeInsets.symmetric(horizontal: 16, vertical: 25),
                   child: Column(
@@ -75,7 +76,7 @@ class _PtsScreenState extends State<PtsScreen> {
                                     typeDocument:
                                         LicenceType.values[index].name)),
                             id: index.toString(),
-                            isSelected: state.typeDocument ==
+                            isSelected: state.licence_type ==
                                 LicenceType.values[index].name,
                             text: documentList[index],
                           ),
@@ -136,7 +137,7 @@ class _PtsScreenState extends State<PtsScreen> {
                         title: state.purchasedDate != null &&
                                 state.purchasedDate!.isNotEmpty
                             ? MyFunctions.getData(state.purchasedDate!)
-                            : LocaleKeys.choose_date,
+                            : LocaleKeys.choose_date.tr(),
                         trailingIcon: AppIcons.calendar,
                         border: Border.all(
                             width: 1,

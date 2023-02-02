@@ -69,9 +69,12 @@ class _VerifySmsCodePageState extends State<VerifySmsCodePage> {
                   if (error.toLowerCase().contains('dioerror')) {
                     error = LocaleKeys.service_error.tr();
                   }
-                  context
-                      .read<ShowPopUpBloc>()
-                      .add(ShowPopUp(message: error, isSucces: false));
+                  context.read<ShowPopUpBloc>().add(
+                        ShowPopUp(
+                          message: error,
+                          status: PopStatus.error,
+                        ),
+                      );
                 }
                 if (state.status == FormzStatus.submissionSuccess) {
                   Navigator.pushReplacement(
@@ -254,11 +257,11 @@ class _VerifySmsCodePageState extends State<VerifySmsCodePage> {
                           margin: EdgeInsets.only(
                               bottom:
                                   4 + MediaQuery.of(context).padding.bottom),
-                          
-                          isDisabled: passwordRecoveryController.text.length<6,  
+                          isDisabled:
+                              passwordRecoveryController.text.length < 6,
                           disabledColor: Theme.of(context)
-                                  .extension<ThemedColors>()!
-                                  .veryLightGreyToEclipse,      
+                              .extension<ThemedColors>()!
+                              .veryLightGreyToEclipse,
                           text: LocaleKeys.continuee.tr(),
                           border: Border.all(
                             width: 1,

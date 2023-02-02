@@ -1,6 +1,7 @@
 part of 'posting_ad_bloc.dart';
 
 abstract class PostingAdEvent {}
+class PostingAdSerchControllerClearEvent extends PostingAdEvent{}
 class PostingAdClearStateEvent extends PostingAdEvent{
   
 }

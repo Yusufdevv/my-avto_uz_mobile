@@ -8,6 +8,7 @@ import 'package:auto/features/ad/presentation/widgets/choose_district_sheet.dart
 import 'package:auto/features/ad/presentation/widgets/loader_box.dart';
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
 import 'package:auto/features/common/models/region.dart';
+import 'package:auto/features/common/widgets/custom_screen.dart';
 import 'package:auto/features/common/widgets/switcher_row_as_button_also.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/rent_choose_region_bottom_sheet.dart';
 import 'package:auto/generated/locale_keys.g.dart';
@@ -108,7 +109,7 @@ class _InspectionPlaceScreenState extends State<InspectionPlaceScreen> {
                                   dismissible: false,
                                   message:
                                       LocaleKeys.the_before_choose_region.tr(),
-                                  isSucces: false,
+                                    status: PopStatus.warning,
                                 ),
                               );
                           return;

@@ -16,4 +16,9 @@ class RentWithPurchaseEntity extends Equatable {
         prepayment,
         rentalPeriod,
       ];
+  Map<String, dynamic> toApi() => {
+        'prepayment': prepayment,
+        'rental_period': rentalPeriod,
+        'monthly_payment': monthlyPayment
+      };
 }

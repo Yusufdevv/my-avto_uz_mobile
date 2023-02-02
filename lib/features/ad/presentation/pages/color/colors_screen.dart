@@ -48,6 +48,7 @@ class _ColorsScreenState extends State<ColorsScreen> {
                 );
               }
               return GridView.builder(
+                physics: const BouncingScrollPhysics(),
                 itemBuilder: (context, index) => ColorsItem(
                   color: colorsList[index],
                   colorName: colorsNameList[index],

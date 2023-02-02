@@ -151,6 +151,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                                           .imageBloc.state.image.path.isNotEmpty
                                       ? widget.imageBloc.state.image.path
                                       : null,
+<<<<<<< HEAD
                                   region: newRegion?.id,
                                   onSuccess: () {
                                     context
@@ -184,6 +185,38 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                     },
                   ),
                   body: Container(
+=======
+                              region: newRegion?.id,
+                              onSuccess: () {
+                                context
+                                    .read<ProfileBloc>()
+                                    .add(GetProfileEvent());
+                                Navigator.pop(context);
+                                context.read<ShowPopUpBloc>().add(ShowPopUp(
+                                    message:
+                                        "Malumotlar mufavvaqiyatli o'zgartirildi",
+                                    status: PopStatus.success));
+                              },
+                              onError: (text) {
+                                var error = text;
+                                if (error.toLowerCase().contains('dioerror')) {
+                                  error = LocaleKeys.service_error.tr();
+                                }
+                                context.read<ShowPopUpBloc>().add(
+                                      ShowPopUp(
+                                        message: error,
+                                        status: PopStatus.error,
+                                      ),
+                                    );
+                              },
+                            ),
+                          );
+                    }
+                  },
+                ),
+                body: KeyboardDismisser(
+                  child: Container(
+>>>>>>> origin/posting_ad__checklist
                     height: MediaQuery.of(context).size.height,
                     margin: EdgeInsets.only(top: SizeConfig.v(16)),
                     padding: EdgeInsets.only(

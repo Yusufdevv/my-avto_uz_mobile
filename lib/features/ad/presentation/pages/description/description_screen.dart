@@ -46,6 +46,7 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
                   children: [
                     Expanded(
                       child: ListView(
+                        physics: const BouncingScrollPhysics(),
                         padding: EdgeInsets.only(
                             bottom:
                                 MediaQuery.of(context).viewInsets.bottom + 60),
@@ -105,8 +106,10 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
                                     isRastamojen:
                                         !state.notRegisteredInUzbekistan)),
                             child: Row(
+                              mainAxisSize: MainAxisSize.max,
                               children: [
                                 WCheckBox(
+
                                     isChecked: state.notRegisteredInUzbekistan,
                                     checkBoxColor: purple),
                                 const SizedBox(width: 10),

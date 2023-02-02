@@ -178,7 +178,7 @@ class _PhoneVerifiyPageState extends State<PhoneVerifiyPage> {
                                               context.read<ShowPopUpBloc>().add(
                                                   ShowPopUp(
                                                       message: error,
-                                                      isSucces: false));
+                                                     status: PopStatus.error,));
                                               setState(() {
                                                 isError = true;
                                               });
@@ -226,7 +226,7 @@ class _PhoneVerifiyPageState extends State<PhoneVerifiyPage> {
                                               message: LocaleKeys
                                                   .phone_number_changed_success
                                                   .tr(),
-                                              isSucces: true));
+                                              status: PopStatus.success));
                                       context
                                           .read<ProfileBloc>()
                                           .add(GetProfileEvent());
@@ -240,7 +240,7 @@ class _PhoneVerifiyPageState extends State<PhoneVerifiyPage> {
                                       context.read<ShowPopUpBloc>().add(
                                           ShowPopUp(
                                               message: message,
-                                              isSucces: false));
+                                              status: PopStatus.error,));
                                     }));
                           }
                         },

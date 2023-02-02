@@ -216,15 +216,19 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                                       widget.id,
                                       (message) {
                                         context.read<ShowPopUpBloc>().add(
-                                            ShowPopUp(
+                                              ShowPopUp(
                                                 message: state.succMessage,
-                                                isSucces: true));
+                                                status: PopStatus.success,
+                                              ),
+                                            );
                                       },
                                       (errorMessage) {
                                         context.read<ShowPopUpBloc>().add(
-                                            ShowPopUp(
+                                              ShowPopUp(
                                                 message: state.errorMessage,
-                                                isSucces: false));
+                                                status: PopStatus.error,
+                                              ),
+                                            );
                                       },
                                     ),
                                   );

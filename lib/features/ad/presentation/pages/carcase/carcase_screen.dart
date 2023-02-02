@@ -22,15 +22,16 @@ class _BodyTypeScreenState extends State<BodyTypeScreen> {
   }
 
   @override
-  Widget build(BuildContext context) =>
-      Scaffold(body: BlocBuilder<PostingAdBloc, PostingAdState>(
-        builder: (context, state) {
-          if (state.status == FormzStatus.submissionInProgress) {
-            return const Center(child: CupertinoActivityIndicator());
-          }
-          return BaseWidget(
+  Widget build(BuildContext context) => Scaffold(
+        body: BlocBuilder<PostingAdBloc, PostingAdState>(
+          builder: (context, state) {
+            if (state.status == FormzStatus.submissionInProgress) {
+              return const Center(child: CupertinoActivityIndicator());
+            }
+            return BaseWidget(
               headerText: LocaleKeys.body_type.tr(),
               child: ListView.builder(
+                physics: const BouncingScrollPhysics(),
                 itemBuilder: (context, index) => PostingRadioItem(
                   onTap: () => context.read<PostingAdBloc>().add(
                       PostingAdChooseEvent(
@@ -40,7 +41,9 @@ class _BodyTypeScreenState extends State<BodyTypeScreen> {
                   image: state.bodyTypes[index].logo,
                 ),
                 itemCount: state.bodyTypes.length,
-              ));
-        },
-      ));
+              ),
+            );
+          },
+        ),
+      );
 }

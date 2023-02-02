@@ -29,6 +29,7 @@ class _GearboxScreenState extends State<GearboxScreen> {
               );
             }
             return ListView.builder(
+              physics: const BouncingScrollPhysics(),
               itemBuilder: (context, index) => PostingRadioItem(
                 onTap: () => context.read<PostingAdBloc>().add(
                     PostingAdChooseEvent(gearboxId: state.gearBoxes[index].id)),

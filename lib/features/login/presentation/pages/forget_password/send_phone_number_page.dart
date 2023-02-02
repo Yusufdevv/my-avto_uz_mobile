@@ -61,7 +61,7 @@ class _SendPhoneNumberPageState extends State<SendPhoneNumberPage> {
                   context.read<ShowPopUpBloc>().add(
                         ShowPopUp(
                           message: error,
-                          isSucces: false,
+                           status: PopStatus.error,
                           dismissible: false,
                         ),
                       );

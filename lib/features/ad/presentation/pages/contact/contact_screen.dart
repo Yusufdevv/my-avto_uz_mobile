@@ -93,6 +93,7 @@ class _ContactScreenState extends State<ContactScreen> {
                     child: BaseWidget(
                       headerText: LocaleKeys.contact_data.tr(),
                       child: SingleChildScrollView(
+                        physics: const BouncingScrollPhysics(),
                         padding: const EdgeInsets.all(16),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -328,7 +329,7 @@ class _ContactScreenState extends State<ContactScreen> {
                                                         .add(ShowPopUp(
                                                             message: value
                                                                 .toString(),
-                                                            isSucces: false,
+                                                           status: PopStatus.error,
                                                             dismissible:
                                                                 false));
                                                   }

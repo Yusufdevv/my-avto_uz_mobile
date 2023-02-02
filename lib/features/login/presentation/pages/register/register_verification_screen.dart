@@ -194,7 +194,7 @@ class _RegisterVerificationScreenState
                                           context.read<ShowPopUpBloc>().add(
                                               ShowPopUp(
                                                   message: error,
-                                                  isSucces: false,
+                                                 status: PopStatus.error,
                                                   dismissible: false));
                                         } else {
                                           context.read<ShowPopUpBloc>().add(
@@ -202,7 +202,7 @@ class _RegisterVerificationScreenState
                                                   message: LocaleKeys
                                                       .service_error
                                                       .tr(),
-                                                  isSucces: false,
+                                                  status: PopStatus.error,
                                                   dismissible: false));
                                         }
                                         isToastShowing = true;
@@ -252,7 +252,7 @@ class _RegisterVerificationScreenState
                                 context.read<ShowPopUpBloc>().add(
                                       ShowPopUp(
                                         message: text,
-                                        isSucces: false,
+                                         status: PopStatus.error,
                                         dismissible: false,
                                       ),
                                     );

@@ -1,4 +1,5 @@
 import 'package:auto/assets/colors/color.dart';
+import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/presentation/bloc/bloc/choose_make_anime_bloc.dart';
 import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.dart';
@@ -6,14 +7,16 @@ import 'package:auto/features/ad/presentation/pages/choose_car_brand/widget/car_
 import 'package:auto/features/ad/presentation/pages/choose_car_brand/widget/persistant_header.dart';
 import 'package:auto/features/ad/presentation/pages/choose_car_brand/widget/persistent_header_search.dart';
 import 'package:auto/features/common/widgets/car_brand_item.dart';
+import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/common/widgets/w_textfield.dart';
+import 'package:auto/features/main/presentation/widgets/brand_shimmer_item.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_html/flutter_html.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:formz/formz.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
@@ -183,6 +186,7 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
               backgroundColor:
                   _bgTweenColor.evaluate(animeState.scaleAnimation),
               body: NestedScrollView(
+                physics: const BouncingScrollPhysics(),
                 controller: _nestsController,
                 floatHeaderSlivers: true,
                 headerSliverBuilder: (context, innerBoxIsScrolled) => [
@@ -225,6 +229,8 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
                               _bgTweenColor.evaluate(animeState.scaleAnimation),
                           padding: const EdgeInsets.only(top: 16, bottom: 12),
                           child: WTextField(
+                            focusColor: _fillTweenColor
+                                .evaluate(animeState.scaleAnimation),
                             fillColor: _fillTweenColor
                                 .evaluate(animeState.scaleAnimation),
                             filled: true,
@@ -232,6 +238,7 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
                             onChanged: (value) => widget.postingAddBloc
                                 .add(PostingAdSearchMakesEvent(name: value)),
                             borderRadius: 12,
+                            borderColor: purple,
                             hasSearch: true,
                             hintText: LocaleKeys.search.tr(),
                             height: 40,
@@ -242,6 +249,28 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
                                 .headline1!
                                 .copyWith(
                                     fontWeight: FontWeight.w400, fontSize: 16),
+                            suffix: state.searchController.text.isEmpty
+                                ? null
+                                : WScaleAnimation(
+                                    onTap: () {
+                                      context.read<PostingAdBloc>().add(
+                                          PostingAdSerchControllerClearEvent());
+                                    },
+                                    child: Container(
+                                      height: 24,
+                                      width: 24,
+                                      decoration: BoxDecoration(
+                                        color: Theme.of(context)
+                                            .extension<ThemedColors>()!
+                                            .whiteSmoke78ToWhiteSmoke12,
+                                        borderRadius: BorderRadius.circular(12),
+                                      ),
+                                      child: SvgPicture.asset(
+                                        AppIcons.cancel,
+                                        color: makeSearchCancel,
+                                      ),
+                                    ),
+                                  ),
                           ),
                         ),
                       ),
@@ -260,8 +289,15 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
                           height: 120,
                           child: state.status ==
                                   FormzStatus.submissionInProgress
-                              ? const Center(
-                                  child: CupertinoActivityIndicator(),
+                              ? ListView.separated(
+                                  scrollDirection: Axis.horizontal,
+                                  separatorBuilder: (context, index) =>
+                                      const SizedBox(width: 12),
+                                  padding: const EdgeInsets.only(
+                                      left: 16, right: 16, top: 16, bottom: 16),
+                                  itemCount: 5,
+                                  itemBuilder: (context, index) =>
+                                      BrandShimmerItem(),
                                 )
                               : ListView.separated(
                                   itemCount: state.topMakes.length,
@@ -317,7 +353,24 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
                       Theme.of(context).extension<ThemedColors>()!.whiteToDark,
                   child: state.getMakesStatus ==
                           FormzStatus.submissionInProgress
-                      ? const Center(child: CupertinoActivityIndicator())
+                      ? Center(
+                          child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                              const CupertinoActivityIndicator(),
+                              const SizedBox(height: 12),
+                              Text(
+                                LocaleKeys.loading_data.tr(),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline6!
+                                    .copyWith(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                              )
+                            ]))
                       : ListView.builder(
                           physics: const BouncingScrollPhysics(),
                           controller: _makesController,

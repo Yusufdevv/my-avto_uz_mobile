@@ -144,12 +144,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               }
                               context.read<ShowPopUpBloc>().add(ShowPopUp(
                                   message: error,
-                                  isSucces: false,
+                                  status: PopStatus.error,
                                   dismissible: false));
                             } else {
                               context.read<ShowPopUpBloc>().add(ShowPopUp(
                                   message: LocaleKeys.error_try_again.tr(),
-                                  isSucces: false,
+                                 status: PopStatus.error,
                                   dismissible: false));
                             }
                             isToastShowing = true;

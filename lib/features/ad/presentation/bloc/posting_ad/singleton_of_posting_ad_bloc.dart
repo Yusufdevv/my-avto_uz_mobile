@@ -3,6 +3,7 @@ part of 'posting_ad_bloc.dart';
 /// PostingAd
 class PASingleton {
   PASingleton._();
+
   static Future<FormData> create(PostingAdState v) async {
     final announcementFields = <String, dynamic>{
       'make': v.makeId,
@@ -12,31 +13,36 @@ class PASingleton {
       'drive_type': v.driveTypeId,
       'engine_type': v.engineId,
       'gearbox_type': v.gearboxId,
-      'year': v.yearEntity!.id,
+      'year': v.yearEntity?.id,
       'modification_type': v.modificationId,
       'color': v.colorName,
+      'licence_type': v.licence_type,
+      'ownership': v.ownerStep,
       'purchase_date': v.purchasedDate,
       'description': v.description,
-      'is_registered_locally': v.notRegisteredInUzbekistan,
+      'is_registered_locally': !v.notRegisteredInUzbekistan,
       'contact_name': v.ownerName,
       'contact_email': v.ownerEmail,
       'contact_phone': v.ownerPhone,
       'contact_available_from': v.callTimeFrom,
       'contact_available_to': v.callTimeTo,
-      'region': v.regionId!,
+      'region': v.regionId,
       'district': v.districtId,
+      'location_url': v.locationUrl,
       'price': v.price!.replaceAll(' ', ''),
       'currency': v.currency,
-      'distance_traveled': v.mileage!.replaceAll(' ', ''),
+      'distance_traveled':
+          (v.isWithoutMileage ?? false) ? '0' : v.mileage!.replaceAll(' ', ''),
       'registration_vin': 'KENTEKENMEWIJS',
       'registration_plate': 'KENTEKENMEWIJS',
       'registration_certificate': 'KENTEKENMEWIJS',
       'registration_serial_number': 'KENTEKENMEWIJS',
-      'registered_in_uzbekistan': v.notRegisteredInUzbekistan,
-      'is_new': v.notRegisteredInUzbekistan,
-      'licence_type': v.typeDocument,
-      'ownership': v.ownerStep,
-      'location_url': v.locationUrl,
+      'registered_in_uzbekistan': !v.notRegisteredInUzbekistan,
+      'is_new': v.isWithoutMileage,
+      'is_rent_with_purchase':
+          v.rentWithPurchaseConditions.isNotEmpty && (v.rentToBuy ?? false),
+      'rent_with_purchase':
+          v.rentWithPurchaseConditions.map((e) => e.toApi()).toList()
     };
 
     var i = -1;
@@ -325,7 +331,7 @@ class PASingleton {
       // PtsScreen
       case 11:
         return state.ownerStep == null ||
-            state.typeDocument == null ||
+            state.licence_type == null ||
             state.purchasedDate == null;
       //  DescriptionScreen
       case 12:
