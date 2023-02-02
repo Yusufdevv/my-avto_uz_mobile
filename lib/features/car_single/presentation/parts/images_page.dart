@@ -7,11 +7,12 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 
 class ImagesPage extends StatefulWidget {
-  final int count;
   final List images;
 
-  const ImagesPage({Key? key, required this.count, required this.images})
-      : super(key: key);
+  const ImagesPage({
+    required this.images,
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<ImagesPage> createState() => _ImagesPageState();

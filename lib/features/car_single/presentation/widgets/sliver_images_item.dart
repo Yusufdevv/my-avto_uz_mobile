@@ -7,11 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class SingleImagePart extends StatefulWidget {
-  final int count;
   final List<String> images;
 
   const SingleImagePart({
-    required this.count,
     required this.images,
     Key? key,
   }) : super(key: key);
@@ -31,7 +29,6 @@ class _SingleImagePartState extends State<SingleImagePart> {
           if (widget.images.isNotEmpty) {
             Navigator.of(context).push(fade(
                 page: ImagesPage(
-              count: widget.count,
               images: widget.images,
             )));
           }

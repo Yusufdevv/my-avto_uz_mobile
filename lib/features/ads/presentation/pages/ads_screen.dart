@@ -20,6 +20,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 class AdsScreen extends StatefulWidget {
   final bool isBack;
   final VoidCallback onTap;
+
   const AdsScreen({
     required this.isBack,
     required this.onTap,
@@ -38,6 +39,7 @@ class _AdsScreenState extends State<AdsScreen>
   CrossFadeState crossFadeState = CrossFadeState.showFirst;
   GlobalKey key = GlobalKey();
   double height = 140;
+
   void _scrollListener() {
     if (_isShrink) {
       setState(() {
@@ -84,12 +86,9 @@ class _AdsScreenState extends State<AdsScreen>
   final Duration fadeDuration = const Duration(milliseconds: 300);
 
   @override
-  Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-    final theme = Theme.of(context).extension<ThemedColors>()!;
-    return BlocBuilder<AnnouncementListBloc, AnnouncementListState>(
-      builder: (context, state) => SafeArea(
-        child: CustomScreen(
+  Widget build(BuildContext context) =>
+      BlocBuilder<AnnouncementListBloc, AnnouncementListState>(
+        builder: (context, state) => CustomScreen(
           child: Scaffold(
             body: NotificationListener<OverscrollIndicatorNotification>(
               onNotification: (overscroll) {
@@ -153,8 +152,8 @@ class _AdsScreenState extends State<AdsScreen>
                   ),
                   SliverPersistentHeader(
                     delegate: AdsSliverWidget(
-                      size: size,
-                      theme: theme,
+                      size: MediaQuery.of(context).size,
+                      theme: Theme.of(context).extension<ThemedColors>()!,
                       tabController: tabController,
                     ),
                   ),
@@ -259,7 +258,5 @@ class _AdsScreenState extends State<AdsScreen>
                   ),
           ),
         ),
-      ),
-    );
-  }
+      );
 }

@@ -135,7 +135,7 @@ class _FilterParametersState extends State<FilterParameters> {
                         });
                       },
                       hintText: state.carDriveType?.type == null
-                          ? LocaleKeys.choose_body.tr()
+                          ? LocaleKeys.choose_drive_type.tr()
                           : state.carDriveType!.type.isEmpty
                               ? LocaleKeys.choose_drive_type.tr()
                               : state.carDriveType!.type,
@@ -157,7 +157,7 @@ class _FilterParametersState extends State<FilterParameters> {
                       });
                     },
                     hintText: state.gearboxType?.type == null
-                        ? LocaleKeys.choose_body.tr()
+                        ? LocaleKeys.choose_box_type.tr()
                         : state.gearboxType!.type.isEmpty
                             ? LocaleKeys.choose_box_type.tr()
                             : state.gearboxType!.type,

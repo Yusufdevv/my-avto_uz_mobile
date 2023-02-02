@@ -198,7 +198,6 @@ class _SliverAppBarItemState extends State<SliverAppBarItem> {
         ),
         flexibleSpace: FlexibleSpaceBar(
           background: SingleImagePart(
-            count: 0,
             images: widget.images,
           ),
         ),
