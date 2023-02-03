@@ -40,14 +40,14 @@ class ProfileEditPage extends StatefulWidget {
 
 class _ProfileEditPageState extends State<ProfileEditPage> {
   late TextEditingController _nameCont;
-  late TextEditingController _eCont;
+  late TextEditingController _emailCont;
   Region? newRegion;
 
   @override
   void initState() {
     _nameCont = TextEditingController(
         text: context.read<ProfileBloc>().state.profileEntity.fullName);
-    _eCont = TextEditingController(
+    _emailCont = TextEditingController(
         text: context.read<ProfileBloc>().state.profileEntity.email);
 
     if (context.read<RegionsBloc>().state.regions.isEmpty) {
@@ -95,9 +95,14 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                                         .state
                                         .profileEntity
                                         .fullName ||
-                                widget.imageBloc.state.image.path.isNotEmpty ||
+                                context
+                                    .watch<ImageBloc>()
+                                    .state
+                                    .image
+                                    .path
+                                    .isNotEmpty ||
                                 newRegion?.id != null ||
-                                _eCont.text !=
+                                _emailCont.text !=
                                     context
                                         .read<ProfileBloc>()
                                         .state
@@ -114,17 +119,6 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                         SizeConfig.v(8) + mediaQuery.padding.bottom),
                     text: LocaleKeys.save.tr(),
                     onTap: () {
-                      //             if (p0 == null || p0.isEmpty) {
-                      //   return widget.isNameField
-                      //       ? 'Iltimos, ismingizni kiriting'
-                      //       : 'Iltimos, familyangizni kiriting';
-                      // }
-
-                      // if (_nameCont.text.isEmpty) {
-                      //   context.read<ShowPopUpBloc>().add(ShowPopUp(
-                      //       message: 'Malumumotlar kiritilmagan',
-                      //       isSucces: false));
-                      // }
                       if (_nameCont.text !=
                               context
                                   .read<ProfileBloc>()
@@ -133,13 +127,19 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                                   .fullName ||
                           widget.imageBloc.state.image.path.isNotEmpty ||
                           newRegion?.id != null ||
-                          _eCont.text !=
+                          _emailCont.text !=
                               context
                                   .read<ProfileBloc>()
                                   .state
                                   .profileEntity
                                   .email) {
-                        if (!MyFunctions.isEmail(_eCont.text)) {
+                        if (_emailCont.text !=
+                                context
+                                    .read<ProfileBloc>()
+                                    .state
+                                    .profileEntity
+                                    .email &&
+                            !MyFunctions.isEmail(_emailCont.text)) {
                           context.read<ShowPopUpBloc>().add(ShowPopUp(
                               message: LocaleKeys.please_enter_valid_email.tr(),
                               status: PopStatus.error));
@@ -152,6 +152,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                                       ? widget.imageBloc.state.image.path
                                       : null,
                                   region: newRegion?.id,
+                                  email: _emailCont.text,
                                   onSuccess: () {
                                     context
                                         .read<ProfileBloc>()
@@ -210,7 +211,14 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                                         context: context,
                                         useRootNavigator: true,
                                         builder: (context) => CameraBottomSheet(
-                                            imageBloc: widget.imageBloc));
+                                            imageBloc: widget.imageBloc)).then(
+                                        (value) {
+                                      if (value != null) {
+                                        widget.imageBloc
+                                            .add(GetImage(source: value));
+                                        setState(() {});
+                                      }
+                                    });
                                   },
                                   child: Column(
                                     children: [
@@ -276,7 +284,10 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                                   )),
                             ),
                             //
-                            TitleTextFieldTop(title: LocaleKeys.full_name.tr()),
+                            TitleTextFieldTop(
+                              title: LocaleKeys.full_name.tr(),
+                              isRequired: true,
+                            ),
                             ProfilTextField(
                                 hintText: _nameCont.text.isEmpty
                                     ? _nameCont.text
@@ -336,13 +347,16 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                             //
                             TitleTextFieldTop(title: LocaleKeys.email.tr()),
                             ProfilTextField(
-                                hintText: _eCont.text.isEmpty
-                                    ? _eCont.text
-                                    : LocaleKeys.enter_email.tr(),
+                                hintText:
+                                    // _emailCont.text.isEmpty
+                                    //     ?
+                                    _emailCont.text
+                                // : LocaleKeys.enter_email.tr()
+                                ,
                                 onChanged: (value) {
                                   setState(() {});
                                 },
-                                controller: _eCont,
+                                controller: _emailCont,
                                 isNameField: true),
                             // EditItemContainer(
                             //     icon: AppIcons.lock,

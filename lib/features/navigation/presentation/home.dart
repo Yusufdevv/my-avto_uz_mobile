@@ -119,24 +119,24 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             listener: (context, state) {
               WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
                 if (!state.isConnected) {
-                  isBtmSheetOpened = true;
-                  showModalBottomSheet(
-                    isDismissible: false,
-                    constraints: const BoxConstraints(
-                      maxHeight: 369,
-                      minHeight: 369,
-                    ),
-                    enableDrag: false,
-                    backgroundColor: Colors.transparent,
-                    context: context,
-                    builder: (context) => InternetErrorBottomSheet(
-                      onTap: () {
-                        context
-                            .read<InternetBloc>()
-                            .add(GlobalCheck(isConnected: state.isConnected));
-                      },
-                    ),
-                  );
+                  // isBtmSheetOpened = true;
+                  // showModalBottomSheet(
+                  //   isDismissible: false,
+                  //   constraints: const BoxConstraints(
+                  //     maxHeight: 369,
+                  //     minHeight: 369,
+                  //   ),
+                  //   enableDrag: false,
+                  //   backgroundColor: Colors.transparent,
+                  //   context: context,
+                  //   builder: (context) => InternetErrorBottomSheet(
+                  //     onTap: () {
+                  //       context
+                  //           .read<InternetBloc>()
+                  //           .add(GlobalCheck(isConnected: state.isConnected));
+                  //     },
+                  //   ),
+                  // );
                 } else if (isBtmSheetOpened && state.isConnected) {
                   isBtmSheetOpened = false;
                   Navigator.of(context).pop();

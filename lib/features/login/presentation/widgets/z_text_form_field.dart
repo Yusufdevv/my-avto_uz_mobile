@@ -156,7 +156,7 @@ class _ZTextFormFieldState extends State<ZTextFormField>
             controller: widget.controller,
             autofocus: widget.autoFocus,
             cursorColor: Theme.of(context).colorScheme.surface,
-            obscuringCharacter: '●',
+            obscuringCharacter: '•',
             cursorHeight: 18,
             cursorWidth: 1,
             onEditingComplete: widget.onEditCompleted,

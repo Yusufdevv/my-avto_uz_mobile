@@ -6,6 +6,7 @@ import 'package:auto/features/profile/domain/entities/profile_data_entity.dart';
 import 'package:auto/features/profile/domain/entities/profile_entity.dart';
 import 'package:auto/features/profile/domain/entities/terms_of_use_entity.dart';
 import 'package:auto/features/profile/domain/repositories/profile_repository.dart';
+import 'package:dio/dio.dart';
 
 class ProfileRepositoryImpl extends ProfileRepository {
   final ProfileDataSourceImpl dataSource;
@@ -13,26 +14,34 @@ class ProfileRepositoryImpl extends ProfileRepository {
   ProfileRepositoryImpl({required this.dataSource});
 
   @override
-  Future<Either<ServerFailure, ProfileDataEntity>> getProfile() async {
+  Future<Either<Failure, ProfileDataEntity>> getProfile() async {
     try {
       final result = await dataSource.getProfile();
       return Right(result);
     } on ServerException catch (error) {
       return Left(ServerFailure(
           statusCode: error.statusCode, errorMessage: error.errorMessage));
+    } on DioException {
+      return Left(DioFailure());
+    } on DioError {
+      return Left(DioFailure());
     }
   }
 
   @override
-  Future<Either<ServerFailure, ProfileEntity>> editProfile(
-      {String? image, String? fullName,int? region}) async {
+  Future<Either<Failure, ProfileEntity>> editProfile(
+      {String? image, String? fullName,int? region,  String? email}) async {
     try {
       final result = await dataSource.editProfile(
-          image: image, fullName: fullName,  region: region);
+          image: image, fullName: fullName,  region: region, email: email);
       return Right(result);
     } on ServerException catch (error) {
       return Left(ServerFailure(
           statusCode: error.statusCode, errorMessage: error.errorMessage));
+    } on DioException {
+      return Left(DioFailure());
+    } on DioError {
+      return Left(DioFailure());
     }
   }
 

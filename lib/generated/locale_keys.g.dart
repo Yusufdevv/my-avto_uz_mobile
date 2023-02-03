@@ -70,6 +70,7 @@ abstract class  LocaleKeys {
   static const auto_seller = 'auto_seller';
   static const participation_in_accident = 'participation_in_accident';
   static const not_found = 'not_found';
+  static const found = 'found';
   static const VIN_check_report = 'VIN_check_report';
   static const buy_full_report = 'buy_full_report';
   static const show_free_report = 'show_free_report';
@@ -429,6 +430,7 @@ abstract class  LocaleKeys {
   static const email_example = 'email_example';
   static const no_cars = 'no_cars';
   static const please_enter_valid_email = 'please_enter_valid_email';
+  static const please_fullname = 'please_fullname';
   static const name_and_email_required = 'name_and_email_required';
   static const i_accept_rules = 'i_accept_rules';
   static const i_accept_rules1 = 'i_accept_rules1';

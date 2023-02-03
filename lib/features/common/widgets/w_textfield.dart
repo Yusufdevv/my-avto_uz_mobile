@@ -222,7 +222,6 @@ class _WTextFieldState extends State<WTextField>
                     borderRadius: widget.detailedBorderRadius ??
                         BorderRadius.circular(widget.borderRadius),
                     child: TextFormField(
-                      
                       autovalidateMode: widget.autoValidateMode,
                       validator: widget.validate,
                       maxLines: widget.maxLines,
@@ -239,7 +238,6 @@ class _WTextFieldState extends State<WTextField>
                       autofocus: widget.autoFocus,
                       cursorColor: widget.cursorColor ??
                           Theme.of(context).colorScheme.surface,
-                      obscuringCharacter: '●',
                       cursorHeight: 24,
                       onEditingComplete: widget.onEditCompleted,
                       onChanged: (s) {
@@ -387,14 +385,15 @@ class _WTextFieldState extends State<WTextField>
                                 widget.controller!.text.isNotEmpty
                             ? GestureDetector(
                                 onTap: () {
-                                  if (widget.controller!=null) {
-                                  widget.controller?.clear();
-                                  setState(() {});
+                                  if (widget.controller != null) {
+                                    widget.controller?.clear();
+                                    setState(() {});
                                   }
-                                  if (widget.onClear !=null) {
-                                  widget.onClear!();
+                                  if (widget.onClear != null) {
+                                    widget.onClear!();
                                   }
-                                },    behavior: HitTestBehavior.opaque,
+                                },
+                                behavior: HitTestBehavior.opaque,
                                 child: Padding(
                                   padding:
                                       const EdgeInsets.symmetric(horizontal: 8),
@@ -445,7 +444,8 @@ class _WTextFieldState extends State<WTextField>
                                 showStroke = true;
                                 animationController.reverse();
                               }
-                            },    behavior: HitTestBehavior.opaque,
+                            },
+                            behavior: HitTestBehavior.opaque,
                             child: Container(
                               alignment: Alignment.center,
                               margin: const EdgeInsets.only(top: 10),

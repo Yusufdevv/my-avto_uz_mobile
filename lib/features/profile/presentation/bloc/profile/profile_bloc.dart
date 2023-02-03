@@ -18,20 +18,20 @@ part 'profile_event.dart';
 part 'profile_state.dart';
 
 class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
-
   final AuthRepository repository = AuthRepository();
   final ProfileUseCase profileUseCase = ProfileUseCase();
   final EditProfileUseCase editProfileUseCase = EditProfileUseCase();
   final ChangePasswordUseCase changePasswordUseCase = ChangePasswordUseCase();
   final GetTermsOfUseUseCase getTermsOfUseUseCase = GetTermsOfUseUseCase();
 
-  ProfileBloc() : super(
+  ProfileBloc()
+      : super(
           ProfileState(
             changeStatus: FormzStatus.pure,
             editStatus: FormzStatus.pure,
             status: FormzStatus.pure,
             profileEntity: ProfileDataEntity(usercountdata: Usercountdata()),
-            termsOfUseEntity:   TermsOfUseEntity(),
+            termsOfUseEntity: TermsOfUseEntity(),
           ),
         ) {
     on<GetProfileEvent>(_onGetProfile);
@@ -49,10 +49,10 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
         var user = state.profileEntity;
         // ignore: cascade_invocations
         user.isReadAllNotifications = true;
-        emit(state.copyWith(profileEntity: user, editStatus: FormzStatus.submissionSuccess));
+        emit(state.copyWith(
+            profileEntity: user, editStatus: FormzStatus.submissionSuccess));
       },
     );
-    
   }
   void _onChangeIsWish(ChangeCountDataEvent event, Emitter<ProfileState> emit) {
     emit(state.copyWith(changeStatus: FormzStatus.submissionInProgress));
@@ -75,15 +75,20 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   Future<void> _onGetProfile(
       GetProfileEvent event, Emitter<ProfileState> emit) async {
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
+    print('=======status ${state.status}');
     final result = await profileUseCase.call(NoParams());
     if (result.isRight) {
+      print('=======succes ${result.isRight}');
       emit(state.copyWith(
         status: FormzStatus.submissionSuccess,
         profileEntity: result.right,
       ));
     } else {
+      print('=======fail ${result.isLeft}');
+
       emit(state.copyWith(status: FormzStatus.submissionFailure));
     }
+    print('=======fail ${result.isLeft}');
   }
 
   Future<void> _onGetTermsOfUse(
@@ -107,12 +112,13 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       region: event.region,
       fullName: event.fullName,
       image: event.image,
+      email: event.email
     ));
     if (result.isRight) {
       emit(state.copyWith(editStatus: FormzStatus.submissionSuccess));
       event.onSuccess();
     } else {
-      final error =  (result.left as ServerFailure).errorMessage;
+      final error = (result.left as ServerFailure).errorMessage;
       emit(state.copyWith(editStatus: FormzStatus.submissionFailure));
       event.onError(error);
     }
@@ -133,10 +139,10 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
           event.onSuccess(result.right);
           emit(state.copyWith(changeStatus: FormzStatus.submissionSuccess));
         } else {
-           final err = (result.left is ServerFailure)
-            ? (result.left as ServerFailure).errorMessage
-            : result.left.toString();
-        event.onError(err);
+          final err = (result.left is ServerFailure)
+              ? (result.left as ServerFailure).errorMessage
+              : result.left.toString();
+          event.onError(err);
           emit(state.copyWith(changeStatus: FormzStatus.submissionFailure));
         }
       } else {
@@ -148,8 +154,6 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       emit(state.copyWith(changeStatus: FormzStatus.submissionFailure));
     }
   }
-
-   
 
   Future<void> _onLoginUser(LoginUser event, Emitter<ProfileState> emit) async {
     // ignore: unused_local_variable

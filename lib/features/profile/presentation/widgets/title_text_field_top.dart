@@ -1,18 +1,26 @@
+import 'package:auto/assets/colors/color.dart';
 import 'package:flutter/material.dart';
 
 class TitleTextFieldTop extends StatelessWidget {
-  const TitleTextFieldTop({required this.title});
+  const TitleTextFieldTop({required this.title, this.isRequired = false});
 
   final String title;
-
+  final bool isRequired;
   @override
   Widget build(BuildContext context) => Align(
         alignment: Alignment.centerLeft,
         child: Padding(
-          padding: const EdgeInsets.only(top: 20,bottom: 8),
-          child: Text(
-            title,
-            style: Theme.of(context).textTheme.headline2
+          padding: const EdgeInsets.only(top: 20, bottom: 8),
+          child: Row(
+            children: [
+              Text(title, style: Theme.of(context).textTheme.headline2),
+              if (isRequired)
+                Text('*',
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline2
+                        ?.copyWith(color: orange)),
+            ],
           ),
         ),
       );

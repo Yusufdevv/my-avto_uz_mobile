@@ -1,6 +1,7 @@
 import 'package:auto/core/singletons/dio_settings.dart';
 import 'package:auto/core/singletons/service_locator.dart';
 
+// ignore: one_member_abstracts
 abstract class LoginDataSource {
   Future<String> sendCode(String phone);
 }

@@ -7,8 +7,10 @@ class PasswordTextField extends StatefulWidget {
   final TextEditingController? confirmController;
   final String hintText;
   final bool isOldPasword;
+  final ValueChanged<String> onChanged;
 
   const PasswordTextField({
+    required this.onChanged,
     required this.controller,
     this.secondController,
     this.confirmController,
@@ -33,7 +35,7 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
         keyboardType: TextInputType.visiblePassword,
         cursorColor: black,
         cursorWidth: 1,
-        obscuringCharacter: '●',
+        obscuringCharacter: '•',
         onChanged: (value) {
           setState(() {});
         },

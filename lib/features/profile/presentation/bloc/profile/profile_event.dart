@@ -41,6 +41,7 @@ class ChangePasswordEvent extends ProfileEvent {
 class EditProfileEvent extends ProfileEvent {
   final String? fullName;
   final String? image;
+  final String? email;
   final int? region;
   final Function onSuccess;
   final Function(String text) onError;
@@ -49,6 +50,7 @@ class EditProfileEvent extends ProfileEvent {
     required this.onSuccess,
     required this.onError,
     this.fullName,
+    this.email,
     this.region,
     this.image,
   });

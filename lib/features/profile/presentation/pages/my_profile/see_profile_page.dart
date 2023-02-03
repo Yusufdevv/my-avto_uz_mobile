@@ -23,7 +23,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:formz/formz.dart';
 
 class SeeProfilePage extends StatelessWidget {
-
   final ImageBloc imageBloc;
 
   const SeeProfilePage({
@@ -33,154 +32,152 @@ class SeeProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => CustomScreen(
-    child: Scaffold(
-      appBar: WAppBar(
-        textWithButton: LocaleKeys.my_profile.tr(),
-      ),
-      body: BlocBuilder<ProfileBloc, ProfileState>(
-        builder: (context, state) {
-          if (state.status.isSubmissionSuccess) {
-            return Container(
-              margin: EdgeInsets.only(top: SizeConfig.v(16)),
-              padding: EdgeInsets.symmetric(
-                  vertical: SizeConfig.v(24),
-                  horizontal: SizeConfig.h(16)),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(SizeConfig.h(20)),
-                    topRight: Radius.circular(SizeConfig.h(20)),
-                  ),
-                  color: Theme.of(context).appBarTheme.backgroundColor),
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
+        child: Scaffold(
+          appBar: WAppBar(
+            textWithButton: LocaleKeys.my_profile.tr(),
+          ),
+          body: BlocBuilder<ProfileBloc, ProfileState>(
+            builder: (context, state) {
+              if (state.status.isSubmissionSuccess ||
+                  state.status.isSubmissionFailure) {
+                return Container(
+                  margin: EdgeInsets.only(top: SizeConfig.v(16)),
+                  padding: EdgeInsets.symmetric(
+                      vertical: SizeConfig.v(24), horizontal: SizeConfig.h(16)),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(SizeConfig.h(20)),
+                        topRight: Radius.circular(SizeConfig.h(20)),
+                      ),
+                      color: Theme.of(context).appBarTheme.backgroundColor),
+                  child: Column(
                     children: [
-                      const Spacer(),
-                      SizedBox(width: SizeConfig.h(44)),
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(50),
-                        child: CachedNetworkImage(
-                          imageUrl: state.profileEntity.image ?? '',
-                          width: SizeConfig.h(80),
-                          height: SizeConfig.v(80),
-                          fit: BoxFit.cover,
-                          errorWidget: (context, url, error) => SizedBox(
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Spacer(),
+                          SizedBox(width: SizeConfig.h(44)),
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(50),
+                            child: CachedNetworkImage(
+                              imageUrl: state.profileEntity.image ?? '',
                               width: SizeConfig.h(80),
                               height: SizeConfig.v(80),
-                              child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(50),
-                                  child:Image.asset(AppImages.defaultPhoto, fit: BoxFit.cover))),
-                        ),
-                      ),
-                      const Spacer(),
-                      WScaleAnimation(
-                        child: Container(
-                            padding: EdgeInsets.all(SizeConfig.h(10)),
-                            decoration: BoxDecoration(
-                              borderRadius:
-                                  BorderRadius.circular(SizeConfig.h(8)),
-                              color: Theme.of(context)
-                                  .extension<ThemedColors>()!
-                                  .borderGreyToDark,
+                              fit: BoxFit.cover,
+                              errorWidget: (context, url, error) => SizedBox(
+                                  width: SizeConfig.h(80),
+                                  height: SizeConfig.v(80),
+                                  child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(50),
+                                      child: Image.asset(AppImages.defaultPhoto,
+                                          fit: BoxFit.cover))),
                             ),
-                            child: SvgPicture.asset(AppIcons.edit,
-                                height: SizeConfig.v(24),
-                                width: SizeConfig.h(24),
-                                color: Theme.of(context)
-                                    .extension<ThemedColors>()!
-                                    .darkGreyToWhite)),
-                        onTap: () {
-                          Navigator.of(context).push(
-                            fade(
-                                page: ProfileEditPage(
-                                    
-                                    imageBloc: imageBloc)),
-                          );
-                        },
-                      ),
-                    ],
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(
-                        top: SizeConfig.v(16), bottom: SizeConfig.v(2)),
-                    child: Text(state.profileEntity.fullName ?? '',
-                        style: Theme.of(context)
-                            .textTheme
-                            .headline1!
-                            .copyWith(fontSize: 18)),
-                  ),
-                  Text(
-                      '${state.profileEntity.usercountdata.announcementsCount} ${LocaleKeys.how_many_ads.tr()}',
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline2!
-                          .copyWith(
-                              fontWeight: FontWeight.w600, color: grey)),
-                  TextSpacer(
-                    title: LocaleKeys.tel_number.tr(),
-                    value: state.profileEntity.phoneNumber ?? '',
-                    padding: EdgeInsets.only(
-                        top: SizeConfig.v(36), bottom: SizeConfig.v(16)),
-                  ),
-                  TextSpacer(
-                    title: LocaleKeys.region.tr(),
-                    value: state.profileEntity.region?.title ?? '',
-                    padding: EdgeInsets.only(bottom: SizeConfig.v(16)),
-                  ),
-                  TextSpacer(
-                      title: LocaleKeys.email.tr(),
-                      value: state.profileEntity.email ?? ''),
-                  const Spacer(),
-                  OrangeButton(
-                      content: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SvgPicture.asset(AppIcons.logout),
-                          SizedBox(width: SizeConfig.h(8)),
-                          Text(LocaleKeys.exit_from_account.tr(),
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline3!
-                                  .copyWith(color: red))
+                          ),
+                          const Spacer(),
+                          WScaleAnimation(
+                            child: Container(
+                                padding: EdgeInsets.all(SizeConfig.h(10)),
+                                decoration: BoxDecoration(
+                                  borderRadius:
+                                      BorderRadius.circular(SizeConfig.h(8)),
+                                  color: Theme.of(context)
+                                      .extension<ThemedColors>()!
+                                      .borderGreyToDark,
+                                ),
+                                child: SvgPicture.asset(AppIcons.edit,
+                                    height: SizeConfig.v(24),
+                                    width: SizeConfig.h(24),
+                                    color: Theme.of(context)
+                                        .extension<ThemedColors>()!
+                                        .darkGreyToWhite)),
+                            onTap: () {
+                              Navigator.of(context).push(
+                                fade(
+                                    page:
+                                        ProfileEditPage(imageBloc: imageBloc)),
+                              );
+                            },
+                          ),
                         ],
                       ),
-                      onTap: () {
-                        showModalBottomSheet(
-                            useRootNavigator: true,
-                            context: context,
-                            backgroundColor: Colors.transparent,
-                            builder: (context) =>
-                                CustomProfileBottomsheet(
-                                  title:
-                                      LocaleKeys.do_you_really_want_to_leave.tr(),
-                                  subTitle:
-                                      LocaleKeys.after_exiting_the_application.tr(),
-                                  betweenHeight: 64,
-                                  onTap: () {
-                                    StorageRepository.deleteString(
-                                        'token');
-                                    Navigator.of(context,
-                                            rootNavigator: true)
-                                        .pushAndRemoveUntil(
-                                            fade(
-                                                page:
-                                                    const LoginScreen()),
-                                            (route) => false);
-                                  },
-                                ));
-                      },
-                      color: red.withOpacity(0.1),
-                      shadowColor: white)
-                ],
-              ),
-            );
-          }
-          return const SizedBox();
-        },
-      ),
-    ),
-  );
+                      Padding(
+                        padding: EdgeInsets.only(
+                            top: SizeConfig.v(16), bottom: SizeConfig.v(2)),
+                        child: Text(state.profileEntity.fullName ?? '',
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline1!
+                                .copyWith(fontSize: 18)),
+                      ),
+                      Text(
+                          '${state.profileEntity.usercountdata.announcementsCount} ${LocaleKeys.how_many_ads.tr()}',
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline2!
+                              .copyWith(
+                                  fontWeight: FontWeight.w600, color: grey)),
+                      TextSpacer(
+                        title: LocaleKeys.tel_number.tr(),
+                        value: state.profileEntity.phoneNumber ?? '',
+                        padding: EdgeInsets.only(
+                            top: SizeConfig.v(36), bottom: SizeConfig.v(16)),
+                      ),
+                      TextSpacer(
+                        title: LocaleKeys.region.tr(),
+                        value: state.profileEntity.region?.title ?? '',
+                        padding: EdgeInsets.only(bottom: SizeConfig.v(16)),
+                      ),
+                      TextSpacer(
+                          title: LocaleKeys.email.tr(),
+                          value: state.profileEntity.email ?? ''),
+                      const Spacer(),
+                      OrangeButton(
+                          content: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SvgPicture.asset(AppIcons.logout),
+                              SizedBox(width: SizeConfig.h(8)),
+                              Text(LocaleKeys.exit_from_account.tr(),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headline3!
+                                      .copyWith(color: red))
+                            ],
+                          ),
+                          onTap: () {
+                            showModalBottomSheet(
+                                useRootNavigator: true,
+                                context: context,
+                                backgroundColor: Colors.transparent,
+                                builder: (context) => CustomProfileBottomsheet(
+                                      title: LocaleKeys
+                                          .do_you_really_want_to_leave
+                                          .tr(),
+                                      subTitle: LocaleKeys
+                                          .after_exiting_the_application
+                                          .tr(),
+                                      betweenHeight: 64,
+                                      onTap: () {
+                                        StorageRepository.deleteString('token');
+                                        Navigator.of(context,
+                                                rootNavigator: true)
+                                            .pushAndRemoveUntil(
+                                                fade(page: const LoginScreen()),
+                                                (route) => false);
+                                      },
+                                    ));
+                          },
+                          color: red.withOpacity(0.1),
+                          shadowColor: white)
+                    ],
+                  ),
+                );
+              }
+              return const SizedBox();
+            },
+          ),
+        ),
+      );
 }
 /**/
