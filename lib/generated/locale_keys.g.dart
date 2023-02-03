@@ -420,19 +420,13 @@ abstract class  LocaleKeys {
   static const result = 'result';
   static const cars = 'cars';
   static const email_example = 'email_example';
-<<<<<<< HEAD
-  static const no_cars = 'no_cars';
-  static const please_enter_valid_email = 'please_enter_valid_email';
-  static const please_fullname = 'please_fullname';
-  static const name_and_email_required = 'name_and_email_required';
-=======
->>>>>>> origin/posting_ad__check_for_shadow_color
   static const i_accept_rules = 'i_accept_rules';
   static const i_accept_rules1 = 'i_accept_rules1';
   static const i_accept_rules2 = 'i_accept_rules2';
   static const i_accept_rules3 = 'i_accept_rules3';
   static const no_cars = 'no_cars';
   static const please_enter_valid_email = 'please_enter_valid_email';
+  static const please_fullname = 'please_fullname';
   static const name_and_email_required = 'name_and_email_required';
   static const complete_registration = 'complete_registration';
   static const phone_number_changed_success = 'phone_number_changed_success';
@@ -495,5 +489,9 @@ abstract class  LocaleKeys {
   static const start_free_week = 'start_free_week';
   static const get_back = 'get_back';
   static const for_month = 'for_month';
+  static const pre_payment = 'pre_payment';
+  static const minimal_summa_must_be = 'minimal_summa_must_be';
+  static const monthly_pay = 'monthly_pay';
+  static const map = 'map';
 
 }

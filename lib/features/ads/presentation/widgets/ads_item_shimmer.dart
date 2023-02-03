@@ -21,12 +21,14 @@ class AdsShimmerItem extends StatelessWidget {
                   baseColor: grey.withOpacity(0.5),
                   highlightColor: grey.withOpacity(0.16),
                   child: Container(
-                      height: 201,
-                      width: 280,
-                      margin: const EdgeInsets.only(right: 4),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
-                          color: white)),
+                    height: 201,
+                    width: 280,
+                    margin: const EdgeInsets.only(right: 4),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                      color: white,
+                    ),
+                  ),
                 ),
               ),
             ),

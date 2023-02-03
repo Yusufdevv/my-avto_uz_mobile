@@ -7,7 +7,9 @@ import 'package:auto/features/ad/presentation/pages/map_screen/widgets/submit_sh
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
 import 'package:auto/features/common/widgets/custom_screen.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
+import 'package:auto/generated/locale_keys.g.dart';
 import 'package:auto/utils/my_functions.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -68,7 +70,7 @@ class _MapScreenPostingAdState extends State<MapScreenPostingAd>
                   ),
                 ),
                 title: Text(
-                  'Карта',
+                  LocaleKeys.map.tr(),
                   style: Theme.of(context)
                       .textTheme
                       .headline1!
@@ -271,6 +273,7 @@ class _MapScreenPostingAdState extends State<MapScreenPostingAd>
                   Positioned(
                     bottom: 0,
                     child: PostingAdSubmitBox(
+                      pointName: state.pointName,
                       onTab: () {
                         print(
                             '=> => => =>     pop: lat: ${state.lat} long: ${state.long}  zoom: $zoomLevel <= <= <= <=');
