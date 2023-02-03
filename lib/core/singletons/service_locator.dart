@@ -6,7 +6,7 @@ import 'package:auto/features/car_single/data/datasource/user_single_datasource.
 import 'package:auto/features/car_single/data/repository/car_single_repository_impl.dart';
 import 'package:auto/features/car_single/data/repository/user_single_repository.dart';
 import 'package:auto/features/common/data/datasources/add_wishlist_datasource.dart';
-import 'package:auto/features/common/data/get_regions_datasource.dart';
+import 'package:auto/features/common/data/datasources/get_regions_datasource.dart';
 import 'package:auto/features/common/repository/add_wishlist_repository.dart';
 import 'package:auto/features/common/repository/get_regions_repository.dart';
 import 'package:auto/features/comparison/data/datasources/comparison_cars_datasource.dart';

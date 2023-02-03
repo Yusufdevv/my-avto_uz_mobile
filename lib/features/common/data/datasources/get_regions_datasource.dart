@@ -1,7 +1,6 @@
 import 'package:auto/core/exceptions/exceptions.dart';
 import 'package:auto/core/singletons/dio_settings.dart';
 import 'package:auto/core/singletons/service_locator.dart';
-import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/common/models/region.dart';
 
 import 'package:dio/dio.dart';
