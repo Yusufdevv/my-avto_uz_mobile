@@ -55,136 +55,142 @@ class _RegisterScreenState extends State<RegisterScreen> {
   // register screen -1
 
   @override
-  Widget build(BuildContext context) => CustomScreen(
-        child: BlocProvider.value(
-          value: registerBloc,
-          child: BlocBuilder<RegisterBloc, RegisterState>(
-            builder: (context, state) => Scaffold(
-              backgroundColor: white,
-              appBar: WAppBar(
-                title: LocaleKeys.register.tr(),
-                boxShadow: [
-                  BoxShadow(
-                      offset: const Offset(0, 4),
-                      blurRadius: 16,
-                      color: darkGray.withOpacity(0.08)),
-                  BoxShadow(
-                      offset: const Offset(0, -1),
-                      color: darkGray.withOpacity(0.08))
-                ],
-              ),
-              body: Padding(
-                padding: const EdgeInsets.all(16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    LoginHeader(
-                      title: LocaleKeys.tel_number.tr(),
-                      description: LocaleKeys.check_number.tr(),
-                    ),
-                    const SizedBox(height: 49),
-                    ZTextFormField(
-                      onTap: () {
-                        if (isToastShowing) {
-                          context.read<ShowPopUpBloc>().add(HidePopUp());
-                          isToastShowing = false;
-                        }
-                      },
-                      onChanged: (onChanged) {
-                        setState(() {});
-                      },
-                      controller: phoneController,
-                      prefixIcon: Row(
-                        children: [
-                          SizedBox(
-                              height: 20,
-                              width: 20,
-                              child: Image.asset(AppImages.flagUzb2)),
-                          const SizedBox(width: 8),
-                          Text(
-                            '+998',
-                            style: Theme.of(context)
-                                .textTheme
-                                .subtitle1!
-                                .copyWith(
-                                    fontSize: 14, fontWeight: FontWeight.w400),
-                          ),
-                        ],
-                      ),
-                      hintText: '00 000 00 00',
-                      hintTextStyle: Theme.of(context)
-                          .textTheme
-                          .subtitle1!
-                          .copyWith(
-                              fontSize: 14,
-                              color: warmerGrey,
-                              fontWeight: FontWeight.w400),
-                      keyBoardType: TextInputType.number,
-                      textInputFormatters: [phoneFormatter],
-                      textStyle: Theme.of(context)
-                          .textTheme
-                          .subtitle1!
-                          .copyWith(fontSize: 14, fontWeight: FontWeight.w400),
-                    ),
-                    const SizedBox(height: 24),
-                    const TermsOfUseAndRules(),
-                    const SizedBox(height: 12),
-                    WButton(
-                      isLoading: state.sendCodeStatus ==
-                          FormzStatus.submissionInProgress,
-                      onTap: () {
-                        if (phoneController.text.length == 12) {
-                          registerBloc.add(RegisterEvent.sendCode(
-                              phoneController.text.replaceAll('+998', ''),
-                              onError: (text) {
-                            if (text.isNotEmpty) {
-                              var error = text;
-                              if (error.toLowerCase().contains('dioerror')) {
-                                error = LocaleKeys.service_error.tr();
-                              }
-                              context.read<ShowPopUpBloc>().add(ShowPopUp(
-                                  message: error,
-                                  status: PopStatus.error,
-                                  dismissible: false));
-                            } else {
-                              context.read<ShowPopUpBloc>().add(ShowPopUp(
-                                  message: LocaleKeys.error_try_again.tr(),
-                                 status: PopStatus.error,
-                                  dismissible: false));
-                            }
-                            isToastShowing = true;
-                          }, onSuccess: (session) {
-                            Navigator.push(
-                                context,
-                                fade(
-                                    page: BlocProvider.value(
-                                  value: registerBloc,
-                                  child: RegisterVerificationScreen(
-                                      session: session,
-                                      phone: phoneController.text
-                                          .replaceAll('+998', '')),
-                                )));
-                          }));
-                        }
-                      },
-                      margin: EdgeInsets.only(
-                          bottom: 4 + MediaQuery.of(context).padding.bottom),
-                      color: (phoneController.text.length > 11)
-                          ? orange
-                          : Theme.of(context)
-                              .extension<ThemedColors>()!
-                              .veryLightGreyToEclipse,
-                      text: LocaleKeys.continuee.tr(),
-                      border: Border.all(
-                        width: 1,
-                        color: white,
-                      ),
-                    ),
+  Widget build(BuildContext context) => WillPopScope(
+        onWillPop: () async {
+          context.read<ShowPopUpBloc>().add(HidePopUp());
+          return true;
+        },
+    child: CustomScreen(
+          child: BlocProvider.value(
+            value: registerBloc,
+            child: BlocBuilder<RegisterBloc, RegisterState>(
+              builder: (context, state) => Scaffold(
+                backgroundColor: white,
+                appBar: WAppBar(
+                  title: LocaleKeys.register.tr(),
+                  boxShadow: [
+                    BoxShadow(
+                        offset: const Offset(0, 4),
+                        blurRadius: 16,
+                        color: darkGray.withOpacity(0.08)),
+                    BoxShadow(
+                        offset: const Offset(0, -1),
+                        color: darkGray.withOpacity(0.08))
                   ],
+                ),
+                body: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      LoginHeader(
+                        title: LocaleKeys.tel_number.tr(),
+                        description: LocaleKeys.check_number.tr(),
+                      ),
+                      const SizedBox(height: 49),
+                      ZTextFormField(
+                        onTap: () {
+                          if (isToastShowing) {
+                            context.read<ShowPopUpBloc>().add(HidePopUp());
+                            isToastShowing = false;
+                          }
+                        },
+                        onChanged: (onChanged) {
+                          setState(() {});
+                        },
+                        controller: phoneController,
+                        prefixIcon: Row(
+                          children: [
+                            SizedBox(
+                                height: 20,
+                                width: 20,
+                                child: Image.asset(AppImages.flagUzb2)),
+                            const SizedBox(width: 8),
+                            Text(
+                              '+998',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .subtitle1!
+                                  .copyWith(
+                                      fontSize: 14, fontWeight: FontWeight.w400),
+                            ),
+                          ],
+                        ),
+                        hintText: '00 000 00 00',
+                        hintTextStyle: Theme.of(context)
+                            .textTheme
+                            .subtitle1!
+                            .copyWith(
+                                fontSize: 14,
+                                color: warmerGrey,
+                                fontWeight: FontWeight.w400),
+                        keyBoardType: TextInputType.number,
+                        textInputFormatters: [phoneFormatter],
+                        textStyle: Theme.of(context)
+                            .textTheme
+                            .subtitle1!
+                            .copyWith(fontSize: 14, fontWeight: FontWeight.w400),
+                      ),
+                      const SizedBox(height: 24),
+                      const TermsOfUseAndRules(),
+                      const SizedBox(height: 12),
+                      WButton(
+                        isLoading: state.sendCodeStatus ==
+                            FormzStatus.submissionInProgress,
+                        onTap: () {
+                          if (phoneController.text.length == 12) {
+                            registerBloc.add(RegisterEvent.sendCode(
+                                phoneController.text.replaceAll('+998', ''),
+                                onError: (text) {
+                              if (text.isNotEmpty) {
+                                var error = text;
+                                if (error.toLowerCase().contains('dioerror')) {
+                                  error = LocaleKeys.service_error.tr();
+                                }
+                                context.read<ShowPopUpBloc>().add(ShowPopUp(
+                                    message: error,
+                                    status: PopStatus.error,
+                                    dismissible: false));
+                              } else {
+                                context.read<ShowPopUpBloc>().add(ShowPopUp(
+                                    message: LocaleKeys.error_try_again.tr(),
+                                   status: PopStatus.error,
+                                    dismissible: false));
+                              }
+                              isToastShowing = true;
+                            }, onSuccess: (session) {
+                              Navigator.push(
+                                  context,
+                                  fade(
+                                      page: BlocProvider.value(
+                                    value: registerBloc,
+                                    child: RegisterVerificationScreen(
+                                        session: session,
+                                        phone: phoneController.text
+                                            .replaceAll('+998', '')),
+                                  )));
+                            }));
+                          }
+                        },
+                        margin: EdgeInsets.only(
+                            bottom: 4 + MediaQuery.of(context).padding.bottom),
+                        color: (phoneController.text.length > 11)
+                            ? orange
+                            : Theme.of(context)
+                                .extension<ThemedColors>()!
+                                .veryLightGreyToEclipse,
+                        text: LocaleKeys.continuee.tr(),
+                        border: Border.all(
+                          width: 1,
+                          color: white,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
           ),
         ),
-      );
+  );
 }

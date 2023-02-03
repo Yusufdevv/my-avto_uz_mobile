@@ -184,6 +184,11 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
                                                                   .add(AuthenticationStatusChanged(
                                                                       status: AuthenticationStatus
                                                                           .authenticated));
+                                                              context
+                                                                  .read<
+                                                                      ShowPopUpBloc>()
+                                                                  .add(
+                                                                      HidePopUp());
                                                             },
                                                           ),
                                                         );
