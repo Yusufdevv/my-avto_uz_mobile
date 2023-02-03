@@ -6,11 +6,11 @@ import 'dart:ui';
 
 import 'package:easy_localization/easy_localization.dart' show AssetLoader;
 
-class CodegenLoader extends AssetLoader {
+class CodegenLoader extends AssetLoader{
   const CodegenLoader();
 
   @override
-  Future<Map<String, dynamic>> load(String fullPath, Locale locale) {
+  Future<Map<String, dynamic>> load(String fullPath, Locale locale ) {
     return Future.value(mapLocales[locale.toString()]);
   }
 
@@ -257,7 +257,8 @@ class CodegenLoader extends AssetLoader {
   "paint_condition": "Состояние краски",
   "position": "Позиция",
   "how_price_is_calculated": "Как рассчитывается средняя цена",
-  "we_compared_all_parameters": "Мы сравнили все похожие авто на auto.uz по параметрам:",
+  "we_compared_all_same_auto": "Мы сравнили все похожие авто на ",
+  "by_parameters": "по параметрам:",
   "drive_gearbox": "Коробка передач",
   "modification": "Модификация",
   "color": "Цвет",
@@ -445,6 +446,7 @@ class CodegenLoader extends AssetLoader {
   "no_cars": "Нет автомобилей",
   "please_enter_valid_email": "Пожалуйста, введите действительный адрес электронной почты",
   "please_fullname": "Пожалуйста, введите ФИО",
+  "all_messages_ridden": "Все сообщения прочитаны",
   "name_and_email_required": "Имя и электронная почта обязательны",
   "i_accept_rules": "Продолжая регистрацию, я признаю что принимаю\n",
   "i_accept_rules1": "условия использования",
@@ -499,13 +501,15 @@ class CodegenLoader extends AssetLoader {
   "rastamojen_v_uzbekistan": "Растаможен в Узбекистане",
   "car_model": "Модель автомобиля",
   "photographation": "Фотографии",
-  "start_free_week": "Разместить бесплатно на 7 дней...."
+  "start_free_week": "Разместить бесплатно на 7 дней....",
+  "get_back": "Назад"
 };
 static const Map<String,dynamic> uz = {
   "price_of_similar_cars": "Shu kabi avtomobillarning o'rtacha narxi",
   "see_price_statustic": "Narxlar statistikasini ko'rish",
   "how_price_is_calculated": "O'rtacha narx qanday hisoblanadi",
-  "we_compared_all_parameters": "Biz auto.uz’dagi barcha o‘xshash avtomobillarni parametrlari bo‘yicha solishtirdik:",
+  "we_compared_all_parameters": "Biz ",
+  "by_parameters": "dagi barcha o'xshash avtomobillarni parametrlari bo'yicha solishtirdik:",
   "vin_check_text": "VIN tekshiruvi sizga olish imkonini beradi batafsil ma'lumot mashina haqida",
   "report_vin": "Hisobot (VIN)",
   "compare": "Taqqoslash",
@@ -928,6 +932,7 @@ static const Map<String,dynamic> uz = {
   "no_cars": "Mashinalar yo'q",
   "please_enter_valid_email": "Iltimos, to'g'ri elektron pochta manzilini kiriting",
   "please_fullname": "Iltimos, Ism va familyangizni kiriting",
+  "all_messages_ridden": "Barcha xabarlar o'qildi",
   "name_and_email_required": "Ism va elektron pochta manzili talab qilinadi",
   "complete_registration": "Roʻyxatdan oʻtishni yakunlash uchun maydonlarni toʻldiring",
   "phone_number_changed_success": "Telefon raqam muvaffaqoyatli o'zgartirildi!",
@@ -987,7 +992,8 @@ static const Map<String,dynamic> uz = {
   "rastamojen_v_uzbekistan": "Растаможен в Узбекистане",
   "car_model": "Модель автомобиля",
   "photographation": "Фотографии",
-  "start_free_week": "Разместить бесплатно на 7 дней...."
+  "start_free_week": "Разместить бесплатно на 7 дней....",
+  "get_back": "Назад"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ru": ru, "uz": uz};
 }

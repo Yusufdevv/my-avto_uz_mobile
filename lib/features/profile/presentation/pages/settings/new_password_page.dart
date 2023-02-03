@@ -127,23 +127,26 @@ class _NewPasswordsPageState extends State<NewPasswordsPage> {
                               _newPassword1Controller.text.length < 6 ||
                               _newPassword2Controller.text.length < 6) {
                             context.read<ShowPopUpBloc>().add(ShowPopUp(
-                                message: LocaleKeys.password_must_6.tr(),
-                                status: PopStatus.error,));
+                                  message: LocaleKeys.password_must_6.tr(),
+                                  status: PopStatus.error,
+                                ));
                           } else if (_oldPasswordController.text.isEmpty ||
                               _newPassword1Controller.text.isEmpty ||
                               _newPassword2Controller.text.isEmpty) {
                             context.read<ShowPopUpBloc>().add(ShowPopUp(
-                                message: LocaleKeys.password_must_6.tr(),
-                                status: PopStatus.error,));
+                                  message: LocaleKeys.password_must_6.tr(),
+                                  status: PopStatus.error,
+                                ));
                           } else if (_oldPasswordController.text.length >= 6 &&
                               _newPassword1Controller.text.length >= 6 &&
                               _newPassword2Controller.text.length >= 6) {
                             if (_newPassword1Controller.text !=
                                 _newPassword2Controller.text) {
                               context.read<ShowPopUpBloc>().add(ShowPopUp(
-                                  message:
-                                      LocaleKeys.passwords_didnt_match.tr(),
-                                  status: PopStatus.error,));
+                                    message:
+                                        LocaleKeys.passwords_didnt_match.tr(),
+                                    status: PopStatus.error,
+                                  ));
                             } else {
                               context.read<ProfileBloc>().add(
                                     ChangePasswordEvent(
@@ -158,7 +161,7 @@ class _NewPasswordsPageState extends State<NewPasswordsPage> {
                                                 : LocaleKeys
                                                     .password_changed_successfully
                                                     .tr(),
-                                             status: PopStatus.success));
+                                            status: PopStatus.success));
                                         //after pasword changing get new token
                                         context.read<ProfileBloc>().add(
                                             LoginUser(
@@ -174,14 +177,19 @@ class _NewPasswordsPageState extends State<NewPasswordsPage> {
                                       onError: (message) {
                                         var error = message;
                                         if (error
-                                            .toLowerCase()
-                                            .contains('dioerror')) {
+                                                .toLowerCase()
+                                                .contains('dio') ||
+                                            error
+                                                .toLowerCase()
+                                                .contains('type')) {
                                           error = LocaleKeys.service_error.tr();
                                         }
-                                        context.read<ShowPopUpBloc>().add(
-                                            ShowPopUp(
-                                                message: error,
-                                                status: PopStatus.error,));
+                                        context
+                                            .read<ShowPopUpBloc>()
+                                            .add(ShowPopUp(
+                                              message: error,
+                                              status: PopStatus.error,
+                                            ));
                                       },
                                     ),
                                   );

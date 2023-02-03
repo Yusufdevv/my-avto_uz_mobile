@@ -35,7 +35,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 
 class MainScreen extends StatefulWidget {
-  const MainScreen({required this.parentContext,Key? key}) : super(key: key);
+  const MainScreen({required this.parentContext, Key? key}) : super(key: key);
   final BuildContext parentContext;
 
   @override
@@ -79,6 +79,7 @@ class _MainScreenState extends State<MainScreen> {
   void initState() {
     mainBloc = MainBloc()..add(InitialEvent());
     context.read<ProfileBloc>().add(GetProfileEvent());
+    context.read<ProfileBloc>().add(GetNoReadNotificationsEvent(filter: 0));
     context.read<GetMakesBloc>().add(GetMakesBlocEvent.getMakes());
     topAdBloc = TopAdBloc(GetTopAdsUseCase())
       ..add(TopAdEvent.getTopAds())
@@ -157,6 +158,9 @@ class _MainScreenState extends State<MainScreen> {
               onRefresh: () async {
                 mainBloc.add(InitialEvent());
                 context.read<ProfileBloc>().add(GetProfileEvent());
+                context
+                    .read<ProfileBloc>()
+                    .add(GetNoReadNotificationsEvent(filter: 0));
                 topBrandBloc.add(TopBrandEvent.getBrand());
                 topAdBloc
                   ..add(TopAdEvent.getTopAds())
@@ -257,7 +261,9 @@ class _MainScreenState extends State<MainScreen> {
                                 .add(WishlistAddEvent.clearState());
                           }
                         },
-                        child: MainFavorites(parentContext: widget.parentContext,),
+                        child: MainFavorites(
+                          parentContext: widget.parentContext,
+                        ),
                       ),
                       const MainMapPart(),
                       const CreateAdButton(),

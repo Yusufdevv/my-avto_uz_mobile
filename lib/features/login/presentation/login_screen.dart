@@ -192,7 +192,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 WButton(
                   isLoading: context.watch<AuthenticationBloc>().state.status ==
                       AuthenticationStatus.loading,
-                    
                   onTap: passwordController.text.length >= 6 &&
                           phoneController.text.length == 12
                       ? () {
@@ -200,7 +199,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           context.read<AuthenticationBloc>().add(LoginUser(
                               onError: (text) {
                                 var error = text;
-                                if (error.toLowerCase().contains('dioerror')) {
+                                if (error.toLowerCase().contains('dio') ||
+                                    error.toLowerCase().contains('type')) {
                                   error = LocaleKeys.service_error.tr();
                                 }
                                 context.read<ShowPopUpBloc>().add(ShowPopUp(

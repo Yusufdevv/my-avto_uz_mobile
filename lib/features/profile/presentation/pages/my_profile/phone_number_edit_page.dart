@@ -158,7 +158,9 @@ class _PhoneNumberEditPageState extends State<PhoneNumberEditPage> {
                                           var error = message;
                                           if (error
                                               .toLowerCase()
-                                              .contains('dioerror')) {
+                                              .contains('dio') || error
+                                              .toLowerCase()
+                                              .contains('type')) {
                                             error =
                                                 LocaleKeys.service_error.tr();
                                           }

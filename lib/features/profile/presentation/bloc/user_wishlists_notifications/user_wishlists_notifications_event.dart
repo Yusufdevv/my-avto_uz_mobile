@@ -49,4 +49,7 @@ class ChangeReadEvent extends UserWishListsEvent {
   ChangeReadEvent({required this.index});
 }
 
-class GetNotificationsEvent extends UserWishListsEvent {}
+class GetNotificationsEvent extends UserWishListsEvent {
+  int? filter;
+  GetNotificationsEvent({this.filter});
+}

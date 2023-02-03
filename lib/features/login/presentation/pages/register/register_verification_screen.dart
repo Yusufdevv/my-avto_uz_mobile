@@ -56,7 +56,7 @@ class _RegisterVerificationScreenState
           context.read<ShowPopUpBloc>().add(HidePopUp());
           return true;
         },
-    child: KeyboardDismisser(
+        child: KeyboardDismisser(
           child: CustomScreen(
             child: BlocBuilder<RegisterBloc, RegisterState>(
               builder: (context, state) => Scaffold(
@@ -98,7 +98,8 @@ class _RegisterVerificationScreenState
                                   .textTheme
                                   .headline6!
                                   .copyWith(
-                                      fontWeight: FontWeight.w400, fontSize: 14),
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 14),
                             ),
                             const SizedBox(width: 12),
                             WButton(
@@ -113,7 +114,8 @@ class _RegisterVerificationScreenState
                                   .solitudeToSolitude14,
                               height: 24,
                               width: 24,
-                              child: SvgPicture.asset(AppIcons.edit, color: grey),
+                              child:
+                                  SvgPicture.asset(AppIcons.edit, color: grey),
                             )
                           ],
                         ),
@@ -154,7 +156,8 @@ class _RegisterVerificationScreenState
                         textStyle: Theme.of(context)
                             .textTheme
                             .headline1!
-                            .copyWith(fontSize: 24, fontWeight: FontWeight.w400),
+                            .copyWith(
+                                fontSize: 24, fontWeight: FontWeight.w400),
                         hintStyle: Theme.of(context)
                             .textTheme
                             .bodyText2!
@@ -169,7 +172,8 @@ class _RegisterVerificationScreenState
                                   .textTheme
                                   .headline6!
                                   .copyWith(
-                                      fontSize: 14, fontWeight: FontWeight.w400)),
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400)),
                           const SizedBox(width: 6),
                           if (timeComplete)
                             Container(
@@ -191,15 +195,18 @@ class _RegisterVerificationScreenState
                                           if (text.isNotEmpty) {
                                             var error = text;
                                             if (error
-                                                .toLowerCase()
-                                                .contains('dioerror')) {
+                                                    .toLowerCase()
+                                                    .contains('dio') ||
+                                                error
+                                                    .toLowerCase()
+                                                    .contains('type')) {
                                               error =
                                                   LocaleKeys.service_error.tr();
                                             }
                                             context.read<ShowPopUpBloc>().add(
                                                 ShowPopUp(
                                                     message: error,
-                                                   status: PopStatus.error,
+                                                    status: PopStatus.error,
                                                     dismissible: false));
                                           } else {
                                             context.read<ShowPopUpBloc>().add(
@@ -253,11 +260,11 @@ class _RegisterVerificationScreenState
                                     ), onError: (text) {
                                   isError = true;
                                   setState(() {});
-  
+
                                   context.read<ShowPopUpBloc>().add(
                                         ShowPopUp(
                                           message: text,
-                                           status: PopStatus.error,
+                                          status: PopStatus.error,
                                           dismissible: false,
                                         ),
                                       );
@@ -267,7 +274,8 @@ class _RegisterVerificationScreenState
                                       context,
                                       fade(
                                           page: BlocProvider.value(
-                                              value: context.read<RegisterBloc>(),
+                                              value:
+                                                  context.read<RegisterBloc>(),
                                               child:
                                                   const PersonalDataScreen())));
                                 }))
@@ -295,5 +303,5 @@ class _RegisterVerificationScreenState
             ),
           ),
         ),
-  );
+      );
 }

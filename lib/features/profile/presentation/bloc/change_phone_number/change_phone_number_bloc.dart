@@ -45,7 +45,7 @@ class ChangePhoneNumberBloc
       }
     } else {
       emit(state.copyWith(status: FormzStatus.submissionFailure));
-      event.onError('Telefon nomeringizni kiriting');
+      event.onError('');
     }
   }
 
@@ -72,7 +72,7 @@ class ChangePhoneNumberBloc
         emit(state.copyWith(status: FormzStatus.submissionFailure));
       }
     } else {
-      event.onError('Sms raqam xato');
+      event.onError('');
       emit(state.copyWith(status: FormzStatus.submissionFailure));
     }
   }

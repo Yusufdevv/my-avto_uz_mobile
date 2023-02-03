@@ -53,11 +53,11 @@ class _LoginNewPasswordPageState extends State<LoginNewPasswordPage> {
   @override
   Widget build(BuildContext context) => WillPopScope(
         onWillPop: () async {
-      context.read<ShowPopUpBloc>().add(HidePopUp());
-          
+          context.read<ShowPopUpBloc>().add(HidePopUp());
+
           return true;
         },
-    child: CustomScreen(
+        child: CustomScreen(
           child: KeyboardDismisser(
             child: BlocProvider.value(
               value: newPasswordBloc,
@@ -65,12 +65,14 @@ class _LoginNewPasswordPageState extends State<LoginNewPasswordPage> {
                 listener: (context, state) {
                   if (state.status == FormzStatus.submissionCanceled) {
                     var error = state.toastMessage;
-                    if (error.toLowerCase().contains('dioerror')) {
+                    if (error.toLowerCase().contains('dio') ||
+                        error.toLowerCase().contains('type')) {
                       error = LocaleKeys.service_error.tr();
                     }
-                    context
-                        .read<ShowPopUpBloc>()
-                        .add(ShowPopUp(message: error,  status: PopStatus.error,));
+                    context.read<ShowPopUpBloc>().add(ShowPopUp(
+                          message: error,
+                          status: PopStatus.error,
+                        ));
                   }
                   if (state.status == FormzStatus.submissionSuccess) {
                     Navigator.pushAndRemoveUntil(
@@ -110,7 +112,8 @@ class _LoginNewPasswordPageState extends State<LoginNewPasswordPage> {
                         children: [
                           LoginHeader(
                             title: LocaleKeys.new_password.tr(),
-                            description: LocaleKeys.create_password_a_no_forget.tr(),
+                            description:
+                                LocaleKeys.create_password_a_no_forget.tr(),
                           ),
                           const SizedBox(height: 36),
                           ZTextFormField(
@@ -156,8 +159,8 @@ class _LoginNewPasswordPageState extends State<LoginNewPasswordPage> {
                           ),
                           const SizedBox(height: 36),
                           WButton(
-                            isLoading:
-                                state.status == FormzStatus.submissionInProgress,
+                            isLoading: state.status ==
+                                FormzStatus.submissionInProgress,
                             onTap: () {
                               if (newPasswordController.text.length >= 6 &&
                                   confirmPasswordController.text.length >= 6) {
@@ -169,9 +172,11 @@ class _LoginNewPasswordPageState extends State<LoginNewPasswordPage> {
                                   );
                                 } else {
                                   context.read<ShowPopUpBloc>().add(ShowPopUp(
-                                      message:
-                                          LocaleKeys.passwords_didnt_match.tr(),
-                                       status: PopStatus.error,));
+                                        message: LocaleKeys
+                                            .passwords_didnt_match
+                                            .tr(),
+                                        status: PopStatus.error,
+                                      ));
                                 }
                               } else {
                                 context.read<ShowPopUpBloc>().add(
@@ -204,5 +209,5 @@ class _LoginNewPasswordPageState extends State<LoginNewPasswordPage> {
             ),
           ),
         ),
-  );
+      );
 }

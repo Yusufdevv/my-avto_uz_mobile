@@ -243,7 +243,8 @@ abstract class  LocaleKeys {
   static const paint_condition = 'paint_condition';
   static const position = 'position';
   static const how_price_is_calculated = 'how_price_is_calculated';
-  static const we_compared_all_parameters = 'we_compared_all_parameters';
+  static const we_compared_all_same_auto = 'we_compared_all_same_auto';
+  static const by_parameters = 'by_parameters';
   static const drive_gearbox = 'drive_gearbox';
   static const modification = 'modification';
   static const color = 'color';
@@ -431,6 +432,7 @@ abstract class  LocaleKeys {
   static const no_cars = 'no_cars';
   static const please_enter_valid_email = 'please_enter_valid_email';
   static const please_fullname = 'please_fullname';
+  static const all_messages_ridden = 'all_messages_ridden';
   static const name_and_email_required = 'name_and_email_required';
   static const i_accept_rules = 'i_accept_rules';
   static const i_accept_rules1 = 'i_accept_rules1';

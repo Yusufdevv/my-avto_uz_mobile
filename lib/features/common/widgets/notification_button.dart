@@ -23,30 +23,28 @@ class _NotificationButtonState extends State<NotificationButton> {
     super.initState();
   }
 
-  late ProfileDataEntity user;
+  late bool isAllread;
 
   @override
   Widget build(BuildContext context) =>
       BlocConsumer<ProfileBloc, ProfileState>(listener: (context, stateLis) {
-        if (stateLis.editStatus.isSubmissionSuccess) {
-          user = stateLis.profileEntity;
+        if (stateLis.changeStatus.isSubmissionSuccess) {
+          isAllread = stateLis.isNotificationAllRead;
         }
       }, builder: (context, state) {
-        user = state.profileEntity;
-        if (state.status.isSubmissionSuccess ||
-            state.status.isSubmissionFailure) {
+                  isAllread = state.isNotificationAllRead;
+
+        if (state.changeStatus.isSubmissionSuccess ||
+            state.changeStatus.isSubmissionFailure) {
           return GestureDetector(
             behavior: HitTestBehavior.opaque,
             onTap: () {
-              if (!user.isReadAllNotifications) {
-                context.read<ProfileBloc>().add(ChangeNotificationAllRead());
-              }
               Navigator.of(context, rootNavigator: true)
                   .push(fade(page: const NotificationPage()));
             },
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: user.isReadAllNotifications
+              child: isAllread
                   ? SvgPicture.asset(AppIcons.bell)
                   : SvgPicture.asset(AppIcons.bellWithCircle),
             ),
