@@ -367,9 +367,6 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                                 ).then(
                                   (latLongZoom) {
                                     if (latLongZoom is List<double>) {
-                                      print(
-                                          '=> => => =>     then: lat: ${latLongZoom[0]} long: ${latLongZoom[1]}  zoom: ${latLongZoom[2]} <= <= <= <=');
-
                                       postingAdBloc.add(
                                         PostingAdGetMapScreenShotEvent(
                                           lat: latLongZoom[0],

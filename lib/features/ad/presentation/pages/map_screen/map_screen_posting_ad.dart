@@ -83,19 +83,7 @@ class _MapScreenPostingAdState extends State<MapScreenPostingAd>
                       rotateGesturesEnabled: false,
                       onCameraPositionChanged:
                           (cameraPosition, updateReason, isStopped) async {
-                        if (isStopped) {
-                          zoomLevel = cameraPosition.zoom;
-                          mapBloc.add(MapChangeLatLongEvent(
-                              lat: cameraPosition.target.latitude,
-                              long: cameraPosition.target.longitude,
-                              radius: MyFunctions.getRadiusFromZoom(
-                                      cameraPosition.zoom)
-                                  .floor()));
-                          await StorageRepository.putDouble(
-                              'lat', cameraPosition.target.latitude);
-                          await StorageRepository.putDouble(
-                              'long', cameraPosition.target.longitude);
-                        }
+
                       },
                       onMapTap: (point) async {
                         final camera = await _mapController.getCameraPosition();
@@ -271,9 +259,8 @@ class _MapScreenPostingAdState extends State<MapScreenPostingAd>
                   Positioned(
                     bottom: 0,
                     child: PostingAdSubmitBox(
+                      address: state.address,
                       onTab: () {
-                        print(
-                            '=> => => =>     pop: lat: ${state.lat} long: ${state.long}  zoom: $zoomLevel <= <= <= <=');
                         if (state.lat == 0) return;
                         Navigator.of(context)
                             .pop([state.lat, state.long, zoomLevel]);

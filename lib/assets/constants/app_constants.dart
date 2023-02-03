@@ -8,5 +8,5 @@ class AppConstants {
     debugLabel: 'auto.uz',
   );
 
-  static const yandexApiKey = 'b56a52a4-692e-47ec-948d-8dc742fb9f59';
+  static const yandexApiKey = '9737e8c9-ff2e-4c6f-b727-9f85b7a9f0dd';
 }

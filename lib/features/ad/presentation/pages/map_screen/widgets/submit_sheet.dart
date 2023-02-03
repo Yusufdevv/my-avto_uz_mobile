@@ -1,6 +1,5 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
-import 'package:auto/features/common/models/region.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -9,23 +8,15 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 ///
 
-class PostingAdSubmitBox extends StatefulWidget {
-  final VoidCallback? onTab;
+class PostingAdSubmitBox extends StatelessWidget {
+  final VoidCallback onTab;
+  final String address;
+
   const PostingAdSubmitBox({
     required this.onTab,
+    required this.address,
     super.key,
   }) : super();
-
-  @override
-  State<PostingAdSubmitBox> createState() => _PostingAdSubmitBoxState();
-}
-
-class _PostingAdSubmitBoxState extends State<PostingAdSubmitBox> {
-  Map<int, Region> checkStatus = <int, Region>{};
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) => Container(
@@ -40,13 +31,13 @@ class _PostingAdSubmitBoxState extends State<PostingAdSubmitBox> {
                 spreadRadius: 0,
                 color: profileContainers.withOpacity(.05)),
             BoxShadow(
-                offset: Offset(0, 1),
+                offset: const Offset(0, 1),
                 blurRadius: 24,
                 spreadRadius: 0,
                 color: profileContainers.withOpacity(.08))
           ],
           color: white,
-          borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -59,19 +50,16 @@ class _PostingAdSubmitBoxState extends State<PostingAdSubmitBox> {
                 const SizedBox(width: 12),
                 Expanded(
                   child: Text(
-                    'г.Ташкент, Мирабадский район, ул.Туркистон, дом 12А',
-                    style: Theme.of(context)
-                        .textTheme
-                        .caption!
-                        .copyWith(fontWeight: FontWeight.w600),
+                    address,
+                    style: Theme.of(context).textTheme.subtitle2!,
                   ),
                 ),
               ],
             ),
             const SizedBox(height: 24),
             WButton(
-              isDisabled: widget.onTab == null,
-              onTap: widget.onTab ?? () {},
+              isDisabled: address.isEmpty,
+              onTap: address.isNotEmpty ? onTab : () {},
               color: orange,
               text: LocaleKeys.confirm.tr(),
             ),

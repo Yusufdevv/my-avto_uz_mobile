@@ -1,7 +1,7 @@
 import 'package:auto/core/exceptions/exceptions.dart';
 import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/core/utils/either.dart';
-import 'package:auto/features/common/data/get_regions_datasource.dart';
+import 'package:auto/features/common/data/datasources/get_regions_datasource.dart';
 import 'package:auto/features/common/models/region.dart';
 
 // ignore: one_member_abstracts
