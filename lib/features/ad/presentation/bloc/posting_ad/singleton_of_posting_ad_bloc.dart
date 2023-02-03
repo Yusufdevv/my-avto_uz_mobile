@@ -1,6 +1,6 @@
 part of 'posting_ad_bloc.dart';
 
-/// PostingAd
+/// PostingAd Singleton
 class PASingleton {
   PASingleton._();
 
@@ -16,7 +16,7 @@ class PASingleton {
       'year': v.yearEntity?.id,
       'modification_type': v.modificationId,
       'color': v.colorName,
-      'licence_type': v.licence_type,
+      'licence_type': v.licenceType,
       'ownership': v.ownerStep,
       'purchase_date': v.purchasedDate,
       'description': v.description,
@@ -31,8 +31,9 @@ class PASingleton {
       'location_url': v.locationUrl,
       'price': v.price!.replaceAll(' ', ''),
       'currency': v.currency,
-      'distance_traveled':
-          (v.isWithoutMileage ?? false) ? '0' : v.mileage!.replaceAll(' ', ''),
+      'distance_traveled': (v.isWithoutMileage ?? false)
+          ? '0'
+          : (v.mileage?.replaceAll(' ', '') ?? '0'),
       'registration_vin': 'KENTEKENMEWIJS',
       'registration_plate': 'KENTEKENMEWIJS',
       'registration_certificate': 'KENTEKENMEWIJS',
@@ -42,8 +43,13 @@ class PASingleton {
       'is_rent_with_purchase':
           v.rentWithPurchaseConditions.isNotEmpty && (v.rentToBuy ?? false),
       'rent_with_purchase':
-          v.rentWithPurchaseConditions.map((e) => e.toApi()).toList()
+          v.rentWithPurchaseConditions.map((e) => e.toApi()).toList(),
     };
+    // if (v.milageImage != null && v.milageImage!.isNotEmpty) {
+    // final milageImage = await MultipartFile.fromFile(v.milageImage!);
+    // final List<MultipartFile> list = [milageImage];
+    // announcementFields.addEntries(list.map((e) => MapEntry('mileage_image', e)));
+    // }
 
     var i = -1;
     announcementFields.addEntries(v.damagedParts.entries.map((e) {
@@ -69,6 +75,16 @@ class PASingleton {
     }));
 
     final announcementFormData = FormData.fromMap(announcementFields);
+    // for (int i = 0; i < announcementFormData.fields.length; i++) {
+    // if (announcementFormData.files[i].key.contains('mileage_image')) {
+    //   print(
+    //       '=> => => =>     this is milage image value and key:  ${announcementFormData.files[i].key}  / ${announcementFormData.files[i].value}  <= <= <= <=');
+
+    //   await Future.delayed(Duration(milliseconds: 4000));
+    // }
+    //   print(
+    //       '=> => => =>    ann: ${announcementFormData.fields[i].key}  / ${announcementFormData.fields[i].value}   <= <= <= <=');
+    // }
 
     return announcementFormData;
   }
@@ -165,6 +181,7 @@ class PASingleton {
   static PostingAdState choose(
           PostingAdState state, PostingAdChooseEvent event) =>
       state.copyWith(
+          milageImage: event.milageImage,
           modificationId: event.modificationId,
           panaramaGallery: event.panaramaGallery,
           mapPointBytes: event.bodyBytes,
@@ -320,7 +337,7 @@ class PASingleton {
         return state.gearboxId == null;
       // ModificationScreen
       case 8:
-        return state.gearboxId == null;
+        return state.modificationId == null;
       // ColorsScreen
       case 9:
         return false;
@@ -331,7 +348,7 @@ class PASingleton {
       // PtsScreen
       case 11:
         return state.ownerStep == null ||
-            state.licence_type == null ||
+            state.licenceType == null ||
             state.purchasedDate == null;
       //  DescriptionScreen
       case 12:
@@ -354,7 +371,12 @@ class PASingleton {
         return state.price == null;
       // MileageScreen
       case 18:
-        return !(state.mileage != null || (state.isWithoutMileage ?? false));
+        final milage =
+            int.tryParse(state.mileage?.replaceAll(' ', '') ?? '0') ?? 0;
+
+        return !(milage > 0 ||
+            (state.isWithoutMileage ?? false) ||
+            state.milageImage != null);
       // PreviewScreen
       case 19:
         return false;

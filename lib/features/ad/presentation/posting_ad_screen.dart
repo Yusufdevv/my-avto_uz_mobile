@@ -183,6 +183,9 @@ class _PostingAdScreenState extends State<PostingAdScreen>
     LocaleKeys.Mileage.tr(),
     LocaleKeys.preispection.tr(),
   ];
+  void hidePopUp() {
+    context.read<ShowPopUpBloc>().add(HidePopUp());
+  }
 
   @override
   Widget build(BuildContext context) => WillPopScope(
@@ -214,7 +217,7 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                           dismissible: false,
                         ));
                     await Future.delayed(const Duration(milliseconds: 1000));
-                    context.read<ShowPopUpBloc>().add(HidePopUp());
+                    hidePopUp();
 
                     HomeTabControllerProvider.of(widget.parentContext)
                         .controller
@@ -227,9 +230,7 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                     await pageController.animateToPage(currentTabIndex,
                         duration: const Duration(milliseconds: 150),
                         curve: Curves.linear);
-
                     postingAdBloc.add(PostingAdClearStateEvent());
-
                     setState(() {});
                     return;
                   }
@@ -240,6 +241,7 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                           ShowPopUp(
                             message: state.toastMessage!,
                             status: PopStatus.error,
+                            dismissible: false,
                           ),
                         );
                   }
@@ -259,6 +261,7 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                         tabLength: tabLength,
                         hasShadow: state.hasAppBarShadow,
                         onTapBack: () {
+                          hidePopUp();
                           if (currentTabIndex != 0) {
                             if (widget.announcementId != null) {
                               if (currentTabIndex > 10) {
@@ -286,6 +289,7 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                           }
                         },
                         onTapCancel: () {
+                          hidePopUp();
                           print('=> => => =>     on tap cancel    <= <= <= <=');
                         },
                         title: currentTabIndex == 0
@@ -304,6 +308,7 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                               tabLength: tabLength,
                               postingAddBloc: postingAdBloc,
                               onTopBrandPressed: (makeId) {
+                                hidePopUp();
                                 postingAdBloc
                                     .add(PostingAdChooseEvent(makeId: makeId));
                                 currentTabIndex++;
@@ -316,7 +321,7 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                               },
                             ),
                             //1
-                            ChooseCarModelScreen(makeId: state.makeId ?? -1),
+                            const ChooseCarModelScreen(),
                             //2
                             const YearIssueScreenn(),
                             //3
@@ -335,6 +340,7 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                             const ColorsScreen(),
                             //10
                             AddPhotoScreen(onImageChanged: (v) {
+                              hidePopUp();
                               postingAdBloc
                                   .add(PostingAdChooseEvent(gallery: v));
                             }, onPanaramaChanged: (v) {
@@ -359,13 +365,13 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                             //16
                             InspectionPlaceScreen(
                               onToMapPressed: () {
+                                hidePopUp();
                                 Navigator.push(
                                   context,
-                                  fade(
-                                    page: const MapScreenPostingAd(),
-                                  ),
+                                  fade(page: const MapScreenPostingAd()),
                                 ).then(
                                   (latLongZoom) {
+                                    hidePopUp();
                                     if (latLongZoom is List<double>) {
                                       print(
                                           '=> => => =>     then: lat: ${latLongZoom[0]} long: ${latLongZoom[1]}  zoom: ${latLongZoom[2]} <= <= <= <=');
@@ -385,7 +391,15 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                             //17
                             PriceScreen(initialPrice: state.price ?? ''),
                             //18
-                            MileageScreen(initialMilage: state.mileage ?? ''),
+                            MileageScreen(
+                                onImageChange: (image) {
+                                     print('=> => => =>     POSTING ADD PAGE: ${image}    <= <= <= <=');
+              
+                                  hidePopUp();
+                                  postingAdBloc.add(
+                                      PostingAdChooseEvent(milageImage: image));
+                                },
+                                initialMilage: state.mileage ?? ''),
                             // //19
                             // const StsScreen(),
                             //19
@@ -401,6 +415,7 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                               disabledColor: disabledButton,
                               isDisabled: state.buttonStatus(currentTabIndex),
                               onTap: () {
+                                hidePopUp();
                                 if (currentTabIndex < tabLength - 1) {
                                   if (currentTabIndex == 0 &&
                                       animeState.isCollapsed) {
@@ -439,6 +454,7 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                               isLoading: state.createStatus ==
                                   FormzStatus.submissionInProgress,
                               onTap: () async {
+                                hidePopUp();
                                 postingAdBloc.add(PostingAdCreateEvent());
                               },
                               text: LocaleKeys.start_free_week.tr(),

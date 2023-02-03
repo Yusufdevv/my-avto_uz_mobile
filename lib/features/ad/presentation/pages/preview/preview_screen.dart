@@ -55,7 +55,7 @@ class PreviewScreen extends StatelessWidget {
                               ? ''
                               : '${state.yearEntity!.yearBegin}'),
                       CarInfoRow(
-                          title: LocaleKeys.Mileage, info: '${state.mileage}'),
+                          title: LocaleKeys.Mileage.tr(), info: '${state.mileage}'),
                       CarInfoRow(
                           title: LocaleKeys.body.tr(),
                           info: state.bodyTypes.isEmpty

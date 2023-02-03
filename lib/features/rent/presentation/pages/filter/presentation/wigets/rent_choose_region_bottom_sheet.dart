@@ -41,6 +41,7 @@ class _RentChooseRegionBottomSheetState
 
   @override
   Widget build(BuildContext context) {
+    print('is empty: ${checkStatus.isEmpty} / ${checkStatus.length}');
     final isAllChecked = checkStatus.length == widget.list.length;
     return Container(
       margin: EdgeInsets.only(top: SizeConfig.v(48)),
@@ -53,8 +54,7 @@ class _RentChooseRegionBottomSheetState
           SheetHeader(
               title: LocaleKeys.region.tr(),
               onCancelPressed: () {
-                Navigator.of(context)
-                    .pop(checkStatus.entries.map((e) => e.value).toList());
+                Navigator.of(context).pop();
               }),
           const Divider(thickness: 1, color: border, height: 1),
           Expanded(
@@ -126,6 +126,8 @@ class _RentChooseRegionBottomSheetState
               bottom: 16,
             ),
             child: WButton(
+              disabledColor: disabledButton,
+              isDisabled: checkStatus.isEmpty,
               onTap: () {
                 Navigator.of(context)
                     .pop(checkStatus.entries.map((e) => e.value).toList());

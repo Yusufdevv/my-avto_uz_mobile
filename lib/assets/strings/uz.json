@@ -485,7 +485,11 @@
   "car_model":"Модель автомобиля",
   "photographation":"Фотографии",
   "start_free_week":"Разместить бесплатно на 7 дней....",
-  "get_back":"Назад"
+  "get_back":"Назад",
+  "for_month":"в месяцах",
+  "pre_payment":"Предоплата",
+  "minimal_summa_must_be":"Минимальная сумма должна быть",
+  "monthly_pay":"Ежемесячная оплата"
 
 
 }

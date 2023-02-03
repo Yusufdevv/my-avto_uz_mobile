@@ -14,8 +14,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 class MileageScreen extends StatefulWidget {
+  final Function(String) onImageChange;
   final String initialMilage;
-  const MileageScreen({required this.initialMilage, Key? key})
+  const MileageScreen(
+      {required this.onImageChange, required this.initialMilage, Key? key})
       : super(key: key);
 
   @override
@@ -45,7 +47,11 @@ class _MileageScreenState extends State<MileageScreen> {
         value: mileageImageBloc,
         child: KeyboardDismisser(
           child: Scaffold(
-            body: BlocBuilder<MileageImageBloc, MileageImageState>(
+            body: BlocConsumer<MileageImageBloc, MileageImageState>(
+              listener: (context, state) {
+                print('=> => => =>     milage image change in listener: ${state.image}    <= <= <= <=');
+                widget.onImageChange(state.image);
+              },
               builder: (context, state) => BaseWidget(
                 headerText: LocaleKeys.Mileage.tr(),
                 child: Padding(
@@ -71,12 +77,14 @@ class _MileageScreenState extends State<MileageScreen> {
                               .isWithoutMileage ??
                           false)) ...{
                         WTextField(
-                          textStyle:  Theme.of(context)
-                            .textTheme
-                            .headline1!
-                            .copyWith(
-                                fontSize: 16, fontWeight: FontWeight.w400),
-                          textInputFormatters: [ThousandsSeparatorInputFormatter()],
+                          textStyle: Theme.of(context)
+                              .textTheme
+                              .headline1!
+                              .copyWith(
+                                  fontSize: 16, fontWeight: FontWeight.w400),
+                          textInputFormatters: [
+                            ThousandsSeparatorInputFormatter()
+                          ],
                           maxLength: 12,
                           hideCounterText: true,
                           onChanged: (value) => context
@@ -108,9 +116,7 @@ class _MileageScreenState extends State<MileageScreen> {
                             .subtitle1!
                             .copyWith(color: grey),
                       ),
-                      const SizedBox(
-                        height: 8,
-                      ),
+                      const SizedBox(height: 8),
                       MileageImageItem(image: state.image),
                       const SizedBox(
                         height: 20,
