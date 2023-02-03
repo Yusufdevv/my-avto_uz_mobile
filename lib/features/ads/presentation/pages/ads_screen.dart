@@ -6,6 +6,7 @@ import 'package:auto/features/ads/presentation/widgets/ads_appbar_sliver_delegat
 import 'package:auto/features/ads/presentation/widgets/ads_sliver_deleget.dart';
 import 'package:auto/features/ads/presentation/widgets/filter_bottom_sheet.dart';
 import 'package:auto/features/common/bloc/announcement_bloc/bloc/announcement_list_bloc.dart';
+import 'package:auto/features/common/bloc/get_car_model/get_car_model_bloc.dart';
 import 'package:auto/features/common/bloc/get_makes_bloc/get_makes_bloc_bloc.dart';
 import 'package:auto/features/common/bloc/regions/regions_bloc.dart';
 import 'package:auto/features/common/widgets/custom_screen.dart';
@@ -181,9 +182,15 @@ class _AdsScreenState extends State<AdsScreen>
                 ? const SizedBox()
                 : WScaleAnimation(
                     onTap: () {
-                      context
-                          .read<AnnouncementListBloc>()
-                          .add(AnnouncementListEvent.getIsHistory(true));
+                      if (context.read<GetMakesBloc>().state.name.isNotEmpty &&
+                          context.read<GetCarModelBloc>().state.name.isNotEmpty) {
+                        context
+                            .read<AnnouncementListBloc>()
+                            .add(AnnouncementListEvent.getIsHistory(true));
+                        context
+                            .read<AnnouncementListBloc>()
+                            .add(AnnouncementListEvent.getHistoryApi());
+                      }
                       setState(() {});
                     },
                     child: AnimatedContainer(

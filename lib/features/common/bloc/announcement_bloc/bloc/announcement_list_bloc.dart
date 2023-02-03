@@ -7,6 +7,7 @@ import 'package:auto/features/ad/domain/entities/types/gearbox_type.dart';
 import 'package:auto/features/ad/domain/repositories/ad_repository.dart';
 import 'package:auto/features/ads/data/models/search_history_model.dart';
 import 'package:auto/features/ads/domain/entities/search_history_entity.dart';
+import 'package:auto/features/ads/domain/usecases/filter_history_usecase.dart';
 import 'package:auto/features/common/models/region.dart';
 import 'package:auto/features/common/usecases/announcement_list_usecase.dart';
 import 'package:auto/features/comparison/domain/entities/announcement_list_entity.dart';
@@ -22,8 +23,9 @@ part 'announcement_list_bloc.freezed.dart';
 class AnnouncementListBloc
     extends Bloc<AnnouncementListEvent, AnnouncementListState> {
   AnnouncementListUseCase useCase;
-  // AdRepository repository = serviceLocator<AdRepository>();
-  AnnouncementListBloc({required this.useCase})
+  FilterHistoryUseCase filterHistoryUseCase;
+  AnnouncementListBloc(
+      {required this.useCase, required this.filterHistoryUseCase})
       : super(AnnouncementListState()) {
     on<_GetAnnouncementList>((event, emit) async {
       emit(state.copyWith(status: FormzStatus.submissionInProgress));
@@ -51,23 +53,47 @@ class AnnouncementListBloc
                   event.regions.map((e) => '${e.id}').toList().join(','))));
       emit(state.copyWith(regions: event.regions));
     });
-    on<_GetIsHistory>(
-        (event, emit) => emit(state.copyWith(isHistory: event.isHistory)));
-
+    on<_GetIsHistory>((event, emit) {
+      emit(
+        state.copyWith(
+          isHistory: event.isHistory,
+          searchModel: state.searchModel.copyWith(
+            make: state.filter.make,
+            model: [state.filter.model],
+            queryData: state.searchModel.queryData!.copyWithout(
+              bodyType: state.filter.bodyType,
+              driveType: state.filter.driveType,
+              gearboxType: state.filter.gearboxType,
+              regionIn: state.filter.region__in,
+              priceFrom: state.filter.priceFrom,
+              priceTo: state.filter.priceTo,
+              yearFrom: state.filter.yearFrom,
+              yearTo: state.filter.yearTo,
+              isNew: state.filter.isNew,
+            ),
+          ),
+        ),
+      );
+      print('===> ==> Hullas ${state.searchHistoryEntity.make}');
+    });
+    on<_GetHistoryApi>((event, emit) async {
+      await filterHistoryUseCase.call(state.searchModel);
+    });
     on<_GetFilterClear>((event, emit) {
       if (event.ismake == true) {
         emit(
           state.copyWith(
             filter: state.filter.copyWith(
-                make: -1,
-                model: -1,
-                gearboxType: null,
-                bodyType: null,
-                driveType: null,
-                priceFrom: 1000,
-                priceTo: 500000,
-                yearFrom: 1960,
-                yearTo: 2023),
+              make: -1,
+              model: -1,
+              gearboxType: null,
+              bodyType: null,
+              driveType: null,
+              priceFrom: 1000,
+              priceTo: 500000,
+              yearFrom: 1960,
+              yearTo: 2023,
+            ),
           ),
         );
         add(AnnouncementListEvent.getAnnouncementList());
@@ -75,18 +101,21 @@ class AnnouncementListBloc
         emit(
           state.copyWith(
             filter: state.filter.copyWith(
-                gearboxType: null,
-                bodyType: null,
-                driveType: null,
-                priceFrom: 1000,
-                priceTo: 500000,
-                yearFrom: 1960,
-                yearTo: 2023),
+              gearboxType: null,
+              bodyType: null,
+              driveType: null,
+              priceFrom: 1000,
+              priceTo: 500000,
+              yearFrom: 1960,
+              yearTo: 2023,
+            ),
           ),
         );
       }
     });
-    on<_GetInfo>((event, emit) => emit(state.copyWith(
+    on<_GetInfo>(
+      (event, emit) => emit(
+        state.copyWith(
           bodyTypeEntity: event.bodyType,
           gearboxTypeEntity: event.gearboxType,
           driveTypeEntity: event.carDriveType,
@@ -98,6 +127,8 @@ class AnnouncementListBloc
               : event.priceValues!,
           idVal: event.idVal ?? 0,
           isFilter: event.isFilter!,
-        )));
+        ),
+      ),
+    );
   }
 }

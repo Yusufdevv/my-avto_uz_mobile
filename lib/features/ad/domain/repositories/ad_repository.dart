@@ -18,7 +18,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
 
 abstract class AdRepository {
-  Future<Either<Failure, GenericPagination<FotoInstructionEntity>>> getFotoInstructions();
+  Future<Either<Failure, GenericPagination<FotoInstructionEntity>>>
+      getFotoInstructions();
   Future<Either<Failure, Uint8List>> getMapScreenShot(
       {required Map<String, String> params});
   Future<Either<Failure, bool>> verify({required Map<String, String> params});
@@ -92,5 +93,6 @@ abstract class AdRepository {
 
   Future<Either<Failure, GenericPagination<AnnouncementListEntity>>>
       getAnnouncementList(AnnouncementFilterModel filter);
-  Future<void> filterHistory({required SearchHistoryModel model});
+  Future<Either<Failure, void>> filterHistory(
+      {required SearchHistoryModel model});
 }

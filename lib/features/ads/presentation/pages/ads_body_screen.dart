@@ -121,7 +121,6 @@ class _AdsBodyScreenState extends State<AdsBodyScreen> {
               return const NoDataWidget();
             }
           }
-
           return const Center(child: CupertinoActivityIndicator());
         },
       );

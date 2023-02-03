@@ -550,6 +550,7 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
           options: Options(headers: {
             'Authorization': 'Bearer ${StorageRepository.getString('token')}'
           }));
+      print('===> ==> kor ${model.toJson()}');
       if (response.statusCode != null &&
           response.statusCode! >= 200 &&
           response.statusCode! < 300) {

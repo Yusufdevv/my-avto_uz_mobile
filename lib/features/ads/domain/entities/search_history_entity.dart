@@ -5,22 +5,33 @@ import 'package:json_annotation/json_annotation.dart';
 
 class SearchHistoryEntity extends Equatable {
   const SearchHistoryEntity({
-    this.id = 0,
     this.make = 0,
-    this.model = const [],
-    this.query = '',
+    this.model = const [0],
+    this.query = 'nima',
     this.queryData = const QueryDataEntity(),
   });
 
-  final int? id;
   final int? make;
-  final List<int>? model;
+  final List<int?>? model;
   final String? query;
   @QueryDataConverter()
   final QueryDataEntity? queryData;
 
+  SearchHistoryEntity copyWith({
+    int? make,
+    List<int?>? model,
+    String? query,
+    QueryDataEntity? queryData,
+  }) =>
+      SearchHistoryEntity(
+        make: make,
+        model: model,
+        query: query,
+        queryData: queryData,
+      );
+
   @override
-  List<Object?> get props => [id, make, model, query, queryData];
+  List<Object?> get props => [ make, model, query, queryData];
 }
 
 class SearchHistoryConverter

@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_positional_boolean_parameters
+
 import 'package:auto/features/ads/data/models/query_data_model.dart';
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
@@ -16,16 +18,41 @@ class QueryDataEntity extends Equatable {
     this.yearTo = 0,
   });
 
-  final int bodyType;
-  final int driveType;
-  final int engineType;
-  final int gearboxType;
-  final String regionIn;
+  QueryDataEntity copyWithout({
+    int? bodyType,
+    int? driveType,
+    int? engineType,
+    int? gearboxType,
+    String? regionIn,
+    int? priceFrom,
+    int? priceTo,
+    int? yearFrom,
+    int? yearTo,
+    bool? isNew,
+  }) =>
+      QueryDataEntity(
+        bodyType: bodyType,
+        driveType: driveType,
+        engineType: engineType,
+        gearboxType: gearboxType,
+        regionIn: regionIn,
+        priceFrom: priceFrom,
+        priceTo: priceTo,
+        yearFrom: yearFrom,
+        yearTo: yearTo,
+        isNew: isNew,
+      );
+
+  final int? bodyType;
+  final int? driveType;
+  final int? engineType;
+  final int? gearboxType;
+  final String? regionIn;
   final bool? isNew;
-  final int priceFrom;
-  final int priceTo;
-  final int yearFrom;
-  final int yearTo;
+  final int? priceFrom;
+  final int? priceTo;
+  final int? yearFrom;
+  final int? yearTo;
 
   @override
   List<Object?> get props => [
