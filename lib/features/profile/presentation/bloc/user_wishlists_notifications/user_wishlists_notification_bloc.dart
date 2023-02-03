@@ -144,7 +144,7 @@ class UserWishListsBloc extends Bloc<UserWishListsEvent, UserWishListsState> {
   Future<void> _onGetNotifications(
       GetNotificationsEvent event, Emitter<UserWishListsState> emit) async {
     emit(state.copyWith(myAdsStatus: FormzStatus.submissionInProgress));
-    final result = await getNotificationsUseCase.call(NoParams());
+    final result = await getNotificationsUseCase.call(event.filter);
     if (result.isRight) {
       emit(state.copyWith(
           myAdsStatus: FormzStatus.submissionSuccess,

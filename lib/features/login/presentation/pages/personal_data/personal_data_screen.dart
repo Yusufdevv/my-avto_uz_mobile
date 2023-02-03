@@ -155,9 +155,13 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
                                                             onError: (text) {
                                                               var error = text;
                                                               if (error
-                                                                  .toLowerCase()
-                                                                  .contains(
-                                                                      'dioerror')) {
+                                                                      .toLowerCase()
+                                                                      .contains(
+                                                                          'dio') ||
+                                                                  error
+                                                                      .toLowerCase()
+                                                                      .contains(
+                                                                          'type')) {
                                                                 error = LocaleKeys
                                                                     .service_error
                                                                     .tr();
@@ -225,9 +229,13 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
                                                           onError: (text) {
                                                             var error = text;
                                                             if (error
-                                                                .toLowerCase()
-                                                                .contains(
-                                                                    'dioerror')) {
+                                                                    .toLowerCase()
+                                                                    .contains(
+                                                                        'dio') ||
+                                                                error
+                                                                    .toLowerCase()
+                                                                    .contains(
+                                                                        'type')) {
                                                               error = LocaleKeys
                                                                   .service_error
                                                                   .tr();

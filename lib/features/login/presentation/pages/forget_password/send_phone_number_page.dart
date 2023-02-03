@@ -60,7 +60,8 @@ class _SendPhoneNumberPageState extends State<SendPhoneNumberPage> {
                 listener: (context, state) {
                   if (state.status == FormzStatus.submissionCanceled) {
                     var error = state.toastMessage;
-                    if (error.toLowerCase().contains('dioerror')) {
+                    if (error.toLowerCase().contains('dio') ||
+                        error.toLowerCase().contains('type')) {
                       error = LocaleKeys.service_error.tr();
                     }
                     context.read<ShowPopUpBloc>().add(

@@ -18,8 +18,7 @@ abstract class GetUserListDatasource {
       required T Function(Map<String, dynamic>) fromJson,
       String? next,
       String? moderationStatus});
-
-  Future<List<NotificationsModel>> getNotifications();
+  Future<List<NotificationsModel>> getNotifications(int? filter);
   Future<List<MySearchesModel>> getMySearches();
   Future<List<DirectoryModel>> getDirectories(
       String search, String regions, String categories);
@@ -66,10 +65,15 @@ class GetUserListDatasourceImpl extends GetUserListDatasource {
   }
 
   @override
-  Future<List<NotificationsModel>> getNotifications() async {
+  Future<List<NotificationsModel>> getNotifications(int? filter) async {
+    var query = <String, dynamic>{};
+    if (filter != null) {
+      query = {'is_read': filter};
+    }
     try {
       final response = await dio.get(
         '/users/notification/list/',
+        queryParameters: query,
         options: Options(headers: {
           'Authorization': 'Bearer ${StorageRepository.getString('token')}'
         }),

@@ -171,7 +171,9 @@ class _PhoneVerifiyPageState extends State<PhoneVerifiyPage> {
                                               var error = message;
                                               if (error
                                                   .toLowerCase()
-                                                  .contains('dioerror')) {
+                                                  .contains('dio')  || error
+                                              .toLowerCase()
+                                              .contains('type')) {
                                                 error = LocaleKeys.service_error
                                                     .tr();
                                               }

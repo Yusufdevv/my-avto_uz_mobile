@@ -166,20 +166,20 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                                   },
                                   onError: (text) {
                                     var error = text;
-                                    if (error
-                                        .toLowerCase()
-                                        .contains('dioerror')) {
+                                    if (error.toLowerCase().contains('dio') ||
+                                        error.toLowerCase().contains('type')) {
                                       error = LocaleKeys.service_error.tr();
                                     }
                                     context.read<ShowPopUpBloc>().add(ShowPopUp(
-                                        message: error, status: PopStatus.error));
+                                        message: error,
+                                        status: PopStatus.error));
                                   },
                                 ),
                               );
                         } else {
                           context.read<ShowPopUpBloc>().add(ShowPopUp(
                               message: LocaleKeys.add_name.tr(),
-                          status: PopStatus.error));
+                              status: PopStatus.error));
                         }
                       }
                     },

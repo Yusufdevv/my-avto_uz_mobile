@@ -55,16 +55,31 @@ class AboutCarPriceBottom extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Text(
-                '',
-                // LocaleKeys.we_compared_all_parameters.tr(),
-                style: Theme.of(context)
-                    .textTheme
-                    .headline2!
-                    .copyWith(color: dark, fontSize: 16),
-              ),
-            ),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: RichText(
+                    text: TextSpan(children: [
+                  TextSpan(
+                    text: LocaleKeys.we_compared_all_same_auto.tr(),
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline2!
+                        .copyWith(color: dark, fontSize: 16),
+                  ),
+                  TextSpan(
+                    text: 'auto.uz ',
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline2!
+                        .copyWith(color: orange, fontSize: 16),
+                  ),
+                  TextSpan(
+                    text: LocaleKeys.by_parameters.tr(),
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline2!
+                        .copyWith(color: dark, fontSize: 16),
+                  ),
+                ]))),
             Container(
               decoration: BoxDecoration(
                 color: const Color(0xffF6F6F6),

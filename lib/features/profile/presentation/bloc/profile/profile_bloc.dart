@@ -6,6 +6,7 @@ import 'package:auto/features/profile/domain/entities/profile_data_entity.dart';
 import 'package:auto/features/profile/domain/entities/terms_of_use_entity.dart';
 import 'package:auto/features/profile/domain/usecases/change_password_usecase.dart';
 import 'package:auto/features/profile/domain/usecases/edit_profile_usecase.dart';
+import 'package:auto/features/profile/domain/usecases/get_notification_usecase.dart';
 import 'package:auto/features/profile/domain/usecases/get_terms_of_use_usecase.dart';
 import 'package:auto/features/profile/domain/usecases/profile_usecase.dart';
 import 'package:bloc/bloc.dart';
@@ -23,16 +24,17 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   final EditProfileUseCase editProfileUseCase = EditProfileUseCase();
   final ChangePasswordUseCase changePasswordUseCase = ChangePasswordUseCase();
   final GetTermsOfUseUseCase getTermsOfUseUseCase = GetTermsOfUseUseCase();
-
+  final GetNotificationsUseCase getNotificationsUseCase =
+      GetNotificationsUseCase();
   ProfileBloc()
       : super(
           ProfileState(
-            changeStatus: FormzStatus.pure,
-            editStatus: FormzStatus.pure,
-            status: FormzStatus.pure,
-            profileEntity: ProfileDataEntity(usercountdata: Usercountdata()),
-            termsOfUseEntity: TermsOfUseEntity(),
-          ),
+              changeStatus: FormzStatus.pure,
+              editStatus: FormzStatus.pure,
+              status: FormzStatus.pure,
+              profileEntity: ProfileDataEntity(usercountdata: Usercountdata()),
+              termsOfUseEntity: TermsOfUseEntity(),
+              isNotificationAllRead: true),
         ) {
     on<GetProfileEvent>(_onGetProfile);
     on<ChangePasswordEvent>(_onChangePassword);
@@ -40,6 +42,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     on<GetTermsOfUseEvent>(_onGetTermsOfUse);
     on<LoginUser>(_onLoginUser);
     on<ChangeCountDataEvent>(_onChangeIsWish);
+    on<GetNoReadNotificationsEvent>(_onGetNoReadNotificationsEvent);
 
     on<ChangeNotificationAllRead>(
       // notifikatsiya iconini bosganda iconni o'zgartirish
@@ -72,23 +75,31 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
         changeStatus: FormzStatus.submissionSuccess));
   }
 
+  Future<void> _onGetNoReadNotificationsEvent(
+      GetNoReadNotificationsEvent event, Emitter<ProfileState> emit) async {
+    emit(state.copyWith(changeStatus: FormzStatus.submissionInProgress));
+    final result = await getNotificationsUseCase.call(event.filter);
+    if (result.isRight) {
+      emit(state.copyWith(
+          changeStatus: FormzStatus.submissionSuccess,
+          isNotificationAllRead: result.right.isEmpty));
+    } else {
+      emit(state.copyWith(changeStatus: FormzStatus.submissionFailure));
+    }
+  }
+
   Future<void> _onGetProfile(
       GetProfileEvent event, Emitter<ProfileState> emit) async {
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
-    print('=======status ${state.status}');
     final result = await profileUseCase.call(NoParams());
     if (result.isRight) {
-      print('=======succes ${result.isRight}');
       emit(state.copyWith(
         status: FormzStatus.submissionSuccess,
         profileEntity: result.right,
       ));
     } else {
-      print('=======fail ${result.isLeft}');
-
       emit(state.copyWith(status: FormzStatus.submissionFailure));
     }
-    print('=======fail ${result.isLeft}');
   }
 
   Future<void> _onGetTermsOfUse(
@@ -109,11 +120,10 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       EditProfileEvent event, Emitter<ProfileState> emit) async {
     emit(state.copyWith(editStatus: FormzStatus.submissionInProgress));
     final result = await editProfileUseCase.call(EditProfileParams(
-      region: event.region,
-      fullName: event.fullName,
-      image: event.image,
-      email: event.email
-    ));
+        region: event.region,
+        fullName: event.fullName,
+        image: event.image,
+        email: event.email));
     if (result.isRight) {
       emit(state.copyWith(editStatus: FormzStatus.submissionSuccess));
       event.onSuccess();

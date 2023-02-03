@@ -62,7 +62,7 @@ class _VerifySmsCodePageState extends State<VerifySmsCodePage> {
           context.read<ShowPopUpBloc>().add(HidePopUp());
           return true;
         },
-    child: CustomScreen(
+        child: CustomScreen(
           child: KeyboardDismisser(
             child: BlocProvider.value(
               value: verifyBloc,
@@ -71,7 +71,8 @@ class _VerifySmsCodePageState extends State<VerifySmsCodePage> {
                   if (state.status == FormzStatus.submissionCanceled) {
                     isError = true;
                     var error = state.toastMessage;
-                    if (error.toLowerCase().contains('dioerror')) {
+                    if (error.toLowerCase().contains('dio') ||
+                        error.toLowerCase().contains('type')) {
                       error = LocaleKeys.service_error.tr();
                     }
                     context.read<ShowPopUpBloc>().add(
@@ -148,8 +149,8 @@ class _VerifySmsCodePageState extends State<VerifySmsCodePage> {
                                     .solitudeToSolitude14,
                                 height: 24,
                                 width: 24,
-                                child:
-                                    SvgPicture.asset(AppIcons.edit, color: grey),
+                                child: SvgPicture.asset(AppIcons.edit,
+                                    color: grey),
                               )
                             ],
                           ),
@@ -244,8 +245,8 @@ class _VerifySmsCodePageState extends State<VerifySmsCodePage> {
                         Padding(
                           padding: const EdgeInsets.only(top: 36),
                           child: WButton(
-                            isLoading:
-                                state.status == FormzStatus.submissionInProgress,
+                            isLoading: state.status ==
+                                FormzStatus.submissionInProgress,
                             onTap: () {
                               verifyBloc.add(
                                 VerifyVerifyEvent(
@@ -285,5 +286,5 @@ class _VerifySmsCodePageState extends State<VerifySmsCodePage> {
             ),
           ),
         ),
-  );
+      );
 }

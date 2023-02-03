@@ -60,7 +60,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           context.read<ShowPopUpBloc>().add(HidePopUp());
           return true;
         },
-    child: CustomScreen(
+        child: CustomScreen(
           child: BlocProvider.value(
             value: registerBloc,
             child: BlocBuilder<RegisterBloc, RegisterState>(
@@ -112,7 +112,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   .textTheme
                                   .subtitle1!
                                   .copyWith(
-                                      fontSize: 14, fontWeight: FontWeight.w400),
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400),
                             ),
                           ],
                         ),
@@ -129,7 +130,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         textStyle: Theme.of(context)
                             .textTheme
                             .subtitle1!
-                            .copyWith(fontSize: 14, fontWeight: FontWeight.w400),
+                            .copyWith(
+                                fontSize: 14, fontWeight: FontWeight.w400),
                       ),
                       const SizedBox(height: 24),
                       const TermsOfUseAndRules(),
@@ -144,7 +146,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 onError: (text) {
                               if (text.isNotEmpty) {
                                 var error = text;
-                                if (error.toLowerCase().contains('dioerror')) {
+                                if (error.toLowerCase().contains('dio') ||
+                                    error.toLowerCase().contains('type')) {
                                   error = LocaleKeys.service_error.tr();
                                 }
                                 context.read<ShowPopUpBloc>().add(ShowPopUp(
@@ -154,7 +157,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               } else {
                                 context.read<ShowPopUpBloc>().add(ShowPopUp(
                                     message: LocaleKeys.error_try_again.tr(),
-                                   status: PopStatus.error,
+                                    status: PopStatus.error,
                                     dismissible: false));
                               }
                               isToastShowing = true;
@@ -192,5 +195,5 @@ class _RegisterScreenState extends State<RegisterScreen> {
             ),
           ),
         ),
-  );
+      );
 }

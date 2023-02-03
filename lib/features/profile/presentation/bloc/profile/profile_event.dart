@@ -8,12 +8,12 @@ class GetProfileEvent extends ProfileEvent {}
 
 class GetTermsOfUseEvent extends ProfileEvent {
   final String slug;
-  GetTermsOfUseEvent({ required this.slug});
+  GetTermsOfUseEvent({required this.slug});
 }
 
-class ChangeCountDataEvent extends ProfileEvent{
+class ChangeCountDataEvent extends ProfileEvent {
   final bool adding;
-  ChangeCountDataEvent({ required this.adding});
+  ChangeCountDataEvent({required this.adding});
 }
 
 class LoginUser extends ProfileEvent {
@@ -54,8 +54,12 @@ class EditProfileEvent extends ProfileEvent {
     this.region,
     this.image,
   });
-
-  
 }
-class ChangeNotificationAllRead extends ProfileEvent {
+
+class ChangeNotificationAllRead extends ProfileEvent {}
+
+// ignore: must_be_immutable
+class GetNoReadNotificationsEvent extends ProfileEvent {
+  int? filter;
+  GetNoReadNotificationsEvent({this.filter});
 }

@@ -30,10 +30,10 @@ class ProfileRepositoryImpl extends ProfileRepository {
 
   @override
   Future<Either<Failure, ProfileEntity>> editProfile(
-      {String? image, String? fullName,int? region,  String? email}) async {
+      {String? image, String? fullName, int? region, String? email}) async {
     try {
       final result = await dataSource.editProfile(
-          image: image, fullName: fullName,  region: region, email: email);
+          image: image, fullName: fullName, region: region, email: email);
       return Right(result);
     } on ServerException catch (error) {
       return Left(ServerFailure(
@@ -46,22 +46,24 @@ class ProfileRepositoryImpl extends ProfileRepository {
   }
 
   @override
-  Future<Either<ServerFailure, String>> changePassword(
+  Future<Either<Failure, String>> changePassword(
       {required String oldPassword, required String newPassword}) async {
     try {
       final result = await dataSource.changePassword(
           oldPassword: oldPassword, newPassword: newPassword);
       return Right(result);
     } on ServerException catch (error) {
-      print('======= ${error}');
-
       return Left(ServerFailure(
           statusCode: error.statusCode, errorMessage: error.errorMessage));
+    } on DioException {
+      return Left(DioFailure());
+    } on DioError {
+      return Left(DioFailure());
     }
   }
 
   @override
-  Future<Either<ServerFailure, String>> sendPhoneNumber(
+  Future<Either<Failure, String>> sendPhoneNumber(
       {required String phoneNumber}) async {
     try {
       final result = await dataSource.sendPhoneNumber(phoneNumber: phoneNumber);
@@ -69,11 +71,15 @@ class ProfileRepositoryImpl extends ProfileRepository {
     } on ServerException catch (error) {
       return Left(ServerFailure(
           statusCode: error.statusCode, errorMessage: error.errorMessage));
+    } on DioException {
+      return Left(DioFailure());
+    } on DioError {
+      return Left(DioFailure());
     }
   }
 
   @override
-  Future<Either<ServerFailure, String>> sendVerificationCode(
+  Future<Either<Failure, String>> sendVerificationCode(
       {required String phoneNumber,
       required String code,
       required String session}) async {
@@ -84,17 +90,25 @@ class ProfileRepositoryImpl extends ProfileRepository {
     } on ServerException catch (error) {
       return Left(ServerFailure(
           statusCode: error.statusCode, errorMessage: error.errorMessage));
+    } on DioException {
+      return Left(DioFailure());
+    } on DioError {
+      return Left(DioFailure());
     }
   }
 
   @override
-  Future<Either<ServerFailure,  TermsOfUseEntity >> getTermsOfUse(String slug) async {
+  Future<Either<Failure, TermsOfUseEntity>> getTermsOfUse(String slug) async {
     try {
-      final result = await dataSource.getTermsOfUseData( slug);
+      final result = await dataSource.getTermsOfUseData(slug);
       return Right(result);
     } on ServerException catch (error) {
       return Left(ServerFailure(
           statusCode: error.statusCode, errorMessage: error.errorMessage));
+    } on DioException {
+      return Left(DioFailure());
+    } on DioError {
+      return Left(DioFailure());
     }
   }
 }
