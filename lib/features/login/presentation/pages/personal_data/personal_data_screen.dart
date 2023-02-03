@@ -128,7 +128,7 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
                                 context.read<ShowPopUpBloc>().add(ShowPopUp(
                                     message:
                                         LocaleKeys.please_enter_valid_email.tr(),
-                                    isSucces: false,
+                                    status: PopStatus.error,
                                     dismissible: false));
                               } else {
                                 context.read<RegisterBloc>().add(
@@ -168,8 +168,7 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
                                                                     ShowPopUp(
                                                                         message:
                                                                             error,
-                                                                        isSucces:
-                                                                            false,
+                                                                            status: PopStatus.error,
                                                                         dismissible:
                                                                             false),
                                                                   );
@@ -231,8 +230,7 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
                                                                   ShowPopUp(
                                                                       message:
                                                                           error,
-                                                                      isSucces:
-                                                                          false,
+status: PopStatus.error,
                                                                       dismissible:
                                                                           false),
                                                                 );
@@ -260,7 +258,7 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
                           } else {
                             context.read<ShowPopUpBloc>().add(ShowPopUp(
                                 message: LocaleKeys.please_fullname.tr(),
-                                isSucces: false,
+                                status: PopStatus.error,
                                 dismissible: false));
                             isToastShowing = true;
                           }
