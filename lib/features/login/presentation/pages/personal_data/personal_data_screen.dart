@@ -59,11 +59,11 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
 
   @override
   Widget build(BuildContext context) => WillPopScope(
-    onWillPop: () async {
-      hidePopUp();
-      return true;
-    },
-    child: CustomScreen(
+        onWillPop: () async {
+          hidePopUp();
+          return true;
+        },
+        child: CustomScreen(
           child: KeyboardDismisser(
             child: BlocProvider.value(
               value: imageBloc,
@@ -126,8 +126,8 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
                             if (emailController.text.isNotEmpty) {
                               if (!MyFunctions.isEmail(emailController.text)) {
                                 context.read<ShowPopUpBloc>().add(ShowPopUp(
-                                    message:
-                                        LocaleKeys.please_enter_valid_email.tr(),
+                                    message: LocaleKeys.please_enter_valid_email
+                                        .tr(),
                                     status: PopStatus.error,
                                     dismissible: false));
                               } else {
@@ -140,15 +140,16 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
                                             context,
                                             fade(
                                               page: BlocProvider.value(
-                                                value:
-                                                    context.read<RegisterBloc>(),
+                                                value: context
+                                                    .read<RegisterBloc>(),
                                                 child: NewPasswordScreen(
                                                   onSubmit: (password,
                                                       confirmPassword) {
                                                     context
                                                         .read<RegisterBloc>()
                                                         .add(
-                                                          RegisterEvent.register(
+                                                          RegisterEvent
+                                                              .register(
                                                             validPassword:
                                                                 password,
                                                             onError: (text) {
@@ -168,7 +169,8 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
                                                                     ShowPopUp(
                                                                         message:
                                                                             error,
-                                                                            status: PopStatus.error,
+                                                                        status: PopStatus
+                                                                            .error,
                                                                         dismissible:
                                                                             false),
                                                                   );
@@ -204,15 +206,17 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
                                           context,
                                           fade(
                                             page: BlocProvider.value(
-                                              value: context.read<RegisterBloc>(),
+                                              value:
+                                                  context.read<RegisterBloc>(),
                                               child: NewPasswordScreen(
-                                                onSubmit:
-                                                    (password, confirmPassword) {
+                                                onSubmit: (password,
+                                                    confirmPassword) {
                                                   context
                                                       .read<RegisterBloc>()
                                                       .add(
                                                         RegisterEvent.register(
-                                                          validPassword: password,
+                                                          validPassword:
+                                                              password,
                                                           onError: (text) {
                                                             var error = text;
                                                             if (error
@@ -230,11 +234,13 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
                                                                   ShowPopUp(
                                                                       message:
                                                                           error,
-status: PopStatus.error,
+                                                                      status: PopStatus
+                                                                          .error,
                                                                       dismissible:
                                                                           false),
                                                                 );
-                                                            isToastShowing = true;
+                                                            isToastShowing =
+                                                                true;
                                                           },
                                                           onSuccess: () {
                                                             context
@@ -282,5 +288,5 @@ status: PopStatus.error,
             ),
           ),
         ),
-  );
+      );
 }
