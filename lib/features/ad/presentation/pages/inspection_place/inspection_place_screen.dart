@@ -1,6 +1,7 @@
 import 'package:auto/features/ad/domain/entities/district_entity.dart';
 
 import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.dart';
+import 'package:auto/features/ad/presentation/pages/map_screen/widgets/point_name_shimmer.dart';
 import 'package:auto/features/ad/presentation/widgets/base_widget.dart';
 import 'package:auto/features/ad/presentation/widgets/choose_district_sheet.dart';
 import 'package:auto/features/ad/presentation/widgets/loader_box.dart';

@@ -6,7 +6,7 @@ class MapState extends Equatable {
   final int radius;
   final double lat;
   final double long;
-  final String address;
+  final String? address;
 
   const MapState({
     required this.status,
@@ -14,7 +14,7 @@ class MapState extends Equatable {
     this.lat = 0,
     this.long = 0,
     this.radius = 0,
-    this.address = '',
+    this.address ,
   });
 
   MapState copyWith({
