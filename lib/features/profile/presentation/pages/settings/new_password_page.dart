@@ -14,11 +14,18 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
-class NewPasswordsPage extends StatelessWidget {
+class NewPasswordsPage extends StatefulWidget {
   NewPasswordsPage({Key? key}) : super(key: key);
 
+  @override
+  State<NewPasswordsPage> createState() => _NewPasswordsPageState();
+}
+
+class _NewPasswordsPageState extends State<NewPasswordsPage> {
   final TextEditingController _oldPasswordController = TextEditingController();
+
   final TextEditingController _newPassword1Controller = TextEditingController();
+
   final TextEditingController _newPassword2Controller = TextEditingController();
 
   @override
@@ -64,6 +71,7 @@ class NewPasswordsPage extends StatelessWidget {
                         ),
                         SizedBox(height: SizeConfig.v(8)),
                         PasswordTextField(
+                          onChanged: (value) => setState(() {}),
                           isOldPasword: true,
                           controller: _oldPasswordController,
                           hintText: LocaleKeys.write_old_password.tr(),
@@ -78,6 +86,7 @@ class NewPasswordsPage extends StatelessWidget {
                         ),
                         SizedBox(height: SizeConfig.v(8)),
                         PasswordTextField(
+                          onChanged: (value) => setState(() {}),
                           secondController: _newPassword2Controller,
                           controller: _newPassword1Controller,
                           hintText: LocaleKeys.enter_Passowrd.tr(),
@@ -92,6 +101,7 @@ class NewPasswordsPage extends StatelessWidget {
                         ),
                         SizedBox(height: SizeConfig.v(8)),
                         PasswordTextField(
+                          onChanged: (value) => setState(() {}),
                           secondController: _newPassword1Controller,
                           controller: _newPassword2Controller,
                           hintText: LocaleKeys.write_again.tr(),
@@ -109,9 +119,7 @@ class NewPasswordsPage extends StatelessWidget {
                         color: _oldPasswordController.text.length < 6 &&
                                 _newPassword1Controller.text.length < 6 &&
                                 _newPassword2Controller.text.length < 6
-                            ? Theme.of(context)
-                                .extension<ThemedColors>()!
-                                .veryLightGreyToEclipse
+                            ? disabledButton
                             : orange,
                         isLoading: state.changeStatus.isSubmissionInProgress,
                         onTap: () {

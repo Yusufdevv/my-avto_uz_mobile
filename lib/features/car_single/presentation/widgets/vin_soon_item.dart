@@ -56,6 +56,7 @@ class VinSoonItem extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      const SizedBox(height: 8),
                       Text(
                         LocaleKeys.VIN_check_report.tr(),
                         style: Theme.of(context)
@@ -72,14 +73,21 @@ class VinSoonItem extends StatelessWidget {
                         overflow: TextOverflow.ellipsis,
                         style: Theme.of(context).textTheme.headline2,
                       ),
+                      SizedBox(
+                        height: 20,
+                      )
                     ],
                   ),
                 ),
                 const SizedBox(
                   width: 12,
                 ),
-                Image.asset(
-                  AppImages.vin_soon,
+                SizedBox(
+                  height: 120,
+                  width: 120,
+                  child: Image.asset(
+                    AppImages.vin_soon,
+                  ),
                 )
               ],
             ),

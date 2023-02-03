@@ -91,9 +91,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
               if (state.status.isSubmissionInProgress ||
                   stateWish.goToAds == 1) {
                 return const Center(child: CupertinoActivityIndicator());
-              } else if (state.status.isSubmissionFailure) {
-                return const SizedBox();
-              } else if (state.status.isSubmissionSuccess) {
+              }
+              // else if (state.status.isSubmissionFailure) {
+              //   return const SizedBox();
+              // }
+              else if (state.status.isSubmissionSuccess ||
+                  state.status.isSubmissionFailure) {
                 profileData = state.profileEntity;
                 // ignore: prefer_final_locals
                 var usercountData = profileData.usercountdata;

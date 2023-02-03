@@ -186,15 +186,6 @@ class _CarSingleScreenState extends State<CarSingleScreen>
                                     page: DealerSinglePage(
                                         slug: state.singleEntity.user.slug)));
                               }
-                              // state.singleEntity.userType == 'owner'
-                              //     ? Navigator.of(context).push(fade(
-                              //         page: UserSinglePage(
-                              //         userId: state.singleEntity.user.id,
-                              //         announcementId: state.singleEntity.id,
-                              //       )))
-                              //     : Navigator.of(context).push(fade(
-                              //         page: DealerSinglePage(
-                              //             slug: state.singleEntity.user.slug)));
                             },
                             onCompare: () {},
                             isMine: state.singleEntity.isMine,

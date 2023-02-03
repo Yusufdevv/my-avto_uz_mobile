@@ -11,6 +11,7 @@ import 'package:auto/features/profile/domain/entities/directory_entity.dart';
 import 'package:auto/features/profile/domain/entities/my_searches_entity.dart';
 import 'package:auto/features/profile/domain/entities/notifications_entity.dart';
 import 'package:auto/features/profile/domain/repositories/get_user_list_repo.dart';
+import 'package:dio/dio.dart';
 
 class GetUserListRepoImpl extends GetUserListRepository {
   GetUserListDatasourceImpl dataSource;
@@ -32,14 +33,22 @@ class GetUserListRepoImpl extends GetUserListRepository {
 
   @override
   Future<Either<Failure, GenericPagination<AutoEntity>>>
-      getProfileFavoritesMyAds({required String url, String? next, String? moderationStatus}) async {
+      getProfileFavoritesMyAds(
+          {required String url, String? next, String? moderationStatus}) async {
     try {
       final result = await dataSource.getProfileFavoritesMyAds(
-          url: url, next: next, fromJson: AutoModel.fromJson, moderationStatus: moderationStatus);
+          url: url,
+          next: next,
+          fromJson: AutoModel.fromJson,
+          moderationStatus: moderationStatus);
       return result;
     } on ServerException catch (error) {
       return Left(ServerFailure(
           statusCode: error.statusCode, errorMessage: error.errorMessage));
+    } on DioException {
+      return Left(DioFailure());
+    } on DioError {
+      return Left(DioFailure());
     }
   }
 

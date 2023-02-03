@@ -64,55 +64,6 @@ class MyAdCarDescPart extends StatelessWidget {
                           ),
                         ))
                 ])),
-          // Row(
-          //   children: [
-          //     Expanded(
-          //       child: Text(
-          //         item.absoluteCarName,
-          //         maxLines: 1,
-          //         overflow: TextOverflow.ellipsis,
-          //         style: Theme.of(context)
-          //             .textTheme
-          //             .headline1!
-          //             .copyWith(fontWeight: FontWeight.w400, fontSize: 14),
-          //       ),
-          //     ),
-          //     Row(
-          //       children: [
-          //         Container(
-          //           margin: EdgeInsets.only(left: SizeConfig.h(4)),
-          //           padding: EdgeInsets.symmetric(
-          //               horizontal: SizeConfig.h(4), vertical: SizeConfig.v(3)),
-          //           decoration: BoxDecoration(
-          //             borderRadius: BorderRadius.circular(4),
-          //             color: purple.withOpacity(0.1),
-          //           ),
-          //           child: Text(
-          //             item.year.toString(),
-          //             style: Theme.of(context)
-          //                 .textTheme
-          //                 .headline3!
-          //                 .copyWith(fontSize: 10, fontWeight: FontWeight.w600),
-          //           ),
-          //         ),
-          //         SizedBox(width: SizeConfig.h(4)),
-          //         if (item.isNew)
-          //           CustomChip(
-          //             leading: SvgPicture.asset(AppIcons.checkCurly),
-          //             label: LocaleKeys.neww.tr(),
-          //             backgroundColor: green.withOpacity(0.1),
-          //             borderRadius: 4,
-          //             labelStyle: const TextStyle(
-          //                 fontSize: 10,
-          //                 fontWeight: FontWeight.w600,
-          //                 color: green),
-          //           )
-          //         else
-          //           const SizedBox(),
-          //       ],
-          //     ),
-          //   ],
-          // ),
           SizedBox(height: SizeConfig.v(4)),
           Row(
             children: [

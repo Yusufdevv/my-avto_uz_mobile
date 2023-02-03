@@ -30,6 +30,7 @@ class MainDataSource {
           ));
       return GenericPagination.fromJson(result.data,
           (json) => StoryModel.fromJson(json as Map<String, dynamic>));
+    // ignore: avoid_catches_without_on_clauses
     } catch (e) {
       throw const ServerException();
     }
@@ -44,6 +45,7 @@ class MainDataSource {
             },
           ));
       return result;
+    // ignore: avoid_catches_without_on_clauses
     } catch (e) {
       throw const ServerException();
     }

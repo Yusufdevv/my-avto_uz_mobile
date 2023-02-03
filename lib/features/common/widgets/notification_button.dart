@@ -33,7 +33,8 @@ class _NotificationButtonState extends State<NotificationButton> {
         }
       }, builder: (context, state) {
         user = state.profileEntity;
-        if (state.status.isSubmissionSuccess) {
+        if (state.status.isSubmissionSuccess ||
+            state.status.isSubmissionFailure) {
           return GestureDetector(
             behavior: HitTestBehavior.opaque,
             onTap: () {

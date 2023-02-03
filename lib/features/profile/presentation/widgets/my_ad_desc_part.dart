@@ -113,8 +113,6 @@ class MyAdDesc extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(
                           vertical: 10, horizontal: 11),
                       onTap: () {
-                        print(
-                            '=> => => =>     goint from my ad desc part   <= <= <= <=');
                         Navigator.push(
                             context,
                             fade(
@@ -184,8 +182,6 @@ class MyAdDesc extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(
                           vertical: 10, horizontal: 11),
                       onTap: () {
-                        print(
-                            '=> => => =>     goint from my desc 2    <= <= <= <=');
                         Navigator.push(
                           context,
                           fade(

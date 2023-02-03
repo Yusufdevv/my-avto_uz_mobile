@@ -6,10 +6,10 @@ import 'package:auto/features/profile/domain/entities/terms_of_use_entity.dart';
 
 abstract class ProfileRepository {
 
-  Future<Either<ServerFailure, ProfileDataEntity>> getProfile();
+  Future<Either<Failure, ProfileDataEntity>> getProfile();
 
-  Future<Either<ServerFailure, ProfileEntity>> editProfile(
-      {String? image, String? fullName, int? region});
+  Future<Either<Failure, ProfileEntity>> editProfile(
+      {String? image, String? fullName, int? region,  String? email});
 
   Future<Either<ServerFailure, String>> changePassword(
       {required String oldPassword, required String newPassword});

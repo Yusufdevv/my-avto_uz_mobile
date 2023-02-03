@@ -30,7 +30,7 @@ class InformationGrid extends StatelessWidget {
         physics: const NeverScrollableScrollPhysics(),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
-          childAspectRatio: 132 / 55,
+          childAspectRatio: 132 / 45,
           mainAxisSpacing: 8,
           crossAxisSpacing: 8,
         ),
@@ -41,7 +41,6 @@ class InformationGrid extends StatelessWidget {
               borderRadius: BorderRadius.circular(8), color: color[index]),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Text(
                 listData[index],

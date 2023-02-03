@@ -12,7 +12,7 @@ abstract class ProfileDataSource {
   Future<ProfileDataModel> getProfile();
 
   Future<ProfileModel> editProfile(
-      {String? image, String? fullName, int? region});
+      {String? image, String? fullName, int? region,  String? email});
 
   Future<String> changePassword(
       {required String oldPassword, required String newPassword});
@@ -56,11 +56,12 @@ class ProfileDataSourceImpl extends ProfileDataSource {
 
   @override
   Future<ProfileModel> editProfile(
-      {String? image, String? fullName, int? region}) async {
+      {String? image, String? fullName, int? region, String? email}) async {
     final data = FormData.fromMap({
       'full_name': '$fullName',
       'image': image != null ? await MultipartFile.fromFile(image) : null,
-      'region': region
+      'region': region,
+      'email' : email
     });
     try {
       final response = await dio.patch('/users/detail/edit/',

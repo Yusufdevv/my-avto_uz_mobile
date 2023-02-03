@@ -116,13 +116,7 @@ class _DirectoryFilterPageState extends State<DirectoryFilterPage> {
                         child: EditItemContainer(
                             isOtherPage: true,
                             icon: AppIcons.chevronRightBlack,
-                            region: context
-                                    .read<DirectoryBloc>()
-                                    .state
-                                    .regions
-                                    .isEmpty
-                                ? LocaleKeys.choose_region.tr()
-                                : context.read<DirectoryBloc>().state.regions),
+                            region:  context.read<DirectoryBloc>().state.regions),
                       ),
                       const SizedBox(height: 16),
                       //Категории

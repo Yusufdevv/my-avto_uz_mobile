@@ -154,7 +154,7 @@ class _DirectoryInfoPartState extends State<DirectoryInfoPart> {
                 padding:
                     const EdgeInsets.symmetric(vertical: 13, horizontal: 16),
                 decoration: BoxDecoration(
-                    color: green, borderRadius: BorderRadius.circular(8)),
+                    color: emerald, borderRadius: BorderRadius.circular(8)),
                 child: Text(LocaleKeys.show_contact.tr(),
                     style: Theme.of(context)
                         .textTheme
@@ -188,7 +188,7 @@ class _DirectoryInfoPartState extends State<DirectoryInfoPart> {
                     padding: const EdgeInsets.symmetric(
                         vertical: 13, horizontal: 16),
                     decoration: BoxDecoration(
-                        color: green, borderRadius: BorderRadius.circular(8)),
+                        color: emerald, borderRadius: BorderRadius.circular(8)),
                     child: Text(LocaleKeys.call.tr(),
                         style: Theme.of(context)
                             .textTheme

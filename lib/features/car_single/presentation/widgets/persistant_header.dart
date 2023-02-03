@@ -24,7 +24,7 @@ class DescriptionHeader extends SliverPersistentHeaderDelegate {
 
   @override
   Widget build(
-      BuildContext context, double shrinkOffset, bool overlapsContent) =>
+          BuildContext context, double shrinkOffset, bool overlapsContent) =>
       AnimatedContainer(
         duration: const Duration(milliseconds: 80),
         padding: const EdgeInsets.all(16),
@@ -75,6 +75,11 @@ class DescriptionHeader extends SliverPersistentHeaderDelegate {
               color: Theme.of(context).extension<ThemedColors>()!.whiteToSmoky,
             ),
             labelPadding: const EdgeInsets.symmetric(vertical: 6),
+            unselectedLabelColor: Colors.black,
+            unselectedLabelStyle: Theme.of(context)
+                .textTheme
+                .headline1
+                ?.copyWith(fontSize: 13, fontWeight: FontWeight.w500),
             labelStyle: Theme.of(context).textTheme.headline1!.copyWith(
                   fontSize: 13,
                   fontWeight: FontWeight.w600,
@@ -83,11 +88,11 @@ class DescriptionHeader extends SliverPersistentHeaderDelegate {
                 Theme.of(context).extension<ThemedColors>()!.darkToWhite,
             tabs: [
               Tab(
-                text: LocaleKeys.description.tr(),
+                child: Text(
+                  LocaleKeys.description.tr(),
+                ),
               ),
-              Tab(
-                text: LocaleKeys.characteristic.tr(),
-              ),
+              Tab(child: Text(LocaleKeys.characteristic.tr())),
             ],
           ),
         ),

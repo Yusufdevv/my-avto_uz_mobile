@@ -2,6 +2,8 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/assets/themes/theme_extensions/w_textfield_style.dart';
 import 'package:auto/core/utils/size_config.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -35,13 +37,13 @@ class EditItemContainer extends StatelessWidget {
           children: [
             Expanded(
               child: Text(
-                region,
+                region.isEmpty ? LocaleKeys.choose_region.tr() : region,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: Theme.of(context)
                     .textTheme
                     .subtitle1!
-                    .copyWith(color: isOtherPage ? grey : dark),
+                    .copyWith(color: region.isEmpty ? grey : dark),
               ),
             ),
             const SizedBox(width: 8),

@@ -18,6 +18,7 @@ class EditProfileUseCase extends UseCase<ProfileEntity, EditProfileParams> {
         image: params.image,
         fullName: params.fullName,
         region: params.region,
+        email: params.email
       );
 }
 
@@ -25,13 +26,15 @@ class EditProfileParams extends Equatable {
   final String? fullName;
   final int? region;
   final String? image;
+  final String? email;
 
   const EditProfileParams({
     this.image,
     this.region,
     this.fullName,
+    this.email,
   });
 
   @override
-  List<Object?> get props => [fullName, region, image];
+  List<Object?> get props => [fullName, region, image, email];
 }

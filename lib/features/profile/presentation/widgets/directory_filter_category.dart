@@ -8,6 +8,7 @@ import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 class DirectoryFilterCategory extends StatefulWidget {
   const DirectoryFilterCategory({
     required this.category,
@@ -93,7 +94,6 @@ class _DirectoryFilterCategoryState extends State<DirectoryFilterCategory> {
                           Expanded(
                             child: Text(item.name ?? '',
                                 maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
                                 style: Theme.of(context)
                                     .textTheme
                                     .headline6

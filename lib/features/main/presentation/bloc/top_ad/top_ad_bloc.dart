@@ -2,11 +2,9 @@ import 'package:auto/features/common/domain/entity/auto_entity.dart';
 import 'package:auto/features/common/models/ad_model.dart';
 import 'package:auto/features/main/domain/usecases/get_top_ads.dart';
 import 'package:auto/features/profile/domain/usecases/profil_favorites_usecase.dart';
-import 'package:auto/features/rent/domain/usecases/rent_usecase.dart';
 import 'package:bloc/bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:meta/meta.dart';
 
 part 'top_ad_bloc.freezed.dart';
 part 'top_ad_event.dart';
