@@ -57,7 +57,8 @@ class AboutCarPriceBottom extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Text(
-                LocaleKeys.we_compared_all_parameters.tr(),
+                '',
+                // LocaleKeys.we_compared_all_parameters.tr(),
                 style: Theme.of(context)
                     .textTheme
                     .headline2!

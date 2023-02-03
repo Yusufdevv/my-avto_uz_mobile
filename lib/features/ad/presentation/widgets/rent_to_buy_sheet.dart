@@ -185,8 +185,8 @@ class _RentToBuySheetState extends State<RentToBuySheet> {
                                   switch (state.step) {
                                     case 1:
                                       rentToBuyBloc.add(RentToBuyEvent(
-                                          title:
-                                              '${LocaleKeys.rent_period.tr()} (${LocaleKeys.for_month.tr()})',
+                                          title: '',
+                                              // '${LocaleKeys.rent_period.tr()} (${LocaleKeys.for_month.tr()})',
                                           step: state.step + 1,
                                           controller: TextEditingController(),
                                           prepayment: state.controller.text
