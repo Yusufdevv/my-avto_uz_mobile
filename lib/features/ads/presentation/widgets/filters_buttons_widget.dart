@@ -3,6 +3,8 @@ import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ads/presentation/pages/filter_parameters.dart';
 import 'package:auto/features/common/bloc/announcement_bloc/bloc/announcement_list_bloc.dart';
+import 'package:auto/features/common/bloc/get_car_model/get_car_model_bloc.dart';
+import 'package:auto/features/common/bloc/get_makes_bloc/get_makes_bloc_bloc.dart';
 import 'package:auto/features/common/bloc/regions/regions_bloc.dart';
 import 'package:auto/features/common/models/region.dart';
 import 'package:auto/features/common/widgets/w_filter_button.dart';
@@ -27,7 +29,7 @@ class FilterButtonsWidget extends StatelessWidget {
   Widget build(BuildContext context) =>
       BlocBuilder<AnnouncementListBloc, AnnouncementListState>(
         builder: (context, state) => Padding(
-          padding: const EdgeInsets.only(right: 16,left: 16,bottom: 12),
+          padding: const EdgeInsets.only(right: 16, left: 16, bottom: 12),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -86,11 +88,14 @@ class FilterButtonsWidget extends StatelessWidget {
                       list: context.read<RegionsBloc>().state.regions,
                     ),
                   ).then((value) {
-                    context.read<AnnouncementListBloc>().add(
-                        AnnouncementListEvent.getIsHistory(value!.isEmpty));
+                    if (context.read<GetMakesBloc>().state.name.isNotEmpty &&
+                        context.read<GetCarModelBloc>().state.name.isNotEmpty) {
+                      context.read<AnnouncementListBloc>().add(
+                          AnnouncementListEvent.getIsHistory(value!.isEmpty));
+                    }
                     context
                         .read<AnnouncementListBloc>()
-                        .add(AnnouncementListEvent.getRegions(value));
+                        .add(AnnouncementListEvent.getRegions(value!));
                     context
                         .read<AnnouncementListBloc>()
                         .add(AnnouncementListEvent.getAnnouncementList());

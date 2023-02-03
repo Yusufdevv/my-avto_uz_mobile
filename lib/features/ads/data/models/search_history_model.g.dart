@@ -8,11 +8,11 @@ part of 'search_history_model.dart';
 
 SearchHistoryModel _$SearchHistoryModelFromJson(Map<String, dynamic> json) =>
     SearchHistoryModel(
-      id: json['id'] as int? ?? 0,
       make: json['make'] as int? ?? 0,
-      model: (json['model'] as List<dynamic>?)?.map((e) => e as int).toList() ??
-          const [],
-      query: json['query'] as String? ?? '',
+      model:
+          (json['model'] as List<dynamic>?)?.map((e) => e as int?).toList() ??
+              const [0],
+      query: json['query'] as String? ?? 'nima',
       queryData: json['query_data'] == null
           ? const QueryDataEntity()
           : const QueryDataConverter()
@@ -21,7 +21,6 @@ SearchHistoryModel _$SearchHistoryModelFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$SearchHistoryModelToJson(SearchHistoryModel instance) =>
     <String, dynamic>{
-      'id': instance.id,
       'make': instance.make,
       'model': instance.model,
       'query': instance.query,

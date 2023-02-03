@@ -7,12 +7,25 @@ part 'search_history_model.g.dart';
 @JsonSerializable(fieldRename: FieldRename.snake)
 class SearchHistoryModel extends SearchHistoryEntity {
   const SearchHistoryModel({
-    required super.id,
-    required super.make,
-    required super.model,
-    required super.query,
-    required super.queryData,
+    super.make,
+    super.model,
+    super.query,
+    super.queryData,
   });
+
+  @override
+  SearchHistoryModel copyWith({
+    int? make,
+    List<int?>? model,
+    String? query,
+    QueryDataEntity? queryData,
+  }) =>
+      SearchHistoryModel(
+        make: make,
+        model: model,
+        query: query??'Query',
+        queryData: queryData,
+      );
 
   factory SearchHistoryModel.fromJson(Map<String, dynamic> json) =>
       _$SearchHistoryModelFromJson(json);

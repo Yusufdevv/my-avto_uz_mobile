@@ -390,7 +390,8 @@ class AdRepositoryImpl extends AdRepository {
   }
 
   @override
-  Future<Either<Failure, Uint8List>> getMapScreenShot({required Map<String, String> params}) async{
+  Future<Either<Failure, Uint8List>> getMapScreenShot(
+      {required Map<String, String> params}) async {
     try {
       final result = await remoteDataSource.getMapScreenShot(params);
       return Right(result);
@@ -403,8 +404,10 @@ class AdRepositoryImpl extends AdRepository {
           errorMessage: e.errorMessage, statusCode: e.statusCode));
     }
   }
-    @override
-  Future<Either<Failure, GenericPagination<FotoInstructionEntity>>> getFotoInstructions() async{
+
+  @override
+  Future<Either<Failure, GenericPagination<FotoInstructionEntity>>>
+      getFotoInstructions() async {
     try {
       final result = await remoteDataSource.getFotoInstructions();
       return Right(result);
@@ -419,8 +422,18 @@ class AdRepositoryImpl extends AdRepository {
   }
 
   @override
-  Future<void> filterHistory({required SearchHistoryModel model}) async{
-    final result = await remoteDataSource.filterHistory(model: model);
+  Future<Either<Failure, void>> filterHistory(
+      {required SearchHistoryModel model}) async {
+    try {
+      final result = await remoteDataSource.filterHistory(model: model);
+      return Right(result);
+    } on DioException {
+      return Left(DioFailure());
+    } on ParsingException catch (e) {
+      return Left(ParsingFailure(errorMessage: e.errorMessage));
+    } on ServerException catch (e) {
+      return Left(ServerFailure(
+          errorMessage: e.errorMessage, statusCode: e.statusCode));
+    }
   }
-  
 }

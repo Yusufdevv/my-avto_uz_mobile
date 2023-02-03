@@ -7,6 +7,7 @@ class AnnouncementListState with _$AnnouncementListState {
     @Default(0) int selected,
     @Default('') String? next,
     @Default('') String search,
+    @Default(SearchHistoryModel()) SearchHistoryModel searchModel,
     @Default(0) int count,
     @Default([]) List<Region> regions,
     @Default(false) bool isFilter,
