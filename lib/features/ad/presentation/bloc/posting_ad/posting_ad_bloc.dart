@@ -124,6 +124,8 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
   }
   FutureOr<void> _clearSearchController(
       PostingAdSerchControllerClearEvent event, Emitter<PostingAdState> emit) {
+    print('=> => => =>      search controller clear triggered    <= <= <= <=');
+    add(PostingAdMakesEvent());
     emit(state.copyWith(searchController: TextEditingController()));
   }
 
@@ -467,7 +469,7 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
   FutureOr<void> _models(
       PostingAdModelEvent event, Emitter<PostingAdState> emit) async {
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
-    final result = await modelsUseCase.call(state.makeId!);
+    final result = await modelsUseCase.call(state.makeId!, name: event.name);
     if (result.isRight) {
       final models = result.right.results;
       emit(
@@ -500,11 +502,6 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
 
   FutureOr<void> _topMakes(
       PostingAdTopMakesEvent event, Emitter<PostingAdState> emit) async {
-    if (state.topMakes.isNotEmpty) {
-      emit(state.copyWith(status: FormzStatus.submissionSuccess));
-      return;
-    }
-
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
 
     final result = await topMakesUseCase.call(event.name);
@@ -525,10 +522,6 @@ class PostingAdBloc extends Bloc<PostingAdEvent, PostingAdState> {
   FutureOr<void> _makes(
       PostingAdMakesEvent event, Emitter<PostingAdState> emit) async {
     emit(state.copyWith(getMakesStatus: FormzStatus.submissionInProgress));
-    if (state.makes.isNotEmpty) {
-      emit(state.copyWith(getMakesStatus: FormzStatus.submissionSuccess));
-      return;
-    }
 
     final result = await makeUseCase.call(null);
     if (result.isRight) {

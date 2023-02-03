@@ -497,6 +497,9 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
               : {},
         ),
       );
+      print(
+          '=> => => =>    IN DATA SOURCE: ${response.data}         <= <= <= <=');
+      await Future.delayed(Duration(milliseconds: 5000));
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
         return;
       }

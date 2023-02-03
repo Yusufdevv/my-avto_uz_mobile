@@ -6,6 +6,7 @@ import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.da
 import 'package:auto/features/ad/presentation/pages/choose_car_brand/widget/car_items.dart';
 import 'package:auto/features/ad/presentation/pages/choose_car_brand/widget/persistant_header.dart';
 import 'package:auto/features/ad/presentation/pages/choose_car_brand/widget/persistent_header_search.dart';
+import 'package:auto/features/ad/presentation/widgets/serch_suffix_cancel_button.dart';
 import 'package:auto/features/common/widgets/car_brand_item.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/common/widgets/w_textfield.dart';
@@ -229,51 +230,37 @@ class _ChooseCarBrandState extends State<ChooseCarBrand> {
                               _bgTweenColor.evaluate(animeState.scaleAnimation),
                           padding: const EdgeInsets.only(top: 16, bottom: 12),
                           child: WTextField(
-                            focusColor: _fillTweenColor
-                                .evaluate(animeState.scaleAnimation),
-                            fillColor: _fillTweenColor
-                                .evaluate(animeState.scaleAnimation),
-                            filled: true,
-                            margin: const EdgeInsets.only(left: 16, right: 16),
-                            onChanged: (value) => widget.postingAddBloc
-                                .add(PostingAdSearchMakesEvent(name: value)),
-                            borderRadius: 12,
-                            borderColor: purple,
-                            hasSearch: true,
-                            hintText: LocaleKeys.search.tr(),
-                            height: 40,
-                            controller: state.searchController,
-                            hasClearButton: true,
-                            textStyle: Theme.of(context)
-                                .textTheme
-                                .headline1!
-                                .copyWith(
-                                    fontWeight: FontWeight.w400, fontSize: 16),
-                            suffix: state.searchController.text.isEmpty
-                                ? null
-                                : WScaleAnimation(
-                                    onTap: () {
+                          
+                              focusColor: _fillTweenColor
+                                  .evaluate(animeState.scaleAnimation),
+                              fillColor: _fillTweenColor
+                                  .evaluate(animeState.scaleAnimation),
+                              filled: true,
+                              margin:
+                                  const EdgeInsets.only(left: 16, right: 16),
+                              onChanged: (value) => widget.postingAddBloc
+                                  .add(PostingAdSearchMakesEvent(name: value)),
+                              borderRadius: 12,
+                              borderColor: purple,
+                              hasSearch: true,
+                              hintText: LocaleKeys.search.tr(),
+                              height: 40,
+                              controller: state.searchController,
+                              hasClearButton: true,
+                              textStyle: Theme.of(context)
+                                  .textTheme
+                                  .headline1!
+                                  .copyWith(
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 16),
+                                      onClear:  () {
                                       context.read<PostingAdBloc>().add(
                                           PostingAdSerchControllerClearEvent());
                                     },
-                                    child: Container(
-                                      height: 24,
-                                      width: 24,
-                                      decoration: BoxDecoration(
-                                        color: Theme.of(context)
-                                            .extension<ThemedColors>()!
-                                            .whiteSmoke78ToWhiteSmoke12,
-                                        borderRadius: BorderRadius.circular(12),
-                                      ),
-                                      child: SvgPicture.asset(
-                                        AppIcons.cancel,
-                                        color: makeSearchCancel,
-                                      ),
-                                    ),
-                                  ),
-                          ),
+                             ),
                         ),
                       ),
+                      
                       pinned: true,
                     ),
                   ),

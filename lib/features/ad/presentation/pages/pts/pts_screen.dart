@@ -76,7 +76,7 @@ class _PtsScreenState extends State<PtsScreen> {
                                     typeDocument:
                                         LicenceType.values[index].name)),
                             id: index.toString(),
-                            isSelected: state.licence_type ==
+                            isSelected: state.licenceType ==
                                 LicenceType.values[index].name,
                             text: documentList[index],
                           ),
@@ -84,7 +84,7 @@ class _PtsScreenState extends State<PtsScreen> {
                       ),
                       const SizedBox(height: 41),
                       Text(
-                        LocaleKeys.what_kind_owner,
+                        LocaleKeys.what_kind_owner.tr(),
                         style: Theme.of(context)
                             .textTheme
                             .headline6!

@@ -1,10 +1,11 @@
 part of 'posting_ad_bloc.dart';
 
 abstract class PostingAdEvent {}
-class PostingAdSerchControllerClearEvent extends PostingAdEvent{}
-class PostingAdClearStateEvent extends PostingAdEvent{
-  
-}
+
+class PostingAdSerchControllerClearEvent extends PostingAdEvent {}
+
+class PostingAdClearStateEvent extends PostingAdEvent {}
+
 class PostingAdModificationsEvent extends PostingAdEvent {
   final String? name;
   PostingAdModificationsEvent({this.name});
@@ -120,6 +121,7 @@ class PostingAdChooseEvent extends PostingAdEvent {
   final int? gearboxId;
   final YearsEntity? yearEntity;
   final Uint8List? bodyBytes;
+  final String? milageImage;
   final String? letter;
   final String? colorName;
   final String? typeDocument;
@@ -202,6 +204,7 @@ class PostingAdChooseEvent extends PostingAdEvent {
     this.isContactsVerified,
     this.rentToBuy,
     this.isWithoutMileage,
+    this.milageImage,
   });
 }
 

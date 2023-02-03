@@ -42,7 +42,7 @@ class _ModificationScreenState extends State<ModificationScreen> {
                   title:
                       'Volume ${state.modifications[index].volume} Power (${state.modifications[index].power})',
                 ),
-                itemCount: 2,
+                itemCount: state.modifications.length,
                 shrinkWrap: true,
               );
             },

@@ -42,6 +42,7 @@ class PostingAdState extends Equatable {
   final Uint8List? mapPointBytes;
   final num minimumPrice;
   final int? makeLetterIndex;
+  final String? milageImage;
   final String? letter;
   final String? ownerName;
   final String? ownerEmail;
@@ -49,7 +50,7 @@ class PostingAdState extends Equatable {
   final String? city;
   final String? ownerStep;
   final String? purchasedDate;
-  final String? licence_type;
+  final String? licenceType;
   final String? colorName;
   final String? description;
   final String? price;
@@ -105,7 +106,7 @@ class PostingAdState extends Equatable {
     this.damagedParts = const <DamagedParts, DamageType>{},
     this.letter,
     this.colorName,
-    this.licence_type,
+    this.licenceType,
     this.ownerStep,
     this.purchasedDate,
     this.description,
@@ -138,6 +139,7 @@ class PostingAdState extends Equatable {
     this.userModel,
     this.locationUrl,
     this.mapPointBytes,
+    this.milageImage,
   });
 
   String? get districtTitle {
@@ -188,6 +190,7 @@ class PostingAdState extends Equatable {
     UserModel? userModel,
     int? eventMakeScrrollIndex,
     num? minimumPrice,
+    String? milageImage,
     String? eventLetter,
     String? colorName,
     String? typeDocument,
@@ -221,6 +224,7 @@ class PostingAdState extends Equatable {
     // print('====   ACTUALLY IN STATE:  ${this.districts}  ====');
     // print('==== INCOMING DISTRICT TO COPYWITH:  ${districts}  ====');
     final newState = PostingAdState(
+      milageImage: milageImage ?? this.milageImage,
       modificationId: modificationId ?? this.modificationId,
       modifications: modifications ?? this.modifications,
       getMakesStatus: getMakesStatus ?? this.getMakesStatus,
@@ -266,7 +270,7 @@ class PostingAdState extends Equatable {
       makeId: makeId ?? this.makeId,
       letter: eventLetter,
       colorName: colorName ?? this.colorName,
-      licence_type: typeDocument ?? this.licence_type,
+      licenceType: typeDocument ?? this.licenceType,
       ownerStep: ownerStep ?? this.ownerStep,
       purchasedDate: purchasedDate ?? this.purchasedDate,
       notRegisteredInUzbekistan:
@@ -298,6 +302,7 @@ class PostingAdState extends Equatable {
 
   @override
   List<Object?> get props => [
+        milageImage,
         modificationId,
         modifications,
         getMakesStatus,
@@ -346,7 +351,7 @@ class PostingAdState extends Equatable {
         status,
         generationId,
         colorName,
-        licence_type,
+        licenceType,
         ownerStep,
         purchasedDate,
         bodyTypeId,
