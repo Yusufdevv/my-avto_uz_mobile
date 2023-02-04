@@ -1,3 +1,4 @@
+import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/features/ad/domain/entities/district_entity.dart';
 
 import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.dart';
@@ -136,6 +137,7 @@ class _InspectionPlaceScreenState extends State<InspectionPlaceScreen> {
                             image: MemoryImage(state.mapPointBytes!),
                             fit: BoxFit.cover,
                           )),
+                          child:Image.asset(AppIcons.currentLoc),
                     ),
                     const SizedBox(height: 17),
                   },

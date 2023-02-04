@@ -164,7 +164,6 @@ class MyFunctions {
 
   static String? extractAddress(YandexSearchModel result) {
     String? address;
-
     try {
       return '${result.features[6].properties.name}, ${result.features[4].properties.name}, ${result.features[0].properties.name}';
     } catch (e) {
