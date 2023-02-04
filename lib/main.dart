@@ -94,6 +94,7 @@ class _AppState extends State<App> {
   @override
   Widget build(BuildContext context) => MultiBlocProvider(
         providers: [
+          BlocProvider(create: (c) => bloc),
           BlocProvider(
             create: (c) =>
                 AuthenticationBloc(AuthRepository())..add(CheckUser()),
