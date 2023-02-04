@@ -177,7 +177,7 @@ class _AppState extends State<App> {
             localizationsDelegates: context.localizationDelegates,
             locale: context.locale,
             debugShowCheckedModeBanner: false,
-            title: 'Auto.Uz',
+            title: 'Auto.uz',
             theme: LightTheme.theme(),
             darkTheme: DarkTheme.theme(),
             themeMode: ThemeMode.light,

@@ -1,7 +1,9 @@
 import 'package:auto/features/profile/presentation/widgets/widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+
+// import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 class ChatPage extends StatefulWidget {
   final String phone;
@@ -18,8 +20,27 @@ class ChatPage extends StatefulWidget {
 }
 
 class _ChatPageState extends State<ChatPage> {
+  late WebViewController controller;
+
+  @override
+  void initState() {
+    super.initState();
+    controller = WebViewController()
+      ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..setBackgroundColor(const Color(0x00000000))
+      ..setNavigationDelegate(
+        NavigationDelegate(
+          onProgress: (int progress) {
+            // Update loading bar.
+          },
+        ),
+      )
+      ..loadHtmlString(htmlCode('phone', ''))
+      ..reload()..clearLocalStorage();
+  }
+
   String htmlCode(String phone, String userName) {
-    final html = r'''
+    const html = r'''
 <!doctype html>
 <html lang="en">
 <head>
@@ -53,35 +74,23 @@ class _ChatPageState extends State<ChatPage> {
             phone_number: "+998998729201",
         });
         setTimeout(async () => {
-            await window.$chatwoot.toggle("open"); // To open widget
+            await window.$chatwoot?.toggle("open"); // To open widget
         }, 100)
     </script>
 </head>
-
 <body>
 </body>
-
 </html>
 ''';
     return html;
   }
 
-  late InAppWebViewController _controller;
-
   @override
   Widget build(BuildContext context) => KeyboardDismisser(
         child: Scaffold(
-          floatingActionButton: FloatingActionButton(onPressed: () {
-            _controller.loadData(data: htmlCode(widget.phone, widget.userName));
-          }),
           appBar: ChatAppBar(phone: widget.phone),
-          body: InAppWebView(
-            initialData: InAppWebViewInitialData(data: ''),
-            onWebViewCreated: (controller) {
-              _controller = controller;
-              _controller.loadData(
-                  data: htmlCode(widget.phone, widget.userName));
-            },
+          body: WebViewWidget(
+            controller: controller,
           ),
         ),
       );
