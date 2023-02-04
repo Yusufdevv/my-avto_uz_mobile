@@ -1000,7 +1000,7 @@ mixin _$GetCarModelState {
   dynamic get count => throw _privateConstructorUsedError;
   dynamic get selectedId => throw _privateConstructorUsedError;
   dynamic get confirmId => throw _privateConstructorUsedError;
-  dynamic get name => throw _privateConstructorUsedError;
+  String get name => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $GetCarModelStateCopyWith<GetCarModelState> get copyWith =>
@@ -1022,7 +1022,7 @@ abstract class $GetCarModelStateCopyWith<$Res> {
       dynamic count,
       dynamic selectedId,
       dynamic confirmId,
-      dynamic name});
+      String name});
 }
 
 /// @nodoc
@@ -1046,7 +1046,7 @@ class _$GetCarModelStateCopyWithImpl<$Res, $Val extends GetCarModelState>
     Object? count = freezed,
     Object? selectedId = freezed,
     Object? confirmId = freezed,
-    Object? name = freezed,
+    Object? name = null,
   }) {
     return _then(_value.copyWith(
       status: null == status
@@ -1081,10 +1081,10 @@ class _$GetCarModelStateCopyWithImpl<$Res, $Val extends GetCarModelState>
           ? _value.confirmId
           : confirmId // ignore: cast_nullable_to_non_nullable
               as dynamic,
-      name: freezed == name
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
-              as dynamic,
+              as String,
     ) as $Val);
   }
 }
@@ -1106,7 +1106,7 @@ abstract class _$$_GetCarModelStateCopyWith<$Res>
       dynamic count,
       dynamic selectedId,
       dynamic confirmId,
-      dynamic name});
+      String name});
 }
 
 /// @nodoc
@@ -1128,7 +1128,7 @@ class __$$_GetCarModelStateCopyWithImpl<$Res>
     Object? count = freezed,
     Object? selectedId = freezed,
     Object? confirmId = freezed,
-    Object? name = freezed,
+    Object? name = null,
   }) {
     return _then(_$_GetCarModelState(
       status: null == status
@@ -1148,7 +1148,10 @@ class __$$_GetCarModelStateCopyWithImpl<$Res>
       count: freezed == count ? _value.count! : count,
       selectedId: freezed == selectedId ? _value.selectedId! : selectedId,
       confirmId: freezed == confirmId ? _value.confirmId! : confirmId,
-      name: freezed == name ? _value.name! : name,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -1193,7 +1196,7 @@ class _$_GetCarModelState implements _GetCarModelState {
   final dynamic confirmId;
   @override
   @JsonKey()
-  final dynamic name;
+  final String name;
 
   @override
   String toString() {
@@ -1214,7 +1217,7 @@ class _$_GetCarModelState implements _GetCarModelState {
             const DeepCollectionEquality()
                 .equals(other.selectedId, selectedId) &&
             const DeepCollectionEquality().equals(other.confirmId, confirmId) &&
-            const DeepCollectionEquality().equals(other.name, name));
+            (identical(other.name, name) || other.name == name));
   }
 
   @override
@@ -1228,7 +1231,7 @@ class _$_GetCarModelState implements _GetCarModelState {
       const DeepCollectionEquality().hash(count),
       const DeepCollectionEquality().hash(selectedId),
       const DeepCollectionEquality().hash(confirmId),
-      const DeepCollectionEquality().hash(name));
+      name);
 
   @JsonKey(ignore: true)
   @override
@@ -1247,7 +1250,7 @@ abstract class _GetCarModelState implements GetCarModelState {
       final dynamic count,
       final dynamic selectedId,
       final dynamic confirmId,
-      final dynamic name}) = _$_GetCarModelState;
+      final String name}) = _$_GetCarModelState;
 
   @override
   FormzStatus get status;
@@ -1266,7 +1269,7 @@ abstract class _GetCarModelState implements GetCarModelState {
   @override
   dynamic get confirmId;
   @override
-  dynamic get name;
+  String get name;
   @override
   @JsonKey(ignore: true)
   _$$_GetCarModelStateCopyWith<_$_GetCarModelState> get copyWith =>

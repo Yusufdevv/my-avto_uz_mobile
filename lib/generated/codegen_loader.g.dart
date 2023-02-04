@@ -6,11 +6,11 @@ import 'dart:ui';
 
 import 'package:easy_localization/easy_localization.dart' show AssetLoader;
 
-class CodegenLoader extends AssetLoader {
+class CodegenLoader extends AssetLoader{
   const CodegenLoader();
 
   @override
-  Future<Map<String, dynamic>> load(String fullPath, Locale locale) {
+  Future<Map<String, dynamic>> load(String fullPath, Locale locale ) {
     return Future.value(mapLocales[locale.toString()]);
   }
 
@@ -66,6 +66,7 @@ class CodegenLoader extends AssetLoader {
   "sellers_comment": "Комментарии продавца",
   "gears_number": "Количество передач",
   "engine_volume": "Объем двигателя",
+  "search_history_saved": "Параметры данного поиска успешно сохранены",
   "Min_trunk_volume": "Мин-ый объем багажника",
   "Drive_unit": "Привод",
   "engine_type": "Тип двигателя",
@@ -499,7 +500,8 @@ class CodegenLoader extends AssetLoader {
   "rastamojen_v_uzbekistan": "Растаможен в Узбекистане",
   "car_model": "Модель автомобиля",
   "photographation": "Фотографии",
-  "start_free_week": "Разместить бесплатно на 7 дней...."
+  "start_free_week": "Разместить бесплатно на 7 дней....",
+  "get_back": "Назад"
 };
 static const Map<String,dynamic> uz = {
   "price_of_similar_cars": "Shu kabi avtomobillarning o'rtacha narxi",
@@ -515,6 +517,7 @@ static const Map<String,dynamic> uz = {
   "service_connected_successfully": "Xizmat muvaffaqiyatli ulandi",
   "back_to_ad": "Reklamaga qaytish",
   "refresh_the_page": "Sahifani yangilang",
+  "search_history_saved": "Bu qidiruv muvaffaqiyatli saqlandi",
   "payment_pending": "Toʻlov kutilmoqda",
   "end_of_term": "Muddat oxiri",
   "engine_capacity": "Dvigatel quvvati",
@@ -987,7 +990,8 @@ static const Map<String,dynamic> uz = {
   "rastamojen_v_uzbekistan": "Растаможен в Узбекистане",
   "car_model": "Модель автомобиля",
   "photographation": "Фотографии",
-  "start_free_week": "Разместить бесплатно на 7 дней...."
+  "start_free_week": "Разместить бесплатно на 7 дней....",
+  "get_back": "Назад"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ru": ru, "uz": uz};
 }

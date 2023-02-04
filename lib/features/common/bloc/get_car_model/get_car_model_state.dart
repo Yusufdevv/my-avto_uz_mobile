@@ -11,6 +11,6 @@ class GetCarModelState with _$GetCarModelState {
     @Default(0) count,
     @Default(0) selectedId,
     @Default(0) confirmId,
-    @Default('') name,
+    @Default('') String name,
   }) = _GetCarModelState;
 }

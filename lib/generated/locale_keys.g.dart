@@ -52,6 +52,7 @@ abstract class  LocaleKeys {
   static const sellers_comment = 'sellers_comment';
   static const gears_number = 'gears_number';
   static const engine_volume = 'engine_volume';
+  static const search_history_saved = 'search_history_saved';
   static const Min_trunk_volume = 'Min_trunk_volume';
   static const Drive_unit = 'Drive_unit';
   static const engine_type = 'engine_type';
