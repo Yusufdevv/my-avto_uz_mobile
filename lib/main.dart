@@ -63,8 +63,29 @@ void main() async {
         path: 'lib/assets/strings',
         fallbackLocale: const Locale('uz'),
         assetLoader: const CodegenLoader(),
-        child: const App()),
+        child: const AppProvider()),
   );
+}
+
+class AppProvider extends StatefulWidget {
+  const AppProvider({Key? key}) : super(key: key);
+
+  @override
+  State<AppProvider> createState() => _AppProviderState();
+}
+
+class _AppProviderState extends State<AppProvider> {
+  late InternetBloc bloc;
+
+  @override
+  void initState() {
+    bloc = InternetBloc();
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) =>
+      BlocProvider.value(value: bloc, child: const App());
 }
 
 class App extends StatefulWidget {
@@ -237,12 +258,6 @@ class _AppState extends State<App> {
           ),
         ),
       );
-
-  @override
-  void dispose() {
-    streamSubscription?.cancel();
-    super.dispose();
-  }
 }
 
 class MyBehavior extends ScrollBehavior {
