@@ -1,8 +1,10 @@
 import 'dart:typed_data';
 
+import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/core/singletons/storage.dart';
+import 'package:auto/features/ad/presentation/pages/map_screen/widgets/map_point_name.dart';
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
 import 'package:auto/features/common/widgets/custom_screen.dart';
 import 'package:auto/features/dealers/data/models/map_model.dart';
@@ -14,6 +16,7 @@ import 'package:auto/features/dealers/presentation/widgets/map_controller_button
 import 'package:auto/utils/my_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:formz/formz.dart';
 import 'package:yandex_mapkit/yandex_mapkit.dart';
 
 class MapScreen extends StatefulWidget {
@@ -188,9 +191,11 @@ class _MapScreenState extends State<MapScreen>
                     },
                   ),
                 ),
+
+                /// CONTROLLER BUTTONS
                 Positioned(
                   right: 0,
-                  bottom: 110,
+                  bottom: 128,
                   child: Padding(
                     padding: const EdgeInsets.all(16),
                     child: MapControllerButtons(
@@ -223,8 +228,10 @@ class _MapScreenState extends State<MapScreen>
                               zoomLevel = 15;
                             },
                             onError: (message) {
-                              context.read<ShowPopUpBloc>().add(
-                                  ShowPopUp(message: message,  status: PopStatus.error,));
+                              context.read<ShowPopUpBloc>().add(ShowPopUp(
+                                    message: message,
+                                    status: PopStatus.error,
+                                  ));
                             },
                           ),
                         );
@@ -253,6 +260,36 @@ class _MapScreenState extends State<MapScreen>
                     ),
                   ),
                 ),
+                Positioned(
+                  bottom: 46,
+                  child: Container(
+                    alignment: Alignment.center,
+                    width: MediaQuery.of(context).size.width - 32,
+                    margin: const EdgeInsets.symmetric(horizontal: 16),
+                    padding: const EdgeInsets.all(12),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                      color: white,
+                      border: Border.all(
+                        color: borderCircular,
+                        width: 1,
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                          offset: const Offset(0, 2),
+                          blurRadius: 10,
+                          spreadRadius: 0,
+                          color: black.withOpacity(.1),
+                        ),
+                      ],
+                    ),
+                    child: MapPointName(
+                      isWaiting: mapOrganizationState.status ==
+                          FormzStatus.submissionInProgress,
+                      name: mapOrganizationState.address,
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
@@ -270,43 +307,47 @@ class _MapScreenState extends State<MapScreen>
     required bool isDirectoryPage,
   }) async {
     final placeMarks = <PlacemarkMapObject>[];
-    for (final point in points) {
+    for (final mapModel in points) {
       Uint8List? uint8list;
-      if (point.gallery.isNotEmpty) {
+      if (mapModel.gallery.isNotEmpty) {
         uint8list = await MyFunctions.createImageFromWidget(CustomPoint(
           scale: 1.5,
-          url: point.gallery.first,
+          url: mapModel.gallery.first,
         ));
       }
-      placeMarks.add(PlacemarkMapObject(
-        opacity: 1,
-        mapId: MapObjectId(point.latitude.toString()),
-        point: Point(latitude: point.latitude, longitude: point.longitude),
-        onTap: (object, point) {
-          _mapController.moveCamera(
-            CameraUpdate.newCameraPosition(
-              CameraPosition(
-                target:
-                    Point(latitude: point.latitude, longitude: point.longitude),
-                zoom: 15,
+      placeMarks.add(
+        PlacemarkMapObject(
+          opacity: 1,
+          mapId: MapObjectId(point.latitude.toString()),
+          point: Point(latitude: point.latitude, longitude: point.longitude),
+          onTap: (object, point) {
+            mapOrganizationBloc.add(MapOrganizationEvent.getAddressOfDealler(
+                lat: point.latitude, long: point.longitude));
+            _mapController.moveCamera(
+              CameraUpdate.newCameraPosition(
+                CameraPosition(
+                  target: Point(
+                      latitude: point.latitude, longitude: point.longitude),
+                  zoom: 15,
+                ),
               ),
+            );
+          },
+          icon: PlacemarkIcon.single(
+            PlacemarkIconStyle(
+              scale: isDirectoryPage ? 1 : 0.6,
+              image: uint8list != null
+                  ? BitmapDescriptor.fromBytes(uint8list)
+                  : BitmapDescriptor.fromAssetImage(
+                      isDirectoryPage
+                          ? AppIcons.directoryPoint
+                          : AppIcons.dealersLocIcon,
+                    ),
+              rotationType: RotationType.noRotation,
             ),
-          );
-        },
-        icon: PlacemarkIcon.single(
-          PlacemarkIconStyle(
-            scale: isDirectoryPage ? 1 : 0.6,
-            image: uint8list != null
-                ? BitmapDescriptor.fromBytes(uint8list)
-                : BitmapDescriptor.fromAssetImage(
-                    isDirectoryPage
-                        ? AppIcons.directoryPoint
-                        : AppIcons.dealersLocIcon,
-                  ),
-            rotationType: RotationType.noRotation,
           ),
         ),
-      ));
+      );
     }
 
     final myPoint = await MyFunctions.getMyPoint(point, context);
