@@ -9,6 +9,7 @@ import 'package:auto/features/common/bloc/announcement_bloc/bloc/announcement_li
 import 'package:auto/features/common/bloc/get_car_model/get_car_model_bloc.dart';
 import 'package:auto/features/common/bloc/get_makes_bloc/get_makes_bloc_bloc.dart';
 import 'package:auto/features/common/bloc/regions/regions_bloc.dart';
+import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
 import 'package:auto/features/common/widgets/custom_screen.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/search/presentation/search_screen.dart';
@@ -183,13 +184,22 @@ class _AdsScreenState extends State<AdsScreen>
                 : WScaleAnimation(
                     onTap: () {
                       if (context.read<GetMakesBloc>().state.name.isNotEmpty &&
-                          context.read<GetCarModelBloc>().state.name.isNotEmpty) {
+                          context
+                              .read<GetCarModelBloc>()
+                              .state
+                              .name
+                              .isNotEmpty) {
                         context
                             .read<AnnouncementListBloc>()
                             .add(AnnouncementListEvent.getIsHistory(true));
                         context
                             .read<AnnouncementListBloc>()
                             .add(AnnouncementListEvent.getHistoryApi());
+                        context.read<ShowPopUpBloc>().add(ShowPopUp(
+                              message: LocaleKeys.search_history_saved.tr(),
+                              status: PopStatus.success,
+                              dismissible: false,
+                            ));
                       }
                       setState(() {});
                     },

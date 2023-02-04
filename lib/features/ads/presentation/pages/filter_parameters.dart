@@ -257,8 +257,15 @@ class _FilterParametersState extends State<FilterParameters> {
                       )));
                       widget.bloc!
                           .add(AnnouncementListEvent.getAnnouncementList());
-                      widget.bloc!.add(
-                          AnnouncementListEvent.getIsHistory(!state.ischeck));
+                      if (context.read<GetMakesBloc>().state.name.isNotEmpty &&
+                          context
+                              .read<GetCarModelBloc>()
+                              .state
+                              .name
+                              .isNotEmpty) {
+                        widget.bloc!.add(
+                            AnnouncementListEvent.getIsHistory(!state.ischeck));
+                      }
                       widget.bloc!.add(
                         AnnouncementListEvent.getInfo(
                           bodyType: state.bodyType,
