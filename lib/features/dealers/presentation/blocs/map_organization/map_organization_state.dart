@@ -3,6 +3,7 @@ part of 'map_organization_bloc.dart';
 @Freezed()
 class MapOrganizationState with _$MapOrganizationState {
   factory MapOrganizationState({
+    @Default(null) String? address,
     @Default([]) List<MapModel> dealers,
     @Default([]) List<MapModel> directoriesPoints,
     @Default(0) int radius,

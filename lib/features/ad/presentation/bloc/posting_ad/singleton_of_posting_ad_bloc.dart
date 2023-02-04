@@ -373,10 +373,15 @@ class PASingleton {
       case 18:
         final milage =
             int.tryParse(state.mileage?.replaceAll(' ', '') ?? '0') ?? 0;
+        print('milage $milage');
+        print('is without milage ${state.isWithoutMileage}');
+        print('milage image ${state.milageImage}');
 
-        return !(milage > 0 ||
+        final v = !(milage > 0 ||
             (state.isWithoutMileage ?? false) ||
             state.milageImage != null);
+        print('=> => => =>     $v    <= <= <= <=');
+        return v;
       // PreviewScreen
       case 19:
         return false;

@@ -25,22 +25,32 @@ class MapBloc extends Bloc<MapEvent, MapState> {
 
   FutureOr<void> _changeLongLat(
       MapChangeLatLongEvent event, Emitter<MapState> emit) async {
-    var address = '';
-    final res = await useCase.call({'type': 'geo', 'long': '${event.long}', 'lat' : '${event.lat}'});
-    if(res.isRight) {
-      try {
-        address =
-        '${res.right.features[6].properties.name}, ${res.right.features[4].properties.name}, ${res
-            .right.features[0].properties.name}';
-      } catch (e) {
-        print(e);
-      }
+    emit(state.copyWith(status: FormzStatus.submissionInProgress));
+    String? address;
+    final res = await useCase
+        .call({'type': 'geo', 'long': '${event.long}', 'lat': '${event.lat}'});
+    if (res.isRight) {
+      address = MyFunctions.extractAddress(res.right);
     }
     if (event.radius == null) {
-      emit(state.copyWith(lat: event.lat, long: event.long, address: address));
+      emit(
+        state.copyWith(
+          lat: event.lat,
+          long: event.long,
+          address: address,
+          status: FormzStatus.submissionSuccess,
+        ),
+      );
     } else {
-      emit(state.copyWith(
-          lat: event.lat, long: event.long, radius: event.radius!, address: address));
+      emit(
+        state.copyWith(
+          lat: event.lat,
+          long: event.long,
+          radius: event.radius!,
+          address: address,
+          status: FormzStatus.submissionSuccess,
+        ),
+      );
     }
   }
 
