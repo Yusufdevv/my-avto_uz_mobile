@@ -6,4 +6,6 @@ class StorageKeys {
   static const FIRST_TIME_WATCH_REEL = 'is_first_time_watch_reel';
   static const CHUCK = 'chuck';
   static const LANGUAGE = 'language';
+  static const TOKEN = 'token';
+  static const ON_BOARDING = 'onboarding';
 }

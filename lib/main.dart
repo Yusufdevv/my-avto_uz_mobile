@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/app_constants.dart';
+import 'package:auto/assets/constants/storage_keys.dart';
 import 'package:auto/assets/themes/dark.dart';
 import 'package:auto/assets/themes/light.dart';
 import 'package:auto/core/singletons/service_locator.dart';
@@ -62,29 +63,8 @@ void main() async {
         path: 'lib/assets/strings',
         fallbackLocale: const Locale('uz'),
         assetLoader: const CodegenLoader(),
-        child: const AppProvider()),
+        child: const App()),
   );
-}
-
-class AppProvider extends StatefulWidget {
-  const AppProvider({Key? key}) : super(key: key);
-
-  @override
-  State<AppProvider> createState() => _AppProviderState();
-}
-
-class _AppProviderState extends State<AppProvider> {
-  late InternetBloc bloc;
-
-  @override
-  void initState() {
-    bloc = InternetBloc();
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) =>
-      BlocProvider.value(value: bloc, child: const App());
 }
 
 class App extends StatefulWidget {
@@ -106,7 +86,7 @@ class _AppState extends State<App> {
       context.read<InternetBloc>().add(GlobalCheck(
           isConnected: status == ConnectivityResult.mobile ||
               status == ConnectivityResult.wifi));
-      log('====net=status ${status == ConnectivityResult.mobile || status == ConnectivityResult.wifi}');
+      log('app log: status ${status == ConnectivityResult.mobile || status == ConnectivityResult.wifi}');
     });
     super.initState();
   }
@@ -190,7 +170,8 @@ class _AppState extends State<App> {
                   listener: (context, state) {
                     switch (state.status) {
                       case AuthenticationStatus.unauthenticated:
-                        if (StorageRepository.getString('token', defValue: '')
+                        if (StorageRepository.getString(StorageKeys.TOKEN,
+                                defValue: '')
                             .isNotEmpty) {
                           AppConstants.navigatorKey.currentState
                               ?.pushAndRemoveUntil(
@@ -198,7 +179,7 @@ class _AppState extends State<App> {
                                   (route) => false);
                           break;
                         }
-                        if (!StorageRepository.getBool('onboarding',
+                        if (!StorageRepository.getBool(StorageKeys.ON_BOARDING,
                             defValue: false)) {
                           AppConstants.navigatorKey.currentState
                               ?.pushAndRemoveUntil(
@@ -222,7 +203,8 @@ class _AppState extends State<App> {
                         break;
                       case AuthenticationStatus.authenticated:
                         context.read<ShowPopUpBloc>().add(HidePopUp());
-                        if (StorageRepository.getString('token').isEmpty) {
+                        if (StorageRepository.getString(StorageKeys.TOKEN)
+                            .isEmpty) {
                           AppConstants.navigatorKey.currentState
                               ?.pushAndRemoveUntil(
                                   fade(
@@ -255,12 +237,17 @@ class _AppState extends State<App> {
           ),
         ),
       );
+
+  @override
+  void dispose() {
+    streamSubscription?.cancel();
+    super.dispose();
+  }
 }
 
 class MyBehavior extends ScrollBehavior {
   @override
   Widget buildOverscrollIndicator(
-      BuildContext context, Widget child, ScrollableDetails details) {
-    return child;
-  }
+          BuildContext context, Widget child, ScrollableDetails details) =>
+      child;
 }
