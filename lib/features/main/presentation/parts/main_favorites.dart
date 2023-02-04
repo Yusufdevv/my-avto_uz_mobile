@@ -7,16 +7,19 @@ import 'package:auto/features/main/presentation/widgets/main_empty_favourite.dar
 import 'package:auto/features/pagination/presentation/paginator.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 
 // ignore: must_be_immutable
 class MainFavorites extends StatelessWidget {
-  MainFavorites({required this.parentContext,Key? key}) : super(key: key);
+  MainFavorites({required this.parentContext, Key? key}) : super(key: key);
   final BuildContext parentContext;
 
   late List<AutoEntity> favorites;
+  final GlobalKey<AnimatedListState> listkey = GlobalKey();
+
   @override
   Widget build(BuildContext context) => BlocConsumer<TopAdBloc, TopAdState>(
         listener: (context, state) {
@@ -44,55 +47,64 @@ class MainFavorites extends StatelessWidget {
                   builder: (context, stateWish) => (state
                               .favoritesStatus.isSubmissionSuccess &&
                           state.favorites.isEmpty)
-                      ?   MainEmptyFavourite(parentContext: parentContext,)
+                      ? MainEmptyFavourite(parentContext: parentContext)
                       : SizedBox(
                           height: 298,
-                          child: Paginator(
+                          child: AnimatedList(
+                            key: listkey,
                             scrollDirection: Axis.horizontal,
                             padding: const EdgeInsets.only(
                                 top: 8, bottom: 16, right: 16, left: 16),
-                            itemBuilder: (context, index) => Builder(
-                                builder: (context) => AdsItem(
-                                      id: favorites[index].id,
-                                      name: favorites[index].make.name,
-                                      price: favorites[index].price.toString(),
-                                      location: favorites[index].region.title,
-                                      description: favorites[index].description,
-                                      image: state.favorites[index].gallery
-                                              .isNotEmpty
+                            itemBuilder: (context, index, animation) {
+                              if (index == state.favorites.length) {
+                                if (state.nextF != null) {
+                                  context
+                                      .read<TopAdBloc>()
+                                      .add(TopAdEvent.getMoreFavorite());
+                                  return const Center(
+                                      child: CupertinoActivityIndicator());
+                                } else {
+                                  return const SizedBox();
+                                }
+                              }
+                              return Padding(
+                                padding: const EdgeInsets.only(right: 24),
+                                child: AdsItem(
+                                  id: favorites[index].id,
+                                  name: favorites[index].make.name,
+                                  price: favorites[index].price.toString(),
+                                  location: favorites[index].region.title,
+                                  description: favorites[index].description,
+                                  image:
+                                      state.favorites[index].gallery.isNotEmpty
                                           ? favorites[index].gallery.first
                                           : '',
-                                      currency: favorites[index].currency,
-                                      isLiked: favorites[index].isWishlisted,
-                                      onTapLike: () {
-                                        context
-                                            .read<WishlistAddBloc>()
-                                            .add(WishlistAddEvent.clearState());
-                                        context.read<WishlistAddBloc>().add(
-                                            WishlistAddEvent.removeWishlist(
-                                                favorites[index].id, index));
-                                      },
-                                    )),
-                            itemCount: state.favorites.length,
-                            separatorBuilder: (context, index) =>
-                                const SizedBox(width: 24),
-                            errorWidget: const SizedBox(),
-                            fetchMoreFunction: () {
-                              context
-                                  .read<TopAdBloc>()
-                                  .add(TopAdEvent.getMoreFavorite());
+                                  currency: favorites[index].currency,
+                                  isLiked: favorites[index].isWishlisted,
+                                  onTapLike: () {
+                                    
+                                    context
+                                        .read<WishlistAddBloc>()
+                                        .add(WishlistAddEvent.clearState());
+                                    context.read<WishlistAddBloc>().add(
+                                        WishlistAddEvent.removeWishlist(
+                                            favorites[index].id, index));
+                                  },
+                                ),
+                              );
                             },
-                            hasMoreToFetch: state.nextF != null,
-                            paginatorStatus: state.favoritesStatus,
-                            loadingWidget: ListView.separated(
-                              scrollDirection: Axis.horizontal,
-                              padding: const EdgeInsets.only(
-                                  top: 8, bottom: 16, right: 16, left: 16),
-                              itemBuilder: (context, index) => AdsShimmer(),
-                              separatorBuilder: (context, index) =>
-                                  const SizedBox(width: 24),
-                              itemCount: 2,
-                            ),
+                            initialItemCount: state.favorites.length + 1,
+                            // hasMoreToFetch: state.nextF != null,
+                            // paginatorStatus: state.favoritesStatus,
+                            // loadingWidget: ListView.separated(
+                            //   scrollDirection: Axis.horizontal,
+                            //   padding: const EdgeInsets.only(
+                            //       top: 8, bottom: 16, right: 16, left: 16),
+                            //   itemBuilder: (context, index) => AdsShimmer(),
+                            //   separatorBuilder: (context, index) =>
+                            //       const SizedBox(width: 24),
+                            //   itemCount: 2,
+                            // ),
                           ),
                         ),
                 ),
