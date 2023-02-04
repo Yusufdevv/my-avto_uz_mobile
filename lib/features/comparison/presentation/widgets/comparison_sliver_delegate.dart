@@ -11,7 +11,7 @@ import 'package:auto/features/search/presentation/part/bottom_sheet_for_calling.
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class SliverWidget extends SliverPersistentHeaderDelegate {
+class ComparisonSliverDelegete extends SliverPersistentHeaderDelegate {
   final ScrollController scrollController;
   final int numberOfAddedCars;
   final bool boolean;
@@ -20,7 +20,7 @@ class SliverWidget extends SliverPersistentHeaderDelegate {
   final ValueChanged<bool> setSticky;
   final ComparisonBloc comparisonBloc;
   final GlobalKey<AnimatedListState> listkey;
-  SliverWidget({
+  ComparisonSliverDelegete({
     required this.onAddCar,
     required this.numberOfAddedCars,
     required this.boolean,

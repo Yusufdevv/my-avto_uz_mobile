@@ -15,7 +15,7 @@ import 'package:formz/formz.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 class NewPasswordsPage extends StatefulWidget {
-  NewPasswordsPage({Key? key}) : super(key: key);
+ const NewPasswordsPage({Key? key}) : super(key: key);
 
   @override
   State<NewPasswordsPage> createState() => _NewPasswordsPageState();
@@ -116,11 +116,11 @@ class _NewPasswordsPageState extends State<NewPasswordsPage> {
                               MediaQuery.of(context).viewInsets.bottom),
                       child: WButton(
                         border: Border.all(width: 1, color: white),
-                        color: _oldPasswordController.text.length < 6 &&
-                                _newPassword1Controller.text.length < 6 &&
-                                _newPassword2Controller.text.length < 6
-                            ? disabledButton
-                            : orange,
+                        color: _oldPasswordController.text.length > 5 &&
+                                _newPassword1Controller.text.length > 5 &&
+                                _newPassword2Controller.text.length > 5
+                            ? orange
+                            : disabledButton,
                         isLoading: state.changeStatus.isSubmissionInProgress,
                         onTap: () {
                           if (_oldPasswordController.text.length < 6 ||
