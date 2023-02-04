@@ -10,7 +10,7 @@ import 'package:auto/features/comparison/presentation/pages/choose_car_brand.dar
 import 'package:auto/features/comparison/presentation/pages/choose_model.dart';
 import 'package:auto/features/comparison/presentation/widgets/engin_info_widget.dart';
 import 'package:auto/features/comparison/presentation/widgets/main_parameters_widget.dart';
-import 'package:auto/features/comparison/presentation/widgets/sliver_delegate.dart';
+import 'package:auto/features/comparison/presentation/widgets/comparison_sliver_delegate.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -135,7 +135,7 @@ class _ComparisonState extends State<Comparison> {
                 top: false,
                 sliver: SliverPersistentHeader(
                   pinned: true,
-                  delegate: SliverWidget(
+                  delegate: ComparisonSliverDelegete(
                     listkey: listkey,
                     numberOfAddedCars: state.cars.length,
                     boolean: showDifferences,

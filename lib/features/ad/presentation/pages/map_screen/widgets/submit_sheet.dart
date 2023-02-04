@@ -51,8 +51,13 @@ class PostingAdSubmitBox extends StatelessWidget {
             const SizedBox(height: 24),
             WButton(
               isDisabled: address?.isEmpty ?? true,
-              onTap: (address?.isNotEmpty ?? false) ? onTab : () {},
+              onTap: (address?.isNotEmpty ?? false)
+                  ? onTab
+                  : () {
+                      Navigator.of(context).pop();
+                    },
               color: orange,
+              disabledColor: disabledButton,
               text: LocaleKeys.confirm.tr(),
             ),
           ],
