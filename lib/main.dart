@@ -83,7 +83,7 @@ class _AppState extends State<App> {
   void initState() {
     bloc = InternetBloc();
     streamSubscription = Connectivity().onConnectivityChanged.listen((status) {
-      context.read<InternetBloc>().add(GlobalCheck(
+      bloc.add(GlobalCheck(
           isConnected: status == ConnectivityResult.mobile ||
               status == ConnectivityResult.wifi));
       log('app log: status ${status == ConnectivityResult.mobile || status == ConnectivityResult.wifi}');

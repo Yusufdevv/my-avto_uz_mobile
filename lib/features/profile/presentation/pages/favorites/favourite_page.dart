@@ -46,130 +46,114 @@ class _FavouritePageState extends State<FavouritePage> {
           title: LocaleKeys.favorites.tr(),
           centerTitle: false,
         ),
-        body: BlocListener<WishlistAddBloc, WishlistAddState>(
-          listener: (context, stateWish) {
-            if (stateWish.addStatus.isSubmissionSuccess ||
-                stateWish.removeStatus.isSubmissionSuccess) {
-              // bloc.add(GetUserFavoritesEvent());
+        body: BlocBuilder<UserWishListsBloc, UserWishListsState>(
+          builder: (context, state) {
+            if (state.favoritesStatus.isSubmissionInProgress) {
+              return const Center(child: CupertinoActivityIndicator());
             }
+            if (state.favoritesStatus.isSubmissionSuccess) {
+              return state.favorites.isNotEmpty
+                  ? AnimatedList(
+                      physics: const BouncingScrollPhysics(),
+                      key: listkey,
+                      initialItemCount: state.favorites.length,
+                      itemBuilder: (context, index, animation) {
+                        final item = state.favorites[index];
+                        final dealer = item.dealer != null
+                            ? DealerFavEntity.fromJson(item.dealer)
+                            : DealerFavEntity();
+                        return Padding(
+                            padding: EdgeInsets.only(
+                                top: index == 0 ? 16 : 0, bottom: 12),
+                            child: FavoriteItem(
+                              bloc: bloc,
+                                animation: animation,
+                                gallery: item.gallery,
+                                carModelName: item.model.name,
+                                carYear: item.year,
+                                contactPhone: item.contactPhone,
+                                description: item.description,
+                                districtTitle: item.district.title,
+                                isNew: item.isNew,
+                                isWishlisted: item.isWishlisted,
+                                price: item.price,
+                                currency: item.currency,
+                                publishedAt: item.publishedAt,
+                                userFullName: item.userType == 'owner'
+                                    ? item.user.fullName
+                                    : dealer.name ?? '',
+                                userImage: item.userType == 'owner'
+                                    ? item.user.image
+                                    : dealer.avatar ?? '',
+                                userType: item.userType,
+                                hasComparison: item.isComparison,
+                                callFrom: item.userType == 'owner'
+                                    ? item.contactAvailableFrom
+                                    : dealer.contactFrom ?? '',
+                                callTo: item.userType == 'owner'
+                                    ? item.contactAvailableTo
+                                    : dealer.contactTo ?? '',
+                                discount: item.discount,
+                                id: item.id,
+                                index: index,
+                                onTap: () {
+                                  context.read<WishlistAddBloc>().add(
+                                      WishlistAddEvent.removeWishlist(
+                                          item.id, index));
+                                  context.read<UserWishListsBloc>().add(
+                                      ChangeIsWishEvenet(
+                                          index: index, id: item.id));
+                                  listkey.currentState?.removeItem(
+                                      index,
+                                      (context, animation) => FavoriteItem(
+                                        bloc: bloc,
+                                            animation: animation,
+                                            gallery: item.gallery,
+                                            carModelName: item.model.name,
+                                            carYear: item.year,
+                                            contactPhone: item.contactPhone,
+                                            description: item.description,
+                                            districtTitle:
+                                                item.district.title,
+                                            isNew: item.isNew,
+                                            isWishlisted: item.isWishlisted,
+                                            price: item.price,
+                                            currency: item.currency,
+                                            publishedAt: item.publishedAt,
+                                            userFullName:
+                                                item.userType == 'owner'
+                                                    ? item.user.fullName
+                                                    : dealer.name ?? '',
+                                            userImage:
+                                                item.userType == 'owner'
+                                                    ? item.user.image
+                                                    : dealer.avatar ?? '',
+                                            userType: item.userType,
+                                            hasComparison:
+                                                item.isComparison,
+                                            callFrom: item.userType ==
+                                                    'owner'
+                                                ? item.contactAvailableFrom
+                                                : dealer.contactFrom ?? '',
+                                            callTo: item.userType == 'owner'
+                                                ? item.contactAvailableTo
+                                                : dealer.contactTo ?? '',
+                                            discount: item.discount,
+                                            id: item.id,
+                                            index: index,
+                                          ),
+                                      duration: const Duration(
+                                          milliseconds: 600));
+                                }));
+                      })
+                  : Center(
+                      child: EmptyItemBody(
+                          subtitle: LocaleKeys.you_dont_have_ads.tr(),
+                          image: AppIcons.carIcon),
+                    );
+            }
+            return Center(child: Text(LocaleKeys.error.tr()));
           },
-          child: BlocListener<ComparisonAddBloc, ComparisonAddState>(
-            listener: (context, stateComp) {
-              if (stateComp.addStatus.isSubmissionSuccess ||
-                  stateComp.removeStatus.isSubmissionSuccess) {
-                // bloc.add(GetUserFavoritesEvent());
-              }
-            },
-            child: BlocBuilder<UserWishListsBloc, UserWishListsState>(
-              builder: (context, state) {
-                if (state.favoritesStatus.isSubmissionInProgress) {
-                  return const Center(child: CupertinoActivityIndicator());
-                }
-                if (state.favoritesStatus.isSubmissionSuccess) {
-                  return state.favorites.isNotEmpty
-                      ? AnimatedList(
-                          physics: const BouncingScrollPhysics(),
-                          key: listkey,
-                          initialItemCount: state.favorites.length,
-                          itemBuilder: (context, index, animation) {
-                            final item = state.favorites[index];
-                            final dealer = item.dealer != null
-                                ? DealerFavEntity.fromJson(item.dealer)
-                                : DealerFavEntity();
-                            return Padding(
-                                padding: EdgeInsets.only(
-                                    top: index == 0 ? 16 : 0, bottom: 12),
-                                child: FavoriteItem(
-                                  bloc: bloc,
-                                    animation: animation,
-                                    gallery: item.gallery,
-                                    carModelName: item.model.name,
-                                    carYear: item.year,
-                                    contactPhone: item.contactPhone,
-                                    description: item.description,
-                                    districtTitle: item.district.title,
-                                    isNew: item.isNew,
-                                    isWishlisted: item.isWishlisted,
-                                    price: item.price,
-                                    currency: item.currency,
-                                    publishedAt: item.publishedAt,
-                                    userFullName: item.userType == 'owner'
-                                        ? item.user.fullName
-                                        : dealer.name ?? '',
-                                    userImage: item.userType == 'owner'
-                                        ? item.user.image
-                                        : dealer.avatar ?? '',
-                                    userType: item.userType,
-                                    hasComparison: item.isComparison,
-                                    callFrom: item.userType == 'owner'
-                                        ? item.contactAvailableFrom
-                                        : dealer.contactFrom ?? '',
-                                    callTo: item.userType == 'owner'
-                                        ? item.contactAvailableTo
-                                        : dealer.contactTo ?? '',
-                                    discount: item.discount,
-                                    id: item.id,
-                                    index: index,
-                                    onTap: () {
-                                      context.read<WishlistAddBloc>().add(
-                                          WishlistAddEvent.removeWishlist(
-                                              item.id, index));
-                                      context.read<UserWishListsBloc>().add(
-                                          ChangeIsWishEvenet(
-                                              index: index, id: item.id));
-                                      listkey.currentState?.removeItem(
-                                          index,
-                                          (context, animation) => FavoriteItem(
-                                            bloc: bloc,
-                                                animation: animation,
-                                                gallery: item.gallery,
-                                                carModelName: item.model.name,
-                                                carYear: item.year,
-                                                contactPhone: item.contactPhone,
-                                                description: item.description,
-                                                districtTitle:
-                                                    item.district.title,
-                                                isNew: item.isNew,
-                                                isWishlisted: item.isWishlisted,
-                                                price: item.price,
-                                                currency: item.currency,
-                                                publishedAt: item.publishedAt,
-                                                userFullName:
-                                                    item.userType == 'owner'
-                                                        ? item.user.fullName
-                                                        : dealer.name ?? '',
-                                                userImage:
-                                                    item.userType == 'owner'
-                                                        ? item.user.image
-                                                        : dealer.avatar ?? '',
-                                                userType: item.userType,
-                                                hasComparison:
-                                                    item.isComparison,
-                                                callFrom: item.userType ==
-                                                        'owner'
-                                                    ? item.contactAvailableFrom
-                                                    : dealer.contactFrom ?? '',
-                                                callTo: item.userType == 'owner'
-                                                    ? item.contactAvailableTo
-                                                    : dealer.contactTo ?? '',
-                                                discount: item.discount,
-                                                id: item.id,
-                                                index: index,
-                                              ),
-                                          duration: const Duration(
-                                              milliseconds: 600));
-                                    }));
-                          })
-                      : Center(
-                          child: EmptyItemBody(
-                              subtitle: LocaleKeys.you_dont_have_ads.tr(),
-                              image: AppIcons.carIcon),
-                        );
-                }
-                return Center(child: Text(LocaleKeys.error.tr()));
-              },
-            ),
-          ),
         ),
       ));
 }

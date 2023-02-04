@@ -66,7 +66,18 @@ class TopAdBloc extends Bloc<TopAdEvent, TopAdState> {
     });
 
     on<_ChangeIsWish>(_onChangeIsWish);
+    on<_DeleteFavoriteItem>(_onDeleteFavoriteItem);
   }
+
+  void _onDeleteFavoriteItem(
+      _DeleteFavoriteItem event, Emitter<TopAdState> emit) {
+    final list = <AutoEntity>[...state.favorites];
+    final item = list.firstWhere((element) => element.id == event.id);
+    // ignore: cascade_invocations
+    list.remove(item);
+    emit(state.copyWith(favorites: list));
+  }
+
 
   void _onChangeIsWish(_ChangeIsWish event, Emitter<TopAdState> emit) {
     // ignore: prefer_final_locals
