@@ -1,5 +1,4 @@
 import 'package:auto/assets/colors/color.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -31,7 +30,7 @@ class PointNameShimmer extends StatelessWidget {
               highlightColor: grey.withOpacity(0.16),
               child: Container(
                 height: 10,
-                width: 220,
+                width: 270,
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(5),

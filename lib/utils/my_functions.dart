@@ -10,6 +10,7 @@ import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/common/models/region.dart';
+import 'package:auto/features/common/models/yandex_search_model.dart';
 import 'package:auto/features/profile/domain/entities/dir_category_entity.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
@@ -159,6 +160,17 @@ class MyFunctions {
     final img = await pictureRecorder.endRecording().toImage(width, height);
     final data = await img.toByteData(format: ui.ImageByteFormat.png);
     return data?.buffer.asUint8List() ?? Uint8List(0);
+  }
+
+  static String? extractAddress(YandexSearchModel result) {
+    String? address;
+
+    try {
+      return '${result.features[6].properties.name}, ${result.features[4].properties.name}, ${result.features[0].properties.name}';
+    } catch (e) {
+      print('GET YANDEX ADDRESS EXEPTION: $e');
+      return null;
+    }
   }
 
   static Future<MapObject<dynamic>> getMyPoint(
