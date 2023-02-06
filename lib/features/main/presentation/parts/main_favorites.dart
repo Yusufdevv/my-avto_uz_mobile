@@ -109,16 +109,6 @@ class MainFavorites extends StatelessWidget {
                                         TopAdEvent.deleteFavoriteItem(
                                             id: stateWish.id, adding: false));
                                   }
-                                  if (stateWish
-                                          .removeStatus.isSubmissionSuccess ||
-                                      stateWish.addStatus.isSubmissionSuccess) {
-                                    context
-                                        .read<TopAdBloc>()
-                                        .add(TopAdEvent.getFavorites());
-                                    context
-                                        .read<WishlistAddBloc>()
-                                        .add(WishlistAddEvent.clearState());
-                                  }
                                 },
                                 child: Padding(
                                   padding: const EdgeInsets.only(right: 24),

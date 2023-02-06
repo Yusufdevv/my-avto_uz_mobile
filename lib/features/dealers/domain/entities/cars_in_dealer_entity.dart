@@ -56,6 +56,8 @@ class CarsInDealerEntity extends Equatable {
   final int district;
   final int user;
   final int dealer;
+  final bool isWishlisted;
+  final bool isComparison;
 
   const CarsInDealerEntity({
     this.id = 0,
@@ -109,6 +111,8 @@ class CarsInDealerEntity extends Equatable {
     this.district = 0,
     this.user = 0,
     this.dealer = 0,
+    this.isWishlisted = false,
+    this.isComparison = false,
   });
 
   @override
@@ -164,6 +168,8 @@ class CarsInDealerEntity extends Equatable {
     district,
     user,
     dealer,
+    isWishlisted,
+    isComparison
   ];
 }
 
