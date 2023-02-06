@@ -1,5 +1,4 @@
 import 'package:auto/assets/constants/icons.dart';
-import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/car_single/domain/entities/damaged_parts_entity.dart';
 import 'package:auto/features/car_single/presentation/widgets/car_status_icon.dart';
@@ -55,127 +54,86 @@ class CarCharacteristicImage extends StatelessWidget {
           Center(
             child: Stack(
               children: [
-                Image.asset(AppImages.carFromLeft),
+                SvgPicture.asset(
+                  AppIcons.autoModel,
+                  fit: BoxFit.cover,
+                ),
                 CarStatusIconInPicture(
                   informAboutDoors: informAboutDoors,
-                  doorName: 'rear_left_fender',
-                  right: 35,
-                  top: 25,
+                  doorName: 'rear_right_fender',
+                  right: width * 0.08,
+                  top: 28,
                 ),
                 CarStatusIconInPicture(
                   informAboutDoors: informAboutDoors,
                   doorName: 'left_rear_door',
-                  right: 85,
-                  top: 25,
+                  bottom: 40,
+                  left: width * 0.24,
                 ),
                 CarStatusIconInPicture(
                   informAboutDoors: informAboutDoors,
-                  left: 115,
-                  top: 29,
-                  doorName: 'left_front_door',
-                ),
-                CarStatusIconInPicture(
-                  informAboutDoors: informAboutDoors,
-                  left: 50,
-                  top: 29,
-                  doorName: 'front_left_fender',
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(height: 15),
-          Row(
-            children: [
-              const SizedBox(
-                width: 29,
-              ),
-              Expanded(
-                child: Stack(
-                  children: [
-                    Image.asset(
-                      AppImages.car_from_opposite,
-                      width: width * 0.4,
-                      height: height * 0.14,
-                    ),
-                    CarStatusIconInPicture(
-                      informAboutDoors: informAboutDoors,
-                      doorName: 'front_bumper',
-                      bottom: height * 0.03,
-                      left: width * 0.14,
-                    ),
-                    CarStatusIconInPicture(
-                      informAboutDoors: informAboutDoors,
-                      doorName: 'hood',
-                      top: height * 0.05,
-                      left: width * 0.14,
-                    ),
-                    CarStatusIconInPicture(
-                      informAboutDoors: informAboutDoors,
-                      doorName: 'roof',
-                      top: height * 0.002,
-                      left: width * 0.14,
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(
-                width: 28,
-              ),
-              Expanded(
-                child: Stack(
-                  children: [
-                    Image.asset(
-                      AppImages.car_from_back,
-                      width: width * 0.4,
-                      height: height * 0.14,
-                    ),
-                    CarStatusIconInPicture(
-                      informAboutDoors: informAboutDoors,
-                      doorName: 'rear_bumper',
-                      bottom: height * 0.03,
-                      left: width * 0.14,
-                    ),
-                    CarStatusIconInPicture(
-                      informAboutDoors: informAboutDoors,
-                      doorName: 'trunk',
-                      top: height * 0.002,
-                      left: width * 0.14,
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(
-                width: 29,
-              ),
-            ],
-          ),
-          const SizedBox(height: 15),
-          Center(
-            child: Stack(
-              children: [
-                Image.asset(AppImages.carFromRight),
-                CarStatusIconInPicture(
-                  informAboutDoors: informAboutDoors,
-                  doorName: 'rear_right_fender',
-                  left: 35,
-                  top: 25,
-                ),
-                CarStatusIconInPicture(
-                  informAboutDoors: informAboutDoors,
-                  doorName: 'right_rear_door',
-                  left: 85,
-                  top: 25,
-                ),
-                CarStatusIconInPicture(
-                  informAboutDoors: informAboutDoors,
-                  right: 115,
-                  top: 29,
+                  left: width * 0.3,
+                  top: 35,
                   doorName: 'rigth_front_door',
                 ),
                 CarStatusIconInPicture(
                   informAboutDoors: informAboutDoors,
-                  right: 50,
-                  top: 29,
+                  right: width * 0.12,
+                  bottom: 42,
+                  doorName: 'front_left_fender',
+                ),
+                CarStatusIconInPicture(
+                  informAboutDoors: informAboutDoors,
+                  doorName: 'front_bumper',
+                  top: height * 0.196,
+                  left: width * 0.136,
+                ),
+                CarStatusIconInPicture(
+                  informAboutDoors: informAboutDoors,
+                  doorName: 'hood',
+                  top: height * 0.16,
+                  left: width * 0.133,
+                ),
+                CarStatusIconInPicture(
+                  informAboutDoors: informAboutDoors,
+                  doorName: 'roof',
+                  top: height * 0.122,
+                  left: width * 0.133,
+                ),
+                CarStatusIconInPicture(
+                  informAboutDoors: informAboutDoors,
+                  doorName: 'rear_bumper',
+                  bottom: height * 0.145,
+                  right: width * 0.133,
+                ),
+                CarStatusIconInPicture(
+                  informAboutDoors: informAboutDoors,
+                  doorName: 'trunk',
+                  top: height * 0.144,
+                  right: width * 0.133,
+                ),
+                CarStatusIconInPicture(
+                  informAboutDoors: informAboutDoors,
+                  doorName: 'rear_left_fender',
+                  left: width * 0.09,
+                  bottom: 44,
+                ),
+                CarStatusIconInPicture(
+                  informAboutDoors: informAboutDoors,
+                  doorName: 'right_rear_door',
+                  right: width * 0.22,
+                  top: 35,
+                ),
+                CarStatusIconInPicture(
+                  informAboutDoors: informAboutDoors,
+                  right: width * 0.3,
+                  bottom: 35,
+                  doorName: 'left_front_door',
+                ),
+                CarStatusIconInPicture(
+                  informAboutDoors: informAboutDoors,
+                  left: width * 0.12,
+                  top: 25,
                   doorName: 'front_right_fender',
                 ),
               ],
@@ -185,27 +143,27 @@ class CarCharacteristicImage extends StatelessWidget {
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             itemBuilder: (context, index) => Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  child: InformationAboutDoors(
-                    informAboutDoors: informAboutDoors,
-                    index: 2 * index,
-                  ),
-                ),
-                if (2 * index + 1 > 12)
-                  const SizedBox()
-                else
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
                   Expanded(
                     child: InformationAboutDoors(
                       informAboutDoors: informAboutDoors,
-                      index: 2 * index + 1,
+                      index: index,
                     ),
                   ),
-              ],
-            ),
+                  if (index > 12)
+                    const SizedBox()
+                  else
+                    Expanded(
+                      child: InformationAboutDoors(
+                        informAboutDoors: informAboutDoors,
+                        index: index + informAboutDoors.length ~/ 2,
+                      ),
+                    ),
+                ],
+              ),
             separatorBuilder: (context, index) => const Divider(),
-            itemCount: (informAboutDoors.length / 2).truncate() + 1,
+            itemCount: informAboutDoors.length ~/ 2,
           )
         ],
       ),

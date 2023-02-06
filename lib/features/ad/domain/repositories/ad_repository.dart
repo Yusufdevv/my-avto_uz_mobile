@@ -1,6 +1,7 @@
 import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/core/utils/either.dart';
 import 'package:auto/features/ad/data/models/announcement_filter.dart';
+import 'package:auto/features/ad/domain/entities/foto_instruction_entity.dart';
 import 'package:auto/features/ad/domain/entities/generation/generation.dart';
 import 'package:auto/features/ad/domain/entities/types/body_type.dart';
 import 'package:auto/features/ad/domain/entities/types/drive_type.dart';
@@ -9,15 +10,22 @@ import 'package:auto/features/ad/domain/entities/types/gearbox_type.dart';
 import 'package:auto/features/ad/domain/entities/types/make.dart';
 import 'package:auto/features/ad/domain/entities/types/modification_type.dart';
 import 'package:auto/features/ad/domain/entities/years/years.dart';
+import 'package:auto/features/ads/data/models/search_history_model.dart';
 import 'package:auto/features/common/entities/makes_entity.dart';
 import 'package:auto/features/comparison/domain/entities/announcement_list_entity.dart';
 import 'package:auto/features/pagination/models/generic_pagination.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/services.dart';
 
 abstract class AdRepository {
+  Future<Either<Failure, GenericPagination<FotoInstructionEntity>>>
+      getFotoInstructions();
+  Future<Either<Failure, Uint8List>> getMapScreenShot(
+      {required Map<String, String> params});
   Future<Either<Failure, bool>> verify({required Map<String, String> params});
 
-  Future<Either<Failure, num>> getMinimumPrice({required Map<String, dynamic> params});
+  Future<Either<Failure, num>> getMinimumPrice(
+      {required Map<String, dynamic> params});
   Future<Either<Failure, String>> sendCode({required String phone});
   Future<Either<Failure, GenericPagination<MakeEntity>>> getTopMakes(
       {String? next});
@@ -85,4 +93,6 @@ abstract class AdRepository {
 
   Future<Either<Failure, GenericPagination<AnnouncementListEntity>>>
       getAnnouncementList(AnnouncementFilterModel filter);
+  Future<Either<Failure, void>> filterHistory(
+      {required SearchHistoryModel model});
 }

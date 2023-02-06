@@ -72,7 +72,7 @@ class ProfileDataWidget extends StatelessWidget {
                     Row(
                       children: [
                         Expanded(
-                          child: Text(fullName.isEmpty ? 'No name' : fullName,
+                          child: Text(fullName,
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
                               style: Theme.of(context)

@@ -19,6 +19,11 @@ class SetStickyEvent extends ComparisonEvent {
 
 class GetComparableCars extends ComparisonEvent {}
 
+class GetCars extends ComparisonEvent {
+  final int id;
+  GetCars({required this.id});
+}
+
 // class SelectCarMark extends ComparisonEvent {
 //   final String carMark;
 //   SelectCarMark({required this.carMark});

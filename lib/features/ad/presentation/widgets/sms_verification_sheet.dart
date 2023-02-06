@@ -53,7 +53,9 @@ class _SmsVerificationSheetState extends State<SmsVerificationSheet> {
               if (state.status == FormzStatus.submissionSuccess) {
                 Navigator.of(context).pop(true);
               }
-              if (state.status == FormzStatus.submissionFailure) {}
+              if (state.status == FormzStatus.submissionFailure) {
+                Navigator.of(context).pop(state.toastMessage);
+              }
             },
             builder: (context, state) => Container(
               padding: EdgeInsets.only(
@@ -85,6 +87,7 @@ class _SmsVerificationSheetState extends State<SmsVerificationSheet> {
                         onTap: () {
                           Navigator.of(context).pop();
                         },
+                        behavior: HitTestBehavior.opaque,
                         child: Transform.scale(
                           scale: .8,
                           child: SvgPicture.asset(
@@ -113,7 +116,7 @@ class _SmsVerificationSheetState extends State<SmsVerificationSheet> {
                     onTap: () {
                       Navigator.pop(context);
                     },
-                    text: '+998 ${widget.phoneNumber.replaceAll(' ', '')}',
+                    text: '+998 ${widget.phoneNumber}',
                   ),
                   const SizedBox(height: 42),
                   PinCodeTextField(
@@ -201,7 +204,7 @@ class _SmsVerificationSheetState extends State<SmsVerificationSheet> {
                           .read<VerifyContactsBloc>()
                           .add(VerifyContactsEvent(code: controller.text));
                     },
-                    text: 'Подтвердить',
+                    text: LocaleKeys.confirm.tr(),
                   ),
                 ],
               ),

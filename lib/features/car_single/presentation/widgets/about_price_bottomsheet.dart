@@ -1,7 +1,7 @@
-import 'dart:ui';
-
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -10,7 +10,7 @@ class AboutCarPriceBottom extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Container(
-        padding: const EdgeInsets.only(left: 16, right: 16, top: 16),
+        padding: const EdgeInsets.only(top: 16),
         decoration: const BoxDecoration(
           color: white,
           borderRadius: BorderRadius.only(
@@ -22,50 +22,72 @@ class AboutCarPriceBottom extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              children: [
-                Text(
-                  'Как рассчитывается \nсредняя цена',
-                  style: Theme.of(context).textTheme.headline2!.copyWith(
-                      fontWeight: FontWeight.w700,
-                      fontSize: 24,
-                      color: const Color(0xff171725)),
-                ),
-                const Spacer(),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                  child: SvgPicture.asset(
-                    AppIcons.close,
-                    width: 32,
-                    height: 32,
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Row(
+                children: [
+                  Text(
+                    LocaleKeys.how_the_average_price_is_calculated.tr(),
+                    style: Theme.of(context).textTheme.headline1,
                   ),
-                ),
-              ],
+                  const Spacer(),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    behavior: HitTestBehavior.opaque,
+                    child: SizedBox(
+                      width: 32,
+                      height: 32,
+                      child: SvgPicture.asset(
+                        AppIcons.close,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
             const Padding(
               padding: EdgeInsets.only(bottom: 16, top: 16),
-              child: Divider(),
+              child: Divider(
+                height: 1,
+              ),
             ),
-            Text(
-              'Мы сравнили все похожие авто на \nauto.uz по параметрам:',
-              style: Theme.of(context).textTheme.headline2!.copyWith(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 16,
-                    color: const Color(
-                      0xff171725,
-                    ),
+            Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: RichText(
+                    text: TextSpan(children: [
+                  TextSpan(
+                    text: LocaleKeys.we_compared_all_parameters.tr(),
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline2!
+                        .copyWith(color: dark, fontSize: 16),
                   ),
-            ),
+                  TextSpan(
+                    text: 'auto.uz ',
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline2!
+                        .copyWith(color: orange, fontSize: 16),
+                  ),
+                  TextSpan(
+                    text: LocaleKeys.by_parameters.tr(),
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline2!
+                        .copyWith(color: dark, fontSize: 16),
+                  ),
+                ]))),
             Container(
               decoration: BoxDecoration(
                 color: const Color(0xffF6F6F6),
                 borderRadius: BorderRadius.circular(8),
               ),
-              margin: const EdgeInsets.only(top: 8, bottom: 16),
-              padding: const EdgeInsets.only(
-                  left: 12, top: 12, bottom: 12, right: 12),
+              margin: const EdgeInsets.only(
+                  top: 8, bottom: 16, left: 16, right: 16),
+              padding: const EdgeInsets.all(12),
               child: Row(
                 children: [
                   Column(
@@ -78,13 +100,11 @@ class AboutCarPriceBottom extends StatelessWidget {
                             width: 4,
                           ),
                           Text(
-                            'Год выпуска',
-                            style:
-                                Theme.of(context).textTheme.headline1!.copyWith(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w600,
-                                      color: dark,
-                                    ),
+                            LocaleKeys.year_of_issue.tr(),
+                            style: Theme.of(context)
+                                .textTheme
+                                .subtitle2!
+                                .copyWith(color: dark),
                           )
                         ],
                       ),
@@ -98,13 +118,11 @@ class AboutCarPriceBottom extends StatelessWidget {
                             width: 4,
                           ),
                           Text(
-                            'Пробег',
-                            style:
-                                Theme.of(context).textTheme.headline1!.copyWith(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w600,
-                                      color: dark,
-                                    ),
+                            LocaleKeys.Mileage.tr(),
+                            style: Theme.of(context)
+                                .textTheme
+                                .subtitle2!
+                                .copyWith(color: dark),
                           )
                         ],
                       ),
@@ -118,19 +136,17 @@ class AboutCarPriceBottom extends StatelessWidget {
                             width: 4,
                           ),
                           Text(
-                            'Позиция',
-                            style:
-                                Theme.of(context).textTheme.headline1!.copyWith(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w600,
-                                      color: dark,
-                                    ),
+                            LocaleKeys.position.tr(),
+                            style: Theme.of(context)
+                                .textTheme
+                                .subtitle2!
+                                .copyWith(color: dark),
                           )
                         ],
                       ),
                     ],
                   ),
-                  Spacer(),
+                  const Spacer(),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -141,13 +157,11 @@ class AboutCarPriceBottom extends StatelessWidget {
                             width: 4,
                           ),
                           Text(
-                            'Марка',
-                            style:
-                                Theme.of(context).textTheme.headline1!.copyWith(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w600,
-                                      color: dark,
-                                    ),
+                            LocaleKeys.brand.tr(),
+                            style: Theme.of(context)
+                                .textTheme
+                                .subtitle2!
+                                .copyWith(color: dark),
                           )
                         ],
                       ),
@@ -161,13 +175,11 @@ class AboutCarPriceBottom extends StatelessWidget {
                             width: 4,
                           ),
                           Text(
-                            'Модель',
-                            style:
-                                Theme.of(context).textTheme.headline1!.copyWith(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w600,
-                                      color: dark,
-                                    ),
+                            LocaleKeys.model.tr(),
+                            style: Theme.of(context)
+                                .textTheme
+                                .subtitle2!
+                                .copyWith(color: dark),
                           )
                         ],
                       ),
@@ -181,13 +193,11 @@ class AboutCarPriceBottom extends StatelessWidget {
                             width: 4,
                           ),
                           Text(
-                            'Состояние краски',
-                            style:
-                                Theme.of(context).textTheme.headline1!.copyWith(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w600,
-                                      color: dark,
-                                    ),
+                            LocaleKeys.paint_condition.tr(),
+                            style: Theme.of(context)
+                                .textTheme
+                                .subtitle2!
+                                .copyWith(color: dark),
                           ),
                         ],
                       ),

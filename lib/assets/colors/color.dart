@@ -74,9 +74,13 @@ const seashell = _seashell;
 const yellowSea = _yellowSea;
 const disabledButton = _veryLightGrey;
 const whiteToGrey = _whiteToGrey;
+const orangeLight = _orangeLight;
+const orangeMid = _orangeMid;
+const makeSearchCancel = _makeSearchCancelColor;
+const popUpWarning = _popUpWarning;
 
 // Main palette (http://www.color-blindness.com/color-name-hue/).
-
+const _popUpWarning = Color(0xffF1B747);
 const _whiteToGrey = Color(0xFFFAFAFA);
 const _snow = Color(0xFFFFFCFB);
 const _yellowSea = Color(0xFFF4A937);
@@ -91,6 +95,7 @@ const _darkGray = Color(0xffA4A4A4);
 const _nero3 = Color(0xff1D1D1D);
 const _cinnabar = Color(0xffEA5930);
 const _mediumSlateBlue = Color(0xff695CEA);
+const _makeSearchCancelColor = Color(0xff3C3C43);
 
 const _havelockBlue = Color(0xff4D88C8);
 const _fuzzyWuzzyBrown = Color(0xffC8534D);
@@ -152,3 +157,5 @@ const _lavender = Color(0xffF0EFFD);
 
 const _tutu = Color(0xFFFAEEEE);
 const _veryLightGrey = Color(0xFFCCCCCC);
+const _orangeMid = Color(0xFFFF930F);
+const _orangeLight = Color(0xFFEBCC54);

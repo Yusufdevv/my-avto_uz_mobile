@@ -36,6 +36,29 @@ class ReelRepositoryImpl extends ReelRepository {
   }
 
   @override
+  Future<Either<Failure, GenericPagination<ReelModel>>> getReelsOfDay({
+    String? search,
+    int? limit,
+    int? offset,
+  }) async {
+    try {
+      final result = await dataSource.getReelsOfDay(
+        search: search,
+        limit: limit,
+        offset: offset,
+      );
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(
+          errorMessage: e.errorMessage, statusCode: e.statusCode));
+    } on DioException {
+      return Left(DioFailure());
+    } on DioError {
+      return Left(DioFailure());
+    }
+  }
+
+  @override
   Future<Either<Failure, ReelsPostEntity>> getReelsLike({
     required int id,
   }) async {

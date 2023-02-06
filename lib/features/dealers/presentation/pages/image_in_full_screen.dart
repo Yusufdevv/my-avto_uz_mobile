@@ -30,12 +30,12 @@ class _ImageInFullScreenState extends State<ImageInFullScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               GestureDetector(
+                onTap: () => Navigator.pop(context), behavior: HitTestBehavior.opaque,
                 child: Padding(
                   padding: const EdgeInsets.only(top: 12, left: 16),
                   child:
                       SvgPicture.asset(AppIcons.chevronLeft, color: solitude),
                 ),
-                onTap: () => Navigator.pop(context),
               ),
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.2,

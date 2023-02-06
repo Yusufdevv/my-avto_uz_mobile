@@ -15,6 +15,7 @@ import 'package:auto/features/dealers/presentation/blocs/dealer_single_bloc/deal
 import 'package:auto/features/dealers/presentation/blocs/marks_in_dealer_bloc/marks_in_dealers_bloc.dart';
 import 'package:auto/features/dealers/presentation/pages/all_cars_in_dealer_screen.dart';
 import 'package:auto/features/dealers/presentation/pages/all_marks_with_announcements.dart';
+import 'package:auto/features/dealers/presentation/pages/single_mark_announcements.dart';
 import 'package:auto/features/dealers/presentation/widgets/dealer_info_sliver_delegate.dart';
 import 'package:auto/features/dealers/presentation/widgets/dealer_single_info_part.dart';
 import 'package:auto/features/dealers/presentation/widgets/mark_with_announcement.dart';
@@ -71,7 +72,6 @@ class _DealerSinglePageState extends State<DealerSinglePage> {
   @override
   void dispose() {
     dealerSingleBloc.close();
-    marksBloc.close();
     super.dispose();
   }
 
@@ -97,7 +97,7 @@ class _DealerSinglePageState extends State<DealerSinglePage> {
                               dealerSingleState.dealerSingleEntity.avatar,
                           dealerName: dealerSingleState.dealerSingleEntity.name,
                           minHeight: MediaQuery.of(context).size.height * 0.11,
-                          showroomOrPerson: 'Avtasalon'),
+                          showroomOrPerson: LocaleKeys.autosalon.tr()),
                     ),
                   ],
                   body: SingleChildScrollView(
@@ -130,190 +130,228 @@ class _DealerSinglePageState extends State<DealerSinglePage> {
                                 dealerSingleState.dealerSingleEntity.latitude,
                           ),
                           BlocBuilder<MarksInDealersBloc, MarksInDealersState>(
-                            builder: (context, allMarksState) => allMarksState
-                                    .marks.isNotEmpty
-                                ? Padding(
-                                    padding: const EdgeInsets.only(
-                                        top: 16,
-                                        bottom: 12,
-                                        left: 16,
-                                        right: 16),
-                                    child: Row(
-                                      children: [
-                                        Expanded(
-                                          child: Text(
-                                            LocaleKeys.all_brands_with_ads.tr(),
-                                            style: const TextStyle(
-                                              color: orange,
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.w600,
-                                            ),
-                                          ),
-                                        ),
-                                        GestureDetector(
-                                          onTap: () {
-                                            Navigator.push(
-                                                context,
-                                                fade(
-                                                    page:
-                                                        AllMarksWithAnnouncements(
-                                                  slug: widget.slug,
-                                                )));
-                                          },
+                              builder: (context, allMarksState) => allMarksState
+                                      .status.isSubmissionSuccess
+                                  ? allMarksState.marks.isNotEmpty
+                                      ? Padding(
+                                          padding: const EdgeInsets.only(
+                                              top: 16,
+                                              bottom: 12,
+                                              left: 16,
+                                              right: 16),
                                           child: Row(
                                             children: [
-                                              Text(
-                                                LocaleKeys.all.tr(),
-                                                style: const TextStyle(
-                                                    fontSize: 14,
-                                                    fontWeight: FontWeight.w400,
-                                                    color: greyText),
-                                              ),
-                                              const SizedBox(
-                                                width: 4,
-                                              ),
-                                              SvgPicture.asset(
-                                                  AppIcons.chevronRightBlack,
-                                                  color: greyText)
-                                            ],
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  )
-                                : const SizedBox(),
-                          ),
-                          BlocBuilder<MarksInDealersBloc, MarksInDealersState>(
-                              builder: (context, marksInDealerState) =>
-                                  marksInDealerState.marks.isNotEmpty
-                                      ? SizedBox(
-                                          height: 88,
-                                          child: ListView.builder(
-                                            padding:
-                                                const EdgeInsets.only(left: 16),
-                                            physics:
-                                                const BouncingScrollPhysics(),
-                                            scrollDirection: Axis.horizontal,
-                                            itemCount:
-                                                marksInDealerState.marks.length,
-                                            itemBuilder: (context, index) =>
-                                                MarksWithAnnouncements(
-                                              quantity: marksInDealerState
-                                                  .marks[index].carsCount,
-                                              imageUrl: marksInDealerState
-                                                  .marks[index].make.logo,
-                                              mark: marksInDealerState
-                                                  .marks[index].make.name,
-                                            ),
-                                          )
-
-                                          // List.generate(
-                                          //   marksInDealerState.marks.length,
-                                          //   (index) =>
-                                          // MarksWithAnnouncements(
-                                          //     quantity: marksInDealerState
-                                          //         .marks[index].carsCount,
-                                          //     imageUrl: marksInDealerState
-                                          //         .marks[index].make.logo,
-                                          //     mark: marksInDealerState
-                                          //         .marks[index].make.name,
-                                          //   ),
-                                          // ),
-                                          )
-                                      : const SizedBox()),
-                          BlocBuilder<CarsInDealerBloc, CarsInDealerState>(
-                            builder: (context, allCarsState) => allCarsState
-                                    .cars.isNotEmpty
-                                ? Padding(
-                                    padding: const EdgeInsets.only(
-                                        top: 16,
-                                        bottom: 12,
-                                        left: 16,
-                                        right: 16),
-                                    child: Row(
-                                      children: [
-                                        Expanded(
-                                            child: Text(
-                                                '${LocaleKeys.cars.tr()} от ${dealerSingleState.dealerSingleEntity.name}',
-                                                overflow: TextOverflow.ellipsis,
-                                                maxLines: 1,
-                                                style: const TextStyle(
+                                              Expanded(
+                                                child: Text(
+                                                  LocaleKeys.all_brands_with_ads
+                                                      .tr(),
+                                                  style: const TextStyle(
                                                     color: orange,
                                                     fontSize: 16,
-                                                    fontWeight:
-                                                        FontWeight.w600))),
-                                        GestureDetector(
-                                          onTap: () => Navigator.push(
-                                            context,
-                                            fade(
-                                              page: AllCarsInDealerScreen(
-                                                  slug: widget.slug),
-                                            ),
-                                          ),
-                                          child: Row(
-                                            children: [
-                                              Text(
-                                                LocaleKeys.all.tr(),
-                                                style: const TextStyle(
-                                                    fontSize: 14,
-                                                    fontWeight: FontWeight.w400,
-                                                    color: greyText),
+                                                    fontWeight: FontWeight.w600,
+                                                  ),
+                                                ),
                                               ),
-                                              const SizedBox(width: 4),
-                                              SvgPicture.asset(
-                                                  AppIcons.chevronRightBlack,
-                                                  color: greyText)
+                                              GestureDetector(
+                                                onTap: () {
+                                                  Navigator.push(
+                                                      context,
+                                                      fade(
+                                                          page:
+                                                              AllMarksWithAnnouncements(
+                                                        slug: widget.slug,
+                                                      )));
+                                                },
+                                                behavior:
+                                                    HitTestBehavior.opaque,
+                                                child: Row(
+                                                  children: [
+                                                    Text(
+                                                      LocaleKeys.all.tr(),
+                                                      style: const TextStyle(
+                                                          fontSize: 14,
+                                                          fontWeight:
+                                                              FontWeight.w400,
+                                                          color: greyText),
+                                                    ),
+                                                    const SizedBox(
+                                                      width: 4,
+                                                    ),
+                                                    SvgPicture.asset(
+                                                        AppIcons
+                                                            .chevronRightBlack,
+                                                        color: greyText)
+                                                  ],
+                                                ),
+                                              )
                                             ],
                                           ),
                                         )
-                                      ],
-                                    ),
-                                  )
-                                : const SizedBox(),
-                          ),
+                                      : const SizedBox()
+                                  : const SizedBox()),
+                          BlocBuilder<MarksInDealersBloc, MarksInDealersState>(
+                              builder: (context, marksInDealerState) =>
+                                  marksInDealerState.status.isSubmissionSuccess
+                                      ? marksInDealerState.marks.isNotEmpty
+                                          ? SizedBox(
+                                              height: 88,
+                                              child: ListView.builder(
+                                                padding: const EdgeInsets.only(
+                                                    left: 16),
+                                                physics:
+                                                    const BouncingScrollPhysics(),
+                                                scrollDirection:
+                                                    Axis.horizontal,
+                                                itemCount: marksInDealerState
+                                                    .marks.length,
+                                                itemBuilder: (context, index) =>
+                                                    GestureDetector(
+                                                  onTap: () {
+                                                    Navigator.push(
+                                                      context,
+                                                      fade(
+                                                        page:
+                                                            SingleMarkAnnouncements(
+                                                          dealerSlug:
+                                                              widget.slug,
+                                                          markSlug:
+                                                              marksInDealerState
+                                                                  .marks[index]
+                                                                  .make
+                                                                  .slug,
+                                                          carMark:
+                                                              marksInDealerState
+                                                                  .marks[index]
+                                                                  .make
+                                                                  .name,
+                                                        ),
+                                                      ),
+                                                    );
+                                                  },
+                                                  child: MarksWithAnnouncements(
+                                                    quantity: marksInDealerState
+                                                        .marks[index].carsCount,
+                                                    imageUrl: marksInDealerState
+                                                        .marks[index].make.logo,
+                                                    mark: marksInDealerState
+                                                        .marks[index].make.name,
+                                                  ),
+                                                ),
+                                              ))
+                                          : const SizedBox()
+                                      : const SizedBox()),
                           BlocBuilder<CarsInDealerBloc, CarsInDealerState>(
-                            builder: (context, carsInDealerState) =>
-                                carsInDealerState.cars.isNotEmpty
-                                    ? SizedBox(
-                                        height:
-                                            MediaQuery.of(context).size.height *
-                                                0.33,
-                                        child: ListView.separated(
-                                          padding:
-                                              const EdgeInsets.only(left: 16),
-                                          physics:
-                                              const BouncingScrollPhysics(),
-                                          separatorBuilder: (context, index) =>
-                                              const SizedBox(width: 16),
-                                          scrollDirection: Axis.horizontal,
-                                          itemBuilder: (context, index) =>
-                                              AdsItem(
-                                            id: carsInDealerState
-                                                .cars[index].id,
-                                            image: carsInDealerState.cars[index]
-                                                    .gallery.isNotEmpty
-                                                ? carsInDealerState
-                                                    .cars[index].gallery.first
-                                                : '',
-                                            name: carsInDealerState
-                                                .cars[index].absoluteCarName,
-                                            currency: carsInDealerState
-                                                .cars[index].currency,
-                                            description: carsInDealerState
-                                                .cars[index].description,
-                                            isLiked: true,
-                                            location: carsInDealerState
-                                                .cars[index].region.title,
-                                            onTapLike: () {},
-                                            price: carsInDealerState
-                                                .cars[index].price,
+                              builder: (context, allCarsState) => allCarsState
+                                      .status.isSubmissionSuccess
+                                  ? allCarsState.cars.isNotEmpty
+                                      ? Padding(
+                                          padding: const EdgeInsets.only(
+                                              top: 16,
+                                              bottom: 12,
+                                              left: 16,
+                                              right: 16),
+                                          child: Row(
+                                            children: [
+                                              Expanded(
+                                                  child: Text(
+                                                      LocaleKeys.cars.tr(args: [
+                                                        dealerSingleState
+                                                            .dealerSingleEntity
+                                                            .name
+                                                      ]),
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                      maxLines: 1,
+                                                      style: const TextStyle(
+                                                          color: orange,
+                                                          fontSize: 16,
+                                                          fontWeight: FontWeight
+                                                              .w600))),
+                                              GestureDetector(
+                                                onTap: () => Navigator.push(
+                                                  context,
+                                                  fade(
+                                                    page: AllCarsInDealerScreen(
+                                                        slug: widget.slug),
+                                                  ),
+                                                ),
+                                                behavior:
+                                                    HitTestBehavior.opaque,
+                                                child: Row(
+                                                  children: [
+                                                    Text(
+                                                      LocaleKeys.all.tr(),
+                                                      style: const TextStyle(
+                                                          fontSize: 14,
+                                                          fontWeight:
+                                                              FontWeight.w400,
+                                                          color: greyText),
+                                                    ),
+                                                    const SizedBox(width: 4),
+                                                    SvgPicture.asset(
+                                                        AppIcons
+                                                            .chevronRightBlack,
+                                                        color: greyText)
+                                                  ],
+                                                ),
+                                              )
+                                            ],
                                           ),
-                                          itemCount:
-                                              carsInDealerState.cars.length,
-                                        ),
-                                      )
-                                    : const SizedBox(),
-                          ),
+                                        )
+                                      : const SizedBox()
+                                  : const SizedBox()),
+                          BlocBuilder<CarsInDealerBloc, CarsInDealerState>(
+                              builder: (context, carsInDealerState) =>
+                                  carsInDealerState.status.isSubmissionSuccess
+                                      ? carsInDealerState.cars.isNotEmpty
+                                          ? SizedBox(
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.33,
+                                              child: ListView.separated(
+                                                padding: const EdgeInsets.only(
+                                                    left: 16),
+                                                physics:
+                                                    const BouncingScrollPhysics(),
+                                                separatorBuilder: (context,
+                                                        index) =>
+                                                    const SizedBox(width: 16),
+                                                scrollDirection:
+                                                    Axis.horizontal,
+                                                itemBuilder: (context, index) =>
+                                                    AdsItem(
+                                                  id: carsInDealerState
+                                                      .cars[index].id,
+                                                  image: carsInDealerState
+                                                          .cars[index]
+                                                          .gallery
+                                                          .isNotEmpty
+                                                      ? carsInDealerState
+                                                          .cars[index]
+                                                          .gallery
+                                                          .first
+                                                      : '',
+                                                  name: carsInDealerState
+                                                      .cars[index]
+                                                      .absoluteCarName,
+                                                  currency: carsInDealerState
+                                                      .cars[index].currency,
+                                                  description: carsInDealerState
+                                                      .cars[index].description,
+                                                  isLiked: true,
+                                                  location: carsInDealerState
+                                                      .cars[index].region.title,
+                                                  onTapLike: () {},
+                                                  price: carsInDealerState
+                                                      .cars[index].price,
+                                                ),
+                                                itemCount: carsInDealerState
+                                                    .cars.length,
+                                              ),
+                                            )
+                                          : const SizedBox()
+                                      : const SizedBox()),
                         ],
                       ),
                     ),

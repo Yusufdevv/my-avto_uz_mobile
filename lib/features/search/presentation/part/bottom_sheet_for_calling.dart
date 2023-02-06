@@ -7,6 +7,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:url_launcher/url_launcher_string.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 Future<dynamic> bottomSheetForCalling(BuildContext context, String phone) =>
     Platform.isAndroid
@@ -19,7 +21,6 @@ Future<dynamic> bottomSheetForCalling(BuildContext context, String phone) =>
               child: Column(
                 children: [
                   WScaleAnimation(
-                    
                     child: Container(
                       height: 60,
                       width: double.maxFinite,
@@ -48,7 +49,9 @@ Future<dynamic> bottomSheetForCalling(BuildContext context, String phone) =>
                       ),
                     ),
                     onTap: () {
-                      launchUrlString('tel: $phone');
+                      if (phone.isNotEmpty) {
+                        launchUrlString('tel: $phone');
+                      }
                     },
                   ),
                   WScaleAnimation(
@@ -69,7 +72,7 @@ Future<dynamic> bottomSheetForCalling(BuildContext context, String phone) =>
                         bottom: 18,
                       ),
                       child: Text(
-                        'Отменить',
+                        LocaleKeys.cancell.tr(),
                         style: Theme.of(context).textTheme.headline1!.copyWith(
                               fontWeight: FontWeight.w600,
                               color: dodgerBlue,

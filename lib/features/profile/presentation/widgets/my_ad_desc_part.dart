@@ -41,7 +41,7 @@ class MyAdDesc extends StatelessWidget {
             children: [
               if (item.isExpired)
                 Text(
-                  "Bu e'lonning muddati tugagan, uni cho'zdirishingiz mumkin",
+                  LocaleKeys.this_ad_has_expired.tr(),
                   style: Theme.of(context).textTheme.headline5?.copyWith(
                       fontSize: 12, fontWeight: FontWeight.w400, height: 1.3),
                 )
@@ -116,8 +116,10 @@ class MyAdDesc extends StatelessWidget {
                         Navigator.push(
                             context,
                             fade(
-                                page:
-                                    PostingAdScreen(announcementId: item.id)));
+                                page: PostingAdScreen(
+                              parentContext: context,
+                              announcementId: item.id,
+                            )));
                       },
                       child: SvgPicture.asset(AppIcons.editProfile,
                           color: Theme.of(context)
@@ -157,7 +159,7 @@ class MyAdDesc extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Ваше объявление будет доступно другим пользователям после того как оно успешно пройдет модерацию',
+                LocaleKeys.your_ad_will_be_available.tr(),
                 style: Theme.of(context)
                     .textTheme
                     .bodyText1!
@@ -181,10 +183,14 @@ class MyAdDesc extends StatelessWidget {
                           vertical: 10, horizontal: 11),
                       onTap: () {
                         Navigator.push(
-                            context,
-                            fade(
-                                page:
-                                    PostingAdScreen(announcementId: item.id)));
+                          context,
+                          fade(
+                            page: PostingAdScreen(
+                              parentContext: context,
+                              announcementId: item.id,
+                            ),
+                          ),
+                        );
                       },
                       child: Row(
                         children: [
@@ -196,7 +202,7 @@ class MyAdDesc extends StatelessWidget {
                               width: 20),
                           SizedBox(width: SizeConfig.h(8)),
                           Text(
-                            'Редактировать объявление',
+                            LocaleKeys.editing_ad.tr(),
                             style: Theme.of(context)
                                 .textTheme
                                 .headline2!

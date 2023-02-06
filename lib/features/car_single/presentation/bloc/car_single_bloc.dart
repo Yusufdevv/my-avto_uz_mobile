@@ -31,28 +31,21 @@ class CarSingleBloc extends Bloc<CarSingleEvent, CarSingleState> {
           singleEntity: result.right,
           status: FormzStatus.submissionSuccess,
         ));
-      } else {
-        print('BLOC ERROR GET SINGLE');
-      }
+      } else {}
     });
     on<_GetAds>((event, emit) async {
       emit(state.copyWith(adsStatus: FormzStatus.submissionInProgress));
       final result = await useCaseAds.call(event.id);
       if (result.isRight) {
-        print('BLOC RESULT RIGHT => ${result.right}');
         emit(state.copyWith(
             elasticSearchEntity: result.right.results,
             adsStatus: FormzStatus.submissionSuccess));
-      } else {
-        print('BLOC ERROR GET OTHER ADS');
-      }
+      } else {}
     });
     on<_SoldAds>((event, emit) async {
-      print('sold called');
       final result = await soldAdsUseCase.call(event.id);
       emit(state.copyWith(soldStatus: FormzStatus.submissionInProgress));
       if (result.isRight) {
-        print('BLOC RESULT RIGHT SOLD => ${result.right}');
         event.onSucc('SUCCES');
         emit(state.copyWith(
             soldStatus: FormzStatus.submissionSuccess, succMessage: 'suuces'));
@@ -61,18 +54,14 @@ class CarSingleBloc extends Bloc<CarSingleEvent, CarSingleState> {
         emit(state.copyWith(
             soldStatus: FormzStatus.submissionFailure,
             errorMessage: (result.left as ServerFailure).errorMessage));
-        print('BLOC ERROR SOLD ADS');
       }
     });
     on<_CallCount>((event, emit) async {
-      print('event called');
       final result = await callCount.call(event.id);
       emit(state.copyWith(soldStatus: FormzStatus.submissionInProgress));
       if (result.isRight) {
-        print('BLOC RESULT RIGHT CALL => ${result.right}');
         emit(state.copyWith(soldStatus: FormzStatus.submissionSuccess));
       } else {
-        print('BLOC ERROR CALL COUNT');
       }
     });
   }

@@ -4,7 +4,9 @@ import 'package:auto/features/car_single/presentation/widgets/about_price_bottom
 import 'package:auto/features/car_single/presentation/widgets/cars_price_controlling.dart';
 import 'package:auto/features/car_single/presentation/widgets/price_statistis_item.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
+import 'package:auto/generated/locale_keys.g.dart';
 import 'package:auto/utils/my_functions.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -65,7 +67,7 @@ class CarPriceBottom extends StatelessWidget {
                   GestureDetector(
                     onTap: () {
                       Navigator.pop(context);
-                    },
+                    },    behavior: HitTestBehavior.opaque,
                     child: SvgPicture.asset(
                       AppIcons.close,
                       width: 32,
@@ -79,10 +81,9 @@ class CarPriceBottom extends StatelessWidget {
               height: 4,
             ),
             GestureDetector(
-              onTap: () {
-                print('currency ${currency}');
+              onTap: () { 
                 Navigator.of(context).pop();
-              },
+              },    behavior: HitTestBehavior.opaque,
               child: Container(
                 margin: const EdgeInsets.only(left: 16),
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
@@ -92,7 +93,7 @@ class CarPriceBottom extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      'Оптимальная цена',
+                      LocaleKeys.optimal_price.tr(),
                       style: Theme.of(context).textTheme.headline2!.copyWith(
                           fontWeight: FontWeight.w400,
                           fontSize: 12,
@@ -115,9 +116,10 @@ class CarPriceBottom extends StatelessWidget {
               price: price,
             ),
             CarsPrice(
-              date: 'Соотношение',
-              price: 'Дешевле с.ц:',
-              totalPrice: 'на $ration ($percent %)',
+              date: LocaleKeys.ratio.tr(),
+              price: LocaleKeys.cheaper_sc.tr(),
+              totalPrice: LocaleKeys.on.tr(args: ['$ration ($percent %)']) ,
+              // 'на $ration ($percent %)',
               textColor: const Color(0xff5ECC81),
             ),
             const Divider(
@@ -125,9 +127,9 @@ class CarPriceBottom extends StatelessWidget {
               endIndent: 16,
             ),
             CarsPrice(
-              date: 'Состояние рынка на ${date}',
-              price: 'Средняя цена:',
-              totalPrice: '≈ ${middlePrice}',
+              date: '${LocaleKeys.market_condition_on.tr()} $date',
+              price: LocaleKeys.average_price.tr(),
+              totalPrice: '≈ $middlePrice',
               textColor: profileContainers,
             ),
             WScaleAnimation(
@@ -156,7 +158,7 @@ class CarPriceBottom extends StatelessWidget {
                     ),
                     const SizedBox(width: 4),
                     Text(
-                      'Как рассчитывается средняя цена',
+                      LocaleKeys.how_the_average_price_is_calculated.tr(),
                       style: Theme.of(context).textTheme.headline1!.copyWith(
                           fontWeight: FontWeight.w600,
                           fontSize: 14,

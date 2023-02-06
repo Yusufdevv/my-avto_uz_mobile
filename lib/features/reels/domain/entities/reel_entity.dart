@@ -8,8 +8,8 @@ class ReelEntity extends Equatable {
   final int id;
   final String title;
   final String content;
-  int likeCount;
-  int shareCount;
+  final int likeCount;
+  final int shareCount;
   @DealerConverter()
   final DealerEntity dealer;
   @AnnouncementConverter()
@@ -17,9 +17,10 @@ class ReelEntity extends Equatable {
   final bool hasDiscount;
   final String oldPrice;
   final int discountPercent;
-  bool isLiked;
+  final bool isLiked;
+  final bool isOfferOfTheDay;
 
-  ReelEntity({
+  const ReelEntity({
     this.id = -1,
     this.title = '',
     this.content = '',
@@ -31,9 +32,30 @@ class ReelEntity extends Equatable {
     this.oldPrice = '0',
     this.discountPercent = 0,
     this.isLiked = true,
+    this.isOfferOfTheDay = false,
   });
 
-  @override 
+  ReelEntity copyWith({
+    int? likeCount,
+    int? shareCount,
+    bool? isLiked,
+  }) =>
+      ReelEntity(
+        id: id,
+        title: title,
+        content: content,
+        likeCount: likeCount ?? this.likeCount,
+        shareCount: shareCount ?? this.shareCount,
+        dealer: dealer,
+        announcement: announcement,
+        hasDiscount: hasDiscount,
+        oldPrice: oldPrice,
+        discountPercent: discountPercent,
+        isLiked: isLiked ?? this.isLiked,
+        isOfferOfTheDay: isOfferOfTheDay,
+      );
+
+  @override
   List<Object?> get props => [
         id,
         title,
@@ -42,6 +64,7 @@ class ReelEntity extends Equatable {
         shareCount,
         announcement,
         isLiked,
+        isOfferOfTheDay,
       ];
 }
 

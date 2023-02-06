@@ -1,4 +1,5 @@
 import 'package:auto/core/exceptions/exceptions.dart';
+import 'package:auto/features/common/usecases/yandex_get_address_use_case.dart';
 import 'package:auto/features/dealers/data/models/map_model.dart';
 import 'package:auto/features/dealers/domain/entities/map_parameter.dart';
 import 'package:auto/features/dealers/domain/usecases/get_directories_map_point_usecase.dart';
@@ -15,11 +16,25 @@ part 'map_organization_event.dart';
 part 'map_organization_state.dart';
 part 'map_organization_bloc.freezed.dart';
 
-class MapOrganizationBloc extends Bloc<MapOrganizationEvent, MapOrganizationState> {
+class MapOrganizationBloc
+    extends Bloc<MapOrganizationEvent, MapOrganizationState> {
   final GetMapDealersUseCase getDealers;
+
+  YandexGetAddressUseCase getAddressUseCase = YandexGetAddressUseCase();
   final GetDirectoriesMapPointUseCase getDirectoriesMapPointUseCase;
   MapOrganizationBloc(this.getDealers, this.getDirectoriesMapPointUseCase)
       : super(MapOrganizationState()) {
+    on<_GetAddressOfDealler>((event, emit) async {
+      String? address;
+      emit(state.copyWith(status: FormzStatus.submissionInProgress));
+      final result = await getAddressUseCase.call(
+          {'type': 'geo', 'long': '${event.long}', 'lat': '${event.lat}'});
+      if (result.isRight) {
+        address = MyFunctions.extractAddress(result.right);
+      }
+      emit(state.copyWith(
+          address: address, status: FormzStatus.submissionSuccess));
+    });
     on<_GetDealers>((event, emit) async {
       emit(state.copyWith(status: FormzStatus.submissionInProgress));
       final result = await getDealers(state.searchText,
@@ -29,7 +44,8 @@ class MapOrganizationBloc extends Bloc<MapOrganizationEvent, MapOrganizationStat
               radius: event.radius?.floor() ?? state.radius));
       if (result.isRight) {
         print('here is result${result.right}');
-        emit(state.copyWith(dealers: result.right, status: FormzStatus.submissionSuccess));
+        emit(state.copyWith(
+            dealers: result.right, status: FormzStatus.submissionSuccess));
       } else {
         emit(state.copyWith(status: FormzStatus.submissionFailure));
       }
@@ -43,7 +59,9 @@ class MapOrganizationBloc extends Bloc<MapOrganizationEvent, MapOrganizationStat
               long: event.longitude ?? state.long,
               radius: event.radius?.floor() ?? state.radius));
       if (result.isRight) {
-        emit(state.copyWith(directoriesPoints: result.right, status: FormzStatus.submissionSuccess));
+        emit(state.copyWith(
+            directoriesPoints: result.right,
+            status: FormzStatus.submissionSuccess));
       } else {
         emit(state.copyWith(status: FormzStatus.submissionFailure));
       }
@@ -54,24 +72,28 @@ class MapOrganizationBloc extends Bloc<MapOrganizationEvent, MapOrganizationStat
     });
     on<_ChangeLatLong>((event, emit) {
       if (event.radius != null) {
-        emit(state.copyWith(lat: event.lat, long: event.long, radius: event.radius!));
+        emit(state.copyWith(
+            lat: event.lat, long: event.long, radius: event.radius!));
       } else {
         emit(state.copyWith(lat: event.lat, long: event.long));
       }
     }, transformer: debounce(const Duration(milliseconds: 300)));
     on<_GetCurrentLocation>((event, emit) async {
-      emit(state.copyWith(getCurrentLocationStatus: FormzStatus.submissionInProgress));
+      emit(state.copyWith(
+          getCurrentLocationStatus: FormzStatus.submissionInProgress));
       try {
         final position = await MyFunctions.determinePosition();
-        emit(state.copyWith(getCurrentLocationStatus: FormzStatus.submissionSuccess));
+        emit(state.copyWith(
+            getCurrentLocationStatus: FormzStatus.submissionSuccess));
         event.onSuccess(position);
       } on ParsingException catch (e) {
         event.onError(e.errorMessage);
-        emit(state.copyWith(getCurrentLocationStatus: FormzStatus.submissionSuccess));
+        emit(state.copyWith(
+            getCurrentLocationStatus: FormzStatus.submissionSuccess));
       }
     });
   }
 
   EventTransformer<MyEvent> debounce<MyEvent>(Duration duration) =>
-          (events, mapper) => events.debounceTime(duration).flatMap(mapper);
+      (events, mapper) => events.debounceTime(duration).flatMap(mapper);
 }

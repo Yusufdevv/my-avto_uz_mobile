@@ -1,7 +1,9 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
+import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
 class WAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -113,10 +115,16 @@ class WAppBar extends StatelessWidget implements PreferredSizeWidget {
                         child: WScaleAnimation(
                           onTap: onTapBack ??
                               () {
+                                context.read<ShowPopUpBloc>().add(HidePopUp());
                                 Navigator.pop(context);
                               },
                           child: Padding(
-                            padding: const EdgeInsets.only(left: 16, right: 8),
+                            padding: const EdgeInsets.only(
+                              left: 16,
+                              right: 16,
+                              top: 8,
+                              bottom: 8,
+                            ),
                             child: SvgPicture.asset(AppIcons.chevronLeft),
                           ),
                         ),

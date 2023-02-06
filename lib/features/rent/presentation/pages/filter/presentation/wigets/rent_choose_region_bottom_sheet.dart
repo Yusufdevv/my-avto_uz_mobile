@@ -1,6 +1,5 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/core/utils/size_config.dart';
-import 'package:auto/features/common/bloc/announcement_bloc/bloc/announcement_list_bloc.dart';
 import 'package:auto/features/common/models/region.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
@@ -10,7 +9,6 @@ import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 ///
 
@@ -43,6 +41,7 @@ class _RentChooseRegionBottomSheetState
 
   @override
   Widget build(BuildContext context) {
+    print('is empty: ${checkStatus.isEmpty} / ${checkStatus.length}');
     final isAllChecked = checkStatus.length == widget.list.length;
     return Container(
       margin: EdgeInsets.only(top: SizeConfig.v(48)),
@@ -55,8 +54,7 @@ class _RentChooseRegionBottomSheetState
           SheetHeader(
               title: LocaleKeys.region.tr(),
               onCancelPressed: () {
-                Navigator.of(context)
-                    .pop(checkStatus.entries.map((e) => e.value).toList());
+                Navigator.of(context).pop();
               }),
           const Divider(thickness: 1, color: border, height: 1),
           Expanded(
@@ -101,6 +99,7 @@ class _RentChooseRegionBottomSheetState
                             setState(() {});
                           },
                           child: RegionSheetItem(
+                            isMultiChoice: widget.isMultiChoice,
                             title: widget.list[index].title,
                             hasBorder: index == widget.list.length - 1,
                             isChecked:
@@ -127,12 +126,15 @@ class _RentChooseRegionBottomSheetState
               bottom: 16,
             ),
             child: WButton(
-                onTap: () {
-                  Navigator.of(context)
-                      .pop(checkStatus.entries.map((e) => e.value).toList());
-                },
-                color: orange,
-                text: 'Применить'),
+              disabledColor: disabledButton,
+              isDisabled: checkStatus.isEmpty,
+              onTap: () {
+                Navigator.of(context)
+                    .pop(checkStatus.entries.map((e) => e.value).toList());
+              },
+              color: orange,
+              text: LocaleKeys.show.tr(),
+            ),
           ),
         ],
       ),

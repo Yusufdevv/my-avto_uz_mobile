@@ -4,7 +4,8 @@ import 'package:auto/assets/constants/images.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 class CheckBottomsheet extends StatelessWidget {
   const CheckBottomsheet({required this.onTap, Key? key}) : super(key: key);
   final Function() onTap;
@@ -30,18 +31,18 @@ class CheckBottomsheet extends StatelessWidget {
               SizedBox(child: Image.asset(AppImages.pl)),
               const Spacer(),
               GestureDetector(
-                  onTap: () => Navigator.pop(context),
+                  onTap: () => Navigator.pop(context), behavior: HitTestBehavior.opaque,
                   child:
                       SvgPicture.asset(AppIcons.close, height: 32, width: 32)),
             ],
           ),
           const SizedBox(height: 24),
-          Text('Очень скоро...',
+          Text(LocaleKeys.very_soon.tr(),
               style: Theme.of(context).textTheme.headline1,
               textAlign: TextAlign.center),
           const SizedBox(height: 8),
           Text(
-            'Ваша любимая команда разработчиков трудится днем и ночью чтобы предоставить вам данную функцию как можно скорее',
+             LocaleKeys.our_team_developers.tr(),
             style: Theme.of(context)
                 .textTheme
                 .headline2!
@@ -55,7 +56,7 @@ class CheckBottomsheet extends StatelessWidget {
                 child: WButton(
                     color: orange,
                     onTap: onTap,
-                    text: 'Супер',
+                    text: LocaleKeys.superr.tr(),
                     textColor: white),
               ),
             ],

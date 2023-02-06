@@ -89,6 +89,7 @@ class SellerSliverDelegate extends SliverPersistentHeaderDelegate {
                   onTap: () {
                     Navigator.pop(context);
                   },
+                  behavior: HitTestBehavior.opaque,
                   child:
                       SvgPicture.asset(AppIcons.chevronLeft, color: solitude))),
           Positioned(
@@ -157,9 +158,11 @@ class SellerSliverDelegate extends SliverPersistentHeaderDelegate {
                           child: CachedNetworkImage(
                             imageUrl: avatarImage,
                             fit: BoxFit.cover,
-                            errorWidget: (context, url, error) => Image.asset(
-                                AppImages.autoUz,
-                                fit: BoxFit.cover),
+                            errorWidget: (context, url, error) => ClipRRect(
+                              borderRadius: BorderRadius.circular(50),
+                              child: Image.asset(AppImages.carPlaceHolder,
+                                  fit: BoxFit.cover),
+                            ),
                             imageBuilder: (context, imageProvider) => Container(
                               decoration: BoxDecoration(
                                   shape: BoxShape.circle,
@@ -200,9 +203,7 @@ class SellerSliverDelegate extends SliverPersistentHeaderDelegate {
                     ),
                   ),
                   AnimatedCrossFade(
-                    firstChild: const Divider(
-                      height: 1,
-                    ),
+                    firstChild: const Divider(height: 1),
                     secondChild: const SizedBox(),
                     crossFadeState: shrinkOffset >= 158
                         ? CrossFadeState.showFirst

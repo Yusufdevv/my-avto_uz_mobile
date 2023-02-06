@@ -1,16 +1,24 @@
 import 'package:auto/assets/colors/color.dart';
-import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
+import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/features/ad/presentation/bloc/add_photo/image_bloc.dart';
+import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.dart';
+import 'package:auto/features/ad/presentation/pages/add_photo/widgets/add_photo_instructions_screen.dart';
 import 'package:auto/features/ad/presentation/pages/add_photo/widgets/photo_item.dart';
-import 'package:auto/features/ad/presentation/pages/add_photo/widgets/plus_circle.dart';
 import 'package:auto/features/ad/presentation/widgets/base_widget.dart';
-import 'package:auto/features/common/widgets/w_scale.dart';
+import 'package:auto/features/navigation/presentation/navigator.dart';
+import 'package:auto/features/profile/presentation/widgets/widgets.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:image_picker/image_picker.dart';
 
 class AddPhotoScreen extends StatefulWidget {
   final Function(List<String>) onImageChanged;
-  const AddPhotoScreen({required this.onImageChanged, Key? key})
+  final Function(List<String>) onPanaramaChanged;
+  const AddPhotoScreen(
+      {required this.onImageChanged, required this.onPanaramaChanged, Key? key})
       : super(key: key);
 
   @override
@@ -31,46 +39,67 @@ class _AddPhotoScreenState extends State<AddPhotoScreen> {
         value: imageBloc,
         child: Scaffold(
           body: BaseWidget(
-            headerText: 'Фото',
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                BlocConsumer<ImageBloc, ImageState>(
-                  listener: (context, state) =>
-                      widget.onImageChanged(state.images),
-                  builder: (context, state) => PhotoItem(images: state.images),
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: Text(
-                    'Фото 360°',
-                    style: Theme.of(context)
-                        .textTheme
-                        .subtitle1!
-                        .copyWith(color: grey),
-                  ),
-                ),
-                WScaleAnimation(
-                  onTap: () {},
-                  child: Container(
-                      alignment: Alignment.center,
-                      height: 110,
-                      width: double.infinity,
-                      margin: const EdgeInsets.symmetric(
-                          horizontal: 20, vertical: 16),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        border: Border.all(width: 1, color: purple),
-                        color: Theme.of(context)
-                            .extension<ThemedColors>()!
-                            .ghostWhiteToUltramarine10,
+            headerText: LocaleKeys.photo.tr(),
+            extraAction: [
+              const SizedBox(width: 12),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 3),
+                child: GestureDetector(
+                    onTap: () {
+                      Navigator.of(context, rootNavigator: true)
+                          .push(fade(page: const PhotoInstructionsScreen()));
+                    },
+                    behavior: HitTestBehavior.opaque,
+                    child: SvgPicture.asset(AppIcons.infoCircle, height: 24)),
+              ),
+              const Spacer()
+            ],
+            child: BlocBuilder<PostingAdBloc, PostingAdState>(
+              builder: (context, postingAdState) =>
+                  BlocConsumer<ImageBloc, ImageState>(
+                listener: (context, state) {
+                  widget.onImageChanged(state.images);
+                  widget.onPanaramaChanged(state.panaramaImages);
+                },
+                builder: (context, snapshot) => Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    PhotoItem(
+                      images: postingAdState.gallery,
+                      onTap: () async {
+                        await showModalBottomSheet<ImageSource>(
+                                backgroundColor: Colors.transparent,
+                                context: context,
+                                useRootNavigator: true,
+                                builder: (context) =>
+                                    CameraBottomSheet(imageBloc: imageBloc))
+                            .then((value) {
+                          if (value != null) {
+                            imageBloc.add(PickImage(source: value));
+                          }
+                        });
+                      },
+                    ),
+                    const SizedBox(height: 16),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: Text(
+                        '${LocaleKeys.photo.tr()} 360°',
+                        style: Theme.of(context)
+                            .textTheme
+                            .subtitle1!
+                            .copyWith(color: grey),
                       ),
-                      child: const PlusCircle()),
-                )
-              ],
+                    ),
+                    PhotoItem(
+                      images: postingAdState.panaramaGallery,
+                      onTap: () async {
+                        imageBloc.add(PickPanaramaImageEvent());
+                      },
+                    ),
+                  ],
+                ),
+              ),
             ),
           ),
         ),

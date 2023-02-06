@@ -6,6 +6,7 @@ import 'package:auto/features/profile/domain/entities/profile_data_entity.dart';
 import 'package:auto/features/profile/domain/entities/terms_of_use_entity.dart';
 import 'package:auto/features/profile/domain/usecases/change_password_usecase.dart';
 import 'package:auto/features/profile/domain/usecases/edit_profile_usecase.dart';
+import 'package:auto/features/profile/domain/usecases/get_notification_usecase.dart';
 import 'package:auto/features/profile/domain/usecases/get_terms_of_use_usecase.dart';
 import 'package:auto/features/profile/domain/usecases/profile_usecase.dart';
 import 'package:bloc/bloc.dart';
@@ -18,27 +19,22 @@ part 'profile_event.dart';
 part 'profile_state.dart';
 
 class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
-  final AuthRepository repository;
-
-  final ProfileUseCase profileUseCase;
-  final EditProfileUseCase editProfileUseCase;
-  final ChangePasswordUseCase changePasswordUseCase;
-  final GetTermsOfUseUseCase getTermsOfUseUseCase;
-
-  ProfileBloc({
-    required this.profileUseCase,
-    required this.editProfileUseCase,
-    required this.changePasswordUseCase,
-    required this.getTermsOfUseUseCase,
-    required this.repository,
-  }) : super(
+  final AuthRepository repository = AuthRepository();
+  final ProfileUseCase profileUseCase = ProfileUseCase();
+  final EditProfileUseCase editProfileUseCase = EditProfileUseCase();
+  final ChangePasswordUseCase changePasswordUseCase = ChangePasswordUseCase();
+  final GetTermsOfUseUseCase getTermsOfUseUseCase = GetTermsOfUseUseCase();
+  final GetNotificationsUseCase getNotificationsUseCase =
+      GetNotificationsUseCase();
+  ProfileBloc()
+      : super(
           ProfileState(
-            changeStatus: FormzStatus.pure,
-            editStatus: FormzStatus.pure,
-            status: FormzStatus.pure,
-            profileEntity: ProfileDataEntity(usercountdata: Usercountdata()),
-            termsOfUseEntity: const <TermsOfUseEntity>[],
-          ),
+              changeStatus: FormzStatus.pure,
+              editStatus: FormzStatus.pure,
+              status: FormzStatus.pure,
+              profileEntity: ProfileDataEntity(usercountdata: Usercountdata()),
+              termsOfUseEntity: TermsOfUseEntity(),
+              isNotificationAllRead: true),
         ) {
     on<GetProfileEvent>(_onGetProfile);
     on<ChangePasswordEvent>(_onChangePassword);
@@ -46,6 +42,20 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     on<GetTermsOfUseEvent>(_onGetTermsOfUse);
     on<LoginUser>(_onLoginUser);
     on<ChangeCountDataEvent>(_onChangeIsWish);
+    on<GetNoReadNotificationsEvent>(_onGetNoReadNotificationsEvent);
+
+    on<ChangeNotificationAllRead>(
+      // notifikatsiya iconini bosganda iconni o'zgartirish
+      (event, emit) {
+        emit(state.copyWith(editStatus: FormzStatus.submissionInProgress));
+        // ignore: prefer_final_locals
+        var user = state.profileEntity;
+        // ignore: cascade_invocations
+        user.isReadAllNotifications = true;
+        emit(state.copyWith(
+            profileEntity: user, editStatus: FormzStatus.submissionSuccess));
+      },
+    );
   }
   void _onChangeIsWish(ChangeCountDataEvent event, Emitter<ProfileState> emit) {
     emit(state.copyWith(changeStatus: FormzStatus.submissionInProgress));
@@ -65,6 +75,19 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
         changeStatus: FormzStatus.submissionSuccess));
   }
 
+  Future<void> _onGetNoReadNotificationsEvent(
+      GetNoReadNotificationsEvent event, Emitter<ProfileState> emit) async {
+    emit(state.copyWith(changeStatus: FormzStatus.submissionInProgress));
+    final result = await getNotificationsUseCase.call(event.filter);
+    if (result.isRight) {
+      emit(state.copyWith(
+          changeStatus: FormzStatus.submissionSuccess,
+          isNotificationAllRead: result.right.isEmpty));
+    } else {
+      emit(state.copyWith(changeStatus: FormzStatus.submissionFailure));
+    }
+  }
+
   Future<void> _onGetProfile(
       GetProfileEvent event, Emitter<ProfileState> emit) async {
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
@@ -82,7 +105,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   Future<void> _onGetTermsOfUse(
       GetTermsOfUseEvent event, Emitter<ProfileState> emit) async {
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
-    final result = await getTermsOfUseUseCase.call(NoParams());
+    final result = await getTermsOfUseUseCase.call(event.slug);
     if (result.isRight) {
       emit(state.copyWith(
         status: FormzStatus.submissionSuccess,
@@ -97,16 +120,17 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       EditProfileEvent event, Emitter<ProfileState> emit) async {
     emit(state.copyWith(editStatus: FormzStatus.submissionInProgress));
     final result = await editProfileUseCase.call(EditProfileParams(
-      region: event.region,
-      fullName: event.fullName,
-      image: event.image,
-    ));
+        region: event.region,
+        fullName: event.fullName,
+        image: event.image,
+        email: event.email));
     if (result.isRight) {
       emit(state.copyWith(editStatus: FormzStatus.submissionSuccess));
       event.onSuccess();
     } else {
+      final error = (result.left as ServerFailure).errorMessage;
       emit(state.copyWith(editStatus: FormzStatus.submissionFailure));
-      event.onError(result.left.toString());
+      event.onError(error);
     }
   }
 
@@ -125,10 +149,10 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
           event.onSuccess(result.right);
           emit(state.copyWith(changeStatus: FormzStatus.submissionSuccess));
         } else {
-           final err = (result.left is ServerFailure)
-            ? (result.left as ServerFailure).errorMessage
-            : result.left.toString();
-        event.onError(err);
+          final err = (result.left is ServerFailure)
+              ? (result.left as ServerFailure).errorMessage
+              : result.left.toString();
+          event.onError(err);
           emit(state.copyWith(changeStatus: FormzStatus.submissionFailure));
         }
       } else {

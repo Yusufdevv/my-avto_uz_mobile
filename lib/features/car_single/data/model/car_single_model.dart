@@ -17,7 +17,7 @@ part 'car_single_model.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class CarSingleModel extends CarSingleEntity {
-  CarSingleModel({
+  const CarSingleModel({
     super.description,
     super.contactAvailableFrom,
     super.absoluteCarName,

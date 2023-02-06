@@ -44,6 +44,13 @@ class _DealerScreenState extends State<DealerScreen> {
   }
 
   @override
+  void dispose() {
+    bloc.close();
+    filterBloc.close();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) => MultiBlocProvider(
         providers: [
           BlocProvider.value(value: bloc),
@@ -116,13 +123,17 @@ class _DealerScreenState extends State<DealerScreen> {
                                     Navigator.push(
                                         context,
                                         fade(
-                                            page: DealersFilter(
-                                          dealerBloc: bloc,
-                                          maker: filterState.maker,
-                                          regions: filterState.region,
-                                          carType: filterState.car_type == ''
-                                              ? 'all'
-                                              : state.carType,
+                                            page: BlocProvider.value(
+                                          value: filterBloc,
+                                          child: DealersFilterScreen(
+                                            dealerFilterBloc: filterBloc,
+                                            dealerBloc: bloc,
+                                            maker: filterState.maker,
+                                            regions: filterState.region,
+                                            carType: filterState.carType == ''
+                                                ? 'all'
+                                                : filterState.carType,
+                                          ),
                                         )));
                                   },
                                   borderRadius: 12,

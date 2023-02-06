@@ -16,7 +16,7 @@ class SheetHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Padding(
         padding:
-            const EdgeInsets.only(bottom: 26, left: 16, top: 20, right: 24),
+            const EdgeInsets.only(bottom: 26, left: 16, top: 20, right: 18),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -30,7 +30,10 @@ class SheetHeader extends StatelessWidget {
             ),
             WScaleAnimation(
               onTap: onCancelPressed,
-              child: SvgPicture.asset(AppIcons.cancel, color: greyText),
+              child: Padding(
+                padding: const EdgeInsets.all(6),
+                child: SvgPicture.asset(AppIcons.cancel, color: greyText),
+              ),
             ),
           ],
         ),

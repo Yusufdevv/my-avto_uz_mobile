@@ -1,10 +1,17 @@
 part of 'posting_ad_bloc.dart';
 
 class PostingAdState extends Equatable {
+  final FormzStatus status;
+  final FormzStatus getDistrictsStatus;
+  final FormzStatus getMakesStatus;
+  final FormzStatus createStatus;
+  final String? id;
   final TextEditingController phoneController;
-
   final TextEditingController emailController;
   final TextEditingController nameController;
+  final TextEditingController searchController;
+  final int? modificationId;
+  final List<ModificationTypeEntity> modifications;
   final int? gearboxId;
   final List<GearboxTypeEntity> gearBoxes;
   final int? driveTypeId;
@@ -20,19 +27,22 @@ class PostingAdState extends Equatable {
   final List<GenerationEntity> generations;
   final int? bodyTypeId;
   final List<BodyTypeEntity> bodyTypes;
-
-  final Region? region;
+  final int? regionId;
   final List<Region> regions;
   final List<DistrictEntity> districts;
-  final FormzStatus status;
-  final FormzStatus getDistrictsStatus;
-  final YearsEntity? yearsEntity;
+
+  final YearsEntity? yearEntity;
+  final List<YearsEntity>? years;
   final int? districtId;
   final List<String> gallery;
+  final List<String> panaramaGallery;
   final List<RentWithPurchaseEntity> rentWithPurchaseConditions;
   final Map<DamagedParts, DamageType> damagedParts;
   final UserModel? userModel;
+  final Uint8List? mapPointBytes;
   final num minimumPrice;
+  final int? makeLetterIndex;
+  final String? milageImage;
   final String? letter;
   final String? ownerName;
   final String? ownerEmail;
@@ -40,7 +50,7 @@ class PostingAdState extends Equatable {
   final String? city;
   final String? ownerStep;
   final String? purchasedDate;
-  final String? typeDocument;
+  final String? licenceType;
   final String? colorName;
   final String? description;
   final String? price;
@@ -53,7 +63,7 @@ class PostingAdState extends Equatable {
   final String? locationUrl;
   final bool hasAppBarShadow;
   final bool isSortByLetter;
-  final bool registeredInUzbekistan;
+  final bool notRegisteredInUzbekistan;
   final bool isCallTimed;
   final bool showOwnerContacts;
   final bool isContactsVerified;
@@ -63,10 +73,15 @@ class PostingAdState extends Equatable {
 
   const PostingAdState({
     required this.status,
+    required this.searchController,
     required this.phoneController,
     required this.emailController,
     required this.nameController,
+    this.id,
+    this.makeLetterIndex,
     this.minimumPrice = 0,
+    this.modificationId,
+    this.modifications = const <ModificationTypeEntity>[],
     this.gearboxId,
     this.gearBoxes = const <GearboxTypeEntity>[],
     this.driveTypeId,
@@ -82,26 +97,28 @@ class PostingAdState extends Equatable {
     this.generations = const <GenerationEntity>[],
     this.bodyTypeId,
     this.bodyTypes = const <BodyTypeEntity>[],
+    this.yearEntity,
+    this.years = const <YearsEntity>[],
     this.gallery = const <String>[],
+    this.panaramaGallery = const <String>[],
     this.rentWithPurchaseConditions = const <RentWithPurchaseEntity>[],
     this.regions = const <Region>[],
     this.damagedParts = const <DamagedParts, DamageType>{},
-    this.yearsEntity,
     this.letter,
     this.colorName,
-    this.typeDocument,
+    this.licenceType,
     this.ownerStep,
     this.purchasedDate,
     this.description,
     this.isSortByLetter = false,
     this.hasAppBarShadow = true,
-    this.registeredInUzbekistan = false,
+    this.notRegisteredInUzbekistan = false,
     this.showExactAddress = false,
     this.ownerName,
     this.ownerEmail,
     this.ownerPhone,
     this.city,
-    this.region,
+    this.regionId,
     this.price,
     this.currency = 'usd',
     this.mileage,
@@ -116,30 +133,39 @@ class PostingAdState extends Equatable {
     this.districtId,
     this.districts = const <DistrictEntity>[],
     this.getDistrictsStatus = FormzStatus.pure,
+    this.createStatus = FormzStatus.pure,
+    this.getMakesStatus = FormzStatus.pure,
     this.toastMessage,
     this.userModel,
     this.locationUrl,
+    this.mapPointBytes,
+    this.milageImage,
   });
 
-  String get districtTitle {
+  String? get districtTitle {
     final index =
         districts.indexWhere((element) => element.id == (districtId ?? -1));
     if (index >= 0) {
       return districts[index].title;
     }
-    return 'Выберите район';
+    return null;
   }
 
   PostingAdState copyWith({
     TextEditingController? phoneController,
     TextEditingController? emailController,
     TextEditingController? nameController,
+    TextEditingController? searchController,
     Map<DamagedParts, DamageType>? damagedParts,
     List<RentWithPurchaseEntity>? rentWithPurchaseConditions,
     int? districtId,
-    Region? region,
+    int? regionId,
     FormzStatus? status,
     FormzStatus? getDistrictsStatus,
+    FormzStatus? createStatus,
+    FormzStatus? getMakesStatus,
+    int? modificationId,
+    List<ModificationTypeEntity>? modifications,
     int? gearboxId,
     List<GearboxTypeEntity>? gearBoxes,
     int? driveTypeId,
@@ -158,14 +184,19 @@ class PostingAdState extends Equatable {
     List<MakeEntity>? topMakes,
     List<DistrictEntity>? districts,
     List<String>? gallery,
-    YearsEntity? yearsEntity,
+    List<String>? panaramaGallery,
+    YearsEntity? yearEntity,
+    List<YearsEntity>? years,
     UserModel? userModel,
+    int? eventMakeScrrollIndex,
     num? minimumPrice,
-    String? letter,
+    String? milageImage,
+    String? eventLetter,
     String? colorName,
     String? typeDocument,
     String? ownerStep,
     String? ownerName,
+    Uint8List? mapPointBytes,
     String? ownerPhone,
     String? ownerEmail,
     String? purchasedDate,
@@ -181,7 +212,7 @@ class PostingAdState extends Equatable {
     String? toastMessage,
     String? locationUrl,
     bool? hasAppBarShadow,
-    bool? registeredInUzbekistan,
+    bool? notRegisteredInUzbekistan,
     bool? isCallTimed,
     bool isSortByLetter = false,
     bool? showOwnerContacts,
@@ -193,6 +224,16 @@ class PostingAdState extends Equatable {
     // print('====   ACTUALLY IN STATE:  ${this.districts}  ====');
     // print('==== INCOMING DISTRICT TO COPYWITH:  ${districts}  ====');
     final newState = PostingAdState(
+      milageImage: milageImage ?? this.milageImage,
+      modificationId: modificationId ?? this.modificationId,
+      modifications: modifications ?? this.modifications,
+      getMakesStatus: getMakesStatus ?? this.getMakesStatus,
+      searchController: searchController ?? this.searchController,
+      panaramaGallery: panaramaGallery ?? this.panaramaGallery,
+      createStatus: createStatus ?? this.createStatus,
+      mapPointBytes: mapPointBytes ?? this.mapPointBytes,
+      makeLetterIndex: eventMakeScrrollIndex,
+      yearEntity: yearEntity ?? this.yearEntity,
       locationUrl: locationUrl ?? this.locationUrl,
       phoneController: phoneController ?? this.phoneController,
       emailController: emailController ?? this.emailController,
@@ -207,7 +248,7 @@ class PostingAdState extends Equatable {
       showExactAddress: showExactAddress ?? this.showExactAddress,
       districtId: districtId ?? this.districtId,
       city: city ?? this.city,
-      region: region ?? this.region,
+      regionId: regionId ?? this.regionId,
       gearboxId: gearboxId ?? this.gearboxId,
       gearBoxes: gearBoxes ?? this.gearBoxes,
       driveTypeId: driveTypeId ?? this.driveTypeId,
@@ -222,18 +263,18 @@ class PostingAdState extends Equatable {
       makes: makes ?? this.makes,
       status: status ?? this.status,
       bodyTypes: bodyTypes ?? this.bodyTypes,
-      yearsEntity: yearsEntity ?? this.yearsEntity,
+      years: years ?? this.years,
       hasAppBarShadow: hasAppBarShadow ?? this.hasAppBarShadow,
       isSortByLetter: isSortByLetter,
       modelId: modelId ?? this.modelId,
       makeId: makeId ?? this.makeId,
-      letter: letter,
+      letter: eventLetter,
       colorName: colorName ?? this.colorName,
-      typeDocument: typeDocument ?? this.typeDocument,
+      licenceType: typeDocument ?? this.licenceType,
       ownerStep: ownerStep ?? this.ownerStep,
       purchasedDate: purchasedDate ?? this.purchasedDate,
-      registeredInUzbekistan:
-          registeredInUzbekistan ?? this.registeredInUzbekistan,
+      notRegisteredInUzbekistan:
+          notRegisteredInUzbekistan ?? this.notRegisteredInUzbekistan,
       description: description ?? this.description,
       ownerEmail: ownerEmail ?? this.ownerEmail,
       ownerName: ownerName ?? this.ownerName,
@@ -251,7 +292,7 @@ class PostingAdState extends Equatable {
       isWithoutMileage: isWithoutMileage ?? this.isWithoutMileage,
       gallery: gallery ?? this.gallery,
       regions: regions ?? this.regions,
-      toastMessage: toastMessage ?? this.toastMessage,
+      toastMessage: toastMessage,
     );
 
     // print(
@@ -261,6 +302,16 @@ class PostingAdState extends Equatable {
 
   @override
   List<Object?> get props => [
+        milageImage,
+        modificationId,
+        modifications,
+        getMakesStatus,
+        searchController,
+        panaramaGallery,
+        createStatus,
+        mapPointBytes,
+        id,
+        makeLetterIndex,
         locationUrl,
         phoneController,
         emailController,
@@ -281,7 +332,7 @@ class PostingAdState extends Equatable {
         callTimeTo,
         callTimeFrom,
         city,
-        region,
+        regionId,
         gearboxId,
         gearBoxes,
         driveTypeId,
@@ -294,16 +345,17 @@ class PostingAdState extends Equatable {
         makeId,
         letter,
         hasAppBarShadow,
-        yearsEntity,
+        years,
+        yearEntity,
         bodyTypes,
         status,
         generationId,
         colorName,
-        typeDocument,
+        licenceType,
         ownerStep,
         purchasedDate,
         bodyTypeId,
-        registeredInUzbekistan,
+        notRegisteredInUzbekistan,
         description,
         ownerEmail,
         ownerName,
@@ -316,4 +368,10 @@ class PostingAdState extends Equatable {
         showOwnerContacts,
         isContactsVerified,
       ];
+  bool buttonStatus(int page) => PASingleton.buttonStatus(page, this);
+  Region get getSelectedRegion {
+    final v = regions.firstWhere((e) => e.id == regionId,
+        orElse: () => const Region(id: -1, name: '', title: ''));
+    return v;
+  }
 }

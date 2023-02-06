@@ -13,10 +13,10 @@ part 'search_state.dart';
 part 'search_bloc.freezed.dart';
 
 class SearchBloc extends Bloc<SearchEvent, SearchState> {
-  final GetSearchResultsUseCase useCase;
-  final SuggestionUseCase suggestionUseCase;
+  final GetSearchResultsUseCase useCase = GetSearchResultsUseCase();
+  final SuggestionUseCase suggestionUseCase = SuggestionUseCase();
 
-  SearchBloc(this.useCase, {required this.suggestionUseCase})
+  SearchBloc( )
       : super(SearchState()) {
     on<_GetResults>((event, emit) async {
       emit(state.copyWith(status: FormzStatus.submissionInProgress));
@@ -29,6 +29,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
             searchResults: result.right.results,
             count: result.right.count,
             next: result.right.next,
+            moreFetch: result.right.next != null
           ),
         );
       } else {
@@ -46,6 +47,8 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
             searchResults: [...state.searchResults, ...result.right.results],
             count: result.right.count,
             next: result.right.next,
+            moreFetch: result.right.next != null
+
           ),
         );
       } else {

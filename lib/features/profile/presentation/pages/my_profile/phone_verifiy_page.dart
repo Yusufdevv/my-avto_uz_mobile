@@ -22,14 +22,9 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 
 class PhoneVerifiyPage extends StatefulWidget {
   final String phone;
-  final ProfileBloc profileBloc;
   final BuildContext ctx;
 
-  const PhoneVerifiyPage(
-      {required this.phone,
-      required this.profileBloc,
-      required this.ctx,
-      Key? key})
+  const PhoneVerifiyPage({required this.phone, required this.ctx, Key? key})
       : super(key: key);
 
   @override
@@ -39,7 +34,7 @@ class PhoneVerifiyPage extends StatefulWidget {
 class _PhoneVerifiyPageState extends State<PhoneVerifiyPage> {
   late TextEditingController verificationController;
   bool timeComplete = false;
-  bool validate = false;
+  bool isError = false;
   final GlobalKey<FormState> _formKey = GlobalKey();
 
   @override
@@ -52,12 +47,9 @@ class _PhoneVerifiyPageState extends State<PhoneVerifiyPage> {
   Widget build(BuildContext context) => KeyboardDismisser(
         child: CustomScreen(
           child: Scaffold(
-            appBar: WAppBar(
-              onTapBack: () {
-                Navigator.pop(context);
-              },
-              title: 'Номер телефона',
-            ),
+            backgroundColor: white,
+            appBar:
+                WAppBar(hasBackButton: true, title: LocaleKeys.tel_number.tr()),
             body: Padding(
               padding: EdgeInsets.symmetric(
                   vertical: SizeConfig.v(16), horizontal: SizeConfig.h(16)),
@@ -112,7 +104,9 @@ class _PhoneVerifiyPageState extends State<PhoneVerifiyPage> {
                     SizedBox(height: SizeConfig.v(35)),
                     PinCodeTextField(
                       onChanged: (value) {
-                        setState(() {});
+                        setState(() {
+                          isError = false;
+                        });
                       },
                       controller: verificationController,
                       length: 6,
@@ -121,56 +115,48 @@ class _PhoneVerifiyPageState extends State<PhoneVerifiyPage> {
                             .extension<ThemedColors>()!
                             .solitudeToWhite35,
                         errorBorderColor: red,
-                        activeColor: validate ? red : purple,
-                        activeFillColor: validate ? red : purple,
-                        selectedColor: validate ? red : purple,
+                        activeColor: isError ? red : purple,
+                        activeFillColor: isError ? red : purple,
+                        selectedColor: isError ? red : purple,
                         shape: PinCodeFieldShape.underline,
                         fieldHeight: 44,
                         fieldWidth: 50,
+                        borderWidth: 1,
                       ),
                       cursorColor: black,
+                      cursorWidth: 1,
+                      cursorHeight: 31,
                       keyboardType: TextInputType.number,
                       enableActiveFill: false,
                       textStyle: Theme.of(context)
                           .textTheme
                           .headline1!
-                          .copyWith(fontSize: 18),
+                          .copyWith(fontSize: 24, fontWeight: FontWeight.w400),
                       hintStyle: Theme.of(context)
                           .textTheme
                           .bodyText2!
                           .copyWith(fontSize: 4),
                       appContext: context,
                       showCursor: true,
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     ),
-                    if (validate)
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 4),
-                        child: Text(
-                          "Sms kodni to'g'ri kiriting",
-                          style: Theme.of(context).textTheme.button,
-                        ),
-                      )
-                    else
-                      const SizedBox(),
                     Row(
                       children: [
-                        Text(LocaleKeys.send_password_again.tr(),
-                            style:
-                                Theme.of(context).textTheme.headline6!.copyWith(
-                                      fontSize: 14,
-                                    )),
-                        const SizedBox(
-                          width: 6,
-                        ),
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 4, vertical: 3),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(4),
-                              color: orange.withOpacity(0.1)),
-                          child: timeComplete
-                              ? RefreshButton(
+                        Text(LocaleKeys.send_via_password.tr(),
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline6!
+                                .copyWith(
+                                    fontSize: 14, fontWeight: FontWeight.w400)),
+                        const SizedBox(width: 6),
+                        if (timeComplete)
+                          Container(
+                              height: 24,
+                              width: 24,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(4),
+                                  color: solitude),
+                              child: Center(
+                                child: RefreshButton(
                                   filteredPhone: widget.phone,
                                   onSucces: () {
                                     setState(() {
@@ -182,23 +168,45 @@ class _PhoneVerifiyPageState extends State<PhoneVerifiyPage> {
                                                 '+998${widget.phone}',
                                             onSuccess: () {},
                                             onError: (message) {
+                                              var error = message;
+                                              if (error
+                                                  .toLowerCase()
+                                                  .contains('dio')  || error
+                                              .toLowerCase()
+                                              .contains('type')) {
+                                                error = LocaleKeys.service_error
+                                                    .tr();
+                                              }
                                               context.read<ShowPopUpBloc>().add(
                                                   ShowPopUp(
-                                                      message: message,
-                                                      isSucces: false));
+                                                      message: error,
+                                                     status: PopStatus.error,));
+                                              setState(() {
+                                                isError = true;
+                                              });
                                             },
                                           ),
                                         );
                                   },
-                                )
-                              : TimeCounter(
-                                  onComplete: () {
-                                    setState(() {
-                                      timeComplete = true;
-                                    });
-                                  },
                                 ),
-                        )
+                              ))
+                        else
+                          Container(
+                            height: 21,
+                            width: 41,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(4),
+                                color: orange.withOpacity(0.1)),
+                            child: Center(
+                              child: TimeCounter(
+                                onComplete: () {
+                                  setState(() {
+                                    timeComplete = true;
+                                  });
+                                },
+                              ),
+                            ),
+                          ),
                       ],
                     ),
                     SizedBox(height: SizeConfig.v(24)),
@@ -209,9 +217,6 @@ class _PhoneVerifiyPageState extends State<PhoneVerifiyPage> {
                             state.status == FormzStatus.submissionInProgress,
                         onTap: () {
                           if (verificationController.text.length == 6) {
-                            setState(() {
-                              validate = false;
-                            });
                             context
                                 .read<ChangePhoneNumberBloc>()
                                 .add(VerifyCodeEvent(
@@ -223,7 +228,7 @@ class _PhoneVerifiyPageState extends State<PhoneVerifiyPage> {
                                               message: LocaleKeys
                                                   .phone_number_changed_success
                                                   .tr(),
-                                              isSucces: true));
+                                              status: PopStatus.success));
                                       context
                                           .read<ProfileBloc>()
                                           .add(GetProfileEvent());
@@ -231,15 +236,14 @@ class _PhoneVerifiyPageState extends State<PhoneVerifiyPage> {
                                       Navigator.pop(widget.ctx);
                                     },
                                     onError: (message) {
+                                      setState(() {
+                                        isError = true;
+                                      });
                                       context.read<ShowPopUpBloc>().add(
                                           ShowPopUp(
                                               message: message,
-                                              isSucces: false));
+                                              status: PopStatus.error,));
                                     }));
-                          } else {
-                            setState(() {
-                              validate = true;
-                            });
                           }
                         },
                         margin: EdgeInsets.only(
@@ -251,17 +255,9 @@ class _PhoneVerifiyPageState extends State<PhoneVerifiyPage> {
                                 .extension<ThemedColors>()!
                                 .veryLightGreyToEclipse,
                         text: LocaleKeys.continuee.tr(),
-                        shadow: [
-                          BoxShadow(
-                              offset: const Offset(0, 4),
-                              blurRadius: 20,
-                              color: solitude.withOpacity(.12)),
-                        ],
                         border: Border.all(
                           width: 1,
-                          color: Theme.of(context)
-                              .extension<ThemedColors>()!
-                              .whiteToDolphin,
+                          color: white,
                         ),
                       ),
                     ),

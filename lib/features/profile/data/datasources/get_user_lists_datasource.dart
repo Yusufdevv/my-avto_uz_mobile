@@ -16,9 +16,9 @@ abstract class GetUserListDatasource {
   Future<Either<Failure, GenericPagination<T>>> getProfileFavoritesMyAds<T>(
       {required String url,
       required T Function(Map<String, dynamic>) fromJson,
-      String? next});
-
-  Future<List<NotificationsModel>> getNotifications();
+      String? next,
+      String? moderationStatus});
+  Future<List<NotificationsModel>> getNotifications(int? filter);
   Future<List<MySearchesModel>> getMySearches();
   Future<List<DirectoryModel>> getDirectories(
       String search, String regions, String categories);
@@ -37,10 +37,16 @@ class GetUserListDatasourceImpl extends GetUserListDatasource {
   Future<Either<Failure, GenericPagination<T>>> getProfileFavoritesMyAds<T>(
       {required String url,
       required T Function(Map<String, dynamic>) fromJson,
-      String? next}) async {
+      String? next,
+      String? moderationStatus}) async {
+        var query = <String, dynamic>{};
+    if (moderationStatus != null) {
+      query = {'moderation_status__in': moderationStatus};
+    }
     try {
       final response = await dio.get(
         next != null && next.isNotEmpty ? next : url,
+        queryParameters: query,
         options: Options(headers: {
           'Authorization': 'Bearer ${StorageRepository.getString('token')}'
         }),
@@ -63,10 +69,15 @@ class GetUserListDatasourceImpl extends GetUserListDatasource {
   }
 
   @override
-  Future<List<NotificationsModel>> getNotifications() async {
+  Future<List<NotificationsModel>> getNotifications(int? filter) async {
+    var query = <String, dynamic>{};
+    if (filter != null) {
+      query = {'is_read': filter};
+    }
     try {
       final response = await dio.get(
         '/users/notification/list/',
+        queryParameters: query,
         options: Options(headers: {
           'Authorization': 'Bearer ${StorageRepository.getString('token')}'
         }),

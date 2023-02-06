@@ -4,7 +4,8 @@ import 'package:auto/features/common/domain/entity/auto_entity.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 class ReSendPart extends StatelessWidget {
   const ReSendPart({
     required this.item,
@@ -23,7 +24,7 @@ class ReSendPart extends StatelessWidget {
         const SizedBox(height: 6),
         const Divider(height: 12),
         Text(
-          'Не подходящие условия или предложения',
+          LocaleKeys.inappropriate_conditions_or_offers.tr(),
           style: Theme.of(context)
               .textTheme
               .headline4
@@ -31,7 +32,7 @@ class ReSendPart extends StatelessWidget {
         ),
         const SizedBox(height: 10),
         Text(
-          'В объявлении предлагаются услуги или товары, которые не относятся к сайту и нарушают его правила. На Auto.uz нельзя размещать автомобиль “только для обмена”, предлагать авто в аренду и создавать объявления о поиске ТС. Мы принимаем публикации только о продаже легковых автомобилей, коммерческого транспорта, мототехники и запчастей. Чтобы найти ТС, воспользуйтесь поиском и настройте фильтры. Исправить это объявление нельзя.',
+          LocaleKeys.the_ad_offers_services_or_products_that.tr(),
           style: Theme.of(context).textTheme.headline2?.copyWith(color: dark),
         ),
         const SizedBox(height: 12),
@@ -46,7 +47,7 @@ class ReSendPart extends StatelessWidget {
               SvgPicture.asset(AppIcons.refresh1),
               const SizedBox(width: 8),
               Text(
-                'Переотправить',
+                LocaleKeys.resend.tr(),
                 style: Theme.of(context)
                     .textTheme
                     .headline5

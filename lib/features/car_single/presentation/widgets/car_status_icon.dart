@@ -1,4 +1,3 @@
-import 'package:auto/features/ad/domain/entities/damaged_part/damaged_part.dart';
 import 'package:auto/features/car_single/domain/entities/damaged_parts_entity.dart';
 import 'package:auto/utils/my_functions.dart';
 import 'package:flutter/material.dart';
@@ -22,24 +21,26 @@ class CarStatusIconInPicture extends StatelessWidget {
   final double? bottom;
 
   @override
-  Widget build(BuildContext context) => Visibility(
-        visible: MyFunctions.getStatusTitle(informAboutDoors[
-                    informAboutDoors
-                        .indexWhere((element) {
-                          print(informAboutDoors.indexOf(element));
-                      return element.part == doorName;
-                    })]
-                .damageType) !=
-            'Идеальное',
-        child: Positioned(
-          right: right,
-          top: top,
-          left: left,
-          bottom: bottom,
-          child: MyFunctions.getStatusIcon(informAboutDoors[
-                  informAboutDoors
-                      .indexWhere((element) => element.part == doorName)]
-              .damageType),
+  Widget build(BuildContext context) {
+    int? index;
+    for (var i = 0; i < informAboutDoors.length; i++) {
+      if (informAboutDoors[i].part == doorName) {
+        index = i;
+      }
+    }
+    return Visibility(
+      visible: index != null &&
+          MyFunctions.getStatusTitle(informAboutDoors[index].damageType) !=
+              'Идеальное',
+      child: Positioned(
+        right: right,
+        top: top,
+        left: left,
+        bottom: bottom,
+        child: MyFunctions.getStatusIcon(
+          informAboutDoors[index??0].damageType,
         ),
-      );
+      ),
+    );
+  }
 }

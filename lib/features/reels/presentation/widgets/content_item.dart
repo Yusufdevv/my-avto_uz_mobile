@@ -1,16 +1,13 @@
 import 'dart:math';
 
 import 'package:auto/assets/colors/color.dart';
-import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/images.dart';
-import 'package:auto/features/common/widgets/w_button.dart';
-import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/reels/domain/entities/reel_entity.dart';
+import 'package:auto/features/reels/presentation/widgets/offer_badge.dart';
 import 'package:auto/features/reels/presentation/widgets/options_item.dart';
-import 'package:auto/utils/my_functions.dart';
+import 'package:auto/features/reels/presentation/widgets/price_button.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:video_player/video_player.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
@@ -63,121 +60,36 @@ class _ContentItemState extends State<ContentItem> {
           _videoPlayerController.value.size.height;
     }
     return Stack(
-      // fit: StackFit.expand,
       children: [
         if (initialized)
-          isLandscape ? _renderLandscapeVideo() : _renderPortraitVideo()
-        else
-          Container(),
+          isLandscape ? _renderLandscapeVideo() : _renderPortraitVideo(),
         Container(
           decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.bottomCenter,
-                  end: Alignment.center,
-                  colors: [dark.withOpacity(1), dark.withOpacity(0)])),
+            gradient: LinearGradient(
+              begin: Alignment.bottomCenter,
+              end: Alignment.center,
+              colors: [dark.withOpacity(1), dark.withOpacity(0)],
+            ),
+          ),
         ),
+        if (widget.reel.isOfferOfTheDay)
+          const Positioned(
+            top: 52,
+            right: 16,
+            child: OfferBadge(),
+          ),
         Positioned(
           bottom: 26,
           left: 16,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              if (double.parse(widget.reel.announcement.discount) > 0.0)
-                WScaleAnimation(
-                  onTap: () {},
-                  child: Container(
-                    padding: const EdgeInsets.fromLTRB(16, 12, 8, 16),
-                    decoration: BoxDecoration(
-                      color: white.withOpacity(.6),
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          '${MyFunctions.getFormatCost((double.parse(widget.reel.announcement.price) - double.parse(widget.reel.announcement.discount)).toString())} '
-                          '${(widget.reel.announcement.currency).toUpperCase()}',
-                          style:
-                              Theme.of(context).textTheme.headline5!.copyWith(
-                                    decoration: TextDecoration.lineThrough,
-                                    color: black.withOpacity(.5),
-                                  ),
-                        ),
-                        const SizedBox(height: 2),
-                        Row(
-                          children: [
-                            Text(
-                              '${MyFunctions.getFormatCost(widget.reel.announcement.price)} '
-                              '${(widget.reel.announcement.currency).toUpperCase()}',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline4!
-                                  .copyWith(fontSize: 24, color: dark),
-                            ),
-                            const SizedBox(
-                              width: 6,
-                            ),
-                            SizedBox(
-                              height: 27,
-                              width: 27,
-                              child: Stack(
-                                children: [
-                                  SvgPicture.asset(AppIcons.discountContainer),
-                                  Positioned(
-                                    left: 3,
-                                    right: 3,
-                                    top: 8,
-                                    bottom: 8,
-                                    child: Text(
-                                      '-${(double.parse(widget.reel.announcement.discount) / double.parse(widget.reel.announcement.discount)) * 100}%',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .headline4!
-                                          .copyWith(
-                                              fontSize: 8,
-                                              fontWeight: FontWeight.w600),
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                            const SizedBox(width: 8),
-                            SvgPicture.asset(
-                              AppIcons.chevronRight2,
-                            )
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                )
-              else
-                WButton(
-                  onTap: () {},
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  height: 55,
-                  borderRadius: 16,
-                  color: purple.withOpacity(.88),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        '${MyFunctions.getFormatCost((widget.reel.announcement.price).toString())} '
-                        '${(widget.reel.announcement.currency).toUpperCase()}',
-                        style: Theme.of(context)
-                            .textTheme
-                            .headline4!
-                            .copyWith(fontSize: 24),
-                      ),
-                      const SizedBox(
-                        width: 4,
-                      ),
-                      SvgPicture.asset(
-                        AppIcons.chevronRight2,
-                      ),
-                    ],
-                  ),
-                ),
+              PriceButton(
+                announcementId: widget.reel.announcement.id,
+                discount: widget.reel.announcement.discount,
+                price: widget.reel.announcement.price,
+                currency: widget.reel.announcement.currency,
+              ),
               const SizedBox(height: 20),
               Text(
                 widget.reel.title,
@@ -193,17 +105,21 @@ class _ContentItemState extends State<ContentItem> {
                     height: 20,
                     width: 20,
                     decoration: BoxDecoration(
-                        border: Border.all(
-                            width: 1.5, color: white.withOpacity(.5)),
-                        borderRadius: BorderRadius.circular(10)),
+                      border: Border.all(
+                        width: 1.5,
+                        color: white.withOpacity(.5),
+                      ),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(10),
                       child: CachedNetworkImage(
-                          imageUrl: widget.reel.dealer.image,
-                          fit: BoxFit.cover,
-                          errorWidget: (context, url, error) => Image.asset(
-                              AppImages.carPlaceHolder,
-                              fit: BoxFit.cover)),
+                        imageUrl: widget.reel.dealer.image,
+                        fit: BoxFit.cover,
+                        errorWidget: (context, url, error) => Image.asset(
+                            AppImages.carPlaceHolder,
+                            fit: BoxFit.cover),
+                      ),
                     ),
                   ),
                   const SizedBox(width: 8),

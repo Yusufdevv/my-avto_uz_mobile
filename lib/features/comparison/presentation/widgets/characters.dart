@@ -28,7 +28,7 @@ class _AzListState extends State<CharactersList> {
             context
                 .read<GetMakesBloc>()
                 .add(GetMakesBlocEvent.getIndex(widget.letter));
-          },
+          }, behavior: HitTestBehavior.opaque,
           child: Container(
             color: widget.color,
             padding: const EdgeInsets.symmetric(horizontal: 12),

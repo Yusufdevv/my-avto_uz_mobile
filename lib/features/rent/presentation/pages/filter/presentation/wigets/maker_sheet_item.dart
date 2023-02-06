@@ -1,9 +1,6 @@
 import 'package:auto/assets/colors/color.dart';
-import 'package:auto/assets/constants/images.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/marka_checkbox.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class RentSheetItem extends StatelessWidget {
   final bool isChecked;

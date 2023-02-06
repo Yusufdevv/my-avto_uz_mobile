@@ -5,17 +5,20 @@ import 'dart:ui' as ui;
 
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
-import 'package:auto/assets/constants/images.dart';
 import 'package:auto/core/exceptions/exceptions.dart';
 import 'package:auto/core/exceptions/failures.dart';
+import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/common/models/region.dart';
-import 'package:auto/features/dealers/data/models/map_model.dart';
+import 'package:auto/features/common/models/yandex_search_model.dart';
 import 'package:auto/features/profile/domain/entities/dir_category_entity.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:jiffy/jiffy.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:yandex_mapkit/yandex_mapkit.dart';
 
 // ignore: avoid_classes_with_only_static_members
@@ -23,33 +26,29 @@ class MyFunctions {
   static String getData(String data) =>
       Jiffy(data).format('dd-MM-yyyy').replaceAll('-', '/').toString();
 
-  // static String getFormatCost(String cost) {
-  //   String oldCost = cost;
-  //   if (cost.contains('.')) {
-  //     List<String> arr = cost.split('.');
-  //     oldCost = arr.first;
-  //   }
-  //   String newCost = "";
-  //   for (int i = 0; i < oldCost.length; i++) {
-  //     if ((oldCost.length - i) % 3 == 0) newCost += ' ';
-  //     newCost += oldCost[i];
-  //   }
-  //   return newCost.trimLeft();
-  // }
-
   static String phoneFormat(String phone) {
-    //input: 904781717
-    //output : 90 478 17 17
     var formattedPhone = '';
-    formattedPhone += '${phone.substring(0, 2)} '; //90
-    formattedPhone += '${phone.substring(2, 5)} '; // 478
-    formattedPhone += '${phone.substring(5, 7)} '; // 17
-    formattedPhone += phone.substring(7); // 17
-    return formattedPhone; // 90 478 17 17
+    if (phone.length == 9) {
+      //!input = 904781717
+      formattedPhone += '${phone.substring(0, 2)} '; //90
+      formattedPhone += '${phone.substring(2, 5)} '; // 478
+      formattedPhone += '${phone.substring(5, 7)} '; // 17
+      formattedPhone += phone.substring(7); // 17
+      //!result 90 487 17 17
+    } else if (phone.length == 13) {
+      //!input = +998904781717
+      formattedPhone += '${phone.substring(0, 4)} '; //+998
+      formattedPhone += '${phone.substring(4, 6)} '; //90
+      formattedPhone += '${phone.substring(6, 9)} '; // 478
+      formattedPhone += '${phone.substring(9, 11)} '; // 17
+      formattedPhone += phone.substring(11);
+      //!result +998 90 487 17 17
+    }
+
+    return formattedPhone;
   }
 
   static String text(List<Region>? list, [bool doName = false]) {
-    // output : "Sirdaryo, Namangan, Toshkent"
     var result = '';
     if (list != null) {
       if (doName) {
@@ -74,7 +73,6 @@ class MyFunctions {
   }
 
   static String textForDirCategory(List<DirCategoryEntity>? list) {
-    // output : "1,2,3"
     var result = '';
     if (list != null) {
       for (var i = 0; i < list.length; i++) {
@@ -127,14 +125,15 @@ class MyFunctions {
     return completer.future;
   }
 
-  static Future<Uint8List> getBytesFromCanvas(
-      {required int width,
-      required int height,
-      required int placeCount,
-      required BuildContext context,
-      Offset? offset,
-      required String image,
-      bool shouldAddText = true}) async {
+  static Future<Uint8List> getBytesFromCanvas({
+    required int width,
+    required int height,
+    required int placeCount,
+    required BuildContext context,
+    required String image,
+    Offset? offset,
+    bool shouldAddText = true,
+  }) async {
     final pictureRecorder = ui.PictureRecorder();
     final canvas = Canvas(pictureRecorder);
     final paint = Paint()..color = Colors.red;
@@ -163,16 +162,26 @@ class MyFunctions {
     return data?.buffer.asUint8List() ?? Uint8List(0);
   }
 
+  static String? extractAddress(YandexSearchModel result) {
+    String? address;
+    try {
+      return '${result.features[6].properties.name}, ${result.features[4].properties.name}, ${result.features[0].properties.name}';
+    } catch (e) {
+      print('GET YANDEX ADDRESS EXEPTION: $e');
+      return null;
+    }
+  }
+
   static Future<MapObject<dynamic>> getMyPoint(
       Point point, BuildContext context) async {
     final myIconData = await getBytesFromCanvas(
-        placeCount: 0,
-        image: AppIcons.currentLoc,
-        width: 170,
-        //offset: const Offset(0, -30),
-        height: 410,
-        context: context,
-        shouldAddText: false);
+      placeCount: 0,
+      image: AppIcons.currentLoc,
+      width: 170,
+      height: 410,
+      context: context,
+      shouldAddText: false,
+    );
     final myPoint = PlacemarkMapObject(
         opacity: 1,
         mapId: const MapObjectId('my-point'),
@@ -185,118 +194,6 @@ class MyFunctions {
   }
 
   static const clusterId = MapObjectId('big_cluster_id');
-
-  static Future<void> addDealer(
-      {required List<MapModel> points,
-      required BuildContext context,
-      required List<MapObject<dynamic>> mapObjects,
-      required YandexMapController controller,
-      required Point point,
-      required double accuracy,
-      required bool isDirectoryPage}) async {
-    final iconData = await getBytesFromCanvas(
-        placeCount: 0,
-        image:
-            isDirectoryPage ? AppIcons.directoryPoint : AppIcons.dealersLocIcon,
-        width: 170,
-        offset: const Offset(0, -30),
-        height: 410,
-        context: context,
-        shouldAddText: false);
-    final placeMarks = points
-        .map(
-          (e) => PlacemarkMapObject(
-            opacity: 1,
-            mapId: MapObjectId(e.latitude.toString()),
-            point: Point(latitude: e.latitude, longitude: e.longitude),
-            onTap: (object, point) {
-              controller.moveCamera(
-                CameraUpdate.newCameraPosition(
-                  CameraPosition(
-                    target: Point(latitude: e.latitude, longitude: e.longitude),
-                    zoom: 15,
-                  ),
-                ),
-              );
-              // showModalBottomSheet(
-              //   barrierColor: Colors.transparent,
-              //   context: context,
-              //   isScrollControlled: true,
-              //   useRootNavigator: true,
-              //   backgroundColor: Colors.transparent,
-              //   builder: (context) => const SizedBox(
-              //     height: 40,
-              //     width: 100,
-              //     child: Text('Shu locationga bosdingiz'),
-              //   ),
-              //   // builder: (context) => HospitalSingleBottomSheet(
-              //   //   id: e.id,
-              //   //   isHospital: true,
-              //   //   slug: e.slug,
-              //   //   title: e.title,
-              //   //   phone: e.phoneNumber,
-              //   //   logo: e.logo.middle,
-              //   //   address: e.address,
-              //   //   images: e.images.map((e) => e.middle).toList(),
-              //   //   location: Point(latitude: e.latitude, longitude: e.longitude),
-              //   //   rating: e.rating,
-              //   // ),
-              // );
-            },
-            icon: PlacemarkIcon.single(
-              PlacemarkIconStyle(
-                scale: 0.6,
-                image: BitmapDescriptor.fromBytes(iconData),
-              ),
-            ),
-          ),
-        )
-        .toList();
-
-    print(points.map((point) => [point.latitude, point.longitude, point.name]));
-
-    print('poins');
-    print(points.length);
-    print(points);
-    final myPoint = await getMyPoint(point, context);
-    final clusterItem = ClusterizedPlacemarkCollection(
-      mapId: clusterId,
-      placemarks: placeMarks,
-      radius: 25,
-      minZoom: 30,
-      onClusterTap: (collection, cluster) {
-        controller.moveCamera(CameraUpdate.newCameraPosition(CameraPosition(
-            target: Point(
-                latitude: collection.placemarks.first.point.latitude,
-                longitude: collection.placemarks.first.point.latitude),
-            zoom: 15)));
-      },
-      onTap: (collection, point) {},
-      onClusterAdded: (collection, cluster) async => cluster.copyWith(
-        appearance: cluster.appearance.copyWith(
-          opacity: 1,
-          icon: PlacemarkIcon.single(
-            PlacemarkIconStyle(
-              image: BitmapDescriptor.fromBytes(
-                await getBytesFromCanvas(
-                    image: AppImages.audi,
-                    width: 170,
-                    height: 410,
-                    placeCount: cluster.placemarks.length,
-                    context: context,
-                    shouldAddText: true),
-              ),
-              scale: 0.6,
-            ),
-          ),
-        ),
-      ),
-    );
-
-    mapObjects
-      ..clear()
-      ..addAll([clusterItem, myPoint]);
-  }
 
   static double getRadiusFromZoom(double zoom) =>
       40000 / pow(2, zoom) > 1 ? 40000 / pow(2, zoom) : 1;
@@ -315,40 +212,69 @@ class MyFunctions {
     return newCost.trimLeft();
   }
 
+  static List<String> getUpperLetter() =>
+      [for (int i = 0; i < 26; i++) String.fromCharCode(i + 65)];
+
+  static Future<bool> getPhotosPermission(bool platformIsAndroid) async {
+    if (platformIsAndroid) {
+      Permission permissionType;
+
+      final androidInfo = await DeviceInfoPlugin().androidInfo;
+      if (androidInfo.version.sdkInt <= 32) {
+        permissionType = Permission.storage;
+      } else {
+        permissionType = Permission.photos;
+      }
+
+      var permission = await permissionType.status;
+      if (!permission.isGranted) {
+        permission = await permissionType.request();
+      }
+      return permission.isGranted;
+    }
+    return true;
+  }
+
+  static Future<bool> getCameraPermission(bool platformIsAndroid) async {
+    if (platformIsAndroid) {
+      var permission = await Permission.camera.status;
+      print(
+          '=> => => =>    CAMERA PERMISSION STATUS NAME: ${permission.name}     <= <= <= <=');
+      if (!permission.isGranted) {
+        permission = await Permission.camera.request();
+        print(
+            '=> => => =>     camera request status name: ${permission.name}    <= <= <= <=');
+      }
+      return permission.isGranted;
+    }
+    return true;
+  }
+
   static Future<Position> determinePosition() async {
     bool serviceEnabled;
     LocationPermission permission;
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    print('=> => => =>  serivce enabled   ${serviceEnabled}    <= <= <= <=');
     if (!serviceEnabled) {
-      print('=> => => =>     service enabled not    <= <= <= <=');
-      // throw const ParsingException(errorMessage: 'location_services_disabled');
       permission = await Geolocator.checkPermission();
       if (permission == LocationPermission.denied) {
-        print('=> => => =>     permission deniyed    <= <= <= <=');
         permission = await Geolocator.requestPermission();
         if (permission == LocationPermission.denied) {
-          print('=> => => =>     permisson again denied    <= <= <= <=');
           throw const ParsingException(
               errorMessage: 'location_permission_disabled');
         }
       }
 
       if (permission == LocationPermission.deniedForever) {
-        print('=> => => =>     permission denied forever    <= <= <= <=');
         permission = await Geolocator.requestPermission();
         if (permission == LocationPermission.denied) {
-          print('=> => => =>     permission denied again forever    <= <= <= <=');
           throw const ParsingException(
               errorMessage: 'location_permission_disabled');
         } else if (permission == LocationPermission.deniedForever) {
-          print('=> => => =>     dennied again ageain    <= <= <= <=');
           throw const ParsingException(
               errorMessage: 'location_permission_permanent_disabled');
         }
       }
     }
-    print('=> => => =>     REturning    <= <= <= <=');
 
     return await Geolocator.getCurrentPosition();
   }
@@ -368,31 +294,32 @@ class MyFunctions {
   }
 
   static String getMonthByIndex(int index) {
+    final language = StorageRepository.getString('language');
     switch (index) {
       case 1:
-        return 'Январь';
+        return language == 'uz' ? 'Yanvar' : 'Январь';
       case 2:
-        return 'Февраль';
+        return language == 'uz' ? 'Fevral' : 'Февраль';
       case 3:
-        return 'Март';
+        return language == 'uz' ? 'Mart' : 'Март';
       case 4:
-        return 'Апрель';
+        return language == 'uz' ? 'Aprel' : 'Апрель';
       case 5:
-        return 'Май';
+        return language == 'uz' ? 'May' : 'Май';
       case 6:
-        return 'Июнь';
+        return language == 'uz' ? 'Iyun' : 'Июнь';
       case 7:
-        return 'Июль';
+        return language == 'uz' ? 'Iyul' : 'Июль';
       case 8:
-        return 'Август';
+        return language == 'uz' ? 'Avgust' : 'Август';
       case 9:
-        return 'Сентябрь';
+        return language == 'uz' ? 'Sentabr' : 'Сентябрь';
       case 10:
-        return 'Октябрь';
+        return language == 'uz' ? 'Oktabr' : 'Октябрь';
       case 11:
-        return 'Ноябрь';
+        return language == 'uz' ? 'Noyabr' : 'Ноябрь';
       case 12:
-        return 'Декабрь';
+        return language == 'uz' ? 'Dekabr' : 'Декабрь';
       default:
         return '';
     }
@@ -405,12 +332,13 @@ class MyFunctions {
   }
 
   static String getDateNamedMonthEdit(String data) {
+    final language = StorageRepository.getString('language');
     final date = DateTime.now();
     final list = data.substring(0, 10).split('-');
     if (date.year.toString() == list[0]) {
       if (date.month == int.tryParse(list[1]) &&
           date.day == int.tryParse(list[2])) {
-        return 'Сегодня';
+        return language == 'uz' ? 'Bugun' : 'Сегодня';
       } else {
         return '${int.tryParse(list[2])} ${getMonthByIndex(int.tryParse(list[1]) ?? -1)}';
       }
@@ -420,14 +348,16 @@ class MyFunctions {
   }
 
   static String getAutoPublishDate(String data) {
+    final language = StorageRepository.getString('language');
+
     final dateNow = DateTime.now();
     final date = getDateNamedMonth(data).split(',');
     final dateDay = int.parse(date[0].split(' ')[0]);
     final dateYear = int.parse(date[1].trim().split(' ')[0]);
     if (dateDay == dateNow.day) {
-      return 'Сегодня';
+      return language == 'uz' ? 'Bugun' : 'Сегодня';
     } else if (dateDay == (dateNow.day - 1)) {
-      return 'Вчера';
+      return language == 'uz' ? 'Kecha' : 'Вчера';
     } else if (dateYear == dateNow.year) {
       return date[0];
     } else {
@@ -438,7 +368,9 @@ class MyFunctions {
   static bool enableForCalling(
       {required String callFrom, required String callTo}) {
     final now = DateTime.now();
-
+    if (callFrom.isEmpty && callTo.isEmpty) {
+      return false;
+    }
     final dateFrom = DateTime(
       now.year,
       now.month,
@@ -458,10 +390,11 @@ class MyFunctions {
     return now.isAfter(dateFrom) && now.isBefore(dateTo);
   }
 
-  static bool isEmail(String email) =>
-      RegExp(r'^[a-z0-9](\.?[a-z0-9]){5,}@g(oogle)?mail\.com$').hasMatch(email);
+  static bool isEmail(String email) => RegExp(
+          r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
+      .hasMatch(email);
 
-  static String getDoorName(String door) {
+  static String getDamagedPartName(String door) {
     switch (door) {
       case 'left_front_door':
         return 'Левая передняя дверь';
@@ -549,5 +482,69 @@ class MyFunctions {
       case DamageType.requiresReplacement:
         return const Color(0xffE00B00);
     }
+  }
+
+  /// Creates an image from the given widget by first spinning up a element and render tree,
+  /// then waiting for the given [wait] amount of time and then creating an image via a [RepaintBoundary].
+  ///
+  /// The final image will be of size [imageSize] and the the widget will be layout, ... with the given [logicalSize].
+  static Future<Uint8List?> createImageFromWidget(Widget widget,
+      {Duration? wait, Size? logicalSize, Size? imageSize}) async {
+    final repaintBoundary = RenderRepaintBoundary();
+
+    logicalSize ??= ui.window.physicalSize / ui.window.devicePixelRatio;
+    imageSize ??= ui.window.physicalSize;
+
+    assert(logicalSize.aspectRatio == imageSize.aspectRatio,
+        'logicalSize and imageSize must not be the same');
+
+    final renderView = RenderView(
+      window: ui.window,
+      child: RenderPositionedBox(
+          alignment: Alignment.center, child: repaintBoundary),
+      configuration: ViewConfiguration(
+        size: logicalSize,
+        devicePixelRatio: 1,
+      ),
+    );
+
+    final pipelineOwner = PipelineOwner();
+    final buildOwner = BuildOwner(focusManager: FocusManager());
+
+    pipelineOwner.rootNode = renderView;
+    renderView.prepareInitialFrame();
+
+    final rootElement = RenderObjectToWidgetAdapter<RenderBox>(
+        container: repaintBoundary,
+        child: Directionality(
+          textDirection: TextDirection.ltr,
+          child: widget,
+        )).attachToRenderTree(buildOwner);
+
+    // final rootElement = RenderObjectToWidgetAdapter<RenderBox>(
+    //   container: repaintBoundary,
+    //   child: widget,
+    // ).attachToRenderTree(buildOwner);
+
+    buildOwner.buildScope(rootElement);
+
+    if (wait != null) {
+      await Future.delayed(wait);
+    }
+
+    buildOwner
+      ..buildScope(rootElement)
+      ..finalizeTree();
+
+    pipelineOwner
+      ..flushLayout()
+      ..flushCompositingBits()
+      ..flushPaint();
+
+    final image = await repaintBoundary.toImage(
+        pixelRatio: imageSize.width / logicalSize.width);
+    final byteData = await image.toByteData(format: ui.ImageByteFormat.png);
+
+    return byteData?.buffer.asUint8List();
   }
 }

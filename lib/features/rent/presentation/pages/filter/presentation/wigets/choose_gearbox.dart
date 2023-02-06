@@ -11,7 +11,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
-
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 class ChooseGearbox extends StatefulWidget {
   final int selectedId;
   const ChooseGearbox({required this.selectedId, super.key});
@@ -51,7 +52,7 @@ class _ChooseGearboxState extends State<ChooseGearbox> {
                 return Column(
                   children: [
                     SheetHeader(
-                        title: 'Коробка',
+                        title: LocaleKeys.box.tr(),
                         onCancelPressed: () {
                           Navigator.of(context).pop(state.selected >= 0
                               ? state.gearBoxes[state.selected]
@@ -102,7 +103,7 @@ class _ChooseGearboxState extends State<ChooseGearbox> {
                               : null);
                         },
                         color: orange,
-                        text: 'Применить',
+                        text: LocaleKeys.apply.tr(),
                       ),
                     ),
                   ],

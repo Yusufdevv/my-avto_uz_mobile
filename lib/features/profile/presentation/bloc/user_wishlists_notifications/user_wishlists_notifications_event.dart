@@ -3,28 +3,39 @@ part of 'user_wishlists_notification_bloc.dart';
 class UserWishListsEvent {}
 
 class GetUserFavoritesEvent extends UserWishListsEvent {
-  final String endpoint;
-  GetUserFavoritesEvent({required this.endpoint});
+   
+  GetUserFavoritesEvent( );
 }
 
 class GetUserMyAdsEvent extends UserWishListsEvent {
-  final String endpoint;
-  GetUserMyAdsEvent({required this.endpoint});
+  final String moderationStatus;
+  GetUserMyAdsEvent({required this.moderationStatus});
+}
+
+class GetMoreUserMyAdsEvent extends UserWishListsEvent {
+  final String moderationStatus;
+
+  GetMoreUserMyAdsEvent({required this.moderationStatus});
 }
 
 class GetMySearchesEvent extends UserWishListsEvent {}
 
 class NotificationAllReadEvent extends UserWishListsEvent {}
+
 class ChangeIsWishEvenet extends UserWishListsEvent {
   final int index;
   final int id;
-    bool isAddWish;
+  bool isAddWish;
   bool isRemoveWish;
-  ChangeIsWishEvenet({required this.index, required this.id, this.isAddWish =false, this.isRemoveWish=false});
+  ChangeIsWishEvenet(
+      {required this.index,
+      required this.id,
+      this.isAddWish = false,
+      this.isRemoveWish = false});
 }
 
 class DeleteMySearchesEvent extends UserWishListsEvent {
-    final List<int> ids;
+  final List<int> ids;
   DeleteMySearchesEvent({required this.ids});
 }
 
@@ -34,8 +45,11 @@ class GetNotificationSingleEvent extends UserWishListsEvent {
 }
 
 class ChangeReadEvent extends UserWishListsEvent {
-  final int id;
-  ChangeReadEvent({required this.id});
+  final int index;
+  ChangeReadEvent({required this.index});
 }
 
-class GetNotificationsEvent extends UserWishListsEvent {}
+class GetNotificationsEvent extends UserWishListsEvent {
+  int? filter;
+  GetNotificationsEvent({this.filter});
+}

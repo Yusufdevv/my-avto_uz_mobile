@@ -17,12 +17,16 @@ class InformationAboutDoors extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Row(
         children: [
-          MyFunctions.getStatusIcon(informAboutDoors[index].damageType),
+          Padding(
+            padding: const EdgeInsets.only(right: 8),
+            child:
+                MyFunctions.getStatusIcon(informAboutDoors[index].damageType),
+          ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                MyFunctions.getDoorName(informAboutDoors[index].part),
+                MyFunctions.getDamagedPartName(informAboutDoors[index].part),
                 style: const TextStyle(
                   color: grey,
                   fontWeight: FontWeight.w400,

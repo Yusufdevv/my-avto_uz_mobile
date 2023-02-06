@@ -3,11 +3,15 @@ import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ads/presentation/pages/filter_parameters.dart';
 import 'package:auto/features/common/bloc/announcement_bloc/bloc/announcement_list_bloc.dart';
+import 'package:auto/features/common/bloc/get_car_model/get_car_model_bloc.dart';
+import 'package:auto/features/common/bloc/get_makes_bloc/get_makes_bloc_bloc.dart';
 import 'package:auto/features/common/bloc/regions/regions_bloc.dart';
 import 'package:auto/features/common/models/region.dart';
 import 'package:auto/features/common/widgets/w_filter_button.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/rent_choose_region_bottom_sheet.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -25,7 +29,7 @@ class FilterButtonsWidget extends StatelessWidget {
   Widget build(BuildContext context) =>
       BlocBuilder<AnnouncementListBloc, AnnouncementListState>(
         builder: (context, state) => Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
+          padding: const EdgeInsets.only(right: 16, left: 16, bottom: 12),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -36,7 +40,7 @@ class FilterButtonsWidget extends StatelessWidget {
                 name: '',
                 claerA: state.isFilter,
                 activeColor: orange,
-                defaultTitle: 'Параметры',
+                defaultTitle: LocaleKeys.options.tr(),
                 onTap: () {
                   Navigator.of(context).push(
                     fade(
@@ -72,7 +76,7 @@ class FilterButtonsWidget extends StatelessWidget {
                 name: state.regions.isNotEmpty ? state.regions[0].title : '',
                 claerA: state.regions.isNotEmpty,
                 activeColor: dark,
-                defaultTitle: 'Все регионы',
+                defaultTitle: LocaleKeys.all_regions.tr(),
                 onTap: () async {
                   await showModalBottomSheet<List<Region>>(
                     isDismissible: false,
@@ -84,6 +88,11 @@ class FilterButtonsWidget extends StatelessWidget {
                       list: context.read<RegionsBloc>().state.regions,
                     ),
                   ).then((value) {
+                    if (context.read<GetMakesBloc>().state.name.isNotEmpty &&
+                        context.read<GetCarModelBloc>().state.name.isNotEmpty) {
+                      context.read<AnnouncementListBloc>().add(
+                          AnnouncementListEvent.getIsHistory(value!.isEmpty));
+                    }
                     context
                         .read<AnnouncementListBloc>()
                         .add(AnnouncementListEvent.getRegions(value!));

@@ -70,6 +70,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   }
 
   bool isLangRus() {
+    // ignore: avoid_bool_literals_in_conditional_expressions
     final res = StorageRepository.getString('language') == 'ru' ? true : false;
     return res;
   }
@@ -83,7 +84,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
           children: [
             Container(
               margin: const EdgeInsets.only(top: 36),
-              padding: const EdgeInsets.symmetric(horizontal: 32),
+              padding: const EdgeInsets.only(left: 16, right: 32),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -91,11 +92,14 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                     onTap: () {
                       Navigator.of(context).pop();
                     },
-                    child: SvgPicture.asset(AppIcons.arrowLeft, color: black),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: SvgPicture.asset(AppIcons.arrowLeft, color: black),
+                    ),
                   ),
                   const Spacer(),
                   if (currentIndex != 2)
-                    GestureDetector(
+                    WScaleAnimation(
                         onTap: () {
                           Navigator.of(context)
                               .pushReplacement(fade(page: const LoginScreen()));
@@ -122,13 +126,21 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                   },
                   children: [
                     OnBoardingPageItems(
-                        icon: AppImages.flash,
-                        title: LocaleKeys.easy_send.tr(),
-                        image: AppImages.firstImage),
+                      icon: AppImages.flash,
+                      title: LocaleKeys.easy_send.tr(),
+                      image: AppImages.firstImage,
+                      polygonIcon: true,
+                      rightPosition: 41,
+                      bottomPosition: 70,
+                    ),
                     OnBoardingPageItems(
-                        icon: AppImages.done,
-                        title: LocaleKeys.trusted_car_dealers.tr(),
-                        image: AppImages.secondImage),
+                      icon: AppImages.done,
+                      title: LocaleKeys.trusted_car_dealers.tr(),
+                      image: AppImages.secondImage,
+                      polygonIcon: true,
+                      rightPosition: 15,
+                      topPosition: 90,
+                    ),
                     if (isLangRus())
                       OnBoardingPageItems(
                         icon: AppImages.omg,
@@ -139,11 +151,12 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                       )
                     else
                       UzOnBoardingPageItems(
-                          icon: AppImages.omg,
-                          title: LocaleKeys.more_than.tr(),
-                          image: AppImages.thirdImage,
-                          secondText: '10 000 ',
-                          thirdText: LocaleKeys.offers.tr()),
+                        icon: AppImages.omg,
+                        title: LocaleKeys.more_than.tr(),
+                        image: AppImages.thirdImage,
+                        secondText: '10 000 ',
+                        thirdText: LocaleKeys.offers.tr(),
+                      ),
                   ],
                 ),
               ),

@@ -5,19 +5,21 @@ import 'package:auto/features/profile/domain/entities/profile_entity.dart';
 import 'package:auto/features/profile/domain/entities/terms_of_use_entity.dart';
 
 abstract class ProfileRepository {
+  Future<Either<Failure, ProfileDataEntity>> getProfile();
 
-  Future<Either<ServerFailure, ProfileDataEntity>> getProfile();
+  Future<Either<Failure, ProfileEntity>> editProfile(
+      {String? image, String? fullName, int? region, String? email});
 
-  Future<Either<ServerFailure, ProfileEntity>> editProfile(
-      {String? image, String? fullName, int? region});
-
-  Future<Either<ServerFailure, String>> changePassword(
+  Future<Either<Failure, String>> changePassword(
       {required String oldPassword, required String newPassword});
 
-  Future<Either<ServerFailure, String>> sendPhoneNumber(
+  Future<Either<Failure, String>> sendPhoneNumber(
       {required String phoneNumber});
 
-  Future<Either<ServerFailure, String>> sendVerificationCode({required String phoneNumber, required String code,required String session});
+  Future<Either<Failure, String>> sendVerificationCode(
+      {required String phoneNumber,
+      required String code,
+      required String session});
 
-  Future<Either<ServerFailure, List<TermsOfUseEntity>>> getTermsOfUse();
+  Future<Either<Failure, TermsOfUseEntity>> getTermsOfUse(String slug);
 }

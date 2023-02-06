@@ -57,7 +57,10 @@ class CarsInDealerModel extends CarsInDealerEntity {
       required super.user,
       required super.userType,
       required super.viewsCount,
-      required super.year});
+      required super.year,
+      required super.isWishlisted,
+      required super.isComparison,
+      });
 
   factory CarsInDealerModel.fromJson(Map<String, dynamic> json) =>
       _$CarsInDealerModelFromJson(json);

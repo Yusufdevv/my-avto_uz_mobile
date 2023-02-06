@@ -1,6 +1,8 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/car_single/presentation/parts/characteristics/characteristic_table.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class CarCharacteristicItem extends StatefulWidget {
@@ -54,14 +56,14 @@ class _CarCharacteristicItemState extends State<CarCharacteristicItem>
         child: Column(
           children: [
             CharacteristicTable(
-              titleList: const [
-                'Тип кузова',
-                'Привод',
-                'Тип двигателя',
-                'Коробка передач',
-                'Мощность двигателя',
-                'Обьем двигателя',
-                'Пробег',
+              titleList: [
+                LocaleKeys.body_type.tr(),
+                LocaleKeys.drive_unit.tr(),
+                LocaleKeys.engine_type.tr(),
+                LocaleKeys.drive_gearbox.tr(),
+                LocaleKeys.Engine_power.tr(),
+                LocaleKeys.engine_capacity.tr(),
+                LocaleKeys.Mileage.tr(),
               ],
               list: [
                 widget.bodyType,
@@ -72,7 +74,7 @@ class _CarCharacteristicItemState extends State<CarCharacteristicItem>
                 '${widget.engineVolume} л',
                 widget.milleage,
               ],
-              title: 'Характеристики автомобиля',
+              title: LocaleKeys.auto_characters.tr(),
             ),
             // CharacteristicTable(
             //   titleList: [

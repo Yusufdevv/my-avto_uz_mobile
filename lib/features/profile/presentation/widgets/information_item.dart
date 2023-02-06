@@ -1,5 +1,4 @@
 import 'package:auto/assets/colors/color.dart';
-import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +30,7 @@ class InformationGrid extends StatelessWidget {
         physics: const NeverScrollableScrollPhysics(),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
-          childAspectRatio: 132 / 53,
+          childAspectRatio: 132 / 45,
           mainAxisSpacing: 8,
           crossAxisSpacing: 8,
         ),
@@ -42,7 +41,6 @@ class InformationGrid extends StatelessWidget {
               borderRadius: BorderRadius.circular(8), color: color[index]),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Text(
                 listData[index],

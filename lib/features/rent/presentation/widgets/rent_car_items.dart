@@ -16,7 +16,7 @@ class RentCarItems extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => GestureDetector(
-        onTap: onTap,
+        onTap: onTap, behavior: HitTestBehavior.opaque,
         child: Container(
           padding: const EdgeInsets.all(4),
           margin: const EdgeInsets.only(left: 12),

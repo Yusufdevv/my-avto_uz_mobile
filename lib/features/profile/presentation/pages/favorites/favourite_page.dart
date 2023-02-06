@@ -1,14 +1,8 @@
 import 'package:auto/assets/constants/icons.dart';
-import 'package:auto/core/singletons/service_locator.dart';
+import 'package:auto/features/common/bloc/comparison_add/bloc/comparison_add_bloc.dart';
 import 'package:auto/features/common/bloc/wishlist_add/wishlist_add_bloc.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
-import 'package:auto/features/profile/data/repositories/get_user_list_repo_impl.dart';
 import 'package:auto/features/profile/domain/entities/dealer_type_entity.dart';
-import 'package:auto/features/profile/domain/usecases/get_my_searches_usecase.dart';
-import 'package:auto/features/profile/domain/usecases/get_notification_single.dart';
-import 'package:auto/features/profile/domain/usecases/get_notification_usecase.dart';
-import 'package:auto/features/profile/domain/usecases/profil_favorites_usecase.dart';
-import 'package:auto/features/profile/presentation/bloc/profile/profile_bloc.dart';
 import 'package:auto/features/profile/presentation/bloc/user_wishlists_notifications/user_wishlists_notification_bloc.dart';
 import 'package:auto/features/profile/presentation/widgets/empty_item_body.dart';
 import 'package:auto/features/profile/presentation/widgets/favorite_item.dart';
@@ -20,8 +14,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 
 class FavouritePage extends StatefulWidget {
-  final ProfileBloc profileBloc;
-  const FavouritePage({required this.profileBloc, Key? key}) : super(key: key);
+  const FavouritePage({Key? key}) : super(key: key);
 
   @override
   State<FavouritePage> createState() => _FavouritePageState();
@@ -32,19 +25,17 @@ class _FavouritePageState extends State<FavouritePage> {
 
   @override
   void initState() {
-    final repo = serviceLocator<GetUserListRepoImpl>();
-    bloc = UserWishListsBloc(
-        profileFavoritesMyAdsUseCase: GetUserFavoritesMyAdsUseCase(),
-        getNotificationSingleUseCase:
-            GetNotificationSingleUseCase(repository: repo),
-        getNotificationsUseCase: GetNotificationsUseCase(repository: repo),
-        getMySearchesUseCase: GetMySearchesUseCase(repository: repo))
-      ..add(GetUserFavoritesEvent(
-          endpoint: '/users/wishlist/announcement/list/'));
+    bloc = UserWishListsBloc()..add(GetUserFavoritesEvent());
     super.initState();
   }
 
   final listkey = GlobalKey<AnimatedListState>();
+
+  @override
+  void dispose() {
+    bloc.close();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) => BlocProvider.value(
@@ -68,11 +59,14 @@ class _FavouritePageState extends State<FavouritePage> {
                       initialItemCount: state.favorites.length,
                       itemBuilder: (context, index, animation) {
                         final item = state.favorites[index];
-                        final dealer = DealerFavEntity.fromJson(item.dealer);
+                        final dealer = item.dealer != null
+                            ? DealerFavEntity.fromJson(item.dealer)
+                            : DealerFavEntity();
                         return Padding(
                             padding: EdgeInsets.only(
                                 top: index == 0 ? 16 : 0, bottom: 12),
                             child: FavoriteItem(
+                              bloc: bloc,
                                 animation: animation,
                                 gallery: item.gallery,
                                 carModelName: item.model.name,
@@ -112,13 +106,15 @@ class _FavouritePageState extends State<FavouritePage> {
                                   listkey.currentState?.removeItem(
                                       index,
                                       (context, animation) => FavoriteItem(
+                                        bloc: bloc,
                                             animation: animation,
                                             gallery: item.gallery,
                                             carModelName: item.model.name,
                                             carYear: item.year,
                                             contactPhone: item.contactPhone,
                                             description: item.description,
-                                            districtTitle: item.district.title,
+                                            districtTitle:
+                                                item.district.title,
                                             isNew: item.isNew,
                                             isWishlisted: item.isWishlisted,
                                             price: item.price,
@@ -128,12 +124,15 @@ class _FavouritePageState extends State<FavouritePage> {
                                                 item.userType == 'owner'
                                                     ? item.user.fullName
                                                     : dealer.name ?? '',
-                                            userImage: item.userType == 'owner'
-                                                ? item.user.image
-                                                : dealer.avatar ?? '',
+                                            userImage:
+                                                item.userType == 'owner'
+                                                    ? item.user.image
+                                                    : dealer.avatar ?? '',
                                             userType: item.userType,
-                                            hasComparison: item.isComparison,
-                                            callFrom: item.userType == 'owner'
+                                            hasComparison:
+                                                item.isComparison,
+                                            callFrom: item.userType ==
+                                                    'owner'
                                                 ? item.contactAvailableFrom
                                                 : dealer.contactFrom ?? '',
                                             callTo: item.userType == 'owner'
@@ -143,26 +142,18 @@ class _FavouritePageState extends State<FavouritePage> {
                                             id: item.id,
                                             index: index,
                                           ),
-                                      duration:
-                                          const Duration(milliseconds: 600));
+                                      duration: const Duration(
+                                          milliseconds: 600));
                                 }));
                       })
-                  : const Center(
+                  : Center(
                       child: EmptyItemBody(
-                          subtitle: 'У вас еще нет объявлений',
+                          subtitle: LocaleKeys.you_dont_have_ads.tr(),
                           image: AppIcons.carIcon),
                     );
             }
-            return const Center(child: Text('Xatolik'));
+            return Center(child: Text(LocaleKeys.error.tr()));
           },
         ),
       ));
 }
-
-
-
-
-
-// onTapLike: () {
-                                 
-//                                 },

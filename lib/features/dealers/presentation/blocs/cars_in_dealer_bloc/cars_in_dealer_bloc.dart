@@ -3,7 +3,6 @@ import 'package:auto/features/dealers/domain/usecases/cars_in_dealers_usecase.da
 import 'package:bloc/bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:meta/meta.dart';
 
 part 'cars_in_dealer_event.dart';
 part 'cars_in_dealer_state.dart';

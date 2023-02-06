@@ -2,6 +2,8 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/features/ad/presentation/widgets/hour_picker_widget.dart';
 import 'package:auto/features/car_single/presentation/widgets/orange_button.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -57,6 +59,7 @@ class _CallTimeSheetState extends State<CallTimeSheet> {
                   style: Theme.of(context).textTheme.headline1,
                 ),
                 GestureDetector(
+                      behavior: HitTestBehavior.opaque,
                   onTap: () {
                     Navigator.of(context).pop();
                   },
@@ -103,7 +106,7 @@ class _CallTimeSheetState extends State<CallTimeSheet> {
                 Navigator.of(context).pop([from, to]);
               },
               content: Text(
-                'Подтвердить',
+                LocaleKeys.confirm.tr(),
                 style: Theme.of(context).textTheme.subtitle1!.copyWith(
                       color: white,
                     ),

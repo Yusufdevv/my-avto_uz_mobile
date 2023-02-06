@@ -50,7 +50,7 @@ class _StsScreenState extends State<StsScreen> {
             //         passportController.text.isNotEmpty
             //     ? widget.onTap
             //     : () {},
-            
+
             child: Padding(
               padding: const EdgeInsets.all(16),
               child: SingleChildScrollView(
@@ -145,6 +145,7 @@ class _StsScreenState extends State<StsScreen> {
                     ),
                     GestureDetector(
                       onTap: () => setState(() => isChecked = !isChecked),
+                      behavior: HitTestBehavior.opaque,
                       child: Row(
                         children: [
                           WCheckBox(

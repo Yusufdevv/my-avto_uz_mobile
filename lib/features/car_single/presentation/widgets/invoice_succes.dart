@@ -1,6 +1,8 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/features/car_single/presentation/widgets/orange_button.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
@@ -9,10 +11,10 @@ class InvoiceSucces extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        appBar: const WAppBar(
+        appBar:  WAppBar(
           hasBackButton: true,
           hasUnderline: true,
-          title: 'Услуга',
+          title: LocaleKeys.service.tr(),
         ),
         body: Center(
           child: Padding(
@@ -26,14 +28,14 @@ class InvoiceSucces extends StatelessWidget {
                   repeat: false,
                 ),
                 Text(
-                  'Услуга успешно подключена',
+                  LocaleKeys.service_connected_successfully.tr(),
                   style: Theme.of(context).textTheme.headline1,
                 ),
                 const Spacer(),
                 OrangeButton(
                     shadowColor: white,
                     color: orange,
-                    content: Text('Вернутся на объявление',
+                    content: Text(LocaleKeys.back_to_ad.tr(),
                         style: Theme.of(context).textTheme.headline4!.copyWith(
                             fontSize: 14, fontWeight: FontWeight.w600)),
                     onTap: () {

@@ -46,11 +46,15 @@ class _AddPhotoItemState extends State<AddPhotoItem> {
               children: [
                 Row(
                   children: [
-                    Text('Фото', style: Theme.of(context).textTheme.headline1),
+                    Text(LocaleKeys.photo.tr(),
+                        style: Theme.of(context).textTheme.headline1),
                     const Spacer(),
                     WScaleAnimation(
-                        child: SvgPicture.asset(AppIcons.close,
-                            width: 32, height: 32),
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 8),
+                          child: SvgPicture.asset(AppIcons.close,
+                              width: 32, height: 32),
+                        ),
                         onTap: () {
                           Navigator.of(context).pop();
                         }),
@@ -70,8 +74,11 @@ class _AddPhotoItemState extends State<AddPhotoItem> {
                         const SizedBox(width: 8),
                         Text(
                           LocaleKeys.camera.tr(),
-                          style:
-                              Theme.of(context).textTheme.headline1!.copyWith(),
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline1!
+                              .copyWith(
+                                  fontSize: 16, fontWeight: FontWeight.w600),
                         )
                       ],
                     ),
@@ -93,8 +100,11 @@ class _AddPhotoItemState extends State<AddPhotoItem> {
                         const SizedBox(width: 8),
                         Text(
                           LocaleKeys.choose_photo.tr(),
-                          style:
-                              Theme.of(context).textTheme.headline1!.copyWith(),
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline1!
+                              .copyWith(
+                                  fontSize: 16, fontWeight: FontWeight.w600),
                         )
                       ],
                     ),
@@ -124,12 +134,15 @@ class _AddPhotoItemState extends State<AddPhotoItem> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Expanded(
-              child: Text(
-                LocaleKeys.photo.tr(),
-                style: Theme.of(context)
-                    .textTheme
-                    .headline1!
-                    .copyWith(fontWeight: FontWeight.w400, fontSize: 14),
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 12),
+                child: Text(
+                  LocaleKeys.photo.tr(),
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline1!
+                      .copyWith(fontWeight: FontWeight.w400, fontSize: 14),
+                ),
               ),
             ),
             const SizedBox(width: 48),
@@ -143,6 +156,7 @@ class _AddPhotoItemState extends State<AddPhotoItem> {
                         height: 64,
                         width: 64,
                         decoration: const BoxDecoration(
+                          color: solitude,
                           shape: BoxShape.circle,
                           image: DecorationImage(
                               fit: BoxFit.cover,
@@ -170,15 +184,19 @@ class _AddPhotoItemState extends State<AddPhotoItem> {
                               context: context);
                         },
                         borderRadius: 4,
-                        height: 24,
-                        padding: const EdgeInsets.symmetric(horizontal: 12),
+                        height: 28,
+                        margin: const EdgeInsets.symmetric(vertical: 10),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 12, vertical: 4),
                         text: state.registerModel.image.isEmpty
                             ? LocaleKeys.add_photo.tr()
                             : LocaleKeys.change_photo.tr(),
+                        textStyle: Theme.of(context)
+                            .textTheme
+                            .bodyText1
+                            ?.copyWith(color: grey),
                         textColor: grey,
-                        color: Theme.of(context)
-                            .extension<ThemedColors>()!
-                            .solitudeToBastille,
+                        color: solitude,
                       )
                     ],
                   ),

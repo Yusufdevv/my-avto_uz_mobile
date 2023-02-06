@@ -52,14 +52,17 @@ class SelectorItem extends StatelessWidget {
                   ? const Center(child: CupertinoActivityIndicator())
                   : Row(
                       children: [
-                        Text(
-                          hintText,
-                          style: Theme.of(context)
-                              .textTheme
-                              .subtitle1!
-                              .copyWith(color: hasArrowDown ? grey : black),
+                        Expanded(
+                          child: Text(
+                            hintText,
+                            style: Theme.of(context)
+                                .textTheme
+                                .subtitle1!
+                                .copyWith(color: hasArrowDown ? grey : black),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
                         ),
-                        const Spacer(),
                         SvgPicture.asset(
                           hasArrowDown
                               ? AppIcons.chevronDownGrey

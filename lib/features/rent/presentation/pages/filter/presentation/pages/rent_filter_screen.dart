@@ -72,13 +72,9 @@ class _RentFilterScreenState extends State<RentFilterScreen> {
           builder: (context, state) => Scaffold(
             appBar: WAppBar(
               boxShadow: const [],
+              title: LocaleKeys.filter.tr(),
+              centerTitle: false,
               extraActions: [
-                Text(LocaleKeys.filter.tr(),
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline1!
-                        .copyWith(fontSize: 16, fontWeight: FontWeight.w600)),
-                const Spacer(flex: 30),
                 WScaleAnimation(
                   onTap: () => filterBloc.add(FilterClearEvent()),
                   child: Padding(
@@ -101,7 +97,6 @@ class _RentFilterScreenState extends State<RentFilterScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SelectorItem(
-                    
                     onTap: () async {
                       await showModalBottomSheet<List<Region>>(
                         isDismissible: false,
@@ -211,7 +206,7 @@ class _RentFilterScreenState extends State<RentFilterScreen> {
                     startValue: 1000,
                     isForPrice: true,
                   ),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: 48),
                   WButton(
                     onTap: () {
                       widget.rentBloc.add(

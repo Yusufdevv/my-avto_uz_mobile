@@ -42,6 +42,7 @@ class _OnBoardingBottomState extends State<OnBoardingBottom> {
               horizontal: 32,
             ),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
                   children: [
@@ -69,12 +70,14 @@ class _OnBoardingBottomState extends State<OnBoardingBottom> {
                           .caption!
                           .copyWith(fontSize: 32, fontWeight: FontWeight.w700),
                       children: [
-                        WidgetSpan(child: Image.asset(AppImages.magic))
+                        WidgetSpan(
+                            child: Padding(
+                          padding: const EdgeInsets.only(left: 8),
+                          child: Image.asset(AppImages.magic),
+                        ))
                       ]),
                 ),
-                const SizedBox(
-                  height: 35,
-                ),
+                const SizedBox(height: 37),
                 Row(
                   children: [
                     //O‘zbekcha btn
@@ -97,16 +100,12 @@ class _OnBoardingBottomState extends State<OnBoardingBottom> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(20),
-                              child: SvgPicture.asset(
-                                AppIcons.uzbekistan,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                            const SizedBox(
-                              width: 4,
-                            ),
+                            // o'zb btn
+                            SizedBox(
+                                height: 24,
+                                width: 24,
+                                child: Image.asset(AppIcons.uzbekistan2)),
+                            const SizedBox(width: 4),
                             Text(
                               'O‘zbekcha',
                               style: index == 0
@@ -129,11 +128,8 @@ class _OnBoardingBottomState extends State<OnBoardingBottom> {
                         ),
                       ),
                     ),
-                    const SizedBox(
-                      width: 16,
-                    ),
-
-                    //O‘zbekcha btn
+                    const SizedBox(width: 16),
+                    //rus btn
                     Expanded(
                       child: WButton(
                         color: index == 1
@@ -153,16 +149,11 @@ class _OnBoardingBottomState extends State<OnBoardingBottom> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(20),
-                              child: SvgPicture.asset(
-                                AppIcons.russia,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                            const SizedBox(
-                              width: 4,
-                            ),
+                            SizedBox(
+                                height: 24,
+                                width: 24,
+                                child: Image.asset(AppIcons.russian2)),
+                            const SizedBox(width: 4),
                             Text(
                               'Русский',
                               style: index == 1
@@ -191,6 +182,7 @@ class _OnBoardingBottomState extends State<OnBoardingBottom> {
             ),
           ),
           Positioned(
+            top: 0,
             right: 0,
             child: WScaleAnimation(
               onTap: () {

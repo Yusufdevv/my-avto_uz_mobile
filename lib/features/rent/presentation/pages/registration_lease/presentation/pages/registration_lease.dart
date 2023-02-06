@@ -56,7 +56,7 @@ class _RegistrationLeaseScreenState extends State<RegistrationLeaseScreen> {
                 if (state.status == FormzStatus.submissionFailure) {
                   context
                       .read<ShowPopUpBloc>()
-                      .add(ShowPopUp(message: state.errorMessage, isSucces: false));
+                      .add(ShowPopUp(message: state.errorMessage,  status: PopStatus.error,));
                 }
               },
               builder: (context, state) {

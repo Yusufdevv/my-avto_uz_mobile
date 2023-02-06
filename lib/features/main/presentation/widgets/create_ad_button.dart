@@ -14,26 +14,29 @@ class CreateAdButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => WButton(
-      onTap: () =>
+        onTap: () {
           Navigator.of(context, rootNavigator: true).push(
-        MaterialPageRoute(
-            builder: (_) => const PostingAdScreen()),
-      ),
-      margin: const EdgeInsets.symmetric(horizontal: 16),
-      padding: const EdgeInsets.symmetric(vertical: 12),
-      height: MediaQuery.of(context).size.height * 0.054,
-      color: orange,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          SvgPicture.asset(AppIcons.whitePlusCircle),
-          const SizedBox(width: 12),
-          Text(LocaleKeys.create_add.tr(),
-              style: Theme.of(context)
-                  .textTheme
-                  .subtitle1
-                  ?.copyWith(color: white))
-        ],
-      ),
-    );
+            MaterialPageRoute(
+                builder: (_) => PostingAdScreen(
+                      parentContext: context,
+                    )),
+          );
+        },
+        margin: const EdgeInsets.symmetric(horizontal: 16),
+        padding: const EdgeInsets.symmetric(vertical: 12),
+        height: MediaQuery.of(context).size.height * 0.054,
+        color: orange,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SvgPicture.asset(AppIcons.whitePlusCircle),
+            const SizedBox(width: 12),
+            Text(LocaleKeys.create_add.tr(),
+                style: Theme.of(context)
+                    .textTheme
+                    .subtitle1
+                    ?.copyWith(color: white))
+          ],
+        ),
+      );
 }

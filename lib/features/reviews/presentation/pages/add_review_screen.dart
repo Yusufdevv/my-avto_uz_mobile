@@ -9,6 +9,8 @@ import 'package:auto/features/reviews/domain/usecases/create_review_usecase.dart
 import 'package:auto/features/reviews/presentation/blocs/create_review_bloc/create_review_bloc.dart';
 import 'package:auto/features/reviews/presentation/pages/publication_my_review.dart';
 import 'package:auto/features/reviews/presentation/widgets/select_car_character_item.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
@@ -27,11 +29,11 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
   int completed = 1;
   final List<String> titles = [
     'Категория',
-    'Марка',
-    'Модель',
-    'Год выпуска',
+    LocaleKeys.brand.tr(),
+    LocaleKeys.model.tr(),
+    LocaleKeys.year_of_issue.tr(),
     'Покаление',
-    'Тип кузова',
+    LocaleKeys.body_type.tr(),
     'Двигатель',
     'Тип привода',
     'Тип коробки передач',
@@ -122,7 +124,7 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
                       Navigator.of(context)
                           .push(fade(page: const PublicationMyReview()));
                     },
-                    text: 'Далее',
+                    text: LocaleKeys.further.tr(),
                     textStyle: Theme.of(context).textTheme.bodyText1!.copyWith(
                         fontSize: 14,
                         fontWeight: FontWeight.w600,

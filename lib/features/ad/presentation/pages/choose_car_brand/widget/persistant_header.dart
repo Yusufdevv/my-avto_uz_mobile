@@ -1,6 +1,7 @@
+import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.dart';
-import 'package:auto/features/ad/presentation/pages/choose_car_brand/widget/az_list.dart';
+import 'package:auto/utils/my_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -14,61 +15,48 @@ class Header extends SliverPersistentHeaderDelegate {
 
   @override
   bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) => true;
-  final List<String> letters = const [
-    'A',
-    'B',
-    'C',
-    'D',
-    'E',
-    'F',
-    'G',
-    'H',
-    'I',
-    'J',
-    'K',
-    'L',
-    'M',
-    'N',
-    'O',
-    'P',
-    'Q',
-    'R',
-    'S',
-    'T',
-    'Y',
-    'U',
-    'W',
-    'Z',
-  ];
+
+  final List<String> letters = MyFunctions.getUpperLetter();
+
   @override
   Widget build(
           BuildContext context, double shrinkOffset, bool overlapsContent) =>
       Container(
         padding: const EdgeInsets.only(top: 3),
-        color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
-        child: Column(
-          children: [
-            Expanded(
-              child: ListView.builder(
-                itemBuilder: (context, index) => GestureDetector(
-                  onTap: () => context
-                      .read<PostingAdBloc>()
-                      .add(PostingAdChooseEvent(letter: letters[index])),
-                  child: AzList(
-                    isSelected: context.watch<PostingAdBloc>().state.letter ==
-                        letters[index],
-                    letter: letters[index],
-                  ),
-                ),
-                itemCount: letters.length,
-                shrinkWrap: true,
-                scrollDirection: Axis.horizontal,
+        decoration: BoxDecoration(
+            color: Theme.of(context).extension<ThemedColors>()!.whiteToDark,
+            border: Border(
+                bottom: BorderSide(
+                    color: Theme.of(context).dividerColor, width: 1))),
+        child: ListView.separated(
+          physics: const BouncingScrollPhysics(),
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          itemBuilder: (context, index) => GestureDetector(
+            behavior: HitTestBehavior.translucent,
+            onTap: () => context
+                .read<PostingAdBloc>()
+                .add(PostingAdChooseEvent(letter: letters[index])),
+            child: Container(
+              padding: const EdgeInsets.only(left: 8, right: 8, bottom: 4),
+              child: Text(
+                letters[index],
+                style: letters[index] ==
+                        context.watch<PostingAdBloc>().state.letter
+                    ? Theme.of(context)
+                        .textTheme
+                        .headline6!
+                        .copyWith(color: greyText)
+                    : Theme.of(context)
+                        .textTheme
+                        .headline6!
+                        .copyWith(color: warmerGrey),
               ),
             ),
-            Divider(
-              color: Theme.of(context).dividerColor,
-            )
-          ],
+          ),
+          itemCount: letters.length,
+          shrinkWrap: false,
+          scrollDirection: Axis.horizontal,
+          separatorBuilder: (context, index) => const SizedBox(width: 16),
         ),
       );
 }

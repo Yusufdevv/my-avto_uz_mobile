@@ -8,7 +8,7 @@ class DealerCardEvent with _$DealerCardEvent {
   }) = _GetResults;
   factory DealerCardEvent.getFilterResult({
     bool? isRefresh,
-    String? mark,
+    int? mark,
     String? regionId,
     String? carType,
 }) = _GetFilter;

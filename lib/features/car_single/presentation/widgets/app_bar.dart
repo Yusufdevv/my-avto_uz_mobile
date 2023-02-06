@@ -3,7 +3,10 @@ import 'package:auto/features/car_single/presentation/widgets/mine_more_bottomsh
 import 'package:auto/features/car_single/presentation/widgets/more_actions_bottomsheet.dart';
 import 'package:auto/features/car_single/presentation/widgets/sliver_images_item.dart';
 import 'package:auto/features/common/bloc/wishlist_add/wishlist_add_bloc.dart';
+import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/search/presentation/widgets/add_wishlist_item.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,13 +20,14 @@ class SliverAppBarItem extends StatefulWidget {
   final String absoluteCarName;
   final CrossFadeState actionState;
   final bool isWishlisted;
-  final List images;
+  final List<String> images;
   final String dealerName;
   final String position;
   final String? avatar;
   final String shareUrl;
   final FormzStatus status;
   final int id;
+  final int userId;
   final VoidCallback onDealer;
   final VoidCallback onCompare;
   final VoidCallback onSold;
@@ -33,6 +37,7 @@ class SliverAppBarItem extends StatefulWidget {
   const SliverAppBarItem({
     required this.brightness,
     required this.id,
+    required this.userId,
     required this.iconColor,
     required this.absoluteCarName,
     required this.actionState,
@@ -115,6 +120,7 @@ class _SliverAppBarItemState extends State<SliverAppBarItem> {
               child: widget.isMine
                   ? GestureDetector(
                       onTap: () {},
+                      behavior: HitTestBehavior.opaque,
                       child: SvgPicture.asset(
                         AppIcons.edit_single,
                         color: widget.iconColor,
@@ -140,9 +146,13 @@ class _SliverAppBarItemState extends State<SliverAppBarItem> {
                       initialLike: isLiked!,
                     ),
             ),
-            GestureDetector(
-              child: SvgPicture.asset(AppIcons.moreVertical,
-                  width: 36, height: 36, color: widget.iconColor),
+            WScaleAnimation(
+              child: SvgPicture.asset(
+                AppIcons.moreVertical,
+                width: 36,
+                height: 36,
+                color: widget.iconColor,
+              ),
               onTap: () {
                 showModalBottomSheet(
                   useRootNavigator: true,
@@ -167,7 +177,9 @@ class _SliverAppBarItemState extends State<SliverAppBarItem> {
                         )
                       : MoreActions(
                           name: widget.dealerName,
-                          position: widget.position,
+                          position: widget.position == 'owner'
+                              ? LocaleKeys.private_person.tr()
+                              : LocaleKeys.autosalon.tr(),
                           image: widget.avatar ?? '',
                           onShare: () {
                             Share.share(
@@ -186,7 +198,6 @@ class _SliverAppBarItemState extends State<SliverAppBarItem> {
         ),
         flexibleSpace: FlexibleSpaceBar(
           background: SingleImagePart(
-            count: 0,
             images: widget.images,
           ),
         ),

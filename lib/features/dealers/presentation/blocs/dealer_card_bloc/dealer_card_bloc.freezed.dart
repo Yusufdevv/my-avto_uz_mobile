@@ -20,7 +20,7 @@ mixin _$DealerCardEvent {
   TResult when<TResult extends Object?>({
     required TResult Function(bool isRefresh, String search) getResults,
     required TResult Function(
-            bool? isRefresh, String? mark, String? regionId, String? carType)
+            bool? isRefresh, int? mark, String? regionId, String? carType)
         getFilterResult,
     required TResult Function(String? regions, String? maker, String? carType)
         getFilterParams,
@@ -31,7 +31,7 @@ mixin _$DealerCardEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(bool isRefresh, String search)? getResults,
     TResult? Function(
-            bool? isRefresh, String? mark, String? regionId, String? carType)?
+            bool? isRefresh, int? mark, String? regionId, String? carType)?
         getFilterResult,
     TResult? Function(String? regions, String? maker, String? carType)?
         getFilterParams,
@@ -42,7 +42,7 @@ mixin _$DealerCardEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(bool isRefresh, String search)? getResults,
     TResult Function(
-            bool? isRefresh, String? mark, String? regionId, String? carType)?
+            bool? isRefresh, int? mark, String? regionId, String? carType)?
         getFilterResult,
     TResult Function(String? regions, String? maker, String? carType)?
         getFilterParams,
@@ -170,7 +170,7 @@ class _$_GetResults implements _GetResults {
   TResult when<TResult extends Object?>({
     required TResult Function(bool isRefresh, String search) getResults,
     required TResult Function(
-            bool? isRefresh, String? mark, String? regionId, String? carType)
+            bool? isRefresh, int? mark, String? regionId, String? carType)
         getFilterResult,
     required TResult Function(String? regions, String? maker, String? carType)
         getFilterParams,
@@ -184,7 +184,7 @@ class _$_GetResults implements _GetResults {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(bool isRefresh, String search)? getResults,
     TResult? Function(
-            bool? isRefresh, String? mark, String? regionId, String? carType)?
+            bool? isRefresh, int? mark, String? regionId, String? carType)?
         getFilterResult,
     TResult? Function(String? regions, String? maker, String? carType)?
         getFilterParams,
@@ -198,7 +198,7 @@ class _$_GetResults implements _GetResults {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(bool isRefresh, String search)? getResults,
     TResult Function(
-            bool? isRefresh, String? mark, String? regionId, String? carType)?
+            bool? isRefresh, int? mark, String? regionId, String? carType)?
         getFilterResult,
     TResult Function(String? regions, String? maker, String? carType)?
         getFilterParams,
@@ -267,7 +267,7 @@ abstract class _$$_GetFilterCopyWith<$Res> {
           _$_GetFilter value, $Res Function(_$_GetFilter) then) =
       __$$_GetFilterCopyWithImpl<$Res>;
   @useResult
-  $Res call({bool? isRefresh, String? mark, String? regionId, String? carType});
+  $Res call({bool? isRefresh, int? mark, String? regionId, String? carType});
 }
 
 /// @nodoc
@@ -294,7 +294,7 @@ class __$$_GetFilterCopyWithImpl<$Res>
       mark: freezed == mark
           ? _value.mark
           : mark // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as int?,
       regionId: freezed == regionId
           ? _value.regionId
           : regionId // ignore: cast_nullable_to_non_nullable
@@ -315,7 +315,7 @@ class _$_GetFilter implements _GetFilter {
   @override
   final bool? isRefresh;
   @override
-  final String? mark;
+  final int? mark;
   @override
   final String? regionId;
   @override
@@ -354,7 +354,7 @@ class _$_GetFilter implements _GetFilter {
   TResult when<TResult extends Object?>({
     required TResult Function(bool isRefresh, String search) getResults,
     required TResult Function(
-            bool? isRefresh, String? mark, String? regionId, String? carType)
+            bool? isRefresh, int? mark, String? regionId, String? carType)
         getFilterResult,
     required TResult Function(String? regions, String? maker, String? carType)
         getFilterParams,
@@ -368,7 +368,7 @@ class _$_GetFilter implements _GetFilter {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(bool isRefresh, String search)? getResults,
     TResult? Function(
-            bool? isRefresh, String? mark, String? regionId, String? carType)?
+            bool? isRefresh, int? mark, String? regionId, String? carType)?
         getFilterResult,
     TResult? Function(String? regions, String? maker, String? carType)?
         getFilterParams,
@@ -382,7 +382,7 @@ class _$_GetFilter implements _GetFilter {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(bool isRefresh, String search)? getResults,
     TResult Function(
-            bool? isRefresh, String? mark, String? regionId, String? carType)?
+            bool? isRefresh, int? mark, String? regionId, String? carType)?
         getFilterResult,
     TResult Function(String? regions, String? maker, String? carType)?
         getFilterParams,
@@ -436,12 +436,12 @@ class _$_GetFilter implements _GetFilter {
 abstract class _GetFilter implements DealerCardEvent {
   factory _GetFilter(
       {final bool? isRefresh,
-      final String? mark,
+      final int? mark,
       final String? regionId,
       final String? carType}) = _$_GetFilter;
 
   bool? get isRefresh;
-  String? get mark;
+  int? get mark;
   String? get regionId;
   String? get carType;
   @JsonKey(ignore: true)
@@ -531,7 +531,7 @@ class _$_GetFilterParams implements _GetFilterParams {
   TResult when<TResult extends Object?>({
     required TResult Function(bool isRefresh, String search) getResults,
     required TResult Function(
-            bool? isRefresh, String? mark, String? regionId, String? carType)
+            bool? isRefresh, int? mark, String? regionId, String? carType)
         getFilterResult,
     required TResult Function(String? regions, String? maker, String? carType)
         getFilterParams,
@@ -545,7 +545,7 @@ class _$_GetFilterParams implements _GetFilterParams {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(bool isRefresh, String search)? getResults,
     TResult? Function(
-            bool? isRefresh, String? mark, String? regionId, String? carType)?
+            bool? isRefresh, int? mark, String? regionId, String? carType)?
         getFilterResult,
     TResult? Function(String? regions, String? maker, String? carType)?
         getFilterParams,
@@ -559,7 +559,7 @@ class _$_GetFilterParams implements _GetFilterParams {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(bool isRefresh, String search)? getResults,
     TResult Function(
-            bool? isRefresh, String? mark, String? regionId, String? carType)?
+            bool? isRefresh, int? mark, String? regionId, String? carType)?
         getFilterResult,
     TResult Function(String? regions, String? maker, String? carType)?
         getFilterParams,
@@ -664,7 +664,7 @@ class _$_GetMoreResults implements _GetMoreResults {
   TResult when<TResult extends Object?>({
     required TResult Function(bool isRefresh, String search) getResults,
     required TResult Function(
-            bool? isRefresh, String? mark, String? regionId, String? carType)
+            bool? isRefresh, int? mark, String? regionId, String? carType)
         getFilterResult,
     required TResult Function(String? regions, String? maker, String? carType)
         getFilterParams,
@@ -678,7 +678,7 @@ class _$_GetMoreResults implements _GetMoreResults {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(bool isRefresh, String search)? getResults,
     TResult? Function(
-            bool? isRefresh, String? mark, String? regionId, String? carType)?
+            bool? isRefresh, int? mark, String? regionId, String? carType)?
         getFilterResult,
     TResult? Function(String? regions, String? maker, String? carType)?
         getFilterParams,
@@ -692,7 +692,7 @@ class _$_GetMoreResults implements _GetMoreResults {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(bool isRefresh, String search)? getResults,
     TResult Function(
-            bool? isRefresh, String? mark, String? regionId, String? carType)?
+            bool? isRefresh, int? mark, String? regionId, String? carType)?
         getFilterResult,
     TResult Function(String? regions, String? maker, String? carType)?
         getFilterParams,

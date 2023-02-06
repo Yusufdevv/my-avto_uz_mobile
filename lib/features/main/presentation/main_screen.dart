@@ -26,6 +26,7 @@ import 'package:auto/features/main/presentation/widgets/deal_button.dart';
 import 'package:auto/features/main/presentation/widgets/main_app_bar.dart';
 import 'package:auto/features/main/presentation/widgets/service_item.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
+import 'package:auto/features/profile/presentation/bloc/profile/profile_bloc.dart';
 import 'package:auto/features/reels/presentation/pages/reels_screen.dart';
 import 'package:auto/features/rent/presentation/rent_screen.dart';
 import 'package:auto/generated/locale_keys.g.dart';
@@ -34,7 +35,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 
 class MainScreen extends StatefulWidget {
-  const MainScreen({Key? key}) : super(key: key);
+  const MainScreen({required this.parentContext, Key? key}) : super(key: key);
+  final BuildContext parentContext;
 
   @override
   State<MainScreen> createState() => _MainScreenState();
@@ -76,11 +78,12 @@ class _MainScreenState extends State<MainScreen> {
   @override
   void initState() {
     mainBloc = MainBloc()..add(InitialEvent());
+    context.read<ProfileBloc>().add(GetProfileEvent());
+    context.read<ProfileBloc>().add(GetNoReadNotificationsEvent(filter: 0));
     context.read<GetMakesBloc>().add(GetMakesBlocEvent.getMakes());
     topAdBloc = TopAdBloc(GetTopAdsUseCase())
       ..add(TopAdEvent.getTopAds())
-      ..add(TopAdEvent.getFavorites(
-          endpoint: '/users/wishlist/announcement/list/'));
+      ..add(TopAdEvent.getFavorites());
     topBrandBloc = TopBrandBloc(GetTopBrandUseCase())
       ..add(TopBrandEvent.getBrand());
     serviceTaps = [
@@ -100,20 +103,26 @@ class _MainScreenState extends State<MainScreen> {
             GetMakesBlocEvent.selectedCarItems(id: -1, name: '', imageUrl: ''));
         context
             .read<AnnouncementListBloc>()
-            .add(AnnouncementListEvent.getFilterClear());
+            .add(AnnouncementListEvent.getFilterClear(ismake: true));
         Navigator.of(context, rootNavigator: true)
             .push(fade(page: AdsScreen(isBack: false, onTap: () {})));
       },
-      () async {
-        /// for testing purpose
-        /// KAR SHARING
-        // await StorageRepository.putString('token', '');
-        // await StorageRepository.putBool(value: false, key: 'onboarding');
-        // print('=>=>=>=> onboarding put false <=<=<=<=');
-        // print('=>=>=>=> token put empty <=<=<=<=');
-        // ??
+      () {
+        showModalBottomSheet(
+          backgroundColor: Colors.transparent,
+          useRootNavigator: true,
+          context: context,
+          builder: (context) => CheckBottomsheet(onTap: () {}),
+        );
       },
-      () async {},
+      () {
+        showModalBottomSheet(
+          backgroundColor: Colors.transparent,
+          useRootNavigator: true,
+          context: context,
+          builder: (context) => CheckBottomsheet(onTap: () {}),
+        );
+      },
       () {
         Navigator.of(context, rootNavigator: true)
             .push(fade(page: const CommercialScreen()));
@@ -148,11 +157,14 @@ class _MainScreenState extends State<MainScreen> {
               color: purple,
               onRefresh: () async {
                 mainBloc.add(InitialEvent());
+                context.read<ProfileBloc>().add(GetProfileEvent());
+                context
+                    .read<ProfileBloc>()
+                    .add(GetNoReadNotificationsEvent(filter: 0));
                 topBrandBloc.add(TopBrandEvent.getBrand());
                 topAdBloc
                   ..add(TopAdEvent.getTopAds())
-                  ..add(TopAdEvent.getFavorites(
-                      endpoint: '/users/wishlist/announcement/list/'));
+                  ..add(TopAdEvent.getFavorites());
               },
               child: BlocBuilder<AnnouncementListBloc, AnnouncementListState>(
                 builder: (context, stateAnnounc) => SingleChildScrollView(
@@ -177,8 +189,8 @@ class _MainScreenState extends State<MainScreen> {
                       const SizedBox(height: 16),
                       DealButton(
                         onTap: () {
-                          Navigator.of(context, rootNavigator: true)
-                              .push(fade(page: ReelsScreen(isFromMain: true)));
+                          Navigator.of(context, rootNavigator: true).push(
+                              fade(page: const ReelsScreen(isFromMain: true)));
                         },
                       ),
                       BlocBuilder<GetMakesBloc, GetMakesState>(
@@ -219,10 +231,11 @@ class _MainScreenState extends State<MainScreen> {
                             isCheck: state.ischeck),
                       ),
                       SizedBox(
-                        height: 48,
+                        height: 64,
                         child: ListView.builder(
                             physics: const BouncingScrollPhysics(),
-                            padding: const EdgeInsets.only(right: 12),
+                            padding:
+                                const EdgeInsets.only(right: 12, bottom: 16),
                             itemBuilder: (context, index) => ServiceItem(
                                   serviceEntity: serviceEntity[index],
                                   onTap: serviceTaps[index],
@@ -240,16 +253,17 @@ class _MainScreenState extends State<MainScreen> {
                         listener: (context, stateWish) {
                           if (stateWish.addStatus.isSubmissionSuccess ||
                               stateWish.removeStatus.isSubmissionSuccess) {
-                            context.read<TopAdBloc>().add(
-                                TopAdEvent.getFavorites(
-                                    endpoint:
-                                        '/users/wishlist/announcement/list/'));
+                            context
+                                .read<TopAdBloc>()
+                                .add(TopAdEvent.getFavorites());
                             context
                                 .read<WishlistAddBloc>()
                                 .add(WishlistAddEvent.clearState());
                           }
                         },
-                        child: MainFavorites(),
+                        child: MainFavorites(
+                          parentContext: widget.parentContext,
+                        ),
                       ),
                       const MainMapPart(),
                       const CreateAdButton(),

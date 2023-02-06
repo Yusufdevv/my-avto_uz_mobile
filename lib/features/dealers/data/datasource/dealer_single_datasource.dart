@@ -1,4 +1,5 @@
 import 'package:auto/core/exceptions/exceptions.dart';
+import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/dealers/data/models/dealer_info_model.dart';
 import 'package:dio/dio.dart';
 
@@ -7,8 +8,12 @@ class DealerSingleDataSource {
   DealerSingleDataSource(this._dio);
   Future<DealerSingleModel> getDealerSingle({required String params}) async {
     try {
-      final results = await _dio.get('users/dealers/$params/'
-          );
+      final results = await _dio.get(
+        'users/dealers/$params/',
+        options: Options(headers: {
+          'Authorization': 'Bearer ${StorageRepository.getString('token')}'
+        }),
+      );
 
       if (results.statusCode! >= 200 && results.statusCode! < 300) {
         return DealerSingleModel.fromJson(results.data);

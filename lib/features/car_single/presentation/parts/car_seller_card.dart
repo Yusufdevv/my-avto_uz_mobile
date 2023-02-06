@@ -11,20 +11,20 @@ import 'package:flutter_svg/svg.dart';
 class CarSellerCard extends StatelessWidget {
   final String image;
   final String name;
-  final String position;
+  final String userType;
   final bool isCrashed;
 
-  const CarSellerCard(
-      {Key? key,
-      required this.image,
-      required this.name,
-      required this.position,
-      required this.isCrashed})
-      : super(key: key);
+  const CarSellerCard({
+    required this.image,
+    required this.name,
+    required this.userType,
+    required this.isCrashed,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) => LayoutBuilder(
-    builder: (context, constraints) => Container(
+      builder: (context, constraints) => Container(
             decoration: BoxDecoration(
               border: Border.all(
                 width: 1,
@@ -47,9 +47,7 @@ class CarSellerCard extends StatelessWidget {
                         .headline1!
                         .copyWith(fontWeight: FontWeight.w700, fontSize: 18),
                   ),
-                  const SizedBox(
-                    height: 16,
-                  ),
+                  const SizedBox(height: 16),
                   Row(
                     children: [
                       SizedBox(
@@ -67,9 +65,7 @@ class CarSellerCard extends StatelessWidget {
                           ),
                         ),
                       ),
-                      const SizedBox(
-                        width: 8,
-                      ),
+                      const SizedBox(width: 8),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -79,29 +75,32 @@ class CarSellerCard extends StatelessWidget {
                               name,
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
-                              style: Theme.of(context).textTheme.headline2!.copyWith(
-                                    fontWeight: FontWeight.w600,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .subtitle1!
+                                  .copyWith(
                                     fontSize: 16,
                                   ),
                             ),
                           ),
-                          const SizedBox(
-                            height: 2,
-                          ),
+                          const SizedBox(height: 2),
                           Text(
-                            position,
-                            style: Theme.of(context).textTheme.headline2!.copyWith(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 12,
-                                color: const Color(0xff695CEA)),
+                            userType == 'owner'
+                                ? LocaleKeys.private_person.tr()
+                                : LocaleKeys.autosalon.tr(),
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline2!
+                                .copyWith(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 12,
+                                    color: const Color(0xff695CEA)),
                           ),
                         ],
                       )
                     ],
                   ),
-                  const SizedBox(
-                    height: 18,
-                  ),
+                  const SizedBox(height: 18),
                   Container(
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(12),
@@ -112,35 +111,36 @@ class CarSellerCard extends StatelessWidget {
                             color: Theme.of(context)
                                 .extension<ThemedColors>()!
                                 .solitudeToDarkRider)),
-                    child: Stack(
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.fromLTRB(12, 12, 0, 12),
-                          child: Row(
-                            children: [
-                              Text(
-                                LocaleKeys.participation_in_accident.tr(),
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headline1!
-                                    .copyWith(
-                                        fontWeight: FontWeight.w400, fontSize: 12),
-                              ),
-                              const SizedBox(
-                                width: 8,
-                              ),
-                              if (isCrashed == true)
-                                Container(
-                                  padding: const EdgeInsets.fromLTRB(0, 12, 0, 12),
-                                  child: Container(
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(12),
+                      child: Stack(
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.fromLTRB(12, 12, 0, 12),
+                            child: Row(
+                              children: [
+                                Text(
+                                  LocaleKeys.participation_in_accident.tr(),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headline1!
+                                      .copyWith(
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 12),
+                                ),
+                                const SizedBox(
+                                  width: 8,
+                                ),
+                                if (isCrashed)
+                                  Container(
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(4),
                                       color: const Color(
                                         0xffC8534D,
                                       ),
                                     ),
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 6, horizontal: 8),
+                                    padding: const EdgeInsets.only(
+                                        top: 4, bottom: 4, left: 10, right: 12),
                                     child: Row(
                                       children: [
                                         SvgPicture.asset(
@@ -152,7 +152,40 @@ class CarSellerCard extends StatelessWidget {
                                           width: 4,
                                         ),
                                         Text(
-                                          'Обнаружено',
+                                          LocaleKeys.found.tr(),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headline1!
+                                              .copyWith(
+                                                  fontWeight: FontWeight.w400,
+                                                  fontSize: 14,
+                                                  color: white),
+                                        ),
+                                      ],
+                                    ),
+                                  )
+                                else
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(4),
+                                      color: const Color(
+                                        0xff5ECC81,
+                                      ),
+                                    ),
+                                    padding: const EdgeInsets.only(
+                                        top: 4, bottom: 4, left: 10, right: 12),
+                                    child: Row(
+                                      children: [
+                                        SvgPicture.asset(
+                                          AppIcons.safe,
+                                          width: 16,
+                                          height: 16,
+                                        ),
+                                        const SizedBox(
+                                          width: 4,
+                                        ),
+                                        Text(
+                                          LocaleKeys.not_found.tr(),
                                           style: Theme.of(context)
                                               .textTheme
                                               .headline1!
@@ -164,58 +197,24 @@ class CarSellerCard extends StatelessWidget {
                                       ],
                                     ),
                                   ),
-                                )
-                              else
-                                Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(4),
-                                    color: const Color(
-                                      0xff5ECC81,
-                                    ),
-                                  ),
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 6, horizontal: 8),
-                                  child: Row(
-                                    children: [
-                                      SvgPicture.asset(
-                                        AppIcons.safe,
-                                        width: 16,
-                                        height: 16,
-                                      ),
-                                      const SizedBox(
-                                        width: 4,
-                                      ),
-                                      Text(
-                                        LocaleKeys.not_found.tr(),
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headline1!
-                                            .copyWith(
-                                                fontWeight: FontWeight.w400,
-                                                fontSize: 14,
-                                                color: white),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                            ],
+                              ],
+                            ),
                           ),
-                        ),
-                        Positioned(
-                          right: -15,
-                          bottom: -10,
-                          child: Image.asset(
-                            AppImages.carCrashed,
-                            width: 105,
-                            height: 48,
+                          Positioned(
+                            right: -13,
+                            bottom: 0,
+                            child: Image.asset(
+                              AppImages.carCrashed,
+                              width: 103,
+                              height: 48,
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ],
               ),
             ),
-          )
-  );
+          ));
 }

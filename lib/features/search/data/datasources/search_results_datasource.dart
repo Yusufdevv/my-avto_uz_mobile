@@ -1,19 +1,22 @@
 import 'package:auto/core/exceptions/exceptions.dart';
+import 'package:auto/core/singletons/dio_settings.dart';
+import 'package:auto/core/singletons/service_locator.dart';
 import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/common/domain/model/auto_model.dart';
 import 'package:auto/features/pagination/models/generic_pagination.dart';
 
 import 'package:dio/dio.dart';
 
+// ignore: one_member_abstracts
 abstract class SearchResultsDatasource {
   Future<GenericPagination<AutoModel>> getSearchResults(String? searchedText);
 // Future<>
 }
 
 class SearchResultsDatasourceImpl extends SearchResultsDatasource {
-  final Dio _dio;
+    final _dio = serviceLocator<DioSettings>().dio;
 
-  SearchResultsDatasourceImpl(this._dio);
+  SearchResultsDatasourceImpl( );
 
   @override
   Future<GenericPagination<AutoModel>> getSearchResults(

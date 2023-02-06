@@ -18,13 +18,13 @@ class RegisterUseCase extends UseCase<TokenModel, RegisterModel> {
     try {
       multipartFile = await MultipartFile.fromFile(model.image,
           filename: model.image.split('/').last);
-    // ignore: avoid_catches_without_on_clauses, empty_catches
-    } catch (e) {
-   
-    }
+      // ignore: avoid_catches_without_on_clauses, empty_catches
+    } catch (e) {}
 
     map['full_name'] = model.fullName;
-    map['region'] = model.region;
+    if (model.region != 0) {
+      map['region'] = model.region;
+    }
     map['phone_number'] = model.phoneNumber.replaceAll(' ', '');
     map['email'] = model.email;
     map['password'] = model.password;

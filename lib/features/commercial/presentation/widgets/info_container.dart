@@ -1,15 +1,17 @@
 import 'package:auto/assets/colors/color.dart';
-import 'package:auto/assets/colors/light.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/commercial/presentation/widgets/custom_chip.dart';
 import 'package:auto/features/common/bloc/wishlist_add/wishlist_add_bloc.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
+import 'package:auto/features/profile/presentation/widgets/car_name_year_widget.dart';
 import 'package:auto/features/search/presentation/part/bottom_sheet_for_calling.dart';
 import 'package:auto/features/search/presentation/widgets/add_comparison_item.dart';
 import 'package:auto/features/search/presentation/widgets/add_wishlist_item.dart';
+import 'package:auto/generated/locale_keys.g.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -82,7 +84,7 @@ class _InfoContainerState extends State<InfoContainer> {
   @override
   Widget build(BuildContext context) => Container(
         width: MediaQuery.of(context).size.width,
-        padding: const EdgeInsets.only(top: 12, left: 16, bottom: 12),
+        padding: const EdgeInsets.only(top: 12, left: 16, bottom: 8),
         decoration: BoxDecoration(
             color: Theme.of(context).extension<ThemedColors>()!.whiteToDark),
         child: Column(
@@ -97,14 +99,12 @@ class _InfoContainerState extends State<InfoContainer> {
                 clipBehavior: Clip.antiAlias,
                 controller: PageController(viewportFraction: 0.75),
                 physics: const BouncingScrollPhysics(),
-                itemBuilder: (context, index) => Stack(
-                  children: [
-                    if (index == widget.gallery!.length)
-                      WScaleAnimation(
+                itemBuilder: (context, index) => index == widget.gallery!.length
+                    ? WScaleAnimation(
                         onTap: () {
                           bottomSheetForCalling(
                             context,
-                            widget.phone!,
+                            widget.phone ?? '',
                           );
                         },
                         child: Container(
@@ -129,8 +129,8 @@ class _InfoContainerState extends State<InfoContainer> {
                                   color: white),
                               Text(
                                 widget.ownerType == 'owner'
-                                    ? 'Позвонить'
-                                    : 'Купить',
+                                    ? LocaleKeys.call.tr()
+                                    : LocaleKeys.buy.tr(),
                                 style: Theme.of(context)
                                     .textTheme
                                     .headline4!
@@ -140,12 +140,12 @@ class _InfoContainerState extends State<InfoContainer> {
                           ),
                         ),
                       )
-                    else
-                      SizedBox(
+                    : Container(
                         height: 201,
                         width: 280,
+                        padding: const EdgeInsets.only(right: 4),
                         child: CachedNetworkImage(
-                          imageUrl: widget.gallery![index],
+                          imageUrl: widget.gallery?[index] ?? '',
                           fit: BoxFit.cover,
                           errorWidget: (context, url, error) => Image.asset(
                             AppImages.defaultPhoto,
@@ -153,8 +153,6 @@ class _InfoContainerState extends State<InfoContainer> {
                           ),
                         ),
                       ),
-                  ],
-                ),
               ),
             ),
             if (widget.sellType!.isNotEmpty)
@@ -173,41 +171,12 @@ class _InfoContainerState extends State<InfoContainer> {
                 borderRadius: 4,
               ),
             const SizedBox(height: 12),
-            Row(
-              children: [
-                Text(
-                  widget.carModel ?? '',
-                  style: Theme.of(context).textTheme.headline2!.copyWith(
-                      color: dark, fontSize: 14, fontWeight: FontWeight.w400),
-                ),
-                const SizedBox(width: 4),
-                CustomChip(
-                  label: '${widget.year}',
-                  backgroundColor:
-                      LightThemeColors.navBarIndicator.withOpacity(0.1),
-                  borderRadius: 4,
-                  labelStyle: const TextStyle(
-                    fontSize: 10,
-                    fontWeight: FontWeight.w600,
-                    color: LightThemeColors.navBarIndicator,
-                  ),
-                ),
-                const SizedBox(width: 4),
-                if (widget.hasStatusInfo)
-                  CustomChip(
-                    leading: SvgPicture.asset(AppIcons.checkCurly),
-                    label: 'Новый',
-                    backgroundColor: emerald.withOpacity(0.1),
-                    borderRadius: 4,
-                    labelStyle: const TextStyle(
-                      fontSize: 10,
-                      fontWeight: FontWeight.w600,
-                      color: emerald,
-                    ),
-                  )
-              ],
-            ),
+            CarNameYearWidget(
+                carName: widget.carModel ?? '',
+                carYear: '${widget.year}',
+                isNew: widget.hasStatusInfo),
             const SizedBox(height: 4),
+            
             RichText(
               text: TextSpan(
                 children: [
@@ -225,8 +194,11 @@ class _InfoContainerState extends State<InfoContainer> {
                               .darkToWhite,
                     ),
                   ),
-                  const WidgetSpan(child: SizedBox(width: 4)),
+                  const WidgetSpan(
+                      alignment: PlaceholderAlignment.middle,
+                      child: SizedBox(width: 4)),
                   WidgetSpan(
+                    alignment: PlaceholderAlignment.middle,
                     child: Visibility(
                       visible: widget.hasDiscount,
                       child: Text(
@@ -281,8 +253,8 @@ class _InfoContainerState extends State<InfoContainer> {
                       ),
                       TextSpan(
                         text: widget.ownerType == 'owner'
-                            ? 'Частное лицо'
-                            : 'Автосалон',
+                            ? LocaleKeys.private_person.tr()
+                            : LocaleKeys.autosalon,
                         style: Theme.of(context)
                             .textTheme
                             .bodyText1!
@@ -293,11 +265,11 @@ class _InfoContainerState extends State<InfoContainer> {
                 )
               ],
             ),
+            const SizedBox(height: 12),
             Divider(
               color: Theme.of(context)
                   .extension<ThemedColors>()!
                   .solitude2ToNightRider,
-              height: 28,
               thickness: 1,
             ),
             Padding(

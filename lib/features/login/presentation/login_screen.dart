@@ -10,11 +10,13 @@ import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_divider.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
-import 'package:auto/features/login/presentation/pages/register_screen.dart';
-import 'package:auto/features/login/presentation/pages/send_phone_number_page.dart';
+import 'package:auto/features/login/presentation/pages/forget_password/send_phone_number_page.dart';
+import 'package:auto/features/login/presentation/pages/register/register_screen.dart';
 import 'package:auto/features/login/presentation/widgets/z_text_form_field.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/onboarding/presentation/widgets/social_media_item.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -35,7 +37,6 @@ class _LoginScreenState extends State<LoginScreen> {
   );
   late TextEditingController phoneController;
   late TextEditingController passwordController;
-  bool isToastShowing = false;
 
   @override
   void initState() {
@@ -50,11 +51,9 @@ class _LoginScreenState extends State<LoginScreen> {
   //   passwordController.dispose();
   //   super.dispose();
   // }
+
   void hidePopUp() {
-    if (isToastShowing) {
-      context.read<ShowPopUpBloc>().add(HidePopUp());
-      isToastShowing = false;
-    }
+    context.read<ShowPopUpBloc>().add(HidePopUp());
   }
 
   @override
@@ -63,9 +62,19 @@ class _LoginScreenState extends State<LoginScreen> {
     return KeyboardDismisser(
       child: CustomScreen(
         child: Scaffold(
-          appBar: const WAppBar(
+          backgroundColor: white,
+          appBar: WAppBar(
             hasBackButton: false,
-            title: 'Войти',
+            title: LocaleKeys.enter.tr(),
+            boxShadow: [
+              BoxShadow(
+                  offset: const Offset(0, 4),
+                  blurRadius: 16,
+                  color: darkGray.withOpacity(0.08)),
+              BoxShadow(
+                  offset: const Offset(0, -1),
+                  color: darkGray.withOpacity(0.08))
+            ],
           ),
           body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -74,7 +83,7 @@ class _LoginScreenState extends State<LoginScreen> {
               children: [
                 const SizedBox(height: 48),
                 Text(
-                  'Войти в существуюущий аккаунт',
+                  LocaleKeys.enter_to_account.tr(),
                   style: Theme.of(context)
                       .textTheme
                       .headline1!
@@ -82,17 +91,16 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 const SizedBox(height: 4),
                 Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'У вас нету аккаунта?',
+                      LocaleKeys.d_y_h_account.tr(),
                       style: Theme.of(context)
                           .textTheme
                           .headline6!
                           .copyWith(fontSize: 13, fontWeight: FontWeight.w400),
                     ),
-                    const SizedBox(
-                      width: 4,
-                    ),
+                    const SizedBox(width: 4),
                     WScaleAnimation(
                       onTap: () {
                         hidePopUp();
@@ -100,7 +108,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             context, fade(page: const RegisterScreen()));
                       },
                       child: Text(
-                        'Регистрация',
+                        LocaleKeys.register.tr(),
                         style: Theme.of(context).textTheme.headline3!.copyWith(
                             fontWeight: FontWeight.w600, fontSize: 13),
                       ),
@@ -120,23 +128,29 @@ class _LoginScreenState extends State<LoginScreen> {
                           height: 20,
                           width: 20,
                           child: Image.asset(AppImages.flagUzb2)),
-                      const SizedBox(
-                        width: 4,
-                      ),
+                      const SizedBox(width: 8),
                       Text('+998',
                           style: Theme.of(context)
                               .textTheme
                               .subtitle1!
-                              .copyWith(fontSize: 15)),
+                              .copyWith(
+                                  fontSize: 14, fontWeight: FontWeight.w400)),
                     ],
                   ),
-                  hintText: '91 234 56 78',
+                  hintText: '00 000 00 00',
                   hintTextStyle: Theme.of(context)
                       .textTheme
                       .subtitle1!
-                      .copyWith(fontSize: 15, color: warmerGrey),
+                      .copyWith(
+                          fontSize: 14,
+                          color: warmerGrey,
+                          fontWeight: FontWeight.w400),
                   keyBoardType: TextInputType.number,
                   textInputFormatters: [phoneFormatter],
+                  textStyle: Theme.of(context)
+                      .textTheme
+                      .subtitle1!
+                      .copyWith(fontSize: 14, fontWeight: FontWeight.w400),
                 ),
                 const SizedBox(height: 30),
                 ZTextFormField(
@@ -144,9 +158,20 @@ class _LoginScreenState extends State<LoginScreen> {
                   onChanged: (value) {
                     setState(() {});
                   },
-                  hintText: 'Пароль',
+                  hintText: LocaleKeys.password.tr(),
                   controller: passwordController,
                   isObscure: true,
+                  hintTextStyle: Theme.of(context)
+                      .textTheme
+                      .subtitle1!
+                      .copyWith(
+                          fontSize: 14,
+                          color: warmerGrey,
+                          fontWeight: FontWeight.w400),
+                  textStyle: Theme.of(context)
+                      .textTheme
+                      .subtitle1!
+                      .copyWith(fontSize: 14, fontWeight: FontWeight.w400),
                 ),
                 const SizedBox(height: 16),
                 WScaleAnimation(
@@ -156,7 +181,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         .push(fade(page: const SendPhoneNumberPage()));
                   },
                   child: Text(
-                    'Забыли пароль?',
+                    LocaleKeys.forgot_password.tr(),
                     style: Theme.of(context)
                         .textTheme
                         .headline3!
@@ -167,18 +192,22 @@ class _LoginScreenState extends State<LoginScreen> {
                 WButton(
                   isLoading: context.watch<AuthenticationBloc>().state.status ==
                       AuthenticationStatus.loading,
-                  onTap: passwordController.text.length >= 4 &&
+                  onTap: passwordController.text.length >= 6 &&
                           phoneController.text.length == 12
                       ? () {
                           hidePopUp();
                           context.read<AuthenticationBloc>().add(LoginUser(
                               onError: (text) {
+                                var error = text;
+                                if (error.toLowerCase().contains('dio') ||
+                                    error.toLowerCase().contains('type')) {
+                                  error = LocaleKeys.service_error.tr();
+                                }
                                 context.read<ShowPopUpBloc>().add(ShowPopUp(
-                                      message: text,
-                                      isSucces: false,
+                                      message: error,
+                                      status: PopStatus.error,
                                       dismissible: false,
                                     ));
-                                isToastShowing = true;
                               },
                               password: passwordController.text,
                               userName: phoneController.text
@@ -186,26 +215,15 @@ class _LoginScreenState extends State<LoginScreen> {
                                   .replaceAll('', ' ')));
                         }
                       : () {},
-                  shadow: [
-                    BoxShadow(
-                        offset: const Offset(0, 4),
-                        blurRadius: 20,
-                        color: solitude.withOpacity(.12)),
-                  ],
                   margin: EdgeInsets.only(
                     bottom: 20 + MediaQuery.of(context).padding.bottom,
                   ),
-                  text: 'Продолжить',
-                  border: Border.all(
-                    width: 1,
-                    color: Theme.of(context)
-                        .extension<ThemedColors>()!
-                        .whiteToDolphin,
-                  ),
-                  color: (passwordController.text.length >= 4 &&
+                  text: LocaleKeys.continuee.tr(),
+                  border: Border.all(width: 1, color: white),
+                  color: (passwordController.text.length >= 6 &&
                           phoneController.text.length > 11)
                       ? orange
-                      : warmerGrey,
+                      : disabledButton,
                 ),
               ],
             ),
@@ -223,7 +241,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 4),
                     child: Text(
-                      'Другие способы входа',
+                      LocaleKeys.another_ways.tr(),
                       style: Theme.of(context).textTheme.headline6!.copyWith(
                             fontWeight: FontWeight.w400,
                             fontSize: 12,

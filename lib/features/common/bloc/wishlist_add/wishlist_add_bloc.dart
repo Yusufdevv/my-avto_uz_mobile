@@ -13,16 +13,29 @@ class WishlistAddBloc extends Bloc<WishlistAddEvent, WishlistAddState> {
   final AddWishlistUseCase useCase;
   final RemoveWishlistUseCase removeWishlistUseCase;
 
-  WishlistAddBloc({required this.useCase, required this.removeWishlistUseCase}) : super(WishlistAddState()) {
+  WishlistAddBloc({required this.useCase, required this.removeWishlistUseCase})
+      : super(WishlistAddState()) {
+    on<_GoToAds>((event, emit) async {
+      emit(state.copyWith(goToAds: event.goToAds));
+    });
     on<_AddWishlist>((event, emit) async {
-      emit(state.copyWith(addStatus: FormzStatus.submissionInProgress, id: event.id, index: event.index));
+      emit(state.copyWith(
+          addStatus: FormzStatus.submissionInProgress,
+          id: event.id,
+          index: event.index));
       final result = await useCase.call(event.id);
       if (result.isRight) {
         emit(
-          state.copyWith(addStatus: FormzStatus.submissionSuccess, id: event.id, index: event.index),
+          state.copyWith(
+              addStatus: FormzStatus.submissionSuccess,
+              id: event.id,
+              index: event.index),
         );
       } else {
-        emit(state.copyWith(addStatus: FormzStatus.submissionFailure, id: event.id, index: event.index));
+        emit(state.copyWith(
+            addStatus: FormzStatus.submissionFailure,
+            id: event.id,
+            index: event.index));
       }
     });
     on<_RemoveWishlist>((event, emit) async {
@@ -30,10 +43,16 @@ class WishlistAddBloc extends Bloc<WishlistAddEvent, WishlistAddState> {
       final result = await removeWishlistUseCase.call(Params(id: event.id));
       if (result.isRight) {
         emit(
-          state.copyWith(removeStatus: FormzStatus.submissionSuccess, id: event.id, index: event.index),
+          state.copyWith(
+              removeStatus: FormzStatus.submissionSuccess,
+              id: event.id,
+              index: event.index),
         );
       } else {
-        emit(state.copyWith(removeStatus: FormzStatus.submissionFailure, id: event.id, index: event.index));
+        emit(state.copyWith(
+            removeStatus: FormzStatus.submissionFailure,
+            id: event.id,
+            index: event.index));
       }
     });
     on<_ClearState>(_onClear);

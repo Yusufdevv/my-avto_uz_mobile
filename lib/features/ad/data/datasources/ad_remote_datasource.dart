@@ -1,23 +1,31 @@
 // ignore_for_file: avoid_catches_without_on_clauses
 
+import 'dart:convert';
+import 'dart:typed_data';
 import 'package:auto/core/exceptions/exceptions.dart';
 import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/ad/data/models/announcement_filter.dart';
 import 'package:auto/features/ad/data/models/body_type.dart';
 import 'package:auto/features/ad/data/models/drive_type.dart';
 import 'package:auto/features/ad/data/models/engine_type.dart';
+import 'package:auto/features/ad/data/models/foto_instruction_model.dart';
 import 'package:auto/features/ad/data/models/gearbox_type.dart';
 import 'package:auto/features/ad/data/models/generation.dart';
 import 'package:auto/features/ad/data/models/modification_type.dart';
 import 'package:auto/features/ad/data/models/years.dart';
+import 'package:auto/features/ad/domain/entities/foto_instruction_entity.dart';
+import 'package:auto/features/ads/data/models/search_history_model.dart';
 import 'package:auto/features/common/entities/makes_entity.dart';
 import 'package:auto/features/common/models/get_make_model.dart';
 import 'package:auto/features/comparison/data/models/announcement_list_model.dart';
 import 'package:auto/features/pagination/models/generic_pagination.dart';
 import 'package:auto/features/reviews/data/models/make_model.dart';
 import 'package:dio/dio.dart';
+import 'package:http/http.dart' as http;
 
 abstract class AdRemoteDataSource {
+  Future<GenericPagination<FotoInstructionEntity>> getFotoInstructions();
+  Future<Uint8List> getMapScreenShot(Map<String, String> params);
   Future<num> getMinimumPrice(Map<String, dynamic> params);
   Future<bool> verify(Map<String, String> params);
   Future<String> sendCode({required String phone});
@@ -85,7 +93,7 @@ abstract class AdRemoteDataSource {
   Future<GenericPagination<AnnouncementListModel>> getAnnouncementList(
     AnnouncementFilterModel filter,
   );
-  Future<void> filterHistory();
+  Future<void> filterHistory({required SearchHistoryModel model});
 }
 
 class AdRemoteDataSourceImpl extends AdRemoteDataSource {
@@ -489,6 +497,9 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
               : {},
         ),
       );
+      print(
+          '=> => => =>    IN DATA SOURCE: ${response.data}         <= <= <= <=');
+      await Future.delayed(Duration(milliseconds: 5000));
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
         return;
       }
@@ -535,19 +546,14 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
   }
 
   @override
-  Future<void> filterHistory() async {
+  Future<void> filterHistory({required SearchHistoryModel model}) async {
     try {
       final response = await _dio.post('users/filter-history/create/',
-          data: {
-            'id': 0,
-            'make': 89,
-            'model': [4070],
-            'query': 'string',
-            'query_data': {}
-          },
+          data: model.toJson(),
           options: Options(headers: {
             'Authorization': 'Bearer ${StorageRepository.getString('token')}'
           }));
+      print('===> ==> kor ${model.toJson()}');
       if (response.statusCode != null &&
           response.statusCode! >= 200 &&
           response.statusCode! < 300) {
@@ -647,6 +653,79 @@ class AdRemoteDataSourceImpl extends AdRemoteDataSource {
       );
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
         return response.data['min_price'];
+      }
+      throw ServerException(
+          statusCode: response.statusCode ?? 0,
+          errorMessage: response.statusMessage ?? '');
+    } on ServerException {
+      rethrow;
+    } on DioError {
+      throw DioException();
+    } on Exception catch (e) {
+      throw ParsingException(errorMessage: e.toString());
+    }
+  }
+
+  @override
+  Future<Uint8List> getMapScreenShot(Map<String, String> params) async {
+    try {
+      var headers = <String, String>{};
+
+      final token = StorageRepository.getString('token').isNotEmpty
+          ? MapEntry(
+              'Authorization', 'Token ${StorageRepository.getString('token')}')
+          : null;
+      var list = <MapEntry<String, String>>[];
+      if (token != null) {
+        list.add(token);
+      }
+      list
+        ..add(const MapEntry('accept', 'Application-json'))
+        ..add(const MapEntry('accept', 'application/json'))
+        ..add(const MapEntry('Content-Type', 'application/json'))
+        ..add(MapEntry('Accept-Language',
+            StorageRepository.getString('language', defValue: 'uz')));
+
+      headers.addEntries(list);
+      final request = http.Request('POST',
+          Uri.parse('https://panel.avto.uz/api/v1/common/map/screenshot'));
+      request.body = json.encode(params);
+
+      request.headers.addAll(headers);
+      final response = await request.send();
+
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        final stack = await http.Response.fromStream(response);
+        return stack.bodyBytes;
+      }
+      throw ServerException(statusCode: response.statusCode, errorMessage: '');
+    } on ServerException {
+      rethrow;
+    } on DioError {
+      throw DioException();
+    } on Exception catch (e) {
+      throw ParsingException(errorMessage: e.toString());
+    }
+  }
+
+  @override
+  Future<GenericPagination<FotoInstructionEntity>> getFotoInstructions() async {
+    try {
+      final response = await _dio.get(
+        '/car/announcement/photo-instruction/',
+        options: Options(
+          headers: StorageRepository.getString('token').isNotEmpty
+              ? {
+                  'Authorization':
+                      'Token ${StorageRepository.getString('token')}'
+                }
+              : {},
+        ),
+      );
+      if (response.statusCode! >= 200 && response.statusCode! < 300) {
+        final v = GenericPagination.fromJson(response.data,
+            (p0) => FotoInstructionModel.fromJson(p0 as Map<String, dynamic>));
+        return v;
       }
       throw ServerException(
           statusCode: response.statusCode ?? 0,

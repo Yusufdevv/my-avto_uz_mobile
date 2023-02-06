@@ -1,18 +1,22 @@
+import 'package:auto/assets/colors/color.dart';
+import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/ad/presentation/bloc/map/map_bloc.dart';
-import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.dart';
 import 'package:auto/features/ad/presentation/pages/map_screen/widgets/buttons.dart';
+import 'package:auto/features/ad/presentation/pages/map_screen/widgets/submit_sheet.dart';
 import 'package:auto/features/common/bloc/show_pop_up/show_pop_up_bloc.dart';
 import 'package:auto/features/common/widgets/custom_screen.dart';
+import 'package:auto/features/common/widgets/w_scale.dart';
+import 'package:auto/generated/locale_keys.g.dart';
 import 'package:auto/utils/my_functions.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yandex_mapkit/yandex_mapkit.dart';
 
 class MapScreenPostingAd extends StatefulWidget {
-  final ValueChanged<String> onMapTap;
-  const MapScreenPostingAd({required this.onMapTap, Key? key})
-      : super(key: key);
+  const MapScreenPostingAd({Key? key}) : super(key: key);
 
   @override
   State<MapScreenPostingAd> createState() => _MapScreenPostingAdState();
@@ -53,8 +57,27 @@ class _MapScreenPostingAdState extends State<MapScreenPostingAd>
         value: mapBloc,
         child: CustomScreen(
           child: Scaffold(
+            appBar: AppBar(
+                backgroundColor: white,
+                centerTitle: true,
+                leading: WScaleAnimation(
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: SvgPicture.asset(AppIcons.cancel, color: grey),
+                  ),
+                ),
+                title: Text(
+                  LocaleKeys.map.tr(),
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline1!
+                      .copyWith(fontWeight: FontWeight.w600, fontSize: 16),
+                )),
             body: BlocBuilder<MapBloc, MapState>(
-              builder: (context, mapOrganizationState) => Stack(
+              builder: (context, state) => Stack(
                 children: [
                   Positioned.fill(
                     top: -24,
@@ -62,26 +85,9 @@ class _MapScreenPostingAdState extends State<MapScreenPostingAd>
                       rotateGesturesEnabled: false,
                       onCameraPositionChanged:
                           (cameraPosition, updateReason, isStopped) async {
-                        if (isStopped) {
-                          zoomLevel = cameraPosition.zoom;
-                          mapBloc.add(MapChangeLatLongEvent(
-                              lat: cameraPosition.target.latitude,
-                              long: cameraPosition.target.longitude,
-                              radius: MyFunctions.getRadiusFromZoom(
-                                      cameraPosition.zoom)
-                                  .floor()));
-                          await StorageRepository.putDouble(
-                              'lat', cameraPosition.target.latitude);
-                          await StorageRepository.putDouble(
-                              'long', cameraPosition.target.longitude);
-                        }
+
                       },
                       onMapTap: (point) async {
-                        print(
-                            '=> => => =>   ${point.latitude} / ${point.latitude}       <= <= <= <=');
-                        widget.onMapTap(
-                            'https://yandex.com/maps/10335/tashkent/?ll=${point.longitude}%2C${point.latitude}&z=$zoomLevel');
-
                         final camera = await _mapController.getCameraPosition();
 
                         myPoint = Point(
@@ -144,7 +150,7 @@ class _MapScreenPostingAdState extends State<MapScreenPostingAd>
                             onError: (message) {
                               context.read<ShowPopUpBloc>().add(ShowPopUp(
                                     message: message,
-                                    isSucces: false,
+                                    status: PopStatus.error,
                                   ));
                             },
                             onSuccess: (position) async {
@@ -186,7 +192,7 @@ class _MapScreenPostingAdState extends State<MapScreenPostingAd>
                   ),
                   Positioned(
                     right: 0,
-                    bottom: 110,
+                    bottom: 198,
                     child: Padding(
                       padding: const EdgeInsets.all(16),
                       child: PostingAdMapControllerButtons(
@@ -221,7 +227,9 @@ class _MapScreenPostingAdState extends State<MapScreenPostingAd>
                               },
                               onError: (message) {
                                 context.read<ShowPopUpBloc>().add(ShowPopUp(
-                                    message: message, isSucces: false));
+                                      message: message,
+                                      status: PopStatus.error,
+                                    ));
                               },
                             ),
                           );
@@ -248,6 +256,17 @@ class _MapScreenPostingAdState extends State<MapScreenPostingAd>
                           }
                         },
                       ),
+                    ),
+                  ),
+                  Positioned(
+                    bottom: 0,
+                    child: PostingAdSubmitBox(
+                      address: state.address,
+                      onTab: () {
+                        if (state.lat == 0) return;
+                        Navigator.of(context)
+                            .pop([state.lat, state.long, zoomLevel]);
+                      },
                     ),
                   ),
                 ],

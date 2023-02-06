@@ -1,8 +1,12 @@
+import 'dart:io';
+import 'dart:typed_data';
+
 import 'package:auto/core/exceptions/exceptions.dart';
 import 'package:auto/core/exceptions/failures.dart';
 import 'package:auto/core/utils/either.dart';
 import 'package:auto/features/ad/data/datasources/ad_remote_datasource.dart';
 import 'package:auto/features/ad/data/models/announcement_filter.dart';
+import 'package:auto/features/ad/domain/entities/foto_instruction_entity.dart';
 import 'package:auto/features/ad/domain/entities/generation/generation.dart';
 import 'package:auto/features/ad/domain/entities/types/body_type.dart';
 import 'package:auto/features/ad/domain/entities/types/drive_type.dart';
@@ -12,6 +16,7 @@ import 'package:auto/features/ad/domain/entities/types/make.dart';
 import 'package:auto/features/ad/domain/entities/types/modification_type.dart';
 import 'package:auto/features/ad/domain/entities/years/years.dart';
 import 'package:auto/features/ad/domain/repositories/ad_repository.dart';
+import 'package:auto/features/ads/data/models/search_history_model.dart';
 import 'package:auto/features/common/entities/makes_entity.dart';
 import 'package:auto/features/comparison/domain/entities/announcement_list_entity.dart';
 import 'package:auto/features/pagination/models/generic_pagination.dart';
@@ -373,6 +378,54 @@ class AdRepositoryImpl extends AdRepository {
       {required Map<String, dynamic> params}) async {
     try {
       final result = await remoteDataSource.getMinimumPrice(params);
+      return Right(result);
+    } on DioException {
+      return Left(DioFailure());
+    } on ParsingException catch (e) {
+      return Left(ParsingFailure(errorMessage: e.errorMessage));
+    } on ServerException catch (e) {
+      return Left(ServerFailure(
+          errorMessage: e.errorMessage, statusCode: e.statusCode));
+    }
+  }
+
+  @override
+  Future<Either<Failure, Uint8List>> getMapScreenShot(
+      {required Map<String, String> params}) async {
+    try {
+      final result = await remoteDataSource.getMapScreenShot(params);
+      return Right(result);
+    } on DioException {
+      return Left(DioFailure());
+    } on ParsingException catch (e) {
+      return Left(ParsingFailure(errorMessage: e.errorMessage));
+    } on ServerException catch (e) {
+      return Left(ServerFailure(
+          errorMessage: e.errorMessage, statusCode: e.statusCode));
+    }
+  }
+
+  @override
+  Future<Either<Failure, GenericPagination<FotoInstructionEntity>>>
+      getFotoInstructions() async {
+    try {
+      final result = await remoteDataSource.getFotoInstructions();
+      return Right(result);
+    } on DioException {
+      return Left(DioFailure());
+    } on ParsingException catch (e) {
+      return Left(ParsingFailure(errorMessage: e.errorMessage));
+    } on ServerException catch (e) {
+      return Left(ServerFailure(
+          errorMessage: e.errorMessage, statusCode: e.statusCode));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> filterHistory(
+      {required SearchHistoryModel model}) async {
+    try {
+      final result = await remoteDataSource.filterHistory(model: model);
       return Right(result);
     } on DioException {
       return Left(DioFailure());

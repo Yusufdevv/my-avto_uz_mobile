@@ -3,6 +3,8 @@ import 'package:auto/assets/colors/light.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/search/presentation/search_screen.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -46,7 +48,7 @@ class _SortBottomSheetState extends State<SortBottomSheet> {
                   ),
                 ),
                 GestureDetector(
-                  onTap: () => Navigator.pop(context),
+                  onTap: () => Navigator.pop(context), behavior: HitTestBehavior.opaque,
                   child: SvgPicture.asset(
                     AppIcons.close,
                     height: 24,
@@ -83,7 +85,7 @@ class _SortBottomSheetState extends State<SortBottomSheet> {
                             child: Row(
                               children: [
                                 Text(
-                                  widget.values[index].title,
+                                  widget.values[index].title.tr(),
                                   style: widget.values[index].status ==
                                           groupValue
                                       ? Theme.of(context)
@@ -132,7 +134,7 @@ class _SortBottomSheetState extends State<SortBottomSheet> {
                     Navigator.pop(context);
                   },
                   color: orange,
-                  text: 'Применить',
+                  text: LocaleKeys.apply.tr(),
                   textStyle: Theme.of(context)
                       .textTheme
                       .subtitle1!

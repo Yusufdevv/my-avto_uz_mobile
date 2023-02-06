@@ -5,12 +5,14 @@ import 'package:flutter/material.dart';
 class RegionSheetItem extends StatelessWidget {
   final bool isChecked;
   final bool hasBorder;
+  final bool isMultiChoice;
   final String title;
 
   const RegionSheetItem(
       {required this.title,
       required this.hasBorder,
       required this.isChecked,
+      required this.isMultiChoice,
       super.key});
 
   @override
@@ -29,10 +31,10 @@ class RegionSheetItem extends StatelessWidget {
                   .headline1!
                   .copyWith(fontWeight: FontWeight.w600, fontSize: 16),
             ),
-             RegionCheckBox(
+           RegionCheckBox(
+                isMultiChoice: isMultiChoice,
                 isChecked: isChecked,
               )
-             
           ],
         ),
       );

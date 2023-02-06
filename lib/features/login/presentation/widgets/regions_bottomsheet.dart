@@ -17,7 +17,7 @@ Future<Region> showRegionsBottomSheet(
               (index) => GestureDetector(
                 onTap: () {
                   Navigator.pop(context, list[index]);
-                },
+                }, behavior: HitTestBehavior.opaque,
                 child: Container(
                   padding:
                       const EdgeInsets.symmetric(vertical: 15, horizontal: 16),
@@ -38,4 +38,4 @@ Future<Region> showRegionsBottomSheet(
           ),
         ],
       ),
-    ).then((value) => value ?? Region());
+    ).then((value) => value ?? const Region());

@@ -26,7 +26,7 @@ class Rate extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  LocaleKeys.rate.tr(),
+                  LocaleKeys.rate_us.tr(),
                   style: Theme.of(context)
                       .textTheme
                       .headline5!
@@ -34,14 +34,14 @@ class Rate extends StatelessWidget {
                 ),
                 if (Platform.isIOS)
                   Text(
-                    'нас в App Store',
+                    LocaleKeys.in_appstore.tr(),
                     style: Theme.of(context)
                         .textTheme
                         .headline1!
                         .copyWith(fontWeight: FontWeight.w600),
                   )
                 else
-                  Text('нас в Play Market',
+                  Text(LocaleKeys.in_playstore.tr(),
                       style: Theme.of(context)
                           .textTheme
                           .headline1!
@@ -69,7 +69,7 @@ class Rate extends StatelessWidget {
                           mode: LaunchMode.externalApplication);
                     }
                   },
-                  child: Text('Оценить',
+                  child: Text(LocaleKeys.rate.tr(),
                       style: Theme.of(context)
                           .textTheme
                           .headline4!

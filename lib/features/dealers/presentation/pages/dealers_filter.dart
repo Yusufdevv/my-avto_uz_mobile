@@ -13,32 +13,34 @@ import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/rent_choose_region_bottom_sheet.dart';
 import 'package:auto/features/search/presentation/widgets/selector_item.dart';
 import 'package:auto/generated/locale_keys.g.dart';
+import 'package:auto/utils/my_functions.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class DealersFilter extends StatefulWidget {
+class DealersFilterScreen extends StatefulWidget {
   final List<Region>? regions;
   final MakeEntity? maker;
   final DealerCardBloc dealerBloc;
+  final DealerFilterBloc dealerFilterBloc;
   final String? carType;
 
-  const DealersFilter(
-      {required this.dealerBloc,
-      this.maker,
-      this.carType,
-      this.regions,
-      this.isDirectoryPage = false,
-      Key? key})
-      : super(key: key);
+  const DealersFilterScreen({
+    required this.dealerBloc,
+    required this.dealerFilterBloc,
+    this.maker,
+    this.carType,
+    this.regions,
+    this.isDirectoryPage = false,
+    Key? key,
+  }) : super(key: key);
   final bool isDirectoryPage;
 
   @override
-  State<DealersFilter> createState() => _DealersFilterState();
+  State<DealersFilterScreen> createState() => _DealersFilterScreenState();
 }
 
-class _DealersFilterState extends State<DealersFilter> {
-  late DealerFilterBloc filterBloc;
+class _DealersFilterScreenState extends State<DealersFilterScreen> {
   late String selectedCategory;
 
   // List<Region>? newRegion;
@@ -46,11 +48,6 @@ class _DealersFilterState extends State<DealersFilter> {
   @override
   void initState() {
     selectedCategory = widget.carType ?? 'all';
-    filterBloc = DealerFilterBloc(
-      car_type: widget.carType,
-      maker: widget.maker,
-      region: widget.regions,
-    );
     context.read<RegionsBloc>().add(RegionsEvent.getRegions());
     super.initState();
   }
@@ -59,13 +56,19 @@ class _DealersFilterState extends State<DealersFilter> {
   Widget build(BuildContext context) => MultiBlocProvider(
         providers: [
           BlocProvider.value(value: widget.dealerBloc),
-          BlocProvider.value(value: filterBloc),
         ],
         child: BlocBuilder<DealerFilterBloc, DealerFilterState>(
           builder: (context, state) => Scaffold(
             backgroundColor: white,
             appBar: WAppBar(
-              boxShadow: const [],
+               boxShadow: [
+              BoxShadow(
+                  offset: const Offset(0, 8),
+                  blurRadius: 24,
+                  color: dark.withOpacity(0.08)),
+              BoxShadow(
+                  offset: const Offset(0, -1), color: dark.withOpacity(0.08))
+            ],
               titleStyle:
                   Theme.of(context).textTheme.headline1!.copyWith(fontSize: 16),
               extraActions: [
@@ -79,7 +82,7 @@ class _DealersFilterState extends State<DealersFilter> {
                 ),
                 WScaleAnimation(
                   onTap: () {
-                    filterBloc.add(DealerFilterClearEvent());
+                    widget.dealerFilterBloc.add(DealerFilterClearEvent());
                     setState(() {
                       selectedCategory = 'all';
                     });
@@ -110,28 +113,40 @@ class _DealersFilterState extends State<DealersFilter> {
                               .extension<ThemedColors>()!
                               .greySuitToWhite)),
                   const SizedBox(height: 8),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      FilterRadio(
-                          value: 'all',
-                          onChanged: (value) {
-                            setState(() => selectedCategory = value);
-                          },
-                          currentValue: selectedCategory),
-                      FilterRadio(
-                          value: 'new',
-                          onChanged: (value) {
-                            setState(() => selectedCategory = value);
-                          },
-                          currentValue: selectedCategory),
-                      FilterRadio(
-                          value: 'used',
-                          onChanged: (value) {
-                            setState(() => selectedCategory = value);
-                          },
-                          currentValue: selectedCategory),
-                    ],
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    physics: const BouncingScrollPhysics(),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        FilterRadio(
+                            value: 'all',
+                            onChanged: (value) {
+                              setState(() => selectedCategory = value);
+                              widget.dealerFilterBloc
+                                  .add(DealerFilterSelectEvent(carType: value));
+                            },
+                            currentValue: selectedCategory),
+                        const SizedBox(width: 12),
+                        FilterRadio(
+                            value: 'new',
+                            onChanged: (value) {
+                              setState(() => selectedCategory = value);
+                              widget.dealerFilterBloc
+                                  .add(DealerFilterSelectEvent(carType: value));
+                            },
+                            currentValue: selectedCategory),
+                        const SizedBox(width: 12),
+                        FilterRadio(
+                            value: 'used',
+                            onChanged: (value) {
+                              setState(() => selectedCategory = value);
+                              widget.dealerFilterBloc
+                                  .add(DealerFilterSelectEvent(carType: value));
+                            },
+                            currentValue: selectedCategory),
+                      ],
+                    ),
                   ),
                   const SizedBox(height: 16),
                   SelectorItem(
@@ -139,18 +154,20 @@ class _DealersFilterState extends State<DealersFilter> {
                       await showModalBottomSheet<List<Region>>(
                         isDismissible: false,
                         context: context,
+                        useRootNavigator: true,
                         isScrollControlled: true,
                         backgroundColor: Colors.transparent,
                         builder: (c) => RentChooseRegionBottomSheet(
                             checkedRegions: state.region.asMap(),
                             list: context.read<RegionsBloc>().state.regions),
                       ).then((value) {
-                        filterBloc.add(DealerFilterSelectEvent(region: value));
+                        widget.dealerFilterBloc
+                            .add(DealerFilterSelectEvent(region: value));
                       });
                     },
                     hintText: (state.region.isEmpty)
                         ? LocaleKeys.choose_region.tr()
-                        : state.region.first.title,
+                        : MyFunctions.text(state.region, true),
                     title: LocaleKeys.region.tr(),
                     hasArrowDown: true,
                   ),
@@ -160,14 +177,17 @@ class _DealersFilterState extends State<DealersFilter> {
                         isDismissible: false,
                         context: context,
                         isScrollControlled: true,
+                        useRootNavigator: true,
                         backgroundColor: Colors.transparent,
-                        builder: (c) =>
-                            ChooseMaker(selectedId: state.maker?.id ?? -1),
+                        builder: (c) => ChooseMaker(selectedId: state.maker.id),
                       ).then((value) {
-                        filterBloc.add(DealerFilterSelectEvent(maker: value));
+                        widget.dealerFilterBloc
+                            .add(DealerFilterSelectEvent(maker: value));
                       });
                     },
-                    hintText: state.maker?.name ?? LocaleKeys.choose_brand.tr(),
+                    hintText: state.maker.name.isEmpty
+                        ? LocaleKeys.choose_brand.tr()
+                        : state.maker.name,
                     title: LocaleKeys.brand.tr(),
                     hasArrowDown: true,
                   ),
@@ -176,17 +196,11 @@ class _DealersFilterState extends State<DealersFilter> {
                     textStyle: const TextStyle(
                         fontWeight: FontWeight.w600, fontSize: 14),
                     onTap: () {
-                      filterBloc.add(DealerFilterSelectEvent(
-                        region: state.region,
-                        maker: state.maker,
-                        car_type: selectedCategory,
-                      ));
-
                       widget.dealerBloc.add(DealerCardEvent.getFilterResult(
                         regionId: state.region.isEmpty
                             ? ''
-                            : state.region.single.id.toString(),
-                        mark: state.maker?.slug,
+                            : MyFunctions.text(state.region),
+                        mark: state.maker.id,
                         carType: selectedCategory,
                       ));
                       Navigator.pop(context);

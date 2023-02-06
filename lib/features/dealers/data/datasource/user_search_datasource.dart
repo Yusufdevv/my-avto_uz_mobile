@@ -4,6 +4,7 @@ import 'package:auto/features/dealers/data/models/user_search_model.dart';
 import 'package:auto/features/pagination/models/generic_pagination.dart';
 import 'package:dio/dio.dart';
 
+// ignore: one_member_abstracts
 abstract class UserSearchDatasource {
   Future<GenericPagination<UserSearchDealerModel>> getUserSearches(String? search);
 // Future<>

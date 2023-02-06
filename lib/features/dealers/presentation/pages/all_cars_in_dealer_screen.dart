@@ -19,8 +19,8 @@ class AllCarsInDealerScreen extends StatefulWidget {
   final String slug;
 
   const AllCarsInDealerScreen({
-    Key? key,
     required this.slug,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -45,7 +45,6 @@ class _AllCarsInDealerScreenState extends State<AllCarsInDealerScreen> {
             cars: CarsInDealerRepositoryImpl(
                 dataSource: CarsInDealerDataSource(DioSettings().dio))))
       ..add(CarsInDealerEvent.getResults(slug: widget.slug));
-    // TODO: implement initState
     super.initState();
   }
 
@@ -78,27 +77,30 @@ class _AllCarsInDealerScreenState extends State<AllCarsInDealerScreen> {
                       padding: const EdgeInsets.only(bottom: 12),
                       child: InfoContainer(
                         index: index,
-                        avatarPicture: dealerSingleState.dealerSingleEntity.avatar,
+                        avatarPicture:
+                            dealerSingleState.dealerSingleEntity.avatar,
                         carModel: carsInDealerState.cars[index].absoluteCarName,
                         hasDiscount: false,
                         location: carsInDealerState.cars[index].region.title,
                         owner: dealerSingleState.dealerSingleEntity.name,
-                        ownerType: 'a',
-                        publishTime: MyFunctions.getAutoPublishDate(carsInDealerState.cars[index].createdAt),
+                        ownerType: carsInDealerState.cars[index].userType,
+                        publishTime: MyFunctions.getAutoPublishDate(
+                            carsInDealerState.cars[index].createdAt),
                         subtitle: carsInDealerState.cars[index].description,
                         year: carsInDealerState.cars[index].year,
                         price: carsInDealerState.cars[index].price,
                         discountPrice: carsInDealerState.cars[index].price,
-                        sellType: 'Продажа Автомобиля',
-                        hasStatusInfo: true,
+                        sellType: carsInDealerState.cars[index].currency,
+                        hasStatusInfo: carsInDealerState.cars[index].isNew,
                         hasCallCard: true,
                         gallery: carsInDealerState.cars[index].gallery,
                         currency: carsInDealerState.cars[index].currency,
-                        initialLike: false,
+                        initialLike: carsInDealerState.cars[index].isWishlisted,
                         onTapFavorites: () {},
                         onTapComparsion: () {},
-                        initialComparsions: false,
-                        id: -1,
+                        initialComparsions:
+                            carsInDealerState.cars[index].isComparison,
+                        id: carsInDealerState.cars[index].id,
                       ),
                     ),
                   ),

@@ -3,6 +3,8 @@ import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_icons.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/rent/domain/entities/additional_services_entity.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -62,7 +64,7 @@ class _AdditionalServicesState extends State<AdditionalServices> {
                     ),
                     const SizedBox(width: 8),
                     Text(
-                      '${((double.tryParse(widget.services[index].price) ?? 0) / 1000).floor()} тыс./сутки',
+                      '${((double.tryParse(widget.services[index].price) ?? 0) / 1000).floor()} ${LocaleKeys.per_day.tr()}',
                       style: Theme.of(context).textTheme.headline6!.copyWith(
                             color: grey,
                             fontSize: 12,

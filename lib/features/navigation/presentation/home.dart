@@ -93,6 +93,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     setState(() => _currentIndex = index);
     _controller.animateTo(index);
   }
+
   bool isBtmSheetOpened = false;
 
   @override
@@ -117,7 +118,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
                 if (!state.isConnected) {
                   isBtmSheetOpened = true;
-                  print('internet yoqqqqqqqqqq');
                   showModalBottomSheet(
                     isDismissible: false,
                     constraints: const BoxConstraints(
@@ -129,18 +129,17 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                     context: context,
                     builder: (context) => InternetErrorBottomSheet(
                       onTap: () {
-                        context.read<InternetBloc>().add(
-                              GlobalCheck(isConnected: state.isConnected),
-                            );
+                        context
+                            .read<InternetBloc>()
+                            .add(GlobalCheck(isConnected: state.isConnected));
                       },
                     ),
                   );
-                } else  if(isBtmSheetOpened){
+                } else if (isBtmSheetOpened && state.isConnected) {
                   isBtmSheetOpened = false;
                   Navigator.of(context).pop();
                 }
               });
-              print('internet listen ---> ${state.isConnected}');
             },
             child: Scaffold(
               resizeToAvoidBottomInset: true,
@@ -176,6 +175,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                           _navigatorKeys[NavItemEnum.values[_currentIndex]]!
                               .currentState!
                               .popUntil((route) => route.isFirst),
+                      behavior: HitTestBehavior.opaque,
                       child: NavItemWidget(
                         navBar: lables[0],
                         currentIndex: _currentIndex,
@@ -186,6 +186,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                           _navigatorKeys[NavItemEnum.values[_currentIndex]]!
                               .currentState!
                               .popUntil((route) => route.isFirst),
+                      behavior: HitTestBehavior.opaque,
                       child: NavItemWidget(
                         navBar: lables[1],
                         currentIndex: _currentIndex,
@@ -196,6 +197,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                           _navigatorKeys[NavItemEnum.values[_currentIndex]]!
                               .currentState!
                               .popUntil((route) => route.isFirst),
+                      behavior: HitTestBehavior.opaque,
                       child: NavItemWidget(
                         navBar: lables[2],
                         currentIndex: _currentIndex,
@@ -206,6 +208,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                           _navigatorKeys[NavItemEnum.values[_currentIndex]]!
                               .currentState!
                               .popUntil((route) => route.isFirst),
+                      behavior: HitTestBehavior.opaque,
                       child: NavItemWidget(
                         navBar: lables[3],
                         currentIndex: _currentIndex,
@@ -216,6 +219,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                           _navigatorKeys[NavItemEnum.values[_currentIndex]]!
                               .currentState!
                               .popUntil((route) => route.isFirst),
+                      behavior: HitTestBehavior.opaque,
                       child: NavItemWidget(
                         navBar: lables[4],
                         currentIndex: _currentIndex,

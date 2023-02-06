@@ -21,6 +21,7 @@ class WButton extends StatelessWidget {
   final bool isLoading;
   final double? scaleValue;
   final List<BoxShadow>? shadow;
+  final Gradient? gradient;
 
   const WButton({
     required this.onTap,
@@ -40,6 +41,7 @@ class WButton extends StatelessWidget {
     this.child,
     this.scaleValue,
     this.shadow,
+    this.gradient,
     Key? key,
   }) : super(key: key);
 
@@ -64,9 +66,10 @@ class WButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(borderRadius),
             border: border,
             boxShadow: shadow,
+            gradient: gradient,
           ),
           child: isLoading
-              ? const Center(child: CupertinoActivityIndicator())
+              ? const Center(child: CupertinoActivityIndicator(color: white))
               : AnimatedDefaultTextStyle(
                   duration: const Duration(milliseconds: 200),
                   style: Theme.of(context).textTheme.bodyText2!.copyWith(

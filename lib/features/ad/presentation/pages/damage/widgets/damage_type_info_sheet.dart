@@ -5,7 +5,9 @@ import 'package:auto/features/ad/const/constants.dart';
 import 'package:auto/features/ad/presentation/pages/damage/widgets/damage_pluc_button.dart';
 import 'package:auto/features/ad/presentation/widgets/warning_circle_widget.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
+import 'package:auto/generated/locale_keys.g.dart';
 import 'package:auto/utils/my_functions.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -41,6 +43,7 @@ class DamageTypeInfoSheet extends StatelessWidget {
                       ),
                     ),
                     GestureDetector(
+                          behavior: HitTestBehavior.opaque,
                       onTap: () => Navigator.pop(context),
                       child: SvgPicture.asset(
                         AppIcons.close,
@@ -107,7 +110,7 @@ class DamageTypeInfoSheet extends StatelessWidget {
                   Navigator.of(context).pop();
                 },
                 color: orange,
-                text: 'Понятно',
+                text: LocaleKeys.understandably.tr(),
                 textStyle: Theme.of(context)
                     .textTheme
                     .subtitle1!

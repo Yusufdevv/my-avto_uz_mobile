@@ -34,7 +34,7 @@ class DeleteShowDialog extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               GestureDetector(
-                onTap: () => Navigator.pop(context),
+                onTap: () => Navigator.pop(context), behavior: HitTestBehavior.opaque,
                 child: deleteCancelButton(
                   context,
                   'Отмена',
@@ -43,7 +43,7 @@ class DeleteShowDialog extends StatelessWidget {
                 ),
               ),
               GestureDetector(
-                onTap: () => Navigator.pop(context),
+                onTap: () => Navigator.pop(context), behavior: HitTestBehavior.opaque,
                 child: deleteCancelButton(
                   context,
                   'Удалить',

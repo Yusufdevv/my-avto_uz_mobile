@@ -14,10 +14,10 @@ class AddWishlistItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => SizedBox(
-        height: 24,
-        width: 24,
+        height: 28,
+        width: 28,
         child: GestureDetector(
-          onTap: onTap,
+          onTap: onTap, behavior: HitTestBehavior.opaque,
           child: AnimatedSwitcher(
             duration: const Duration(milliseconds: 300),
             transitionBuilder: (child, animation) => ScaleTransition(
@@ -29,11 +29,15 @@ class AddWishlistItem extends StatelessWidget {
                     AppIcons.enabledHeart,
                     key: const ValueKey<int>(1),
                     fit: BoxFit.cover,
+                    height: 28,
+                    width: 28,
                   )
                 : SvgPicture.asset(
                     AppIcons.heart,
                     key: const ValueKey<int>(2),
                     fit: BoxFit.cover,
+                    height: 28,
+                    width: 28,
                   ),
           ),
         ),

@@ -1,6 +1,8 @@
 import 'package:auto/features/car_single/presentation/widgets/vin_page_item.dart';
 import 'package:auto/features/car_single/presentation/widgets/vin_title_item.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class VinPage extends StatelessWidget {
@@ -8,8 +10,8 @@ class VinPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        appBar: const WAppBar(
-          title: 'Отчёт о проверке по VIN',
+        appBar: WAppBar(
+          title: LocaleKeys.VIN_check_report.tr(),
         ),
         body: Container(
           padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
@@ -33,20 +35,20 @@ class VinPage extends StatelessWidget {
                 description: 'Марка и модель',
                 data: 'KIA K5',
               ),
-              const VinPageItem(
-                description: 'Цвет',
+              VinPageItem(
+                description: LocaleKeys.color.tr(),
                 data: 'Черный',
               ),
-              const VinPageItem(
-                description: 'Год выпуска',
+              VinPageItem(
+                description: LocaleKeys.year_of_issue.tr(),
                 data: '2020 г.',
               ),
               const VinPageItem(
                 description: 'Объем двигателя',
                 data: '2,5 Л',
               ),
-              const VinPageItem(
-                description: 'Мощность двигателя',
+              VinPageItem(
+                description: LocaleKeys.Engine_power.tr(),
                 data: '193 л.с.',
               ),
               const SizedBox(

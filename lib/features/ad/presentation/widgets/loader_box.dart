@@ -12,9 +12,11 @@ class LoaderBox extends StatelessWidget {
   final String hintText;
   final VoidCallback onTap;
   final bool isLoading;
+  final bool isActive;
   const LoaderBox(
       {required this.onTap,
       required this.title,
+      required this.isActive,
       required this.hintText,
       this.isLoading = false,
       Key? key})
@@ -52,10 +54,10 @@ class LoaderBox extends StatelessWidget {
                       children: [
                         Text(
                           hintText,
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline6!
-                              .copyWith(
+                          style: isActive
+                              ? Theme.of(context).textTheme.headline1!.copyWith(
+                                  fontSize: 14, fontWeight: FontWeight.w600)
+                              : Theme.of(context).textTheme.headline6!.copyWith(
                                   fontWeight: FontWeight.w400,
                                   color: Theme.of(context)
                                       .extension<ThemedColors>()!

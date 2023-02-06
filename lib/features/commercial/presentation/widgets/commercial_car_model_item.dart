@@ -35,58 +35,54 @@ class CommercialCarModelItem extends StatelessWidget {
         width: 1,
         color: theme.solitudeToPayneGrey,
       ),
-      height: 56,
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      margin: const EdgeInsets.symmetric(horizontal: 16),
+      height: MediaQuery.of(context).size.height*.065,
+      margin: const EdgeInsets.only(top: 16, bottom: 12, right: 16, left: 16),
       child: Row(
         children: [
           if (imageUrl.isEmpty)
-            SvgPicture.asset(
-              AppIcons.vehicle,
-              width: 24,
-              height: 24,
+            Padding(
+              padding:
+                  const EdgeInsets.only(right: 16, top: 8, bottom: 8, left: 12),
+              child: SvgPicture.asset(
+                AppIcons.vehicle,
+                width: 24,
+                height: 24,
+              ),
             )
           else
-            CachedNetworkImage(
-              imageUrl: imageUrl,
-              height: 36,
-              width: 36,
-              fit: BoxFit.cover,
+            Padding(
+              padding:
+                  const EdgeInsets.only(right: 16, top: 8, bottom: 8, left: 12),
+              child: CachedNetworkImage(
+                imageUrl: imageUrl,
+                height: 36,
+                width: 36,
+                fit: BoxFit.cover,
+              ),
             ),
-          const SizedBox(
-            width: 12,
-          ),
           Container(
             margin: const EdgeInsets.symmetric(vertical: 6),
             width: 1,
             height: 20,
             color: theme.solitudeToCharcoal,
           ),
-          const SizedBox(
-            width: 12,
-          ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                title.isEmpty ? LocaleKeys.choose_brand_model.tr() : title,
-                style: Theme.of(context).textTheme.headline6!.copyWith(
-                    fontSize: 14,
-                    color: Theme.of(context)
-                        .extension<ThemedColors>()!
-                        .midnightExpressToDolphin),
-              ),
-              if (subtitle!.isNotEmpty)
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
                 Text(
-                  subtitle!,
-                  style: const TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                    color: Color(0xff92929D),
-                  ),
-                )
-            ],
+                  title.isEmpty ? LocaleKeys.choose_brand_model.tr() : title,
+                  style: Theme.of(context).textTheme.subtitle1,
+                ),
+                if (subtitle!.isNotEmpty)
+                  Text(
+                    subtitle!,
+                    style: Theme.of(context).textTheme.headline2,
+                  )
+              ],
+            ),
           ),
         ],
       ),

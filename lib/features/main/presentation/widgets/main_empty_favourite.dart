@@ -2,6 +2,7 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
+import 'package:auto/features/navigation/presentation/home.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/features/search/presentation/search_screen.dart';
 import 'package:auto/generated/locale_keys.g.dart';
@@ -10,7 +11,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class MainEmptyFavourite extends StatelessWidget {
-  const MainEmptyFavourite({Key? key}) : super(key: key);
+  const MainEmptyFavourite({required this.parentContext, Key? key})
+      : super(key: key);
+  final BuildContext parentContext;
 
   @override
   Widget build(BuildContext context) => Container(
@@ -74,7 +77,9 @@ class MainEmptyFavourite extends StatelessWidget {
             const SizedBox(height: 12),
             WButton(
               onTap: () {
-                Navigator.push(context, fade(page: const SearchScreen()));
+                HomeTabControllerProvider.of(parentContext)
+                    .controller
+                    .animateTo(1);
               },
               height: 36,
               padding: const EdgeInsets.symmetric(vertical: 10),

@@ -11,6 +11,7 @@ import 'package:auto/features/profile/domain/entities/directory_entity.dart';
 import 'package:auto/features/profile/domain/entities/my_searches_entity.dart';
 import 'package:auto/features/profile/domain/entities/notifications_entity.dart';
 import 'package:auto/features/profile/domain/repositories/get_user_list_repo.dart';
+import 'package:dio/dio.dart';
 
 class GetUserListRepoImpl extends GetUserListRepository {
   GetUserListDatasourceImpl dataSource;
@@ -27,23 +28,36 @@ class GetUserListRepoImpl extends GetUserListRepository {
       return Left(
         ServerFailure(errorMessage: e.errorMessage, statusCode: e.statusCode),
       );
+    } on DioException {
+      return Left(DioFailure());
+    } on DioError {
+      return Left(DioFailure());
     }
   }
 
   @override
-  Future<Either<Failure, GenericPagination<AutoModel>>> getProfileFavorites(
-      {required String url, String? next}) async {
+  Future<Either<Failure, GenericPagination<AutoEntity>>>
+      getProfileFavoritesMyAds(
+          {required String url, String? next, String? moderationStatus}) async {
     try {
-      final result = await dataSource.getProfileFavoritesMyAds(url: url,next: next,fromJson: AutoModel.fromJson);
+      final result = await dataSource.getProfileFavoritesMyAds(
+          url: url,
+          next: next,
+          fromJson: AutoModel.fromJson,
+          moderationStatus: moderationStatus);
       return result;
     } on ServerException catch (error) {
       return Left(ServerFailure(
           statusCode: error.statusCode, errorMessage: error.errorMessage));
+    } on DioException {
+      return Left(DioFailure());
+    } on DioError {
+      return Left(DioFailure());
     }
   }
 
   @override
-  Future<Either<ServerFailure, NotificationsEntity>> getNotificationSingle(
+  Future<Either<Failure, NotificationsEntity>> getNotificationSingle(
       String id) async {
     try {
       final result = await dataSource.getNotificationSingle(id);
@@ -51,46 +65,60 @@ class GetUserListRepoImpl extends GetUserListRepository {
     } on ServerException catch (error) {
       return Left(ServerFailure(
           statusCode: error.statusCode, errorMessage: error.errorMessage));
+    } on DioException {
+      return Left(DioFailure());
+    } on DioError {
+      return Left(DioFailure());
     }
   }
 
   @override
-  Future<Either<ServerFailure, List<NotificationsEntity>>>
-      getNotifications() async {
+  Future<Either<Failure, List<NotificationsEntity>>> getNotifications(int? filter) async {
     try {
-      final result = await dataSource.getNotifications();
+      final result = await dataSource.getNotifications(filter);
       return Right(result);
     } on ServerException catch (error) {
       return Left(ServerFailure(
           statusCode: error.statusCode, errorMessage: error.errorMessage));
+    } on DioException {
+      return Left(DioFailure());
+    } on DioError {
+      return Left(DioFailure());
     }
   }
 
   @override
-  Future<Either<ServerFailure, List<MySearchesEntity>>> getMySearches() async {
+  Future<Either<Failure, List<MySearchesEntity>>> getMySearches() async {
     try {
       final result = await dataSource.getMySearches();
       return Right(result);
     } on ServerException catch (error) {
       return Left(ServerFailure(
           statusCode: error.statusCode, errorMessage: error.errorMessage));
+    } on DioException {
+      return Left(DioFailure());
+    } on DioError {
+      return Left(DioFailure());
     }
   }
 
   @override
-  Future<Either<ServerFailure, List<DirCategoryEntity>>>
-      getDirCategory() async {
+  Future<Either<Failure, List<DirCategoryEntity>>> getDirCategory() async {
     try {
       final result = await dataSource.getDirCategory();
       return Right(result);
     } on ServerException catch (error) {
       return Left(ServerFailure(
           statusCode: error.statusCode, errorMessage: error.errorMessage));
+    } on DioException {
+      return Left(DioFailure());
+    } on DioError {
+      return Left(DioFailure());
     }
   }
 
   @override
-  Future<Either<ServerFailure, List<DirectoryEntity>>> getDirectories(
+  Future<Either<Failure, List<DirectoryEntity>>> getDirectories(
       String search, String regions, String categories) async {
     try {
       final result =
@@ -99,39 +127,55 @@ class GetUserListRepoImpl extends GetUserListRepository {
     } on ServerException catch (error) {
       return Left(ServerFailure(
           statusCode: error.statusCode, errorMessage: error.errorMessage));
+    } on DioException {
+      return Left(DioFailure());
+    } on DioError {
+      return Left(DioFailure());
     }
   }
 
   @override
-  Future<Either<ServerFailure, DirectoryEntity>> getDirectory(String id) async {
+  Future<Either<Failure, DirectoryEntity>> getDirectory(String id) async {
     try {
       final result = await dataSource.getDirectory(id);
       return Right(result);
     } on ServerException catch (error) {
       return Left(ServerFailure(
           statusCode: error.statusCode, errorMessage: error.errorMessage));
+    } on DioException {
+      return Left(DioFailure());
+    } on DioError {
+      return Left(DioFailure());
     }
   }
 
   @override
-  Future<Either<ServerFailure, String>> notificationAllRead() async {
+  Future<Either<Failure, String>> notificationAllRead() async {
     try {
       final result = await dataSource.notificationAllRead();
       return Right(result);
     } on ServerException catch (error) {
       return Left(ServerFailure(
           statusCode: error.statusCode, errorMessage: error.errorMessage));
+    } on DioException {
+      return Left(DioFailure());
+    } on DioError {
+      return Left(DioFailure());
     }
   }
 
   @override
-  Future<Either<ServerFailure, String>> deleteMySearches(List<int> ids) async {
+  Future<Either<Failure, String>> deleteMySearches(List<int> ids) async {
     try {
       final result = await dataSource.deleteMySearches(ids);
       return Right(result);
     } on ServerException catch (error) {
       return Left(ServerFailure(
           statusCode: error.statusCode, errorMessage: error.errorMessage));
+    } on DioException {
+      return Left(DioFailure());
+    } on DioError {
+      return Left(DioFailure());
     }
   }
 }

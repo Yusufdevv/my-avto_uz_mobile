@@ -35,7 +35,7 @@ class CategoryTypeItem extends StatelessWidget {
                         .copyWith(fontSize: 16, fontWeight: FontWeight.w600),
                   ),
                   GestureDetector(
-                    onTap: onAllTap,
+                    onTap: onAllTap, behavior: HitTestBehavior.opaque,
                     child: Row(
                       children: [
                         Text(

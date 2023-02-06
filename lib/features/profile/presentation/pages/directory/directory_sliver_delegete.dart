@@ -13,6 +13,7 @@ class DirectorySliverDelegate extends SliverPersistentHeaderDelegate {
   final String name;
   final String avatarImage;
   final List<String> gallery;
+  final bool isUserSingle;
 
   DirectorySliverDelegate({
     required this.category,
@@ -20,6 +21,7 @@ class DirectorySliverDelegate extends SliverPersistentHeaderDelegate {
     required this.name,
     required this.avatarImage,
     required this.gallery,
+    this.isUserSingle = false,
   });
 
   final Duration _duration = const Duration(milliseconds: 200);
@@ -41,18 +43,23 @@ class DirectorySliverDelegate extends SliverPersistentHeaderDelegate {
                             ? 0.2
                             : 1,
             child: AnimatedImages(
+              isUserSingle: isUserSingle,
                 images: gallery,
                 screenWidth: MediaQuery.of(context).size.width),
           ),
           Positioned(
               top: 60,
-              left: 16,
+              left: 0,
               child: GestureDetector(
+                  behavior: HitTestBehavior.opaque,
                   onTap: () {
                     Navigator.pop(context);
                   },
-                  child:
-                      SvgPicture.asset(AppIcons.chevronLeft, color: solitude))),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child:
+                        SvgPicture.asset(AppIcons.chevronLeft, color: solitude),
+                  ))),
           Positioned(
             bottom: 0,
             right: 0,
@@ -119,9 +126,11 @@ class DirectorySliverDelegate extends SliverPersistentHeaderDelegate {
                           child: CachedNetworkImage(
                             imageUrl: avatarImage,
                             fit: BoxFit.cover,
-                            errorWidget: (context, url, error) => Image.asset(
-                                AppImages.autoUz,
-                                fit: BoxFit.cover),
+                            errorWidget: (context, url, error) => ClipRRect(
+                              borderRadius: BorderRadius.circular(50),
+                              child: Image.asset(AppImages.carPlaceHolder,
+                                  fit: BoxFit.cover),
+                            ),
                             imageBuilder: (context, imageProvider) => Container(
                               decoration: BoxDecoration(
                                   shape: BoxShape.circle,

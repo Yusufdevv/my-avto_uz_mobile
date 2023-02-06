@@ -1,6 +1,8 @@
 import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/features/car_single/presentation/widgets/orange_button.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -35,7 +37,7 @@ class DealerTime extends StatelessWidget {
               child: Row(
                 children: [
                   Text(
-                    'Доступные часы',
+                    LocaleKeys.avialable_hours.tr(),
                     style: Theme.of(context).textTheme.headline1,
                   ),
                   const Spacer(),
@@ -43,6 +45,7 @@ class DealerTime extends StatelessWidget {
                     onTap: () {
                       Navigator.of(context).pop();
                     },
+                    behavior: HitTestBehavior.opaque,
                     child: SvgPicture.asset(
                       AppIcons.close,
                       width: 32,
@@ -62,7 +65,7 @@ class DealerTime extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Пользователь доступен только в',
+                    LocaleKeys.the_user_is_only_available_in.tr(),
                     style: Theme.of(context)
                         .textTheme
                         .headline2!
@@ -79,7 +82,7 @@ class DealerTime extends StatelessWidget {
                       ),
                     ),
                     child: Text(
-                      'от $timeFrom' ' - до $timeTo',
+                      '${LocaleKeys.from.tr()} $timeFrom' ' - ${LocaleKeys.to.tr()} $timeTo',
                       style: Theme.of(context).textTheme.headline2!.copyWith(
                           fontWeight: FontWeight.w400,
                           fontSize: 12,
@@ -96,7 +99,7 @@ class DealerTime extends StatelessWidget {
                       Navigator.of(context).pop();
                     },
                     content: Text(
-                      'Понятно',
+                      LocaleKeys.understandably.tr(),
                       style: Theme.of(context).textTheme.subtitle1!.copyWith(
                             color: white,
                           ),

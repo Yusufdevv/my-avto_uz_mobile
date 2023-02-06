@@ -3,10 +3,11 @@ part of 'profile_bloc.dart';
 @immutable
 class ProfileState extends Equatable {
   final ProfileDataEntity profileEntity;
-  final List<TermsOfUseEntity> termsOfUseEntity;
+  final  TermsOfUseEntity  termsOfUseEntity;
   final FormzStatus status;
   final FormzStatus editStatus;
   final FormzStatus changeStatus;
+  final bool isNotificationAllRead;
 
 
    const ProfileState({
@@ -15,22 +16,26 @@ class ProfileState extends Equatable {
     required this.termsOfUseEntity,
     required this.editStatus,
     required this.changeStatus,
+    required this.isNotificationAllRead,
   });
 
   ProfileState copyWith(
           {ProfileDataEntity? profileEntity,
           List<AutoEntity>? autoEntity,
-          List<TermsOfUseEntity>? termsOfUseEntity,
+           TermsOfUseEntity ? termsOfUseEntity,
           FormzStatus? status,
           FormzStatus? editStatus,
           FormzStatus? secondStatus,
-          FormzStatus? changeStatus,}) =>
+          FormzStatus? changeStatus,
+          bool? isNotificationAllRead,
+          }) =>
       ProfileState(
         status: status ?? this.status,
         profileEntity: profileEntity ?? this.profileEntity,
         termsOfUseEntity: termsOfUseEntity ?? this.termsOfUseEntity,
         editStatus: editStatus ?? this.editStatus,
         changeStatus: changeStatus ?? this.changeStatus,
+        isNotificationAllRead: isNotificationAllRead ?? this.isNotificationAllRead,
       );
 
   @override
@@ -40,5 +45,6 @@ class ProfileState extends Equatable {
         termsOfUseEntity,
         editStatus,
         changeStatus,
+        isNotificationAllRead
       ];
 }

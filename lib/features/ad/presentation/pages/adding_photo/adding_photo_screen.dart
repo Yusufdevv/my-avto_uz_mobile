@@ -5,6 +5,8 @@ import 'package:auto/features/ad/presentation/pages/adding_photo/widgets/photo_i
 import 'package:auto/features/ad/presentation/pages/adding_photo/widgets/photo_info_item.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -134,7 +136,7 @@ class _AddingPhotoScreenState extends State<AddingPhotoScreen> {
                             children: [
                              const Spacer(),
                               Text(
-                                'Далее',
+                                LocaleKeys.further.tr(),
                                 style: Theme.of(context)
                                     .textTheme
                                     .subtitle1!

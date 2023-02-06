@@ -2,14 +2,15 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/features/ad/const/constants.dart';
-import 'package:auto/features/ad/domain/entities/announcement/announcement_entity_to_post.dart';
 import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.dart';
 import 'package:auto/features/ad/presentation/bloc/pts/date_picker_bloc.dart';
 import 'package:auto/features/ad/presentation/pages/pts/widgets/pts_buttons.dart';
 import 'package:auto/features/ad/presentation/pages/pts/widgets/show_cupertino_date_picker.dart';
 import 'package:auto/features/ad/presentation/widgets/base_widget.dart';
 import 'package:auto/features/common/widgets/w_container.dart';
+import 'package:auto/generated/locale_keys.g.dart';
 import 'package:auto/utils/my_functions.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
@@ -25,15 +26,15 @@ class _PtsScreenState extends State<PtsScreen> {
   late DatePickerBloc bloc;
 
   final List<String> documentList = [
-    'Оригинал / Электронный ПТС',
-    'Дубликат..',
+    LocaleKeys.original_slash_electronniy_pts.tr(),
+    LocaleKeys.duplicat.tr(),
   ];
 
   final List<String> ownerList = [
-    'Первый',
-    'Второй',
-    'Третий',
-    'Четвёртый или более',
+    LocaleKeys.first.tr(),
+    LocaleKeys.second.tr(),
+    LocaleKeys.third.tr(),
+    LocaleKeys.fourth_or_more.tr(),
   ];
 
   @override
@@ -48,16 +49,17 @@ class _PtsScreenState extends State<PtsScreen> {
           value: bloc,
           child: Scaffold(
             body: BaseWidget(
-              headerText: 'ПТС',
+              headerText: LocaleKeys.pts.tr(),
               child: BlocBuilder<PostingAdBloc, PostingAdState>(
                 builder: (context, state) => SingleChildScrollView(
+                  physics: const BouncingScrollPhysics(),
                   padding:
                       const EdgeInsets.symmetric(horizontal: 16, vertical: 25),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Тип документа',
+                        LocaleKeys.document_type.tr(),
                         style: Theme.of(context)
                             .textTheme
                             .headline6!
@@ -74,7 +76,7 @@ class _PtsScreenState extends State<PtsScreen> {
                                     typeDocument:
                                         LicenceType.values[index].name)),
                             id: index.toString(),
-                            isSelected: state.typeDocument ==
+                            isSelected: state.licenceType ==
                                 LicenceType.values[index].name,
                             text: documentList[index],
                           ),
@@ -82,9 +84,11 @@ class _PtsScreenState extends State<PtsScreen> {
                       ),
                       const SizedBox(height: 41),
                       Text(
-                        'Какой вы владелец?',
-                        style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                            fontWeight: FontWeight.w600, fontSize: 16),
+                        LocaleKeys.what_kind_owner.tr(),
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline6!
+                            .copyWith(color: greyText),
                       ),
                       const SizedBox(height: 8),
                       Wrap(
@@ -104,9 +108,11 @@ class _PtsScreenState extends State<PtsScreen> {
                       ),
                       const SizedBox(height: 41),
                       Text(
-                        'Когда был куплен автомобиль?',
-                        style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                            fontWeight: FontWeight.w600, fontSize: 16),
+                        LocaleKeys.when_car_was_buing.tr(),
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline6!
+                            .copyWith(color: greyText),
                       ),
                       const SizedBox(
                         height: 17,
@@ -121,10 +127,17 @@ class _PtsScreenState extends State<PtsScreen> {
                                 ),
                           );
                         },
+                        titleStyle: state.purchasedDate != null &&
+                                state.purchasedDate!.isNotEmpty
+                            ? Theme.of(context)
+                                .textTheme
+                                .headline1!
+                                .copyWith(fontSize: 16)
+                            : null,
                         title: state.purchasedDate != null &&
                                 state.purchasedDate!.isNotEmpty
                             ? MyFunctions.getData(state.purchasedDate!)
-                            : 'Выберите дату',
+                            : LocaleKeys.choose_date.tr(),
                         trailingIcon: AppIcons.calendar,
                         border: Border.all(
                             width: 1,

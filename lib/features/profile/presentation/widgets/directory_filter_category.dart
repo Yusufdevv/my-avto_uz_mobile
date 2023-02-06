@@ -4,6 +4,8 @@ import 'package:auto/core/utils/size_config.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/profile/domain/entities/dir_category_entity.dart';
 import 'package:auto/features/profile/presentation/bloc/directory/directory_bloc.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -25,7 +27,7 @@ class _DirectoryFilterCategoryState extends State<DirectoryFilterCategory> {
   Widget build(BuildContext context) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Категории',
+          Text(LocaleKeys.categories.tr(),
               style: TextStyle(
                   color: Theme.of(context)
                       .extension<ThemedColors>()!
@@ -92,7 +94,6 @@ class _DirectoryFilterCategoryState extends State<DirectoryFilterCategory> {
                           Expanded(
                             child: Text(item.name ?? '',
                                 maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
                                 style: Theme.of(context)
                                     .textTheme
                                     .headline6

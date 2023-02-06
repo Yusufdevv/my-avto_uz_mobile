@@ -25,6 +25,7 @@ class AppIcons {
   static const imkon = 'assets/icons/global/imkon.svg';
 
   //GLOBAL
+  static const popUpWarnig = 'assets/icons/global/pop_up_warning.svg';
   static const fluentCar = 'assets/icons/global/fluent_car.svg';
   static const userAvatar = 'assets/icons/global/user_avatar.svg';
   static const phoneWithClock = 'assets/icons/global/phone_with_clock.png';
@@ -42,7 +43,7 @@ class AppIcons {
   static const tablerInfo = 'assets/icons/global/tabler_info_circle.svg';
   static const tablerPhone = 'assets/icons/global/tabler_phone.svg';
   static const carIcon = 'assets/icons/global/car.png';
-  static const succesGreenIcon = 'assets/icons/global/succes_green.png';
+  static const succesGreenIconn = 'assets/icons/global/succes_green.png';
   static const emptyFolder = 'assets/icons/profile/empty_folder.png';
   static const notification = 'assets/icons/profile/notification.png';
   static const smallClose = 'assets/icons/global/smallClose.svg';
@@ -61,6 +62,7 @@ class AppIcons {
   static const ellipseRed = 'assets/icons/profile/ellipse_red.svg';
   static const phoneCall1 = 'assets/icons/profile/phone-call.svg';
   static const eye = 'assets/icons/global/eye.svg';
+  static const eye3 = 'assets/icons/global/eye3.svg';
   static const closeSquare = 'assets/icons/global/close_square.svg';
   static const edit = 'assets/icons/global/edit.svg';
   static const check = 'assets/icons/global/check.svg';
@@ -70,15 +72,17 @@ class AppIcons {
   static const purpleOval = 'assets/icons/global/purple_oval.svg';
   static const blueOval = 'assets/icons/global/blue_oval.svg';
   static const polygon = 'assets/icons/global/polygon.svg';
+  static const purplePolygon = 'assets/icons/global/purplePolygon.svg';
   static const orangePolygon = 'assets/icons/global/orange_polygon.svg';
   static const arrowRight = 'assets/icons/global/arrow_right.svg';
-  static const russia = 'assets/icons/global/russia.svg';
-  static const uzbekistan = 'assets/icons/global/uzbekistan.svg';
+  static const russian2 = 'assets/icons/global/russian2.png';
+  static const uzbekistan2 = 'assets/icons/global/uzbekistn2.png';
   static const chevronDownGrey = 'assets/icons/global/chevron_down_grey.svg';
   static const chevronRight = 'assets/icons/global/chevron_right.svg';
   static const mapPin = 'assets/icons/global/map_pin.svg';
   static const filterIcon = 'assets/icons/global/filter_icon.svg';
   static const cancel = 'assets/icons/global/cancel.svg';
+  static const foldedMap = 'assets/icons/global/folded_map.svg';
   static const locationIcon = 'assets/icons/global/location_icon.svg';
   static const currentLocation = 'assets/icons/global/current_location.svg';
   static const currentLoc = 'assets/images/global/current_location.png';
@@ -223,6 +227,7 @@ class AppIcons {
   static const vin_soon = 'assets/icons/car_single/vin_soon.svg';
   static const blue_vin_soon = 'assets/icons/car_single/blue_vin_soon.svg';
   static const safe = 'assets/icons/car_single/safety.svg';
+  static const autoModel = 'assets/icons/car_single/auto_model.svg';
   static const shieldCheckOutlined =
       'assets/icons/car_single/shield_check_outlined.svg';
 
@@ -232,6 +237,7 @@ class AppIcons {
   static const blueCheckRounded = 'assets/icons/car_single/blue_check.svg';
   static const redWarning = 'assets/icons/car_single/red_warning.svg';
   static const yellowWarning = 'assets/icons/car_single/yellow_warning.svg';
+  static const comparGreen = 'assets/icons/car_single/compar_green.svg';
 
   static const greyPhoneCall = 'assets/icons/global/grey_phone_call.svg';
   static const inet_error = 'assets/icons/global/inet_error.svg';
@@ -269,4 +275,6 @@ class AppIcons {
   static const defalut = 'assets/icons/car_single/defalut.svg';
   static const edit_single = 'assets/icons/car_single/edit_single.svg';
   static const crug = 'assets/icons/car_single/crug.svg';
+  static const introduce = 'assets/icons/reels/introduce.svg';
+  static const introduce1 = 'assets/icons/reels/introduce1.svg';
 }

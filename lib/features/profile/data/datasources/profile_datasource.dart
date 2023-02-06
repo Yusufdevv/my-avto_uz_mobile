@@ -12,7 +12,7 @@ abstract class ProfileDataSource {
   Future<ProfileDataModel> getProfile();
 
   Future<ProfileModel> editProfile(
-      {String? image, String? fullName, int? region});
+      {String? image, String? fullName, int? region,  String? email});
 
   Future<String> changePassword(
       {required String oldPassword, required String newPassword});
@@ -24,7 +24,7 @@ abstract class ProfileDataSource {
       required String code,
       required String session});
 
-  Future<List<TermsOfUseModel>> getTermsOfUseData();
+  Future<TermsOfUseModel> getTermsOfUseData(String slug);
 }
 
 class ProfileDataSourceImpl extends ProfileDataSource {
@@ -56,11 +56,12 @@ class ProfileDataSourceImpl extends ProfileDataSource {
 
   @override
   Future<ProfileModel> editProfile(
-      {String? image, String? fullName, int? region}) async {
+      {String? image, String? fullName, int? region, String? email}) async {
     final data = FormData.fromMap({
       'full_name': '$fullName',
       'image': image != null ? await MultipartFile.fromFile(image) : null,
-      'region': region
+      'region': region,
+      'email' : email
     });
     try {
       final response = await dio.patch('/users/detail/edit/',
@@ -107,7 +108,7 @@ class ProfileDataSourceImpl extends ProfileDataSource {
               statusCode: response.statusCode!,
               errorMessage: ((response.data as Map).values.isNotEmpty
                       ? ((response.data as Map).values.first as List)[0]
-                      : 'Wrong number!')
+                      : '')
                   .toString());
         } else {
           throw ServerException(
@@ -202,32 +203,14 @@ class ProfileDataSourceImpl extends ProfileDataSource {
     }
   }
 
-  // if (result.data is List && (result.data as List).isNotEmpty) {
-  //         return Left(ServerFailure(
-  //             errorMessage: (result.data as List).first.toString(),
-  //             statusCode: 141));
-  //       }
-  //       var data = result.data[errorKey ?? 'detail'] ?? '';
-  //       if (data.isEmpty) {
-  //         data = result.data.toString();
-  //       }
-
-  //       return Left(ServerFailure(errorMessage: data, statusCode: 141));
-
   @override
-  Future<List<TermsOfUseModel>> getTermsOfUseData() async {
+  Future<TermsOfUseModel> getTermsOfUseData(String slug) async {
     try {
       final response = await dio.get(
-        '/common/static-pages/',
-        options: Options(headers: {
-          'Authorization': 'Bearer ${StorageRepository.getString('token')}'
-        }),
+        '/common/static-pages/$slug/',
       );
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
-        return (response.data['results'] as List)
-            // ignore: unnecessary_lambdas
-            .map((e) => TermsOfUseModel.fromJson(e))
-            .toList();
+        return TermsOfUseModel.fromJson(response.data);
       }
       throw ServerException(
           statusCode: response.statusCode ?? 0,

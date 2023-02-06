@@ -89,7 +89,7 @@ class _StoryContentItemState extends State<StoryContentItem>
     return GestureDetector(
       onLongPress: _onLongPress,
       onLongPressEnd: (e) => _onLongPress(isStopped: false),
-      onTapDown: _onTapDown,
+      onTapDown: _onTapDown, behavior: HitTestBehavior.opaque,
       child: Stack(
         children: [
           if (isVideo && initialized)

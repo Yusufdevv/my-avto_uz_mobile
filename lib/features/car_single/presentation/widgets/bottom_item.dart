@@ -2,10 +2,10 @@ import 'package:auto/assets/colors/color.dart';
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/images.dart';
 import 'package:auto/features/car_single/presentation/bloc/car_single_bloc.dart';
+import 'package:auto/features/car_single/presentation/pages/user_single_page.dart';
 import 'package:auto/features/car_single/presentation/widgets/dealer_time_botomsheet.dart';
 import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
-import 'package:auto/features/dealers/presentation/dealers_screen.dart';
 import 'package:auto/features/dealers/presentation/pages/dealer_single_page.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
 import 'package:auto/generated/locale_keys.g.dart';
@@ -18,10 +18,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class BottomItem extends StatefulWidget {
-  final String callFrom;
+  final String? callFrom;
   final String usertype;
-  final String callTo;
+  final String? callTo;
   final int id;
+  final int userId;
   final String phoneNumber;
   final String slug;
   final String? userAvatar;
@@ -32,6 +33,7 @@ class BottomItem extends StatefulWidget {
     required this.phoneNumber,
     required this.userAvatar,
     required this.id,
+    required this.userId,
     required this.usertype,
     required this.slug,
     Key? key,
@@ -42,13 +44,14 @@ class BottomItem extends StatefulWidget {
 }
 
 class _BottomItemState extends State<BottomItem>
-    with SingleTickerProviderStateMixin, WidgetsBindingObserver {
+    with SingleTickerProviderStateMixin, 
+    // ignore: prefer_mixin
+    WidgetsBindingObserver {
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     switch (state) {
       case AppLifecycleState.resumed:
         context.read<CarSingleBloc>().add(CarSingleEvent.callCount(widget.id));
-        print('----${AppLifecycleState.resumed}');
         break;
       case AppLifecycleState.inactive:
         break;
@@ -71,8 +74,8 @@ class _BottomItemState extends State<BottomItem>
           Expanded(
               child: widget.callFrom != null && widget.callTo != null
                   ? MyFunctions.enableForCalling(
-                      callFrom: widget.callFrom,
-                      callTo: widget.callTo,
+                      callFrom: widget.callFrom!,
+                      callTo: widget.callTo!,
                     )
                       ? WButton(
                           onTap: () {
@@ -92,8 +95,8 @@ class _BottomItemState extends State<BottomItem>
                               backgroundColor: Colors.transparent,
                               context: context,
                               builder: (context) => DealerTime(
-                                timeTo: widget.callTo.substring(0, 5),
-                                timeFrom: widget.callFrom.substring(0, 5),
+                                timeTo: widget.callTo!.substring(0, 5),
+                                timeFrom: widget.callFrom!.substring(0, 5),
                               ),
                             );
                           },
@@ -112,9 +115,9 @@ class _BottomItemState extends State<BottomItem>
                               const SizedBox(
                                 width: 8,
                               ),
-                              const Text(
-                                'Позвонить',
-                                style: TextStyle(color: border),
+                              Text(
+                                LocaleKeys.call.tr(),
+                                style: const TextStyle(color: border),
                               ),
                               const Spacer(),
                             ],
@@ -135,10 +138,19 @@ class _BottomItemState extends State<BottomItem>
           ),
           WScaleAnimation(
             onTap: () {
-              widget.usertype == 'owner'
-                  ? Navigator.of(context).push(fade(page: const DealerScreen()))
-                  : Navigator.of(context)
+             if(widget.usertype == 'owner')  {
+              Navigator.of(context)
+                      .push(fade(page:UserSinglePage(userId: widget.userId, announcementId: widget.id,)));
+             }
+             if(widget.usertype == 'dealer' && widget.slug.isNotEmpty)  {
+              Navigator.of(context)
                       .push(fade(page: DealerSinglePage(slug: widget.slug)));
+             }
+            //  widget.usertype == 'owner'
+            //       ? Navigator.of(context)
+            //           .push(fade(page:UserSinglePage(userId: widget.userId, announcementId: widget.id,)))
+            //       : Navigator.of(context)
+            //           .push(fade(page: DealerSinglePage(slug: widget.slug)));
             },
             child: Container(
               height: 44,

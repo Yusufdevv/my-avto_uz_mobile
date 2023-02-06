@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:sensors_plus/sensors_plus.dart';
 
+// ignore: must_be_immutable
 class StackedOnBoardingWidget extends StatelessWidget {
   double dx = 100, dy = 100;
 
@@ -18,7 +19,7 @@ class StackedOnBoardingWidget extends StatelessWidget {
     return Stack(
       children: [
         Positioned(
-          right: -30,
+          right: -20,
           top: height,
           child: SizedBox(
             width: 220,
@@ -29,7 +30,7 @@ class StackedOnBoardingWidget extends StatelessWidget {
                   width: 70,
                   height: 72,
                   decoration: const BoxDecoration(
-                    color: Colors.black,
+                      color: Colors.black,
                       shape: BoxShape.circle,
                       image: DecorationImage(
                           image: AssetImage(AppImages.audi),
@@ -69,7 +70,8 @@ class StackedOnBoardingWidget extends StatelessWidget {
                               .textTheme
                               .headline6!
                               .copyWith(color: white, fontSize: 10),
-                        )
+                        ),
+                        const SizedBox(width: 2),
                       ],
                     ),
                   ),
@@ -130,12 +132,16 @@ class StackedOnBoardingWidget extends StatelessWidget {
                         const SizedBox(
                           width: 8,
                         ),
-                        Text(
-                          LocaleKeys.easy_send.tr(),
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline6!
-                              .copyWith(color: white, fontSize: 10),
+                        Expanded(
+                          child: Text(
+                            LocaleKeys.easy_send.tr(),
+                            maxLines: 3,
+                            overflow: TextOverflow.ellipsis,
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline6!
+                                .copyWith(color: white, fontSize: 10),
+                          ),
                         )
                       ],
                     ),
@@ -195,12 +201,16 @@ class StackedOnBoardingWidget extends StatelessWidget {
                         const SizedBox(
                           width: 8,
                         ),
-                        Text(
-                          LocaleKeys.easy_buying.tr(),
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline6!
-                              .copyWith(color: white, fontSize: 10),
+                        Expanded(
+                          child: Text(
+                            LocaleKeys.easy_buying.tr(),
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 3,
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline6!
+                                .copyWith(color: white, fontSize: 10),
+                          ),
                         )
                       ],
                     ),

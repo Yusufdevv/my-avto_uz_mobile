@@ -23,7 +23,7 @@ class MyReviewsContainer extends StatelessWidget {
           MaterialPageRoute(
             builder: (context) => const SingleReviewScreen(),
           ),
-        ),
+        ), behavior: HitTestBehavior.opaque,
         child: Container(
           margin: const EdgeInsets.only(top: 16),
           padding: const EdgeInsets.only(left: 16, right: 16, top: 12),

@@ -1,18 +1,23 @@
 import 'package:auto/assets/colors/color.dart';
+import 'package:auto/assets/constants/formatters.dart';
 import 'package:auto/assets/themes/theme_extensions/w_textfield_style.dart';
 import 'package:auto/features/ad/presentation/bloc/mileage/mileage_image_bloc.dart';
 import 'package:auto/features/ad/presentation/bloc/posting_ad/posting_ad_bloc.dart';
 import 'package:auto/features/ad/presentation/pages/mileage/widgets/mileage_image.dart';
+import 'package:auto/features/ad/presentation/widgets/base_widget.dart';
 import 'package:auto/features/common/widgets/switcher_row.dart';
 import 'package:auto/features/common/widgets/w_textfield.dart';
-import 'package:auto/features/ad/presentation/widgets/base_widget.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 class MileageScreen extends StatefulWidget {
+  final Function(String) onImageChange;
   final String initialMilage;
-  const MileageScreen({required this.initialMilage, Key? key})
+  const MileageScreen(
+      {required this.onImageChange, required this.initialMilage, Key? key})
       : super(key: key);
 
   @override
@@ -42,16 +47,20 @@ class _MileageScreenState extends State<MileageScreen> {
         value: mileageImageBloc,
         child: KeyboardDismisser(
           child: Scaffold(
-            body: BlocBuilder<MileageImageBloc, MileageImageState>(
+            body: BlocConsumer<MileageImageBloc, MileageImageState>(
+              listener: (context, state) {
+                print('=> => => =>     milage image change in listener: ${state.image}    <= <= <= <=');
+                widget.onImageChange(state.image);
+              },
               builder: (context, state) => BaseWidget(
-                headerText: 'Пробег',
+                headerText: LocaleKeys.Mileage.tr(),
                 child: Padding(
                   padding: const EdgeInsets.all(16),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SwitcherRow(
-                        title: 'Без пробега',
+                        title: LocaleKeys.without_milaege.tr(),
                         value: context
                                 .watch<PostingAdBloc>()
                                 .state
@@ -68,12 +77,20 @@ class _MileageScreenState extends State<MileageScreen> {
                               .isWithoutMileage ??
                           false)) ...{
                         WTextField(
-                          maxLength: 6,
+                          textStyle: Theme.of(context)
+                              .textTheme
+                              .headline1!
+                              .copyWith(
+                                  fontSize: 16, fontWeight: FontWeight.w400),
+                          textInputFormatters: [
+                            ThousandsSeparatorInputFormatter()
+                          ],
+                          maxLength: 12,
                           hideCounterText: true,
                           onChanged: (value) => context
                               .read<PostingAdBloc>()
                               .add(PostingAdChooseEvent(mileage: value)),
-                          title: 'Пробег',
+                          title: LocaleKeys.Mileage.tr(),
                           hintText: '0 km',
                           borderRadius: 12,
                           keyBoardType: TextInputType.number,
@@ -93,15 +110,13 @@ class _MileageScreenState extends State<MileageScreen> {
                         height: 20,
                       ),
                       Text(
-                        'Фото 360°',
+                        '${LocaleKeys.photo.tr()} 360°',
                         style: Theme.of(context)
                             .textTheme
                             .subtitle1!
                             .copyWith(color: grey),
                       ),
-                      const SizedBox(
-                        height: 8,
-                      ),
+                      const SizedBox(height: 8),
                       MileageImageItem(image: state.image),
                       const SizedBox(
                         height: 20,

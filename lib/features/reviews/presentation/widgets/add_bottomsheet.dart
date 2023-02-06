@@ -53,7 +53,7 @@ class _ModalBottomSheetState extends State<ModalBottomSheet> {
                   GestureDetector(
                     onTap: () {
                       Navigator.pop(context);
-                    },
+                    }, behavior: HitTestBehavior.opaque,
                     child: SvgPicture.asset(
                       AppIcons.close,
                       height: 14,
@@ -74,7 +74,7 @@ class _ModalBottomSheetState extends State<ModalBottomSheet> {
                         builder: (context) => const AddReviewScreen(category: '',),
                       ),
                     );
-                  },
+                  }, behavior: HitTestBehavior.opaque,
                   child: categories(iconPath[index], category[index]),
                 ),
                 separatorBuilder: (context, index) => const Divider(

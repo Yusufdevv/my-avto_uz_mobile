@@ -6,10 +6,10 @@ class  DealerFilterClearEvent  extends DealerFilterEvent  {}
 class DealerFilterSelectEvent extends DealerFilterEvent {
   List<Region>? region;
   final MakeEntity? maker;
-  final String? car_type;
+  final String? carType;
   DealerFilterSelectEvent({
     this.maker,
     this.region,
-    this.car_type,
+    this.carType,
       });
 }

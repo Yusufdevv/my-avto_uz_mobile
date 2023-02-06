@@ -48,14 +48,7 @@ class _SelectModelScreenState extends State<SelectModelScreen> {
     super.dispose();
   }
 
-  final List<ModelItemEntity> modelItems = [
-    ModelItemEntity(title: 'm90'),
-    ModelItemEntity(title: 'm90'),
-    ModelItemEntity(title: 'm90'),
-    ModelItemEntity(title: 'm90'),
-    ModelItemEntity(title: 'm90'),
-    ModelItemEntity(title: 'm90'),
-  ];
+
   final List<CarTypeEntity> carTypes = List.generate(
       12,
       (index) =>

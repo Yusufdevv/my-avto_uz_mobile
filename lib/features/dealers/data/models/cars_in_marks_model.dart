@@ -1,6 +1,6 @@
 import 'package:auto/features/dealers/domain/entities/cars_in_marks_entity.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:auto/features/rent/domain/entities/region_entity.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'cars_in_marks_model.g.dart';
 @JsonSerializable(fieldRename: FieldRename.snake)
@@ -56,7 +56,11 @@ class CarsInMarksModel extends CarsInMarksEntity {
         required super.user,
         required super.userType,
         required super.viewsCount,
-        required super.year});
+        required super.year,
+        required super.isWishlisted,
+        required super.isComparison,
+        
+        });
 
   factory CarsInMarksModel.fromJson(Map<String, dynamic> json) =>
       _$CarsInMarksModelFromJson(json);

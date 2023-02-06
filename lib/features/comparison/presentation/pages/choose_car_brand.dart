@@ -7,9 +7,11 @@ import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/comparison/presentation/bloc/scroll-bloc/scrolling_bloc.dart';
 import 'package:auto/features/comparison/presentation/widgets/alphabetic_header.dart';
 import 'package:auto/features/comparison/presentation/widgets/search_bar.dart';
+import 'package:auto/features/comparison/presentation/widgets/top_brand_sliver_delegate.dart';
 import 'package:auto/features/main/domain/usecases/get_top_brand.dart';
 import 'package:auto/features/main/presentation/bloc/top_brand/top_brand_bloc.dart';
-import 'package:auto/features/main/presentation/parts/top_brands.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -19,9 +21,12 @@ class ChooseCarBrandComparison extends StatefulWidget {
   final bool isbak;
   final bool isClear;
   final VoidCallback onTap;
-  const ChooseCarBrandComparison(
-      {required this.onTap, Key? key, this.isbak = false, this.isClear = true})
-      : super(key: key);
+  const ChooseCarBrandComparison({
+    required this.onTap,
+    Key? key,
+    this.isbak = false,
+    this.isClear = true,
+  }) : super(key: key);
 
   @override
   State<ChooseCarBrandComparison> createState() =>
@@ -60,181 +65,155 @@ class _ChooseCarBrandComparisonState extends State<ChooseCarBrandComparison> {
   Widget build(BuildContext context) => KeyboardDismisser(
         child: BlocProvider.value(
           value: topBrandBloc,
-          child: BlocListener<GetMakesBloc, GetMakesState>(
+          child: BlocConsumer<GetMakesBloc, GetMakesState>(
             listener: (context, state) {
               scrollController.animateTo(state.index.toDouble() * 54,
                   duration: const Duration(milliseconds: 500),
                   curve: Curves.ease);
             },
-            child: BlocBuilder<GetMakesBloc, GetMakesState>(
-              builder: (context, state) => Scaffold(
-                resizeToAvoidBottomInset: false,
-                body: Stack(
-                  children: [
-                    NestedScrollView(
-                      controller: controllerScroll,
-                      headerSliverBuilder: (context, innerBoxIsScrolled) => [
-                        SliverAppBar(
-                          elevation: 0,
-                          pinned: true,
-                          leadingWidth: 36,
-                          leading: GestureDetector(
-                            onTap: () => Navigator.pop(context),
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 16),
-                              child: SvgPicture.asset(AppIcons.chevronLeft),
-                            ),
+            builder: (context, state) => Scaffold(
+              resizeToAvoidBottomInset: false,
+              body: Stack(
+                children: [
+                  NestedScrollView(
+                    physics: const BouncingScrollPhysics(),
+                    controller: controllerScroll,
+                    headerSliverBuilder: (context, innerBoxIsScrolled) => [
+                      SliverAppBar(
+                        elevation: 0,
+                        pinned: true,
+                        leadingWidth: 44,
+                        leading: GestureDetector(
+                          onTap: () => Navigator.pop(context),
+                          behavior: HitTestBehavior.opaque,
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                                left: 16, right: 8, top: 8, bottom: 8),
+                            child: SvgPicture.asset(AppIcons.chevronLeft),
                           ),
-                          titleSpacing: 4,
-                          title: const Text(
-                            'Выберите марку автомобиля',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w700,
-                              color: dark,
-                            ),
-                          ),
-                          actions: [
-                            Padding(
-                              padding: const EdgeInsets.only(right: 16),
-                              child: GestureDetector(
-                                onTap: () {
-                                  Navigator.of(context).pop();
-                                  if (widget.isClear) {
-                                    context.read<GetMakesBloc>().add(
-                                        GetMakesBlocEvent.selectedCarItems(
-                                            id: -1, name: '', imageUrl: ''));
-                                  }
-                                },
-                                child: SvgPicture.asset(AppIcons.close),
-                              ),
-                            ),
-                          ],
                         ),
-                        SliverSafeArea(
-                          top: false,
-                          bottom: true,
-                          sliver: SliverPersistentHeader(
-                            delegate: WSerachBar(
-                              controller: searchController,
-                              onChanged: () {
-                                context.read<GetMakesBloc>().add(
-                                      GetMakesBlocEvent.getSerched(
-                                        searchController.text,
-                                      ),
-                                    );
-                                context
-                                    .read<GetMakesBloc>()
-                                    .add(GetMakesBlocEvent.getMakes());
-                                setState(() {});
+                        titleSpacing: 0,
+                        title: Text(
+                          LocaleKeys.choose_brand_auto.tr(),
+                          style: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w700,
+                            color: dark,
+                          ),
+                        ),
+                        actions: [
+                          Padding(
+                            padding: const EdgeInsets.only(right: 16),
+                            child: GestureDetector(
+                              onTap: () {
+                                Navigator.of(context).pop();
+                                if (widget.isClear) {
+                                  context.read<GetMakesBloc>().add(
+                                      GetMakesBlocEvent.selectedCarItems(
+                                          id: -1, name: '', imageUrl: ''));
+                                }
                               },
-                              onClear: () {
-                                context.read<GetMakesBloc>().add(
-                                      GetMakesBlocEvent.getSerched(
-                                        searchController.text,
-                                      ),
-                                    );
-                                context
-                                    .read<GetMakesBloc>()
-                                    .add(GetMakesBlocEvent.getMakes());
-                                setState(() {});
-                              },
+                              behavior: HitTestBehavior.opaque,
+                              child: SvgPicture.asset(AppIcons.close),
                             ),
-                            pinned: true,
-                          ),
-                        ),
-                        if (state.search.isEmpty)
-                          SliverToBoxAdapter(
-                            child: TopBrands(
-                              onTap: widget.isbak == true
-                                  ? () {
-                                      Navigator.pop(context);
-                                    }
-                                  : widget.onTap,
-                              isText: false,
-                            ),
-                          ),
-                        if (state.search.isEmpty)
-                          SliverToBoxAdapter(
-                            child: Transform.translate(
-                              offset: const Offset(0, 1),
-                              child: Container(
-                                height: 20,
-                                width: double.infinity,
-                                decoration: BoxDecoration(
-                                  color: Theme.of(context)
-                                      .extension<ThemedColors>()!
-                                      .whiteToDark,
-                                  borderRadius: const BorderRadius.vertical(
-                                    top: Radius.circular(20),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        if (state.search.isEmpty)
-                          SliverSafeArea(
-                            top: false,
-                            bottom: false,
-                            sliver: SliverPersistentHeader(
-                              delegate: AlphabeticHeader(
-                                color: color,
-                                controller: controllerScroll,
-                              ),
-                              pinned: true,
-                            ),
-                          ),
-                      ],
-                      body: ListView.builder(
-                        padding: const EdgeInsets.only(bottom: 60),
-                        itemCount: state.makes.length,
-                        controller: scrollController,
-                        itemBuilder: (context, index) => Container(
-                          height: 54,
-                          color: Theme.of(context)
-                              .extension<ThemedColors>()!
-                              .whiteToDark,
-                          child: ChangeCarItems(
-                            selectedId: state.selectId,
-                            id: state.makes[index].id,
-                            imageUrl: state.makes[index].logo,
-                            name: state.makes[index].name,
-                            text: state.search,
-                            onTap: () {
-                              context.read<GetMakesBloc>().add(
-                                    GetMakesBlocEvent.selectedCarItems(
-                                      id: state.makes[index].id,
-                                      name: state.makes[index].name,
-                                      imageUrl: state.makes[index].logo,
-                                    ),
-                                  );
-                            },
-                          ),
-                        ),
-                      ),
-                    ),
-                    Positioned(
-                      bottom: 16,
-                      right: 16,
-                      left: 16,
-                      child: WButton(
-                        onTap: widget.isbak == true
-                            ? () {
-                                Navigator.pop(context);
-                              }
-                            : widget.onTap,
-                        text: 'Далее',
-                        shadow: [
-                          BoxShadow(
-                            offset: const Offset(0, 4),
-                            blurRadius: 20,
-                            color: orange.withOpacity(0.2),
                           ),
                         ],
                       ),
+                      SliverPersistentHeader(
+                        delegate: WSerachBar(
+                          controller: searchController,
+                          onChanged: () {
+                            context.read<GetMakesBloc>().add(
+                                  GetMakesBlocEvent.getSerched(
+                                    searchController.text,
+                                  ),
+                                );
+                            context
+                                .read<GetMakesBloc>()
+                                .add(GetMakesBlocEvent.getMakes());
+                            setState(() {});
+                          },
+                          onClear: () {
+                            context.read<GetMakesBloc>().add(
+                                  GetMakesBlocEvent.getSerched(
+                                    searchController.text,
+                                  ),
+                                );
+                            context
+                                .read<GetMakesBloc>()
+                                .add(GetMakesBlocEvent.getMakes());
+                            setState(() {});
+                          },
+                        ),
+                        pinned: true,
+                      ),
+                      if (state.search.isEmpty)
+                        SliverPersistentHeader(
+                          delegate: TopBrandSliverWidget(
+                            onTap: widget.onTap,
+                            isbak: widget.isbak,
+                          ),
+                        ),
+                      if (state.search.isEmpty)
+                        SliverPersistentHeader(
+                          delegate: AlphabeticHeader(
+                            color: color,
+                            controller: controllerScroll,
+                          ),
+                          pinned: true,
+                        ),
+                    ],
+                    body: ListView.builder(
+                      padding: const EdgeInsets.only(bottom: 60),
+                      itemCount: state.makes.length,
+                      controller: scrollController,
+                      physics: const BouncingScrollPhysics(),
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) => Container(
+                        height: 54,
+                        color: Theme.of(context)
+                            .extension<ThemedColors>()!
+                            .whiteToDark,
+                        child: ChangeCarItems(
+                          selectedId: state.selectId,
+                          id: state.makes[index].id,
+                          imageUrl: state.makes[index].logo,
+                          name: state.makes[index].name,
+                          text: state.search,
+                          onTap: () {
+                            context.read<GetMakesBloc>().add(
+                                  GetMakesBlocEvent.selectedCarItems(
+                                    id: state.makes[index].id,
+                                    name: state.makes[index].name,
+                                    imageUrl: state.makes[index].logo,
+                                  ),
+                                );
+                          },
+                        ),
+                      ),
                     ),
-                  ],
-                ),
+                  ),
+                  Positioned(
+                    bottom: 16,
+                    right: 16,
+                    left: 16,
+                    child: WButton(
+                      onTap: widget.isbak == true
+                          ? () {
+                              Navigator.pop(context);
+                            }
+                          : widget.onTap,
+                      text: LocaleKeys.further.tr(),
+                      shadow: [
+                        BoxShadow(
+                          offset: const Offset(0, 4),
+                          blurRadius: 20,
+                          color: orange.withOpacity(0.2),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
             ),
           ),

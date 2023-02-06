@@ -1,10 +1,10 @@
-import 'package:auto/features/reviews/domain/entities/modification_type_entity.dart';
+import 'package:auto/features/ad/domain/entities/types/modification_type.dart';
 import 'package:json_annotation/json_annotation.dart';
 part 'modification_type_model.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class ModificationTypeModel extends ModificationTypeEntity {
-  ModificationTypeModel({
+  const ModificationTypeModel({
     required super.id,
     required super.power,
     required super.volume,

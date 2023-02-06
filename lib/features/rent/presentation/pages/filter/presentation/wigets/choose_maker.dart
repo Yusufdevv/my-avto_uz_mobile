@@ -8,6 +8,8 @@ import 'package:auto/features/common/widgets/w_button.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/maker_sheet_item.dart';
 import 'package:auto/features/rent/presentation/pages/filter/presentation/wigets/sheet_header.dart';
+import 'package:auto/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -26,13 +28,13 @@ class _ChooseMakerState extends State<ChooseMaker> {
   @override
   void initState() {
     getMakesBloc = GetMakesBloc(
-      topUseCase: GetTopMakesUseCase(
-                  repository: serviceLocator<AdRepositoryImpl>()),
+      initialId: widget.selectedId,
+      topUseCase:
+          GetTopMakesUseCase(repository: serviceLocator<AdRepositoryImpl>()),
       useCase: GetMakesUseCase(
         repository: serviceLocator<AdRepositoryImpl>(),
       ),
     )..add(GetMakesBlocEvent.getMakes());
-
     super.initState();
   }
 
@@ -47,18 +49,14 @@ class _ChooseMakerState extends State<ChooseMaker> {
           ),
           child: BlocBuilder<GetMakesBloc, GetMakesState>(
             builder: (context, getMakesState) {
-             
               if (getMakesState.status == FormzStatus.submissionSuccess ||
                   getMakesState.status == FormzStatus.submissionFailure) {
                 return Column(
                   children: [
                     SheetHeader(
-                        title: 'Марка',
+                        title: LocaleKeys.brand.tr(),
                         onCancelPressed: () {
-                          Navigator.of(context).pop(getMakesState.selectId >= 0
-                              ? getMakesState.makes.firstWhere((element) =>
-                                  getMakesState.selectId == element.id)
-                              : null);
+                          Navigator.of(context).pop();
                         }),
                     const Divider(thickness: 1, color: border, height: 1),
                     Expanded(
@@ -102,7 +100,7 @@ class _ChooseMakerState extends State<ChooseMaker> {
                     ),
                     Padding(
                       padding: const EdgeInsets.only(
-                          left: 16, right: 16, bottom: 50),
+                          left: 16, right: 16, bottom: 16),
                       child: WButton(
                           onTap: () {
                             Navigator.of(context).pop(getMakesState.selectId >=
@@ -112,7 +110,7 @@ class _ChooseMakerState extends State<ChooseMaker> {
                                 : null);
                           },
                           color: orange,
-                          text: 'Применить'),
+                          text: LocaleKeys.apply.tr()),
                     ),
                   ],
                 );

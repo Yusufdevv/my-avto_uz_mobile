@@ -14,7 +14,7 @@ import 'package:auto/features/profile/data/repositories/profile_repository_impl.
 import 'package:auto/features/profile/domain/usecases/change_phone_number_usecase.dart';
 import 'package:auto/features/profile/domain/usecases/send_sms_verifiaction_code_usecase.dart';
 import 'package:auto/features/profile/presentation/bloc/change_phone_number/change_phone_number_bloc.dart';
-import 'package:auto/features/profile/presentation/bloc/profile/profile_bloc.dart';
+
 import 'package:auto/features/profile/presentation/pages/my_profile/phone_verifiy_page.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -25,8 +25,8 @@ import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 class PhoneNumberEditPage extends StatefulWidget {
-  const PhoneNumberEditPage({required this.profileBloc, this.phone, super.key});
-  final ProfileBloc profileBloc;
+  const PhoneNumberEditPage({this.phone, super.key});
+
   final String? phone;
   @override
   State<PhoneNumberEditPage> createState() => _PhoneNumberEditPageState();
@@ -62,7 +62,7 @@ class _PhoneNumberEditPageState extends State<PhoneNumberEditPage> {
             child: CustomScreen(
               child: Scaffold(
                 backgroundColor: white,
-                appBar: const WAppBar(title: 'Номер телефона'),
+                appBar: WAppBar(title: LocaleKeys.tel_number.tr()),
                 body: Padding(
                   padding: const EdgeInsets.only(
                       top: 50, left: 16, right: 16, bottom: 20),
@@ -74,7 +74,7 @@ class _PhoneNumberEditPageState extends State<PhoneNumberEditPage> {
                         LoginHeader(
                             title: LocaleKeys.tel_number.tr(),
                             description:
-                                'Мы отправим код подтверждения на номер телефона'),
+                                LocaleKeys.we_will_send_a_verification.tr()),
                         SizedBox(height: SizeConfig.v(50)),
                         ZTextFormField(
                           disabledBorderColor: border,
@@ -86,39 +86,38 @@ class _PhoneNumberEditPageState extends State<PhoneNumberEditPage> {
                               setState(() {});
                             }
                           },
-                          validate: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Iltimos, telefon nomerni kiriting';
-                            } else if (value.length < 12) {
-                              return "Telefon nomer 12 raqamdan iborat bo'lishi kerak";
-                            } else if (int.tryParse(value) == null) {
-                              return "To'gri telefon raqam kiriting!";
-                            }
-                            return null;
-                          },
                           controller: phoneController,
-                          prefixPadding: const EdgeInsets.only(bottom: 5),
                           prefixIcon: Row(
                             children: [
                               SizedBox(
                                   height: 20,
                                   width: 20,
                                   child: Image.asset(AppImages.flagUzb2)),
-                              const SizedBox(width: 4),
+                              const SizedBox(width: 8),
                               Text('+998',
                                   style: Theme.of(context)
                                       .textTheme
                                       .subtitle1!
-                                      .copyWith(fontSize: 15)),
+                                      .copyWith(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w400)),
                             ],
                           ),
                           hintText: '00 000 00 00',
                           hintTextStyle: Theme.of(context)
                               .textTheme
                               .subtitle1!
-                              .copyWith(fontSize: 15, color: grey),
+                              .copyWith(
+                                  fontSize: 14,
+                                  color: warmerGrey,
+                                  fontWeight: FontWeight.w400),
                           keyBoardType: TextInputType.number,
                           textInputFormatters: [phoneFormatter],
+                          textStyle: Theme.of(context)
+                              .textTheme
+                              .subtitle1!
+                              .copyWith(
+                                  fontSize: 14, fontWeight: FontWeight.w400),
                         ),
                         const Spacer(),
                         Padding(
@@ -128,7 +127,12 @@ class _PhoneNumberEditPageState extends State<PhoneNumberEditPage> {
                             onTap: () {
                               final phoneNumber =
                                   phoneController.text.replaceAll(' ', '');
-                              if (_formKey.currentState!.validate()) {
+
+                              if (phoneNumber.length < 9) {
+                                context.read<ShowPopUpBloc>().add(ShowPopUp(
+                                    message: LocaleKeys.phone_n_m_be_12_d.tr(),
+                                    status: PopStatus.error,));
+                              } else if (phoneNumber.length >= 9) {
                                 context
                                     .read<ChangePhoneNumberBloc>()
                                     .add(SendPhoneNumberEvent(
@@ -142,31 +146,31 @@ class _PhoneNumberEditPageState extends State<PhoneNumberEditPage> {
                                                 BlocProvider.value(
                                                     value:
                                                         changePhoneNumberBloc),
-                                                BlocProvider.value(
-                                                    value: widget.profileBloc)
                                               ],
                                               child: PhoneVerifiyPage(
                                                 ctx: context,
-                                                profileBloc: widget.profileBloc,
                                                 phone: phoneNumber,
                                               ),
                                             )),
                                           );
                                         },
                                         onError: (message) {
+                                          var error = message;
+                                          if (error
+                                              .toLowerCase()
+                                              .contains('dio') || error
+                                              .toLowerCase()
+                                              .contains('type')) {
+                                            error =
+                                                LocaleKeys.service_error.tr();
+                                          }
                                           context.read<ShowPopUpBloc>().add(
                                               ShowPopUp(
-                                                  message: message,
-                                                  isSucces: false));
+                                                  message: error,
+                                                  status: PopStatus.error,));
                                         }));
                               }
                             },
-                            shadow: [
-                              BoxShadow(
-                                  offset: const Offset(0, 4),
-                                  blurRadius: 20,
-                                  color: solitude.withOpacity(.12)),
-                            ],
                             margin: EdgeInsets.only(
                                 bottom:
                                     4 + MediaQuery.of(context).padding.bottom),
@@ -176,12 +180,7 @@ class _PhoneNumberEditPageState extends State<PhoneNumberEditPage> {
                                     .extension<ThemedColors>()!
                                     .veryLightGreyToEclipse,
                             text: LocaleKeys.continuee.tr(),
-                            border: Border.all(
-                              width: 1,
-                              color: Theme.of(context)
-                                  .extension<ThemedColors>()!
-                                  .whiteToDolphin,
-                            ),
+                            border: Border.all(width: 1, color: white),
                           ),
                         ),
                       ],

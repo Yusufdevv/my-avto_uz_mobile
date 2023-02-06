@@ -70,7 +70,6 @@ class CarSingleDataSourceImpl extends CarSingleDataSource {
       if (response.statusCode != null &&
           response.statusCode! >= 200 &&
           response.statusCode! < 300) {
-        print('DATA FROM DATASOURCE GET OTHER => ${response.data}');
         return GenericPagination.fromJson(response.data,
             (p0) => ElasticSearchModel.fromJson(p0 as Map<String, dynamic>));
       } else if (response.data is Map) {
@@ -81,7 +80,6 @@ class CarSingleDataSourceImpl extends CarSingleDataSource {
                     : 'error while get other ads')
                 .toString());
       } else {
-        print('DATASOURCE ERROR GET ADS');
         await StorageRepository.deleteString('token');
       }
       if (response.data is Map) {

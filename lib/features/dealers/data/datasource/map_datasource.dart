@@ -4,6 +4,7 @@ import 'package:auto/features/common/domain/model/type_model.dart';
 import 'package:auto/features/pagination/models/generic_pagination.dart';
 import 'package:dio/dio.dart';
 
+// ignore: one_member_abstracts
 abstract class MapDatasource {
   Future<GenericPagination<TypeModel>> getTypes({String? next});
 }

@@ -30,6 +30,7 @@ mixin _$MapOrganizationEvent {
         getCurrentLocation,
     required TResult Function(double lat, double long, int? radius)
         changeLatLong,
+    required TResult Function(double lat, double long) getAddressOfDealler,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -43,6 +44,7 @@ mixin _$MapOrganizationEvent {
             ValueChanged<String> onError, ValueChanged<Position> onSuccess)?
         getCurrentLocation,
     TResult? Function(double lat, double long, int? radius)? changeLatLong,
+    TResult? Function(double lat, double long)? getAddressOfDealler,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -56,6 +58,7 @@ mixin _$MapOrganizationEvent {
             ValueChanged<String> onError, ValueChanged<Position> onSuccess)?
         getCurrentLocation,
     TResult Function(double lat, double long, int? radius)? changeLatLong,
+    TResult Function(double lat, double long)? getAddressOfDealler,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -66,6 +69,7 @@ mixin _$MapOrganizationEvent {
     required TResult Function(_ChangeRadius value) changeRadius,
     required TResult Function(_GetCurrentLocation value) getCurrentLocation,
     required TResult Function(_ChangeLatLong value) changeLatLong,
+    required TResult Function(_GetAddressOfDealler value) getAddressOfDealler,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -75,6 +79,7 @@ mixin _$MapOrganizationEvent {
     TResult? Function(_ChangeRadius value)? changeRadius,
     TResult? Function(_GetCurrentLocation value)? getCurrentLocation,
     TResult? Function(_ChangeLatLong value)? changeLatLong,
+    TResult? Function(_GetAddressOfDealler value)? getAddressOfDealler,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -84,6 +89,7 @@ mixin _$MapOrganizationEvent {
     TResult Function(_ChangeRadius value)? changeRadius,
     TResult Function(_GetCurrentLocation value)? getCurrentLocation,
     TResult Function(_ChangeLatLong value)? changeLatLong,
+    TResult Function(_GetAddressOfDealler value)? getAddressOfDealler,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -202,6 +208,7 @@ class _$_GetDealers implements _GetDealers {
         getCurrentLocation,
     required TResult Function(double lat, double long, int? radius)
         changeLatLong,
+    required TResult Function(double lat, double long) getAddressOfDealler,
   }) {
     return getDealers(latitude, longitude, radius);
   }
@@ -218,6 +225,7 @@ class _$_GetDealers implements _GetDealers {
             ValueChanged<String> onError, ValueChanged<Position> onSuccess)?
         getCurrentLocation,
     TResult? Function(double lat, double long, int? radius)? changeLatLong,
+    TResult? Function(double lat, double long)? getAddressOfDealler,
   }) {
     return getDealers?.call(latitude, longitude, radius);
   }
@@ -234,6 +242,7 @@ class _$_GetDealers implements _GetDealers {
             ValueChanged<String> onError, ValueChanged<Position> onSuccess)?
         getCurrentLocation,
     TResult Function(double lat, double long, int? radius)? changeLatLong,
+    TResult Function(double lat, double long)? getAddressOfDealler,
     required TResult orElse(),
   }) {
     if (getDealers != null) {
@@ -250,6 +259,7 @@ class _$_GetDealers implements _GetDealers {
     required TResult Function(_ChangeRadius value) changeRadius,
     required TResult Function(_GetCurrentLocation value) getCurrentLocation,
     required TResult Function(_ChangeLatLong value) changeLatLong,
+    required TResult Function(_GetAddressOfDealler value) getAddressOfDealler,
   }) {
     return getDealers(this);
   }
@@ -262,6 +272,7 @@ class _$_GetDealers implements _GetDealers {
     TResult? Function(_ChangeRadius value)? changeRadius,
     TResult? Function(_GetCurrentLocation value)? getCurrentLocation,
     TResult? Function(_ChangeLatLong value)? changeLatLong,
+    TResult? Function(_GetAddressOfDealler value)? getAddressOfDealler,
   }) {
     return getDealers?.call(this);
   }
@@ -274,6 +285,7 @@ class _$_GetDealers implements _GetDealers {
     TResult Function(_ChangeRadius value)? changeRadius,
     TResult Function(_GetCurrentLocation value)? getCurrentLocation,
     TResult Function(_ChangeLatLong value)? changeLatLong,
+    TResult Function(_GetAddressOfDealler value)? getAddressOfDealler,
     required TResult orElse(),
   }) {
     if (getDealers != null) {
@@ -392,6 +404,7 @@ class _$_GetDirectoriesPoints implements _GetDirectoriesPoints {
         getCurrentLocation,
     required TResult Function(double lat, double long, int? radius)
         changeLatLong,
+    required TResult Function(double lat, double long) getAddressOfDealler,
   }) {
     return getDirectoriesPoints(latitude, longitude, radius);
   }
@@ -408,6 +421,7 @@ class _$_GetDirectoriesPoints implements _GetDirectoriesPoints {
             ValueChanged<String> onError, ValueChanged<Position> onSuccess)?
         getCurrentLocation,
     TResult? Function(double lat, double long, int? radius)? changeLatLong,
+    TResult? Function(double lat, double long)? getAddressOfDealler,
   }) {
     return getDirectoriesPoints?.call(latitude, longitude, radius);
   }
@@ -424,6 +438,7 @@ class _$_GetDirectoriesPoints implements _GetDirectoriesPoints {
             ValueChanged<String> onError, ValueChanged<Position> onSuccess)?
         getCurrentLocation,
     TResult Function(double lat, double long, int? radius)? changeLatLong,
+    TResult Function(double lat, double long)? getAddressOfDealler,
     required TResult orElse(),
   }) {
     if (getDirectoriesPoints != null) {
@@ -440,6 +455,7 @@ class _$_GetDirectoriesPoints implements _GetDirectoriesPoints {
     required TResult Function(_ChangeRadius value) changeRadius,
     required TResult Function(_GetCurrentLocation value) getCurrentLocation,
     required TResult Function(_ChangeLatLong value) changeLatLong,
+    required TResult Function(_GetAddressOfDealler value) getAddressOfDealler,
   }) {
     return getDirectoriesPoints(this);
   }
@@ -452,6 +468,7 @@ class _$_GetDirectoriesPoints implements _GetDirectoriesPoints {
     TResult? Function(_ChangeRadius value)? changeRadius,
     TResult? Function(_GetCurrentLocation value)? getCurrentLocation,
     TResult? Function(_ChangeLatLong value)? changeLatLong,
+    TResult? Function(_GetAddressOfDealler value)? getAddressOfDealler,
   }) {
     return getDirectoriesPoints?.call(this);
   }
@@ -464,6 +481,7 @@ class _$_GetDirectoriesPoints implements _GetDirectoriesPoints {
     TResult Function(_ChangeRadius value)? changeRadius,
     TResult Function(_GetCurrentLocation value)? getCurrentLocation,
     TResult Function(_ChangeLatLong value)? changeLatLong,
+    TResult Function(_GetAddressOfDealler value)? getAddressOfDealler,
     required TResult orElse(),
   }) {
     if (getDirectoriesPoints != null) {
@@ -563,6 +581,7 @@ class _$_ChangeRadius implements _ChangeRadius {
         getCurrentLocation,
     required TResult Function(double lat, double long, int? radius)
         changeLatLong,
+    required TResult Function(double lat, double long) getAddressOfDealler,
   }) {
     return changeRadius(radius);
   }
@@ -579,6 +598,7 @@ class _$_ChangeRadius implements _ChangeRadius {
             ValueChanged<String> onError, ValueChanged<Position> onSuccess)?
         getCurrentLocation,
     TResult? Function(double lat, double long, int? radius)? changeLatLong,
+    TResult? Function(double lat, double long)? getAddressOfDealler,
   }) {
     return changeRadius?.call(radius);
   }
@@ -595,6 +615,7 @@ class _$_ChangeRadius implements _ChangeRadius {
             ValueChanged<String> onError, ValueChanged<Position> onSuccess)?
         getCurrentLocation,
     TResult Function(double lat, double long, int? radius)? changeLatLong,
+    TResult Function(double lat, double long)? getAddressOfDealler,
     required TResult orElse(),
   }) {
     if (changeRadius != null) {
@@ -611,6 +632,7 @@ class _$_ChangeRadius implements _ChangeRadius {
     required TResult Function(_ChangeRadius value) changeRadius,
     required TResult Function(_GetCurrentLocation value) getCurrentLocation,
     required TResult Function(_ChangeLatLong value) changeLatLong,
+    required TResult Function(_GetAddressOfDealler value) getAddressOfDealler,
   }) {
     return changeRadius(this);
   }
@@ -623,6 +645,7 @@ class _$_ChangeRadius implements _ChangeRadius {
     TResult? Function(_ChangeRadius value)? changeRadius,
     TResult? Function(_GetCurrentLocation value)? getCurrentLocation,
     TResult? Function(_ChangeLatLong value)? changeLatLong,
+    TResult? Function(_GetAddressOfDealler value)? getAddressOfDealler,
   }) {
     return changeRadius?.call(this);
   }
@@ -635,6 +658,7 @@ class _$_ChangeRadius implements _ChangeRadius {
     TResult Function(_ChangeRadius value)? changeRadius,
     TResult Function(_GetCurrentLocation value)? getCurrentLocation,
     TResult Function(_ChangeLatLong value)? changeLatLong,
+    TResult Function(_GetAddressOfDealler value)? getAddressOfDealler,
     required TResult orElse(),
   }) {
     if (changeRadius != null) {
@@ -739,6 +763,7 @@ class _$_GetCurrentLocation implements _GetCurrentLocation {
         getCurrentLocation,
     required TResult Function(double lat, double long, int? radius)
         changeLatLong,
+    required TResult Function(double lat, double long) getAddressOfDealler,
   }) {
     return getCurrentLocation(onError, onSuccess);
   }
@@ -755,6 +780,7 @@ class _$_GetCurrentLocation implements _GetCurrentLocation {
             ValueChanged<String> onError, ValueChanged<Position> onSuccess)?
         getCurrentLocation,
     TResult? Function(double lat, double long, int? radius)? changeLatLong,
+    TResult? Function(double lat, double long)? getAddressOfDealler,
   }) {
     return getCurrentLocation?.call(onError, onSuccess);
   }
@@ -771,6 +797,7 @@ class _$_GetCurrentLocation implements _GetCurrentLocation {
             ValueChanged<String> onError, ValueChanged<Position> onSuccess)?
         getCurrentLocation,
     TResult Function(double lat, double long, int? radius)? changeLatLong,
+    TResult Function(double lat, double long)? getAddressOfDealler,
     required TResult orElse(),
   }) {
     if (getCurrentLocation != null) {
@@ -787,6 +814,7 @@ class _$_GetCurrentLocation implements _GetCurrentLocation {
     required TResult Function(_ChangeRadius value) changeRadius,
     required TResult Function(_GetCurrentLocation value) getCurrentLocation,
     required TResult Function(_ChangeLatLong value) changeLatLong,
+    required TResult Function(_GetAddressOfDealler value) getAddressOfDealler,
   }) {
     return getCurrentLocation(this);
   }
@@ -799,6 +827,7 @@ class _$_GetCurrentLocation implements _GetCurrentLocation {
     TResult? Function(_ChangeRadius value)? changeRadius,
     TResult? Function(_GetCurrentLocation value)? getCurrentLocation,
     TResult? Function(_ChangeLatLong value)? changeLatLong,
+    TResult? Function(_GetAddressOfDealler value)? getAddressOfDealler,
   }) {
     return getCurrentLocation?.call(this);
   }
@@ -811,6 +840,7 @@ class _$_GetCurrentLocation implements _GetCurrentLocation {
     TResult Function(_ChangeRadius value)? changeRadius,
     TResult Function(_GetCurrentLocation value)? getCurrentLocation,
     TResult Function(_ChangeLatLong value)? changeLatLong,
+    TResult Function(_GetAddressOfDealler value)? getAddressOfDealler,
     required TResult orElse(),
   }) {
     if (getCurrentLocation != null) {
@@ -924,6 +954,7 @@ class _$_ChangeLatLong implements _ChangeLatLong {
         getCurrentLocation,
     required TResult Function(double lat, double long, int? radius)
         changeLatLong,
+    required TResult Function(double lat, double long) getAddressOfDealler,
   }) {
     return changeLatLong(lat, long, radius);
   }
@@ -940,6 +971,7 @@ class _$_ChangeLatLong implements _ChangeLatLong {
             ValueChanged<String> onError, ValueChanged<Position> onSuccess)?
         getCurrentLocation,
     TResult? Function(double lat, double long, int? radius)? changeLatLong,
+    TResult? Function(double lat, double long)? getAddressOfDealler,
   }) {
     return changeLatLong?.call(lat, long, radius);
   }
@@ -956,6 +988,7 @@ class _$_ChangeLatLong implements _ChangeLatLong {
             ValueChanged<String> onError, ValueChanged<Position> onSuccess)?
         getCurrentLocation,
     TResult Function(double lat, double long, int? radius)? changeLatLong,
+    TResult Function(double lat, double long)? getAddressOfDealler,
     required TResult orElse(),
   }) {
     if (changeLatLong != null) {
@@ -972,6 +1005,7 @@ class _$_ChangeLatLong implements _ChangeLatLong {
     required TResult Function(_ChangeRadius value) changeRadius,
     required TResult Function(_GetCurrentLocation value) getCurrentLocation,
     required TResult Function(_ChangeLatLong value) changeLatLong,
+    required TResult Function(_GetAddressOfDealler value) getAddressOfDealler,
   }) {
     return changeLatLong(this);
   }
@@ -984,6 +1018,7 @@ class _$_ChangeLatLong implements _ChangeLatLong {
     TResult? Function(_ChangeRadius value)? changeRadius,
     TResult? Function(_GetCurrentLocation value)? getCurrentLocation,
     TResult? Function(_ChangeLatLong value)? changeLatLong,
+    TResult? Function(_GetAddressOfDealler value)? getAddressOfDealler,
   }) {
     return changeLatLong?.call(this);
   }
@@ -996,6 +1031,7 @@ class _$_ChangeLatLong implements _ChangeLatLong {
     TResult Function(_ChangeRadius value)? changeRadius,
     TResult Function(_GetCurrentLocation value)? getCurrentLocation,
     TResult Function(_ChangeLatLong value)? changeLatLong,
+    TResult Function(_GetAddressOfDealler value)? getAddressOfDealler,
     required TResult orElse(),
   }) {
     if (changeLatLong != null) {
@@ -1020,7 +1056,192 @@ abstract class _ChangeLatLong implements MapOrganizationEvent {
 }
 
 /// @nodoc
+abstract class _$$_GetAddressOfDeallerCopyWith<$Res> {
+  factory _$$_GetAddressOfDeallerCopyWith(_$_GetAddressOfDealler value,
+          $Res Function(_$_GetAddressOfDealler) then) =
+      __$$_GetAddressOfDeallerCopyWithImpl<$Res>;
+  @useResult
+  $Res call({double lat, double long});
+}
+
+/// @nodoc
+class __$$_GetAddressOfDeallerCopyWithImpl<$Res>
+    extends _$MapOrganizationEventCopyWithImpl<$Res, _$_GetAddressOfDealler>
+    implements _$$_GetAddressOfDeallerCopyWith<$Res> {
+  __$$_GetAddressOfDeallerCopyWithImpl(_$_GetAddressOfDealler _value,
+      $Res Function(_$_GetAddressOfDealler) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? lat = null,
+    Object? long = null,
+  }) {
+    return _then(_$_GetAddressOfDealler(
+      lat: null == lat
+          ? _value.lat
+          : lat // ignore: cast_nullable_to_non_nullable
+              as double,
+      long: null == long
+          ? _value.long
+          : long // ignore: cast_nullable_to_non_nullable
+              as double,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_GetAddressOfDealler implements _GetAddressOfDealler {
+  _$_GetAddressOfDealler({required this.lat, required this.long});
+
+  @override
+  final double lat;
+  @override
+  final double long;
+
+  @override
+  String toString() {
+    return 'MapOrganizationEvent.getAddressOfDealler(lat: $lat, long: $long)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_GetAddressOfDealler &&
+            (identical(other.lat, lat) || other.lat == lat) &&
+            (identical(other.long, long) || other.long == long));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, lat, long);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_GetAddressOfDeallerCopyWith<_$_GetAddressOfDealler> get copyWith =>
+      __$$_GetAddressOfDeallerCopyWithImpl<_$_GetAddressOfDealler>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+            double? latitude, double? longitude, double? radius)
+        getDealers,
+    required TResult Function(
+            double? latitude, double? longitude, double? radius)
+        getDirectoriesPoints,
+    required TResult Function(int radius) changeRadius,
+    required TResult Function(
+            ValueChanged<String> onError, ValueChanged<Position> onSuccess)
+        getCurrentLocation,
+    required TResult Function(double lat, double long, int? radius)
+        changeLatLong,
+    required TResult Function(double lat, double long) getAddressOfDealler,
+  }) {
+    return getAddressOfDealler(lat, long);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(double? latitude, double? longitude, double? radius)?
+        getDealers,
+    TResult? Function(double? latitude, double? longitude, double? radius)?
+        getDirectoriesPoints,
+    TResult? Function(int radius)? changeRadius,
+    TResult? Function(
+            ValueChanged<String> onError, ValueChanged<Position> onSuccess)?
+        getCurrentLocation,
+    TResult? Function(double lat, double long, int? radius)? changeLatLong,
+    TResult? Function(double lat, double long)? getAddressOfDealler,
+  }) {
+    return getAddressOfDealler?.call(lat, long);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(double? latitude, double? longitude, double? radius)?
+        getDealers,
+    TResult Function(double? latitude, double? longitude, double? radius)?
+        getDirectoriesPoints,
+    TResult Function(int radius)? changeRadius,
+    TResult Function(
+            ValueChanged<String> onError, ValueChanged<Position> onSuccess)?
+        getCurrentLocation,
+    TResult Function(double lat, double long, int? radius)? changeLatLong,
+    TResult Function(double lat, double long)? getAddressOfDealler,
+    required TResult orElse(),
+  }) {
+    if (getAddressOfDealler != null) {
+      return getAddressOfDealler(lat, long);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_GetDealers value) getDealers,
+    required TResult Function(_GetDirectoriesPoints value) getDirectoriesPoints,
+    required TResult Function(_ChangeRadius value) changeRadius,
+    required TResult Function(_GetCurrentLocation value) getCurrentLocation,
+    required TResult Function(_ChangeLatLong value) changeLatLong,
+    required TResult Function(_GetAddressOfDealler value) getAddressOfDealler,
+  }) {
+    return getAddressOfDealler(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetDealers value)? getDealers,
+    TResult? Function(_GetDirectoriesPoints value)? getDirectoriesPoints,
+    TResult? Function(_ChangeRadius value)? changeRadius,
+    TResult? Function(_GetCurrentLocation value)? getCurrentLocation,
+    TResult? Function(_ChangeLatLong value)? changeLatLong,
+    TResult? Function(_GetAddressOfDealler value)? getAddressOfDealler,
+  }) {
+    return getAddressOfDealler?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetDealers value)? getDealers,
+    TResult Function(_GetDirectoriesPoints value)? getDirectoriesPoints,
+    TResult Function(_ChangeRadius value)? changeRadius,
+    TResult Function(_GetCurrentLocation value)? getCurrentLocation,
+    TResult Function(_ChangeLatLong value)? changeLatLong,
+    TResult Function(_GetAddressOfDealler value)? getAddressOfDealler,
+    required TResult orElse(),
+  }) {
+    if (getAddressOfDealler != null) {
+      return getAddressOfDealler(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _GetAddressOfDealler implements MapOrganizationEvent {
+  factory _GetAddressOfDealler(
+      {required final double lat,
+      required final double long}) = _$_GetAddressOfDealler;
+
+  double get lat;
+  double get long;
+  @JsonKey(ignore: true)
+  _$$_GetAddressOfDeallerCopyWith<_$_GetAddressOfDealler> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 mixin _$MapOrganizationState {
+  String? get address => throw _privateConstructorUsedError;
   List<MapModel> get dealers => throw _privateConstructorUsedError;
   List<MapModel> get directoriesPoints => throw _privateConstructorUsedError;
   int get radius => throw _privateConstructorUsedError;
@@ -1046,7 +1267,8 @@ abstract class $MapOrganizationStateCopyWith<$Res> {
       _$MapOrganizationStateCopyWithImpl<$Res, MapOrganizationState>;
   @useResult
   $Res call(
-      {List<MapModel> dealers,
+      {String? address,
+      List<MapModel> dealers,
       List<MapModel> directoriesPoints,
       int radius,
       FormzStatus status,
@@ -1073,6 +1295,7 @@ class _$MapOrganizationStateCopyWithImpl<$Res,
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? address = freezed,
     Object? dealers = null,
     Object? directoriesPoints = null,
     Object? radius = null,
@@ -1086,6 +1309,10 @@ class _$MapOrganizationStateCopyWithImpl<$Res,
     Object? fetchMore = null,
   }) {
     return _then(_value.copyWith(
+      address: freezed == address
+          ? _value.address
+          : address // ignore: cast_nullable_to_non_nullable
+              as String?,
       dealers: null == dealers
           ? _value.dealers
           : dealers // ignore: cast_nullable_to_non_nullable
@@ -1143,7 +1370,8 @@ abstract class _$$_MapOrganizationStateCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {List<MapModel> dealers,
+      {String? address,
+      List<MapModel> dealers,
       List<MapModel> directoriesPoints,
       int radius,
       FormzStatus status,
@@ -1167,6 +1395,7 @@ class __$$_MapOrganizationStateCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? address = freezed,
     Object? dealers = null,
     Object? directoriesPoints = null,
     Object? radius = null,
@@ -1180,6 +1409,10 @@ class __$$_MapOrganizationStateCopyWithImpl<$Res>
     Object? fetchMore = null,
   }) {
     return _then(_$_MapOrganizationState(
+      address: freezed == address
+          ? _value.address
+          : address // ignore: cast_nullable_to_non_nullable
+              as String?,
       dealers: null == dealers
           ? _value._dealers
           : dealers // ignore: cast_nullable_to_non_nullable
@@ -1232,7 +1465,8 @@ class __$$_MapOrganizationStateCopyWithImpl<$Res>
 
 class _$_MapOrganizationState implements _MapOrganizationState {
   _$_MapOrganizationState(
-      {final List<MapModel> dealers = const [],
+      {this.address = null,
+      final List<MapModel> dealers = const [],
       final List<MapModel> directoriesPoints = const [],
       this.radius = 0,
       this.status = FormzStatus.pure,
@@ -1246,6 +1480,9 @@ class _$_MapOrganizationState implements _MapOrganizationState {
       : _dealers = dealers,
         _directoriesPoints = directoriesPoints;
 
+  @override
+  @JsonKey()
+  final String? address;
   final List<MapModel> _dealers;
   @override
   @JsonKey()
@@ -1295,7 +1532,7 @@ class _$_MapOrganizationState implements _MapOrganizationState {
 
   @override
   String toString() {
-    return 'MapOrganizationState(dealers: $dealers, directoriesPoints: $directoriesPoints, radius: $radius, status: $status, getCurrentLocationStatus: $getCurrentLocationStatus, lat: $lat, long: $long, currentLat: $currentLat, currentLong: $currentLong, searchText: $searchText, fetchMore: $fetchMore)';
+    return 'MapOrganizationState(address: $address, dealers: $dealers, directoriesPoints: $directoriesPoints, radius: $radius, status: $status, getCurrentLocationStatus: $getCurrentLocationStatus, lat: $lat, long: $long, currentLat: $currentLat, currentLong: $currentLong, searchText: $searchText, fetchMore: $fetchMore)';
   }
 
   @override
@@ -1303,6 +1540,7 @@ class _$_MapOrganizationState implements _MapOrganizationState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_MapOrganizationState &&
+            (identical(other.address, address) || other.address == address) &&
             const DeepCollectionEquality().equals(other._dealers, _dealers) &&
             const DeepCollectionEquality()
                 .equals(other._directoriesPoints, _directoriesPoints) &&
@@ -1326,6 +1564,7 @@ class _$_MapOrganizationState implements _MapOrganizationState {
   @override
   int get hashCode => Object.hash(
       runtimeType,
+      address,
       const DeepCollectionEquality().hash(_dealers),
       const DeepCollectionEquality().hash(_directoriesPoints),
       radius,
@@ -1348,7 +1587,8 @@ class _$_MapOrganizationState implements _MapOrganizationState {
 
 abstract class _MapOrganizationState implements MapOrganizationState {
   factory _MapOrganizationState(
-      {final List<MapModel> dealers,
+      {final String? address,
+      final List<MapModel> dealers,
       final List<MapModel> directoriesPoints,
       final int radius,
       final FormzStatus status,
@@ -1360,6 +1600,8 @@ abstract class _MapOrganizationState implements MapOrganizationState {
       final String searchText,
       final bool fetchMore}) = _$_MapOrganizationState;
 
+  @override
+  String? get address;
   @override
   List<MapModel> get dealers;
   @override

@@ -7,8 +7,10 @@ class PasswordTextField extends StatefulWidget {
   final TextEditingController? confirmController;
   final String hintText;
   final bool isOldPasword;
+  final ValueChanged<String> onChanged;
 
   const PasswordTextField({
+    required this.onChanged,
     required this.controller,
     this.secondController,
     this.confirmController,
@@ -28,18 +30,18 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
   @override
   Widget build(BuildContext context) => TextFormField(
         controller: widget.controller,
-        style: Theme.of(context)
-            .textTheme
-            .headline5
-            ?.copyWith(color: Colors.black),
         obscureText: passwordVisible,
         textInputAction: TextInputAction.next,
         keyboardType: TextInputType.visiblePassword,
         cursorColor: black,
-        obscuringCharacter: '●',
+        cursorWidth: 1,
+        obscuringCharacter: '•',
+        onChanged: (value) {
+          setState(() {});
+        },
         decoration: InputDecoration(
           filled: true,
-          hoverColor: const Color(0xFFF1F1F5),
+          hoverColor: const Color(0xFFFAFAFB),
           hintStyle: Theme.of(context)
               .textTheme
               .headline2!
@@ -54,8 +56,12 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
               borderRadius: BorderRadius.circular(8),
               borderSide: const BorderSide(color: Color(0xFFF1F1F5))),
           suffixIcon: IconButton(
-            icon:
-                Icon(passwordVisible ? Icons.visibility_off : Icons.visibility),
+            color: grey,
+            splashRadius: 1,
+            focusColor: grey,
+            icon: Icon(passwordVisible
+                ? Icons.visibility_outlined
+                : Icons.visibility_off_outlined),
             onPressed: () {
               setState(() {
                 passwordVisible = !passwordVisible;
@@ -77,67 +83,5 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
               borderRadius: BorderRadius.circular(8),
               borderSide: const BorderSide(color: Color(0xFFF1F1F5))),
         ),
-        validator: (value) {
-          if (value == null || value.isEmpty) {
-            return 'Parolni kiriting!';
-          } else if (value.isNotEmpty && !widget.isOldPasword) {
-            if (widget.controller.text.length < 8) {
-              return "Parol kamida 8 ta belgidan iborat bo'lishi kerak";
-            }
-            if (widget.secondController != null &&
-                widget.secondController!.text.length < 8) {
-              return "Parol kamida 8 ta belgidan iborat bo'lishi kerak";
-            } else if ((widget.secondController != null ||
-                    widget.secondController!.text.isNotEmpty) &&
-                (widget.secondController?.text != null ||
-                    widget.secondController!.text.isNotEmpty) &&
-                widget.controller.text.length >= 8 &&
-                widget.secondController!.text.length >= 8 &&
-                widget.secondController?.text != widget.controller.text) {
-              return 'Parol mos emas';
-            }
-          }
-          return null;
-        },
       );
 }
-//  WTextField(
-      //     validate: (p0) {
-      //       if (p0 == null || p0.isEmpty) {
-      //         return 'Parolni kiriting!';
-      //       } else if (p0.isNotEmpty &&
-      //           !widget.isOldPasword &&
-      //           widget.secondController!.text != widget.controller.text) {
-      //         if (widget.secondController != null &&
-      //             (widget.secondController?.text != null &&
-      //                 widget.secondController!.text.isNotEmpty)) {
-      //           return 'Parol mos emas';
-      //         }
-      //       }
-      //       return null;
-      //     },
-      //     focusColor: Theme.of(context).appBarTheme.backgroundColor,
-      //     borderColor: purple,
-      //     cursorColor: black,
-      //     isObscure: obScure,
-      //     onObscure: () {
-      //       setState(() {
-      //         obScure = !obScure;
-      //       });
-      //     },
-      //     hintTextStyle: Theme.of(context)
-      //         .textTheme
-      //         .headline2!
-      //         .copyWith(fontSize: 14, fontWeight: FontWeight.w600, color: grey),
-      //     textStyle: Theme.of(context)
-      //         .textTheme
-      //         .headline1!
-      //         .copyWith(fontSize: 14, fontWeight: FontWeight.w600),
-      //     borderRadius: 8,
-      //     height: 44,
-      //     fillColor: Theme.of(context).appBarTheme.backgroundColor,
-      //     hasBorderColor: true,
-      //     controller: widget.controller,
-      //     hintText: widget.hintText,
-      //     disabledColor: Theme.of(context).appBarTheme.backgroundColor,
-      //     onChanged: (text) {})

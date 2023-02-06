@@ -109,7 +109,7 @@ class CarModelItem extends StatelessWidget {
                   ? LocaleKeys.choose_brand.tr()
                   : count > 0
                       ? '${LocaleKeys.show.tr()} $count ${LocaleKeys.offers1.tr()}'
-                      : 'Предложений нет',
+                      : LocaleKeys.no_offers.tr(),
               textStyle: Theme.of(context).textTheme.headline6!.copyWith(
                   fontSize: 14,
                   color: Theme.of(context)

@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/themes/theme_extensions/themed_colors.dart';
 import 'package:auto/assets/themes/theme_extensions/w_textfield_style.dart';
@@ -10,9 +8,7 @@ import 'package:auto/core/utils/size_config.dart';
 import 'package:auto/features/common/widgets/w_app_bar.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
-import 'package:auto/features/profile/presentation/bloc/profile/profile_bloc.dart';
 import 'package:auto/features/profile/presentation/pages/settings/password_changing_page.dart';
-import 'package:auto/features/profile/presentation/profile_screen.dart';
 import 'package:auto/features/profile/presentation/widgets/widgets.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -20,9 +16,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class SettingsPage extends StatefulWidget {
-  final ProfileBloc profileBloc;
+ 
 
-  const SettingsPage({required this.profileBloc, Key? key}) : super(key: key);
+  const SettingsPage({ Key? key}) : super(key: key);
 
   @override
   State<SettingsPage> createState() => _SettingsPageState();
@@ -61,8 +57,8 @@ class _SettingsPageState extends State<SettingsPage> {
                       onTap: () {
                         Navigator.of(context).push(
                           fade(
-                            page: PasswordChangingPage(
-                                profileBloc: widget.profileBloc),
+                            page:const PasswordChangingPage(
+                                 ),
                           ),
                         );
                       },

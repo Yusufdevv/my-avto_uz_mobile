@@ -12,8 +12,8 @@ CarsInMarksModel _$CarsInMarksModelFromJson(Map<String, dynamic> json) =>
       make: json['make'] as int? ?? 0,
       district: json['district'] as int? ?? 0,
       description: json['description'] as String? ?? '',
-      latitude: json['latitude'] as int? ?? 0,
-      longitude: json['longitude'] as int? ?? 0,
+      latitude: (json['latitude'] as num?)?.toDouble() ?? 0,
+      longitude: (json['longitude'] as num?)?.toDouble() ?? 0,
       price: json['price'] as String? ?? '',
       locationUrl: json['location_url'] as String? ?? '',
       gallery: (json['gallery'] as List<dynamic>?)
@@ -68,6 +68,8 @@ CarsInMarksModel _$CarsInMarksModelFromJson(Map<String, dynamic> json) =>
       userType: json['user_type'] as String? ?? '',
       viewsCount: json['views_count'] as int? ?? 0,
       year: json['year'] as int? ?? 0,
+      isWishlisted: json['is_wishlisted'] as bool? ?? false,
+      isComparison: json['is_comparison'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$CarsInMarksModelToJson(CarsInMarksModel instance) =>
@@ -123,4 +125,6 @@ Map<String, dynamic> _$CarsInMarksModelToJson(CarsInMarksModel instance) =>
       'district': instance.district,
       'user': instance.user,
       'dealer': instance.dealer,
+      'is_wishlisted': instance.isWishlisted,
+      'is_comparison': instance.isComparison,
     };
