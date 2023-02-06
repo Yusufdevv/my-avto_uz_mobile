@@ -2,7 +2,6 @@
   "price_of_similar_cars": "Shu kabi avtomobillarning o'rtacha narxi",
   "see_price_statustic": "Narxlar statistikasini ko'rish",
   "how_price_is_calculated": "O'rtacha narx qanday hisoblanadi",
-  "we_compared_all_parameters": "Biz ",
   "by_parameters":"dagi barcha o'xshash avtomobillarni parametrlari bo'yicha solishtirdik:",
   "vin_check_text": "VIN tekshiruvi sizga olish imkonini beradi batafsil ma'lumot mashina haqida",
   "report_vin": "Hisobot (VIN)",
@@ -458,7 +457,7 @@
   "gas_ballon_equipment":"Газобаллонное оборудование",
   "car_color":"Цвет автомобиля",
   "original_slash_electronniy_pts":"Оригинал / Электронный ПТС",
-  "duplicat":"Дубликат..",
+  "duplicate":"Дубликат",
   "first":"Первый",
   "second":"Второй",
   "third":"Третий",
@@ -493,7 +492,6 @@
   "pre_payment":"Предоплата",
   "minimal_summa_must_be":"Минимальная сумма должна быть",
   "monthly_pay":"Ежемесячная оплата",
-  "map":"Карта"
-
-
+  "map":"Карта",
+  "we_compared_all_parameters": "Biz "
 }

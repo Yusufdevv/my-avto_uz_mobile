@@ -111,6 +111,11 @@ class _ReelsScreenState extends State<ReelsScreen>
                             pageIndex: index,
                             currentPageIndex: _currentPage,
                             isPaused: _isOnPageTurning,
+                            videoEnded: () {
+                              if(index == state.reels.length - 1 && !state.hasNext) {
+                                Navigator.pop(context);
+                              }
+                            },
                           ),
                         ),
                       Positioned(

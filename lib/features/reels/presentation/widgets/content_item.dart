@@ -194,7 +194,7 @@ class _ContentItemState extends State<ContentItem> {
 
     if (_videoPlayerController.value.position >=
         _videoPlayerController.value.duration) {
-      if (widget.autoPlayNextVideo && widget.videoEnded != null && !isEnded) {
+      if (widget.videoEnded != null && !isEnded) {
         isEnded = true;
         widget.videoEnded!();
       }

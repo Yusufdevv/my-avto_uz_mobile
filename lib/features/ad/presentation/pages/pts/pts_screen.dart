@@ -27,7 +27,7 @@ class _PtsScreenState extends State<PtsScreen> {
 
   final List<String> documentList = [
     LocaleKeys.original_slash_electronniy_pts.tr(),
-    LocaleKeys.duplicat.tr(),
+    LocaleKeys.duplicate.tr(),
   ];
 
   final List<String> ownerList = [
