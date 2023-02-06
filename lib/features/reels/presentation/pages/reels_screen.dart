@@ -5,6 +5,7 @@ import 'package:auto/assets/constants/icons.dart';
 import 'package:auto/assets/constants/storage_keys.dart';
 import 'package:auto/core/singletons/storage.dart';
 import 'package:auto/features/common/widgets/w_scale.dart';
+import 'package:auto/features/navigation/presentation/home.dart';
 import 'package:auto/features/reels/presentation/bloc/reels_bloc.dart';
 import 'package:auto/features/reels/presentation/widgets/content_item.dart';
 import 'package:flutter/material.dart';
@@ -113,7 +114,11 @@ class _ReelsScreenState extends State<ReelsScreen>
                             isPaused: _isOnPageTurning,
                             videoEnded: () {
                               if(index == state.reels.length - 1 && !state.hasNext) {
-                                Navigator.pop(context);
+                                if(widget.isFromMain) {
+                                  Navigator.pop(context);
+                                } else {
+                                  HomeTabControllerProvider.of(context);
+                                }
                               }
                             },
                           ),
