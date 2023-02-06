@@ -82,7 +82,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     if (result.isRight) {
       emit(state.copyWith(
           changeStatus: FormzStatus.submissionSuccess,
-          isNotificationAllRead: result.right.isEmpty));
+          isNotificationAllRead: result.right.results.isEmpty));
     } else {
       emit(state.copyWith(changeStatus: FormzStatus.submissionFailure));
     }

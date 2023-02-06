@@ -10,7 +10,6 @@ import 'package:dio/dio.dart';
 // ignore: one_member_abstracts
 abstract class SearchResultsDatasource {
   Future<GenericPagination<AutoModel>> getSearchResults(String? searchedText);
-// Future<>
 }
 
 class SearchResultsDatasourceImpl extends SearchResultsDatasource {

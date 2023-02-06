@@ -73,7 +73,7 @@ class GetUserListRepoImpl extends GetUserListRepository {
   }
 
   @override
-  Future<Either<Failure, List<NotificationsEntity>>> getNotifications(int? filter) async {
+  Future<Either<Failure, GenericPagination<NotificationsEntity>>> getNotifications(int? filter) async {
     try {
       final result = await dataSource.getNotifications(filter);
       return Right(result);

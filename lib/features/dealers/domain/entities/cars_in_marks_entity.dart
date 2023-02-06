@@ -1,4 +1,8 @@
+import 'package:auto/features/car_single/domain/entities/car_user_entity.dart';
+import 'package:auto/features/common/domain/entity/car_make_entity.dart';
+import 'package:auto/features/common/domain/entity/car_model_entity.dart';
 import 'package:auto/features/dealers/data/models/cars_in_marks_model.dart';
+import 'package:auto/features/dealers/domain/entities/dealer_single_entity.dart';
 import 'package:auto/features/rent/domain/entities/region_entity.dart';
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
@@ -11,10 +15,12 @@ class CarsInMarksEntity extends Equatable {
   final String moderationStatus;
   final List<String> gallery;
   final int year;
+  @CarUserConverter()
+  final CarUserEntity user;
   final String absoluteCarName;
   final String licenceType;
   final String ownership;
-  final String  purchaseDate;
+  final String purchaseDate;
   final String description;
   final String descriptionUz;
   final String descriptionRu;
@@ -43,8 +49,10 @@ class CarsInMarksEntity extends Equatable {
   final String publishedAt;
   final int contactViewsCount;
   final String expiredAt;
-  final int make;
-  final int model;
+  @CarMakeConverter()
+  final CarMakeEntity make;
+  @CarModelConverter()
+  final CarModelEntity model;
   final int generation;
   final int bodyType;
   final int driveType;
@@ -54,8 +62,8 @@ class CarsInMarksEntity extends Equatable {
   @RegionConverter()
   final RegionEntity region;
   final int district;
-  final int user;
-  final int dealer;
+  @DealerCardConvert()
+  final DealerSingleEntity dealer;
   final bool isWishlisted;
   final bool isComparison;
 
@@ -64,7 +72,7 @@ class CarsInMarksEntity extends Equatable {
     this.viewsCount = 0,
     this.createdAt = '',
     this.updatedAt = '',
-    this.moderationStatus ='',
+    this.moderationStatus = '',
     this.gallery = const [],
     this.year = 0,
     this.absoluteCarName = '',
@@ -99,8 +107,8 @@ class CarsInMarksEntity extends Equatable {
     this.publishedAt = '',
     this.contactViewsCount = 0,
     this.expiredAt = '',
-    this.make = 0,
-    this.model = 0,
+    this.make = const CarMakeEntity(),
+    this.model = const CarModelEntity(),
     this.generation = 0,
     this.bodyType = 0,
     this.driveType = 0,
@@ -109,68 +117,68 @@ class CarsInMarksEntity extends Equatable {
     this.modificationType = 0,
     this.region = const RegionEntity(),
     this.district = 0,
-    this.user = 0,
-    this.dealer = 0,
+    this.user = const CarUserEntity(),
+    this.dealer = const DealerSingleEntity(),
     this.isWishlisted = false,
     this.isComparison = false,
   });
 
   @override
   List<Object?> get props => [
-    id,
-    viewsCount,
-    createdAt,
-    updatedAt,
-    moderationStatus,
-    gallery,
-    year,
-    absoluteCarName,
-    licenceType,
-    ownership,
-    purchaseDate,
-    description,
-    descriptionUz,
-    descriptionRu,
-    isRegisteredLocally,
-    color,
-    contactName,
-    contactEmail,
-    contactPhone,
-    contactAvailableFrom,
-    contactAvailableTo,
-    locationUrl,
-    longitude,
-    latitude,
-    distanceTraveled,
-    mileageImage,
-    registrationVin,
-    registrationPlate,
-    registrationCertificate,
-    registrationSerialNumber,
-    registeredInUzbekistan,
-    userType,
-    isNew,
-    price,
-    discount,
-    currency,
-    publishedAt,
-    contactViewsCount,
-    expiredAt,
-    make,
-    model,
-    generation,
-    bodyType,
-    driveType,
-    engineType,
-    gearboxType,
-    modificationType,
-    region,
-    district,
-    user,
-    dealer,
-    isWishlisted,
-    isComparison
-  ];
+        id,
+        viewsCount,
+        createdAt,
+        updatedAt,
+        moderationStatus,
+        gallery,
+        year,
+        absoluteCarName,
+        licenceType,
+        ownership,
+        purchaseDate,
+        description,
+        descriptionUz,
+        descriptionRu,
+        isRegisteredLocally,
+        color,
+        contactName,
+        contactEmail,
+        contactPhone,
+        contactAvailableFrom,
+        contactAvailableTo,
+        locationUrl,
+        longitude,
+        latitude,
+        distanceTraveled,
+        mileageImage,
+        registrationVin,
+        registrationPlate,
+        registrationCertificate,
+        registrationSerialNumber,
+        registeredInUzbekistan,
+        userType,
+        isNew,
+        price,
+        discount,
+        currency,
+        publishedAt,
+        contactViewsCount,
+        expiredAt,
+        make,
+        model,
+        generation,
+        bodyType,
+        driveType,
+        engineType,
+        gearboxType,
+        modificationType,
+        region,
+        district,
+        user,
+        dealer,
+        isWishlisted,
+        isComparison
+      ];
 }
 
 class CarsInDealerEntityConverter

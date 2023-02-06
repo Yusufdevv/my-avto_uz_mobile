@@ -21,8 +21,10 @@ import 'package:auto/features/dealers/presentation/widgets/dealer_single_info_pa
 import 'package:auto/features/dealers/presentation/widgets/mark_with_announcement.dart';
 import 'package:auto/features/main/presentation/widgets/ads_item.dart';
 import 'package:auto/features/navigation/presentation/navigator.dart';
+import 'package:auto/features/pagination/presentation/paginator.dart';
 import 'package:auto/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -72,6 +74,8 @@ class _DealerSinglePageState extends State<DealerSinglePage> {
   @override
   void dispose() {
     dealerSingleBloc.close();
+    marksBloc.close();
+    carsBloc.close();
     super.dispose();
   }
 
@@ -86,16 +90,16 @@ class _DealerSinglePageState extends State<DealerSinglePage> {
           body: BlocBuilder<DealerSingleBloc, DealerSingleState>(
             builder: (context, dealerSingleState) {
               if (dealerSingleState.status.isSubmissionSuccess) {
+                final dealer = dealerSingleState.dealerSingleEntity;
                 return NestedScrollView(
                   headerSliverBuilder: (context, innerBoxIsScrolled) =>
                       <Widget>[
                     SliverPersistentHeader(
                       pinned: true,
                       delegate: SellerSliverDelegate(
-                          gallery: dealerSingleState.dealerSingleEntity.gallery,
-                          avatarImage:
-                              dealerSingleState.dealerSingleEntity.avatar,
-                          dealerName: dealerSingleState.dealerSingleEntity.name,
+                          gallery: dealer.gallery,
+                          avatarImage: dealer.avatar,
+                          dealerName: dealer.name,
                           minHeight: MediaQuery.of(context).size.height * 0.11,
                           showroomOrPerson: LocaleKeys.autosalon.tr()),
                     ),
@@ -112,22 +116,14 @@ class _DealerSinglePageState extends State<DealerSinglePage> {
                         children: [
                           DealerSingleInfoPart(
                             //dealerType: dealerType,
-                            dealerName:
-                                dealerSingleState.dealerSingleEntity.name,
-                            quantityOfCars:
-                                dealerSingleState.dealerSingleEntity.carCount,
-                            contactFrom: dealerSingleState
-                                .dealerSingleEntity.contactFrom,
-                            contactTo:
-                                dealerSingleState.dealerSingleEntity.contactTo,
-                            contact: dealerSingleState
-                                .dealerSingleEntity.phoneNumber,
-                            additionalInfo: dealerSingleState
-                                .dealerSingleEntity.description,
-                            longitude:
-                                dealerSingleState.dealerSingleEntity.longitude,
-                            latitude:
-                                dealerSingleState.dealerSingleEntity.latitude,
+                            dealerName: dealer.name,
+                            quantityOfCars: dealer.carCount,
+                            contactFrom: dealer.contactFrom,
+                            contactTo: dealer.contactTo,
+                            contact: dealer.phoneNumber,
+                            additionalInfo: dealer.description,
+                            longitude: dealer.longitude,
+                            latitude: dealer.latitude,
                           ),
                           BlocBuilder<MarksInDealersBloc, MarksInDealersState>(
                               builder: (context, allMarksState) => allMarksState
@@ -157,9 +153,13 @@ class _DealerSinglePageState extends State<DealerSinglePage> {
                                                   Navigator.push(
                                                       context,
                                                       fade(
-                                                          page:
-                                                              AllMarksWithAnnouncements(
-                                                        slug: widget.slug,
+                                                          page: BlocProvider
+                                                              .value(
+                                                        value: marksBloc,
+                                                        child:
+                                                            AllMarksWithAnnouncements(
+                                                          slug: widget.slug,
+                                                        ),
                                                       )));
                                                 },
                                                 behavior:
@@ -195,15 +195,13 @@ class _DealerSinglePageState extends State<DealerSinglePage> {
                                       ? marksInDealerState.marks.isNotEmpty
                                           ? SizedBox(
                                               height: 88,
-                                              child: ListView.builder(
+                                              child: Paginator(
                                                 padding: const EdgeInsets.only(
                                                     left: 16),
-                                                physics:
-                                                    const BouncingScrollPhysics(),
                                                 scrollDirection:
                                                     Axis.horizontal,
-                                                itemCount: marksInDealerState
-                                                    .marks.length,
+                                                paginatorStatus:
+                                                    marksInDealerState.status,
                                                 itemBuilder: (context, index) =>
                                                     GestureDetector(
                                                   onTap: () {
@@ -237,6 +235,22 @@ class _DealerSinglePageState extends State<DealerSinglePage> {
                                                         .marks[index].make.name,
                                                   ),
                                                 ),
+                                                itemCount: marksInDealerState
+                                                    .marks.length,
+                                                fetchMoreFunction: () {
+                                                  marksBloc.add(
+                                                      MarksInDealersEvent
+                                                          .getMoreResults(
+                                                              slug:
+                                                                  widget.slug));
+                                                },
+                                                hasMoreToFetch:
+                                                    marksInDealerState
+                                                            .moreFetch ??
+                                                        false,
+                                                errorWidget: const SizedBox(),
+                                                loadingWidget:
+                                                    const CupertinoActivityIndicator(),
                                               ))
                                           : const SizedBox()
                                       : const SizedBox()),
@@ -254,11 +268,8 @@ class _DealerSinglePageState extends State<DealerSinglePage> {
                                             children: [
                                               Expanded(
                                                   child: Text(
-                                                      LocaleKeys.cars.tr(args: [
-                                                        dealerSingleState
-                                                            .dealerSingleEntity
-                                                            .name
-                                                      ]),
+                                                      LocaleKeys.cars.tr(
+                                                          args: [dealer.name]),
                                                       overflow:
                                                           TextOverflow.ellipsis,
                                                       maxLines: 1,
@@ -271,8 +282,14 @@ class _DealerSinglePageState extends State<DealerSinglePage> {
                                                 onTap: () => Navigator.push(
                                                   context,
                                                   fade(
-                                                    page: AllCarsInDealerScreen(
-                                                        slug: widget.slug),
+                                                    page: BlocProvider(
+                                                      create: (context) =>
+                                                          carsBloc,
+                                                      child:
+                                                          AllCarsInDealerScreen(
+                                                              slug:
+                                                                  widget.slug),
+                                                    ),
                                                   ),
                                                 ),
                                                 behavior:
@@ -309,7 +326,19 @@ class _DealerSinglePageState extends State<DealerSinglePage> {
                                                       .size
                                                       .height *
                                                   0.33,
-                                              child: ListView.separated(
+                                              child: Paginator(
+                                                hasMoreToFetch:
+                                                    carsInDealerState
+                                                            .moreFetch ??
+                                                        false,
+                                                fetchMoreFunction: () {
+                                                  carsBloc.add(CarsInDealerEvent
+                                                      .getMoreResults(
+                                                          slug: widget.slug));
+                                                },
+                                                paginatorStatus:
+                                                    carsInDealerState.status,
+                                                errorWidget: const SizedBox(),
                                                 padding: const EdgeInsets.only(
                                                     left: 16),
                                                 physics:
@@ -319,33 +348,25 @@ class _DealerSinglePageState extends State<DealerSinglePage> {
                                                     const SizedBox(width: 16),
                                                 scrollDirection:
                                                     Axis.horizontal,
-                                                itemBuilder: (context, index) =>
-                                                    AdsItem(
-                                                  id: carsInDealerState
-                                                      .cars[index].id,
-                                                  image: carsInDealerState
-                                                          .cars[index]
-                                                          .gallery
-                                                          .isNotEmpty
-                                                      ? carsInDealerState
-                                                          .cars[index]
-                                                          .gallery
-                                                          .first
-                                                      : '',
-                                                  name: carsInDealerState
-                                                      .cars[index]
-                                                      .absoluteCarName,
-                                                  currency: carsInDealerState
-                                                      .cars[index].currency,
-                                                  description: carsInDealerState
-                                                      .cars[index].description,
-                                                  isLiked: true,
-                                                  location: carsInDealerState
-                                                      .cars[index].region.title,
-                                                  onTapLike: () {},
-                                                  price: carsInDealerState
-                                                      .cars[index].price,
-                                                ),
+                                                itemBuilder: (context, index) {
+                                                  final carItem = carsInDealerState
+                                                      .cars[index];
+                                                  return AdsItem(
+                                                    id: carItem.id,
+                                                    image:
+                                                        carItem.gallery.isNotEmpty
+                                                            ? carItem.gallery.first
+                                                            : '',
+                                                    name: carItem.absoluteCarName,
+                                                    currency: carItem.currency,
+                                                    description:
+                                                        carItem.description,
+                                                    isLiked: carItem.isWishlisted,
+                                                    location: carItem.region.title,
+                                                    onTapLike: () {},
+                                                    price: carItem.price,
+                                                  );
+                                                },
                                                 itemCount: carsInDealerState
                                                     .cars.length,
                                               ),

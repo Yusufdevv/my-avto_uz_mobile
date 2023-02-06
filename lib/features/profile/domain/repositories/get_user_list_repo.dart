@@ -12,7 +12,7 @@ abstract class GetUserListRepository {
   Future<Either<Failure, GenericPagination<AutoEntity>>>
       getProfileFavoritesMyAds(
           {required String url, String? next, String? moderationStatus});
-  Future<Either<Failure, List<NotificationsEntity>>> getNotifications(int? filter);
+  Future<Either<Failure, GenericPagination<NotificationsEntity>>> getNotifications(int? filter);
   Future<Either<Failure, List<MySearchesEntity>>> getMySearches();
   Future<Either<Failure, NotificationsEntity>> getNotificationSingle(String id);
   Future<Either<Failure, List<DirectoryEntity>>> getDirectories(

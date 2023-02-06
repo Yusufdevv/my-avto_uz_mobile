@@ -9,7 +9,10 @@ part of 'cars_in_dealer_model.dart';
 CarsInDealerModel _$CarsInDealerModelFromJson(Map<String, dynamic> json) =>
     CarsInDealerModel(
       id: json['id'] as int? ?? 0,
-      make: json['make'] as int? ?? 0,
+      make: json['make'] == null
+          ? const CarMakeEntity()
+          : const CarMakeConverter()
+              .fromJson(json['make'] as Map<String, dynamic>?),
       district: json['district'] as int? ?? 0,
       description: json['description'] as String? ?? '',
       latitude: (json['latitude'] as num?)?.toDouble() ?? 0,
@@ -31,7 +34,10 @@ CarsInDealerModel _$CarsInDealerModelFromJson(Map<String, dynamic> json) =>
       contactViewsCount: json['contact_views_count'] as int? ?? 0,
       createdAt: json['created_at'] as String? ?? '',
       currency: json['currency'] as String? ?? '',
-      dealer: json['dealer'] as int? ?? 0,
+      dealer: json['dealer'] == null
+          ? const DealerSingleEntity()
+          : const DealerCardConvert()
+              .fromJson(json['dealer'] as Map<String, dynamic>?),
       descriptionRu: json['description_ru'] as String? ?? '',
       descriptionUz: json['description_uz'] as String? ?? '',
       discount: json['discount'] as String? ?? '',
@@ -45,7 +51,10 @@ CarsInDealerModel _$CarsInDealerModelFromJson(Map<String, dynamic> json) =>
       isRegisteredLocally: json['is_registered_locally'] as bool? ?? false,
       licenceType: json['licence_type'] as String? ?? '',
       mileageImage: json['mileage_image'] as String? ?? '',
-      model: json['model'] as int? ?? 0,
+      model: json['model'] == null
+          ? const CarModelEntity()
+          : const CarModelConverter()
+              .fromJson(json['model'] as Map<String, dynamic>?),
       moderationStatus: json['moderation_status'] as String? ?? '',
       modificationType: json['modification_type'] as int? ?? 0,
       ownership: json['ownership'] as String? ?? '',
@@ -64,7 +73,10 @@ CarsInDealerModel _$CarsInDealerModelFromJson(Map<String, dynamic> json) =>
           json['registration_serial_number'] as String? ?? '',
       registrationVin: json['registration_vin'] as String? ?? '',
       updatedAt: json['updated_at'] as String? ?? '',
-      user: json['user'] as int? ?? 0,
+      user: json['user'] == null
+          ? const CarUserEntity()
+          : const CarUserConverter()
+              .fromJson(json['user'] as Map<String, dynamic>?),
       userType: json['user_type'] as String? ?? '',
       viewsCount: json['views_count'] as int? ?? 0,
       year: json['year'] as int? ?? 0,
@@ -113,8 +125,8 @@ Map<String, dynamic> _$CarsInDealerModelToJson(CarsInDealerModel instance) =>
       'published_at': instance.publishedAt,
       'contact_views_count': instance.contactViewsCount,
       'expired_at': instance.expiredAt,
-      'make': instance.make,
-      'model': instance.model,
+      'make': const CarMakeConverter().toJson(instance.make),
+      'model': const CarModelConverter().toJson(instance.model),
       'generation': instance.generation,
       'body_type': instance.bodyType,
       'drive_type': instance.driveType,
@@ -123,8 +135,8 @@ Map<String, dynamic> _$CarsInDealerModelToJson(CarsInDealerModel instance) =>
       'modification_type': instance.modificationType,
       'region': const RegionConverter().toJson(instance.region),
       'district': instance.district,
-      'user': instance.user,
-      'dealer': instance.dealer,
+      'user': const CarUserConverter().toJson(instance.user),
+      'dealer': const DealerCardConvert().toJson(instance.dealer),
       'is_wishlisted': instance.isWishlisted,
       'is_comparison': instance.isComparison,
     };

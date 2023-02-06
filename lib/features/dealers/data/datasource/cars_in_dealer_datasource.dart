@@ -7,9 +7,16 @@ import 'package:dio/dio.dart';
 class CarsInDealerDataSource {
   final Dio _dio;
   CarsInDealerDataSource(this._dio);
-  Future<GenericPagination<CarsInDealerModel>> getCars({required String params}) async {
+  Future<GenericPagination<CarsInDealerModel>> getCars({required String slug, String? next,}) async {
+    var query = <String, dynamic>{};
+    if(next!=null) {
+      query = {
+        'next': next
+      };
+    }
     try {
-      final results = await _dio.get('users/dealers/$params/cars/',
+      final results = await _dio.get('users/dealers/$slug/cars/',
+      queryParameters: query,
       options: Options(
         headers:  {
             'Authorization': 'Bearer ${StorageRepository.getString('token')}'
