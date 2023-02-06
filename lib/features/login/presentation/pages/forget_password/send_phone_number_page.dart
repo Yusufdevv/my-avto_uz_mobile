@@ -43,6 +43,7 @@ class _SendPhoneNumberPageState extends State<SendPhoneNumberPage> {
 
   final phoneFormatter = MaskTextInputFormatter(
     mask: '## ### ## ##',
+    // ignore: prefer_single_quotes
     filter: {"#": RegExp(r'[0-9]')},
   );
 
@@ -122,6 +123,7 @@ class _SendPhoneNumberPageState extends State<SendPhoneNumberPage> {
                           LocaleKeys.check_number.tr(),
                           style: Theme.of(context).textTheme.headline2,
                         ),
+                        const SizedBox(height: 36),
                         ZTextFormField(
                           onTap: () {
                             if (isToastShowing) {

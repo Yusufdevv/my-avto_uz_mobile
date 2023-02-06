@@ -5,8 +5,10 @@ class UserWishListsState extends Equatable {
   List<AutoEntity> favorites;
   final List<AutoEntity> myAds;
   final int count;
-  final String next;
-  final bool moreFetch;
+  final String nextMyAds;
+  final bool moreFetchMyAds;
+  final String nextNotifications;
+  final bool moreFetchNotifications;
   final List<NotificationsEntity> notifications;
   List<MySearchesEntity> mySearches;
   final NotificationsEntity notificationSingle;
@@ -22,21 +24,26 @@ class UserWishListsState extends Equatable {
     required this.notifications,
     required this.notificationSingle,
     required this.count,
-    required this.next,
-    required this.moreFetch,
+    required this.nextMyAds,
+    required this.moreFetchMyAds,
+    required this.nextNotifications,
+    required this.moreFetchNotifications,
   });
 
-  UserWishListsState copyWith(
-          {List<AutoEntity>? favorites,
-          List<AutoEntity>? myAds,
-          List<MySearchesEntity>? mySearches,
-          List<NotificationsEntity>? notifications,
-          NotificationsEntity? notificationSingle,
-          FormzStatus? favoritesStatus,
-          FormzStatus? myAdsStatus,
-          String? next,
-          int? count,
-          bool? moreFetch}) =>
+  UserWishListsState copyWith({
+    List<AutoEntity>? favorites,
+    List<AutoEntity>? myAds,
+    List<MySearchesEntity>? mySearches,
+    List<NotificationsEntity>? notifications,
+    NotificationsEntity? notificationSingle,
+    FormzStatus? favoritesStatus,
+    FormzStatus? myAdsStatus,
+    int? count,
+    String? nextMyAds,
+    bool? moreFetchMyAds,
+    String? nextNotifications,
+    bool? moreFetchNotifications,
+  }) =>
       UserWishListsState(
         favorites: favorites ?? this.favorites,
         myAds: myAds ?? this.myAds,
@@ -45,9 +52,11 @@ class UserWishListsState extends Equatable {
         notifications: notifications ?? this.notifications,
         favoritesStatus: favoritesStatus ?? this.favoritesStatus,
         myAdsStatus: myAdsStatus ?? this.myAdsStatus,
-        next: next ?? this.next,
         count: count ?? this.count,
-        moreFetch: moreFetch ?? this.moreFetch,
+        nextMyAds: nextMyAds ?? this.nextMyAds,
+        moreFetchMyAds: moreFetchMyAds ?? this.moreFetchMyAds,
+        nextNotifications: nextNotifications ?? this.nextNotifications,
+        moreFetchNotifications: moreFetchNotifications ?? this.moreFetchNotifications,
       );
 
   @override
@@ -59,8 +68,10 @@ class UserWishListsState extends Equatable {
         myAdsStatus,
         notificationSingle,
         notifications,
-        moreFetch,
-        next,
         count,
+        moreFetchMyAds,
+        nextMyAds,
+        moreFetchNotifications, 
+        nextNotifications
       ];
 }

@@ -1,4 +1,4 @@
-import 'package:auto/features/dealers/domain/entities/dealer_info_entity.dart';
+import 'package:auto/features/dealers/domain/entities/dealer_single_entity.dart';
 import 'package:auto/features/dealers/domain/usecases/dealer_single_usecase.dart';
 import 'package:bloc/bloc.dart';
 import 'package:formz/formz.dart';

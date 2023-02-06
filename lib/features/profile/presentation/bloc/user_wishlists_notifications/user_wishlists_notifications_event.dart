@@ -53,3 +53,7 @@ class GetNotificationsEvent extends UserWishListsEvent {
   int? filter;
   GetNotificationsEvent({this.filter});
 }
+class GetMoreNotificationsEvent extends UserWishListsEvent {
+  int? filter;
+  GetMoreNotificationsEvent({this.filter});
+}

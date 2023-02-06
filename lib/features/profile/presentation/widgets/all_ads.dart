@@ -42,7 +42,7 @@ class _AllAdsState extends State<AllAds> {
         if (state.myAdsStatus.isSubmissionSuccess) {
           return state.myAds.isNotEmpty
               ? Paginator(
-                  hasMoreToFetch: state.moreFetch,
+                  hasMoreToFetch: state.moreFetchMyAds,
                   fetchMoreFunction: () {
                     context.read<UserWishListsBloc>().add(GetMoreUserMyAdsEvent(
                         moderationStatus: widget.moderationStatus));

@@ -20,32 +20,38 @@ mixin _$CarsInDealerEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String slug) getResults,
+    required TResult Function(String slug) getMoreResults,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String slug)? getResults,
+    TResult? Function(String slug)? getMoreResults,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String slug)? getResults,
+    TResult Function(String slug)? getMoreResults,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_GetResults value) getResults,
+    required TResult Function(_GetMoreResults value) getMoreResults,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetResults value)? getResults,
+    TResult? Function(_GetMoreResults value)? getMoreResults,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetResults value)? getResults,
+    TResult Function(_GetMoreResults value)? getMoreResults,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -155,6 +161,7 @@ class _$_GetResults implements _GetResults {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String slug) getResults,
+    required TResult Function(String slug) getMoreResults,
   }) {
     return getResults(slug);
   }
@@ -163,6 +170,7 @@ class _$_GetResults implements _GetResults {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String slug)? getResults,
+    TResult? Function(String slug)? getMoreResults,
   }) {
     return getResults?.call(slug);
   }
@@ -171,6 +179,7 @@ class _$_GetResults implements _GetResults {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String slug)? getResults,
+    TResult Function(String slug)? getMoreResults,
     required TResult orElse(),
   }) {
     if (getResults != null) {
@@ -183,6 +192,7 @@ class _$_GetResults implements _GetResults {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_GetResults value) getResults,
+    required TResult Function(_GetMoreResults value) getMoreResults,
   }) {
     return getResults(this);
   }
@@ -191,6 +201,7 @@ class _$_GetResults implements _GetResults {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetResults value)? getResults,
+    TResult? Function(_GetMoreResults value)? getMoreResults,
   }) {
     return getResults?.call(this);
   }
@@ -199,6 +210,7 @@ class _$_GetResults implements _GetResults {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetResults value)? getResults,
+    TResult Function(_GetMoreResults value)? getMoreResults,
     required TResult orElse(),
   }) {
     if (getResults != null) {
@@ -220,8 +232,147 @@ abstract class _GetResults implements CarsInDealerEvent {
 }
 
 /// @nodoc
+abstract class _$$_GetMoreResultsCopyWith<$Res>
+    implements $CarsInDealerEventCopyWith<$Res> {
+  factory _$$_GetMoreResultsCopyWith(
+          _$_GetMoreResults value, $Res Function(_$_GetMoreResults) then) =
+      __$$_GetMoreResultsCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String slug});
+}
+
+/// @nodoc
+class __$$_GetMoreResultsCopyWithImpl<$Res>
+    extends _$CarsInDealerEventCopyWithImpl<$Res, _$_GetMoreResults>
+    implements _$$_GetMoreResultsCopyWith<$Res> {
+  __$$_GetMoreResultsCopyWithImpl(
+      _$_GetMoreResults _value, $Res Function(_$_GetMoreResults) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? slug = null,
+  }) {
+    return _then(_$_GetMoreResults(
+      slug: null == slug
+          ? _value.slug
+          : slug // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_GetMoreResults implements _GetMoreResults {
+  _$_GetMoreResults({required this.slug});
+
+  @override
+  final String slug;
+
+  @override
+  String toString() {
+    return 'CarsInDealerEvent.getMoreResults(slug: $slug)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_GetMoreResults &&
+            (identical(other.slug, slug) || other.slug == slug));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, slug);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_GetMoreResultsCopyWith<_$_GetMoreResults> get copyWith =>
+      __$$_GetMoreResultsCopyWithImpl<_$_GetMoreResults>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String slug) getResults,
+    required TResult Function(String slug) getMoreResults,
+  }) {
+    return getMoreResults(slug);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String slug)? getResults,
+    TResult? Function(String slug)? getMoreResults,
+  }) {
+    return getMoreResults?.call(slug);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String slug)? getResults,
+    TResult Function(String slug)? getMoreResults,
+    required TResult orElse(),
+  }) {
+    if (getMoreResults != null) {
+      return getMoreResults(slug);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_GetResults value) getResults,
+    required TResult Function(_GetMoreResults value) getMoreResults,
+  }) {
+    return getMoreResults(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetResults value)? getResults,
+    TResult? Function(_GetMoreResults value)? getMoreResults,
+  }) {
+    return getMoreResults?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetResults value)? getResults,
+    TResult Function(_GetMoreResults value)? getMoreResults,
+    required TResult orElse(),
+  }) {
+    if (getMoreResults != null) {
+      return getMoreResults(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _GetMoreResults implements CarsInDealerEvent {
+  factory _GetMoreResults({required final String slug}) = _$_GetMoreResults;
+
+  @override
+  String get slug;
+  @override
+  @JsonKey(ignore: true)
+  _$$_GetMoreResultsCopyWith<_$_GetMoreResults> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 mixin _$CarsInDealerState {
   List<CarsInDealerEntity> get cars => throw _privateConstructorUsedError;
+  String? get next => throw _privateConstructorUsedError;
+  bool? get moreFetch => throw _privateConstructorUsedError;
   FormzStatus get status => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -235,7 +386,11 @@ abstract class $CarsInDealerStateCopyWith<$Res> {
           CarsInDealerState value, $Res Function(CarsInDealerState) then) =
       _$CarsInDealerStateCopyWithImpl<$Res, CarsInDealerState>;
   @useResult
-  $Res call({List<CarsInDealerEntity> cars, FormzStatus status});
+  $Res call(
+      {List<CarsInDealerEntity> cars,
+      String? next,
+      bool? moreFetch,
+      FormzStatus status});
 }
 
 /// @nodoc
@@ -252,6 +407,8 @@ class _$CarsInDealerStateCopyWithImpl<$Res, $Val extends CarsInDealerState>
   @override
   $Res call({
     Object? cars = null,
+    Object? next = freezed,
+    Object? moreFetch = freezed,
     Object? status = null,
   }) {
     return _then(_value.copyWith(
@@ -259,6 +416,14 @@ class _$CarsInDealerStateCopyWithImpl<$Res, $Val extends CarsInDealerState>
           ? _value.cars
           : cars // ignore: cast_nullable_to_non_nullable
               as List<CarsInDealerEntity>,
+      next: freezed == next
+          ? _value.next
+          : next // ignore: cast_nullable_to_non_nullable
+              as String?,
+      moreFetch: freezed == moreFetch
+          ? _value.moreFetch
+          : moreFetch // ignore: cast_nullable_to_non_nullable
+              as bool?,
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -275,7 +440,11 @@ abstract class _$$_CarsInDealerStateCopyWith<$Res>
       __$$_CarsInDealerStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<CarsInDealerEntity> cars, FormzStatus status});
+  $Res call(
+      {List<CarsInDealerEntity> cars,
+      String? next,
+      bool? moreFetch,
+      FormzStatus status});
 }
 
 /// @nodoc
@@ -290,6 +459,8 @@ class __$$_CarsInDealerStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? cars = null,
+    Object? next = freezed,
+    Object? moreFetch = freezed,
     Object? status = null,
   }) {
     return _then(_$_CarsInDealerState(
@@ -297,6 +468,14 @@ class __$$_CarsInDealerStateCopyWithImpl<$Res>
           ? _value._cars
           : cars // ignore: cast_nullable_to_non_nullable
               as List<CarsInDealerEntity>,
+      next: freezed == next
+          ? _value.next
+          : next // ignore: cast_nullable_to_non_nullable
+              as String?,
+      moreFetch: freezed == moreFetch
+          ? _value.moreFetch
+          : moreFetch // ignore: cast_nullable_to_non_nullable
+              as bool?,
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -310,6 +489,8 @@ class __$$_CarsInDealerStateCopyWithImpl<$Res>
 class _$_CarsInDealerState implements _CarsInDealerState {
   _$_CarsInDealerState(
       {final List<CarsInDealerEntity> cars = const [],
+      this.next = '',
+      this.moreFetch = false,
       this.status = FormzStatus.pure})
       : _cars = cars;
 
@@ -324,11 +505,17 @@ class _$_CarsInDealerState implements _CarsInDealerState {
 
   @override
   @JsonKey()
+  final String? next;
+  @override
+  @JsonKey()
+  final bool? moreFetch;
+  @override
+  @JsonKey()
   final FormzStatus status;
 
   @override
   String toString() {
-    return 'CarsInDealerState(cars: $cars, status: $status)';
+    return 'CarsInDealerState(cars: $cars, next: $next, moreFetch: $moreFetch, status: $status)';
   }
 
   @override
@@ -337,12 +524,15 @@ class _$_CarsInDealerState implements _CarsInDealerState {
         (other.runtimeType == runtimeType &&
             other is _$_CarsInDealerState &&
             const DeepCollectionEquality().equals(other._cars, _cars) &&
+            (identical(other.next, next) || other.next == next) &&
+            (identical(other.moreFetch, moreFetch) ||
+                other.moreFetch == moreFetch) &&
             (identical(other.status, status) || other.status == status));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(_cars), status);
+  int get hashCode => Object.hash(runtimeType,
+      const DeepCollectionEquality().hash(_cars), next, moreFetch, status);
 
   @JsonKey(ignore: true)
   @override
@@ -355,10 +545,16 @@ class _$_CarsInDealerState implements _CarsInDealerState {
 abstract class _CarsInDealerState implements CarsInDealerState {
   factory _CarsInDealerState(
       {final List<CarsInDealerEntity> cars,
+      final String? next,
+      final bool? moreFetch,
       final FormzStatus status}) = _$_CarsInDealerState;
 
   @override
   List<CarsInDealerEntity> get cars;
+  @override
+  String? get next;
+  @override
+  bool? get moreFetch;
   @override
   FormzStatus get status;
   @override

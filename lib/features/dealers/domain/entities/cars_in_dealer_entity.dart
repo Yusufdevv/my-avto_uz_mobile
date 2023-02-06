@@ -1,8 +1,11 @@
+import 'package:auto/features/car_single/domain/entities/car_user_entity.dart';
+import 'package:auto/features/common/domain/entity/car_make_entity.dart';
+import 'package:auto/features/common/domain/entity/car_model_entity.dart';
 import 'package:auto/features/dealers/data/models/cars_in_dealer_model.dart';
+import 'package:auto/features/dealers/domain/entities/dealer_single_entity.dart';
 import 'package:auto/features/rent/domain/entities/region_entity.dart';
 import 'package:equatable/equatable.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-
 class CarsInDealerEntity extends Equatable {
   final int id;
   final int viewsCount;
@@ -14,7 +17,7 @@ class CarsInDealerEntity extends Equatable {
   final String absoluteCarName;
   final String licenceType;
   final String ownership;
-  final String  purchaseDate;
+  final String purchaseDate;
   final String description;
   final String descriptionUz;
   final String descriptionRu;
@@ -43,8 +46,10 @@ class CarsInDealerEntity extends Equatable {
   final String publishedAt;
   final int contactViewsCount;
   final String expiredAt;
-  final int make;
-  final int model;
+  @CarMakeConverter()
+  final CarMakeEntity make;
+  @CarModelConverter()
+  final CarModelEntity model;
   final int generation;
   final int bodyType;
   final int driveType;
@@ -54,8 +59,10 @@ class CarsInDealerEntity extends Equatable {
   @RegionConverter()
   final RegionEntity region;
   final int district;
-  final int user;
-  final int dealer;
+  @CarUserConverter()
+  final CarUserEntity user;
+  @DealerCardConvert()
+  final DealerSingleEntity dealer;
   final bool isWishlisted;
   final bool isComparison;
 
@@ -99,8 +106,8 @@ class CarsInDealerEntity extends Equatable {
     this.publishedAt = '',
     this.contactViewsCount = 0,
     this.expiredAt = '',
-    this.make = 0,
-    this.model = 0,
+    this.make = const CarMakeEntity(),
+    this.model = const CarModelEntity(),
     this.generation = 0,
     this.bodyType = 0,
     this.driveType = 0,
@@ -109,8 +116,8 @@ class CarsInDealerEntity extends Equatable {
     this.modificationType = 0,
     this.region = const RegionEntity(),
     this.district = 0,
-    this.user = 0,
-    this.dealer = 0,
+    this.user =const CarUserEntity(),
+    this.dealer =const DealerSingleEntity(),
     this.isWishlisted = false,
     this.isComparison = false,
   });

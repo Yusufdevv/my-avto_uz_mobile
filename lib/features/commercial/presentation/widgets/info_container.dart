@@ -176,7 +176,6 @@ class _InfoContainerState extends State<InfoContainer> {
                 carYear: '${widget.year}',
                 isNew: widget.hasStatusInfo),
             const SizedBox(height: 4),
-            
             RichText(
               text: TextSpan(
                 children: [
@@ -254,7 +253,7 @@ class _InfoContainerState extends State<InfoContainer> {
                       TextSpan(
                         text: widget.ownerType == 'owner'
                             ? LocaleKeys.private_person.tr()
-                            : LocaleKeys.autosalon,
+                            : LocaleKeys.autosalon.tr(),
                         style: Theme.of(context)
                             .textTheme
                             .bodyText1!

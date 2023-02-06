@@ -37,14 +37,17 @@ class UserWishListsBloc extends Bloc<UserWishListsEvent, UserWishListsState> {
           notificationSingle: NotificationsEntity(),
           mySearches: const <MySearchesEntity>[],
           count: 0,
-          next: '',
-          moreFetch: false,
+          nextMyAds: '',
+          moreFetchMyAds: false,
+          nextNotifications: '',
+          moreFetchNotifications: false,
         )) {
     on<GetUserFavoritesEvent>(_onGetUserFavorites);
     on<GetUserMyAdsEvent>(_onGetUserMyAds);
     on<GetMoreUserMyAdsEvent>(_onGetMoreUserMyAds);
     on<GetMySearchesEvent>(_onGetMySearches);
     on<GetNotificationsEvent>(_onGetNotifications);
+    on<GetMoreNotificationsEvent>(_onGetMoreNotificationsEvent);
     on<GetNotificationSingleEvent>(_onGetNotificationSingle);
     on<NotificationAllReadEvent>(_onNotificationAllReadEvent);
     on<DeleteMySearchesEvent>(_onDeleteMySearchesEvent);
@@ -76,7 +79,7 @@ class UserWishListsBloc extends Bloc<UserWishListsEvent, UserWishListsState> {
       emit(state.copyWith(
         favoritesStatus: FormzStatus.submissionSuccess,
         favorites: result.right.results,
-        next: result.right.next,
+        nextMyAds: result.right.next,
       ));
     } else {
       emit(state.copyWith(favoritesStatus: FormzStatus.submissionFailure));
@@ -105,8 +108,8 @@ class UserWishListsBloc extends Bloc<UserWishListsEvent, UserWishListsState> {
       emit(state.copyWith(
         myAdsStatus: FormzStatus.submissionSuccess,
         myAds: result.right.results,
-        next: result.right.next,
-        moreFetch: result.right.next != null,
+        nextMyAds: result.right.next,
+        moreFetchMyAds: result.right.next != null,
       ));
     } else {
       emit(state.copyWith(myAdsStatus: FormzStatus.submissionFailure));
@@ -117,13 +120,13 @@ class UserWishListsBloc extends Bloc<UserWishListsEvent, UserWishListsState> {
       GetMoreUserMyAdsEvent event, Emitter<UserWishListsState> emit) async {
     final result = await profileFavoritesMyAdsUseCase.call(Params(
         endpoint: '/car/my-announcements/',
-        query: state.next,
+        query: state.nextMyAds,
         moderationStatus: event.moderationStatus));
     if (result.isRight) {
       emit(state.copyWith(
         myAds: [...state.myAds, ...result.right.results],
-        next: result.right.next,
-        moreFetch: result.right.next != null,
+        nextMyAds: result.right.next,
+        moreFetchMyAds: result.right.next != null,
       ));
     }
   }
@@ -148,9 +151,24 @@ class UserWishListsBloc extends Bloc<UserWishListsEvent, UserWishListsState> {
     if (result.isRight) {
       emit(state.copyWith(
           myAdsStatus: FormzStatus.submissionSuccess,
-          notifications: result.right));
+          notifications: result.right.results,
+          nextNotifications: result.right.next,
+          moreFetchNotifications: result.right.next!=null, 
+          ));
     } else {
       emit(state.copyWith(myAdsStatus: FormzStatus.submissionFailure));
+    }
+  }
+
+  Future<void> _onGetMoreNotificationsEvent(
+      GetMoreNotificationsEvent event, Emitter<UserWishListsState> emit) async {
+    final result = await getNotificationsUseCase.call(event.filter);
+    if (result.isRight) {
+      emit(state.copyWith(
+          notifications: [...state.notifications ,...result.right.results],
+          nextNotifications: result.right.next,
+          moreFetchNotifications: result.right.next!=null, 
+          ));
     }
   }
 

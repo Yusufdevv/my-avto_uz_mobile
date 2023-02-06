@@ -152,7 +152,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       .subtitle1!
                       .copyWith(fontSize: 14, fontWeight: FontWeight.w400),
                 ),
-                const SizedBox(height: 30),
+                const SizedBox(height: 16),
                 ZTextFormField(
                   onTap: hidePopUp,
                   onChanged: (value) {

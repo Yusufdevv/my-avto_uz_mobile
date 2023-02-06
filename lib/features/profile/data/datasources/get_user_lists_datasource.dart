@@ -18,7 +18,7 @@ abstract class GetUserListDatasource {
       required T Function(Map<String, dynamic>) fromJson,
       String? next,
       String? moderationStatus});
-  Future<List<NotificationsModel>> getNotifications(int? filter);
+  Future<GenericPagination<NotificationsModel>> getNotifications(int? filter);
   Future<List<MySearchesModel>> getMySearches();
   Future<List<DirectoryModel>> getDirectories(
       String search, String regions, String categories);
@@ -69,7 +69,7 @@ class GetUserListDatasourceImpl extends GetUserListDatasource {
   }
 
   @override
-  Future<List<NotificationsModel>> getNotifications(int? filter) async {
+  Future<GenericPagination<NotificationsModel>> getNotifications(int? filter) async {
     var query = <String, dynamic>{};
     if (filter != null) {
       query = {'is_read': filter};
@@ -83,10 +83,7 @@ class GetUserListDatasourceImpl extends GetUserListDatasource {
         }),
       );
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
-        return (response.data['results'] as List)
-            // ignore: unnecessary_lambdas
-            .map((e) => NotificationsModel.fromJson(e))
-            .toList();
+        return GenericPagination.fromJson(response.data, (p0) => NotificationsModel.fromJson(p0 as Map<String, dynamic>));
       }
       throw ServerException(
           statusCode: response.statusCode ?? 0,
