@@ -39,10 +39,14 @@ class GetUserListDatasourceImpl extends GetUserListDatasource {
       required T Function(Map<String, dynamic>) fromJson,
       String? next,
       String? moderationStatus}) async {
+        var query = <String, dynamic>{};
+    if (moderationStatus != null) {
+      query = {'moderation_status__in': moderationStatus};
+    }
     try {
       final response = await dio.get(
         next != null && next.isNotEmpty ? next : url,
-        queryParameters: {'moderation_status__in': moderationStatus},
+        queryParameters: query,
         options: Options(headers: {
           'Authorization': 'Bearer ${StorageRepository.getString('token')}'
         }),

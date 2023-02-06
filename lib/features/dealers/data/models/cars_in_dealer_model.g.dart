@@ -68,6 +68,8 @@ CarsInDealerModel _$CarsInDealerModelFromJson(Map<String, dynamic> json) =>
       userType: json['user_type'] as String? ?? '',
       viewsCount: json['views_count'] as int? ?? 0,
       year: json['year'] as int? ?? 0,
+      isWishlisted: json['is_wishlisted'] as bool? ?? false,
+      isComparison: json['is_comparison'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$CarsInDealerModelToJson(CarsInDealerModel instance) =>
@@ -123,4 +125,6 @@ Map<String, dynamic> _$CarsInDealerModelToJson(CarsInDealerModel instance) =>
       'district': instance.district,
       'user': instance.user,
       'dealer': instance.dealer,
+      'is_wishlisted': instance.isWishlisted,
+      'is_comparison': instance.isComparison,
     };
