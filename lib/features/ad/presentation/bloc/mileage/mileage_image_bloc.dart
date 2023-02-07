@@ -10,7 +10,7 @@ part 'mileage_image_state.dart';
 
 class MileageImageBloc extends Bloc<MileageImageEvent, MileageImageState> {
   final imagePicker = ImagePicker();
-  MileageImageBloc() : super(const MileageImageState(image: '')) {
+  MileageImageBloc(String? mileageImage) : super( MileageImageState(image:mileageImage)) {
     on<PickMileageImage>((event, emit) async {
       final permission =
           await MyFunctions.getCameraPermission(Platform.isAndroid);

@@ -5,7 +5,7 @@ class PASingleton {
   PASingleton._();
 
   static Future<FormData> create(PostingAdState v) async {
-    final announcementFields = <String, dynamic>{
+    var announcementFields = <String, dynamic>{
       'make': v.makeId,
       'model': v.modelId,
       'generation': v.generationId,
@@ -24,8 +24,6 @@ class PASingleton {
       'contact_name': v.ownerName,
       'contact_email': v.ownerEmail,
       'contact_phone': v.ownerPhone,
-      'contact_available_from': v.callTimeFrom,
-      'contact_available_to': v.callTimeTo,
       'region': v.regionId,
       'district': v.districtId,
       'location_url': v.locationUrl,
@@ -34,6 +32,9 @@ class PASingleton {
       'distance_traveled': (v.isWithoutMileage ?? false)
           ? '0'
           : (v.mileage?.replaceAll(' ', '') ?? '0'),
+      'contact_available_from': v.callTimeFrom,
+      'contact_available_to':v.callTimeTo
+      ,
       'registration_vin': 'KENTEKENMEWIJS',
       'registration_plate': 'KENTEKENMEWIJS',
       'registration_certificate': 'KENTEKENMEWIJS',
@@ -45,11 +46,12 @@ class PASingleton {
       'rent_with_purchase':
           v.rentWithPurchaseConditions.map((e) => e.toApi()).toList(),
     };
-    // if (v.milageImage != null && v.milageImage!.isNotEmpty) {
-    // final milageImage = await MultipartFile.fromFile(v.milageImage!);
-    // final List<MultipartFile> list = [milageImage];
-    // announcementFields.addEntries(list.map((e) => MapEntry('mileage_image', e)));
-    // }
+    if (v.milageImage != null && v.milageImage!.isNotEmpty) {
+    final milageImage = await MultipartFile.fromFile(v.milageImage!);
+    final List<MultipartFile> list = [milageImage];
+    announcementFields.addEntries(list.map((e) => MapEntry('mileage_image', e)));
+    }
+
 
     var i = -1;
     announcementFields.addEntries(v.damagedParts.entries.map((e) {
@@ -75,16 +77,7 @@ class PASingleton {
     }));
 
     final announcementFormData = FormData.fromMap(announcementFields);
-    // for (int i = 0; i < announcementFormData.fields.length; i++) {
-    // if (announcementFormData.files[i].key.contains('mileage_image')) {
-    //   print(
-    //       '=> => => =>     this is milage image value and key:  ${announcementFormData.files[i].key}  / ${announcementFormData.files[i].value}  <= <= <= <=');
 
-    //   await Future.delayed(Duration(milliseconds: 4000));
-    // }
-    //   print(
-    //       '=> => => =>    ann: ${announcementFormData.fields[i].key}  / ${announcementFormData.fields[i].value}   <= <= <= <=');
-    // }
 
     return announcementFormData;
   }
