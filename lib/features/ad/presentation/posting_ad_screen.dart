@@ -449,8 +449,10 @@ class _PostingAdScreenState extends State<PostingAdScreen>
                             right: 16,
                             left: 16,
                             child: WButton(
+
+                               isDisabled: state.createStatus == FormzStatus.submissionSuccess,
                               isLoading: state.createStatus ==
-                                  FormzStatus.submissionInProgress,
+                                  FormzStatus.submissionInProgress ,
                               onTap: () async {
                                 hidePopUp();
                                 postingAdBloc.add(PostingAdCreateEvent());

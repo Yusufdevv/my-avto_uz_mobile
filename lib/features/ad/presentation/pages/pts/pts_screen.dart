@@ -120,11 +120,13 @@ class _PtsScreenState extends State<PtsScreen> {
                       WContainer(
                         onTap: () {
                           showCupertinoDatePicker(
+
                             context,
                             (date) => context.read<PostingAdBloc>().add(
                                   PostingAdChooseEvent(
                                       purchasedDate: '$date'.substring(0, 10)),
                                 ),
+                            DateTime(state.yearEntity!.yearBegin)
                           );
                         },
                         titleStyle: state.purchasedDate != null &&
