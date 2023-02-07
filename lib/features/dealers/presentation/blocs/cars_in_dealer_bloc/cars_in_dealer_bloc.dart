@@ -23,37 +23,40 @@ class CarsInDealerBloc extends Bloc<CarsInDealerEvent, CarsInDealerState> {
             status: FormzStatus.submissionSuccess,
             cars: result.right.results,
             next: result.right.next,
-            moreFetch: result.right.next!=null,
+            moreFetch: result.right.next != null,
           ),
         );
       } else {
         emit(state.copyWith(status: FormzStatus.submissionFailure));
       }
     });
-    
+
     on<_GetMoreResults>((event, emit) async {
-      final result = await carsInDealerUseCase.call(Params(slug: event.slug, next: state.next));
+      final result = await carsInDealerUseCase
+          .call(Params(slug: event.slug, next: state.next));
       if (result.isRight) {
         emit(
           state.copyWith(
-            cars: [...state.cars,  ...result.right.results],
+            cars: [...state.cars, ...result.right.results],
             next: result.right.next,
-            moreFetch: result.right.next!=null,
+            moreFetch: result.right.next != null,
           ),
         );
-      } 
+      }
     });
 
-        on<_ChangeIsWish>(_onChangeIsWish);
-
+    on<_ChangeIsWish>(_onChangeIsWish);
   }
 
   void _onChangeIsWish(_ChangeIsWish event, Emitter<CarsInDealerState> emit) {
     // ignore: prefer_final_locals
+    print('=======id ${event.id}');
     var list = <CarsInDealerEntity>[...state.cars];
     final item = list.firstWhere((element) => element.id == event.id);
     final index = list.indexOf(item);
+    print('=======before ${list[index].isWishlisted}');
     list[index].isWishlisted = !list[index].isWishlisted;
+    print('=======after ${list[index].isWishlisted}');
     emit(state.copyWith(cars: list));
   }
 }
